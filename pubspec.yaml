@@ -1,0 +1,95 @@
+name: sway_website
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The version and build number for your application.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^5.0.2
+  http: ^0.13.3
+  provider: ^6.0.1
+  cupertino_icons: ^1.0.2
+  video_player: ^2.2.19
+  flutter_animate_on_scroll: ^0.1.1
+  parallax_animation: ^0.0.3
+  flutter_svg: ^1.0.3  # Add this line
+  url_launcher: ^6.2.4
+  webview_flutter: ^4.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/background_image.png
+    - assets/swaylogo.png
+    - assets/homepage_photo1.png
+    - assets/homepage_photo2.png
+    - assets/homepage_photo3.png
+    - assets/homepage_photo4.png
+    - assets/homepage_photo5.png
+    - assets/homepage_photo6.png
+    - assets/homepage_photo7.png
+    - assets/homepage_photo8.png
+    - assets/homepage_photo9.png
+    - assets/homepage_photo10.png
+    - assets/homepage_photo11.png
+    - assets/homepage_photo12.png
+    - assets/homepage_photo13.png
+    - assets/homepage_photo14.png
+    - assets/homepage_photo15.png
+    - assets/join1.png
+    - assets/join2.png
+    - assets/treatment1.png
+    - assets/treatment2.png
+    - assets/treatment3.png
+    - assets/swaylogogreen.svg
+    - assets/facial1.png
+    - assets/facial2.png
+    - assets/facial3.png
+    - assets/facial4.png
+    - assets/facial5.png
+    - assets/facial6.png
+    - assets/massage1.png
+    - assets/massage2.png
+    - assets/massage3.png
+    - assets/massage4.png
+    - assets/massage5.png
+    - assets/infrared_sauna.png
+    - assets/cold_plunge.png
+    - assets/compression_therapy.png
+    - assets/led_light_therapy.png
+
+
+
+    
+    
+    
+    
+
+    # Add the custom fonts here
+  fonts:
+    - family: Vance
+      fonts:
+        - asset: assets/fonts/vance-light.otf
+          weight: 300
+        - asset: assets/fonts/vance-regular.otf
+          weight: 400
+        - asset: assets/fonts/vance-bold.otf
+          weight: 700
+    - family: Vance-Text
+      fonts:
+        - asset: assets/fonts/vance-text.otf
