@@ -4,7 +4,7 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:video_player/video_player.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late VideoPlayerController _controller;
   bool _hovered1 = false;
   bool _hovered2 = false;
   bool _hovered3 = false;
@@ -19,11 +20,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Trigger the popup when the page is loaded
+    _controller = VideoPlayerController.asset('assets/background.mov')
+      ..initialize().then((_) {
+        setState(() {}); // Ensure the first frame is shown after initialization
+        _controller.play(); // Start playing the video
+        _controller.setLooping(true); // Enable looping
+      });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showPopup(context);
     });
   }
+
 
   // Function to show the popup
   void showPopup(BuildContext context) {
@@ -222,16 +229,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Stack(
         children: [
+
+
           // Background image only for the first section
-          Container(
-            height: MediaQuery.of(context).size.height, // Full screen height
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background_image.png'), // Ensure this path is correct
-                fit: BoxFit.cover,
+          SizedBox.expand(
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _controller.value.size?.width ?? 0,
+                height: _controller.value.size?.height ?? 0,
+                child: VideoPlayer(_controller),
               ),
             ),
           ),
+
+
+
+
           // Main Content
           SingleChildScrollView(
             controller: ScrollController(),

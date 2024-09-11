@@ -15,6 +15,8 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
 
 bool _isNestedOpen = false;
 
+  
+
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 1000;
