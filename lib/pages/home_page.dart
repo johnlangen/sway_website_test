@@ -287,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               SizedBox(height: 40),
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(1),
                                 child: Image.asset(
                                   'assets/homepage_photo4.png',
                                   width: MediaQuery.of(context).size.width < 1000 ? MediaQuery.of(context).size.width * 0.4 : MediaQuery.of(context).size.width * 0.4,
@@ -1320,17 +1320,21 @@ class _HomePageState extends State<HomePage> {
                                       ElevatedButton(
                                         onPressed: () {},
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(0xFF113D33),
-
-
+                                          backgroundColor: const Color(0xFF113D33), // Button background color
                                           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                                           textStyle: const TextStyle(
                                             fontSize: 20,
                                             fontFamily: 'Vance-Text',
                                           ),
                                         ),
-                                        child: const Text('Schedule Your Wellness Now'),
+                                        child: const Text(
+                                          'Schedule Your Wellness Now',
+                                          style: TextStyle(
+                                            color: Colors.white, // Set the text color to white
+                                          ),
+                                        ),
                                       ),
+
                                     ],
                                   ),
                                 ],
@@ -1347,7 +1351,6 @@ class _HomePageState extends State<HomePage> {
 
 
 
-                      // Banner Section
                       // Banner Section
                       Container(
                         width: MediaQuery.of(context).size.width, // Span across the page
@@ -1371,16 +1374,16 @@ class _HomePageState extends State<HomePage> {
                               horizontal: MediaQuery.of(context).size.width < 1000 ? 20 : MediaQuery.of(context).size.width * 0.05,
                             ),
                             child: Column(
-                              crossAxisAlignment: MediaQuery.of(context).size.width < 1000 ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center, // Center the content horizontally
+                              mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
                               children: [
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width < 1000 ? double.infinity : 625, // Adjust width for mobile
                                   child: Text(
                                     'Join the wellness and start saving today',
-                                    textAlign: MediaQuery.of(context).size.width < 1000 ? TextAlign.center : TextAlign.left,
+                                    textAlign: TextAlign.center, // Center text alignment
                                     style: TextStyle(
-                                      color: Color(0xFFF9ECB9),
+                                      color: Color(0xFFF6F7F6), // Update the text color to green
                                       fontSize: MediaQuery.of(context).size.width < 1000 ? 24 : 35, // Adjust font size for mobile
                                       fontFamily: 'Vance',
                                       height: 1.2,
@@ -1392,9 +1395,9 @@ class _HomePageState extends State<HomePage> {
                                   width: MediaQuery.of(context).size.width < 1000 ? double.infinity : 680, // Adjust width for mobile
                                   child: Text(
                                     'You deserve this time. Experience the ritual benefits of monthly treatments, half off boosts, and other exclusive member perks.',
-                                    textAlign: MediaQuery.of(context).size.width < 1000 ? TextAlign.center : TextAlign.left,
+                                    textAlign: TextAlign.center, // Center text alignment
                                     style: TextStyle(
-                                      color: Color(0xFFF9ECB9),
+                                      color: Color(0xFFF6F7F6), // Update the text color to green
                                       fontSize: MediaQuery.of(context).size.width < 1000 ? 18 : 25, // Adjust font size for mobile
                                       fontFamily: 'Vance',
                                       height: 1.5,
@@ -1404,9 +1407,9 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: MediaQuery.of(context).size.width < 1000 ? 20 : 40), // Adjust space before the "Become a Member" text
                                 Text(
                                   'Become a Member',
-                                  textAlign: MediaQuery.of(context).size.width < 1000 ? TextAlign.center : TextAlign.left,
+                                  textAlign: TextAlign.center, // Center text alignment
                                   style: TextStyle(
-                                    color: Color(0xFFF9ECB9),
+                                    color: Color(0xFFF6F7F6), // Update the text color to green
                                     fontSize: MediaQuery.of(context).size.width < 1000 ? 16 : 20, // Adjust font size for mobile
                                     fontFamily: 'Vance',
                                     decoration: TextDecoration.underline,
@@ -1419,6 +1422,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
 
+                                            
 
                       // Section with four images and text below each
                       Container(
@@ -1439,8 +1443,8 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Image.asset(
                                               'assets/homepage_photo11.png', // Replace with actual image paths
-                                              width: 192,
-                                              height: 192,
+                                              width: 192, // Fixed for mobile
+                                              height: 192, // Fixed for mobile
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(height: 10), // Space between image and text
@@ -1465,8 +1469,8 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Image.asset(
                                               'assets/homepage_photo12.png', // Replace with actual image paths
-                                              width: 192,
-                                              height: 192,
+                                              width: 192, // Fixed for mobile
+                                              height: 192, // Fixed for mobile
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(height: 10), // Space between image and text
@@ -1497,8 +1501,8 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Image.asset(
                                               'assets/homepage_photo13.png', // Replace with actual image paths
-                                              width: 192,
-                                              height: 192,
+                                              width: 192, // Fixed for mobile
+                                              height: 192, // Fixed for mobile
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(height: 10), // Space between image and text
@@ -1523,8 +1527,8 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Image.asset(
                                               'assets/homepage_photo14.png', // Replace with actual image paths
-                                              width: 192,
-                                              height: 192,
+                                              width: 192, // Fixed for mobile
+                                              height: 192, // Fixed for mobile
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(height: 10), // Space between image and text
@@ -1555,18 +1559,18 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Image.asset(
                                           'assets/homepage_photo11.png', // Replace with actual image paths
-                                          width: 192,
-                                          height: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
+                                          height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
                                           fit: BoxFit.cover,
                                         ),
                                         SizedBox(height: 10), // Space between image and text
                                         SizedBox(
-                                          width: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18,
                                           child: Text(
                                             'SWAY ON SPOTIFY',
                                             style: TextStyle(
                                               color: Color(0xFF616161),
-                                              fontSize: 12,
+                                              fontSize: 14,
                                               fontFamily: 'Helvetica',
                                               height: 1.2,
                                             ),
@@ -1581,18 +1585,18 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Image.asset(
                                           'assets/homepage_photo12.png', // Replace with actual image paths
-                                          width: 192,
-                                          height: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
+                                          height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
                                           fit: BoxFit.cover,
                                         ),
                                         SizedBox(height: 10), // Space between image and text
                                         SizedBox(
-                                          width: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18,
                                           child: Text(
                                             'IN THE PRESS',
                                             style: TextStyle(
                                               color: Color(0xFF616161),
-                                              fontSize: 12,
+                                              fontSize: 14,
                                               fontFamily: 'Helvetica',
                                               height: 1.2,
                                             ),
@@ -1607,18 +1611,18 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Image.asset(
                                           'assets/homepage_photo13.png', // Replace with actual image paths
-                                          width: 192,
-                                          height: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
+                                          height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
                                           fit: BoxFit.cover,
                                         ),
                                         SizedBox(height: 10), // Space between image and text
                                         SizedBox(
-                                          width: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18,
                                           child: Text(
                                             '@SWAYWELLNESSCLUB',
                                             style: TextStyle(
                                               color: Color(0xFF616161),
-                                              fontSize: 12,
+                                              fontSize: 14,
                                               fontFamily: 'Helvetica',
                                               height: 1.2,
                                             ),
@@ -1633,18 +1637,18 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Image.asset(
                                           'assets/homepage_photo14.png', // Replace with actual image paths
-                                          width: 192,
-                                          height: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
+                                          height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
                                           fit: BoxFit.cover,
                                         ),
                                         SizedBox(height: 10), // Space between image and text
                                         SizedBox(
-                                          width: 192,
+                                          width: MediaQuery.of(context).size.width * 0.18,
                                           child: Text(
                                             'ON THE APP',
                                             style: TextStyle(
                                               color: Color(0xFF616161),
-                                              fontSize: 12,
+                                              fontSize: 14,
                                               fontFamily: 'Helvetica',
                                               height: 1.2,
                                             ),

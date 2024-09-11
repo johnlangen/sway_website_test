@@ -277,33 +277,122 @@ class RemedyTechPage extends StatelessWidget {
 
   // ------------------ Card Builder ------------------
   Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String time, String title, String description) {
-    // Define fixed sizes for mobile cards
-    double mobileCardWidth = 300;  // Fixed width for mobile
-    double mobileCardHeight = 450; // Fixed height for mobile
+  // Define fixed sizes for mobile cards
+  double mobileCardWidth = 300;  // Fixed width for mobile
+  double mobileCardHeight = 450; // Fixed height for mobile
 
-    return Container(
-      width: isMobile ? mobileCardWidth : 625, // Mobile has fixed width, desktop is adjustable
-      height: isMobile ? mobileCardHeight : 380, // Mobile has fixed height, desktop is adjustable
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: isMobile
-          ? Column(
+  return Container(
+    width: isMobile ? mobileCardWidth : 625, // Mobile has fixed width, desktop is adjustable
+    height: isMobile ? mobileCardHeight : 380, // Mobile has fixed height, desktop is adjustable
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black12,
+          spreadRadius: 3,
+          blurRadius: 5,
+          offset: Offset(0, 3),
+        ),
+      ],
+    ),
+    child: isMobile
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image section for mobile
+              Container(
+                width: double.infinity,
+                height: 180, // Adjusted image height for mobile
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(imagePath),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+              ),
+              // Text section
+              Padding(
+                padding: const EdgeInsets.all(10.0), // Reduce padding for mobile
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      time,
+                      style: TextStyle(
+                        color: Color(0xFF4A776D),
+                        fontSize: 12,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.w400,
+                        height: 1.2,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Color(0xFF113D33),
+                        fontSize: 20,
+                        fontFamily: 'Vance',
+                        fontWeight: FontWeight.w400,
+                        height: 1.2,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        color: Color(0xFF4A776D),
+                        fontSize: 14,
+                        fontFamily: 'Vance',
+                        fontWeight: FontWeight.w300,
+                        height: 1.5,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    // Book Now button aligned left
+                    Align(
+                      alignment: Alignment.centerLeft, // Move the button to the left
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10), // Adjust margin for spacing
+                        width: 130,
+                        height: 40,
+                        decoration: ShapeDecoration(
+                          color: Color(0xFF4A776D),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Book Now',
+                            style: TextStyle(
+                              color: Color(0xFFF6F7F6),
+                              fontSize: 12,
+                              fontFamily: 'Vance',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
+        : SizedBox(
+            height: 380, // Fixed height for desktop cards
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image section for mobile
+                // Image section for desktop (on the left)
                 Container(
-                  width: double.infinity,
-                  height: 180, // Adjusted image height for mobile
+                  width: 250,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(imagePath),
@@ -311,118 +400,84 @@ class RemedyTechPage extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
                     ),
                   ),
                 ),
-                // Text section
-                Padding(
-                  padding: const EdgeInsets.all(10.0), // Reduce padding for mobile
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        time,
-                        style: TextStyle(
-                          color: Color(0xFF4A776D),
-                          fontSize: 12,
-                          fontFamily: 'Helvetica',
-                          fontWeight: FontWeight.w400,
-                          height: 1.2,
+                // Text section for desktop (on the right)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          time,
+                          style: TextStyle(
+                            color: Color(0xFF4A776D),
+                            fontSize: 12,
+                            fontFamily: 'Helvetica',
+                            fontWeight: FontWeight.w400,
+                            height: 1.2,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: Color(0xFF113D33),
-                          fontSize: 20,
-                          fontFamily: 'Vance',
-                          fontWeight: FontWeight.w400,
-                          height: 1.2,
+                        SizedBox(height: 8),
+                        Text(
+                          title,
+                          style: TextStyle(
+                            color: Color(0xFF113D33),
+                            fontSize: 25,
+                            fontFamily: 'Vance',
+                            fontWeight: FontWeight.w400,
+                            height: 1.2,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        description,
-                        style: TextStyle(
-                          color: Color(0xFF4A776D),
-                          fontSize: 14,
-                          fontFamily: 'Vance',
-                          fontWeight: FontWeight.w300,
-                          height: 1.5,
+                        SizedBox(height: 8),
+                        Text(
+                          description,
+                          style: TextStyle(
+                            color: Color(0xFF4A776D),
+                            fontSize: 14,
+                            fontFamily: 'Vance',
+                            fontWeight: FontWeight.w300,
+                            height: 1.5,
+                          ),
                         ),
-                      ),
-                    ],
+                        Spacer(),
+                        // Book Now button aligned left for desktop
+                        Align(
+                          alignment: Alignment.centerLeft, // Move the button to the left
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 10), // Adjust margin for spacing
+                            width: 150,
+                            height: 40,
+                            decoration: ShapeDecoration(
+                              color: Color(0xFF4A776D),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Book Now',
+                                style: TextStyle(
+                                  color: Color(0xFFF6F7F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Vance',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
-            )
-          : SizedBox(
-              height: 380, // Fixed height for desktop cards
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Image section for desktop (on the left)
-                  Container(
-                    width: 250,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(imagePath),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      ),
-                    ),
-                  ),
-                  // Text section for desktop (on the right)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            time,
-                            style: TextStyle(
-                              color: Color(0xFF4A776D),
-                              fontSize: 12,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w400,
-                              height: 1.2,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            title,
-                            style: TextStyle(
-                              color: Color(0xFF113D33),
-                              fontSize: 25,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w400,
-                              height: 1.2,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            description,
-                            style: TextStyle(
-                              color: Color(0xFF4A776D),
-                              fontSize: 14,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w300,
-                              height: 1.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
-    );
-  }
+          ),
+  );
+}
+
 }

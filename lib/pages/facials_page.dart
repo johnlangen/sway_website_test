@@ -43,95 +43,94 @@ class FacialsPage extends StatelessWidget {
 
   // ------------------ Desktop Layout ------------------
 
-Widget _buildDesktopLayout(BuildContext context) {
-  double screenWidth = MediaQuery.of(context).size.width;
+  Widget _buildDesktopLayout(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
 
-  return Container(
-    width: double.infinity, // Ensure the green background goes edge to edge
-    margin: EdgeInsets.only(top: 140),
-    padding: EdgeInsets.symmetric(horizontal: 20.0),
-    decoration: BoxDecoration(
-      color: Color(0xFFB6CFBF), // Green background
-    ),
-    child: Column(
-      children: [
-        SizedBox(height: 100), // Add more space above the content within the green background
-        Stack(
-          alignment: Alignment.center,
-          clipBehavior: Clip.none, // Allow overflow to be visible
-          children: [
-            // "Facial" text on the left
-            Positioned(
-              left: -275, // Keep the same fixed position
-              child: SizedBox(
-                width: 309,
-                child: Text(
-                  'Facial',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF113D33),
-                    fontSize: 40, // Keep the font size fixed
-                    fontFamily: 'Vance-Text',
-                    fontWeight: FontWeight.w400,
-                    height: 0.02,
+    return Container(
+      width: double.infinity, // Ensure the green background goes edge to edge
+      margin: EdgeInsets.only(top: 140),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(
+        color: Color(0xFFB6CFBF), // Green background
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 100), // Add more space above the content within the green background
+          Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none, // Allow overflow to be visible
+            children: [
+              // "Facial" text on the left
+              Positioned(
+                left: -275, // Keep the same fixed position
+                child: SizedBox(
+                  width: 309,
+                  child: Text(
+                    'Facial',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF113D33),
+                      fontSize: 40, // Keep the font size fixed
+                      fontFamily: 'Vance-Text',
+                      fontWeight: FontWeight.w400,
+                      height: 0.02,
+                    ),
                   ),
                 ),
               ),
-            ),
-            // Dynamically resize photo in the middle
-            Container(
-              width: screenWidth > 1200 ? 591 : screenWidth * 0.5, // Shrinks the image as the screen size decreases
-              height: (screenWidth > 1200 ? 591 : screenWidth * 0.5) * 0.73, // Maintain aspect ratio of the image
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/facial1.png"), // Replace with your actual image path
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter, // Align to the top to crop bottom
-                ),
-              ),
-            ),
-            // "Experiences" text on the right
-            Positioned(
-              right: -300, // Keep the same fixed position
-              child: SizedBox(
-                width: 319,
-                child: Text(
-                  'Experiences',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF113D33),
-                    fontSize: 40, // Keep the font size fixed
-                    fontFamily: 'Vance-Text',
-                    fontWeight: FontWeight.w400,
-                    height: 0.02,
+              // Dynamically resize photo in the middle
+              Container(
+                width: screenWidth > 1200 ? 591 : screenWidth * 0.5, // Shrinks the image as the screen size decreases
+                height: (screenWidth > 1200 ? 591 : screenWidth * 0.5) * 0.73, // Maintain aspect ratio of the image
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/facial1.png"), // Replace with your actual image path
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter, // Align to the top to crop bottom
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 50), // More space between the photo and the paragraph
-        // Description text below the photo
-        SizedBox(
-          width: 625,
-          child: Text(
-            'Our science-backed, cutting edge facial treatments\nuse the world\'s most innovative tech and skincare\nproducts to deliver specific skin results. No downtime, all natural.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF113D33),
-              fontSize: 25,
-              fontFamily: 'Vance-Text',
-              fontWeight: FontWeight.w400,
-              height: 1.5, // Adjusted height for better spacing
+              // "Experiences" text on the right
+              Positioned(
+                right: -300, // Keep the same fixed position
+                child: SizedBox(
+                  width: 319,
+                  child: Text(
+                    'Experiences',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF113D33),
+                      fontSize: 40, // Keep the font size fixed
+                      fontFamily: 'Vance-Text',
+                      fontWeight: FontWeight.w400,
+                      height: 0.02,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 50), // More space between the photo and the paragraph
+          // Description text below the photo
+          SizedBox(
+            width: 625,
+            child: Text(
+              'Our science-backed, cutting edge facial treatments\nuse the world\'s most innovative tech and skincare\nproducts to deliver specific skin results. No downtime, all natural.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xFF113D33),
+                fontSize: 25,
+                fontFamily: 'Vance-Text',
+                fontWeight: FontWeight.w400,
+                height: 1.5, // Adjusted height for better spacing
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 100), // Extend green background farther down
-      ],
-    ),
-  );
-}
-
+          SizedBox(height: 100), // Extend green background farther down
+        ],
+      ),
+    );
+  }
 
   // ------------------ Mobile Layout ------------------
   Widget _buildMobileLayout(BuildContext context) {
@@ -290,7 +289,6 @@ Widget _buildDesktopLayout(BuildContext context) {
             ],
           ),
         ],
-
       ),
     );
   }
@@ -304,165 +302,51 @@ Widget _buildDesktopLayout(BuildContext context) {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-        SizedBox(width: 20), // Left padding for the scroll
-        _buildCard(context, true, 'assets/facial2.png', '50 MIN FACIAL', 'Forever Young', 'Anti-Aging Facial', 'Drop-In \$139 I Member \$99', 'Defy aging with this all-natural facial that hydrates, brightens, and tightens your skin. Promotes circulation and collagen production.'), 
-        SizedBox(width: 20),
-        _buildCard(context, true, 'assets/facial3.png', '50 MIN FACIAL', 'Glow Getter', 'Hydration Facial', 'Drop-In \$139 I Member \$99', 'Powerful antioxidants, correcting peptides, and plant-derived stem cells instantly smooth and firm for a brighter, more youthful complexion. Revitalizes the appearance of collagen-depleted skin. Promotes dewy, ultra-hydrated skin.'), 
-        SizedBox(width: 20),
-        _buildCard(context, true, 'assets/facial4.png', '50 MIN FACIAL', 'Pore Perfection', 'Acne Facial', 'Drop-In \$139 I Member \$99', 'Our complexion-clearing facial treatment uses targeted products to detox and renew. Kills bacteria and treats congested skin. Includes extractions. Promotes clean and clear skin.'), 
-        SizedBox(width: 20),
-        _buildCard(context, true, 'assets/facial5.png', '50 MIN FACIAL', 'Sensitive Silk', 'Soothing Facial.', 'Drop-In \$139 I Member \$99', 'Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.'), 
-        SizedBox(width: 20),
-        _buildCard(context, true, 'assets/facial6.png', '50 MIN FACIAL', 'Dr. Dennis Gross Vitamin C', 'Sway Spotlight Facial', 'Drop-In \$139 I Member \$99', '"C" the radiance with this supercharged facial loaded with Vitamin C—nature’s most potent and proven skin brightening treatment. Say goodbye to sun damage and hello to a glowing, even complexion.'), 
-        SizedBox(width: 20), // Right padding for the scroll
-      ],
-
-
-   
+          SizedBox(width: 20), // Left padding for the scroll
+          _buildCard(context, true, 'assets/facial2.png', '50 MIN FACIAL', 'Forever Young', 'Anti-Aging Facial', 'Drop-In \$139 I Member \$99', 'Defy aging with this all-natural facial that hydrates, brightens, and tightens your skin. Promotes circulation and collagen production.'), 
+          SizedBox(width: 20),
+          _buildCard(context, true, 'assets/facial3.png', '50 MIN FACIAL', 'Glow Getter', 'Hydration Facial', 'Drop-In \$139 I Member \$99', 'Powerful antioxidants, correcting peptides, and plant-derived stem cells instantly smooth and firm for a brighter, more youthful complexion. Revitalizes the appearance of collagen-depleted skin. Promotes dewy, ultra-hydrated skin.'), 
+          SizedBox(width: 20),
+          _buildCard(context, true, 'assets/facial4.png', '50 MIN FACIAL', 'Pore Perfection', 'Acne Facial', 'Drop-In \$139 I Member \$99', 'Our complexion-clearing facial treatment uses targeted products to detox and renew. Kills bacteria and treats congested skin. Includes extractions. Promotes clean and clear skin.'), 
+          SizedBox(width: 20),
+          _buildCard(context, true, 'assets/facial5.png', '50 MIN FACIAL', 'Sensitive Silk', 'Soothing Facial.', 'Drop-In \$139 I Member \$99', 'Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.'), 
+          SizedBox(width: 20),
+          _buildCard(context, true, 'assets/facial6.png', '50 MIN FACIAL', 'Dr. Dennis Gross Vitamin C', 'Sway Spotlight Facial', 'Drop-In \$139 I Member \$99', '"C" the radiance with this supercharged facial loaded with Vitamin C—nature’s most potent and proven skin brightening treatment. Say goodbye to sun damage and hello to a glowing, even complexion.'), 
+          SizedBox(width: 20), // Right padding for the scroll
+        ],
       ),
     );
   }
 
   // ------------------ Card Builder ------------------
-Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String title, String subtitle1, String subtitle2, String price, String description) {
-  // Define fixed sizes for mobile cards
-  double mobileCardWidth = 300;  // Fixed width for mobile
-  double mobileCardHeight = 450; // Fixed height for mobile
-  
-  return Container(
-    width: isMobile ? mobileCardWidth : 625, // Mobile has fixed width, desktop is adjustable
-    height: isMobile ? mobileCardHeight : 380, // Mobile has fixed height, desktop is adjustable
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          spreadRadius: 3,
-          blurRadius: 5,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    child: isMobile
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Image section for mobile
-              Container(
-                width: double.infinity,
-                height: 180, // Adjusted image height for mobile
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(imagePath),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
-              ),
-              // Text section
-              Padding(
-                padding: const EdgeInsets.all(10.0), // Reduce padding for mobile
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: Color(0xFF4A776D),
-                        fontSize: 12,
-                        fontFamily: 'Helvetica',
-                        fontWeight: FontWeight.w400,
-                        height: 1.2,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      subtitle1,
-                      style: TextStyle(
-                        color: Color(0xFF113D33),
-                        fontSize: 20,
-                        fontFamily: 'Vance',
-                        fontWeight: FontWeight.w400,
-                        height: 1.2,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      subtitle2,
-                      style: TextStyle(
-                        color: Color(0xFF113D33),
-                        fontSize: 15,
-                        fontFamily: 'Vance',
-                        fontWeight: FontWeight.w400,
-                        height: 1.2,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      price,
-                      style: TextStyle(
-                        color: Color(0xFF4A776D),
-                        fontSize: 15,
-                        fontFamily: 'Vance',
-                        fontWeight: FontWeight.w300,
-                        height: 1.2,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      description,
-                      style: TextStyle(
-                        color: Color(0xFF4A776D),
-                        fontSize: 14,
-                        fontFamily: 'Vance',
-                        fontWeight: FontWeight.w300,
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Spacer(),
-              // Book Now button
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: EdgeInsets.only(right: 15, bottom: 10),
-                  width: 130,
-                  height: 40,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF4A776D),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Book Now',
-                      style: TextStyle(
-                        color: Color(0xFFF6F7F6),
-                        fontSize: 12,
-                        fontFamily: 'Vance',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )
-        : SizedBox(
-            height: 380, // Fixed height for desktop cards
-            child: Row(
+  Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String title, String subtitle1, String subtitle2, String price, String description) {
+    // Define fixed sizes for mobile cards
+    double mobileCardWidth = 300;  // Fixed width for mobile
+    double mobileCardHeight = 450; // Fixed height for mobile
+    
+    return Container(
+      width: isMobile ? mobileCardWidth : 625, // Mobile has fixed width, desktop is adjustable
+      height: isMobile ? mobileCardHeight : 380, // Mobile has fixed height, desktop is adjustable
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: isMobile
+          ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image section for desktop (on the left)
+                // Image section for mobile
                 Container(
-                  width: 250,
+                  width: double.infinity,
+                  height: 180, // Adjusted image height for mobile
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(imagePath),
@@ -470,148 +354,256 @@ Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String 
                     ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
                     ),
                   ),
                 ),
-                // Text section for desktop (on the right)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            color: Color(0xFF4A776D),
-                            fontSize: 12,
-                            fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.w400,
-                            height: 1.2,
-                          ),
+                // Text section
+                Padding(
+                  padding: const EdgeInsets.all(10.0), // Reduce padding for mobile
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Color(0xFF4A776D),
+                          fontSize: 12,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w400,
+                          height: 1.2,
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          subtitle1,
-                          style: TextStyle(
-                            color: Color(0xFF113D33),
-                            fontSize: 25,
-                            fontFamily: 'Vance',
-                            fontWeight: FontWeight.w400,
-                            height: 1.2,
-                          ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        subtitle1,
+                        style: TextStyle(
+                          color: Color(0xFF113D33),
+                          fontSize: 20,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w400,
+                          height: 1.2,
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          subtitle2,
-                          style: TextStyle(
-                            color: Color(0xFF113D33),
-                            fontSize: 15,
-                            fontFamily: 'Vance',
-                            fontWeight: FontWeight.w400,
-                            height: 1.2,
-                          ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        subtitle2,
+                        style: TextStyle(
+                          color: Color(0xFF113D33),
+                          fontSize: 15,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w400,
+                          height: 1.2,
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          price,
-                          style: TextStyle(
-                            color: Color(0xFF4A776D),
-                            fontSize: 15,
-                            fontFamily: 'Vance',
-                            fontWeight: FontWeight.w300,
-                            height: 1.2,
-                          ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        price,
+                        style: TextStyle(
+                          color: Color(0xFF4A776D),
+                          fontSize: 15,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w300,
+                          height: 1.2,
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          description,
-                          style: TextStyle(
-                            color: Color(0xFF4A776D),
-                            fontSize: 14,
-                            fontFamily: 'Vance',
-                            fontWeight: FontWeight.w300,
-                            height: 1.5,
-                          ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        description,
+                        style: TextStyle(
+                          color: Color(0xFF4A776D),
+                          fontSize: 14,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w300,
+                          height: 1.5,
                         ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            margin: EdgeInsets.only(right: 15, bottom: 10),
-                            width: 150,
-                            height: 40,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFF4A776D),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Book Now',
-                                style: TextStyle(
-                                  color: Color(0xFFF6F7F6),
-                                  fontSize: 14,
-                                  fontFamily: 'Vance',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                // Move the "Book Now" button more to the left
+                Align(
+                  alignment: Alignment.centerLeft, // Move the button more to the left
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10, bottom: 10), // Adjusted margin for left alignment
+                    width: 130,
+                    height: 40,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF4A776D),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Book Now',
+                        style: TextStyle(
+                          color: Color(0xFFF6F7F6),
+                          fontSize: 12,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ],
+            )
+          : SizedBox(
+              height: 380, // Fixed height for desktop cards
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Image section for desktop (on the left)
+                  Container(
+                    width: 250,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                    ),
+                  ),
+                  // Text section for desktop (on the right)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: TextStyle(
+                              color: Color(0xFF4A776D),
+                              fontSize: 12,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w400,
+                              height: 1.2,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            subtitle1,
+                            style: TextStyle(
+                              color: Color(0xFF113D33),
+                              fontSize: 25,
+                              fontFamily: 'Vance',
+                              fontWeight: FontWeight.w400,
+                              height: 1.2,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            subtitle2,
+                            style: TextStyle(
+                              color: Color(0xFF113D33),
+                              fontSize: 15,
+                              fontFamily: 'Vance',
+                              fontWeight: FontWeight.w400,
+                              height: 1.2,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            price,
+                            style: TextStyle(
+                              color: Color(0xFF4A776D),
+                              fontSize: 15,
+                              fontFamily: 'Vance',
+                              fontWeight: FontWeight.w300,
+                              height: 1.2,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            description,
+                            style: TextStyle(
+                              color: Color(0xFF4A776D),
+                              fontSize: 14,
+                              fontFamily: 'Vance',
+                              fontWeight: FontWeight.w300,
+                              height: 1.5,
+                            ),
+                          ),
+                          Spacer(),
+                          // Move the "Book Now" button more to the left for desktop
+                          Align(
+                            alignment: Alignment.centerLeft, // Align the button to the left
+                            child: Container(
+                              margin: EdgeInsets.only(left: 10, bottom: 10), // Adjusted margin for left alignment
+                              width: 150,
+                              height: 40,
+                              decoration: ShapeDecoration(
+                                color: Color(0xFF4A776D),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Book Now',
+                                  style: TextStyle(
+                                    color: Color(0xFFF6F7F6),
+                                    fontSize: 14,
+                                    fontFamily: 'Vance',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-  );
-}
-
-
-
+    );
+  }
 
   // ------------------ Boost Section ------------------
 
-Widget _buildBoostSection(bool isMobile, BuildContext context) {
-  return Container(
-    color: Color(0xFFB6CFBF), // Green background for the boost section
-    padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(height: isMobile ? 80 : 100), // Add more space above the heading
-        // Title
-        SizedBox(
-          width: 627,
-          child: Text(
-            isMobile
-                ? 'MAKE IT A HIGH TECH FACIAL\n& ADD A BOOST' // Force break into two lines on mobile
-                : 'MAKE IT A HIGH TECH FACIAL & ADD A BOOST',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF113D33),
-              fontSize: isMobile ? 22 : 30, // Smaller font for mobile
-              fontFamily: 'Vance',
-              fontWeight: FontWeight.w400,
-              height: 1.2, // Adjusted height for better spacing
+  Widget _buildBoostSection(bool isMobile, BuildContext context) {
+    return Container(
+      color: Color(0xFFB6CFBF), // Green background for the boost section
+      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: isMobile ? 80 : 100), // Add more space above the heading
+          // Title
+          SizedBox(
+            width: 627,
+            child: Text(
+              isMobile
+                  ? 'MAKE IT A HIGH TECH FACIAL\n& ADD A BOOST' // Force break into two lines on mobile
+                  : 'MAKE IT A HIGH TECH FACIAL & ADD A BOOST',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xFF113D33),
+                fontSize: isMobile ? 22 : 30, // Smaller font for mobile
+                fontFamily: 'Vance',
+                fontWeight: FontWeight.w400,
+                height: 1.2, // Adjusted height for better spacing
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 50),
-        // Cards for desktop and mobile
-        if (isMobile)
-          _buildMobileBoostCards(context)
-        else
-          _buildDesktopBoostCards(context),
-      ],
-    ),
-  );
-}
-
+          SizedBox(height: 50),
+          // Cards for desktop and mobile
+          if (isMobile)
+            _buildMobileBoostCards(context)
+          else
+            _buildDesktopBoostCards(context),
+        ],
+      ),
+    );
+  }
 
   Widget _buildMobileBoostCards(BuildContext context) {
     return Container(
@@ -619,9 +611,9 @@ Widget _buildBoostSection(bool isMobile, BuildContext context) {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', false),
+          _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', true), // Super Boost for Microcurrent
           SizedBox(width: 20),
-          _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', false),
+          _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', true), // Super Boost for LED Light Therapy
           SizedBox(width: 20),
           _buildBoostCard(context, 'Hydraderm', 'Deeply penetrating serums that resurface the skin.', false),
           SizedBox(width: 20),
@@ -629,9 +621,9 @@ Widget _buildBoostSection(bool isMobile, BuildContext context) {
           SizedBox(width: 20),
           _buildBoostCard(context, 'Peel', 'Our chemical peels refine pores and even skin tone.', false),
           SizedBox(width: 20),
-          _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', true),
+          _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
           SizedBox(width: 20),
-          _buildBoostCard(context, 'Ultrasound', 'Lorem ipsum dolor sit amet consectetur.', true),
+          _buildBoostCard(context, 'Ultrasound', 'Using gentle sound waves, this treatment penetrates deep into the skin, stimulating cellular repair, improving collagen production, and enhancing product absorption. Perfect for rejuvenating the skin and achieving a firmer, more youthful appearance.', false), // Normal Boost for Ultrasound
           SizedBox(width: 20),
         ],
       ),
@@ -644,8 +636,8 @@ Widget _buildBoostSection(bool isMobile, BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', false),
-            _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', false),
+            _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', true), // Super Boost for Microcurrent
+            _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', true), // Super Boost for LED Light Therapy
             _buildBoostCard(context, 'Hydraderm', 'Deeply penetrating serums that resurface the skin.', false),
           ],
         ),
@@ -655,14 +647,14 @@ Widget _buildBoostSection(bool isMobile, BuildContext context) {
           children: [
             _buildBoostCard(context, 'Dermaflash', 'Exfoliates dead skin cells and removes peach fuzz.', false),
             _buildBoostCard(context, 'Peel', 'Our chemical peels refine pores and even skin tone.', false),
-            _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', true),
+            _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
           ],
         ),
         SizedBox(height: 50),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildBoostCard(context, 'Ultrasound', 'Lorem ipsum dolor sit amet consectetur.', true),
+            _buildBoostCard(context, 'Ultrasound', 'Using gentle sound waves, this treatment penetrates deep into the skin, stimulating cellular repair, improving collagen production, and enhancing product absorption. Perfect for rejuvenating the skin and achieving a firmer, more youthful appearance.', false), // Normal Boost for Ultrasound
           ],
         ),
       ],
@@ -705,27 +697,59 @@ Widget _buildBoostCard(BuildContext context, String title, String description, b
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: Container(
-              width: isSuperBoost ? 110 : 56, // Increased width for "Super Boost" to fit the text
-              height: 24.37,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-              decoration: ShapeDecoration(
-                color: isSuperBoost ? Color(0xFF113D33) : Color(0xFF4A776D),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  isSuperBoost ? 'Super Boost' : 'Boost',
-                  style: TextStyle(
-                    color: Color(0xFFF6F7F6),
-                    fontSize: 15,
-                    fontFamily: 'Vance',
-                    fontWeight: FontWeight.w300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // Display Super Boost for Microcurrent and LED Light Therapy
+                if (title == 'Microcurrent' || title == 'LED Light Therapy')
+                  Container(
+                    width: 110, // Adjusted for Super Boost
+                    height: 24.37,
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF113D33), // Super Boost color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Super Boost',
+                        style: TextStyle(
+                          color: Color(0xFFF6F7F6),
+                          fontSize: 15,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                SizedBox(height: title == 'Microcurrent' ? 8 : 0), // Add space between Super Boost and Boost for Microcurrent only
+                // Display Boost for Microcurrent and other cards
+                if (title == 'Microcurrent' || title != 'LED Light Therapy')
+                  Container(
+                    width: 70, // Adjusted for Boost
+                    height: 24.37,
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF4A776D), // Boost color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Boost',
+                        style: TextStyle(
+                          color: Color(0xFFF6F7F6),
+                          fontSize: 15,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
           SizedBox(height: 30),
@@ -804,60 +828,14 @@ Widget _buildBoostCard(BuildContext context, String title, String description, b
                       ),
                     )
                   else if (title == "LED Light Therapy")
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'An advanced treatment that uses specific wavelengths of light to penetrate the skin, targeting a variety of concerns including skin rejuvenation, tissue repair, and collagen stimulation. It effectively reduces inflammation and decreases harmful bacteria, resulting in a healthier, more radiant complexion.\n\n',
-                            style: TextStyle(
-                              color: Color(0xFF113D33),
-                              fontSize: 15,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w300,
-                              height: 1.5,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Mini - ',
-                            style: TextStyle(
-                              color: Color(0xFF113D33),
-                              fontSize: 15,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Target one area for acne, aging, or skin regeneration\n\n',
-                            style: TextStyle(
-                              color: Color(0xFF113D33),
-                              fontSize: 15,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w300,
-                              height: 1.5,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Full - ',
-                            style: TextStyle(
-                              color: Color(0xFF113D33),
-                              fontSize: 15,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Targets the entire face.\n',
-                            style: TextStyle(
-                              color: Color(0xFF113D33),
-                              fontSize: 15,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w300,
-                              height: 1.5,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      'An advanced treatment that uses specific wavelengths of light to penetrate the skin, targeting a variety of concerns including skin rejuvenation, tissue repair, and collagen stimulation. It effectively reduces inflammation and decreases harmful bacteria, resulting in a healthier, more radiant complexion.\n\n',
+                      style: TextStyle(
+                        color: Color(0xFF113D33),
+                        fontSize: 15,
+                        fontFamily: 'Vance',
+                        fontWeight: FontWeight.w300,
+                        height: 1.5,
                       ),
                     )
                   else if (title == "Hydraderm")
@@ -906,7 +884,7 @@ Widget _buildBoostCard(BuildContext context, String title, String description, b
                     )
                   else if (title == "Ultrasound")
                     Text(
-                      'Lorem ipsum dolor sit amet consectetur. Ut consectetur semper cursus non augue egestas quam condimentum vel. Non faucibus eu dolor a vehicula. Sapien arcu rhoncus placerat molestie integer. Nascetur tempor pellentesque id euismod morbi vitae. Ipsum sem amet pellentesque condimentum.\n',
+                      'Using gentle sound waves, this treatment penetrates deep into the skin, stimulating cellular repair, improving collagen production, and enhancing product absorption. Perfect for rejuvenating the skin and achieving a firmer, more youthful appearance.\n',
                       style: TextStyle(
                         color: Color(0xFF113D33),
                         fontSize: 15,
@@ -927,14 +905,15 @@ Widget _buildBoostCard(BuildContext context, String title, String description, b
               fontSize: 15,
               fontFamily: 'Vance',
               fontWeight: FontWeight.w300,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
 
 
+  
 }

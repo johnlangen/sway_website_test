@@ -12,9 +12,14 @@ class JoinTheClubPage extends StatefulWidget {
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
   int? _openedIndex;
 
+
+bool _isNestedOpen = false;
+
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 1000;
+    
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -115,7 +120,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       children: [
                         // Inclusive Club text above the image for mobile
                         Text(
-                          'Inclusive club.\nExclusive Perks.',
+                          'Inclusive Club.\nExclusive Perks.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xFF113D33),
@@ -202,7 +207,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         Expanded(
                           flex: 1,
                           child: Text(
-                            'Inclusive club.\nExclusive Perks.',
+                            'Inclusive Club.\nExclusive Perks.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Color(0xFF113D33),
@@ -281,20 +286,25 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                   '''),
 
                   _buildDropdownMenu(3, 'Family Share Account', '''
-                    Your Fam = Our Fam.
+                    Your Fam = Our Fam. \nYour family can use your membership credits
                   '''),
 
-                  _buildDropdownMenu(4, 'XX% off at The Sway Shop', '''
-                    You can’t pass by the retail shop every visit, and not get a discount!
+                  _buildDropdownMenu(4, '10% off at The Sway Shop', '''
+                    You can’t pass by our Sway Shop every visit and not get a discount! \nOur shop carries premium brands including Eminence, Dr. Dennis Gross, Knesko, DedCool, Assouline, Gray Malin, and more. 
                   '''),
 
                   _buildDropdownMenu(5, 'Access to Member Only Events', '''
                     Come together with like-minded friends to create community.\nTogether we’ll inspire wellness.
                   '''),
 
-                  _buildDropdownMenu(6, 'Benefits Roll Over!', '''
-                    If you don’t use it, you don’t lose it. Lucky you :)
-                  '''),
+                   _buildDropdownMenu(6, 'Benefits Roll Over!', '''
+                    If you don’t use it, you don’t lose it. Lucky you :) 
+                  ''', nestedDropdown: _buildNestedMenu('Terms and Conditions', '''
+                    \nMembership cancellation must be a 30-day advance written notification. \nThe minimum, non-cancellable, term of membership is three (3) months. \nFor full details, please call our Wellness Coordinator team.*
+                  ''')),
+
+
+
 
                   Align(
                     alignment: Alignment.centerRight,
@@ -336,7 +346,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
     );
   }
 
-  Widget _buildDropdownMenu(int index, String title, String content) {
+  Widget _buildDropdownMenu(int index, String title, String content, {Widget? nestedDropdown}) {
     bool isOpen = _openedIndex == index;
 
     return Column(
@@ -365,20 +375,27 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
         if (isOpen)
           Padding(
             padding: EdgeInsets.only(left: 30, right: 10, top: 5, bottom: 5), // Adjusted padding to align with title
-            child: RichText(
-              text: TextSpan(
-                text: '',
-                style: TextStyle(
-                  color: Color(0xFF4A776D),
-                  fontSize: 16,
-                  fontFamily: 'Vance-Text',
-                  height: 1.5, // Add height to make it easier to read
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: '',
+                    style: TextStyle(
+                      color: Color(0xFF4A776D),
+                      fontSize: 16,
+                      fontFamily: 'Vance-Text',
+                      height: 1.5, // Add height to make it easier to read
+                    ),
+                    children: content.trim().split('\n').map((line) {
+                      return TextSpan(text: line.trim() + '\n');
+                    }).toList(),
+                  ),
+                  textAlign: TextAlign.left, // Align text to the left
                 ),
-                children: content.trim().split('\n').map((line) {
-                  return TextSpan(text: line.trim() + '\n');
-                }).toList(),
-              ),
-              textAlign: TextAlign.left, // Align text to the left
+                SizedBox(height: 10),
+                if (nestedDropdown != null) nestedDropdown,
+              ],
             ),
           ),
         Container(
@@ -390,4 +407,48 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
       ],
     );
   }
+
+   Widget _buildNestedMenu(String title, String content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListTile(
+          title: Text(
+            title,
+            style: TextStyle(
+              color: Color(0xFF4A776D),
+              fontSize: 18,
+              fontFamily: 'Vance-Text',
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          trailing: Icon(
+            _isNestedOpen ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+            color: Color(0xFF4A776D),
+          ),
+          onTap: () {
+            setState(() {
+              _isNestedOpen = !_isNestedOpen; // Toggle the nested menu
+            });
+          },
+        ),
+        if (_isNestedOpen)
+          Padding(
+            padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
+            child: Text(
+              content,
+              style: TextStyle(
+                color: Color(0xFF4A776D),
+                fontSize: 16,
+                fontFamily: 'Vance-Text',
+                height: 1.5,
+                ),
+            ),
+          ),
+      ],
+    );
+  }
+
+
+
 }

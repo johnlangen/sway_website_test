@@ -215,7 +215,7 @@ class MassagesPage extends StatelessWidget {
                 child: _buildCard(
                   context, 
                   false, 
-                  'assets/massage1.png', 
+                  'assets/massage2.png', 
                   '50 MIN MASSAGE', 
                   'Deep Tissue', 
                   'Drop-In \$139 I Member \$99', 
@@ -227,7 +227,7 @@ class MassagesPage extends StatelessWidget {
                 child: _buildCard(
                   context, 
                   false, 
-                  'assets/massage2.png', 
+                  'assets/massage3.png', 
                   '50 MIN MASSAGE', 
                   'CBD', 
                   'Drop-In \$139 I Member \$99', 
@@ -244,7 +244,7 @@ class MassagesPage extends StatelessWidget {
                 child: _buildCard(
                   context, 
                   false, 
-                  'assets/massage3.png', 
+                  'assets/massage4.png', 
                   '50 MIN MASSAGE', 
                   'Salt Stone', 
                   'Drop-In \$139 I Member \$99', 
@@ -256,7 +256,7 @@ class MassagesPage extends StatelessWidget {
                 child: _buildCard(
                   context, 
                   false, 
-                  'assets/massage4.png', 
+                  'assets/massage5.png', 
                   '50 MIN MASSAGE', 
                   'Sports Massage', 
                   'Drop-In \$139 I Member \$99', 
@@ -280,13 +280,13 @@ class MassagesPage extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           SizedBox(width: 20), // Left padding for the scroll
-          _buildCard(context, true, 'assets/massage1.png', '50 MIN MASSAGE', 'Deep Tissue', 'Drop-In \$139 I Member \$99', 'Deeply corrective. Releases muscle tension and toxins from the body. Relieves pain and discomfort in congested areas within muscles, tendons and ligaments due to stress, injury, or overuse to restore proper range of motion, leaving your body in a state of relaxation and gratitude.'), 
+          _buildCard(context, true, 'assets/massage2.png', '50 MIN MASSAGE', 'Deep Tissue', 'Drop-In \$139 I Member \$99', 'Deeply corrective. Releases muscle tension and toxins from the body. Relieves pain and discomfort in congested areas within muscles, tendons and ligaments due to stress, injury, or overuse to restore proper range of motion, leaving your body in a state of relaxation and gratitude.'), 
           SizedBox(width: 20),
-          _buildCard(context, true, 'assets/massage2.png', '50 MIN MASSAGE', 'CBD', 'Drop-In \$139 I Member \$99', 'Our award-winning relief cream provides immediate cooling comfort with our revitalizing blend of water-soluble, broad-spectrum CBD*, menthol, camphor, capsicum, glucosamine and mushroom extracts.'), 
+          _buildCard(context, true, 'assets/massage3.png', '50 MIN MASSAGE', 'CBD', 'Drop-In \$139 I Member \$99', 'Our award-winning relief cream provides immediate cooling comfort with our revitalizing blend of water-soluble, broad-spectrum CBD*, menthol, camphor, capsicum, glucosamine and mushroom extracts.'), 
           SizedBox(width: 20),
-          _buildCard(context, true, 'assets/massage3.png', '50 MIN MASSAGE', 'Salt Stone', 'Drop-In \$139 I Member \$99', 'Himalayan stones that contain 84 minerals which restores balance to your body while nourishing depleted muscles. Let your muscles melt under warm, salt stones that deeply penetrate tense muscles, releasing tension and toxins, leaving the body totally relaxed and renewed.'), 
+          _buildCard(context, true, 'assets/massage4.png', '50 MIN MASSAGE', 'Salt Stone', 'Drop-In \$139 I Member \$99', 'Himalayan stones that contain 84 minerals which restores balance to your body while nourishing depleted muscles. Let your muscles melt under warm, salt stones that deeply penetrate tense muscles, releasing tension and toxins, leaving the body totally relaxed and renewed.'), 
           SizedBox(width: 20),
-          _buildCard(context, true, 'assets/massage4.png', '50 MIN MASSAGE', 'Sports Massage', 'Drop-In \$139 I Member \$99', 'For the Athlete. Speed up recovery from intensive training. Ease tension in tight muscles and increase range of motion.'), 
+          _buildCard(context, true, 'assets/massage5.png', '50 MIN MASSAGE', 'Sports Massage', 'Drop-In \$139 I Member \$99', 'For the Athlete. Speed up recovery from intensive training. Ease tension in tight muscles and increase range of motion.'), 
           SizedBox(width: 20), // Right padding for the scroll
         ],
       ),
@@ -388,7 +388,7 @@ class MassagesPage extends StatelessWidget {
                 Spacer(),
                 // Book Now button
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.centerLeft,
                   child: Container(
                     margin: EdgeInsets.only(right: 15, bottom: 10),
                     width: 130,
@@ -485,7 +485,7 @@ class MassagesPage extends StatelessWidget {
                           ),
                           Spacer(),
                           Align(
-                            alignment: Alignment.centerRight,
+                            alignment: Alignment.centerLeft,
                             child: Container(
                               margin: EdgeInsets.only(right: 15, bottom: 10),
                               width: 150,
@@ -632,7 +632,7 @@ class MassagesPage extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Container(
-                width: isSuperBoost ? 110 : 56, // Increased width for "Super Boost" to fit the text
+                width: isSuperBoost ? 110 : 75, // Increased width for "Super Boost" to fit the text
                 height: 24.37,
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 decoration: ShapeDecoration(
