@@ -354,7 +354,7 @@ class RemedyTechPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    // Book Now button aligned left
+                    // Book Soon button aligned left
                     Align(
                       alignment: Alignment.centerLeft, // Move the button to the left
                       child: Container(
@@ -369,7 +369,7 @@ class RemedyTechPage extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            'Book Now',
+                            'Book Soon',
                             style: TextStyle(
                               color: Color(0xFFF6F7F6),
                               fontSize: 12,
@@ -444,7 +444,7 @@ class RemedyTechPage extends StatelessWidget {
                           ),
                         ),
                         Spacer(),
-                        // Book Now button aligned left for desktop
+                        // Book Soon button aligned left for desktop
                         Align(
                           alignment: Alignment.centerLeft, // Move the button to the left
                           child: Container(
@@ -459,7 +459,7 @@ class RemedyTechPage extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                'Book Now',
+                                'Book Soon',
                                 style: TextStyle(
                                   color: Color(0xFFF6F7F6),
                                   fontSize: 14,

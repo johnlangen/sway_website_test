@@ -386,7 +386,7 @@ class MassagesPage extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                // Book Now button
+                // Book Soon button
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
@@ -401,7 +401,7 @@ class MassagesPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Book Now',
+                        'Book Soon',
                         style: TextStyle(
                           color: Color(0xFFF6F7F6),
                           fontSize: 12,
@@ -498,7 +498,7 @@ class MassagesPage extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Book Now',
+                                  'Book Soon',
                                   style: TextStyle(
                                     color: Color(0xFFF6F7F6),
                                     fontSize: 14,

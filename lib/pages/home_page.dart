@@ -17,6 +17,207 @@ class _HomePageState extends State<HomePage> {
   bool _hovered3 = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Trigger the popup when the page is loaded
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showPopup(context);
+    });
+  }
+
+  // Function to show the popup
+  void showPopup(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double width = MediaQuery.of(context).size.width;
+            double height = MediaQuery.of(context).size.height;
+            bool isMobile = width < 1100;
+
+            return Container(
+              width: isMobile ? width * 0.9 : width * 0.7,
+              height: isMobile ? height * 0.95 : height * 0.6, // Increased height for mobile
+              padding: const EdgeInsets.all(20),
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Expanded(
+                        child: isMobile
+                            ? Column(
+                                children: [
+                                  // Image section
+                                  Expanded(
+                                    flex: 3, // Allow more space for image
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/popupphoto.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  // Text and button section
+                                  Expanded(
+                                    flex: 4, // More space for text and button
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Restore Your Body, Refresh Your Mind',
+                                            style: TextStyle(
+                                              fontSize: isMobile ? 16 : 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            'Be among the first to experience the next wave of wellness. '
+                                            'Receive early access to Sway’s \$99 membership, which includes a targeted facial or massage every month. '
+                                            'Plus, enjoy 6 months of FREE access to the Remedy Room—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots (\$240 value)!\n\n'
+                                            'Only 50 spots available!\nOffer Expires 9.22.24',
+                                            style: TextStyle(
+                                              fontSize: isMobile ? 12 : 16,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Center(
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                const url = 'https://example.com';
+                                                if (await canLaunch(url)) {
+                                                  await launch(url);
+                                                } else {
+                                                  throw 'Could not launch $url';
+                                                }
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(0xFF4A776D),
+                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                ),
+                                              ),
+                                              child: const Text(
+                                                'Learn More',
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/popupphoto.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Restore Your Body, Refresh Your Mind',
+                                            style: TextStyle(
+                                              fontSize: isMobile ? 16 : 24,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            'Be among the first to experience the next wave of wellness. '
+                                            'Receive early access to Sway’s \$99 membership, which includes a targeted facial or massage every month. '
+                                            'Plus, enjoy 6 months of FREE access to the Remedy Room with each visit—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots (\$240 value)!\n\n'
+                                            'Only 50 spots available!\nOffer Expires 9.22.24',
+                                            style: TextStyle(
+                                              fontSize: isMobile ? 12 : 16,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Center(
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                const url = 'https://example.com';
+                                                if (await canLaunch(url)) {
+                                                  await launch(url);
+                                                } else {
+                                                  throw 'Could not launch $url';
+                                                }
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(0xFF4A776D),
+                                                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                ),
+                                              ),
+                                              child: const Text(
+                                                'Learn More',
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop(); // Close the popup
+                      },
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click, // Change mouse cursor to click
+                        child: const Icon(Icons.close),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      );
+    },
+  );
+}
+
+
+
+
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -874,7 +1075,7 @@ class _HomePageState extends State<HomePage> {
                                         fontFamily: 'Vance-Text',
                                       ),
                                     ),
-                                    child: const Text('Schedule Your Wellness Now'),
+                                    child: const Text('Schedule Your Wellness Soon'),
                                   ),
 
                                 ],
@@ -1330,7 +1531,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                         child: const Text(
-                                          'Schedule Your Wellness Now',
+                                          'Schedule Your Wellness Soon',
                                           style: TextStyle(
                                             color: Colors.white, // Set the text color to white
                                           ),

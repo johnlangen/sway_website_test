@@ -250,6 +250,127 @@ bool _isNestedOpen = false;
                       ],
                     ),
             ),
+
+            
+            
+          // Section with Background Image, Text, and CTA Button
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 100, horizontal: isMobile ? 10 : 150),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/offerbackground.png'), // Background image
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // First Line: Opening Fall 2024
+                Text(
+                  'Opening Fall 2024! Denver\'s first-of-its-kind spa blending tech and tradition.',
+                  style: TextStyle(
+                    color: Color(0xFF113D33),
+                    fontSize: isMobile ? 20 : 28, // Slightly smaller text
+                    fontFamily: 'Vance-Text',
+                    fontWeight: FontWeight.w400, // Less bold
+                    height: 1.2,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+
+                // Second Line: Details about early access and Remedy Room
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 80), // Reduce left/right padding
+                  child: Text(
+                    'Be among the first to experience the new wave of wellness.\n\n'
+                    'Receive early access to Sway’s \$99 membership, which includes a targeted facial or massage every month. PLUS, enjoy 6 months of FREE access to the Remedy Room—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots (\$240 value)!',
+                    style: TextStyle(
+                      color: Color(0xFF113D33),
+                      fontSize: isMobile ? 16 : 18,
+                      fontFamily: 'Vance-Text',
+                      fontWeight: FontWeight.w400,
+                      height: 1.2,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                // Bold and Underlined text: 50 spots available
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 150), 
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'Only ', 
+                      style: TextStyle(
+                        color: Color(0xFF113D33),
+                        fontSize: isMobile ? 16 : 18,
+                        fontFamily: 'Vance-Text',
+                        fontWeight: FontWeight.w400,
+                        height: 1.2,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '50 spots available', 
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold, // Bold
+                            decoration: TextDecoration.underline, // Underline
+                          ),
+                        ),
+                        TextSpan(text: ', Offer Expires 9.22.24'),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                // CTA Button: Become a Founding Member
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () async {
+                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF4A776D), // Green background color
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 4),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        'Become a Founding Member',
+                        style: TextStyle(
+                          color: Color(0xFFF6F7F6), // White text color
+                          fontSize: isMobile ? 16 : 18, // Adjust font size for mobile
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+
+
+
             // Third Section with Title and Drop-down Menus
             Container(
               color: Colors.white, // White background color

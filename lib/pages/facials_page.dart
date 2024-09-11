@@ -422,7 +422,7 @@ class FacialsPage extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                // Move the "Book Now" button more to the left
+                // Move the "Book Soon" button more to the left
                 Align(
                   alignment: Alignment.centerLeft, // Move the button more to the left
                   child: Container(
@@ -437,7 +437,7 @@ class FacialsPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Book Now',
+                        'Book Soon',
                         style: TextStyle(
                           color: Color(0xFFF6F7F6),
                           fontSize: 12,
@@ -531,7 +531,7 @@ class FacialsPage extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          // Move the "Book Now" button more to the left for desktop
+                          // Move the "Book Soon" button more to the left for desktop
                           Align(
                             alignment: Alignment.centerLeft, // Align the button to the left
                             child: Container(
@@ -546,7 +546,7 @@ class FacialsPage extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Book Now',
+                                  'Book Soon',
                                   style: TextStyle(
                                     color: Color(0xFFF6F7F6),
                                     fontSize: 14,
