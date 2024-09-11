@@ -233,25 +233,15 @@ class _HomePageState extends State<HomePage> {
 
           // Background image only for the first section
           SizedBox.expand(
-            child: FutureBuilder(
-              future: _controller.initialize(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: _controller.value.size?.width ?? 0,
-                      height: _controller.value.size?.height ?? 0,
-                      child: VideoPlayer(_controller),
-                    ),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator()); // Loading indicator
-                }
-              },
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _controller.value.size?.width ?? 0,
+                height: _controller.value.size?.height ?? 0,
+                child: VideoPlayer(_controller),
+              ),
             ),
           ),
-
 
 
 
