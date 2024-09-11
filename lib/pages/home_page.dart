@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/background.mov')
+    _controller = VideoPlayerController.asset('assets/background.mp4')
       ..initialize().then((_) {
         setState(() {}); // Ensure the first frame is shown after initialization
         _controller.play(); // Start playing the video
@@ -233,15 +233,25 @@ class _HomePageState extends State<HomePage> {
 
           // Background image only for the first section
           SizedBox.expand(
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: SizedBox(
-                width: _controller.value.size?.width ?? 0,
-                height: _controller.value.size?.height ?? 0,
-                child: VideoPlayer(_controller),
-              ),
+            child: FutureBuilder(
+              future: _controller.initialize(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: _controller.value.size?.width ?? 0,
+                      height: _controller.value.size?.height ?? 0,
+                      child: VideoPlayer(_controller),
+                    ),
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator()); // Loading indicator
+                }
+              },
             ),
           ),
+
 
 
 
