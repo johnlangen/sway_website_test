@@ -3,6 +3,8 @@ import 'package:flutter_animate_on_scroll/flutter_animate_on_scroll.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -1405,18 +1407,31 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SizedBox(height: MediaQuery.of(context).size.width < 1000 ? 20 : 40), // Adjust space before the "Become a Member" text
-                                Text(
-                                  'Become a Member',
-                                  textAlign: TextAlign.center, // Center text alignment
-                                  style: TextStyle(
-                                    color: Color(0xFFF6F7F6), // Update the text color to green
-                                    fontSize: MediaQuery.of(context).size.width < 1000 ? 16 : 20, // Adjust font size for mobile
-                                    fontFamily: 'Vance',
-                                    decoration: TextDecoration.underline,
-                                    height: 1.2,
+                                MouseRegion(
+                                  cursor: SystemMouseCursors.click, // Change cursor to "click" style when hovering
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                    child: Text(
+                                      'Become a Member',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color(0xFFF6F7F6),
+                                        fontSize: MediaQuery.of(context).size.width < 1000 ? 16 : 20,
+                                        fontFamily: 'Vance',
+                                        decoration: TextDecoration.underline,
+                                        height: 1.2,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ],
+                                                              ],
                             ),
                           ),
                         ),
