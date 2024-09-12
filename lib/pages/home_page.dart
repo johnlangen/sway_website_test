@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           // GIF background
           SizedBox.expand(
           child: GifView.asset(
-            'assets/background_image.gif',
+            'assets/homepage.gif',
             controller: _gifController, // Use the controller to handle the GIF
             fit: BoxFit.cover, // Cover the entire background
             frameRate: 30, // Adjust frame rate if needed
