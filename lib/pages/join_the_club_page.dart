@@ -267,7 +267,7 @@ bool _isNestedOpen = false;
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // First Line: Opening Fall 2024
+                // First Line: Opening November 2024
                 Text(
                   'Opening Fall 2024! Denver\'s first-of-its-kind spa blending tech and tradition.',
                   style: TextStyle(
