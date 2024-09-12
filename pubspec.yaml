@@ -79,6 +79,9 @@ flutter:
     - assets/background2.mp4
     - assets/homepage.gif
     - assets/membership.gif
+    - assets/background.mov
+    - assets/background2.mov
+
 
 
 

@@ -16,6 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final GifController _gifController = GifController(loop: true); // Set loop to true
+  VideoPlayerController? _videoController;
+
 
   bool _hovered1 = false;
   bool _hovered2 = false;
@@ -23,8 +25,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   
   @override
+  void initState() {
+    super.initState();
+
+    // Initialize the video controller for mobile
+    _videoController = VideoPlayerController.asset('assets/background.mov')
+      ..initialize().then((_) {
+        setState(() {
+          _videoController!.setLooping(true);
+          _videoController!.play(); // Start playing the video
+        });
+      });
+  }
+
+  @override
   void dispose() {
-    _gifController.dispose(); // Dispose the controller when no longer needed
+    _videoController?.dispose(); // Dispose the video controller
+    _gifController.dispose(); // Dispose the GIF controller
     super.dispose();
   }
 
@@ -228,22 +245,34 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
   Widget build(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < 700;
     return Scaffold(
       body: Stack(
         children: [
 
 
-          // Background image only for the first section
-          // Background image
-          // GIF background
-          SizedBox.expand(
-          child: GifView.asset(
-            'assets/homepage.gif',
-            controller: _gifController, // Use the controller to handle the GIF
-            fit: BoxFit.cover, // Cover the entire background
-            frameRate: 30, // Adjust frame rate if needed
-          ),
-        ),
+          if (isMobile)
+            _videoController!.value.isInitialized
+                ? SizedBox.expand(
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: _videoController!.value.size.width,
+                        height: _videoController!.value.size.height,
+                        child: VideoPlayer(_videoController!), // Show the video
+                      ),
+                    ),
+                  )
+                : Container(color: Colors.black), // Fallback while video is loading
+          if (!isMobile)
+            SizedBox.expand(
+              child: GifView.asset(
+                'assets/homepage.gif',
+                controller: _gifController,
+                fit: BoxFit.cover,
+              ),
+            ),
+
 
 
 
