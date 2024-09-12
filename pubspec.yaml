@@ -75,8 +75,6 @@ flutter:
     - assets/led_light_therapy.png
     - assets/offerbackground.png
     - assets/popupphoto.png
-    - assets/background.mov
-    - assets/background2.mov
     - assets/background.mp4
     - assets/background2.mp4
     - assets/background_image.gif
