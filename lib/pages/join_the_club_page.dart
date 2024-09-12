@@ -4,6 +4,7 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:gif_view/gif_view.dart';
+import 'package:video_player/video_player.dart';  // Import for video player
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -12,23 +13,39 @@ class JoinTheClubPage extends StatefulWidget {
 
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
   int? _openedIndex;
+   bool _isNestedOpen = false;
+  final GifController _gifController = GifController(loop: true); // For desktop
+  VideoPlayerController? _videoController; // For mobile video
 
-
-bool _isNestedOpen = false;
-final GifController _gifController = GifController(loop: true);
 
 @override
+  void initState() {
+    super.initState();
+
+    // Initialize the video controller for mobile
+    _videoController = VideoPlayerController.asset('assets/background2.mov')
+      ..initialize().then((_) {
+        setState(() {
+          _videoController!.setLooping(true);
+          _videoController!.play(); // Start playing the video
+        });
+      });
+  }
+
+  @override
   void dispose() {
     _gifController.dispose(); // Dispose the controller when no longer needed
+    _videoController?.dispose(); // Dispose video controller
     super.dispose();
   }
+
 
 
   
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = MediaQuery.of(context).size.width < 1000;
+    bool isMobile = MediaQuery.of(context).size.width < 700;
     
 
 
@@ -41,16 +58,31 @@ final GifController _gifController = GifController(loop: true);
             Stack(
               children: [
                 // Background image
-                Container(
-                  height: MediaQuery.of(context).size.height, // Set the height to the screen height
-                  width: MediaQuery.of(context).size.width,   // Set the width to the screen width
-                  child: GifView.asset(
-                    'assets/membership.gif', // Path to your GIF file
-                    fit: BoxFit.cover, // Make the GIF cover the entire background
-                    frameRate: 30, // Adjust the frame rate if needed
-                    controller: _gifController, // Control looping with the controller
+                if (isMobile)
+                  _videoController!.value.isInitialized
+                      ? SizedBox.expand(
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width: _videoController!.value.size.width,
+                              height: _videoController!.value.size.height,
+                              child: VideoPlayer(_videoController!), // Show the video
+                            ),
+                          ),
+                        )
+                      : Container(color: Colors.black), // Fallback if video fails to load
+                if (!isMobile)
+                  Container(
+                    height: MediaQuery.of(context).size.height, // Set the height to the screen height
+                    width: MediaQuery.of(context).size.width,   // Set the width to the screen width
+                    child: GifView.asset(
+                      'assets/membership.gif', // Path to your GIF file
+                      fit: BoxFit.cover, // Make the GIF cover the entire background
+                      frameRate: 30, // Adjust the frame rate if needed
+                      controller: _gifController, // Control looping with the controller
+                    ),
                   ),
-                ),
+
 
 
                 // Navbar positioned slightly lower
