@@ -3,7 +3,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
-import 'package:gif_view/gif_view.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
 
 class JoinTheClubPage extends StatefulWidget {
@@ -14,42 +13,36 @@ class JoinTheClubPage extends StatefulWidget {
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
   int? _openedIndex;
   bool _isNestedOpen = false;
-  final GifController _gifController = GifController(loop: true); // For desktop
-  VideoPlayerController? _videoController; // For mobile video
-  bool _isGifLoaded = false;  // Add this variable to track the GIF loading status
+  VideoPlayerController? _mobileVideoController; // For mobile video
+  VideoPlayerController? _desktopVideoController; // For desktop video
 
   @override
   void initState() {
     super.initState();
 
-    // Preload the GIF asset
-    _preloadGif();
-
     // Initialize the video controller for mobile
-    _videoController = VideoPlayerController.asset('assets/background2.mov')
+    _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
       ..initialize().then((_) {
         setState(() {
-          _videoController!.setLooping(true);
-          _videoController!.play(); // Start playing the video
+          _mobileVideoController!.setLooping(true);
+          _mobileVideoController!.play(); // Start playing the video
+        });
+      });
+
+    // Initialize the video controller for desktop
+    _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
+      ..initialize().then((_) {
+        setState(() {
+          _desktopVideoController!.setLooping(true);
+          _desktopVideoController!.play(); // Start playing the video
         });
       });
   }
 
-  // Function to preload the GIF
-  void _preloadGif() {
-    AssetImage gifImage = AssetImage('assets/membership.gif');
-    precacheImage(gifImage, context).then((_) {
-      // Once the GIF is preloaded, update the state
-      setState(() {
-        _isGifLoaded = true;
-      });
-    });
-  }
-
   @override
   void dispose() {
-    _gifController.dispose(); // Dispose the controller when no longer needed
-    _videoController?.dispose(); // Dispose video controller
+    _mobileVideoController?.dispose(); // Dispose mobile video controller
+    _desktopVideoController?.dispose(); // Dispose desktop video controller
     super.dispose();
   }
 
@@ -67,15 +60,15 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
               children: [
                 // Constrain the video to a specific height for mobile
                 if (isMobile)
-                  _videoController!.value.isInitialized
+                  _mobileVideoController!.value.isInitialized
                       ? Container(
                           height: MediaQuery.of(context).size.height, // Adjust height to desired section height
                           child: FittedBox(
                             fit: BoxFit.cover,
                             child: SizedBox(
-                              width: _videoController!.value.size.width,
-                              height: _videoController!.value.size.height,
-                              child: VideoPlayer(_videoController!), // Display the video
+                              width: _mobileVideoController!.value.size.width,
+                              height: _mobileVideoController!.value.size.height,
+                              child: VideoPlayer(_mobileVideoController!), // Display the video for mobile
                             ),
                           ),
                         )
@@ -84,21 +77,23 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           color: Colors.black,
                         ),
                 if (!isMobile)
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: _isGifLoaded
-                        ? GifView.asset(
-                            'assets/membership.gif',
+                  _desktopVideoController!.value.isInitialized
+                      ? Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          child: FittedBox(
                             fit: BoxFit.cover,
-                            frameRate: 30,
-                            controller: _gifController,
-                          )
-                        : Image.asset(
-                            'assets/membership.png',  // Display the first frame as a placeholder until the GIF is loaded
-                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width: _desktopVideoController!.value.size.width,
+                              height: _desktopVideoController!.value.size.height,
+                              child: VideoPlayer(_desktopVideoController!), // Display the video for desktop
+                            ),
                           ),
-                  ),
+                        )
+                      : Container(
+                          height: MediaQuery.of(context).size.height, // Adjust fallback container height
+                          color: Colors.black,
+                        ),
 
                 // Navbar positioned above the background
                 Positioned(
