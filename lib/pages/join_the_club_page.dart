@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
+import 'package:gif_view/gif_view.dart';
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -14,6 +15,14 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
 
 
 bool _isNestedOpen = false;
+final GifController _gifController = GifController(loop: true);
+
+@override
+  void dispose() {
+    _gifController.dispose(); // Dispose the controller when no longer needed
+    super.dispose();
+  }
+
 
   
 
@@ -33,14 +42,17 @@ bool _isNestedOpen = false;
               children: [
                 // Background image
                 Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/join1.png'), // Use join1.png as the background image
-                      fit: BoxFit.cover,
-                    ),
+                  height: MediaQuery.of(context).size.height, // Set the height to the screen height
+                  width: MediaQuery.of(context).size.width,   // Set the width to the screen width
+                  child: GifView.asset(
+                    'assets/membership.gif', // Path to your GIF file
+                    fit: BoxFit.cover, // Make the GIF cover the entire background
+                    frameRate: 30, // Adjust the frame rate if needed
+                    controller: _gifController, // Control looping with the controller
                   ),
                 ),
+
+
                 // Navbar positioned slightly lower
                 Positioned(
                   top: 50,

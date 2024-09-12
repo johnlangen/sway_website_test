@@ -79,10 +79,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 value: 'Join the Club',
                 child: Text('Join the Club'),
               ),
-              PopupMenuItem(
-                value: 'The Sway Way',
-                child: Text('The Sway Way'),
-              ),
+       
               PopupMenuItem(
                 value: 'Book Now',
                 child: Text('Book Now'),
@@ -121,8 +118,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 _buildTreatmentPopupMenu(context), // Updated to handle hover and click
                 SizedBox(width: 40),
                 _buildNavItem(context, 'Join the Club', '/join-the-club'),
-                SizedBox(width: 40),
-                _buildNavItem(context, 'The Sway Way', '/the-sway-way'),
+            
               ],
             ),
             ElevatedButton(

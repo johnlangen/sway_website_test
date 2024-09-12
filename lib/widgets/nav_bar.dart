@@ -78,10 +78,7 @@ class _NavBarState extends State<NavBar> {
                 value: 'Join the Club',
                 child: Text('Join the Club'),
               ),
-              PopupMenuItem(
-                value: 'The Sway Way',
-                child: Text('The Sway Way'),
-              ),
+             
               PopupMenuItem(
                 value: 'Book Now',
                 child: Text('Book Now'),
@@ -120,8 +117,7 @@ class _NavBarState extends State<NavBar> {
                 _buildTreatmentPopupMenu(context), // Updated to handle hover and click
                 SizedBox(width: 30), // Adjusted to ensure even spacing between "Treatments" and "Join the Club"
                 _buildNavItem(context, 'Join the Club', '/join-the-club'),
-                SizedBox(width: 40),
-                _buildNavItem(context, 'The Sway Way', '/the-sway-way'),
+     
               ],
             ),
             ElevatedButton(
