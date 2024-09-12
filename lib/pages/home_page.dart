@@ -5,30 +5,33 @@ import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'package:gif_view/gif_view.dart';
+
+
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late VideoPlayerController _controller;
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  final GifController _gifController = GifController(loop: true); // Set loop to true
+
   bool _hovered1 = false;
   bool _hovered2 = false;
   bool _hovered3 = false;
 
+  
   @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset('assets/background.mov')
-    ..initialize().then((_) {
-      setState(() {
-        _controller.play(); // Start playing the video
-        _controller.setLooping(true); // Enable looping
-      });
-    });
-
+  void dispose() {
+    _gifController.dispose(); // Dispose the controller when no longer needed
+    super.dispose();
   }
+
+
+  
+
+ 
 
 
   // Function to show the popup
@@ -231,12 +234,17 @@ class _HomePageState extends State<HomePage> {
 
 
           // Background image only for the first section
-          Positioned.fill(
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: VideoPlayer(_controller),
-            ),
+          // Background image
+          // GIF background
+          SizedBox.expand(
+          child: GifView.asset(
+            'assets/background_image.gif',
+            controller: _gifController, // Use the controller to handle the GIF
+            fit: BoxFit.cover, // Cover the entire background
+            frameRate: 30, // Adjust frame rate if needed
           ),
+        ),
+
 
 
 
