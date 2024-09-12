@@ -231,16 +231,13 @@ class _HomePageState extends State<HomePage> {
 
 
           // Background image only for the first section
-          SizedBox.expand(
+          Positioned.fill(
             child: FittedBox(
               fit: BoxFit.cover,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width, // Use screen width
-                height: MediaQuery.of(context).size.height, // Use screen height
-                child: VideoPlayer(_controller),
-              ),
+              child: VideoPlayer(_controller),
             ),
           ),
+
 
 
 
