@@ -56,96 +56,97 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
           children: [
             // First Section with Background Image, Text, and Button
             Stack(
-              children: [
-                // Background image
-                if (isMobile)
-                  _videoController!.value.isInitialized
-                      ? SizedBox.expand(
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: SizedBox(
-                              width: _videoController!.value.size.width,
-                              height: _videoController!.value.size.height,
-                              child: VideoPlayer(_videoController!), // Show the video
-                            ),
-                          ),
-                        )
-                      : Container(color: Colors.black), // Fallback if video fails to load
-                if (!isMobile)
-                  Container(
-                    height: MediaQuery.of(context).size.height, // Set the height to the screen height
-                    width: MediaQuery.of(context).size.width,   // Set the width to the screen width
-                    child: GifView.asset(
-                      'assets/membership.gif', // Path to your GIF file
-                      fit: BoxFit.cover, // Make the GIF cover the entire background
-                      frameRate: 30, // Adjust the frame rate if needed
-                      controller: _gifController, // Control looping with the controller
-                    ),
-                  ),
-
-
-
-                // Navbar positioned slightly lower
-                Positioned(
-                  top: 50,
-                  left: 0,
-                  right: 0,
-                  child: NavBar(),
+  children: [
+    // Constrain the video to a specific height for mobile
+    if (isMobile)
+      _videoController!.value.isInitialized
+          ? Container(
+              height: MediaQuery.of(context).size.height, // Adjust height to desired section height
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: _videoController!.value.size.width,
+                  height: _videoController!.value.size.height,
+                  child: VideoPlayer(_videoController!), // Display the video
                 ),
-                // Text and Join Now button
-                Positioned(
-                  bottom: 50, // Position text and button near the bottom
-                  left: isMobile ? 30 : 70, // Adjusted for mobile to move it more to the right
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Two-line text: "Experience the wellness you've been longing for"
-                      Text(
-                        'EXPERIENCE THE WELLNESS\nYOU\'VE BEEN LONGING FOR',
-                        style: TextStyle(
-                          color: Color(0xFFF6F7F6),
-                          fontSize: isMobile 
-                              ? MediaQuery.of(context).size.width * 0.07 // Shrinks with screen size on mobile
-                              : 50, // Standard size on desktop
-                          fontFamily: 'Vance',
-                          fontWeight: FontWeight.w400,
-                          height: 1.2,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      // "Join Now" button with animation and link
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () async {
-                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            } else {
-                              throw 'Could not launch $url';
-                            }
-                          },
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF4A776D), // Green background color
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(0, 4),
-                                  blurRadius: 10,
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              'Join Now',
-                              style: TextStyle(
-                                color: Color(0xFFF6F7F6), // White text color
-                                fontSize: isMobile ? 16 : 18, // Adjust font size for mobile
-                                fontFamily: 'Helvetica',
-                                fontWeight: FontWeight.w400,
+              ),
+            )
+          : Container(
+              height: MediaQuery.of(context).size.height, // Adjust fallback container height
+              color: Colors.black,
+            ),
+    if (!isMobile)
+      Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: GifView.asset(
+          'assets/membership.gif',
+          fit: BoxFit.cover,
+          frameRate: 30,
+          controller: _gifController,
+        ),
+      ),
+
+    // Navbar positioned above the background
+    Positioned(
+      top: 50,
+      left: 0,
+      right: 0,
+      child: NavBar(),
+    ),
+
+    // Text and Join Now button on top of the background
+    Positioned(
+      bottom: 50,
+      left: isMobile ? 30 : 70,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'EXPERIENCE THE WELLNESS\nYOU\'VE BEEN LONGING FOR',
+            style: TextStyle(
+              color: Color(0xFFF6F7F6),
+              fontSize: isMobile
+                  ? MediaQuery.of(context).size.width * 0.07
+                  : 50,
+              fontFamily: 'Vance',
+              fontWeight: FontWeight.w400,
+              height: 1.2,
+            ),
+          ),
+          SizedBox(height: 20),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () async {
+                const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                decoration: BoxDecoration(
+                  color: Color(0xFF4A776D),
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 4),
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'Join Now',
+                  style: TextStyle(
+                    color: Color(0xFFF6F7F6),
+                    fontSize: isMobile ? 16 : 18,
+                    fontFamily: 'Helvetica',
+                    fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),

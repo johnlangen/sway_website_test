@@ -186,17 +186,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           const SizedBox(height: 20),
                                           Center(
                                             child: ElevatedButton(
-                                              onPressed: () async {
-                                                const url = 'https://example.com';
-                                                if (await canLaunch(url)) {
-                                                  await launch(url);
-                                                } else {
-                                                  throw 'Could not launch $url';
-                                                }
+                                              onPressed: () {
+                                                Navigator.pushNamed(context, '/treatments');
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
-                                                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(50),
                                                 ),
@@ -207,6 +202,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                             ),
                                           ),
+
                                         ],
                                       ),
                                     ),
