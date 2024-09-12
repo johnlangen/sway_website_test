@@ -8,15 +8,15 @@ import 'package:video_player/video_player.dart';
 import 'package:gif_view/gif_view.dart';
 
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  final GifController _gifController = GifController(loop: true); // Set loop to true
-  VideoPlayerController? _videoController;
+  VideoPlayerController? _videoController; // For mobile video
+  VideoPlayerController? _desktopVideoController; // For desktop video
+
 
 
   bool _hovered1 = false;
@@ -30,12 +30,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     // Initialize the video controller for mobile
     _videoController = VideoPlayerController.asset('assets/background.mov')
+  ..initialize().then((_) {
+    setState(() {
+      _videoController!.setLooping(true);
+      _videoController!.play(); // Start playing the video
+    });
+  });
+
+    // Initialize the video controller for desktop
+    _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
       ..initialize().then((_) {
         setState(() {
-          _videoController!.setLooping(true);
-          _videoController!.play(); // Start playing the video
+          _desktopVideoController!.setLooping(true);
+          _desktopVideoController!.play(); // Start playing the desktop video
         });
       });
+
+
 
     // Trigger the popup when the page loads
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,8 +56,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   void dispose() {
-    _videoController?.dispose(); // Dispose the video controller
-    _gifController.dispose(); // Dispose the GIF controller
+    _videoController?.dispose(); // Dispose the mobile video controller
+    _desktopVideoController?.dispose(); // Dispose the desktop video controller
     super.dispose();
   }
 
@@ -262,13 +273,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   )
                 : Container(color: Colors.black), // Fallback while video is loading
           if (!isMobile)
-            SizedBox.expand(
-              child: GifView.asset(
-                'assets/homepage.gif',
-                controller: _gifController,
-                fit: BoxFit.cover,
-              ),
-            ),
+          _desktopVideoController!.value.isInitialized
+              ? SizedBox.expand(
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: _desktopVideoController!.value.size.width,
+                      height: _desktopVideoController!.value.size.height,
+                      child: VideoPlayer(_desktopVideoController!), // Show the video for desktop
+                    ),
+                  ),
+                )
+              : Container(color: Colors.black), // Fallback while video is loading
+
 
 
 
