@@ -20,15 +20,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/background.mp4')
-      ..initialize().then((_) {
-        setState(() {}); // Ensure the first frame is shown after initialization
+    _controller = VideoPlayerController.asset('assets/background.mov')
+    ..initialize().then((_) {
+      setState(() {
         _controller.play(); // Start playing the video
         _controller.setLooping(true); // Enable looping
       });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showPopup(context);
     });
+
   }
 
 
@@ -236,8 +235,8 @@ class _HomePageState extends State<HomePage> {
             child: FittedBox(
               fit: BoxFit.cover,
               child: SizedBox(
-                width: _controller.value.size?.width ?? 0,
-                height: _controller.value.size?.height ?? 0,
+                width: MediaQuery.of(context).size.width, // Use screen width
+                height: MediaQuery.of(context).size.height, // Use screen height
                 child: VideoPlayer(_controller),
               ),
             ),
