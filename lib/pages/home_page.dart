@@ -16,7 +16,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final GifController _gifController = GifController(loop: true); // Set loop to true
-  VideoPlayerController? _videoController;
+  VideoPlayerController? _mobileVideoController;
+  VideoPlayerController? _desktopVideoController; // Add a desktop video controller
+
 
 
   bool _hovered1 = false;
@@ -29,11 +31,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     super.initState();
 
     // Initialize the video controller for mobile
-    _videoController = VideoPlayerController.asset('assets/background.mov')
+    _mobileVideoController = VideoPlayerController.asset('assets/background.mov')
       ..initialize().then((_) {
         setState(() {
-          _videoController!.setLooping(true);
-          _videoController!.play(); // Start playing the video
+          _mobileVideoController!.setLooping(true);
+          _mobileVideoController!.play(); // Start playing the video
+        });
+      });
+
+    // Initialize the video controller for desktop
+    _desktopVideoController = VideoPlayerController.asset('assets/background.mov')
+      ..initialize().then((_) {
+        setState(() {
+          _desktopVideoController!.setLooping(true);
+          _desktopVideoController!.play(); // Start playing the desktop video
         });
       });
 
@@ -45,7 +56,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   void dispose() {
-    _videoController?.dispose(); // Dispose the video controller
+    _mobileVideoController?.dispose(); // Dispose the mobile video controller
+    _desktopVideoController?.dispose(); // Dispose the desktop video controller
     _gifController.dispose(); // Dispose the GIF controller
     super.dispose();
   }
@@ -249,26 +261,34 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
           if (isMobile)
-            _videoController!.value.isInitialized
+            _mobileVideoController!.value.isInitialized
                 ? SizedBox.expand(
                     child: FittedBox(
                       fit: BoxFit.cover,
                       child: SizedBox(
-                        width: _videoController!.value.size.width,
-                        height: _videoController!.value.size.height,
-                        child: VideoPlayer(_videoController!), // Show the video
+                        width: _mobileVideoController!.value.size.width,
+                        height: _mobileVideoController!.value.size.height,
+                        child: VideoPlayer(_mobileVideoController!), // Show the mobile video
                       ),
                     ),
                   )
-                : Container(color: Colors.black), // Fallback while video is loading
+                : Container(color: Colors.black), // Fallback while mobile video is loading
+
+          // If not mobile (i.e., desktop), show the desktop video
           if (!isMobile)
-            SizedBox.expand(
-              child: GifView.asset(
-                'assets/homepage.gif',
-                controller: _gifController,
-                fit: BoxFit.cover,
-              ),
-            ),
+            _desktopVideoController!.value.isInitialized
+                ? SizedBox.expand(
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: _desktopVideoController!.value.size.width,
+                        height: _desktopVideoController!.value.size.height,
+                        child: VideoPlayer(_desktopVideoController!), // Show the desktop video
+                      ),
+                    ),
+                  )
+                : Container(color: Colors.black), // Fallback while desktop video is loading
+
 
 
 
