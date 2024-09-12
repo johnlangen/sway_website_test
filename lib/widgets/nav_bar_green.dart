@@ -32,65 +32,65 @@ class _NavBarGreenState extends State<NavBarGreen> {
   }
 
   Widget _buildMobileNavBar(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/'); // Navigate to the home page
-            },
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: SvgPicture.asset(
-                'assets/swaylogogreen.svg',
-                width: 75,
-                height: 27,
-              ),
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    height: 50,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/'); // Navigate to the home page
+          },
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: SvgPicture.asset(
+              'assets/swaylogogreen.svg',
+              width: 75,
+              height: 27,
             ),
           ),
-          PopupMenuButton<String>(
-            icon: Icon(Icons.menu, color: Color(0xFF4A776D)),
-            onSelected: (value) {
-              switch (value) {
-                case 'Treatments':
-                  Navigator.pushNamed(context, '/treatments');
-                  break;
-                case 'Join the Club':
-                  Navigator.pushNamed(context, '/join-the-club');
-                  break;
-                case 'The Sway Way':
-                  Navigator.pushNamed(context, '/the-sway-way');
-                  break;
-                case 'Book Now':
-                  Navigator.pushNamed(context, '/book-now');
-                  break;
-              }
-            },
-            offset: Offset(0, 50), // Position the dropdown below the menu icon
-            itemBuilder: (BuildContext context) => [
-              PopupMenuItem(
-                value: 'Treatments',
-                child: Text('Treatments'),
-              ),
-              PopupMenuItem(
-                value: 'Join the Club',
-                child: Text('Join the Club'),
-              ),
-       
-              PopupMenuItem(
-                value: 'Book Now',
-                child: Text('Book Now'),
-              ),
-            ],
-          ),
-        ],
-      ),
-      color: Colors.transparent,
-    );
-  }
+        ),
+        PopupMenuButton<String>(
+          icon: Icon(Icons.menu, color: Color(0xFF4A776D)),
+          onSelected: (value) {
+            switch (value) {
+              case 'Treatments':
+                Navigator.pushNamed(context, '/treatments');
+                break;
+              case 'Join the Club':
+                Navigator.pushNamed(context, '/join-the-club');
+                break;
+              case 'The Sway Way':
+                Navigator.pushNamed(context, '/the-sway-way');
+                break;
+              // Change 'Book Now' to navigate to '/treatments' instead of '/book-now'
+              case 'Book Now':
+                Navigator.pushNamed(context, '/treatments'); // Redirect to Treatments page
+                break;
+            }
+          },
+          offset: Offset(0, 50), // Position the dropdown below the menu icon
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem(
+              value: 'Treatments',
+              child: Text('Treatments'),
+            ),
+            PopupMenuItem(
+              value: 'Join the Club',
+              child: Text('Join the Club'),
+            ),
+            PopupMenuItem(
+              value: 'Book Now',
+              child: Text('Book Now'),
+            ),
+          ],
+        ),
+      ],
+    ),
+    color: Colors.transparent,
+  );
+}
 
   Widget _buildDesktopNavBar(BuildContext context) {
     return Container(
@@ -130,7 +130,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
               ),
               onPressed: () {
                 _closeDropdown(); // Close dropdown before navigating
-                Navigator.pushNamed(context, '/book-now');
+                Navigator.pushNamed(context, '/treatments'); // Navigate to the Treatments page
               },
               child: Text(
                 'Book Now',
@@ -142,6 +142,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 ),
               ),
             ),
+
           ],
         ),
       ),

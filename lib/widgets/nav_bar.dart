@@ -31,65 +31,63 @@ class _NavBarState extends State<NavBar> {
   }
 
   Widget _buildMobileNavBar(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/'); // Navigate to the home page
-            },
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Image.asset(
-                'assets/swaylogo.png',
-                width: 75, // Adjust the size as needed
-                height: 25.53,
-              ),
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    height: 50,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/'); // Navigate to the home page
+          },
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: Image.asset(
+              'assets/swaylogo.png',
+              width: 75, // Adjust the size as needed
+              height: 25.53,
             ),
           ),
-          PopupMenuButton<String>(
-            icon: Icon(Icons.menu, color: Colors.white),
-            onSelected: (value) {
-              switch (value) {
-                case 'Treatments':
-                  Navigator.pushNamed(context, '/treatments');
-                  break;
-                case 'Join the Club':
-                  Navigator.pushNamed(context, '/join-the-club');
-                  break;
-                case 'The Sway Way':
-                  Navigator.pushNamed(context, '/the-sway-way');
-                  break;
-                case 'Book Now':
-                  Navigator.pushNamed(context, '/book-now');
-                  break;
-              }
-            },
-            offset: Offset(0, 50), // Position the dropdown below the menu icon
-            itemBuilder: (BuildContext context) => [
-              PopupMenuItem(
-                value: 'Treatments',
-                child: Text('Treatments'),
-              ),
-              PopupMenuItem(
-                value: 'Join the Club',
-                child: Text('Join the Club'),
-              ),
-             
-              PopupMenuItem(
-                value: 'Book Now',
-                child: Text('Book Now'),
-              ),
-            ],
-          ),
-        ],
-      ),
-      color: Colors.transparent,
-    );
-  }
+        ),
+        PopupMenuButton<String>(
+          icon: Icon(Icons.menu, color: Colors.white),
+          onSelected: (value) {
+            switch (value) {
+              case 'Treatments':
+                Navigator.pushNamed(context, '/treatments');
+                break;
+              case 'Join the Club':
+                Navigator.pushNamed(context, '/join-the-club');
+                break;
+              // Change 'Book Now' to navigate to '/treatments' instead of '/book-now'
+              case 'Book Now':
+                Navigator.pushNamed(context, '/treatments'); // Redirect to Treatments page
+                break;
+            }
+          },
+          offset: Offset(0, 50), // Position the dropdown below the menu icon
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem(
+              value: 'Treatments',
+              child: Text('Treatments'),
+            ),
+            PopupMenuItem(
+              value: 'Join the Club',
+              child: Text('Join the Club'),
+            ),
+            PopupMenuItem(
+              value: 'Book Now',
+              child: Text('Book Now'),
+            ),
+          ],
+        ),
+      ],
+    ),
+    color: Colors.transparent,
+  );
+}
+
 
   Widget _buildDesktopNavBar(BuildContext context) {
     return Container(
@@ -121,26 +119,27 @@ class _NavBarState extends State<NavBar> {
               ],
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF4A776D),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              onPressed: () {
-                _closeDropdown(); // Close dropdown before navigating
-                Navigator.pushNamed(context, '/book-now');
-              },
-              child: Text(
-                'Book Now',
-                style: TextStyle(
-                  color: Color(0xFFF6F7F6),
-                  fontSize: 18,
-                  fontFamily: 'Helvetica',
-                  fontWeight: FontWeight.w400,
-                ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF4A776D),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
               ),
             ),
+            onPressed: () {
+              _closeDropdown(); // Close dropdown before navigating
+              Navigator.pushNamed(context, '/treatments'); // Navigate to the Treatments page
+            },
+            child: Text(
+              'Book Now',
+              style: TextStyle(
+                color: Color(0xFFF6F7F6),
+                fontSize: 18,
+                fontFamily: 'Helvetica',
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+
           ],
         ),
       ),
