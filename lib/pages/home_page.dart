@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   bool _hovered3 = false;
 
   
-  @override
+    @override
   void initState() {
     super.initState();
 
@@ -36,6 +36,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           _videoController!.play(); // Start playing the video
         });
       });
+
+    // Trigger the popup when the page loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showPopup(context);
+    });
   }
 
   @override
