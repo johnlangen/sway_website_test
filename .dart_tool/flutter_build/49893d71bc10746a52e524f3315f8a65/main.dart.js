@@ -81142,10 +81142,10 @@ r=p}q=t.p
 return A.at(o,A.eY(B.b2,A.a([A.aA(A.a([A.fg(r,1)],q),B.o,B.m,B.j),A.eD(o,A.cR(o,A.df(B.G4,B.ag,o,o,o,o),B.H,!1,o,o,o,o,o,o,o,o,o,o,o,o,new A.akk(a),o,o,o),o,o,o,10,10,o)],q),B.Z,B.aO),B.i,o,o,o,o,s,o,o,B.dd,o,o,l)},
 $S:509}
 A.aki.prototype={
-$0(){A.dm(this.a,"/treatments",t.X)},
+$0(){A.dm(this.a,"/join-the-club",t.X)},
 $S:0}
 A.akj.prototype={
-$0(){A.dm(this.a,"/treatments",t.X)},
+$0(){A.dm(this.a,"/join-the-club",t.X)},
 $S:0}
 A.akk.prototype={
 $0(){A.l7(this.a,!1).eh()},

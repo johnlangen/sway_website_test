@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           Center(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.pushNamed(context, '/treatments');
+                                                Navigator.pushNamed(context, '/join-the-club');
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           Center(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.pushNamed(context, '/treatments');
+                                                Navigator.pushNamed(context, '/join-the-club');
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
