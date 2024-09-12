@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "594e956732101b9b5caedfbee5e362d8",
+const RESOURCES = {"flutter_bootstrap.js": "6bee83fb7fae895f83f369a214c3ac03",
 "version.json": "1dc15bf2a142b2032e160383b9aa8740",
 "index.html": "5fa79b93f529bd865f67bf5ee47617a1",
 "/": "5fa79b93f529bd865f67bf5ee47617a1",
@@ -19,7 +19,7 @@ const RESOURCES = {"flutter_bootstrap.js": "594e956732101b9b5caedfbee5e362d8",
 "assets/fonts/MaterialIcons-Regular.otf": "0db35ae7a415370b89e807027510caf0",
 "assets/assets/homepage_photo9.png": "85981e917e653a09204c26cd69b1a463",
 "assets/assets/homepage_photo8.png": "17fba23d104aacea5e08df5bfdf0c181",
-"assets/assets/membership.gif": "9d51cac9d735188156cbd664941fdc00",
+"assets/assets/membership.gif": "5d89fc1c173ba44f4eafe0645bed9c7c",
 "assets/assets/massage3.png": "c8e65cdece3e80c80e701ffb0d359fd3",
 "assets/assets/massage2.png": "d4a234eabdee707712ec80a8596e2738",
 "assets/assets/homepage.gif": "3b6624069873b14ed78d6b47f1f5488b",
