@@ -6,7 +6,6 @@ import '../widgets/footer_mobile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:gif_view/gif_view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -83,15 +82,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
   // Function to show the popup
-void showPopup(BuildContext context) async {
-  // Check if the popup has already been shown
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool hasShownPopup = prefs.getBool('hasShownPopup') ?? false;
-
-  if (hasShownPopup) {
-    return; // Do not show the popup if it has already been shown
-  }
-
+  void showPopup(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -107,7 +98,7 @@ void showPopup(BuildContext context) async {
 
             return Container(
               width: isMobile ? width * 0.9 : width * 0.7,
-              height: isMobile ? height * 0.95 : height * 0.6, // Adjust height for mobile
+              height: isMobile ? height * 0.95 : height * 0.6, // Increased height for mobile
               padding: const EdgeInsets.all(20),
               child: Stack(
                 children: [
@@ -173,6 +164,7 @@ void showPopup(BuildContext context) async {
                                               ),
                                             ),
                                           ),
+
                                         ],
                                       ),
                                     ),
@@ -235,6 +227,7 @@ void showPopup(BuildContext context) async {
                                               ),
                                             ),
                                           ),
+
                                         ],
                                       ),
                                     ),
@@ -248,11 +241,8 @@ void showPopup(BuildContext context) async {
                     top: 10,
                     right: 10,
                     child: GestureDetector(
-                      onTap: () async {
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('hasShownPopup', true); // Mark the popup as shown
+                      onTap: () {
                         Navigator.of(context).pop(); // Close the popup
-                        Navigator.pushReplacementNamed(context, '/'); // Reload the home page
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click, // Change mouse cursor to click
