@@ -31,36 +31,42 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   
     @override
-  void initState() {
-    super.initState();
+    void initState() {
+      super.initState();
 
-    // Initialize the video controller for mobile
-    _videoController = VideoPlayerController.asset('assets/background.mov')
-      ..initialize().then((_) {
-        setState(() {
-          _videoController!.setLooping(true);
-          _videoController!.setVolume(0.0); // Mute the video for autoplay to work
-          _videoController!.play();
+      // Initialize the video controller for mobile
+      _videoController = VideoPlayerController.asset('assets/background.mov')
+        ..initialize().then((_) {
+          setState(() {
+            _videoController!.setLooping(true);
+          });
+          _playVideo();  // Try to play video on page load
         });
-      });
 
-
-    // Initialize the video controller for desktop
-    _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
-      ..initialize().then((_) {
-        setState(() {
-          _desktopVideoController!.setLooping(true);
-          _desktopVideoController!.play(); // Start playing the desktop video
+      // Initialize the video controller for desktop
+      _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
+        ..initialize().then((_) {
+          setState(() {
+            _desktopVideoController!.setLooping(true);
+          });
+          _playVideo();  // Try to play video on page load
         });
+
+      // Trigger the popup when the page loads
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showPopup(context);
       });
+    }
 
-
-
-    // Trigger the popup when the page loads
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showPopup(context);
-    });
-  }
+    // Play video function
+    void _playVideo() {
+      if (!_videoController!.value.isPlaying) {
+        _videoController!.play();
+      }
+      if (!_desktopVideoController!.value.isPlaying) {
+        _desktopVideoController!.play();
+      }
+    }
 
   @override
   void dispose() {
@@ -76,7 +82,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
   // Function to show the popup
-  void showPopup(BuildContext context) {
+void showPopup(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -92,7 +98,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
             return Container(
               width: isMobile ? width * 0.9 : width * 0.7,
-              height: isMobile ? height * 0.95 : height * 0.6, // Increased height for mobile
+              height: isMobile ? height * 0.95 : height * 0.6, // Adjust height for mobile
               padding: const EdgeInsets.all(20),
               child: Stack(
                 children: [
@@ -147,18 +153,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
-                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: width < 800 ? 15 : 20,
+                                                  vertical: width < 800 ? 8 : 10,
+                                                ),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(50),
                                                 ),
                                               ),
-                                              child: const Text(
+                                              child: Text(
                                                 'Learn More',
-                                                style: TextStyle(color: Colors.white),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width < 800 ? 14 : 16, // Scaled down for smaller desktops
+                                                ),
                                               ),
                                             ),
                                           ),
-
                                         ],
                                       ),
                                     ),
@@ -210,18 +221,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
-                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: width < 800 ? 15 : 20,
+                                                  vertical: width < 800 ? 8 : 10,
+                                                ),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(50),
                                                 ),
                                               ),
-                                              child: const Text(
+                                              child: Text(
                                                 'Learn More',
-                                                style: TextStyle(color: Colors.white),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width < 800 ? 14 : 16, // Scaled down for smaller desktops
+                                                ),
                                               ),
                                             ),
                                           ),
-
                                         ],
                                       ),
                                     ),
@@ -237,6 +253,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).pop(); // Close the popup
+                        _playVideo(); // Play video when the popup is closed
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click, // Change mouse cursor to click
