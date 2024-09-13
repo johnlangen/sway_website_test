@@ -31,42 +31,42 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   
     @override
-    void initState() {
-      super.initState();
+  void initState() {
+    super.initState();
 
-      // Initialize the video controller for mobile
-      _videoController = VideoPlayerController.asset('assets/background.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _videoController!.setLooping(true);
-          });
-          _playVideo();  // Try to play video on page load
-        });
-
-      // Initialize the video controller for desktop
-      _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
-        ..initialize().then((_) {
-          setState(() {
-            _desktopVideoController!.setLooping(true);
-          });
-          _playVideo();  // Try to play video on page load
-        });
-
-      // Trigger the popup when the page loads
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showPopup(context);
+    // Initialize the video controller for mobile (muted by default)
+    _videoController = VideoPlayerController.asset('assets/background.mov')
+      ..initialize().then((_) {
+        _videoController!.setLooping(true);
+        _videoController!.setVolume(0);  // Ensure the video is muted for autoplay
+        _playVideo();  // Play the video
+        setState(() {});
       });
-    }
 
-    // Play video function
-    void _playVideo() {
-      if (!_videoController!.value.isPlaying) {
-        _videoController!.play();
-      }
-      if (!_desktopVideoController!.value.isPlaying) {
-        _desktopVideoController!.play();
-      }
+    // Initialize the video controller for desktop (muted by default)
+    _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
+      ..initialize().then((_) {
+        _desktopVideoController!.setLooping(true);
+        _desktopVideoController!.setVolume(0);  // Ensure the video is muted for autoplay
+        _playVideo();  // Play the video
+        setState(() {});
+      });
+
+    // Trigger the popup when the page loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showPopup(context);
+    });
+  }
+
+  // Play video function
+  void _playVideo() {
+    if (_videoController != null && !_videoController!.value.isPlaying) {
+      _videoController!.play();
     }
+    if (_desktopVideoController != null && !_desktopVideoController!.value.isPlaying) {
+      _desktopVideoController!.play();
+    }
+  }
 
   @override
   void dispose() {
