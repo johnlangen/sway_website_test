@@ -58,7 +58,7 @@ class _NavBarState extends State<NavBar> {
                 Navigator.pushNamed(context, '/treatments');
                 break;
               case 'Join the Club':
-                Navigator.pushNamed(context, '/join-the-club');
+                Navigator.pushNamed(context, '/membership');
                 break;
               // Change 'Book Now' to navigate to '/treatments' instead of '/book-now'
               case 'Book Now':
@@ -114,7 +114,7 @@ class _NavBarState extends State<NavBar> {
                 SizedBox(width: 30), // Adjusted spacing between the logo and the first item
                 _buildTreatmentPopupMenu(context), // Updated to handle hover and click
                 SizedBox(width: 30), // Adjusted to ensure even spacing between "Treatments" and "Join the Club"
-                _buildNavItem(context, 'Join the Club', '/join-the-club'),
+                _buildNavItem(context, 'Join the Club', '/membership'),
      
               ],
             ),

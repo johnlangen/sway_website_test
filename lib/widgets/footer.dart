@@ -176,14 +176,19 @@ class _FooterState extends State<Footer> {
               children: [
                 SizedBox(
                   width: 128,
-                  child: Text(
-                    'Terms and Conditions',
-                    style: TextStyle(
-                      color: Color(0xFF4A776D),
-                      fontSize: 10,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w400,
-                      height: 1.5,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/terms-and-conditions'); // Navigates to Terms and Conditions
+                    },
+                    child: Text(
+                      'Terms and Conditions',
+                      style: TextStyle(
+                        color: Color(0xFF4A776D),
+                        fontSize: 10,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.w400,
+                        height: 1.5,
+                      ),
                     ),
                   ),
                 ),
@@ -200,20 +205,26 @@ class _FooterState extends State<Footer> {
                 ),
                 SizedBox(
                   width: 128,
-                  child: Text(
-                    'Privacy Policy',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: Color(0xFF4A776D),
-                      fontSize: 10,
-                      fontFamily: 'Helvetica',
-                      fontWeight: FontWeight.w400,
-                      height: 1.5,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/privacy-policy'); // Navigates to Privacy Policy
+                    },
+                    child: Text(
+                      'Privacy Policy',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        color: Color(0xFF4A776D),
+                        fontSize: 10,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.w400,
+                        height: 1.5,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
+
           ],
         ),
       ),

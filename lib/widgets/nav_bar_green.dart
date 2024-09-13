@@ -59,7 +59,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 Navigator.pushNamed(context, '/treatments');
                 break;
               case 'Join the Club':
-                Navigator.pushNamed(context, '/join-the-club');
+                Navigator.pushNamed(context, '/membership');
                 break;
               case 'The Sway Way':
                 Navigator.pushNamed(context, '/the-sway-way');
@@ -117,7 +117,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 SizedBox(width: 30), // Adjusted spacing between the logo and the first item
                 _buildTreatmentPopupMenu(context), // Updated to handle hover and click
                 SizedBox(width: 40),
-                _buildNavItem(context, 'Join the Club', '/join-the-club'),
+                _buildNavItem(context, 'Join the Club', '/membership'),
             
               ],
             ),

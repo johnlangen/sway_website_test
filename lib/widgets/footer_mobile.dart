@@ -165,7 +165,7 @@ class _FooterMobileState extends State<FooterMobile> {
               // Navigate to respective pages
               switch (item) {
                 case 'Memberships':
-                  Navigator.pushNamed(context, '/join-the-club');
+                  Navigator.pushNamed(context, '/membership');
                   break;
                 case 'Treatments':
                   Navigator.pushNamed(context, '/treatments');
@@ -233,34 +233,51 @@ class _FooterMobileState extends State<FooterMobile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Terms and Conditions with navigation
         Align(
           alignment: Alignment.centerLeft, // Align text to the left
-          child: Text(
-            'Terms and Conditions',
-            style: TextStyle(
-              color: Color(0xFF4A776D),
-              fontSize: 10,
-              fontFamily: 'Helvetica',
-              fontWeight: FontWeight.w400,
-              height: 1.5,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/terms-and-conditions');
+            },
+            child: Text(
+              'Terms and Conditions',
+              style: TextStyle(
+                color: Color(0xFF4A776D),
+                fontSize: 10,
+                fontFamily: 'Helvetica',
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+                decoration: TextDecoration.underline, // Add underline for clickable appearance
+              ),
             ),
           ),
         ),
+
         SizedBox(height: 10),
+
+        // Privacy Policy with navigation
         Align(
           alignment: Alignment.centerLeft, // Align text to the left
-          child: Text(
-            '© 2024 Sway Wellness Club',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: Color(0xFF4A776D),
-              fontSize: 10,
-              fontFamily: 'Helvetica',
-              fontWeight: FontWeight.w400,
-              height: 1.5,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/privacy-policy');
+            },
+            child: Text(
+              'Privacy Policy',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xFF4A776D),
+                fontSize: 10,
+                fontFamily: 'Helvetica',
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+                decoration: TextDecoration.underline, // Add underline for clickable appearance
+              ),
             ),
           ),
         ),
+
         SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft, // Align text to the left
