@@ -22,6 +22,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   bool _hovered1 = false;
   bool _hovered2 = false;
   bool _hovered3 = false;
+  bool _isFlipped1 = false;
+  bool _isFlipped2 = false;
+  bool _isFlipped3 = false;
+
 
   
     @override
@@ -126,7 +130,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                             'Be among the first to experience the next wave of wellness. '
                                             'Receive early access to Sway’s \$99 membership, which includes a targeted facial or massage every month. '
                                             'Plus, enjoy 6 months of FREE access to the Remedy Room—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots (\$240 value)!\n\n'
-                                            'Only 50 spots available!\nOffer Expires 9.22.24',
+                                            'Only 50 spots available!\nOffer Expires 9.29.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
                                             ),
@@ -737,7 +741,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   'assets/homepage_photo6.png',
                                   'Massages',
                                   "It’s not only a massage, it’s relaxing into your deepest state and unwinding the mind.",
-                                  _hovered1,
+                                  _isFlipped1, // Flipping state for mobile
+                                  _hovered1,   // Hovered state for desktop
                                   () {
                                     setState(() {
                                       _hovered1 = true;
@@ -748,13 +753,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       _hovered1 = false;
                                     });
                                   },
+                                  () {
+                                    setState(() {
+                                      _isFlipped1 = !_isFlipped1; // Toggle flip on mobile
+                                    });
+                                  },
                                 ),
                                 const SizedBox(height: 30), // Add space between stacked cards
                                 _buildFlipCard(
                                   'assets/homepage_photo7.png',
                                   'Facials',
                                   "It’s not just high tech facials, it’s feeling your inner beauty and glow.",
-                                  _hovered2,
+                                  _isFlipped2, // Flipping state for mobile
+                                  _hovered2,   // Hovered state for desktop
                                   () {
                                     setState(() {
                                       _hovered2 = true;
@@ -765,13 +776,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       _hovered2 = false;
                                     });
                                   },
+                                  () {
+                                    setState(() {
+                                      _isFlipped2 = !_isFlipped2; // Toggle flip on mobile
+                                    });
+                                  },
                                 ),
                                 const SizedBox(height: 30), // Add space between stacked cards
                                 _buildFlipCard(
                                   'assets/homepage_photo8.png',
                                   'Cold Plunge',
                                   "It’s not just a cold plunge, it's experiencing exhilaration and mental clarity in the present moment.",
-                                  _hovered3,
+                                  _isFlipped3, // Flipping state for mobile
+                                  _hovered3,   // Hovered state for desktop
                                   () {
                                     setState(() {
                                       _hovered3 = true;
@@ -780,6 +797,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   () {
                                     setState(() {
                                       _hovered3 = false;
+                                    });
+                                  },
+                                  () {
+                                    setState(() {
+                                      _isFlipped3 = !_isFlipped3; // Toggle flip on mobile
                                     });
                                   },
                                 ),
@@ -792,7 +814,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   'assets/homepage_photo6.png',
                                   'Massages',
                                   "It’s not only a massage, it’s relaxing into your deepest state and unwinding the mind.",
-                                  _hovered1,
+                                  _isFlipped1, // Flipping state for mobile
+                                  _hovered1,   // Hovered state for desktop
                                   () {
                                     setState(() {
                                       _hovered1 = true;
@@ -803,13 +826,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       _hovered1 = false;
                                     });
                                   },
+                                  () {
+                                    setState(() {
+                                      _isFlipped1 = !_isFlipped1; // Toggle flip on mobile
+                                    });
+                                  },
                                 ),
                                 const SizedBox(width: 40),
                                 _buildFlipCard(
                                   'assets/homepage_photo7.png',
                                   'Facials',
                                   "It’s not just high tech facials, it’s feeling your inner beauty and glow.",
-                                  _hovered2,
+                                  _isFlipped2, // Flipping state for mobile
+                                  _hovered2,   // Hovered state for desktop
                                   () {
                                     setState(() {
                                       _hovered2 = true;
@@ -820,13 +849,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       _hovered2 = false;
                                     });
                                   },
+                                  () {
+                                    setState(() {
+                                      _isFlipped2 = !_isFlipped2; // Toggle flip on mobile
+                                    });
+                                  },
                                 ),
                                 const SizedBox(width: 40),
                                 _buildFlipCard(
                                   'assets/homepage_photo8.png',
                                   'Cold Plunge',
                                   "It’s not just a cold plunge, it's experiencing exhilaration and mental clarity in the present moment.",
-                                  _hovered3,
+                                  _isFlipped3, // Flipping state for mobile
+                                  _hovered3,   // Hovered state for desktop
                                   () {
                                     setState(() {
                                       _hovered3 = true;
@@ -837,10 +872,16 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       _hovered3 = false;
                                     });
                                   },
+                                  () {
+                                    setState(() {
+                                      _isFlipped3 = !_isFlipped3; // Toggle flip on mobile
+                                    });
+                                  },
                                 ),
                               ],
                             ),
                       const SizedBox(height: 100),
+
 
                       // Experiences & Pricing Section
 
@@ -850,7 +891,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         delay: const Duration(milliseconds: 10),
                         duration: const Duration(milliseconds: 1000),
                         child: MediaQuery.of(context).size.width < 1000
-                            ? Column(
+                             ? Padding( // Add Padding widget here
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0), // Add padding from both left and right
+                              child: Column( // The Column is now a child of Padding
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 20),
@@ -1129,18 +1172,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF113D33), // Use direct Color instead of MaterialStateProperty
+                                      backgroundColor: const Color(0xFF113D33), // Button background color
                                       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                                       textStyle: const TextStyle(
                                         fontSize: 20,
                                         fontFamily: 'Vance-Text',
                                       ),
                                     ),
-                                    child: const Text('Schedule Your Wellness Soon'),
+                                    child: const Text(
+                                      'Schedule Your Wellness Soon',
+                                      style: TextStyle(
+                                        color: Colors.white, // Set the text color to white
+                                      ),
+                                    ),
                                   ),
 
                                 ],
-                              )
+                              ),
+                             )
+                              
+                              
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start, // Align items at the top
@@ -1961,27 +2012,33 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   Widget _buildFlipCard(
-    String imagePath,
-    String frontText,
-    String backText,
-    bool hovered,
-    VoidCallback onHoverEnter,
-    VoidCallback onHoverExit,
-  ) {
-    return MouseRegion(
-      onEnter: (_) => onHoverEnter(),
-      onExit: (_) => onHoverExit(),
+  String imagePath,
+  String frontText,
+  String backText,
+  bool isFlipped, // Updated state for mobile flip
+  bool hovered, // Hovered state for desktop
+  VoidCallback onHoverEnter,
+  VoidCallback onHoverExit,
+  VoidCallback onFlip, // Callback for flip on mobile
+) {
+  bool isMobile = MediaQuery.of(context).size.width < 700; // Adjust the breakpoint for mobile
+
+  return MouseRegion(
+    onEnter: isMobile ? null : (_) => onHoverEnter(),
+    onExit: isMobile ? null : (_) => onHoverExit(),
+    child: GestureDetector(
+      onTap: isMobile ? onFlip : null, // Flip on tap for mobile
       child: AnimatedContainer(
         width: 348,
         height: 453,
         duration: const Duration(milliseconds: 600),
-        transform: Matrix4.rotationY(hovered ? 3.14159 : 0),
+        transform: Matrix4.rotationY((isMobile && isFlipped) || (!isMobile && hovered) ? 3.14159 : 0),
         transformAlignment: Alignment.center,
         child: Stack(
           children: [
             // Front side
             AnimatedOpacity(
-              opacity: hovered ? 0 : 1,
+              opacity: (isMobile && isFlipped) || (!isMobile && hovered) ? 0 : 1,
               duration: const Duration(milliseconds: 300),
               child: Container(
                 width: 348,
@@ -1993,11 +2050,30 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     fit: BoxFit.cover,
                   ),
                 ),
+                child: isMobile
+                    ? Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ElevatedButton(
+                            onPressed: onFlip,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFF6F4E8), // Cream color background
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            ),
+                            child: const Text(
+                              'Learn More',
+                              style: TextStyle(color: Color(0xFF113D33)), // Black text color
+                            ),
+                          ),
+                        ),
+                      )
+                    : null,
               ),
             ),
             // Back side
             AnimatedOpacity(
-              opacity: hovered ? 1 : 0,
+              opacity: (isMobile && isFlipped) || (!isMobile && hovered) ? 1 : 0,
               duration: const Duration(milliseconds: 300),
               child: Transform(
                 alignment: Alignment.center,
@@ -2030,6 +2106,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }

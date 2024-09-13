@@ -373,7 +373,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                             decoration: TextDecoration.underline, // Underline
                           ),
                         ),
-                        TextSpan(text: ', Offer Expires 9.22.24'),
+                        TextSpan(text: ', Offer Expires 9.29.24'),
                       ],
                     ),
                     textAlign: TextAlign.center,
