@@ -6,6 +6,7 @@ import '../widgets/footer_mobile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:gif_view/gif_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -82,7 +83,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
   // Function to show the popup
-void showPopup(BuildContext context) {
+void showPopup(BuildContext context) async {
+  // Check if the popup has already been shown
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool hasShownPopup = prefs.getBool('hasShownPopup') ?? false;
+
+  if (hasShownPopup) {
+    return; // Do not show the popup if it has already been shown
+  }
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -153,20 +162,14 @@ void showPopup(BuildContext context) {
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: width < 800 ? 15 : 20,
-                                                  vertical: width < 800 ? 8 : 10,
-                                                ),
+                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(50),
                                                 ),
                                               ),
-                                              child: Text(
+                                              child: const Text(
                                                 'Learn More',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: width < 800 ? 14 : 16, // Scaled down for smaller desktops
-                                                ),
+                                                style: TextStyle(color: Colors.white),
                                               ),
                                             ),
                                           ),
@@ -221,20 +224,14 @@ void showPopup(BuildContext context) {
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: const Color(0xFF4A776D),
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: width < 800 ? 15 : 20,
-                                                  vertical: width < 800 ? 8 : 10,
-                                                ),
+                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(50),
                                                 ),
                                               ),
-                                              child: Text(
+                                              child: const Text(
                                                 'Learn More',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: width < 800 ? 14 : 16, // Scaled down for smaller desktops
-                                                ),
+                                                style: TextStyle(color: Colors.white),
                                               ),
                                             ),
                                           ),
@@ -251,9 +248,11 @@ void showPopup(BuildContext context) {
                     top: 10,
                     right: 10,
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('hasShownPopup', true); // Mark the popup as shown
                         Navigator.of(context).pop(); // Close the popup
-                        _playVideo(); // Play video when the popup is closed
+                        Navigator.pushReplacementNamed(context, '/'); // Reload the home page
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click, // Change mouse cursor to click
