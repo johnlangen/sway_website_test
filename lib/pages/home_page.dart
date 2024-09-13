@@ -34,12 +34,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     // Initialize the video controller for mobile
     _videoController = VideoPlayerController.asset('assets/background.mov')
-  ..initialize().then((_) {
-    setState(() {
-      _videoController!.setLooping(true);
-      _videoController!.play(); // Start playing the video
-    });
-  });
+      ..initialize().then((_) {
+        setState(() {
+          _videoController!.setLooping(true);
+          _videoController!.setVolume(0.0); // Mute the video for autoplay to work
+          _videoController!.play();
+        });
+      });
+
 
     // Initialize the video controller for desktop
     _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
