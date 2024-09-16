@@ -136,7 +136,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () async {
-                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100 ';
+                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                             if (await canLaunch(url)) {
                               await launch(url);
                             } else {

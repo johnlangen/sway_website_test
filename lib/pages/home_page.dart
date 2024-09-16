@@ -6,7 +6,7 @@ import '../widgets/footer_mobile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:gif_view/gif_view.dart';
-
+import 'package:flutter/services.dart'; // Ensure this is imported
 
 class HomePage extends StatefulWidget {
   @override
@@ -257,7 +257,16 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
 
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
+  // Ensure the system bars are styled with dark green in this page
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Color(0xFF004D40), // Dark green status bar
+    statusBarIconBrightness: Brightness.light, // Light icons for contrast
+    systemNavigationBarColor: Color(0xFF004D40), // Dark green navigation bar
+    systemNavigationBarIconBrightness: Brightness.light, // Light icons for contrast
+  ));
+
+
     bool isMobile = MediaQuery.of(context).size.width < 700;
     return Scaffold(
       body: Stack(
