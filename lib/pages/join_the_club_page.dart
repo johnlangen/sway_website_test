@@ -136,7 +136,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () async {
-                            const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
+                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100 ';
                             if (await canLaunch(url)) {
                               await launch(url);
                             } else {
@@ -230,7 +230,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
                             onTap: () async {
-                              const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
+                              const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                               if (await canLaunch(url)) {
                                 await launch(url);
                               } else {
@@ -396,7 +396,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () async {
-                      const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
+                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
@@ -496,7 +496,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () async {
-                        const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
+                        const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {
