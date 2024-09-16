@@ -64,40 +64,45 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
               children: [
                 // Constrain the video to a specific height for mobile
                 if (isMobile)
-                  _mobileVideoController!.value.isInitialized
-                      ? Container(
-                          height: MediaQuery.of(context).size.height, // Adjust height to desired section height
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: SizedBox(
-                              width: _mobileVideoController!.value.size.width,
-                              height: _mobileVideoController!.value.size.height,
-                              child: VideoPlayer(_mobileVideoController!), // Display the video for mobile
-                            ),
+                _mobileVideoController!.value.isInitialized
+                    ? Container(
+                        height: MediaQuery.of(context).size.height, 
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: SizedBox(
+                            width: _mobileVideoController!.value.size.width,
+                            height: _mobileVideoController!.value.size.height,
+                            child: VideoPlayer(_mobileVideoController!), 
                           ),
-                        )
-                      : Container(
-                          height: MediaQuery.of(context).size.height, // Adjust fallback container height
-                          color: Colors.black,
                         ),
-                if (!isMobile)
-                  _desktopVideoController!.value.isInitialized
-                      ? Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: SizedBox(
-                              width: _desktopVideoController!.value.size.width,
-                              height: _desktopVideoController!.value.size.height,
-                              child: VideoPlayer(_desktopVideoController!), // Display the video for desktop
-                            ),
+                      )
+                    : Container(
+                        height: MediaQuery.of(context).size.height,
+                        color: Colors.black,
+                      ),
+              if (!isMobile)
+                _desktopVideoController!.value.isInitialized
+                    ? Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: SizedBox(
+                            width: _desktopVideoController!.value.size.width,
+                            height: _desktopVideoController!.value.size.height,
+                            child: VideoPlayer(_desktopVideoController!), 
                           ),
-                        )
-                      : Container(
-                          height: MediaQuery.of(context).size.height, // Adjust fallback container height
-                          color: Colors.black,
                         ),
+                      )
+                    : Container(
+                        height: MediaQuery.of(context).size.height,
+                        color: Colors.black,
+                        ),
+
+
+
+
+
 
                 // Navbar positioned above the background
                 Positioned(
@@ -131,7 +136,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () async {
-                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                            const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
                             if (await canLaunch(url)) {
                               await launch(url);
                             } else {
@@ -164,6 +169,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -224,7 +230,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
                             onTap: () async {
-                              const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                              const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
                               if (await canLaunch(url)) {
                                 await launch(url);
                               } else {
@@ -326,7 +332,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
               children: [
                 // First Line: Opening November 2024
                 Text(
-                  'Opening Fall 2024! Denver\'s first-of-its-kind spa blending tech and tradition.',
+                  'Opening November 2024! ',
                   style: TextStyle(
                     color: Color(0xFF113D33),
                     fontSize: isMobile ? 20 : 28, // Slightly smaller text
@@ -342,7 +348,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 80), // Reduce left/right padding
                   child: Text(
-                    'Be among the first to experience the new wave of wellness.\n\n'
+                    'Denver\'s first-of-its-kind spa blending tech and tradition. Be among the first to experience the new wave of wellness.\n\n'
                     'Receive early access to Sway’s \$99 membership, which includes a targeted facial or massage every month. PLUS, enjoy 6 months of FREE access to the Remedy Room—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots (\$240 value)!',
                     style: TextStyle(
                       color: Color(0xFF113D33),
@@ -390,7 +396,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () async {
-                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                      const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
@@ -480,7 +486,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                    _buildDropdownMenu(6, 'Benefits Roll Over!', '''
                     If you don’t use it, you don’t lose it. Lucky you :) 
                   ''', nestedDropdown: _buildNestedMenu('Terms and Conditions', '''
-                    \nMembership cancellation must be a 30-day advance written notification. \nThe minimum, non-cancellable, term of membership is three (3) months. \nFor full details, please call our Wellness Coordinator team.*
+                    \nMembership cancellation must be a 30-day advance written notification. The minimum, \nnon-cancellable, term of membership is three (3) months. For more details and \nquestions, please call our Wellness Coordinator team.
                   ''')),
 
 
@@ -490,7 +496,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () async {
-                        const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                        const url = 'https://clients.mindbodyonline.com/ASP/main_shop.asp?studioid=5739770&tg=&vt=&lvl=&stype=40&view=&trn=0&page=&catid=&prodid=&date=9%2f13%2f2024&classid=0&prodGroupId=&sSU=&optForwardingLink=&qParam=&justloggedin=&nLgIn=&pMode=0&loc=1';
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {

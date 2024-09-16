@@ -137,16 +137,26 @@ class _FooterMobileState extends State<FooterMobile> {
           ),
         ),
         SizedBox(height: 10),
-        SizedBox(
-          width: 109,
-          child: Text(
-            'Tiktok', // Placeholder for future link
-            style: TextStyle(
-              color: Color(0xFFF6F7F6),
-              fontSize: 14,
-              fontFamily: 'Helvetica',
-              fontWeight: FontWeight.w400,
-              height: 1.5,
+        GestureDetector(
+          onTap: () async {
+            final Uri tikTokUrl = Uri.parse('https://www.tiktok.com/@swaywellnessclub');
+            if (await canLaunchUrl(tikTokUrl)) {
+              await launchUrl(tikTokUrl);
+            } else {
+              throw 'Could not launch $tikTokUrl';
+            }
+          },
+          child: SizedBox(
+            width: 109,
+            child: Text(
+              'Tiktok',
+              style: TextStyle(
+                color: Color(0xFFF6F7F6),
+                fontSize: 14,
+                fontFamily: 'Helvetica',
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+              ),
             ),
           ),
         ),
@@ -201,7 +211,7 @@ class _FooterMobileState extends State<FooterMobile> {
         SizedBox(
           width: 200,
           child: Text(
-            '1428 Larimer St. Denver, CO. 80202',
+            '1428 Larimer St. \nDenver, CO. 80202',
             style: TextStyle(
               color: Color(0xFFF6F7F6),
               fontSize: 14,
@@ -215,7 +225,7 @@ class _FooterMobileState extends State<FooterMobile> {
         SizedBox(
           width: 200,
           child: Text(
-            'Phone: 123.456.7890',
+            'Phone: +1 720-588-8667',
             style: TextStyle(
               color: Color(0xFFF6F7F6),
               fontSize: 14,
@@ -230,57 +240,39 @@ class _FooterMobileState extends State<FooterMobile> {
   }
 
   Widget _buildFooterBottom() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Terms and Conditions with navigation
-        Align(
-          alignment: Alignment.centerLeft, // Align text to the left
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/terms-and-conditions');
-            },
-            child: Text(
-              'Terms and Conditions',
-              style: TextStyle(
-                color: Color(0xFF4A776D),
-                fontSize: 10,
-                fontFamily: 'Helvetica',
-                fontWeight: FontWeight.w400,
-                height: 1.5,
-                decoration: TextDecoration.underline, // Add underline for clickable appearance
-              ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // Terms and Conditions with navigation
+      Align(
+        alignment: Alignment.centerLeft, // Align text to the left
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/terms-and-conditions');
+          },
+          child: Text(
+            'Terms and Conditions',
+            style: TextStyle(
+              color: Color(0xFF4A776D),
+              fontSize: 10,
+              fontFamily: 'Helvetica',
+              fontWeight: FontWeight.w400,
+              height: 1.5,
+              decoration: TextDecoration.underline, // Add underline for clickable appearance
             ),
           ),
         ),
+      ),
 
-        SizedBox(height: 10),
+      SizedBox(height: 10),
 
-        // Privacy Policy with navigation
-        Align(
-          alignment: Alignment.centerLeft, // Align text to the left
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/privacy-policy');
-            },
-            child: Text(
-              'Privacy Policy',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Color(0xFF4A776D),
-                fontSize: 10,
-                fontFamily: 'Helvetica',
-                fontWeight: FontWeight.w400,
-                height: 1.5,
-                decoration: TextDecoration.underline, // Add underline for clickable appearance
-              ),
-            ),
-          ),
-        ),
-
-        SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft, // Align text to the left
+      // Privacy Policy with navigation
+      Align(
+        alignment: Alignment.centerLeft, // Align text to the left
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/privacy-policy');
+          },
           child: Text(
             'Privacy Policy',
             textAlign: TextAlign.left,
@@ -290,10 +282,13 @@ class _FooterMobileState extends State<FooterMobile> {
               fontFamily: 'Helvetica',
               fontWeight: FontWeight.w400,
               height: 1.5,
+              decoration: TextDecoration.underline, // Add underline for clickable appearance
             ),
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
 }

@@ -952,7 +952,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    'Drop-In: \$129',
+                                    'Drop-In: \$139',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -988,7 +988,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    'Deep Tissue - Swedish - Hot Stone',
+                                    'Deep Tissue - Swedish - Hot Stone - CBD',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 15,
@@ -1022,7 +1022,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    'Drop-In: \$129',
+                                    'Drop-In: \$139',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -1520,7 +1520,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Adjust height to position "Drop-In" title
                                               Text(
-                                                '\$129',
+                                                '\$139',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1550,7 +1550,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 60), // Align with '50 Min Massage'
                                               Text(
-                                                '\$129',
+                                                '\$139',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),

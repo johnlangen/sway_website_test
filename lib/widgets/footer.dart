@@ -9,6 +9,9 @@ class Footer extends StatefulWidget {
 class _FooterState extends State<Footer> {
   // Define the Instagram URL
   final Uri instagramUrl = Uri.parse('https://www.instagram.com/swaywellnessclub/');
+  final Uri tikTokUrl = Uri.parse('https://www.tiktok.com/@swaywellnessclub');
+  bool _isHoveringInstagram = false;
+  bool _isHoveringTikTok = false;
 
   @override
   Widget build(BuildContext context) {
@@ -97,40 +100,62 @@ class _FooterState extends State<Footer> {
                     SizedBox(height: 10), // Adjust initial spacing
                     SizedBox(
                       width: 109,
-                      child: GestureDetector(
-                        onTap: () async {
-                          if (await canLaunchUrl(instagramUrl)) {
-                            await launchUrl(instagramUrl);
-                          } else {
-                            throw 'Could not launch $instagramUrl';
-                          }
-                        },
-                        child: Text(
-                          'Instagram',
-                          style: TextStyle(
-                            color: Color(0xFFF6F7F6),
-                            fontSize: 14,
-                            fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.w400,
-                            height: 1.5, // Adjusted spacing between lines
+                      child: MouseRegion(
+                        onEnter: (_) => setState(() => _isHoveringInstagram = true),
+                        onExit: (_) => setState(() => _isHoveringInstagram = false),
+                        child: GestureDetector(
+                          onTap: () async {
+                            if (await canLaunchUrl(instagramUrl)) {
+                              await launchUrl(instagramUrl);
+                            } else {
+                              throw 'Could not launch $instagramUrl';
+                            }
+                          },
+                          child: Text(
+                            'Instagram',
+                            style: TextStyle(
+                              color: _isHoveringInstagram ? Colors.greenAccent : Color(0xFFF6F7F6),
+                              fontSize: 14,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.w400,
+                              height: 1.5,
+                              decoration: _isHoveringInstagram ? TextDecoration.underline : TextDecoration.none,
+                            ),
                           ),
                         ),
                       ),
                     ),
+
                     SizedBox(height: 10),
                     SizedBox(
-                      width: 109,
-                      child: Text(
-                        'Tiktok', // Placeholder for TikTok link in the future
-                        style: TextStyle(
-                          color: Color(0xFFF6F7F6),
-                          fontSize: 14,
-                          fontFamily: 'Helvetica',
-                          fontWeight: FontWeight.w400,
-                          height: 1.5,
+                        width: 109,
+                        child: MouseRegion(
+                          onEnter: (_) => setState(() => _isHoveringTikTok = true),
+                          onExit: (_) => setState(() => _isHoveringTikTok = false),
+                          child: GestureDetector(
+                            onTap: () async {
+                              final Uri tikTokUrl = Uri.parse('https://www.tiktok.com/@swaywellnessclub');
+                              if (await canLaunchUrl(tikTokUrl)) {
+                                await launchUrl(tikTokUrl);
+                              } else {
+                                throw 'Could not launch $tikTokUrl';
+                              }
+                            },
+                            child: Text(
+                              'Tiktok',
+                              style: TextStyle(
+                                color: _isHoveringTikTok ? Colors.greenAccent : Color(0xFFF6F7F6),
+                                fontSize: 14,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                decoration: _isHoveringTikTok ? TextDecoration.underline : TextDecoration.none,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+
                   ],
                 ),
                 Spacer(), // Spacer between columns
@@ -142,7 +167,7 @@ class _FooterState extends State<Footer> {
                     SizedBox(
                       width: 200,
                       child: Text(
-                        '1428 Larimer St. Denver, CO. 80202',
+                        '1428 Larimer St. \nDenver, CO. 80202',
                         style: TextStyle(
                           color: Color(0xFFF6F7F6),
                           fontSize: 14,
@@ -156,7 +181,7 @@ class _FooterState extends State<Footer> {
                     SizedBox(
                       width: 200,
                       child: Text(
-                        'Phone: 123.456.7890',
+                        'Phone: +1 720-588-8667',
                         style: TextStyle(
                           color: Color(0xFFF6F7F6),
                           fontSize: 14,
