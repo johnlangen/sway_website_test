@@ -29,34 +29,41 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   bool _isFlipped3 = false;
 
 
-  
-   @override
-    void initState() {
-      super.initState();
+     @override
+   void initState() {
+     super.initState();
 
-      // Initialize the video controller for mobile (muted by default)
-      _videoController = VideoPlayerController.asset('assets/background.mov')
-        ..initialize().then((_) {
-          _videoController!.setLooping(true);
-          _videoController!.setVolume(0);  // Ensure the video is muted
-          _videoController!.play();        // Autoplay video once it's ready
-          setState(() {});                 // Ensure UI updates once the video is initialized
-        });
+     // Set the system overlay style for the status and navigation bars
+     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+       statusBarColor: Color(0xFF004D40), // Dark green status bar
+       statusBarIconBrightness: Brightness.light, // Light icons in the status bar for contrast
+       systemNavigationBarColor: Color(0xFF004D40), // Dark green navigation bar
+       systemNavigationBarIconBrightness: Brightness.light, // Light icons for the navigation bar
+     ));
 
-      // Initialize the video controller for desktop (muted by default)
-      _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
-        ..initialize().then((_) {
-          _desktopVideoController!.setLooping(true);
-          _desktopVideoController!.setVolume(0);  // Ensure the video is muted
-          _desktopVideoController!.play();        // Autoplay video once it's ready
-          setState(() {});                        // Ensure UI updates once the video is initialized
-        });
+     // Initialize the video controller for mobile (muted by default)
+     _videoController = VideoPlayerController.asset('assets/background.mov')
+       ..initialize().then((_) {
+         _videoController!.setLooping(true);
+         _videoController!.setVolume(0);  // Ensure the video is muted
+         _videoController!.play();        // Autoplay video once it's ready
+         setState(() {});                 // Ensure UI updates once the video is initialized
+       });
 
-      // Trigger the popup when the page loads
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showPopup(context);
-      });
-    }
+     // Initialize the video controller for desktop (muted by default)
+     _desktopVideoController = VideoPlayerController.asset('assets/background.mp4')
+       ..initialize().then((_) {
+         _desktopVideoController!.setLooping(true);
+         _desktopVideoController!.setVolume(0);  // Ensure the video is muted
+         _desktopVideoController!.play();        // Autoplay video once it's ready
+         setState(() {});                        // Ensure UI updates once the video is initialized
+       });
+
+     // Trigger the popup when the page loads
+     WidgetsBinding.instance.addPostFrameCallback((_) {
+       showPopup(context);
+     });
+   }
 
 
   @override
@@ -258,13 +265,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
  Widget build(BuildContext context) {
-  // Ensure the system bars are styled with dark green in this page
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF004D40), // Dark green status bar
-    statusBarIconBrightness: Brightness.light, // Light icons for contrast
-    systemNavigationBarColor: Color(0xFF004D40), // Dark green navigation bar
-    systemNavigationBarIconBrightness: Brightness.light, // Light icons for contrast
-  ));
+ 
 
 
     bool isMobile = MediaQuery.of(context).size.width < 700;
