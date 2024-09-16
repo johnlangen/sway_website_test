@@ -1725,7 +1725,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   cursor: SystemMouseCursors.click, // Change cursor to "click" style when hovering
                                   child: GestureDetector(
                                     onTap: () async {
-                                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodId=100';
+                                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                                       if (await canLaunch(url)) {
                                         await launch(url);
                                       } else {

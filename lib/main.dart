@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';  // Import for SystemChrome
 import 'pages/home_page.dart';
 import 'pages/treatments_page.dart';
 import 'pages/gift_cards_page.dart';
@@ -12,6 +13,14 @@ import 'pages/terms_and_conditions_page.dart';  // Import Terms and Conditions P
 import 'pages/privacy_policy_page.dart';  // Import Privacy Policy Page
 
 void main() {
+  // Set the system overlay style for the status and navigation bars
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Color(0xFF004D40), // Dark green status bar
+    statusBarIconBrightness: Brightness.light, // Light icons in the status bar for contrast
+    systemNavigationBarColor: Color(0xFF004D40), // Dark green navigation bar
+    systemNavigationBarIconBrightness: Brightness.light, // Light icons in the navigation bar for contrast
+  ));
+
   runApp(SwayWebsiteApp());
 }
 
@@ -21,7 +30,7 @@ class SwayWebsiteApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sway Website',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.green,  // You can modify the theme as needed
       ),
       initialRoute: '/',
       routes: {
@@ -34,8 +43,8 @@ class SwayWebsiteApp extends StatelessWidget {
         '/facials': (context) => FacialsPage(),
         '/massages': (context) => MassagesPage(),
         '/remedy-tech': (context) => RemedyTechPage(),
-        '/terms-and-conditions': (context) => TermsAndConditionsPage(),  // Add route for Terms and Conditions
-        '/privacy-policy': (context) => PrivacyPolicyPage(),  // Add route for Privacy Policy
+        '/terms-and-conditions': (context) => TermsAndConditionsPage(),
+        '/privacy-policy': (context) => PrivacyPolicyPage(),
       },
     );
   }
