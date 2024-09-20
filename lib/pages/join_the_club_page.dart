@@ -5,6 +5,13 @@ import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
 
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../widgets/nav_bar.dart';
+import '../widgets/footer.dart';
+import '../widgets/footer_mobile.dart';
+import 'package:video_player/video_player.dart';  // Import for video player
+
 class JoinTheClubPage extends StatefulWidget {
   @override
   _JoinTheClubPageState createState() => _JoinTheClubPageState();
@@ -49,7 +56,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 700;
@@ -62,47 +68,42 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
             // First Section with Background Video, Text, and Button
             Stack(
               children: [
-                // Constrain the video to a specific height for mobile
+                // Video container at the bottom of the stack
                 if (isMobile)
-                _mobileVideoController!.value.isInitialized
-                    ? Container(
-                        height: MediaQuery.of(context).size.height, 
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: SizedBox(
-                            width: _mobileVideoController!.value.size.width,
-                            height: _mobileVideoController!.value.size.height,
-                            child: VideoPlayer(_mobileVideoController!), 
+                  _mobileVideoController!.value.isInitialized
+                      ? Container(
+                          height: MediaQuery.of(context).size.height, 
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width: _mobileVideoController!.value.size.width,
+                              height: _mobileVideoController!.value.size.height,
+                              child: VideoPlayer(_mobileVideoController!), 
+                            ),
                           ),
+                        )
+                      : Container(
+                          height: MediaQuery.of(context).size.height,
+                          color: Colors.black,
                         ),
-                      )
-                    : Container(
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black,
-                      ),
               if (!isMobile)
-                _desktopVideoController!.value.isInitialized
-                    ? Container(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: SizedBox(
-                            width: _desktopVideoController!.value.size.width,
-                            height: _desktopVideoController!.value.size.height,
-                            child: VideoPlayer(_desktopVideoController!), 
+                  _desktopVideoController!.value.isInitialized
+                      ? Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width: _desktopVideoController!.value.size.width,
+                              height: _desktopVideoController!.value.size.height,
+                              child: VideoPlayer(_desktopVideoController!), 
+                            ),
                           ),
+                        )
+                      : Container(
+                          height: MediaQuery.of(context).size.height,
+                          color: Colors.black,
                         ),
-                      )
-                    : Container(
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black,
-                        ),
-
-
-
-
-
 
                 // Navbar positioned above the background
                 Positioned(
