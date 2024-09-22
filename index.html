@@ -1,120 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--
-  If you are serving your web app in a path other than the root, change the
-  href value below to reflect the base path you are serving from.
+  <base href="/">
 
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KW4TK2DL');</script>
+  <!-- End Google Tag Manager -->
 
-  The path provided below has to start and end with a slash "/" in order for
-  it to work correctly.
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-35CR7LGM52"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
+    gtag('config', 'G-35CR7LGM52');
+  </script>
 
+  <title>Sway</title>
+  <link rel="manifest" href="manifest.json">
 
-
-  For more details:
-  * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-
-
-
-  This is a placeholder for base href that will be replaced by the value of
-  the `--base-href` argument provided to `flutter build`.
--->
-
-
-
-
-<base href="/">
-
-
-
-
-
-
-<meta charset="UTF-8">
-<meta content="IE=Edge" http-equiv="X-UA-Compatible">
-<meta name="description" content="A new Flutter project.">
-
-
-
-
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="favicon.png"/>
-
-
-
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-547RK7TL');</script>
-<!-- End Google Tag Manager -->
-
-
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7M0Z6YY32Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7M0Z6YY32Y');
-</script>
-
-
-
-
-<title>Sway</title>
-<link rel="manifest" href="manifest.json">
-
-
-
-
-<script>
-  // The value below is injected by flutter build, do not touch.
-  const serviceWorkerVersion = "2000910686";
-</script>
-<!-- This script adds the flutter initialization JS code -->
-<script src="flutter.js" defer></script>
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "2000910686";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
 </head>
+
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-547RK7TL"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KW4TK2DL"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-
-
-
-<script>
-  window.addEventListener('load', function(ev) {
-    // Download main.dart.js
-    _flutter.loader.loadEntrypoint({
-      serviceWorker: {
-        serviceWorkerVersion: serviceWorkerVersion,
-      },
-      onEntrypointLoaded: function(engineInitializer) {
-        engineInitializer.initializeEngine().then(function(appRunner) {
-          appRunner.runApp();
-        });
-      }
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
