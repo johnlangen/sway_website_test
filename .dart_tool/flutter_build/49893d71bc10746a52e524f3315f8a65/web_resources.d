@@ -1,1 +1,1 @@
-:  /Users/John/sway_website_test/web/index.html
+ build/web/404.html:  /Users/John/sway_website_test/web/index.html /Users/John/sway_website_test/web/404.html
