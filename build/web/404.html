@@ -2,12 +2,18 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url='/'" />
     <title>Redirecting...</title>
     <script type="text/javascript">
-      // Redirect to the correct path based on URL
-      const redirectTo = window.location.pathname.substring(1); 
-      window.location.href = "/" + redirectTo;
+      // Get the current path without the leading slash
+      const path = window.location.pathname.substring(1);
+
+      // Only redirect if the path is not already "/"
+      if (path !== '') {
+        window.location.href = '/' + path;
+      } else {
+        // If already on the root, redirect to the homepage
+        window.location.href = '/';
+      }
     </script>
   </head>
   <body>
