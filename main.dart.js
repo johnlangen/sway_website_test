@@ -81884,7 +81884,7 @@ A.amc.prototype={
 $0(){var s=0,r=A.M(t.H),q
 var $async$$0=A.N(function(a,b){if(a===1)return A.J(b,r)
 while(true)switch(s){case 0:q=t.N
-$.aFg().DS("dataLayer.push",[A.aS(["event","join_now_click","button_id","join_now_top"],q,q)])
+$.aFg().DS("dataLayer.push",[A.aS(["event","gtm.click","elementId","join_now_top","elementUrl",u.S],q,q)])
 s=5
 return A.S(A.rf(u.S),$async$$0)
 case 5:s=b?2:4
