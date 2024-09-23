@@ -77,45 +77,38 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       SizedBox(height: 20),
                       MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        key: ValueKey('join_now_top'),
-                        onTap: () async {
-                          // Push a custom event to GTM Data Layer
-                          js.context.callMethod('dataLayer.push', [{
-                            'event': 'join_now_click', // Custom event name
-                            'button_id': 'join_now_top' // Add a unique ID for the button
-                          }]);
-
-                          // Launch the URL
-                          const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        },
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                          decoration: BoxDecoration(
-                            color: Color(0xFF4A776D),
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                offset: Offset(0, 4),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            'Join Now',
-                            style: TextStyle(
-                              color: Color(0xFFF6F7F6),
-                              fontSize: isMobile ? 16 : 18,
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.w400,
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          key: ValueKey('join_now_top'),
+                          onTap: () async {
+                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            decoration: BoxDecoration(
+                              color: Color(0xFF4A776D),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              'Join Now',
+                              style: TextStyle(
+                                color: Color(0xFFF6F7F6),
+                                fontSize: isMobile ? 16 : 18,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
