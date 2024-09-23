@@ -23,7 +23,7 @@ void main() {
   ));
 
   // Use the path URL strategy (removes the # from URLs)
-  usePathUrlStrategy(); 
+  // usePathUrlStrategy(); 
 
   runApp(SwayWebsiteApp());
 }
