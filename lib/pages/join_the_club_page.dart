@@ -80,12 +80,17 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
-                            // Push event to GTM Data Layer
+                            // Push event to GTM Data Layer using 'js' library
                             js.context.callMethod('dataLayer.push', [{
                               'event': 'join_now_click',
-                              'button_id': 'join_now_top'
+                              'button_id': 'join_now_top',
+                              'elementId': 'join_now_top',
+                              'elementUrl': 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100'
                             }]);
-                            
+
+                            // Delay for 100 milliseconds to ensure GTM data layer is pushed before redirect
+                            await Future.delayed(Duration(milliseconds: 100));
+
                             // Launch the URL
                             const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                             if (await canLaunch(url)) {
