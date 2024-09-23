@@ -62,43 +62,17 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
             // First Section with Background Video, Text, and Button
             Stack(
               children: [
-                // Constrain the video to a specific height for mobile
-                // Video wrapped with IgnorePointer
-                IgnorePointer(
-                  child: isMobile
-                      ? _mobileVideoController!.value.isInitialized
-                          ? Container(
-                              height: MediaQuery.of(context).size.height,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: _mobileVideoController!.value.size.width,
-                                  height: _mobileVideoController!.value.size.height,
-                                  child: VideoPlayer(_mobileVideoController!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.black,
-                            )
-                      : _desktopVideoController!.value.isInitialized
-                          ? Container(
-                              height: MediaQuery.of(context).size.height,
-                              width: MediaQuery.of(context).size.width,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: _desktopVideoController!.value.size.width,
-                                  height: _desktopVideoController!.value.size.height,
-                                  child: VideoPlayer(_desktopVideoController!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.black,
-                            ),
+               
+                // Image replacing video background
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/joinTEMP.png'), // Replace with your image asset
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
 
 
