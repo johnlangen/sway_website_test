@@ -82,13 +82,13 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           key: ValueKey('join_now_top'),
                           onTap: () async {
                             // Push a custom event to GTM Data Layer
-                            js.context.callMethod('dataLayer.push', [{
-                              'event': 'join_now_click', // Custom event name
-                              'button_id': 'join_now_top' // Add a unique ID for the button
-                            }]);
-
-                            // For debugging, log the data layer push
-                            js.context.callMethod('console.log', ['Data Layer Push:', {'event': 'join_now_click', 'button_id': 'join_now_top'}]);
+                            js.context.callMethod('callMethod', [
+                              'dataLayer.push', 
+                              {
+                                'event': 'join_now_click', // Custom event name
+                                'button_id': 'join_now_top' // Unique ID for the button
+                              }
+                            ]);
 
                             // Launch the URL
                             const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
