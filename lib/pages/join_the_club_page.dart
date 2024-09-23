@@ -80,11 +80,10 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
-                            // Push event along with element ID and URL to GTM Data Layer
+                            // Push event to GTM Data Layer
                             js.context.callMethod('dataLayer.push', [{
-                              'event': 'gtm.click',
-                              'elementId': 'join_now_top',  // ID of the clicked element
-                              'elementUrl': 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100'  // URL to track
+                              'event': 'join_now_click',
+                              'button_id': 'join_now_top'
                             }]);
                             
                             // Launch the URL
