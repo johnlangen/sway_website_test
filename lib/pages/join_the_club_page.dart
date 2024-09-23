@@ -135,6 +135,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
+                          key: ValueKey('join_now_top'),
                           onTap: () async {
                             const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                             if (await canLaunch(url)) {
@@ -229,6 +230,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
+                            key: ValueKey('join_now_bottom'),
                             onTap: () async {
                               const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                               if (await canLaunch(url)) {
@@ -241,7 +243,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                               duration: Duration(milliseconds: 200),
                               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                               decoration: BoxDecoration(
-                                color: Color(0xFF4A776D), // Green background color
+                                color: Color(0xFF4A776D),
                                 borderRadius: BorderRadius.circular(50),
                                 boxShadow: [
                                   BoxShadow(
@@ -254,8 +256,8 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                               child: Text(
                                 'Join Now',
                                 style: TextStyle(
-                                  color: Color(0xFFF6F7F6), // White text color
-                                  fontSize: isMobile ? 16 : 18, // Adjust font size for mobile
+                                  color: Color(0xFFF6F7F6),
+                                  fontSize: isMobile ? 16 : 18,
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.w400,
                                 ),
