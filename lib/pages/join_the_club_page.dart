@@ -81,19 +81,17 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
-                            // Push a custom event to GTM Data Layer
-                            js.context.callMethod('callMethod', [
-                              'dataLayer.push', 
-                              {
-                                'event': 'join_now_click', // Custom event name
-                                'button_id': 'join_now_top' // Unique ID for the button
-                              }
-                            ]);
-
                             // Launch the URL
                             const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                             if (await canLaunch(url)) {
                               await launch(url);
+
+                              // After the URL launches successfully, push the event to the data layer
+                              js.context.callMethod('dataLayer.push', [{
+                                'event': 'join_now_click', // Custom event name
+                                'button_id': 'join_now_top' // Add a unique ID for the button
+                              }]);
+
                             } else {
                               throw 'Could not launch $url';
                             }

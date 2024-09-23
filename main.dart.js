@@ -81883,15 +81883,15 @@ return A.ax(o,B.x,B.m,B.i)}}
 A.amc.prototype={
 $0(){var s=0,r=A.M(t.H),q
 var $async$$0=A.N(function(a,b){if(a===1)return A.J(b,r)
-while(true)switch(s){case 0:q=t.N
-$.aFg().DS("callMethod",["dataLayer.push",A.aS(["event","join_now_click","button_id","join_now_top"],q,q)])
-s=5
+while(true)switch(s){case 0:s=5
 return A.S(A.rf(u.S),$async$$0)
 case 5:s=b?2:4
 break
 case 2:s=6
 return A.S(A.oh(u.S),$async$$0)
-case 6:s=3
+case 6:q=t.N
+$.aFg().DS("dataLayer.push",[A.aS(["event","join_now_click","button_id","join_now_top"],q,q)])
+s=3
 break
 case 4:throw A.d(u.I)
 case 3:return A.K(null,r)}})
