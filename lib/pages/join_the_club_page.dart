@@ -11,43 +11,10 @@ class JoinTheClubPage extends StatefulWidget {
 }
 
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
-  VideoPlayerController? _mobileVideoController;
-  VideoPlayerController? _desktopVideoController;
 
   int? _openedIndex;  // This will track which dropdown is open
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
 
-  @override
-    void initState() {
-      super.initState();
-      
-      // Initialize the mobile video controller for 'background2.mov'
-      _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _mobileVideoController!.setLooping(true);
-            _mobileVideoController!.setVolume(0.0); // Mute the mobile video
-            _mobileVideoController!.play(); // Start playing the video
-          });
-        });
-
-      // Initialize the desktop video controller for 'background2.mov'
-      _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _desktopVideoController!.setLooping(true);
-            _desktopVideoController!.setVolume(0.0); // Mute the desktop video
-            _desktopVideoController!.play(); // Start playing the video
-          });
-        });
-    }
-
-  @override
-  void dispose() {
-    _mobileVideoController?.dispose();
-    _desktopVideoController?.dispose();
-    super.dispose();
-  }
 
 
   @override
