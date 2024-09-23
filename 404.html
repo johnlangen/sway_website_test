@@ -5,14 +5,14 @@
     <title>Redirecting...</title>
     <script type="text/javascript">
       // Get the current path without the leading slash
-      const path = window.location.pathname.substring(1);
+      const path = window.location.pathname;
 
-      // Only redirect if the path is not already "/"
-      if (path !== '') {
-        window.location.href = '/' + path;
+      // Only redirect if the path is not already on the homepage
+      if (path !== "/" && !window.location.href.includes("index.html")) {
+        // Redirect to the appropriate path based on the current URL
+        window.location.href = "/" + path.substring(1);
       } else {
-        // If already on the root, redirect to the homepage
-        window.location.href = '/';
+        window.location.href = "/";
       }
     </script>
   </head>
