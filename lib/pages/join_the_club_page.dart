@@ -4,8 +4,6 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
-import 'dart:js' as js;
-
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -13,6 +11,7 @@ class JoinTheClubPage extends StatefulWidget {
 }
 
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
+
 
   int? _openedIndex;  // This will track which dropdown is open
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
