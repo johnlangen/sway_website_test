@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="refresh" content="0;url=/" />
-  <script>
-    setTimeout(function() {
-      window.location.href = "/";
-    }, 100);  // Small delay to ensure the client-side router kicks in
-  </script>
-</head>
-<body>
-  <p>If you are not redirected automatically, follow this <a href="/">link</a>.</p>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url='/'" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Redirect to the correct path based on URL
+      const redirectTo = window.location.pathname.substring(1); 
+      window.location.href = "/" + redirectTo;
+    </script>
+  </head>
+  <body>
+    <p>If you are not redirected automatically, follow this <a href="/">link</a>.</p>
+  </body>
 </html>
