@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import for SystemChrome
 import 'package:flutter_web_plugins/flutter_web_plugins.dart'; // Import for URL strategy
-import 'package:firebase_core/firebase_core.dart'; // Import Firebase core
-import 'package:firebase_analytics/firebase_analytics.dart'; // Import Firebase Analytics
-import 'package:firebase_analytics/observer.dart'; // Import for tracking screen navigation
 import 'pages/home_page.dart';
 import 'pages/treatments_page.dart';
 import 'pages/gift_cards_page.dart';
@@ -16,11 +13,7 @@ import 'pages/remedy_tech_page.dart';
 import 'pages/terms_and_conditions_page.dart'; // Import Terms and Conditions Page
 import 'pages/privacy_policy_page.dart'; // Import Privacy Policy Page
 
-Future<void> main() async {
-  // Ensure Firebase is initialized before the app starts
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Initialize Firebase
-  
+void main() {
   // Set the system overlay style for the status and navigation bars
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Color(0xFF004D40), // Dark green status bar
@@ -29,14 +22,13 @@ Future<void> main() async {
     systemNavigationBarIconBrightness: Brightness.light, // Light icons in the navigation bar for contrast
   ));
 
+  // Use the path URL strategy (removes the # from URLs)
+  //usePathUrlStrategy(); 
+
   runApp(SwayWebsiteApp());
 }
 
 class SwayWebsiteApp extends StatelessWidget {
-  // Create an instance of FirebaseAnalytics
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,7 +36,6 @@ class SwayWebsiteApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green, // You can modify the theme as needed
       ),
-      navigatorObservers: <NavigatorObserver>[observer], // Attach Firebase Analytics observer
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
