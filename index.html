@@ -44,6 +44,18 @@
     gtag('config', 'G-7M0Z6YY32Y');
   </script>
 
+  <!-- Custom Function for Pushing GTM Events -->
+  <script>
+    window.pushGTMEvent = function(eventName, buttonId) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': eventName,
+        'button_id': buttonId
+      });
+      console.log('GTM Event Pushed:', eventName, buttonId);
+    }
+  </script>
+
   <title>Sway</title>
   <link rel="manifest" href="manifest.json">
 

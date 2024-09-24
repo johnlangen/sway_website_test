@@ -7,7 +7,7 @@ import 'package:video_player/video_player.dart';  // Import for video player
 import 'dart:js' as js;
 import 'package:gtm/gtm.dart';
 import 'package:js/js_util.dart' as js_util;
-
+import 'package:flutter/services.dart'; // Required to call JavaScript functions
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -91,15 +91,15 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
           await launch(url);
           print('URL launched successfully: $url');
           
-          // Check if dataLayer is initialized and push the event
+          // After the URL launches successfully, push the event to GTM
           var dataLayer = js_util.getProperty(js_util.globalThis, 'dataLayer');
           if (dataLayer != null) {
-            js_util.callMethod(dataLayer, 'push', [[{
+            js_util.callMethod(dataLayer, 'push', [{
               'event': 'join_now_click',
               'button_id': 'join_now_top',
               'event_category': 'CTA',
               'event_label': 'Top Join Now Button',
-            }]]);
+            }]);
             print('Pushing event to GTM');
           } else {
             print('dataLayer is not initialized.');
