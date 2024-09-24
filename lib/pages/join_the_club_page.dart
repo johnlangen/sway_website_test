@@ -4,8 +4,8 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
+import 'dart:js' as js;
 import 'package:gtm/gtm.dart';
-
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -13,43 +13,11 @@ class JoinTheClubPage extends StatefulWidget {
 }
 
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
-  VideoPlayerController? _mobileVideoController;
-  VideoPlayerController? _desktopVideoController;
+
 
   int? _openedIndex;  // This will track which dropdown is open
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
 
-  @override
-    void initState() {
-      super.initState();
-      
-      // Initialize the mobile video controller for 'background2.mov'
-      _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _mobileVideoController!.setLooping(true);
-            _mobileVideoController!.setVolume(0.0); // Mute the mobile video
-            _mobileVideoController!.play(); // Start playing the video
-          });
-        });
-
-      // Initialize the desktop video controller for 'background2.mov'
-      _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _desktopVideoController!.setLooping(true);
-            _desktopVideoController!.setVolume(0.0); // Mute the desktop video
-            _desktopVideoController!.play(); // Start playing the video
-          });
-        });
-    }
-
-  @override
-  void dispose() {
-    _mobileVideoController?.dispose();
-    _desktopVideoController?.dispose();
-    super.dispose();
-  }
 
 
   @override
@@ -64,43 +32,17 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
             // First Section with Background Video, Text, and Button
             Stack(
               children: [
-                // Constrain the video to a specific height for mobile
-                // Video wrapped with IgnorePointer
-                IgnorePointer(
-                  child: isMobile
-                      ? _mobileVideoController!.value.isInitialized
-                          ? Container(
-                              height: MediaQuery.of(context).size.height,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: _mobileVideoController!.value.size.width,
-                                  height: _mobileVideoController!.value.size.height,
-                                  child: VideoPlayer(_mobileVideoController!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.black,
-                            )
-                      : _desktopVideoController!.value.isInitialized
-                          ? Container(
-                              height: MediaQuery.of(context).size.height,
-                              width: MediaQuery.of(context).size.width,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: _desktopVideoController!.value.size.width,
-                                  height: _desktopVideoController!.value.size.height,
-                                  child: VideoPlayer(_desktopVideoController!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.black,
-                            ),
+               
+                // Image replacing video background
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/joinTEMP.png'), // Replace with your image asset
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
 
 
@@ -134,39 +76,26 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      MouseRegion(
+                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
-                          // Launch the URL first
-                          const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                          print('Attempting to launch $url');
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                            print('URL launched successfully: $url');
-                          } else {
-                            print('Could not launch $url');
-                            throw 'Could not launch $url';
-                          }
+                            // Launch the URL
+                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                            if (await canLaunch(url)) {
+                              await launch(url);
 
-                          // Push event to Google Tag Manager
-                          try {
-                            print('Pushing event to GTM');
-                            Gtm.instance.push(
-                              'join_now_click',
-                              parameters: {
-                                'button_id': 'join_now_top',
-                                'event_category': 'CTA',
-                                'event_label': 'Top Join Now Button',
-                              },
-                            );
-                            print('Event pushed to GTM successfully');
-                          } catch (e) {
-                            print('Error pushing event to GTM: $e');
-                          }
-                        },
+                              // After the URL launches successfully, push the event to the data layer
+                              js.context.callMethod('dataLayer.push', [{
+                                'event': 'join_now_click', // Custom event name
+                                'button_id': 'join_now_top' // Add a unique ID for the button
+                              }]);
 
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 200),
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
@@ -188,6 +117,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                                 fontSize: isMobile ? 16 : 18,
                                 fontFamily: 'Helvetica',
                                 fontWeight: FontWeight.w400,
+
                               ),
                             ),
                           ),
@@ -402,7 +332,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       children: [
                         TextSpan(
-                          text: '44 spots available', 
+                          text: '50 spots available', 
                           style: TextStyle(
                             fontWeight: FontWeight.bold, // Bold
                             decoration: TextDecoration.underline, // Underline
@@ -663,5 +593,4 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
 
 
 }
-
 
