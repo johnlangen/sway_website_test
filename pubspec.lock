@@ -176,6 +176,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
+  gtm:
+    dependency: "direct main"
+    description:
+      name: gtm
+      sha256: "237cf61867bed1451465ebbec339548262290388e2fb347538bd2289ffb2063b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  gtm_android:
+    dependency: transitive
+    description:
+      name: gtm_android
+      sha256: "9d6b8827a0cdd8beae4f31a5e61d8e7e12045430075893752d6d48a2ceff7e18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
+  gtm_ios:
+    dependency: transitive
+    description:
+      name: gtm_ios
+      sha256: f054b2a08814e75eb57496349c06a5a7ff0f26e7686b1105b694ca8ef9f877fe
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
+  gtm_platform_interface:
+    dependency: transitive
+    description:
+      name: gtm_platform_interface
+      sha256: "65b7f3a2b1ba61f4ffbfa3282ce2095daa7cd8c430b635d532c19ffa509630bb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
+  gtm_web:
+    dependency: transitive
+    description:
+      name: gtm_web
+      sha256: e26cb3ab526ac67de2edb0e6dfacf9f19af070676df9385717b42c8223dba2c2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   html:
     dependency: transitive
     description:
