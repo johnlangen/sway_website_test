@@ -4,10 +4,8 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
-import 'dart:js' as js;
 import 'package:gtm/gtm.dart';
-import 'package:js/js_util.dart' as js_util;
-import 'package:flutter/services.dart'; // Required to call JavaScript functions
+
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -15,11 +13,43 @@ class JoinTheClubPage extends StatefulWidget {
 }
 
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
-
+  VideoPlayerController? _mobileVideoController;
+  VideoPlayerController? _desktopVideoController;
 
   int? _openedIndex;  // This will track which dropdown is open
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
 
+  @override
+    void initState() {
+      super.initState();
+      
+      // Initialize the mobile video controller for 'background2.mov'
+      _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
+        ..initialize().then((_) {
+          setState(() {
+            _mobileVideoController!.setLooping(true);
+            _mobileVideoController!.setVolume(0.0); // Mute the mobile video
+            _mobileVideoController!.play(); // Start playing the video
+          });
+        });
+
+      // Initialize the desktop video controller for 'background2.mov'
+      _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
+        ..initialize().then((_) {
+          setState(() {
+            _desktopVideoController!.setLooping(true);
+            _desktopVideoController!.setVolume(0.0); // Mute the desktop video
+            _desktopVideoController!.play(); // Start playing the video
+          });
+        });
+    }
+
+  @override
+  void dispose() {
+    _mobileVideoController?.dispose();
+    _desktopVideoController?.dispose();
+    super.dispose();
+  }
 
 
   @override
@@ -34,17 +64,43 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
             // First Section with Background Video, Text, and Button
             Stack(
               children: [
-               
-                // Image replacing video background
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/joinTEMP.png'), // Replace with your image asset
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                // Constrain the video to a specific height for mobile
+                // Video wrapped with IgnorePointer
+                IgnorePointer(
+                  child: isMobile
+                      ? _mobileVideoController!.value.isInitialized
+                          ? Container(
+                              height: MediaQuery.of(context).size.height,
+                              child: FittedBox(
+                                fit: BoxFit.cover,
+                                child: SizedBox(
+                                  width: _mobileVideoController!.value.size.width,
+                                  height: _mobileVideoController!.value.size.height,
+                                  child: VideoPlayer(_mobileVideoController!),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: MediaQuery.of(context).size.height,
+                              color: Colors.black,
+                            )
+                      : _desktopVideoController!.value.isInitialized
+                          ? Container(
+                              height: MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width,
+                              child: FittedBox(
+                                fit: BoxFit.cover,
+                                child: SizedBox(
+                                  width: _desktopVideoController!.value.size.width,
+                                  height: _desktopVideoController!.value.size.height,
+                                  child: VideoPlayer(_desktopVideoController!),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: MediaQuery.of(context).size.height,
+                              color: Colors.black,
+                            ),
                 ),
 
 
@@ -78,61 +134,60 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         ),
                       ),
                       SizedBox(height: 20),
-                       MouseRegion(
-  cursor: SystemMouseCursors.click,
-  child: GestureDetector(
-    key: ValueKey('join_now_top'),
-    onTap: () async {
-      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-      try {
-        // Attempt to launch the URL first
-        if (await canLaunch(url)) {
-          print('Attempting to launch $url');
-          await launch(url);
-          print('URL launched successfully: $url');
-          
-          // After the URL launches successfully, push the event to GTM
-          var dataLayer = js_util.getProperty(js_util.globalThis, 'dataLayer');
-          if (dataLayer != null) {
-            js_util.callMethod(dataLayer, 'push', [{
-              'event': 'join_now_click',
-              'button_id': 'join_now_top',
-              'event_category': 'CTA',
-              'event_label': 'Top Join Now Button',
-            }]);
-            print('Pushing event to GTM');
-          } else {
-            print('dataLayer is not initialized.');
-          }
-        } else {
-          print('Could not launch $url');
-        }
-      } catch (e) {
-        print('Error: $e');
-      }
-    },
-    child: AnimatedContainer(
-      duration: Duration(milliseconds: 200),
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-      decoration: BoxDecoration(
-        color: Color(0xFF4A776D),
-        borderRadius: BorderRadius.circular(50),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 4),
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: Text(
-        'Join Now',
-        style: TextStyle(
-          color: Color(0xFFF6F7F6),
-          fontSize: 16,
-          fontFamily: 'Helvetica',
-          fontWeight: FontWeight.w400,
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          key: ValueKey('join_now_top'),
+                          onTap: () async {
+                          // Launch the URL first
+                          const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                          print('Attempting to launch $url');
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                            print('URL launched successfully: $url');
+                          } else {
+                            print('Could not launch $url');
+                            throw 'Could not launch $url';
+                          }
 
+                          // Push event to Google Tag Manager
+                          try {
+                            print('Pushing event to GTM');
+                            Gtm.instance.push(
+                              'join_now_click',
+                              parameters: {
+                                'button_id': 'join_now_top',
+                                'event_category': 'CTA',
+                                'event_label': 'Top Join Now Button',
+                              },
+                            );
+                            print('Event pushed to GTM successfully');
+                          } catch (e) {
+                            print('Error pushing event to GTM: $e');
+                          }
+                        },
+
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            decoration: BoxDecoration(
+                              color: Color(0xFF4A776D),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              'Join Now',
+                              style: TextStyle(
+                                color: Color(0xFFF6F7F6),
+                                fontSize: isMobile ? 16 : 18,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
@@ -198,29 +253,13 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
-                            key: ValueKey('join_now_top'),
+                            key: ValueKey('join_now_bottom'),
                             onTap: () async {
                               const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                              try {
-                                // Attempt to launch the URL first
-                                if (await canLaunch(url)) {
-                                  print('Attempting to launch $url');
-                                  await launch(url);
-                                  print('URL launched successfully: $url');
-                                  
-                                  // After the URL launches successfully, push the event to GTM
-                                  js.context.callMethod('dataLayer.push', [{
-                                    'event': 'join_now_click',
-                                    'button_id': 'join_now_top',
-                                    'event_category': 'CTA',
-                                    'event_label': 'Top Join Now Button',
-                                  }]);
-                                  print('Pushing event to GTM');
-                                } else {
-                                  print('Could not launch $url');
-                                }
-                              } catch (e) {
-                                print('Error: $e');
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
                               }
                             },
                             child: AnimatedContainer(
@@ -241,7 +280,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                                 'Join Now',
                                 style: TextStyle(
                                   color: Color(0xFFF6F7F6),
-                                  fontSize: 16,
+                                  fontSize: isMobile ? 16 : 18,
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -363,7 +402,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       children: [
                         TextSpan(
-                          text: '50 spots available', 
+                          text: '44 spots available', 
                           style: TextStyle(
                             fontWeight: FontWeight.bold, // Bold
                             decoration: TextDecoration.underline, // Underline
@@ -624,4 +663,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
 
 
 }
+
+
+
 
