@@ -64,7 +64,8 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
             // First Section with Background Video, Text, and Button
             Stack(
               children: [
-                // Video Player Background (Layer 1)
+                // Constrain the video to a specific height for mobile
+                // Video wrapped with IgnorePointer
                 IgnorePointer(
                   child: isMobile
                       ? _mobileVideoController!.value.isInitialized
@@ -102,67 +103,81 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                             ),
                 ),
 
-                // Join Now Button (Layer 2)
+
+
+
+                // Navbar positioned above the background
+                Positioned(
+                  top: 50,
+                  left: 0,
+                  right: 0,
+                  child: NavBar(),
+                ),
+
+                // Text and Join Now button on top of the background
                 Positioned(
                   bottom: 50,
                   left: isMobile ? 30 : 70,
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      key: ValueKey('join_now_top'),
-                      onTap: () async {
-                      // Push event to Google Tag Manager
-                      Gtm.instance.push(
-                        'join_now_click',
-                        parameters: {
-                          'button_id': 'join_now_top',
-                          'event_category': 'CTA',
-                          'event_label': 'Top Join Now Button',
-                        },
-                      );
-
-                      // Add a small delay to ensure GTM event is logged before URL launch
-                      await Future.delayed(const Duration(milliseconds: 200));
-
-                      // Launch the URL
-                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    },
-
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF4A776D),
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              offset: Offset(0, 4),
-                              blurRadius: 10,
-                            ),
-                          ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'EXPERIENCE THE WELLNESS\nYOU\'VE BEEN LONGING FOR',
+                        style: TextStyle(
+                          color: Color(0xFFF6F7F6),
+                          fontSize: isMobile
+                              ? MediaQuery.of(context).size.width * 0.07
+                              : 50,
+                          fontFamily: 'Vance',
+                          fontWeight: FontWeight.w400,
+                          height: 1.2,
                         ),
-                        child: Text(
-                          'Join Now',
-                          style: TextStyle(
-                            color: Color(0xFFF6F7F6),
-                            fontSize: isMobile ? 16 : 18,
-                            fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.w400,
+                      ),
+                      SizedBox(height: 20),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          key: ValueKey('join_now_top'),
+                          onTap: () async {
+                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            decoration: BoxDecoration(
+                              color: Color(0xFF4A776D),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              'Join Now',
+                              style: TextStyle(
+                                color: Color(0xFFF6F7F6),
+                                fontSize: isMobile ? 16 : 18,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+
+                    ],
                   ),
                 ),
               ],
             ),
-
             // Second Section with Creamish Background, Text, and Image
             Container(
               color: Color(0xFFF7F4E9), // Creamish background color
@@ -627,4 +642,5 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
 
 
 }
+
 
