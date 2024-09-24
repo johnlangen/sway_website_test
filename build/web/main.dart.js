@@ -81515,11 +81515,11 @@ s=i?j*0.95:j*0.6
 if(i){r=A.eP(A.at(o,o,B.h,o,o,new A.bh(o,A.eB(B.w,B.K,new A.de(n,o,o)),o,o,o,o,B.A),o,o,o,o,o,o,o,o),3)
 q=A.C(m,o,o,o,o,A.z(o,o,o,o,o,o,o,o,o,o,o,16,o,o,B.ab,o,o,!0,o,o,o,o,o,o,o,o),o,o)
 p=t.p
-p=A.ax(A.a([r,A.eP(new A.b8(B.df,A.ax(A.a([q,B.as,A.C("Be among the first to experience the next wave of wellness. Receive early access to Sway\u2019s $99 membership, which includes a targeted facial or massage every month. Plus, enjoy 6 months of FREE access to the Remedy Room\u2014featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots ($240 value)!\n\nOnly 50 spots available!\nOffer Expires 9.29.24",o,o,o,o,A.z(o,o,o,o,o,o,o,o,o,o,o,12,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.as,A.d6(A.oQ(B.yK,new A.alp(a),A.oR(o,o,B.d8,o,o,o,o,o,o,o,o,o,B.iN,o,new A.bR(A.c1(50),B.t),o,o,o,o)),o,o)],p),B.x,B.m,B.j),o),4)],p),B.o,B.m,B.j)
+p=A.ax(A.a([r,A.eP(new A.b8(B.df,A.ax(A.a([q,B.as,A.C("Be among the first to experience the next wave of wellness. Receive early access to Sway\u2019s $99 membership, which includes a targeted facial or massage every month. Plus, enjoy 6 months of FREE access to the Remedy Room\u2014featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots ($240 value)!\n\nOnly 44 spots available!\nOffer Expires 9.29.24",o,o,o,o,A.z(o,o,o,o,o,o,o,o,o,o,o,12,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.as,A.d6(A.oQ(B.yK,new A.alp(a),A.oR(o,o,B.d8,o,o,o,o,o,o,o,o,o,B.iN,o,new A.bR(A.c1(50),B.t),o,o,o,o)),o,o)],p),B.x,B.m,B.j),o),4)],p),B.o,B.m,B.j)
 r=p}else{r=A.eP(A.at(o,o,B.h,o,o,new A.bh(o,A.eB(B.w,B.K,new A.de(n,o,o)),o,o,o,o,B.A),o,o,o,o,o,o,o,o),1)
 q=A.C(m,o,o,o,o,A.z(o,o,o,o,o,o,o,o,o,o,o,24,o,o,B.ab,o,o,!0,o,o,o,o,o,o,o,o),o,o)
 p=t.p
-p=A.bT(A.a([r,A.eP(new A.b8(B.dh,A.ax(A.a([q,B.as,A.C("Be among the first to experience the next wave of wellness. Receive early access to Sway\u2019s $99 membership, which includes a targeted facial or massage every month. Plus, enjoy 6 months of FREE access to the Remedy Room with each visit\u2014featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots ($240 value)!\n\nOnly 50 spots available!\nOffer Expires 9.22.24",o,o,o,o,A.z(o,o,o,o,o,o,o,o,o,o,o,16,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.dH,A.d6(A.oQ(B.yK,new A.alq(a),A.oR(o,o,B.d8,o,o,o,o,o,o,o,o,o,B.iN,o,new A.bR(A.c1(50),B.t),o,o,o,o)),o,o)],p),B.x,B.m,B.j),o),1)],p),B.o,B.m,B.j)
+p=A.bT(A.a([r,A.eP(new A.b8(B.dh,A.ax(A.a([q,B.as,A.C("Be among the first to experience the next wave of wellness. Receive early access to Sway\u2019s $99 membership, which includes a targeted facial or massage every month. Plus, enjoy 6 months of FREE access to the Remedy Room with each visit\u2014featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots ($240 value)!\n\nOnly 44 spots available!\nOffer Expires 9.22.24",o,o,o,o,A.z(o,o,o,o,o,o,o,o,o,o,o,16,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.dH,A.d6(A.oQ(B.yK,new A.alq(a),A.oR(o,o,B.d8,o,o,o,o,o,o,o,o,o,B.iN,o,new A.bR(A.c1(50),B.t),o,o,o,o)),o,o)],p),B.x,B.m,B.j),o),1)],p),B.o,B.m,B.j)
 r=p}q=t.p
 return A.at(o,A.eY(B.b6,A.a([A.ax(A.a([A.eP(r,1)],q),B.o,B.m,B.j),A.eF(o,A.c9(o,A.d1(B.Gi,B.ai,o,o,o,o),B.D,!1,o,o,o,o,o,o,o,o,o,o,o,o,new A.alr(a),o,o,o),o,o,o,10,10,o)],q),B.W,B.aP),B.h,o,o,o,o,s,o,o,B.dh,o,o,l)},
 $S:513}
@@ -81767,7 +81767,7 @@ l=A.p(b,20,b)
 j=b0?10:150
 i=b0?16:18
 i=A.z(b,b,new A.c(a5),b,b,b,b,b,a8,b,b,i,b,b,B.k,b,1.2,!0,b,b,b,b,b,b,b,b)
-i=A.auq(A.c_(A.a([A.c_(b,A.z(b,b,b,b,B.bZ,b,b,b,b,b,b,b,b,b,B.ab,b,b,!0,b,b,b,b,b,b,b,b),"50 spots available"),A.c_(b,b,", Offer Expires 9.29.24")],t.VO),i,"Only "),b,B.y)
+i=A.auq(A.c_(A.a([A.c_(b,A.z(b,b,b,b,B.bZ,b,b,b,b,b,b,b,b,b,B.ab,b,b,!0,b,b,b,b,b,b,b,b),"44 spots available"),A.c_(b,b,", Offer Expires 9.29.24")],t.VO),i,"Only "),b,B.y)
 g=A.p(b,20,b)
 f=A.ci(0,200)
 e=A.c1(50)
