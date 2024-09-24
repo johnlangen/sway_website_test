@@ -6,6 +6,8 @@ import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
 import 'dart:js' as js;
 import 'package:gtm/gtm.dart';
+import 'package:js/js_util.dart' as js_util;
+
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -77,51 +79,59 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       SizedBox(height: 20),
                        MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          key: ValueKey('join_now_top'),
-                          onTap: () async {
-                          // Launch the URL first
-                          const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                            debugPrint('URL launched successfully: $url');
-
-                            // After launching the URL, push the event to the GTM data layer
-                            js.context.callMethod('dataLayer.push', [{
-                              'event': 'join_now_click', // Custom event name for GTM
-                              'button_id': 'join_now_top', // Button ID
-                              'event_category': 'CTA',
-                              'event_label': 'Top Join Now Button',
-                            }]);
-
-                            debugPrint('Event pushed to GTM successfully.');
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        },
-
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF4A776D),
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(0, 4),
-                                  blurRadius: 10,
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              'Join Now',
-                              style: TextStyle(
-                                color: Color(0xFFF6F7F6),
-                                fontSize: isMobile ? 16 : 18,
-                                fontFamily: 'Helvetica',
-                                fontWeight: FontWeight.w400,
+  cursor: SystemMouseCursors.click,
+  child: GestureDetector(
+    key: ValueKey('join_now_top'),
+    onTap: () async {
+      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+      try {
+        // Attempt to launch the URL first
+        if (await canLaunch(url)) {
+          print('Attempting to launch $url');
+          await launch(url);
+          print('URL launched successfully: $url');
+          
+          // Check if dataLayer is initialized and push the event
+          var dataLayer = js_util.getProperty(js_util.globalThis, 'dataLayer');
+          if (dataLayer != null) {
+            js_util.callMethod(dataLayer, 'push', [[{
+              'event': 'join_now_click',
+              'button_id': 'join_now_top',
+              'event_category': 'CTA',
+              'event_label': 'Top Join Now Button',
+            }]]);
+            print('Pushing event to GTM');
+          } else {
+            print('dataLayer is not initialized.');
+          }
+        } else {
+          print('Could not launch $url');
+        }
+      } catch (e) {
+        print('Error: $e');
+      }
+    },
+    child: AnimatedContainer(
+      duration: Duration(milliseconds: 200),
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      decoration: BoxDecoration(
+        color: Color(0xFF4A776D),
+        borderRadius: BorderRadius.circular(50),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0, 4),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: Text(
+        'Join Now',
+        style: TextStyle(
+          color: Color(0xFFF6F7F6),
+          fontSize: 16,
+          fontFamily: 'Helvetica',
+          fontWeight: FontWeight.w400,
 
                               ),
                             ),
@@ -188,28 +198,31 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
-                            key: ValueKey('join_now_bottom'),
+                            key: ValueKey('join_now_top'),
                             onTap: () async {
-                            // Launch the URL first
-                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                              debugPrint('URL launched successfully: $url');
-
-                              // After launching the URL, push the event to the GTM data layer
-                              js.context.callMethod('dataLayer.push', [{
-                                'event': 'join_now_click', // Custom event name for GTM
-                                'button_id': 'join_now_top', // Button ID
-                                'event_category': 'CTA',
-                                'event_label': 'Top Join Now Button',
-                              }]);
-
-                              debugPrint('Event pushed to GTM successfully.');
-                            } else {
-                              throw 'Could not launch $url';
-                            }
-                          },
-
+                              const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                              try {
+                                // Attempt to launch the URL first
+                                if (await canLaunch(url)) {
+                                  print('Attempting to launch $url');
+                                  await launch(url);
+                                  print('URL launched successfully: $url');
+                                  
+                                  // After the URL launches successfully, push the event to GTM
+                                  js.context.callMethod('dataLayer.push', [{
+                                    'event': 'join_now_click',
+                                    'button_id': 'join_now_top',
+                                    'event_category': 'CTA',
+                                    'event_label': 'Top Join Now Button',
+                                  }]);
+                                  print('Pushing event to GTM');
+                                } else {
+                                  print('Could not launch $url');
+                                }
+                              } catch (e) {
+                                print('Error: $e');
+                              }
+                            },
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 200),
                               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
@@ -228,7 +241,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                                 'Join Now',
                                 style: TextStyle(
                                   color: Color(0xFFF6F7F6),
-                                  fontSize: isMobile ? 16 : 18,
+                                  fontSize: 16,
                                   fontFamily: 'Helvetica',
                                   fontWeight: FontWeight.w400,
                                 ),
