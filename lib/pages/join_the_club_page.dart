@@ -81,21 +81,26 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
-                            // Launch the URL
-                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                            if (await canLaunch(url)) {
-                              await launch(url);
+                          // Launch the URL first
+                          const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                            debugPrint('URL launched successfully: $url');
 
-                              // After the URL launches successfully, push the event to the data layer
-                              js.context.callMethod('dataLayer.push', [{
-                                'event': 'join_now_click', // Custom event name
-                                'button_id': 'join_now_top' // Add a unique ID for the button
-                              }]);
+                            // After launching the URL, push the event to the GTM data layer
+                            js.context.callMethod('dataLayer.push', [{
+                              'event': 'join_now_click', // Custom event name for GTM
+                              'button_id': 'join_now_top', // Button ID
+                              'event_category': 'CTA',
+                              'event_label': 'Top Join Now Button',
+                            }]);
 
-                            } else {
-                              throw 'Could not launch $url';
-                            }
-                          },
+                            debugPrint('Event pushed to GTM successfully.');
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 200),
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
