@@ -81844,7 +81844,7 @@ $0(){var s=0,r=A.M(t.H),q
 var $async$$0=A.N(function(a,b){if(a===1)return A.J(b,r)
 while(true)switch(s){case 0:q=$.ay5
 if(q==null)q=$.ay5=new A.a46()
-q.Gz("join_now_click",A.aS(["button_id","join_now_top","event_category","CTA","event_label","Top Join Now Button"],t.N,t.z))
+q.Gz("join_now_click",A.aS(["button_id","join_now_click","event_category","CTA","event_label","Top Join Now Button"],t.N,t.z))
 return A.K(null,r)}})
 return A.L($async$$0,r)},
 $S:9}

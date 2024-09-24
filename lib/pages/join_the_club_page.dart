@@ -143,7 +143,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                             Gtm.instance.push(
                               'join_now_click', 
                               parameters: {
-                                'button_id': 'join_now_top',
+                                'button_id': 'join_now_click',
                                 'event_category': 'CTA',
                                 'event_label': 'Top Join Now Button',
                               },
