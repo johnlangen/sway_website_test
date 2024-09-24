@@ -27,6 +27,8 @@ dependencies:
   gif_view: ^0.3.1
   shared_preferences: ^2.0.6
   gtm: ^1.0.0
+  firebase_core: ^3.5.0
+  firebase_analytics: ^11.3.2
   flutter_web_plugins:    # Add this dependency
     sdk: flutter
 
