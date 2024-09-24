@@ -111,24 +111,28 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                     child: GestureDetector(
                       key: ValueKey('join_now_top'),
                       onTap: () async {
-                        // Push event to Google Tag Manager
-                        Gtm.instance.push(
-                          'join_now_click',
-                          parameters: {
-                            'button_id': 'join_now_top',
-                            'event_category': 'CTA',
-                            'event_label': 'Top Join Now Button',
-                          },
-                        );
+                      // Push event to Google Tag Manager
+                      Gtm.instance.push(
+                        'join_now_click',
+                        parameters: {
+                          'button_id': 'join_now_top',
+                          'event_category': 'CTA',
+                          'event_label': 'Top Join Now Button',
+                        },
+                      );
 
-                        // Launch the URL
-                        const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                      // Add a small delay to ensure GTM event is logged before URL launch
+                      await Future.delayed(const Duration(milliseconds: 200));
+
+                      // Launch the URL
+                      const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 200),
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
