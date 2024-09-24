@@ -4,6 +4,9 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
+import 'dart:js' as js;
+
+
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -102,8 +105,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                 ),
 
 
-
-
                 // Navbar positioned above the background
                 Positioned(
                   top: 50,
@@ -137,6 +138,15 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
+  // Push GTM event
+                            js.context.callMethod('dataLayer.push', [{
+                              'event': 'join_now_click',
+                              'button_id': 'join_now_top',
+                              'event_category': 'CTA',
+                              'event_label': 'Top Join Now Button'
+                            }]);
+
+                            // Launch the URL
                             const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                             if (await canLaunch(url)) {
                               await launch(url);
@@ -144,6 +154,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                               throw 'Could not launch $url';
                             }
                           },
+
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 200),
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
@@ -232,6 +243,15 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           child: GestureDetector(
                             key: ValueKey('join_now_bottom'),
                             onTap: () async {
+                              // Push GTM event
+                              js.context.callMethod('dataLayer.push', [{
+                                'event': 'join_now_click',
+                                'button_id': 'join_now_bottom',
+                                'event_category': 'CTA',
+                                'event_label': 'Bottom Join Now Button'
+                              }]);
+
+                              // Launch the URL
                               const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
                               if (await canLaunch(url)) {
                                 await launch(url);
@@ -239,6 +259,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                                 throw 'Could not launch $url';
                               }
                             },
+
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 200),
                               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
