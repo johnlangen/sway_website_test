@@ -140,32 +140,33 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                         child: GestureDetector(
                           key: ValueKey('join_now_top'),
                           onTap: () async {
-                            // Launch the URL first
-                            const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
-                            print('Attempting to launch $url');
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                              print('URL launched successfully: $url');
-                            } else {
-                              print('Could not launch $url');
-                              throw 'Could not launch $url';
-                            }
+                          // Launch the URL first
+                          const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                          print('Attempting to launch $url');
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                            print('URL launched successfully: $url');
+                          } else {
+                            print('Could not launch $url');
+                            throw 'Could not launch $url';
+                          }
 
-                            // Log button click event with Firebase Analytics
-                            try {
-                              await FirebaseAnalytics.instance.logEvent(
-                                name: 'join_now_click',
-                                parameters: {
-                                  'button_id': 'join_now_top',
-                                  'event_category': 'CTA',
-                                  'event_label': 'Top Join Now Button',
-                                },
-                              );
-                              print('Button click event logged to Firebase Analytics');
-                            } catch (e) {
-                              print('Error logging event to Firebase Analytics: $e');
-                            }
-                          },
+                          // Push event to Google Tag Manager
+                          try {
+                            print('Pushing event to GTM');
+                            Gtm.instance.push(
+                              'join_now_click',
+                              parameters: {
+                                'button_id': 'join_now_top',
+                                'event_category': 'CTA',
+                                'event_label': 'Top Join Now Button',
+                              },
+                            );
+                            print('Event pushed to GTM successfully');
+                          } catch (e) {
+                            print('Error pushing event to GTM: $e');
+                          }
+                        },
 
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 200),
@@ -193,7 +194,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           ),
                         ),
                       ),
-
 
                     ],
                   ),
