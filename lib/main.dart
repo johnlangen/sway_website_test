@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import for SystemChrome
-import 'package:flutter_web_plugins/flutter_web_plugins.dart'; // Import for URL strategy
-import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase core
 import 'package:firebase_analytics/firebase_analytics.dart'; // Import Firebase Analytics
-import 'package:firebase_analytics/observer.dart'; // Import Firebase Analytics Observer
+import 'package:firebase_analytics/observer.dart'; // Import for tracking screen navigation
 import 'pages/home_page.dart';
 import 'pages/treatments_page.dart';
 import 'pages/gift_cards_page.dart';
@@ -17,16 +16,18 @@ import 'pages/terms_and_conditions_page.dart'; // Import Terms and Conditions Pa
 import 'pages/privacy_policy_page.dart'; // Import Privacy Policy Page
 
 Future<void> main() async {
-  // Ensure that Firebase is initialized before running the app.
+  // Ensure Firebase is initialized before anything else
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase with default options
   await Firebase.initializeApp();
 
-  // Set the system overlay style for the status and navigation bars
+  // Set the system overlay style for status and navigation bars
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF004D40), // Dark green status bar
-    statusBarIconBrightness: Brightness.light, // Light icons in the status bar for contrast
-    systemNavigationBarColor: Color(0xFF004D40), // Dark green navigation bar
-    systemNavigationBarIconBrightness: Brightness.light, // Light icons in the navigation bar for contrast
+    statusBarColor: Color(0xFF004D40),
+    statusBarIconBrightness: Brightness.light, // Light icons for better contrast
+    systemNavigationBarColor: Color(0xFF004D40),
+    systemNavigationBarIconBrightness: Brightness.light, // Light icons for navigation bar
   ));
 
   runApp(SwayWebsiteApp());
@@ -44,8 +45,7 @@ class SwayWebsiteApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green, // You can modify the theme as needed
       ),
-      // Use the FirebaseAnalyticsObserver for screen tracking
-      navigatorObservers: <NavigatorObserver>[observer],
+      navigatorObservers: <NavigatorObserver>[observer], // Attach Firebase Analytics observer
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
