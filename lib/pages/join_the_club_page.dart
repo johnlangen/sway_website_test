@@ -257,10 +257,29 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                             key: ValueKey('join_now_bottom'),
                             onTap: () async {
                               const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                              print('Attempting to launch $url');
                               if (await canLaunch(url)) {
                                 await launch(url);
+                                print('URL launched successfully: $url');
                               } else {
+                                print('Could not launch $url');
                                 throw 'Could not launch $url';
+                              }
+
+                              // Log the event to Firebase Analytics
+                              try {
+                                print('Logging event to Firebase Analytics');
+                                await FirebaseAnalytics.instance.logEvent(
+                                  name: 'join_now_click',
+                                  parameters: {
+                                    'button_id': 'join_now_bottom',
+                                    'event_category': 'CTA',
+                                    'event_label': 'Bottom Join Now Button',
+                                  },
+                                );
+                                print('Event logged to Firebase Analytics successfully');
+                              } catch (e) {
+                                print('Error logging event to Firebase Analytics: $e');
                               }
                             },
                             child: AnimatedContainer(
@@ -421,12 +440,32 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
+                    key: ValueKey('founding_member_cta'),
                     onTap: () async {
                       const url = 'https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100';
+                      print('Attempting to launch $url');
                       if (await canLaunch(url)) {
                         await launch(url);
+                        print('URL launched successfully: $url');
                       } else {
+                        print('Could not launch $url');
                         throw 'Could not launch $url';
+                      }
+
+                      // Log the event to Firebase Analytics
+                      try {
+                        print('Logging event to Firebase Analytics');
+                        await FirebaseAnalytics.instance.logEvent(
+                          name: 'founding_member_click',
+                          parameters: {
+                            'button_id': 'founding_member_cta',
+                            'event_category': 'CTA',
+                            'event_label': 'Become a Founding Member',
+                          },
+                        );
+                        print('Event logged to Firebase Analytics successfully');
+                      } catch (e) {
+                        print('Error logging event to Firebase Analytics: $e');
                       }
                     },
                     child: AnimatedContainer(
