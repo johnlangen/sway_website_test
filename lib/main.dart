@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import for SystemChrome
 import 'package:flutter_web_plugins/flutter_web_plugins.dart'; // Import for URL strategy
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
+import 'package:firebase_analytics/firebase_analytics.dart'; // Import Firebase Analytics
+import 'firebase_options.dart'; // Import the generated firebase_options.dart
 import 'pages/home_page.dart';
 import 'pages/treatments_page.dart';
 import 'pages/gift_cards_page.dart';
@@ -13,7 +16,16 @@ import 'pages/remedy_tech_page.dart';
 import 'pages/terms_and_conditions_page.dart'; // Import Terms and Conditions Page
 import 'pages/privacy_policy_page.dart'; // Import Privacy Policy Page
 
-void main() {
+// Create an instance of Firebase Analytics
+FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+Future<void> main() async {
+  // Ensure Firebase is initialized before running the app.
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   // Set the system overlay style for the status and navigation bars
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Color(0xFF004D40), // Dark green status bar
@@ -21,9 +33,6 @@ void main() {
     systemNavigationBarColor: Color(0xFF004D40), // Dark green navigation bar
     systemNavigationBarIconBrightness: Brightness.light, // Light icons in the navigation bar for contrast
   ));
-
-  // Use the path URL strategy (removes the # from URLs)
-  //usePathUrlStrategy(); 
 
   runApp(SwayWebsiteApp());
 }
@@ -50,6 +59,10 @@ class SwayWebsiteApp extends StatelessWidget {
         '/terms-and-conditions': (context) => TermsAndConditionsPage(),
         '/privacy-policy': (context) => PrivacyPolicyPage(),
       },
+      // Attach the Firebase Analytics observer for screen tracking
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
     );
   }
 }
