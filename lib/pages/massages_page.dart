@@ -83,7 +83,7 @@ class MassagesPage extends StatelessWidget {
                 height: (screenWidth > 1200 ? 591 : screenWidth * 0.5) * 0.73, // Maintain aspect ratio of the image
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/massage1.png"), // Replace with your actual image path
+                    image: AssetImage("assets/homepage_photo_b.png"), // Replace with your actual image path
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter, // Align to the top to crop bottom
                   ),
@@ -175,7 +175,7 @@ class MassagesPage extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.6, // Maintain aspect ratio
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/massage1.png"), // Replace with your actual image path
+                image: AssetImage("assets/homepage_photo_b.png"), // Replace with your actual image path
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter, // Align to the top to crop bottom
               ),
@@ -229,7 +229,7 @@ class MassagesPage extends StatelessWidget {
                   false, 
                   'assets/massage3.png', 
                   '50 MIN MASSAGE', 
-                  'CBD', 
+                  'CBD Cause Medic', 
                   'Drop-In \$139 I Member \$99', 
                   'Our award-winning relief cream provides immediate cooling comfort with our revitalizing blend of water-soluble, broad-spectrum CBD*, menthol, camphor, capsicum, glucosamine and mushroom extracts.'
                 ),
@@ -282,7 +282,7 @@ class MassagesPage extends StatelessWidget {
           SizedBox(width: 20), // Left padding for the scroll
           _buildCard(context, true, 'assets/massage2.png', '50 MIN MASSAGE', 'Deep Tissue', 'Drop-In \$139 I Member \$99', 'Deeply corrective. Releases muscle tension and toxins from the body. Relieves pain and discomfort in congested areas within muscles, tendons and ligaments due to stress, injury, or overuse to restore proper range of motion, leaving your body in a state of relaxation and gratitude.'), 
           SizedBox(width: 20),
-          _buildCard(context, true, 'assets/massage3.png', '50 MIN MASSAGE', 'CBD', 'Drop-In \$139 I Member \$99', 'Our award-winning relief cream provides immediate cooling comfort with our revitalizing blend of water-soluble, broad-spectrum CBD*, menthol, camphor, capsicum, glucosamine and mushroom extracts.'), 
+          _buildCard(context, true, 'assets/massage3.png', '50 MIN MASSAGE', 'CBD Cause Medic', 'Drop-In \$139 I Member \$99', 'Our award-winning relief cream provides immediate cooling comfort with our revitalizing blend of water-soluble, broad-spectrum CBD*, menthol, camphor, capsicum, glucosamine and mushroom extracts.'), 
           SizedBox(width: 20),
           _buildCard(context, true, 'assets/massage4.png', '50 MIN MASSAGE', 'Salt Stone', 'Drop-In \$139 I Member \$99', 'Himalayan stones that contain 84 minerals which restores balance to your body while nourishing depleted muscles. Let your muscles melt under warm, salt stones that deeply penetrate tense muscles, releasing tension and toxins, leaving the body totally relaxed and renewed.'), 
           SizedBox(width: 20),

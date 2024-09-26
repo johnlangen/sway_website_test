@@ -43,18 +43,17 @@ flutter:
   assets:
     - assets/background_image.png
     - assets/swaylogo.png
-    - assets/homepage_photo1.png
     - assets/homepage_photo2.png
     - assets/homepage_photo3.png
     - assets/homepage_photo4.png
-    - assets/homepage_photo5.png
+    - assets/homepage_photo_b.png
     - assets/homepage_photo6.png
     - assets/homepage_photo7.png
     - assets/homepage_photo8.png
     - assets/homepage_photo9.png
     - assets/homepage_photo10.png
     - assets/homepage_photo11.png
-    - assets/homepage_photo12.png
+    - assets/homepage_photo_c.png
     - assets/homepage_photo13.png
     - assets/homepage_photo14.png
     - assets/homepage_photo15.png
@@ -88,6 +87,8 @@ flutter:
     - assets/background.mov
     - assets/background2.mov
     - assets/joinTEMP.png
+    - assets/homepage_photo_a.png
+    - assets/homepage_photo_outside.png
 
 
 

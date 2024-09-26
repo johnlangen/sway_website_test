@@ -263,7 +263,7 @@ class FacialsPage extends StatelessWidget {
                   'assets/facial5.png', 
                   '50 MIN FACIAL', 
                   'Sensitive Silk', 
-                  'Soothing Facial.', 
+                  'Soothing Facial', 
                   'Drop-In \$139 I Member \$99', 
                   'Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.'
                 ),
@@ -623,8 +623,7 @@ class FacialsPage extends StatelessWidget {
           SizedBox(width: 20),
           _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
           SizedBox(width: 20),
-          _buildBoostCard(context, 'Ultrasound', 'Using gentle sound waves, this treatment penetrates deep into the skin, stimulating cellular repair, improving collagen production, and enhancing product absorption. Perfect for rejuvenating the skin and achieving a firmer, more youthful appearance.', false), // Normal Boost for Ultrasound
-          SizedBox(width: 20),
+         
         ],
       ),
     );
@@ -651,12 +650,7 @@ class FacialsPage extends StatelessWidget {
           ],
         ),
         SizedBox(height: 50),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildBoostCard(context, 'Ultrasound', 'Using gentle sound waves, this treatment penetrates deep into the skin, stimulating cellular repair, improving collagen production, and enhancing product absorption. Perfect for rejuvenating the skin and achieving a firmer, more youthful appearance.', false), // Normal Boost for Ultrasound
-          ],
-        ),
+       
       ],
     );
   }
@@ -882,17 +876,7 @@ Widget _buildBoostCard(BuildContext context, String title, String description, b
                         height: 1.5,
                       ),
                     )
-                  else if (title == "Ultrasound")
-                    Text(
-                      'Using gentle sound waves, this treatment penetrates deep into the skin, stimulating cellular repair, improving collagen production, and enhancing product absorption. Perfect for rejuvenating the skin and achieving a firmer, more youthful appearance.\n',
-                      style: TextStyle(
-                        color: Color(0xFF113D33),
-                        fontSize: 15,
-                        fontFamily: 'Vance',
-                        fontWeight: FontWeight.w300,
-                        height: 1.5,
-                      ),
-                    ),
+               
                 ],
               ),
             ),

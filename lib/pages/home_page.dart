@@ -422,7 +422,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                             width: MediaQuery.of(context).size.width > 600 ? 300 : MediaQuery.of(context).size.width * 0.8, // Fixed maximum width for mobile
                                             height: 200, // Consistent height for both images
                                             child: Image.asset(
-                                              'assets/homepage_photo1.png',
+                                              'assets/homepage_photo_a.png',
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -478,7 +478,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               width: double.infinity,
                                               height: 400,
                                               child: Image.asset(
-                                                'assets/homepage_photo1.png',
+                                                'assets/homepage_photo_a.png',
                                                 fit: BoxFit.cover,
                                                 alignment: Alignment.topLeft,
                                               ),
@@ -728,7 +728,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               ClipRRect(
                                 borderRadius: BorderRadius.zero, // No rounded corners
                                 child: Image.asset(
-                                  'assets/homepage_photo5.png',
+                                  'assets/homepage_photo_outside.png',
                                   width: MediaQuery.of(context).size.width < 1000 ? MediaQuery.of(context).size.width * 0.8 : 1000,
                                   height: MediaQuery.of(context).size.width < 1000 ? 300 : 400,
                                   fit: BoxFit.cover,
@@ -749,7 +749,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 _buildFlipCard(
-                                  'assets/homepage_photo6.png',
+                                  'assets/homepage_photo_b.png',
                                   'Massages',
                                   "It’s not only a massage, it’s relaxing into your deepest state and unwinding the mind.",
                                   _isFlipped1, // Flipping state for mobile
@@ -822,7 +822,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 _buildFlipCard(
-                                  'assets/homepage_photo6.png',
+                                  'assets/homepage_photo_b.png',
                                   'Massages',
                                   "It’s not only a massage, it’s relaxing into your deepest state and unwinding the mind.",
                                   _isFlipped1, // Flipping state for mobile
@@ -998,7 +998,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    'Deep Tissue - Swedish - Hot Stone - CBD',
+                                    'Deep Tissue - Swedish - Hot Stone - CBD Cause Medic',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 15,
@@ -1291,7 +1291,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 5),
                                               Text(
-                                                'Deep Tissue - Swedish - Hot Stone',
+                                                'Deep Tissue - Swedish - Hot Stone - CBD Cause Medic',
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
                                                   fontSize: 15,
@@ -1807,7 +1807,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Image.asset(
-                                              'assets/homepage_photo12.png', // Replace with actual image paths
+                                              'assets/homepage_photo_c.png', // Replace with actual image paths
                                               width: 192, // Fixed for mobile
                                               height: 192, // Fixed for mobile
                                               fit: BoxFit.cover,
@@ -1923,7 +1923,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Image.asset(
-                                          'assets/homepage_photo12.png', // Replace with actual image paths
+                                          'assets/homepage_photo_c.png', // Replace with actual image paths
                                           width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
                                           height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
                                           fit: BoxFit.cover,
