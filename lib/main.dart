@@ -15,6 +15,10 @@ import 'pages/massages_page.dart';
 import 'pages/remedy_tech_page.dart';
 import 'pages/terms_and_conditions_page.dart'; // Import Terms and Conditions Page
 import 'pages/privacy_policy_page.dart'; // Import Privacy Policy Page
+import 'pages/sauna.dart';
+import 'pages/led.dart';
+import 'pages/coldplunge.dart';
+import 'pages/compression.dart';
 
 // Create an instance of Firebase Analytics
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -58,6 +62,10 @@ class SwayWebsiteApp extends StatelessWidget {
         '/remedy-tech': (context) => RemedyTechPage(),
         '/terms-and-conditions': (context) => TermsAndConditionsPage(),
         '/privacy-policy': (context) => PrivacyPolicyPage(),
+        '/sauna': (context) => SaunaPage(),
+        '/coldplunge': (context) => ColdPlungePage(),
+        '/compression': (context) => CompressionPage(),
+        '/led': (context) => LEDPage(),
       },
       // Attach the Firebase Analytics observer for screen tracking
       navigatorObservers: [

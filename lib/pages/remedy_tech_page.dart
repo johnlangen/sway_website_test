@@ -177,6 +177,7 @@ class RemedyTechPage extends StatelessWidget {
                   'RECOMMENDED 30 MIN',
                   'Sauna',
                   'Science-backed treatment. Boost recovery. Burn calories. Build immunity. Improve sleep. Reduce stress. Increase energy. Improve focus. Promote balance.',
+                  '/sauna',
                 ),
               ),
               SizedBox(width: 20),
@@ -188,6 +189,7 @@ class RemedyTechPage extends StatelessWidget {
                   'RECOMMENDED 30 MIN',
                   'Cold Plunge',
                   'Life-changing benefits. Cold water therapy has been shown to be effective with better sleep, elevated energy, pain and stress relief, a better mood, performance and recovery, and immune support.',
+                  '/coldplunge',
                 ),
               ),
             ],
@@ -204,6 +206,7 @@ class RemedyTechPage extends StatelessWidget {
                   'RECOMMENDED 30 MIN',
                   'Compression Therapy',
                   'Increases circulation and helps you maintain your full range of motion. Proven to help with lymphatic drainage, and decrease pain and soreness.',
+                  '/compression',
                 ),
               ),
               SizedBox(width: 20),
@@ -215,6 +218,7 @@ class RemedyTechPage extends StatelessWidget {
                   'RECOMMENDED 30 MIN',
                   'LED Light Therapy',
                   'LightStim MultiWave® Patented Technology emits multiple wavelengths of light. ProPanel utilizes 1,400 medical-grade LEDs optimized for anti-aging, acne, or regeneration.',
+                  '/led',
                 ),
               ),
             ],
@@ -241,6 +245,7 @@ class RemedyTechPage extends StatelessWidget {
             'RECOMMENDED 30 MIN',
             'Sauna',
             'Science-backed treatment. Boost recovery. Burn calories. Build immunity. Improve sleep. Reduce stress. Increase energy. Improve focus. Promote balance.',
+            '/sauna',
           ),
           SizedBox(width: 20),
           _buildCard(
@@ -250,6 +255,7 @@ class RemedyTechPage extends StatelessWidget {
             'RECOMMENDED 30 MIN',
             'Cold Plunge',
             'Life-changing benefits. Cold water therapy has been shown to be effective with better sleep, elevated energy, pain and stress relief, a better mood, performance and recovery, and immune support.',
+            '/coldplunge',
           ),
           SizedBox(width: 20),
           _buildCard(
@@ -259,6 +265,7 @@ class RemedyTechPage extends StatelessWidget {
             'RECOMMENDED 30 MIN',
             'Compression Therapy',
             'Increases circulation and helps you maintain your full range of motion. Proven to help with lymphatic drainage, and decrease pain and soreness.',
+            '/compression',
           ),
           SizedBox(width: 20),
           _buildCard(
@@ -268,6 +275,7 @@ class RemedyTechPage extends StatelessWidget {
             'RECOMMENDED 30 MIN',
             'LED Light Therapy',
             'LightStim MultiWave® Patented Technology emits multiple wavelengths of light. ProPanel utilizes 1,400 medical-grade LEDs optimized for anti-aging, acne, or regeneration.',
+            '/led',
           ),
           SizedBox(width: 20), // Right padding for the scroll
         ],
@@ -276,7 +284,7 @@ class RemedyTechPage extends StatelessWidget {
   }
 
   // ------------------ Card Builder ------------------
-  Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String time, String title, String description) {
+Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String time, String title, String description, String route) {
   // Define fixed sizes for mobile cards
   double mobileCardWidth = 300;  // Fixed width for mobile
   double mobileCardHeight = 450; // Fixed height for mobile
@@ -354,27 +362,40 @@ class RemedyTechPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    // Book Soon button aligned left
-                    Align(
-                      alignment: Alignment.centerLeft, // Move the button to the left
-                      child: Container(
-                        margin: EdgeInsets.only(top: 10), // Adjust margin for spacing
-                        width: 130,
-                        height: 40,
-                        decoration: ShapeDecoration(
-                          color: Color(0xFF4A776D),
-                          shape: RoundedRectangleBorder(
+                    // Book Now button with hover effect
+                    MouseRegion(
+                      onEnter: (event) => print('Mouse Entered'), // Placeholder for future use
+                      onExit: (event) => print('Mouse Exited'),  // Placeholder for future use
+                      cursor: SystemMouseCursors.click, // Change mouse to click on hover
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, route);
+                        },
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          margin: EdgeInsets.only(top: 10), // Adjust margin for spacing
+                          width: 130,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF4A776D),
                             borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 8,
+                                offset: Offset(0, 4), // Slight shadow to simulate hovering
+                              ),
+                            ],
                           ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Book Soon',
-                            style: TextStyle(
-                              color: Color(0xFFF6F7F6),
-                              fontSize: 12,
-                              fontFamily: 'Vance',
-                              fontWeight: FontWeight.w400,
+                          child: Center(
+                            child: Text(
+                              'Book Now',
+                              style: TextStyle(
+                                color: Color(0xFFF6F7F6),
+                                fontSize: 12,
+                                fontFamily: 'Vance',
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ),
                         ),
@@ -444,27 +465,38 @@ class RemedyTechPage extends StatelessWidget {
                           ),
                         ),
                         Spacer(),
-                        // Book Soon button aligned left for desktop
-                        Align(
-                          alignment: Alignment.centerLeft, // Move the button to the left
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 10), // Adjust margin for spacing
-                            width: 150,
-                            height: 40,
-                            decoration: ShapeDecoration(
-                              color: Color(0xFF4A776D),
-                              shape: RoundedRectangleBorder(
+                        // Book Now button with hover effect for desktop
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, route);
+                            },
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              margin: EdgeInsets.only(bottom: 10), // Adjust margin for spacing
+                              width: 150,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF4A776D),
                                 borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 8,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
                               ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Book Soon',
-                                style: TextStyle(
-                                  color: Color(0xFFF6F7F6),
-                                  fontSize: 14,
-                                  fontFamily: 'Vance',
-                                  fontWeight: FontWeight.w400,
+                              child: Center(
+                                child: Text(
+                                  'Book Now',
+                                  style: TextStyle(
+                                    color: Color(0xFFF6F7F6),
+                                    fontSize: 14,
+                                    fontFamily: 'Vance',
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),
