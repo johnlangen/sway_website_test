@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                             'Be among the first to experience the next wave of wellness. '
                                             'Receive early access to Sway’s \$99 membership, which includes a targeted facial or massage every month. '
                                             'Plus, enjoy 6 months of FREE access to the Remedy Room with each visit—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots (\$240 value)!\n\n'
-                                            'Only 44 spots available!\nOffer Expires 9.22.24',
+                                            'Only 44 spots available!\nOffer Expires 10.7.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
                                             ),
