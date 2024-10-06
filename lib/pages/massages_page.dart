@@ -554,139 +554,140 @@ class MassagesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileBoostCards(BuildContext context) {
-    return Container(
-      height: 550,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
+Widget _buildMobileBoostCards(BuildContext context) {
+  return Container(
+    height: 550,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        _buildBoostCard(context, 'Infrared PEMF Mat', 'PEMF technology mimics the healing vibrations of the Earth, enhancing the body’s natural recovery process, reducing inflammation, increasing energy, relieving stress, and promoting deeper sleep.', false, 'Drop-In \$60 I Member \$30'),
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'Cupping', 'An ancient Chinese Medicine Technique that increases circulation and moves stagnant blood. Relieves muscle tension. Supports the immune system. Clears toxins. Reduces inflammation. Lymphatic detox.', false, 'Drop-In \$60 I Member \$30'),
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'Lymphatic Drainage Massage', 'Works directly with your lymphatic and digestive systems. Increases your metabolic rate, rids excess toxins, and cleanses your colon. Flushes water retention, giving an instant leaner look.', true, 'Drop-In \$120 I Member \$60'),
+        SizedBox(width: 20),
+        _buildBoostCard(context, '80 Minutes', 'Enhance your relaxation experience by adding an extra 30 minutes to your massage service. This extended time allows you to truly unwind, allowing our skilled therapists to focus on your specific needs and melt away tension.', true, 'Drop-In \$80 I Member \$40'),
+        SizedBox(width: 20),
+      ],
+    ),
+  );
+}
+
+Widget _buildDesktopBoostCards(BuildContext context) {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildBoostCard(context, 'Infrared PEMF Mat', 'PEMF technology mimics the healing vibrations of the Earth, enhancing the body’s natural recovery process, reducing inflammation, increasing energy, relieving stress, and promoting deeper sleep.', false),
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'Cupping', 'An ancient Chinese Medicine Technique that increases circulation and moves stagnant blood. Relieves muscle tension. Supports the immune system. Clears toxins. Reduces inflammation. Lymphatic detox.', false),
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'Lymphatic Drainage', 'Works directly with your lymphatic and digestive systems. Increases your metabolic rate, rids excess toxins, and cleanses your colon. Flushes water retention, giving an instant leaner look. Improvements are also evident in the circulatory, respiratory and endocrine system.', true),
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'Make it 80 mins', 'Enhance your relaxation experience by adding an extra 30 minutes to your massage service. This extended time allows you to truly unwind, allowing our skilled therapists to focus on your specific needs and melt away tension, leaving you feeling revitalized and deeply rejuvenated.', true),
-          SizedBox(width: 20),
+          _buildBoostCard(context, 'Infrared PEMF Mat', 'PEMF technology mimics the healing vibrations of the Earth, enhancing the body’s natural recovery process, reducing inflammation, increasing energy, relieving stress, and promoting deeper sleep.', false, 'Drop-In \$60 I Member \$30'),
+          _buildBoostCard(context, 'Cupping', 'An ancient Chinese Medicine Technique that increases circulation and moves stagnant blood. Relieves muscle tension. Supports the immune system. Clears toxins. Reduces inflammation. Lymphatic detox.', false, 'Drop-In \$60 I Member \$30'),
         ],
       ),
-    );
-  }
+      SizedBox(height: 50),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildBoostCard(context, 'Lymphatic Drainage Massage', 'Works directly with your lymphatic and digestive systems. Increases your metabolic rate, rids excess toxins, and cleanses your colon. Flushes water retention, giving an instant leaner look.', true, 'Drop-In \$120 I Member \$60'),
+          _buildBoostCard(context, '80 Minutes', 'Enhance your relaxation experience by adding an extra 30 minutes to your massage service. This extended time allows you to truly unwind.', true, 'Drop-In \$80 I Member \$40'),
+        ],
+      ),
+    ],
+  );
+}
 
-  Widget _buildDesktopBoostCards(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildBoostCard(context, 'Infrared PEMF Mat', 'PEMF technology mimics the healing vibrations of the Earth, enhancing the body’s natural recovery process, reducing inflammation, increasing energy, relieving stress, and promoting deeper sleep.', false),
-            _buildBoostCard(context, 'Cupping', 'An ancient Chinese Medicine Technique that increases circulation and moves stagnant blood. Relieves muscle tension. Supports the immune system. Clears toxins. Reduces inflammation. Lymphatic detox.', false),
-          ],
-        ),
-        SizedBox(height: 50),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildBoostCard(context, 'Lymphatic Drainage', 'Works directly with your lymphatic and digestive systems. Increases your metabolic rate, rids excess toxins, and cleanses your colon. Flushes water retention, giving an instant leaner look.', true),
-            _buildBoostCard(context, 'Make it 80 mins', 'Enhance your relaxation experience by adding an extra 30 minutes to your massage service. This extended time allows you to truly unwind.', true),
-          ],
+
+Widget _buildBoostCard(BuildContext context, String title, String description, bool isSuperBoost, String price) {
+  bool isMobile = MediaQuery.of(context).size.width < 1000;
+  double screenWidth = MediaQuery.of(context).size.width;
+
+  // For desktop, the cards shrink responsively but don't exceed max size
+  double cardWidth = screenWidth * 0.3;
+  double cardHeight = screenWidth * 0.5;
+  double maxCardWidth = 389;
+  double maxCardHeight = 510.68;
+
+  // For mobile, fixed size
+  double mobileCardWidth = 300;
+  double mobileCardHeight = 450;
+
+  return Container(
+    width: isMobile ? mobileCardWidth : (cardWidth > maxCardWidth ? maxCardWidth : cardWidth), // Fixed width for mobile, responsive for desktop
+    height: isMobile ? mobileCardHeight : (cardHeight > maxCardHeight ? maxCardHeight : cardHeight), // Fixed height for mobile, responsive for desktop
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.zero, // Remove rounded corners
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black12,
+          spreadRadius: 3,
+          blurRadius: 5,
+          offset: Offset(0, 3),
         ),
       ],
-    );
-  }
-
-  Widget _buildBoostCard(BuildContext context, String title, String description, bool isSuperBoost) {
-    bool isMobile = MediaQuery.of(context).size.width < 1000;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    // For desktop, the cards shrink responsively but don't exceed max size
-    double cardWidth = screenWidth * 0.3;
-    double cardHeight = screenWidth * 0.5;
-    double maxCardWidth = 389;
-    double maxCardHeight = 510.68;
-
-    // For mobile, fixed size
-    double mobileCardWidth = 300;
-    double mobileCardHeight = 450;
-
-    return Container(
-      width: isMobile ? mobileCardWidth : (cardWidth > maxCardWidth ? maxCardWidth : cardWidth), // Fixed width for mobile, responsive for desktop
-      height: isMobile ? mobileCardHeight : (cardHeight > maxCardHeight ? maxCardHeight : cardHeight), // Fixed height for mobile, responsive for desktop
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.zero, // Remove rounded corners
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                width: isSuperBoost ? 110 : 75, // Increased width for "Super Boost" to fit the text
-                height: 24.37,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                decoration: ShapeDecoration(
-                  color: isSuperBoost ? Color(0xFF113D33) : Color(0xFF4A776D),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    isSuperBoost ? 'Super Boost' : 'Boost',
-                    style: TextStyle(
-                      color: Color(0xFFF6F7F6),
-                      fontSize: 15,
-                      fontFamily: 'Vance',
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              width: isSuperBoost ? 110 : 75, // Increased width for "Super Boost" to fit the text
+              height: 24.37,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              decoration: ShapeDecoration(
+                color: isSuperBoost ? Color(0xFF113D33) : Color(0xFF4A776D),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            Text(
-              title,
-              style: TextStyle(
-                color: Color(0xFF113D33),
-                fontSize: 25,
-                fontFamily: 'Vance',
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+              child: Center(
                 child: Text(
-                  description,
+                  isSuperBoost ? 'Super Boost' : 'Boost',
                   style: TextStyle(
-                    color: Color(0xFF113D33),
+                    color: Color(0xFFF6F7F6),
                     fontSize: 15,
                     fontFamily: 'Vance',
                     fontWeight: FontWeight.w300,
-                    height: 1.5,
                   ),
                 ),
               ),
             ),
-            Text(
-              'Drop-In +\$60 I Member +\$30',
-              style: TextStyle(
-                color: Color(0xFF113D33),
-                fontSize: 15,
-                fontFamily: 'Vance',
-                fontWeight: FontWeight.w300,
+          ),
+          SizedBox(height: 30),
+          Text(
+            title,
+            style: TextStyle(
+              color: Color(0xFF113D33),
+              fontSize: 25,
+              fontFamily: 'Vance',
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          SizedBox(height: 20),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Text(
+                description,
+                style: TextStyle(
+                  color: Color(0xFF113D33),
+                  fontSize: 15,
+                  fontFamily: 'Vance',
+                  fontWeight: FontWeight.w300,
+                  height: 1.5,
+                ),
+              ),
+            ),
+          ),
+          Text(
+            price,
+            style: TextStyle(
+              color: Color(0xFF113D33),
+              fontSize: 15,
+              fontFamily: 'Vance',
+              fontWeight: FontWeight.w300,
               ),
             ),
           ],

@@ -605,55 +605,53 @@ class FacialsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileBoostCards(BuildContext context) {
-    return Container(
-      height: 550,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
+Widget _buildMobileBoostCards(BuildContext context) {
+  return Container(
+    height: 550,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', true), // Super Boost for Microcurrent with Mini and Full pricing
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', true), // Super Boost for LED Light Therapy with updated pricing
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'Hydraderm', 'Deeply penetrating serums that resurface the skin.', false),
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'Dermaflash', 'Exfoliates dead skin cells and removes peach fuzz.', false),
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'Peel', 'Our chemical peels refine pores and even skin tone.', false),
+        SizedBox(width: 20),
+        _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
+        SizedBox(width: 20),
+      ],
+    ),
+  );
+}
+
+Widget _buildDesktopBoostCards(BuildContext context) {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', true), // Super Boost for Microcurrent
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', true), // Super Boost for LED Light Therapy
-          SizedBox(width: 20),
+          _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', true), // Super Boost for Microcurrent with Mini and Full pricing
+          _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', true), // Super Boost for LED Light Therapy with updated pricing
           _buildBoostCard(context, 'Hydraderm', 'Deeply penetrating serums that resurface the skin.', false),
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'Dermaflash', 'Exfoliates dead skin cells and removes peach fuzz.', false),
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'Peel', 'Our chemical peels refine pores and even skin tone.', false),
-          SizedBox(width: 20),
-          _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
-          SizedBox(width: 20),
-         
         ],
       ),
-    );
-  }
-
-  Widget _buildDesktopBoostCards(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildBoostCard(context, 'Microcurrent', 'Tones and Lifts. Stimulates facial muscles and collagen production.', true), // Super Boost for Microcurrent
-            _buildBoostCard(context, 'LED Light Therapy', 'Reduces inflammation and decreases harmful bacteria.', true), // Super Boost for LED Light Therapy
-            _buildBoostCard(context, 'Hydraderm', 'Deeply penetrating serums that resurface the skin.', false),
-          ],
-        ),
-        SizedBox(height: 50),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildBoostCard(context, 'Dermaflash', 'Exfoliates dead skin cells and removes peach fuzz.', false),
-            _buildBoostCard(context, 'Peel', 'Our chemical peels refine pores and even skin tone.', false),
-            _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
-          ],
-        ),
-        SizedBox(height: 50),
-       
-      ],
-    );
-  }
+      SizedBox(height: 50),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildBoostCard(context, 'Dermaflash', 'Exfoliates dead skin cells and removes peach fuzz.', false),
+          _buildBoostCard(context, 'Peel', 'Our chemical peels refine pores and even skin tone.', false),
+          _buildBoostCard(context, 'Oxygen Infusion', 'Cooling, calming oxygen improves skin hydration.', false), // Normal Boost for Oxygen Infusion
+        ],
+      ),
+      SizedBox(height: 50),
+    ],
+  );
+}
 
 Widget _buildBoostCard(BuildContext context, String title, String description, bool isSuperBoost) {
   bool isMobile = MediaQuery.of(context).size.width < 1000;
@@ -875,15 +873,18 @@ Widget _buildBoostCard(BuildContext context, String title, String description, b
                         fontWeight: FontWeight.w300,
                         height: 1.5,
                       ),
-                    )
-               
+                    ),
                 ],
               ),
             ),
           ),
-          // Remove Spacer and directly put the price text at the bottom
+          // Pricing for Mini and Full for Microcurrent or LED Light Therapy with updated pricing
           Text(
-            'Drop-In +\$60 I Member +\$30',
+            title == "Microcurrent"
+                ? 'Mini: Member +\$30 | Drop-In +\$60\nFull: Member +\$40 | Drop-In +\$80'
+                : title == "LED Light Therapy"
+                    ? 'Member +\$40 | Drop-In +\$80'
+                    : 'Drop-In +\$60 | Member +\$30',
             style: TextStyle(
               color: Color(0xFF113D33),
               fontSize: 15,
