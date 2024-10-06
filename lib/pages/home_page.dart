@@ -7,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:gif_view/gif_view.dart';
 import 'package:flutter/services.dart'; // Ensure this is imported
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -60,10 +62,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
        });
 
      // Trigger the popup when the page loads
-     WidgetsBinding.instance.addPostFrameCallback((_) {
-       showPopup(context);
-     });
+     // Check if the popup has been shown before
+    _checkFirstTimePopup();
+
    }
+
+   Future<void> _checkFirstTimePopup() async {
+      final prefs = await SharedPreferences.getInstance();
+      bool hasShownPopup = prefs.getBool('hasShownPopup') ?? false;
+
+      if (!hasShownPopup) {
+        // Show the popup if it hasn't been shown yet
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showPopup(context);
+        });
+
+        // Set the flag to true after showing the popup
+        await prefs.setBool('hasShownPopup', true);
+      }
+    }
+
 
 
   @override
