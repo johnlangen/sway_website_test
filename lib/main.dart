@@ -8,6 +8,7 @@ import 'pages/home_page.dart';
 import 'pages/treatments_page.dart';
 import 'pages/gift_cards_page.dart';
 import 'pages/join_the_club_page.dart';
+import 'pages/join_the_club_page_local.dart';
 import 'pages/the_sway_way_page.dart';
 import 'pages/book_now_page.dart';
 import 'pages/facials_page.dart';
@@ -55,6 +56,7 @@ class SwayWebsiteApp extends StatelessWidget {
         '/treatments': (context) => TreatmentsPage(),
         '/gift-cards': (context) => GiftCardsPage(),
         '/membership': (context) => JoinTheClubPage(),
+        '/localpartner': (context) => JoinTheClubPageLocal(),
         '/the-sway-way': (context) => TheSwayWayPage(),
         '/book-now': (context) => BookNowPage(),
         '/facials': (context) => FacialsPage(),
