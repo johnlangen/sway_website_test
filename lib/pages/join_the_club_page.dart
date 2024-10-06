@@ -422,7 +422,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       children: [
                         TextSpan(
-                          text: '44 spots available', 
+                          text: '39 spots available', 
                           style: TextStyle(
                             fontWeight: FontWeight.bold, // Bold
                             decoration: TextDecoration.underline, // Underline
