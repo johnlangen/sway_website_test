@@ -953,7 +953,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     ),
                                   ),
                                   Text(
-                                    'Member - Add a Super Boost: \$60',
+                                    'Member - Add a Super Boost: \$40',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -978,7 +978,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     ),
                                   ),
                                   Text(
-                                    'Drop-In - Add a Super Boost: \$120',
+                                    'Drop-In - Add a Super Boost: \$80',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -1023,7 +1023,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     ),
                                   ),
                                   Text(
-                                    'Member - Add a Super Boost: \$60',
+                                    'Member - Add a Super Boost: \$40',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -1048,7 +1048,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     ),
                                   ),
                                   Text(
-                                    'Drop-In - Add a Super Boost: \$120',
+                                    'Drop-In - Add a Super Boost: \$80',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -1425,7 +1425,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 5), // Adjusted height for alignment with 'Add a Super Boost'
                                               Text(
-                                                '\$60',
+                                                '\$40',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1455,7 +1455,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 5), // Adjusted height for alignment with 'Add a Super Boost'
                                               Text(
-                                                '\$60',
+                                                '\$40',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1550,7 +1550,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 5), // Adjusted height for alignment with 'Add a Super Boost'
                                               Text(
-                                                '\$120',
+                                                '\$80',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1580,7 +1580,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 5), // Adjusted height for alignment with 'Add a Super Boost'
                                               Text(
-                                                '\$120',
+                                                '\$80',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
