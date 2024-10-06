@@ -82312,7 +82312,9 @@ q.d=s
 s=A.CH("assets/background.mp4")
 s.eU(0).bA(0,new A.amS(q),r)
 q.e=s
-q.qW()},
+s=window.location.href
+s.toString
+if(!B.d.q(s,"/localpartner"))q.qW()},
 qW(){var s=0,r=A.I(t.H),q=this,p,o,n
 var $async$qW=A.J(function(a,b){if(a===1)return A.F(b,r)
 while(true)switch(s){case 0:s=2
