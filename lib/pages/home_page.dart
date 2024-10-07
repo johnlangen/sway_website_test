@@ -155,9 +155,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           const SizedBox(height: 10),
                                           Text(
                                             'Be among the first to experience the next wave of wellness. '
-                                            'Receive early access to Sway’s Founding Membership. \$99/month for a facial or massage  '
-                                            'PLUS 6 FREE visits to the Remedy Room—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots. \$300 Value!\n\n'
-                                            'Only 39 spots available!\nOffer Expires 10.07.24',
+                                            'Join the club as a founding member & get your 4th month free!  \$140 Value! '
+                                            'Our \$99 membership includes an enhanced facial or massage every month. PLUS, with this offer, enjoy your 4th month on us! \n\n'
+                                            'Only 50 spots available!\nOffer Expires 10.21.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
                                             ),

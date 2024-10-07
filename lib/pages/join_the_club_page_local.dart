@@ -412,7 +412,7 @@ class _JoinTheClubPageLocalState extends State<JoinTheClubPageLocal> {
                   padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 150), 
                   child: Text.rich(
                     TextSpan(
-                      text: 'SPECIAL CODE - ', 
+                      text: '', 
                       style: TextStyle(
                         color: Color(0xFF113D33),
                         fontSize: isMobile ? 16 : 18,

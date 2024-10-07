@@ -394,7 +394,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                   padding: EdgeInsets.symmetric(horizontal: isMobile ? 10 : 80), // Reduce left/right padding
                   child: Text(
                     'Denver\'s first-of-its-kind spa blending tech and tradition. Be among the first to experience the new wave of wellness.\n\n'
-                    'Receive early access to Sway’s Founding Membership. \$99/month for a facial or massage PLUS 6 FREE visits to the Remedy Room—featuring Sauna, Cold Plunge, LED Light Therapy, and Normatec Lymphatic Drainage Boots. \$300 Value',
+                    'Join the club as a founding member & get your 4th month free!  \$140 Value! Our \$99 membership includes an enhanced facial or massage every month. PLUS, with this offer, enjoy your 4th month on us!',
                     style: TextStyle(
                       color: Color(0xFF113D33),
                       fontSize: isMobile ? 16 : 18,
@@ -422,13 +422,13 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       children: [
                         TextSpan(
-                          text: '39 spots available', 
+                          text: '50 spots available', 
                           style: TextStyle(
                             fontWeight: FontWeight.bold, // Bold
                             decoration: TextDecoration.underline, // Underline
                           ),
                         ),
-                        TextSpan(text: ', Offer Expires 10.7.24'),
+                        TextSpan(text: ', Offer Expires 10.21.24'),
                       ],
                     ),
                     textAlign: TextAlign.center,
