@@ -82907,7 +82907,7 @@ A.ana.prototype={
 $1(a){return new A.tl(new A.bX(A.bF(15),B.w),new A.tY(new A.an9(),null),null)},
 $S:531}
 A.an9.prototype={
-$2(a,b){var s,r,q,p,o=null,n="assets/popupphoto.png",m="Restore Your Body, Refresh Your Mind",l="Be among the first to experience the next wave of wellness. Join the club as a founding member & get your 4th month free!  $140 Value! Our $99 membership includes an enhanced facial or massage every month. PLUS, with this offer, enjoy your 4th month on us! \n\nOnly 50 spots available!\nOffer Expires 10.21.24",k=t.w,j=A.Y(a,o,k).w.a.a,i=A.Y(a,o,k).w.a.b,h=j<1100
+$2(a,b){var s,r,q,p,o=null,n="assets/popupphoto.png",m="Restore Your Body, Refresh Your Mind",l="Be among the first to experience the next wave of wellness. Join the club as a founding member & get your 4th month free \u2014 $140 value.Our $99 membership includes an enhanced facial or massage every month, but with this offer, your 4th month will be on us! \n\nOnly 50 spots available!\nOffer Expires 10.21.24",k=t.w,j=A.Y(a,o,k).w.a.a,i=A.Y(a,o,k).w.a.b,h=j<1100
 k=h?j*0.9:j*0.7
 s=h?i*0.95:i*0.6
 if(h){r=A.dQ(A.a8(o,o,B.e,o,o,new A.aW(o,A.dB(B.u,B.I,new A.cJ(n,o,o)),o,o,o,o,B.x),o,o,o,o,o,o,o,o),3)
@@ -83159,7 +83159,7 @@ p=A.t("Opening November 2024! ",a,a,a,a,A.q(a,a,new A.c(a6),a,a,a,a,a,a9,a,a,p,a
 o=A.m(a,20,a)
 m=b1?10:80
 l=b1?16:18
-l=A.t("Denver's first-of-its-kind spa blending tech and tradition. Be among the first to experience the new wave of wellness.\n\nJoin the club as a founding member & get your 4th month free!  $140 Value! Our $99 membership includes an enhanced facial or massage every month. PLUS, with this offer, enjoy your 4th month on us!",a,a,a,a,A.q(a,a,new A.c(a6),a,a,a,a,a,a9,a,a,l,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.t,a)
+l=A.t("Denver's first-of-its-kind spa blending tech and tradition. Be among the first to experience the new wave of wellness.\n\nJoin the club as a founding member & get your 4th month free \u2014 $140 value. Our $99 membership includes an enhanced facial or massage every month, but with this offer, your 4th month will be on us!",a,a,a,a,A.q(a,a,new A.c(a6),a,a,a,a,a,a9,a,a,l,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.t,a)
 j=A.m(a,20,a)
 h=b1?10:150
 g=b1?16:18

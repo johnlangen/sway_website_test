@@ -155,8 +155,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           const SizedBox(height: 10),
                                           Text(
                                             'Be among the first to experience the next wave of wellness. '
-                                            'Join the club as a founding member & get your 4th month free!  \$140 Value! '
-                                            'Our \$99 membership includes an enhanced facial or massage every month. PLUS, with this offer, enjoy your 4th month on us! \n\n'
+                                            'Join the club as a founding member & get your 4th month free — \$140 value.'
+                                            'Our \$99 membership includes an enhanced facial or massage every month, but with this offer, your 4th month will be on us! \n\n'
                                             'Only 50 spots available!\nOffer Expires 10.21.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
@@ -218,8 +218,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           const SizedBox(height: 10),
                                           Text(
                                             'Be among the first to experience the next wave of wellness. '
-                                            'Join the club as a founding member & get your 4th month free!  \$140 Value! '
-                                            'Our \$99 membership includes an enhanced facial or massage every month. PLUS, with this offer, enjoy your 4th month on us! \n\n'
+                                            'Join the club as a founding member & get your 4th month free — \$140 value.'
+                                            'Our \$99 membership includes an enhanced facial or massage every month, but with this offer, your 4th month will be on us! \n\n'
                                             'Only 50 spots available!\nOffer Expires 10.21.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
