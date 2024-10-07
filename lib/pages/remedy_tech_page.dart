@@ -81,7 +81,7 @@ class RemedyTechPage extends StatelessWidget {
           SizedBox(
             width: 500,
             child: Text(
-              'Drop-In \$49 | Member \$25\nRemedy Room Pricing includes 40 min total to experiences our Remedy Technology. You can tailor it to your \nliking, but you will have a maximum limit of 15 min in the Normatec + LED Light Therapy, 20 min /nin the traditional sauana, and 5 min in the cold plunge.',
+              'Drop-In \$49 | Member \$25\nRemedy Room Pricing includes 40 min total to experiences our Remedy Technology. You can tailor it to your liking, but you will have a maximum limit of 15 min in the Normatec + LED Light Therapy, 20 min in the traditional sauana, and 5 min in the cold plunge.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF4A776D),
