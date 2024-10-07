@@ -42,7 +42,7 @@ class TreatmentsPage extends StatelessWidget {
             SizedBox(
               width: 646,
               child: Text(
-                'Experience the wellness you\'ve been longing for. Transform your health and confidence with our expert-led facials, massages, and scientific-backed remedy technologies.',
+                'Experience the wellness you\'ve been longing for. Transform your health and confidence with our expert-led facials, massages, and science-backed remedy technologies.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFF4A776D),

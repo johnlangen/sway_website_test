@@ -82223,30 +82223,30 @@ if(m)l.push(new A.eM(s))
 else l.push(new A.eL(s))
 return A.fq(s,new A.c(4294440169),A.fs(A.ad(l,B.o,B.l,B.j),s,s,s))}}
 A.tu.prototype={
-K(c1){var s,r,q,p,o,n,m=this,l=null,k=4294440169,j=4290170815,i=4279319859,h="Vance-Text",g="Experiences",f="assets/facial1.png",e="Our science-backed, cutting edge facial treatments\nuse the world's most innovative tech and skincare\nproducts to deliver specific skin results. No downtime, all natural.",d="assets/facial2.png",c="50 MIN FACIAL",b="Forever Young",a="Anti-Aging Facial",a0="Drop-In $139 I Member $99",a1="Defy aging with this all-natural facial that hydrates, brightens, and tightens your skin. Promotes circulation and collagen production.",a2="assets/facial3.png",a3="Glow Getter",a4="Hydration Facial",a5="Powerful antioxidants, correcting peptides, and plant-derived stem cells instantly smooth and firm for a brighter, more youthful complexion. Revitalizes the appearance of collagen-depleted skin. Promotes dewy, ultra-hydrated skin.",a6="assets/facial4.png",a7="Pore Perfection",a8="Acne Facial",a9="Our complexion-clearing facial treatment uses targeted products to detox and renew. Kills bacteria and treats congested skin. Includes extractions. Promotes clean and clear skin.",b0="assets/facial5.png",b1="Sensitive Silk",b2="Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.",b3="assets/facial6.png",b4="Dr. Dennis Gross Vitamin C",b5="Sway Spotlight Facial",b6='"C" the radiance with this supercharged facial loaded with Vitamin C\u2014nature\u2019s most potent and proven skin brightening treatment. Say goodbye to sun damage and hello to a glowing, even complexion.',b7=t.w,b8=A.Y(c1,l,b7).w.a.a<1000,b9=b8?20:40,c0=t.p
-b9=A.a([A.ds(l,new A.fZ(l),l,l,0,0,b9,l)],c0)
-if(b8){s=A.m(l,50,l)
+K(c2){var s,r,q,p,o,n,m=this,l=null,k=4294440169,j=4290170815,i=4279319859,h="Vance-Text",g="Experiences",f="assets/facial1.png",e="Our science-backed, cutting edge facial treatments\nuse the world's most innovative tech and skincare\nproducts to deliver specific skin results. No downtime, all natural.",d="assets/facial2.png",c="50 MIN FACIAL",b="Forever Young",a="Anti-Aging Facial",a0="Drop-In $139 I Member $99",a1="Defy aging with this all-natural facial that hydrates, brightens, and tightens your skin. Promotes circulation and collagen production.",a2="assets/facial3.png",a3="Glow Getter",a4="Hydration Facial",a5="Powerful antioxidants, correcting peptides, and plant-derived stem cells instantly smooth and firm for a brighter, more youthful complexion. Revitalizes the appearance of collagen-depleted skin. Promotes dewy, ultra-hydrated skin.",a6="assets/facial4.png",a7="Pore Perfection",a8="Acne Facial",a9="Our complexion-clearing facial treatment uses targeted products to detox and renew. Kills bacteria and treats congested skin. Includes extractions. Promotes clean and clear skin.",b0="assets/facial5.png",b1="Sensitive Silk",b2="Soothing Facial",b3="Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.",b4="assets/facial6.png",b5="Dr. Dennis Gross Vitamin C",b6="Sway Spotlight Facial",b7='"C" the radiance with this supercharged facial loaded with Vitamin C\u2014nature\u2019s most potent and proven skin brightening treatment. Say goodbye to sun damage and hello to a glowing, even complexion.',b8=t.w,b9=A.Y(c2,l,b8).w.a.a<1000,c0=b9?20:40,c1=t.p
+c0=A.a([A.ds(l,new A.fZ(l),l,l,0,0,c0,l)],c1)
+if(b9){s=A.m(l,50,l)
 r=A.t("Facial",l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,40,l,l,B.f,l,1.2,!0,l,l,l,l,l,l,l,l),B.r,l)
 q=A.t(g,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,40,l,l,B.f,l,1.2,!0,l,l,l,l,l,l,l,l),B.r,l)
 p=A.m(l,20,l)
-o=A.Y(c1,l,b7).w
-b7=A.Y(c1,l,b7).w
-b9.push(A.a9(l,A.ad(A.a([s,r,q,p,A.a9(l,l,B.i,l,l,new A.aX(l,A.dA(B.dZ,B.I,new A.cH(f,l,l)),l,l,l,l,B.z),l,b7.a.a*0.6,l,l,l,l,l,o.a.a*0.8),A.m(l,50,l),A.t(e,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,20,l,l,B.f,l,1.5,!0,l,l,l,l,l,l,l,l),B.r,l),A.m(l,100,l)],c0),B.o,B.l,B.j),B.i,l,l,new A.aX(new A.c(j),l,l,l,l,l,B.z),l,l,l,new A.U(0,100,0,0),new A.U(20,0,20,0),l,l,1/0))}else{n=A.Y(c1,l,b7).w.a.a
-b7=A.m(l,100,l)
+o=A.Y(c2,l,b8).w
+b8=A.Y(c2,l,b8).w
+c0.push(A.a9(l,A.ad(A.a([s,r,q,p,A.a9(l,l,B.i,l,l,new A.aX(l,A.dA(B.dZ,B.I,new A.cH(f,l,l)),l,l,l,l,B.z),l,b8.a.a*0.6,l,l,l,l,l,o.a.a*0.8),A.m(l,50,l),A.t(e,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,20,l,l,B.f,l,1.5,!0,l,l,l,l,l,l,l,l),B.r,l),A.m(l,100,l)],c1),B.o,B.l,B.j),B.i,l,l,new A.aX(new A.c(j),l,l,l,l,l,B.z),l,l,l,new A.U(0,100,0,0),new A.U(20,0,20,0),l,l,1/0))}else{n=A.Y(c2,l,b8).w.a.a
+b8=A.m(l,100,l)
 s=A.ds(l,A.m(A.t("Facial",l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,40,l,l,B.f,l,0.02,!0,l,l,l,l,l,l,l,l),B.r,l),l,309),l,l,-275,l,l,l)
 r=n>1200
 q=r?591:n*0.5
 r=r?591:n*0.5
-b9.push(A.a9(l,A.ad(A.a([b7,A.dS(B.u,A.a([s,A.a9(l,l,B.i,l,l,new A.aX(l,A.dA(B.dZ,B.I,new A.cH(f,l,l)),l,l,l,l,B.z),l,r*0.73,l,l,l,l,l,q),A.ds(l,A.m(A.t(g,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,40,l,l,B.f,l,0.02,!0,l,l,l,l,l,l,l,l),B.r,l),l,319),l,l,l,-300,l,l)],c0),B.i,B.aj),A.m(l,50,l),A.m(A.t(e,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,25,l,l,B.f,l,1.5,!0,l,l,l,l,l,l,l,l),B.r,l),l,625),A.m(l,100,l)],c0),B.o,B.l,B.j),B.i,l,l,new A.aX(new A.c(j),l,l,l,l,l,B.z),l,l,l,new A.U(0,140,0,0),new A.U(20,0,20,0),l,l,1/0))}b7=A.a([A.dS(B.av,b9,B.O,B.aj),A.m(l,100,l)],c0)
-if(b8)b7.push(A.a9(l,A.Lb(A.a([A.m(l,l,20),m.jq(c1,!0,d,c,b,a,a0,a1),A.m(l,l,20),m.jq(c1,!0,a2,c,a3,a4,a0,a5),A.m(l,l,20),m.jq(c1,!0,a6,c,a7,a8,a0,a9),A.m(l,l,20),m.jq(c1,!0,b0,c,b1,"Soothing Facial.",a0,b2),A.m(l,l,20),m.jq(c1,!0,b3,c,b4,b5,a0,b6),A.m(l,l,20)],c0),B.aW),B.i,new A.c(k),l,l,l,500,l,l,l,l,l,1/0))
-else b7.push(A.a9(l,A.ad(A.a([A.bT(A.a([new A.dc(1,B.ah,m.jq(c1,!1,d,c,b,a,a0,a1),l),A.m(l,l,20),new A.dc(1,B.ah,m.jq(c1,!1,a2,c,a3,a4,a0,a5),l)],c0),B.o,B.bv,B.j),A.m(l,50,l),A.bT(A.a([new A.dc(1,B.ah,m.jq(c1,!1,a6,c,a7,a8,a0,a9),l),A.m(l,l,20),new A.dc(1,B.ah,m.jq(c1,!1,b0,c,b1,"Soothing Facial",a0,b2),l)],c0),B.o,B.bv,B.j),A.m(l,50,l),A.bT(A.a([new A.dc(1,B.ah,m.jq(c1,!1,b3,c,b4,b5,a0,b6),l)],c0),B.o,B.aB,B.j)],c0),B.o,B.l,B.j),B.i,new A.c(k),l,l,l,l,l,l,B.ej,l,l,1/0))
-b7.push(A.m(l,100,l))
-if(b8)b7.push(m.Lc(!0,c1))
-else b7.push(m.Lc(!1,c1))
-b7.push(A.m(l,100,l))
-if(b8)b7.push(new A.eM(l))
-else b7.push(new A.eL(l))
-return A.fq(l,new A.c(k),A.fs(A.ad(b7,B.o,B.l,B.j),l,l,l))},
+c0.push(A.a9(l,A.ad(A.a([b8,A.dS(B.u,A.a([s,A.a9(l,l,B.i,l,l,new A.aX(l,A.dA(B.dZ,B.I,new A.cH(f,l,l)),l,l,l,l,B.z),l,r*0.73,l,l,l,l,l,q),A.ds(l,A.m(A.t(g,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,40,l,l,B.f,l,0.02,!0,l,l,l,l,l,l,l,l),B.r,l),l,319),l,l,l,-300,l,l)],c1),B.i,B.aj),A.m(l,50,l),A.m(A.t(e,l,l,l,l,A.q(l,l,new A.c(i),l,l,l,l,l,h,l,l,25,l,l,B.f,l,1.5,!0,l,l,l,l,l,l,l,l),B.r,l),l,625),A.m(l,100,l)],c1),B.o,B.l,B.j),B.i,l,l,new A.aX(new A.c(j),l,l,l,l,l,B.z),l,l,l,new A.U(0,140,0,0),new A.U(20,0,20,0),l,l,1/0))}b8=A.a([A.dS(B.av,c0,B.O,B.aj),A.m(l,100,l)],c1)
+if(b9)b8.push(A.a9(l,A.Lb(A.a([A.m(l,l,20),m.jq(c2,!0,d,c,b,a,a0,a1),A.m(l,l,20),m.jq(c2,!0,a2,c,a3,a4,a0,a5),A.m(l,l,20),m.jq(c2,!0,a6,c,a7,a8,a0,a9),A.m(l,l,20),m.jq(c2,!0,b0,c,b1,b2,a0,b3),A.m(l,l,20),m.jq(c2,!0,b4,c,b5,b6,a0,b7),A.m(l,l,20)],c1),B.aW),B.i,new A.c(k),l,l,l,500,l,l,l,l,l,1/0))
+else b8.push(A.a9(l,A.ad(A.a([A.bT(A.a([new A.dc(1,B.ah,m.jq(c2,!1,d,c,b,a,a0,a1),l),A.m(l,l,20),new A.dc(1,B.ah,m.jq(c2,!1,a2,c,a3,a4,a0,a5),l)],c1),B.o,B.bv,B.j),A.m(l,50,l),A.bT(A.a([new A.dc(1,B.ah,m.jq(c2,!1,a6,c,a7,a8,a0,a9),l),A.m(l,l,20),new A.dc(1,B.ah,m.jq(c2,!1,b0,c,b1,b2,a0,b3),l)],c1),B.o,B.bv,B.j),A.m(l,50,l),A.bT(A.a([new A.dc(1,B.ah,m.jq(c2,!1,b4,c,b5,b6,a0,b7),l)],c1),B.o,B.aB,B.j)],c1),B.o,B.l,B.j),B.i,new A.c(k),l,l,l,l,l,l,B.ej,l,l,1/0))
+b8.push(A.m(l,100,l))
+if(b9)b8.push(m.Lc(!0,c2))
+else b8.push(m.Lc(!1,c2))
+b8.push(A.m(l,100,l))
+if(b9)b8.push(new A.eM(l))
+else b8.push(new A.eL(l))
+return A.fq(l,new A.c(k),A.fs(A.ad(b8,B.o,B.l,B.j),l,l,l))},
 jq(a4,a5,a6,a7,a8,a9,b0,b1){var s,r,q,p,o,n,m,l,k,j,i,h=null,g=4283070317,f="Helvetica",e=4279319859,d="Vance",c="Book Soon",b=4294375414,a=a5?300:625,a0=a5?450:380,a1=A.bL(10),a2=A.a([new A.cg(3,B.aw,B.db,new A.k(0,3),5)],t.E),a3=t.p
 if(a5){s=A.a9(h,h,B.i,h,h,new A.aX(h,A.dA(B.u,B.I,new A.cH(a6,h,h)),h,new A.cb(new A.aD(10,10),new A.aD(10,10),B.B,B.B),h,h,B.z),h,180,h,h,h,h,h,1/0)
 r=A.ad(A.a([A.t(a7,h,h,h,h,A.q(h,h,new A.c(g),h,h,h,h,h,f,h,h,12,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.m(h,8,h),A.t(a8,h,h,h,h,A.q(h,h,new A.c(e),h,h,h,h,h,d,h,h,20,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.m(h,8,h),A.t(a9,h,h,h,h,A.q(h,h,new A.c(e),h,h,h,h,h,d,h,h,15,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.m(h,8,h),A.t(b0,h,h,h,h,A.q(h,h,new A.c(g),h,h,h,h,h,d,h,h,15,h,h,B.P,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.m(h,10,h),A.t(b1,h,h,h,h,A.q(h,h,new A.c(g),h,h,h,h,h,d,h,h,14,h,h,B.P,h,1.5,!0,h,h,h,h,h,h,h,h),h,h)],a3),B.t,B.l,B.j)
@@ -83316,17 +83316,17 @@ return A.fq(s,s,A.fs(A.ad(A.a([new A.fZ(s),o,q],p),B.t,B.l,B.j),s,s,s))},
 Bi(a){var s=null
 return new A.aZ(B.FE,A.t(a,s,s,s,s,A.q(s,s,new A.c(4279319859),s,s,s,s,s,s,s,s,18,s,s,B.a8,s,s,!0,s,s,s,s,s,s,s,s),s,s),s)}}
 A.uB.prototype={
-K(a7){var s=this,r=null,q=4294440169,p="REMEDY ROOM",o=4279319859,n="Vance",m="Welcome to The Remedy Room, a space to restore your body and refresh your mind. Experience ultimate recovery with our remedy technologies, made to enhance your overall physical well-being and elevate your mental state. It's time for you to level up!",l=4283070317,k=u.a,j="assets/infrared_sauna.png",i="RECOMMENDED 30 MIN",h="Science-backed treatment. Boost recovery. Burn calories. Build immunity. Improve sleep. Reduce stress. Increase energy. Improve focus. Promote balance.",g="assets/cold_plunge.png",f="Cold Plunge",e="Life-changing benefits. Cold water therapy has been shown to be effective with better sleep, elevated energy, pain and stress relief, a better mood, performance and recovery, and immune support.",d="/coldplunge",c="assets/compression_therapy.png",b="Compression Therapy",a="Increases circulation and helps you maintain your full range of motion. Proven to help with lymphatic drainage, and decrease pain and soreness.",a0="/compression",a1="assets/led_light_therapy.png",a2="LED Light Therapy",a3="LightStim MultiWave\xae Patented Technology emits multiple wavelengths of light. ProPanel utilizes 1,400 medical-grade LEDs optimized for anti-aging, acne, or regeneration.",a4=A.Y(a7,r,t.w).w.a.a<1000,a5=a4?20:40,a6=t.p
-a5=A.a([A.ds(r,new A.fZ(r),r,r,0,0,a5,r)],a6)
-if(a4)a5.push(A.a9(r,A.ad(A.a([A.m(r,50,r),A.m(A.t(p,r,r,r,r,A.q(r,r,new A.c(o),r,r,r,r,r,n,r,r,40,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.r,r),r,351),A.m(r,30,r),A.m(A.t(m,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,625),A.m(r,20,r),A.m(A.t(k,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,239),A.m(r,100,r)],a6),B.o,B.l,B.j),B.i,r,r,r,r,r,r,new A.U(0,120,0,0),new A.U(20,0,20,0),r,r,1/0))
-else a5.push(A.a9(r,A.ad(A.a([A.m(r,50,r),A.m(A.t(p,r,r,r,r,A.q(r,r,new A.c(o),r,r,r,r,r,n,r,r,50,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.r,r),r,351),A.m(r,30,r),A.m(A.t(m,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,25,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,625),A.m(r,20,r),A.m(A.t(k,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,239),A.m(r,100,r)],a6),B.o,B.l,B.j),B.i,r,r,r,r,r,r,new A.U(0,160,0,0),new A.U(20,0,20,0),r,r,1/0))
-a5=A.a([A.dS(B.av,a5,B.O,B.aj),A.m(r,100,r)],a6)
-if(a4)a5.push(A.a9(r,A.Lb(A.a([A.m(r,r,20),s.lh(a7,!0,j,i,"Sauna",h,"/sauna"),A.m(r,r,20),s.lh(a7,!0,g,i,f,e,d),A.m(r,r,20),s.lh(a7,!0,c,i,b,a,a0),A.m(r,r,20),s.lh(a7,!0,a1,i,a2,a3,"/led"),A.m(r,r,20)],a6),B.aW),B.i,new A.c(q),r,r,r,500,r,r,r,r,r,1/0))
-else a5.push(A.a9(r,A.ad(A.a([A.bT(A.a([new A.dc(1,B.ah,s.lh(a7,!1,j,i,"Sauna",h,"/sauna"),r),A.m(r,r,20),new A.dc(1,B.ah,s.lh(a7,!1,g,i,f,e,d),r)],a6),B.o,B.bv,B.j),A.m(r,50,r),A.bT(A.a([new A.dc(1,B.ah,s.lh(a7,!1,c,i,b,a,a0),r),A.m(r,r,20),new A.dc(1,B.ah,s.lh(a7,!1,a1,i,a2,a3,"/led"),r)],a6),B.o,B.bv,B.j)],a6),B.o,B.l,B.j),B.i,new A.c(q),r,r,r,r,r,r,B.ej,r,r,1/0))
-a5.push(A.m(r,100,r))
-if(a4)a5.push(new A.eM(r))
-else a5.push(new A.eL(r))
-return A.fq(r,new A.c(q),A.fs(A.ad(a5,B.o,B.l,B.j),r,r,r))},
+K(a6){var s=this,r=null,q=4294440169,p="REMEDY ROOM",o=4279319859,n="Vance",m="Welcome to The Remedy Room, a space to restore your body and refresh your mind. Experience ultimate recovery with our remedy technologies, made to enhance your overall physical well-being and elevate your mental state. It's time for you to level up!",l=4283070317,k="assets/infrared_sauna.png",j="40 MIN",i="Science-backed treatment. Boost recovery. Burn calories. Build immunity. Improve sleep. Reduce stress. Increase energy. Improve focus. Promote balance.",h="assets/cold_plunge.png",g="Cold Plunge",f="Life-changing benefits. Cold water therapy has been shown to be effective with better sleep, elevated energy, pain and stress relief, a better mood, performance and recovery, and immune support.",e="/coldplunge",d="assets/compression_therapy.png",c="Compression Therapy",b="Increases circulation and helps you maintain your full range of motion. Proven to help with lymphatic drainage, and decrease pain and soreness.",a="/compression",a0="assets/led_light_therapy.png",a1="LED Light Therapy",a2="LightStim MultiWave\xae Patented Technology emits multiple wavelengths of light. ProPanel utilizes 1,400 medical-grade LEDs optimized for anti-aging, acne, or regeneration.",a3=A.Y(a6,r,t.w).w.a.a<1000,a4=a3?20:40,a5=t.p
+a4=A.a([A.ds(r,new A.fZ(r),r,r,0,0,a4,r)],a5)
+if(a3)a4.push(A.a9(r,A.ad(A.a([A.m(r,50,r),A.m(A.t(p,r,r,r,r,A.q(r,r,new A.c(o),r,r,r,r,r,n,r,r,40,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.r,r),r,351),A.m(r,30,r),A.m(A.t(m,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,625),A.m(r,20,r),A.m(A.t(u.a,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,239),A.m(r,100,r)],a5),B.o,B.l,B.j),B.i,r,r,r,r,r,r,new A.U(0,120,0,0),new A.U(20,0,20,0),r,r,1/0))
+else a4.push(A.a9(r,A.ad(A.a([A.m(r,50,r),A.m(A.t(p,r,r,r,r,A.q(r,r,new A.c(o),r,r,r,r,r,n,r,r,50,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.r,r),r,351),A.m(r,30,r),A.m(A.t(m,r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,25,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,625),A.m(r,20,r),A.m(A.t("Drop-In $49 | Member $25\nRemedy Room Pricing includes 40 min total to experiences our Remedy Technology. You can tailor it to your \nliking, but you will have a maximum limit of 15 min in the Normatec + LED Light Therapy, 20 min /nin the traditional sauana, and 5 min in the cold plunge.",r,r,r,r,A.q(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.r,r),r,239),A.m(r,100,r)],a5),B.o,B.l,B.j),B.i,r,r,r,r,r,r,new A.U(0,160,0,0),new A.U(20,0,20,0),r,r,1/0))
+a4=A.a([A.dS(B.av,a4,B.O,B.aj),A.m(r,100,r)],a5)
+if(a3)a4.push(A.a9(r,A.Lb(A.a([A.m(r,r,20),s.lh(a6,!0,k,j,"Sauna",i,"/sauna"),A.m(r,r,20),s.lh(a6,!0,h,j,g,f,e),A.m(r,r,20),s.lh(a6,!0,d,j,c,b,a),A.m(r,r,20),s.lh(a6,!0,a0,j,a1,a2,"/led"),A.m(r,r,20)],a5),B.aW),B.i,new A.c(q),r,r,r,500,r,r,r,r,r,1/0))
+else a4.push(A.a9(r,A.ad(A.a([A.bT(A.a([new A.dc(1,B.ah,s.lh(a6,!1,k,j,"Sauna",i,"/sauna"),r),A.m(r,r,20),new A.dc(1,B.ah,s.lh(a6,!1,h,j,g,f,e),r)],a5),B.o,B.bv,B.j),A.m(r,50,r),A.bT(A.a([new A.dc(1,B.ah,s.lh(a6,!1,d,j,c,b,a),r),A.m(r,r,20),new A.dc(1,B.ah,s.lh(a6,!1,a0,j,a1,a2,"/led"),r)],a5),B.o,B.bv,B.j)],a5),B.o,B.l,B.j),B.i,new A.c(q),r,r,r,r,r,r,B.ej,r,r,1/0))
+a4.push(A.m(r,100,r))
+if(a3)a4.push(new A.eM(r))
+else a4.push(new A.eL(r))
+return A.fq(r,new A.c(q),A.fs(A.ad(a4,B.o,B.l,B.j),r,r,r))},
 lh(a3,a4,a5,a6,a7,a8,a9){var s,r,q,p,o,n,m,l,k,j=null,i=4283070317,h="Helvetica",g=4279319859,f="Vance",e="Book Now",d=4294375414,c=a4?300:625,b=a4?450:380,a=A.bL(10),a0=t.E,a1=A.a([new A.cg(3,B.aw,B.db,new A.k(0,3),5)],a0),a2=t.p
 if(a4){s=A.a9(j,j,B.i,j,j,new A.aX(j,A.dA(B.u,B.I,new A.cH(a5,j,j)),j,new A.cb(new A.aD(10,10),new A.aD(10,10),B.B,B.B),j,j,B.z),j,180,j,j,j,j,j,1/0)
 r=A.t(a6,j,j,j,j,A.q(j,j,new A.c(i),j,j,j,j,j,h,j,j,12,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
@@ -83394,7 +83394,7 @@ K(a2){var s,r,q,p,o,n,m,l=this,k=null,j="assets/treatment1.png",i="/facials",h="
 a1=A.m(A.t("TREATMENT EXPERIENCES",k,k,k,k,A.q(k,k,new A.c(4279319859),k,k,k,k,k,"Vance",k,k,a1,k,k,B.f,k,1.2,!0,k,k,k,k,k,k,k,k),B.r,k),k,602)
 s=A.m(k,20,k)
 r=a?20:25
-r=A.m(A.t("Experience the wellness you've been longing for. Transform your health and confidence with our expert-led facials, massages, and scientific-backed remedy technologies.",k,k,k,k,A.q(k,k,new A.c(4283070317),k,k,k,k,k,"Vance",k,k,r,k,k,B.f,k,1.5,!0,k,k,k,k,k,k,k,k),B.r,k),k,646)
+r=A.m(A.t("Experience the wellness you've been longing for. Transform your health and confidence with our expert-led facials, massages, and science-backed remedy technologies.",k,k,k,k,A.q(k,k,new A.c(4283070317),k,k,k,k,k,"Vance",k,k,r,k,k,B.f,k,1.5,!0,k,k,k,k,k,k,k,k),B.r,k),k,646)
 q=A.m(k,a?70:100,k)
 p=t.p
 if(a)b=A.ad(A.a([l.ov(a2,j,"Facials",i,250,375,110,42,18),A.m(k,30,k),l.ov(a2,h,g,f,250,375,150,42,18),A.m(k,30,k),l.ov(a2,e,d,c,250,375,110,42,18)],p),B.o,B.l,B.j)
@@ -83640,7 +83640,7 @@ A.cM(this.b,"/treatments",t.X)},
 $S:0}
 A.aoY.prototype={
 $1(a){var s=null,r=this.b,q=this.c.gp(0),p=this.a,o=A.bL(5)
-return A.ds(s,A.ct(A.lu(B.a5,s,A.a9(s,A.ad(A.a([p.CK(a,"Facials","/facials"),p.CK(a,"Massages","/massages"),p.CK(a,"Remedy Tech","/remedy-tech")],t.p),B.t,B.l,B.j),B.i,s,s,new A.aX(B.bQ,s,s,o,s,s,B.z),s,s,s,s,new A.U(8,8,8,8),s,s,s),B.i,B.D,0,s,s,s,s,s,B.cP),B.b3,s,new A.aoW(p),new A.aoX(p),s),s,s,r.a+200,s,r.b+q.b,s)},
+return A.ds(s,A.ct(A.lu(B.a5,s,A.a9(s,A.ad(A.a([p.CK(a,"Facials","/facials"),p.CK(a,"Massages","/massages"),p.CK(a,"Remedy Room","/remedy-tech")],t.p),B.t,B.l,B.j),B.i,s,s,new A.aX(B.bQ,s,s,o,s,s,B.z),s,s,s,s,new A.U(8,8,8,8),s,s,s),B.i,B.D,0,s,s,s,s,s,B.cP),B.b3,s,new A.aoW(p),new A.aoX(p),s),s,s,r.a+200,s,r.b+q.b,s)},
 $S:197}
 A.aoW.prototype={
 $1(a){this.a.d=!0},
@@ -83726,7 +83726,7 @@ A.cM(this.b,"/treatments",t.X)},
 $S:0}
 A.aoK.prototype={
 $1(a){var s=null,r=this.b,q=this.c.gp(0),p=this.a,o=A.bL(5)
-return A.ds(s,A.ct(A.lu(B.a5,s,A.a9(s,A.ad(A.a([p.Bh(a,"Facials","/facials"),p.Bh(a,"Massages","/massages"),p.Bh(a,"Remedy Tech","/remedy-tech")],t.p),B.t,B.l,B.j),B.i,s,s,new A.aX(B.bQ,s,s,o,s,s,B.z),s,s,s,s,new A.U(8,8,8,8),s,s,s),B.i,B.D,0,s,s,s,s,s,B.cP),B.b3,s,new A.aoI(p),new A.aoJ(p),s),s,s,r.a+200,s,r.b+q.b,s)},
+return A.ds(s,A.ct(A.lu(B.a5,s,A.a9(s,A.ad(A.a([p.Bh(a,"Facials","/facials"),p.Bh(a,"Massages","/massages"),p.Bh(a,"Remedy Room","/remedy-tech")],t.p),B.t,B.l,B.j),B.i,s,s,new A.aX(B.bQ,s,s,o,s,s,B.z),s,s,s,s,new A.U(8,8,8,8),s,s,s),B.i,B.D,0,s,s,s,s,s,B.cP),B.b3,s,new A.aoI(p),new A.aoJ(p),s),s,s,r.a+200,s,r.b+q.b,s)},
 $S:197}
 A.aoI.prototype={
 $1(a){this.a.d=!0},

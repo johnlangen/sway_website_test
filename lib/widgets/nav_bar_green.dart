@@ -242,7 +242,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 children: [
                   _buildDropdownItem(context, 'Facials', '/facials'),
                   _buildDropdownItem(context, 'Massages', '/massages'),
-                  _buildDropdownItem(context, 'Remedy Tech', '/remedy-tech'),
+                  _buildDropdownItem(context, 'Remedy Room', '/remedy-tech'),
                 ],
               ),
             ),

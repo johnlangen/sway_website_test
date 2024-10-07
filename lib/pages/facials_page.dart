@@ -309,7 +309,7 @@ class FacialsPage extends StatelessWidget {
           SizedBox(width: 20),
           _buildCard(context, true, 'assets/facial4.png', '50 MIN FACIAL', 'Pore Perfection', 'Acne Facial', 'Drop-In \$139 I Member \$99', 'Our complexion-clearing facial treatment uses targeted products to detox and renew. Kills bacteria and treats congested skin. Includes extractions. Promotes clean and clear skin.'), 
           SizedBox(width: 20),
-          _buildCard(context, true, 'assets/facial5.png', '50 MIN FACIAL', 'Sensitive Silk', 'Soothing Facial.', 'Drop-In \$139 I Member \$99', 'Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.'), 
+          _buildCard(context, true, 'assets/facial5.png', '50 MIN FACIAL', 'Sensitive Silk', 'Soothing Facial', 'Drop-In \$139 I Member \$99', 'Soothe, calm, and protect sensitized and reddened skin types. A natural skincare treatment that is gentle, yet very effective in visibly reducing skin redness and immediately providing soothing relief to irritated skin. Promotes clear and calm skin.'), 
           SizedBox(width: 20),
           _buildCard(context, true, 'assets/facial6.png', '50 MIN FACIAL', 'Dr. Dennis Gross Vitamin C', 'Sway Spotlight Facial', 'Drop-In \$139 I Member \$99', '"C" the radiance with this supercharged facial loaded with Vitamin C—nature’s most potent and proven skin brightening treatment. Say goodbye to sun damage and hello to a glowing, even complexion.'), 
           SizedBox(width: 20), // Right padding for the scroll
