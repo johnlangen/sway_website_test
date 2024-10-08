@@ -183,10 +183,10 @@ class SaunaPage extends StatelessWidget {
           SizedBox(height: 50), // Add some space after the top section
           // First box section
           _buildSectionTitle('RESTORE YOUR BODY'),
-          _buildBoxSection('Body', _buildBodyBoxes()),
+          _buildBoxSection('Body', _buildBodyBoxes(), isMobile: false),
           SizedBox(height: 50), // Space between sections
           _buildSectionTitle('REFRESH YOUR MIND'),
-          _buildBoxSection('Mind', _buildMindBoxes(lighterText: true)), // Lighter text for the second section
+          _buildBoxSection('Mind', _buildMindBoxes(lighterText: true), isMobile: false), // Lighter text for the second section
           SizedBox(height: 30),
           // Second button
           GestureDetector(
@@ -333,12 +333,12 @@ class SaunaPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30),
-          // Body boxes section on mobile
+          // Body boxes section on mobile (scrollable)
           _buildSectionTitle('RESTORE YOUR BODY'),
-          _buildBoxSection('Body', _buildBodyBoxes()),
+          _buildMobileScrollableBoxSection('Body', _buildBodyBoxes()),
           SizedBox(height: 30),
           _buildSectionTitle('REFRESH YOUR MIND'),
-          _buildBoxSection('Mind', _buildMindBoxes(lighterText: true)),
+          _buildMobileScrollableBoxSection('Mind', _buildMindBoxes(lighterText: true)),
         ],
       ),
     );
@@ -352,7 +352,7 @@ class SaunaPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '✕', // Cross bullet point
+            '+', // Cross bullet point
             style: TextStyle(
               color: Color(0xFF4A776D),
               fontSize: 18 * scaleFactor, // Adjust size of the bullet point
@@ -445,14 +445,28 @@ class SaunaPage extends StatelessWidget {
     );
   }
 
-  // Helper to build the box section
-  Widget _buildBoxSection(String tag, List<Widget> boxes) {
+  // Helper to build the box section for desktop
+  Widget _buildBoxSection(String tag, List<Widget> boxes, {required bool isMobile}) {
+    return isMobile
+        ? _buildMobileScrollableBoxSection(tag, boxes)
+        : Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            alignment: WrapAlignment.center, // Center alignment for mobile
+            children: boxes.map((box) => _buildBox(tag, box)).toList(),
+          );
+  }
+
+  // Helper to build the scrollable box section for mobile
+  Widget _buildMobileScrollableBoxSection(String tag, List<Widget> boxes) {
     return Container(
-      child: Wrap(
-        spacing: 20,
-        runSpacing: 20,
-        alignment: WrapAlignment.center, // Center alignment for mobile
-        children: boxes.map((box) => _buildBox(tag, box)).toList(),
+      height: 300,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: boxes.map((box) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: _buildBox(tag, box),
+        )).toList(),
       ),
     );
   }
