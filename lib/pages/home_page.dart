@@ -1087,7 +1087,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    '50 minutes, 4 sessions per month',
+                                    '40 minutes, 4 sessions per month',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -1352,7 +1352,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 5),
                                               Text(
-                                                '50 minutes, 4 sessions per month',
+                                                '40 minutes, 4 sessions per month',
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
                                                   fontSize: 20,
@@ -1494,7 +1494,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Align with 'Infrared Sauna'
                                               Text(
-                                                '\$99',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1504,7 +1504,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 8), // Align with 'Cold Plunge'
                                               Text(
-                                                '\$99',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1514,7 +1514,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Align with 'Normatec Lymphatic Drainage Boots'
                                               Text(
-                                                '\$99',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1524,7 +1524,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Align with 'LED Light Therapy'
                                               Text(
-                                                '\$99',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1619,7 +1619,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Align with 'Infrared Sauna'
                                               Text(
-                                                '\$139',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1629,7 +1629,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 8), // Align with 'Cold Plunge'
                                               Text(
-                                                '\$139',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1639,7 +1639,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Align with 'Normatec Lymphatic Drainage Boots'
                                               Text(
-                                                '\$139',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),
@@ -1649,7 +1649,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                               ),
                                               SizedBox(height: 10), // Align with 'LED Light Therapy'
                                               Text(
-                                                '\$139',
+                                                '',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Color(0xFF4A776D),

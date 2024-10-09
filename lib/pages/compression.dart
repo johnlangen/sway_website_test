@@ -70,7 +70,7 @@ class CompressionPage extends StatelessWidget {
                     SizedBox(
                       width: 192 * scaleFactor,
                       child: Text(
-                        'RECOMMENDED 30 MIN',
+                        'RECOMMENDED 15 MIN',
                         style: TextStyle(
                           color: Color(0xFF4A776D),
                           fontSize: 15 * scaleFactor,
@@ -96,7 +96,7 @@ class CompressionPage extends StatelessWidget {
                     ),
                     SizedBox(height: 20 * scaleFactor),
                     Text(
-                      '4x Visits a Month\nDrop-In \$139 I Member \$99',
+                      'Drop-In \$49 I Member \$25',
                       style: TextStyle(
                         color: Color(0xFF4A776D),
                         fontSize: 20 * scaleFactor,
@@ -241,7 +241,7 @@ class CompressionPage extends StatelessWidget {
           SizedBox(height: 20),
           // Text elements stacked below, aligned left
           Text(
-            'RECOMMENDED 30 MIN',
+            'RECOMMENDED 15 MIN',
             style: TextStyle(
               color: Color(0xFF4A776D),
               fontSize: 12, // Smaller text size for mobile
@@ -263,7 +263,7 @@ class CompressionPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Text(
-            '4x Visits a Month\nDrop-In \$139 I Member \$99',
+            'Drop-In \$49 I Member \$25',
             style: TextStyle(
               color: Color(0xFF4A776D),
               fontSize: 16, // Smaller for mobile
