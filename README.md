@@ -1,6 +1,6 @@
 # sway_website_test
 
-A new Flutter project.
+Denver's first-of-its-kind wellness club, where tech meets traditional day spa. 
 
 ## Getting Started
 
