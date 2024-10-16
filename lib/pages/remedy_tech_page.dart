@@ -87,7 +87,7 @@ class RemedyTechPage extends StatelessWidget {
                 color: Color(0xFF4A776D),
                 fontSize: 20,
                 fontFamily: 'Vance',
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w300,
                 height: 1.5, // Adjusted height for better spacing
               ),
             ),
@@ -147,7 +147,7 @@ class RemedyTechPage extends StatelessWidget {
                 color: Color(0xFF4A776D),
                 fontSize: 20,
                 fontFamily: 'Vance',
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w300,
                 height: 1.5,
               ),
             ),
@@ -389,7 +389,7 @@ Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String 
                           ),
                           child: Center(
                             child: Text(
-                              'Book Now',
+                              'Learn More',
                               style: TextStyle(
                                 color: Color(0xFFF6F7F6),
                                 fontSize: 12,
@@ -490,7 +490,7 @@ Widget _buildCard(BuildContext context, bool isMobile, String imagePath, String 
                               ),
                               child: Center(
                                 child: Text(
-                                  'Book Now',
+                                  'Learn More',
                                   style: TextStyle(
                                     color: Color(0xFFF6F7F6),
                                     fontSize: 14,

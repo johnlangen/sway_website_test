@@ -65,7 +65,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 Navigator.pushNamed(context, '/the-sway-way');
                 break;
               // Change 'Book Now' to navigate to '/treatments' instead of '/book-now'
-              case 'Book Now':
+              case 'Book Soon':
                 Navigator.pushNamed(context, '/treatments'); // Redirect to Treatments page
                 break;
             }
@@ -81,8 +81,8 @@ class _NavBarGreenState extends State<NavBarGreen> {
               child: Text('Join the Club'),
             ),
             PopupMenuItem(
-              value: 'Book Now',
-              child: Text('Book Now'),
+              value: 'Book Soon',
+              child: Text('Book Soon'),
             ),
           ],
         ),
@@ -133,7 +133,7 @@ class _NavBarGreenState extends State<NavBarGreen> {
                 Navigator.pushNamed(context, '/treatments'); // Navigate to the Treatments page
               },
               child: Text(
-                'Book Now',
+                'Book Soon',
                 style: TextStyle(
                   color: Color(0xFFF6F7F6),
                   fontSize: 18,

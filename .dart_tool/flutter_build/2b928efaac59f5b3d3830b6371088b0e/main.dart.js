@@ -9077,11 +9077,11 @@ this.c=c},
 aKY(a){return new A.jt(a.gcj(a),A.bK(20,null,!1,t.av))},
 aKZ(a){return a===1},
 aPp(a,b){var s=t.S
-return new A.hW(B.z,B.dC,A.Zr(),B.c2,A.B(s,t.GY),A.B(s,t.o),B.i,A.a([],t.t),A.B(s,t.C),A.cE(s),a,b,A.Zs(),A.B(s,t.B))},
+return new A.hW(B.A,B.dC,A.Zr(),B.c2,A.B(s,t.GY),A.B(s,t.o),B.i,A.a([],t.t),A.B(s,t.C),A.cE(s),a,b,A.Zs(),A.B(s,t.B))},
 avO(a,b){var s=t.S
-return new A.hz(B.z,B.dC,A.Zr(),B.c2,A.B(s,t.GY),A.B(s,t.o),B.i,A.a([],t.t),A.B(s,t.C),A.cE(s),a,b,A.Zs(),A.B(s,t.B))},
+return new A.hz(B.A,B.dC,A.Zr(),B.c2,A.B(s,t.GY),A.B(s,t.o),B.i,A.a([],t.t),A.B(s,t.C),A.cE(s),a,b,A.Zs(),A.B(s,t.B))},
 aBs(a,b){var s=t.S
-return new A.ja(B.z,B.dC,A.Zr(),B.c2,A.B(s,t.GY),A.B(s,t.o),B.i,A.a([],t.t),A.B(s,t.C),A.cE(s),a,b,A.Zs(),A.B(s,t.B))},
+return new A.ja(B.A,B.dC,A.Zr(),B.c2,A.B(s,t.GY),A.B(s,t.o),B.i,A.a([],t.t),A.B(s,t.C),A.cE(s),a,b,A.Zs(),A.B(s,t.B))},
 DE:function DE(a,b){this.a=a
 this.b=b},
 hs:function hs(){},
@@ -22035,7 +22035,7 @@ _.f=_.e=$
 _.a=c},
 nl(a,b){var s=null,r=A.aO([null,0],t.LO,t.S),q=a.length,p=b===B.aO
 p=p?B.zB:s
-return new A.Lh(new A.afM(!0,!0,!0,a,r),s,b,!1,s,s,p,!1,s,q,B.z,B.Nj,s,B.N,B.aH,s)},
+return new A.Lh(new A.afM(!0,!0,!0,a,r),s,b,!1,s,s,p,!1,s,q,B.A,B.Nj,s,B.N,B.aH,s)},
 NT:function NT(a,b){this.a=a
 this.b=b},
 NS:function NS(){},
@@ -34552,11 +34552,11 @@ gald(){var s=this.a
 if(s instanceof A.ez)return s
 return this.a=new A.ez(s)},
 gamW(){var s,r,q,p,o,n=this
-if(n.c===1)return B.y
+if(n.c===1)return B.z
 s=n.d
 r=J.aL(s)
 q=r.gC(s)-J.cm(n.e)-n.f
-if(q===0)return B.y
+if(q===0)return B.z
 p=[]
 for(o=0;o<q;++o)p.push(r.i(s,o))
 return J.aAD(p)},
@@ -40801,7 +40801,7 @@ if(r&&a6){a6=p.f
 if(a6 instanceof A.cD)a6=a6.cv(b1)}else a6=s
 r=a4.a
 a3=r.d
-return A.cu(new A.pp(a7,a5,!1,a4.ga9F(),a5,A.bq(B.aH,A.cH(!0,new A.hq(new A.ak(a0,1/0,a0,1/0),new A.e1(a1,!1,A.y_(new A.az(a3,new A.dr(r.z,1,1,A.tj(A.KM(r.c,d,a5),a5,a5,B.cm,!0,e,a5,a5,B.b_),a5),a5),new A.aC(a6,a5,a2,p.y,a5,a5,B.p),B.dh),a5),a5),!1,a5,a5,!1,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5),B.z,!1,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,p.r,a,c,b),a5),b0,a5,a5,a5,a5)}}
+return A.cu(new A.pp(a7,a5,!1,a4.ga9F(),a5,A.bq(B.aH,A.cH(!0,new A.hq(new A.ak(a0,1/0,a0,1/0),new A.e1(a1,!1,A.y_(new A.az(a3,new A.dr(r.z,1,1,A.tj(A.KM(r.c,d,a5),a5,a5,B.cm,!0,e,a5,a5,B.b_),a5),a5),new A.aC(a6,a5,a2,p.y,a5,a5,B.p),B.dh),a5),a5),!1,a5,a5,!1,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5),B.A,!1,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,a5,p.r,a,c,b),a5),b0,a5,a5,a5,a5)}}
 A.akE.prototype={
 $1(a){var s=this.a
 if(s.c!=null&&this.b!==s.w)s.vE(0)},
@@ -41561,7 +41561,7 @@ s=j.d
 r=p.d
 r===$&&A.b()
 q=p.f
-return j.ao6(a,k,s,new A.e1(r,!1,A.ayQ(A.bq(o,new A.Du(m,i,B.EN.cv(a),1/A.Y(a,B.cu,t.w).w.b,l,q,p.r),B.z,!1,o,o,o,o,p.ga9v(),o,o,o,o,o,o,o,o,o,o,o),B.cB,B.iO),o))}}
+return j.ao6(a,k,s,new A.e1(r,!1,A.ayQ(A.bq(o,new A.Du(m,i,B.EN.cv(a),1/A.Y(a,B.cu,t.w).w.b,l,q,p.r),B.A,!1,o,o,o,o,p.ga9v(),o,o,o,o,o,o,o,o,o,o,o),B.cB,B.iO),o))}}
 A.akU.prototype={
 $0(){var s=this.a,r=s.e
 r.toString
@@ -41839,7 +41839,7 @@ s=this.a.d
 if(s!=null)s.$0()},
 a9I(){this.a9(new A.akR(this))},
 K(a){var s=this,r=null,q=s.a4p(a),p=s.d?B.EP.cv(a):B.F,o=s.a.d,n=A.azn(B.r,r,q,p,B.F,44,o,B.FO,1)
-if(o!=null)return A.bq(r,n,B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,s.ga9H(),s.ga9J(),s.ga9L())
+if(o!=null)return A.bq(r,n,B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,s.ga9H(),s.ga9J(),s.ga9L())
 else return n},
 a4p(a){var s,r=null,q=this.a,p=q.c
 if(p!=null)return p
@@ -43820,7 +43820,7 @@ this.wN()
 this.ZM()},
 vB(a){var s,r,q,p,o,n=this
 if(!n.fy)return
-if(n.at===B.z){s=n.k4
+if(n.at===B.A){s=n.k4
 s===$&&A.b()
 r=a.gpw()
 n.k4=s.P(0,new A.eQ(a.gjS(),r))}n.a1X(a)
@@ -46619,7 +46619,7 @@ f=d.hp(f)?d.gaje():c
 e=d.a
 e.toString
 e=d.hp(e)?d.gajg():c
-return new A.EE(d,A.wW(m,A.po(!1,q,A.cu(A.aKo(A.cH(c,A.bq(B.aH,d.a.c,B.z,!0,c,c,c,c,c,c,c,c,f,e,h,g,j,i,p,k),!1,c,c,!1,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,o,c,c,c,c,c,c,c),n),n,c,d.gaj_(),d.gaj1(),c),c,c,c,r,!0,c,d.gaiO(),c,c,c,c)),c)},
+return new A.EE(d,A.wW(m,A.po(!1,q,A.cu(A.aKo(A.cH(c,A.bq(B.aH,d.a.c,B.A,!0,c,c,c,c,c,c,c,c,f,e,h,g,j,i,p,k),!1,c,c,!1,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,o,c,c,c,c,c,c,c),n),n,c,d.gaj_(),d.gaj1(),c),c,c,c,r,!0,c,d.gaiO(),c,c,c,c)),c)},
 $iax9:1}
 A.anH.prototype={
 $1(a){return a!=null},
@@ -49439,7 +49439,7 @@ n===$&&A.b()
 m=j.db
 m===$&&A.b()
 j.qU(r,new A.DS(i,f,q,n,m,i),B.i3,!0,!0,!0,!0)
-switch(g.w.a){case 2:case 4:j.qU(r,A.bq(B.aH,i,B.z,!0,i,i,i,i,i,i,i,i,i,i,i,i,j.ga7r(),i,i,i),B.i_,!0,!1,!1,!0)
+switch(g.w.a){case 2:case 4:j.qU(r,A.bq(B.aH,i,B.A,!0,i,i,i,i,i,i,i,i,i,i,i,i,j.ga7r(),i,i,i),B.i_,!0,!1,!1,!0)
 break
 case 0:case 1:case 3:case 5:break}f=j.x
 q=f.y
@@ -50235,7 +50235,7 @@ if(t.qY.b(a5))a7=B.z1
 else a7=B.U3
 q=A.a([$.aG1()],q)
 B.b.R(q,p)
-b4=A.Pb(b4,new A.tr(m,l,"\u2022",!1,!1,a7,a0,!0,!0,a2,b,!0,n,b1,b1,B.be,b1,B.PQ,c,g,B.eh,1,b1,!1,!1,a3,a5,a1,b1,b1,b1,b1,b1,b0.ga70(),b0.ga76(),B.eX,b1,q,B.b3,!0,2,b1,f,i,h,j,B.e5,B.da,r.a,B.b4,a4,B.z,b1,b1,!0,b0,B.N,"editable",!0,b1,A.aVj(),k,a6,b0.y))
+b4=A.Pb(b4,new A.tr(m,l,"\u2022",!1,!1,a7,a0,!0,!0,a2,b,!0,n,b1,b1,B.be,b1,B.PQ,c,g,B.eh,1,b1,!1,!1,a3,a5,a1,b1,b1,b1,b1,b1,b0.ga70(),b0.ga76(),B.eX,b1,q,B.b3,!0,2,b1,f,i,h,j,B.e5,B.da,r.a,B.b4,a4,B.A,b1,b1,!0,b0,B.N,"editable",!0,b1,A.aVj(),k,a6,b0.y))
 b0.a.toString
 a8=A.mD(new A.ri(A.a([l,m],t.Eo)),new A.arS(b0,l,m),new A.jd(b4,b1))
 b0.a.toString
@@ -50362,7 +50362,7 @@ a.aq(t.bZ)
 s=A.ae(a)
 r=s.ef.c
 if(r==null)r=o.ax.b
-q=A.l(A.mP(A.bq(B.ce,p,B.z,!1,p,p,p,p,p,p,p,p,p,p,p,p,d,p,p,p),p,p,new A.WD(r,p),B.D),22,22)
+q=A.l(A.mP(A.bq(B.ce,p,B.A,!1,p,p,p,p,p,p,p,p,p,p,p,p,d,p,p,p),p,p,new A.WD(r,p),B.D),22,22)
 switch(b.a){case 0:s=A.awO(1.5707963267948966,q)
 break
 case 1:s=q
@@ -76283,11 +76283,11 @@ s.at=!s.at},
 $S:0}
 A.aci.prototype={
 $0(){var s=this.a,r=t.S
-return new A.of(s.z,B.z,B.dC,A.Zr(),B.c2,A.B(r,t.GY),A.B(r,t.o),B.i,A.a([],t.t),A.B(r,t.C),A.cE(r),s,null,A.Zs(),A.B(r,t.B))},
+return new A.of(s.z,B.A,B.dC,A.Zr(),B.c2,A.B(r,t.GY),A.B(r,t.o),B.i,A.a([],t.t),A.B(r,t.C),A.cE(r),s,null,A.Zs(),A.B(r,t.B))},
 $S:457}
 A.acj.prototype={
 $0(){var s=this.a,r=t.S
-return new A.ov(s.z,B.z,B.dC,A.Zr(),B.c2,A.B(r,t.GY),A.B(r,t.o),B.i,A.a([],t.t),A.B(r,t.C),A.cE(r),s,null,A.Zs(),A.B(r,t.B))},
+return new A.ov(s.z,B.A,B.dC,A.Zr(),B.c2,A.B(r,t.GY),A.B(r,t.o),B.i,A.a([],t.t),A.B(r,t.C),A.cE(r),s,null,A.Zs(),A.B(r,t.B))},
 $S:458}
 A.ack.prototype={
 $0(){var s=this.a,r=t.S
@@ -76924,7 +76924,7 @@ s=o.e
 if(s!=null)m.a=new A.az(s,k,n)
 r=o.f==null&&A.aBA(a,B.aO)
 q=r?A.MJ(a):o.f
-p=A.aws(l,B.N,q,B.z,!1,B.aH,n,o.w,n,n,n,new A.afC(m,o,l))
+p=A.aws(l,B.N,q,B.A,!1,B.aH,n,o.w,n,n,n,new A.afC(m,o,l))
 return r&&q!=null?A.aBz(p):p}}
 A.afC.prototype={
 $2(a,b){return new A.ws(this.c,b,B.N,this.a.a,null)},
@@ -79001,7 +79001,7 @@ a.RG=s.ga65()},
 $S:162}
 A.as4.prototype={
 $0(){var s=null,r=t.S
-return new A.kx(B.z,B.f2,A.aJ(r),s,s,0,s,s,s,s,s,s,A.B(r,t.C),A.cE(r),this.a,s,A.wN(),A.B(r,t.B))},
+return new A.kx(B.A,B.f2,A.aJ(r),s,s,0,s,s,s,s,s,s,A.B(r,t.C),A.cE(r),this.a,s,A.wN(),A.B(r,t.B))},
 $S:478}
 A.as5.prototype={
 $1(a){var s
@@ -79019,7 +79019,7 @@ a.dy=s.gPT()},
 $S:479}
 A.as6.prototype={
 $0(){var s=null,r=t.S
-return new A.ky(B.z,B.f2,A.aJ(r),s,s,0,s,s,s,s,s,s,A.B(r,t.C),A.cE(r),this.a,s,A.wN(),A.B(r,t.B))},
+return new A.ky(B.A,B.f2,A.aJ(r),s,s,0,s,s,s,s,s,s,A.B(r,t.C),A.cE(r),this.a,s,A.wN(),A.B(r,t.B))},
 $S:480}
 A.as7.prototype={
 $1(a){var s
@@ -80433,7 +80433,7 @@ return this.f.As(s)}return null},
 amB(a){if(a==null)return null
 switch(a){case"100":return B.mQ
 case"200":return B.mR
-case"300":return B.A
+case"300":return B.y
 case"normal":case"400":return B.f
 case"500":return B.aC
 case"600":return B.j0
@@ -82603,7 +82603,7 @@ q=A.bb(50)
 p=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],t.E)
 o=l?18:22
 n=t.p
-r=A.da(A.ci(A.a9(A.a([k,s,A.cu(A.bq(m,A.i1(A.q("Book Now",m,m,m,m,A.n(m,m,new A.c(4294375414),m,m,m,m,m,m,m,m,o,m,m,B.f,m,m,!0,m,m,m,m,m,m,m,m),m,m),new A.aC(new A.c(4283070317),m,m,q,p,m,B.p),r,m,m,new A.T(40,20,40,20),m,m,m),B.z,!1,m,m,m,m,m,m,m,m,m,m,m,m,new A.a_O(),m,m,m),B.a3,m,m,m,m)],n),B.q,B.aD,B.h),m,m),1)
+r=A.da(A.ci(A.a9(A.a([k,s,A.cu(A.bq(m,A.i1(A.q("Book Now",m,m,m,m,A.n(m,m,new A.c(4294375414),m,m,m,m,m,m,m,m,o,m,m,B.f,m,m,!0,m,m,m,m,m,m,m,m),m,m),new A.aC(new A.c(4283070317),m,m,q,p,m,B.p),r,m,m,new A.T(40,20,40,20),m,m,m),B.A,!1,m,m,m,m,m,m,m,m,m,m,m,m,new A.a_O(),m,m,m),B.a3,m,m,m,m)],n),B.q,B.aD,B.h),m,m),1)
 return A.fr(new A.qp(new A.fZ(m),new A.D(1/0,50),m),m,A.a9(A.a([r,l?new A.eM(m):new A.eL(m)],n),B.q,B.k,B.h))}}
 A.a_O.prototype={
 $0(){var s=0,r=A.J(t.H)
@@ -82629,7 +82629,7 @@ q=A.a([A.dj(B.ae,q,B.N,B.a7),A.l(s,100,s)],p)
 if(r)q.push(new A.eM(s))
 else q.push(new A.eL(s))
 return A.fr(s,new A.c(4294440169),A.ft(A.a9(q,B.q,B.k,B.h),s,s,s))},
-a2h(a6){var s,r,q,p,o=this,n=null,m=4283070317,l="Vance",k="Schedule Your Wellness",j=4294375414,i=A.Y(a6,n,t.w).w.a.a,h=i<1500?i/1500:1,g=100*h,f=A.a0(n,n,B.e,n,n,new A.aC(n,A.cT(B.r,B.c7,new A.ca("assets/cold_plunge.png",n,n)),n,n,n,n,B.p),n,664*h,n,n,n,n,n,599*h),e=A.l(n,n,g),d=A.l(A.q("RECOMMENDED 5 MIN",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,"Helvetica",n,n,15*h,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,192*h),c=10*h,b=A.l(n,c,n),a=A.l(A.q("Cold Plunge",n,n,n,n,A.n(n,n,new A.c(4279319859),n,n,n,n,n,l,n,n,50*h,n,n,B.A,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,485*h),a0=20*h,a1=A.l(n,a0,n),a2=A.q("Drop-In $139 I Member $99",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a0,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),a3=A.l(n,a0,n),a4=25*h,a5=A.l(A.q(u.H,n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.A,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,624*h)
+a2h(a6){var s,r,q,p,o=this,n=null,m=4283070317,l="Vance",k="Schedule Your Wellness",j=4294375414,i=A.Y(a6,n,t.w).w.a.a,h=i<1500?i/1500:1,g=100*h,f=A.a0(n,n,B.e,n,n,new A.aC(n,A.cT(B.r,B.c7,new A.ca("assets/cold_plunge.png",n,n)),n,n,n,n,B.p),n,664*h,n,n,n,n,n,599*h),e=A.l(n,n,g),d=A.l(A.q("RECOMMENDED 5 MIN",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,"Helvetica",n,n,15*h,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,192*h),c=10*h,b=A.l(n,c,n),a=A.l(A.q("Cold Plunge",n,n,n,n,A.n(n,n,new A.c(4279319859),n,n,n,n,n,l,n,n,50*h,n,n,B.y,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,485*h),a0=20*h,a1=A.l(n,a0,n),a2=A.q("Drop-In $139 I Member $99",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a0,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),a3=A.l(n,a0,n),a4=25*h,a5=A.l(A.q(u.H,n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.y,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,624*h)
 a0=A.l(n,a0,n)
 a4=A.l(A.q("Recommended for",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,213*h)
 c=A.l(n,c,n)
@@ -82637,7 +82637,7 @@ s=t.p
 r=A.l(A.a9(A.a([o.jo("Reducing Stress and Anxiety",h),o.jo("Improving Skin Health",h),o.jo("Anyone that suffers from Arthritis",h),o.jo("Those needing detoxification",h),o.jo("Muscle pain and joint stiffness",h)],s),B.n,B.k,B.h),n,388*h)
 q=A.l(n,30*h,n)
 p=A.bb(50)
-p=A.bI(A.a([f,e,A.da(A.a9(A.a([d,b,a,a1,a2,a3,a5,a0,a4,c,r,q,A.bq(n,A.a0(n,A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,p,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.z,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a0S(),n,n,n)],s),B.n,B.k,B.h),1)],s),B.n,B.k,B.h)
+p=A.bI(A.a([f,e,A.da(A.a9(A.a([d,b,a,a1,a2,a3,a5,a0,a4,c,r,q,A.bq(n,A.a0(n,A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,p,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.A,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a0S(),n,n,n)],s),B.n,B.k,B.h),1)],s),B.n,B.k,B.h)
 q=A.l(n,50,n)
 r=o.vM("RESTORE YOUR BODY")
 c=o.KG("Body",o.KE(),!1)
@@ -82646,15 +82646,15 @@ a0=o.vM("REFRESH YOUR MIND")
 a5=o.KG("Mind",o.Kd(!0),!1)
 a3=A.l(n,30,n)
 a2=A.bb(50)
-return A.a0(n,A.a9(A.a([p,q,r,c,a4,a0,a5,a3,A.bq(n,A.a0(n,A.ci(A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,a2,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.z,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a0T(),n,n,n)],s),B.n,B.k,B.h),B.e,n,n,n,n,n,n,new A.T(0,160,0,0),new A.T(g,0,g,0),n,n,1/0)},
-a2i(a1){var s=this,r=null,q=4283070317,p="Vance",o=A.a0(r,r,B.e,r,r,new A.aC(r,A.cT(B.r,B.c7,new A.ca("assets/cold_plunge.png",r,r)),r,r,r,r,B.p),r,332,r,r,r,r,r,299),n=A.l(r,20,r),m=A.q("RECOMMENDED 5 MIN",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),l=A.l(r,10,r),k=A.q("Cold Plunge",r,r,r,r,A.n(r,r,new A.c(4279319859),r,r,r,r,r,p,r,r,30,r,r,B.A,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),j=A.l(r,20,r),i=A.q("Drop-In $139 I Member $99",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),h=A.l(r,20,r),g=A.q(u.H,r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),f=A.l(r,20,r),e=A.q("Recommended for",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),d=A.l(r,10,r),c=t.p,b=A.a9(A.a([s.jo("Reducing Stress and Anxiety",1),s.jo("Improving Skin Health",1),s.jo("Anyone that suffers from Arthritis",1),s.jo("Those needing detoxification",1),s.jo("Muscle pain and joint stiffness",1)],c),B.n,B.k,B.h),a=A.l(r,30,r),a0=A.bb(50)
-return A.a0(r,A.a9(A.a([o,n,m,l,k,j,i,h,g,f,e,d,b,a,A.bq(r,A.a0(r,A.q("Schedule Your Wellness",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),B.e,r,r,new A.aC(new A.c(q),r,r,a0,r,r,B.p),r,r,r,r,new A.T(20,10,20,10),r,r,250),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.a0U(),r,r,r),A.l(r,30,r),s.vM("RESTORE YOUR BODY"),s.KH("Body",s.KE()),A.l(r,30,r),s.vM("REFRESH YOUR MIND"),s.KH("Mind",s.Kd(!0))],c),B.n,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0)},
+return A.a0(n,A.a9(A.a([p,q,r,c,a4,a0,a5,a3,A.bq(n,A.a0(n,A.ci(A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,a2,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.A,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a0T(),n,n,n)],s),B.n,B.k,B.h),B.e,n,n,n,n,n,n,new A.T(0,160,0,0),new A.T(g,0,g,0),n,n,1/0)},
+a2i(a1){var s=this,r=null,q=4283070317,p="Vance",o=A.a0(r,r,B.e,r,r,new A.aC(r,A.cT(B.r,B.c7,new A.ca("assets/cold_plunge.png",r,r)),r,r,r,r,B.p),r,332,r,r,r,r,r,299),n=A.l(r,20,r),m=A.q("RECOMMENDED 5 MIN",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),l=A.l(r,10,r),k=A.q("Cold Plunge",r,r,r,r,A.n(r,r,new A.c(4279319859),r,r,r,r,r,p,r,r,30,r,r,B.y,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),j=A.l(r,20,r),i=A.q("Drop-In $139 I Member $99",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),h=A.l(r,20,r),g=A.q(u.H,r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),f=A.l(r,20,r),e=A.q("Recommended for",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),d=A.l(r,10,r),c=t.p,b=A.a9(A.a([s.jo("Reducing Stress and Anxiety",1),s.jo("Improving Skin Health",1),s.jo("Anyone that suffers from Arthritis",1),s.jo("Those needing detoxification",1),s.jo("Muscle pain and joint stiffness",1)],c),B.n,B.k,B.h),a=A.l(r,30,r),a0=A.bb(50)
+return A.a0(r,A.a9(A.a([o,n,m,l,k,j,i,h,g,f,e,d,b,a,A.bq(r,A.a0(r,A.q("Schedule Your Wellness",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),B.e,r,r,new A.aC(new A.c(q),r,r,a0,r,r,B.p),r,r,r,r,new A.T(20,10,20,10),r,r,250),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.a0U(),r,r,r),A.l(r,30,r),s.vM("RESTORE YOUR BODY"),s.KH("Body",s.KE()),A.l(r,30,r),s.vM("REFRESH YOUR MIND"),s.KH("Mind",s.Kd(!0))],c),B.n,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0)},
 jo(a,b){var s=4283070317,r=null,q=18*b
-return new A.az(B.iS,A.bI(A.a([A.q("+",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.l(r,r,10),A.da(A.q(a,r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),1)],t.p),B.n,B.k,B.h),r)},
+return new A.az(B.iS,A.bI(A.a([A.q("+",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.l(r,r,10),A.da(A.q(a,r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),1)],t.p),B.n,B.k,B.h),r)},
 KF(a,b){var s,r=4290105279,q=null,p=a==="Body",o=p?new A.c(r):new A.c(4279319859),n=A.bb(0)
 p=p?new A.c(4283070317):new A.c(r)
 s=A.bb(50)
-return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.A,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
+return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.y,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
 vM(a){var s=null
 return new A.az(B.fy,A.q(a,s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,"Vance",s,s,30,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s)},
 KG(a,b,c){var s=A.a4(b).h("a5<1,j>")
@@ -82667,7 +82667,7 @@ return A.a([s.vL("WAKE UP!","Elevates energy by stimulating the release of adren
 Kd(a){var s=this
 return A.a([s.qZ("REDUCE STRESS","Much like the infrared sauna, cold exposure reduces the levels of stress hormones like cortisol, providing a calming and therapeutic experience.",!0),s.qZ("TRANQUIL SLEEP","With the reduction of cortisol levels and increased endorphin production, cold exposure creates a sense of relaxation that can make it easier to fall asleep and stay asleep.",!0),s.qZ("ENHANCE MOOD","According to Psychology Today, cold exposure increases the production of a neurotransmitter called norepinephrine (focus, attention, vigilance, mood). As a result, cold therapy can produce a feeling of calm, happiness, and well-being.",!0),s.qZ("MENTAL CLARITY","Stimulates the production of neurotransmitters like dopamine, which improve focus and cognitive function. The invigorating effect of the cold water also enhances mental alertness, helping you feel more awake, clear-minded, and attentive.",!0)],t.p)},
 qZ(a,b,c){var s=4294375414,r=null,q=4283070317,p=A.l(A.q(a,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.a_,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),r,192),o=A.l(r,10,r)
-return new A.az(B.b4,A.a9(A.a([p,o,A.l(A.q(b,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Vance",r,r,12,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,262)],t.p),B.n,B.k,B.h),r)},
+return new A.az(B.b4,A.a9(A.a([p,o,A.l(A.q(b,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Vance",r,r,12,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,262)],t.p),B.n,B.k,B.h),r)},
 vL(a,b){return this.qZ(a,b,!1)}}
 A.a0S.prototype={
 $0(){},
@@ -82693,7 +82693,7 @@ q=A.a([A.dj(B.ae,q,B.N,B.a7),A.l(s,100,s)],p)
 if(r)q.push(new A.eM(s))
 else q.push(new A.eL(s))
 return A.fr(s,new A.c(4294440169),A.ft(A.a9(q,B.q,B.k,B.h),s,s,s))},
-a2p(a6){var s,r,q,p,o=this,n=null,m=4283070317,l="Vance",k="Schedule Your Wellness",j=4294375414,i=A.Y(a6,n,t.w).w.a.a,h=i<1500?i/1500:1,g=100*h,f=A.a0(n,n,B.e,n,n,new A.aC(n,A.cT(B.r,B.c7,new A.ca("assets/compression_therapy.png",n,n)),n,n,n,n,B.p),n,664*h,n,n,n,n,n,599*h),e=A.l(n,n,g),d=A.l(A.q("RECOMMENDED 15 MIN",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,"Helvetica",n,n,15*h,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,192*h),c=10*h,b=A.l(n,c,n),a=A.l(A.q("Normatec Lymphatic Drainage Boots",n,n,n,n,A.n(n,n,new A.c(4279319859),n,n,n,n,n,l,n,n,50*h,n,n,B.A,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,485*h),a0=20*h,a1=A.l(n,a0,n),a2=A.q("Drop-In $49 I Member $25",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a0,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),a3=A.l(n,a0,n),a4=25*h,a5=A.l(A.q(u.J,n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.A,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,624*h)
+a2p(a6){var s,r,q,p,o=this,n=null,m=4283070317,l="Vance",k="Schedule Your Wellness",j=4294375414,i=A.Y(a6,n,t.w).w.a.a,h=i<1500?i/1500:1,g=100*h,f=A.a0(n,n,B.e,n,n,new A.aC(n,A.cT(B.r,B.c7,new A.ca("assets/compression_therapy.png",n,n)),n,n,n,n,B.p),n,664*h,n,n,n,n,n,599*h),e=A.l(n,n,g),d=A.l(A.q("RECOMMENDED 15 MIN",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,"Helvetica",n,n,15*h,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,192*h),c=10*h,b=A.l(n,c,n),a=A.l(A.q("Normatec Lymphatic Drainage Boots",n,n,n,n,A.n(n,n,new A.c(4279319859),n,n,n,n,n,l,n,n,50*h,n,n,B.y,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,485*h),a0=20*h,a1=A.l(n,a0,n),a2=A.q("Drop-In $49 I Member $25",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a0,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),a3=A.l(n,a0,n),a4=25*h,a5=A.l(A.q(u.J,n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.y,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,624*h)
 a0=A.l(n,a0,n)
 a4=A.l(A.q("Recommended for",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,213*h)
 c=A.l(n,c,n)
@@ -82701,7 +82701,7 @@ s=t.p
 r=A.l(A.a9(A.a([o.hT("Alleviating muscle fatigue and soreness",h),o.hT("Reducing inflammation and swelling",h),o.hT(u.R,h),o.hT("Accelerating post-workout recovery",h),o.hT("Supporting joint health and flexibility",h),o.hT(u.Z,h)],s),B.n,B.k,B.h),n,388*h)
 q=A.l(n,30*h,n)
 p=A.bb(50)
-p=A.bI(A.a([f,e,A.da(A.a9(A.a([d,b,a,a1,a2,a3,a5,a0,a4,c,r,q,A.bq(n,A.a0(n,A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,p,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.z,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a10(),n,n,n)],s),B.n,B.k,B.h),1)],s),B.n,B.k,B.h)
+p=A.bI(A.a([f,e,A.da(A.a9(A.a([d,b,a,a1,a2,a3,a5,a0,a4,c,r,q,A.bq(n,A.a0(n,A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,p,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.A,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a10(),n,n,n)],s),B.n,B.k,B.h),1)],s),B.n,B.k,B.h)
 q=A.l(n,50,n)
 r=o.vO("RESTORE YOUR BODY")
 c=o.KP("Body",o.KN(),!1)
@@ -82710,15 +82710,15 @@ a0=o.vO("REFRESH YOUR MIND")
 a5=o.KP("Mind",A.a([o.BM("Enhanced Relaxation",u.K,!0)],s),!1)
 a3=A.l(n,30,n)
 a2=A.bb(50)
-return A.a0(n,A.a9(A.a([p,q,r,c,a4,a0,a5,a3,A.bq(n,A.a0(n,A.ci(A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,a2,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.z,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a11(),n,n,n)],s),B.n,B.k,B.h),B.e,n,n,n,n,n,n,new A.T(0,160,0,0),new A.T(g,0,g,0),n,n,1/0)},
-a2q(a1){var s=this,r=null,q=4283070317,p="Vance",o=A.a0(r,r,B.e,r,r,new A.aC(r,A.cT(B.r,B.c7,new A.ca("assets/compression_therapy.png",r,r)),r,r,r,r,B.p),r,332,r,r,r,r,r,299),n=A.l(r,20,r),m=A.q("RECOMMENDED 15 MIN",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),l=A.l(r,10,r),k=A.q("Normatec Lymphatic Drainage Boots",r,r,r,r,A.n(r,r,new A.c(4279319859),r,r,r,r,r,p,r,r,30,r,r,B.A,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),j=A.l(r,20,r),i=A.q("Drop-In $49 I Member $25",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),h=A.l(r,20,r),g=A.q(u.J,r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),f=A.l(r,20,r),e=A.q("Recommended for",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),d=A.l(r,10,r),c=t.p,b=A.a9(A.a([s.hT("Alleviating muscle fatigue and soreness",1),s.hT("Reducing inflammation and swelling",1),s.hT(u.R,1),s.hT("Accelerating post-workout recovery",1),s.hT("Supporting joint health and flexibility",1),s.hT(u.Z,1)],c),B.n,B.k,B.h),a=A.l(r,30,r),a0=A.bb(50)
-return A.a0(r,A.a9(A.a([o,n,m,l,k,j,i,h,g,f,e,d,b,a,A.bq(r,A.a0(r,A.q("Schedule Your Wellness",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),B.e,r,r,new A.aC(new A.c(q),r,r,a0,r,r,B.p),r,r,r,r,new A.T(20,10,20,10),r,r,250),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.a12(),r,r,r),A.l(r,30,r),s.vO("RESTORE YOUR BODY"),s.KQ("Body",s.KN()),A.l(r,30,r),s.vO("REFRESH YOUR MIND"),s.KQ("Mind",A.a([s.BM("Enhanced Relaxation",u.K,!0)],c))],c),B.n,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0)},
+return A.a0(n,A.a9(A.a([p,q,r,c,a4,a0,a5,a3,A.bq(n,A.a0(n,A.ci(A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,a2,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.A,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.a11(),n,n,n)],s),B.n,B.k,B.h),B.e,n,n,n,n,n,n,new A.T(0,160,0,0),new A.T(g,0,g,0),n,n,1/0)},
+a2q(a1){var s=this,r=null,q=4283070317,p="Vance",o=A.a0(r,r,B.e,r,r,new A.aC(r,A.cT(B.r,B.c7,new A.ca("assets/compression_therapy.png",r,r)),r,r,r,r,B.p),r,332,r,r,r,r,r,299),n=A.l(r,20,r),m=A.q("RECOMMENDED 15 MIN",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),l=A.l(r,10,r),k=A.q("Normatec Lymphatic Drainage Boots",r,r,r,r,A.n(r,r,new A.c(4279319859),r,r,r,r,r,p,r,r,30,r,r,B.y,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),j=A.l(r,20,r),i=A.q("Drop-In $49 I Member $25",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),h=A.l(r,20,r),g=A.q(u.J,r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),f=A.l(r,20,r),e=A.q("Recommended for",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),d=A.l(r,10,r),c=t.p,b=A.a9(A.a([s.hT("Alleviating muscle fatigue and soreness",1),s.hT("Reducing inflammation and swelling",1),s.hT(u.R,1),s.hT("Accelerating post-workout recovery",1),s.hT("Supporting joint health and flexibility",1),s.hT(u.Z,1)],c),B.n,B.k,B.h),a=A.l(r,30,r),a0=A.bb(50)
+return A.a0(r,A.a9(A.a([o,n,m,l,k,j,i,h,g,f,e,d,b,a,A.bq(r,A.a0(r,A.q("Schedule Your Wellness",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),B.e,r,r,new A.aC(new A.c(q),r,r,a0,r,r,B.p),r,r,r,r,new A.T(20,10,20,10),r,r,250),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.a12(),r,r,r),A.l(r,30,r),s.vO("RESTORE YOUR BODY"),s.KQ("Body",s.KN()),A.l(r,30,r),s.vO("REFRESH YOUR MIND"),s.KQ("Mind",A.a([s.BM("Enhanced Relaxation",u.K,!0)],c))],c),B.n,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0)},
 hT(a,b){var s=4283070317,r=null,q=18*b
-return new A.az(B.iS,A.bI(A.a([A.q("+",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.l(r,r,10),A.da(A.q(a,r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),1)],t.p),B.n,B.k,B.h),r)},
+return new A.az(B.iS,A.bI(A.a([A.q("+",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.l(r,r,10),A.da(A.q(a,r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),1)],t.p),B.n,B.k,B.h),r)},
 KO(a,b){var s,r=4290105279,q=null,p=a==="Body",o=p?new A.c(r):new A.c(4279319859),n=A.bb(0)
 p=p?new A.c(4283070317):new A.c(r)
 s=A.bb(50)
-return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.A,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
+return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.y,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
 vO(a){var s=null
 return new A.az(B.fy,A.q(a,s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,"Vance",s,s,30,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s)},
 KP(a,b,c){var s=A.a4(b).h("a5<1,j>")
@@ -82728,7 +82728,7 @@ KQ(a,b){var s=null,r=A.a4(b).h("a5<1,az>")
 return A.a0(s,A.nl(A.a3(new A.a5(b,new A.a13(this,a),r),!0,r.h("ay.E")),B.ah),B.e,s,s,s,s,300,s,s,s,s,s,s)},
 KN(){return A.a([this.BL("RAPID RECOVERY","Scientific sequential compression to the legs increases blood flow and aids in the removal of lactic acid and other metabolic byproducts, reducing muscle soreness."),this.BL("DETOX","This rhythmic compression and release cycle enhances lymphatic flow, helping to move fluid and waste products out of the limbs and back toward the core, where they can be processed and eliminated by the body."),this.BL("INCREASE MOBILITY","Helps improve range of motion and flexibility by reducing muscle stiffness and enhancing overall muscle function.")],t.p)},
 BM(a,b,c){var s=4294375414,r=null,q=4283070317,p=A.l(A.q(a,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.a_,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),r,192),o=A.l(r,10,r)
-return new A.az(B.b4,A.a9(A.a([p,o,A.l(A.q(b,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Vance",r,r,12,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,262)],t.p),B.n,B.k,B.h),r)},
+return new A.az(B.b4,A.a9(A.a([p,o,A.l(A.q(b,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Vance",r,r,12,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,262)],t.p),B.n,B.k,B.h),r)},
 BL(a,b){return this.BM(a,b,!1)}}
 A.a10.prototype={
 $0(){},
@@ -82772,7 +82772,7 @@ else b8.push(new A.eL(l))
 return A.fr(l,new A.c(k),A.ft(A.a9(b8,B.q,B.k,B.h),l,l,l))},
 js(a4,a5,a6,a7,a8,a9,b0,b1){var s,r,q,p,o,n,m,l,k,j,i,h=null,g=4283070317,f="Helvetica",e=4279319859,d="Vance",c="Book Soon",b=4294375414,a=a5?300:625,a0=a5?450:380,a1=A.bb(10),a2=A.a([new A.ch(3,B.ay,B.df,new A.k(0,3),5)],t.E),a3=t.p
 if(a5){s=A.a0(h,h,B.e,h,h,new A.aC(h,A.cT(B.r,B.J,new A.ca(a6,h,h)),h,new A.cc(new A.aF(10,10),new A.aF(10,10),B.C,B.C),h,h,B.p),h,180,h,h,h,h,h,1/0)
-r=A.a9(A.a([A.q(a7,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,f,h,h,12,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,8,h),A.q(a8,h,h,h,h,A.n(h,h,new A.c(e),h,h,h,h,h,d,h,h,20,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,8,h),A.q(a9,h,h,h,h,A.n(h,h,new A.c(e),h,h,h,h,h,d,h,h,15,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,8,h),A.q(b0,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,15,h,h,B.A,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,10,h),A.q(b1,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,14,h,h,B.A,h,1.5,!0,h,h,h,h,h,h,h,h),h,h)],a3),B.n,B.k,B.h)
+r=A.a9(A.a([A.q(a7,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,f,h,h,12,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,8,h),A.q(a8,h,h,h,h,A.n(h,h,new A.c(e),h,h,h,h,h,d,h,h,20,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,8,h),A.q(a9,h,h,h,h,A.n(h,h,new A.c(e),h,h,h,h,h,d,h,h,15,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,8,h),A.q(b0,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,15,h,h,B.y,h,1.2,!0,h,h,h,h,h,h,h,h),h,h),A.l(h,10,h),A.q(b1,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,14,h,h,B.y,h,1.5,!0,h,h,h,h,h,h,h,h),h,h)],a3),B.n,B.k,B.h)
 q=A.bb(50)
 a3=A.a9(A.a([s,new A.az(B.dl,r,h),new A.ks(h),new A.dr(B.bB,h,h,A.a0(h,A.ci(A.q(c,h,h,h,h,A.n(h,h,new A.c(b),h,h,h,h,h,d,h,h,12,h,h,B.f,h,h,!0,h,h,h,h,h,h,h,h),h,h),h,h),B.e,h,h,new A.dA(new A.c(g),h,h,h,new A.bN(q,B.v)),h,40,h,new A.T(10,0,0,10),h,h,h,130),h)],a3),B.n,B.k,B.h)}else{s=A.a0(h,h,B.e,h,h,new A.aC(h,A.cT(B.r,B.J,new A.ca(a6,h,h)),h,new A.cc(new A.aF(10,10),B.C,new A.aF(10,10),B.C),h,h,B.p),h,h,h,h,h,h,h,250)
 r=A.q(a7,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,f,h,h,12,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h)
@@ -82781,9 +82781,9 @@ p=A.q(a8,h,h,h,h,A.n(h,h,new A.c(e),h,h,h,h,h,d,h,h,25,h,h,B.f,h,1.2,!0,h,h,h,h,
 o=A.l(h,8,h)
 n=A.q(a9,h,h,h,h,A.n(h,h,new A.c(e),h,h,h,h,h,d,h,h,15,h,h,B.f,h,1.2,!0,h,h,h,h,h,h,h,h),h,h)
 m=A.l(h,8,h)
-l=A.q(b0,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,15,h,h,B.A,h,1.2,!0,h,h,h,h,h,h,h,h),h,h)
+l=A.q(b0,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,15,h,h,B.y,h,1.2,!0,h,h,h,h,h,h,h,h),h,h)
 k=A.l(h,8,h)
-j=A.q(b1,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,14,h,h,B.A,h,1.5,!0,h,h,h,h,h,h,h,h),h,h)
+j=A.q(b1,h,h,h,h,A.n(h,h,new A.c(g),h,h,h,h,h,d,h,h,14,h,h,B.y,h,1.5,!0,h,h,h,h,h,h,h,h),h,h)
 i=A.bb(50)
 a3=A.l(A.bI(A.a([s,A.da(new A.az(B.iT,A.a9(A.a([r,q,p,o,n,m,l,k,j,new A.ks(h),new A.dr(B.bB,h,h,A.a0(h,A.ci(A.q(c,h,h,h,h,A.n(h,h,new A.c(b),h,h,h,h,h,d,h,h,14,h,h,B.f,h,h,!0,h,h,h,h,h,h,h,h),h,h),h,h),B.e,h,h,new A.dA(new A.c(g),h,h,h,new A.bN(i,B.v)),h,40,h,new A.T(10,0,0,10),h,h,h,150),h)],a3),B.n,B.k,B.h),h),1)],a3),B.n,B.k,B.h),380,h)}return A.a0(h,a3,B.e,h,h,new A.aC(B.o,h,h,a1,a2,h,B.p),h,a0,h,h,h,h,h,a)},
 LF(a,b){var s=this,r=null,q="Microcurrent",p="Tones and Lifts. Stimulates facial muscles and collagen production.",o="LED Light Therapy",n="Reduces inflammation and decreases harmful bacteria.",m="Hydraderm",l="Deeply penetrating serums that resurface the skin.",k="Dermaflash",j="Exfoliates dead skin cells and removes peach fuzz.",i="Our chemical peels refine pores and even skin tone.",h="Oxygen Infusion",g="Cooling, calming oxygen improves skin hydration.",f=A.l(r,a?80:100,r),e=a?"MAKE IT A HIGH TECH FACIAL\n& ADD A BOOST":"MAKE IT A HIGH TECH FACIAL & ADD A BOOST",d=a?22:30,c=t.p
@@ -82802,23 +82802,23 @@ p=A.a([],q)
 o=a1==="Microcurrent"
 n=!o
 if(!n||a1===i){m=A.bb(50)
-p.push(A.a0(j,A.ci(A.q("Super Boost",j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,15,j,j,B.A,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),B.e,j,j,new A.dA(new A.c(h),j,j,j,new A.bN(m,B.v)),j,24.37,j,j,B.cE,j,j,110))}p.push(A.l(j,o?8:0,j))
+p.push(A.a0(j,A.ci(A.q("Super Boost",j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,15,j,j,B.y,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),B.e,j,j,new A.dA(new A.c(h),j,j,j,new A.bN(m,B.v)),j,24.37,j,j,B.cE,j,j,110))}p.push(A.l(j,o?8:0,j))
 if(!n||a1!==i){n=A.bb(50)
-p.push(A.a0(j,A.ci(A.q("Boost",j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,15,j,j,B.A,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),B.e,j,j,new A.dA(new A.c(4283070317),j,j,j,new A.bN(n,B.v)),j,24.37,j,j,B.cE,j,j,70))}p=A.a9(p,B.dg,B.k,B.h)
+p.push(A.a0(j,A.ci(A.q("Boost",j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,15,j,j,B.y,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),B.e,j,j,new A.dA(new A.c(4283070317),j,j,j,new A.bN(n,B.v)),j,24.37,j,j,B.cE,j,j,70))}p=A.a9(p,B.dg,B.k,B.h)
 n=A.l(j,30,j)
-m=A.q(a1,j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,25,j,j,B.A,j,j,!0,j,j,j,j,j,j,j,j),j,j)
+m=A.q(a1,j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,25,j,j,B.y,j,j,!0,j,j,j,j,j,j,j,j),j,j)
 l=A.l(j,20,j)
 k=A.a([],q)
-if(o)k.push(A.Cd(A.bg(A.a([A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),"Tones and Lifts. Stimulates facial muscles and collagen production to sculpt and strengthen your skin.\n\n"),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.f,j,1.5,!0,j,j,j,j,j,j,j,j),"Mini "),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),"- Target one focus area for an instant lift (eyes, cheeks, forehead, jawline, smile line)\n\n"),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.f,j,1.5,!0,j,j,j,j,j,j,j,j),"Full "),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),"- Targets the entire face for an instant lifted look.\n")],t.VO),j,j),j,j))
-else if(a1===i)k.push(A.q("An advanced treatment that uses specific wavelengths of light to penetrate the skin, targeting a variety of concerns including skin rejuvenation, tissue repair, and collagen stimulation. It effectively reduces inflammation and decreases harmful bacteria, resulting in a healthier, more radiant complexion.\n\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
-else if(a1==="Hydraderm")k.push(A.q("Deeply penetrating serums help correct and improve the appearance of fine lines and wrinkles, decrease appearance of scarring, minimize pores, help even complexion and reduce hyperpigmentation. A result-driven treatment that resurfaces the skin to create a smooth, fresh, more youthful glow. Uses Diamond tone microdermabrasion.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
-else if(a1==="Peel")k.push(A.q("Our specially formulated chemical peels cater to all skin types. Our expert estheticians will analyze your skin and prescribe the best peel for your skin type that will deliver results. Facial peels refine pores, even skin tone and can dramatically stimulate collagen production. Peels also reduce the appearance of fine lines, sun damage, scars, and blemishes.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
-else if(a1==="Dermaflash")k.push(A.q("This quick and effective treatment exfoliates dead skin cells and removes peach fuzz, enhancing product absorption and leaving your complexion instantly brighter and more youthful. Believe us\u2026 you'll get hooked on this.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
-else if(a1==="Oxygen Infusion")k.push(A.q("Cooling, calming oxygen infused onto the skin to aid in the absorption of serums and naturally improve skin hydration levels. This technology is used with 98% pure oxygen to ensure the deep penetration of active ingredients. Breathe life back into your skin.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
+if(o)k.push(A.Cd(A.bg(A.a([A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),"Tones and Lifts. Stimulates facial muscles and collagen production to sculpt and strengthen your skin.\n\n"),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.f,j,1.5,!0,j,j,j,j,j,j,j,j),"Mini "),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),"- Target one focus area for an instant lift (eyes, cheeks, forehead, jawline, smile line)\n\n"),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.f,j,1.5,!0,j,j,j,j,j,j,j,j),"Full "),A.bg(j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),"- Targets the entire face for an instant lifted look.\n")],t.VO),j,j),j,j))
+else if(a1===i)k.push(A.q("An advanced treatment that uses specific wavelengths of light to penetrate the skin, targeting a variety of concerns including skin rejuvenation, tissue repair, and collagen stimulation. It effectively reduces inflammation and decreases harmful bacteria, resulting in a healthier, more radiant complexion.\n\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
+else if(a1==="Hydraderm")k.push(A.q("Deeply penetrating serums help correct and improve the appearance of fine lines and wrinkles, decrease appearance of scarring, minimize pores, help even complexion and reduce hyperpigmentation. A result-driven treatment that resurfaces the skin to create a smooth, fresh, more youthful glow. Uses Diamond tone microdermabrasion.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
+else if(a1==="Peel")k.push(A.q("Our specially formulated chemical peels cater to all skin types. Our expert estheticians will analyze your skin and prescribe the best peel for your skin type that will deliver results. Facial peels refine pores, even skin tone and can dramatically stimulate collagen production. Peels also reduce the appearance of fine lines, sun damage, scars, and blemishes.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
+else if(a1==="Dermaflash")k.push(A.q("This quick and effective treatment exfoliates dead skin cells and removes peach fuzz, enhancing product absorption and leaving your complexion instantly brighter and more youthful. Believe us\u2026 you'll get hooked on this.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
+else if(a1==="Oxygen Infusion")k.push(A.q("Cooling, calming oxygen infused onto the skin to aid in the absorption of serums and naturally improve skin hydration levels. This technology is used with 98% pure oxygen to ensure the deep penetration of active ingredients. Breathe life back into your skin.\n",j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j))
 k=A.da(A.ft(A.a9(k,B.n,B.k,B.h),j,j,new A.A3(j)),1)
 if(o)o="Mini: Member +$30 | Drop-In +$60\nFull: Member +$40 | Drop-In +$80"
 else o=a1===i?"Member +$40 | Drop-In +$80":"Drop-In +$60 | Member +$30"
-return A.a0(j,new A.az(B.b4,A.a9(A.a([new A.dr(B.lb,j,j,p,j),n,m,l,k,A.q(o,j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.A,j,j,!0,j,j,j,j,j,j,j,j),j,j)],q),B.n,B.k,B.h),j),B.e,j,j,new A.aC(B.o,j,j,B.ai,r,j,B.p),j,s,j,j,j,j,j,e)}}
+return A.a0(j,new A.az(B.b4,A.a9(A.a([new A.dr(B.lb,j,j,p,j),n,m,l,k,A.q(o,j,j,j,j,A.n(j,j,new A.c(h),j,j,j,j,j,f,j,j,15,j,j,B.y,j,j,!0,j,j,j,j,j,j,j,j),j,j)],q),B.n,B.k,B.h),j),B.e,j,j,new A.aC(B.o,j,j,B.ai,r,j,B.p),j,s,j,j,j,j,j,e)}}
 A.tG.prototype={
 K(a){var s=null
 return A.fr(new A.qp(new A.ly(s),new A.D(1/0,50),s),s,A.ci(A.q("Gift Cards Page",s,s,s,s,A.n(s,s,s,s,s,s,s,s,s,s,s,24,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),s,s))}}
@@ -82959,7 +82959,7 @@ b=A.Y(e2,a1,d8).w.a.a<1000?18:25
 c=A.l(A.q("You deserve this time. Experience the ritual benefits of monthly treatments, half off boosts, and other exclusive member perks.",a1,a1,a1,a1,A.n(a1,a1,new A.c(a2),a1,a1,a1,a1,a1,a3,a1,a1,b,a1,a1,a1,a1,1.5,!0,a1,a1,a1,a1,a1,a1,a1,a1),B.B,a1),a1,c)
 b=A.l(a1,A.Y(e2,a1,d8).w.a.a<1000?20:40,a1)
 a=A.Y(e2,a1,d8).w.a.a<1000?16:20
-j=A.a0(a1,A.a0(a1,new A.az(new A.T(f,0,f,0),A.a9(A.a([e,d,c,b,A.cu(A.bq(a1,A.q("Become a Member",a1,a1,a1,a1,A.n(a1,a1,new A.c(a2),a1,B.bM,a1,a1,a1,a3,a1,a1,a,a1,a1,a1,a1,1.2,!0,a1,a1,a1,a1,a1,a1,a1,a1),B.B,a1),B.z,!1,a1,a1,a1,a1,a1,a1,a1,a1,a1,a1,a1,a1,new A.ana(),a1,a1,a1),B.a3,a1,a1,a1,a1)],e0),B.q,B.aD,B.h),a1),B.e,a1,a1,new A.aC(a1,a1,a1,a1,a1,new A.u0(new A.ds(0,-1),new A.ds(0,1),B.dQ,g,a1,a1),B.p),a1,a1,a1,a1,a1,a1,a1,a1),B.e,a1,a1,new A.aC(a1,h,a1,a1,a1,a1,B.p),a1,i,a1,a1,a1,a1,a1,j.a.a)
+j=A.a0(a1,A.a0(a1,new A.az(new A.T(f,0,f,0),A.a9(A.a([e,d,c,b,A.cu(A.bq(a1,A.q("Become a Member",a1,a1,a1,a1,A.n(a1,a1,new A.c(a2),a1,B.bM,a1,a1,a1,a3,a1,a1,a,a1,a1,a1,a1,1.2,!0,a1,a1,a1,a1,a1,a1,a1,a1),B.B,a1),B.A,!1,a1,a1,a1,a1,a1,a1,a1,a1,a1,a1,a1,a1,new A.ana(),a1,a1,a1),B.a3,a1,a1,a1,a1)],e0),B.q,B.aD,B.h),a1),B.e,a1,a1,new A.aC(a1,a1,a1,a1,a1,new A.u0(new A.ds(0,-1),new A.ds(0,1),B.dQ,g,a1,a1),B.p),a1,a1,a1,a1,a1,a1,a1,a1),B.e,a1,a1,new A.aC(a1,h,a1,a1,a1,a1,B.p),a1,i,a1,a1,a1,a1,a1,j.a.a)
 if(A.Y(e2,a1,d8).w.a.a<1000)i=A.a9(A.a([A.bI(A.a([A.a9(A.a([A.ef(c8,B.r,B.J,192,192),A.l(a1,10,a1),A.l(A.q(c9,a1,a1,a1,a1,A.n(a1,a1,new A.c(d0),a1,a1,a1,a1,a1,d1,a1,a1,12,a1,a1,a1,a1,1.2,!0,a1,a1,a1,a1,a1,a1,a1,a1),a1,a1),a1,192)],e0),B.n,B.k,B.h),A.l(a1,a1,20),A.a9(A.a([A.ef(d2,B.r,B.J,192,192),A.l(a1,10,a1),A.l(A.q(d3,a1,a1,a1,a1,A.n(a1,a1,new A.c(d0),a1,a1,a1,a1,a1,d1,a1,a1,12,a1,a1,a1,a1,1.2,!0,a1,a1,a1,a1,a1,a1,a1,a1),a1,a1),a1,192)],e0),B.n,B.k,B.h)],e0),B.q,B.aD,B.h),A.l(a1,30,a1),A.bI(A.a([A.a9(A.a([A.ef(d4,B.r,B.J,192,192),A.l(a1,10,a1),A.l(A.q(d5,a1,a1,a1,a1,A.n(a1,a1,new A.c(d0),a1,a1,a1,a1,a1,d1,a1,a1,12,a1,a1,a1,a1,1.2,!0,a1,a1,a1,a1,a1,a1,a1,a1),a1,a1),a1,192)],e0),B.n,B.k,B.h),A.l(a1,a1,20),A.a9(A.a([A.ef(d6,B.r,B.J,192,192),A.l(a1,10,a1),A.l(A.q(d7,a1,a1,a1,a1,A.n(a1,a1,new A.c(d0),a1,a1,a1,a1,a1,d1,a1,a1,12,a1,a1,a1,a1,1.2,!0,a1,a1,a1,a1,a1,a1,a1,a1),a1,a1),a1,192)],e0),B.n,B.k,B.h)],e0),B.q,B.aD,B.h)],e0),B.q,B.aD,B.h)
 else{i=A.Y(e2,a1,d8).w
 i=A.ef(c8,B.r,B.J,A.Y(e2,a1,d8).w.a.a*0.18,i.a.a*0.18)
@@ -83008,7 +83008,7 @@ else n=!0
 n=n?1:0
 m=A.aB0(3.14159)
 l=A.bb(5)
-return A.cu(A.bq(k,A.i1(A.dj(B.ae,A.a([p,A.av7(A.CE(B.r,A.a0(k,A.ci(new A.az(B.b4,A.q(c,k,k,k,k,B.RK,B.B,k),k),k,k),B.e,k,k,new A.aC(new A.c(4293650399),k,k,l,k,k,B.p),k,453,k,k,k,k,k,348),k,m,!0),B.Z,B.bt,n)],t.p),B.N,B.a7),k,B.dk,453,k,k,o,B.r,348),B.z,!1,k,k,k,k,k,k,k,k,k,k,k,k,q,k,k,k),B.b3,k,j,r,k)}}
+return A.cu(A.bq(k,A.i1(A.dj(B.ae,A.a([p,A.av7(A.CE(B.r,A.a0(k,A.ci(new A.az(B.b4,A.q(c,k,k,k,k,B.RK,B.B,k),k),k,k),B.e,k,k,new A.aC(new A.c(4293650399),k,k,l,k,k,B.p),k,453,k,k,k,k,k,348),k,m,!0),B.Z,B.bt,n)],t.p),B.N,B.a7),k,B.dk,453,k,k,o,B.r,348),B.A,!1,k,k,k,k,k,k,k,k,k,k,k,k,q,k,k,k),B.b3,k,j,r,k)}}
 A.anl.prototype={
 $1(a){var s=this.a
 s.d.ke(!0)
@@ -83050,7 +83050,7 @@ q=A.q(m,o,o,o,o,A.n(o,o,o,o,o,o,o,o,o,o,o,24,o,o,B.a_,o,o,!0,o,o,o,o,o,o,o,o),o,
 p=t.p
 p=A.bI(A.a([r,A.da(new A.az(B.b4,A.a9(A.a([q,B.av,A.q(l,o,o,o,o,A.n(o,o,o,o,o,o,o,o,o,o,o,16,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.dN,A.ci(A.mU(B.yX,new A.ano(a),A.mV(o,o,B.cD,o,o,o,o,o,o,o,o,o,B.iU,o,new A.bN(A.bb(50),B.v),o,o,o,o)),o,o)],p),B.n,B.k,B.h),o),1)],p),B.q,B.k,B.h)
 r=p}q=t.p
-return A.a0(o,A.dj(B.ae,A.a([A.a9(A.a([A.da(r,1)],q),B.q,B.k,B.h),A.d3(o,A.bq(o,A.cu(B.Gt,B.a3,o,o,o,o),B.z,!1,o,o,o,o,o,o,o,o,o,o,o,o,new A.anp(a),o,o,o),o,o,o,10,10,o)],q),B.N,B.a7),B.e,o,o,o,o,s,o,o,B.b4,o,o,k)},
+return A.a0(o,A.dj(B.ae,A.a([A.a9(A.a([A.da(r,1)],q),B.q,B.k,B.h),A.d3(o,A.bq(o,A.cu(B.Gt,B.a3,o,o,o,o),B.A,!1,o,o,o,o,o,o,o,o,o,o,o,o,new A.anp(a),o,o,o),o,o,o,10,10,o)],q),B.N,B.a7),B.e,o,o,o,o,s,o,o,B.b4,o,o,k)},
 $S:534}
 A.ann.prototype={
 $0(){A.cP(this.a,"/membership",t.X)},
@@ -83268,7 +83268,7 @@ l=A.bb(50)
 k=t.E
 j=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],k)
 i=t.p
-q=A.dj(B.ae,A.a([s,r,A.d3(50,A.a9(A.a([p,o,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,18,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,l,j,a,B.p),m,a,a,new A.T(30,15,30,15),a,a,a),B.z,!1,new A.dK("join_now_top",n),a,a,a,a,a,a,a,a,a,a,a,new A.aog(),a,a,a),B.a3,a,a,a,a)],i),B.n,B.k,B.h),a,a,q,a,a,a)],i),B.N,B.a7)
+q=A.dj(B.ae,A.a([s,r,A.d3(50,A.a9(A.a([p,o,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,18,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,l,j,a,B.p),m,a,a,new A.T(30,15,30,15),a,a,a),B.A,!1,new A.dK("join_now_top",n),a,a,a,a,a,a,a,a,a,a,a,new A.aog(),a,a,a),B.a3,a,a,a,a)],i),B.n,B.k,B.h),a,a,q,a,a,a)],i),B.N,B.a7)
 s=b1?20:80
 if(b1){r=A.Y(b2,a,b0).w
 r=A.q(a5,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,r.a.a*0.06,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a)
@@ -83281,7 +83281,7 @@ l=A.l(a,20,a)
 j=A.c2(0,200)
 h=A.bb(50)
 g=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],k)
-b0=A.a9(A.a([r,p,o,m,b0,l,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,16,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,h,g,a,B.p),j,a,a,new A.T(30,15,30,15),a,a,a),B.z,!1,new A.dK("join_now_bottom",n),a,a,a,a,a,a,a,a,a,a,a,new A.aoh(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h)}else b0=A.bI(A.a([A.da(A.q(a5,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1),A.da(A.a0(a,a,B.e,a,a,new A.aC(a,A.cT(B.r,B.J,new A.ca(a7,a,a)),a,a,a,a,B.p),a,675,a,a,a,a,a,591),1),A.da(A.q(a8,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1)],i),B.q,B.k,B.h)
+b0=A.a9(A.a([r,p,o,m,b0,l,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,16,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,h,g,a,B.p),j,a,a,new A.T(30,15,30,15),a,a,a),B.A,!1,new A.dK("join_now_bottom",n),a,a,a,a,a,a,a,a,a,a,a,new A.aoh(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h)}else b0=A.bI(A.a([A.da(A.q(a5,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1),A.da(A.a0(a,a,B.e,a,a,new A.aC(a,A.cT(B.r,B.J,new A.ca(a7,a,a)),a,a,a,a,B.p),a,675,a,a,a,a,a,591),1),A.da(A.q(a8,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1)],i),B.q,B.k,B.h)
 s=A.a0(a,b0,B.e,new A.c(4294440169),a,a,a,a,a,a,new A.T(s,150,s,150),a,a,a)
 b0=b1?10:150
 r=A.cT(B.r,B.J,new A.ca("assets/offerbackground.png",a,a))
@@ -83301,7 +83301,7 @@ e=A.c2(0,200)
 d=A.bb(50)
 k=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],k)
 c=b1?16:18
-b0=A.a0(a,A.a9(A.a([p,o,new A.az(new A.T(m,0,m,0),l,a),j,new A.az(new A.T(h,0,h,0),g,a),f,A.cu(A.bq(a,A.i1(A.q("Become a Founding Member",a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,c,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,d,k,a,B.p),e,a,a,new A.T(30,15,30,15),a,a,a),B.z,!1,new A.dK("founding_member_cta",n),a,a,a,a,a,a,a,a,a,a,a,new A.aoi(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h),B.e,a,a,new A.aC(a,r,a,a,a,a,B.p),a,a,a,a,new A.T(b0,100,b0,100),a,a,a)
+b0=A.a0(a,A.a9(A.a([p,o,new A.az(new A.T(m,0,m,0),l,a),j,new A.az(new A.T(h,0,h,0),g,a),f,A.cu(A.bq(a,A.i1(A.q("Become a Founding Member",a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,c,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,d,k,a,B.p),e,a,a,new A.T(30,15,30,15),a,a,a),B.A,!1,new A.dK("founding_member_cta",n),a,a,a,a,a,a,a,a,a,a,a,new A.aoi(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h),B.e,a,a,new A.aC(a,r,a,a,a,a,B.p),a,a,a,a,new A.T(b0,100,b0,100),a,a,a)
 r=b1?20:80
 p=b1?35:50
 p=A.l(A.q("Sway Club Membership Includes",a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a9,a,a,p,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),a,a),a,781)
@@ -83538,7 +83538,7 @@ l=A.bb(50)
 k=t.E
 j=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],k)
 i=t.p
-q=A.dj(B.ae,A.a([s,r,A.d3(50,A.a9(A.a([p,o,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,18,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,l,j,a,B.p),m,a,a,new A.T(30,15,30,15),a,a,a),B.z,!1,new A.dK("join_now_top",n),a,a,a,a,a,a,a,a,a,a,a,new A.ao3(),a,a,a),B.a3,a,a,a,a)],i),B.n,B.k,B.h),a,a,q,a,a,a)],i),B.N,B.a7)
+q=A.dj(B.ae,A.a([s,r,A.d3(50,A.a9(A.a([p,o,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,18,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,l,j,a,B.p),m,a,a,new A.T(30,15,30,15),a,a,a),B.A,!1,new A.dK("join_now_top",n),a,a,a,a,a,a,a,a,a,a,a,new A.ao3(),a,a,a),B.a3,a,a,a,a)],i),B.n,B.k,B.h),a,a,q,a,a,a)],i),B.N,B.a7)
 s=b1?20:80
 if(b1){r=A.Y(b2,a,b0).w
 r=A.q(a5,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,r.a.a*0.06,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a)
@@ -83551,7 +83551,7 @@ l=A.l(a,20,a)
 j=A.c2(0,200)
 h=A.bb(50)
 g=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],k)
-b0=A.a9(A.a([r,p,o,m,b0,l,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,16,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,h,g,a,B.p),j,a,a,new A.T(30,15,30,15),a,a,a),B.z,!1,new A.dK("join_now_bottom",n),a,a,a,a,a,a,a,a,a,a,a,new A.ao4(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h)}else b0=A.bI(A.a([A.da(A.q(a5,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1),A.da(A.a0(a,a,B.e,a,a,new A.aC(a,A.cT(B.r,B.J,new A.ca(a7,a,a)),a,a,a,a,B.p),a,675,a,a,a,a,a,591),1),A.da(A.q(a8,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1)],i),B.q,B.k,B.h)
+b0=A.a9(A.a([r,p,o,m,b0,l,A.cu(A.bq(a,A.i1(A.q(a3,a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,16,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,h,g,a,B.p),j,a,a,new A.T(30,15,30,15),a,a,a),B.A,!1,new A.dK("join_now_bottom",n),a,a,a,a,a,a,a,a,a,a,a,new A.ao4(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h)}else b0=A.bI(A.a([A.da(A.q(a5,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1),A.da(A.a0(a,a,B.e,a,a,new A.aC(a,A.cT(B.r,B.J,new A.ca(a7,a,a)),a,a,a,a,B.p),a,675,a,a,a,a,a,591),1),A.da(A.q(a8,a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a1,a,a,50,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),B.B,a),1)],i),B.q,B.k,B.h)
 s=A.a0(a,b0,B.e,new A.c(4294440169),a,a,a,a,a,a,new A.T(s,150,s,150),a,a,a)
 b0=b1?10:150
 r=A.cT(B.r,B.J,new A.ca("assets/offerbackground.png",a,a))
@@ -83571,7 +83571,7 @@ e=A.c2(0,200)
 d=A.bb(50)
 k=A.a([new A.ch(0,B.ay,B.cC,new A.k(0,4),10)],k)
 c=b1?16:18
-b0=A.a0(a,A.a9(A.a([p,o,new A.az(new A.T(m,0,m,0),l,a),j,new A.az(new A.T(h,0,h,0),g,a),f,A.cu(A.bq(a,A.i1(A.q("Become a Founding Member",a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,c,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,d,k,a,B.p),e,a,a,new A.T(30,15,30,15),a,a,a),B.z,!1,new A.dK("founding_member_cta",n),a,a,a,a,a,a,a,a,a,a,a,new A.ao5(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h),B.e,a,a,new A.aC(a,r,a,a,a,a,B.p),a,a,a,a,new A.T(b0,100,b0,100),a,a,a)
+b0=A.a0(a,A.a9(A.a([p,o,new A.az(new A.T(m,0,m,0),l,a),j,new A.az(new A.T(h,0,h,0),g,a),f,A.cu(A.bq(a,A.i1(A.q("Become a Founding Member",a,a,a,a,A.n(a,a,new A.c(a0),a,a,a,a,a,a4,a,a,c,a,a,B.f,a,a,!0,a,a,a,a,a,a,a,a),a,a),new A.aC(new A.c(a2),a,a,d,k,a,B.p),e,a,a,new A.T(30,15,30,15),a,a,a),B.A,!1,new A.dK("founding_member_cta",n),a,a,a,a,a,a,a,a,a,a,a,new A.ao5(),a,a,a),B.a3,a,a,a,a)],i),B.q,B.k,B.h),B.e,a,a,new A.aC(a,r,a,a,a,a,B.p),a,a,a,a,new A.T(b0,100,b0,100),a,a,a)
 r=b1?20:80
 p=b1?35:50
 p=A.l(A.q("Sway Club Membership Includes",a,a,a,a,A.n(a,a,new A.c(a6),a,a,a,a,a,a9,a,a,p,a,a,B.f,a,1.2,!0,a,a,a,a,a,a,a,a),a,a),a,781)
@@ -83777,24 +83777,24 @@ q=A.a([A.dj(B.ae,q,B.N,B.a7),A.l(s,100,s)],p)
 if(r)q.push(new A.eM(s))
 else q.push(new A.eL(s))
 return A.fr(s,new A.c(4294440169),A.ft(A.a9(q,B.q,B.k,B.h),s,s,s))},
-a1q(a1){var s,r,q,p=null,o=4283070317,n="Vance",m="Schedule Your Wellness",l=4294375414,k=A.Y(a1,p,t.w).w.a.a,j=k<1500?k/1500:1,i=100*j,h=A.a0(p,p,B.e,p,p,new A.aC(p,A.cT(B.r,B.c7,new A.ca("assets/led_light_therapy.png",p,p)),p,p,p,p,B.p),p,664*j,p,p,p,p,p,599*j),g=A.l(p,p,i),f=A.l(A.q("RECOMMENDED 15 MIN",p,p,p,p,A.n(p,p,new A.c(o),p,p,p,p,p,"Helvetica",p,p,15*j,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),p,p),p,192*j),e=A.l(p,10*j,p),d=A.l(A.q("Led Light Therapy",p,p,p,p,A.n(p,p,new A.c(4279319859),p,p,p,p,p,n,p,p,50*j,p,p,B.A,p,1.2,!0,p,p,p,p,p,p,p,p),p,p),p,485*j),c=20*j,b=A.l(p,c,p),a=A.q("Drop-In $49 I Member $25",p,p,p,p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),p,p),a0=A.l(p,c,p)
-c=A.l(A.Cd(A.bg(A.a([A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.A,p,1.5,!0,p,p,p,p,p,p,p,p),u.n),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),"\nRed light\n"),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.A,p,1.5,!0,p,p,p,p,p,p,p,p),u.v),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),"Purple light\n"),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.A,p,1.5,!0,p,p,p,p,p,p,p,p),u.u),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),"Pink light\n"),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.A,p,1.5,!0,p,p,p,p,p,p,p,p),u.b)],t.VO),p,p),p,p),p,624*j)
+a1q(a1){var s,r,q,p=null,o=4283070317,n="Vance",m="Schedule Your Wellness",l=4294375414,k=A.Y(a1,p,t.w).w.a.a,j=k<1500?k/1500:1,i=100*j,h=A.a0(p,p,B.e,p,p,new A.aC(p,A.cT(B.r,B.c7,new A.ca("assets/led_light_therapy.png",p,p)),p,p,p,p,B.p),p,664*j,p,p,p,p,p,599*j),g=A.l(p,p,i),f=A.l(A.q("RECOMMENDED 15 MIN",p,p,p,p,A.n(p,p,new A.c(o),p,p,p,p,p,"Helvetica",p,p,15*j,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),p,p),p,192*j),e=A.l(p,10*j,p),d=A.l(A.q("Led Light Therapy",p,p,p,p,A.n(p,p,new A.c(4279319859),p,p,p,p,p,n,p,p,50*j,p,p,B.y,p,1.2,!0,p,p,p,p,p,p,p,p),p,p),p,485*j),c=20*j,b=A.l(p,c,p),a=A.q("Drop-In $49 I Member $25",p,p,p,p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),p,p),a0=A.l(p,c,p)
+c=A.l(A.Cd(A.bg(A.a([A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.y,p,1.5,!0,p,p,p,p,p,p,p,p),u.n),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),"\nRed light\n"),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.y,p,1.5,!0,p,p,p,p,p,p,p,p),u.v),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),"Purple light\n"),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.y,p,1.5,!0,p,p,p,p,p,p,p,p),u.u),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.f,p,1.5,!0,p,p,p,p,p,p,p,p),"Pink light\n"),A.bg(p,A.n(p,p,new A.c(o),p,p,p,p,p,n,p,p,c,p,p,B.y,p,1.5,!0,p,p,p,p,p,p,p,p),u.b)],t.VO),p,p),p,p),p,624*j)
 s=A.l(p,30*j,p)
 r=A.bb(50)
 q=t.p
-r=A.bI(A.a([h,g,A.da(A.a9(A.a([f,e,d,b,a,a0,c,s,A.bq(p,A.a0(p,A.q(m,p,p,p,p,A.n(p,p,new A.c(l),p,p,p,p,p,n,p,p,18,p,p,B.f,p,1.2,!0,p,p,p,p,p,p,p,p),p,p),B.e,p,p,new A.aC(new A.c(o),p,p,r,p,p,B.p),p,p,p,p,new A.T(20,10,20,10),p,p,250),B.z,!1,p,p,p,p,p,p,p,p,p,p,p,p,new A.a78(),p,p,p)],q),B.n,B.k,B.h),1)],q),B.n,B.k,B.h)
+r=A.bI(A.a([h,g,A.da(A.a9(A.a([f,e,d,b,a,a0,c,s,A.bq(p,A.a0(p,A.q(m,p,p,p,p,A.n(p,p,new A.c(l),p,p,p,p,p,n,p,p,18,p,p,B.f,p,1.2,!0,p,p,p,p,p,p,p,p),p,p),B.e,p,p,new A.aC(new A.c(o),p,p,r,p,p,B.p),p,p,p,p,new A.T(20,10,20,10),p,p,250),B.A,!1,p,p,p,p,p,p,p,p,p,p,p,p,new A.a78(),p,p,p)],q),B.n,B.k,B.h),1)],q),B.n,B.k,B.h)
 s=A.l(p,50,p)
 c=this.Ke("RESTORE YOUR BODY")
 a0=this.a1p("Body",this.K7(),!1)
 a=A.l(p,30,p)
 b=A.bb(50)
-return A.a0(p,A.a9(A.a([r,s,c,a0,a,A.bq(p,A.a0(p,A.ci(A.q(m,p,p,p,p,A.n(p,p,new A.c(l),p,p,p,p,p,n,p,p,18,p,p,B.f,p,1.2,!0,p,p,p,p,p,p,p,p),p,p),p,p),B.e,p,p,new A.aC(new A.c(o),p,p,b,p,p,B.p),p,p,p,p,new A.T(20,10,20,10),p,p,250),B.z,!1,p,p,p,p,p,p,p,p,p,p,p,p,new A.a79(),p,p,p)],q),B.n,B.k,B.h),B.e,p,p,p,p,p,p,new A.T(0,160,0,0),new A.T(i,0,i,0),p,p,1/0)},
-a1w(a){var s=null,r=4283070317,q="Vance",p=A.a0(s,s,B.e,s,s,new A.aC(s,A.cT(B.r,B.c7,new A.ca("assets/led_light_therapy.png",s,s)),s,s,s,s,B.p),s,332,s,s,s,s,s,299),o=A.l(s,20,s),n=A.q("RECOMMENDED 15 MIN",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Helvetica",s,s,12,s,s,B.f,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),m=A.l(s,10,s),l=A.q("Led Light Therapy",s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,q,s,s,30,s,s,B.A,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),k=A.l(s,20,s),j=A.q("Drop-In $139 I Member $99",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),i=A.l(s,20,s),h=A.l(A.Cd(A.bg(A.a([A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.A,s,1.5,!0,s,s,s,s,s,s,s,s),u.n),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),"\nRed light\n"),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.A,s,1.5,!0,s,s,s,s,s,s,s,s),u.v),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),"Purple light\n"),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.A,s,1.5,!0,s,s,s,s,s,s,s,s),u.u),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),"Pink light\n"),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.A,s,1.5,!0,s,s,s,s,s,s,s,s),u.b)],t.VO),s,s),s,s),s,624),g=A.l(s,30,s),f=A.bb(50)
-return A.a0(s,A.a9(A.a([p,o,n,m,l,k,j,i,h,g,A.bq(s,A.a0(s,A.q("Schedule Your Wellness",s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,q,s,s,18,s,s,B.f,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),B.e,s,s,new A.aC(new A.c(r),s,s,f,s,s,B.p),s,s,s,s,new A.T(20,10,20,10),s,s,250),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.a7a(),s,s,s),A.l(s,30,s),this.Ke("RESTORE YOUR BODY"),this.a1y("Body",this.K7())],t.p),B.n,B.k,B.h),B.e,s,s,s,s,s,s,new A.T(0,120,0,0),new A.T(20,0,20,0),s,s,1/0)},
+return A.a0(p,A.a9(A.a([r,s,c,a0,a,A.bq(p,A.a0(p,A.ci(A.q(m,p,p,p,p,A.n(p,p,new A.c(l),p,p,p,p,p,n,p,p,18,p,p,B.f,p,1.2,!0,p,p,p,p,p,p,p,p),p,p),p,p),B.e,p,p,new A.aC(new A.c(o),p,p,b,p,p,B.p),p,p,p,p,new A.T(20,10,20,10),p,p,250),B.A,!1,p,p,p,p,p,p,p,p,p,p,p,p,new A.a79(),p,p,p)],q),B.n,B.k,B.h),B.e,p,p,p,p,p,p,new A.T(0,160,0,0),new A.T(i,0,i,0),p,p,1/0)},
+a1w(a){var s=null,r=4283070317,q="Vance",p=A.a0(s,s,B.e,s,s,new A.aC(s,A.cT(B.r,B.c7,new A.ca("assets/led_light_therapy.png",s,s)),s,s,s,s,B.p),s,332,s,s,s,s,s,299),o=A.l(s,20,s),n=A.q("RECOMMENDED 15 MIN",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Helvetica",s,s,12,s,s,B.f,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),m=A.l(s,10,s),l=A.q("Led Light Therapy",s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,q,s,s,30,s,s,B.y,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),k=A.l(s,20,s),j=A.q("Drop-In $139 I Member $99",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),i=A.l(s,20,s),h=A.l(A.Cd(A.bg(A.a([A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.y,s,1.5,!0,s,s,s,s,s,s,s,s),u.n),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),"\nRed light\n"),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.y,s,1.5,!0,s,s,s,s,s,s,s,s),u.v),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),"Purple light\n"),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.y,s,1.5,!0,s,s,s,s,s,s,s,s),u.u),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),"Pink light\n"),A.bg(s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,16,s,s,B.y,s,1.5,!0,s,s,s,s,s,s,s,s),u.b)],t.VO),s,s),s,s),s,624),g=A.l(s,30,s),f=A.bb(50)
+return A.a0(s,A.a9(A.a([p,o,n,m,l,k,j,i,h,g,A.bq(s,A.a0(s,A.q("Schedule Your Wellness",s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,q,s,s,18,s,s,B.f,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),B.e,s,s,new A.aC(new A.c(r),s,s,f,s,s,B.p),s,s,s,s,new A.T(20,10,20,10),s,s,250),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.a7a(),s,s,s),A.l(s,30,s),this.Ke("RESTORE YOUR BODY"),this.a1y("Body",this.K7())],t.p),B.n,B.k,B.h),B.e,s,s,s,s,s,s,new A.T(0,120,0,0),new A.T(20,0,20,0),s,s,1/0)},
 K9(a,b){var s,r=4290105279,q=null,p=a==="Body",o=p?new A.c(r):new A.c(4279319859),n=A.bb(0)
 p=p?new A.c(4283070317):new A.c(r)
 s=A.bb(50)
-return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.A,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
+return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.y,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
 Ke(a){var s=null
 return new A.az(B.fy,A.q(a,s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,"Vance",s,s,30,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s)},
 a1p(a,b,c){var s=A.a4(b).h("a5<1,j>")
@@ -83804,7 +83804,7 @@ a1y(a,b){var s=null,r=A.a4(b).h("a5<1,az>")
 return A.a0(s,A.nl(A.a3(new A.a5(b,new A.a7b(this,a),r),!0,r.h("ay.E")),B.ah),B.e,s,s,s,s,300,s,s,s,s,s,s)},
 K7(){return A.a([this.Bu("ANTI-AGING","Uses amber, light red, dark red and infrared wavelengths to improve skin tone, reduce fine lines and wrinkles, diminish the appearance of redness, and optimize skin function.\n\nAchieve youth."),this.Bu("DETOX","The use of blue and red wavelengths work together to kill bacteria, effectively calm breakouts and reduce redness for visibly improved, clear skin.\n\nAchieve flawless complexion."),this.Bu("Regeneration","Uses light red, dark red, infrared and deep infrared wavelengths soothes tired muscles, increases local blood circulation and accelerates recovery.\n\nAchieve renewal.")],t.p)},
 Bu(a,b){var s=null,r=4283070317,q=A.l(A.q(a,s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Helvetica",s,s,12,s,s,B.a_,s,1.2,!0,s,s,s,s,s,s,s,s),s,s),s,192),p=A.l(s,10,s)
-return new A.az(B.b4,A.a9(A.a([q,p,A.l(A.q(b,s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Vance",s,s,12,s,s,B.A,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,262)],t.p),B.n,B.k,B.h),s)}}
+return new A.az(B.b4,A.a9(A.a([q,p,A.l(A.q(b,s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Vance",s,s,12,s,s,B.y,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,262)],t.p),B.n,B.k,B.h),s)}}
 A.a78.prototype={
 $0(){},
 $S:0}
@@ -83847,16 +83847,16 @@ else b0.push(new A.eL(l))
 return A.fr(l,new A.c(k),A.ft(A.a9(b0,B.q,B.k,B.h),l,l,l))},
 ls(a2,a3,a4,a5,a6,a7,a8){var s,r,q,p,o,n,m,l,k,j=null,i=4283070317,h="Helvetica",g=4279319859,f="Vance",e="Book Soon",d=4294375414,c=a3?300:625,b=a3?450:380,a=A.bb(10),a0=A.a([new A.ch(3,B.ay,B.df,new A.k(0,3),5)],t.E),a1=t.p
 if(a3){s=A.a0(j,j,B.e,j,j,new A.aC(j,A.cT(B.r,B.J,new A.ca(a4,j,j)),j,new A.cc(new A.aF(10,10),new A.aF(10,10),B.C,B.C),j,j,B.p),j,180,j,j,j,j,j,1/0)
-r=A.a9(A.a([A.q(a5,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,h,j,j,12,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j),A.l(j,8,j),A.q(a6,j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,20,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j),A.l(j,8,j),A.q(a7,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.2,!0,j,j,j,j,j,j,j,j),j,j),A.l(j,10,j),A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)],a1),B.n,B.k,B.h)
+r=A.a9(A.a([A.q(a5,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,h,j,j,12,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j),A.l(j,8,j),A.q(a6,j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,20,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j),A.l(j,8,j),A.q(a7,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.2,!0,j,j,j,j,j,j,j,j),j,j),A.l(j,10,j),A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)],a1),B.n,B.k,B.h)
 q=A.bb(50)
 a1=A.a9(A.a([s,new A.az(B.dl,r,j),new A.ks(j),new A.dr(B.bB,j,j,A.a0(j,A.ci(A.q(e,j,j,j,j,A.n(j,j,new A.c(d),j,j,j,j,j,f,j,j,12,j,j,B.f,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),B.e,j,j,new A.dA(new A.c(i),j,j,j,new A.bN(q,B.v)),j,40,j,new A.T(0,0,15,10),j,j,j,130),j)],a1),B.n,B.k,B.h)}else{s=A.a0(j,j,B.e,j,j,new A.aC(j,A.cT(B.r,B.J,new A.ca(a4,j,j)),j,new A.cc(new A.aF(10,10),B.C,new A.aF(10,10),B.C),j,j,B.p),j,j,j,j,j,j,j,250)
 r=A.q(a5,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,h,j,j,12,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 q=A.l(j,8,j)
 p=A.q(a6,j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,25,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 o=A.l(j,8,j)
-n=A.q(a7,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,15,j,j,B.A,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
+n=A.q(a7,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,15,j,j,B.y,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 m=A.l(j,8,j)
-l=A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)
+l=A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)
 k=A.bb(50)
 a1=A.l(A.bI(A.a([s,A.da(new A.az(B.iT,A.a9(A.a([r,q,p,o,n,m,l,new A.ks(j),new A.dr(B.bB,j,j,A.a0(j,A.ci(A.q(e,j,j,j,j,A.n(j,j,new A.c(d),j,j,j,j,j,f,j,j,14,j,j,B.f,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),B.e,j,j,new A.dA(new A.c(i),j,j,j,new A.bN(k,B.v)),j,40,j,new A.T(0,0,15,10),j,j,j,150),j)],a1),B.n,B.k,B.h),j),1)],a1),B.n,B.k,B.h),380,j)}return A.a0(j,a1,B.e,j,j,new A.aC(B.o,j,j,a,a0,j,B.p),j,b,j,j,j,j,j,c)},
 K8(a,b){var s=this,r=null,q="Infrared PEMF Mat",p="PEMF technology mimics the healing vibrations of the Earth, enhancing the body\u2019s natural recovery process, reducing inflammation, increasing energy, relieving stress, and promoting deeper sleep.",o="Drop-In $60 I Member $30",n="An ancient Chinese Medicine Technique that increases circulation and moves stagnant blood. Relieves muscle tension. Supports the immune system. Clears toxins. Reduces inflammation. Lymphatic detox.",m="Lymphatic Drainage Massage",l="Works directly with your lymphatic and digestive systems. Increases your metabolic rate, rids excess toxins, and cleanses your colon. Flushes water retention, giving an instant leaner look.",k="Drop-In $120 I Member $60",j="80 Minutes",i="Drop-In $80 I Member $40",h=A.l(r,a?80:100,r),g=a?22:30,f=t.p
@@ -83874,7 +83874,7 @@ q=d?110:75
 p=d?new A.c(l):new A.c(4283070317)
 o=A.bb(50)
 n=d?"Super Boost":"Boost"
-return A.a0(m,new A.az(B.b4,A.a9(A.a([new A.dr(B.lb,m,m,A.a0(m,A.ci(A.q(n,m,m,m,m,A.n(m,m,new A.c(4294375414),m,m,m,m,m,k,m,m,15,m,m,B.A,m,m,!0,m,m,m,m,m,m,m,m),m,m),m,m),B.e,m,m,new A.dA(p,m,m,m,new A.bN(o,B.v)),m,24.37,m,m,B.cE,m,m,q),m),A.l(m,30,m),A.q(b,m,m,m,m,A.n(m,m,new A.c(l),m,m,m,m,m,k,m,m,25,m,m,B.A,m,m,!0,m,m,m,m,m,m,m,m),m,m),A.l(m,20,m),A.da(A.ft(A.q(c,m,m,m,m,A.n(m,m,new A.c(l),m,m,m,m,m,k,m,m,15,m,m,B.A,m,1.5,!0,m,m,m,m,m,m,m,m),m,m),m,m,new A.A3(m)),1),A.q(e,m,m,m,m,A.n(m,m,new A.c(l),m,m,m,m,m,k,m,m,15,m,m,B.A,m,m,!0,m,m,m,m,m,m,m,m),m,m)],t.p),B.n,B.k,B.h),m),B.e,m,m,new A.aC(B.o,m,m,B.ai,r,m,B.p),m,s,m,m,m,m,m,j)}}
+return A.a0(m,new A.az(B.b4,A.a9(A.a([new A.dr(B.lb,m,m,A.a0(m,A.ci(A.q(n,m,m,m,m,A.n(m,m,new A.c(4294375414),m,m,m,m,m,k,m,m,15,m,m,B.y,m,m,!0,m,m,m,m,m,m,m,m),m,m),m,m),B.e,m,m,new A.dA(p,m,m,m,new A.bN(o,B.v)),m,24.37,m,m,B.cE,m,m,q),m),A.l(m,30,m),A.q(b,m,m,m,m,A.n(m,m,new A.c(l),m,m,m,m,m,k,m,m,25,m,m,B.y,m,m,!0,m,m,m,m,m,m,m,m),m,m),A.l(m,20,m),A.da(A.ft(A.q(c,m,m,m,m,A.n(m,m,new A.c(l),m,m,m,m,m,k,m,m,15,m,m,B.y,m,1.5,!0,m,m,m,m,m,m,m,m),m,m),m,m,new A.A3(m)),1),A.q(e,m,m,m,m,A.n(m,m,new A.c(l),m,m,m,m,m,k,m,m,15,m,m,B.y,m,m,!0,m,m,m,m,m,m,m,m),m,m)],t.p),B.n,B.k,B.h),m),B.e,m,m,new A.aC(B.o,m,m,B.ai,r,m,B.p),m,s,m,m,m,m,m,j)}}
 A.uv.prototype={
 K(a){var s=null,r=4279319859,q=A.Y(a,s,t.w).w,p=t.p,o=A.a0(s,A.a9(A.a([A.q("Privacy Policy",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,24,s,s,B.a_,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.l(s,10,s),A.bI(A.a([A.da(A.q("Sway is committed to respecting your privacy.",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,16,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),1),A.q("Updated September 18, 2024",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,16,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s)],p),B.q,B.k,B.h),A.l(s,20,s),A.q("Your privacy is important to us. This Privacy Policy explains how Sway collects, uses, and protects your personal information. By using our website, you agree to the terms of this policy.",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,16,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.l(s,20,s),this.Dg("The Information We Collect"),A.q("We are the sole owners of the information collected on this site. We collect personal information that you voluntarily provide to us through forms, emails, or other direct contact. We may collect:\n\nName\nAddress\nEmail address\nPhone number\nCredit/debit card information\nOther information necessary to fulfill your request (e.g., shipping address)\n\nInformation Collected from Others: If you order a product or service for someone else, we collect the personal information necessary to complete the order for that individual, including their name and address.",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,16,s,s,s,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),this.Dg("How We Use Your Information"),A.q("We use your information to:\n\n\u2022 Complete orders and transactions\n\u2022 Respond to inquiries\n\u2022 Provide services requested by you\n\u2022 Notify you of new products, services, or promotions (unless you opt-out)\n\nWe do not sell or rent your personal information to third parties. We may share your data with trusted third parties who assist in fulfilling your requests, such as shipping companies or payment processors.",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,16,s,s,s,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),this.Dg("Your Rights (GDPR/CCPA Compliance)"),A.q("You have the right to:\n\n\u2022 Access your personal information\n\u2022 Correct or update any information we have\n\u2022 Request deletion of your data\n\u2022 Object to or restrict certain types of data processing\n\nTo exercise these rights, contact us.",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,16,s,s,s,s,1.5,!0,s,s,s,s,s,s,s,s),s,s)],p),B.n,B.k,B.h),B.e,new A.c(4294440169),s,s,s,s,s,s,B.mu,s,s,s)
 q=q.a.a<1000?new A.eM(s):new A.eL(s)
@@ -83884,8 +83884,8 @@ return new A.az(B.FI,A.q(a,s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,s,s,s,1
 A.uF.prototype={
 K(a6){var s=this,r=null,q=4294440169,p="REMEDY ROOM",o=4279319859,n="Vance",m="Welcome to The Remedy Room, a space to restore your body and refresh your mind. Experience ultimate recovery with our remedy technologies, made to enhance your overall physical well-being and elevate your mental state. It's time for you to level up!",l=4283070317,k="assets/infrared_sauna.png",j="Science-backed treatment. Boost recovery. Burn calories. Build immunity. Improve sleep. Reduce stress. Increase energy. Improve focus. Promote balance.",i="assets/cold_plunge.png",h="Cold Plunge",g="Life-changing benefits. Cold water therapy has been shown to be effective with better sleep, elevated energy, pain and stress relief, a better mood, performance and recovery, and immune support.",f="/coldplunge",e="assets/compression_therapy.png",d="15 MIN",c="Compression Therapy",b="Increases circulation and helps you maintain your full range of motion. Proven to help with lymphatic drainage, and decrease pain and soreness.",a="/compression",a0="assets/led_light_therapy.png",a1="LED Light Therapy",a2="LightStim MultiWave\xae Patented Technology emits multiple wavelengths of light. ProPanel utilizes 1,400 medical-grade LEDs optimized for anti-aging, acne, or regeneration.",a3=A.Y(a6,r,t.w).w.a.a<1000,a4=a3?20:40,a5=t.p
 a4=A.a([A.d3(r,new A.fZ(r),r,r,0,0,a4,r)],a5)
-if(a3)a4.push(A.a0(r,A.a9(A.a([A.l(r,50,r),A.l(A.q(p,r,r,r,r,A.n(r,r,new A.c(o),r,r,r,r,r,n,r,r,40,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.B,r),r,351),A.l(r,30,r),A.l(A.q(m,r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,625),A.l(r,20,r),A.l(A.q("4x Visits a Month\nDrop-In $49 I Member $25",r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,239),A.l(r,100,r)],a5),B.q,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0))
-else a4.push(A.a0(r,A.a9(A.a([A.l(r,50,r),A.l(A.q(p,r,r,r,r,A.n(r,r,new A.c(o),r,r,r,r,r,n,r,r,50,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.B,r),r,351),A.l(r,30,r),A.l(A.q(m,r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,25,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,625),A.l(r,20,r),A.l(A.q("Drop-In $49 | Member $25\nRemedy Room Pricing includes 40 min total to experiences our Remedy Technology. You can tailor it to your liking, but you will have a maximum limit of 15 min in the Normatec + LED Light Therapy, 20 min in the traditional sauana, and 5 min in the cold plunge.",r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,500),A.l(r,100,r)],a5),B.q,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,160,0,0),new A.T(20,0,20,0),r,r,1/0))
+if(a3)a4.push(A.a0(r,A.a9(A.a([A.l(r,50,r),A.l(A.q(p,r,r,r,r,A.n(r,r,new A.c(o),r,r,r,r,r,n,r,r,40,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.B,r),r,351),A.l(r,30,r),A.l(A.q(m,r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,625),A.l(r,20,r),A.l(A.q("4x Visits a Month\nDrop-In $49 I Member $25",r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,239),A.l(r,100,r)],a5),B.q,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0))
+else a4.push(A.a0(r,A.a9(A.a([A.l(r,50,r),A.l(A.q(p,r,r,r,r,A.n(r,r,new A.c(o),r,r,r,r,r,n,r,r,50,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),B.B,r),r,351),A.l(r,30,r),A.l(A.q(m,r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,25,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,625),A.l(r,20,r),A.l(A.q("Drop-In $49 | Member $25\nRemedy Room Pricing includes 40 min total to experiences our Remedy Technology. You can tailor it to your liking, but you will have a maximum limit of 15 min in the Normatec + LED Light Therapy, 20 min in the traditional sauana, and 5 min in the cold plunge.",r,r,r,r,A.n(r,r,new A.c(l),r,r,r,r,r,n,r,r,20,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),B.B,r),r,500),A.l(r,100,r)],a5),B.q,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,160,0,0),new A.T(20,0,20,0),r,r,1/0))
 a4=A.a([A.dj(B.ae,a4,B.N,B.a7),A.l(r,100,r)],a5)
 if(a3)a4.push(A.a0(r,A.nl(A.a([A.l(r,r,20),s.lj(a6,!0,k,"20 MIN","Sauna",j,"/sauna"),A.l(r,r,20),s.lj(a6,!0,i,"5 MIN",h,g,f),A.l(r,r,20),s.lj(a6,!0,e,d,c,b,a),A.l(r,r,20),s.lj(a6,!0,a0,d,a1,a2,"/led"),A.l(r,r,20)],a5),B.ah),B.e,new A.c(q),r,r,r,500,r,r,r,r,r,1/0))
 else a4.push(A.a0(r,A.a9(A.a([A.bI(A.a([new A.dg(1,B.ak,s.lj(a6,!1,k,"20 MIN","Sauna",j,"/sauna"),r),A.l(r,r,20),new A.dg(1,B.ak,s.lj(a6,!1,i,"5 MIN",h,g,f),r)],a5),B.q,B.bw,B.h),A.l(r,50,r),A.bI(A.a([new A.dg(1,B.ak,s.lj(a6,!1,e,d,c,b,a),r),A.l(r,r,20),new A.dg(1,B.ak,s.lj(a6,!1,a0,d,a1,a2,"/led"),r)],a5),B.q,B.bw,B.h)],a5),B.q,B.k,B.h),B.e,new A.c(q),r,r,r,r,r,r,B.em,r,r,1/0))
@@ -83893,28 +83893,28 @@ a4.push(A.l(r,100,r))
 if(a3)a4.push(new A.eM(r))
 else a4.push(new A.eL(r))
 return A.fr(r,new A.c(q),A.ft(A.a9(a4,B.q,B.k,B.h),r,r,r))},
-lj(a3,a4,a5,a6,a7,a8,a9){var s,r,q,p,o,n,m,l,k,j=null,i=4283070317,h="Helvetica",g=4279319859,f="Vance",e="Book Now",d=4294375414,c=a4?300:625,b=a4?450:380,a=A.bb(10),a0=t.E,a1=A.a([new A.ch(3,B.ay,B.df,new A.k(0,3),5)],a0),a2=t.p
+lj(a3,a4,a5,a6,a7,a8,a9){var s,r,q,p,o,n,m,l,k,j=null,i=4283070317,h="Helvetica",g=4279319859,f="Vance",e="Learn More",d=4294375414,c=a4?300:625,b=a4?450:380,a=A.bb(10),a0=t.E,a1=A.a([new A.ch(3,B.ay,B.df,new A.k(0,3),5)],a0),a2=t.p
 if(a4){s=A.a0(j,j,B.e,j,j,new A.aC(j,A.cT(B.r,B.J,new A.ca(a5,j,j)),j,new A.cc(new A.aF(10,10),new A.aF(10,10),B.C,B.C),j,j,B.p),j,180,j,j,j,j,j,1/0)
 r=A.q(a6,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,h,j,j,12,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 q=A.l(j,8,j)
 p=A.q(a7,j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,20,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 o=A.l(j,8,j)
-n=A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)
+n=A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)
 m=A.l(j,10,j)
 l=A.c2(0,300)
 k=A.bb(50)
 a0=A.a([new A.ch(0,B.ay,A.a1(51,0,0,0),new A.k(0,4),8)],a0)
-a2=A.a9(A.a([s,new A.az(B.dl,A.a9(A.a([r,q,p,o,n,m,A.cu(A.bq(j,A.i1(A.ci(A.q(e,j,j,j,j,A.n(j,j,new A.c(d),j,j,j,j,j,f,j,j,12,j,j,B.f,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),new A.aC(new A.c(i),j,j,k,a0,j,B.p),l,40,new A.T(0,10,0,0),j,j,j,130),B.z,!1,j,j,j,j,j,j,j,j,j,j,j,j,new A.acE(a3,a9),j,j,j),B.a3,j,new A.acF(),new A.acG(),j)],a2),B.n,B.k,B.h),j)],a2),B.n,B.k,B.h)
+a2=A.a9(A.a([s,new A.az(B.dl,A.a9(A.a([r,q,p,o,n,m,A.cu(A.bq(j,A.i1(A.ci(A.q(e,j,j,j,j,A.n(j,j,new A.c(d),j,j,j,j,j,f,j,j,12,j,j,B.f,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),new A.aC(new A.c(i),j,j,k,a0,j,B.p),l,40,new A.T(0,10,0,0),j,j,j,130),B.A,!1,j,j,j,j,j,j,j,j,j,j,j,j,new A.acE(a3,a9),j,j,j),B.a3,j,new A.acF(),new A.acG(),j)],a2),B.n,B.k,B.h),j)],a2),B.n,B.k,B.h)
 a0=a2}else{s=A.a0(j,j,B.e,j,j,new A.aC(j,A.cT(B.r,B.J,new A.ca(a5,j,j)),j,new A.cc(new A.aF(10,10),B.C,new A.aF(10,10),B.C),j,j,B.p),j,j,j,j,j,j,j,250)
 r=A.q(a6,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,h,j,j,12,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 q=A.l(j,8,j)
 p=A.q(a7,j,j,j,j,A.n(j,j,new A.c(g),j,j,j,j,j,f,j,j,25,j,j,B.f,j,1.2,!0,j,j,j,j,j,j,j,j),j,j)
 o=A.l(j,8,j)
-n=A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.A,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)
+n=A.q(a8,j,j,j,j,A.n(j,j,new A.c(i),j,j,j,j,j,f,j,j,14,j,j,B.y,j,1.5,!0,j,j,j,j,j,j,j,j),j,j)
 m=A.c2(0,300)
 l=A.bb(50)
 a0=A.a([new A.ch(0,B.ay,A.a1(51,0,0,0),new A.k(0,4),8)],a0)
-a2=A.l(A.bI(A.a([s,A.da(new A.az(B.iT,A.a9(A.a([r,q,p,o,n,new A.ks(j),A.cu(A.bq(j,A.i1(A.ci(A.q(e,j,j,j,j,A.n(j,j,new A.c(d),j,j,j,j,j,f,j,j,14,j,j,B.f,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),new A.aC(new A.c(i),j,j,l,a0,j,B.p),m,40,new A.T(0,0,0,10),j,j,j,150),B.z,!1,j,j,j,j,j,j,j,j,j,j,j,j,new A.acH(a3,a9),j,j,j),B.a3,j,j,j,j)],a2),B.n,B.k,B.h),j),1)],a2),B.n,B.k,B.h),380,j)
+a2=A.l(A.bI(A.a([s,A.da(new A.az(B.iT,A.a9(A.a([r,q,p,o,n,new A.ks(j),A.cu(A.bq(j,A.i1(A.ci(A.q(e,j,j,j,j,A.n(j,j,new A.c(d),j,j,j,j,j,f,j,j,14,j,j,B.f,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,j),new A.aC(new A.c(i),j,j,l,a0,j,B.p),m,40,new A.T(0,0,0,10),j,j,j,150),B.A,!1,j,j,j,j,j,j,j,j,j,j,j,j,new A.acH(a3,a9),j,j,j),B.a3,j,j,j,j)],a2),B.n,B.k,B.h),j),1)],a2),B.n,B.k,B.h),380,j)
 a0=a2}return A.a0(j,a0,B.e,j,j,new A.aC(B.o,j,j,a,a1,j,B.p),j,b,j,j,j,j,j,c)}}
 A.acF.prototype={
 $1(a){return A.bT("Mouse Entered")},
@@ -83937,7 +83937,7 @@ q=A.a([A.dj(B.ae,q,B.N,B.a7),A.l(s,100,s)],p)
 if(r)q.push(new A.eM(s))
 else q.push(new A.eL(s))
 return A.fr(s,new A.c(4294440169),A.ft(A.a9(q,B.q,B.k,B.h),s,s,s))},
-abA(a6){var s,r,q,p,o=this,n=null,m=4283070317,l="Vance",k="Schedule Your Wellness",j=4294375414,i=A.Y(a6,n,t.w).w.a.a,h=i<1500?i/1500:1,g=100*h,f=A.a0(n,n,B.e,n,n,new A.aC(n,A.cT(B.r,B.c7,new A.ca("assets/homepage_photo2.png",n,n)),n,n,n,n,B.p),n,664*h,n,n,n,n,n,599*h),e=A.l(n,n,g),d=A.l(A.q("RECOMMENDED 20 MIN",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,"Helvetica",n,n,15*h,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,192*h),c=10*h,b=A.l(n,c,n),a=A.l(A.q("Sauna",n,n,n,n,A.n(n,n,new A.c(4279319859),n,n,n,n,n,l,n,n,50*h,n,n,B.A,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,485*h),a0=20*h,a1=A.l(n,a0,n),a2=A.q("Drop-In $49 I Member $25",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a0,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),a3=A.l(n,a0,n),a4=25*h,a5=A.l(A.q(u.M,n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.A,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,624*h)
+abA(a6){var s,r,q,p,o=this,n=null,m=4283070317,l="Vance",k="Schedule Your Wellness",j=4294375414,i=A.Y(a6,n,t.w).w.a.a,h=i<1500?i/1500:1,g=100*h,f=A.a0(n,n,B.e,n,n,new A.aC(n,A.cT(B.r,B.c7,new A.ca("assets/homepage_photo2.png",n,n)),n,n,n,n,B.p),n,664*h,n,n,n,n,n,599*h),e=A.l(n,n,g),d=A.l(A.q("RECOMMENDED 20 MIN",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,"Helvetica",n,n,15*h,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,192*h),c=10*h,b=A.l(n,c,n),a=A.l(A.q("Sauna",n,n,n,n,A.n(n,n,new A.c(4279319859),n,n,n,n,n,l,n,n,50*h,n,n,B.y,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,485*h),a0=20*h,a1=A.l(n,a0,n),a2=A.q("Drop-In $49 I Member $25",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a0,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),a3=A.l(n,a0,n),a4=25*h,a5=A.l(A.q(u.M,n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.y,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,624*h)
 a0=A.l(n,a0,n)
 a4=A.l(A.q("Recommended for",n,n,n,n,A.n(n,n,new A.c(m),n,n,n,n,n,l,n,n,a4,n,n,B.f,n,1.5,!0,n,n,n,n,n,n,n,n),n,n),n,213*h)
 c=A.l(n,c,n)
@@ -83945,7 +83945,7 @@ s=t.p
 r=A.l(A.a9(A.a([o.jv("Reducing Stress and Anxiety",h),o.jv("Improving Skin Health",h),o.jv("Anyone that suffers from Arthritis",h),o.jv("Those needing detoxification",h),o.jv("Muscle pain and joint stiffness",h)],s),B.n,B.k,B.h),n,388*h)
 q=A.l(n,30*h,n)
 p=A.bb(50)
-p=A.bI(A.a([f,e,A.da(A.a9(A.a([d,b,a,a1,a2,a3,a5,a0,a4,c,r,q,A.bq(n,A.a0(n,A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,p,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.z,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.ae7(),n,n,n)],s),B.n,B.k,B.h),1)],s),B.n,B.k,B.h)
+p=A.bI(A.a([f,e,A.da(A.a9(A.a([d,b,a,a1,a2,a3,a5,a0,a4,c,r,q,A.bq(n,A.a0(n,A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,p,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.A,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.ae7(),n,n,n)],s),B.n,B.k,B.h),1)],s),B.n,B.k,B.h)
 q=A.l(n,50,n)
 r=o.wS("RESTORE YOUR BODY")
 c=o.OF("Body",o.OD(),!1)
@@ -83954,15 +83954,15 @@ a0=o.wS("REFRESH YOUR MIND")
 a5=o.OF("Mind",o.OG(!0),!1)
 a3=A.l(n,30,n)
 a2=A.bb(50)
-return A.a0(n,A.a9(A.a([p,q,r,c,a4,a0,a5,a3,A.bq(n,A.a0(n,A.ci(A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,a2,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.z,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.ae8(),n,n,n)],s),B.n,B.k,B.h),B.e,n,n,n,n,n,n,new A.T(0,160,0,0),new A.T(g,0,g,0),n,n,1/0)},
-abB(a1){var s=this,r=null,q=4283070317,p="Vance",o=A.a0(r,r,B.e,r,r,new A.aC(r,A.cT(B.r,B.c7,new A.ca("assets/homepage_photo2.png",r,r)),r,r,r,r,B.p),r,332,r,r,r,r,r,299),n=A.l(r,20,r),m=A.q("RECOMMENDED 20 MIN",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),l=A.l(r,10,r),k=A.q("Sauna",r,r,r,r,A.n(r,r,new A.c(4279319859),r,r,r,r,r,p,r,r,30,r,r,B.A,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),j=A.l(r,20,r),i=A.q("Drop-In $49 I Member $25",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),h=A.l(r,20,r),g=A.q(u.M,r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),f=A.l(r,20,r),e=A.q("Recommended for",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),d=A.l(r,10,r),c=t.p,b=A.a9(A.a([s.jv("Reducing Stress and Anxiety",1),s.jv("Improving Skin Health",1),s.jv("Anyone that suffers from Arthritis",1),s.jv("Those needing detoxification",1),s.jv("Muscle pain and joint stiffness",1)],c),B.n,B.k,B.h),a=A.l(r,30,r),a0=A.bb(50)
-return A.a0(r,A.a9(A.a([o,n,m,l,k,j,i,h,g,f,e,d,b,a,A.bq(r,A.a0(r,A.q("Schedule Your Wellness",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),B.e,r,r,new A.aC(new A.c(q),r,r,a0,r,r,B.p),r,r,r,r,new A.T(20,10,20,10),r,r,250),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.ae9(),r,r,r),A.l(r,30,r),s.wS("RESTORE YOUR BODY"),s.OH("Body",s.OD()),A.l(r,30,r),s.wS("REFRESH YOUR MIND"),s.OH("Mind",s.OG(!0))],c),B.n,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0)},
+return A.a0(n,A.a9(A.a([p,q,r,c,a4,a0,a5,a3,A.bq(n,A.a0(n,A.ci(A.q(k,n,n,n,n,A.n(n,n,new A.c(j),n,n,n,n,n,l,n,n,18,n,n,B.f,n,1.2,!0,n,n,n,n,n,n,n,n),n,n),n,n),B.e,n,n,new A.aC(new A.c(m),n,n,a2,n,n,B.p),n,n,n,n,new A.T(20,10,20,10),n,n,250),B.A,!1,n,n,n,n,n,n,n,n,n,n,n,n,new A.ae8(),n,n,n)],s),B.n,B.k,B.h),B.e,n,n,n,n,n,n,new A.T(0,160,0,0),new A.T(g,0,g,0),n,n,1/0)},
+abB(a1){var s=this,r=null,q=4283070317,p="Vance",o=A.a0(r,r,B.e,r,r,new A.aC(r,A.cT(B.r,B.c7,new A.ca("assets/homepage_photo2.png",r,r)),r,r,r,r,B.p),r,332,r,r,r,r,r,299),n=A.l(r,20,r),m=A.q("RECOMMENDED 20 MIN",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),l=A.l(r,10,r),k=A.q("Sauna",r,r,r,r,A.n(r,r,new A.c(4279319859),r,r,r,r,r,p,r,r,30,r,r,B.y,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),j=A.l(r,20,r),i=A.q("Drop-In $49 I Member $25",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),h=A.l(r,20,r),g=A.q(u.M,r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,16,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),f=A.l(r,20,r),e=A.q("Recommended for",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),d=A.l(r,10,r),c=t.p,b=A.a9(A.a([s.jv("Reducing Stress and Anxiety",1),s.jv("Improving Skin Health",1),s.jv("Anyone that suffers from Arthritis",1),s.jv("Those needing detoxification",1),s.jv("Muscle pain and joint stiffness",1)],c),B.n,B.k,B.h),a=A.l(r,30,r),a0=A.bb(50)
+return A.a0(r,A.a9(A.a([o,n,m,l,k,j,i,h,g,f,e,d,b,a,A.bq(r,A.a0(r,A.q("Schedule Your Wellness",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,p,r,r,18,r,r,B.f,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),B.e,r,r,new A.aC(new A.c(q),r,r,a0,r,r,B.p),r,r,r,r,new A.T(20,10,20,10),r,r,250),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.ae9(),r,r,r),A.l(r,30,r),s.wS("RESTORE YOUR BODY"),s.OH("Body",s.OD()),A.l(r,30,r),s.wS("REFRESH YOUR MIND"),s.OH("Mind",s.OG(!0))],c),B.n,B.k,B.h),B.e,r,r,r,r,r,r,new A.T(0,120,0,0),new A.T(20,0,20,0),r,r,1/0)},
 jv(a,b){var s=4283070317,r=null,q=18*b
-return new A.az(B.iS,A.bI(A.a([A.q("+",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.l(r,r,10),A.da(A.q(a,r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),1)],t.p),B.n,B.k,B.h),r)},
+return new A.az(B.iS,A.bI(A.a([A.q("+",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.l(r,r,10),A.da(A.q(a,r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Vance",r,r,q,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),1)],t.p),B.n,B.k,B.h),r)},
 OE(a,b){var s,r=4290105279,q=null,p=a==="Body",o=p?new A.c(r):new A.c(4279319859),n=A.bb(0)
 p=p?new A.c(4283070317):new A.c(r)
 s=A.bb(50)
-return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.A,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
+return A.a0(q,A.dj(B.ae,A.a([A.d3(q,A.a0(q,A.ci(A.q(a,q,q,q,q,A.n(q,q,new A.c(4294375414),q,q,q,q,q,"Vance",q,q,13,q,q,B.y,q,q,!0,q,q,q,q,q,q,q,q),q,q),q,q),B.e,q,q,new A.dA(p,q,q,q,new A.bN(s,B.v)),q,24,q,q,B.cE,q,q,53),q,q,q,10,10,q),new A.az(B.b4,b,q)],t.p),B.N,B.a7),B.e,q,q,new A.aC(o,q,q,n,q,q,B.p),q,277,q,q,q,q,q,298)},
 wS(a){var s=null
 return new A.az(B.fy,A.q(a,s,s,s,s,A.n(s,s,new A.c(4279319859),s,s,s,s,s,"Vance",s,s,30,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s)},
 OF(a,b,c){var s=A.a4(b).h("a5<1,j>")
@@ -83975,7 +83975,7 @@ return A.a([s.wR("BURN BABY BURN","Burn calories by raising your core body tempe
 OG(a){var s=this
 return A.a([s.rE("REDUCE STRESS","Promotes relaxation. The increased blood circulation and release of endorphins enhance mood and reduce the levels of stress hormones like cortisol, providing a calming and therapeutic experience.",!0),s.rE("DEEPER SLEEP","Relaxes the nervous system by increasing blood flow and releasing tension, which reduces overall stress levels. This calming effect on the nervous system lowers the body's fight-or-flight response, making it easier to fall asleep and achieve a deeper, more restorative sleep.",!0),s.rE("ENHANCE MOOD","Endorphin release promotes a sense of well-being and happiness. The heat from the also stimulates serotonin production, a neurotransmitter that enhances mood. Hence, one of the many reasons why Sway will become your happy place!",!0),s.rE("MENTAL CLARITY","Increases blood flow to the brain, which enhances oxygen and nutrient delivery to brain cells. This improved circulation, combined with the relaxation effects, reduces mental fatigue and sharpens cognitive function.",!0)],t.p)},
 rE(a,b,c){var s=4294375414,r=null,q=4283070317,p=A.l(A.q(a,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Helvetica",r,r,12,r,r,B.a_,r,1.2,!0,r,r,r,r,r,r,r,r),r,r),r,192),o=A.l(r,10,r)
-return new A.az(B.b4,A.a9(A.a([p,o,A.l(A.q(b,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Vance",r,r,12,r,r,B.A,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,262)],t.p),B.n,B.k,B.h),r)},
+return new A.az(B.b4,A.a9(A.a([p,o,A.l(A.q(b,r,r,r,r,A.n(r,r,c?new A.c(s):new A.c(q),r,r,r,r,r,"Vance",r,r,12,r,r,B.y,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,262)],t.p),B.n,B.k,B.h),r)},
 wR(a,b){return this.rE(a,b,!1)}}
 A.ae7.prototype={
 $0(){},
@@ -84015,7 +84015,7 @@ m=new A.az(new A.T(50,0,50,0),A.bI(A.a([l.oy(a2,j,"Facials",i,b,n,m,42,18),A.l(k
 b=m}n=A.l(k,150,k)
 return A.fr(new A.qp(new A.fZ(k),new A.D(1/0,80),k),new A.c(4294440169),A.ft(A.a9(A.a([a0,a1,s,r,q,b,n,a?new A.eM(k):new A.eL(k)],p),B.q,B.k,B.h),k,k,k))},
 oy(a,b,c,d,e,f,g,h,i){var s=null,r=4279319859,q=A.a0(s,s,B.e,s,s,new A.aC(s,A.cT(B.r,B.J,new A.ca(b,s,s)),s,s,s,s,B.p),s,f,s,s,s,s,s,e),p=A.c2(0,200),o=A.bb(20),n=t.p
-return A.bq(s,A.cu(A.dj(B.ae,A.a([q,A.d3(20,A.i1(A.bI(A.a([new A.az(new A.T(10,0,0,0),A.q(c,s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Vance",s,s,i,s,s,B.A,s,1,!0,s,s,s,s,s,s,s,s),s,s),s),B.P9,A.ib(B.Go,new A.c(r),s,i)],n),B.q,B.k,B.h7),new A.dA(B.o,s,s,s,new A.bN(o,B.v)),p,h,s,s,s,s,g),s,s,s,20,s,s)],n),B.N,B.a7),B.a3,s,s,s,s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ahU(a,d),s,s,s)}}
+return A.bq(s,A.cu(A.dj(B.ae,A.a([q,A.d3(20,A.i1(A.bI(A.a([new A.az(new A.T(10,0,0,0),A.q(c,s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Vance",s,s,i,s,s,B.y,s,1,!0,s,s,s,s,s,s,s,s),s,s),s),B.P9,A.ib(B.Go,new A.c(r),s,i)],n),B.q,B.k,B.h7),new A.dA(B.o,s,s,s,new A.bN(o,B.v)),p,h,s,s,s,s,g),s,s,s,20,s,s)],n),B.N,B.a7),B.a3,s,s,s,s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ahU(a,d),s,s,s)}}
 A.ahU.prototype={
 $0(){A.cP(this.a,this.b,t.X)},
 $S:0}
@@ -84023,15 +84023,15 @@ A.eL.prototype={
 ak(){return new A.Sb(A.hV(u.Q,0,null),A.hV("https://www.tiktok.com/@swaywellnessclub",0,null))}}
 A.Sb.prototype={
 K(a){var s,r=this,q=null,p=4294375414,o="Helvetica",n=4283070317,m=A.ef("assets/swaylogo.png",B.r,q,25.53,75),l=A.l(q,20,q),k=A.q("Subscribe to our newsletter",q,q,q,q,A.n(q,q,new A.c(p),q,q,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),j=A.l(q,10,q),i=A.n(q,q,new A.c(p),q,q,q,q,q,q,q,q,q,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),h=t.p
-i=A.a9(A.a([m,l,k,j,A.bI(A.a([A.a0(q,A.aCz(q,A.avV(q,q,q,q,q,q,q,q,!0,new A.h_(4,B.c6,new A.bi(new A.c(p),1,B.H,-1)),q,q,q,q,q,q,q,q,q,q,q,new A.h_(4,B.c6,new A.bi(new A.c(p),1,B.H,-1)),q,q,q,q,q,q,q,A.n(q,q,A.a1(B.c.ad(178.5),246,247,246),q,q,q,q,q,q,q,q,q,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),"Enter your email",q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q),i),B.e,q,q,q,q,q,q,q,q,q,q,300),A.l(q,q,10),A.bq(q,A.a0(q,A.ci(A.ib(B.mZ,new A.c(p),q,16),q,q),B.e,q,q,new A.dA(q,q,q,q,new A.j9(1,new A.bi(new A.c(p),1,B.H,-1))),q,24,q,q,q,q,q,24),B.z,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.am9(),q,q,q)],h),B.q,B.k,B.h)],h),B.n,B.k,B.h)
+i=A.a9(A.a([m,l,k,j,A.bI(A.a([A.a0(q,A.aCz(q,A.avV(q,q,q,q,q,q,q,q,!0,new A.h_(4,B.c6,new A.bi(new A.c(p),1,B.H,-1)),q,q,q,q,q,q,q,q,q,q,q,new A.h_(4,B.c6,new A.bi(new A.c(p),1,B.H,-1)),q,q,q,q,q,q,q,A.n(q,q,A.a1(B.c.ad(178.5),246,247,246),q,q,q,q,q,q,q,q,q,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),"Enter your email",q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q,q),i),B.e,q,q,q,q,q,q,q,q,q,q,300),A.l(q,q,10),A.bq(q,A.a0(q,A.ci(A.ib(B.mZ,new A.c(p),q,16),q,q),B.e,q,q,new A.dA(q,q,q,q,new A.j9(1,new A.bi(new A.c(p),1,B.H,-1))),q,24,q,q,q,q,q,24),B.A,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.am9(),q,q,q)],h),B.q,B.k,B.h)],h),B.n,B.k,B.h)
 j=A.l(q,10,q)
 m=r.f
 l=m?B.tm:new A.c(p)
-l=A.l(A.cu(A.bq(q,A.q("Instagram",q,q,q,q,A.n(q,q,l,q,m?B.bM:B.j,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),B.z,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.ama(r),q,q,q),B.b3,q,new A.amb(r),new A.amc(r),q),q,109)
+l=A.l(A.cu(A.bq(q,A.q("Instagram",q,q,q,q,A.n(q,q,l,q,m?B.bM:B.j,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),B.A,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.ama(r),q,q,q),B.b3,q,new A.amb(r),new A.amc(r),q),q,109)
 k=A.l(q,10,q)
 m=r.r
 s=m?B.tm:new A.c(p)
-return A.a0(q,new A.az(B.FV,A.a9(A.a([A.bI(A.a([i,new A.ks(q),A.a9(A.a([j,l,k,A.l(A.cu(A.bq(q,A.q("Tiktok",q,q,q,q,A.n(q,q,s,q,m?B.bM:B.j,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),B.z,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.amd(),q,q,q),B.b3,q,new A.ame(r),new A.amf(r),q),q,109)],h),B.n,B.k,B.h),new A.ks(q),A.a9(A.a([A.l(q,10,q),A.l(A.q("1428 Larimer St. \nDenver, CO. 80202",q,q,q,q,A.n(q,q,new A.c(p),q,q,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),q,200),A.l(q,10,q),A.l(A.q("Phone: +1 720-588-8667",q,q,q,q,A.n(q,q,new A.c(p),q,q,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),q,200)],h),B.n,B.k,B.h)],h),B.n,B.k,B.h),A.l(q,40,q),A.bI(A.a([A.l(A.bq(q,A.q("Terms and Conditions",q,q,q,q,A.n(q,q,new A.c(n),q,q,q,q,q,o,q,q,10,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),B.z,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.amg(a),q,q,q),q,128),A.q("\xa9 2024 Sway Wellness Club",q,q,q,q,A.n(q,q,new A.c(n),q,q,q,q,q,o,q,q,10,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),B.B,q),A.l(A.bq(q,A.q("Privacy Policy",q,q,q,q,A.n(q,q,new A.c(n),q,q,q,q,q,o,q,q,10,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),B.hK,q),B.z,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.amh(a),q,q,q),q,128)],h),B.q,B.dx,B.h)],h),B.n,B.k,B.h),q),B.e,q,q,new A.aC(new A.c(4279319859),q,q,q,q,q,B.p),q,q,q,q,q,q,q,1/0)}}
+return A.a0(q,new A.az(B.FV,A.a9(A.a([A.bI(A.a([i,new A.ks(q),A.a9(A.a([j,l,k,A.l(A.cu(A.bq(q,A.q("Tiktok",q,q,q,q,A.n(q,q,s,q,m?B.bM:B.j,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),B.A,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.amd(),q,q,q),B.b3,q,new A.ame(r),new A.amf(r),q),q,109)],h),B.n,B.k,B.h),new A.ks(q),A.a9(A.a([A.l(q,10,q),A.l(A.q("1428 Larimer St. \nDenver, CO. 80202",q,q,q,q,A.n(q,q,new A.c(p),q,q,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),q,200),A.l(q,10,q),A.l(A.q("Phone: +1 720-588-8667",q,q,q,q,A.n(q,q,new A.c(p),q,q,q,q,q,o,q,q,14,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),q,200)],h),B.n,B.k,B.h)],h),B.n,B.k,B.h),A.l(q,40,q),A.bI(A.a([A.l(A.bq(q,A.q("Terms and Conditions",q,q,q,q,A.n(q,q,new A.c(n),q,q,q,q,q,o,q,q,10,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),q,q),B.A,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.amg(a),q,q,q),q,128),A.q("\xa9 2024 Sway Wellness Club",q,q,q,q,A.n(q,q,new A.c(n),q,q,q,q,q,o,q,q,10,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),B.B,q),A.l(A.bq(q,A.q("Privacy Policy",q,q,q,q,A.n(q,q,new A.c(n),q,q,q,q,q,o,q,q,10,q,q,B.f,q,1.5,!0,q,q,q,q,q,q,q,q),B.hK,q),B.A,!1,q,q,q,q,q,q,q,q,q,q,q,q,new A.amh(a),q,q,q),q,128)],h),B.q,B.dx,B.h)],h),B.n,B.k,B.h),q),B.e,q,q,new A.aC(new A.c(4279319859),q,q,q,q,q,B.p),q,q,q,q,q,q,q,1/0)}}
 A.am9.prototype={
 $0(){},
 $S:0}
@@ -84110,13 +84110,13 @@ A.Y(a,r,t.w).toString
 s=t.p
 return A.a0(r,new A.az(B.mu,A.a9(A.a([this.a1v(),A.l(r,20,r),this.a1u(),A.l(r,20,r),A.a9(A.a([A.l(A.q("1428 Larimer St. \nDenver, CO. 80202",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,14,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,200),A.l(r,10,r),A.l(A.q("Phone: +1 720-588-8667",r,r,r,r,A.n(r,r,new A.c(q),r,r,r,r,r,p,r,r,14,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),r,200)],s),B.n,B.k,B.h),A.l(r,40,r),this.a1s()],s),B.n,B.k,B.h),r),B.e,r,r,new A.aC(new A.c(4279319859),r,r,r,r,r,B.p),r,r,r,r,r,r,r,1/0)},
 a1v(){var s=null,r=4294375414,q=A.ef("assets/swaylogo.png",B.r,s,25.53,75),p=A.l(s,20,s),o=A.q("Subscribe to our newsletter",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,"Helvetica",s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),n=A.l(s,10,s),m=A.n(s,s,new A.c(r),s,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),l=t.p
-return A.a9(A.a([q,p,o,n,A.bI(A.a([A.da(A.a0(s,A.aCz(this.e,A.avV(s,s,s,s,s,s,s,s,!0,new A.h_(4,B.c6,new A.bi(new A.c(r),1,B.H,-1)),s,s,s,s,s,s,s,s,s,s,s,new A.h_(4,B.c6,new A.bi(new A.c(r),1,B.H,-1)),s,s,s,s,s,s,s,A.n(s,s,A.a1(B.c.ad(178.5),246,247,246),s,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),"Enter your email",s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s),m),B.e,s,s,s,s,s,s,s,s,s,s,s),1),A.l(s,s,10),A.bq(s,A.a0(s,A.ci(A.ib(B.mZ,new A.c(r),s,16),s,s),B.e,s,s,new A.dA(s,s,s,s,new A.j9(1,new A.bi(new A.c(r),1,B.H,-1))),s,24,s,s,s,s,s,24),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am4(this),s,s,s)],l),B.q,B.k,B.h)],l),B.n,B.k,B.h)},
+return A.a9(A.a([q,p,o,n,A.bI(A.a([A.da(A.a0(s,A.aCz(this.e,A.avV(s,s,s,s,s,s,s,s,!0,new A.h_(4,B.c6,new A.bi(new A.c(r),1,B.H,-1)),s,s,s,s,s,s,s,s,s,s,s,new A.h_(4,B.c6,new A.bi(new A.c(r),1,B.H,-1)),s,s,s,s,s,s,s,A.n(s,s,A.a1(B.c.ad(178.5),246,247,246),s,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),"Enter your email",s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s),m),B.e,s,s,s,s,s,s,s,s,s,s,s),1),A.l(s,s,10),A.bq(s,A.a0(s,A.ci(A.ib(B.mZ,new A.c(r),s,16),s,s),B.e,s,s,new A.dA(s,s,s,s,new A.j9(1,new A.bi(new A.c(r),1,B.H,-1))),s,24,s,s,s,s,s,24),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am4(this),s,s,s)],l),B.q,B.k,B.h)],l),B.n,B.k,B.h)},
 a1u(){var s=null,r=4294375414,q="Helvetica"
-return A.a9(A.a([this.a1t(A.a(["Memberships","Treatments","Locations"],t.s)),A.l(s,20,s),A.bq(s,A.l(A.q("Instagram",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,109),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am1(this),s,s,s),A.l(s,10,s),A.bq(s,A.l(A.q("Tiktok",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,109),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am2(),s,s,s)],t.p),B.n,B.k,B.h)},
+return A.a9(A.a([this.a1t(A.a(["Memberships","Treatments","Locations"],t.s)),A.l(s,20,s),A.bq(s,A.l(A.q("Instagram",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,109),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am1(this),s,s,s),A.l(s,10,s),A.bq(s,A.l(A.q("Tiktok",s,s,s,s,A.n(s,s,new A.c(r),s,s,s,s,s,q,s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,109),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am2(),s,s,s)],t.p),B.n,B.k,B.h)},
 a1t(a){var s=A.a4(a).h("a5<1,az>")
 return A.a9(A.a3(new A.a5(a,new A.am0(this),s),!0,s.h("ay.E")),B.n,B.k,B.h)},
 a1s(){var s=4283070317,r=null,q="Helvetica"
-return A.a9(A.a([new A.dr(B.bB,r,r,A.bq(r,A.q("Terms and Conditions",r,r,r,r,A.n(r,r,new A.c(s),r,B.bM,r,r,r,q,r,r,10,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.alY(this),r,r,r),r),A.l(r,10,r),new A.dr(B.bB,r,r,A.bq(r,A.q("Privacy Policy",r,r,r,r,A.n(r,r,new A.c(s),r,B.bM,r,r,r,q,r,r,10,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.cl,r),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.alZ(this),r,r,r),r)],t.p),B.n,B.k,B.h)}}
+return A.a9(A.a([new A.dr(B.bB,r,r,A.bq(r,A.q("Terms and Conditions",r,r,r,r,A.n(r,r,new A.c(s),r,B.bM,r,r,r,q,r,r,10,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),r,r),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.alY(this),r,r,r),r),A.l(r,10,r),new A.dr(B.bB,r,r,A.bq(r,A.q("Privacy Policy",r,r,r,r,A.n(r,r,new A.c(s),r,B.bM,r,r,r,q,r,r,10,r,r,B.f,r,1.5,!0,r,r,r,r,r,r,r,r),B.cl,r),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.alZ(this),r,r,r),r)],t.p),B.n,B.k,B.h)}}
 A.am4.prototype={
 $0(){var s=this.a
 s.a9(new A.am3(s))},
@@ -84158,7 +84158,7 @@ return A.I($async$$0,r)},
 $S:7}
 A.am0.prototype={
 $1(a){var s=null
-return new A.az(B.mt,A.bq(s,A.l(A.q(a,s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,"Helvetica",s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,109),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am_(this.a,a),s,s,s),s)},
+return new A.az(B.mt,A.bq(s,A.l(A.q(a,s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,"Helvetica",s,s,14,s,s,B.f,s,1.5,!0,s,s,s,s,s,s,s,s),s,s),s,109),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.am_(this.a,a),s,s,s),s)},
 $S:536}
 A.am_.prototype={
 $0(){switch(this.b){case"Memberships":var s=this.a.c
@@ -84189,13 +84189,13 @@ mX(){if(this.d){var s=this.e
 if(s!=null)s.dG(0)
 this.d=!1}},
 a97(a){var s=null
-return A.a0(s,A.bI(A.a([A.bq(s,new A.az(new A.T(10,0,0,0),A.ef("assets/swaylogo.png",B.r,s,25.53,75),s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.apj(a),s,s,s),A.aBx(A.ib(B.fQ,B.o,s,s),new A.apk(),new A.k(0,50),new A.apl(a),t.N)],t.p),B.q,B.dx,B.h),B.e,B.F,s,s,s,50,s,s,new A.T(20,0,20,0),s,s,s)},
-a96(a){var s=this,r=null,q=t.p,p=A.bI(A.a([A.bq(r,A.ef("assets/swaylogo.png",B.r,r,25.53,75),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.apg(s,a),r,r,r),A.l(r,r,30),s.a99(a),A.l(r,r,30),s.a98(a,"Join the Club","/membership")],q),B.q,B.k,B.h),o=A.mV(r,r,new A.c(4283070317),r,r,r,r,r,r,r,r,r,r,r,new A.bN(A.bb(50),B.v),r,r,r,r)
-return A.a0(r,A.ci(A.bI(A.a([p,A.mU(A.q("Book Now",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,"Helvetica",r,r,18,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),new A.aph(s,a),o)],q),B.q,B.dx,B.h),r,r),B.e,B.F,r,r,r,50,r,r,new A.T(70,0,70,0),r,r,r)},
+return A.a0(s,A.bI(A.a([A.bq(s,new A.az(new A.T(10,0,0,0),A.ef("assets/swaylogo.png",B.r,s,25.53,75),s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.apj(a),s,s,s),A.aBx(A.ib(B.fQ,B.o,s,s),new A.apk(),new A.k(0,50),new A.apl(a),t.N)],t.p),B.q,B.dx,B.h),B.e,B.F,s,s,s,50,s,s,new A.T(20,0,20,0),s,s,s)},
+a96(a){var s=this,r=null,q=t.p,p=A.bI(A.a([A.bq(r,A.ef("assets/swaylogo.png",B.r,r,25.53,75),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.apg(s,a),r,r,r),A.l(r,r,30),s.a99(a),A.l(r,r,30),s.a98(a,"Join the Club","/membership")],q),B.q,B.k,B.h),o=A.mV(r,r,new A.c(4283070317),r,r,r,r,r,r,r,r,r,r,r,new A.bN(A.bb(50),B.v),r,r,r,r)
+return A.a0(r,A.ci(A.bI(A.a([p,A.mU(A.q("Book Soon",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,"Helvetica",r,r,18,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),new A.aph(s,a),o)],q),B.q,B.dx,B.h),r,r),B.e,B.F,r,r,r,50,r,r,new A.T(70,0,70,0),r,r,r)},
 a98(a,b,c){var s=null,r=A.c2(0,200),q=A.bb(5)
-return A.cu(A.bq(s,A.i1(A.q(b,s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,"Helvetica",s,s,18,s,s,B.f,s,1,!0,s,s,s,s,s,s,s,s),s,s),new A.aC(B.F,s,s,q,s,s,B.p),r,s,s,new A.T(10,5,10,5),s,s,s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.apm(this,a,c),s,s,s),B.a3,s,s,s,s)},
+return A.cu(A.bq(s,A.i1(A.q(b,s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,"Helvetica",s,s,18,s,s,B.f,s,1,!0,s,s,s,s,s,s,s,s),s,s),new A.aC(B.F,s,s,q,s,s,B.p),r,s,s,new A.T(10,5,10,5),s,s,s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.apm(this,a,c),s,s,s),B.a3,s,s,s,s)},
 a99(a){var s=null
-return A.cu(A.bq(s,A.bI(A.a([A.q("Treatments",s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,"Helvetica",s,s,18,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.ib(B.du,B.o,s,s)],t.p),B.q,B.k,B.h),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.apn(this,a),s,s,s),B.a3,s,new A.apo(this,a),s,s)},
+return A.cu(A.bq(s,A.bI(A.a([A.q("Treatments",s,s,s,s,A.n(s,s,new A.c(4294375414),s,s,s,s,s,"Helvetica",s,s,18,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.ib(B.du,B.o,s,s)],t.p),B.q,B.k,B.h),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.apn(this,a),s,s,s),B.a3,s,new A.apo(this,a),s,s)},
 a9a(a){var s,r,q,p=this
 if(p.d)return
 s=A.aw3(a,t.N1)
@@ -84206,7 +84206,7 @@ p.e=q
 s.tZ(0,q)
 p.d=!0},
 D_(a,b,c){var s=null
-return A.cu(A.bq(s,new A.az(B.dl,A.q(b,s,s,s,s,A.n(s,s,new A.c(4294375414),s,B.j,s,s,s,"Helvetica",s,s,16,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.api(this,a,c),s,s,s),B.a3,s,s,s,s)}}
+return A.cu(A.bq(s,new A.az(B.dl,A.q(b,s,s,s,s,A.n(s,s,new A.c(4294375414),s,B.j,s,s,s,"Helvetica",s,s,16,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.api(this,a,c),s,s,s),B.a3,s,s,s,s)}}
 A.apt.prototype={
 $2(a,b){var s=this.a
 if(b.b<1000){s.mX()
@@ -84221,11 +84221,11 @@ switch(a){case"Treatments":A.cP(this.a,s,t.X)
 break
 case"Join the Club":A.cP(this.a,"/membership",t.X)
 break
-case"Book Now":A.cP(this.a,s,t.X)
+case"Book Soon":A.cP(this.a,s,t.X)
 break}},
 $S:47}
 A.apk.prototype={
-$1(a){var s="Treatments",r=null,q="Join the Club",p="Book Now",o=t.N
+$1(a){var s="Treatments",r=null,q="Join the Club",p="Book Soon",o=t.N
 return A.a([A.Am(A.q(s,r,r,r,r,r,r,r),s,o),A.Am(A.q(q,r,r,r,r,r,r,r),q,o),A.Am(A.q(p,r,r,r,r,r,r,r),p,o)],t.Do)},
 $S:200}
 A.apg.prototype={
@@ -84273,13 +84273,13 @@ mR(){if(this.d){var s=this.e
 if(s!=null)s.dG(0)
 this.d=!1}},
 a1x(a){var s=null
-return A.a0(s,A.bI(A.a([A.bq(s,new A.az(new A.T(10,0,0,0),A.aCt("assets/swaylogogreen.svg",27,75),s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ap5(a),s,s,s),A.aBx(A.ib(B.fQ,new A.c(4283070317),s,s),new A.ap6(),new A.k(0,50),new A.ap7(a),t.N)],t.p),B.q,B.dx,B.h),B.e,B.F,s,s,s,50,s,s,new A.T(20,0,20,0),s,s,s)},
-a1r(a){var s=this,r=null,q=t.p,p=A.bI(A.a([A.bq(r,A.aCt("assets/swaylogogreen.svg",27,75),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.ap2(s,a),r,r,r),A.l(r,r,30),s.a1L(a),A.l(r,r,40),s.a1D(a,"Join the Club","/membership")],q),B.q,B.k,B.h),o=A.mV(r,r,new A.c(4283070317),r,r,r,r,r,r,r,r,r,r,r,new A.bN(A.bb(50),B.v),r,r,r,r)
-return A.a0(r,A.ci(A.bI(A.a([p,A.mU(A.q("Book Now",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,"Helvetica",r,r,18,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),new A.ap3(s,a),o)],q),B.q,B.dx,B.h),r,r),B.e,B.F,r,r,r,50,r,r,new A.T(70,0,70,0),r,r,r)},
+return A.a0(s,A.bI(A.a([A.bq(s,new A.az(new A.T(10,0,0,0),A.aCt("assets/swaylogogreen.svg",27,75),s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ap5(a),s,s,s),A.aBx(A.ib(B.fQ,new A.c(4283070317),s,s),new A.ap6(),new A.k(0,50),new A.ap7(a),t.N)],t.p),B.q,B.dx,B.h),B.e,B.F,s,s,s,50,s,s,new A.T(20,0,20,0),s,s,s)},
+a1r(a){var s=this,r=null,q=t.p,p=A.bI(A.a([A.bq(r,A.aCt("assets/swaylogogreen.svg",27,75),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.ap2(s,a),r,r,r),A.l(r,r,30),s.a1L(a),A.l(r,r,40),s.a1D(a,"Join the Club","/membership")],q),B.q,B.k,B.h),o=A.mV(r,r,new A.c(4283070317),r,r,r,r,r,r,r,r,r,r,r,new A.bN(A.bb(50),B.v),r,r,r,r)
+return A.a0(r,A.ci(A.bI(A.a([p,A.mU(A.q("Book Soon",r,r,r,r,A.n(r,r,new A.c(4294375414),r,r,r,r,r,"Helvetica",r,r,18,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),new A.ap3(s,a),o)],q),B.q,B.dx,B.h),r,r),B.e,B.F,r,r,r,50,r,r,new A.T(70,0,70,0),r,r,r)},
 a1D(a,b,c){var s=null,r=A.c2(0,200),q=A.bb(5)
-return A.cu(A.bq(s,A.i1(A.q(b,s,s,s,s,A.n(s,s,new A.c(4283070317),s,s,s,s,s,"Helvetica",s,s,18,s,s,B.f,s,1,!0,s,s,s,s,s,s,s,s),s,s),new A.aC(B.F,s,s,q,s,s,B.p),r,s,s,new A.T(10,5,10,5),s,s,s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ap8(this,a,c),s,s,s),B.a3,s,s,s,s)},
+return A.cu(A.bq(s,A.i1(A.q(b,s,s,s,s,A.n(s,s,new A.c(4283070317),s,s,s,s,s,"Helvetica",s,s,18,s,s,B.f,s,1,!0,s,s,s,s,s,s,s,s),s,s),new A.aC(B.F,s,s,q,s,s,B.p),r,s,s,new A.T(10,5,10,5),s,s,s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ap8(this,a,c),s,s,s),B.a3,s,s,s,s)},
 a1L(a){var s=4283070317,r=null
-return A.cu(A.bq(r,A.bI(A.a([A.q("Treatments",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Helvetica",r,r,18,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.ib(B.du,new A.c(s),r,r)],t.p),B.q,B.k,B.h),B.z,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.ap9(this,a),r,r,r),B.a3,r,new A.apa(this,a),r,r)},
+return A.cu(A.bq(r,A.bI(A.a([A.q("Treatments",r,r,r,r,A.n(r,r,new A.c(s),r,r,r,r,r,"Helvetica",r,r,18,r,r,B.f,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.ib(B.du,new A.c(s),r,r)],t.p),B.q,B.k,B.h),B.A,!1,r,r,r,r,r,r,r,r,r,r,r,r,new A.ap9(this,a),r,r,r),B.a3,r,new A.apa(this,a),r,r)},
 acq(a){var s,r,q,p=this
 if(p.d)return
 s=A.aw3(a,t.N1)
@@ -84290,7 +84290,7 @@ p.e=q
 s.tZ(0,q)
 p.d=!0},
 Bv(a,b,c){var s=null
-return A.cu(A.bq(s,new A.az(B.dl,A.q(b,s,s,s,s,A.n(s,s,new A.c(4283070317),s,B.j,s,s,s,"Helvetica",s,s,16,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s),B.z,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ap4(this,a,c),s,s,s),B.a3,s,s,s,s)}}
+return A.cu(A.bq(s,new A.az(B.dl,A.q(b,s,s,s,s,A.n(s,s,new A.c(4283070317),s,B.j,s,s,s,"Helvetica",s,s,16,s,s,B.f,s,s,!0,s,s,s,s,s,s,s,s),s,s),s),B.A,!1,s,s,s,s,s,s,s,s,s,s,s,s,new A.ap4(this,a,c),s,s,s),B.a3,s,s,s,s)}}
 A.apf.prototype={
 $2(a,b){var s=this.a
 if(b.b<1000){s.mR()
@@ -84307,11 +84307,11 @@ case"Join the Club":A.cP(s.a,"/membership",t.X)
 break
 case"The Sway Way":A.cP(s.a,"/the-sway-way",t.X)
 break
-case"Book Now":A.cP(s.a,r,t.X)
+case"Book Soon":A.cP(s.a,r,t.X)
 break}},
 $S:47}
 A.ap6.prototype={
-$1(a){var s="Treatments",r=null,q="Join the Club",p="Book Now",o=t.N
+$1(a){var s="Treatments",r=null,q="Join the Club",p="Book Soon",o=t.N
 return A.a([A.Am(A.q(s,r,r,r,r,r,r,r),s,o),A.Am(A.q(q,r,r,r,r,r,r,r),q,o),A.Am(A.q(p,r,r,r,r,r,r,r),p,o)],t.Do)},
 $S:200}
 A.ap2.prototype={
@@ -85916,60 +85916,60 @@ throw A.d(A.aPw(s.gpZ(s),s.a,s.b))}else{o.d=o.c=null
 return!1}}}return!1}}
 A.PB.prototype={
 ai3(){var s=this
-return A.mJ(A.a([new A.aG(s.gafk(),B.y,t.sE),new A.aG(s.gXp(),B.y,t.MB),new A.aG(s.gahQ(s),B.y,t.OY),new A.aG(s.gRU(),B.y,t.ZV),new A.aG(s.gafg(),B.y,t.nt),new A.aG(s.gagR(),B.y,t.MC),new A.aG(s.gUI(),B.y,t.hC),new A.aG(s.gahi(),B.y,t.Ly)],t.AB),A.aTO(),t.xo)},
+return A.mJ(A.a([new A.aG(s.gafk(),B.z,t.sE),new A.aG(s.gXp(),B.z,t.MB),new A.aG(s.gahQ(s),B.z,t.OY),new A.aG(s.gRU(),B.z,t.ZV),new A.aG(s.gafg(),B.z,t.nt),new A.aG(s.gagR(),B.z,t.MC),new A.aG(s.gUI(),B.z,t.hC),new A.aG(s.gahi(),B.z,t.Ly)],t.AB),A.aTO(),t.xo)},
 afl(){return A.no(new A.vD("<",1),new A.aiQ(this),!1,t.N,t.JC)},
 Xq(){var s=this,r=t.Q,q=t.N,p=t.d0
-return A.aBM(A.aFG(A.bU("<"),new A.aG(s.gj2(),B.y,r),new A.aG(s.gRt(s),B.y,t.u4),new A.aG(s.gqE(),B.y,r),A.mJ(A.a([A.bU(">"),A.bU("/>")],t.sb),A.aTP(),q),q,q,p,q,q),new A.aj_(),q,q,p,q,q,t.a1)},
-aeW(a){return A.awj(new A.aG(this.gaeL(),B.y,t.vq),0,9007199254740991,t.wG)},
+return A.aBM(A.aFG(A.bU("<"),new A.aG(s.gj2(),B.z,r),new A.aG(s.gRt(s),B.z,t.u4),new A.aG(s.gqE(),B.z,r),A.mJ(A.a([A.bU(">"),A.bU("/>")],t.sb),A.aTP(),q),q,q,p,q,q),new A.aj_(),q,q,p,q,q,t.a1)},
+aeW(a){return A.awj(new A.aG(this.gaeL(),B.z,t.vq),0,9007199254740991,t.wG)},
 aeM(){var s=this,r=t.Q,q=t.N,p=t._0
-return A.qs(A.jI(new A.aG(s.gqD(),B.y,r),new A.aG(s.gj2(),B.y,r),new A.aG(s.gaeN(),B.y,t.VJ),q,q,p),new A.aiO(s),q,q,p,t.wG)},
+return A.qs(A.jI(new A.aG(s.gqD(),B.z,r),new A.aG(s.gj2(),B.z,r),new A.aG(s.gaeN(),B.z,t.VJ),q,q,p),new A.aiO(s),q,q,p,t.wG)},
 aeO(){var s=this.gqE(),r=t.Q,q=t.N,p=t._0
-return new A.hM(B.N2,A.acz(A.auG(new A.aG(s,B.y,r),A.bU("="),new A.aG(s,B.y,r),new A.aG(this.gn8(),B.y,t.VJ),q,q,q,p),new A.aiK(),q,q,q,p,p),t.Tq)},
+return new A.hM(B.N2,A.acz(A.auG(new A.aG(s,B.z,r),A.bU("="),new A.aG(s,B.z,r),new A.aG(this.gn8(),B.z,t.VJ),q,q,q,p),new A.aiK(),q,q,q,p,p),t.Tq)},
 aeP(){var s=t.VJ
-return A.mJ(A.a([new A.aG(this.gaeQ(),B.y,s),new A.aG(this.gaeU(),B.y,s),new A.aG(this.gaeS(),B.y,s)],t.m5),null,t._0)},
+return A.mJ(A.a([new A.aG(this.gaeQ(),B.z,s),new A.aG(this.gaeU(),B.z,s),new A.aG(this.gaeS(),B.z,s)],t.m5),null,t._0)},
 aeR(){var s=t.N
 return A.qs(A.jI(A.bU('"'),new A.vD('"',0),A.bU('"'),s,s,s),new A.aiL(),s,s,s,t._0)},
 aeV(){var s=t.N
 return A.qs(A.jI(A.bU("'"),new A.vD("'",0),A.bU("'"),s,s,s),new A.aiN(),s,s,s,t._0)},
-aeT(){return A.no(new A.aG(this.gj2(),B.y,t.Q),new A.aiM(),!1,t.N,t._0)},
+aeT(){return A.no(new A.aG(this.gj2(),B.z,t.Q),new A.aiM(),!1,t.N,t._0)},
 ahR(a){var s=t.Q,r=t.N
-return A.acz(A.auG(A.bU("</"),new A.aG(this.gj2(),B.y,s),new A.aG(this.gqE(),B.y,s),A.bU(">"),r,r,r,r),new A.aiX(),r,r,r,r,t.Gn)},
+return A.acz(A.auG(A.bU("</"),new A.aG(this.gj2(),B.z,s),new A.aG(this.gqE(),B.z,s),A.bU(">"),r,r,r,r),new A.aiX(),r,r,r,r,t.Gn)},
 afD(){var s=t.N
 return A.qs(A.jI(A.bU("<!--"),new A.iZ('"-->" expected',new A.fV(A.bU("-->"),0,9007199254740991,new A.i2("input expected"),t.Po),t.Ii),A.bU("-->"),s,s,s),new A.aiR(),s,s,s,t.mL)},
 afh(){var s=t.N
 return A.qs(A.jI(A.bU("<![CDATA["),new A.iZ('"]]>" expected',new A.fV(A.bU("]]>"),0,9007199254740991,new A.i2("input expected"),t.Po),t.Ii),A.bU("]]>"),s,s,s),new A.aiP(),s,s,s,t.cL)},
 agS(){var s=t.N,r=t.d0
-return A.acz(A.auG(A.bU("<?xml"),new A.aG(this.gRt(this),B.y,t.u4),new A.aG(this.gqE(),B.y,t.Q),A.bU("?>"),s,r,s,s),new A.aiS(),s,r,s,s,t.UR)},
+return A.acz(A.auG(A.bU("<?xml"),new A.aG(this.gRt(this),B.z,t.u4),new A.aG(this.gqE(),B.z,t.Q),A.bU("?>"),s,r,s,s),new A.aiS(),s,r,s,s,t.UR)},
 an_(){var s=t.Q,r=t.N
-return A.acz(A.auG(A.bU("<?"),new A.aG(this.gj2(),B.y,s),new A.hM("",A.aBL(A.aFF(new A.aG(this.gqD(),B.y,s),new A.iZ('"?>" expected',new A.fV(A.bU("?>"),0,9007199254740991,new A.i2("input expected"),t.Po),t.Ii),r,r),new A.aiY(),r,r,r),t.mA),A.bU("?>"),r,r,r,r),new A.aiZ(),r,r,r,r,t.Mw)},
+return A.acz(A.auG(A.bU("<?"),new A.aG(this.gj2(),B.z,s),new A.hM("",A.aBL(A.aFF(new A.aG(this.gqD(),B.z,s),new A.iZ('"?>" expected',new A.fV(A.bU("?>"),0,9007199254740991,new A.i2("input expected"),t.Po),t.Ii),r,r),new A.aiY(),r,r,r),t.mA),A.bU("?>"),r,r,r,r),new A.aiZ(),r,r,r,r,t.Mw)},
 ahj(){var s=this,r=A.bU("<!DOCTYPE"),q=s.gqD(),p=t.Q,o=s.gqE(),n=t.N
-return A.aNJ(new A.BA(r,new A.aG(q,B.y,p),new A.aG(s.gj2(),B.y,p),new A.hM(null,new A.BK(new A.aG(q,B.y,t.n3),new A.pf(null,t.TS),new A.aG(s.gahq(),B.y,t.r0),t.Q3),t.Jd),new A.aG(o,B.y,p),new A.hM(null,new A.aG(s.gahw(),B.y,p),t.Aw),new A.aG(o,B.y,p),A.bU(">"),t.mM),new A.aiW(),n,n,n,t.dd,n,t.ob,n,n,t.RN)},
+return A.aNJ(new A.BA(r,new A.aG(q,B.z,p),new A.aG(s.gj2(),B.z,p),new A.hM(null,new A.BK(new A.aG(q,B.z,t.n3),new A.pf(null,t.TS),new A.aG(s.gahq(),B.z,t.r0),t.Q3),t.Jd),new A.aG(o,B.z,p),new A.hM(null,new A.aG(s.gahw(),B.z,p),t.Aw),new A.aG(o,B.z,p),A.bU(">"),t.mM),new A.aiW(),n,n,n,t.dd,n,t.ob,n,n,t.RN)},
 ahr(){var s=t.r0
-return A.mJ(A.a([new A.aG(this.gahu(),B.y,s),new A.aG(this.gahs(),B.y,s)],t.Gv),null,t.aD)},
+return A.mJ(A.a([new A.aG(this.gahu(),B.z,s),new A.aG(this.gahs(),B.z,s)],t.Gv),null,t.aD)},
 ahv(){var s=t.N,r=t._0
-return A.qs(A.jI(A.bU("SYSTEM"),new A.aG(this.gqD(),B.y,t.Q),new A.aG(this.gn8(),B.y,t.VJ),s,s,r),new A.aiU(),s,s,r,t.aD)},
+return A.qs(A.jI(A.bU("SYSTEM"),new A.aG(this.gqD(),B.z,t.Q),new A.aG(this.gn8(),B.z,t.VJ),s,s,r),new A.aiU(),s,s,r,t.aD)},
 aht(){var s=this.gqD(),r=t.Q,q=this.gn8(),p=t.VJ,o=t.N,n=t._0
-return A.aBM(A.aFG(A.bU("PUBLIC"),new A.aG(s,B.y,r),new A.aG(q,B.y,p),new A.aG(s,B.y,r),new A.aG(q,B.y,p),o,o,n,o,n),new A.aiT(),o,o,n,o,n,t.aD)},
+return A.aBM(A.aFG(A.bU("PUBLIC"),new A.aG(s,B.z,r),new A.aG(q,B.z,p),new A.aG(s,B.z,r),new A.aG(q,B.z,p),o,o,n,o,n),new A.aiT(),o,o,n,o,n,t.aD)},
 ahx(){var s,r=this,q=A.bU("["),p=t.lk
-p=A.mJ(A.a([new A.aG(r.gahm(),B.y,p),new A.aG(r.gahk(),B.y,p),new A.aG(r.gaho(),B.y,p),new A.aG(r.gahy(),B.y,p),new A.aG(r.gUI(),B.y,t.hC),new A.aG(r.gRU(),B.y,t.ZV),new A.aG(r.gahA(),B.y,p),new A.i2("input expected")],t.Vz),null,t.z)
+p=A.mJ(A.a([new A.aG(r.gahm(),B.z,p),new A.aG(r.gahk(),B.z,p),new A.aG(r.gaho(),B.z,p),new A.aG(r.gahy(),B.z,p),new A.aG(r.gUI(),B.z,t.hC),new A.aG(r.gRU(),B.z,t.ZV),new A.aG(r.gahA(),B.z,p),new A.i2("input expected")],t.Vz),null,t.z)
 s=t.N
 return A.qs(A.jI(q,new A.iZ('"]" expected',new A.fV(A.bU("]"),0,9007199254740991,p,t.mT),t.vo),A.bU("]"),s,s,s),new A.aiV(),s,s,s,s)},
-ahn(){var s=A.bU("<!ELEMENT"),r=A.mJ(A.a([new A.aG(this.gj2(),B.y,t.Q),new A.aG(this.gn8(),B.y,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
+ahn(){var s=A.bU("<!ELEMENT"),r=A.mJ(A.a([new A.aG(this.gj2(),B.z,t.Q),new A.aG(this.gn8(),B.z,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
 return A.jI(s,new A.fV(A.bU(">"),0,9007199254740991,r,t.xj),A.bU(">"),q,t.UX,q)},
-ahl(){var s=A.bU("<!ATTLIST"),r=A.mJ(A.a([new A.aG(this.gj2(),B.y,t.Q),new A.aG(this.gn8(),B.y,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
+ahl(){var s=A.bU("<!ATTLIST"),r=A.mJ(A.a([new A.aG(this.gj2(),B.z,t.Q),new A.aG(this.gn8(),B.z,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
 return A.jI(s,new A.fV(A.bU(">"),0,9007199254740991,r,t.xj),A.bU(">"),q,t.UX,q)},
-ahp(){var s=A.bU("<!ENTITY"),r=A.mJ(A.a([new A.aG(this.gj2(),B.y,t.Q),new A.aG(this.gn8(),B.y,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
+ahp(){var s=A.bU("<!ENTITY"),r=A.mJ(A.a([new A.aG(this.gj2(),B.z,t.Q),new A.aG(this.gn8(),B.z,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
 return A.jI(s,new A.fV(A.bU(">"),0,9007199254740991,r,t.xj),A.bU(">"),q,t.UX,q)},
-ahz(){var s=A.bU("<!NOTATION"),r=A.mJ(A.a([new A.aG(this.gj2(),B.y,t.Q),new A.aG(this.gn8(),B.y,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
+ahz(){var s=A.bU("<!NOTATION"),r=A.mJ(A.a([new A.aG(this.gj2(),B.z,t.Q),new A.aG(this.gn8(),B.z,t.VJ),new A.i2("input expected")],t.AT),null,t.K),q=t.N
 return A.jI(s,new A.fV(A.bU(">"),0,9007199254740991,r,t.xj),A.bU(">"),q,t.UX,q)},
 ahB(){var s=t.N
-return A.jI(A.bU("%"),new A.aG(this.gj2(),B.y,t.Q),A.bU(";"),s,s,s)},
+return A.jI(A.bU("%"),new A.aG(this.gj2(),B.z,t.Q),A.bU(";"),s,s,s)},
 Xj(){var s="whitespace expected"
 return A.aBW(new A.qR(B.lG,s),1,9007199254740991,s)},
 Xk(){var s="whitespace expected"
 return A.aBW(new A.qR(B.lG,s),0,9007199254740991,s)},
 alu(){var s=t.Q,r=t.N
-return new A.iZ("name expected",A.aFF(new A.aG(this.galr(),B.y,s),A.awj(new A.aG(this.galp(),B.y,s),0,9007199254740991,r),r,t.yp),t.TJ)},
+return new A.iZ("name expected",A.aFF(new A.aG(this.galr(),B.z,s),A.awj(new A.aG(this.galp(),B.z,s),0,9007199254740991,r),r,t.yp),t.TJ)},
 als(){return A.aFz(":A-Z_a-z\xc0-\xd6\xd8-\xf6\xf8-\u02ff\u0370-\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd",null)},
 alq(){return A.aFz(":A-Z_a-z\xc0-\xd6\xd8-\xf6\xf8-\u02ff\u0370-\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd-.0-9\xb7\u0300-\u036f\u203f-\u2040",null)}}
 A.aiQ.prototype={
@@ -86032,7 +86032,7 @@ A.aiV.prototype={
 $3(a,b,c){return b},
 $S:575}
 A.atR.prototype={
-$1(a){return A.aV2(new A.aG(new A.PB(a).gai2(),B.y,t.hq),t.xo)},
+$1(a){return A.aV2(new A.aG(new A.PB(a).gai2(),B.z,t.hq),t.xo)},
 $S:576}
 A.IZ.prototype={
 E(a,b){return this.a.$1(b)},
@@ -89127,7 +89127,7 @@ B.bT=new A.l6(9,"errorProperty")
 B.F8=new A.tn(null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.F9=new A.y5(null,null,null,null,null)
 B.iN=new A.JH(0,"down")
-B.z=new A.JH(1,"start")
+B.A=new A.JH(1,"start")
 B.bb=new A.Mj(1,"stroke")
 B.Fa=new A.mR(B.F,null,null,null,null,null,null,B.bb,null,null,null,null)
 B.cc=new A.mR(null,null,null,null,null,null,null,null,null,null,null,null)
@@ -89285,7 +89285,7 @@ B.Gh=new A.Kp(0,"normal")
 B.Gi=new A.Kp(1,"italic")
 B.mQ=new A.ia(0,100)
 B.mR=new A.ia(1,200)
-B.A=new A.ia(2,300)
+B.y=new A.ia(2,300)
 B.f=new A.ia(3,400)
 B.aC=new A.ia(4,500)
 B.j0=new A.ia(5,600)
@@ -89465,7 +89465,7 @@ B.nd=A.a(s([0,0,32776,33792,1,10240,0,0]),t.t)
 B.Ic=A.a(s(["ad_activeview","ad_click","ad_exposure","ad_query","ad_reward","adunit_exposure","app_background","app_clear_data","app_exception","app_remove","app_store_refund","app_store_subscription_cancel","app_store_subscription_convert","app_store_subscription_renew","app_uninstall","app_update","app_upgrade","dynamic_link_app_open","dynamic_link_app_update","dynamic_link_first_open","error","first_open","first_visit","in_app_purchase","notification_dismiss","notification_foreground","notification_open","notification_receive","os_update","session_start","session_start_with_rollout","user_engagement"]),t.s)
 B.ne=A.a(s(["text","multiline","number","phone","datetime","emailAddress","url","visiblePassword","name","address","none"]),t.s)
 B.Id=A.a(s(["click","scroll"]),t.s)
-B.nf=A.a(s([B.mQ,B.mR,B.A,B.f,B.aC,B.j0,B.a_,B.mS,B.j1]),A.au("C<ia>"))
+B.nf=A.a(s([B.mQ,B.mR,B.y,B.f,B.aC,B.j0,B.a_,B.mS,B.j1]),A.au("C<ia>"))
 B.Ix=A.a(s([]),t.QP)
 B.Iw=A.a(s([]),t.Ug)
 B.nh=A.a(s([]),A.au("C<aVR>"))
@@ -89485,7 +89485,7 @@ B.Is=A.a(s([]),t.fm)
 B.Xc=A.a(s([]),t.p)
 B.Iu=A.a(s([]),t.n)
 B.In=A.a(s([]),t.t)
-B.y=A.a(s([]),t.ee)
+B.z=A.a(s([]),t.ee)
 B.IA=A.a(s([]),t.XS)
 B.zd=new A.vK(0,"topLeft")
 B.zg=new A.vK(3,"bottomRight")

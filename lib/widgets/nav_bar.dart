@@ -60,8 +60,8 @@ class _NavBarState extends State<NavBar> {
               case 'Join the Club':
                 Navigator.pushNamed(context, '/membership');
                 break;
-              // Change 'Book Now' to navigate to '/treatments' instead of '/book-now'
-              case 'Book Now':
+              // Change 'Book Soon' to navigate to '/treatments' instead of '/book-now'
+              case 'Book Soon':
                 Navigator.pushNamed(context, '/treatments'); // Redirect to Treatments page
                 break;
             }
@@ -77,8 +77,8 @@ class _NavBarState extends State<NavBar> {
               child: Text('Join the Club'),
             ),
             PopupMenuItem(
-              value: 'Book Now',
-              child: Text('Book Now'),
+              value: 'Book Soon',
+              child: Text('Book Soon'),
             ),
           ],
         ),
@@ -130,7 +130,7 @@ class _NavBarState extends State<NavBar> {
               Navigator.pushNamed(context, '/treatments'); // Navigate to the Treatments page
             },
             child: Text(
-              'Book Now',
+              'Book Soon',
               style: TextStyle(
                 color: Color(0xFFF6F7F6),
                 fontSize: 18,
