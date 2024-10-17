@@ -1,4 +1,6 @@
 # This is a generated file; do not edit or check into version control.
+cloud_firestore=/Users/John/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.2/
+cloud_firestore_web=/Users/John/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.1/
 firebase_analytics=/Users/John/.pub-cache/hosted/pub.dev/firebase_analytics-11.3.2/
 firebase_analytics_web=/Users/John/.pub-cache/hosted/pub.dev/firebase_analytics_web-0.5.10+1/
 firebase_core=/Users/John/.pub-cache/hosted/pub.dev/firebase_core-3.5.0/

@@ -61,4 +61,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'swayfinalwebsite.appspot.com',
     measurementId: 'G-V4ZXNRGV84',
   );
+
 }
