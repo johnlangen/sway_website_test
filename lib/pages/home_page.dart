@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         setState(() {});                        // Ensure UI updates once the video is initialized
       });
 
+
     // Only show the popup if the URL is not "/localpartner"
     if (!html.window.location.href.contains("/localpartner")) {
       _checkFirstTimePopup();
