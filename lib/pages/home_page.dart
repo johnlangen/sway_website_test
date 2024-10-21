@@ -752,7 +752,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   width: MediaQuery.of(context).size.width < 1000 ? MediaQuery.of(context).size.width * 0.8 : 1000,
                                   height: MediaQuery.of(context).size.width < 1000 ? 300 : 400,
                                   fit: BoxFit.cover,
-                                  alignment: Alignment.center,
+                                  alignment: Alignment(0, 0.5), 
                                 ),
                               ),
                             ],
@@ -1088,7 +1088,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    '40 minutes, 4 sessions per month',
+                                    '40 minutes, 4 sessions per month \n\$99 for members, \$139 for non-members',
                                     style: TextStyle(
                                       color: Color(0xFF4A776D),
                                       fontSize: 20,
@@ -1097,7 +1097,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    'Member',
+                                    'Treatments',
                                     style: TextStyle(
                                       color: Color(0xFF113D33),
                                       fontSize: 20,
@@ -1110,7 +1110,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Infrared Sauna: \$99',
+                                          'Infrared Sauna',
                                           style: TextStyle(
                                             color: Color(0xFF4A776D),
                                             fontSize: 20,
@@ -1119,7 +1119,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                         ),
                                         SizedBox(height: 5),
                                         Text(
-                                          'Cold Plunge: \$99',
+                                          'Cold Plunge',
                                           style: TextStyle(
                                             color: Color(0xFF4A776D),
                                             fontSize: 20,
@@ -1128,7 +1128,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                         ),
                                         SizedBox(height: 5),
                                         Text(
-                                          'Normatec Lymphatic Drainage Boots: \$99',
+                                          'Normatec Lymphatic Drainage Boots',
                                           style: TextStyle(
                                             color: Color(0xFF4A776D),
                                             fontSize: 20,
@@ -1137,7 +1137,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                         ),
                                         SizedBox(height: 5),
                                         Text(
-                                          'LED Light Therapy: \$99',
+                                          'LED Light Therapy',
                                           style: TextStyle(
                                             color: Color(0xFF4A776D),
                                             fontSize: 20,
@@ -1148,57 +1148,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     ),
                                   ),
                                   SizedBox(height: 20),
-                                  Text(
-                                    'Drop-In',
-                                    style: TextStyle(
-                                      color: Color(0xFF113D33),
-                                      fontSize: 20,
-                                      fontFamily: 'Vance-Text',
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Infrared Sauna: \$139',
-                                          style: TextStyle(
-                                            color: Color(0xFF4A776D),
-                                            fontSize: 20,
-                                            fontFamily: 'Vance-Text',
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'Cold Plunge: \$139',
-                                          style: TextStyle(
-                                            color: Color(0xFF4A776D),
-                                            fontSize: 20,
-                                            fontFamily: 'Vance-Text',
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'Normatec Lymphatic Drainage Boots: \$139',
-                                          style: TextStyle(
-                                            color: Color(0xFF4A776D),
-                                            fontSize: 20,
-                                            fontFamily: 'Vance-Text',
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'LED Light Therapy: \$139',
-                                          style: TextStyle(
-                                            color: Color(0xFF4A776D),
-                                            fontSize: 20,
-                                            fontFamily: 'Vance-Text',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                          
+                
                                   const SizedBox(height: 40),
                                   ElevatedButton(
                                     onPressed: () {},
@@ -1857,27 +1808,50 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                         // Third Image with Text
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Image.asset(
-                                              'assets/homepage_photo13.png', // Replace with actual image paths
-                                              width: 192, // Fixed for mobile
-                                              height: 192, // Fixed for mobile
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(height: 10), // Space between image and text
-                                            SizedBox(
-                                              width: 192,
-                                              child: Text(
-                                                '@SWAYWELLNESSCLUB',
-                                                style: TextStyle(
-                                                  color: Color(0xFF616161),
-                                                  fontSize: 12,
-                                                  fontFamily: 'Helvetica',
-                                                  height: 1.2,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  final Uri instagramUrl = Uri.parse('https://www.instagram.com/swaywellnessclub/');
+                                                  if (await canLaunchUrl(instagramUrl)) {
+                                                    await launchUrl(instagramUrl);
+                                                  } else {
+                                                    throw 'Could not launch $instagramUrl';
+                                                  }
+                                                },
+                                                child: Image.asset(
+                                                  'assets/homepage_photo13.png', // Replace with actual image paths
+                                                  width: 192, // Fixed for mobile
+                                                  height: 192, // Fixed for mobile
+                                                  fit: BoxFit.cover,
+                                                  alignment: Alignment.topCenter, // Adjust to show more of the top of the image
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(height: 10), // Space between image and text
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  final Uri instagramUrl = Uri.parse('https://www.instagram.com/swaywellnessclub/');
+                                                  if (await canLaunchUrl(instagramUrl)) {
+                                                    await launchUrl(instagramUrl);
+                                                  } else {
+                                                    throw 'Could not launch $instagramUrl';
+                                                  }
+                                                },
+                                                child: SizedBox(
+                                                  width: 192,
+                                                  child: Text(
+                                                    '@SWAYWELLNESSCLUB',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF616161),
+                                                      fontSize: 12,
+                                                      fontFamily: 'Helvetica',
+                                                      height: 1.2,
+                                                      decoration: TextDecoration.underline, // Optional: to indicate it's clickable
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+
                                         ),
                                         SizedBox(width: 20), // Reduce space between images for mobile
                                         // Fourth Image with Text
@@ -1966,28 +1940,51 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     SizedBox(width: 40), // Space between images
                                     // Third Image with Text
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Image.asset(
-                                          'assets/homepage_photo13.png', // Replace with actual image paths
-                                          width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
-                                          height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
-                                          fit: BoxFit.cover,
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final Uri instagramUrl = Uri.parse('https://www.instagram.com/swaywellnessclub/');
+                                            if (await canLaunchUrl(instagramUrl)) {
+                                              await launchUrl(instagramUrl);
+                                            } else {
+                                              throw 'Could not launch $instagramUrl';
+                                            }
+                                          },
+                                          child: Image.asset(
+                                            'assets/homepage_photo13.png', // Replace with actual image paths
+                                            width: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
+                                            height: MediaQuery.of(context).size.width * 0.18, // Percentage-based for desktop
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.topCenter, // Adjust to show more of the top of the image
+                                          ),
                                         ),
                                         SizedBox(height: 10), // Space between image and text
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.width * 0.18,
-                                          child: Text(
-                                            '@SWAYWELLNESSCLUB',
-                                            style: TextStyle(
-                                              color: Color(0xFF616161),
-                                              fontSize: 14,
-                                              fontFamily: 'Helvetica',
-                                              height: 1.2,
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final Uri instagramUrl = Uri.parse('https://www.instagram.com/swaywellnessclub/');
+                                            if (await canLaunchUrl(instagramUrl)) {
+                                              await launchUrl(instagramUrl);
+                                            } else {
+                                              throw 'Could not launch $instagramUrl';
+                                            }
+                                          },
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context).size.width * 0.18,
+                                            child: Text(
+                                              '@SWAYWELLNESSCLUB',
+                                              style: TextStyle(
+                                                color: Color(0xFF616161),
+                                                fontSize: 14,
+                                                fontFamily: 'Helvetica',
+                                                height: 1.2,
+                                                decoration: TextDecoration.underline, // Optional: to indicate it's clickable
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ],
+
                                     ),
                                     SizedBox(width: 40), // Space between images
                                     // Fourth Image with Text
