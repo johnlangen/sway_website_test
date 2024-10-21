@@ -3,11 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
-import 'package:video_player/video_player.dart';  // Import for video player
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';  // Import Firestore
-
-
 
 class JoinTheClubPage extends StatefulWidget {
   @override
@@ -15,9 +12,6 @@ class JoinTheClubPage extends StatefulWidget {
 }
 
 class _JoinTheClubPageState extends State<JoinTheClubPage> {
-  VideoPlayerController? _mobileVideoController;
-  VideoPlayerController? _desktopVideoController;
-
   int? _openedIndex;  // This will track which dropdown is open
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
 
@@ -27,34 +21,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
   bool _isHoveringArrow = false; // For arrow button hover state
 
   @override
-    void initState() {
-      super.initState();
-      
-      // Initialize the mobile video controller for 'background2.mov'
-      _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _mobileVideoController!.setLooping(true);
-            _mobileVideoController!.setVolume(0.0); // Mute the mobile video
-            _mobileVideoController!.play(); // Start playing the video
-          });
-        });
-
-      // Initialize the desktop video controller for 'background2.mov'
-      _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
-            _desktopVideoController!.setLooping(true);
-            _desktopVideoController!.setVolume(0.0); // Mute the desktop video
-            _desktopVideoController!.play(); // Start playing the video
-          });
-        });
-    }
-
-  @override
   void dispose() {
-    _mobileVideoController?.dispose();
-    _desktopVideoController?.dispose();
     _emailController.dispose(); // Dispose email controller
     super.dispose();
   }
@@ -92,45 +59,13 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // First Section with Background Video, Text, and Button
+            // First Section with Green Background, Text, and Button
             Stack(
               children: [
-                // Constrain the video to a specific height for mobile
-                IgnorePointer(
-                  child: isMobile
-                      ? _mobileVideoController!.value.isInitialized
-                          ? Container(
-                              height: MediaQuery.of(context).size.height,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: _mobileVideoController!.value.size.width,
-                                  height: _mobileVideoController!.value.size.height,
-                                  child: VideoPlayer(_mobileVideoController!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.black,
-                            )
-                      : _desktopVideoController!.value.isInitialized
-                          ? Container(
-                              height: MediaQuery.of(context).size.height,
-                              width: MediaQuery.of(context).size.width,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: SizedBox(
-                                  width: _desktopVideoController!.value.size.width,
-                                  height: _desktopVideoController!.value.size.height,
-                                  child: VideoPlayer(_desktopVideoController!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.black,
-                            ),
+                // Green background instead of the video
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  color: Color(0xFF004D40), // Dark green background
                 ),
 
                 // Navbar positioned above the background
@@ -224,6 +159,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                 ),
               ],
             ),
+            
             // Second Section with Creamish Background, Text, and Image
             Container(
               color: Color(0xFFF7F4E9), // Creamish background color
@@ -385,8 +321,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                     ),
             ),
 
-            
-            
           // Section with Background Image, Text, and CTA Button
           Container(
             padding: EdgeInsets.symmetric(vertical: 100, horizontal: isMobile ? 10 : 150),
