@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                             'Be among the first to experience the next wave of wellness. '
                                             'Join the club as a founding member & get your 4th month free — \$140 value.'
                                             'Our \$99 membership includes an enhanced facial or massage every month, but with this offer, your 4th month will be on us! \n\n'
-                                            'Only 50 spots available!\nOffer Expires 10.21.24',
+                                            'Only 29 spots available!\nOffer Expires 10.28.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
                                             ),
@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                             'Be among the first to experience the next wave of wellness. '
                                             'Join the club as a founding member & get your 4th month free — \$140 value.'
                                             'Our \$99 membership includes an enhanced facial or massage every month, but with this offer, your 4th month will be on us! \n\n'
-                                            'Only 50 spots available!\nOffer Expires 10.21.24',
+                                            'Only 29 spots available!\nOffer Expires 10.28.24',
                                             style: TextStyle(
                                               fontSize: isMobile ? 12 : 16,
                                             ),

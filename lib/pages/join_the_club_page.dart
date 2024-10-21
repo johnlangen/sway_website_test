@@ -4,8 +4,8 @@ import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
 import '../widgets/footer_mobile.dart';
 import 'package:video_player/video_player.dart';  // Import for video player
-import 'package:gtm/gtm.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';  // Import Firestore
 
 
 
@@ -20,6 +20,11 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
 
   int? _openedIndex;  // This will track which dropdown is open
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
+
+  // Email controller for email subscription
+  final TextEditingController _emailController = TextEditingController();
+  bool _submitted = false; // Track submission state
+  bool _isHoveringArrow = false; // For arrow button hover state
 
   @override
     void initState() {
@@ -50,9 +55,33 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
   void dispose() {
     _mobileVideoController?.dispose();
     _desktopVideoController?.dispose();
+    _emailController.dispose(); // Dispose email controller
     super.dispose();
   }
 
+  // Function to handle email submission
+  Future<void> _submitEmail() async {
+    String email = _emailController.text.trim();
+
+    if (email.isNotEmpty) {
+      try {
+        await FirebaseFirestore.instance.collection('newsletterEmails').add({
+          'email': email,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+
+        // Clear email field and show thank you message
+        _emailController.clear();
+        setState(() {
+          _submitted = true;
+        });
+      } catch (e) {
+        print('Error saving email: $e');
+      }
+    } else {
+      // Optionally, show a message to enter an email
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +96,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
             Stack(
               children: [
                 // Constrain the video to a specific height for mobile
-                // Video wrapped with IgnorePointer
                 IgnorePointer(
                   child: isMobile
                       ? _mobileVideoController!.value.isInitialized
@@ -104,9 +132,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                               color: Colors.black,
                             ),
                 ),
-
-
-
 
                 // Navbar positioned above the background
                 Positioned(
@@ -194,7 +219,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -422,13 +446,13 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       ),
                       children: [
                         TextSpan(
-                          text: '50 spots available', 
+                          text: '29 spots available', 
                           style: TextStyle(
                             fontWeight: FontWeight.bold, // Bold
                             decoration: TextDecoration.underline, // Underline
                           ),
                         ),
-                        TextSpan(text: ', Offer Expires 10.21.24'),
+                        TextSpan(text: ', Offer Expires 10.28.24'),
                       ],
                     ),
                     textAlign: TextAlign.center,
@@ -446,9 +470,7 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                       print('Attempting to launch $url');
                       if (await canLaunch(url)) {
                         await launch(url);
-                        print('URL launched successfully: $url');
                       } else {
-                        print('Could not launch $url');
                         throw 'Could not launch $url';
                       }
 
@@ -494,12 +516,106 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 40), // Space before email section
+
+                // New email section
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Not ready to join the club?',
+                      style: TextStyle(
+                        color: Color(0xFF113D33),
+                        fontSize: isMobile ? 16 : 18,
+                        fontFamily: 'Vance-Text',
+                        fontWeight: FontWeight.w400,
+                        height: 1.2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Be the first to know! Subscribe to our newsletter for exclusive updates, early access to our grand opening, and special offers just for you.',
+                      style: TextStyle(
+                        color: Color(0xFF113D33),
+                        fontSize: isMobile ? 14 : 16,
+                        fontFamily: 'Vance-Text',
+                        fontWeight: FontWeight.w400,
+                        height: 1.2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20),
+
+                    // Email input box and arrow for submission
+                    if (!_submitted) ...[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: isMobile ? 250 : 300, // Adjust width for mobile
+                            child: TextField(
+                              controller: _emailController, // Connect TextField to controller
+                              style: TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                hintText: 'Enter your email',
+                                hintStyle: TextStyle(color: Colors.black.withOpacity(0.7)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black, width: 1),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black, width: 1),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10), // Space between input field and button
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click, // Change cursor to pointer on hover
+                            onEnter: (_) => setState(() => _isHoveringArrow = true),
+                            onExit: (_) => setState(() => _isHoveringArrow = false),
+                            child: GestureDetector(
+                              onTap: _submitEmail, // Submission logic
+                              child: AnimatedContainer(
+                                duration: Duration(milliseconds: 200),
+                                width: 24,
+                                height: 24,
+                                decoration: ShapeDecoration(
+                                  shape: OvalBorder(
+                                    side: BorderSide(width: 1, color: Colors.black),
+                                  ),
+                                  color: _isHoveringArrow ? Colors.black.withOpacity(0.1) : Colors.transparent,
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    size: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ] else ...[
+                      Text(
+                        'Thanks for joining the club!',
+                        style: TextStyle(
+                          color: Color(0xFFF6F7F6),
+                          fontSize: isMobile ? 16 : 18,
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.w400,
+                          height: 1.2,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ],
+                ),
               ],
             ),
           ),
-
-
-
 
             // Third Section with Title and Drop-down Menus
             Container(
@@ -553,9 +669,6 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
                   ''', nestedDropdown: _buildNestedMenu('Terms and Conditions', '''
                     \nMembership cancellation must be a 30-day advance written notification. The minimum, \nnon-cancellable, term of membership is three (3) months. For more details and \nquestions, please call our Wellness Coordinator team.
                   ''')),
-
-
-
 
                   Align(
                     alignment: Alignment.centerRight,
@@ -700,11 +813,4 @@ class _JoinTheClubPageState extends State<JoinTheClubPage> {
     );
   }
 
-
-
 }
-
-
-
-
- 

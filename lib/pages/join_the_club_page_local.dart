@@ -22,36 +22,42 @@ class _JoinTheClubPageLocalState extends State<JoinTheClubPageLocal> {
   bool _isNestedOpen = false;  // This will track if the nested dropdown is open
 
   @override
-    void initState() {
-      super.initState();
-      
-      // Initialize the mobile video controller for 'background2.mov'
-      _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
+  void initState() {
+    super.initState();
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Initialize mobile video controller if the screen width is smaller than 700px
+      if (MediaQuery.of(context).size.width < 700) {
+        _mobileVideoController = VideoPlayerController.asset('assets/background2.mov')
+          ..initialize().then((_) {
             _mobileVideoController!.setLooping(true);
-            _mobileVideoController!.setVolume(0.0); // Mute the mobile video
-            _mobileVideoController!.play(); // Start playing the video
+            _mobileVideoController!.setVolume(0.0); // Mute the video
+            _mobileVideoController!.play(); // Start the video
+            setState(() {});
           });
-        });
+      }
 
-      // Initialize the desktop video controller for 'background2.mov'
-      _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
-        ..initialize().then((_) {
-          setState(() {
+      // Initialize desktop video controller if the screen width is 700px or larger
+      if (MediaQuery.of(context).size.width >= 700) {
+        _desktopVideoController = VideoPlayerController.asset('assets/background2.mov')
+          ..initialize().then((_) {
             _desktopVideoController!.setLooping(true);
-            _desktopVideoController!.setVolume(0.0); // Mute the desktop video
-            _desktopVideoController!.play(); // Start playing the video
+            _desktopVideoController!.setVolume(0.0); // Mute the video
+            _desktopVideoController!.play(); // Start the video
+            setState(() {});
           });
-        });
-    }
+      }
+    });
+  }
 
   @override
   void dispose() {
+    // Dispose video controllers properly to avoid memory leaks
     _mobileVideoController?.dispose();
     _desktopVideoController?.dispose();
     super.dispose();
   }
+
 
 
   @override
