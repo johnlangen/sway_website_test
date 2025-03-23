@@ -23,12 +23,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white font-vance`}>
+    <>
+      {/* 👇 force light mode and prevent whitespace hydration error */}
+      <html lang="en" className="light"><body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F7F4E9] text-black font-vance`}
+      >
         <NavBar />
         <main className="relative z-10">{children}</main>
         <Footer />
-      </body>
-    </html>
+      </body></html>
+    </>
   );
 }

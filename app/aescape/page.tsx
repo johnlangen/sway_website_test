@@ -6,9 +6,11 @@ import Link from "next/link";
 
 export default function AescapePage() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false); // ✅ Mounted check
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 1000);
+    setIsMounted(true);
   }, []);
 
   return (
@@ -41,44 +43,49 @@ export default function AescapePage() {
       <section className="max-w-7xl mx-auto px-4 py-20 space-y-32">
         {/* Section 1 */}
         <div className="flex flex-col md:flex-row md:items-start gap-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="flex-1"
-          >
-            <h2 className="text-2xl md:text-4xl font-vance font-bold">
-              FIRST OF ITS KIND MASSAGE ROBOT NOW AT SWAY
-            </h2>
-          </motion.div>
-          <motion.div
-            initial={{ x: 100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="flex-1 space-y-6"
-          >
-            <p className="text-lg font-vance font-light">
-              Welcome to a new era of wellness, where technology meets tradition.
-              Aescape combines the timeless art of massage with robotics and artificial intelligence
-              to deliver an exceptional massage experience every time.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="https://www.aescape.com/technology"
-                target="_blank"
-                className="px-6 py-2 bg-black text-white rounded-full font-vance"
+          {isMounted && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="flex-1"
               >
-                Learn More
-              </a>
-              <a
-                href="https://app.aescape.com/map/location-details?location-id=2bb3fffd-f6a7-44b5-92ad-991032a535aa"
-                target="_blank"
-                className="px-6 py-2 bg-black text-white rounded-full font-vance"
+                <h2 className="text-2xl md:text-4xl font-vance font-bold">
+                  FIRST OF ITS KIND MASSAGE ROBOT NOW AT SWAY
+                </h2>
+              </motion.div>
+
+              <motion.div
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="flex-1 space-y-6"
               >
-                Book Now
-              </a>
-            </div>
-          </motion.div>
+                <p className="text-lg font-vance font-light">
+                  Welcome to a new era of wellness, where technology meets tradition.
+                  Aescape combines the timeless art of massage with robotics and artificial intelligence
+                  to deliver an exceptional massage experience every time.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href="https://www.aescape.com/technology"
+                    target="_blank"
+                    className="px-6 py-2 bg-black text-white rounded-full font-vance"
+                  >
+                    Learn More
+                  </a>
+                  <a
+                    href="https://app.aescape.com/map/location-details?location-id=2bb3fffd-f6a7-44b5-92ad-991032a535aa"
+                    target="_blank"
+                    className="px-6 py-2 bg-black text-white rounded-full font-vance"
+                  >
+                    Book Now
+                  </a>
+                </div>
+              </motion.div>
+            </>
+          )}
         </div>
 
         {/* Section 2 */}

@@ -132,7 +132,13 @@ const FacialsPage = () => {
       {/* ✅ Mobile: Navigate Cards with Arrows */}
       {isMobile ? (
         <section className="bg-[#F7F4E9] flex flex-col items-center justify-center px-6 py-10 md:py-12 text-center relative">
-          <motion.div key={facials[currentIndex].id} className="bg-white p-4 rounded-lg shadow-lg max-w-[80%] w-full flex flex-col items-center relative">
+          <motion.div
+            key={facials[currentIndex].id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+            className="bg-white p-4 rounded-lg shadow-lg max-w-[80%] w-full flex flex-col items-center relative"
+          >
             <Image src={facials[currentIndex].img} alt={facials[currentIndex].name} width={220} height={220} className="rounded-lg object-cover w-full h-full"/>
             
             <h3 className="text-xl md:text-3xl font-bold text-[#113D33]">{facials[currentIndex].name}</h3>
