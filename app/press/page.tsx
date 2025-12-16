@@ -1,58 +1,84 @@
-// app/press/page.tsx
-"use client";
+import { Metadata } from "next";
+import PressContent from "./PressContent";
 
-import Image from "next/image";
-import Link from "next/link";
+export const metadata: Metadata = {
+  title: "Press | Sway Wellness Spa in the Media",
+  description:
+    "See what the press is saying about Sway — featured in 5280, Denver Post, Yoga + Life, and more. Discover how we’re redefining wellness with AI, robots, and spa innovation.",
+  alternates: {
+    canonical: "https://swaywellnessspa.com/press",
+  },
+  openGraph: {
+    title: "Press | Sway Wellness Spa in the Media",
+    description:
+      "See what the press is saying about Sway — featured in 5280, Denver Post, Yoga + Life, and more. Discover how we’re redefining wellness with AI, robots, and spa innovation.",
+    url: "https://swaywellnessspa.com/press",
+    siteName: "Sway Wellness Spa",
+    type: "website",
+  },
+};
 
-export default function PressPage() {
-  const pressItems = [
-    {
-      title: "Mile High",
-      description: "Revolutionary Wellness Club Coming to Larimer Square",
-      image: "/assets/mile_high.png",
-      link: "https://milehighcre.com/revolutionary-wellness-club-coming-to-larimer-square/",
-    },
-    {
-      title: "Denver Business Journal",
-      description: "Denver-based spa co. opening wellness club in Larimer Square",
-      image: "/assets/pr_newswire.png",
-      link: "https://www.bizjournals.com/denver/news/2024/11/20/wellness-club-opening-in-denvers-larimer-square.html",
-    },
-  ];
-
+export default function Page() {
+  // JSON-LD for multiple press mentions
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Sway Wellness Spa Press Coverage",
+    description:
+      "Press features and media articles covering Sway Wellness Spa, Denver’s next-generation wellness club.",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        url: "https://www.bluetoad.com/publication/?i=854210&p=8&view=issueViewer",
+        name: "A Demographic-Built Wellness Spa — Salon Today (Modern Spa & Wellness)",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        url: "https://www.denverpost.com/2025/03/08/wellness-club-sway-larimer-square-ai-robot-massage/",
+        name: "AI, Robot Massages & More at Sway — The Denver Post",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        url: "https://athletechnews.com/built-by-gen-z-for-gen-z-sway-redefines-the-wellness-club/",
+        name: "Built by Gen Z for Gen Z — Athletech",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        url: "https://milehighcre.com/revolutionary-wellness-club-coming-to-larimer-square/",
+        name: "Revolutionary Wellness Club Coming to Larimer Square — Mile High CRE",
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
+        url: "https://www.bizjournals.com/denver/news/2024/11/20/wellness-club-opening-in-denvers-larimer-square.html",
+        name: "Sway Wellness Club Opening in Denver’s Larimer Square — Denver Business Journal",
+      },
+      {
+        "@type": "ListItem",
+        position: 6,
+        url: "https://www.5280.com/i-tried-colorados-first-robot-massage/",
+        name: "I Tried Colorado’s First Robot Massage — 5280 Magazine",
+      },
+      {
+        "@type": "ListItem",
+        position: 7,
+        url: "https://yogalifelive.com/this-new-denver-wellness-club-is-using-robots-to-rethink-self-care/",
+        name: "Robots Rethink Self-Care — Yoga+Life",
+      },
+    ],
+  };
+  
   return (
-    <div className="bg-[#F7F4E9] min-h-screen flex flex-col items-center justify-start text-black font-vance">
-      {/* Top Banner */}
-      <div className="w-full bg-[#113D33] text-white py-24 flex justify-center items-center">
-        <h1 className="text-4xl md:text-6xl font-bold">In The Press</h1>
-      </div>
-
-      {/* Press Cards */}
-      <div className="w-full max-w-7xl px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12">
-        {pressItems.map((item, index) => (
-          <Link
-            key={index}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center group"
-          >
-            <Image
-              src={item.image}
-              alt={item.title}
-              width={350}
-              height={350}
-              className="rounded-xl object-cover transition duration-300 group-hover:scale-105"
-            />
-            <h2 className="text-xl md:text-2xl font-bold mt-6 underline text-center">
-              {item.title}
-            </h2>
-            <p className="text-md md:text-lg font-medium mt-2 underline text-center">
-              {item.description}
-            </p>
-          </Link>
-        ))}
-      </div>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PressContent />
+    </>
   );
 }

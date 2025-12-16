@@ -22,6 +22,7 @@ export default function Footer() {
           <FooterLink href="/locations" text="Locations" />
           <FooterLink href="/press" text="Press" />
           <FooterLink href="/blog" text="Blog" />
+          <FooterLink href="/faq" text="FAQ" />
         </div>
 
         {/* Social Links */}
@@ -43,7 +44,7 @@ export default function Footer() {
         {/* Address & Contact */}
         <div>
           <p>1428 Larimer St.<br />Denver, CO 80202</p>
-          <p className="mt-2">Phone: +1 720-588-8667</p>
+          <p className="mt-2">Phone: +1 303-476-6150</p>
           <p className="mt-4 font-semibold">Sway Hours of Wellness</p>
           <p className="text-sm">
             Mon-Fri: 10:00 AM - 8:00 PM<br />

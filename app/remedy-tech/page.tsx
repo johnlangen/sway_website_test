@@ -15,7 +15,7 @@ const RemedyRoomPage = () => {
 
   const handleScroll = () => {
     if (servicesRef.current) {
-      const yOffset = servicesRef.current.getBoundingClientRect().top + window.scrollY - 80; // Ensures visibility
+      const yOffset = servicesRef.current.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top: yOffset, behavior: "smooth" });
     }
   };
@@ -26,7 +26,7 @@ const RemedyRoomPage = () => {
       name: "Sauna",
       time: "20 MINUTES",
       description:
-        "Science-backed treatment. Boost recovery. Burn calories. Build immunity. Improve sleep. Reduce stress. Increase energy. Improve focus. Promote balance.",
+        "Science-backed infrared therapy to boost recovery, burn calories, build immunity, improve sleep, and reduce stress.",
       img: "/assets/infrared_sauna.png",
       link: "/sauna",
     },
@@ -35,7 +35,7 @@ const RemedyRoomPage = () => {
       name: "Cold Plunge",
       time: "5 MINUTES",
       description:
-        "Life-changing benefits. Cold water therapy has been shown to be effective with better sleep, elevated energy, pain and stress relief, a better mood, performance and recovery, and immune support.",
+        "Cold water therapy proven to elevate energy, relieve pain and stress, improve mood, and strengthen immunity.",
       img: "/assets/cold_plunge.png",
       link: "/cold-plunge",
     },
@@ -44,7 +44,7 @@ const RemedyRoomPage = () => {
       name: "Compression Therapy",
       time: "15 MINUTES",
       description:
-        "Increases circulation and helps you maintain your full range of motion. Proven to help with lymphatic drainage and decrease pain and soreness.",
+        "Normatec compression increases circulation, aids lymphatic drainage, reduces soreness, and maintains range of motion.",
       img: "/assets/compression_therapy.png",
       link: "/compression-therapy",
     },
@@ -53,7 +53,7 @@ const RemedyRoomPage = () => {
       name: "LED Light Therapy",
       time: "15 MINUTES",
       description:
-        "LightStim MultiWave® Patented Technology emits multiple wavelengths of light. ProPanel utilizes 1,400 medical-grade LEDs optimized for anti-aging, acne, or regeneration.",
+        "1,400 medical-grade LEDs using patented MultiWave® light tech to target anti-aging, acne, and cellular regeneration.",
       img: "/assets/led_light_therapy.png",
       link: "/led-light-therapy",
     },
@@ -61,7 +61,7 @@ const RemedyRoomPage = () => {
 
   return (
     <div className="w-full max-w-screen bg-[#F7F4E9] font-vance" style={{ overflow: "auto" }}>
-      {/* ✅ Hero Section */}
+      {/* Hero Section */}
       <section className="snap-section flex flex-col items-center justify-center text-center px-6 pt-24 pb-16 md:pt-36 md:pb-20 bg-[#F7F4E9] relative">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
@@ -79,34 +79,32 @@ const RemedyRoomPage = () => {
           className="mt-4 text-lg md:text-2xl max-w-3xl leading-relaxed text-[#113D33] opacity-90 font-vance-text"
         >
           <span className="font-vance-bold">
-            Welcome to The Remedy Room, a space to restore your body and refresh your mind.
+            Welcome to The Remedy Room — a space to restore your body and refresh your mind.
           </span>{" "}
-          Experience ultimate recovery with our remedy technologies, made to enhance your overall physical well-being
-          and elevate your mental state. <span className="font-vance-bold">It's time for you to level up!</span>
+          Enhance your recovery with sauna, cold plunge, compression, and LED light therapy.{" "}
+          <span className="font-vance-bold">It's time for you to level up!</span>
         </motion.p>
 
         <p className="mt-6 text-md text-gray-800 font-vance-text">
           Member $25 | Drop-In $49
           <br />
-          Remedy Room Pricing includes 40 minutes total to experience our Remedy Technology. You can tailor it to your
-          liking, but you will have a maximum limit of:
+          Pricing includes 40 minutes total to experience our Remedy Technology:
         </p>
 
         <ul className="text-md text-gray-700 mt-3 space-y-2">
           <li>- 15 minutes in the Normatec + LED Light Therapy</li>
-          <li>- 20 minutes in the traditional sauna</li>
+          <li>- 20 minutes in the sauna</li>
           <li>- 5 minutes in the cold plunge</li>
         </ul>
 
-        <motion.a
-          href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9"
-          target="_blank"
-          className="mt-6 bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-md hover:bg-[#0a2b23] transition-all shadow-lg"
+        <a
+          href="/book"
+          className="mt-4 bg-[#113D33] text-white px-20 py-5 text-xs font-bold rounded-md hover:bg-[#0a2b23] transition-all"
         >
           Book Now
-        </motion.a>
+        </a>
 
-        {/* Down Arrow Button (SVG for mobile) */}
+        {/* Scroll Arrow */}
         <motion.button
           onClick={handleScroll}
           initial={{ opacity: 0, y: 10 }}
@@ -120,8 +118,8 @@ const RemedyRoomPage = () => {
         </motion.button>
       </section>
 
-      {/* ✅ Remedy Room Service Cards */}
-      <section ref={servicesRef} className="bg-[#F7F4E9] flex flex-col items-center px-6 py-24 md:py-32">
+      {/* Remedy Room Services */}
+      <section ref={servicesRef} className="bg-white flex flex-col items-center px-6 py-24 md:py-32">
         <h2 className="text-3xl md:text-5xl font-vance-bold text-[#113D33] text-center mb-16">
           DISCOVER OUR REMEDY TECHNOLOGIES
         </h2>
@@ -146,8 +144,6 @@ const RemedyRoomPage = () => {
                 <p className="text-sm text-[#113D33] font-vance-bold uppercase">{remedy.time}</p>
                 <h3 className="text-2xl font-vance-bold text-[#113D33] mt-1">{remedy.name}</h3>
                 <p className="text-gray-700 mt-2 font-vance-text">{remedy.description}</p>
-
-                {/* ✅ Updated to Link to Individual Pages */}
                 <Link
                   href={remedy.link}
                   className="mt-4 inline-block bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"

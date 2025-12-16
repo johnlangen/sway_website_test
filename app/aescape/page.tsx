@@ -1,119 +1,127 @@
-"use client";
+// app/aescape/page.tsx
+import { Metadata } from "next";
+import AescapeContent from "../components/AescapeContent";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+export const metadata: Metadata = {
+  title: "Aescape Robot Massage in Denver | Sway Wellness Spa",
+  description:
+    "Experience Aescape, the world’s first AI-powered robot massage—available exclusively at Sway Wellness Spa in downtown Denver. Book your personalized session today.",
+  alternates: { canonical: "/aescape/" },
 
-export default function AescapePage() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isMounted, setIsMounted] = useState(false); // ✅ Mounted check
+  openGraph: {
+    type: "article",
+    url: "/aescape/",
+    title: "Aescape Robot Massage in Denver | Sway Wellness Spa",
+    description:
+      "Experience Aescape, the AI-powered robotic massage system in downtown Denver. Exclusive at Sway Wellness Spa.",
+    images: [
+      {
+        url: "/assets/og-aescape.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Aescape Robot Massage at Sway Wellness Spa Denver",
+      },
+    ],
+  },
 
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 1000);
-    setIsMounted(true);
-  }, []);
+  twitter: {
+    card: "summary_large_image",
+    title: "Aescape Robot Massage in Denver | Sway Wellness Spa",
+    description:
+      "Experience Aescape, the AI-powered robotic massage system in downtown Denver. Exclusive at Sway Wellness Spa.",
+    images: ["/assets/og-aescape.jpg"],
+  },
 
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
+};
+
+export default function Page() {
   return (
-    <div className="bg-[#F4F4F2] text-black">
-      {/* ✅ Hero Section with Video Background */}
-      <div className="relative w-full h-[550px] md:h-[750px] overflow-hidden">
-        <video
-          className="absolute w-full h-full object-cover"
-          src="/assets/aescape.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-        <div className="absolute top-[120px] md:top-[160px] left-0 w-full px-4 md:px-12 z-10">
-          <h1 className="text-white font-vance text-3xl md:text-5xl font-light">
-            Massage Reimagined
-          </h1>
-          <Link
-            href="https://app.aescape.com/map/location-details?location-id=2bb3fffd-f6a7-44b5-92ad-991032a535aa"
-            target="_blank"
-            className="inline-block mt-6 px-6 py-2 bg-black text-white text-lg rounded-full font-vance"
-          >
-            Book Now
-          </Link>
-        </div>
-      </div>
+    <main>
+      <AescapeContent />
 
-      {/* ✅ Content Section */}
-      <section className="max-w-7xl mx-auto px-4 py-20 space-y-32">
-        {/* Section 1 */}
-        <div className="flex flex-col md:flex-row md:items-start gap-10">
-          {isMounted && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                className="flex-1"
-              >
-                <h2 className="text-2xl md:text-4xl font-vance font-bold">
-                  FIRST OF ITS KIND MASSAGE ROBOT NOW AT SWAY
-                </h2>
-              </motion.div>
+      {/* SEO JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            serviceType: "Aescape Robot Massage",
+            provider: {
+              "@type": "LocalBusiness",
+              name: "Sway Wellness Spa",
+              image: "https://swaywellnessspa.com/assets/og-aescape.jpg",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "1430 Larimer St",
+                addressLocality: "Denver",
+                addressRegion: "CO",
+                postalCode: "80202",
+                addressCountry: "US",
+              },
+              telephone: "+1-303-476-6150", // 🔧 replace with real number
+              url: "https://swaywellnessspa.com/aescape/",
+            },
+          }),
+        }}
+      />
 
-              <motion.div
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1 }}
-                className="flex-1 space-y-6"
-              >
-                <p className="text-lg font-vance font-light">
-                  Welcome to a new era of wellness, where technology meets tradition.
-                  Aescape combines the timeless art of massage with robotics and artificial intelligence
-                  to deliver an exceptional massage experience every time.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="https://www.aescape.com/technology"
-                    target="_blank"
-                    className="px-6 py-2 bg-black text-white rounded-full font-vance"
-                  >
-                    Learn More
-                  </a>
-                  <a
-                    href="https://app.aescape.com/map/location-details?location-id=2bb3fffd-f6a7-44b5-92ad-991032a535aa"
-                    target="_blank"
-                    className="px-6 py-2 bg-black text-white rounded-full font-vance"
-                  >
-                    Book Now
-                  </a>
-                </div>
-              </motion.div>
-            </>
-          )}
-        </div>
-
-        {/* Section 2 */}
-        <div className="flex flex-col md:flex-row md:items-start gap-10">
-          <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="flex-1 space-y-6 order-2 md:order-1"
-          >
-            <p className="text-lg font-vance font-light">
-              With an interactive touchscreen, the robot lets you personalize every aspect of your massage,
-              from pressure preferences to immersive visual displays. Powered by machine learning, it remembers
-              your settings and adapts based on past sessions—ensuring a seamless, customized experience every time you visit Sway.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="flex-1 order-1 md:order-2"
-          >
-            <h2 className="text-2xl md:text-4xl font-vance font-bold">
-              DISCOVER THE WORLD’S MOST ADVANCED MASSAGE.
-            </h2>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How does the Aescape massage work?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Aescape is a fully interactive massage robot that adapts to your body and preferences. Before starting, you adjust the bolster, headrest, and armrest, then use the touchscreen (Aerview) to set pressure, target areas, music, and lighting.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Are there different massage programs to choose from?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes. Aescape at Sway offers programs focused on the upper body and glutes. Sessions run 15–60 minutes, with longer programs rolling out in the future.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Can I control the massage settings?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Absolutely. You can control pressure, music, ambience, and visuals directly from the Aerview console. Preferences are saved for your next visit.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is the Aescape massage experience safe?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes. Aescape includes real-time pressure sensors, emergency stop, and advanced safety logic. Guests should review contraindications before booking.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What steps do I need to take for an optimal massage experience?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Guests must wear Aerwear compression apparel (sizes 2XS–4XL provided) and tie up long hair for safety.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+    </main>
   );
 }

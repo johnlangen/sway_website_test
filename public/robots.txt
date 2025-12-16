@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://swaywellnessspa.com
+
+# Sitemaps
+Sitemap: https://swaywellnessspa.com/sitemap.xml

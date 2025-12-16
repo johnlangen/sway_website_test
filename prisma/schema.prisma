@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model GiftCard {
+  id              String      @id @default(cuid())
+  code            String      @unique
+  amount          Int
+  remainingAmount Int          @default(0)   // NEW
+  location        String
+  design          String?
+  sendOption      String
+  recipientName   String?
+  recipientEmail  String?
+  title           String?
+  message         String?
+  scheduled       Boolean     @default(false)
+  deliveryDate    DateTime?
+  redeemed        Boolean     @default(false)
+  redeemedAt      DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  sessionId       String      @unique
+  paymentIntent   String?
+
+  bonusCards      BonusCard[]
+}
+
+model BonusCard {
+  id              String    @id @default(cuid())
+  code            String    @unique
+  amount          Int       @default(25)
+  remainingAmount Int       @default(0)     // NEW
+  location        String
+  createdAt       DateTime  @default(now())
+  redeemed        Boolean   @default(false)
+  redeemedAt      DateTime?
+
+  giftCardId      String
+  giftCard        GiftCard  @relation(fields: [giftCardId], references: [id])
+}
