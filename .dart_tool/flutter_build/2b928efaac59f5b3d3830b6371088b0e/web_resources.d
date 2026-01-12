@@ -1,0 +1,1 @@
+ build/web/404.html build/web/assets/swaylogo.png:  /Users/John/sway_website_test/web/index.html /Users/John/sway_website_test/web/404.html /Users/John/sway_website_test/web/assets/swaylogo.png
