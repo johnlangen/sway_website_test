@@ -1,23 +1,45 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { resolveLocationHref } from "../components/LocationAwareHref";
 
 const RemedyRoomPage = () => {
   const servicesRef = useRef<HTMLDivElement>(null);
 
+  const [saunaHref, setSaunaHref] = useState("/sauna");
+  const [coldPlungeHref, setColdPlungeHref] = useState("/cold-plunge");
+
   useEffect(() => {
     document.documentElement.style.backgroundColor = "#F7F4E9";
     document.body.style.backgroundColor = "#F7F4E9";
+
+    // Resolve location-aware links
+    const resolvedSauna = resolveLocationHref({
+      localPath: "/sauna",
+      fallbackHref: "/sauna",
+    });
+
+    const resolvedColdPlunge = resolveLocationHref({
+      localPath: "/cold-plunge",
+      fallbackHref: "/cold-plunge",
+    });
+
+    setSaunaHref(resolvedSauna);
+    setColdPlungeHref(resolvedColdPlunge);
   }, []);
 
   const handleScroll = () => {
-    if (servicesRef.current) {
-      const yOffset = servicesRef.current.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: yOffset, behavior: "smooth" });
-    }
+    if (!servicesRef.current) return;
+
+    const yOffset =
+      servicesRef.current.getBoundingClientRect().top +
+      window.scrollY -
+      80;
+
+    window.scrollTo({ top: yOffset, behavior: "smooth" });
   };
 
   const remedies = [
@@ -26,25 +48,25 @@ const RemedyRoomPage = () => {
       name: "Sauna",
       time: "20 MINUTES",
       description:
-        "Science-backed infrared therapy to boost recovery, burn calories, build immunity, improve sleep, and reduce stress.",
-      img: "/assets/infrared_sauna.png",
-      link: "/sauna",
+        "Heat therapy designed to support recovery, circulation, stress relief, and overall wellness.",
+      img: "/assets/sauna.png",
+      link: saunaHref,
     },
     {
       id: 2,
       name: "Cold Plunge",
       time: "5 MINUTES",
       description:
-        "Cold water therapy proven to elevate energy, relieve pain and stress, improve mood, and strengthen immunity.",
+        "Cold water therapy proven to elevate energy, improve mood, relieve soreness, and support immunity.",
       img: "/assets/cold_plunge.png",
-      link: "/cold-plunge",
+      link: coldPlungeHref,
     },
     {
       id: 3,
       name: "Compression Therapy",
       time: "15 MINUTES",
       description:
-        "Normatec compression increases circulation, aids lymphatic drainage, reduces soreness, and maintains range of motion.",
+        "Normatec compression boosts circulation, supports lymphatic drainage, and reduces muscle soreness.",
       img: "/assets/compression_therapy.png",
       link: "/compression-therapy",
     },
@@ -53,100 +75,121 @@ const RemedyRoomPage = () => {
       name: "LED Light Therapy",
       time: "15 MINUTES",
       description:
-        "1,400 medical-grade LEDs using patented MultiWave® light tech to target anti-aging, acne, and cellular regeneration.",
+        "Medical-grade LED light therapy to support skin health, cellular repair, and recovery.",
       img: "/assets/led_light_therapy.png",
       link: "/led-light-therapy",
     },
   ];
 
   return (
-    <div className="w-full max-w-screen bg-[#F7F4E9] font-vance" style={{ overflow: "auto" }}>
-      {/* Hero Section */}
-      <section className="snap-section flex flex-col items-center justify-center text-center px-6 pt-24 pb-16 md:pt-36 md:pb-20 bg-[#F7F4E9] relative">
+    <div className="w-full bg-[#F7F4E9] font-vance">
+      {/* HERO */}
+      <section className="flex flex-col items-center text-center px-6 pt-28 pb-20 md:pt-40 md:pb-28">
         <motion.h1
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-[#113D33] text-5xl md:text-7xl font-vance-bold"
+          transition={{ duration: 0.8 }}
+          className="text-[#113D33] text-4xl md:text-6xl font-vance-bold"
         >
           REMEDY ROOM
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="mt-4 text-lg md:text-2xl max-w-3xl leading-relaxed text-[#113D33] opacity-90 font-vance-text"
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mt-4 max-w-3xl text-base md:text-xl text-[#113D33] opacity-90"
         >
-          <span className="font-vance-bold">
-            Welcome to The Remedy Room — a space to restore your body and refresh your mind.
-          </span>{" "}
-          Enhance your recovery with sauna, cold plunge, compression, and LED light therapy.{" "}
-          <span className="font-vance-bold">It's time for you to level up!</span>
+          A guided recovery experience combining sauna, cold plunge, compression,
+          and LED light therapy — designed to restore your body and reset your
+          nervous system.
         </motion.p>
 
-        <p className="mt-6 text-md text-gray-800 font-vance-text">
-          Member $25 | Drop-In $49
-          <br />
-          Pricing includes 40 minutes total to experience our Remedy Technology:
-        </p>
+        {/* Pricing */}
+        <div className="mt-6 text-[#113D33]">
+          <p className="text-lg font-vance-bold">
+            Member $25 <span className="opacity-60">|</span> Drop-In $49
+          </p>
+          <p className="text-sm text-gray-700 mt-2">
+            40-minute guided session includes:
+          </p>
+          <ul className="mt-2 text-sm text-gray-700 space-y-1">
+            <li>• 15 min Normatec + LED Light Therapy</li>
+            <li>• 20 min Sauna</li>
+            <li>• 5 min Cold Plunge</li>
+          </ul>
+        </div>
 
-        <ul className="text-md text-gray-700 mt-3 space-y-2">
-          <li>- 15 minutes in the Normatec + LED Light Therapy</li>
-          <li>- 20 minutes in the sauna</li>
-          <li>- 5 minutes in the cold plunge</li>
-        </ul>
-
+        {/* CTA */}
         <a
           href="/book"
-          className="mt-4 bg-[#113D33] text-white px-20 py-5 text-xs font-bold rounded-md hover:bg-[#0a2b23] transition-all"
+          className="mt-8 inline-block bg-[#113D33] text-white px-10 py-4 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"
         >
-          Book Now
+          Book Remedy Room
         </a>
 
-        {/* Scroll Arrow */}
-        <motion.button
+        {/* Scroll cue */}
+        <button
           onClick={handleScroll}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="absolute bottom-6 md:bottom-16 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#113D33] hover:bg-[#0a2b23] transition-all shadow-lg"
+          className="mt-10 flex flex-col items-center text-[#113D33] opacity-70 hover:opacity-100 transition"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="white" className="w-6 h-6 md:w-8 md:h-8">
+          <span className="text-xs uppercase tracking-widest mb-2">
+            Explore Technologies
+          </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
-        </motion.button>
+        </button>
       </section>
 
-      {/* Remedy Room Services */}
-      <section ref={servicesRef} className="bg-white flex flex-col items-center px-6 py-24 md:py-32">
-        <h2 className="text-3xl md:text-5xl font-vance-bold text-[#113D33] text-center mb-16">
+      {/* TECHNOLOGIES */}
+      <section
+        ref={servicesRef}
+        className="bg-white px-6 py-24 md:py-32 flex flex-col items-center"
+      >
+        <h2 className="text-3xl md:text-5xl font-vance-bold text-[#113D33] mb-16 text-center">
           DISCOVER OUR REMEDY TECHNOLOGIES
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[1300px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1300px] w-full">
           {remedies.map((remedy) => (
             <motion.div
               key={remedy.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 * remedy.id }}
-              className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center overflow-hidden"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.08 * remedy.id }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row"
             >
               <Image
                 src={remedy.img}
                 alt={remedy.name}
-                width={400}
-                height={250}
-                className="object-cover w-full md:w-[50%] h-[250px]"
+                width={500}
+                height={300}
+                className="w-full md:w-1/2 h-[240px] object-cover"
               />
-              <div className="p-6 md:p-8 w-full">
-                <p className="text-sm text-[#113D33] font-vance-bold uppercase">{remedy.time}</p>
-                <h3 className="text-2xl font-vance-bold text-[#113D33] mt-1">{remedy.name}</h3>
-                <p className="text-gray-700 mt-2 font-vance-text">{remedy.description}</p>
+
+              <div className="p-6 md:p-8 flex flex-col justify-center">
+                <p className="text-xs uppercase tracking-widest text-[#113D33] font-vance-bold">
+                  {remedy.time}
+                </p>
+                <h3 className="text-2xl font-vance-bold text-[#113D33] mt-1">
+                  {remedy.name}
+                </h3>
+                <p className="text-gray-700 mt-3 text-sm md:text-base">
+                  {remedy.description}
+                </p>
+
                 <Link
                   href={remedy.link}
-                  className="mt-4 inline-block bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"
+                  className="mt-4 inline-block w-fit bg-[#113D33] text-white px-5 py-2 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"
                 >
                   Learn More
                 </Link>

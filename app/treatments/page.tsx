@@ -3,38 +3,77 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { resolveLocationHref } from "../components/LocationAwareHref";
 
 export default function TreatmentsPage() {
   const treatmentsRef = useRef<HTMLDivElement>(null);
+  const [bookHref, setBookHref] = useState("/book");
+
+  useEffect(() => {
+    const resolved = resolveLocationHref({
+      localPath: "/book",
+      fallbackHref: "/book",
+    });
+
+    setBookHref(resolved);
+  }, []);
 
   const handleScroll = () => {
     treatmentsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const treatments = [
+    {
+      id: 1,
+      name: "Facials",
+      img: "/assets/treatment1.png",
+      learn: "/facials",
+    },
+    {
+      id: 2,
+      name: "Massages",
+      img: "/assets/treatment3.png",
+      learn: "/massages",
+    },
+    {
+      id: 3,
+      name: "Remedy Room",
+      img: "/assets/treatment2.png",
+      learn: "/remedy-tech",
+    },
+    {
+      id: 4,
+      name: "Aescape",
+      img: "/assets/aescape-treatment.png",
+      learn: "/aescape",
+      subtitle: "Select Locations",
+    },
+  ];
+
   return (
-    <div className="w-full overflow-hidden max-w-screen">
-      {/* Hero */}
-      <section className="snap-section bg-[#113D33] text-white flex flex-col items-center justify-center text-center px-6 py-20 md:py-32">
+    <div className="w-full max-w-screen overflow-hidden font-vance">
+      {/* HERO */}
+      <section className="bg-[#113D33] text-white flex flex-col items-center justify-center text-center px-6 py-20 md:py-32">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl md:text-5xl font-bold font-vance"
+          className="text-3xl md:text-5xl font-bold"
         >
-          TREATMENT EXPERIENCES
+          Treatment Experiences
         </motion.h1>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
           className="mt-4 text-sm md:text-lg max-w-3xl leading-relaxed opacity-90"
         >
-          Experience the wellness you've been longing for. Transform your health and confidence with our expert-led facials,
-          massages, and science-backed remedy technologies.
+          Discover expert-led wellness experiences designed to restore, recover,
+          and elevate your body and mind.
         </motion.p>
 
-        {/* Down Arrow */}
         <motion.button
           onClick={handleScroll}
           initial={{ opacity: 0, y: 10 }}
@@ -46,63 +85,70 @@ export default function TreatmentsPage() {
         </motion.button>
       </section>
 
-      {/* Treatments Grid */}
+      {/* GRID */}
       <section
         ref={treatmentsRef}
-        className="w-full flex flex-col items-center bg-[#f6f4e8] text-[#113D33] px-6 lg:px-16 py-16 md:py-32"
+        className="bg-[#F7F4E9] px-6 py-16 md:py-32"
       >
-        <div className="w-full max-w-[1300px] mx-auto">
-          <h2 className="text-2xl md:text-4xl font-bold font-vance text-center md:text-left">
+        <div className="max-w-[1300px] mx-auto">
+          <h2 className="text-2xl md:text-4xl font-bold text-[#113D33] mb-10 text-center md:text-left">
             Our Treatments
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-8 mt-8">
-            {[
-              { id: 1, name: "Facials", img: "/assets/treatment1.png", link: "/facials" },
-              { id: 2, name: "Massages", img: "/assets/treatment3.png", link: "/massages" },
-              { id: 3, name: "Remedy Room", img: "/assets/treatment2.png", link: "/remedy-tech" },
-              { id: 4, name: "Aescape (select locations)", img: "/assets/aescape-treatment.png", link: "/aescape" },
-            ].map((treatment) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {treatments.map((t) => (
               <motion.div
-                key={treatment.id}
+                key={t.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.7 }}
                 viewport={{ once: true }}
-                className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center text-center transition-transform hover:scale-105 
-                w-full sm:w-[280px] lg:w-[320px] h-auto mx-auto"
+                className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center"
               >
-                <Link href={treatment.link} className="w-full flex flex-col items-center">
-                  <Image
-                    src={treatment.img}
-                    alt={`${treatment.name} at Sway Wellness Spa`}
-                    width={280}
-                    height={350}
-                    className="rounded-lg object-cover w-[280px] h-[350px] sm:w-[280px] sm:h-[350px] lg:w-[320px] lg:h-[400px]"
-                  />
-                </Link>
+                <Image
+                  src={t.img}
+                  alt={`${t.name} at Sway Wellness Spa`}
+                  width={320}
+                  height={420}
+                  className="rounded-lg object-cover w-full h-[380px]"
+                />
 
-                <h3 className="text-xl font-bold mt-4">{treatment.name}</h3>
+                <h3 className="text-xl font-bold text-[#113D33] mt-4">
+                  {t.name}
+                </h3>
 
-                <Link
-                  href={treatment.link}
-                  className="mt-4 bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"
-                >
-                  Learn More
-                </Link>
+                {t.subtitle && (
+                  <p className="text-xs text-gray-500 mt-1">{t.subtitle}</p>
+                )}
+
+                <div className="mt-6 flex flex-col gap-3 w-full">
+                  <Link
+                    href={t.learn}
+                    className="w-full bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"
+                  >
+                    Learn More
+                  </Link>
+
+                  <Link
+                    href={bookHref}
+                    className="w-full border border-[#113D33] text-[#113D33] px-4 py-2 text-sm font-bold rounded-md hover:bg-[#113D33] hover:text-white transition-all"
+                  >
+                    Book Now
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Book Now CTA */}
-      <section className="snap-section w-full bg-[#113D33] text-white flex flex-col items-center justify-center text-center px-6 py-16 md:py-24">
+      {/* FINAL CTA */}
+      <section className="bg-[#113D33] text-white flex flex-col items-center justify-center text-center px-6 py-16 md:py-24">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-2xl md:text-4xl font-bold font-vance max-w-2xl"
+          className="text-2xl md:text-4xl font-bold max-w-2xl"
         >
           Ready to Book Your Wellness Experience?
         </motion.h2>
@@ -111,20 +157,18 @@ export default function TreatmentsPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="mt-4 text-sm md:text-lg max-w-3xl leading-relaxed opacity-90"
+          className="mt-4 text-sm md:text-lg max-w-3xl opacity-90"
         >
-          Click below to schedule your treatment and start your journey to relaxation.
+          Choose your treatment, select your location, and schedule your visit
+          in just a few clicks.
         </motion.p>
 
-        <motion.a
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          href="/book"
+        <Link
+          href={bookHref}
           className="mt-6 bg-white text-[#113D33] font-bold px-6 py-3 text-lg rounded-md shadow-md hover:bg-gray-200 transition-all"
         >
           Book Now
-        </motion.a>
+        </Link>
       </section>
     </div>
   );

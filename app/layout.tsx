@@ -8,12 +8,17 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  // Important: lets you use relative URLs for canonical/OG per page
+  // Allows relative canonicals + OG URLs
   metadataBase: new URL("https://swaywellnessspa.com"),
 
-  // Site-wide fallbacks (pages can override)
-  title: "Sway Wellness Club",
-  description: "Denver's first wellness club where tech meets day spa.",
+  // Site-wide defaults (intentionally generic)
+  title: {
+    default: "Sway Wellness Spa",
+    template: "%s | Sway Wellness Spa",
+  },
+  description:
+    "Sway Wellness Spa is a modern wellness spa and club offering massage therapy, facials, recovery rituals, and technology-forward wellness experiences.",
+
   icons: {
     icon: "/assets/swaylogo3.png",
     apple: "/assets/swaylogo3.png",
@@ -21,17 +26,17 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "/", // relative because metadataBase is set
+    url: "/",
     siteName: "Sway Wellness Spa",
     title: "Sway Wellness Spa",
     description:
-      "Experience the ritual benefits of monthly treatments, half-off boosts, and exclusive member perks.",
+      "A modern wellness spa and club offering massage therapy, facials, recovery rituals, and innovative wellness experiences.",
     images: [
       {
-        url: "/assets/swaylogo3.png",
+        url: "/assets/homepage_photo_outside.png",
         width: 1200,
-        height: 1200,
-        alt: "Sway Wellness Spa Logo",
+        height: 630,
+        alt: "Sway Wellness Spa",
       },
     ],
   },
@@ -39,8 +44,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sway Wellness Spa",
-    description: "Denver's first wellness club where tech meets day spa.",
-    images: [{ url: "/assets/swaylogo3.png", alt: "Sway Wellness Spa Logo" }],
+    description:
+      "Modern wellness spa and club offering massage therapy, facials, and recovery-focused experiences.",
+    images: [{ url: "/assets/homepage_photo_outside.png" }],
   },
 
   robots: {
@@ -64,18 +70,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="light">
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        />
 
-        {/* Organization JSON-LD (site-wide) */}
+        {/* Organization schema (site-wide, non-location specific) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
+              name: "Sway Wellness Spa",
               url: "https://swaywellnessspa.com",
               logo: "https://swaywellnessspa.com/assets/swaylogo3.png",
-              name: "Sway Wellness Spa",
             }),
           }}
         />
@@ -95,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }}
             />
 
-            {/* Messenger AI Widget (Bowtie) */}
+            {/* Bowtie AI Chat */}
             <script
               dangerouslySetInnerHTML={{
                 __html: `
@@ -115,7 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }}
             />
 
-            {/* Google Ads (gtag.js) */}
+            {/* Google Ads */}
             <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17421817568"></script>
             <script
               dangerouslySetInnerHTML={{

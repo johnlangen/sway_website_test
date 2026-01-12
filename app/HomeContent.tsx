@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import Image from "next/image";
 import React, { useState } from "react";
-import SummerPopup from "./popup/PopupHolidayGiftCard";
+import SummerPopup from "./popup/SummerPopup";
 
 export default function HomeContent() {
   const [loadedA, setLoadedA] = useState(false);
@@ -17,12 +17,25 @@ export default function HomeContent() {
     <div className="snap-container w-full overflow-hidden max-w-screen">
       <SummerPopup />
 
-      {/* Hero Video */}
+      {/* ======================================================
+          Hero Video
+          (Add a hidden H1 + a tiny semantic anchor without changing design)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex items-center justify-center">
+        <h1 className="sr-only">
+          Sway Wellness Spa – Modern Wellness Experiences
+        </h1>
+        <p className="sr-only">
+          Sway is a modern wellness spa and club offering massage therapy,
+          facials, and recovery experiences including sauna, cold plunge, and
+          AI-powered Aescape massage.
+        </p>
         <VideoBackground />
       </section>
 
-      {/* Intro */}
+      {/* ======================================================
+          Intro (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -36,7 +49,59 @@ export default function HomeContent() {
         </motion.p>
       </section>
 
-      {/* Staggered Images */}
+      {/* ======================================================
+          NEW: “What is Sway?” (short, elegant, not Denver-locked)
+          This adds clarity for SEO without changing your aesthetic.
+          ====================================================== */}
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl text-center font-vance"
+        >
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">
+            A modern wellness spa and club
+          </h2>
+          <p className="text-base md:text-lg lg:text-xl leading-relaxed opacity-90">
+            Sway blends expert-led care with modern recovery. From personalized
+            massage therapy and facials to sauna and cold plunge rituals and the
+            AI-powered Aescape massage experience, everything is designed to
+            help you feel better — consistently.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="/offers"
+              className="bg-[#113D33] text-white px-6 py-3 text-sm md:text-base font-bold rounded-md hover:bg-[#0a2b23]"
+            >
+              New Guest Offer
+            </a>
+            <a
+              href="/membership"
+              className="border border-[#113D33] text-[#113D33] px-6 py-3 text-sm md:text-base font-bold rounded-md hover:bg-[#113D33] hover:text-white transition"
+            >
+              Explore Membership
+            </a>
+          </div>
+
+          {/* Future-ready: if /locations exists later, this becomes valuable.
+              If it doesn’t exist yet, it’s still fine to keep hidden.
+              You can remove "hidden" when you launch /locations. */}
+          <div className="mt-5 hidden">
+            <a
+              href="/locations"
+              className="text-sm md:text-base text-[#113D33] underline underline-offset-4 hover:opacity-80"
+            >
+              Find a location
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ======================================================
+          Staggered Images (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col lg:flex-row items-center justify-center bg-[#f4f4f1] px-6 lg:px-8 gap-12">
         <motion.div
           initial={{ opacity: 0, x: -50, y: -50 }}
@@ -83,7 +148,9 @@ export default function HomeContent() {
         </motion.div>
       </section>
 
-      {/* Magic Wellness */}
+      {/* ======================================================
+          Magic Wellness (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -111,7 +178,9 @@ export default function HomeContent() {
         </motion.div>
       </section>
 
-      {/* Glow Recipe */}
+      {/* ======================================================
+          Glow Recipe (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col lg:flex-row items-center justify-center bg-[#f4f4f1] px-6 lg:px-8 gap-12">
         <motion.p
           initial={{ opacity: 0, x: -30 }}
@@ -149,7 +218,9 @@ export default function HomeContent() {
         </motion.p>
       </section>
 
-      {/* Storefront */}
+      {/* ======================================================
+          Storefront (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -178,7 +249,9 @@ export default function HomeContent() {
         </motion.div>
       </section>
 
-      {/* Flip Cards */}
+      {/* ======================================================
+          Flip Cards (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
           {[
@@ -224,7 +297,9 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* Experiences & Pricing */}
+      {/* ======================================================
+          Experiences & Pricing (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] text-[#113D33] px-4 lg:px-16">
         <div className="w-full max-w-5xl">
           <h2 className="text-2xl md:text-4xl font-bold mb-4 font-vance text-center">
@@ -307,7 +382,9 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* Treatments Grid */}
+      {/* ======================================================
+          Treatments Grid (your original; tiny microcopy tweaks are inside data)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] px-4 lg:px-16">
         <motion.div
           initial="hidden"
@@ -323,25 +400,25 @@ export default function HomeContent() {
               image: "/assets/treatment1.png",
               text: "Facials",
               link: "/facials",
-              description: "Cleansing, hydrating, and glow-enhancing facials.",
+              description: "Advanced, glow-focused facials and skin treatments.",
             },
             {
               image: "/assets/treatment3.png",
-              text: "Massages",
+              text: "Massage Therapy",
               link: "/massages",
-              description: "Swedish, deep tissue, and CBD treatments.",
+              description: "Personalized massage therapy for recovery and relief.",
             },
             {
               image: "/assets/aescape-treatment.png",
               text: "Aescape",
               link: "/aescape",
-              description: "AI-powered massage for recovery.",
+              description: "AI-powered massage for modern recovery.",
             },
             {
               image: "/assets/treatment2.png",
               text: "Remedy Room",
               link: "/remedy-tech",
-              description: "Cold plunge, sauna, red light, and lymphatic boots.",
+              description: "Sauna, cold plunge, red light, and lymphatic boots.",
             },
           ].map((item, i) => (
             <motion.div
@@ -389,9 +466,10 @@ export default function HomeContent() {
         </p>
       </section>
 
-      {/* Photo Grid with OG Background */}
+      {/* ======================================================
+          Photo Grid with OG Background (your original)
+          ====================================================== */}
       <section className="snap-section relative min-h-screen flex items-center justify-center px-4 lg:px-16">
-        {/* Background */}
         <img
           src="/assets/OG/og-sway-way2.png"
           alt="Sway Way background"
@@ -399,7 +477,6 @@ export default function HomeContent() {
         />
         <div className="absolute inset-0 bg-black/50 z-10"></div>
 
-        {/* Circles Grid */}
         <div className="relative z-20 grid grid-cols-2 md:grid-cols-4 gap-10 w-full max-w-6xl place-items-center">
           {[
             { image: "/assets/homepage_photo11.png", text: "SWAY ON SPOTIFY", link: "" },
@@ -431,8 +508,73 @@ export default function HomeContent() {
         </div>
       </section>
 
+      {/* ======================================================
+          NEW: Mini FAQ (adds SEO density without being “in your face”)
+          ====================================================== */}
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          className="w-full max-w-4xl font-vance"
+        >
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-8">
+            Questions, answered
+          </h2>
 
-      {/* Membership CTA */}
+          <div className="space-y-4">
+            {[
+              {
+                q: "What is the Remedy Room?",
+                a: "The Remedy Room is our modern recovery experience — typically featuring sauna, cold plunge, and select recovery tech designed to help you reset.",
+              },
+              {
+                q: "What is Aescape?",
+                a: "Aescape is an AI-powered massage experience designed for modern recovery. It’s a separate offering from therapist-led massage therapy.",
+              },
+              {
+                q: "Do you offer memberships?",
+                a: "Yes. Sway is built around consistent care — memberships offer preferred pricing, perks, and an easier way to make wellness a ritual.",
+              },
+              {
+                q: "What should I book for a first visit?",
+                a: "Most guests start with a 50-minute facial or massage. If you want recovery-focused benefits, the Remedy Room is a great add-on.",
+              },
+              {
+                q: "How do I book?",
+                a: "You can schedule online anytime. If you have questions, you can also call the spa and our team will help you choose the right experience.",
+              },
+            ].map((item, idx) => (
+              <details
+                key={idx}
+                className="border border-[#113D33]/20 rounded-lg bg-white/50 px-5 py-4"
+              >
+                <summary className="cursor-pointer font-semibold text-base md:text-lg">
+                  {item.q}
+                </summary>
+                <p className="mt-3 text-sm md:text-base opacity-90 leading-relaxed">
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <a
+              href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#113D33] text-white px-6 py-3 text-md md:text-lg font-bold rounded-md hover:bg-[#0a2b23]"
+            >
+              Book Now
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ======================================================
+          Membership CTA (your original)
+          ====================================================== */}
       <section className="snap-section min-h-screen flex flex-col items-center justify-center w-full bg-[#113D33] text-white text-center px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

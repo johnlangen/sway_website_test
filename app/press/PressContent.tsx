@@ -6,6 +6,13 @@ import Link from "next/link";
 export default function PressContent() {
   const pressItems = [
     {
+      title: "The Zoe Report",
+      description:
+        "Sway was named a top U.S. day spa in TZR’s 2026 Readers’ Choice Awards, recognized for redefining what it means to unwind with next-generation wellness experiences.",
+      image: "/assets/tzr.png",
+      link: "https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa",
+    },
+    {
       title: "Salon Today – Modern Spa & Wellness",
       description:
         "A two-page editorial in the Fall 2025 issue spotlighting Sway’s Gen Z-focused wellness model, franchise roots, and blend of innovative technology with spa design.",
@@ -55,7 +62,6 @@ export default function PressContent() {
       link: "https://yogalifelive.com/this-new-denver-wellness-club-is-using-robots-to-rethink-self-care/",
     },
   ];
-  
 
   return (
     <div className="bg-[#F7F4E9] min-h-screen flex flex-col items-center justify-start text-black font-vance">

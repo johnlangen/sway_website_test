@@ -10,9 +10,9 @@ const blogs = [
     slug: "holiday-wellness-guide",
     title: "Your Wellness Guide Is Here",
     summary:
-      "A modern holiday wellness gift guide—thoughtful spa experiences, restorative self-care, and curated moments designed by Sway.",
+      "A modern holiday wellness gift guide curated by Sway—featuring restorative spa experiences, glow-enhancing facials, elevated self-care rituals, and beautifully designed moments that invite rest, balance, and intention. ",
     tag: "Holiday",
-    image: "/assets/blog26.png",
+    image: "/assets/blog38.png",
   },  
 
   {

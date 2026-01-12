@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         url: "/assets/OG/og-remedy-room.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Wellness Spa Remedy Room",
+        alt: "Remedy Room recovery experience at Sway Wellness Spa"
       },
     ],
   },

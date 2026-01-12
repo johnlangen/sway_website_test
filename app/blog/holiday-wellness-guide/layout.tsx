@@ -50,9 +50,12 @@ export default function HolidayWellnessGuideLayout() {
               </h1>
 
               {/* visual only */}
-              <span className="inline-block bg-[#CFE6D8] text-[#113D33] text-xs font-semibold tracking-wide px-4 py-2 rounded-full pointer-events-none select-none">
+              <a
+                href="#as-seen-in"
+                className="inline-block bg-[#CFE6D8] text-[#113D33] text-xs font-semibold tracking-wide px-4 py-2 rounded-full hover:opacity-90 transition"
+                >
                 Learn More
-              </span>
+                </a>
             </div>
 
             <div />
@@ -64,7 +67,7 @@ export default function HolidayWellnessGuideLayout() {
           SECTION 2 — CBD COLLAGE (snap)
           Goal: fits on screen across breakpoints
          ========================= */}
-      <section className="snap-start min-min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-24">
+      <section   id="as-seen-in" className="snap-start min-min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-24">
         <div className="w-full max-w-6xl mx-auto">
           {/* -------------------------
               MOBILE (single “page”, no overlay)

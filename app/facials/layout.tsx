@@ -1,38 +1,37 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Facials in Denver | Sway Wellness Spa in Larimer Square",
+  title: "Facial Treatments | Anti-Aging, Hydration & Acne | Sway Wellness Spa",
   description:
-    "Explore Sway’s advanced facials including anti-aging, hydration, acne, and Vitamin C treatments. Book your facial experience in downtown Denver today.",
+    "Explore Sway’s advanced facial treatments including anti-aging, hydration, acne, sensitive skin, and Vitamin C facials. Personalized skincare with real results.",
   alternates: {
     canonical: "https://swaywellnessspa.com/facials",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/facials",
-    title: "Facials in Denver | Sway Wellness Spa",
+    title: "Facial Treatments | Sway Wellness Spa",
     description:
-      "Science-backed facials: anti-aging, hydration, acne, and Vitamin C treatments. Exclusive in downtown Denver.",
+      "Science-backed facials using cutting-edge skincare and technology. Anti-aging, hydration, acne, and Vitamin C treatments.",
     images: [
       {
         url: "/assets/OG/og-facials.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Wellness Spa Facials",
+        alt: "Facial Treatments at Sway Wellness Spa",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Facials in Denver | Sway Wellness Spa",
+    title: "Facial Treatments | Sway Wellness Spa",
     description:
-      "Explore advanced facials at Sway — anti-aging, hydration, acne, Vitamin C. Book today in downtown Denver.",
+      "Explore advanced facials at Sway — anti-aging, hydration, acne, sensitive skin, and Vitamin C treatments.",
     images: ["/assets/OG/og-facials.jpg"],
   },
   robots: { index: true, follow: true },
 };
 
-// Breadcrumb JSON-LD
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",

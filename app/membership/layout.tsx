@@ -2,35 +2,38 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Join the Club | Spa Memberships at Sway Wellness Spa",
+  title: "Spa Memberships | Join the Club at Sway Wellness Spa",
   description:
-    "Explore Sway Wellness Spa memberships. Join the club and unlock exclusive perks, discounts, and founding member benefits at your nearest Sway location.",
+    "Explore Sway Wellness Spa memberships. Memberships vary by location — select your spa to view available plans, perks, and pricing.",
   alternates: {
     canonical: "https://swaywellnessspa.com/membership",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/membership",
-    title: "Join the Club | Spa Memberships at Sway Wellness Spa",
+    title: "Spa Memberships | Join the Club at Sway Wellness Spa",
     description:
-      "Exclusive spa memberships at Sway Wellness Spa. Join the club for discounts, perks, and founding member benefits at your location.",
+      "Explore Sway Wellness Spa memberships. Plans, perks, and pricing vary by location.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
         width: 1200,
         height: 630,
-        alt: "Join the Club at Sway Wellness Spa",
+        alt: "Sway Wellness Spa Memberships",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Join the Club | Spa Memberships at Sway Wellness Spa",
+    title: "Spa Memberships | Join the Club at Sway Wellness Spa",
     description:
-      "Join the Sway Wellness Spa membership club. Unlock perks, exclusive offers, and founding member benefits.",
+      "Join the Sway Wellness Spa membership club. Memberships vary by location.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function MembershipLayout({
@@ -38,5 +41,46 @@ export default function MembershipLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://swaywellnessspa.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Memberships",
+            item: "https://swaywellnessspa.com/membership",
+          },
+        ],
+      },
+      {
+        "@type": "Service",
+        name: "Spa Memberships",
+        provider: {
+          "@type": "Organization",
+          name: "Sway Wellness Spa",
+        },
+        description:
+          "Monthly spa memberships offering exclusive pricing and member perks. Availability varies by location.",
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      {children}
+    </>
+  );
 }

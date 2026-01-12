@@ -8,239 +8,163 @@ const benefitData = {
   spa: [
     {
       title: "Preferred Pricing",
-      content: `Your price: $99 (per treatment per month)
-Their price: $139 (per treatment)
-Unlimited treatments at $99 each (excluding boosts)
-
-PLUS as a Spa Club Member, you receive special pricing:
-50% off ALL Boosts & Super Boosts
-50% off The Remedy Room`,
+      content:
+        "Unlimited facials or massages at $99 each (normally $139).\n\n50% off all Boosts & Super Boosts\n50% off the Remedy Room",
     },
     {
-      title: "Access to Exclusive Member-Only Lounge",
-      content: `A private mezzanine for you to relax.
-Complimentary tea and snacks included.`,
+      title: "Member Lounge Access",
+      content: "Private mezzanine with complimentary tea and snacks.",
     },
     {
-      title: "Bring your Bestie",
-      content: `Bring in a friend at member pricing. Limited to 1x a month.`,
+      title: "Bring a Friend",
+      content: "One guest per month at member pricing.",
     },
     {
-      title: "Family Share Account",
-      content: `Your family can use your credit for the month, or any available rollovers.`,
+      title: "Family Sharing",
+      content: "Share credits or rollovers with family.",
     },
     {
-      title: "10% off at The Sway Shop",
-      content: `Get 10% off premium brands: Eminence, Dr. Dennis Gross, DedCool & more.`,
+      title: "Retail Discount",
+      content: "10% off Eminence, Dr. Dennis Gross, DedCool & more.",
     },
     {
-      title: "Access to Member Only Events",
-      content: `Join like-minded friends for exclusive gatherings.`,
+      title: "Rollover Benefits",
+      content: "Unused credits roll over — no pressure.",
     },
-    { title: "Benefits Roll Over!", content: `If you don’t use it, you don’t lose it.` },
   ],
   remedy: [
     {
+      title: "4 Monthly Visits",
+      content:
+        "Cold plunge, sauna, red light therapy, compression boots, lymphatic drainage.",
+    },
+    {
       title: "Preferred Pricing",
-      content: `Your Price: $99/Month (4x visits a month)
-Their Price: $196/Month (4x visits a month)
-
-If wanting to visit more, access $25/visit pricing
-
-PLUS: $99 Facial or Massage + 50% off ALL Boosts`,
+      content: "Additional visits just $25 each.",
     },
     {
-      title: "Bring your Bestie",
-      content: `Bring a friend for $99/session. Limited to 1x/month.`,
-    },
-    {
-      title: "Family Share Account",
-      content: `Your family can use your membership credit each month.`,
-    },
-    {
-      title: "10% off at The Sway Shop",
-      content: `Shop top-tier brands with a 10% member discount.`,
-    },
-    {
-      title: "Access to Member Only Events",
-      content: `Wellness events exclusively for members.`,
+      title: "Bonus Spa Savings",
+      content: "$99 facial or massage + 50% off boosts.",
     },
   ],
   aescape: [
     {
-      title: "Preferred Pricing",
-      content: `4x visits/month included
-Their Price: $276/Month
-
-Robot-powered relaxation, precision-tuned for your body.`,
+      title: "2 Monthly Sessions",
+      content: "60-minute AI-powered robot massages.",
     },
     {
-      title: "Bring your Bestie",
-      content: `Invite a friend to experience AI-powered massage for $99/month.`,
-    },
-    {
-      title: "Family Share Account",
-      content: `Share your sessions with your loved ones.`,
-    },
-    {
-      title: "10% off at The Sway Shop",
-      content: `Take home wellness with 10% off all retail items.`,
-    },
-    {
-      title: "Access to Member Only Events",
-      content: `Engage with fellow members at exclusive events.`,
+      title: "Precision Recovery",
+      content:
+        "Personalized pressure using real-time muscle mapping and data.",
     },
   ],
 } as const;
 
 export default function MembershipPage() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const memberships = [
     {
       title: "Remedy Room",
-      price: "$99/Month",
-      visits: "4 Monthly Visits",
+      price: "$99 / month",
+      visits: "4 monthly visits",
       key: "remedy",
-      details: ["Cold Plunge", "Sauna", "LED Light Therapy", "Lymphatic Drainage", "Compression Boots"],
     },
     {
       title: "Spa Club",
-      price: "$99/Month",
-      visits: "1 Monthly Facial or Massage",
+      price: "$99 / month",
+      visits: "1 facial or massage",
       mostPopular: true,
       key: "spa",
-      details: [
-        "Facials: Forever Young, Pore Perfection, Glow Getter, Sensitive Silk, Dr. Dennis Gross, Vitamin C Facial",
-        "Massage: Deep Tissue, Sports, CBD, Salt Stone",
-      ],
     },
     {
       title: "Aescape Robot Massage",
-      price: "$99/Month",
-      visits: "4 Monthly 30 Min. Massages",
+      price: "$99 / month",
+      visits: "2 × 60-min sessions",
       key: "aescape",
-      details: ["First-Ever Robot Massage. Enough said!"],
     },
   ];
 
   return (
-    <div className="relative min-h-screen font-vance">
-      {/* Background with texture */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/assets/membership_background.png"
-          alt="Membership background"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/40" /> {/* Dark overlay */}
-      </div>
-
-      <div className="px-4 pt-32 md:pt-40 text-white max-w-6xl mx-auto text-center">
-        {/* Headline */}
+    <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
+      {/* HERO */}
+      <section className="px-6 pt-28 md:pt-32 pb-16 text-center max-w-5xl mx-auto">
         <motion.h1
-          className="text-3xl md:text-5xl font-bold tracking-widest mb-4 uppercase"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-5xl font-bold mb-3"
         >
-          Inclusive Club.
+          Inclusive Club. Exclusive Perks.
         </motion.h1>
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold tracking-widest mb-12 uppercase"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Exclusive Perks.
-        </motion.h2>
 
-        <p className="text-2xl md:text-3xl font-semibold mb-6">
-          Three memberships you can feel good about.
+        <p className="text-base md:text-lg text-gray-200 max-w-2xl mx-auto">
+          Three memberships. One elevated way to care for your body.
         </p>
-        <p className="text-base md:text-lg mb-20 max-w-2xl mx-auto text-gray-200">
-          No matter which membership you choose, you’ll unlock exclusive member pricing across all Sway experiences.
-        </p>
+      </section>
 
-        {/* Membership Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-7xl mx-auto">
+      {/* MEMBERSHIP CARDS */}
+      <section className="px-6 pb-20">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {memberships.map((m, i) => (
             <motion.div
-              key={i}
-              className="bg-white text-[#113D33] rounded-xl px-6 py-10 shadow-lg flex flex-col justify-between min-h-[600px]"
-              initial={{ opacity: 0, y: 30 }}
+              key={m.key}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.2 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="
+                rounded-2xl
+                bg-[#F7F4E9]
+                text-[#113D33]
+                p-6
+                shadow-xl
+                flex
+                flex-col
+                justify-between
+                text-center
+              "
             >
               {m.mostPopular && (
-                <div className="text-sm bg-[#113D33] text-white px-3 py-1 rounded-full font-semibold w-fit mb-4 mx-auto">
+                <span className="mx-auto mb-3 text-xs bg-[#113D33] text-white px-3 py-1 rounded-full font-semibold">
                   MOST POPULAR
-                </div>
+                </span>
               )}
-              <h3 className="text-3xl md:text-4xl font-bold uppercase mb-2">{m.title}</h3>
-              <p className="text-base text-gray-600 mb-1">{m.visits}</p>
-              <p className="text-2xl font-semibold mb-6">{m.price}</p>
-              <ul className="text-sm mb-6 space-y-2">
-                {m.details.map((item, idx) => (
-                  <li key={idx}>• {item}</li>
-                ))}
-              </ul>
 
-              {/* Accordion Toggle */}
+              <div>
+                <h3 className="text-2xl font-bold uppercase mb-1">
+                  {m.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-2">{m.visits}</p>
+                <p className="text-xl font-semibold mb-4">{m.price}</p>
+              </div>
+
               <button
-                onClick={() => {
-                  if (openGroup === m.key) {
-                    setOpenGroup(null);
-                    setOpenIndex(null);
-                  } else {
-                    setOpenGroup(m.key);
-                    setOpenIndex(null);
-                  }
-                }}
-                className="text-sm font-semibold text-[#113D33] underline underline-offset-4 mb-4"
+                onClick={() =>
+                  setOpenGroup(openGroup === m.key ? null : m.key)
+                }
+                className="text-sm underline underline-offset-4 mb-4"
               >
-                {openGroup === m.key ? "Hide Benefits" : "View Membership Benefits"}
+                {openGroup === m.key
+                  ? "Hide membership benefits"
+                  : "View membership benefits"}
               </button>
 
-              {/* Accordion Content */}
               <AnimatePresence>
                 {openGroup === m.key && (
                   <motion.div
-                    key={m.key}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden text-left text-sm md:text-base font-vance text-[#113D33]/90 whitespace-pre-line mb-4"
+                    className="text-sm text-gray-700 whitespace-pre-line mb-4"
                   >
-                    {benefitData[m.key as "spa" | "remedy" | "aescape"].map((item, index) => (
-                      <div key={index} className="border-b border-gray-300 py-2">
-                        <button
-                          onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                          className="flex justify-between items-center w-full"
-                        >
-                          <span className="font-semibold">{item.title}</span>
-                          <span>{openIndex === index ? "−" : "+"}</span>
-                        </button>
-                        <AnimatePresence>
-                          {openIndex === index && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: "auto" }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="mt-2 text-gray-700"
-                            >
-                              {item.content}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ))}
+                    {benefitData[m.key as keyof typeof benefitData].map(
+                      (b, idx) => (
+                        <div key={idx} className="mb-3">
+                          <strong>{b.title}</strong>
+                          <p>{b.content}</p>
+                        </div>
+                      )
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -249,39 +173,52 @@ export default function MembershipPage() {
                 href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-center px-6 py-3 rounded-full bg-[#4A776D] text-white font-bold uppercase tracking-wider hover:bg-[#3a5f56] transition"
+                className="
+                  mt-2
+                  inline-block
+                  rounded-full
+                  bg-[#4A776D]
+                  hover:bg-[#3a5f56]
+                  text-white
+                  font-semibold
+                  py-3
+                  transition
+                "
               >
                 Join the Club
               </a>
             </motion.div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Logo background CTA */}
-      <div className="relative mt-20 h-[50vh]">
+      {/* LOWER IMAGE / BRAND SECTION */}
+      <section className="relative h-[50vh] mt-10">
         <Image
           src="/assets/membership_background_logo.png"
-          alt="Sway Logo Background"
+          alt="The Sway Way"
           fill
-          className="object-cover -z-10"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/50 -z-0" />
-        <div className="relative text-center py-20 text-white max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">The Sway Way</h2>
-          <p className="text-lg md:text-xl mb-8">
-            Become part of an inclusive club with exclusive perks. Elevate your wellness today.
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            The Sway Way
+          </h2>
+          <p className="max-w-2xl text-base md:text-lg mb-6">
+            An inclusive club built around recovery, longevity, and feeling
+            good in your body.
           </p>
           <a
             href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase tracking-wider hover:bg-white transition"
+            className="px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
           >
             Join Now
           </a>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

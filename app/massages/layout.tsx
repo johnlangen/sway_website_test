@@ -1,48 +1,61 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Denver",
+  title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Wellness Spa",
   description:
-    "Discover expert-led massages at Sway Wellness Spa in Denver. Choose from Deep Tissue, Sports, Salt Stone, CBD, and Lymphatic Drainage — all just $99 for members.",
+    "Explore massage therapy at Sway Wellness Spa. Choose from Deep Tissue, Sports, Salt Stone, CBD, and Lymphatic Drainage massage experiences.",
   alternates: {
     canonical: "https://swaywellnessspa.com/massages",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/massages",
-    title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Denver",
+    title: "Massage Therapy | Sway Wellness Spa",
     description:
-      "Explore massage therapies in Denver including Deep Tissue, Sports, CBD, Salt Stone, and Lymphatic Drainage. Relax, recover, and renew at Sway Wellness Spa.",
+      "Discover expert-led massage experiences designed to relax, recover, and restore balance.",
     images: [
       {
         url: "/assets/OG/og-massages.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Wellness Spa Massage Therapy",
+        alt: "Massage experiences at Sway Wellness Spa",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Denver",
+    title: "Massage Therapy | Sway Wellness Spa",
     description:
-      "Discover expert-led massages at Sway Wellness Spa in Denver — Deep Tissue, Sports, Salt Stone, CBD, Lymphatic Drainage, and more.",
+      "Explore massage experiences including Deep Tissue, Sports, CBD, and more at Sway Wellness Spa.",
     images: ["/assets/OG/og-massages.jpg"],
   },
   robots: { index: true, follow: true },
 };
 
-// Breadcrumb JSON-LD
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-    { "@type": "ListItem", position: 2, name: "Massages", item: "https://swaywellnessspa.com/massages" },
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://swaywellnessspa.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Massages",
+      item: "https://swaywellnessspa.com/massages",
+    },
   ],
 };
 
-export default function MassagesLayout({ children }: { children: React.ReactNode }) {
+export default function MassagesLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       {children}

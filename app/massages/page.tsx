@@ -1,233 +1,786 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { resolveLocationHref } from "../components/LocationAwareHref";
+
+/* ---------------- TYPES ---------------- */
+
+type Massage = {
+  id: number;
+  name: string;
+  time: string;
+  price: string;
+  description: string;
+  img: string;
+};
+
+type Boost = {
+  id: number;
+  name: string;
+  tag: "Boost" | "Super Boost";
+  description: string;
+  price: string;
+};
+
+/* ---------------- HELPERS ---------------- */
+
+const clampStyle = (lines: number) =>
+  ({
+    display: "-webkit-box",
+    WebkitLineClamp: lines,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  } as const);
+
+const getSafeVh = () => {
+  if (typeof window === "undefined") return 700;
+  const vv = window.visualViewport?.height;
+  return Math.max(520, Math.floor(vv ?? window.innerHeight));
+};
+
+/* ---------------- PAGE ---------------- */
 
 const MassagesPage = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+  const [bookHref, setBookHref] = useState("/book");
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1000);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // Massage carousel (mobile)
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Boost carousel (mobile)
+  const boostScrollerRef = useRef<HTMLDivElement | null>(null);
+  const [boostActiveIndex, setBoostActiveIndex] = useState(0);
+
+  // Modal
+  const [openId, setOpenId] = useState<number | null>(null);
+  const [modalMaxH, setModalMaxH] = useState<number>(700);
+
+  const massages: Massage[] = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "Deep Tissue",
+        time: "50 minutes",
+        price: "Member $99 | Drop-In $139",
+        description:
+          "Corrective massage designed to release deep muscle tension, relieve pain, and restore mobility.",
+        img: "/assets/massage2.png",
+      },
+      {
+        id: 2,
+        name: "Salt Stone",
+        time: "50 minutes",
+        price: "Member $99 | Drop-In $139",
+        description:
+          "Warm Himalayan salt stones help melt tension, improve circulation, and promote deep relaxation.",
+        img: "/assets/massage4.png",
+      },
+      {
+        id: 3,
+        name: "CBD Cause Medic",
+        time: "50 minutes",
+        price: "Member $99 | Drop-In $139",
+        description:
+          "CBD-infused relief cream provides cooling comfort while supporting muscle recovery and relaxation.",
+        img: "/assets/massage3.png",
+      },
+      {
+        id: 4,
+        name: "Sports Massage",
+        time: "50 minutes",
+        price: "Member $99 | Drop-In $139",
+        description:
+          "Ideal for active lifestyles. Supports recovery, improves range of motion, and reduces muscle fatigue.",
+        img: "/assets/massage5.png",
+      },
+      {
+        id: 5,
+        name: "Lymphatic Drainage Detox Massage",
+        time: "50 minutes",
+        price: "Member $99 | Drop-In $139",
+        description:
+          "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support natural detoxification.",
+        img: "/assets/massage6.png",
+      },
+    ],
+    []
+  );
+
+  // NOTE: Boosts reordered: Super Boosts first, 80 Minutes first
+  // Descriptions shortened to single-line friendly phrases
+  const boosts: Boost[] = useMemo(
+    () => [
+      {
+        id: 4,
+        name: "80 Minutes",
+        tag: "Super Boost",
+        description: "Add 30 minutes of focus.",
+        price: "Member $50 | Drop-In $100",
+      },
+      {
+        id: 3,
+        name: "Lymphatic Drainage Massage",
+        tag: "Super Boost",
+        description: "Detox + reduce water retention.",
+        price: "Member $50 | Drop-In $100",
+      },
+      {
+        id: 1,
+        name: "Infrared PEMF Mat",
+        tag: "Boost",
+        description: "Deep recovery + better sleep.",
+        price: "Member $30 | Drop-In $60",
+      },
+      {
+        id: 2,
+        name: "Cupping",
+        tag: "Boost",
+        description: "Release tension + boost circulation.",
+        price: "Member $30 | Drop-In $60",
+      },
+    ],
+    []
+  );
 
   useEffect(() => {
     document.documentElement.style.backgroundColor = "#F7F4E9";
     document.body.style.backgroundColor = "#F7F4E9";
+
+    const resolved = resolveLocationHref({
+      localPath: "/massage",
+      fallbackHref: "/book",
+    });
+
+    setBookHref(resolved);
   }, []);
 
-  const massages = [
-    {
-      id: 1,
-      name: "Deep Tissue",
-      time: "50 minutes",
-      price: "Member $99 | Drop-In $139",
-      description:
-        "Deeply corrective. Releases muscle tension and toxins from the body. Relieves pain and restores proper range of motion.",
-      img: "/assets/massage2.png",
-    },
-    {
-      id: 2,
-      name: "Salt Stone",
-      time: "50 minutes",
-      price: "Member $99 | Drop-In $139",
-      description:
-        "Himalayan salt stones with 84 minerals restore balance and melt tension, deeply penetrating tight muscles while releasing toxins.",
-      img: "/assets/massage4.png",
-    },
-    {
-      id: 3,
-      name: "CBD Cause Medic",
-      time: "50 minutes",
-      price: "Member $99 | Drop-In $139",
-      description:
-        "Award-winning relief cream with CBD, menthol, camphor, and extracts provides cooling comfort and muscle recovery.",
-      img: "/assets/massage3.png",
-    },
-    {
-      id: 4,
-      name: "Sports Massage",
-      time: "50 minutes",
-      price: "Member $99 | Drop-In $139",
-      description:
-        "Ideal for athletes and movers. Speeds up recovery, eases tension in tight muscles, and improves range of motion.",
-      img: "/assets/massage5.png",
-    },
-    {
-      id: 5,
-      name: "Lymphatic Drainage Detox Massage",
-      time: "50 minutes",
-      price: "Member $99 | Drop-In $139",
-      description:
-        "Gentle, wave-like massage that stimulates lymph flow, reduces puffiness, and supports natural detoxification for immune health and clarity.",
-      img: "/assets/massage6.png",
-    },
-  ];
+  // Modal max height that won't get hidden under iOS address bar / nav
+  useEffect(() => {
+    const update = () => setModalMaxH(getSafeVh());
+    update();
+    window.addEventListener("resize", update);
+    window.visualViewport?.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.visualViewport?.removeEventListener("resize", update as any);
+    };
+  }, []);
 
-  const nextCard = () => setCurrentIndex((i) => (i + 1) % massages.length);
-  const prevCard = () => setCurrentIndex((i) => (i === 0 ? massages.length - 1 : i - 1));
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (!openId) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [openId]);
+
+  // Keep activeIndex in sync while user swipes (massage)
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const children = Array.from(el.querySelectorAll<HTMLElement>("[data-card]"));
+      if (!children.length) return;
+
+      const center = el.scrollLeft + el.clientWidth / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+
+      children.forEach((child, idx) => {
+        const childCenter = child.offsetLeft + child.clientWidth / 2;
+        const dist = Math.abs(childCenter - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = idx;
+        }
+      });
+
+      setActiveIndex(bestIdx);
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll as any);
+  }, []);
+
+  // Keep activeIndex in sync while user swipes (boosts)
+  useEffect(() => {
+    const el = boostScrollerRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const children = Array.from(
+        el.querySelectorAll<HTMLElement>("[data-boost-card]")
+      );
+      if (!children.length) return;
+
+      const center = el.scrollLeft + el.clientWidth / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+
+      children.forEach((child, idx) => {
+        const childCenter = child.offsetLeft + child.clientWidth / 2;
+        const dist = Math.abs(childCenter - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = idx;
+        }
+      });
+
+      setBoostActiveIndex(bestIdx);
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll as any);
+  }, []);
+
+  const scrollToIndex = (idx: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cards = Array.from(el.querySelectorAll<HTMLElement>("[data-card]"));
+    const target = cards[idx];
+    if (!target) return;
+
+    el.scrollTo({
+      left: target.offsetLeft - 16,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollBoostToIndex = (idx: number) => {
+    const el = boostScrollerRef.current;
+    if (!el) return;
+    const cards = Array.from(
+      el.querySelectorAll<HTMLElement>("[data-boost-card]")
+    );
+    const target = cards[idx];
+    if (!target) return;
+
+    el.scrollTo({
+      left: target.offsetLeft - 16,
+      behavior: "smooth",
+    });
+  };
+
+  const prev = () => scrollToIndex(Math.max(0, activeIndex - 1));
+  const next = () =>
+    scrollToIndex(Math.min(massages.length - 1, activeIndex + 1));
+
+  const prevBoost = () => scrollBoostToIndex(Math.max(0, boostActiveIndex - 1));
+  const nextBoost = () =>
+    scrollBoostToIndex(Math.min(boosts.length - 1, boostActiveIndex + 1));
+
+  const activeMassage = openId ? massages.find((m) => m.id === openId) : null;
 
   return (
-    <div className="w-full max-w-screen bg-[#F7F4E9] font-vance" style={{ overflow: "auto" }}>
-      {/* Hero */}
-      <section className="snap-section flex flex-col items-center justify-center text-center px-6 pt-32 pb-16 md:pt-48 md:pb-24 bg-[#B6CFBF] relative">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-[#113D33] text-5xl md:text-7xl font-light"
-        >
-          Massage Experiences
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="mt-4 text-lg md:text-2xl max-w-3xl leading-relaxed text-[#113D33] opacity-90"
-        >
-          Our expert-driven massage therapies combine advanced techniques with premium products to
-          help all your stress sway away. No stress, all relaxation.
-        </motion.p>
-
-        {/* Down Arrow */}
-        <motion.button
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          onClick={() => {
-            const section = document.getElementById("massages-section");
-            if (section) {
-              const yOffset = section.getBoundingClientRect().top + window.scrollY - 10;
-              window.scrollTo({ top: yOffset, behavior: "smooth" });
-            }
-          }}
-          className="absolute bottom-6 md:bottom-16 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#113D33] hover:bg-[#0a2b23] transition-all shadow-lg"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="white"
-            className="w-6 h-6 md:w-8 md:h-8"
+    <div className="w-full bg-[#F7F4E9] font-vance">
+      {/* HERO */}
+      <section className="bg-[#B6CFBF]">
+        <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+          <motion.h1
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -14 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-[#113D33] text-5xl md:text-7xl font-light tracking-tight"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </motion.button>
-      </section>
+            Massage Experiences
+          </motion.h1>
 
-      {/* Mobile */}
-      {isMobile ? (
-        <section className="bg-[#F7F4E9] flex flex-col items-center justify-center px-6 py-10 md:py-12 text-center relative">
-          <motion.div
-            key={massages[currentIndex].id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-            className="bg-white p-4 rounded-lg shadow-lg max-w-[80%] w-full flex flex-col items-center relative"
+          <motion.p
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33] opacity-90"
           >
-            <Image
-              src={massages[currentIndex].img}
-              alt={massages[currentIndex].name}
-              width={220}
-              height={220}
-              className="rounded-lg object-cover w-full h-full"
-            />
-            <h3 className="text-xl md:text-3xl font-bold text-[#113D33]">{massages[currentIndex].name}</h3>
-            <p className="text-md text-gray-500 mt-1">{massages[currentIndex].time}</p>
-            <p className="text-md text-gray-700 mt-1">{massages[currentIndex].price}</p>
-            <p className="text-gray-700 mt-3">{massages[currentIndex].description}</p>
-            <a
-              href="/book"
-              className="mt-4 bg-[#113D33] text-white px-4 py-2 text-xs font-bold rounded-md hover:bg-[#0a2b23] transition-all"
+            Explore our range of expert-led massage therapies. Every session is
+            customized by your therapist to meet your body’s needs.
+          </motion.p>
+
+          <div className="mt-9 flex items-center justify-center">
+            <Link
+              href={bookHref}
+              className="inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-[#0a2b23] transition-all shadow-lg"
             >
-              Book Now
-            </a>
-            <button onClick={prevCard} className="absolute bottom-4 left-4 text-[#113D33] text-2xl">❮</button>
-            <button onClick={nextCard} className="absolute bottom-4 right-4 text-[#113D33] text-2xl">❯</button>
-          </motion.div>
-        </section>
-      ) : (
-        <section id="massages-section" className="flex flex-col items-center px-6 py-16 md:py-24 min-h-screen">
-          <div className="w-full max-w-[1300px]">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-              {massages.map((massage) => (
-                <motion.div key={massage.id} className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center overflow-hidden">
-                  <Image src={massage.img} alt={massage.name} width={400} height={300} className="object-cover w-full md:w-[50%] h-[300px]" />
-                  <div className="p-6 md:p-8 w-full flex flex-col justify-center">
-                    <h3 className="text-2xl font-bold text-[#113D33]">{massage.name}</h3>
-                    <p className="text-gray-500 mt-2">{massage.time}</p>
-                    <p className="text-gray-700 mt-2">{massage.price}</p>
-                    <p className="text-gray-700 mt-2">{massage.description}</p>
-                    <a
-                      href="/book"
-                      className="mt-4 bg-[#113D33] text-white px-4 py-2 text-xs font-bold rounded-md hover:bg-[#0a2b23] transition-all"
-                    >
-                      Book Now
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+              Continue to Booking
+            </Link>
           </div>
-        </section>
-      )}
-
-      {/* Boosts */}
-      <section className="bg-[#B6CFBF] flex flex-col items-center px-6 py-16 md:py-24">
-        <h2 className="text-3xl md:text-5xl font-bold text-[#113D33] text-center mb-16">
-          ELEVATE YOUR MASSAGE WITH A BOOST
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-[1200px]">
-          {[
-            {
-              name: "80 Minutes",
-              description:
-                "Add 30 minutes to your massage for deeper relaxation and more focused treatment on your needs.",
-              price: "Member $50 | Drop-In $100",
-              badge: ["Super Boost"],
-            },
-            {
-              name: "80 Minutes Lymphatic Drainage Detox",
-              description:
-                "Full-body lymphatic boost to increase metabolic rate, support detox, and leave you lighter and rebalanced.",
-              price: "Member $50 | Drop-In $100",
-              badge: ["Super Boost"],
-            },
-            {
-              name: "Cupping",
-              description:
-                "Ancient Chinese technique that increases circulation, relieves muscle tension, clears toxins, and reduces inflammation.",
-              price: "Member $30 | Drop-In $60",
-              badge: ["Boost"],
-            },
-            {
-              name: "Infrared PEMF Mat",
-              description:
-                "PEMF tech enhances recovery, reduces inflammation, relieves stress, and promotes better sleep.",
-              price: "Member $30 | Drop-In $60",
-              badge: ["Boost"],
-            },
-          ].map((boost, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between min-h-[400px] sm:min-h-[450px] lg:min-h-[500px] max-w-[350px] w-full">
-              <div className="flex justify-end space-x-2">
-                {boost.badge.map((b, i) => (
-                  <span key={i} className="bg-[#113D33] text-white px-3 py-1 text-xs font-bold rounded-md">
-                    {b}
-                  </span>
-                ))}
-              </div>
-              <h3 className="text-xl font-bold text-[#113D33] mt-4">{boost.name}</h3>
-              <p className="text-gray-700 mt-2">{boost.description}</p>
-              <p className="text-gray-700 font-bold mt-4">{boost.price}</p>
-            </div>
-          ))}
         </div>
       </section>
+
+      {/* MOBILE / TABLET: Massage swipe carousel */}
+      <section className="lg:hidden">
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-[#113D33] text-2xl font-semibold">
+                Choose your experience
+              </h2>
+              <p className="mt-1 text-[#113D33] opacity-75">
+                Swipe to browse. Tap “Customize” to explore add-ons and
+                enhancements.
+              </p>
+            </div>
+          </div>
+
+          <div
+            ref={scrollerRef}
+            className="mt-6 flex gap-4 overflow-x-auto pb-3"
+            style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+            aria-label="Massage experiences carousel"
+          >
+            <div className="shrink-0 w-2" aria-hidden />
+            {massages.map((m) => (
+              <div
+                key={m.id}
+                data-card
+                className="shrink-0"
+                style={{ scrollSnapAlign: "center" }}
+              >
+                <div className="w-[78vw] max-w-[360px] h-[520px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                  <div className="relative w-full h-[230px]">
+                    <Image
+                      src={m.img}
+                      alt={m.name}
+                      fill
+                      sizes="(max-width: 1024px) 78vw, 360px"
+                      className="object-cover"
+                      priority={m.id === 1}
+                    />
+                  </div>
+
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="min-h-[84px]">
+                      <h3 className="text-[#113D33] text-xl font-bold leading-tight">
+                        {m.name}
+                      </h3>
+                      <p className="text-sm text-black/60 mt-1">{m.time}</p>
+                      <p className="text-sm text-black/70 mt-1">{m.price}</p>
+                    </div>
+
+                    <p
+                      className="mt-3 text-[15px] text-black/75 leading-relaxed"
+                      style={clampStyle(4)}
+                    >
+                      {m.description}
+                    </p>
+
+                    <div className="mt-auto pt-5 flex items-center justify-between">
+                      <button
+                        onClick={() => setOpenId(m.id)}
+                        className="text-[#113D33] font-semibold text-sm underline underline-offset-4 hover:opacity-80"
+                      >
+                        Customize
+                      </button>
+
+                      <Link
+                        href={bookHref}
+                        className="inline-flex items-center justify-center bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition-all"
+                      >
+                        Continue
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="shrink-0 w-2" aria-hidden />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2" aria-label="Carousel pagination">
+              {massages.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => scrollToIndex(idx)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    idx === activeIndex ? "w-8 bg-[#113D33]" : "w-2.5 bg-[#113D33]/25"
+                  }`}
+                  aria-label={`Go to item ${idx + 1}`}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prev}
+                disabled={activeIndex === 0}
+                className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                aria-label="Previous"
+              >
+                ‹
+              </button>
+              <button
+                onClick={next}
+                disabled={activeIndex === massages.length - 1}
+                className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                aria-label="Next"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <Link
+              href={bookHref}
+              className="w-full inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all shadow-lg"
+            >
+              Continue to Booking
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* DESKTOP: Massage grid */}
+      <section className="hidden lg:block">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex items-end justify-between gap-6">
+              <div>
+                <h2 className="text-[#113D33] text-3xl font-semibold">
+                  Massage menu
+                </h2>
+                <p className="mt-2 text-[#113D33] opacity-75 max-w-2xl">
+                  A curated set of experiences, each customized by your therapist. Click “Customize” to explore add-ons and
+                enhancements.
+                </p>
+              </div>
+              <Link
+                href={bookHref}
+                className="inline-flex items-center justify-center bg-[#113D33] text-white px-7 py-3 text-[15px] font-bold rounded-xl hover:bg-[#0a2b23] transition-all shadow-lg"
+              >
+                Continue to Booking
+              </Link>
+            </div>
+
+            <div className="mt-10 grid grid-cols-2 xl:grid-cols-3 gap-8">
+              {massages.map((m) => (
+                <div
+                  key={m.id}
+                  className="bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden hover:shadow-[0_16px_44px_rgba(0,0,0,0.10)] transition-shadow"
+                >
+                  <div className="relative w-full h-[220px]">
+                    <Image
+                      src={m.img}
+                      alt={m.name}
+                      fill
+                      sizes="(min-width: 1280px) 33vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="text-[#113D33] text-xl font-bold">{m.name}</h3>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-black/60">
+                      <span>{m.time}</span>
+                      <span className="text-black/25">•</span>
+                      <span className="text-black/70">{m.price}</span>
+                    </div>
+
+                    <p className="mt-3 text-[15px] text-black/75 leading-relaxed">
+                      {m.description}
+                    </p>
+
+                    <div className="mt-6 flex items-center justify-between">
+                      <button
+                        onClick={() => setOpenId(m.id)}
+                        className="text-[#113D33] font-semibold text-sm underline underline-offset-4 hover:opacity-80"
+                      >
+                        Customize
+                      </button>
+
+                      <Link
+                        href={bookHref}
+                        className="inline-flex items-center justify-center bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition-all"
+                      >
+                        Continue
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-14 flex justify-center">
+              <Link
+                href={bookHref}
+                className="inline-flex items-center justify-center bg-[#113D33] text-white px-10 py-4 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all shadow-lg"
+              >
+                Continue to Booking
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* BOOSTS SECTION (mobile swipe, desktop grid) */}
+      <section className="bg-[#B6CFBF]/35">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <div className="text-center">
+            <h2 className="text-[#113D33] text-3xl md:text-4xl font-light tracking-tight">
+              Elevate Your Massage with a Boost
+            </h2>
+            <p className="mt-3 text-[#113D33] opacity-75 max-w-3xl mx-auto">
+              Boosts are optional enhancements available at checkout in Mindbody.
+            </p>
+          </div>
+
+          {/* MOBILE: Boost swipe */}
+          <div className="lg:hidden mt-10">
+            <div
+              ref={boostScrollerRef}
+              className="flex gap-4 overflow-x-auto pb-3"
+              style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+              aria-label="Massage boosts carousel"
+            >
+              <div className="shrink-0 w-2" aria-hidden />
+              {boosts.map((b) => (
+                <div
+                  key={b.id}
+                  data-boost-card
+                  className="shrink-0"
+                  style={{ scrollSnapAlign: "center" }}
+                >
+                  <div className="w-[78vw] max-w-[360px] h-[260px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                    <div className="p-5 flex-1 flex flex-col">
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="text-[#113D33] text-lg font-bold leading-tight">
+                          {b.name}
+                        </h3>
+                        <span
+                          className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
+                            b.tag === "Super Boost"
+                              ? "bg-[#113D33] text-white"
+                              : "bg-[#113D33]/15 text-[#113D33]"
+                          }`}
+                        >
+                          {b.tag}
+                        </span>
+                      </div>
+
+                      <p className="mt-3 text-[15px] text-black/75 leading-relaxed truncate">
+                        {b.description}
+                      </p>
+
+                      <div className="mt-auto pt-5">
+                        <p className="text-sm text-black/60">{b.price}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="shrink-0 w-2" aria-hidden />
+            </div>
+
+            <div className="mt-4 flex items-center justify-between gap-4">
+              <div
+                className="flex items-center gap-2"
+                aria-label="Boost carousel pagination"
+              >
+                {boosts.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => scrollBoostToIndex(idx)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      idx === boostActiveIndex ? "w-8 bg-[#113D33]" : "w-2.5 bg-[#113D33]/25"
+                    }`}
+                    aria-label={`Go to boost ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={prevBoost}
+                  disabled={boostActiveIndex === 0}
+                  className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                  aria-label="Previous boost"
+                >
+                  ‹
+                </button>
+                <button
+                  onClick={nextBoost}
+                  disabled={boostActiveIndex === boosts.length - 1}
+                  className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                  aria-label="Next boost"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* DESKTOP: Boost grid */}
+          <div className="hidden lg:grid mt-12 grid-cols-2 xl:grid-cols-4 gap-6">
+            {boosts.map((b) => (
+              <div
+                key={b.id}
+                className="bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-6 hover:shadow-[0_16px_44px_rgba(0,0,0,0.10)] transition-shadow"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-[#113D33] text-lg font-bold leading-tight">
+                    {b.name}
+                  </h3>
+                  <span
+                    className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
+                      b.tag === "Super Boost"
+                        ? "bg-[#113D33] text-white"
+                        : "bg-[#113D33]/15 text-[#113D33]"
+                    }`}
+                  >
+                    {b.tag}
+                  </span>
+                </div>
+
+                <p className="mt-3 text-sm text-black/75 leading-relaxed truncate">
+                  {b.description}
+                </p>
+
+                <p className="mt-5 text-sm text-black/60">{b.price}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <Link
+              href={bookHref}
+              className="inline-flex items-center justify-center bg-[#113D33] text-white px-10 py-4 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all shadow-lg"
+            >
+              Continue to Booking
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CUSTOMIZE MODAL: fixed height, scrollable body, pinned footer */}
+      {activeMassage && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Massage customize"
+        >
+          <button
+            className="absolute inset-0 bg-black/40"
+            aria-label="Close"
+            onClick={() => setOpenId(null)}
+          />
+
+          <div
+            className="relative w-full sm:max-w-xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-black/5 overflow-hidden flex flex-col"
+            style={{
+              height: Math.floor(modalMaxH * 0.88),
+              maxHeight: Math.floor(modalMaxH * 0.88),
+            }}
+          >
+            {/* header */}
+            <div className="p-6 sm:p-7 border-b border-black/5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-[#113D33] text-2xl font-bold leading-tight">
+                    {activeMassage.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-black/60">
+                    {activeMassage.time} • {activeMassage.price}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setOpenId(null)}
+                  className="h-10 w-10 rounded-full border border-black/10 text-black/70 hover:bg-black/5 active:scale-[0.98]"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* short, non-redundant summary */}
+              <p
+                className="mt-4 text-[15px] text-black/80 leading-relaxed"
+                style={clampStyle(2)}
+              >
+                {activeMassage.description}
+              </p>
+            </div>
+
+            {/* scrollable content */}
+            <div className="px-6 sm:px-7 py-6 overflow-y-auto flex-1">
+              <div className="flex items-end justify-between gap-3">
+                <div>
+                  <h4 className="text-[#113D33] text-lg font-semibold">
+                    Optional boosts
+                  </h4>
+                  <p className="mt-1 text-sm text-black/60">
+                    Available during booking in Mindbody.
+                  </p>
+                </div>
+              </div>
+
+              {/* compact boost list (single-line descriptions, no clamp ellipses needed) */}
+              <div className="mt-4 space-y-3">
+                {boosts.map((b) => (
+                  <div
+                    key={b.id}
+                    className="rounded-2xl border border-black/5 p-4"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-[#113D33] font-bold leading-tight">
+                          {b.name}
+                        </p>
+                        <p className="mt-1 text-xs text-black/60">{b.price}</p>
+                      </div>
+                      <span
+                        className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
+                          b.tag === "Super Boost"
+                            ? "bg-[#113D33] text-white"
+                            : "bg-[#113D33]/15 text-[#113D33]"
+                        }`}
+                      >
+                        {b.tag}
+                      </span>
+                    </div>
+
+                    <p className="mt-2 text-sm text-black/75 leading-relaxed truncate">
+                      {b.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* pinned footer */}
+            <div className="p-6 sm:p-7 border-t border-black/5 bg-white">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Link
+                  href={bookHref}
+                  className="inline-flex items-center justify-center bg-[#113D33] text-white px-6 py-3 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all"
+                >
+                  Continue to Booking
+                </Link>
+                <button
+                  onClick={() => setOpenId(null)}
+                  className="inline-flex items-center justify-center px-6 py-3 text-[15px] font-bold rounded-2xl border border-[#113D33]/20 text-[#113D33] hover:bg-[#113D33]/5 transition-all"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

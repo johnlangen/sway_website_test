@@ -1,456 +1,328 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
+/* ---------------------------------------------
+   LOCATION CONFIG
+--------------------------------------------- */
+
+const loc = {
+  slug: "denver-larimer",
+  name: "Sway Larimer",
+  street: "1428 Larimer St.",
+  city: "Denver",
+  state: "CO",
+  zip: "80202",
+  phone: "+1 303-476-6150",
+  phoneDigits: "13034766150",
+  heroImage: "/assets/homepage_photo_outside.png",
+  mapUrl: "https://www.google.com/maps?q=1428+Larimer+St,+Denver,+CO+80202",
+};
+
+/* ---------------------------------------------
+   TIME HELPERS (MOUNTAIN TIME SAFE)
+--------------------------------------------- */
+
+function getDenverTimeParts() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Denver",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+    weekday: "short",
+  }).formatToParts(new Date());
+
+  const get = (type: string) =>
+    parts.find((p) => p.type === type)?.value ?? "";
+
+  return {
+    hour: Number(get("hour")),
+    minute: Number(get("minute")),
+    weekday: get("weekday"), // Mon, Tue, etc
+  };
+}
+
+function getOpenStatus() {
+  const { hour, minute, weekday } = getDenverTimeParts();
+  const mins = hour * 60 + minute;
+
+  let opens = 0;
+  let closes = 0;
+  let labelOpen = "";
+
+  if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday)) {
+    opens = 10 * 60;
+    closes = 20 * 60;
+    labelOpen = "10:00 AM";
+  } else if (weekday === "Sat") {
+    opens = 9 * 60;
+    closes = 18 * 60;
+    labelOpen = "9:00 AM";
+  } else {
+    opens = 11 * 60;
+    closes = 18 * 60;
+    labelOpen = "11:00 AM";
+  }
+
+  if (mins >= opens && mins < closes) {
+    return { open: true, label: "Open now" };
+  }
+
+  return {
+    open: false,
+    label: `Closed • Opens at ${labelOpen}`,
+  };
+}
+
+/* ---------------------------------------------
+   PAGE
+--------------------------------------------- */
+
 export default function SwayLarimerPage() {
-  // Persist location selection for downstream pages (book/offers/gift-cards/membership hubs)
+  const [status, setStatus] = useState<{ open: boolean; label: string } | null>(
+    null
+  );
+
   useEffect(() => {
-    try {
-      const payload = {
-        slug: "denver-larimer",
-        name: "Sway Larimer",
-        city: "Denver",
-        state: "CO",
-      };
-      localStorage.setItem("sway_selected_location", JSON.stringify(payload));
-      document.cookie = `sway_loc=denver-larimer; path=/; max-age=${60 * 60 * 24 * 365}`;
-    } catch {}
+    localStorage.setItem(
+      "sway_selected_location",
+      JSON.stringify({
+        slug: loc.slug,
+        name: loc.name,
+        city: loc.city,
+        state: loc.state,
+      })
+    );
+    document.cookie = `sway_loc=${loc.slug}; path=/; max-age=31536000`;
+
+    setStatus(getOpenStatus());
   }, []);
 
-  // Location constants
-  const loc = {
-    name: "Sway Larimer",
-    street: "1428 Larimer St.",
-    city: "Denver",
-    state: "CO",
-    zip: "80202",
-    phone: "+1 303-476-6150",
-    phoneDigits: "13034766150",
-    latitude: 39.74794,
-    longitude: -104.99844,
-    url: "https://swaywellnessspa.com/locations/denver-larimer",
-    heroImage: "/assets/homepage_photo_outside.png",
-    // Replace social handles when live:
-    sameAs: [
-      "https://www.instagram.com/swaywellnessclub",
-      "https://www.tiktok.com/@swaywellnessclub",
-      "https://www.facebook.com/swaywellnessclub",
-    ],
-    hours: {
-      monFri: { opens: "10:00", closes: "20:00" },
-      sat: { opens: "09:00", closes: "18:00" },
-      sun: { opens: "11:00", closes: "18:00" },
-    },
-    mapUrl:
-      "https://www.google.com/maps?q=1428+Larimer+St,+Denver,+CO+80202",
-    neighborhoods: "Larimer Square / LoDo",
-    landmarks: "Union Station, 16th Street Mall, Dairy Block",
-  };
-
-  // JSON-LD: LocalBusiness (DaySpa) with openingHoursSpecification
-  const localBizJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "DaySpa",
-    name: loc.name,
-    url: loc.url,
-    image: [`https://swaywellnessspa.com${loc.heroImage}`],
-    telephone: loc.phone,
-    priceRange: "$$",
-    sameAs: loc.sameAs,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: loc.street,
-      addressLocality: loc.city,
-      addressRegion: loc.state,
-      postalCode: loc.zip,
-      addressCountry: "US",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: loc.latitude,
-      longitude: loc.longitude,
-    },
-    hasMap: loc.mapUrl,
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "https://schema.org/Monday",
-          "https://schema.org/Tuesday",
-          "https://schema.org/Wednesday",
-          "https://schema.org/Thursday",
-          "https://schema.org/Friday",
-        ],
-        opens: loc.hours.monFri.opens,
-        closes: loc.hours.monFri.closes,
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["https://schema.org/Saturday"],
-        opens: loc.hours.sat.opens,
-        closes: loc.hours.sat.closes,
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["https://schema.org/Sunday"],
-        opens: loc.hours.sun.opens,
-        closes: loc.hours.sun.closes,
-      },
-    ],
-    areaServed: {
-      "@type": "City",
-      name: "Denver",
-    },
-    // Optional: booking deep links
-    potentialAction: [
-      {
-        "@type": "ReserveAction",
-        target:
-          "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9",
-        name: "Book Online",
-      },
-      {
-        "@type": "ReserveAction",
-        target:
-          "https://app.aescape.com/map/location-details?location-id=2bb3fffd-f6a7-44b5-92ad-991032a535aa",
-        name: "Book Aescape Robot Massage",
-      },
-      {
-        "@type": "CommunicateAction",
-        target: `tel:${loc.phoneDigits}`,
-        name: "Call to Book",
-      },
-    ],
-  };
-
-  // JSON-LD: FAQPage (trimmed to the most valuable Q&As)
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What’s unique about Sway?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sway blends innovative technology with traditional treatments to create a modern wellness club focused on accessibility, affordability, and total body health.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How can I schedule a treatment?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "You can book online, through our app, by phone at (303) 476-6150, or walk in (we recommend booking ahead due to high demand).",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Where is the best place to park?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "We validate parking for the 1st hour at the Larimer Square Parking Garage (1422 Market St, Denver, CO 80202). After that, standard rates apply.",
-        },
-      },
-    ],
-  };
-
-  // JSON-LD: BreadcrumbList
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-      { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations" },
-      { "@type": "ListItem", position: 3, name: "Denver – Larimer", item: loc.url },
-    ],
-  };
-
   return (
-    <main className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
-      {/* Structured data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBizJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-
-      {/* Hero / Header */}
-      <section className="px-6 pt-28 md:pt-36 pb-8">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+    <main className="bg-[#F7F4E9] text-[#113D33] font-vance">
+      {/* -------------------------------- HERO -------------------------------- */}
+      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-20">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          {/* LEFT */}
           <div>
-            <h1 className="text-3xl md:text-5xl font-bold">Sway Larimer</h1>
-            <div className="mt-3 text-lg">
+            <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
+              Massage, Facials & Recovery in Downtown Denver
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight">
+              {loc.name}
+            </h1>
+
+            {status && (
+              <div className="mt-4 flex items-center gap-2 text-sm">
+                <span
+                  className={`inline-block h-2 w-2 rounded-full ${
+                    status.open ? "bg-green-600" : "bg-red-500"
+                  }`}
+                />
+                <span>{status.label}</span>
+              </div>
+            )}
+
+            <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
+              A modern wellness club on historic Larimer Square — offering massage,
+              facials, recovery, and personalized experiences designed for real life.
+            </p>
+
+            {/* CTAs */}
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <Link
+                href="/locations/denver-larimer/book"
+                className="bg-[#113D33] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#0c2a23] transition"
+              >
+                Book Now
+              </Link>
+
+              <Link
+                href="/membership"
+                className="text-sm underline underline-offset-4 hover:opacity-70"
+              >
+                Join the Club
+              </Link>
+
+              <Link
+                href="/gift-cards"
+                className="text-sm underline underline-offset-4 hover:opacity-70"
+              >
+                Gift Cards
+              </Link>
+            </div>
+
+            {/* ADDRESS */}
+            <div className="mt-7 text-sm opacity-80 leading-relaxed">
               <div>{loc.street}</div>
               <div>
                 {loc.city}, {loc.state} {loc.zip}
               </div>
-              <div className="mt-2">
-                Phone:{" "}
-                <a href={`tel:${loc.phoneDigits}`} className="underline">
-                  {loc.phone}
-                </a>
-              </div>
-              <div className="mt-3">
-                <span
-                  className="inline-block rounded-full px-3 py-1 text-sm"
-                  style={{ backgroundColor: "#b6cfbf", color: "#113D33" }}
-                >
-                  Open
-                </span>
-              </div>
-
-              <p className="mt-4 max-w-xl leading-relaxed">
-                Welcome to <strong>Sway Larimer</strong>, our downtown Denver wellness club on historic{" "}
-                <strong>Larimer Square</strong>. Pop in before dinner, reset after work, or make a ritual of your monthly{" "}
-                <strong>facial</strong>, <strong>massage</strong>, or time in the <strong>Remedy Room</strong>.
-              </p>
+              <a href={`tel:${loc.phoneDigits}`} className="underline">
+                {loc.phone}
+              </a>
             </div>
-
-            {/* CTAs */}
-            <div className="mt-6 flex flex-wrap gap-3">
-
-            {/* Standout BOOK NOW CTA */}
-            <Link
-              href="/locations/denver-larimer/book"
-              className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-full text-base font-semibold shadow-sm hover:bg-[#0e322a] transition"
-            >
-              Book Now
-            </Link>
-
-            <Link
-              href="/membership"
-              className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-full hover:opacity-90"
-            >
-              Join the Club
-            </Link>
-
-            <Link
-              href="/gift-cards"
-              className="inline-block bg-white text-[#113D33] px-5 py-3 rounded-full border border-[#113D33]/20 hover:bg-[#fffdf8]"
-            >
-              Gift Cards
-            </Link>
-
-            <Link
-              href="/offers"
-              className="inline-block bg-white text-[#113D33] px-5 py-3 rounded-full border border-[#113D33]/20 hover:bg-[#fffdf8]"
-            >
-              Offers
-            </Link>
-            </div>
-
           </div>
 
-          {/* Hero image */}
-          <div className="rounded-2xl overflow-hidden shadow border border-black/5 bg-white">
+          {/* RIGHT IMAGE */}
+          <div className="relative">
             <img
               src={loc.heroImage}
-              alt="Sway Larimer treatment hallway on Larimer Square, Denver"
-              className="w-full h-[320px] md:h-[420px] object-cover"
+              alt="Sway Larimer wellness spa interior in Larimer Square, Denver"
+              className="rounded-3xl shadow-lg w-full h-[300px] sm:h-[360px] md:h-[460px] object-cover"
+              loading="eager"
             />
           </div>
         </div>
       </section>
 
-      {/* Hours + Details */}
-      <section className="px-6 pb-20">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-2xl p-6 shadow">
-            <h2 className="text-xl font-bold mb-3">Hours</h2>
-            <ul className="space-y-1 text-sm" aria-label="Business hours">
+      {/* -------------------------- SERVICES --------------------------- */}
+      <section className="px-6 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+            Services at Sway Larimer
+          </h2>
+          <p className="mt-3 opacity-80 max-w-xl">
+            Massage, facials, and modern recovery — all under one roof in downtown Denver.
+          </p>
+
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Massage",
+                desc: "Deep relief or pure relaxation.",
+                href: "/massage",
+              },
+              {
+                title: "Facials",
+                desc: "Results-driven, customized care.",
+                href: "/facials",
+              },
+              {
+                title: "Remedy Room",
+                desc: "Sauna, cold plunge, LED.",
+                href: "/remedy-room",
+              },
+              {
+                title: "Aescape",
+                desc: "Personalized robot massage.",
+                href: "/aescape",
+              },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="group rounded-2xl border border-black/10 p-6 hover:border-[#113D33]/40 hover:shadow-md transition"
+              >
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm opacity-75">{item.desc}</p>
+                <span className="mt-4 inline-block text-sm underline underline-offset-4">
+                  Explore →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------- HOURS + DETAILS ---------------------------- */}
+      <section className="px-6 pb-24">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+          <div className="border border-black/10 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold mb-3">Hours</h3>
+            <ul className="text-sm space-y-1 opacity-80">
               <li>Mon–Fri: 10:00 AM – 8:00 PM</li>
-              <li>Sat: 9:00 AM – 6:00 PM</li>
-              <li>Sun: 11:00 AM – 6:00 PM</li>
+              <li>Saturday: 9:00 AM – 6:00 PM</li>
+              <li>Sunday: 11:00 AM – 6:00 PM</li>
             </ul>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow">
-            <h2 className="text-xl font-bold mb-3">Details</h2>
-            <ul className="space-y-1 text-sm">
+          <div className="border border-black/10 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold mb-3">Location Details</h3>
+            <ul className="text-sm space-y-2 opacity-80">
+              <li>Larimer Square, Downtown Denver</li>
               <li>
-                <strong>Neighborhood:</strong> {loc.neighborhoods}
-              </li>
-              <li>
-                <strong>Landmarks:</strong> {loc.landmarks}
-              </li>
-              <li>
-                <strong>Map:</strong>{" "}
-                <a className="underline" href={loc.mapUrl} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={loc.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
                   View on Google Maps
                 </a>
               </li>
               <li>
-                <strong>Phone:</strong>{" "}
+                Phone:{" "}
                 <a href={`tel:${loc.phoneDigits}`} className="underline">
                   {loc.phone}
                 </a>
               </li>
             </ul>
           </div>
+        </div>
+      </section>
 
-          {/* FAQs */}
-          <div className="bg-white rounded-2xl p-6 shadow md:col-span-2">
-            <h2 className="text-xl font-bold mb-4">FAQs</h2>
+      {/* ----------------------------- FAQ ------------------------------ */}
+      <section className="px-6 pb-28">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-8">
+            Frequently Asked Questions
+          </h2>
 
-            {/* The Sway Way */}
-            <details className="mb-3">
-              <summary className="font-semibold">What’s unique about Sway?</summary>
-              <p className="mt-2 text-sm">
-                Drawing from cultural hubs like Barcelona and NYC, Sway blends innovative technology with traditional
-                treatments to offer a fresh, modern wellness club to enhance your well-being. At Sway, we believe in total
-                body health for long-term optimization. Designed to be a luxurious yet accessible wellness club you can
-                rejuvenate amid the city hustle. With a focus on affordability, personalized service, and scientific-backed
-                treatments, we offer a holistic approach to well-being. Sway will become your happy place that you can’t
-                live without. This time is for you.
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">What product lines do you use in your services?</summary>
-              <p className="mt-2 text-sm">
-                We use high-quality, in-demand products such as Eminence, Dr. Dennis Gross, and CauseMedic.
-              </p>
-            </details>
-
-            {/* Scheduling */}
-            <details className="mb-3">
-              <summary className="font-semibold">How can I schedule a treatment?</summary>
-              <p className="mt-2 text-sm">
-                You can <a className="underline" href="/book">book online</a>, use our app, call{" "}
-                <a className="underline" href={`tel:${loc.phoneDigits}`}>(303) 476-6150</a>, or walk in (we recommend booking ahead).
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">Do you have a cancellation policy?</summary>
-              <p className="mt-2 text-sm">
-                We require at least 24 hours’ notice for cancellations or rescheduling. Cancellations within 24 hours or
-                no-shows are subject to a 50% fee of the scheduled treatment price.
-              </p>
-            </details>
-
-            {/* Know Before You Go */}
-            <details className="mb-3">
-              <summary className="font-semibold">Where is the best place to park?</summary>
-              <p className="mt-2 text-sm">
-                We validate parking for the 1st hour at the Larimer Square Parking Garage. After the first hour, rates apply.
-                <br />
-                Parking Address: 1422 Market Street, Denver CO 80202
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">When should I arrive?</summary>
-              <p className="mt-2 text-sm">
-                Please arrive at least 15 minutes prior to your treatment time. Enjoy lemon water or our signature wellness tea.
-                Members have access to lockers, spa robes, sandals, aromatherapy neck pillows, and snacks in our member lounge.
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">Late Arrival Policy</summary>
-              <p className="mt-2 text-sm">
-                If you arrive late, your treatment time may be shortened to avoid delays for the next guest, and full treatment
-                fees will still apply.
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">Do you have showers at your Spa?</summary>
-              <p className="mt-2 text-sm">Yes, we have showers available for guest use.</p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">Is there a place to store my belongings at your Spa?</summary>
-              <p className="mt-2 text-sm">
-                Members have access to lockers for storing personal belongings. Please note that Sway is not responsible for any
-                lost or stolen items.
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">
-                I booked online and I cannot seem to complete my welcome forms. What should I do?
+          {[
+            {
+              q: "Where should I park when visiting Sway Larimer?",
+              a: "Sway Larimer is located on Larimer Square in downtown Denver. Nearby parking garages and street parking are available throughout the area. We recommend allowing a few extra minutes during evenings and weekends."
+            },            
+            {
+              q: "What makes Sway Larimer different?",
+              a: "Sway blends modern wellness technology with traditional treatments in a calm, urban setting designed for consistency and real life.",
+            },
+            {
+              q: "How do I book a massage or facial?",
+              a: "You can book online, by phone, or walk in. We recommend booking ahead during evenings and weekends.",
+            },
+            {
+              q: "Is Sway Larimer walkable from Union Station?",
+              a: "Yes. We’re a short walk from Union Station and centrally located in Larimer Square.",
+            },
+            {
+              q: "When should I arrive?",
+              a: "Please arrive about 15 minutes early to check in and settle into the space.",
+            },
+          ].map((item) => (
+            <details
+              key={item.q}
+              className="border-b border-black/10 py-4"
+            >
+              <summary className="cursor-pointer font-medium">
+                {item.q}
               </summary>
-              <p className="mt-2 text-sm">
-                Please update your profile with your phone number. If you prefer, you can call the Spa to complete the forms,
-                or email <a className="underline" href="mailto:contact@swaywellnessspa.com">contact@swaywellnessspa.com</a> for help.
-              </p>
+              <p className="mt-3 text-sm opacity-80">{item.a}</p>
             </details>
+          ))}
+        </div>
+      </section>
 
-            {/* ClassPass */}
-            <details className="mb-3">
-              <summary className="font-semibold">
-                I booked through ClassPass and I cannot seem to complete my welcome forms. What should I do?
-              </summary>
-              <p className="mt-2 text-sm">
-                Enter “0000” for the last four digits of your phone number to access the profile section, then update your phone.
-              </p>
-            </details>
+      {/* ----------------------------- FINAL CTA ------------------------------ */}
+      <section className="px-6 pb-24">
+        <div className="max-w-6xl mx-auto rounded-3xl border border-black/10 p-10 sm:p-12 text-center">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold">
+            Reset in the heart of Denver.
+          </h3>
+          <p className="mt-3 opacity-80">
+            Book your massage, facial, or recovery session at Sway Larimer.
+          </p>
 
-            {/* Remedy Room */}
-            <details className="mb-3">
-              <summary className="font-semibold">
-                I am interested in booking the Remedy Room. Will I be with other guests or alone?
-              </summary>
-              <p className="mt-2 text-sm">
-                The Remedy Room is a communal space that can accommodate 3–4 guests at a time. For private options, please call the Spa.
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">
-                I am interested in booking the Remedy Room. What should I wear?
-              </summary>
-              <p className="mt-2 text-sm">
-                Because it’s a communal space, please wear a swimsuit or athletic wear.
-              </p>
-            </details>
-
-            {/* Robot Massage */}
-            <details className="mb-3">
-              <summary className="font-semibold">
-                For the Robot Massage, do I need to bring or wear anything specific?
-              </summary>
-              <p className="mt-2 text-sm">
-                During the Aescape Treatment, you’ll be provided with Airwear (a form-fitting outfit). Ensure your Aescape profile
-                is updated with your smallest “fit” size.
-              </p>
-            </details>
-
-            {/* Pregnancy / Minors */}
-            <details className="mb-3">
-              <summary className="font-semibold">I am pregnant. Can I receive any of your services?</summary>
-              <p className="mt-2 text-sm">
-                Yes! First trimester: pregnancy-safe facials. Second trimester: 50-minute Maternity Massage + pregnancy-safe facials.
-              </p>
-            </details>
-
-            <details className="mb-3">
-              <summary className="font-semibold">
-                I would like to enjoy services with my teen. What is your Minor Policy?
-              </summary>
-              <p className="mt-2 text-sm">
-                Please call the Spa for details. A Minor Policy Intake Form must be completed by the parent or legal guardian of any minor.
-              </p>
-            </details>
-
-            {/* Celebrate With Us */}
-            <details className="mb-3">
-              <summary className="font-semibold">If I want to book a Spalebration, who should I contact?</summary>
-              <p className="mt-2 text-sm">
-                Email <a className="underline" href="mailto:contact@swaywellnessspa.com">contact@swaywellnessspa.com</a>. We’d love to host you!
-              </p>
-            </details>
-
-            <details>
-              <summary className="font-semibold">
-                If my company wants to have an office party at Sway, who should I contact?
-              </summary>
-              <p className="mt-2 text-sm">
-                Email <a className="underline" href="mailto:contact@swaywellnessspa.com">contact@swaywellnessspa.com</a>. We’ll accommodate your team!
-              </p>
-            </details>
+          <div className="mt-6">
+            <Link
+              href="/locations/denver-larimer/book"
+              className="inline-block bg-[#113D33] text-white px-7 py-3 rounded-full text-sm font-medium hover:bg-[#0c2a23] transition"
+            >
+              Book Your Session
+            </Link>
           </div>
         </div>
       </section>

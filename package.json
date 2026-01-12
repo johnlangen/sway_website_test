@@ -6,11 +6,11 @@
   "scripts": {
     "build": "next build",
     "postexport": "echo '' > out/.nojekyll && echo 'swaywellnessspa.com' > out/CNAME",
-    "deploy": "npm run build && npm run postexport && gh-pages -d out --dotfiles",
+    "deploy": "npm run build && npm run postexport && gh-pages -d out --dotfiles --no-history",
     "dev": "next dev",
     "start": "next start",
     "sitemap": "next-sitemap"
-  },
+  },  
   "dependencies": {
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",

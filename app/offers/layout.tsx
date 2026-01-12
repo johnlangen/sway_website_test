@@ -4,22 +4,22 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Spa Offers & Deals | Sway Wellness Spa",
   description:
-    "Discover exclusive spa offers at Sway Wellness Spa. Select your location — Denver now open, Dallas and Georgetown coming soon.",
+    "Explore current spa offers and promotions at Sway Wellness Spa. Offers vary by location — select your spa to view available deals.",
   alternates: {
     canonical: "/offers/",
   },
   openGraph: {
     type: "website",
-    url: "/offers/",
+    url: "https://swaywellnessspa.com/offers/",
     title: "Spa Offers & Deals | Sway Wellness Spa",
     description:
-      "Discover exclusive spa offers at Sway Wellness Spa. Select your location — Denver now open, Dallas and Georgetown coming soon.",
+      "Explore current spa offers and promotions at Sway Wellness Spa. Offers vary by location.",
     images: [
       {
         url: "/assets/og-offers-hub.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Offers Hub",
+        alt: "Sway Wellness Spa Offers",
       },
     ],
   },
@@ -27,10 +27,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Spa Offers & Deals | Sway Wellness Spa",
     description:
-      "Discover exclusive spa offers at Sway Wellness Spa. Select your location — Denver now open, Dallas and Georgetown coming soon.",
+      "Explore current spa offers and promotions at Sway Wellness Spa. Offers vary by location.",
     images: ["/assets/og-offers-hub.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function OffersLayout({
@@ -38,15 +41,24 @@ export default function OffersLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // JSON-LD for hub (Breadcrumbs + OfferCatalog)
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-          { "@type": "ListItem", position: 2, name: "Offers", item: "https://swaywellnessspa.com/offers/" },
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://swaywellnessspa.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Offers",
+            item: "https://swaywellnessspa.com/offers/",
+          },
         ],
       },
       {
@@ -54,7 +66,7 @@ export default function OffersLayout({
         name: "Sway Wellness Spa Offers",
         url: "https://swaywellnessspa.com/offers/",
         description:
-          "Exclusive spa offers and membership deals at Sway Wellness Spa. Browse offers by location: Denver open now; Dallas and Georgetown coming soon.",
+          "Current spa offers and promotions at Sway Wellness Spa. Offers vary by location.",
       },
     ],
   };
@@ -63,7 +75,6 @@ export default function OffersLayout({
     <>
       <script
         type="application/ld+json"
-        // Server component: safe to inline JSON-LD here
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       {children}

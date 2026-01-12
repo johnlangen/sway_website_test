@@ -3,69 +3,97 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Script from "next/script";
+
+type SelectedLocation = {
+  slug: string;
+  name: string;
+};
 
 export default function MembershipHubPage() {
-  const [showHub, setShowHub] = useState(false);
+  const [selectedLocation, setSelectedLocation] =
+    useState<SelectedLocation | null>(null);
 
   useEffect(() => {
-    const ls = localStorage.getItem("sway_selected_location");
-    if (ls) {
-      try {
-        const loc = JSON.parse(ls);
-        if (loc?.slug) {
-          document.cookie = `sway_loc=${loc.slug}; path=/; max-age=${
-            60 * 60 * 24 * 365
-          }`;
-          window.location.replace(`/locations/${loc.slug}/membership`);
-          return;
-        }
-      } catch {}
-    }
-    setShowHub(true);
+    try {
+      const ls = localStorage.getItem("sway_selected_location");
+      if (ls) {
+        setSelectedLocation(JSON.parse(ls));
+      }
+    } catch {}
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-6 pt-28 pb-16 font-vance">
-      <Script id="membership-pre-redirect" strategy="beforeInteractive">
-        {`
-          (function(){
-            try {
-              var m = document.cookie.match(/(?:^|;\\s*)sway_loc=([^;]+)/);
-              var slug = m && m[1];
-              if (slug) {
-                window.location.replace('/locations/' + slug + '/membership');
-              }
-            } catch (e) {}
-          })();
-        `}
-      </Script>
+    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance px-6 pt-28 pb-20">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          Join the Club
+        </h1>
 
-      {showHub && (
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6">Join the Club</h1>
-          <p className="mb-6">
-            Choose your Sway location to see membership options and founding-member perks.
-          </p>
+        <p className="mb-8 text-[#0e2b24]">
+          Sway memberships unlock exclusive pricing, perks, and access.
+          Membership options vary by location — select your spa to explore plans.
+        </p>
 
-          <div className="space-y-3">
-            <Link className="underline" href="/locations/denver-larimer/membership">
-              Sway Larimer — Denver, CO
-            </Link>
-            <span className="block opacity-70">Sway Dallas — Dallas, TX (coming soon)</span>
-            <span className="block opacity-70">Sway Georgetown — Washington, DC (coming soon)</span>
-          </div>
-
-          <div className="mt-10">
+        {/* Selected location shortcut */}
+        {selectedLocation && (
+          <div className="mb-10 rounded-2xl bg-white shadow-sm p-6">
+            <p className="mb-3 text-sm text-gray-700">
+              Your selected location:
+            </p>
+            <p className="font-semibold mb-4">
+              {selectedLocation.name}
+            </p>
             <Link
-              href="/locations"
-              className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-xl"
+              href={`/locations/${selectedLocation.slug}/membership`}
+              className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-xl font-semibold"
             >
-              Find a location
+              View Memberships
             </Link>
           </div>
+        )}
+
+        {/* Location list */}
+        <div className="space-y-4">
+          <Link
+            href="/locations/denver-larimer/membership"
+            className="block underline"
+          >
+            Sway Larimer — Denver, CO
+          </Link>
+
+          <span className="block opacity-60">
+            Sway Dallas — Dallas, TX (coming soon)
+          </span>
+
+          <span className="block opacity-60">
+            Sway Georgetown — Washington, DC (coming soon)
+          </span>
         </div>
-      )}
+
+        {/* Secondary navigation */}
+        <div className="mt-12 flex flex-wrap gap-3">
+          <Link
+            href="/massages"
+            className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-xl"
+          >
+            Explore Massages
+          </Link>
+
+          <Link
+            href="/facials"
+            className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-xl"
+          >
+            Explore Facials
+          </Link>
+
+          <Link
+            href="/book"
+            className="inline-block bg-[#4A776D] hover:bg-[#3a5f56] text-white px-5 py-3 rounded-xl"
+          >
+            Book Now
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }

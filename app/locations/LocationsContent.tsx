@@ -187,7 +187,14 @@ export default function LocationsContent() {
       <div className="max-w-6xl mx-auto px-4 md:px-6 pt-24 md:pt-32 pb-16">
         {/* Header */}
         <div className="mb-6 md:mb-8 flex items-center justify-between gap-4">
-          <h1 className="text-2xl md:text-4xl font-bold">Find Your Sway</h1>
+          <div>
+            <h1 className="text-2xl md:text-4xl font-bold">Find Your Sway</h1>
+            <p className="mt-2 text-sm md:text-base opacity-80 max-w-xl">
+              Explore Sway Wellness Spa locations across the U.S., with our Denver
+              Larimer Square spa open now and more cities coming soon.
+            </p>
+          </div>
+
           <button
             onClick={useMyLocation}
             className="hidden md:inline-flex rounded-full px-4 py-2 bg-[#113D33] text-white hover:opacity-90 shadow"
@@ -195,6 +202,7 @@ export default function LocationsContent() {
             Use my location
           </button>
         </div>
+
 
         {/* Search */}
         <div className="flex gap-3 md:gap-4 mb-6">

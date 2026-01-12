@@ -1,38 +1,37 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sauna Therapy | Sway Wellness Spa",
+  title: "Sauna in Denver | Sway Wellness Spa Larimer Square",
   description:
-    "Relax, recover, and reset with traditional sauna therapy at Sway Wellness Spa in Denver. Improve circulation, reduce stress, and support recovery.",
+    "Relax and recover with sauna therapy at Sway Wellness Spa in Larimer Square, Denver. Support circulation, reduce stress, and enhance recovery.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/sauna",
+    canonical: "/locations/denver-larimer/sauna/",
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/sauna",
-    title: "Sauna Therapy | Sway Wellness Spa",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/sauna/",
+    title: "Sauna in Denver | Sway Wellness Spa Larimer Square",
     description:
-      "Experience traditional sauna therapy at Sway Wellness Spa in Denver for recovery, relaxation, and overall wellness.",
+      "Sauna therapy in Denver at Sway Wellness Spa (Larimer Square). Relax, recover, and reset.",
     images: [
       {
         url: "/assets/OG/og-sauna.jpg",
         width: 1200,
         height: 630,
-        alt: "Sauna at Sway Wellness Spa",
+        alt: "Sauna at Sway Wellness Spa Denver",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sauna Therapy | Sway Wellness Spa",
+    title: "Sauna in Denver | Sway Wellness Spa Larimer Square",
     description:
-      "Traditional sauna therapy to support recovery, circulation, and stress relief at Sway Wellness Spa.",
+      "Sauna therapy in Denver at Sway Wellness Spa (Larimer Square).",
     images: ["/assets/OG/og-sauna.jpg"],
   },
   robots: { index: true, follow: true },
 };
 
-// Breadcrumb schema
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -46,13 +45,24 @@ const breadcrumbJsonLd = {
     {
       "@type": "ListItem",
       position: 2,
+      name: "Locations",
+      item: "https://swaywellnessspa.com/locations",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Denver – Larimer Square",
+      item: "https://swaywellnessspa.com/locations/denver-larimer/",
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
       name: "Sauna",
-      item: "https://swaywellnessspa.com/sauna",
+      item: "https://swaywellnessspa.com/locations/denver-larimer/sauna/",
     },
   ],
 };
 
-// Service schema (NOT infrared)
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -60,8 +70,8 @@ const serviceJsonLd = {
   provider: {
     "@type": "LocalBusiness",
     name: "Sway Wellness Spa",
-    image: "https://swaywellnessspa.com/assets/OG/og-sauna.jpg",
     url: "https://swaywellnessspa.com",
+    image: "https://swaywellnessspa.com/assets/OG/og-sauna.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Larimer St",
@@ -70,11 +80,15 @@ const serviceJsonLd = {
       addressCountry: "USA",
     },
   },
+  areaServed: {
+    "@type": "City",
+    name: "Denver",
+  },
   description:
-    "Traditional sauna therapy at Sway Wellness Spa to support relaxation, circulation, muscle recovery, and overall wellness.",
+    "Sauna therapy in Denver at Sway Wellness Spa (Larimer Square) to support relaxation, circulation, and recovery.",
 };
 
-export default function SaunaLayout({
+export default function LarimerSaunaLayout({
   children,
 }: {
   children: React.ReactNode;
