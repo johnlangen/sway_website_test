@@ -4,13 +4,20 @@
   "private": true,
   "homepage": "https://swaywellnessspa.com",
   "scripts": {
-    "build": "next build",
-    "postexport": "echo '' > out/.nojekyll && echo 'swaywellnessspa.com' > out/CNAME",
-    "deploy": "npm run build && npm run postexport && gh-pages -d out --dotfiles --no-history",
     "dev": "next dev",
+
+    "build": "next build",
+
     "start": "next start",
-    "sitemap": "next-sitemap"
-  },  
+
+    "sitemap": "next-sitemap",
+
+    "postexport": "echo '' > out/.nojekyll && echo 'swaywellnessspa.com' > out/CNAME",
+
+    "deploy:gh": "npm run build && npm run postexport && gh-pages -d out --dotfiles --no-history",
+
+    "deploy:vercel": "next build"
+  },
   "dependencies": {
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",

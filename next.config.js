@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ❌ remove output: "export"
-  output: 'export',
+  // output: "export",
 
   trailingSlash: true,
   images: {
