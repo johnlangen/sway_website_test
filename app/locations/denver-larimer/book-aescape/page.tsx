@@ -444,19 +444,50 @@ export default function BookAescapePage() {
   }, [step, cardContext]);
 
   /* ---------------------------------------------
+     DISABLE GLOBAL SCROLL-SNAP ON THIS PAGE (mobile fix)
+  --------------------------------------------- */
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    const prevHtmlSnap = html.style.scrollSnapType;
+    const prevBodySnap = body.style.scrollSnapType;
+
+    // Prevent “snapping” into footer/other sections if your site uses scroll-snap globally.
+    html.style.scrollSnapType = "none";
+    body.style.scrollSnapType = "none";
+
+    return () => {
+      html.style.scrollSnapType = prevHtmlSnap;
+      body.style.scrollSnapType = prevBodySnap;
+    };
+  }, []);
+
+  /* ---------------------------------------------
      MOBILE STEP SCROLL (UI ONLY)
   --------------------------------------------- */
 
   function scrollToStep(ref: React.RefObject<HTMLDivElement | null>) {
     if (!ref.current) return;
 
-    const OFFSET = 140;
+    const headerEl = document.querySelector(
+      '[data-booking-header="true"]'
+    ) as HTMLElement | null;
 
-    const y =
-      ref.current.getBoundingClientRect().top + window.scrollY - OFFSET;
+    const headerH = headerEl?.offsetHeight ?? 0;
+
+    const rect = ref.current.getBoundingClientRect();
+    const absoluteY = rect.top + window.scrollY;
+
+    // Center the card within the usable viewport (below sticky header)
+    const usableHeight = Math.max(0, window.innerHeight - headerH);
+    const centerOffset = Math.max(0, (usableHeight - rect.height) / 2);
+
+    const targetY = Math.max(0, absoluteY - headerH - centerOffset);
 
     window.scrollTo({
-      top: Math.max(0, y),
+      top: targetY,
       behavior: "smooth",
     });
   }
@@ -478,8 +509,11 @@ export default function BookAescapePage() {
     };
 
     const target = map[step];
-    // Scroll after render/layout settles
-    requestAnimationFrame(() => scrollToStep(target));
+
+    // Scroll after render/layout settles (and after images/layout have a moment)
+    requestAnimationFrame(() => {
+      setTimeout(() => scrollToStep(target), 0);
+    });
   }, [step]);
 
   /* ---------------------------------------------
@@ -848,44 +882,6 @@ export default function BookAescapePage() {
     return Array.from({ length: 12 }, (_, i) => String(currentYear + i));
   }, []);
 
-  // Mobile-only bottom CTA config
-  let mobileCta:
-    | {
-        label: string;
-        onClick: () => void;
-        disabled?: boolean;
-      }
-    | null = null;
-
-  if (step === "select") {
-    mobileCta = {
-      label: "Continue",
-      onClick: () => {
-        setError(null);
-        setStep("email");
-      },
-      disabled: !selectedTime,
-    };
-  } else if (step === "email") {
-    mobileCta = {
-      label: "Continue",
-      onClick: handleConfirmBooking,
-      disabled: !selectedTime || !isValidEmail(email),
-    };
-  } else if (step === "card") {
-    mobileCta = {
-      label: cardSaving ? "Saving…" : "Save & continue",
-      onClick: handleSaveCardAndContinue,
-      disabled: cardSaving,
-    };
-  } else if (step === "confirm") {
-    mobileCta = {
-      label: "Confirm & book",
-      onClick: handleFinalConfirmAndBook,
-      disabled: bookingLock.current,
-    };
-  }
-
   /* ---------------------------------------------
      RENDER
   --------------------------------------------- */
@@ -895,39 +891,42 @@ export default function BookAescapePage() {
   const showHeaderBack =
     step === "email" || step === "card" || step === "confirm";
 
-  const showMobileCta =
-    mobileCta && step !== "booking" && step !== "done" ? true : false;
-
   return (
-    <div className="min-h-screen bg-[#F7F4E9] font-vance">
-      {/* Sticky top flow header (Airbnb style) */}
+    <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">
+      {/* Sticky top flow header */}
       {showHeader && (
-        <div className="sticky top-0 z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur">
+        <div
+          data-booking-header="true"
+          className="sticky top-0 z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur"
+        >
           <div className="max-w-3xl mx-auto flex items-center justify-between px-4 py-3">
             {showHeaderBack ? (
               <button
                 type="button"
                 onClick={handleHeaderBack}
-                className="flex items-center text-xs text-[#113D33]/80"
+                className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-[#113D33] hover:bg-white/60 active:bg-white/80 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/25"
+                aria-label="Go back"
               >
-                <span className="mr-1">&larr;</span>
-                <span>Back</span>
+                <span className="text-lg leading-none">←</span>
+                <span className="font-semibold">Back</span>
               </button>
             ) : (
-              <span className="w-10" />
+              <span className="w-16" />
             )}
-            <div className="text-sm font-semibold text-[#113D33]">
+
+            <div className="text-sm md:text-base font-semibold text-[#113D33]">
               {stepTitle}
             </div>
-            <span className="w-10" />
+
+            <span className="w-16" />
           </div>
         </div>
       )}
 
-      <div className="px-4 pt-40 pb-24">
+      <div className="px-4 pt-10 md:pt-16 pb-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Header / Hero */}
-          <div className="mb-8">
+          <div className="mb-8 md:mb-10">
             <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
               Book Your Aescape Robot Massage
             </h1>
@@ -973,7 +972,7 @@ export default function BookAescapePage() {
           </div>
 
           {/* SUMMARY */}
-          <div className="mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
+          <div className="mb-8 md:mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
             <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
               Your selection
             </div>
@@ -985,7 +984,7 @@ export default function BookAescapePage() {
           {step === "select" && (
             <div ref={selectRef}>
               {/* SESSION */}
-              <section className="mb-14">
+              <section className="mb-12 md:mb-14">
                 <h2 className="text-xl font-semibold mb-4">
                   1. Choose Your Session
                 </h2>
@@ -1069,7 +1068,7 @@ export default function BookAescapePage() {
               </section>
 
               {/* DAY PICKER */}
-              <section className="mb-14">
+              <section className="mb-12 md:mb-14">
                 <h2 className="text-xl font-semibold mb-4">2. Choose a Day</h2>
 
                 <div className="flex items-center justify-center gap-2">
@@ -1109,9 +1108,7 @@ export default function BookAescapePage() {
                           }`}
                         >
                           <div className="flex flex-col items-center leading-none">
-                            <div className="text-sm font-semibold">
-                              {label}
-                            </div>
+                            <div className="text-sm font-semibold">{label}</div>
                             <div
                               className={`text-[11px] mt-2 ${
                                 selected ? "text-white/80" : "text-[#113D33]/60"
@@ -1136,7 +1133,7 @@ export default function BookAescapePage() {
               </section>
 
               {/* TIMES */}
-              <section className="mb-10 text-left">
+              <section className="mb-8 md:mb-10 text-left">
                 <div className="flex items-center justify-between gap-4 mb-4">
                   <h2 className="text-xl font-semibold text-center flex-1">
                     3. Choose a Time
@@ -1200,26 +1197,28 @@ export default function BookAescapePage() {
                 )}
               </section>
 
-              {/* Desktop-only primary CTA; mobile uses sticky bottom bar */}
-              <button
-                disabled={!selectedTime}
-                onClick={() => {
-                  setError(null);
-                  setStep("email");
-                }}
-                className="hidden md:inline-flex px-10 py-4 rounded-full bg-[#113D33] text-white font-bold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Continue
-              </button>
-
-              <div className="mt-6 text-center text-xs text-[#113D33]/60">
-                Prefer to book with staff?{" "}
-                <a
-                  className="underline underline-offset-4"
-                  href="tel:3034766150"
+              {/* Primary CTA (now visible on mobile too; no bottom bar) */}
+              <div className="max-w-md mx-auto">
+                <button
+                  disabled={!selectedTime}
+                  onClick={() => {
+                    setError(null);
+                    setStep("email");
+                  }}
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 >
-                  Call (303) 476-6150
-                </a>
+                  Continue
+                </button>
+
+                <div className="mt-5 text-center text-xs text-[#113D33]/60">
+                  Prefer to book with staff?{" "}
+                  <a
+                    className="underline underline-offset-4"
+                    href="tel:3034766150"
+                  >
+                    Call (303) 476-6150
+                  </a>
+                </div>
               </div>
             </div>
           )}
@@ -1227,350 +1226,351 @@ export default function BookAescapePage() {
           {step === "email" && (
             <div
               ref={emailRef}
-              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+              className="min-h-[calc(100vh-320px)] flex items-start justify-center"
             >
-              <h2 className="text-xl font-semibold mb-2 text-center">
-                Enter your email to reserve
-              </h2>
-              <p className="text-sm text-[#113D33]/75 mb-4 text-center">
-                This helps us find (or create) your Mindbody account.
-              </p>
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+                <h2 className="text-xl font-semibold mb-2 text-center">
+                  Enter your email to reserve
+                </h2>
+                <p className="text-sm text-[#113D33]/75 mb-4 text-center">
+                  This helps us find (or create) your Mindbody account.
+                </p>
 
-              <div className="rounded-xl border border-[#113D33]/15 bg-white/70 p-4 mb-4">
-                <div className="flex items-start gap-3">
-                  <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                  <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                    We only use your email for booking confirmation and account
-                    lookup.
-                  </p>
+                <div className="rounded-xl border border-[#113D33]/15 bg-white/70 p-4 mb-4">
+                  <div className="flex items-start gap-3">
+                    <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
+                    <p className="text-sm text-[#113D33]/80 leading-relaxed">
+                      We only use your email for booking confirmation and account
+                      lookup.
+                    </p>
+                  </div>
                 </div>
+
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  inputMode="email"
+                  autoComplete="email"
+                  name="email"
+                  placeholder="you@email.com"
+                  className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                />
+
+                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+
+                <button
+                  disabled={!selectedTime || !isValidEmail(email)}
+                  onClick={handleConfirmBooking}
+                  className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Continue
+                </button>
+
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setStep("select");
+                  }}
+                  className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Back
+                </button>
               </div>
-
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                inputMode="email"
-                autoComplete="email"
-                name="email"
-                placeholder="you@email.com"
-                className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              />
-
-              {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
-
-              {/* Desktop buttons; mobile uses sticky bottom CTA + header back */}
-              <button
-                disabled={!selectedTime || !isValidEmail(email)}
-                onClick={handleConfirmBooking}
-                className="hidden md:block w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Continue
-              </button>
-
-              <button
-                onClick={() => {
-                  setError(null);
-                  setStep("select");
-                }}
-                className="hidden md:block w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Back
-              </button>
             </div>
           )}
 
           {step === "card" && (
             <div
               ref={cardRef}
-              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+              className="min-h-[calc(100vh-320px)] flex items-start justify-center"
             >
-              <h2 className="text-xl font-semibold mb-2 text-center">
-                {cardContext === "create_account"
-                  ? "Create your account"
-                  : "Add a card to your account"}
-              </h2>
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+                <h2 className="text-xl font-semibold mb-2 text-center">
+                  {cardContext === "create_account"
+                    ? "Create your account"
+                    : "Add a card to your account"}
+                </h2>
 
-              <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 p-4 mb-5">
-                <div className="flex items-start gap-3">
-                  <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                  <div>
-                    <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                      No charge today — your card is only used to{" "}
-                      <span className="font-semibold">
-                        hold the appointment
-                      </span>{" "}
-                      for late cancellation or no-show protection.
-                    </p>
-                    <div className="mt-3">
-                      <CardBrandPills />
+                <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 p-4 mb-5">
+                  <div className="flex items-start gap-3">
+                    <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-[#113D33]/80 leading-relaxed">
+                        No charge today — your card is only used to{" "}
+                        <span className="font-semibold">
+                          hold the appointment
+                        </span>{" "}
+                        for late cancellation or no-show protection.
+                      </p>
+                      <div className="mt-3">
+                        <CardBrandPills />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {cardContext === "create_account" && (
+                {cardContext === "create_account" && (
+                  <div className="grid grid-cols-1 gap-3 mb-4">
+                    <input
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      autoComplete="given-name"
+                      name="firstName"
+                      placeholder="First name"
+                      className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    />
+                    <input
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      autoComplete="family-name"
+                      name="lastName"
+                      placeholder="Last name"
+                      className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    />
+                    <input
+                      value={mobilePhone}
+                      onChange={(e) => setMobilePhone(e.target.value)}
+                      inputMode="tel"
+                      autoComplete="tel"
+                      name="mobilePhone"
+                      placeholder="Mobile phone"
+                      className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    />
+                  </div>
+                )}
+
+                {/* Card fields (uncontrolled) */}
                 <div className="grid grid-cols-1 gap-3 mb-4">
                   <input
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    autoComplete="given-name"
-                    name="firstName"
-                    placeholder="First name"
-                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  />
-                  <input
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    autoComplete="family-name"
-                    name="lastName"
-                    placeholder="Last name"
-                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  />
-                  <input
-                    value={mobilePhone}
-                    onChange={(e) => setMobilePhone(e.target.value)}
-                    inputMode="tel"
-                    autoComplete="tel"
-                    name="mobilePhone"
-                    placeholder="Mobile phone"
-                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  />
-                </div>
-              )}
-
-              {/* Card fields (uncontrolled) */}
-              <div className="grid grid-cols-1 gap-3 mb-4">
-                <input
-                  ref={cardHolderRef}
-                  autoComplete="off"
-                  name="cc-name"
-                  data-lpignore="true"
-                  data-1p-ignore
-                  placeholder="Name on card"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
-
-                <input
-                  ref={cardNumberRef}
-                  autoComplete="off"
-                  name="cc-number"
-                  data-lpignore="true"
-                  data-1p-ignore
-                  inputMode="numeric"
-                  placeholder="Card number"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
-
-                <div className="grid grid-cols-3 gap-3">
-                  {/* Month dropdown (UI-only; still read via ref) */}
-                  <select
-                    ref={expMonthRef}
-                    name="cc-exp-month"
+                    ref={cardHolderRef}
                     autoComplete="off"
-                    data-lpignore="true"
-                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                    defaultValue=""
-                    aria-label="Expiration month"
-                  >
-                    <option value="" disabled>
-                      MM
-                    </option>
-                    {expMonthOptions.map((m) => (
-                      <option key={m} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
-
-                  {/* Year dropdown (forces full year, e.g. 2028) */}
-                  <select
-                    ref={expYearRef}
-                    name="cc-exp-year"
-                    autoComplete="off"
-                    data-lpignore="true"
-                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                    defaultValue=""
-                    aria-label="Expiration year"
-                  >
-                    <option value="" disabled>
-                      YYYY
-                    </option>
-                    {expYearOptions.map((y) => (
-                      <option key={y} value={y}>
-                        {y}
-                      </option>
-                    ))}
-                  </select>
-
-                  <input
-                    ref={postalCodeRef}
-                    autoComplete="off"
-                    name="postalCode"
+                    name="cc-name"
                     data-lpignore="true"
                     data-1p-ignore
-                    placeholder="ZIP"
+                    placeholder="Name on card"
                     className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
+
+                  <input
+                    ref={cardNumberRef}
+                    autoComplete="off"
+                    name="cc-number"
+                    data-lpignore="true"
+                    data-1p-ignore
+                    inputMode="numeric"
+                    placeholder="Card number"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
+
+                  <div className="grid grid-cols-3 gap-3">
+                    {/* Month dropdown (UI-only; still read via ref) */}
+                    <select
+                      ref={expMonthRef}
+                      name="cc-exp-month"
+                      autoComplete="off"
+                      data-lpignore="true"
+                      className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                      defaultValue=""
+                      aria-label="Expiration month"
+                    >
+                      <option value="" disabled>
+                        MM
+                      </option>
+                      {expMonthOptions.map((m) => (
+                        <option key={m} value={m}>
+                          {m}
+                        </option>
+                      ))}
+                    </select>
+
+                    {/* Year dropdown (forces full year, e.g. 2028) */}
+                    <select
+                      ref={expYearRef}
+                      name="cc-exp-year"
+                      autoComplete="off"
+                      data-lpignore="true"
+                      className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                      defaultValue=""
+                      aria-label="Expiration year"
+                    >
+                      <option value="" disabled>
+                        YYYY
+                      </option>
+                      {expYearOptions.map((y) => (
+                        <option key={y} value={y}>
+                          {y}
+                        </option>
+                      ))}
+                    </select>
+
+                    <input
+                      ref={postalCodeRef}
+                      autoComplete="off"
+                      name="postalCode"
+                      data-lpignore="true"
+                      data-1p-ignore
+                      placeholder="ZIP"
+                      className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Trust microcopy (simplified) */}
-              <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
-                <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
-                  <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                  <span>
-                    We don’t charge today — this only reserves your slot.
-                  </span>
+                {/* Trust microcopy (simplified) */}
+                <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
+                  <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
+                    <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
+                    <span>We don’t charge today — this only reserves your slot.</span>
+                  </div>
                 </div>
+
+                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+
+                <button
+                  onClick={handleSaveCardAndContinue}
+                  disabled={cardSaving}
+                  className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  {cardSaving ? "Saving…" : "Save & continue"}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setError(null);
+                    clearCardRefs();
+                    setStep("email");
+                  }}
+                  className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Back
+                </button>
+
+                <a
+                  href="tel:3034766150"
+                  className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Call to book: (303) 476-6150
+                </a>
+
+                <p className="text-xs opacity-60 mt-4 text-center">
+                  Using: <span className="font-semibold">{emailNormalized}</span>
+                </p>
               </div>
-
-              {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
-
-              {/* Desktop buttons; mobile uses sticky bottom CTA + header back */}
-              <button
-                onClick={handleSaveCardAndContinue}
-                disabled={cardSaving}
-                className="hidden md:block w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                {cardSaving ? "Saving…" : "Save & continue"}
-              </button>
-
-              <button
-                onClick={() => {
-                  setError(null);
-                  clearCardRefs();
-                  setStep("email");
-                }}
-                className="hidden md:block w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Back
-              </button>
-
-              <a
-                href="tel:3034766150"
-                className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Call to book: (303) 476-6150
-              </a>
-
-              <p className="text-xs opacity-60 mt-4 text-center">
-                Using: <span className="font-semibold">{emailNormalized}</span>
-              </p>
             </div>
           )}
 
           {step === "confirm" && (
             <div
               ref={confirmRef}
-              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+              className="min-h-[calc(100vh-320px)] flex items-start justify-center"
             >
-              <h2 className="text-xl font-semibold mb-2 text-center">
-                Confirm your booking
-              </h2>
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+                <h2 className="text-xl font-semibold mb-2 text-center">
+                  Confirm your booking
+                </h2>
 
-              {/* Visual summary */}
-              <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
-                <div className="relative h-40 w-full">
-                  <Image
-                    src={confirmDetails?.image || selectedOption.image}
-                    alt={confirmDetails?.session || selectedOption.label}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/20" />
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-white/90 border border-[#113D33]/15 px-3 py-1 text-xs text-[#113D33]">
-                      <IconSpark className="w-4 h-4" />
-                      You’re almost done
+                {/* Visual summary */}
+                <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
+                  <div className="relative h-40 w-full">
+                    <Image
+                      src={confirmDetails?.image || selectedOption.image}
+                      alt={confirmDetails?.session || selectedOption.label}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-white/90 border border-[#113D33]/15 px-3 py-1 text-xs text-[#113D33]">
+                        <IconSpark className="w-4 h-4" />
+                        You’re almost done
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4">
+                    <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
+                      Summary
+                    </div>
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="font-semibold text-[#113D33]">
+                          {confirmDetails?.session}
+                        </div>
+                        <div className="text-sm text-[#113D33]/80 mt-1">
+                          {confirmDetails?.dateLabel} • {confirmDetails?.timeLabel}
+                        </div>
+                        <div className="text-sm text-[#113D33]/70 mt-1">
+                          {confirmDetails?.bestFor} • {confirmDetails?.minutes} min
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm opacity-80">
+                          {confirmDetails?.price}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-4">
-                  <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
-                    Summary
-                  </div>
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="font-semibold text-[#113D33]">
-                        {confirmDetails?.session}
-                      </div>
-                      <div className="text-sm text-[#113D33]/80 mt-1">
-                        {confirmDetails?.dateLabel} •{" "}
-                        {confirmDetails?.timeLabel}
-                      </div>
-                      <div className="text-sm text-[#113D33]/70 mt-1">
-                        {confirmDetails?.bestFor} •{" "}
-                        {confirmDetails?.minutes} min
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm opacity-80">
-                        {confirmDetails?.price}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
+                  We’ll reserve this appointment under{" "}
+                  <span className="font-semibold">{emailNormalized}</span>. No
+                  charge today — your card is stored in Mindbody for no-show /
+                  late cancellation protection.
+                </p>
 
-              <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
-                We’ll reserve this appointment under{" "}
-                <span className="font-semibold">{emailNormalized}</span>. No
-                charge today — your card is stored in Mindbody for no-show / late
-                cancellation protection.
-              </p>
+                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
 
-              {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
-
-              {/* Desktop buttons; mobile uses sticky bottom CTA + header back */}
-              <button
-                onClick={handleFinalConfirmAndBook}
-                className="hidden md:block w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                disabled={bookingLock.current}
-              >
-                Confirm & book
-              </button>
-
-              <button
-                onClick={() => {
-                  setError(null);
-                  setStep("email");
-                }}
-                className="hidden md:block w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Back
-              </button>
-
-              {mindbodyBookingUrl && (
-                <a
-                  href={mindbodyBookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                <button
+                  onClick={handleFinalConfirmAndBook}
+                  className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  disabled={bookingLock.current}
                 >
-                  Manage or book in Mindbody
-                </a>
-              )}
+                  Confirm & book
+                </button>
+
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setStep("email");
+                  }}
+                  className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Back
+                </button>
+
+                {mindbodyBookingUrl && (
+                  <a
+                    href={mindbodyBookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  >
+                    Manage or book in Mindbody
+                  </a>
+                )}
+              </div>
             </div>
           )}
 
           {step === "booking" && (
             <div
               ref={bookingRef}
-              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
+              className="min-h-[calc(100vh-320px)] flex items-start justify-center"
             >
-              <p className="text-lg font-semibold text-[#113D33]">
-                Booking your appointment…
-              </p>
-              <p className="text-sm text-[#113D33]/70 mt-2">
-                Please don’t close this page.
-              </p>
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+                <p className="text-lg font-semibold text-[#113D33]">
+                  Booking your appointment…
+                </p>
+                <p className="text-sm text-[#113D33]/70 mt-2">
+                  Please don’t close this page.
+                </p>
 
-              <div className="mt-5 h-2 w-full rounded-full bg-white/60 border border-[#113D33]/10 overflow-hidden">
-                <div
-                  className="h-full bg-[#113D33] animate-pulse"
-                  style={{ width: "60%" }}
-                />
+                <div className="mt-5 h-2 w-full rounded-full bg-white/60 border border-[#113D33]/10 overflow-hidden">
+                  <div
+                    className="h-full bg-[#113D33] animate-pulse"
+                    style={{ width: "60%" }}
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -1578,71 +1578,57 @@ export default function BookAescapePage() {
           {step === "done" && (
             <div
               ref={doneRef}
-              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
+              className="min-h-[calc(100vh-320px)] flex items-start justify-center"
             >
-              <h2 className="text-2xl font-bold mb-2 text-[#113D33]">
-                You’re booked!
-              </h2>
-              <p className="text-[#113D33]/80">
-                Check your email for confirmation. We’ll see you soon.
-              </p>
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+                <h2 className="text-2xl font-bold mb-2 text-[#113D33]">
+                  You’re booked!
+                </h2>
+                <p className="text-[#113D33]/80">
+                  Check your email for confirmation. We’ll see you soon.
+                </p>
 
-              <div className="mt-6 grid grid-cols-1 gap-3">
-                {mindbodyBookingUrl && (
-                  <a
-                    href={mindbodyBookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block w-full text-center px-6 py-3 rounded-full bg-[#113D33] text-white font-semibold hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                <div className="mt-6 grid grid-cols-1 gap-3">
+                  {mindbodyBookingUrl && (
+                    <a
+                      href={mindbodyBookingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block w-full text-center px-6 py-3 rounded-full bg-[#113D33] text-white font-semibold hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    >
+                      Manage booking in Mindbody
+                    </a>
+                  )}
+
+                  <Link
+                    href="/aescape"
+                    className="inline-block w-full text-center px-6 py-3 rounded-full border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   >
-                    Manage booking in Mindbody
+                    What to expect from Aescape
+                  </Link>
+
+                  <Link
+                    href="/blog/aescape"
+                    className="inline-block w-full text-center px-6 py-3 rounded-full border border-[#113D33]/25 bg-white/60 text-[#113D33] font-semibold hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  >
+                    Read the blog
+                  </Link>
+                </div>
+
+                <div className="mt-6 text-xs text-[#113D33]/60 text-center">
+                  Need anything?{" "}
+                  <a
+                    className="underline underline-offset-4"
+                    href="tel:3034766150"
+                  >
+                    Call (303) 476-6150
                   </a>
-                )}
-
-                <Link
-                  href="/aescape"
-                  className="inline-block w-full text-center px-6 py-3 rounded-full border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                >
-                  What to expect from Aescape
-                </Link>
-
-                <Link
-                  href="/blog/aescape"
-                  className="inline-block w-full text-center px-6 py-3 rounded-full border border-[#113D33]/25 bg-white/60 text-[#113D33] font-semibold hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                >
-                  Read the blog
-                </Link>
-              </div>
-
-              <div className="mt-6 text-xs text-[#113D33]/60 text-center">
-                Need anything?{" "}
-                <a
-                  className="underline underline-offset-4"
-                  href="tel:3034766150"
-                >
-                  Call (303) 476-6150
-                </a>
+                </div>
               </div>
             </div>
           )}
         </div>
       </div>
-
-      {/* Mobile-only sticky bottom CTA (Airbnb style) */}
-      {showMobileCta && mobileCta && (
-        <div className="fixed inset-x-0 bottom-0 z-30 bg-[#F7F4E9]/95 border-t border-[#113D33]/15 px-4 py-3 md:hidden">
-          <div className="max-w-3xl mx-auto">
-            <button
-              type="button"
-              onClick={mobileCta.onClick}
-              disabled={mobileCta.disabled}
-              className="w-full py-3 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              {mobileCta.label}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
