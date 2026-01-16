@@ -169,7 +169,10 @@ function filterPreferredTimes(all: Date[]) {
   return combined;
 }
 
-function withSelectedTimeIncluded(displayTimes: Date[], selectedTime: Date | null) {
+function withSelectedTimeIncluded(
+  displayTimes: Date[],
+  selectedTime: Date | null
+) {
   if (!selectedTime) return displayTimes;
   const exists = displayTimes.some((t) => t.getTime() === selectedTime.getTime());
   if (exists) return displayTimes;
@@ -386,13 +389,18 @@ export default function BookAescapePage() {
   // Uncontrolled card input refs (so card data is never in React state)
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
-  const expMonthRef = useRef<HTMLInputElement | null>(null);
-  const expYearRef = useRef<HTMLInputElement | null>(null);
+  const expMonthRef = useRef<HTMLSelectElement | null>(null);
+  const expYearRef = useRef<HTMLSelectElement | null>(null);
   const postalCodeRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [step]);
+  // Step refs (for mobile scroll anchoring)
+  const selectRef = useRef<HTMLDivElement | null>(null);
+  const emailRef = useRef<HTMLDivElement | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const confirmRef = useRef<HTMLDivElement | null>(null);
+  const bookingRef = useRef<HTMLDivElement | null>(null);
+  const doneRef = useRef<HTMLDivElement | null>(null);
+  const didMountRef = useRef(false);
 
   const selectedOption = useMemo(
     () =>
@@ -411,7 +419,10 @@ export default function BookAescapePage() {
     return withSelectedTimeIncluded(base, selectedTime);
   }, [showAllTimes, times, selectedTime]);
 
-  const groupedTimes = useMemo(() => groupTimes(displayedTimes), [displayedTimes]);
+  const groupedTimes = useMemo(
+    () => groupTimes(displayedTimes),
+    [displayedTimes]
+  );
 
   const mindbodyBookingUrl = useMemo(() => {
     const siteId = process.env.NEXT_PUBLIC_MINDBODY_SITE_ID;
@@ -422,7 +433,10 @@ export default function BookAescapePage() {
   const stepMeta = useMemo(() => {
     const order: Step[] = ["select", "email", "card", "confirm"];
     const idx = Math.max(0, order.indexOf(step));
-    const pct = step === "booking" || step === "done" ? 100 : ((idx + 1) / order.length) * 100;
+    const pct =
+      step === "booking" || step === "done"
+        ? 100
+        : ((idx + 1) / order.length) * 100;
 
     let label = "Session & time";
     if (step === "email") label = "Email";
@@ -432,6 +446,46 @@ export default function BookAescapePage() {
     if (step === "done") label = "Complete";
 
     return { pct, label };
+  }, [step]);
+
+  /* ---------------------------------------------
+     MOBILE STEP SCROLL (UI ONLY)
+  --------------------------------------------- */
+
+  function scrollToStep(ref: React.RefObject<HTMLDivElement>) {
+    if (!ref.current) return;
+
+    // Offset for your top padding/header feel (pt-40). Keeps the next CTA in view on mobile.
+    const OFFSET = 140;
+
+    const y =
+      ref.current.getBoundingClientRect().top + window.scrollY - OFFSET;
+
+    window.scrollTo({
+      top: Math.max(0, y),
+      behavior: "smooth",
+    });
+  }
+
+  useEffect(() => {
+    // Avoid scrolling on initial mount (only when user advances steps)
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+
+    const map: Record<Step, React.RefObject<HTMLDivElement>> = {
+      select: selectRef,
+      email: emailRef,
+      card: cardRef,
+      confirm: confirmRef,
+      booking: bookingRef,
+      done: doneRef,
+    };
+
+    const target = map[step];
+    // Scroll after render/layout settles
+    requestAnimationFrame(() => scrollToStep(target));
   }, [step]);
 
   /* ---------------------------------------------
@@ -480,9 +534,10 @@ export default function BookAescapePage() {
     if (!luhnCheck(cardNumber))
       return "Card number looks invalid. Please double-check.";
     if (!expMonth || Number(expMonth) < 1 || Number(expMonth) > 12)
-      return "Please enter a valid expiration month (1–12).";
-    if (!expYear || expYear.length < 2)
-      return "Please enter a valid expiration year.";
+      return "Please select a valid expiration month.";
+    // Force full year UX (e.g. 2028) via dropdown, but keep the same payload fields/format
+    if (!expYear || expYear.length < 4)
+      return "Please select an expiration year (e.g., 2028).";
     if (!postalCode || postalCode.length < 3)
       return "Please enter a valid ZIP/postal code.";
 
@@ -778,6 +833,16 @@ export default function BookAescapePage() {
 
   const emailNormalized = useMemo(() => normalizeEmail(email), [email]);
 
+  // Exp dropdown options (UI-only; does not change payload format)
+  const expMonthOptions = useMemo(
+    () => Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0")),
+    []
+  );
+  const expYearOptions = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 12 }, (_, i) => String(currentYear + i));
+  }, []);
+
   /* ---------------------------------------------
      RENDER
   --------------------------------------------- */
@@ -808,9 +873,9 @@ export default function BookAescapePage() {
 
           <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
             Choose your session, pick a time, and we’ll reserve it for you. If
-            this is your first booking, Mindbody requires an account and a payment
-            method on file for late cancellations or no-shows (you won’t be charged
-            today).
+            this is your first booking, Mindbody requires an account and a
+            payment method on file for late cancellations or no-shows (you won’t
+            be charged today).
           </p>
 
           {/* Optional: Learn link (kept subtle; doesn’t distract mid-flow) */}
@@ -857,13 +922,14 @@ export default function BookAescapePage() {
           </div>
           {!selectedTime && (
             <div className="text-sm text-[#113D33]/60 mt-2">
-              Tip: We’ll show recommended times first (clean, easy picks). You can always view all times.
+              Tip: We’ll show recommended times first (clean, easy picks). You
+              can always view all times.
             </div>
           )}
         </div>
 
         {step === "select" && (
-          <>
+          <div ref={selectRef}>
             {/* SESSION */}
             <section className="mb-14">
               <h2 className="text-xl font-semibold mb-4">
@@ -1032,7 +1098,9 @@ export default function BookAescapePage() {
                 </div>
               )}
 
-              {loading && <p className="text-center text-[#113D33]/70">Loading…</p>}
+              {loading && (
+                <p className="text-center text-[#113D33]/70">Loading…</p>
+              )}
               {error && <p className="text-center text-red-700">{error}</p>}
 
               {!loading &&
@@ -1095,11 +1163,14 @@ export default function BookAescapePage() {
                 Call (303) 476-6150
               </a>
             </div>
-          </>
+          </div>
         )}
 
         {step === "email" && (
-          <div className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+          <div
+            ref={emailRef}
+            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+          >
             <h2 className="text-xl font-semibold mb-2 text-center">
               Enter your email to reserve
             </h2>
@@ -1111,7 +1182,8 @@ export default function BookAescapePage() {
               <div className="flex items-start gap-3">
                 <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                 <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                  We only use your email for booking confirmation and account lookup.
+                  We only use your email for booking confirmation and account
+                  lookup.
                 </p>
               </div>
             </div>
@@ -1121,6 +1193,7 @@ export default function BookAescapePage() {
               onChange={(e) => setEmail(e.target.value)}
               inputMode="email"
               autoComplete="email"
+              name="email"
               placeholder="you@email.com"
               className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
             />
@@ -1148,7 +1221,10 @@ export default function BookAescapePage() {
         )}
 
         {step === "card" && (
-          <div className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+          <div
+            ref={cardRef}
+            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+          >
             <h2 className="text-xl font-semibold mb-2 text-center">
               {cardContext === "create_account"
                 ? "Create your account"
@@ -1177,6 +1253,7 @@ export default function BookAescapePage() {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   autoComplete="given-name"
+                  name="firstName"
                   placeholder="First name"
                   className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
@@ -1184,6 +1261,7 @@ export default function BookAescapePage() {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   autoComplete="family-name"
+                  name="lastName"
                   placeholder="Last name"
                   className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
@@ -1192,6 +1270,7 @@ export default function BookAescapePage() {
                   onChange={(e) => setMobilePhone(e.target.value)}
                   inputMode="tel"
                   autoComplete="tel"
+                  name="mobilePhone"
                   placeholder="Mobile phone (optional)"
                   className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
@@ -1203,6 +1282,7 @@ export default function BookAescapePage() {
               <input
                 ref={cardHolderRef}
                 autoComplete="off"
+                name="cc-name"
                 data-lpignore="true"
                 data-1p-ignore
                 placeholder="Name on card"
@@ -1212,6 +1292,7 @@ export default function BookAescapePage() {
               <input
                 ref={cardNumberRef}
                 autoComplete="off"
+                name="cc-number"
                 data-lpignore="true"
                 data-1p-ignore
                 inputMode="numeric"
@@ -1220,27 +1301,50 @@ export default function BookAescapePage() {
               />
 
               <div className="grid grid-cols-3 gap-3">
-                <input
+                {/* Month dropdown (UI-only; still read via ref) */}
+                <select
                   ref={expMonthRef}
+                  name="cc-exp-month"
                   autoComplete="off"
                   data-lpignore="true"
-                  data-1p-ignore
-                  inputMode="numeric"
-                  placeholder="MM"
                   className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
-                <input
+                  defaultValue=""
+                  aria-label="Expiration month"
+                >
+                  <option value="" disabled>
+                    MM
+                  </option>
+                  {expMonthOptions.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Year dropdown (forces full year, e.g. 2028) */}
+                <select
                   ref={expYearRef}
+                  name="cc-exp-year"
                   autoComplete="off"
                   data-lpignore="true"
-                  data-1p-ignore
-                  inputMode="numeric"
-                  placeholder="YYYY (or YY)"
                   className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
+                  defaultValue=""
+                  aria-label="Expiration year"
+                >
+                  <option value="" disabled>
+                    YYYY
+                  </option>
+                  {expYearOptions.map((y) => (
+                    <option key={y} value={y}>
+                      {y}
+                    </option>
+                  ))}
+                </select>
+
                 <input
                   ref={postalCodeRef}
                   autoComplete="off"
+                  name="postalCode"
                   data-lpignore="true"
                   data-1p-ignore
                   placeholder="ZIP"
@@ -1254,11 +1358,15 @@ export default function BookAescapePage() {
               <div className="grid grid-cols-1 gap-3 text-sm text-[#113D33]/80">
                 <div className="flex items-start gap-3">
                   <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                  <span>Card details are sent directly to Mindbody over HTTPS.</span>
+                  <span>
+                    Card details are sent directly to Mindbody over HTTPS.
+                  </span>
                 </div>
                 <div className="flex items-start gap-3">
                   <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                  <span>We don’t charge today — this only reserves your slot.</span>
+                  <span>
+                    We don’t charge today — this only reserves your slot.
+                  </span>
                 </div>
               </div>
             </div>
@@ -1309,7 +1417,10 @@ export default function BookAescapePage() {
         )}
 
         {step === "confirm" && (
-          <div className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+          <div
+            ref={confirmRef}
+            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+          >
             <h2 className="text-xl font-semibold mb-2 text-center">
               Confirm your booking
             </h2>
@@ -1349,7 +1460,9 @@ export default function BookAescapePage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm opacity-80">{confirmDetails?.price}</div>
+                    <div className="text-sm opacity-80">
+                      {confirmDetails?.price}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1357,8 +1470,8 @@ export default function BookAescapePage() {
 
             <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
               We’ll reserve this appointment under{" "}
-              <span className="font-semibold">{emailNormalized}</span>.{" "}
-              No charge today — your card is stored in Mindbody for no-show / late
+              <span className="font-semibold">{emailNormalized}</span>. No charge
+              today — your card is stored in Mindbody for no-show / late
               cancellation protection.
             </p>
 
@@ -1402,7 +1515,10 @@ export default function BookAescapePage() {
         )}
 
         {step === "booking" && (
-          <div className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6">
+          <div
+            ref={bookingRef}
+            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
+          >
             <p className="text-lg font-semibold text-[#113D33]">
               Booking your appointment…
             </p>
@@ -1411,13 +1527,19 @@ export default function BookAescapePage() {
             </p>
 
             <div className="mt-5 h-2 w-full rounded-full bg-white/60 border border-[#113D33]/10 overflow-hidden">
-              <div className="h-full bg-[#113D33] animate-pulse" style={{ width: "60%" }} />
+              <div
+                className="h-full bg-[#113D33] animate-pulse"
+                style={{ width: "60%" }}
+              />
             </div>
           </div>
         )}
 
         {step === "done" && (
-          <div className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6">
+          <div
+            ref={doneRef}
+            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
+          >
             <h2 className="text-2xl font-bold mb-2 text-[#113D33]">
               You’re booked!
             </h2>
