@@ -474,7 +474,7 @@ export default function BookAescapePage() {
       return;
     }
 
-    const map: Record<Step, React.RefObject<HTMLDivElement>> = {
+    const map: Record<Step, React.RefObject<HTMLDivElement | null>> = {
       select: selectRef,
       email: emailRef,
       card: cardRef,
