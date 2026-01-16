@@ -430,23 +430,18 @@ export default function BookAescapePage() {
     return `https://clients.mindbodyonline.com/classic/ws?studioid=${siteId}&stype=-9`;
   }, []);
 
-  const stepMeta = useMemo(() => {
-    const order: Step[] = ["select", "email", "card", "confirm"];
-    const idx = Math.max(0, order.indexOf(step));
-    const pct =
-      step === "booking" || step === "done"
-        ? 100
-        : ((idx + 1) / order.length) * 100;
-
-    let label = "Session & time";
-    if (step === "email") label = "Email";
-    if (step === "card") label = "Details";
-    if (step === "confirm") label = "Confirm";
-    if (step === "booking") label = "Booking";
-    if (step === "done") label = "Complete";
-
-    return { pct, label };
-  }, [step]);
+  const stepTitle = useMemo(() => {
+    if (step === "select") return "Choose your session";
+    if (step === "email") return "Enter your email";
+    if (step === "card") {
+      return cardContext === "create_account"
+        ? "Create your account"
+        : "Payment details";
+    }
+    if (step === "confirm") return "Review and confirm";
+    if (step === "booking") return "Booking your appointment";
+    return "";
+  }, [step, cardContext]);
 
   /* ---------------------------------------------
      MOBILE STEP SCROLL (UI ONLY)
@@ -455,7 +450,6 @@ export default function BookAescapePage() {
   function scrollToStep(ref: React.RefObject<HTMLDivElement | null>) {
     if (!ref.current) return;
 
-    // Offset for your top padding/header feel (pt-40). Keeps the next CTA in view on mobile.
     const OFFSET = 140;
 
     const y =
@@ -807,6 +801,17 @@ export default function BookAescapePage() {
     }
   }
 
+  function handleHeaderBack() {
+    setError(null);
+    if (step === "email") {
+      setStep("select");
+    } else if (step === "card") {
+      setStep("email");
+    } else if (step === "confirm") {
+      setStep("email");
+    }
+  }
+
   /* ---------------------------------------------
      RENDER HELPERS
   --------------------------------------------- */
@@ -843,746 +848,801 @@ export default function BookAescapePage() {
     return Array.from({ length: 12 }, (_, i) => String(currentYear + i));
   }, []);
 
+  // Mobile-only bottom CTA config
+  let mobileCta:
+    | {
+        label: string;
+        onClick: () => void;
+        disabled?: boolean;
+      }
+    | null = null;
+
+  if (step === "select") {
+    mobileCta = {
+      label: "Continue",
+      onClick: () => {
+        setError(null);
+        setStep("email");
+      },
+      disabled: !selectedTime,
+    };
+  } else if (step === "email") {
+    mobileCta = {
+      label: "Continue",
+      onClick: handleConfirmBooking,
+      disabled: !selectedTime || !isValidEmail(email),
+    };
+  } else if (step === "card") {
+    mobileCta = {
+      label: cardSaving ? "Saving…" : "Save & continue",
+      onClick: handleSaveCardAndContinue,
+      disabled: cardSaving,
+    };
+  } else if (step === "confirm") {
+    mobileCta = {
+      label: "Confirm & book",
+      onClick: handleFinalConfirmAndBook,
+      disabled: bookingLock.current,
+    };
+  }
+
   /* ---------------------------------------------
      RENDER
   --------------------------------------------- */
 
+  const showHeader = step !== "done";
+
+  const showHeaderBack =
+    step === "email" || step === "card" || step === "confirm";
+
+  const showMobileCta =
+    mobileCta && step !== "booking" && step !== "done" ? true : false;
+
   return (
-    <div className="min-h-screen bg-[#F7F4E9] px-4 pt-40 pb-24 font-vance">
-      <div className="max-w-3xl mx-auto text-center">
-        {/* Header / Hero */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
-            Book Your Aescape Robot Massage
-          </h1>
-
-          <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-              <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-              AI-guided • Personalized pressure
+    <div className="min-h-screen bg-[#F7F4E9] font-vance">
+      {/* Sticky top flow header (Airbnb style) */}
+      {showHeader && (
+        <div className="sticky top-0 z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur">
+          <div className="max-w-3xl mx-auto flex items-center justify-between px-4 py-3">
+            {showHeaderBack ? (
+              <button
+                type="button"
+                onClick={handleHeaderBack}
+                className="flex items-center text-xs text-[#113D33]/80"
+              >
+                <span className="mr-1">&larr;</span>
+                <span>Back</span>
+              </button>
+            ) : (
+              <span className="w-10" />
+            )}
+            <div className="text-sm font-semibold text-[#113D33]">
+              {stepTitle}
             </div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-              <IconLock className="w-4 h-4 text-[#113D33]/70" />
-              Calm, secure booking
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-              <IconCalendar className="w-4 h-4 text-[#113D33]/70" />
-              Reserve in under a minute
-            </div>
-          </div>
-
-          <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
-            Choose your session, pick a time, and we’ll reserve it for you. If
-            this is your first booking, Mindbody requires an account and a
-            payment method on file for late cancellations or no-shows (you won’t
-            be charged today).
-          </p>
-
-          {/* Optional: Learn link (kept subtle; doesn’t distract mid-flow) */}
-          <div className="mt-4 flex items-center justify-center gap-4 text-sm">
-            <Link
-              href="/aescape"
-              className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
-            >
-              Learn about Aescape
-            </Link>
-            <Link
-              href="/blog/aescape"
-              className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
-            >
-              Read the blog
-            </Link>
+            <span className="w-10" />
           </div>
         </div>
+      )}
 
-        {/* Progress (subtle) */}
-        <div className="max-w-2xl mx-auto mb-8 text-left">
-          <div className="flex items-center justify-between text-xs uppercase tracking-wide text-[#113D33]/60 mb-2">
-            <span>Progress</span>
-            <span>{stepMeta.label}</span>
-          </div>
-          <div className="h-2 w-full rounded-full bg-white/60 border border-[#113D33]/10 overflow-hidden">
-            <div
-              className="h-full bg-[#113D33] transition-all"
-              style={{ width: `${stepMeta.pct}%` }}
-            />
-          </div>
-          <div className="mt-2 text-xs text-[#113D33]/60">
-            Session → Time → Email → Details → Confirm
-          </div>
-        </div>
+      <div className="px-4 pt-40 pb-24">
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Header / Hero */}
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
+              Book Your Aescape Robot Massage
+            </h1>
 
-        {/* SUMMARY */}
-        <div className="mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
-          <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
-            Your selection
-          </div>
-          <div className="font-semibold text-[#113D33]">
-            {summaryText ?? "Select a session and time to continue."}
-          </div>
-          {!selectedTime && (
-            <div className="text-sm text-[#113D33]/60 mt-2">
-              Tip: We’ll show recommended times first (clean, easy picks). You
-              can always view all times.
-            </div>
-          )}
-        </div>
-
-        {step === "select" && (
-          <div ref={selectRef}>
-            {/* SESSION */}
-            <section className="mb-14">
-              <h2 className="text-xl font-semibold mb-4">
-                1. Choose Your Session
-              </h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {AESCAPE_OPTIONS.map((opt) => {
-                  const selected = sessionTypeId === opt.id;
-                  const isPopular = opt.id === MOST_POPULAR_ID;
-
-                  // Duration bar (subtle, premium)
-                  const pct = Math.max(22, Math.min(100, (opt.minutes / 60) * 100));
-
-                  return (
-                    <button
-                      key={opt.id}
-                      onClick={() => setSessionTypeId(opt.id)}
-                      className={`relative overflow-hidden rounded-3xl border transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
-                        selected
-                          ? "border-[#113D33] bg-white shadow-lg"
-                          : "border-[#113D33]/20 bg-white/60 hover:bg-white hover:shadow-md"
-                      }`}
-                    >
-                      <div className="relative h-44 w-full">
-                        <Image
-                          src={opt.image}
-                          alt={opt.label}
-                          fill
-                          className="object-cover"
-                          priority={opt.id === 60}
-                        />
-                        <div className="absolute inset-0 bg-black/20" />
-
-                        {isPopular && (
-                          <div className="absolute top-4 left-4 bg-white/90 text-[#113D33] text-xs px-3 py-1 rounded-full border border-[#113D33]/15">
-                            Most popular
-                          </div>
-                        )}
-
-                        {selected && (
-                          <div className="absolute top-4 right-4 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full">
-                            Selected
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="p-5 text-left">
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <div className="font-semibold text-[#113D33]">
-                              {opt.label}
-                            </div>
-                            <div className="text-sm text-[#113D33]/70 mt-1">
-                              {opt.bestFor}
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm opacity-80">{opt.price}</div>
-                            <div className="text-xs text-[#113D33]/60 mt-1">
-                              {opt.minutes} min
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-4">
-                          <div className="h-1.5 rounded-full bg-[#113D33]/10 overflow-hidden">
-                            <div
-                              className="h-full bg-[#113D33]/60"
-                              style={{ width: `${pct}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
+            {/* Chips hidden on mobile to save vertical space */}
+            <div className="hidden md:flex items-center justify-center gap-3 flex-wrap mb-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
+                <IconSpark className="w-4 h-4 text-[#113D33]/70" />
+                AI-guided • Personalized pressure
               </div>
-            </section>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
+                <IconLock className="w-4 h-4 text-[#113D33]/70" />
+                Calm, secure booking
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
+                <IconCalendar className="w-4 h-4 text-[#113D33]/70" />
+                Reserve in under a minute
+              </div>
+            </div>
 
-            {/* DAY PICKER */}
-            <section className="mb-14">
-              <h2 className="text-xl font-semibold mb-4">2. Choose a Day</h2>
+            <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
+              Choose your session, pick a time, and we’ll reserve it for you. If
+              this is your first booking, Mindbody requires an account and a
+              payment method on file for late cancellations or no-shows (you
+              won’t be charged today).
+            </p>
 
-              <div className="flex items-center justify-center gap-2">
-                <button
-                  onClick={() => setWeekStart(addDays(weekStart, -7))}
-                  className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  aria-label="Previous week"
-                >
-                  ←
-                </button>
+            {/* Optional: Learn links */}
+            <div className="mt-4 flex items-center justify-center gap-4 text-sm">
+              <Link
+                href="/aescape"
+                className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+              >
+                Learn about Aescape
+              </Link>
+              <Link
+                href="/blog/aescape"
+                className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+              >
+                Read the blog
+              </Link>
+            </div>
+          </div>
 
-                <div className="flex gap-2 overflow-x-auto py-1 px-1">
-                  {weekDays.map((day) => {
-                    const iso = formatISO(day);
-                    const isToday = isSameDayISO(iso, formatISO(today));
-                    const isTomorrow = isSameDayISO(iso, formatISO(addDays(today, 1)));
-                    const weekend = isWeekend(day);
-                    const selected = iso === selectedDate;
+          {/* SUMMARY */}
+          <div className="mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
+            <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
+              Your selection
+            </div>
+            <div className="font-semibold text-[#113D33]">
+              {summaryText ?? "Select a session and time to continue."}
+            </div>
+          </div>
 
-                    const label = isToday
-                      ? "Today"
-                      : isTomorrow
-                      ? "Tomorrow"
-                      : formatDayLabel(day);
+          {step === "select" && (
+            <div ref={selectRef}>
+              {/* SESSION */}
+              <section className="mb-14">
+                <h2 className="text-xl font-semibold mb-4">
+                  1. Choose Your Session
+                </h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {AESCAPE_OPTIONS.map((opt) => {
+                    const selected = sessionTypeId === opt.id;
+                    const isPopular = opt.id === MOST_POPULAR_ID;
+
+                    const pct = Math.max(
+                      22,
+                      Math.min(100, (opt.minutes / 60) * 100)
+                    );
 
                     return (
                       <button
-                        key={iso}
-                        onClick={() => setSelectedDate(iso)}
-                        className={`px-4 py-3 rounded-xl whitespace-nowrap transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                        key={opt.id}
+                        onClick={() => setSessionTypeId(opt.id)}
+                        className={`relative overflow-hidden rounded-3xl border transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                           selected
-                            ? "bg-[#113D33] text-white"
-                            : "border border-[#113D33]/25 bg-white/70 hover:bg-white text-[#113D33]"
+                            ? "border-[#113D33] bg-white shadow-lg"
+                            : "border-[#113D33]/20 bg-white/60 hover:bg-white hover:shadow-md"
                         }`}
                       >
-                        <div className="flex flex-col items-center leading-none">
-                          <div className="text-sm font-semibold">{label}</div>
-                          <div
-                            className={`text-[11px] mt-2 ${
-                              selected ? "text-white/80" : "text-[#113D33]/60"
-                            }`}
-                          >
-                            {weekend ? "Weekend" : " "}
+                        <div className="relative h-44 w-full">
+                          <Image
+                            src={opt.image}
+                            alt={opt.label}
+                            fill
+                            className="object-cover"
+                            priority={opt.id === 60}
+                          />
+                          <div className="absolute inset-0 bg-black/20" />
+
+                          {isPopular && (
+                            <div className="absolute top-4 left-4 bg-white/90 text-[#113D33] text-xs px-3 py-1 rounded-full border border-[#113D33]/15">
+                              Most popular
+                            </div>
+                          )}
+
+                          {selected && (
+                            <div className="absolute top-4 right-4 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full">
+                              Selected
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="p-5 text-left">
+                          <div className="flex items-start justify-between gap-4">
+                            <div>
+                              <div className="font-semibold text-[#113D33]">
+                                {opt.label}
+                              </div>
+                              <div className="text-sm text-[#113D33]/70 mt-1">
+                                {opt.bestFor}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm opacity-80">
+                                {opt.price}
+                              </div>
+                              <div className="text-xs text-[#113D33]/60 mt-1">
+                                {opt.minutes} min
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="mt-4">
+                            <div className="h-1.5 rounded-full bg-[#113D33]/10 overflow-hidden">
+                              <div
+                                className="h-full bg-[#113D33]/60"
+                                style={{ width: `${pct}%` }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </button>
                     );
                   })}
                 </div>
+              </section>
 
-                <button
-                  onClick={() => setWeekStart(addDays(weekStart, 7))}
-                  className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  aria-label="Next week"
-                >
-                  →
-                </button>
-              </div>
-            </section>
+              {/* DAY PICKER */}
+              <section className="mb-14">
+                <h2 className="text-xl font-semibold mb-4">2. Choose a Day</h2>
 
-            {/* TIMES */}
-            <section className="mb-10 text-left">
-              <div className="flex items-center justify-between gap-4 mb-4">
-                <h2 className="text-xl font-semibold text-center flex-1">
-                  3. Choose a Time
-                </h2>
-
-                {!loading && !error && times.length > 0 && (
+                <div className="flex items-center justify-center gap-2">
                   <button
-                    onClick={() => setShowAllTimes((v) => !v)}
-                    className="text-sm px-4 py-2 rounded-full border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    onClick={() => setWeekStart(addDays(weekStart, -7))}
+                    className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    aria-label="Previous week"
                   >
-                    {showAllTimes ? "Show recommended" : "Show all times"}
+                    ←
                   </button>
-                )}
-              </div>
 
-              {!showAllTimes && !loading && !error && times.length > 0 && (
-                <div className="mb-5 text-center">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                    Recommended times first
-                  </span>
-                </div>
-              )}
+                  <div className="flex gap-2 overflow-x-auto py-1 px-1">
+                    {weekDays.map((day) => {
+                      const iso = formatISO(day);
+                      const isToday = isSameDayISO(iso, formatISO(today));
+                      const isTomorrow = isSameDayISO(
+                        iso,
+                        formatISO(addDays(today, 1))
+                      );
+                      const weekend = isWeekend(day);
+                      const selected = iso === selectedDate;
 
-              {loading && (
-                <p className="text-center text-[#113D33]/70">Loading…</p>
-              )}
-              {error && <p className="text-center text-red-700">{error}</p>}
+                      const label = isToday
+                        ? "Today"
+                        : isTomorrow
+                        ? "Tomorrow"
+                        : formatDayLabel(day);
 
-              {!loading &&
-                !error &&
-                Object.entries(groupedTimes).map(
-                  ([label, group]) =>
-                    group.length > 0 && (
-                      <div key={label} className="mb-6">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-sm uppercase tracking-wide text-[#113D33]/60 mb-2">
-                            {label}
-                          </h3>
-                          {label === "Morning" && !showAllTimes && (
-                            <span className="text-xs text-[#113D33]/50 mb-2">
-                              Clean picks • :00 / :30
-                            </span>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                          {group.map((time) => (
-                            <button
-                              key={time.toISOString()}
-                              onClick={() => setSelectedTime(time)}
-                              className={`py-2.5 rounded-xl border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
-                                selectedTime?.getTime() === time.getTime()
-                                  ? "bg-[#113D33] text-white border-[#113D33]"
-                                  : "border-[#113D33]/25 bg-white/60 hover:bg-white text-[#113D33]"
+                      return (
+                        <button
+                          key={iso}
+                          onClick={() => setSelectedDate(iso)}
+                          className={`px-4 py-3 rounded-xl whitespace-nowrap transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                            selected
+                              ? "bg-[#113D33] text-white"
+                              : "border border-[#113D33]/25 bg-white/70 hover:bg-white text-[#113D33]"
+                          }`}
+                        >
+                          <div className="flex flex-col items-center leading-none">
+                            <div className="text-sm font-semibold">
+                              {label}
+                            </div>
+                            <div
+                              className={`text-[11px] mt-2 ${
+                                selected ? "text-white/80" : "text-[#113D33]/60"
                               }`}
                             >
-                              {formatTime12h(time)}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )
-                )}
+                              {weekend ? "Weekend" : " "}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
 
-              {!loading && !error && times.length === 0 && (
-                <div className="text-center text-[#113D33]/70">
-                  No times available for this day.
+                  <button
+                    onClick={() => setWeekStart(addDays(weekStart, 7))}
+                    className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    aria-label="Next week"
+                  >
+                    →
+                  </button>
                 </div>
-              )}
-            </section>
+              </section>
 
-            <button
-              disabled={!selectedTime}
-              onClick={() => {
-                setError(null);
-                setStep("email");
-              }}
-              className="px-10 py-4 rounded-full bg-[#113D33] text-white font-bold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              Continue
-            </button>
+              {/* TIMES */}
+              <section className="mb-10 text-left">
+                <div className="flex items-center justify-between gap-4 mb-4">
+                  <h2 className="text-xl font-semibold text-center flex-1">
+                    3. Choose a Time
+                  </h2>
 
-            <div className="mt-6 text-center text-xs text-[#113D33]/60">
-              Prefer to book with staff?{" "}
-              <a className="underline underline-offset-4" href="tel:3034766150">
-                Call (303) 476-6150
-              </a>
-            </div>
-          </div>
-        )}
+                  {!loading && !error && times.length > 0 && (
+                    <button
+                      onClick={() => setShowAllTimes((v) => !v)}
+                      className="text-sm px-4 py-2 rounded-full border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    >
+                      {showAllTimes ? "Show recommended" : "Show all times"}
+                    </button>
+                  )}
+                </div>
 
-        {step === "email" && (
-          <div
-            ref={emailRef}
-            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-center">
-              Enter your email to reserve
-            </h2>
-            <p className="text-sm text-[#113D33]/75 mb-4 text-center">
-              This helps us find (or create) your Mindbody account.
-            </p>
+                {loading && (
+                  <p className="text-center text-[#113D33]/70">Loading…</p>
+                )}
+                {error && <p className="text-center text-red-700">{error}</p>}
 
-            <div className="rounded-xl border border-[#113D33]/15 bg-white/70 p-4 mb-4">
-              <div className="flex items-start gap-3">
-                <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                  We only use your email for booking confirmation and account
-                  lookup.
-                </p>
+                {!loading &&
+                  !error &&
+                  Object.entries(groupedTimes).map(
+                    ([label, group]) =>
+                      group.length > 0 && (
+                        <div key={label} className="mb-6">
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-sm uppercase tracking-wide text-[#113D33]/60 mb-2">
+                              {label}
+                            </h3>
+                            {label === "Morning" && !showAllTimes && (
+                              <span className="text-xs text-[#113D33]/50 mb-2">
+                                Clean picks • :00 / :30
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                            {group.map((time) => (
+                              <button
+                                key={time.toISOString()}
+                                onClick={() => setSelectedTime(time)}
+                                className={`py-2.5 rounded-xl border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                                  selectedTime?.getTime() === time.getTime()
+                                    ? "bg-[#113D33] text-white border-[#113D33]"
+                                    : "border-[#113D33]/25 bg-white/60 hover:bg-white text-[#113D33]"
+                                }`}
+                              >
+                                {formatTime12h(time)}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                  )}
+
+                {!loading && !error && times.length === 0 && (
+                  <div className="text-center text-[#113D33]/70">
+                    No times available for this day.
+                  </div>
+                )}
+              </section>
+
+              {/* Desktop-only primary CTA; mobile uses sticky bottom bar */}
+              <button
+                disabled={!selectedTime}
+                onClick={() => {
+                  setError(null);
+                  setStep("email");
+                }}
+                className="hidden md:inline-flex px-10 py-4 rounded-full bg-[#113D33] text-white font-bold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              >
+                Continue
+              </button>
+
+              <div className="mt-6 text-center text-xs text-[#113D33]/60">
+                Prefer to book with staff?{" "}
+                <a
+                  className="underline underline-offset-4"
+                  href="tel:3034766150"
+                >
+                  Call (303) 476-6150
+                </a>
               </div>
             </div>
+          )}
 
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              inputMode="email"
-              autoComplete="email"
-              name="email"
-              placeholder="you@email.com"
-              className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            />
-
-            {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
-
-            <button
-              disabled={!selectedTime || !isValidEmail(email)}
-              onClick={handleConfirmBooking}
-              className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+          {step === "email" && (
+            <div
+              ref={emailRef}
+              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
             >
-              Continue
-            </button>
+              <h2 className="text-xl font-semibold mb-2 text-center">
+                Enter your email to reserve
+              </h2>
+              <p className="text-sm text-[#113D33]/75 mb-4 text-center">
+                This helps us find (or create) your Mindbody account.
+              </p>
 
-            <button
-              onClick={() => {
-                setError(null);
-                setStep("select");
-              }}
-              className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              Back
-            </button>
-          </div>
-        )}
-
-        {step === "card" && (
-          <div
-            ref={cardRef}
-            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-center">
-              {cardContext === "create_account"
-                ? "Create your account"
-                : "Add a card to your account"}
-            </h2>
-
-            <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 p-4 mb-5">
-              <div className="flex items-start gap-3">
-                <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                <div>
+              <div className="rounded-xl border border-[#113D33]/15 bg-white/70 p-4 mb-4">
+                <div className="flex items-start gap-3">
+                  <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                   <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                    No charge today — your card is only used to{" "}
-                    <span className="font-semibold">hold the appointment</span>{" "}
-                    for late cancellation or no-show protection.
+                    We only use your email for booking confirmation and account
+                    lookup.
                   </p>
-                  <div className="mt-3">
-                    <CardBrandPills />
+                </div>
+              </div>
+
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                inputMode="email"
+                autoComplete="email"
+                name="email"
+                placeholder="you@email.com"
+                className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              />
+
+              {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+
+              {/* Desktop buttons; mobile uses sticky bottom CTA + header back */}
+              <button
+                disabled={!selectedTime || !isValidEmail(email)}
+                onClick={handleConfirmBooking}
+                className="hidden md:block w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              >
+                Continue
+              </button>
+
+              <button
+                onClick={() => {
+                  setError(null);
+                  setStep("select");
+                }}
+                className="hidden md:block w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              >
+                Back
+              </button>
+            </div>
+          )}
+
+          {step === "card" && (
+            <div
+              ref={cardRef}
+              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
+            >
+              <h2 className="text-xl font-semibold mb-2 text-center">
+                {cardContext === "create_account"
+                  ? "Create your account"
+                  : "Add a card to your account"}
+              </h2>
+
+              <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 p-4 mb-5">
+                <div className="flex items-start gap-3">
+                  <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
+                  <div>
+                    <p className="text-sm text-[#113D33]/80 leading-relaxed">
+                      No charge today — your card is only used to{" "}
+                      <span className="font-semibold">
+                        hold the appointment
+                      </span>{" "}
+                      for late cancellation or no-show protection.
+                    </p>
+                    <div className="mt-3">
+                      <CardBrandPills />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {cardContext === "create_account" && (
+              {cardContext === "create_account" && (
+                <div className="grid grid-cols-1 gap-3 mb-4">
+                  <input
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    autoComplete="given-name"
+                    name="firstName"
+                    placeholder="First name"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
+                  <input
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    autoComplete="family-name"
+                    name="lastName"
+                    placeholder="Last name"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
+                  <input
+                    value={mobilePhone}
+                    onChange={(e) => setMobilePhone(e.target.value)}
+                    inputMode="tel"
+                    autoComplete="tel"
+                    name="mobilePhone"
+                    placeholder="Mobile phone"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
+                </div>
+              )}
+
+              {/* Card fields (uncontrolled) */}
               <div className="grid grid-cols-1 gap-3 mb-4">
                 <input
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  autoComplete="given-name"
-                  name="firstName"
-                  placeholder="First name"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
-                <input
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  autoComplete="family-name"
-                  name="lastName"
-                  placeholder="Last name"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
-                <input
-                  value={mobilePhone}
-                  onChange={(e) => setMobilePhone(e.target.value)}
-                  inputMode="tel"
-                  autoComplete="tel"
-                  name="mobilePhone"
-                  placeholder="Mobile phone (optional)"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                />
-              </div>
-            )}
-
-            {/* Card fields (uncontrolled) */}
-            <div className="grid grid-cols-1 gap-3 mb-4">
-              <input
-                ref={cardHolderRef}
-                autoComplete="off"
-                name="cc-name"
-                data-lpignore="true"
-                data-1p-ignore
-                placeholder="Name on card"
-                className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              />
-
-              <input
-                ref={cardNumberRef}
-                autoComplete="off"
-                name="cc-number"
-                data-lpignore="true"
-                data-1p-ignore
-                inputMode="numeric"
-                placeholder="Card number"
-                className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              />
-
-              <div className="grid grid-cols-3 gap-3">
-                {/* Month dropdown (UI-only; still read via ref) */}
-                <select
-                  ref={expMonthRef}
-                  name="cc-exp-month"
+                  ref={cardHolderRef}
                   autoComplete="off"
-                  data-lpignore="true"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  defaultValue=""
-                  aria-label="Expiration month"
-                >
-                  <option value="" disabled>
-                    MM
-                  </option>
-                  {expMonthOptions.map((m) => (
-                    <option key={m} value={m}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
-
-                {/* Year dropdown (forces full year, e.g. 2028) */}
-                <select
-                  ref={expYearRef}
-                  name="cc-exp-year"
-                  autoComplete="off"
-                  data-lpignore="true"
-                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  defaultValue=""
-                  aria-label="Expiration year"
-                >
-                  <option value="" disabled>
-                    YYYY
-                  </option>
-                  {expYearOptions.map((y) => (
-                    <option key={y} value={y}>
-                      {y}
-                    </option>
-                  ))}
-                </select>
-
-                <input
-                  ref={postalCodeRef}
-                  autoComplete="off"
-                  name="postalCode"
+                  name="cc-name"
                   data-lpignore="true"
                   data-1p-ignore
-                  placeholder="ZIP"
+                  placeholder="Name on card"
                   className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
-              </div>
-            </div>
 
-            {/* Trust microcopy */}
-            <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
-              <div className="grid grid-cols-1 gap-3 text-sm text-[#113D33]/80">
-                <div className="flex items-start gap-3">
-                  <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                  <span>
-                    Card details are sent directly to Mindbody over HTTPS.
-                  </span>
+                <input
+                  ref={cardNumberRef}
+                  autoComplete="off"
+                  name="cc-number"
+                  data-lpignore="true"
+                  data-1p-ignore
+                  inputMode="numeric"
+                  placeholder="Card number"
+                  className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                />
+
+                <div className="grid grid-cols-3 gap-3">
+                  {/* Month dropdown (UI-only; still read via ref) */}
+                  <select
+                    ref={expMonthRef}
+                    name="cc-exp-month"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    defaultValue=""
+                    aria-label="Expiration month"
+                  >
+                    <option value="" disabled>
+                      MM
+                    </option>
+                    {expMonthOptions.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* Year dropdown (forces full year, e.g. 2028) */}
+                  <select
+                    ref={expYearRef}
+                    name="cc-exp-year"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    defaultValue=""
+                    aria-label="Expiration year"
+                  >
+                    <option value="" disabled>
+                      YYYY
+                    </option>
+                    {expYearOptions.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+
+                  <input
+                    ref={postalCodeRef}
+                    autoComplete="off"
+                    name="postalCode"
+                    data-lpignore="true"
+                    data-1p-ignore
+                    placeholder="ZIP"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
                 </div>
-                <div className="flex items-start gap-3">
+              </div>
+
+              {/* Trust microcopy (simplified) */}
+              <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
+                <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
                   <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                   <span>
                     We don’t charge today — this only reserves your slot.
                   </span>
                 </div>
               </div>
-            </div>
 
-            {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+              {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
 
-            <button
-              onClick={handleSaveCardAndContinue}
-              disabled={cardSaving}
-              className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              {cardSaving ? "Saving…" : "Save & continue"}
-            </button>
-
-            <button
-              onClick={() => {
-                setError(null);
-                clearCardRefs();
-                setStep("email");
-              }}
-              className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              Back
-            </button>
-
-            {mindbodyBookingUrl && (
-              <a
-                href={mindbodyBookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              {/* Desktop buttons; mobile uses sticky bottom CTA + header back */}
+              <button
+                onClick={handleSaveCardAndContinue}
+                disabled={cardSaving}
+                className="hidden md:block w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
               >
-                Or finish booking directly on Mindbody
+                {cardSaving ? "Saving…" : "Save & continue"}
+              </button>
+
+              <button
+                onClick={() => {
+                  setError(null);
+                  clearCardRefs();
+                  setStep("email");
+                }}
+                className="hidden md:block w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              >
+                Back
+              </button>
+
+              <a
+                href="tel:3034766150"
+                className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              >
+                Call to book: (303) 476-6150
               </a>
-            )}
 
-            <a
-              href="tel:3034766150"
-              className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              Call to book: (303) 476-6150
-            </a>
-
-            <p className="text-xs opacity-60 mt-4 text-center">
-              Using: <span className="font-semibold">{emailNormalized}</span>
-            </p>
-          </div>
-        )}
-
-        {step === "confirm" && (
-          <div
-            ref={confirmRef}
-            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-center">
-              Confirm your booking
-            </h2>
-
-            {/* Visual summary (premium reinforcement) */}
-            <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
-              <div className="relative h-40 w-full">
-                <Image
-                  src={confirmDetails?.image || selectedOption.image}
-                  alt={confirmDetails?.session || selectedOption.label}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/90 border border-[#113D33]/15 px-3 py-1 text-xs text-[#113D33]">
-                    <IconSpark className="w-4 h-4" />
-                    You’re almost done
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4">
-                <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
-                  Summary
-                </div>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="font-semibold text-[#113D33]">
-                      {confirmDetails?.session}
-                    </div>
-                    <div className="text-sm text-[#113D33]/80 mt-1">
-                      {confirmDetails?.dateLabel} • {confirmDetails?.timeLabel}
-                    </div>
-                    <div className="text-sm text-[#113D33]/70 mt-1">
-                      {confirmDetails?.bestFor} • {confirmDetails?.minutes} min
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm opacity-80">
-                      {confirmDetails?.price}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
-              We’ll reserve this appointment under{" "}
-              <span className="font-semibold">{emailNormalized}</span>. No charge
-              today — your card is stored in Mindbody for no-show / late
-              cancellation protection.
-            </p>
-
-            <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
-              <p className="text-sm text-[#113D33]/80">
-                You’re all set — we’ll take care of the rest.
+              <p className="text-xs opacity-60 mt-4 text-center">
+                Using: <span className="font-semibold">{emailNormalized}</span>
               </p>
             </div>
+          )}
 
-            {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
-
-            <button
-              onClick={handleFinalConfirmAndBook}
-              className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              disabled={bookingLock.current}
+          {step === "confirm" && (
+            <div
+              ref={confirmRef}
+              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left"
             >
-              Confirm & book
-            </button>
+              <h2 className="text-xl font-semibold mb-2 text-center">
+                Confirm your booking
+              </h2>
 
-            <button
-              onClick={() => {
-                setError(null);
-                setStep("email");
-              }}
-              className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-            >
-              Back
-            </button>
+              {/* Visual summary */}
+              <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
+                <div className="relative h-40 w-full">
+                  <Image
+                    src={confirmDetails?.image || selectedOption.image}
+                    alt={confirmDetails?.session || selectedOption.label}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/90 border border-[#113D33]/15 px-3 py-1 text-xs text-[#113D33]">
+                      <IconSpark className="w-4 h-4" />
+                      You’re almost done
+                    </div>
+                  </div>
+                </div>
 
-            {mindbodyBookingUrl && (
-              <a
-                href={mindbodyBookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                <div className="p-4">
+                  <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
+                    Summary
+                  </div>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="font-semibold text-[#113D33]">
+                        {confirmDetails?.session}
+                      </div>
+                      <div className="text-sm text-[#113D33]/80 mt-1">
+                        {confirmDetails?.dateLabel} •{" "}
+                        {confirmDetails?.timeLabel}
+                      </div>
+                      <div className="text-sm text-[#113D33]/70 mt-1">
+                        {confirmDetails?.bestFor} •{" "}
+                        {confirmDetails?.minutes} min
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm opacity-80">
+                        {confirmDetails?.price}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
+                We’ll reserve this appointment under{" "}
+                <span className="font-semibold">{emailNormalized}</span>. No
+                charge today — your card is stored in Mindbody for no-show / late
+                cancellation protection.
+              </p>
+
+              {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+
+              {/* Desktop buttons; mobile uses sticky bottom CTA + header back */}
+              <button
+                onClick={handleFinalConfirmAndBook}
+                className="hidden md:block w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                disabled={bookingLock.current}
               >
-                Manage or book in Mindbody
-              </a>
-            )}
-          </div>
-        )}
+                Confirm & book
+              </button>
 
-        {step === "booking" && (
-          <div
-            ref={bookingRef}
-            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
-          >
-            <p className="text-lg font-semibold text-[#113D33]">
-              Booking your appointment…
-            </p>
-            <p className="text-sm text-[#113D33]/70 mt-2">
-              Please don’t close this page.
-            </p>
+              <button
+                onClick={() => {
+                  setError(null);
+                  setStep("email");
+                }}
+                className="hidden md:block w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+              >
+                Back
+              </button>
 
-            <div className="mt-5 h-2 w-full rounded-full bg-white/60 border border-[#113D33]/10 overflow-hidden">
-              <div
-                className="h-full bg-[#113D33] animate-pulse"
-                style={{ width: "60%" }}
-              />
-            </div>
-          </div>
-        )}
-
-        {step === "done" && (
-          <div
-            ref={doneRef}
-            className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
-          >
-            <h2 className="text-2xl font-bold mb-2 text-[#113D33]">
-              You’re booked!
-            </h2>
-            <p className="text-[#113D33]/80">
-              Check your email for confirmation. We’ll see you soon.
-            </p>
-
-            <div className="mt-6 grid grid-cols-1 gap-3">
               {mindbodyBookingUrl && (
                 <a
                   href={mindbodyBookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block w-full text-center px-6 py-3 rounded-full bg-[#113D33] text-white font-semibold hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 >
-                  Manage booking in Mindbody
+                  Manage or book in Mindbody
                 </a>
               )}
-
-              <Link
-                href="/aescape"
-                className="inline-block w-full text-center px-6 py-3 rounded-full border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                What to expect from Aescape
-              </Link>
-
-              <Link
-                href="/blog/aescape"
-                className="inline-block w-full text-center px-6 py-3 rounded-full border border-[#113D33]/25 bg-white/60 text-[#113D33] font-semibold hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                Read the blog
-              </Link>
             </div>
+          )}
 
-            <div className="mt-6 text-xs text-[#113D33]/60 text-center">
-              Need anything?{" "}
-              <a className="underline underline-offset-4" href="tel:3034766150">
-                Call (303) 476-6150
-              </a>
+          {step === "booking" && (
+            <div
+              ref={bookingRef}
+              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
+            >
+              <p className="text-lg font-semibold text-[#113D33]">
+                Booking your appointment…
+              </p>
+              <p className="text-sm text-[#113D33]/70 mt-2">
+                Please don’t close this page.
+              </p>
+
+              <div className="mt-5 h-2 w-full rounded-full bg-white/60 border border-[#113D33]/10 overflow-hidden">
+                <div
+                  className="h-full bg-[#113D33] animate-pulse"
+                  style={{ width: "60%" }}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {step === "done" && (
+            <div
+              ref={doneRef}
+              className="max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6"
+            >
+              <h2 className="text-2xl font-bold mb-2 text-[#113D33]">
+                You’re booked!
+              </h2>
+              <p className="text-[#113D33]/80">
+                Check your email for confirmation. We’ll see you soon.
+              </p>
+
+              <div className="mt-6 grid grid-cols-1 gap-3">
+                {mindbodyBookingUrl && (
+                  <a
+                    href={mindbodyBookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block w-full text-center px-6 py-3 rounded-full bg-[#113D33] text-white font-semibold hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  >
+                    Manage booking in Mindbody
+                  </a>
+                )}
+
+                <Link
+                  href="/aescape"
+                  className="inline-block w-full text-center px-6 py-3 rounded-full border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  What to expect from Aescape
+                </Link>
+
+                <Link
+                  href="/blog/aescape"
+                  className="inline-block w-full text-center px-6 py-3 rounded-full border border-[#113D33]/25 bg-white/60 text-[#113D33] font-semibold hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Read the blog
+                </Link>
+              </div>
+
+              <div className="mt-6 text-xs text-[#113D33]/60 text-center">
+                Need anything?{" "}
+                <a
+                  className="underline underline-offset-4"
+                  href="tel:3034766150"
+                >
+                  Call (303) 476-6150
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Mobile-only sticky bottom CTA (Airbnb style) */}
+      {showMobileCta && mobileCta && (
+        <div className="fixed inset-x-0 bottom-0 z-30 bg-[#F7F4E9]/95 border-t border-[#113D33]/15 px-4 py-3 md:hidden">
+          <div className="max-w-3xl mx-auto">
+            <button
+              type="button"
+              onClick={mobileCta.onClick}
+              disabled={mobileCta.disabled}
+              className="w-full py-3 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+            >
+              {mobileCta.label}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
