@@ -5,17 +5,11 @@
   "homepage": "https://swaywellnessspa.com",
   "scripts": {
     "dev": "next dev",
-
     "build": "next build",
-
     "start": "next start",
-
     "sitemap": "next-sitemap",
-
     "postexport": "echo '' > out/.nojekyll && echo 'swaywellnessspa.com' > out/CNAME",
-
     "deploy:gh": "npm run build && npm run postexport && gh-pages -d out --dotfiles --no-history",
-
     "deploy:vercel": "next build"
   },
   "dependencies": {
@@ -23,6 +17,7 @@
     "@prisma/client": "^7.1.0",
     "@react-email/components": "^1.0.1",
     "@react-email/render": "^2.0.0",
+    "date-fns-tz": "^3.2.0",
     "firebase": "^11.3.0",
     "framer-motion": "^12.4.2",
     "jspdf": "^3.0.4",
