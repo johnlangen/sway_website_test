@@ -452,7 +452,7 @@ export default function BookAescapePage() {
      MOBILE STEP SCROLL (UI ONLY)
   --------------------------------------------- */
 
-  function scrollToStep(ref: React.RefObject<HTMLDivElement>) {
+  function scrollToStep(ref: React.RefObject<HTMLDivElement | null>) {
     if (!ref.current) return;
 
     // Offset for your top padding/header feel (pt-40). Keeps the next CTA in view on mobile.
