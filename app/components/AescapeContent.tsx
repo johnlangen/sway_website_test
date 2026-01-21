@@ -107,7 +107,7 @@ const faqs = [
       <>
         <p>
           You must wear Aerwear—special compression apparel designed for the
-          Aescape system. Sizes 2XS to 4XL are provided at check-in.
+          Aescape system. Sizes are provided at check-in.
         </p>
         <p className="mt-4">
           Please also tie up long hair so it’s off the neck—we’ll provide a
@@ -277,7 +277,7 @@ export default function AescapeContent() {
                 </div>
 
                 <p className="mt-6 text-white/65 text-xs md:text-sm tracking-wide">
-                  Sessions 15–60 minutes • Aerwear provided (2XS–4XL)
+                  Sessions 15–60 minutes • Aerwear provided 
                 </p>
               </motion.div>
             </div>
