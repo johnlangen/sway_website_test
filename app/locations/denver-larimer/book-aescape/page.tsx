@@ -15,7 +15,7 @@ const AESCAPE_OPTIONS = [
     price: "$49",
     image: "/assets/aescapeblog6.jpg",
     minutes: 15,
-    bestFor: "Quick reset",
+    bestFor: "Quick reset ",
   },
   {
     id: 60,
