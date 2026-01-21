@@ -1,6 +1,28 @@
 // /api/mindbody/book-appointment/route.ts
+
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+
+/**
+ * Maps SessionTypeId -> StaffId
+ *
+ * IMPORTANT:
+ * - Availability staff MUST match booking staff in Mindbody
+ * - Do NOT accept staffId from the frontend
+ */
+function resolveStaffId(sessionTypeId: number): number | null {
+  // Remedy Room
+  if (sessionTypeId === 8) {
+    return 100000014;
+  }
+
+  // Aescape sessions
+  if ([59, 60, 61, 62].includes(sessionTypeId)) {
+    return 100000040;
+  }
+
+  return null;
+}
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -9,13 +31,21 @@ export async function POST(req: Request) {
     clientId,
     sessionTypeId,
     startDateTime,
-    staffId = 100000040,
     locationId = 1,
   } = body;
 
   if (!clientId || !sessionTypeId || !startDateTime) {
     return NextResponse.json(
       { error: "Missing required booking fields" },
+      { status: 400 }
+    );
+  }
+
+  const resolvedStaffId = resolveStaffId(Number(sessionTypeId));
+
+  if (!resolvedStaffId) {
+    return NextResponse.json(
+      { error: `Unsupported session type: ${sessionTypeId}` },
       { status: 400 }
     );
   }
@@ -37,7 +67,7 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           ClientId: clientId,
           SessionTypeId: sessionTypeId,
-          StaffId: staffId,
+          StaffId: resolvedStaffId,
           LocationId: locationId,
           StartDateTime: startDateTime,
           ApplyPayment: false,
@@ -50,7 +80,10 @@ export async function POST(req: Request) {
 
     if (!res.ok) {
       return NextResponse.json(
-        { error: "Booking failed", details: data },
+        {
+          error: "Booking failed",
+          details: data,
+        },
         { status: res.status }
       );
     }

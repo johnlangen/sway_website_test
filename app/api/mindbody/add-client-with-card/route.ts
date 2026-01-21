@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     expYear,
     postalCode,
     cardHolder,
+    cardType,
   } = await req.json();
 
   if (
@@ -59,7 +60,7 @@ export async function POST(req: Request) {
             ExpYear: expYear,
             PostalCode: postalCode,
             CardHolder: cardHolder,
-            CardType: "Visa", // 🔴 REQUIRED (you can detect later)
+            CardType: cardType ?? "Visa", // 🔴 REQUIRED (you can detect later)
           },
 
           Test: false,
