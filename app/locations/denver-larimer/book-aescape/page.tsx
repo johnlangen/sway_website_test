@@ -96,25 +96,7 @@ declare global {
   }
 }
 
-function reportPurchaseConversion() {
-  if (typeof window === "undefined") return;
 
-  // Google Ads conversion (keep this)
-  if (window.gtag) {
-    window.gtag("event", "conversion", {
-      send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
-    });
-  }
-
-  // GTM / GA4 visibility
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: "aescape_booking_complete",
-    session_type: selectedOption.label,
-    session_minutes: selectedOption.minutes,
-    price: selectedOption.price,
-  });
-}
 
 
 /* ---------------------------------------------
@@ -446,6 +428,26 @@ export default function BookAescapePage() {
       AESCAPE_OPTIONS[1],
     [sessionTypeId]
   );
+
+  function reportPurchaseConversion() {
+    if (typeof window === "undefined") return;
+  
+    // Google Ads conversion (keep this)
+    if (window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+      });
+    }
+  
+    // GTM / GA4 visibility
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "aescape_booking_complete",
+      session_type: selectedOption.label,
+      session_minutes: selectedOption.minutes,
+      price: selectedOption.price,
+    });
+  }
 
   const weekDays = useMemo(
     () => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)),
