@@ -29,13 +29,12 @@ export default function BookingPage() {
 
         {/* Book Aescape */}
         <Link
-          href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/locations/denver-larimer/book-aescape"
           className="block px-8 py-4 bg-[#4A776D] text-white text-lg font-bold rounded-full hover:bg-[#3a5f56] transition"
         >
           Book Aescape
         </Link>
+
 
         {/* Call to Book */}
         <a

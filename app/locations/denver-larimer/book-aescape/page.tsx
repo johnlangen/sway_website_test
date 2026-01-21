@@ -13,7 +13,7 @@ const AESCAPE_OPTIONS = [
     id: 59,
     label: "15 Minute Express",
     price: "$49",
-    image: "/assets/aescapeblog6.png",
+    image: "/assets/aescapeblog6.jpg",
     minutes: 15,
     bestFor: "Quick reset",
   },
@@ -21,7 +21,7 @@ const AESCAPE_OPTIONS = [
     id: 60,
     label: "30 Minute Full Body",
     price: "$69",
-    image: "/assets/aescapeblog2.png",
+    image: "/assets/aescapeblog2.jpg",
     minutes: 30,
     bestFor: "Full-body refresh",
   },
@@ -29,7 +29,7 @@ const AESCAPE_OPTIONS = [
     id: 61,
     label: "45 Minute Full Body",
     price: "$99",
-    image: "/assets/aescapeblog3.png",
+    image: "/assets/aescapeblog3.jpg",
     minutes: 45,
     bestFor: "Deep recovery",
   },
@@ -37,7 +37,7 @@ const AESCAPE_OPTIONS = [
     id: 62,
     label: "60 Minute Full Body",
     price: "$139",
-    image: "/assets/aescapeblog7.png",
+    image: "/assets/aescapeblog7.jpg",
     minutes: 60,
     bestFor: "Maximum results",
   },
@@ -90,6 +90,33 @@ function isWeekend(date: Date) {
   return day === 0 || day === 6;
 }
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
+function reportPurchaseConversion() {
+  if (typeof window === "undefined") return;
+
+  // Google Ads conversion (keep this)
+  if (window.gtag) {
+    window.gtag("event", "conversion", {
+      send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+    });
+  }
+
+  // GTM / GA4 visibility
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: "aescape_booking_complete",
+    session_type: selectedOption.label,
+    session_minutes: selectedOption.minutes,
+    price: selectedOption.price,
+  });
+}
+
+
 /* ---------------------------------------------
    GROUP TIMES
 --------------------------------------------- */
@@ -126,6 +153,16 @@ function generateTimesFromWindows(
     let cursor = new Date(w.start);
     const lastStart = new Date(w.bookableEnd);
 
+    // ✅ Snap UP to the next 10-minute boundary (never backwards)
+    const minutes = cursor.getMinutes();
+    const remainder = minutes % 10;
+
+    if (remainder !== 0) {
+      cursor.setMinutes(minutes + (10 - remainder), 0, 0);
+    } else {
+      cursor.setSeconds(0, 0);
+    }
+
     while (cursor <= lastStart) {
       results.push(new Date(cursor));
       cursor.setMinutes(cursor.getMinutes() + 10);
@@ -134,6 +171,7 @@ function generateTimesFromWindows(
 
   return results;
 }
+
 
 /* ---------------------------------------------
    TIME DISPLAY (UI ONLY)
@@ -566,6 +604,19 @@ export default function BookAescapePage() {
     // Force full year UX (e.g. 2028) via dropdown, but keep the same payload fields/format
     if (!expYear || expYear.length < 4)
       return "Please select an expiration year (e.g., 2028).";
+
+      // Expired card check (month-level, year may still be current)
+      const now = new Date();
+      const expY = Number(expYear);
+      const expM = Number(expMonth);
+
+      if (
+        expY === now.getFullYear() &&
+        expM < now.getMonth() + 1
+      ) {
+        return "This card appears to be expired.";
+      }
+
     if (!postalCode || postalCode.length < 3)
       return "Please enter a valid ZIP/postal code.";
 
@@ -651,7 +702,10 @@ export default function BookAescapePage() {
       );
     }
 
+    reportPurchaseConversion();
     setStep("done");
+
+
   }
 
   /* ---------------------------------------------
@@ -1164,11 +1218,7 @@ export default function BookAescapePage() {
                             <h3 className="text-sm uppercase tracking-wide text-[#113D33]/60 mb-2">
                               {label}
                             </h3>
-                            {label === "Morning" && !showAllTimes && (
-                              <span className="text-xs text-[#113D33]/50 mb-2">
-                                Clean picks • :00 / :30
-                              </span>
-                            )}
+      
                           </div>
 
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
