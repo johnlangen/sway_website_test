@@ -32,6 +32,7 @@ export async function GET(req: Request) {
   url.searchParams.append("request.endDate", `${date}T23:59:59`);
   url.searchParams.append("request.includeResourceAvailability", "true");
   url.searchParams.append("request.limit", "200");
+  url.searchParams.append("request.staffIds[0]", "100000014");
 
   try {
     const res = await fetch(url.toString(), {

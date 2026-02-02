@@ -15,7 +15,6 @@ const REMEDY_OPTIONS = [
     price: "$49",
     image: "/assets/remedy-room3.jpg", // swap later
     minutes: 40,
-    bestFor: "Cold plunge + sauna reset",
   },
 ] as const;
 
@@ -381,7 +380,7 @@ function RemedySessionCard({ option }: { option: RemedyOption }) {
                   {option.label}
                 </h3>
                 <p className="text-sm text-[#113D33]/75 mt-1">
-                  Cold plunge • Infrared sauna • Recovery lounge
+                  Cold plunge • Sauna • Recovery lounge
                 </p>
               </div>
   
@@ -399,13 +398,8 @@ function RemedySessionCard({ option }: { option: RemedyOption }) {
               <span className="px-3 py-1 rounded-full border border-[#113D33]/20 bg-white/60 text-xs text-[#113D33]/80">
                 {option.minutes} minutes
               </span>
-              <span className="px-3 py-1 rounded-full border border-[#113D33]/20 bg-white/60 text-xs text-[#113D33]/80">
-                No charge today
-              </span>
-              <span className="px-3 py-1 rounded-full border border-[#113D33]/20 bg-white/60 text-xs text-[#113D33]/80">
-                Late cancel protection
-              </span>
             </div>
+
           </div>
         </div>
       </div>
@@ -667,7 +661,7 @@ export default function BookRemedyRoomPage() {
       body: JSON.stringify({
         clientId: resolvedClientId,
         sessionTypeId,
-        startDateTime: formatLocalDateTime(selectedTime),
+        startDateTime: selectedTime.toISOString(),
       }),
     });
 
@@ -931,19 +925,17 @@ export default function BookRemedyRoomPage() {
                 Cold plunge • Sauna recovery
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                <IconLock className="w-4 h-4 text-[#113D33]/70" />
-                Calm, secure booking
+              <IconSpark className="w-4 h-4 text-[#113D33]/70" />
+                LED Light Therapy
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                <IconCalendar className="w-4 h-4 text-[#113D33]/70" />
-                Reserve in under a minute
+              <IconSpark className="w-4 h-4 text-[#113D33]/70" />
+                Lymphatic Compression
               </div>
             </div>
 
             <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
-              Choose a day and time to reserve your Remedy Room experience. Mindbody requires an
-              account and a payment method on file for late cancellations or no-shows (you won’t be
-              charged today).
+            Step into the Remedy Room and experience science-backed recovery. Swimsuit or athleisure required. Sessions are shared with up to three guests. Private sessions are available upon request, please call to book.
             </p>
 
             <div className="mt-4 flex items-center justify-center gap-4 text-sm">
@@ -962,7 +954,11 @@ export default function BookRemedyRoomPage() {
             </div>
           </div>
 
-          {/* Summary */}
+
+          {/* Session (auto-selected) */}
+        <RemedySessionCard option={selectedOption} />
+
+                  {/* Summary */}
           <div className="mb-8 md:mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
             <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
               Your selection
@@ -971,9 +967,6 @@ export default function BookRemedyRoomPage() {
               {summaryText ?? "Select a day and time to continue."}
             </div>
           </div>
-
-          {/* Session (auto-selected) */}
-        <RemedySessionCard option={selectedOption} />
 
 
           {step === "select" && (
@@ -1368,9 +1361,11 @@ export default function BookRemedyRoomPage() {
                           {confirmDetails?.bestFor} • {confirmDetails?.minutes} min
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-sm opacity-80">{confirmDetails?.price}</div>
-                      </div>
+                      <div className="text-right text-[#113D33]">
+                        <div className="text-sm font-semibold">$49</div>
+                        <div className="text-xs opacity-70">Members $25</div>
+                        </div>
+
                     </div>
                   </div>
                 </div>
@@ -1434,7 +1429,7 @@ export default function BookRemedyRoomPage() {
             <div ref={doneRef} className="min-h-[calc(100vh-320px)] flex items-start justify-center">
               <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
                 <h2 className="text-2xl font-bold mb-2 text-[#113D33]">You’re booked!</h2>
-                <p className="text-[#113D33]/80">Check your email for confirmation. We’ll see you soon.</p>
+                <p className="text-[#113D33]/80">Check your email for confirmation. Please remember to bring a swimsuit or athleisure for this experience. See you soon! .</p>
 
                 <div className="mt-6 grid grid-cols-1 gap-3">
                   {mindbodyBookingUrl && (
@@ -1449,7 +1444,7 @@ export default function BookRemedyRoomPage() {
                   )}
 
                   <Link
-                    href="/remedy-room"
+                    href="/remedy-tech"
                     className="inline-block w-full text-center px-6 py-3 rounded-full border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   >
                     What to expect

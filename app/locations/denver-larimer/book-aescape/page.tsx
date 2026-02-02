@@ -96,7 +96,20 @@ declare global {
   }
 }
 
+function parseMindbodyDateTime(raw: string) {
+  const hasTZ =
+    raw.endsWith("Z") ||
+    /[+-]\d{2}:\d{2}$/.test(raw) ||
+    /[+-]\d{4}$/.test(raw);
 
+  if (hasTZ) return new Date(raw);
+
+  const [datePart, timePart = "00:00:00"] = raw.split("T");
+  const [y, m, d] = datePart.split("-").map(Number);
+  const [hh = 0, mm = 0, ss = 0] = timePart.split(":").map(Number);
+
+  return new Date(y, m - 1, d, hh, mm, ss);
+}
 
 
 /* ---------------------------------------------
@@ -132,8 +145,8 @@ function generateTimesFromWindows(
   const results: Date[] = [];
 
   windows.forEach((w) => {
-    let cursor = new Date(w.start);
-    const lastStart = new Date(w.bookableEnd);
+    let cursor = parseMindbodyDateTime(w.start);
+    const lastStart = parseMindbodyDateTime(w.bookableEnd);
 
     // ✅ Snap UP to the next 10-minute boundary (never backwards)
     const minutes = cursor.getMinutes();
@@ -692,7 +705,7 @@ export default function BookAescapePage() {
       body: JSON.stringify({
         clientId: resolvedClientId,
         sessionTypeId,
-        startDateTime: formatLocalDateTime(selectedTime),
+        startDateTime: selectedTime.toISOString()
       }),
     });
 
