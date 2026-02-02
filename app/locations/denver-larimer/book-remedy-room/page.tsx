@@ -13,8 +13,9 @@ const REMEDY_OPTIONS = [
     id: 8,
     label: "The Remedy Room Experience",
     price: "$49",
-    image: "/assets/remedy-room3.jpg", // swap later
+    image: "/assets/remedy-room3.jpg",
     minutes: 40,
+    bestFor: "Cold plunge • Sauna • Recovery lounge",
   },
 ] as const;
 
