@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
+type Slot = {
+    startDateTime: string;
+    staffId: number | null;
+    staffName: string | null;
+  };
+  
 const EVENT_DATE = "2026-02-28";
 const EVENT_SESSION_TYPE_IDS = new Set([68, 69, 70, 71]);
 
@@ -172,7 +178,8 @@ export async function GET(req: Request) {
     }
 
     const availabilities = Array.isArray(data?.Availabilities) ? data.Availabilities : [];
-    const slots = availabilities.flatMap(expandAvailabilityWindow);
+    const slots: Slot[] = availabilities.flatMap(expandAvailabilityWindow);
+
 
     // Dedup (sometimes you can get duplicates across windows)
     const seen = new Set<string>();
