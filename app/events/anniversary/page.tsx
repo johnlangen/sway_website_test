@@ -11,7 +11,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 const EVENT_DATE_ISO = "2026-02-28";
 
 const EVENT_ASSETS = {
-  hero: "/assets/eventballoon.png",
+  hero: "/assets/eventballoon2.png",
   details: "/assets/eventgreen.png",
 
 } as const;
@@ -19,7 +19,7 @@ const EVENT_ASSETS = {
 const EVENT_OPTIONS = [
   {
     id: 71,
-    label: "Aescape",
+    label: "Aescape Robot Massage",
     minutes: 30,
     price: "$49",
     image: "/assets/aescapeblog2.jpg",
@@ -30,7 +30,7 @@ const EVENT_OPTIONS = [
     label: "Remedy Room",
     minutes: 30,
     price: "$49",
-    image: "/assets/remedy-room3.jpg",
+    image: "/assets/remedy-room2.jpg",
     bestFor: "Cold plunge • Sauna • Recovery",
   },
   {
@@ -38,7 +38,7 @@ const EVENT_OPTIONS = [
     label: "Massage",
     minutes: 30,
     price: "$49",
-    image: "/assets/massage2.png",
+    image: "/assets/massage7.png",
     bestFor: "Swedish • Event express",
   },
   {
@@ -46,7 +46,7 @@ const EVENT_OPTIONS = [
     label: "Facial",
     minutes: 30,
     price: "$49",
-    image: "/assets/facial5.png",
+    image: "/assets/facial.png",
     bestFor: "Glow Getter • Event express",
   },
 ] as const;
@@ -677,13 +677,10 @@ export default function AnniversaryEventPage() {
               <ul className="space-y-2 text-white/90 leading-relaxed">
                 <li>• 30-minute express treatment (choose one)</li>
                 <li className="pl-4 text-white/80">
-                  Aescape • Remedy Room • Massage • Facial
+                  Aescape Robot Massage • Remedy Room • Massage • Facial
                 </li>
                 <li>• Custom Sway latte from Huckleberry Coffee Roasters</li>
-                <li>• Goodie bag</li>
-                <li>
-                  • À la carte Sway stitch bar (bring an item to personalize)
-                </li>
+                <li>• Goodie bag with items from SuperGoop, Eminence, Dr. Dennis Gross, Knesko, and more!  </li>
               </ul>
             </div>
 
@@ -712,9 +709,27 @@ export default function AnniversaryEventPage() {
                 <div className="h-px bg-white/15" />
 
                 <div className="text-sm text-white/80">
-                  Remedy Room spots may fill first — if it’s sold out, you can
-                  still book any of the other three experiences.
+                  Remedy Room Spots hold Max 3 guests - grab a friend or two and experience wellness together! 
                 </div>
+
+                <div className="rounded-2xl bg-white/10 border border-white/15 p-4">
+                <div className="text-xs uppercase tracking-wide text-white/75 mb-2">
+                    Event Tips
+                </div>
+
+                <ul className="space-y-2 text-sm text-white/85 leading-relaxed">
+                    <li>
+                    • Please arrive at least <span className="font-semibold">15 minutes early</span> to check in.
+                    </li>
+                    <li>
+                    • You’re welcome to arrive early and stay throughout the event.
+                    </li>
+                    <li>
+                    • <span className="font-semibold">Remedy Room guests:</span> please bring swimwear.
+                    </li>
+                </ul>
+                </div>
+
               </div>
             </div>
           </div>
@@ -727,12 +742,11 @@ export default function AnniversaryEventPage() {
         <div className="max-w-5xl mx-auto px-5 md:px-8">
         <div className="mt-12 mb-6 md:mb-8">
 
-            <h2 className="text-2xl md:text-3xl font-bold text-center">
-              Reserve your spot
+        <h2 className="text-2xl md:text-3xl font-bold text-center">
+            Reserve your spot
             </h2>
             <p className="mt-2 text-center text-[#113D33]/75">
-              Choose your experience, pick a time, then reserve with email +
-              card on file.
+            Choose your event experience, select a time, and secure your spot.
             </p>
           </div>
 
@@ -750,7 +764,7 @@ export default function AnniversaryEventPage() {
           {step === "select" && (
             <div className="text-left max-w-5xl mx-auto">
               <h3 className="text-xl font-semibold mb-4 text-center">
-                1. Choose an experience
+                1. Choose your event experience
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
@@ -806,7 +820,7 @@ export default function AnniversaryEventPage() {
               </div>
 
               <h3 className="text-xl font-semibold mb-4 text-center">
-                2. Choose a time
+                 2. Pick your time window
               </h3>
 
               {loading && (
@@ -886,12 +900,13 @@ export default function AnniversaryEventPage() {
           {step === "email" && (
             <div className="flex items-start justify-center">
               <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
-                <h3 className="text-xl font-semibold mb-2 text-center">
-                  Enter your email to reserve
+              <h3 className="text-xl font-semibold mb-2 text-center">
+                Enter your email to save your spot
                 </h3>
                 <p className="text-sm text-[#113D33]/75 mb-4 text-center">
-                  This helps us find (or create) your Mindbody account.
+                We’ll use this to hold your reservation and send confirmation.
                 </p>
+
 
                 <input
                   value={email}
@@ -1059,7 +1074,7 @@ export default function AnniversaryEventPage() {
             <div className="flex items-start justify-center">
               <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
                 <h3 className="text-xl font-semibold mb-2 text-center">
-                  Confirm your booking
+                  Confirm your reservation
                 </h3>
 
                 <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
@@ -1118,10 +1133,21 @@ export default function AnniversaryEventPage() {
           {step === "done" && (
             <div className="flex items-start justify-center">
               <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
-                <h3 className="text-2xl font-bold mb-2">You’re booked!</h3>
-                <p className="text-[#113D33]/80">
-                  Check your email for confirmation. See you soon.
+              <h3 className="text-2xl font-bold mb-2">You’re in! 🎉</h3>
+              <p className="text-[#113D33]/80 leading-relaxed">
+                Your spot at Sway’s Anniversary Event is officially reserved.
+                <br />
+                <br />
+                Please arrive at least 15 minutes before your scheduled time to check in.
+                <br />
+                You’re welcome to arrive earlier and stay as long as you’d like during the event!
+                <br />
+                <br />
+                <span className="text-sm text-[#113D33]/70">
+                    Remedy Room guests: please bring swimwear.
+                </span>
                 </p>
+
 
                 <div className="mt-6 grid grid-cols-1 gap-3">
                   <Link
