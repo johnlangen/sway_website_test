@@ -62,7 +62,7 @@ Acceptance of this Gift Card constitutes acceptance of these terms.`;
         className="max-w-4xl mx-auto flex flex-col items-center text-center"
       >
         <Image
-          src="/assets/giftcard.png"
+          src="/assets/giftcard_valentines.jpg"
           alt="Sway Larimer Gift Card"
           width={500}
           height={300}
