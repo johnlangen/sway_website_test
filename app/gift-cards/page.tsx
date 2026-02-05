@@ -55,7 +55,7 @@ export default function GiftCardsHubPage() {
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <Image
-              src="/assets/giftcard.png"
+              src="/assets/giftcard_valentines.jpg"
               alt="Sway Gift Card"
               width={500}
               height={300}
