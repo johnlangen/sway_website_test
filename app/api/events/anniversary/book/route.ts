@@ -37,7 +37,8 @@ export async function POST(req: Request) {
 
     const stid = Number(sessionTypeId);
     const sid = Number(staffId);
-    const cid = Number(clientId);
+    // clientId can be a large number or UUID string — keep as-is
+    const cid = String(clientId);
 
     if (!EVENT_SESSION_TYPE_IDS.has(stid)) {
       return NextResponse.json(
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!Number.isFinite(sid) || !Number.isFinite(cid)) {
+    if (!Number.isFinite(sid) || !cid) {
       return NextResponse.json(
         { error: "Invalid staffId or clientId" },
         { status: 400 }
@@ -82,7 +83,7 @@ export async function POST(req: Request) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          ClientId: cid,
+          ClientId: cid, // string — Mindbody accepts both numeric and UUID client IDs
           SessionTypeId: stid,
           StaffId: sid,
           LocationId: Number(locationId),

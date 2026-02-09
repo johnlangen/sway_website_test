@@ -427,7 +427,7 @@ export default function BookRemedyRoomPage() {
   const [showAllTimes, setShowAllTimes] = useState(false);
 
   const [cardContext, setCardContext] = useState<CardContext>(null);
-  const [clientId, setClientId] = useState<number | null>(null);
+  const [clientId, setClientId] = useState<string | null>(null);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -638,7 +638,7 @@ export default function BookRemedyRoomPage() {
     if (!res.ok) throw new Error(data?.error || "Client lookup failed.");
     return data as {
       found: boolean;
-      client: { Id: number } | null;
+      client: { Id: string } | null;
       hasCardOnFile: boolean;
     };
   }
@@ -647,7 +647,7 @@ export default function BookRemedyRoomPage() {
      BOOKING
   --------------------------------------------- */
 
-  async function bookWithConfirmClientId(resolvedClientId: number) {
+  async function bookWithConfirmClientId(resolvedClientId: string) {
     if (!selectedTime) {
       setError("Please select a time first.");
       setStep("select");
@@ -699,7 +699,7 @@ export default function BookRemedyRoomPage() {
 
       if (lookup.found && !lookup.hasCardOnFile) {
         setCardContext("add_card");
-        setClientId(Number(lookup.client!.Id));
+        setClientId(String(lookup.client!.Id));
         setStep("card");
         return;
       }
@@ -711,7 +711,7 @@ export default function BookRemedyRoomPage() {
         return;
       }
 
-      setClientId(Number(lookup.client!.Id));
+      setClientId(String(lookup.client!.Id));
       setStep("confirm");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
@@ -747,7 +747,7 @@ export default function BookRemedyRoomPage() {
     setCardSaving(true);
 
     try {
-      let resolvedClientId: number | null = null;
+      let resolvedClientId: string | null = null;
 
       if (cardContext === "create_account") {
         if (!firstName.trim() || !lastName.trim()) {
@@ -779,7 +779,7 @@ export default function BookRemedyRoomPage() {
           );
         }
 
-        resolvedClientId = Number(data.clientId);
+        resolvedClientId = data.clientId != null ? String(data.clientId) : null;
         if (!resolvedClientId) throw new Error("Account created, but client ID missing.");
       }
 
@@ -805,7 +805,7 @@ export default function BookRemedyRoomPage() {
           throw new Error(data?.error || "Unable to save your card. Please try again.");
         }
 
-        resolvedClientId = Number(clientId);
+        resolvedClientId = String(clientId);
       }
 
       clearCardRefs();

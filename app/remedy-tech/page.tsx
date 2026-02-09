@@ -122,7 +122,7 @@ const RemedyRoomPage = () => {
 
         {/* CTA */}
         <a
-          href="/book"
+          href="/locations/denver-larimer/book-remedy-room"
           className="mt-8 inline-block bg-[#113D33] text-white px-10 py-4 text-sm font-bold rounded-md hover:bg-[#0a2b23] transition-all"
         >
           Book Remedy Room

@@ -187,7 +187,7 @@ export default function AnniversaryEventPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [cardContext, setCardContext] = useState<CardContext>(null);
-  const [clientId, setClientId] = useState<number | null>(null);
+  const [clientId, setClientId] = useState<string | null>(null);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -313,7 +313,7 @@ export default function AnniversaryEventPage() {
     }
     return data as {
       found: boolean;
-      client: { Id: number } | null;
+      client: { Id: string } | null;
       hasCardOnFile: boolean;
     };
   }
@@ -392,7 +392,7 @@ export default function AnniversaryEventPage() {
 
       if (lookup.found && !lookup.hasCardOnFile) {
         setCardContext("add_card");
-        setClientId(Number(lookup.client!.Id));
+        setClientId(String(lookup.client!.Id));
         setStep("card");
         scrollToBooking();
         return;
@@ -406,7 +406,7 @@ export default function AnniversaryEventPage() {
         return;
       }
 
-      setClientId(Number(lookup.client!.Id));
+      setClientId(String(lookup.client!.Id));
       setStep("confirm");
       scrollToBooking();
     } catch (err: any) {
@@ -446,7 +446,7 @@ export default function AnniversaryEventPage() {
     setCardSaving(true);
 
     try {
-      let resolvedClientId: number | null = null;
+      let resolvedClientId: string | null = null;
 
       if (cardContext === "create_account") {
         if (!firstName.trim() || !lastName.trim()) {
@@ -483,7 +483,7 @@ export default function AnniversaryEventPage() {
           throw new Error(data?.error || "Unable to create your account.");
         }
 
-        resolvedClientId = Number(data.clientId);
+        resolvedClientId = data.clientId != null ? String(data.clientId) : null;
         if (!resolvedClientId)
           throw new Error("Account created, but client ID missing.");
       }
@@ -515,7 +515,7 @@ export default function AnniversaryEventPage() {
           );
         }
 
-        resolvedClientId = Number(clientId);
+        resolvedClientId = String(clientId);
       }
 
       setClientId(resolvedClientId);

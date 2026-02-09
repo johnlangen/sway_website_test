@@ -406,7 +406,7 @@ export default function BookAescapePage() {
 
   // Card/account context
   const [cardContext, setCardContext] = useState<CardContext>(null);
-  const [clientId, setClientId] = useState<number | null>(null);
+  const [clientId, setClientId] = useState<string | null>(null);
 
   // Basic identity (required for AddClient; optional for UpdateClient)
   const [firstName, setFirstName] = useState("");
@@ -681,7 +681,7 @@ export default function BookAescapePage() {
     }
     return data as {
       found: boolean;
-      client: { Id: number } | null;
+      client: { Id: string } | null;
       hasCardOnFile: boolean;
     };
   }
@@ -690,7 +690,7 @@ export default function BookAescapePage() {
      BOOKING
   --------------------------------------------- */
 
-  async function bookWithConfirmClientId(resolvedClientId: number) {
+  async function bookWithConfirmClientId(resolvedClientId: string) {
     if (!selectedTime) {
       setError("Please select a time first.");
       setStep("select");
@@ -748,7 +748,7 @@ export default function BookAescapePage() {
       // CASE B: email exists but no card -> updateclient route
       if (lookup.found && !lookup.hasCardOnFile) {
         setCardContext("add_card");
-        setClientId(Number(lookup.client!.Id));
+        setClientId(String(lookup.client!.Id));
         setStep("card");
         return;
       }
@@ -762,7 +762,7 @@ export default function BookAescapePage() {
       }
 
       // Already has account + card -> go to confirm
-      setClientId(Number(lookup.client!.Id));
+      setClientId(String(lookup.client!.Id));
       setStep("confirm");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
@@ -799,7 +799,7 @@ export default function BookAescapePage() {
     setCardSaving(true);
 
     try {
-      let resolvedClientId: number | null = null;
+      let resolvedClientId: string | null = null;
 
       if (cardContext === "create_account") {
         if (!firstName.trim() || !lastName.trim()) {
@@ -832,7 +832,7 @@ export default function BookAescapePage() {
           );
         }
 
-        resolvedClientId = Number(data.clientId);
+        resolvedClientId = data.clientId != null ? String(data.clientId) : null;
         if (!resolvedClientId) {
           throw new Error(
             "Account created, but client ID was missing. Please try again."
@@ -867,7 +867,7 @@ export default function BookAescapePage() {
           );
         }
 
-        resolvedClientId = Number(clientId);
+        resolvedClientId = String(clientId);
       }
 
       // Clear card fields immediately
