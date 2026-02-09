@@ -24,9 +24,15 @@ const ALLOWED_ADDON_IDS = new Set([
   24, // Oxygen Infusion
 ]);
 
-/* Note: Time-extension vs add-on distinction no longer needed here.
- * All boosts are attached via addappointmentaddon endpoint, which
- * handles scheduling automatically (Mindbody manages the calendar). */
+/* Time-extension boosts must be booked as SEPARATE appointments
+ * immediately after the main appointment (they occupy real schedule time).
+ * True add-ons (PEMF, Cupping, etc.) are attached via addappointmentaddon
+ * as enhancements (no extra schedule time). */
+const TIME_EXTENSION_IDS = new Set([
+  28, // Make it 80 Minutes (massage +30 min)
+  19, // Microcurrent Full (facial +30 min)
+  20, // LED Light Therapy Full (facial +30 min)
+]);
 
 export async function POST(req: Request) {
   try {
@@ -139,18 +145,71 @@ export async function POST(req: Request) {
 
     console.log("[SERVICE BOOK] Main appointment booked", mainData);
 
-    /* ── Attach add-ons (boosts) as enhancements ─ */
-
-    // Use the dedicated addappointmentaddon endpoint to attach boosts
-    // as enhancements on the parent appointment (instead of separate appointments).
-    // This matches how Mindbody staff attach them in the UI.
-    // Key: ApplyPayment must be false (no prepaid session to deduct).
+    /* ── Attach boosts ─────────────────────────── */
 
     const mainApptId = mainData.Appointment?.Id;
+    const mainEndDateTime = mainData.Appointment?.EndDateTime;
 
     const addOnResults: any[] = [];
 
-    for (const addOnId of validAddOns) {
+    // Split boosts into time-extensions (separate appointments) vs
+    // true add-ons (enhancements via addappointmentaddon)
+    const timeExtensions = validAddOns.filter((id) => TIME_EXTENSION_IDS.has(id));
+    const trueAddOns = validAddOns.filter((id) => !TIME_EXTENSION_IDS.has(id));
+
+    // 1) Time-extension boosts → book as separate appointment right after main
+    //    These occupy real schedule time (e.g., 30 min block after the 50 min service)
+    for (const extId of timeExtensions) {
+      console.log(
+        `[SERVICE BOOK] Booking time-extension ${extId} at ${mainEndDateTime}`
+      );
+
+      if (!mainEndDateTime) {
+        console.error("[SERVICE BOOK] No EndDateTime on main appointment, cannot schedule time extension");
+        addOnResults.push({ addOnId: extId, success: false, error: "Missing main appointment end time" });
+        continue;
+      }
+
+      try {
+        const extRes = await fetch(
+          "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
+          {
+            method: "POST",
+            headers: mbHeaders,
+            body: JSON.stringify({
+              ClientId: cid,
+              SessionTypeId: extId,
+              StaffId: sid,
+              LocationId: Number(locationId),
+              StartDateTime: mainEndDateTime, // starts right after main appointment
+              ApplyPayment: false,
+              SendEmail: false, // don't double-email for the extension
+            }),
+          }
+        );
+
+        const extData = await extRes.json();
+
+        if (!extRes.ok) {
+          console.error(`[SERVICE BOOK] Time-extension ${extId} failed`, extData);
+          addOnResults.push({ addOnId: extId, success: false, details: extData });
+        } else {
+          console.log(`[SERVICE BOOK] Time-extension ${extId} booked`, extData);
+          addOnResults.push({
+            addOnId: extId,
+            success: true,
+            appointmentId: extData.Appointment?.Id,
+          });
+        }
+      } catch (extErr: any) {
+        console.error(`[SERVICE BOOK] Time-extension ${extId} error`, extErr);
+        addOnResults.push({ addOnId: extId, success: false, error: extErr?.message || "Unknown error" });
+      }
+    }
+
+    // 2) True add-ons (PEMF, Cupping, etc.) → attach as enhancements
+    //    These don't occupy extra schedule time — attached to the parent appointment.
+    for (const addOnId of trueAddOns) {
       console.log(
         `[SERVICE BOOK] Attaching add-on ${addOnId} to appointment ${mainApptId}`
       );
