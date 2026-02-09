@@ -18,6 +18,7 @@ type Service = {
   subtitle?: string;
   minutes: number;
   price: string;
+  memberPrice: number;
   dropInPrice: number;
   image: string;
   description: string;
@@ -33,6 +34,7 @@ type Boost = {
   type: BoostType;
   minutesAdded: number;
   price: string;
+  memberPrice: number;
   dropInPrice: number;
   description: string;
 };
@@ -67,6 +69,7 @@ const MASSAGES: Service[] = [
     name: "Deep Tissue",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/massage2.png",
     description:
@@ -78,6 +81,7 @@ const MASSAGES: Service[] = [
     name: "Salt Stone",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/massage4.png",
     description:
@@ -89,6 +93,7 @@ const MASSAGES: Service[] = [
     name: "CBD CauseMedic",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/massage3.png",
     description:
@@ -100,6 +105,7 @@ const MASSAGES: Service[] = [
     name: "Sports Massage",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/massage5.png",
     description:
@@ -111,6 +117,7 @@ const MASSAGES: Service[] = [
     name: "Lymphatic Drainage Detox",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/massage6.png",
     description:
@@ -122,6 +129,7 @@ const MASSAGES: Service[] = [
     name: "Basic Massage",
     minutes: 50,
     price: "Member $89 | Drop-In $129",
+    memberPrice: 89,
     dropInPrice: 129,
     image: "/assets/massage7.png",
     description:
@@ -137,6 +145,7 @@ const FACIALS: Service[] = [
     subtitle: "Anti-Aging Facial",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/facial2.png",
     description:
@@ -149,6 +158,7 @@ const FACIALS: Service[] = [
     subtitle: "Hydration Facial",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/facial3.png",
     description:
@@ -161,6 +171,7 @@ const FACIALS: Service[] = [
     subtitle: "Acne Facial",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/facial4.png",
     description:
@@ -173,6 +184,7 @@ const FACIALS: Service[] = [
     subtitle: "Soothing Facial",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/facial5.png",
     description:
@@ -185,6 +197,7 @@ const FACIALS: Service[] = [
     subtitle: "Sway Spotlight Facial",
     minutes: 50,
     price: "Member $99 | Drop-In $139",
+    memberPrice: 99,
     dropInPrice: 139,
     image: "/assets/facial6.png",
     description:
@@ -205,6 +218,7 @@ const MASSAGE_BOOSTS: Boost[] = [
     type: "time_extension",
     minutesAdded: 30,
     price: "Member $50 | Drop-In $100",
+    memberPrice: 50,
     dropInPrice: 100,
     description: "Add 30 minutes of focused massage time.",
   },
@@ -216,6 +230,7 @@ const MASSAGE_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Deep recovery + better sleep.",
   },
@@ -227,6 +242,7 @@ const MASSAGE_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Release tension + boost circulation.",
   },
@@ -241,6 +257,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "time_extension",
     minutesAdded: 30,
     price: "Member $50 | Drop-In $100",
+    memberPrice: 50,
     dropInPrice: 100,
     description: "Full-face lift + sculpt for an instantly toned look.",
   },
@@ -252,6 +269,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Target one area — eyes, jawline, or forehead.",
   },
@@ -263,6 +281,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "time_extension",
     minutesAdded: 30,
     price: "Member $50 | Drop-In $100",
+    memberPrice: 50,
     dropInPrice: 100,
     description: "Advanced light therapy for rejuvenation and repair.",
   },
@@ -274,6 +293,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Quick light session for calmer, clearer skin.",
   },
@@ -285,6 +305,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Diamond microderm + serums for smoother texture.",
   },
@@ -296,6 +317,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Exfoliates dead skin for instant glow.",
   },
@@ -307,6 +329,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Refines pores and evens tone.",
   },
@@ -318,6 +341,7 @@ const FACIAL_BOOSTS: Boost[] = [
     type: "add_on",
     minutesAdded: 0,
     price: "Member $30 | Drop-In $60",
+    memberPrice: 30,
     dropInPrice: 60,
     description: "Boosts hydration and serum absorption.",
   },
@@ -583,6 +607,7 @@ function BookServicePage() {
   const [loading, setLoading] = useState(false);
   const [cardSaving, setCardSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [boostWarning, setBoostWarning] = useState<string | null>(null);
 
   /* ── Refs ───────────────────────────────────── */
 
@@ -640,6 +665,14 @@ function BookServicePage() {
     return (
       selectedService.dropInPrice +
       selectedBoosts.reduce((sum, b) => sum + b.dropInPrice, 0)
+    );
+  }, [selectedService, selectedBoosts]);
+
+  const totalMemberPrice = useMemo(() => {
+    if (!selectedService) return 0;
+    return (
+      selectedService.memberPrice +
+      selectedBoosts.reduce((sum, b) => sum + b.memberPrice, 0)
     );
   }, [selectedService, selectedBoosts]);
 
@@ -834,7 +867,9 @@ function BookServicePage() {
         return prev.filter((b) => b.id !== boost.id);
       }
 
-      if (boost.type === "time_extension") {
+      // Massage: only one time-extension allowed (exclusive toggle)
+      // Facial: allow both Super Boosts (Microcurrent Full + LED Full)
+      if (boost.type === "time_extension" && boost.category === "massage") {
         return [...prev.filter((b) => b.type !== "time_extension"), boost];
       }
 
@@ -1034,6 +1069,25 @@ function BookServicePage() {
       if (!res.ok) {
         throw new Error(
           data?.error || "Booking failed. Please try again or call us."
+        );
+      }
+
+      // Check if any boosts failed to attach
+      const failedBoosts = (data.addOns ?? []).filter(
+        (a: { success: boolean }) => !a.success
+      );
+      if (failedBoosts.length > 0) {
+        const failedNames = selectedBoosts
+          .filter((b) =>
+            failedBoosts.some(
+              (f: { addOnId: number }) => f.addOnId === b.id
+            )
+          )
+          .map((b) => b.name);
+        setBoostWarning(
+          failedNames.length > 0
+            ? `Your appointment is booked, but we couldn't add: ${failedNames.join(", ")}. Please call us at (303) 476-6150 to add ${failedNames.length === 1 ? "it" : "them"} to your visit.`
+            : "Your appointment is booked, but some add-ons couldn't be applied. Please call us at (303) 476-6150 to complete your booking."
         );
       }
 
@@ -1260,10 +1314,12 @@ function BookServicePage() {
                           </div>
                           <div className="text-right shrink-0">
                             <div className="text-sm font-semibold text-[#113D33]">
-                              {svc.price.split(" | ")[1]}
+                              ${svc.memberPrice}
+                              <span className="text-[#113D33]/40 font-normal"> / </span>
+                              <span className="text-[#113D33]/50 font-normal">${svc.dropInPrice}</span>
                             </div>
-                            <div className="text-xs text-[#113D33]/50 mt-0.5">
-                              {svc.minutes} min
+                            <div className="text-[10px] text-[#113D33]/40 mt-0.5">
+                              member / drop-in · {svc.minutes} min
                             </div>
                           </div>
                         </div>
@@ -1300,7 +1356,7 @@ function BookServicePage() {
                         {selectedService.name}
                       </div>
                       <div className="text-xs text-[#113D33]/50">
-                        {selectedService.minutes} min · {selectedService.price.split(" | ")[1]}
+                        {selectedService.minutes} min · ${selectedService.memberPrice} member / ${selectedService.dropInPrice} drop-in
                       </div>
                     </div>
                   </div>
@@ -1391,13 +1447,14 @@ function BookServicePage() {
                           {b.name}
                           {b.minutesAdded > 0 ? ` (+${b.minutesAdded} min)` : ""}
                         </span>
-                        <span className="text-[#113D33]/70">{b.price.split(" | ")[1]}</span>
+                        <span className="text-[#113D33]/70">${b.memberPrice} / ${b.dropInPrice}</span>
                       </div>
                     ))}
                     <div className="mt-2 pt-2 border-t border-[#113D33]/10 flex justify-between font-semibold text-[#113D33]">
                       <span>{totalMinutes} min total</span>
-                      <span>${totalPrice}</span>
+                      <span>${totalMemberPrice} / ${totalPrice}</span>
                     </div>
+                    <div className="text-[10px] text-[#113D33]/40 text-right mt-0.5">member / drop-in</div>
                   </div>
                 )}
 
@@ -1438,7 +1495,7 @@ function BookServicePage() {
                           : ""}
                       </div>
                       <div className="text-xs text-[#113D33]/50">
-                        {totalMinutes} min · ${totalPrice}
+                        {totalMinutes} min · ${totalMemberPrice} member / ${totalPrice} drop-in
                       </div>
                     </div>
                   </div>
@@ -1860,7 +1917,7 @@ function BookServicePage() {
                             {b.name}
                             {b.minutesAdded > 0 ? ` (+${b.minutesAdded} min)` : ""}
                           </span>
-                          <span className="text-[#113D33]/60">{b.price.split(" | ")[1]}</span>
+                          <span className="text-[#113D33]/60">${b.memberPrice} / ${b.dropInPrice}</span>
                         </div>
                       ))}
                     </div>
@@ -1897,11 +1954,19 @@ function BookServicePage() {
                   </div>
 
                   {/* Price */}
-                  <div className="flex justify-between items-center pt-3 border-t border-[#113D33]/10">
-                    <span className="text-sm text-[#113D33]/60">Total</span>
-                    <span className="text-2xl font-bold text-[#113D33]">
-                      ${totalPrice}
-                    </span>
+                  <div className="pt-3 border-t border-[#113D33]/10">
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-sm text-[#113D33]/60">Member</span>
+                      <span className="text-2xl font-bold text-[#113D33]">
+                        ${totalMemberPrice}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-baseline mt-0.5">
+                      <span className="text-sm text-[#113D33]/40">Drop-in</span>
+                      <span className="text-sm text-[#113D33]/40">
+                        ${totalPrice}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Email */}
@@ -1910,6 +1975,12 @@ function BookServicePage() {
                     <span className="font-medium text-[#113D33]/70">
                       {normalizeEmail(email)}
                     </span>
+                  </div>
+
+                  {/* Member pricing note */}
+                  <div className="rounded-xl bg-[#113D33]/[0.04] p-3 text-xs text-[#113D33]/70 leading-relaxed">
+                    Member pricing is automatically applied at checkout.
+                    If you have a membership credit or package, it will be applied to this visit.
                   </div>
 
                   {/* No charge notice */}
@@ -1980,9 +2051,17 @@ function BookServicePage() {
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mb-10 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/50 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Check your email for confirmation. We&apos;ll see you soon.
               </p>
+
+              {boostWarning && (
+                <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 mb-8 animate-fade-in-up" style={{ animationDelay: "250ms" }}>
+                  <p className="text-sm text-amber-900 leading-relaxed">
+                    {boostWarning}
+                  </p>
+                </div>
+              )}
 
               {/* Add another service */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
