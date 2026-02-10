@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 /**
- * Scan forward day-by-day to find the next date with availability.
+ * Find the next date with availability using range-based Mindbody queries.
+ * Instead of scanning day-by-day (up to 30 calls), we query a 14-day window
+ * in a single call, then fall back to a second 14-day window if needed.
+ * Result: 1–2 API calls instead of up to 30.
  *
  * GET /api/next-available?type=service&sessionTypeId=49&startDate=2025-02-11
  * GET /api/next-available?type=remedy&sessionTypeId=8&startDate=2025-02-11
@@ -12,13 +15,14 @@ export const runtime = "nodejs";
  * Returns { nextDate: "2025-02-16" } or { nextDate: null }
  */
 
-const MAX_DAYS = 30;
-
 /* Staff IDs hardcoded per service type (matches existing API routes) */
 const STAFF_IDS: Record<string, string> = {
   remedy: "100000014",
   aescape: "100000040",
 };
+
+const WINDOW_DAYS = 14; // days per range query
+const MAX_DAYS = 30; // total lookahead
 
 function formatDate(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -35,22 +39,27 @@ function isValidISODate(iso: string) {
   return /^\d{4}-\d{2}-\d{2}$/.test(iso);
 }
 
-async function checkDateHasAvailability(
-  date: string,
+/**
+ * Query Mindbody for all availability in a date range.
+ * Returns the earliest date (YYYY-MM-DD) that has slots, or null.
+ */
+async function findEarliestInRange(
+  rangeStart: string,
+  rangeEnd: string,
   sessionTypeId: string,
   staffId: string | null,
   apiKey: string,
   siteId: string
-): Promise<boolean> {
+): Promise<string | null> {
   const url = new URL(
     "https://api.mindbodyonline.com/public/v6/appointment/bookableitems"
   );
 
   url.searchParams.append("request.sessionTypeIds[0]", sessionTypeId);
-  url.searchParams.append("request.startDate", `${date}T00:00:00`);
-  url.searchParams.append("request.endDate", `${date}T23:59:59`);
+  url.searchParams.append("request.startDate", `${rangeStart}T00:00:00`);
+  url.searchParams.append("request.endDate", `${rangeEnd}T23:59:59`);
   url.searchParams.append("request.includeResourceAvailability", "true");
-  url.searchParams.append("request.limit", "1"); // We only need to know if ANY exist
+  url.searchParams.append("request.limit", "200");
 
   if (staffId) {
     url.searchParams.append("request.staffIds[0]", staffId);
@@ -66,16 +75,30 @@ async function checkDateHasAvailability(
       cache: "no-store",
     });
 
-    if (!res.ok) return false;
+    if (!res.ok) return null;
 
     const data = await res.json();
     const availabilities = Array.isArray(data?.Availabilities)
       ? data.Availabilities
       : [];
 
-    return availabilities.length > 0;
+    if (availabilities.length === 0) return null;
+
+    // Extract the earliest date from all availability windows
+    let earliest: string | null = null;
+
+    for (const a of availabilities) {
+      const dt = a.StartDateTime; // e.g. "2025-02-16T09:00:00"
+      if (!dt) continue;
+      const dateOnly = dt.split("T")[0]; // "2025-02-16"
+      if (!earliest || dateOnly < earliest) {
+        earliest = dateOnly;
+      }
+    }
+
+    return earliest;
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -120,25 +143,33 @@ export async function GET(req: Request) {
   // Determine staff ID filter
   const staffId = STAFF_IDS[type] ?? null;
 
-  // Parse start date and scan forward from the NEXT day
+  // Parse start date — scan starts from the NEXT day
   const [y, m, d] = startDate.split("-").map(Number);
   const start = new Date(y, m - 1, d);
 
-  for (let i = 1; i <= MAX_DAYS; i++) {
-    const checkDate = addDays(start, i);
-    const iso = formatDate(checkDate);
+  // Query in windows: days 1-14, then 15-30 if needed
+  let scanned = 0;
 
-    const hasAvailability = await checkDateHasAvailability(
-      iso,
+  while (scanned < MAX_DAYS) {
+    const windowStart = addDays(start, scanned + 1);
+    const remaining = MAX_DAYS - scanned;
+    const windowSize = Math.min(WINDOW_DAYS, remaining);
+    const windowEnd = addDays(start, scanned + windowSize);
+
+    const earliest = await findEarliestInRange(
+      formatDate(windowStart),
+      formatDate(windowEnd),
       sessionTypeId,
       staffId,
       apiKey,
       siteId
     );
 
-    if (hasAvailability) {
-      return NextResponse.json({ nextDate: iso });
+    if (earliest) {
+      return NextResponse.json({ nextDate: earliest });
     }
+
+    scanned += windowSize;
   }
 
   return NextResponse.json({ nextDate: null });
