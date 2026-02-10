@@ -5,7 +5,7 @@ const nextConfig = {
 
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    // Next.js will auto-optimize: WebP conversion, responsive sizing, lazy loading
   },
 
 
@@ -13,7 +13,20 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-
+  async redirects() {
+    return [
+      {
+        source: "/memberships",
+        destination: "/membership/",
+        permanent: true,
+      },
+      {
+        source: "/blog/forever-young-facial",
+        destination: "/facials/",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

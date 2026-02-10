@@ -8,10 +8,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://swaywellnessspa.com/gift-cards",
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Spa Gift Cards | Sway Wellness Spa",
     description:

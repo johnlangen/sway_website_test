@@ -1,34 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 export default function VideoBackground() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
-
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
+      {/* Poster image for instant LCP — displays while video buffers */}
+      <img
+        src="/assets/background_image.png"
+        alt=""
+        fetchPriority="high"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      />
+
+      {/* Background Video — loads over the poster once ready */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
         loop
         muted
         playsInline
+        poster="/assets/background_image.png"
       >
-        <source
-          src={isMobile ? "/assets/background.mov" : "/assets/background2.mp4"}
-          type="video/mp4"
-        />
+        {/* Use mp4 for both — .mov only works on Apple devices */}
+        <source src="/assets/background2.mp4" type="video/mp4" />
       </video>
 
       {/* Dark Overlay */}

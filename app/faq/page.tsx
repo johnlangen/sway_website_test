@@ -1,20 +1,11 @@
 "use client";
 
-import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function FAQIndexPage() {
   return (
     <main className="bg-white text-[#113D33] min-h-screen font-vance px-6 pt-32 md:pt-40 pb-20">
-      <Head>
-        <title>FAQ | Sway Wellness Spa</title>
-        <meta
-          name="description"
-          content="Explore FAQs for each Sway Wellness Spa location. Learn about booking, policies, parking, and what makes Sway unique."
-        />
-        <link rel="canonical" href="https://swaywellnessspa.com/faq" />
-      </Head>
 
       <div className="max-w-3xl mx-auto space-y-12">
         {/* Page Title */}
