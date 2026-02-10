@@ -26,7 +26,8 @@ type RemedyOption = (typeof REMEDY_OPTIONS)[number];
 --------------------------------------------- */
 
 function formatISO(date: Date) {
-  return date.toISOString().split("T")[0];
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
 function addDays(date: Date, days: number) {
@@ -662,7 +663,7 @@ export default function BookRemedyRoomPage() {
       body: JSON.stringify({
         clientId: resolvedClientId,
         sessionTypeId,
-        startDateTime: selectedTime.toISOString(),
+        startDateTime: formatLocalDateTime(selectedTime),
       }),
     });
 

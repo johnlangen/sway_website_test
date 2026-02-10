@@ -50,7 +50,8 @@ const MOST_POPULAR_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 62;
 --------------------------------------------- */
 
 function formatISO(date: Date) {
-  return date.toISOString().split("T")[0];
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
 function addDays(date: Date, days: number) {
@@ -705,7 +706,7 @@ export default function BookAescapePage() {
       body: JSON.stringify({
         clientId: resolvedClientId,
         sessionTypeId,
-        startDateTime: selectedTime.toISOString()
+        startDateTime: formatLocalDateTime(selectedTime)
       }),
     });
 
