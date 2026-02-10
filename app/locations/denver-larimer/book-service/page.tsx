@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { getClosingHour } from "@/lib/locationHours";
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -645,11 +646,123 @@ function BookServicePage() {
     return Array.from(map.entries()).map(([id, name]) => ({ id, name }));
   }, [slots]);
 
-  // Filter slots by selected therapist
+  // Total extra minutes needed for time-extension boosts
+  const totalExtMinutes = useMemo(
+    () =>
+      selectedBoosts
+        .filter((b) => b.type === "time_extension")
+        .reduce((sum, b) => sum + b.minutesAdded, 0),
+    [selectedBoosts]
+  );
+
+  // Fetch staff schedules when slots load so we can filter out times
+  // where extensions won't fit
+  const [staffSchedules, setStaffSchedules] = useState<
+    Record<number, { start: string; end: string }[]>
+  >({});
+  const [schedulesLoading, setSchedulesLoading] = useState(false);
+
+  useEffect(() => {
+    if (!slots.length || !selectedService) {
+      setStaffSchedules({});
+      setSchedulesLoading(false);
+      return;
+    }
+
+    // Get unique staff IDs from slots
+    const staffIds = [...new Set(slots.map((s) => s.staffId).filter(Boolean))];
+    if (staffIds.length === 0) {
+      setSchedulesLoading(false);
+      return;
+    }
+
+    setSchedulesLoading(true);
+    const dateStr = selectedDate;
+
+    // Fetch schedule for each staff in parallel
+    Promise.all(
+      staffIds.map((sid) =>
+        fetch(`/api/service/staff-schedule?staffId=${sid}&date=${dateStr}`)
+          .then((res) => res.json())
+          .then((data) => ({
+            staffId: sid,
+            appointments: Array.isArray(data.appointments)
+              ? data.appointments
+              : [],
+          }))
+          .catch(() => ({ staffId: sid, appointments: [] }))
+      )
+    ).then((results) => {
+      const map: Record<number, { start: string; end: string }[]> = {};
+      for (const r of results) {
+        map[r.staffId] = r.appointments;
+      }
+      setStaffSchedules(map);
+      setSchedulesLoading(false);
+    });
+  }, [slots, selectedDate, selectedService]);
+
+  // Compute last available slot per staff member (= shift end boundary)
+  const staffLastSlot = useMemo(() => {
+    const map: Record<number, Date> = {};
+    for (const s of slots) {
+      const t = parseMindbodyDateTime(s.startDateTime);
+      if (!map[s.staffId] || t > map[s.staffId]) {
+        map[s.staffId] = t;
+      }
+    }
+    return map;
+  }, [slots]);
+
+  // Filter slots: hide times where time-extension boosts won't fit
+  const filteredSlots = useMemo(() => {
+    if (totalExtMinutes === 0 || !selectedService) return slots;
+
+    return slots.filter((slot) => {
+      const slotStart = parseMindbodyDateTime(slot.startDateTime);
+
+      const serviceEnd = new Date(slotStart);
+      serviceEnd.setMinutes(serviceEnd.getMinutes() + selectedService.minutes);
+
+      const extensionsEnd = new Date(serviceEnd);
+      extensionsEnd.setMinutes(extensionsEnd.getMinutes() + totalExtMinutes);
+
+      // Don't allow if extensions would run past closing time
+      const closingHour = getClosingHour("denver-larimer", slotStart.getDay());
+      const closing = new Date(slotStart);
+      closing.setHours(closingHour, 0, 0, 0);
+      if (extensionsEnd > closing) return false;
+
+      // Don't allow if extensions would run past this therapist's shift end
+      // (shift end = their last available slot + service duration)
+      const lastSlot = staffLastSlot[slot.staffId];
+      if (lastSlot) {
+        const shiftEnd = new Date(lastSlot);
+        shiftEnd.setMinutes(shiftEnd.getMinutes() + selectedService.minutes);
+        if (extensionsEnd > shiftEnd) return false;
+      }
+
+      // Check against staff's next booked appointment
+      const appts = staffSchedules[slot.staffId];
+      if (!appts || appts.length === 0) return true;
+
+      const nextAppt = appts
+        .map((a) => parseMindbodyDateTime(a.start))
+        .filter((start) => start > serviceEnd)
+        .sort((a, b) => a.getTime() - b.getTime())[0];
+
+      if (!nextAppt) return true;
+
+      return extensionsEnd <= nextAppt;
+    });
+  }, [slots, staffSchedules, staffLastSlot, totalExtMinutes, selectedService]);
+
+  // Filter slots by selected therapist + extension availability
   const displayedSlots = useMemo(() => {
-    if (!filteredTherapist) return slots;
-    return slots.filter((s) => s.staffId === filteredTherapist);
-  }, [slots, filteredTherapist]);
+    const base = totalExtMinutes > 0 ? filteredSlots : slots;
+    if (!filteredTherapist) return base;
+    return base.filter((s) => s.staffId === filteredTherapist);
+  }, [slots, filteredSlots, filteredTherapist, totalExtMinutes]);
 
   const groupedSlots = useMemo(() => groupSlots(displayedSlots), [displayedSlots]);
 
@@ -1604,20 +1717,20 @@ function BookServicePage() {
               <section className="mb-8">
                 <h2 className="text-lg font-semibold text-[#113D33] mb-4">Pick a Time</h2>
 
-                {loading && (
+                {(loading || schedulesLoading) && (
                   <div className="py-16 flex flex-col items-center gap-3 animate-fade-in">
                     <div className="w-8 h-8 rounded-full border-2 border-[#113D33]/20 border-t-[#113D33] animate-spin" />
                     <span className="text-sm text-[#113D33]/50">Loading times…</span>
                   </div>
                 )}
 
-                {!loading && displayedSlots.length === 0 && (
+                {!loading && !schedulesLoading && displayedSlots.length === 0 && (
                   <div className="py-16 text-[#113D33]/50 animate-fade-in">
                     No availability for this day. Try another date.
                   </div>
                 )}
 
-                {!loading &&
+                {!loading && !schedulesLoading &&
                   displayedSlots.length > 0 &&
                   Object.entries(groupedSlots).map(([period, periodSlots]) => {
                     if (periodSlots.length === 0) return null;
