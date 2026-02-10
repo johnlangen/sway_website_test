@@ -4,11 +4,11 @@ import HomeContent from "./HomeContent";
 export const metadata: Metadata = {
   title: "Sway Wellness Spa | Modern Wellness Experiences",
   description:
-    "Sway Wellness Spa is a modern wellness spa and club offering massage therapy, facials, sauna and cold plunge recovery, and the AI-powered Aescape massage experience. Designed for consistent care and modern recovery.",
+    "Sway Wellness Spa is a modern wellness club offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage. Now open on Larimer Square in Denver. Book online today.",
   openGraph: {
     title: "Sway Wellness Spa | Modern Wellness Experiences",
     description:
-      "Discover Sway Wellness Spa — a modern wellness spa and club offering massage therapy, facials, recovery rituals, and the AI-powered Aescape massage experience.",
+      "A modern wellness club offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage. Now open on Larimer Square in Denver.",
     url: "https://swaywellnessspa.com/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -73,6 +73,13 @@ export default function HomePage() {
     ],
 
     termsOfService: "https://swaywellnessspa.com/terms-and-conditions",
+
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "111",
+      bestRating: "5",
+    },
   };
 
   return (

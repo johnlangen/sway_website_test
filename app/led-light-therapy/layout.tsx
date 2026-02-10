@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Denver",
+  title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
   description:
-    "Discover LED Light Therapy at Sway Wellness Spa in Denver. Reduce wrinkles, clear acne, and accelerate muscle recovery with red, blue, and infrared light treatments.",
+    "Discover LED Light Therapy at Sway Wellness Spa. Reduce wrinkles, clear acne, and accelerate muscle recovery with red, blue, and infrared light treatments.",
   alternates: {
     canonical: "https://swaywellnessspa.com/led-light-therapy",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/led-light-therapy",
-    title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Denver",
+    title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
     description:
       "Sway’s LED Light Therapy uses LightStim MultiWave® technology with 1,400 medical-grade LEDs to target anti-aging, acne, and regeneration.",
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Denver",
+    title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
     description:
       "Restore skin health and muscle recovery with LED Light Therapy at Sway Wellness Spa. Anti-aging, acne, and regeneration benefits in one session.",
     images: ["/assets/OG/og-led-light-therapy.jpg"],

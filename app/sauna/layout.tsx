@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sauna Therapy | Sway Wellness Spa",
+  title: "Sauna Therapy | Relax & Recover at Sway Wellness Spa",
   description:
-    "Relax, recover, and reset with traditional sauna therapy at Sway Wellness Spa in Denver. Improve circulation, reduce stress, and support recovery.",
+    "Relax, recover, and reset with sauna therapy at Sway Wellness Spa. Improve circulation, reduce stress, and support muscle recovery.",
   alternates: {
     canonical: "https://swaywellnessspa.com/sauna",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/sauna",
-    title: "Sauna Therapy | Sway Wellness Spa",
+    title: "Sauna Therapy | Relax & Recover at Sway Wellness Spa",
     description:
-      "Experience traditional sauna therapy at Sway Wellness Spa in Denver for recovery, relaxation, and overall wellness.",
+      "Sauna therapy at Sway Wellness Spa for recovery, relaxation, and overall wellness.",
     images: [
       {
         url: "/assets/OG/og-sauna.jpg",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sauna Therapy | Sway Wellness Spa",
+    title: "Sauna Therapy | Relax & Recover at Sway Wellness Spa",
     description:
-      "Traditional sauna therapy to support recovery, circulation, and stress relief at Sway Wellness Spa.",
+      "Sauna therapy to support recovery, circulation, and stress relief at Sway Wellness Spa.",
     images: ["/assets/OG/og-sauna.jpg"],
   },
   robots: { index: true, follow: true },

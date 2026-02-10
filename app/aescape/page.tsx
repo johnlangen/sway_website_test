@@ -3,17 +3,17 @@ import { Metadata } from "next";
 import AescapeContent from "../components/AescapeContent";
 
 export const metadata: Metadata = {
-  title: "Aescape Robot Massage in Denver | Sway Wellness Spa",
+  title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
   description:
-    "Experience Aescape, the world’s first AI-powered robot massage—available exclusively at Sway Wellness Spa in downtown Denver. Book your personalized session today.",
-  alternates: { canonical: "/aescape/" },
+    "Experience Aescape, the world's first AI-powered robot massage — available at Sway Wellness Spa. Personalized pressure, zero awkwardness. Book your session today.",
+  alternates: { canonical: "https://swaywellnessspa.com/aescape" },
 
   openGraph: {
     type: "article",
-    url: "/aescape/",
-    title: "Aescape Robot Massage in Denver | Sway Wellness Spa",
+    url: "https://swaywellnessspa.com/aescape",
+    title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
     description:
-      "Experience Aescape, the AI-powered robotic massage system in downtown Denver. Exclusive at Sway Wellness Spa.",
+      "Experience Aescape, the world's first AI-powered robot massage at Sway Wellness Spa.",
     images: [
       {
         url: "/assets/og-aescape.jpg",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Aescape Robot Massage in Denver | Sway Wellness Spa",
+    title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
     description:
-      "Experience Aescape, the AI-powered robotic massage system in downtown Denver. Exclusive at Sway Wellness Spa.",
+      "Experience Aescape, the world's first AI-powered robot massage at Sway Wellness Spa.",
     images: ["/assets/og-aescape.jpg"],
   },
 

@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cold Plunge Therapy in Denver | Sway Wellness Spa",
+  title: "Cold Plunge Therapy | Boost Recovery at Sway Wellness Spa",
   description:
-    "Boost immunity, reduce inflammation, and elevate your mood with cold plunge therapy at Sway in Denver. Book a revitalizing 5-minute plunge session today.",
+    "Boost energy, reduce inflammation, and speed recovery with cold plunge therapy at Sway Wellness Spa. Book a revitalizing session today.",
   alternates: {
     canonical: "https://swaywellnessspa.com/cold-plunge",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/cold-plunge",
-    title: "Cold Plunge Therapy in Denver | Sway Wellness Spa",
+    title: "Cold Plunge Therapy | Boost Recovery at Sway Wellness Spa",
     description:
       "Experience the life-changing benefits of cold plunge therapy at Sway: reduced inflammation, stronger immunity, better sleep, and enhanced mood.",
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cold Plunge Therapy in Denver | Sway Wellness Spa",
+    title: "Cold Plunge Therapy | Boost Recovery at Sway Wellness Spa",
     description:
       "Recharge and recover with Sway’s cold plunge therapy — proven to boost energy, reduce pain, and improve sleep.",
     images: ["/assets/OG/og-cold-plunge.jpg"],

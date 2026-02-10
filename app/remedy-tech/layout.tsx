@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Remedy Room | Sway’s Signature Wellness Recovery Experience",
+  title: "Sauna, Cold Plunge & Recovery | The Remedy Room at Sway Wellness Spa",
   description:
-    "Recharge in the Remedy Room at Sway Wellness Spa. Experience sauna, cold plunge, compression therapy, and LED light therapy — all in one powerful recovery session.",
+    "Sauna, cold plunge, compression therapy, and LED light therapy in one 40-minute recovery session. Experience the Remedy Room at Sway Wellness Spa.",
   alternates: {
     canonical: "https://swaywellnessspa.com/remedy-tech",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/remedy-tech",
-    title: "Remedy Room | Sway’s Signature Wellness Recovery Experience",
+    title: "Sauna, Cold Plunge & Recovery | The Remedy Room at Sway Wellness Spa",
     description:
-      "Sway’s Remedy Room combines sauna, cold plunge, compression therapy, and LED light therapy for total recovery and rejuvenation.",
+      "Sauna, cold plunge, compression therapy, and LED light therapy in one 40-minute recovery session at Sway Wellness Spa.",
     images: [
       {
         url: "/assets/OG/og-remedy-room.jpg",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Remedy Room | Sway’s Signature Wellness Recovery Experience",
+    title: "Sauna, Cold Plunge & Recovery | The Remedy Room at Sway Wellness Spa",
     description:
-      "Restore body and mind in Sway’s Remedy Room with sauna, cold plunge, compression therapy, and LED light therapy.",
+      "Sauna, cold plunge, compression therapy, and LED light therapy in one recovery session at Sway Wellness Spa.",
     images: ["/assets/OG/og-remedy-room.jpg"],
   },
   robots: { index: true, follow: true },

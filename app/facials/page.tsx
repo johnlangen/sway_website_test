@@ -667,6 +667,25 @@ const FacialsPage = () => {
         </div>
       </section>
 
+      {/* LOCATIONS */}
+      <section className="bg-[#F7F4E9] px-6 py-16 md:py-20">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+            Book a Facial at a Location
+          </h2>
+          <Link
+            href="/locations/denver-larimer/facials/"
+            className="block rounded-2xl border border-[#113D33]/15 bg-white p-6 hover:shadow-lg hover:border-[#113D33]/30 transition-all group"
+          >
+            <p className="text-lg font-vance-bold text-[#113D33]">Sway Larimer</p>
+            <p className="text-sm text-gray-600 mt-1">Denver, CO — Larimer Square</p>
+            <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
+              Book Now →
+            </span>
+          </Link>
+        </div>
+      </section>
+
       {/* CUSTOMIZE MODAL (scrollable, compact) */}
       {activeFacial && (
         <div

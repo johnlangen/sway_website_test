@@ -203,7 +203,7 @@ export default function SwayLarimerPage() {
               {
                 title: "Remedy Room",
                 desc: "Sauna, cold plunge, LED.",
-                href: "/remedy-room",
+                href: "/remedy-tech",
               },
               {
                 title: "Aescape",
