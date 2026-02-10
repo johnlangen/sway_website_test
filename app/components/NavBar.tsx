@@ -181,7 +181,7 @@ const NavBar = () => {
               href="/book"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:inline-block bg-white text-[#113D33] px-5 py-2 rounded-full font-vance hover:bg-gray-200"
+              className="bg-white text-[#113D33] px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm md:text-base"
             >
               Book Now
             </a>

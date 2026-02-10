@@ -1112,7 +1112,7 @@ export default function BookRemedyRoomPage() {
           {/* EMAIL */}
           {step === "email" && (
             <div ref={emailRef} className="min-h-[calc(100vh-320px)] flex items-start justify-center">
-              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in-up">
                 <h2 className="text-xl font-semibold mb-2 text-center">Enter your email to reserve</h2>
                 <p className="text-sm text-[#113D33]/75 mb-4 text-center">
                   This helps us find (or create) your Mindbody account.
@@ -1163,7 +1163,7 @@ export default function BookRemedyRoomPage() {
           {/* CARD */}
           {step === "card" && (
             <div ref={cardRef} className="min-h-[calc(100vh-320px)] flex items-start justify-center">
-              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in-up">
                 <h2 className="text-xl font-semibold mb-2 text-center">
                   {cardContext === "create_account" ? "Create your account" : "Add a card to your account"}
                 </h2>
@@ -1331,7 +1331,7 @@ export default function BookRemedyRoomPage() {
           {/* CONFIRM */}
           {step === "confirm" && (
             <div ref={confirmRef} className="min-h-[calc(100vh-320px)] flex items-start justify-center">
-              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in-up">
                 <h2 className="text-xl font-semibold mb-2 text-center">Confirm your booking</h2>
 
                 <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
@@ -1415,7 +1415,7 @@ export default function BookRemedyRoomPage() {
           {/* BOOKING */}
           {step === "booking" && (
             <div ref={bookingRef} className="min-h-[calc(100vh-320px)] flex items-start justify-center">
-              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in">
                 <p className="text-lg font-semibold text-[#113D33]">Booking your appointment…</p>
                 <p className="text-sm text-[#113D33]/70 mt-2">Please don’t close this page.</p>
 
@@ -1428,37 +1428,69 @@ export default function BookRemedyRoomPage() {
 
           {/* DONE */}
           {step === "done" && (
-            <div ref={doneRef} className="min-h-[calc(100vh-320px)] flex items-start justify-center">
-              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left">
-                <h2 className="text-2xl font-bold mb-2 text-[#113D33]">You’re booked!</h2>
-                <p className="text-[#113D33]/80">Check your email for confirmation. Please remember to bring a swimsuit or athleisure for this experience. See you soon! .</p>
-
-                <div className="mt-6 grid grid-cols-1 gap-3">
-                  {mindbodyBookingUrl && (
-                    <a
-                      href={mindbodyBookingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block w-full text-center px-6 py-3 rounded-full bg-[#113D33] text-white font-semibold hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                    >
-                      Manage booking in Mindbody
-                    </a>
-                  )}
-
-                  <Link
-                    href="/remedy-tech"
-                    className="inline-block w-full text-center px-6 py-3 rounded-full border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  >
-                    What to expect
-                  </Link>
+            <div ref={doneRef} className="max-w-md mx-auto pt-20 pb-12">
+              {/* Success checkmark */}
+              <div className="animate-check-pop mb-6">
+                <div className="w-16 h-16 rounded-full bg-[#113D33] mx-auto flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
+              </div>
 
-                <div className="mt-6 text-xs text-[#113D33]/60 text-center">
-                  Need anything?{" "}
-                  <a className="underline underline-offset-4" href="tel:3034766150">
-                    Call (303) 476-6150
-                  </a>
-                </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-2 animate-fade-in-up">
+                You&apos;re booked!
+              </h2>
+
+              {selectedTime && (
+                <p className="text-[#113D33]/70 mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+                  {selectedOption.label}
+                </p>
+              )}
+
+              {selectedTime && (
+                <p className="text-[#113D33]/50 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                  {formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTime12h(selectedTime)}
+                </p>
+              )}
+
+              <p className="text-[#113D33]/50 text-sm mt-4 mb-6 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+                Please remember to bring a swimsuit or athleisure. Check your email for confirmation.
+              </p>
+
+              {/* Cross-sell */}
+              <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+                <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40">
+                  Complete your visit
+                </p>
+                <Link
+                  href="/locations/denver-larimer/book-service"
+                  className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
+                >
+                  Book a Massage or Facial
+                </Link>
+                <Link
+                  href="/locations/denver-larimer/book-aescape"
+                  className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
+                >
+                  Book Aescape Robot Massage
+                </Link>
+              </div>
+
+              <Link
+                href="/locations/denver-larimer"
+                className="text-sm text-[#113D33]/50 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+              >
+                Done — back to Sway Larimer
+              </Link>
+
+              <div className="mt-6">
+                <a
+                  href="tel:3034766150"
+                  className="text-sm text-[#113D33]/40 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                >
+                  Questions? (303) 476-6150
+                </a>
               </div>
             </div>
           )}

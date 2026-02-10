@@ -2138,7 +2138,7 @@ function BookServicePage() {
              STEP: DONE
           ═══════════════════════════════════════ */}
           {step === "done" && (
-            <div className="max-w-md mx-auto py-12">
+            <div className="max-w-md mx-auto pt-20 pb-12">
               {/* Success checkmark */}
               <div className="animate-check-pop mb-6">
                 <div className="w-16 h-16 rounded-full bg-[#113D33] mx-auto flex items-center justify-center">
@@ -2155,6 +2155,12 @@ function BookServicePage() {
               {selectedService && selectedSlot && (
                 <p className="text-[#113D33]/70 mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
                   {selectedService.name} with {selectedSlot.staffName}
+                </p>
+              )}
+
+              {selectedBoosts.length > 0 && (
+                <p className="text-[#113D33]/50 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "125ms" }}>
+                  + {selectedBoosts.map((b) => b.name).join(", ")}
                 </p>
               )}
 

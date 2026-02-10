@@ -152,20 +152,18 @@ const NavBarGreen = () => {
         </div>
 
         {/* Book Now Button */}
-        <div className="hidden md:block ml-auto">
+        <div className="ml-auto flex items-center gap-3">
           <a
             href={locHref("/book")}
             className="bg-[#4A776D] text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full text-sm lg:text-lg font-vance hover:bg-[#5b8f7f] whitespace-nowrap"
           >
             Book Now
           </a>
-        </div>
 
-        {/* Mobile Hamburger */}
-        <div className="md:hidden ml-auto">
+          {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-[#4A776D] text-2xl"
+            className="md:hidden text-[#4A776D] text-2xl"
           >
             ☰
           </button>
