@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "Sway’s LED Light Therapy uses LightStim MultiWave® technology with 1,400 medical-grade LEDs to target anti-aging, acne, and regeneration.",
     images: [
       {
-        url: "/assets/OG/og-led-light-therapy.jpg",
+        url: "/assets/OG/og-led-light.jpg",
         width: 1200,
         height: 630,
         alt: "LED Light Therapy session at Sway Wellness Spa in Denver",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
     description:
       "Restore skin health and muscle recovery with LED Light Therapy at Sway Wellness Spa. Anti-aging, acne, and regeneration benefits in one session.",
-    images: ["/assets/OG/og-led-light-therapy.jpg"],
+    images: ["/assets/OG/og-led-light.jpg"],
   },
   robots: { index: true, follow: true },
 };

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "Give the gift of wellness in Denver. Purchase Sway Larimer gift cards online for facials, massage, and Remedy Room recovery experiences.",
     images: [
       {
-        url: "/assets/og-giftcard.jpg",
+        url: "/assets/OG/og-gift-cards.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa Gift Cards",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Spa Gift Cards Larimer | Buy Wellness Gifts Online at Sway Denver",
     description:
       "Give the gift of wellness in Denver. Purchase Sway Larimer gift cards online for facials, massage, and Remedy Room recovery experiences.",
-    images: ["/assets/og-giftcard.jpg"],
+    images: ["/assets/OG/og-gift-cards.jpg"],
   },
   robots: { index: true, follow: true },
 };

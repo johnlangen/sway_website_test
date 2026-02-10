@@ -942,7 +942,7 @@ export default function BookRemedyRoomPage() {
 
             <div className="mt-4 flex items-center justify-center gap-4 text-sm">
               <Link
-                href="/remedy-room"
+                href="/remedy-tech"
                 className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
               >
                 Learn about the Remedy Room

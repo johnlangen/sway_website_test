@@ -34,7 +34,7 @@ Acceptance of this Gift Card constitutes acceptance of these terms.`;
         "@type": "Product",
         name: "Sway Larimer Spa Gift Card",
         description: "Give the gift of wellness in Denver’s Larimer Square — redeemable for facials, massages, and Remedy Room experiences.",
-        image: "/assets/og-giftcard.jpg",
+        image: "/assets/OG/og-gift-cards.jpg",
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
         offers: {
           "@type": "Offer",

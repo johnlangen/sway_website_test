@@ -21,7 +21,7 @@ export default function GeorgetownGiftCardsPage() {
         name: "Sway Georgetown Spa Gift Cards",
         description:
           "Wellness gift cards for Sway Georgetown. Redeemable for massage, facials, and Remedy Room sessions once the Washington, DC location opens.",
-        image: "/assets/og-giftcard.jpg",
+        image: "/assets/OG/og-gift-cards.jpg",
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
         offers: {
           "@type": "Offer",

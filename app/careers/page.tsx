@@ -30,7 +30,7 @@ export default function Page() {
       "@type": "Organization",
       name: "Sway Wellness Spa",
       sameAs: "https://swaywellnessspa.com",
-      logo: "https://swaywellnessspa.com/assets/logo.png",
+      logo: "https://swaywellnessspa.com/assets/swaylogo.png",
     },
     jobLocation: {
       "@type": "Place",

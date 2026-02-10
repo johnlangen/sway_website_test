@@ -191,7 +191,7 @@ export default function AescapeContent() {
           loop
           muted
           playsInline
-          poster="/assets/og-aescape.jpg"
+          poster="/assets/OG/og-aescape.jpg"
         />
 
         {/* cinematic overlays */}

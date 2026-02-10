@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "Massage therapy in Denver at Sway Wellness Spa (Larimer Square). Personalized, professional care.",
     images: [
       {
-        url: "/assets/OG/og-massage.jpg",
+        url: "/assets/OG/og-massages.jpg",
         width: 1200,
         height: 630,
         alt: "Massage therapy at Sway Wellness Spa Denver",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Massage in Denver | Sway Wellness Spa Larimer Square",
     description:
       "Massage therapy in Denver at Sway Wellness Spa (Larimer Square).",
-    images: ["/assets/OG/og-massage.jpg"],
+    images: ["/assets/OG/og-massages.jpg"],
   },
   robots: { index: true, follow: true },
 };
@@ -71,7 +71,7 @@ const serviceJsonLd = {
     "@type": "LocalBusiness",
     name: "Sway Wellness Spa",
     url: "https://swaywellnessspa.com",
-    image: "https://swaywellnessspa.com/assets/OG/og-massage.jpg",
+    image: "https://swaywellnessspa.com/assets/OG/og-massages.jpg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Larimer St",

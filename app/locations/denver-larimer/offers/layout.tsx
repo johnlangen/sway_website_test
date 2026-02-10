@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "Exclusive spa offers in Denver at Sway Wellness Spa in Larimer Square.",
     images: [
       {
-        url: "/assets/og-offers.jpg",
+        url: "/assets/OG/og-offers.jpg",
         width: 1200,
         height: 630,
         alt: "Denver Spa Offers – Sway Wellness Spa",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
     description:
       "Exclusive spa offers in Denver at Sway Wellness Spa in Larimer Square.",
-    images: ["/assets/og-offers.jpg"],
+    images: ["/assets/OG/og-offers.jpg"],
   },
   robots: {
     index: true,

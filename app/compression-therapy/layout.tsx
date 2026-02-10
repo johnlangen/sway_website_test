@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "Boost recovery and circulation with Normatec compression boots at Sway Wellness Spa. Enhance lymphatic drainage, reduce soreness, and accelerate healing.",
     images: [
       {
-        url: "/assets/OG/og-compression-therapy.jpg",
+        url: "/assets/OG/og-compression.jpg",
         width: 1200,
         height: 630,
         alt: "Compression therapy session with Normatec boots at Sway Wellness Spa",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Compression Therapy | Normatec Lymphatic Boots at Sway Wellness Spa",
     description:
       "Improve circulation, reduce inflammation, and speed up recovery with compression therapy at Sway Wellness Spa.",
-    images: ["/assets/OG/og-compression-therapy.jpg"],
+    images: ["/assets/OG/og-compression.jpg"],
   },
   robots: { index: true, follow: true },
 };

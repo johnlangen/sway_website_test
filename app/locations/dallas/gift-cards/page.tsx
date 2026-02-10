@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
     images: [
       {
-        url: "/assets/og-giftcard.jpg",
+        url: "/assets/OG/og-gift-cards.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Dallas Gift Cards Coming Soon",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Spa Gift Cards Dallas | Coming Soon at Sway Wellness Spa",
     description:
       "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
-    images: ["/assets/og-giftcard.jpg"],
+    images: ["/assets/OG/og-gift-cards.jpg"],
   },
   robots: { index: true, follow: true },
 };

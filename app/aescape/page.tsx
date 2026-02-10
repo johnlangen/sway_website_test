@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "Experience Aescape, the world's first AI-powered robot massage at Sway Wellness Spa.",
     images: [
       {
-        url: "/assets/og-aescape.jpg",
+        url: "/assets/OG/og-aescape.jpg",
         width: 1200,
         height: 630,
         alt: "Aescape Robot Massage at Sway Wellness Spa Denver",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
     description:
       "Experience Aescape, the world's first AI-powered robot massage at Sway Wellness Spa.",
-    images: ["/assets/og-aescape.jpg"],
+    images: ["/assets/OG/og-aescape.jpg"],
   },
 
   robots: {
@@ -55,7 +55,7 @@ export default function Page() {
             provider: {
               "@type": "LocalBusiness",
               name: "Sway Wellness Spa",
-              image: "https://swaywellnessspa.com/assets/og-aescape.jpg",
+              image: "https://swaywellnessspa.com/assets/OG/og-aescape.jpg",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "1430 Larimer St",

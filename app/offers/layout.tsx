@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "Explore current spa offers and promotions at Sway Wellness Spa. Offers vary by location.",
     images: [
       {
-        url: "/assets/og-offers-hub.jpg",
+        url: "/assets/OG/og-offers.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa Offers",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Spa Offers & Deals | Sway Wellness Spa",
     description:
       "Explore current spa offers and promotions at Sway Wellness Spa. Offers vary by location.",
-    images: ["/assets/og-offers-hub.jpg"],
+    images: ["/assets/OG/og-offers.jpg"],
   },
   robots: {
     index: true,
