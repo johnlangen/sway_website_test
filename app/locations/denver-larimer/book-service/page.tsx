@@ -352,7 +352,8 @@ const FACIAL_BOOSTS: Boost[] = [
 ───────────────────────────────────────────── */
 
 function formatISO(date: Date) {
-  return date.toISOString().split("T")[0];
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
 function addDays(date: Date, days: number) {

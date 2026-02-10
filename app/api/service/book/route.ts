@@ -161,49 +161,15 @@ export async function POST(req: Request) {
     //    These occupy real schedule time (e.g., 30 min block after the 50 min service)
     //    Multiple extensions are chained: main → ext1 → ext2
 
-    /* ── Find resources and book time-extension appointments ──
-     * Mindbody requires a resource (esty table / massage room) for extension
-     * session types. For back-to-back extensions on the same client, Mindbody
-     * requires DIFFERENT tables. We try each esty table until one succeeds,
-     * which handles both availability and the different-table requirement. */
+    /* ── Book time-extension appointments ──
+     * Strategy: try WITHOUT a resource first (works for massage extensions).
+     * If Mindbody rejects with InvalidResource (needs a room), retry with
+     * each esty table until one succeeds. This handles both:
+     *   - Massage "Make it 80 Min" → no resource needed
+     *   - Facial Super Boosts → require an esty table resource */
 
-    // All esty table resource IDs at the site
+    // Esty table resource IDs to try when a resource IS required
     const ESTY_TABLE_IDS = [7, 6, 2, 5, 4]; // Esty Table 1–5
-
-    // For massages, get the main appointment's resource (massage room)
-    let mainApptResourceId: number | undefined;
-    if (timeExtensions.length > 0 && mainApptId) {
-      try {
-        const apptUrl = new URL(
-          "https://api.mindbodyonline.com/public/v6/appointment/staffappointments"
-        );
-        apptUrl.searchParams.append("appointmentIds", String(mainApptId));
-
-        const apptRes = await fetch(apptUrl.toString(), {
-          headers: {
-            Accept: "application/json",
-            "Api-Key": process.env.MINDBODY_API_KEY!,
-            SiteId: process.env.MINDBODY_SITE_ID!,
-            Authorization: `Bearer ${token}`,
-          },
-          cache: "no-store",
-        });
-        const apptData = await apptRes.json();
-
-        if (apptRes.ok) {
-          const resources =
-            apptData.Appointments?.[0]?.Resources ??
-            apptData.StaffAppointments?.[0]?.Resources ??
-            null;
-          if (Array.isArray(resources) && resources.length > 0) {
-            mainApptResourceId = resources[0].Id;
-            console.log(`[SERVICE BOOK] Main appointment resource: ${mainApptResourceId}`);
-          }
-        }
-      } catch (e: any) {
-        console.warn("[SERVICE BOOK] Main appt resource lookup failed", e?.message);
-      }
-    }
 
     let nextExtStart = mainEndDateTime;
 
@@ -218,76 +184,116 @@ export async function POST(req: Request) {
         continue;
       }
 
-      // Build list of resources to try: main appointment resource first, then all esty tables
-      const resourcesToTry: number[] = [];
-      if (mainApptResourceId != null) resourcesToTry.push(mainApptResourceId);
-      for (const id of ESTY_TABLE_IDS) {
-        if (!resourcesToTry.includes(id)) resourcesToTry.push(id);
-      }
-
       let booked = false;
 
-      for (const resourceId of resourcesToTry) {
-        try {
-          console.log(
-            `[SERVICE BOOK] Trying extension ${extId} with resource ${resourceId}`
-          );
+      // First: try without any resource
+      try {
+        console.log(`[SERVICE BOOK] Trying extension ${extId} without resource at ${nextExtStart}`);
 
-          const extRes = await fetch(
-            "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
-            {
-              method: "POST",
-              headers: mbHeaders,
-              body: JSON.stringify({
-                ClientId: cid,
-                SessionTypeId: extId,
-                StaffId: sid,
-                LocationId: Number(locationId),
-                StartDateTime: nextExtStart,
-                ResourceIds: [resourceId],
-                ApplyPayment: false,
-                SendEmail: false,
-              }),
-            }
-          );
-
-          const extData = await extRes.json();
-
-          if (extRes.ok) {
-            console.log(
-              `[SERVICE BOOK] Time-extension ${extId} booked on resource ${resourceId}`,
-              extData
-            );
-            addOnResults.push({
-              addOnId: extId,
-              success: true,
-              appointmentId: extData.Appointment?.Id,
-            });
-            // Chain next extension after this one ends
-            nextExtStart = extData.Appointment?.EndDateTime ?? null;
-            booked = true;
-            break; // Success — move to next extension
+        const extRes = await fetch(
+          "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
+          {
+            method: "POST",
+            headers: mbHeaders,
+            body: JSON.stringify({
+              ClientId: cid,
+              SessionTypeId: extId,
+              StaffId: sid,
+              LocationId: Number(locationId),
+              StartDateTime: nextExtStart,
+              ApplyPayment: false,
+              SendEmail: false,
+            }),
           }
+        );
 
-          // InvalidResource → try next table
-          const errCode = extData?.Error?.Code;
-          if (errCode === "InvalidResource") {
-            console.log(
-              `[SERVICE BOOK] Resource ${resourceId} unavailable for extension ${extId}, trying next...`
-            );
-            continue;
-          }
+        const extData = await extRes.json();
 
-          // Any other error → don't retry, report failure
+        if (extRes.ok) {
+          console.log(`[SERVICE BOOK] Time-extension ${extId} booked (no resource needed)`, extData);
+          addOnResults.push({
+            addOnId: extId,
+            success: true,
+            appointmentId: extData.Appointment?.Id,
+          });
+          nextExtStart = extData.Appointment?.EndDateTime ?? null;
+          booked = true;
+        } else if (extData?.Error?.Code === "InvalidResource") {
+          // Needs a resource — fall through to esty table retry below
+          console.log(`[SERVICE BOOK] Extension ${extId} requires a resource, trying esty tables...`);
+        } else {
+          // Some other error — report and move on
           console.error(`[SERVICE BOOK] Time-extension ${extId} failed`, extData);
           addOnResults.push({ addOnId: extId, success: false, details: extData });
-          booked = true; // not really, but stop retrying
-          break;
-        } catch (extErr: any) {
-          console.error(`[SERVICE BOOK] Time-extension ${extId} error`, extErr);
-          addOnResults.push({ addOnId: extId, success: false, error: extErr?.message || "Unknown error" });
-          booked = true;
-          break;
+          booked = true; // stop retrying
+        }
+      } catch (extErr: any) {
+        console.error(`[SERVICE BOOK] Time-extension ${extId} error`, extErr);
+        addOnResults.push({ addOnId: extId, success: false, error: extErr?.message || "Unknown error" });
+        booked = true;
+      }
+
+      // Second: if it needs a resource, try each esty table
+      if (!booked) {
+        for (const resourceId of ESTY_TABLE_IDS) {
+          try {
+            console.log(`[SERVICE BOOK] Trying extension ${extId} with esty table ${resourceId}`);
+
+            const extRes = await fetch(
+              "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
+              {
+                method: "POST",
+                headers: mbHeaders,
+                body: JSON.stringify({
+                  ClientId: cid,
+                  SessionTypeId: extId,
+                  StaffId: sid,
+                  LocationId: Number(locationId),
+                  StartDateTime: nextExtStart,
+                  ResourceIds: [resourceId],
+                  ApplyPayment: false,
+                  SendEmail: false,
+                }),
+              }
+            );
+
+            const extData = await extRes.json();
+
+            if (extRes.ok) {
+              console.log(
+                `[SERVICE BOOK] Time-extension ${extId} booked on esty table ${resourceId}`,
+                extData
+              );
+              addOnResults.push({
+                addOnId: extId,
+                success: true,
+                appointmentId: extData.Appointment?.Id,
+              });
+              nextExtStart = extData.Appointment?.EndDateTime ?? null;
+              booked = true;
+              break;
+            }
+
+            // Resource unavailable → try next table
+            const errCode = extData?.Error?.Code;
+            if (errCode === "InvalidResource") {
+              console.log(
+                `[SERVICE BOOK] Esty table ${resourceId} unavailable for extension ${extId}, trying next...`
+              );
+              continue;
+            }
+
+            // Any other error → stop retrying
+            console.error(`[SERVICE BOOK] Time-extension ${extId} failed`, extData);
+            addOnResults.push({ addOnId: extId, success: false, details: extData });
+            booked = true;
+            break;
+          } catch (extErr: any) {
+            console.error(`[SERVICE BOOK] Time-extension ${extId} error`, extErr);
+            addOnResults.push({ addOnId: extId, success: false, error: extErr?.message || "Unknown error" });
+            booked = true;
+            break;
+          }
         }
       }
 
@@ -296,7 +302,7 @@ export async function POST(req: Request) {
         addOnResults.push({
           addOnId: extId,
           success: false,
-          error: "No available resource (all esty tables occupied)",
+          error: "No available resource (all rooms occupied)",
         });
       }
     }
