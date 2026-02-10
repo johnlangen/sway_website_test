@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getClosingHour } from "@/lib/locationHours";
+import NextAvailableBanner from "../NextAvailableBanner";
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -1725,8 +1726,22 @@ function BookServicePage() {
                 )}
 
                 {!loading && !schedulesLoading && displayedSlots.length === 0 && (
-                  <div className="py-16 text-[#113D33]/50 animate-fade-in">
-                    No availability for this day. Try another date.
+                  <div className="py-16 text-center animate-fade-in">
+                    <p className="text-[#113D33]/50">No availability for this day.</p>
+                    {selectedService && (
+                      <NextAvailableBanner
+                        type="service"
+                        sessionTypeId={selectedService.id}
+                        currentDate={selectedDate}
+                        onJumpToDate={(iso) => {
+                          const [y, m, d] = iso.split("-").map(Number);
+                          const target = new Date(y, m - 1, d);
+                          setSelectedDate(iso);
+                          setWeekStart(target);
+                          setFilteredTherapist(null);
+                        }}
+                      />
+                    )}
                   </div>
                 )}
 

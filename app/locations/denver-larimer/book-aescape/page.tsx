@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import NextAvailableBanner from "../NextAvailableBanner";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -1258,7 +1259,20 @@ export default function BookAescapePage() {
 
                 {!loading && !error && times.length === 0 && (
                   <div className="text-center text-[#113D33]/70">
-                    No times available for this day.
+                    <p>No times available for this day.</p>
+                    {sessionTypeId && (
+                      <NextAvailableBanner
+                        type="aescape"
+                        sessionTypeId={sessionTypeId}
+                        currentDate={selectedDate}
+                        onJumpToDate={(iso) => {
+                          const [y, m, d] = iso.split("-").map(Number);
+                          const target = new Date(y, m - 1, d);
+                          setSelectedDate(iso);
+                          setWeekStart(target);
+                        }}
+                      />
+                    )}
                   </div>
                 )}
               </section>
