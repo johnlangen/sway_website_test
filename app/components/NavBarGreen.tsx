@@ -55,32 +55,32 @@ const NavBarGreen = () => {
   };
 
   return (
-    <nav className="fixed top-10 left-0 w-full px-4 md:px-12 z-50">
-      <div className="flex items-center justify-between w-full max-w-[1300px] mx-auto flex-wrap">
+    <nav className="fixed top-10 left-0 w-full px-4 md:px-8 lg:px-12 z-50">
+      <div className="flex items-center w-full max-w-[1300px] mx-auto gap-4">
 
         {/* Green Logo */}
-        <Link href="/" className="absolute left-10 md:left-12">
+        <Link href="/" className="shrink-0">
           <img
             src="/assets/swaylogogreen.svg"
             alt="Sway Logo Green"
-            className="w-20 h-auto"
+            className="w-16 lg:w-20 h-auto"
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-14 pl-24 mx-auto flex-wrap">
+        <div className="hidden md:flex items-center gap-3 lg:gap-6 xl:gap-8 flex-1 justify-center text-sm lg:text-base">
           {/* Location Display */}
           {savedLocation ? (
-            <div className="flex items-center space-x-2 text-[#4A776D] font-vance text-lg">
-              <Link href={`/locations/${savedLocation.slug}`}>
+            <div className="flex items-center gap-2 text-[#4A776D] font-vance max-w-[160px] lg:max-w-[200px]">
+              <Link href={`/locations/${savedLocation.slug}`} className="truncate">
                 {savedLocation.name}
               </Link>
-              <Link href="/locations" className="underline text-sm">
+              <Link href="/locations" className="underline text-xs shrink-0">
                 Change
               </Link>
             </div>
           ) : (
-            <Link href="/locations" className="text-[#4A776D] font-vance text-lg">
+            <Link href="/locations" className="text-[#4A776D] font-vance whitespace-nowrap">
               Select Location
             </Link>
           )}
@@ -89,7 +89,7 @@ const NavBarGreen = () => {
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="text-[#4A776D] hover:text-[#2d4f47] font-vance text-lg"
+              className="text-[#4A776D] hover:text-[#2d4f47] font-vance"
               aria-expanded={dropdownOpen}
               type="button"
             >
@@ -137,25 +137,25 @@ const NavBarGreen = () => {
           </div>
 
           {/* Location-aware links */}
-          <Link href={locHref("/membership")} className="text-[#4A776D] hover:text-[#2d4f47] font-vance text-lg">
+          <Link href={locHref("/membership")} className="text-[#4A776D] hover:text-[#2d4f47] font-vance">
             Join the Club
           </Link>
-          <Link href={locHref("/gift-cards")} className="text-[#4A776D] hover:text-[#2d4f47] font-vance text-lg">
+          <Link href={locHref("/gift-cards")} className="text-[#4A776D] hover:text-[#2d4f47] font-vance">
             Gift Cards
           </Link>
-          <Link href="/swayway" className="text-[#4A776D] hover:text-[#2d4f47] font-vance text-lg">
+          <Link href="/swayway" className="text-[#4A776D] hover:text-[#2d4f47] font-vance">
             The Sway Way
           </Link>
-          <Link href={locHref("/offers")} className="text-[#4A776D] hover:text-[#2d4f47] font-vance text-lg">
+          <Link href={locHref("/offers")} className="text-[#4A776D] hover:text-[#2d4f47] font-vance">
             Offers
           </Link>
         </div>
 
         {/* Book Now Button */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className="shrink-0 flex items-center gap-3">
           <a
             href={locHref("/book")}
-            className="bg-[#4A776D] text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full text-sm lg:text-lg font-vance hover:bg-[#5b8f7f] whitespace-nowrap"
+            className="bg-[#4A776D] text-white px-4 lg:px-6 py-2 rounded-full text-sm lg:text-base font-vance hover:bg-[#5b8f7f] whitespace-nowrap"
           >
             Book Now
           </a>

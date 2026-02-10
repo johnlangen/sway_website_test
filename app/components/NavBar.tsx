@@ -70,7 +70,7 @@ const NavBar = () => {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center justify-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center justify-center gap-3 lg:gap-6 xl:gap-8 text-sm lg:text-base">
             {/* Treatments */}
             <div className="relative treatments-dropdown">
               <button
@@ -163,16 +163,16 @@ const NavBar = () => {
           {/* Right side */}
           <div className="flex items-center gap-3 justify-end">
             {savedLocation ? (
-              <div className="hidden md:flex items-center gap-2 text-white font-vance">
+              <div className="hidden md:flex items-center gap-2 text-white font-vance text-sm max-w-[160px] lg:max-w-[200px]">
                 <Link href={`/locations/${savedLocation.slug}`} className="truncate">
                   {savedLocation.name}
                 </Link>
-                <Link href="/locations" className="underline text-xs opacity-80">
+                <Link href="/locations" className="underline text-xs opacity-80 shrink-0">
                   Change
                 </Link>
               </div>
             ) : (
-              <Link href="/locations" className="hidden md:inline-block text-white">
+              <Link href="/locations" className="hidden md:inline-block text-white text-sm font-vance whitespace-nowrap">
                 Select Location
               </Link>
             )}
@@ -181,7 +181,7 @@ const NavBar = () => {
               href="/book"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white text-[#113D33] px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm md:text-base"
+              className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
             >
               Book Now
             </a>
