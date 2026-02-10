@@ -29,7 +29,7 @@ export default function HimalayanSaltStoneMassageLayout() {
         </p>
 
         <Image
-          src="/assets/blog5.png"
+          src="/assets/blog5.jpg"
           alt="Himalayan Salt Stone Massage"
           width={600}
           height={400}

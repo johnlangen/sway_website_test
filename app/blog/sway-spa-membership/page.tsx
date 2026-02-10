@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog2.png",
+        url: "https://swaywellnessspa.com/assets/blog2.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Spa Membership wellness experience",
@@ -42,7 +42,7 @@ export default function Page() {
     headline: "Sway Spa Membership: Your 2025 Wellness Transformation",
     description:
       "Make 2025 your healthiest year yet with a Sway Spa membership. Monthly facials or massages, exclusive perks, and consistent wellness.",
-    image: "https://swaywellnessspa.com/assets/blog2.png",
+    image: "https://swaywellnessspa.com/assets/blog2.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -52,7 +52,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-02",

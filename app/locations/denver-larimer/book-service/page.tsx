@@ -72,7 +72,7 @@ const MASSAGES: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/massage2.png",
+    image: "/assets/massage2.jpg",
     description:
       "Corrective massage designed to release deep muscle tension, relieve pain, and restore mobility.",
   },
@@ -84,7 +84,7 @@ const MASSAGES: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/massage4.png",
+    image: "/assets/massage4.jpg",
     description:
       "Warm Himalayan salt stones help melt tension, improve circulation, and promote deep relaxation.",
   },
@@ -96,7 +96,7 @@ const MASSAGES: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/massage3.png",
+    image: "/assets/massage3.jpg",
     description:
       "CBD-infused relief cream provides cooling comfort while supporting muscle recovery and relaxation.",
   },
@@ -108,7 +108,7 @@ const MASSAGES: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/massage5.png",
+    image: "/assets/massage5.jpg",
     description:
       "Ideal for active lifestyles. Supports recovery, improves range of motion, and reduces muscle fatigue.",
   },
@@ -120,7 +120,7 @@ const MASSAGES: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/massage6.png",
+    image: "/assets/massage6.jpg",
     description:
       "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support natural detoxification.",
   },
@@ -132,7 +132,7 @@ const MASSAGES: Service[] = [
     price: "Member $89 | Drop-In $129",
     memberPrice: 89,
     dropInPrice: 129,
-    image: "/assets/massage7.png",
+    image: "/assets/massage7.jpg",
     description:
       "A relaxing Swedish-style massage to ease tension and promote overall well-being.",
   },
@@ -148,7 +148,7 @@ const FACIALS: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/facial2.png",
+    image: "/assets/facial2.jpg",
     description:
       "Hydrates, brightens, and tightens the skin while supporting collagen production and circulation.",
   },
@@ -161,7 +161,7 @@ const FACIALS: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/facial3.png",
+    image: "/assets/facial3.jpg",
     description:
       "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.",
   },
@@ -174,7 +174,7 @@ const FACIALS: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/facial4.png",
+    image: "/assets/facial4.jpg",
     description:
       "Targets congestion, bacteria, and inflammation for clearer, healthier skin.",
   },
@@ -187,7 +187,7 @@ const FACIALS: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/facial5.png",
+    image: "/assets/facial5.jpg",
     description:
       "Calms redness, strengthens the skin barrier, and supports sensitive skin types.",
   },
@@ -200,7 +200,7 @@ const FACIALS: Service[] = [
     price: "Member $99 | Drop-In $139",
     memberPrice: 99,
     dropInPrice: 139,
-    image: "/assets/facial6.png",
+    image: "/assets/facial6.jpg",
     description:
       "A brightening facial powered by Vitamin C to improve tone, clarity, and radiance.",
   },
@@ -1356,8 +1356,8 @@ function BookServicePage() {
                       <Image
                         src={
                           cat === "massage"
-                            ? "/assets/massage2.png"
-                            : "/assets/facial2.png"
+                            ? "/assets/massage2.jpg"
+                            : "/assets/facial2.jpg"
                         }
                         alt={cat}
                         fill

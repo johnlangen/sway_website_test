@@ -23,7 +23,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
         </p>
 
         <Image
-          src="/assets/blog21.png"
+          src="/assets/blog21.jpg"
           alt="Student Spa Day at Sway"
           width={700}
           height={400}

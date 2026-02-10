@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog15.png",
+        url: "https://swaywellnessspa.com/assets/blog15.jpg",
         width: 1200,
         height: 630,
         alt: "Spring spa detox and reset treatments at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Spring Reset: Detox Your Skin & Body with Sway",
     description:
       "Refresh your skin and body this spring with detoxifying spa treatments including sauna, cold plunge, lymphatic massage, and pore-clearing facials.",
-    image: "https://swaywellnessspa.com/assets/blog15.png",
+    image: "https://swaywellnessspa.com/assets/blog15.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-03-15",

@@ -68,7 +68,7 @@ export default function SaunaPage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/sauna.png"
+            src="/assets/sauna.jpg"
             alt="Traditional sauna at Sway Wellness Spa"
             width={600}
             height={400}

@@ -49,7 +49,7 @@ export default function TechAndWellnessBlogLayout() {
         <p className="italic">“I got a robot massage, and it was actually kind of great.”</p>
 
         <Image
-          src="/assets/blog10.png"
+          src="/assets/blog10.jpg"
           alt="Robotic massage"
           width={600}
           height={400}

@@ -22,7 +22,7 @@ export default function LarimerColdPlungePage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/cold_plunge.png"
+            src="/assets/cold_plunge.jpg"
             alt="Cold plunge at Sway Wellness Spa in Larimer Square Denver"
             width={650}
             height={450}

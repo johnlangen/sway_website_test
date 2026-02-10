@@ -29,7 +29,7 @@ export default function GiveWellnessBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog19.png"
+          src="/assets/blog19.jpg"
           alt="Give Wellness, Get Wellness Program at Sway"
           width={700}
           height={400}

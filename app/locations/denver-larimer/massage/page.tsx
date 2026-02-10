@@ -45,7 +45,7 @@ export default function LarimerMassagePage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/massage2.png"
+            src="/assets/massage2.jpg"
             alt="Massage therapy at Sway Wellness Spa in Denver (Larimer Square)"
             width={650}
             height={450}

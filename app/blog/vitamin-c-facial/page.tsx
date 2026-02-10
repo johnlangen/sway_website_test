@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog4.png",
+        url: "https://swaywellnessspa.com/assets/blog4.jpg",
         width: 1200,
         height: 630,
         alt: "Vitamin C Facial at Sway Spa",
@@ -42,7 +42,7 @@ export default function Page() {
     headline: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa",
     description:
       "Combat winter dullness with Sway’s Dr. Dennis Vitamin C Facial in Denver. Brighten, hydrate, and protect your skin with expert-led, science-backed care.",
-    image: "https://swaywellnessspa.com/assets/blog4.png",
+    image: "https://swaywellnessspa.com/assets/blog4.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -52,7 +52,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-10",

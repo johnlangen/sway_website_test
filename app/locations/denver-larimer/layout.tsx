@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "Massage, facials, sauna, cold plunge & Aescape robot massage on Larimer Square in downtown Denver.",
     images: [
       {
-        url: "/assets/homepage_photo_outside.png",
+        url: "/assets/homepage_photo_outside.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Larimer wellness spa on Larimer Square in Denver",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Sway Larimer | Spa in Downtown Denver",
     description:
       "Massage, facials, sauna & cold plunge at Sway Wellness Spa on Larimer Square in downtown Denver.",
-    images: ["/assets/homepage_photo_outside.png"],
+    images: ["/assets/homepage_photo_outside.jpg"],
   },
   robots: {
     index: true,
@@ -40,7 +40,7 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "DaySpa",
   name: "Sway Wellness Spa – Larimer Square",
-  image: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+  image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-larimer",
   url: "https://swaywellnessspa.com/locations/denver-larimer",
   telephone: "+1-303-476-6150",

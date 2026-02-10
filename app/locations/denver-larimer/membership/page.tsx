@@ -237,7 +237,7 @@ export default function MembershipPage() {
       {/* LOWER IMAGE / BRAND SECTION */}
       <section className="relative h-[50vh] min-h-[360px]">
         <Image
-          src="/assets/membership_background_logo.png"
+          src="/assets/membership_background_logo.jpg"
           alt="The Sway Way"
           fill
           className="object-cover"

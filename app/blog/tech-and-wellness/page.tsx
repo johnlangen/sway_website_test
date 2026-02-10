@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog10.png",
+        url: "https://swaywellnessspa.com/assets/blog10.jpg",
         width: 1200,
         height: 630,
         alt: "Aescape robot massage technology",
@@ -42,7 +42,7 @@ export default function Page() {
     headline: "How Technological Innovation is Transforming Spa Treatments",
     description:
       "Explore how Aescape robot massage, microcurrent therapy, and LED light technology are revolutionizing wellness. Discover the future of spa treatments at Sway.",
-    image: "https://swaywellnessspa.com/assets/blog10.png",
+    image: "https://swaywellnessspa.com/assets/blog10.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -52,7 +52,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-10",

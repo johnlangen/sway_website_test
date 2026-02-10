@@ -11,8 +11,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 const EVENT_DATE_ISO = "2026-02-28";
 
 const EVENT_ASSETS = {
-  hero: "/assets/eventballoon2.png",
-  details: "/assets/eventgreen.png",
+  hero: "/assets/eventballoon2.jpg",
+  details: "/assets/eventgreen.jpg",
 
 } as const;
 
@@ -38,7 +38,7 @@ const EVENT_OPTIONS = [
     label: "Massage",
     minutes: 30,
     price: "$49",
-    image: "/assets/massage7.png",
+    image: "/assets/massage7.jpg",
     bestFor: "Swedish • Event express",
   },
   {
@@ -46,7 +46,7 @@ const EVENT_OPTIONS = [
     label: "Facial",
     minutes: 30,
     price: "$49",
-    image: "/assets/facial.png",
+    image: "/assets/facial.jpg",
     bestFor: "Glow Getter • Event express",
   },
 ] as const;

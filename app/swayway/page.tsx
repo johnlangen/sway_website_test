@@ -49,7 +49,7 @@ export default function SwayWayPage() {
       <Section
         title="A New Era of Spa Experience"
         text="Founded by the visionaries behind Spavia Day Spa, Sway sets out to make wellness accessible, innovative, and reflective of city lifestyle. With over 20 years of experience, we introduce our evolution into modern wellness. Drawing inspiration from cultural hubs like Barcelona and NYC, Sway blends technology with traditional treatments to create a fresh, city-driven wellness club."
-        img="/assets/emily.png"
+        img="/assets/emily.jpg"
         reverse={false}
       />
 
@@ -57,7 +57,7 @@ export default function SwayWayPage() {
       <Section
         title="Innovative Wellness for a Modern World"
         text="At Sway, we believe in total body health and long-term optimization. Our wellness club is designed for city lifestyles—luxurious yet accessible. With affordability, personalized service, and science-backed treatments, Sway becomes your happy place that you can’t live without."
-        img="/assets/swayway.png"
+        img="/assets/swayway.jpg"
         reverse={true}
       />
 
@@ -65,7 +65,7 @@ export default function SwayWayPage() {
       <div className="relative snap-start min-h-screen flex items-center justify-center px-4 md:px-0 py-20">
         {/* Background image */}
         <img
-          src="/assets/OG/og-sway-way2.png"
+          src="/assets/OG/og-sway-way2.jpg"
           alt="Sway Way background"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
@@ -75,10 +75,10 @@ export default function SwayWayPage() {
         {/* Content */}
         <div className="relative z-20 max-w-6xl w-full grid grid-cols-2 md:grid-cols-4 gap-10 place-items-center">
           {[
-            { src: "/assets/homepage_photo11.png", label: "SWAY ON SPOTIFY" },
-            { src: "/assets/homepage_photo_c.png", label: "IN THE PRESS", link: "/press" },
+            { src: "/assets/homepage_photo11.jpg", label: "SWAY ON SPOTIFY" },
+            { src: "/assets/homepage_photo_c.jpg", label: "IN THE PRESS", link: "/press" },
             {
-              src: "/assets/homepage_photo13.png",
+              src: "/assets/homepage_photo13.jpg",
               label: "@SWAYWELLNESSCLUB",
               link: "https://www.instagram.com/swaywellnessclub/",
             },

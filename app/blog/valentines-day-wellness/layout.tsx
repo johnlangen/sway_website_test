@@ -62,7 +62,7 @@ export default function ValentinesDayWellnessBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog6.png"
+          src="/assets/blog6.jpg"
           alt="Valentine's Day Wellness"
           width={600}
           height={400}

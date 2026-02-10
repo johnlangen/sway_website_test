@@ -45,7 +45,7 @@ export default function LarimerFacialsPage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/facial6.png"
+            src="/assets/facial6.jpg"
             alt="Facial treatments at Sway Wellness Spa in Denver (Larimer Square)"
             width={650}
             height={450}

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa Blog",

@@ -12,7 +12,7 @@ const blogs = [
     summary:
       "A modern holiday wellness gift guide curated by Sway—featuring restorative spa experiences, glow-enhancing facials, elevated self-care rituals, and beautifully designed moments that invite rest, balance, and intention. ",
     tag: "Holiday",
-    image: "/assets/blog38.png",
+    image: "/assets/blog38.jpg",
   },  
 
   {
@@ -21,7 +21,7 @@ const blogs = [
     summary:
       "Relax fully with an 80-minute massage at Sway Wellness Spa. Extra time, specialty techniques, and total rejuvenation make it the ultimate reset.",
     tag: "Massage",
-    image: "/assets/blog25.png",
+    image: "/assets/blog25.jpg",
   },  
   {
     slug: "post-summer-skin-recovery",
@@ -29,7 +29,7 @@ const blogs = [
     summary:
       "Restore your glow after summer with SWAY’s hydrating facials, LED therapy, and expert skincare—designed to repair sun damage and rejuvenate your skin.",
     tag: "Skincare",
-    image: "/assets/blog23.png",
+    image: "/assets/blog23.jpg",
   },  
   {
     slug: "aescape",
@@ -37,7 +37,7 @@ const blogs = [
     summary:
       "Meet Aescape: the world’s first fully autonomous robot massage—only at Sway Wellness Spa in downtown Denver. The Robot Massage Built for Denver’s Innovators",
     tag: "Technology",
-    image: "/assets/blog22.png",
+    image: "/assets/blog22.jpg",
   },  
   {
     slug: "glow-up-before-you-show-up",
@@ -45,7 +45,7 @@ const blogs = [
     summary:
       "College life is stressful. Discover Sway’s spa treatments designed for students—from facials to massages—that help you recharge, refocus, and feel your best.",
     tag: "Wellness",
-    image: "/assets/blog21.png",
+    image: "/assets/blog21.jpg",
   },
   
   {
@@ -54,7 +54,7 @@ const blogs = [
     summary:
       "Discover how strategic recovery methods like sports massage and advanced therapies help you maximize performance, prevent injury, and feel your best.",
     tag: "Recovery",
-    image: "/assets/blog20.png",
+    image: "/assets/blog20.jpg",
   },
   
   {
@@ -63,7 +63,7 @@ const blogs = [
     summary:
       "Share the gift of wellness with Sway’s seamless referral program. Earn free Boost treatments for every friend you refer—because wellness is better together.",
     tag: "Community",
-    image: "/assets/blog19.png",
+    image: "/assets/blog19.jpg",
   },  
   {
     slug: "sun-protection-post-sun-care",
@@ -71,7 +71,7 @@ const blogs = [
     summary:
       "From daily SPF to after-sun recovery, discover expert tips and esthetician-approved products that protect, repair, and nourish your skin all year round.",
     tag: "Skincare",
-    image: "/assets/blog18.png",
+    image: "/assets/blog18.jpg",
   },  
   {
     slug: "summer-prep-guide",
@@ -79,7 +79,7 @@ const blogs = [
     summary:
       "Get summer-ready with lymphatic massages, microcurrent facials, and hydrating treatments that prep your skin and body for sun-soaked days.",
     tag: "Skincare",
-    image: "/assets/blog15.png",
+    image: "/assets/blog15.jpg",
   },
   {
     slug: "may-memberships",
@@ -87,7 +87,7 @@ const blogs = [
     summary:
       "Discover the ultimate retreat for your body and mind with exclusive $99/month memberships, tailored treatments, and science-backed benefits.",
     tag: "Wellness",
-    image: "/assets/blog17.png",
+    image: "/assets/blog17.jpg",
   },
   
   {
@@ -96,7 +96,7 @@ const blogs = [
     summary:
       "Celebrate the amazing mom in your life with spa treatments, gift cards, and memberships that help her relax, recharge, and feel truly appreciated.",
     tag: "Holiday",
-    image: "/assets/blog16.png",
+    image: "/assets/blog16.jpg",
   },  
   {
     slug: "denver-wellness-club",
@@ -104,7 +104,7 @@ const blogs = [
     summary:
       "Discover Sway, Denver’s most anticipated wellness club, blending science-backed facials, massages, sauna, cold plunge, and more.",
     tag: "Wellness",
-    image: "/assets/homepage_photo_outside.png",
+    image: "/assets/homepage_photo_outside.jpg",
   },
   {
     slug: "sway-spa-membership",
@@ -112,7 +112,7 @@ const blogs = [
     summary:
       "Invest in self-care with a Sway Spa membership! Enjoy monthly facials, massages, exclusive access & more. Start your 2025 wellness journey today!",
     tag: "Membership",
-    image: "/assets/blog2.png",
+    image: "/assets/blog2.jpg",
   },
   {
     slug: "bridal-skincare",
@@ -120,7 +120,7 @@ const blogs = [
     summary:
       "Achieve radiant, wedding-ready skin with consistent facials at Sway. Our tailored treatments will help you glow on your big day.",
     tag: "Bridal",
-    image: "/assets/blog3.png",
+    image: "/assets/blog3.jpg",
   },
   {
     slug: "vitamin-c-facial",
@@ -128,7 +128,7 @@ const blogs = [
     summary:
       "Combat winter dullness with Sway's Dr. Dennis Vitamin C Facial. Brighten, hydrate, and protect your skin for a radiant glow.",
     tag: "Skincare",
-    image: "/assets/blog4.png",
+    image: "/assets/blog4.jpg",
   },
   {
     slug: "himalayan-salt-stone-massage",
@@ -136,7 +136,7 @@ const blogs = [
     summary:
       "Melt away stress with Sway's Himalayan Salt Stone Massage. Detox, relax, and restore with this mineral-rich healing experience.",
     tag: "Massage",
-    image: "/assets/blog5.png",
+    image: "/assets/blog5.jpg",
   },
   {
     slug: "valentines-day-wellness",
@@ -144,7 +144,7 @@ const blogs = [
     summary:
       "Reimagine Valentine’s Day as a celebration of connection, self-care, and wellness. Explore date ideas, Galentine’s spa days, and self-love rituals at Sway.",
     tag: "Holiday",
-    image: "/assets/blog6.png",
+    image: "/assets/blog6.jpg",
   },
   {
     slug: "cold-plunge",
@@ -152,7 +152,7 @@ const blogs = [
     summary:
       "Explore the rising wellness trend of cold plunges and learn how this invigorating therapy can reduce inflammation, boost mood, and improve sleep.",
     tag: "Therapy",
-    image: "/assets/blog7.png",
+    image: "/assets/blog7.jpg",
   },
   {
     slug: "infrared-vs-traditional-sauna",
@@ -160,7 +160,7 @@ const blogs = [
     summary:
       "Discover the key differences and benefits between infrared and traditional saunas, and why the sauna trend is booming across the U.S.",
     tag: "Wellness",
-    image: "/assets/blog8.png",
+    image: "/assets/blog8.jpg",
   },
   {
     slug: "spring-reset",
@@ -168,7 +168,7 @@ const blogs = [
     summary:
       "Spring is all about renewal—detox with Sway’s Salt Stone Massage, Pore Perfection Facial, and Remedy Room experience to refresh and rejuvenate.",
     tag: "Seasonal",
-    image: "/assets/blog9.png",
+    image: "/assets/blog9.jpg",
   },
   {
     slug: "tech-and-wellness",
@@ -176,7 +176,7 @@ const blogs = [
     summary:
       "Explore the future of wellness with tech-forward spa treatments like AI-powered massages, microcurrent facials, and LED light therapy at Sway.",
     tag: "Innovation",
-    image: "/assets/blog10.png",
+    image: "/assets/blog10.jpg",
   },
   {
     slug: "allergy-season-skincare",
@@ -184,7 +184,7 @@ const blogs = [
     summary:
       "Spring allergies causing skin irritation? Discover Sway’s top treatments like the Sensitive Silk Facial and LightStim LED therapy to calm and heal sensitive skin.",
     tag: "Skincare",
-    image: "/assets/allergy.png",
+    image: "/assets/allergy.jpg",
   },
   {
     slug: "science-of-relaxation",
@@ -192,7 +192,7 @@ const blogs = [
     summary:
       "Discover how Sway uses science-backed treatments like massage, cold plunge, and sauna therapy to reduce stress and improve overall well-being.",
     tag: "Science",
-    image: "/assets/blog11.png",
+    image: "/assets/blog11.jpg",
   },
   {
     slug: "infrared-pemf-mat",
@@ -200,7 +200,7 @@ const blogs = [
     summary:
       "Discover how combining massage with cutting-edge Infrared PEMF Mats at Sway enhances pain relief, circulation, and recovery.",
     tag: "Technology",
-    image: "/assets/blog12.png",
+    image: "/assets/blog12.jpg",
   },
   {
     slug: "sway-shop-finds",
@@ -208,7 +208,7 @@ const blogs = [
     summary:
       "Explore Sway's curated selection of skincare, fragrances, and luxury wellness gifts to elevate your everyday self-care routine.",
     tag: "Retail",
-    image: "/assets/blog13.png",
+    image: "/assets/blog13.jpg",
   },
   {
     slug: "bachelorette-spa-day",
@@ -216,7 +216,7 @@ const blogs = [
     summary:
       "Planning a bachelorette party? Discover why Sway Wellness Spa is the ultimate place to celebrate with your bridal crew in style and serenity.",
     tag: "Bridal",
-    image: "/assets/blog14.png",
+    image: "/assets/blog14.jpg",
   },
 
 ];

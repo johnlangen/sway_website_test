@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog3.png",
+        url: "https://swaywellnessspa.com/assets/blog3.jpg",
         width: 1200,
         height: 630,
         alt: "Bridal Skincare at Sway Wellness Spa Denver",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Bridal Skincare: Get Wedding-Ready Skin with Sway Facials",
     description:
       "Bridal facials at Sway Wellness Spa prepare your skin for the big day. Explore treatment timelines, membership perks, and esthetician-backed skincare tips.",
-    image: "https://swaywellnessspa.com/assets/blog3.png",
+    image: "https://swaywellnessspa.com/assets/blog3.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-03-20",

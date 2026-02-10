@@ -341,7 +341,7 @@ export default function AescapeContent() {
             <motion.div {...fadeSide("right")} className="relative">
               <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
-                  src="/assets/aescapeblog2.png"
+                  src="/assets/aescapeblog2.jpg"
                   alt="Aescape robotic massage experience"
                   fill
                   className="object-cover"
@@ -386,7 +386,7 @@ export default function AescapeContent() {
             <motion.div {...fadeSide("left")} className="relative md:order-2">
               <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
-                  src="/assets/aescapeblog4.png"
+                  src="/assets/aescapeblog4.jpg"
                   alt="Aescape session flow and setup"
                   fill
                   className="object-cover"

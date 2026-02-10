@@ -33,7 +33,7 @@ export default function SummerPrepGuideBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog15.png"
+          src="/assets/blog15.jpg"
           alt="Sway Pre-Summer Prep"
           width={700}
           height={400}

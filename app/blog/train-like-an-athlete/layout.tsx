@@ -30,7 +30,7 @@ export default function TrainLikeAnAthleteBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog20.png"
+          src="/assets/blog20.jpg"
           alt="Athlete Recovery at Sway"
           width={700}
           height={400}

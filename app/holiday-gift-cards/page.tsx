@@ -17,7 +17,7 @@ export default function HolidayGiftCardsPage() {
           {/* Desktop */}
           <div className="hidden md:block relative h-[380px] w-full">
             <Image
-              src="/assets/holidaygcdesktop.png"
+              src="/assets/holidaygcdesktop.jpg"
               alt="Sway Holiday Spa Gift Card"
               fill
               className="object-cover"
@@ -27,7 +27,7 @@ export default function HolidayGiftCardsPage() {
           {/* Mobile */}
           <div className="block md:hidden relative h-[360px] w-full">
             <Image
-              src="/assets/holidaygcmobile.png"
+              src="/assets/holidaygcmobile.jpg"
               alt="Sway Holiday Spa Gift Card"
               fill
               className="object-cover"

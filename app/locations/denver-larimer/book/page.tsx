@@ -7,7 +7,7 @@ const BOOKING_OPTIONS = [
     subtitle: "Deep Tissue, Sports, CBD & more",
     price: "From $129",
     duration: "50 min",
-    image: "/assets/massage2.png",
+    image: "/assets/massage2.jpg",
     href: "/locations/denver-larimer/book-service?category=massage",
   },
   {
@@ -15,7 +15,7 @@ const BOOKING_OPTIONS = [
     subtitle: "Forever Young, Glow Getter & more",
     price: "From $139",
     duration: "50 min",
-    image: "/assets/facial6.png",
+    image: "/assets/facial6.jpg",
     href: "/locations/denver-larimer/book-service?category=facial",
   },
   {

@@ -68,7 +68,7 @@ const MassagesPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Corrective massage designed to release deep muscle tension, relieve pain, and restore mobility.",
-        img: "/assets/massage2.png",
+        img: "/assets/massage2.jpg",
       },
       {
         id: 2,
@@ -77,7 +77,7 @@ const MassagesPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Warm Himalayan salt stones help melt tension, improve circulation, and promote deep relaxation.",
-        img: "/assets/massage4.png",
+        img: "/assets/massage4.jpg",
       },
       {
         id: 3,
@@ -86,7 +86,7 @@ const MassagesPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "CBD-infused relief cream provides cooling comfort while supporting muscle recovery and relaxation.",
-        img: "/assets/massage3.png",
+        img: "/assets/massage3.jpg",
       },
       {
         id: 4,
@@ -95,7 +95,7 @@ const MassagesPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Ideal for active lifestyles. Supports recovery, improves range of motion, and reduces muscle fatigue.",
-        img: "/assets/massage5.png",
+        img: "/assets/massage5.jpg",
       },
       {
         id: 5,
@@ -104,7 +104,7 @@ const MassagesPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support natural detoxification.",
-        img: "/assets/massage6.png",
+        img: "/assets/massage6.jpg",
       },
     ],
     []

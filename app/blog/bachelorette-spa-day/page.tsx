@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog14.png",
+        url: "https://swaywellnessspa.com/assets/blog14.jpg",
         width: 1200,
         height: 630,
         alt: "Bachelorette Spa Day at Sway Wellness Spa Denver",
@@ -35,7 +35,7 @@ export default function Page() {
       "The Ultimate Bachelorette Spa Day: Relax, Celebrate, Repeat!",
     description:
       "Plan a luxurious bachelorette spa day at Sway Wellness Spa. Massages, facials, sauna, cold plunge, and private spa bookings for bridal groups in Denver.",
-    image: "https://swaywellnessspa.com/assets/blog14.png",
+    image: "https://swaywellnessspa.com/assets/blog14.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -45,7 +45,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-03-20",

@@ -37,7 +37,7 @@ export default function BridalSkincareBlogLayout() {
         </ul>
 
         <Image
-          src="/assets/blog3.png"
+          src="/assets/blog3.jpg"
           alt="Bridal Skincare Facials at Sway"
           width={700}
           height={400}

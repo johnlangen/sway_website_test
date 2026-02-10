@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa",
@@ -29,7 +29,7 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",
-    image: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+    image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
     "@id": "https://swaywellnessspa.com/",
     url: "https://swaywellnessspa.com/",
     telephone: "+1-303-476-6150",

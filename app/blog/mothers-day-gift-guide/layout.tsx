@@ -30,7 +30,7 @@ export default function MothersDayGiftGuideLayout() {
         </p>
 
         <Image
-          src="/assets/blog16.png"
+          src="/assets/blog16.jpg"
           alt="Mother's Day Spa Guide"
           width={700}
           height={400}

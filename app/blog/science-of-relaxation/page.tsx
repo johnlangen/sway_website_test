@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog11.png",
+        url: "https://swaywellnessspa.com/assets/blog11.jpg",
         width: 1200,
         height: 630,
         alt: "A flow chart to test if Sway can help reduce your stress",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Science of Relaxation: How Spa Treatments Ease Stress & Anxiety",
     description:
       "Stress relief backed by science — massage, cold plunge, sauna, and mindful facials proven to reduce cortisol, improve sleep, and restore balance.",
-    image: "https://swaywellnessspa.com/assets/blog11.png",
+    image: "https://swaywellnessspa.com/assets/blog11.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-09-20",

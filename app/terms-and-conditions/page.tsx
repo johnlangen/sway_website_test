@@ -42,7 +42,7 @@ export default function TermsPage() {
         url: "https://swaywellnessspa.com",
         logo: {
           "@type": "ImageObject",
-          url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+          url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
         },
       },
     },

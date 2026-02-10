@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog6.png",
+        url: "https://swaywellnessspa.com/assets/blog6.jpg",
         width: 1200,
         height: 630,
         alt: "Valentine's Day wellness treatments at Sway",
@@ -42,7 +42,7 @@ export default function Page() {
     headline: "Valentine's Day Wellness at Sway",
     description:
       "Celebrate Valentine's Day with self-love, spa dates, and Galentine’s at Sway Wellness Spa in Denver.",
-    image: "https://swaywellnessspa.com/assets/blog6.png",
+    image: "https://swaywellnessspa.com/assets/blog6.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -52,7 +52,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-02-01",

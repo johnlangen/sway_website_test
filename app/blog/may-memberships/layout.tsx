@@ -23,7 +23,7 @@ export default function MayMembershipsLayout() {
         </p>
 
         <Image
-          src="/assets/blog17.png"
+          src="/assets/blog17.jpg"
           alt="Sway May Memberships"
           width={700}
           height={400}

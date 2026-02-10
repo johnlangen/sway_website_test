@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog16.png",
+        url: "https://swaywellnessspa.com/assets/blog16.jpg",
         width: 1200,
         height: 630,
         alt: "Mother’s Day Spa Gift Guide at Sway",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Moms Deserve Sway More: A Mother’s Day Spa Day Gift Guide",
     description:
       "This Mother’s Day, treat Mom to the gift of wellness. Explore Sway Wellness Spa gift cards, memberships, and relaxing spa treatments designed for self-care.",
-    image: "https://swaywellnessspa.com/assets/blog16.png",
+    image: "https://swaywellnessspa.com/assets/blog16.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-05-05",

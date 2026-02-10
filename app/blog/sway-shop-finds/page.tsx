@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog19.png",
+        url: "https://swaywellnessspa.com/assets/blog19.jpg",
         width: 1200,
         height: 630,
         alt: "Best products at the Sway Shop in Larimer Square",
@@ -43,7 +43,7 @@ export default function Page() {
     headline: "Best Wellness Products at The Sway Shop in Larimer Square",
     description:
       "Explore top skincare, fragrance, and luxury wellness products at the Sway Shop. Featuring Eminence, DedCool, Dr. Dennis Gross & more.",
-    image: "https://swaywellnessspa.com/assets/blog19.png",
+    image: "https://swaywellnessspa.com/assets/blog19.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -53,7 +53,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-06-10",

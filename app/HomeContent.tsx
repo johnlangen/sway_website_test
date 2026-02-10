@@ -111,7 +111,7 @@ export default function HomeContent() {
           className="flex justify-center lg:justify-end"
         >
           <Image
-            src="/assets/homepage_photo_a.png"
+            src="/assets/homepage_photo_a.jpg"
             alt="Sway Lounge"
             width={600}
             height={400}
@@ -139,7 +139,7 @@ export default function HomeContent() {
           className="flex justify-center lg:justify-start"
         >
           <Image
-            src="/assets/homepage_photo2.png"
+            src="/assets/homepage_photo2.jpg"
             alt="Sway Sauna"
             width={600}
             height={400}
@@ -169,7 +169,7 @@ export default function HomeContent() {
           className="flex justify-center mt-6"
         >
           <Image
-            src="/assets/homepage_photo4.png"
+            src="/assets/homepage_photo4.jpg"
             alt="Wellness Magic"
             width={600}
             height={400}
@@ -199,7 +199,7 @@ export default function HomeContent() {
           className="flex justify-center"
         >
           <Image
-            src="/assets/homepage_photo15.png"
+            src="/assets/homepage_photo15.jpg"
             alt="Glow Recipe"
             width={600}
             height={400}
@@ -240,7 +240,7 @@ export default function HomeContent() {
           className="flex justify-center mt-8"
         >
           <Image
-            src="/assets/homepage_photo_outside.png"
+            src="/assets/homepage_photo_outside.jpg"
             alt="Sway Wellness Club Outside"
             width={900}
             height={500}
@@ -257,17 +257,17 @@ export default function HomeContent() {
           {[
             {
               id: 1,
-              image: "/assets/homepage_photo_b.png",
+              image: "/assets/homepage_photo_b.jpg",
               text: "It’s not only a massage, it’s relaxing into your deepest state.",
             },
             {
               id: 2,
-              image: "/assets/homepage_photo7.png",
+              image: "/assets/homepage_photo7.jpg",
               text: "It’s not just high-tech facials, it’s feeling your inner glow.",
             },
             {
               id: 3,
-              image: "/assets/homepage_photo82.png",
+              image: "/assets/homepage_photo82.jpg",
               text: "It’s not just a cold plunge or sauna, it’s mental clarity.",
             },
           ].map((card) => (
@@ -397,25 +397,25 @@ export default function HomeContent() {
         >
           {[
             {
-              image: "/assets/treatment1.png",
+              image: "/assets/treatment1.jpg",
               text: "Facials",
               link: "/facials",
               description: "Advanced, glow-focused facials and skin treatments.",
             },
             {
-              image: "/assets/treatment3.png",
+              image: "/assets/treatment3.jpg",
               text: "Massage Therapy",
               link: "/massages",
               description: "Personalized massage therapy for recovery and relief.",
             },
             {
-              image: "/assets/aescape-treatment.png",
+              image: "/assets/aescape-treatment.jpg",
               text: "Aescape",
               link: "/aescape",
               description: "AI-powered massage for modern recovery.",
             },
             {
-              image: "/assets/treatment2.png",
+              image: "/assets/treatment2.jpg",
               text: "Remedy Room",
               link: "/remedy-tech",
               description: "Sauna, cold plunge, red light, and lymphatic boots.",
@@ -471,7 +471,7 @@ export default function HomeContent() {
           ====================================================== */}
       <section className="snap-section relative min-h-screen flex items-center justify-center px-4 lg:px-16">
         <img
-          src="/assets/OG/og-sway-way2.png"
+          src="/assets/OG/og-sway-way2.jpg"
           alt="Sway Way background"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
@@ -479,10 +479,10 @@ export default function HomeContent() {
 
         <div className="relative z-20 grid grid-cols-2 md:grid-cols-4 gap-10 w-full max-w-6xl place-items-center">
           {[
-            { image: "/assets/homepage_photo11.png", text: "SWAY ON SPOTIFY", link: "" },
+            { image: "/assets/homepage_photo11.jpg", text: "SWAY ON SPOTIFY", link: "" },
             { image: "/assets/homepage_photo12.png", text: "IN THE PRESS", link: "/press" },
             {
-              image: "/assets/homepage_photo13.png",
+              image: "/assets/homepage_photo13.jpg",
               text: "@SWAYWELLNESSCLUB",
               link: "https://www.instagram.com/swaywellnessclub/",
             },

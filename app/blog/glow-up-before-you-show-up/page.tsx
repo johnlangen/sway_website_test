@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog21.png",
+        url: "https://swaywellnessspa.com/assets/blog21.jpg",
         width: 1200,
         height: 630,
         alt: "Glow Up Before You Show Up Spa Treatments",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Glow Up Before You Show Up: Spa for Students",
     description:
       "Recharge and reset with student-friendly spa treatments at Sway Wellness Spa. Explore massages, facials, Remedy Room therapies, and exclusive student offers.",
-    image: "https://swaywellnessspa.com/assets/blog21.png",
+    image: "https://swaywellnessspa.com/assets/blog21.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-02-15",

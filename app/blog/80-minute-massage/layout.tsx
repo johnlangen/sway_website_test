@@ -45,7 +45,7 @@ export default function Massage80MinBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog25.png"
+          src="/assets/blog25.jpg"
           alt="80-Minute Massage at Sway Wellness Spa"
           width={700}
           height={400}

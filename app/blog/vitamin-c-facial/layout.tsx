@@ -25,7 +25,7 @@ export default function VitaminCFacialBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog4.png"
+          src="/assets/blog4.jpg"
           alt="Vitamin C Facial"
           width={600}
           height={400}

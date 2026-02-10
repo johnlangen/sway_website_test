@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/allergy.png",
+        url: "https://swaywellnessspa.com/assets/allergy.jpg",
         width: 1200,
         height: 630,
         alt: "Allergy Season Skincare at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Allergy Season? Best Treatments to Soothe Sensitive Skin",
     description:
       "Soothe sensitive skin during allergy season with facials, LED light therapy, and lymphatic drainage at Sway Wellness Spa in Denver.",
-    image: "https://swaywellnessspa.com/assets/allergy.png",
+    image: "https://swaywellnessspa.com/assets/allergy.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-03-15",

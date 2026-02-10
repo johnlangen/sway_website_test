@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog8.png",
+        url: "https://swaywellnessspa.com/assets/blog8.jpg",
         width: 1200,
         height: 630,
         alt: "Traditional Sauna at Sway Wellness Spa",
@@ -35,7 +35,7 @@ export default function Page() {
       "Infrared Sauna vs. Traditional Sauna: The Boom of Saunas in the U.S.",
     description:
       "Learn the difference between infrared and traditional saunas and why Sway’s traditional sauna remains the gold standard for detox and relaxation.",
-    image: "https://swaywellnessspa.com/assets/blog8.png",
+    image: "https://swaywellnessspa.com/assets/blog8.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -45,7 +45,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-03-10",

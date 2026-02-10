@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
         width: 1200,
         height: 630,
         alt: "Exterior of Sway Wellness Spa in Denver",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Denver’s Most Anticipated Wellness Club",
     description:
       "Sway is Denver’s modern wellness club offering facials, massages, sauna, cold plunge, and a high-tech Remedy Room. Discover affordable luxury for today’s generation.",
-    image: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+    image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-15",

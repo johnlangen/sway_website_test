@@ -5,7 +5,7 @@ export default function VideoBackground() {
     <div className="relative w-full h-screen overflow-hidden">
       {/* Poster image for instant LCP — displays while video buffers */}
       <img
-        src="/assets/background_image.png"
+        src="/assets/background_image.jpg"
         alt=""
         fetchPriority="high"
         className="absolute top-0 left-0 w-full h-full object-cover"
@@ -18,7 +18,7 @@ export default function VideoBackground() {
         loop
         muted
         playsInline
-        poster="/assets/background_image.png"
+        poster="/assets/background_image.jpg"
       >
         {/* Use mp4 for both — .mov only works on Apple devices */}
         <source src="/assets/background2.mp4" type="video/mp4" />

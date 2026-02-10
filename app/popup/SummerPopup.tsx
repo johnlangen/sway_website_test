@@ -39,7 +39,7 @@ export default function FirstVisitOfferPopup() {
         {/* Image — fills remaining space, shrinks on short viewports */}
         <div className="relative min-h-[120px] flex-1 overflow-hidden rounded-t-lg">
           <Image
-            src="/assets/eventgreen.png"
+            src="/assets/eventgreen.jpg"
             alt="First Time Visit Offer"
             fill
             className="object-cover object-top"

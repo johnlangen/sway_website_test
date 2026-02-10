@@ -52,7 +52,7 @@ const LOCATIONS: Location[] = [
       "Sun: 11:00 AM – 6:00 PM",
     ],
     mindbody: { siteId: "DENVER_SITE_ID" },
-    imageUrl: "/assets/homepage_photo_outside.png",
+    imageUrl: "/assets/homepage_photo_outside.jpg",
   },
   {
     slug: "dallas",

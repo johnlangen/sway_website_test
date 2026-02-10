@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "/assets/holidaygcdesktop.png",
+        url: "/assets/holidaygcdesktop.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Holiday Gift Cards",

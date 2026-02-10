@@ -83,7 +83,7 @@ export default function ScienceOfRelaxationBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog11.png"
+          src="/assets/blog11.jpg"
           alt="A flow chart to test if Sway can help reduce your stress"
           width={600}
           height={400}

@@ -17,7 +17,7 @@ export default function Page() {
     headline: "Holiday Wellness Gift Guide",
     description:
       "A modern holiday wellness gift guide featuring restorative spa experiences and thoughtful self-care at Sway Wellness Spa.",
-    image: "https://swaywellnessspa.com/assets/blog26.png",
+    image: "https://swaywellnessspa.com/assets/blog26.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -27,7 +27,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     mainEntityOfPage: {

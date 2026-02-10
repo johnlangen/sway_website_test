@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog25.png",
+        url: "https://swaywellnessspa.com/assets/blog25.jpg",
         width: 1200,
         height: 630,
         alt: "80-Minute Massage at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",
     description:
       "Discover why upgrading to an 80-minute massage at Sway Wellness Spa is the ultimate reset — with specialty techniques and deeper rejuvenation.",
-    image: "https://swaywellnessspa.com/assets/blog25.png",
+    image: "https://swaywellnessspa.com/assets/blog25.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-10",

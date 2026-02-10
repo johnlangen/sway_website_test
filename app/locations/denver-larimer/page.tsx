@@ -16,7 +16,7 @@ const loc = {
   zip: "80202",
   phone: "+1 303-476-6150",
   phoneDigits: "13034766150",
-  heroImage: "/assets/homepage_photo_outside.png",
+  heroImage: "/assets/homepage_photo_outside.jpg",
   mapUrl: "https://www.google.com/maps?q=1428+Larimer+St,+Denver,+CO+80202",
 };
 

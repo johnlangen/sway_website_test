@@ -24,7 +24,7 @@ export default function InfraredPemfMatBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog12.png"
+          src="/assets/blog12.jpg"
           alt="Guest enjoying Infrared PEMF Mat at Sway"
           width={600}
           height={400}

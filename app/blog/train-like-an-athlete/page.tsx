@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog20.png",
+        url: "https://swaywellnessspa.com/assets/blog20.jpg",
         width: 1200,
         height: 630,
         alt: "Athlete recovery treatments at Sway",
@@ -42,7 +42,7 @@ export default function Page() {
     headline: "Train Like an Athlete, Recover Like an Athlete",
     description:
       "Discover how strategic recovery—like sports massage, cold plunge, and LED therapy—helps you train smarter and feel your best at Sway Wellness Spa in Denver.",
-    image: "https://swaywellnessspa.com/assets/blog20.png",
+    image: "https://swaywellnessspa.com/assets/blog20.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -52,7 +52,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-20",

@@ -48,7 +48,7 @@ export default function CompressionTherapyPage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/compression_therapy.png"
+            src="/assets/compression_therapy.jpg"
             alt="Compression therapy with Normatec boots at Sway Wellness Spa"
             width={600}
             height={400}

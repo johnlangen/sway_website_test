@@ -68,7 +68,7 @@ export default function ColdPlungePage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/cold_plunge.png"
+            src="/assets/cold_plunge.jpg"
             alt="Cold plunge therapy at Sway Wellness Spa"
             width={600}
             height={400}

@@ -42,7 +42,7 @@ export default function HolidayGiftCardPopup() {
         {/* IMAGE */}
         <div className="w-full">
           <Image
-            src="/assets/popupHoliday.png"
+            src="/assets/popupHoliday.jpg"
             alt="Holiday Gift Card Promo"
             width={500}
             height={600}

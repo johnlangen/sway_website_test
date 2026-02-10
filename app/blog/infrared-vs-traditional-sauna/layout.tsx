@@ -50,7 +50,7 @@ export default function SaunaComparisonBlogLayout() {
         </ul>
 
         <img
-          src="/assets/blog8.png"
+          src="/assets/blog8.jpg"
           alt="Traditional Sauna at Sway Wellness Spa"
           className="w-[600px] h-auto rounded-lg"
         />

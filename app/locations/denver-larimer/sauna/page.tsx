@@ -22,7 +22,7 @@ export default function LarimerSaunaPage() {
           className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
         >
           <Image
-            src="/assets/sauna.png"
+            src="/assets/sauna.jpg"
             alt="Sauna at Sway Wellness Spa in Larimer Square Denver"
             width={650}
             height={450}

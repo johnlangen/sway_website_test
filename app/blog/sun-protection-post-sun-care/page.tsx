@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog18.png",
+        url: "https://swaywellnessspa.com/assets/blog18.jpg",
         width: 1200,
         height: 630,
         alt: "Sun Protection Essentials from Sway Wellness Spa",
@@ -43,7 +43,7 @@ export default function Page() {
     headline: "The Ultimate Guide to Sun Protection & Post-Sun Skin Care",
     description:
       "Protect your skin year-round with SPF and post-sun care routines featuring Supergoop and Eminence Organics. Learn expert tips from Sway Wellness Spa.",
-    image: "https://swaywellnessspa.com/assets/blog18.png",
+    image: "https://swaywellnessspa.com/assets/blog18.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -53,7 +53,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-06-01",

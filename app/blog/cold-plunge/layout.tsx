@@ -65,7 +65,7 @@ export default function ColdPlungeBlogLayout() {
         </ul>
 
         <Image
-          src="/assets/blog7.png"
+          src="/assets/blog7.jpg"
           alt="Cold Plunge Remedy Room"
           width={600}
           height={400}

@@ -70,7 +70,7 @@ const FacialsPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Hydrates, brightens, and tightens the skin while supporting collagen production and circulation.",
-        img: "/assets/facial2.png",
+        img: "/assets/facial2.jpg",
       },
       {
         id: 2,
@@ -80,7 +80,7 @@ const FacialsPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.",
-        img: "/assets/facial3.png",
+        img: "/assets/facial3.jpg",
       },
       {
         id: 3,
@@ -90,7 +90,7 @@ const FacialsPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Targets congestion, bacteria, and inflammation for clearer, healthier skin.",
-        img: "/assets/facial4.png",
+        img: "/assets/facial4.jpg",
       },
       {
         id: 4,
@@ -100,7 +100,7 @@ const FacialsPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "Calms redness, strengthens the skin barrier, and supports sensitive skin types.",
-        img: "/assets/facial5.png",
+        img: "/assets/facial5.jpg",
       },
       {
         id: 5,
@@ -110,7 +110,7 @@ const FacialsPage = () => {
         price: "Member $99 | Drop-In $139",
         description:
           "A brightening facial powered by Vitamin C to improve tone, clarity, and radiance.",
-        img: "/assets/facial6.png",
+        img: "/assets/facial6.jpg",
       },
     ],
     []

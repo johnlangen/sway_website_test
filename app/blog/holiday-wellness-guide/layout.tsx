@@ -25,7 +25,7 @@ export default function HolidayWellnessGuideLayout() {
           "
         >
           <Image
-            src="/assets/blog26.png"
+            src="/assets/blog26.jpg"
             alt="Holiday Wellness Gift Guide"
             fill
             priority
@@ -110,7 +110,7 @@ export default function HolidayWellnessGuideLayout() {
                     </span>
                   </div>
                   <Image
-                    src="/assets/blog27.png"
+                    src="/assets/blog27.jpg"
                     alt="CBD Body Oil"
                     fill
                     className="object-cover"
@@ -131,7 +131,7 @@ export default function HolidayWellnessGuideLayout() {
                     </span>
                   </div>
                   <Image
-                    src="/assets/blog28.png"
+                    src="/assets/blog28.jpg"
                     alt="CBD Relief Cream"
                     fill
                     className="object-cover"
@@ -152,7 +152,7 @@ export default function HolidayWellnessGuideLayout() {
                     </span>
                   </div>
                   <Image
-                    src="/assets/blog29.png"
+                    src="/assets/blog29.jpg"
                     alt="CBD Relief Cream Packaging"
                     fill
                     className="object-cover"
@@ -225,7 +225,7 @@ export default function HolidayWellnessGuideLayout() {
                 </div>
                 <div className="relative w-full aspect-[16/11] xl:aspect-[16/10]">
                   <Image
-                    src="/assets/blog28.png"
+                    src="/assets/blog28.jpg"
                     alt="CBD Relief Cream"
                     fill
                     className="object-cover"
@@ -251,7 +251,7 @@ export default function HolidayWellnessGuideLayout() {
                   </div>
                   <div className="relative w-full aspect-[16/11] xl:aspect-[16/10]">
                     <Image
-                      src="/assets/blog27.png"
+                      src="/assets/blog27.jpg"
                       alt="CBD Body Oil"
                       fill
                       className="object-cover"
@@ -273,7 +273,7 @@ export default function HolidayWellnessGuideLayout() {
                   </div>
                   <div className="relative w-full aspect-[16/11] xl:aspect-[16/10]">
                     <Image
-                      src="/assets/blog29.png"
+                      src="/assets/blog29.jpg"
                       alt="CBD Relief Cream Packaging"
                       fill
                       className="object-cover"
@@ -351,7 +351,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative overflow-hidden rounded-lg shadow-md bg-white col-start-2 row-start-1"
           >
             <Image
-              src="/assets/blog31.png"
+              src="/assets/blog31.jpg"
               alt="Glow Getter visual"
               fill
               className="object-cover"
@@ -367,7 +367,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative col-span-1 row-span-2 overflow-hidden rounded-lg shadow-md bg-white"
           >
             <Image
-              src="/assets/blog30.png"
+              src="/assets/blog30.jpg"
               alt="Kombucha Microbiome Foaming Cleanser"
               fill
               className="object-cover"
@@ -383,7 +383,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative overflow-hidden rounded-lg shadow-md bg-white col-start-2 row-start-2"
           >
             <Image
-              src="/assets/blog32.png"
+              src="/assets/blog32.jpg"
               alt="Birch Water Purifying Essence"
               fill
               className="object-cover"
@@ -451,7 +451,7 @@ export default function HolidayWellnessGuideLayout() {
         >
           <div className="relative w-full aspect-[16/10]">
             <Image
-              src="/assets/blog31.png"
+              src="/assets/blog31.jpg"
               alt="Glow Getter visual"
               fill
               className="object-cover"
@@ -472,7 +472,7 @@ export default function HolidayWellnessGuideLayout() {
           >
             <div className="relative w-full aspect-[16/10]">
               <Image
-                src="/assets/blog30.png"
+                src="/assets/blog30.jpg"
                 alt="Kombucha Microbiome Foaming Cleanser"
                 fill
                 className="object-cover"
@@ -489,7 +489,7 @@ export default function HolidayWellnessGuideLayout() {
           >
             <div className="relative w-full aspect-[16/10]">
               <Image
-                src="/assets/blog32.png"
+                src="/assets/blog32.jpg"
                 alt="Birch Water Purifying Essence"
                 fill
                 className="object-cover"
@@ -568,7 +568,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative col-span-1 row-span-2 overflow-hidden rounded-lg shadow-md bg-white"
           >
             <Image
-              src="/assets/blog33.png"
+              src="/assets/blog33.jpg"
               alt="Paddywax"
               fill
               className="object-cover"
@@ -584,7 +584,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative overflow-hidden rounded-lg shadow-md bg-white"
           >
             <Image
-              src="/assets/blog34.png"
+              src="/assets/blog34.jpg"
               alt="Assouline"
               fill
               className="object-cover"
@@ -600,7 +600,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative overflow-hidden rounded-lg shadow-md bg-white"
           >
             <Image
-              src="/assets/blog35.png"
+              src="/assets/blog35.jpg"
               alt="Supergoop"
               fill
               className="object-cover"
@@ -670,7 +670,7 @@ export default function HolidayWellnessGuideLayout() {
         >
           <div className="relative w-full aspect-[16/10]">
             <Image
-              src="/assets/blog34.png"
+              src="/assets/blog34.jpg"
               alt="Assouline"
               fill
               className="object-cover"
@@ -691,7 +691,7 @@ export default function HolidayWellnessGuideLayout() {
           >
             <div className="relative w-full aspect-[16/10]">
               <Image
-                src="/assets/blog33.png"
+                src="/assets/blog33.jpg"
                 alt="Paddywax"
                 fill
                 className="object-cover"
@@ -708,7 +708,7 @@ export default function HolidayWellnessGuideLayout() {
           >
             <div className="relative w-full aspect-[16/10]">
               <Image
-                src="/assets/blog35.png"
+                src="/assets/blog35.jpg"
                 alt="Supergoop"
                 fill
                 className="object-cover"
@@ -789,7 +789,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative col-span-1 row-span-2 overflow-hidden rounded-lg shadow-md bg-white"
           >
             <Image
-              src="/assets/blog36.png"
+              src="/assets/blog36.jpg"
               alt="Sway gift card lifestyle"
               fill
               className="object-cover"
@@ -821,7 +821,7 @@ export default function HolidayWellnessGuideLayout() {
             className="relative overflow-hidden rounded-lg shadow-md bg-white"
           >
             <Image
-              src="/assets/blog38.png"
+              src="/assets/blog38.jpg"
               alt="Sway product detail"
               fill
               className="object-cover"
@@ -909,7 +909,7 @@ export default function HolidayWellnessGuideLayout() {
           >
             <div className="relative w-full aspect-[16/10]">
               <Image
-                src="/assets/blog36.png"
+                src="/assets/blog36.jpg"
                 alt="Sway gift card lifestyle"
                 fill
                 className="object-cover"
@@ -926,7 +926,7 @@ export default function HolidayWellnessGuideLayout() {
           >
             <div className="relative w-full aspect-[16/10]">
               <Image
-                src="/assets/blog38.png"
+                src="/assets/blog38.jpg"
                 alt="Sway product detail"
                 fill
                 className="object-cover"
@@ -973,7 +973,7 @@ export default function HolidayWellnessGuideLayout() {
     "
   >
     <Image
-      src="/assets/blog39.png"
+      src="/assets/blog39.jpg"
       alt="Schedule Your Holiday Wellness at Sway"
       fill
       priority

@@ -27,7 +27,7 @@ export default function AescapeBlogLayout() {
       <section className="md:snap-start min-h-[100svh] flex justify-center items-center px-4">
         <div className="relative w-full max-w-[420px] md:max-w-[560px] lg:max-w-[640px] aspect-[3/5] max-h-[82vh] overflow-hidden rounded-md shadow-2xl">
           <Image
-            src="/assets/blog22.png"
+            src="/assets/blog22.jpg"
             alt="Aescape Robot Massage at Sway"
             fill
             priority
@@ -136,7 +136,7 @@ export default function AescapeBlogLayout() {
             <motion.div {...fadeSide("left")} className="relative md:order-1 order-2">
               <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
-                  src="/assets/aescapeblog2.png"
+                  src="/assets/aescapeblog2.jpg"
                   alt="Aescape detail and environment"
                   fill
                   className="object-cover"
@@ -235,7 +235,7 @@ export default function AescapeBlogLayout() {
             <motion.div {...fadeSide("right")} className="relative">
               <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
-                  src="/assets/aescapeblog3.png"
+                  src="/assets/aescapeblog3.jpg"
                   alt="Aescape robotic arms and scan experience"
                   fill
                   className="object-cover"
@@ -258,7 +258,7 @@ export default function AescapeBlogLayout() {
             <motion.div {...fadeSide("left")} className="relative md:order-2 order-2">
               <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
-                  src="/assets/aescapeblog4.png"
+                  src="/assets/aescapeblog4.jpg"
                   alt="Aescape session flow and setup"
                   fill
                   className="object-cover"
@@ -430,7 +430,7 @@ export default function AescapeBlogLayout() {
             <motion.div {...fadeSide("left")} className="relative">
               <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
-                  src="/assets/aescapeblog5.png"
+                  src="/assets/aescapeblog5.jpg"
                   alt="Aescape first session experience"
                   fill
                   className="object-cover"
@@ -562,7 +562,7 @@ export default function AescapeBlogLayout() {
           className="relative w-full max-w-[420px] md:max-w-[560px] lg:max-w-[640px] aspect-[3/5] max-h-[82vh] overflow-hidden rounded-md shadow-2xl"
         >
           <Image
-            src="/assets/blog22.png"
+            src="/assets/blog22.jpg"
             alt="Book Aescape at Sway Wellness Spa"
             fill
             priority={false}

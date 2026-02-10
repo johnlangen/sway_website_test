@@ -33,7 +33,7 @@ export const metadata: Metadata = {
       "A modern wellness spa and club offering massage therapy, facials, recovery rituals, and innovative wellness experiences.",
     images: [
       {
-        url: "/assets/homepage_photo_outside.png",
+        url: "/assets/homepage_photo_outside.jpg",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Sway Wellness Spa",
     description:
       "Modern wellness spa and club offering massage therapy, facials, and recovery-focused experiences.",
-    images: [{ url: "/assets/homepage_photo_outside.png" }],
+    images: [{ url: "/assets/homepage_photo_outside.jpg" }],
   },
 
   robots: {

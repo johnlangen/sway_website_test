@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog15.png",
+        url: "https://swaywellnessspa.com/assets/blog15.jpg",
         width: 1200,
         height: 630,
         alt: "Pre-summer spa prep treatments at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Summer Starts with Skin: Sway’s Pre-Summer Prep Guide",
     description:
       "Discover lymphatic drainage massage, microcurrent facials, hydrating skincare, and relaxing massages to prep your skin and body for summer.",
-    image: "https://swaywellnessspa.com/assets/blog15.png",
+    image: "https://swaywellnessspa.com/assets/blog15.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-05-01",

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog22.png",
+        url: "https://swaywellnessspa.com/assets/blog22.jpg",
         width: 1200,
         height: 630,
         alt: "Aescape Robot Massage at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "AI Meets Recovery: Reset with Aescape",
     description:
       "Explore Aescape at Sway Wellness Spa — the world’s first AI-powered robot massage, designed to help tech professionals recover smarter.",
-    image: "https://swaywellnessspa.com/assets/blog22.png",
+    image: "https://swaywellnessspa.com/assets/blog22.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-01-20",

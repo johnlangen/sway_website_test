@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog20.png",
+        url: "https://swaywellnessspa.com/assets/blog20.jpg",
         width: 1200,
         height: 630,
         alt: "Post-Summer Skin Recovery at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Repair & Refresh: Post-Summer Skin Recovery Starts Now",
     description:
       "After sun, chlorine, and sweat take a toll, restore your glow with Sway's facials, LED therapy, and oxygen boosts. Expert post-summer skincare in Denver.",
-    image: "https://swaywellnessspa.com/assets/blog20.png",
+    image: "https://swaywellnessspa.com/assets/blog20.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-09-15",

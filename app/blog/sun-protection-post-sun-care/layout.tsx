@@ -32,7 +32,7 @@ export default function SunProtectionBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog18.png"
+          src="/assets/blog18.jpg"
           alt="Sun Protection Essentials"
           width={700}
           height={400}

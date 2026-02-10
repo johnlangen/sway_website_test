@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog7.png",
+        url: "https://swaywellnessspa.com/assets/blog7.jpg",
         width: 1200,
         height: 630,
         alt: "Cold Plunge Remedy Room at Sway Wellness Spa",
@@ -34,7 +34,7 @@ export default function Page() {
     headline: "Cold Plunges: The Hot New Trend in Wellness",
     description:
       "Cold plunge therapy at Sway boosts circulation, sleep, mood, and immunity. Discover why it’s the ultimate recovery tool this winter.",
-    image: "https://swaywellnessspa.com/assets/blog7.png",
+    image: "https://swaywellnessspa.com/assets/blog7.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -44,7 +44,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.png",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-02-01",

@@ -49,7 +49,7 @@ const RemedyRoomPage = () => {
       time: "20 MINUTES",
       description:
         "Heat therapy designed to support recovery, circulation, stress relief, and overall wellness.",
-      img: "/assets/sauna.png",
+      img: "/assets/sauna.jpg",
       link: saunaHref,
     },
     {
@@ -58,7 +58,7 @@ const RemedyRoomPage = () => {
       time: "5 MINUTES",
       description:
         "Cold water therapy proven to elevate energy, improve mood, relieve soreness, and support immunity.",
-      img: "/assets/cold_plunge.png",
+      img: "/assets/cold_plunge.jpg",
       link: coldPlungeHref,
     },
     {
@@ -67,7 +67,7 @@ const RemedyRoomPage = () => {
       time: "15 MINUTES",
       description:
         "Normatec compression boosts circulation, supports lymphatic drainage, and reduces muscle soreness.",
-      img: "/assets/compression_therapy.png",
+      img: "/assets/compression_therapy.jpg",
       link: "/compression-therapy",
     },
     {

@@ -31,7 +31,7 @@ export default function DenverWellnessClubBlogLayout() {
         </p>
 
         <Image
-          src="/assets/homepage_photo_outside.png"
+          src="/assets/homepage_photo_outside.jpg"
           alt="Sway Wellness Spa Exterior"
           width={800}
           height={400}
@@ -71,7 +71,7 @@ export default function DenverWellnessClubBlogLayout() {
         </ul>
 
         <Image
-          src="/assets/homepage_photo_b.png"
+          src="/assets/homepage_photo_b.jpg"
           alt="Sway Facial Room"
           width={800}
           height={400}
@@ -108,7 +108,7 @@ export default function DenverWellnessClubBlogLayout() {
         </p>
 
         <Image
-          src="/assets/recover_room.png"
+          src="/assets/recover_room.jpg"
           alt="Remedy Room at Sway"
           width={800}
           height={400}

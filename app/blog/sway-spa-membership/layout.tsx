@@ -25,7 +25,7 @@ export default function SwaySpaMembershipBlogLayout() {
         </p>
 
         <Image
-          src="/assets/blog2.png"
+          src="/assets/blog2.jpg"
           alt="Sway Membership"
           width={800}
           height={400}
