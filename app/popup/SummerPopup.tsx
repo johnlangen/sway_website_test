@@ -3,13 +3,16 @@
 import { useEffect, useState, FormEvent } from "react";
 import Image from "next/image";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Step = "email" | "phone" | "success";
 
 export default function FirstVisitOfferPopup() {
   const [show, setShow] = useState(false);
+  const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
+  const [phone, setPhone] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isExisting, setIsExisting] = useState(false);
 
   useEffect(() => {
     const openTimer = setTimeout(() => {
@@ -19,13 +22,26 @@ export default function FirstVisitOfferPopup() {
     return () => clearTimeout(openTimer);
   }, []);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+  /** Format phone display: (303) 555-1234 */
+  function formatPhoneDisplay(raw: string): string {
+    const digits = raw.replace(/\D/g, "").slice(0, 10);
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
 
+  /** Convert display phone → E.164 */
+  function toE164(raw: string): string {
+    const digits = raw.replace(/\D/g, "");
+    return `+1${digits}`;
+  }
+
+  async function handleEmailSubmit(e: FormEvent) {
+    e.preventDefault();
     const trimmed = email.trim();
     if (!trimmed) return;
 
-    setStatus("submitting");
+    setSubmitting(true);
     setErrorMsg("");
 
     try {
@@ -39,15 +55,51 @@ export default function FirstVisitOfferPopup() {
 
       if (!res.ok) {
         setErrorMsg(data.error || "Something went wrong. Please try again.");
-        setStatus("error");
+        setSubmitting(false);
         return;
       }
 
-      setStatus("success");
+      setIsExisting(data.existing === true);
+      setStep("phone");
     } catch {
       setErrorMsg("Could not connect. Please try again.");
-      setStatus("error");
     }
+
+    setSubmitting(false);
+  }
+
+  async function handlePhoneSubmit(e: FormEvent) {
+    e.preventDefault();
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length !== 10) {
+      setErrorMsg("Please enter a 10-digit phone number.");
+      return;
+    }
+
+    setSubmitting(true);
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), phone: toE164(phone) }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErrorMsg(data.error || "Something went wrong. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+
+      setStep("success");
+    } catch {
+      setErrorMsg("Could not connect. Please try again.");
+    }
+
+    setSubmitting(false);
   }
 
   if (!show) return null;
@@ -77,24 +129,8 @@ export default function FirstVisitOfferPopup() {
 
         {/* Content — pinned to bottom, never hidden */}
         <div className="shrink-0 p-4 sm:p-5">
-          {status === "success" ? (
-            /* ── Success state ── */
-            <div className="text-center">
-              <p className="text-2xl sm:text-3xl font-extrabold mb-1">
-                You&apos;re In!
-              </p>
-              <p className="text-sm sm:text-base mb-4">
-                Check your inbox for your $40 off offer.
-              </p>
-              <a
-                href="/locations/denver-larimer/offers/"
-                className="block bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center"
-              >
-                View Offers
-              </a>
-            </div>
-          ) : (
-            /* ── Email capture state ── */
+          {/* ── Step 1: Email ── */}
+          {step === "email" && (
             <>
               <p className="text-2xl sm:text-3xl font-extrabold text-center mb-1">
                 $40 OFF
@@ -103,34 +139,121 @@ export default function FirstVisitOfferPopup() {
                 First visit? Enter your email to claim $40 off.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-2.5">
+              <form onSubmit={handleEmailSubmit} className="space-y-2.5">
                 <input
                   type="email"
                   required
                   placeholder="Your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  disabled={status === "submitting"}
+                  disabled={submitting}
                   className="w-full px-3.5 py-2.5 rounded-md border border-[#113D33]/20 bg-white text-[#113D33] placeholder:text-[#113D33]/40 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 disabled:opacity-60"
                 />
 
-                {status === "error" && errorMsg && (
+                {errorMsg && (
                   <p className="text-red-600 text-xs text-center">{errorMsg}</p>
                 )}
 
                 <button
                   type="submit"
-                  disabled={status === "submitting"}
+                  disabled={submitting}
                   className="w-full bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center disabled:opacity-60 transition-opacity"
                 >
-                  {status === "submitting" ? "Submitting…" : "Claim Offer"}
+                  {submitting ? "Submitting…" : "Claim Offer"}
                 </button>
               </form>
 
               <p className="text-[10px] text-[#113D33]/40 text-center mt-2 leading-tight">
-                By submitting, you agree to receive marketing emails from Sway Wellness. Unsubscribe anytime.
+                By submitting, you agree to receive marketing emails from Sway
+                Wellness. Unsubscribe anytime.
               </p>
             </>
+          )}
+
+          {/* ── Step 2: Phone (optional) ── */}
+          {step === "phone" && (
+            <>
+              {isExisting ? (
+                <>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-center mb-1">
+                    Welcome Back!
+                  </p>
+                  <p className="text-sm sm:text-base text-center mb-3">
+                    You&apos;re already on the list. Add your number for
+                    exclusive text-only deals.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-center mb-1">
+                    One More Step
+                  </p>
+                  <p className="text-sm sm:text-base text-center mb-3">
+                    Add your number for exclusive text-only deals.
+                  </p>
+                </>
+              )}
+
+              <form onSubmit={handlePhoneSubmit} className="space-y-2.5">
+                <input
+                  type="tel"
+                  required
+                  placeholder="(303) 555-1234"
+                  value={phone}
+                  onChange={(e) =>
+                    setPhone(formatPhoneDisplay(e.target.value))
+                  }
+                  disabled={submitting}
+                  className="w-full px-3.5 py-2.5 rounded-md border border-[#113D33]/20 bg-white text-[#113D33] placeholder:text-[#113D33]/40 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 disabled:opacity-60"
+                />
+
+                {errorMsg && (
+                  <p className="text-red-600 text-xs text-center">{errorMsg}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center disabled:opacity-60 transition-opacity"
+                >
+                  {submitting ? "Submitting…" : "Get Text Deals"}
+                </button>
+              </form>
+
+              <button
+                type="button"
+                onClick={() => setStep("success")}
+                className="w-full text-[#113D33]/50 text-xs text-center mt-2 hover:text-[#113D33]/70 transition-colors"
+              >
+                Skip for now
+              </button>
+
+              <p className="text-[10px] text-[#113D33]/40 text-center mt-1.5 leading-tight">
+                By submitting, you agree to receive recurring marketing texts
+                from Sway Wellness. Msg &amp; data rates may apply. Reply STOP
+                to cancel.
+              </p>
+            </>
+          )}
+
+          {/* ── Step 3: Success ── */}
+          {step === "success" && (
+            <div className="text-center">
+              <p className="text-2xl sm:text-3xl font-extrabold mb-1">
+                You&apos;re In!
+              </p>
+              <p className="text-sm sm:text-base mb-4">
+                {isExisting
+                  ? "You're all set — check our latest offers below."
+                  : "Check your inbox for your $40 off offer."}
+              </p>
+              <a
+                href="/locations/denver-larimer/offers/"
+                className="block bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center"
+              >
+                View Offers
+              </a>
+            </div>
           )}
         </div>
       </div>

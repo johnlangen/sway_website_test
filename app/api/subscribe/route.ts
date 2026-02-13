@@ -4,16 +4,20 @@ export const runtime = "nodejs";
 
 /**
  * POST /api/subscribe
- * Subscribes an email address to Attentive for marketing emails.
+ * Subscribes an email (and optionally a phone number) to Attentive.
  *
- * Body: { "email": "customer@example.com" }
- * Returns: { success: true } or { error: "..." }
+ * Body: { "email": "customer@example.com", "phone"?: "+15551234567" }
+ * Returns:
+ *   { success: true, existing: false }  — new subscriber
+ *   { success: true, existing: true }   — already subscribed
+ *   { error: "..." }                    — failure
  */
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^\+1\d{10}$/; // E.164 US format
 
 export async function POST(req: Request) {
-  let body: { email?: string };
+  let body: { email?: string; phone?: string };
 
   try {
     body = await req.json();
@@ -25,10 +29,18 @@ export async function POST(req: Request) {
   }
 
   const email = body.email?.trim().toLowerCase();
+  const phone = body.phone?.trim();
 
   if (!email || !EMAIL_RE.test(email)) {
     return NextResponse.json(
       { error: "Please enter a valid email address" },
+      { status: 400 }
+    );
+  }
+
+  if (phone && !PHONE_RE.test(phone)) {
+    return NextResponse.json(
+      { error: "Please enter a valid phone number" },
       { status: 400 }
     );
   }
@@ -44,10 +56,16 @@ export async function POST(req: Request) {
     );
   }
 
+  // Build user object with email and optionally phone
+  const user: Record<string, string> = { email };
+  if (phone) {
+    user.phone = phone;
+  }
+
   // Build request body: use signUpSourceId if available, otherwise
   // fall back to locale + subscriptionType (requires exactly one
   // API-type sign-up unit in the Attentive dashboard).
-  const reqBody: Record<string, unknown> = { user: { email } };
+  const reqBody: Record<string, unknown> = { user };
 
   if (signUpSourceId) {
     reqBody.signUpSourceId = signUpSourceId;
@@ -78,7 +96,10 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({ success: true });
+    // 200 = existing subscriber, 201 = new subscriber
+    const existing = res.status === 200;
+
+    return NextResponse.json({ success: true, existing });
   } catch (err) {
     console.error("[subscribe] Network error:", err);
     return NextResponse.json(
