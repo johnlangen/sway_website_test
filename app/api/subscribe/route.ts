@@ -36,12 +36,24 @@ export async function POST(req: Request) {
   const apiKey = process.env.ATTENTIVE_API_KEY;
   const signUpSourceId = process.env.ATTENTIVE_SIGNUP_SOURCE_ID;
 
-  if (!apiKey || !signUpSourceId) {
-    console.error("[subscribe] Missing ATTENTIVE_API_KEY or ATTENTIVE_SIGNUP_SOURCE_ID");
+  if (!apiKey) {
+    console.error("[subscribe] Missing ATTENTIVE_API_KEY");
     return NextResponse.json(
       { error: "Server misconfigured" },
       { status: 500 }
     );
+  }
+
+  // Build request body: use signUpSourceId if available, otherwise
+  // fall back to locale + subscriptionType (requires exactly one
+  // API-type sign-up unit in the Attentive dashboard).
+  const reqBody: Record<string, unknown> = { user: { email } };
+
+  if (signUpSourceId) {
+    reqBody.signUpSourceId = signUpSourceId;
+  } else {
+    reqBody.locale = "en-US";
+    reqBody.subscriptionType = "MARKETING";
   }
 
   try {
@@ -53,10 +65,7 @@ export async function POST(req: Request) {
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          user: { email },
-          signUpSourceId,
-        }),
+        body: JSON.stringify(reqBody),
       }
     );
 
