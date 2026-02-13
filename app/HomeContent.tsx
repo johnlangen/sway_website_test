@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import Image from "next/image";
 import React, { useState } from "react";
-import SummerPopup from "./popup/SummerPopup";
-
 export default function HomeContent() {
   const [loadedA, setLoadedA] = useState(false);
   const [loadedB, setLoadedB] = useState(false);
@@ -15,7 +13,6 @@ export default function HomeContent() {
 
   return (
     <div className="snap-container w-full overflow-hidden max-w-screen">
-      <SummerPopup />
 
       {/* ======================================================
           Hero Video
