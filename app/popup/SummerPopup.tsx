@@ -12,6 +12,7 @@ export default function FirstVisitOfferPopup() {
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isExisting, setIsExisting] = useState(false);
 
   useEffect(() => {
     const openTimer = setTimeout(() => {
@@ -58,6 +59,8 @@ export default function FirstVisitOfferPopup() {
         return;
       }
 
+      // Track whether they're existing — always go to phone step
+      setIsExisting(data.existing === true);
       setStep("phone");
     } catch {
       setErrorMsg("Could not connect. Please try again.");
@@ -255,11 +258,32 @@ export default function FirstVisitOfferPopup() {
           {/* ── Step 3: Success ── */}
           {step === "success" && (
             <div className="text-center">
-              <p className="text-2xl sm:text-3xl font-extrabold mb-1">
-                You&apos;re In!
+              {isExisting ? (
+                <>
+                  <p className="text-2xl sm:text-3xl font-extrabold mb-1">
+                    Welcome Back!
+                  </p>
+                  <p className="text-sm sm:text-base mb-2">
+                    Looks like you already have an account — we&apos;ve signed
+                    you up for exclusive text deals too.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl sm:text-3xl font-extrabold mb-1">
+                    You&apos;re In!
+                  </p>
+                </>
+              )}
+              <p className="text-sm sm:text-base mb-1">
+                Check your texts and reply{" "}
+                <span className="font-bold">&ldquo;Y&rdquo;</span> to confirm
+                your subscription.
               </p>
-              <p className="text-sm sm:text-base mb-4">
-                Check your texts &amp; inbox for your $40 off offer.
+              <p className="text-xs text-[#113D33]/50 mb-4">
+                {isExisting
+                  ? "Even if you've visited before, check out our latest offers for something new."
+                  : "Once confirmed, you'll receive your $40 off offer and exclusive deals."}
               </p>
               <a
                 href="/locations/denver-larimer/offers/"

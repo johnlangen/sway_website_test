@@ -87,17 +87,31 @@ export async function POST(req: Request) {
       }
     );
 
+    const responseText = await res.text();
+
     if (!res.ok) {
-      const text = await res.text();
-      console.error("[subscribe] Attentive error:", res.status, text);
+      console.error("[subscribe] Attentive error:", res.status, responseText);
       return NextResponse.json(
         { error: "Subscription failed. Please try again." },
         { status: 502 }
       );
     }
 
-    // 200 = existing subscriber, 201 = new subscriber
-    const existing = res.status === 200;
+    // Detect existing subscriber from Attentive's response body.
+    // 202 with "PREVIOUSLY_CREATED" = already subscribed.
+    let existing = false;
+    try {
+      const data = JSON.parse(responseText);
+      const responses = Array.isArray(data?.subscriptionResponses)
+        ? data.subscriptionResponses
+        : [];
+      existing = responses.some(
+        (r: { subscriptionCreationStatus?: string }) =>
+          r.subscriptionCreationStatus === "PREVIOUSLY_CREATED"
+      );
+    } catch {
+      // If we can't parse, assume new subscriber
+    }
 
     return NextResponse.json({ success: true, existing });
   } catch (err) {
