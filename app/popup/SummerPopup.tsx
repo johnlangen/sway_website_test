@@ -12,7 +12,6 @@ export default function FirstVisitOfferPopup() {
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [isExisting, setIsExisting] = useState(false);
 
   useEffect(() => {
     const openTimer = setTimeout(() => {
@@ -59,7 +58,6 @@ export default function FirstVisitOfferPopup() {
         return;
       }
 
-      setIsExisting(data.existing === true);
       setStep("phone");
     } catch {
       setErrorMsg("Could not connect. Please try again.");
@@ -132,18 +130,37 @@ export default function FirstVisitOfferPopup() {
           {/* ── Step 1: Email ── */}
           {step === "email" && (
             <>
-              <p className="text-2xl sm:text-3xl font-extrabold text-center mb-1">
+              <p className="text-[11px] uppercase tracking-widest text-[#4A776D] font-semibold text-center mb-0.5">
+                Unlock
+              </p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-center mb-0.5">
                 $40 OFF
               </p>
-              <p className="text-sm sm:text-base text-center mb-3">
-                First visit? Enter your email to claim $40 off.
+              <p className="text-sm sm:text-base font-semibold text-center mb-2">
+                Your First Visit
+              </p>
+
+              <p className="text-[10px] text-[#113D33]/50 text-center mb-3 leading-tight">
+                By submitting your email address, you agree to receive marketing
+                emails including AI content from Sway Larimer Square. We may
+                share info with service providers per our Privacy Policy. You can
+                unsubscribe at any time. By submitting your email address, you
+                also agree to our{" "}
+                <a href="/terms-and-conditions" className="underline">
+                  Terms
+                </a>{" "}
+                &amp;{" "}
+                <a href="/terms-and-conditions" className="underline">
+                  Privacy Policy
+                </a>
+                .
               </p>
 
               <form onSubmit={handleEmailSubmit} className="space-y-2.5">
                 <input
                   type="email"
                   required
-                  placeholder="Your email address"
+                  placeholder="Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={submitting}
@@ -157,48 +174,50 @@ export default function FirstVisitOfferPopup() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center disabled:opacity-60 transition-opacity"
+                  className="w-full bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center disabled:opacity-60 transition-opacity uppercase tracking-wide"
                 >
-                  {submitting ? "Submitting…" : "Claim Offer"}
+                  {submitting ? "Submitting…" : "Continue"}
                 </button>
               </form>
-
-              <p className="text-[10px] text-[#113D33]/40 text-center mt-2 leading-tight">
-                By submitting, you agree to receive marketing emails from Sway
-                Wellness. Unsubscribe anytime.
-              </p>
             </>
           )}
 
-          {/* ── Step 2: Phone (optional) ── */}
+          {/* ── Step 2: Phone (required) ── */}
           {step === "phone" && (
             <>
-              {isExisting ? (
-                <>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-center mb-1">
-                    Welcome Back!
-                  </p>
-                  <p className="text-sm sm:text-base text-center mb-3">
-                    You&apos;re already on the list. Add your number for
-                    exclusive text-only deals.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-center mb-1">
-                    One More Step
-                  </p>
-                  <p className="text-sm sm:text-base text-center mb-3">
-                    Add your number for exclusive text-only deals.
-                  </p>
-                </>
-              )}
+              <p className="text-[11px] uppercase tracking-widest text-[#4A776D] font-semibold text-center mb-0.5">
+                Unlock
+              </p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-center mb-0.5">
+                $40 OFF
+              </p>
+              <p className="text-sm sm:text-base font-semibold text-center mb-2">
+                Your First Visit
+              </p>
+
+              <p className="text-[10px] text-[#113D33]/50 text-center mb-3 leading-tight">
+                By submitting this form, you agree to receive recurring
+                automated marketing text messages (e.g. AI content, cart
+                reminders) from Sway Larimer Square at the number you provide.
+                Consent is not a condition of purchase. We may share info with
+                service providers per our Privacy Policy. Reply HELP for help
+                &amp; STOP to cancel. Msg frequency varies. Msg &amp; data rates
+                may apply. By submitting this form, you also agree to our{" "}
+                <a href="/terms-and-conditions" className="underline">
+                  Terms
+                </a>{" "}
+                &amp;{" "}
+                <a href="/terms-and-conditions" className="underline">
+                  Privacy Policy
+                </a>
+                .
+              </p>
 
               <form onSubmit={handlePhoneSubmit} className="space-y-2.5">
                 <input
                   type="tel"
                   required
-                  placeholder="(303) 555-1234"
+                  placeholder="Mobile Number"
                   value={phone}
                   onChange={(e) =>
                     setPhone(formatPhoneDisplay(e.target.value))
@@ -214,25 +233,22 @@ export default function FirstVisitOfferPopup() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center disabled:opacity-60 transition-opacity"
+                  className="w-full bg-[#113D33] text-white px-4 py-3 rounded-md font-semibold hover:bg-[#0a2b23] text-center disabled:opacity-60 transition-opacity uppercase tracking-wide"
                 >
-                  {submitting ? "Submitting…" : "Get Text Deals"}
+                  {submitting ? (
+                    "Submitting…"
+                  ) : (
+                    <>
+                      <span className="block text-sm font-bold">
+                        Get $40 Off Now
+                      </span>
+                      <span className="block text-[11px] font-normal opacity-80">
+                        when you sign up for email and texts
+                      </span>
+                    </>
+                  )}
                 </button>
               </form>
-
-              <button
-                type="button"
-                onClick={() => setStep("success")}
-                className="w-full text-[#113D33]/50 text-xs text-center mt-2 hover:text-[#113D33]/70 transition-colors"
-              >
-                Skip for now
-              </button>
-
-              <p className="text-[10px] text-[#113D33]/40 text-center mt-1.5 leading-tight">
-                By submitting, you agree to receive recurring marketing texts
-                from Sway Wellness. Msg &amp; data rates may apply. Reply STOP
-                to cancel.
-              </p>
             </>
           )}
 
@@ -243,13 +259,11 @@ export default function FirstVisitOfferPopup() {
                 You&apos;re In!
               </p>
               <p className="text-sm sm:text-base mb-4">
-                {isExisting
-                  ? "You're all set — check our latest offers below."
-                  : "Check your inbox for your $40 off offer."}
+                Check your texts &amp; inbox for your $40 off offer.
               </p>
               <a
                 href="/locations/denver-larimer/offers/"
-                className="block bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center"
+                className="block bg-[#113D33] text-white px-4 py-2.5 rounded-md font-semibold hover:bg-[#0a2b23] text-center uppercase tracking-wide"
               >
                 View Offers
               </a>
