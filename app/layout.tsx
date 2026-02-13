@@ -136,6 +136,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 `,
               }}
             />
+
+            {/* Attentive — sign-up units & data tag */}
+            <script async src="https://cdn.attn.tv/swlasq/dtag.js"></script>
           </>
         )}
       </head>
