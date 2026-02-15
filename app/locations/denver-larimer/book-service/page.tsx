@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { getClosingHour } from "@/lib/locationHours";
 import NextAvailableBanner from "../NextAvailableBanner";
 
@@ -568,11 +568,19 @@ export default function BookServicePageWrapper() {
 
 function BookServicePage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const today = useMemo(() => new Date(), []);
 
   /* ── Core state ────────────────────────────── */
 
   const initialCategory = (searchParams.get("category") as Category) || null;
+
+  // If no category param, redirect to the booking hub
+  useEffect(() => {
+    if (!initialCategory) {
+      router.replace("/locations/denver-larimer/book");
+    }
+  }, [initialCategory, router]);
 
   const [category, setCategory] = useState<Category | null>(
     initialCategory === "massage" || initialCategory === "facial"
@@ -583,7 +591,7 @@ function BookServicePage() {
   const [selectedBoosts, setSelectedBoosts] = useState<Boost[]>([]);
 
   const [step, setStep] = useState<Step>(
-    initialCategory ? "service" : "category"
+    initialCategory ? "service" : "service"
   );
 
   /* ── Time / therapist state ────────────────── */
@@ -801,7 +809,6 @@ function BookServicePage() {
   }, []);
 
   const stepTitle = useMemo(() => {
-    if (step === "category") return "What are you looking for?";
     if (step === "service")
       return category === "massage" ? "Choose your massage" : "Choose your facial";
     if (step === "boosts") return "Customize with boosts";
@@ -956,15 +963,6 @@ function BookServicePage() {
   /* ─────────────────────────────────────────────
      STEP HANDLERS
   ───────────────────────────────────────────── */
-
-  function handleSelectCategory(cat: Category) {
-    setCategory(cat);
-    setSelectedService(null);
-    setSelectedBoosts([]);
-    setSelectedSlot(null);
-    setSlots([]);
-    setStep("service");
-  }
 
   function handleSelectService(svc: Service) {
     setSelectedService(svc);
@@ -1221,10 +1219,9 @@ function BookServicePage() {
   function handleHeaderBack() {
     setError(null);
     if (step === "service") {
-      setCategory(null);
-      setSelectedService(null);
-      setSelectedBoosts([]);
-      setStep("category");
+      // Go back to the booking hub instead of the old category step
+      router.push("/locations/denver-larimer/book");
+      return;
     } else if (step === "boosts") setStep("service");
     else if (step === "time") setStep("boosts");
     else if (step === "email") setStep("time");
@@ -1251,7 +1248,7 @@ function BookServicePage() {
 
   const showHeader = step !== "done";
   const showHeaderBack =
-    step !== "category" && step !== "booking" && step !== "done";
+    step !== "booking" && step !== "done";
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance">
@@ -1310,13 +1307,6 @@ function BookServicePage() {
                   ? "Facial"
                   : "Treatment"}
             </h1>
-            {step === "category" && (
-              <p className="text-[#113D33]/60 max-w-xl mx-auto leading-relaxed animate-fade-in-up">
-                Choose your treatment, customize with boosts, pick your therapist,
-                and we&apos;ll reserve it for you. A payment method is required for
-                late cancellations or no-shows &mdash; you won&apos;t be charged today.
-              </p>
-            )}
           </div>
 
           {/* Error banner */}
@@ -1336,48 +1326,6 @@ function BookServicePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-              </div>
-            </div>
-          )}
-
-          {/* ═══════════════════════════════════════
-             STEP: CATEGORY
-          ═══════════════════════════════════════ */}
-          {step === "category" && (
-            <div className="animate-fade-in-up">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
-                {(["massage", "facial"] as Category[]).map((cat, i) => (
-                  <button
-                    key={cat}
-                    onClick={() => handleSelectCategory(cat)}
-                    className="group relative overflow-hidden rounded-3xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                    style={{ animationDelay: `${i * 100}ms` }}
-                  >
-                    <div className="relative h-52 w-full overflow-hidden">
-                      <Image
-                        src={
-                          cat === "massage"
-                            ? "/assets/massage2.jpg"
-                            : "/assets/facial2.jpg"
-                        }
-                        alt={cat}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4 text-left">
-                        <div className="text-xl font-bold text-white capitalize drop-shadow-sm">
-                          {cat}
-                        </div>
-                        <div className="text-sm text-white/80 mt-0.5">
-                          {cat === "massage"
-                            ? "Deep tissue, sports, salt stone & more"
-                            : "Anti-aging, hydration, acne & more"}
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                ))}
               </div>
             </div>
           )}
