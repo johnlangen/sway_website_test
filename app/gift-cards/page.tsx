@@ -38,7 +38,7 @@ export default function GiftCardsHubPage() {
         {/* Gift card image */}
         <div className="mb-10">
           <Image
-            src="/assets/giftcard_valentines.jpg"
+            src="/assets/giftcard.jpg"
             alt="Sway Wellness Spa Gift Card"
             width={500}
             height={300}

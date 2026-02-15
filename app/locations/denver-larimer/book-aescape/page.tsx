@@ -726,6 +726,47 @@ export default function BookAescapePage() {
   }
 
   /* ---------------------------------------------
+     FUNNEL TRACKING
+  --------------------------------------------- */
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dataLayer = window.dataLayer || [];
+
+    const eventMap: Record<string, string> = {
+      select: "booking_start",
+      email: "booking_time_selected",
+      card: "booking_email_entered",
+      confirm: "booking_card_entered",
+      booking: "booking_confirmed",
+      done: "booking_complete",
+    };
+
+    const eventName = eventMap[step];
+    if (!eventName) return;
+
+    const payload: Record<string, unknown> = {
+      event: eventName,
+      booking_flow: "aescape",
+    };
+
+    if (step === "email" && selectedTime) {
+      payload.booking_date = selectedDate;
+      payload.session_type = selectedOption.label;
+      payload.session_minutes = selectedOption.minutes;
+    }
+    if (step === "card") {
+      payload.client_type = cardContext === "create_account" ? "new" : "returning";
+    }
+    if (step === "done") {
+      payload.service_name = selectedOption.label;
+      payload.total_price = selectedOption.price;
+    }
+
+    window.dataLayer.push(payload);
+  }, [step]);
+
+  /* ---------------------------------------------
      STEP HANDLERS
   --------------------------------------------- */
 

@@ -961,6 +961,54 @@ function BookServicePage() {
   }
 
   /* ─────────────────────────────────────────────
+     FUNNEL TRACKING
+  ───────────────────────────────────────────── */
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dataLayer = window.dataLayer || [];
+
+    const flowType = category ?? "unknown";
+
+    const eventMap: Record<string, string> = {
+      service: "booking_start",
+      boosts: "booking_service_selected",
+      time: "booking_boosts_done",
+      email: "booking_time_selected",
+      card: "booking_email_entered",
+      confirm: "booking_card_entered",
+      booking: "booking_confirmed",
+      done: "booking_complete",
+    };
+
+    const eventName = eventMap[step];
+    if (!eventName) return;
+
+    const payload: Record<string, unknown> = {
+      event: eventName,
+      booking_flow: flowType,
+    };
+
+    if (step === "boosts" && selectedService) {
+      payload.service_name = selectedService.name;
+      payload.service_price = selectedService.dropInPrice;
+    }
+    if (step === "email" && selectedSlot) {
+      payload.booking_date = selectedSlot.startDateTime.split("T")[0];
+      payload.therapist = selectedSlot.staffName;
+    }
+    if (step === "card") {
+      payload.client_type = cardContext === "create_account" ? "new" : "returning";
+    }
+    if (step === "done" && selectedService) {
+      payload.service_name = selectedService.name;
+      payload.total_price = totalPrice;
+    }
+
+    window.dataLayer.push(payload);
+  }, [step]);
+
+  /* ─────────────────────────────────────────────
      STEP HANDLERS
   ───────────────────────────────────────────── */
 

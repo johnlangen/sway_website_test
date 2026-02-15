@@ -678,6 +678,46 @@ export default function BookRemedyRoomPage() {
   }
 
   /* ---------------------------------------------
+     FUNNEL TRACKING
+  --------------------------------------------- */
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dataLayer = window.dataLayer || [];
+
+    const eventMap: Record<string, string> = {
+      select: "booking_start",
+      email: "booking_time_selected",
+      card: "booking_email_entered",
+      confirm: "booking_card_entered",
+      booking: "booking_confirmed",
+      done: "booking_complete",
+    };
+
+    const eventName = eventMap[step];
+    if (!eventName) return;
+
+    const payload: Record<string, unknown> = {
+      event: eventName,
+      booking_flow: "remedy_room",
+    };
+
+    if (step === "email" && selectedTime) {
+      payload.booking_date = selectedDate;
+      payload.booking_time = selectedTime;
+    }
+    if (step === "card") {
+      payload.client_type = cardContext === "create_account" ? "new" : "returning";
+    }
+    if (step === "done") {
+      payload.service_name = "Remedy Room";
+      payload.total_price = 49;
+    }
+
+    window.dataLayer.push(payload);
+  }, [step]);
+
+  /* ---------------------------------------------
      STEP HANDLERS
   --------------------------------------------- */
 
