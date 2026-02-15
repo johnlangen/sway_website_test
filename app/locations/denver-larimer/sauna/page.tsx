@@ -55,10 +55,10 @@ export default function LarimerSaunaPage() {
 
           <div className="mt-6 flex gap-4 justify-center md:justify-start">
             <Link
-              href="/locations/denver-larimer/book"
+              href="/locations/denver-larimer/book-remedy-room"
               className="bg-[#113D33] text-white px-6 py-3 font-bold rounded-md shadow-lg hover:bg-[#0a2b23]"
             >
-              Book at Larimer Square
+              Book Remedy Room
             </Link>
           </div>
         </motion.div>
