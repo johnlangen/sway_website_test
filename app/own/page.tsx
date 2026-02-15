@@ -1,7 +1,6 @@
 "use client";
 
-import Head from "next/head";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Check, ChevronRight, ExternalLink } from "lucide-react";
 
 const BRONZE = "#b38a5f";
@@ -16,15 +15,6 @@ export default function SpaviaFranchiseLanding() {
 
   return (
     <div className="min-h-screen bg-white text-black">
-      <Head>
-        <title>Own a Spavia | Franchise Opportunity</title>
-        <meta
-          name="description"
-          content="Learn about owning a Spavia franchise. Explore the brand, business model, and why entrepreneurs choose Spavia in the global wellness economy."
-        />
-        <link rel="canonical" href="https://spaviafranchise.com/own" />
-      </Head>
-
       {/* ---------- NAV ---------- */}
       <header className="fixed left-0 top-0 z-50 w-full border-b border-black/5 bg-white/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
@@ -60,25 +50,15 @@ export default function SpaviaFranchiseLanding() {
 
         <div className="absolute inset-0 flex items-center justify-center px-6">
           <div className="mx-auto max-w-4xl text-center text-white">
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="text-3xl font-semibold leading-tight md:text-5xl"
-            >
+            <h1 className="text-3xl font-semibold leading-tight md:text-5xl">
               Own a Part of the Global Wellness Economy
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              className="mx-auto mt-4 max-w-2xl text-sm md:text-lg"
-            >
-              Spavia is a premium, membership-driven spa brand helping
-              entrepreneurs bring affordable luxury wellness to their
-              communities.
-            </motion.p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm md:text-lg">
+              Spavia is a premium, membership-driven spa brand with 60+
+              locations — helping entrepreneurs bring affordable luxury wellness
+              to their communities.
+            </p>
 
             <div className="mt-7 flex items-center justify-center gap-3">
               <a
@@ -90,7 +70,7 @@ export default function SpaviaFranchiseLanding() {
                 <ChevronRight className="ml-1 h-4 w-4" />
               </a>
 
-              <a href="#numbers" className={btnGhost}>
+              <a href="#numbers" className={btnGhost + " text-white/80 hover:text-white"}>
                 See the numbers <ChevronRight className="h-4 w-4" />
               </a>
             </div>
@@ -113,18 +93,27 @@ export default function SpaviaFranchiseLanding() {
             {[
               {
                 title: "Recurring Membership Model",
-                text:
-                  "A loyal member base creates predictable revenue and long-term stability.",
+                text: "A loyal member base creates predictable revenue and long-term stability.",
               },
               {
                 title: "Multiple Revenue Streams",
-                text:
-                  "Massage, facials, body treatments, retail, and gift cards diversify income.",
+                text: "Massage, facials, body treatments, waxing, retail, and gift cards diversify income.",
               },
               {
                 title: "Premium Yet Approachable",
-                text:
-                  "Resort-inspired design with pricing that supports broad community adoption.",
+                text: "Resort-inspired design with pricing that supports broad community adoption.",
+              },
+              {
+                title: "100+ Years of Leadership Experience",
+                text: "Backed by a franchise team with deep spa and wellness industry expertise.",
+              },
+              {
+                title: "Comprehensive Training & Support",
+                text: "From site selection to grand opening and beyond — ongoing operational guidance.",
+              },
+              {
+                title: "Community Impact",
+                text: "Spavia Cares brings wellness to those in need, making your business a force for good.",
               },
             ].map((c) => (
               <div
@@ -150,9 +139,9 @@ export default function SpaviaFranchiseLanding() {
         </h2>
 
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-          <Stat label="Average Gross Sales*" value="$1,080,829" />
+          <Stat label="Average Gross Sales*" value="$1.14M" />
           <Stat label="Locations Exceeding $1M+" value="1 in 2" />
-          <Stat label="Highest Reported Gross Revenue*" value="$1.94M" />
+          <Stat label="Franchise Locations" value="60+" />
           <Stat label="Initial Investment Range*" value="$496K – $796K" />
         </div>
 
@@ -180,16 +169,18 @@ export default function SpaviaFranchiseLanding() {
             Path to Ownership
           </h2>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-6">
             {[
-              "Explore the Opportunity",
-              "Connect with Franchise Development",
-              "Review the FDD",
-              "Open Your Spavia",
+              "Introductory Call",
+              "Brand Presentation",
+              "Financial Review",
+              "Meet the Team Day",
+              "Validation Calls",
+              "Franchise Awarded",
             ].map((s, i) => (
               <div
                 key={s}
-                className="rounded-2xl border border-black/10 bg-white p-6 text-center"
+                className="rounded-2xl border border-black/10 bg-white p-5 text-center"
               >
                 <div
                   className="mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold text-white"
