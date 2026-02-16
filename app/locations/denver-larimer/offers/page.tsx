@@ -41,7 +41,7 @@ export default function LarimerOffersPage() {
             </div>
 
             <p className="text-sm text-gray-600 mb-5 leading-relaxed">
-              Infrared sauna, cold plunge, red light therapy, and Normatec
+              Sauna, cold plunge, red light therapy, and Normatec
               compression — all in one 40-minute session.
             </p>
 

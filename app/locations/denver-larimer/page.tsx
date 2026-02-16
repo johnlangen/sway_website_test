@@ -52,7 +52,7 @@ const TREATMENTS = [
     title: "Remedy Room",
     tagline: "Sauna + cold plunge recovery",
     description:
-      "Infrared sauna, cold plunge, red light therapy, and Normatec compression — all in one 40-minute recovery session.",
+      "Sauna, cold plunge, red light therapy, and Normatec compression — all in one 40-minute recovery session.",
     price: "$49",
     memberPrice: "$25",
     image: "/assets/remedy-room2.jpg",
@@ -532,7 +532,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What makes Sway different from a traditional spa?",
-              a: "Sway blends modern wellness technology — like AI-powered massage and infrared recovery — with traditional treatments in a calm, design-forward space built for consistency and real life.",
+              a: "Sway blends modern wellness technology — like AI-powered massage and sauna recovery — with traditional treatments in a calm, design-forward space built for consistency and real life.",
             },
             {
               q: "How do I book a massage or facial?",
@@ -544,7 +544,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What is the Remedy Room?",
-              a: "The Remedy Room is a 40-minute recovery circuit that includes infrared sauna, cold plunge, red light therapy, and Normatec compression — all for $49 per session ($25 for members).",
+              a: "The Remedy Room is a 40-minute recovery circuit that includes sauna, cold plunge, red light therapy, and Normatec compression — all for $49 per session ($25 for members).",
             },
             {
               q: "Is Sway Larimer walkable from Union Station?",
