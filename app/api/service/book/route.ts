@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 /* Allowed main-service session-type IDs */
 const ALLOWED_SERVICE_IDS = new Set([
   7, 13, 14, 15, 16, 49, // massages
-  5, 6, 9, 10, 11, // facials
+  5, 6, 9, 10, 11, 12, // facials
 ]);
 
 /* Allowed add-on (boost) session-type IDs */

@@ -68,7 +68,7 @@ const MassagesPage = () => {
         price: "Member $89 | Drop-In $129",
         description:
           "A foundational full-body massage tailored to your needs — ideal for relaxation, tension relief, and overall wellness.",
-        img: "/assets/massage1.jpg",
+        img: "/assets/massage7.jpg",
       },
       {
         id: 1,
@@ -127,28 +127,28 @@ const MassagesPage = () => {
         id: 4,
         name: "80 Minutes",
         tag: "Super Boost",
-        description: "Add 30 minutes of focus.",
+        description: "Extend your massage by 30 minutes for deeper focus on problem areas — ideal for full-body tension relief, injury recovery, or total relaxation.",
         price: "Member $50 | Drop-In $100",
       },
       {
         id: 3,
         name: "Lymphatic Drainage Massage",
         tag: "Super Boost",
-        description: "Detox + reduce water retention.",
+        description: "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support your body's natural detoxification for lighter, more energized results.",
         price: "Member $50 | Drop-In $100",
       },
       {
         id: 1,
         name: "Infrared PEMF Mat",
         tag: "Boost",
-        description: "Deep recovery + better sleep.",
+        description: "Lie on a therapeutic mat that combines infrared heat and pulsed electromagnetic field therapy to accelerate recovery, reduce inflammation, and promote deeper relaxation.",
         price: "Member $30 | Drop-In $60",
       },
       {
         id: 2,
         name: "Cupping",
         tag: "Boost",
-        description: "Release tension + boost circulation.",
+        description: "Traditional suction therapy lifts and separates tissue layers to release deep-seated tension, increase blood flow, and speed muscle recovery.",
         price: "Member $30 | Drop-In $60",
       },
     ],
@@ -563,7 +563,7 @@ const MassagesPage = () => {
                   className="shrink-0"
                   style={{ scrollSnapAlign: "center" }}
                 >
-                  <div className="w-[78vw] max-w-[360px] h-[260px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                  <div className="w-[78vw] max-w-[360px] h-[320px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
                     <div className="p-5 flex-1 flex flex-col">
                       <div className="flex items-center justify-between gap-3">
                         <h3 className="text-[#113D33] text-lg font-bold leading-tight">
@@ -580,7 +580,7 @@ const MassagesPage = () => {
                         </span>
                       </div>
 
-                      <p className="mt-3 text-[15px] text-black/75 leading-relaxed truncate">
+                      <p className="mt-3 text-[15px] text-black/75 leading-relaxed" style={clampStyle(3)}>
                         {b.description}
                       </p>
 
@@ -654,7 +654,7 @@ const MassagesPage = () => {
                   </span>
                 </div>
 
-                <p className="mt-3 text-sm text-black/75 leading-relaxed truncate">
+                <p className="mt-3 text-sm text-black/75 leading-relaxed">
                   {b.description}
                 </p>
 
@@ -781,7 +781,7 @@ const MassagesPage = () => {
                       </span>
                     </div>
 
-                    <p className="mt-2 text-sm text-black/75 leading-relaxed truncate">
+                    <p className="mt-2 text-sm text-black/75 leading-relaxed" style={clampStyle(3)}>
                       {b.description}
                     </p>
                   </div>
