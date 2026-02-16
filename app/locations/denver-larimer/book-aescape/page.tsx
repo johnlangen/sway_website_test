@@ -523,52 +523,13 @@ export default function BookAescapePage() {
      MOBILE STEP SCROLL (UI ONLY)
   --------------------------------------------- */
 
-  function scrollToStep(ref: React.RefObject<HTMLDivElement | null>) {
-    if (!ref.current) return;
-
-    const headerEl = document.querySelector(
-      '[data-booking-header="true"]'
-    ) as HTMLElement | null;
-
-    const headerH = headerEl?.offsetHeight ?? 0;
-
-    const rect = ref.current.getBoundingClientRect();
-    const absoluteY = rect.top + window.scrollY;
-
-    // Center the card within the usable viewport (below sticky header)
-    const usableHeight = Math.max(0, window.innerHeight - headerH);
-    const centerOffset = Math.max(0, (usableHeight - rect.height) / 2);
-
-    const targetY = Math.max(0, absoluteY - headerH - centerOffset);
-
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth",
-    });
-  }
-
+  /* Scroll to top when step changes (keeps UI centered like massage/facial flow) */
   useEffect(() => {
-    // Avoid scrolling on initial mount (only when user advances steps)
     if (!didMountRef.current) {
       didMountRef.current = true;
       return;
     }
-
-    const map: Record<Step, React.RefObject<HTMLDivElement | null>> = {
-      select: selectRef,
-      email: emailRef,
-      card: cardRef,
-      confirm: confirmRef,
-      booking: bookingRef,
-      done: doneRef,
-    };
-
-    const target = map[step];
-
-    // Scroll after render/layout settles (and after images/layout have a moment)
-    requestAnimationFrame(() => {
-      setTimeout(() => scrollToStep(target), 0);
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [step]);
 
   /* ---------------------------------------------
