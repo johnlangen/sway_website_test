@@ -392,7 +392,7 @@ function ProgressBar({ step }: { step: Step }) {
   const displaySteps = ["Service", "Session", "Time", "Account", "Confirm"];
 
   const stepToIdx: Partial<Record<Step, number>> = {
-    select: 2,
+    select: 1,
     email: 3,
     card: 3,
     confirm: 4,
