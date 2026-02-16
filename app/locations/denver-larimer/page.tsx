@@ -35,7 +35,7 @@ const TREATMENTS = [
     memberPrice: "From $89",
     image: "/assets/massage3.jpg",
     bookHref: "/locations/denver-larimer/book-service?category=massage",
-    learnHref: "/massage",
+    learnHref: "/massages",
   },
   {
     title: "Facials",
