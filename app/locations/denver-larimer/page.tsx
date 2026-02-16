@@ -231,6 +231,35 @@ export default function SwayLarimerPage() {
         </div>
       </section>
 
+      {/* ========================= ANNIVERSARY EVENT ========================= */}
+      <section className="px-6 pb-6">
+        <div className="max-w-6xl mx-auto">
+          <Link
+            href="/events/anniversary"
+            className="group block rounded-2xl border-2 border-[#113D33] p-5 sm:p-6 hover:bg-[#113D33] hover:text-white transition"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-60 mb-1">
+                  Anniversary Event &middot; Feb 28
+                </div>
+                <h2 className="text-xl sm:text-2xl font-bold">
+                  Sway Turns One — $49 Tickets
+                </h2>
+                <p className="mt-1 opacity-80 text-sm max-w-lg">
+                  Express treatments, custom lattes, and goodie bags. Limited spots available.
+                </p>
+              </div>
+              <div className="shrink-0">
+                <span className="inline-flex items-center gap-2 bg-[#113D33] text-white group-hover:bg-white group-hover:text-[#113D33] px-5 py-2.5 rounded-full text-sm font-semibold transition-all">
+                  Reserve Your Spot
+                </span>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* ========================= FIRST VISIT OFFER ========================= */}
       <section className="px-6 pb-16 md:pb-20">
         <div className="max-w-6xl mx-auto">

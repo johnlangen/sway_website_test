@@ -29,6 +29,16 @@ export default function VideoBackground() {
 
       {/* Overlay Text */}
       <div className="absolute bottom-28 md:bottom-24 left-6 md:left-20 z-20">
+        <a
+          href="/events/anniversary"
+          className="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/25 backdrop-blur-sm px-4 py-2 text-white text-xs tracking-wide uppercase hover:bg-white/25 transition mb-4"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+          </span>
+          Sway Turns One — Feb 28 &middot; $49 Tickets
+        </a>
         <h1 className="text-3xl md:text-5xl leading-tight font-vance text-white">
           RESTORE YOUR BODY <br /> & REFRESH YOUR MIND.
         </h1>
