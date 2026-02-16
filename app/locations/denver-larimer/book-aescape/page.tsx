@@ -383,7 +383,7 @@ function CardBrandPills() {
    PAGE
 --------------------------------------------- */
 
-type Step = "select" | "email" | "card" | "confirm" | "booking" | "done";
+type Step = "select" | "time" | "email" | "card" | "confirm" | "booking" | "done";
 type CardContext = "create_account" | "add_card" | null;
 
 /* ─── PROGRESS BAR ─── */
@@ -393,6 +393,7 @@ function ProgressBar({ step }: { step: Step }) {
 
   const stepToIdx: Partial<Record<Step, number>> = {
     select: 1,
+    time: 2,
     email: 3,
     card: 3,
     confirm: 4,
@@ -532,6 +533,7 @@ export default function BookAescapePage() {
 
   const stepTitle = useMemo(() => {
     if (step === "select") return "Choose your session";
+    if (step === "time") return "Choose a time";
     if (step === "email") return "Enter your email";
     if (step === "card") {
       return cardContext === "create_account"
@@ -741,6 +743,7 @@ export default function BookAescapePage() {
 
     const eventMap: Record<string, string> = {
       select: "booking_start",
+      time: "booking_session_selected",
       email: "booking_time_selected",
       card: "booking_email_entered",
       confirm: "booking_card_entered",
@@ -959,8 +962,10 @@ export default function BookAescapePage() {
       router.push("/locations/denver-larimer/book");
       return;
     }
-    if (step === "email") {
+    if (step === "time") {
       setStep("select");
+    } else if (step === "email") {
+      setStep("time");
     } else if (step === "card") {
       setStep("email");
     } else if (step === "confirm") {
@@ -1011,7 +1016,7 @@ export default function BookAescapePage() {
   const showHeader = step !== "done";
 
   const showHeaderBack =
-    step === "select" || step === "email" || step === "card" || step === "confirm";
+    step === "select" || step === "time" || step === "email" || step === "card" || step === "confirm";
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">
@@ -1109,10 +1114,10 @@ export default function BookAescapePage() {
 
           {step === "select" && (
             <div ref={selectRef}>
-              {/* SESSION */}
-              <section className="mb-12 md:mb-14">
+              {/* SESSION SELECTION */}
+              <section className="mb-8 md:mb-10">
                 <h2 className="text-xl font-semibold mb-4">
-                  1. Choose Your Session
+                  Choose Your Session
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -1193,9 +1198,36 @@ export default function BookAescapePage() {
                 </div>
               </section>
 
+              <div className="max-w-md mx-auto">
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setStep("time");
+                  }}
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === "time" && (
+            <div>
+              {/* Selected session summary chip */}
+              <div className="mb-8 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-4 flex items-center gap-4">
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                  <Image src={selectedOption.image} alt={selectedOption.label} fill className="object-cover" />
+                </div>
+                <div>
+                  <div className="font-semibold text-[#113D33]">{selectedOption.label}</div>
+                  <div className="text-sm text-[#113D33]/60">{selectedOption.minutes} min · {selectedOption.price}</div>
+                </div>
+              </div>
+
               {/* DAY PICKER */}
               <section className="mb-12 md:mb-14">
-                <h2 className="text-xl font-semibold mb-4">2. Choose a Day</h2>
+                <h2 className="text-xl font-semibold mb-4">1. Choose a Day</h2>
 
                 <div className="flex items-center justify-center gap-2">
                   <button
@@ -1262,7 +1294,7 @@ export default function BookAescapePage() {
               <section className="mb-8 md:mb-10 text-left">
                 <div className="flex items-center justify-between gap-4 mb-4">
                   <h2 className="text-xl font-semibold text-center flex-1">
-                    3. Choose a Time
+                    2. Choose a Time
                   </h2>
 
                   {!loading && !error && times.length > 0 && (
@@ -1290,7 +1322,7 @@ export default function BookAescapePage() {
                             <h3 className="text-sm uppercase tracking-wide text-[#113D33]/60 mb-2">
                               {label}
                             </h3>
-      
+
                           </div>
 
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
@@ -1332,7 +1364,7 @@ export default function BookAescapePage() {
                 )}
               </section>
 
-              {/* Primary CTA (now visible on mobile too; no bottom bar) */}
+              {/* Primary CTA */}
               <div className="max-w-md mx-auto">
                 <button
                   disabled={!selectedTime}
