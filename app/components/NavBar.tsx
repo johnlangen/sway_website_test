@@ -128,6 +128,13 @@ const NavBar = () => {
               {swayWayOpen && (
                 <div className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg">
                   <Link
+                    href="/events/anniversary"
+                    onClick={closeAll}
+                    className="block px-4 py-3 text-white hover:bg-gray-800 font-semibold"
+                  >
+                    🎂 Anniversary Event
+                  </Link>
+                  <Link
                     href="/swayway"
                     onClick={closeAll}
                     className="block px-4 py-3 text-white hover:bg-gray-800"
@@ -199,6 +206,14 @@ const NavBar = () => {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
+          <Link
+            href="/events/anniversary"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-white text-lg font-semibold"
+          >
+            🎂 Anniversary Event
+          </Link>
+          <div className="w-12 border-t border-white/20" />
           {[
             ["Treatments", "/treatments"],
             ["Join the Club", "/membership"],
