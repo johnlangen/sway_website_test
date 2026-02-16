@@ -938,7 +938,7 @@ export default function BookRemedyRoomPage() {
       {showHeader && (
         <div
           data-booking-header="true"
-          className="sticky top-0 z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
+          className="sticky top-[56px] z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
         >
           <div className="max-w-3xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between mb-2">
