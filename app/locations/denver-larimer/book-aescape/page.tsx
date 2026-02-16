@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
@@ -388,13 +389,13 @@ type CardContext = "create_account" | "add_card" | null;
 /* ─── PROGRESS BAR ─── */
 
 function ProgressBar({ step }: { step: Step }) {
-  const displaySteps = ["Session", "Time", "Account", "Confirm"];
+  const displaySteps = ["Service", "Session", "Time", "Account", "Confirm"];
 
   const stepToIdx: Partial<Record<Step, number>> = {
-    select: 1,
-    email: 2,
-    card: 2,
-    confirm: 3,
+    select: 2,
+    email: 3,
+    card: 3,
+    confirm: 4,
   };
 
   if (step === "booking" || step === "done") return null;
@@ -429,6 +430,7 @@ function ProgressBar({ step }: { step: Step }) {
 }
 
 export default function BookAescapePage() {
+  const router = useRouter();
   const today = useMemo(() => new Date(), []);
 
   const [sessionTypeId, setSessionTypeId] = useState<
@@ -953,6 +955,10 @@ export default function BookAescapePage() {
 
   function handleHeaderBack() {
     setError(null);
+    if (step === "select") {
+      router.push("/locations/denver-larimer/book");
+      return;
+    }
     if (step === "email") {
       setStep("select");
     } else if (step === "card") {
@@ -1005,7 +1011,7 @@ export default function BookAescapePage() {
   const showHeader = step !== "done";
 
   const showHeaderBack =
-    step === "email" || step === "card" || step === "confirm";
+    step === "select" || step === "email" || step === "card" || step === "confirm";
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">

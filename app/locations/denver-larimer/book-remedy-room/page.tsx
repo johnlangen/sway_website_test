@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
@@ -319,13 +320,13 @@ type CardContext = "create_account" | "add_card" | null;
 /* ─── PROGRESS BAR ─── */
 
 function ProgressBar({ step }: { step: Step }) {
-  const displaySteps = ["Time", "Account", "Confirm"];
+  const displaySteps = ["Service", "Time", "Account", "Confirm"];
 
   const stepToIdx: Partial<Record<Step, number>> = {
-    select: 0,
-    email: 1,
-    card: 1,
-    confirm: 2,
+    select: 1,
+    email: 2,
+    card: 2,
+    confirm: 3,
   };
 
   if (step === "booking" || step === "done") return null;
@@ -454,6 +455,7 @@ function RemedySessionCard({ option }: { option: RemedyOption }) {
 
   
 export default function BookRemedyRoomPage() {
+  const router = useRouter();
   const today = useMemo(() => new Date(), []);
 
   const [sessionTypeId] = useState<RemedyOption["id"]>(8);
@@ -894,6 +896,10 @@ export default function BookRemedyRoomPage() {
 
   function handleHeaderBack() {
     setError(null);
+    if (step === "select") {
+      router.push("/locations/denver-larimer/book");
+      return;
+    }
     if (step === "email") setStep("select");
     else if (step === "card") setStep("email");
     else if (step === "confirm") setStep("email");
@@ -931,7 +937,7 @@ export default function BookRemedyRoomPage() {
   }, []);
 
   const showHeader = step !== "done";
-  const showHeaderBack = step === "email" || step === "card" || step === "confirm";
+  const showHeaderBack = step === "select" || step === "email" || step === "card" || step === "confirm";
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">
