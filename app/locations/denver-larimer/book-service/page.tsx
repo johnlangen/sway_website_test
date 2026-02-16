@@ -39,6 +39,7 @@ type Boost = {
   memberPrice: number;
   dropInPrice: number;
   description: string;
+  detail?: string;
 };
 
 type DisplaySlot = {
@@ -65,6 +66,18 @@ type CardContext = "create_account" | "add_card" | null;
 ───────────────────────────────────────────── */
 
 const MASSAGES: Service[] = [
+  {
+    id: 16,
+    category: "massage",
+    name: "Basic Massage",
+    minutes: 50,
+    price: "Member $89 | Drop-In $129",
+    memberPrice: 89,
+    dropInPrice: 129,
+    image: "/assets/massage7.jpg",
+    description:
+      "A relaxing Swedish-style massage to ease tension and promote overall well-being.",
+  },
   {
     id: 7,
     category: "massage",
@@ -125,21 +138,21 @@ const MASSAGES: Service[] = [
     description:
       "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support natural detoxification.",
   },
+];
+
+const FACIALS: Service[] = [
   {
-    id: 16,
-    category: "massage",
-    name: "Basic Massage",
+    id: 12,
+    category: "facial",
+    name: "Basic Facial",
     minutes: 50,
     price: "Member $89 | Drop-In $129",
     memberPrice: 89,
     dropInPrice: 129,
-    image: "/assets/massage7.jpg",
+    image: "/assets/facial2.jpg",
     description:
-      "A relaxing Swedish-style massage to ease tension and promote overall well-being.",
+      "A classic facial customized to your skin type — cleanse, exfoliate, extract, and hydrate.",
   },
-];
-
-const FACIALS: Service[] = [
   {
     id: 5,
     category: "facial",
@@ -261,7 +274,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $50 | Drop-In $100",
     memberPrice: 50,
     dropInPrice: 100,
-    description: "Full-face lift + sculpt for an instantly toned look.",
+    description: "A workout for your face — non-invasive lift and sculpt.",
+    detail: "While traditional facials target improving the skin, microcurrent goes deeper, targeting the facial muscles beneath your skin for a non-invasive lift. Microcurrent technology works at the cellular level to actively re-educate muscles, smooth fine lines, boost collagen, reduce puffiness, and restore your skin\u2019s natural energy for real, visible results.",
   },
   {
     id: 18,
@@ -274,6 +288,7 @@ const FACIAL_BOOSTS: Boost[] = [
     memberPrice: 30,
     dropInPrice: 60,
     description: "Target one area — eyes, jawline, or forehead.",
+    detail: "This boost targets one area specifically to tone and lift. Choose from eye area, jawline, or forehead for focused microcurrent results.",
   },
   {
     id: 20,
@@ -285,7 +300,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $50 | Drop-In $100",
     memberPrice: 50,
     dropInPrice: 100,
-    description: "Advanced light therapy for rejuvenation and repair.",
+    description: "Soothing light therapy for smoother, firmer skin.",
+    detail: "This soothing, non-invasive technology supports cellular activity to help skin appear smoother, firmer, and more radiant. Red light works beneath the surface to soften the look of fine lines, improve tone and texture, and boost the effectiveness of your professional skincare products. With no downtime, this science-backed boost helps calm, restore, and elevate your results for a healthier-looking glow.",
   },
   {
     id: 31,
@@ -297,7 +313,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $30 | Drop-In $60",
     memberPrice: 30,
     dropInPrice: 60,
-    description: "Quick light session for calmer, clearer skin.",
+    description: "A targeted 10-minute LED session integrated into your facial.",
+    detail: "A targeted 10-minute LED session seamlessly integrated into your facial to support cellular activity, enhance product performance, and boost visible results in tone, texture, and overall radiance.",
   },
   {
     id: 21,
@@ -309,7 +326,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $30 | Drop-In $60",
     memberPrice: 30,
     dropInPrice: 60,
-    description: "Diamond microderm + serums for smoother texture.",
+    description: "DiamondTone microdermabrasion for a brighter complexion.",
+    detail: "Advanced technology meets expert skincare with our DiamondTone Microdermabrasion. This results-driven treatment gently resurfaces the skin to reveal a smoother, brighter, more youthful-looking complexion. Deeply penetrating serums help improve the look of fine lines and wrinkles, refine pores, soften the appearance of scarring, and promote a more even tone by reducing discoloration and hyperpigmentation.",
   },
   {
     id: 22,
@@ -321,7 +339,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $30 | Drop-In $60",
     memberPrice: 30,
     dropInPrice: 60,
-    description: "Exfoliates dead skin for instant glow.",
+    description: "Sonic exfoliation for instantly smoother, brighter skin.",
+    detail: "Award-winning sonic technology gently and safely exfoliates away dead skin cells while removing peach fuzz to instantly reveal smoother, brighter, more radiant skin. This treatment enhances product absorption and creates a soft, flawless finish with no downtime.",
   },
   {
     id: 17,
@@ -333,7 +352,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $30 | Drop-In $60",
     memberPrice: 30,
     dropInPrice: 60,
-    description: "Refines pores and evens tone.",
+    description: "Refines pores, evens tone, and stimulates collagen.",
+    detail: "Facial peels refine pores, even skin tone and can dramatically stimulate collagen production. Peels reduce the appearance of fine lines, sun damage, scars, and blemishes. Rapid exfoliation smoothes the upper layer of skin sending a signal to make new skin cells.",
   },
   {
     id: 24,
@@ -345,7 +365,8 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $30 | Drop-In $60",
     memberPrice: 30,
     dropInPrice: 60,
-    description: "Boosts hydration and serum absorption.",
+    description: "Cooling oxygen to boost hydration and serum absorption.",
+    detail: "Cooling, calming oxygen infused onto the skin to aid in the absorption of serums and naturally improve skin hydration levels. This technology is used with 98% pure oxygen to ensure the deep penetration of active ingredients. Breathe life back into your skin.",
   },
 ];
 
@@ -589,6 +610,7 @@ function BookServicePage() {
   );
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedBoosts, setSelectedBoosts] = useState<Boost[]>([]);
+  const [expandedBoostId, setExpandedBoostId] = useState<number | null>(null);
 
   const [step, setStep] = useState<Step>(
     initialCategory ? "service" : "service"
@@ -1537,6 +1559,25 @@ function BookServicePage() {
                       <p className="text-xs text-[#113D33]/60 mt-1 leading-relaxed">
                         {boost.description}
                       </p>
+                      {boost.detail && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedBoostId(
+                              expandedBoostId === boost.id ? null : boost.id
+                            );
+                          }}
+                          className="text-[10px] text-[#4A776D] font-medium mt-1.5 hover:underline"
+                        >
+                          {expandedBoostId === boost.id ? "Hide details" : "ⓘ Details"}
+                        </button>
+                      )}
+                      {expandedBoostId === boost.id && boost.detail && (
+                        <p className="text-[11px] text-[#113D33]/70 mt-2 leading-relaxed bg-[#113D33]/[0.03] rounded-lg p-2.5">
+                          {boost.detail}
+                        </p>
+                      )}
                       <div className="text-xs text-[#113D33]/70 mt-2 font-medium">
                         {boost.price}
                       </div>

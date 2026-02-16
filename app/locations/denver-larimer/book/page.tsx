@@ -13,7 +13,7 @@ const BOOKING_OPTIONS = [
   {
     title: "Facial",
     subtitle: "Forever Young, Glow Getter & more",
-    price: "From $139",
+    price: "From $129",
     duration: "50 min",
     image: "/assets/facial6.jpg",
     href: "/locations/denver-larimer/book-service?category=facial",
@@ -43,10 +43,10 @@ export default function BookingPage() {
         {/* Header */}
         <div className="text-center mb-10 md:mb-14">
           <h1 className="text-3xl md:text-5xl font-bold mb-3">
-            Book Your Appointment
+            Schedule Your Wellness
           </h1>
           <p className="max-w-2xl mx-auto text-[#113D33]/75 leading-relaxed">
-            Choose your experience at Sway Larimer in historic Larimer Square.
+            Select your experience at Sway Larimer.
           </p>
         </div>
 

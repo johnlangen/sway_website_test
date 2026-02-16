@@ -42,8 +42,8 @@ const TREATMENTS = [
     tagline: "Forever Young, Glow Getter & more",
     description:
       "Results-driven facials with Eminence Organics and Dr. Dennis Gross — anti-aging, hydration, and deep pore care.",
-    price: "From $139",
-    memberPrice: "From $99",
+    price: "From $129",
+    memberPrice: "From $89",
     image: "/assets/facial5.jpg",
     bookHref: "/locations/denver-larimer/book-service?category=facial",
     learnHref: "/facials",
