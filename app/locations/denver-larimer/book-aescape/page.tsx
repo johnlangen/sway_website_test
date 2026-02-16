@@ -1101,7 +1101,7 @@ export default function BookAescapePage() {
         </div>
       )}
 
-      <div className="px-4 pt-10 md:pt-16 pb-20">
+      <div className="px-4 pt-24 md:pt-28 pb-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Hero + summary — only on select step */}
           {step === "select" && (
