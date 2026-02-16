@@ -15,12 +15,18 @@ export async function POST(req: Request) {
     postalCode,
     cardHolder,
     cardType,
+    // Optional notification preferences
+    sendScheduleEmails = true,
+    sendScheduleTexts = true,
+    sendPromotionalEmails = false,
+    sendPromotionalTexts = false,
   } = await req.json();
 
   if (
     !firstName ||
     !lastName ||
     !email ||
+    !mobilePhone ||
     !cardNumber ||
     !expMonth ||
     !expYear ||
@@ -52,7 +58,7 @@ export async function POST(req: Request) {
           FirstName: firstName,
           LastName: lastName,
           Email: email,
-          MobilePhone: mobilePhone || undefined,
+          MobilePhone: mobilePhone,
 
           ClientCreditCard: {
             CardNumber: cardNumber,
@@ -63,6 +69,14 @@ export async function POST(req: Request) {
             CardType: cardType ?? "Visa", // 🔴 REQUIRED (you can detect later)
           },
 
+          // Notification preferences
+          SendAccountEmails: true,
+          SendAccountTexts: true,
+          SendScheduleEmails: sendScheduleEmails,
+          SendScheduleTexts: sendScheduleTexts,
+          SendPromotionalEmails: sendPromotionalEmails,
+          SendPromotionalTexts: sendPromotionalTexts,
+
           Test: false,
         }),
       }
@@ -72,8 +86,12 @@ export async function POST(req: Request) {
 
     if (!res.ok) {
       console.error("Mindbody AddClient error:", data);
+      const mbMessage = data?.Error?.Message;
+      const userMessage = mbMessage
+        ? `Account creation failed: ${mbMessage}`
+        : "Unable to create your account. Please double-check your details or call us at (303) 476-6150.";
       return NextResponse.json(
-        { error: "Failed to add client", details: data },
+        { error: userMessage, details: data },
         { status: res.status }
       );
     }

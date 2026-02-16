@@ -43,6 +43,7 @@ export async function POST(req: Request) {
       staffId,
       locationId = 1,
       addOnIds = [],
+      notes,
     } = await req.json();
 
     console.log("[SERVICE BOOK] Incoming", {
@@ -51,6 +52,7 @@ export async function POST(req: Request) {
       startDateTime,
       staffId,
       addOnIds,
+      notes: notes ? "(has notes)" : "(none)",
     });
 
     /* ── Validate required fields ───────────────── */
@@ -129,6 +131,9 @@ export async function POST(req: Request) {
           StartDateTime: startDateTime,
           ApplyPayment: false,
           SendEmail: true,
+          ...(typeof notes === "string" && notes.trim()
+            ? { Notes: notes.trim() }
+            : {}),
         }),
       }
     );

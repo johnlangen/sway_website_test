@@ -75,6 +75,12 @@ function formatTime12h(date: Date) {
   });
 }
 
+/** Format "11:00 AM – 11:50 AM" from a start Date + duration in minutes */
+function formatTimeRange(start: Date, minutes: number) {
+  const end = new Date(start.getTime() + minutes * 60_000);
+  return `${formatTime12h(start)} – ${formatTime12h(end)}`;
+}
+
 /**
  * Mindbody sometimes returns datetimes WITHOUT a timezone offset.
  * Force local parsing when no offset/Z is present.
@@ -194,6 +200,17 @@ export default function AnniversaryEventPage() {
   const [mobilePhone, setMobilePhone] = useState("");
 
   const bookingLock = useRef(false);
+
+  // "Booking for someone else" state
+  const [forSomeoneElse, setForSomeoneElse] = useState(false);
+  const [guestFirstName, setGuestFirstName] = useState("");
+  const [guestLastName, setGuestLastName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
+  const [isSurprise, setIsSurprise] = useState(false);
+
+  // Notification preferences
+  const [marketingOptIn, setMarketingOptIn] = useState(true);
 
   // Uncontrolled refs for card (avoid putting card data in React state)
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
@@ -452,12 +469,15 @@ export default function AnniversaryEventPage() {
         if (!firstName.trim() || !lastName.trim()) {
           throw new Error("Please enter your first and last name.");
         }
+        if (!mobilePhone.trim()) {
+          throw new Error("Please enter your mobile phone number.");
+        }
 
         console.log("[EVENT PAGE] Creating client + card:", {
           email: normalized,
           firstName: firstName.trim(),
           lastName: lastName.trim(),
-          hasPhone: !!mobilePhone.trim(),
+          phone: mobilePhone.trim(),
         });
 
         const res = await fetch("/api/mindbody/add-client-with-card", {
@@ -467,13 +487,15 @@ export default function AnniversaryEventPage() {
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             email: normalized,
-            mobilePhone: mobilePhone.trim() || undefined,
+            mobilePhone: mobilePhone.trim(),
             cardNumber,
             expMonth,
             expYear,
             postalCode,
             cardHolder,
             cardType,
+            sendPromotionalEmails: marketingOptIn,
+            sendPromotionalTexts: marketingOptIn,
           }),
         });
 
@@ -548,6 +570,16 @@ export default function AnniversaryEventPage() {
     if (bookingLock.current) return;
     bookingLock.current = true;
 
+    // Build notes if booking for someone else
+    let notes: string | undefined;
+    if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
+      const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
+      const parts = [`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`];
+      if (guestEmail.trim()) parts.push(`Email: ${guestEmail.trim()}`);
+      if (isSurprise) parts.push("⚠️ SURPRISE — do not contact guest");
+      notes = parts.join(" | ");
+    }
+
     const payload = {
       clientId,
       sessionTypeId,
@@ -555,6 +587,7 @@ export default function AnniversaryEventPage() {
       startDateTime: selectedSlot.startDateTime,
       staffId: selectedSlot.staffId,
       locationId: 1,
+      ...(notes ? { notes } : {}),
     };
 
     console.log("[EVENT PAGE] Booking payload:", payload);
@@ -577,6 +610,21 @@ export default function AnniversaryEventPage() {
 
       setStep("done");
       scrollToBooking();
+
+      // Non-blocking: ensure existing clients have email notifications enabled
+      if (cardContext !== "create_account" && clientId) {
+        fetch("/api/mindbody/update-client-notifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            clientId,
+            sendScheduleEmails: true,
+            sendAccountEmails: true,
+          }),
+        }).catch(() =>
+          console.error("Failed to update notification preferences")
+        );
+      }
     } catch (err: any) {
       setError(err.message || "Booking failed. Please try again or call us.");
       setStep("confirm");
@@ -590,10 +638,10 @@ export default function AnniversaryEventPage() {
     if (!selectedSlot) return null;
     return `${selectedOption.label} • ${formatDayLabel(
       eventDate
-    )} • ${formatTime12h(selectedSlot.start)}${
+    )} • ${formatTimeRange(selectedSlot.start, selectedOption.minutes)}${
       selectedSlot.staffName ? ` • ${selectedSlot.staffName}` : ""
     }`;
-  }, [selectedOption.label, eventDate, selectedSlot]);
+  }, [selectedOption.label, selectedOption.minutes, eventDate, selectedSlot]);
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance text-[#113D33]">
@@ -1046,6 +1094,20 @@ export default function AnniversaryEventPage() {
                   </div>
                 </div>
 
+                {cardContext === "create_account" && (
+                  <label className="flex items-center gap-2 cursor-pointer mb-3">
+                    <input
+                      type="checkbox"
+                      checked={marketingOptIn}
+                      onChange={(e) => setMarketingOptIn(e.target.checked)}
+                      className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
+                    />
+                    <span className="text-sm text-[#113D33]/70">
+                      Keep me updated on promotions and specials
+                    </span>
+                  </label>
+                )}
+
                 {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
 
                 <button
@@ -1100,18 +1162,87 @@ export default function AnniversaryEventPage() {
                 </div>
 
                 <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
-                  We’ll reserve this appointment under{" "}
+                  We&apos;ll reserve this appointment under{" "}
                   <span className="font-semibold">{normalizeEmail(email)}</span>.
                   No charge today — your card is stored in Mindbody for no-show /
                   late cancellation protection.
                 </p>
+
+                {/* Booking for someone else */}
+                <div className="mb-4 rounded-xl border border-[#113D33]/10 bg-white/50 p-4">
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={forSomeoneElse}
+                      onChange={(e) => {
+                        setForSomeoneElse(e.target.checked);
+                        if (!e.target.checked) {
+                          setGuestFirstName("");
+                          setGuestLastName("");
+                          setGuestEmail("");
+                          setGuestPhone("");
+                          setIsSurprise(false);
+                        }
+                      }}
+                      className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
+                    />
+                    <span className="text-sm font-medium text-[#113D33]">
+                      This booking is for someone else
+                    </span>
+                  </label>
+
+                  {forSomeoneElse && (
+                    <div className="mt-3 space-y-3">
+                      <div className="grid grid-cols-2 gap-3">
+                        <input
+                          value={guestFirstName}
+                          onChange={(e) => setGuestFirstName(e.target.value)}
+                          placeholder="Guest first name"
+                          className="w-full px-3 py-2.5 border rounded-lg bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        />
+                        <input
+                          value={guestLastName}
+                          onChange={(e) => setGuestLastName(e.target.value)}
+                          placeholder="Guest last name"
+                          className="w-full px-3 py-2.5 border rounded-lg bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        />
+                      </div>
+                      <input
+                        type="email"
+                        value={guestEmail}
+                        onChange={(e) => setGuestEmail(e.target.value)}
+                        placeholder="Guest phone *"
+                        inputMode="tel"
+                        className="w-full px-3 py-2.5 border rounded-lg bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                      />
+                      <input
+                        type="email"
+                        value={guestEmail}
+                        onChange={(e) => setGuestEmail(e.target.value)}
+                        placeholder="Guest email (optional)"
+                        className="w-full px-3 py-2.5 border rounded-lg bg-white/80 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                      />
+                      <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={isSurprise}
+                          onChange={(e) => setIsSurprise(e.target.checked)}
+                          className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
+                        />
+                        <span className="text-xs text-[#113D33]/70">
+                          This is a surprise — don&apos;t notify them
+                        </span>
+                      </label>
+                    </div>
+                  )}
+                </div>
 
                 {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
 
                 <button
                   onClick={handleFinalConfirmAndBook}
                   className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-                  disabled={bookingLock.current}
+                  disabled={bookingLock.current || (forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim()))}
                 >
                   Confirm & book
                 </button>
@@ -1175,6 +1306,12 @@ export default function AnniversaryEventPage() {
                       setFirstName("");
                       setLastName("");
                       setMobilePhone("");
+                      setForSomeoneElse(false);
+                      setGuestFirstName("");
+                      setGuestLastName("");
+                      setGuestEmail("");
+                      setGuestPhone("");
+                      setIsSurprise(false);
                       scrollToBooking();
                     }}
                     className="inline-block w-full text-center px-6 py-3 rounded-full border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"

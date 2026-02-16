@@ -19,6 +19,7 @@ export async function POST(req: Request) {
       startDateTime,
       staffId,
       locationId = 1,
+      notes,
     } = await req.json();
 
     console.log("[EVENT BOOK] Incoming", {
@@ -26,6 +27,7 @@ export async function POST(req: Request) {
       sessionTypeId,
       startDateTime,
       staffId,
+      notes: notes ? "(has notes)" : "(none)",
     });
 
     if (!clientId || !sessionTypeId || !startDateTime || !staffId) {
@@ -90,6 +92,9 @@ export async function POST(req: Request) {
           StartDateTime: startDateTime, // EXACT value from availability
           ApplyPayment: false,
           SendEmail: true,
+          ...(typeof notes === "string" && notes.trim()
+            ? { Notes: notes.trim() }
+            : {}),
         }),
       }
     );

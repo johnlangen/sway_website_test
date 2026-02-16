@@ -401,6 +401,15 @@ function formatTime12h(raw: string) {
   });
 }
 
+/** Format "11:00 AM – 11:50 AM" from a start datetime string + duration in minutes */
+function formatTimeRange(raw: string, minutes: number) {
+  const start = parseMindbodyDateTime(raw);
+  const end = new Date(start.getTime() + minutes * 60_000);
+  const fmt = (d: Date) =>
+    d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  return `${fmt(start)} – ${fmt(end)}`;
+}
+
 function parseMindbodyDateTime(raw: string) {
   const hasTZ =
     raw.endsWith("Z") ||
@@ -645,6 +654,18 @@ function BookServicePage() {
   /* ── Refs ───────────────────────────────────── */
 
   const bookingLock = useRef(false);
+
+  /* ── "For someone else" state ────────────── */
+  const [forSomeoneElse, setForSomeoneElse] = useState(false);
+  const [guestFirstName, setGuestFirstName] = useState("");
+  const [guestLastName, setGuestLastName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
+  const [isSurprise, setIsSurprise] = useState(false);
+
+  /* ── Notification preferences ────────────── */
+  const [marketingOptIn, setMarketingOptIn] = useState(true);
+
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
   const expMonthRef = useRef<HTMLSelectElement | null>(null);
@@ -1150,6 +1171,9 @@ function BookServicePage() {
         if (!firstName.trim() || !lastName.trim()) {
           throw new Error("Please enter your first and last name.");
         }
+        if (!mobilePhone.trim()) {
+          throw new Error("Please enter your mobile phone number.");
+        }
 
         const res = await fetch("/api/mindbody/add-client-with-card", {
           method: "POST",
@@ -1158,13 +1182,15 @@ function BookServicePage() {
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             email: normalized,
-            mobilePhone: mobilePhone.trim() || undefined,
+            mobilePhone: mobilePhone.trim(),
             cardNumber,
             expMonth,
             expYear,
             postalCode,
             cardHolder,
             cardType,
+            sendPromotionalEmails: marketingOptIn,
+            sendPromotionalTexts: marketingOptIn,
           }),
         });
 
@@ -1236,6 +1262,16 @@ function BookServicePage() {
     try {
       setStep("booking");
 
+      /* Build guest notes if booking for someone else */
+      let notes: string | undefined;
+      if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
+        const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
+        const parts = [`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`];
+        if (guestEmail.trim()) parts.push(`Email: ${guestEmail.trim()}`);
+        if (isSurprise) parts.push("⚠️ SURPRISE — do not contact guest");
+        notes = parts.join(" | ");
+      }
+
       const res = await fetch("/api/service/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1245,6 +1281,7 @@ function BookServicePage() {
           startDateTime: selectedSlot.startDateTime,
           staffId: selectedSlot.staffId,
           addOnIds: selectedBoosts.map((b) => b.id),
+          ...(notes ? { notes } : {}),
         }),
       });
 
@@ -1276,6 +1313,21 @@ function BookServicePage() {
 
       reportPurchaseConversion();
       setStep("done");
+
+      // Non-blocking: ensure existing clients have email notifications enabled
+      if (cardContext !== "create_account" && clientId) {
+        fetch("/api/mindbody/update-client-notifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            clientId,
+            sendScheduleEmails: true,
+            sendAccountEmails: true,
+          }),
+        }).catch(() =>
+          console.error("Failed to update notification preferences")
+        );
+      }
     } catch (err: any) {
       setError(
         err.message || "Booking failed. Please try again or call us."
@@ -1921,8 +1973,7 @@ function BookServicePage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-[#113D33] mb-1">
-                        Mobile phone{" "}
-                        <span className="text-[#113D33]/40">(optional)</span>
+                        Mobile phone
                       </label>
                       <input
                         value={mobilePhone}
@@ -2017,6 +2068,20 @@ function BookServicePage() {
                     cancellation protection. You won&apos;t be charged today.
                   </span>
                 </div>
+
+                {cardContext === "create_account" && (
+                  <label className="flex items-center gap-2 cursor-pointer mt-1">
+                    <input
+                      type="checkbox"
+                      checked={marketingOptIn}
+                      onChange={(e) => setMarketingOptIn(e.target.checked)}
+                      className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
+                    />
+                    <span className="text-sm text-[#113D33]/70">
+                      Keep me updated on promotions and specials
+                    </span>
+                  </label>
+                )}
 
                 <button
                   disabled={cardSaving}
@@ -2115,7 +2180,7 @@ function BookServicePage() {
                       {formatDayLabel(
                         parseMindbodyDateTime(selectedSlot.startDateTime)
                       )}{" "}
-                      · {formatTime12h(selectedSlot.startDateTime)} · {totalMinutes} min
+                      · {formatTimeRange(selectedSlot.startDateTime, totalMinutes)}
                     </div>
                   </div>
 
@@ -2158,8 +2223,79 @@ function BookServicePage() {
                     </span>
                   </div>
 
+                  {/* ── For someone else ───────────── */}
+                  <div className="border-t border-[#113D33]/10 pt-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={forSomeoneElse}
+                        onChange={(e) => {
+                          setForSomeoneElse(e.target.checked);
+                          if (!e.target.checked) {
+                            setGuestFirstName("");
+                            setGuestLastName("");
+                            setGuestEmail("");
+                            setGuestPhone("");
+                            setIsSurprise(false);
+                          }
+                        }}
+                        className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
+                      />
+                      <span className="text-sm text-[#113D33]/70">
+                        This booking is for someone else
+                      </span>
+                    </label>
+
+                    {forSomeoneElse && (
+                      <div className="mt-3 space-y-2.5 animate-fade-in">
+                        <div className="grid grid-cols-2 gap-2">
+                          <input
+                            type="text"
+                            placeholder="Guest first name *"
+                            value={guestFirstName}
+                            onChange={(e) => setGuestFirstName(e.target.value)}
+                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Guest last name"
+                            value={guestLastName}
+                            onChange={(e) => setGuestLastName(e.target.value)}
+                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          />
+                        </div>
+                        <input
+                          type="tel"
+                          placeholder="Guest phone *"
+                          value={guestPhone}
+                          onChange={(e) => setGuestPhone(e.target.value)}
+                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        />
+                        <input
+                          type="email"
+                          placeholder="Guest email (optional)"
+                          value={guestEmail}
+                          onChange={(e) => setGuestEmail(e.target.value)}
+                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        />
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={isSurprise}
+                            onChange={(e) => setIsSurprise(e.target.checked)}
+                            className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
+                          />
+                          <span className="text-xs text-[#113D33]/60">
+                            This is a surprise — don&apos;t contact the guest
+                          </span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+
                   <button
                     onClick={handleFinalConfirmAndBook}
+                    disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())}
                     className={primaryBtn}
                   >
                     Confirm & book
@@ -2219,7 +2355,7 @@ function BookServicePage() {
               {selectedSlot && (
                 <p className="text-[#113D33]/50 text-sm mb-8 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   {formatDayLabel(parseMindbodyDateTime(selectedSlot.startDateTime))} ·{" "}
-                  {formatTime12h(selectedSlot.startDateTime)}
+                  {formatTimeRange(selectedSlot.startDateTime, totalMinutes)}
                 </p>
               )}
 

@@ -45,6 +45,10 @@ export async function GET(req: Request) {
       found: Boolean(client),
       client,
       hasCardOnFile: Boolean(client?.ClientCreditCard),
+      sendScheduleEmails: client?.SendScheduleEmails ?? null,
+      sendScheduleTexts: client?.SendScheduleTexts ?? null,
+      sendPromotionalEmails: client?.SendPromotionalEmails ?? null,
+      sendPromotionalTexts: client?.SendPromotionalTexts ?? null,
     });
   } catch (err: any) {
     return NextResponse.json(

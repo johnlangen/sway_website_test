@@ -8,6 +8,14 @@ type Slot = {
     staffName: string | null;
   };
   
+/** Strip staff-type codes like "M - ", "M/E - " (prefix) or " M", " M/E" (suffix) */
+function cleanStaffName(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  let cleaned = raw.replace(/^[ME](?:\/[ME])*\s*[-–—]\s*/i, "");
+  cleaned = cleaned.replace(/\s+[ME](?:\/[ME])*$/i, "");
+  return cleaned.trim() || null;
+}
+
 const EVENT_DATE = "2026-02-28";
 const EVENT_SESSION_TYPE_IDS = new Set([68, 69, 70, 71]);
 
@@ -90,11 +98,12 @@ function expandAvailabilityWindow(a: any) {
         a?.Staff?.Id != null && Number.isFinite(Number(a.Staff.Id))
           ? Number(a.Staff.Id)
           : null,
-      staffName:
+      staffName: cleanStaffName(
         a?.Staff?.DisplayName ||
-        a?.Staff?.Name ||
-        `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
-        null,
+          a?.Staff?.Name ||
+          `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
+          null
+      ),
     });
 
     cursor = new Date(cursor.getTime() + minutes * 60 * 1000);

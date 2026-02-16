@@ -8,6 +8,16 @@ type Slot = {
   staffName: string | null;
 };
 
+/** Strip staff-type codes like "M - ", "M/E - " (prefix) or " M", " M/E" (suffix) */
+function cleanStaffName(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  // Prefix pattern: "M - Holly", "M/E - Holly", "E - Sarah"
+  let cleaned = raw.replace(/^[ME](?:\/[ME])*\s*[-–—]\s*/i, "");
+  // Suffix pattern: "Holly M", "Holly M/E"
+  cleaned = cleaned.replace(/\s+[ME](?:\/[ME])*$/i, "");
+  return cleaned.trim() || null;
+}
+
 /* Allowed session-type IDs (massages + facials) */
 const ALLOWED_SESSION_TYPE_IDS = new Set([
   // Massages
@@ -97,11 +107,12 @@ function expandAvailabilityWindow(a: any): Slot[] {
         a?.Staff?.Id != null && Number.isFinite(Number(a.Staff.Id))
           ? Number(a.Staff.Id)
           : null,
-      staffName:
+      staffName: cleanStaffName(
         a?.Staff?.DisplayName ||
-        a?.Staff?.Name ||
-        `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
-        null,
+          a?.Staff?.Name ||
+          `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
+          null
+      ),
     });
 
     cursor = new Date(cursor.getTime() + minutes * 60 * 1000);

@@ -32,6 +32,7 @@ export async function POST(req: Request) {
     sessionTypeId,
     startDateTime,
     locationId = 1,
+    notes,
   } = body;
 
   if (!clientId || !sessionTypeId || !startDateTime) {
@@ -72,6 +73,9 @@ export async function POST(req: Request) {
           StartDateTime: startDateTime,
           ApplyPayment: false,
           SendEmail: true,
+          ...(typeof notes === "string" && notes.trim()
+            ? { Notes: notes.trim() }
+            : {}),
         }),
       }
     );
