@@ -24,6 +24,7 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   9, // Pore Perfection Acne
   10, // Sensitive Silk
   11, // Dr. Dennis Gross Vitamin C
+  12, // Basic Facial
 ]);
 
 function isValidISODate(iso: string) {

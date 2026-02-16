@@ -62,6 +62,15 @@ const MassagesPage = () => {
   const massages: Massage[] = useMemo(
     () => [
       {
+        id: 6,
+        name: "Basic Massage",
+        time: "50 minutes",
+        price: "Member $89 | Drop-In $129",
+        description:
+          "A foundational full-body massage tailored to your needs — ideal for relaxation, tension relief, and overall wellness.",
+        img: "/assets/massage1.jpg",
+      },
+      {
         id: 1,
         name: "Deep Tissue",
         time: "50 minutes",

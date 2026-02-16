@@ -63,6 +63,16 @@ const FacialsPage = () => {
   const facials: Facial[] = useMemo(
     () => [
       {
+        id: 6,
+        name: "Basic Facial",
+        subtitle: "Classic Custom Facial",
+        time: "50 minutes",
+        price: "Member $89 | Drop-In $129",
+        description:
+          "A classic facial customized to your skin type — cleanse, exfoliate, extract, and hydrate.",
+        img: "/assets/facial1.jpg",
+      },
+      {
         id: 1,
         name: "Forever Young",
         subtitle: "Anti-Aging Facial",

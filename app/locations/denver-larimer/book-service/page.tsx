@@ -149,7 +149,7 @@ const FACIALS: Service[] = [
     price: "Member $89 | Drop-In $129",
     memberPrice: 89,
     dropInPrice: 129,
-    image: "/assets/facial2.jpg",
+    image: "/assets/facial1.jpg",
     description:
       "A classic facial customized to your skin type — cleanse, exfoliate, extract, and hydrate.",
   },
