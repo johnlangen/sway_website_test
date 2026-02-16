@@ -316,6 +316,49 @@ function CardBrandPills() {
 type Step = "select" | "email" | "card" | "confirm" | "booking" | "done";
 type CardContext = "create_account" | "add_card" | null;
 
+/* ─── PROGRESS BAR ─── */
+
+function ProgressBar({ step }: { step: Step }) {
+  const displaySteps = ["Time", "Account", "Confirm"];
+
+  const stepToIdx: Partial<Record<Step, number>> = {
+    select: 0,
+    email: 1,
+    card: 1,
+    confirm: 2,
+  };
+
+  if (step === "booking" || step === "done") return null;
+
+  const displayIdx = stepToIdx[step] ?? 0;
+  const pct = ((displayIdx + 1) / displaySteps.length) * 100;
+
+  return (
+    <div className="animate-fade-in">
+      <div className="h-1 rounded-full bg-[#113D33]/8 overflow-hidden">
+        <div
+          className="h-full bg-[#113D33] rounded-full transition-all duration-500 ease-out"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <div className="hidden sm:flex justify-between mt-2">
+        {displaySteps.map((label, i) => (
+          <span
+            key={label}
+            className={`text-[10px] uppercase tracking-wider transition-colors duration-300 ${
+              i <= displayIdx
+                ? "text-[#113D33] font-semibold"
+                : "text-[#113D33]/25"
+            }`}
+          >
+            {label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ImageCarousel({ images }: { images: string[] }) {
     const [index, setIndex] = useState(0);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -895,89 +938,92 @@ export default function BookRemedyRoomPage() {
       {showHeader && (
         <div
           data-booking-header="true"
-          className="sticky top-0 z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur"
+          className="sticky top-0 z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
         >
-          <div className="max-w-3xl mx-auto flex items-center justify-between px-4 py-3">
-            {showHeaderBack ? (
-              <button
-                type="button"
-                onClick={handleHeaderBack}
-                className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm text-[#113D33] hover:bg-white/60 active:bg-white/80 transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/25"
-                aria-label="Go back"
-              >
-                <span className="text-lg leading-none">←</span>
-                <span className="font-semibold">Back</span>
-              </button>
-            ) : (
+          <div className="max-w-3xl mx-auto px-4 py-3">
+            <div className="flex items-center justify-between mb-2">
+              {showHeaderBack ? (
+                <button
+                  type="button"
+                  onClick={handleHeaderBack}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-[#113D33] hover:bg-[#113D33]/5 active:bg-[#113D33]/10 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[#113D33]/25"
+                  aria-label="Go back"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  <span className="font-medium">Back</span>
+                </button>
+              ) : (
+                <span className="w-16" />
+              )}
+              <div className="text-sm font-semibold text-[#113D33]">
+                {stepTitle}
+              </div>
               <span className="w-16" />
-            )}
-
-            <div className="text-sm md:text-base font-semibold text-[#113D33]">
-              {stepTitle}
             </div>
-
-            <span className="w-16" />
+            <ProgressBar step={step} />
           </div>
         </div>
       )}
 
       <div className="px-4 pt-10 md:pt-16 pb-20">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Hero */}
-          <div className="mb-8 md:mb-10">
-            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
-              Book the Remedy Room
-            </h1>
+          {/* Hero + session card + summary — only on select step */}
+          {step === "select" && (
+            <>
+              <div className="mb-8 md:mb-10">
+                <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
+                  Book the Remedy Room
+                </h1>
 
-            <div className="hidden md:flex items-center justify-center gap-3 flex-wrap mb-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                Cold plunge • Sauna recovery
+                <div className="hidden md:flex items-center justify-center gap-3 flex-wrap mb-4">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
+                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
+                    Cold plunge • Sauna recovery
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
+                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
+                    LED Light Therapy
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
+                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
+                    Lymphatic Compression
+                  </div>
+                </div>
+
+                <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
+                  Step into the Remedy Room and experience science-backed recovery. Swimsuit or athleisure required. Sessions are shared with up to three guests. Private sessions are available upon request, please call to book.
+                </p>
+
+                <div className="mt-4 flex items-center justify-center gap-4 text-sm">
+                  <Link
+                    href="/remedy-tech"
+                    className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+                  >
+                    Learn about the Remedy Room
+                  </Link>
+                  <Link
+                    href="/offers"
+                    className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+                  >
+                    View offers
+                  </Link>
+                </div>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-              <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                LED Light Therapy
+
+              <RemedySessionCard option={selectedOption} />
+
+              <div className="mb-8 md:mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
+                <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
+                  Your selection
+                </div>
+                <div className="font-semibold text-[#113D33]">
+                  {summaryText ?? "Select a day and time to continue."}
+                </div>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-              <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                Lymphatic Compression
-              </div>
-            </div>
-
-            <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
-            Step into the Remedy Room and experience science-backed recovery. Swimsuit or athleisure required. Sessions are shared with up to three guests. Private sessions are available upon request, please call to book.
-            </p>
-
-            <div className="mt-4 flex items-center justify-center gap-4 text-sm">
-              <Link
-                href="/remedy-tech"
-                className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
-              >
-                Learn about the Remedy Room
-              </Link>
-              <Link
-                href="/offers"
-                className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
-              >
-                View offers
-              </Link>
-            </div>
-          </div>
-
-
-          {/* Session (auto-selected) */}
-        <RemedySessionCard option={selectedOption} />
-
-                  {/* Summary */}
-          <div className="mb-8 md:mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
-            <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
-              Your selection
-            </div>
-            <div className="font-semibold text-[#113D33]">
-              {summaryText ?? "Select a day and time to continue."}
-            </div>
-          </div>
-
+            </>
+          )}
 
           {step === "select" && (
             <div ref={selectRef}>
