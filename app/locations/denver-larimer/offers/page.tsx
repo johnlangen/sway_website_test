@@ -14,104 +14,121 @@ export default function LarimerOffersPage() {
         </p>
 
         <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-          New Guest Offers
+          Offers &amp; Pricing
         </h1>
 
         <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
-          Special pricing on massage, facials, and recovery at Sway Wellness Spa
-          in Larimer Square.
+          Introductory pricing, memberships, and recovery sessions at Sway
+          Wellness Spa in Larimer Square.
         </p>
       </section>
 
       {/* OFFER CARDS */}
       <section className="px-4 sm:px-6 pt-10 pb-16">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-start">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch">
           {/* Remedy Room */}
-          <div className="rounded-2xl bg-[#F7F4E9] text-[#113D33] p-6 md:p-7 shadow-xl text-center">
-            <h2 className="text-xl md:text-2xl font-bold uppercase mb-1 tracking-wide">
-              Remedy Room
-            </h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Sauna + cold plunge recovery
-            </p>
+          <div className="relative bg-white text-[#113D33] rounded-2xl p-6 md:p-7 shadow-xl flex flex-col text-center border border-[#113D33]/8">
+            <div className="mb-5">
+              <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
+                Recovery circuit
+              </p>
+              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
+                Remedy Room
+              </h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Sauna + cold plunge recovery
+              </p>
+            </div>
 
-            <div className="mb-4">
-              <span className="text-4xl md:text-5xl font-bold">$49</span>
+            <div className="mb-5">
+              <span className="text-5xl font-bold text-[#113D33]">$49</span>
               <span className="text-sm text-gray-500 ml-1">/ session</span>
             </div>
 
-            <p className="text-sm text-gray-600 mb-5 leading-relaxed">
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed flex-grow">
               Sauna, cold plunge, red light therapy, and Normatec
               compression — all in one 40-minute session.
             </p>
 
             <Link
               href="/locations/denver-larimer/book-remedy-room"
-              className="block rounded-full font-semibold py-3 px-6 transition bg-[#4A776D] hover:bg-[#3a5f56] text-white"
+              className="block w-full rounded-full font-semibold py-3 px-6 transition mb-4 bg-[#113D33] hover:bg-[#0a2b23] text-white"
             >
               Book Remedy Room
             </Link>
 
-            <p className="text-xs text-gray-400 mt-3">
+            <p className="text-xs text-gray-400">
               Members pay just $25/session
             </p>
           </div>
 
           {/* First Visit Offer — center card */}
-          <div className="relative rounded-2xl bg-white text-[#113D33] p-6 md:p-7 shadow-xl text-center ring-2 ring-[#4A776D] md:scale-[1.03] md:-my-2">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#4A776D] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap">
+          <div className="relative bg-white text-[#113D33] rounded-2xl p-6 md:p-7 shadow-xl flex flex-col text-center border ring-2 ring-[#4A776D] border-[#4A776D]/20">
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap">
               MOST POPULAR
             </span>
 
-            <h2 className="text-xl md:text-2xl font-bold uppercase mb-1 tracking-wide mt-2">
-              First Visit Offer
-            </h2>
+            <div className="mb-5">
+              <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
+                First-time guests
+              </p>
+              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
+                First Visit Offer
+              </h2>
+            </div>
 
-            <p className="text-4xl md:text-5xl font-bold mb-4 mt-3">$40 OFF</p>
+            <div className="mb-5">
+              <span className="text-5xl font-bold text-[#113D33]">$40 OFF</span>
+            </div>
 
             <p className="text-sm text-gray-600 mb-1 leading-relaxed">
               Enjoy a 50-minute massage or facial for just{" "}
               <strong>$99</strong>
             </p>
-            <p className="text-xs text-gray-500 mb-5">(regularly $139)</p>
+            <p className="text-xs text-gray-500 mb-6 flex-grow">(regularly $139)</p>
 
             <Link
               href="/locations/denver-larimer/book"
-              className="block rounded-full font-semibold py-3 px-6 transition bg-[#113D33] hover:bg-[#0a2b23] text-white mb-2"
+              className="block w-full rounded-full font-semibold py-3 px-6 transition mb-4 bg-[#113D33] hover:bg-[#0a2b23] text-white"
             >
               Book Your First Visit
             </Link>
 
-            <p className="text-xs text-gray-400 mt-2">
+            <p className="text-xs text-gray-400">
               Available for first-time guests only
             </p>
           </div>
 
           {/* Membership */}
-          <div className="rounded-2xl bg-[#F7F4E9] text-[#113D33] p-6 md:p-7 shadow-xl text-center">
-            <h2 className="text-xl md:text-2xl font-bold uppercase mb-1 tracking-wide">
-              Membership
-            </h2>
-            <p className="text-sm text-gray-500 mb-4">The best ongoing value</p>
+          <div className="relative bg-white text-[#113D33] rounded-2xl p-6 md:p-7 shadow-xl flex flex-col text-center border border-[#113D33]/8">
+            <div className="mb-5">
+              <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
+                Best ongoing value
+              </p>
+              <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
+                Membership
+              </h2>
+              <p className="text-sm text-gray-500 mt-1">Starting at $99/month</p>
+            </div>
 
-            <div className="mb-4">
-              <span className="text-4xl md:text-5xl font-bold">$99</span>
+            <div className="mb-5">
+              <span className="text-5xl font-bold text-[#113D33]">$99</span>
               <span className="text-sm text-gray-500 ml-1">/ month</span>
             </div>
 
-            <p className="text-sm text-gray-600 mb-5 leading-relaxed">
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed flex-grow">
               Unlimited massages & facials at $99 each, 50% off boosts & Remedy
               Room, private lounge, and more.
             </p>
 
             <Link
               href="/locations/denver-larimer/membership"
-              className="block rounded-full font-semibold py-3 px-6 transition bg-[#4A776D] hover:bg-[#3a5f56] text-white"
+              className="block w-full rounded-full font-semibold py-3 px-6 transition mb-4 bg-[#113D33] hover:bg-[#0a2b23] text-white"
             >
               View Memberships
             </Link>
 
-            <p className="text-xs text-gray-400 mt-3">Cancel anytime</p>
+            <p className="text-xs text-gray-400">Cancel anytime</p>
           </div>
         </div>
       </section>
