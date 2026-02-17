@@ -2,12 +2,45 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import { MapPin, ArrowRight } from "lucide-react";
 
 type SelectedLocation = {
   slug: string;
   name: string;
 };
+
+const locations = [
+  {
+    slug: "denver-larimer",
+    name: "Sway Larimer",
+    city: "Denver",
+    state: "CO",
+    address: "1428 Larimer St",
+    status: "open" as const,
+    image: "/assets/homepage_photo_outside.jpg",
+    href: "/locations/denver-larimer/membership",
+  },
+  {
+    slug: "dallas",
+    name: "Sway Dallas",
+    city: "Dallas",
+    state: "TX",
+    status: "coming-soon" as const,
+    image: "/assets/SWAY.jpg",
+    href: "/locations/dallas/membership",
+  },
+  {
+    slug: "georgetown",
+    name: "Sway Georgetown",
+    city: "Washington",
+    state: "DC",
+    status: "coming-soon" as const,
+    image: "/assets/SWAY.jpg",
+    href: "/locations/georgetown/membership",
+  },
+];
 
 export default function MembershipHubPage() {
   const [selectedLocation, setSelectedLocation] =
@@ -23,77 +56,128 @@ export default function MembershipHubPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance px-6 pt-28 pb-20">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4">
+    <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
+      {/* Hero */}
+      <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
+        <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
+          Sway Wellness Spa
+        </p>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
           Join the Club
         </h1>
-
-        <p className="mb-8 text-[#0e2b24]">
-          Sway memberships unlock exclusive pricing, perks, and access.
-          Membership options vary by location — select your spa to explore plans.
+        <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
+          Memberships unlock exclusive pricing, perks, and access.
+          Select your spa below to explore plans.
         </p>
+      </section>
 
-        {/* Selected location shortcut */}
-        {selectedLocation && (
-          <div className="mb-10 rounded-2xl bg-white shadow-sm p-6">
-            <p className="mb-3 text-sm text-gray-700">
-              Your selected location:
-            </p>
-            <p className="font-semibold mb-4">
-              {selectedLocation.name}
-            </p>
-            <Link
-              href={`/locations/${selectedLocation.slug}/membership`}
-              className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-xl font-semibold"
-            >
-              View Memberships
-            </Link>
-          </div>
-        )}
+      {/* Location Cards */}
+      <section className="px-4 sm:px-6 pt-10 pb-16">
+        <p className="text-center text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-6">
+          Select your location
+        </p>
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
+          {locations.map((loc) => {
+            const isOpen = loc.status === "open";
+            const isSelected = selectedLocation?.slug === loc.slug;
 
-        {/* Location list */}
-        <div className="space-y-4">
-          <Link
-            href="/locations/denver-larimer/membership"
-            className="block underline"
-          >
-            Sway Larimer — Denver, CO
-          </Link>
+            return isOpen ? (
+              <Link
+                key={loc.slug}
+                href={loc.href}
+                className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
+                  isSelected ? "ring-2 ring-[#9ABFB3]" : ""
+                }`}
+              >
+                {/* Image */}
+                <div className="relative h-40 w-full">
+                  <Image
+                    src={loc.image}
+                    alt={loc.name}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold shadow-sm">
+                      Now Open
+                    </span>
+                  </div>
+                </div>
 
-          <span className="block opacity-60">
-            Sway Dallas — Dallas, TX (coming soon)
-          </span>
+                {/* Info */}
+                <div className="p-5 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
+                  <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
+                    <MapPin className="w-3.5 h-3.5" />
+                    {loc.city}, {loc.state}
+                  </p>
+                  {loc.address && (
+                    <p className="text-xs text-gray-400 mb-4">{loc.address}</p>
+                  )}
 
-          <span className="block opacity-60">
-            Sway Georgetown — Washington, DC (coming soon)
-          </span>
+                  <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33] text-white font-semibold text-sm group-hover:bg-[#0a2b23] transition">
+                    View Memberships
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <div
+                key={loc.slug}
+                className="relative bg-white/60 text-[#113D33] rounded-2xl overflow-hidden shadow-md flex flex-col opacity-70"
+              >
+                {/* Image */}
+                <div className="relative h-40 w-full">
+                  <Image
+                    src={loc.image}
+                    alt={loc.name}
+                    fill
+                    className="object-cover grayscale"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-gray-200 text-gray-600 font-semibold shadow-sm">
+                      Coming Soon
+                    </span>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="p-5 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
+                  <p className="text-sm text-gray-500 flex items-center gap-1">
+                    <MapPin className="w-3.5 h-3.5" />
+                    {loc.city}, {loc.state}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
+      </section>
 
-        {/* Secondary navigation */}
-        <div className="mt-12 flex flex-wrap gap-3">
+      {/* Secondary links */}
+      <section className="pb-16 px-6 text-center">
+        <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/massages"
-            className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-xl"
+            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
           >
             Explore Massages
           </Link>
-
           <Link
             href="/facials"
-            className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-xl"
+            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
           >
             Explore Facials
           </Link>
-
           <Link
             href="/book"
-            className="inline-block bg-[#4A776D] hover:bg-[#3a5f56] text-white px-5 py-3 rounded-xl"
+            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
           >
             Book Now
           </Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

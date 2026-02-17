@@ -173,20 +173,20 @@ const NavBarGreen = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white p-6 flex flex-col items-center md:hidden space-y-4 z-50">
-          {/* Location Display Mobile */}
+          {/* Location selector */}
           {savedLocation ? (
-            <div className="flex flex-col items-center space-y-1">
+            <div className="flex items-center gap-2 text-[#4A776D] text-sm">
               <Link
                 href={`/locations/${savedLocation.slug}`}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-[#4A776D] text-lg"
+                className="font-semibold"
               >
-                {savedLocation.name}
+                📍 {savedLocation.name}
               </Link>
               <Link
                 href="/locations"
                 onClick={() => setMobileMenuOpen(false)}
-                className="underline text-sm"
+                className="underline text-xs opacity-80"
               >
                 Change
               </Link>
@@ -195,31 +195,55 @@ const NavBarGreen = () => {
             <Link
               href="/locations"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-[#4A776D] text-lg"
+              className="text-[#4A776D] text-sm font-semibold"
             >
-              Select Location
+              📍 Select Location
             </Link>
           )}
 
-          {/* Location-aware links mobile */}
-          <Link href="/treatments" className="text-[#4A776D] text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
-            Treatments
-          </Link>
-          <Link href={locHref("/membership")} className="text-[#4A776D] text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
-            Join the Club
-          </Link>
-          <Link href={locHref("/gift-cards")} className="text-[#4A776D] text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
-            Gift Cards
-          </Link>
-          <Link href="/swayway" className="text-[#4A776D] text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
-            The Sway Way
-          </Link>
-          <Link href={locHref("/offers")} className="text-[#4A776D] text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
-            Offers
-          </Link>
-          <Link href={locHref("/book")} className="text-[#4A776D] text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
+          <div className="w-12 border-t border-[#4A776D]/20" />
+
+          {[
+            ["Treatments", "/treatments"],
+            ["Join the Club", locHref("/membership")],
+            ["Gift Cards", locHref("/gift-cards")],
+            ["Offers", locHref("/offers")],
+          ].map(([label, href]) => (
+            <Link
+              key={label}
+              href={href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[#4A776D] text-lg"
+            >
+              {label}
+            </Link>
+          ))}
+
+          <div className="w-12 border-t border-[#4A776D]/20" />
+
+          {[
+            ["The Sway Way", "/swayway"],
+            ["Press", "/press"],
+            ["Blog", "/blog"],
+          ].map(([label, href]) => (
+            <Link
+              key={label}
+              href={href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[#4A776D]/70 text-sm"
+            >
+              {label}
+            </Link>
+          ))}
+
+          <div className="w-12 border-t border-[#4A776D]/20" />
+
+          <a
+            href={locHref("/book")}
+            className="bg-[#4A776D] text-white px-6 py-2.5 rounded-full font-vance font-semibold"
+          >
             Book Now
-          </Link>
+          </a>
         </div>
       )}
     </nav>

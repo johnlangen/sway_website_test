@@ -206,6 +206,36 @@ const NavBar = () => {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
+          {/* Location selector */}
+          {savedLocation ? (
+            <div className="flex items-center gap-2 text-white text-sm">
+              <Link
+                href={`/locations/${savedLocation.slug}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-semibold"
+              >
+                📍 {savedLocation.name}
+              </Link>
+              <Link
+                href="/locations"
+                onClick={() => setMobileMenuOpen(false)}
+                className="underline text-xs opacity-80"
+              >
+                Change
+              </Link>
+            </div>
+          ) : (
+            <Link
+              href="/locations"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white text-sm font-semibold"
+            >
+              📍 Select Location
+            </Link>
+          )}
+
+          <div className="w-12 border-t border-white/20" />
+
           <Link
             href="/events/anniversary"
             onClick={() => setMobileMenuOpen(false)}
@@ -213,14 +243,13 @@ const NavBar = () => {
           >
             🎂 Anniversary Event
           </Link>
+
           <div className="w-12 border-t border-white/20" />
+
           {[
             ["Treatments", "/treatments"],
             ["Join the Club", "/membership"],
             ["Gift Cards", "/gift-cards"],
-            ["The Sway Way", "/swayway"],
-            ["Press", "/press"],
-            ["Blog", "/blog"],
             ["Offers", "/offers"],
           ].map(([label, href]) => (
             <Link
@@ -233,11 +262,30 @@ const NavBar = () => {
             </Link>
           ))}
 
+          <div className="w-12 border-t border-white/20" />
+
+          {[
+            ["The Sway Way", "/swayway"],
+            ["Press", "/press"],
+            ["Blog", "/blog"],
+          ].map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white/70 text-sm"
+            >
+              {label}
+            </Link>
+          ))}
+
+          <div className="w-12 border-t border-white/20" />
+
           <a
             href="/book"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-[#113D33] px-4 py-2 rounded-full font-vance"
+            className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
           >
             Book Now
           </a>
