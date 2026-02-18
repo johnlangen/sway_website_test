@@ -360,14 +360,14 @@ type CardContext = "create_account" | "add_card" | null;
 /* ─── PROGRESS BAR ─── */
 
 function ProgressBar({ step }: { step: Step }) {
-  const displaySteps = ["Service", "Session", "Time", "Account", "Confirm"];
+  const displaySteps = ["Session", "Time", "Account", "Confirm"];
 
   const stepToIdx: Partial<Record<Step, number>> = {
-    select: 1,
-    time: 2,
-    email: 3,
-    card: 3,
-    confirm: 4,
+    select: 0,
+    time: 1,
+    email: 2,
+    card: 2,
+    confirm: 3,
   };
 
   if (step === "booking" || step === "done") return null;
