@@ -500,6 +500,10 @@ export default function BookRemedyRoomPage() {
   // Notification preferences
   const [marketingOptIn, setMarketingOptIn] = useState(true);
 
+  // Remedy room occupancy (booked count per time slot)
+  const REMEDY_MAX_CAPACITY = 3;
+  const [slotOccupancy, setSlotOccupancy] = useState<Record<string, number>>({});
+
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
   const expMonthRef = useRef<HTMLSelectElement | null>(null);
@@ -656,6 +660,32 @@ export default function BookRemedyRoomPage() {
       })
       .finally(() => setLoading(false));
   }, [sessionTypeId, selectedDate]);
+
+  // Fetch booked appointments for the remedy room to compute occupancy
+  useEffect(() => {
+    setSlotOccupancy({});
+
+    fetch(
+      `/api/service/staff-schedule?staffId=100000014&date=${selectedDate}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (!Array.isArray(data.appointments)) return;
+
+        // Count how many appointments overlap each 10-minute slot
+        const counts: Record<string, number> = {};
+        for (const appt of data.appointments) {
+          // Normalize to HH:mm key
+          const start = appt.start as string; // e.g. "2026-02-18T11:00:00"
+          const timeKey = start.split("T")[1]?.substring(0, 5); // "11:00"
+          if (timeKey) {
+            counts[timeKey] = (counts[timeKey] || 0) + 1;
+          }
+        }
+        setSlotOccupancy(counts);
+      })
+      .catch(() => setSlotOccupancy({}));
+  }, [selectedDate]);
 
   /* ---------------------------------------------
      LOOKUP + BRANCH
@@ -1170,19 +1200,45 @@ export default function BookRemedyRoomPage() {
                           </h3>
 
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                            {group.map((time) => (
-                              <button
-                                key={time.toISOString()}
-                                onClick={() => setSelectedTime(time)}
-                                className={`py-2.5 rounded-xl border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
-                                  selectedTime?.getTime() === time.getTime()
-                                    ? "bg-[#113D33] text-white border-[#113D33]"
-                                    : "border-[#113D33]/25 bg-white/60 hover:bg-white text-[#113D33]"
-                                }`}
-                              >
-                                {formatTime12h(time)}
-                              </button>
-                            ))}
+                            {group.map((time) => {
+                              const isSelected = selectedTime?.getTime() === time.getTime();
+                              const timeKey = `${String(time.getHours()).padStart(2, "0")}:${String(time.getMinutes()).padStart(2, "0")}`;
+                              const booked = slotOccupancy[timeKey] || 0;
+                              const spotsLeft = REMEDY_MAX_CAPACITY - booked;
+
+                              return (
+                                <button
+                                  key={time.toISOString()}
+                                  onClick={() => setSelectedTime(time)}
+                                  className={`py-2.5 rounded-xl border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                                    isSelected
+                                      ? "bg-[#113D33] text-white border-[#113D33]"
+                                      : "border-[#113D33]/25 bg-white/60 hover:bg-white text-[#113D33]"
+                                  }`}
+                                >
+                                  <div className="font-semibold text-sm">
+                                    {formatTime12h(time)}
+                                  </div>
+                                  {booked > 0 && (
+                                    <div
+                                      className={`text-[10px] mt-0.5 ${
+                                        isSelected
+                                          ? spotsLeft === 1
+                                            ? "text-amber-200"
+                                            : "text-white/60"
+                                          : spotsLeft === 1
+                                            ? "text-amber-600"
+                                            : "text-[#113D33]/40"
+                                      }`}
+                                    >
+                                      {spotsLeft === 1
+                                        ? "1 spot left"
+                                        : `${booked}/${REMEDY_MAX_CAPACITY} booked`}
+                                    </div>
+                                  )}
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                       )

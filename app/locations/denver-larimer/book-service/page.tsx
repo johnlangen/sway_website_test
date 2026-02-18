@@ -635,6 +635,11 @@ function BookServicePage() {
   );
   const [selectedSlot, setSelectedSlot] = useState<DisplaySlot | null>(null);
 
+  // Full staff list for this service type (fetched once via 7-day window)
+  const [allTherapists, setAllTherapists] = useState<
+    { id: number; name: string }[]
+  >([]);
+
   /* ── Client state ──────────────────────────── */
 
   const [email, setEmail] = useState("");
@@ -908,13 +913,30 @@ function BookServicePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
+  // Fetch full staff list once when service changes (7-day window, 1 API call)
+  useEffect(() => {
+    if (!selectedService) {
+      setAllTherapists([]);
+      return;
+    }
+
+    setFilteredTherapist(null);
+    fetch(`/api/service/staff-list?sessionTypeId=${selectedService.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.staff)) {
+          setAllTherapists(data.staff);
+        }
+      })
+      .catch(() => setAllTherapists([]));
+  }, [selectedService]);
+
   // Fetch availability when service or date changes
   useEffect(() => {
     if (!selectedService) return;
 
     setLoading(true);
     setSelectedSlot(null);
-    setFilteredTherapist(null);
     setError(null);
 
     fetch(
@@ -1766,7 +1788,7 @@ function BookServicePage() {
               </section>
 
               {/* Therapist filter */}
-              {therapists.length > 1 && (
+              {allTherapists.length > 1 && (
                 <section className="mb-6 animate-fade-in">
                   <div className="text-xs uppercase tracking-wider text-[#113D33]/50 mb-2 font-semibold">
                     Therapist
@@ -1782,7 +1804,7 @@ function BookServicePage() {
                     >
                       All therapists
                     </button>
-                    {therapists.map((t) => (
+                    {allTherapists.map((t) => (
                       <button
                         key={t.id}
                         onClick={() =>
@@ -1816,18 +1838,27 @@ function BookServicePage() {
 
                 {!loading && !schedulesLoading && displayedSlots.length === 0 && (
                   <div className="py-16 text-center animate-fade-in">
-                    <p className="text-[#113D33]/50">No availability for this day.</p>
+                    <p className="text-[#113D33]/50">
+                      {filteredTherapist
+                        ? `No availability for ${allTherapists.find((t) => t.id === filteredTherapist)?.name ?? "this therapist"} on this day.`
+                        : "No availability for this day."}
+                    </p>
                     {selectedService && (
                       <NextAvailableBanner
                         type="service"
                         sessionTypeId={selectedService.id}
                         currentDate={selectedDate}
+                        staffId={filteredTherapist}
+                        staffName={
+                          filteredTherapist
+                            ? allTherapists.find((t) => t.id === filteredTherapist)?.name
+                            : undefined
+                        }
                         onJumpToDate={(iso) => {
                           const [y, m, d] = iso.split("-").map(Number);
                           const target = new Date(y, m - 1, d);
                           setSelectedDate(iso);
                           setWeekStart(target);
-                          setFilteredTherapist(null);
                         }}
                       />
                     )}
@@ -1863,7 +1894,7 @@ function BookServicePage() {
                                 <div className="font-semibold text-sm">
                                   {formatTime12h(slot.startDateTime)}
                                 </div>
-                                {!filteredTherapist && slot.staffName && (
+                                {filteredTherapist && slot.staffName && (
                                   <div
                                     className={`text-xs mt-0.5 ${
                                       isSelected

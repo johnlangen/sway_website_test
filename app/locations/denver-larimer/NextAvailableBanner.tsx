@@ -7,6 +7,8 @@ type Props = {
   sessionTypeId: number;
   currentDate: string; // YYYY-MM-DD — the empty day
   onJumpToDate: (iso: string) => void;
+  staffId?: number | null; // optional — filter to a specific staff member
+  staffName?: string | null; // optional — display name for the banner text
 };
 
 /**
@@ -19,6 +21,8 @@ export default function NextAvailableBanner({
   sessionTypeId,
   currentDate,
   onJumpToDate,
+  staffId,
+  staffName,
 }: Props) {
   const [status, setStatus] = useState<
     "searching" | "found" | "none" | "error"
@@ -30,8 +34,9 @@ export default function NextAvailableBanner({
     setStatus("searching");
     setNextDate(null);
 
+    const staffParam = staffId ? `&staffId=${staffId}` : "";
     fetch(
-      `/api/next-available?type=${type}&sessionTypeId=${sessionTypeId}&startDate=${currentDate}`
+      `/api/next-available?type=${type}&sessionTypeId=${sessionTypeId}&startDate=${currentDate}${staffParam}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -50,7 +55,7 @@ export default function NextAvailableBanner({
     return () => {
       cancelled = true;
     };
-  }, [type, sessionTypeId, currentDate]);
+  }, [type, sessionTypeId, currentDate, staffId]);
 
   if (status === "error") return null; // fail silently
 
@@ -66,7 +71,9 @@ export default function NextAvailableBanner({
   if (status === "none") {
     return (
       <p className="mt-4 text-sm text-[#113D33]/40 text-center">
-        No availability in the next 30 days.
+        {staffName
+          ? `No availability for ${staffName} in the next 30 days.`
+          : "No availability in the next 30 days."}
       </p>
     );
   }
@@ -80,7 +87,8 @@ export default function NextAvailableBanner({
       className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
     >
       <span>
-        Next available: <span className="text-[#4A776D]">{label}</span>
+        {staffName ? `${staffName} — next` : "Next"} available:{" "}
+        <span className="text-[#4A776D]">{label}</span>
       </span>
       <span className="text-[#4A776D]">&rarr;</span>
     </button>

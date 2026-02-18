@@ -108,6 +108,7 @@ export async function GET(req: Request) {
   const type = searchParams.get("type"); // service | remedy | aescape
   const sessionTypeId = searchParams.get("sessionTypeId");
   const startDate = searchParams.get("startDate");
+  const staffIdParam = searchParams.get("staffId"); // optional — filter to specific staff
 
   if (!type || !sessionTypeId || !startDate) {
     return NextResponse.json(
@@ -140,8 +141,11 @@ export async function GET(req: Request) {
     );
   }
 
-  // Determine staff ID filter
-  const staffId = STAFF_IDS[type] ?? null;
+  // Determine staff ID filter — explicit param overrides type-based defaults
+  const staffId =
+    staffIdParam && Number.isFinite(Number(staffIdParam))
+      ? staffIdParam
+      : STAFF_IDS[type] ?? null;
 
   // Parse start date — scan starts from the NEXT day
   const [y, m, d] = startDate.split("-").map(Number);
