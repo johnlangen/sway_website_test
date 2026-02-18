@@ -1381,7 +1381,7 @@ function BookServicePage() {
     "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
 
   const primaryBtn =
-    "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:opacity-90 active:scale-[0.98] transition-all duration-200 disabled:opacity-40 disabled:active:scale-100";
+    "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
 
   const secondaryBtn =
     "w-full rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200";
@@ -1442,15 +1442,24 @@ function BookServicePage() {
       <div className="px-4 pt-24 md:pt-28 pb-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Hero */}
-          <div className="mb-8 md:mb-10 animate-fade-in">
-            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
-              Book Your{" "}
+          <div className="mb-10 md:mb-12 animate-fade-in">
+            <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
+              Sway Wellness Spa
+            </p>
+            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4 leading-tight">
               {category === "massage"
                 ? "Massage"
                 : category === "facial"
                   ? "Facial"
                   : "Treatment"}
             </h1>
+            <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-6">
+              {category === "massage"
+                ? "Expert therapists, personalized pressure, total relaxation."
+                : category === "facial"
+                  ? "Clinical-grade skincare tailored to your skin."
+                  : "Choose your service, pick a time, and we\u2019ll reserve it."}
+            </p>
           </div>
 
           {/* Error banner */}
@@ -1486,10 +1495,10 @@ function BookServicePage() {
                     <button
                       key={svc.id}
                       onClick={() => handleSelectService(svc)}
-                      className={`group relative overflow-hidden rounded-3xl border text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 animate-fade-in-up ${
+                      className={`group relative overflow-hidden rounded-2xl border text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 animate-fade-in-up ${
                         selected
-                          ? "border-[#113D33] bg-white shadow-lg ring-2 ring-[#113D33]/20"
-                          : "border-[#113D33]/10 bg-white shadow-sm hover:shadow-lg hover:-translate-y-0.5"
+                          ? "border-[#113D33] bg-white shadow-xl ring-1 ring-[#113D33]/20 scale-[1.02]"
+                          : "border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-lg hover:-translate-y-1"
                       }`}
                       style={{ animationDelay: `${i * 60}ms` }}
                     >
@@ -1500,37 +1509,33 @@ function BookServicePage() {
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                         {selected && (
-                          <div className="absolute top-3 right-3 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full font-medium animate-scale-in">
+                          <div className="absolute top-3 right-3 bg-[#113D33] text-white text-[10px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full flex items-center gap-1 animate-scale-in">
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
                             Selected
                           </div>
                         )}
-                      </div>
-                      <div className="p-4">
-                        <div className="flex items-start justify-between gap-3">
-                          <div>
-                            <div className="font-semibold text-[#113D33] text-base">
-                              {svc.name}
-                            </div>
-                            {svc.subtitle && (
-                              <div className="text-xs text-[#113D33]/50 mt-0.5">
-                                {svc.subtitle}
-                              </div>
-                            )}
-                          </div>
-                          <div className="text-right shrink-0">
-                            <div className="text-sm font-semibold text-[#113D33]">
-                              ${svc.memberPrice}
-                              <span className="text-[#113D33]/40 font-normal"> / </span>
-                              <span className="text-[#113D33]/50 font-normal">${svc.dropInPrice}</span>
-                            </div>
-                            <div className="text-[10px] text-[#113D33]/40 mt-0.5">
-                              member / drop-in · {svc.minutes} min
-                            </div>
+                        {/* Price overlay */}
+                        <div className="absolute bottom-3 right-3">
+                          <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
+                            <div className="text-sm font-bold text-[#113D33]">${svc.memberPrice}<span className="font-normal text-[#113D33]/40"> / </span><span className="font-normal text-[#113D33]/50">${svc.dropInPrice}</span></div>
+                            <div className="text-[10px] text-[#113D33]/50">{svc.minutes} min</div>
                           </div>
                         </div>
-                        <p className="text-sm text-[#113D33]/60 mt-2 leading-relaxed">
+                      </div>
+                      <div className="p-4">
+                        <div className="font-semibold text-[#113D33] text-base">
+                          {svc.name}
+                        </div>
+                        {svc.subtitle && (
+                          <div className="text-xs text-[#4A776D]/70 mt-0.5">
+                            {svc.subtitle}
+                          </div>
+                        )}
+                        <p className="text-sm text-[#113D33]/50 mt-1.5 leading-relaxed">
                           {svc.description}
                         </p>
                       </div>
@@ -1548,9 +1553,9 @@ function BookServicePage() {
             <div className="animate-fade-in-up">
               {/* Selected service mini-card */}
               {selectedService && (
-                <div className="mb-6 bg-white border border-[#113D33]/10 rounded-2xl p-4 text-left shadow-sm">
+                <div className="mb-6 bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 text-left shadow-sm">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0">
+                    <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
                       <Image
                         src={selectedService.image}
                         alt={selectedService.name}
@@ -1571,10 +1576,10 @@ function BookServicePage() {
               )}
 
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-[#113D33] mb-1">
+                <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">
                   Optional Boosts
                 </h2>
-                <p className="text-sm text-[#113D33]/60">
+                <p className="text-sm text-[#113D33]/50">
                   Enhance your {category}. Super Boosts add extra time. Select any or skip.
                 </p>
               </div>
@@ -1703,9 +1708,9 @@ function BookServicePage() {
             <div className="animate-fade-in-up">
               {/* Treatment summary */}
               {selectedService && (
-                <div className="mb-6 bg-white border border-[#113D33]/10 rounded-2xl p-4 text-left shadow-sm">
+                <div className="mb-6 bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 text-left shadow-sm">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0">
+                    <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
                       <Image
                         src={selectedService.image}
                         alt={selectedService.name}
@@ -1730,7 +1735,7 @@ function BookServicePage() {
 
               {/* Week navigator */}
               <section className="mb-8">
-                <h2 className="text-lg font-semibold text-[#113D33] mb-4">Choose a Day</h2>
+                <h2 className="text-lg font-semibold text-[#113D33]/80 mb-4">Choose a Day</h2>
                 <div className="flex items-center justify-center gap-1">
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
@@ -1827,7 +1832,7 @@ function BookServicePage() {
 
               {/* Time slots */}
               <section className="mb-8">
-                <h2 className="text-lg font-semibold text-[#113D33] mb-4">Pick a Time</h2>
+                <h2 className="text-lg font-semibold text-[#113D33]/80 mb-4">Pick a Time</h2>
 
                 {(loading || schedulesLoading) && (
                   <div className="py-16 flex flex-col items-center gap-3 animate-fade-in">
@@ -2357,22 +2362,36 @@ function BookServicePage() {
              STEP: DONE
           ═══════════════════════════════════════ */}
           {step === "done" && (
-            <div className="max-w-md mx-auto pt-20 pb-12">
-              {/* Success checkmark */}
-              <div className="animate-check-pop mb-6">
-                <div className="w-16 h-16 rounded-full bg-[#113D33] mx-auto flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+            <div className="max-w-md mx-auto pt-10 pb-12">
+              {/* Hero image with overlay */}
+              <div className="relative rounded-2xl overflow-hidden mb-8 animate-fade-in">
+                <div className="relative h-48 w-full">
+                  {selectedService && (
+                    <Image
+                      src={selectedService.image}
+                      alt={selectedService.name}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="animate-check-pop mb-3">
+                      <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                        <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white animate-fade-in-up">
+                      You&apos;re booked!
+                    </h2>
+                  </div>
                 </div>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-2 animate-fade-in-up">
-                You&apos;re booked!
-              </h2>
-
               {selectedService && selectedSlot && (
-                <p className="text-[#113D33]/70 mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+                <p className="text-[#113D33] font-semibold text-lg mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
                   {selectedService.name} with {selectedSlot.staffName}
                 </p>
               )}
@@ -2384,13 +2403,13 @@ function BookServicePage() {
               )}
 
               {selectedSlot && (
-                <p className="text-[#113D33]/50 text-sm mb-8 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   {formatDayLabel(parseMindbodyDateTime(selectedSlot.startDateTime))} ·{" "}
                   {formatTimeRange(selectedSlot.startDateTime, totalMinutes)}
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/50 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Check your email for confirmation. We&apos;ll see you soon.
               </p>
 
@@ -2404,7 +2423,7 @@ function BookServicePage() {
 
               {/* Add another service */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">
                   Complete your visit
                 </p>
                 <Link

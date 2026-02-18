@@ -1180,16 +1180,6 @@ export default function BookAescapePage() {
                 </div>
               </section>
 
-              {/* Selection summary */}
-              <div className="mb-8 max-w-lg mx-auto rounded-2xl border border-[#113D33]/10 bg-white/80 backdrop-blur-sm p-4 animate-fade-in">
-                <div className="text-[10px] uppercase tracking-[0.15em] text-[#4A776D] font-semibold mb-1">
-                  Your selection
-                </div>
-                <div className="font-semibold text-[#113D33] text-sm">
-                  {summaryText ?? "Select a session and time to continue."}
-                </div>
-              </div>
-
               <div className="max-w-md mx-auto">
                 <button
                   onClick={() => {
