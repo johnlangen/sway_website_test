@@ -1214,52 +1214,41 @@ export default function BookAescapePage() {
                   {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </p>
 
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-center gap-1">
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
-                    className="px-3 py-2 rounded-xl border border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    disabled={weekStart <= today}
+                    className="p-2 rounded-full hover:bg-[#113D33]/5 disabled:opacity-20 transition-all duration-150"
                     aria-label="Previous week"
                   >
-                    ←
+                    <svg className="w-5 h-5 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
                   </button>
 
-                  <div className="flex gap-2 overflow-x-auto py-1 px-1">
+                  <div className="flex gap-1.5 overflow-x-auto scrollbar-hide px-1">
                     {weekDays.map((day) => {
                       const iso = formatISO(day);
-                      const isToday = isSameDayISO(iso, formatISO(today));
-                      const isTomorrow = isSameDayISO(
-                        iso,
-                        formatISO(addDays(today, 1))
-                      );
-                      const weekend = isWeekend(day);
+                      const isPast = day < today && iso !== formatISO(today);
                       const selected = iso === selectedDate;
-
-                      const label = isToday
-                        ? "Today"
-                        : isTomorrow
-                        ? "Tomorrow"
-                        : formatDayLabel(day);
+                      const dayName = day.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
+                      const dayNum = day.getDate();
 
                       return (
                         <button
                           key={iso}
+                          disabled={isPast}
                           onClick={() => setSelectedDate(iso)}
-                          className={`px-4 py-3 rounded-xl whitespace-nowrap transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                             selected
-                              ? "bg-[#113D33] text-white shadow-md"
-                              : "border border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm text-[#113D33]"
+                              ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20"
+                              : isPast
+                                ? "opacity-25 cursor-not-allowed"
+                                : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"
                           }`}
                         >
-                          <div className="flex flex-col items-center leading-none">
-                            <div className="text-sm font-semibold">{label}</div>
-                            <div
-                              className={`text-[11px] mt-2 ${
-                                selected ? "text-white/70" : "text-[#113D33]/40"
-                              }`}
-                            >
-                              {weekend ? "Weekend" : " "}
-                            </div>
-                          </div>
+                          <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
+                          <span className="text-lg font-bold leading-tight">{dayNum}</span>
                         </button>
                       );
                     })}
@@ -1267,10 +1256,12 @@ export default function BookAescapePage() {
 
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, 7))}
-                    className="px-3 py-2 rounded-xl border border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    className="p-2 rounded-full hover:bg-[#113D33]/5 transition-all duration-150"
                     aria-label="Next week"
                   >
-                    →
+                    <svg className="w-5 h-5 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
                   </button>
                 </div>
               </section>
