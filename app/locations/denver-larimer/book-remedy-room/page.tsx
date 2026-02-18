@@ -325,7 +325,7 @@ type CardContext = "create_account" | "add_card" | null;
 
 /* ─── PROGRESS BAR ─── */
 
-function ProgressBar({ step }: { step: Step }) {
+function ProgressBar({ step, dark = false }: { step: Step; dark?: boolean }) {
   const displaySteps = ["Service", "Time", "Account", "Confirm"];
 
   const stepToIdx: Partial<Record<Step, number>> = {
@@ -342,9 +342,9 @@ function ProgressBar({ step }: { step: Step }) {
 
   return (
     <div className="animate-fade-in">
-      <div className="h-1 rounded-full bg-[#113D33]/8 overflow-hidden">
+      <div className={`h-1 rounded-full overflow-hidden ${dark ? "bg-white/10" : "bg-[#113D33]/8"}`}>
         <div
-          className="h-full bg-[#113D33] rounded-full transition-all duration-500 ease-out"
+          className={`h-full rounded-full transition-all duration-500 ease-out ${dark ? "bg-white" : "bg-[#113D33]"}`}
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -353,9 +353,9 @@ function ProgressBar({ step }: { step: Step }) {
           <span
             key={label}
             className={`text-[10px] uppercase tracking-wider transition-colors duration-300 ${
-              i <= displayIdx
-                ? "text-[#113D33] font-semibold"
-                : "text-[#113D33]/25"
+              dark
+                ? i <= displayIdx ? "text-white font-semibold" : "text-white/25"
+                : i <= displayIdx ? "text-[#113D33] font-semibold" : "text-[#113D33]/25"
             }`}
           >
             {label}
@@ -1017,12 +1017,18 @@ export default function BookRemedyRoomPage() {
   const showHeader = step !== "done";
   const showHeaderBack = step === "select" || step === "email" || step === "card" || step === "confirm";
 
+  const isDarkStep = step === "select";
+
   return (
-    <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">
+    <div className={`min-h-screen font-vance snap-none ${isDarkStep ? "bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" : "bg-[#F7F4E9]"}`}>
       {showHeader && (
         <div
           data-booking-header="true"
-          className="sticky top-[56px] z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
+          className={`sticky top-[56px] z-30 border-b backdrop-blur-md ${
+            isDarkStep
+              ? "border-white/10 bg-[#113D33]/90"
+              : "border-[#113D33]/10 bg-[#F7F4E9]/95"
+          }`}
         >
           <div className="max-w-3xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between mb-2">
@@ -1030,7 +1036,11 @@ export default function BookRemedyRoomPage() {
                 <button
                   type="button"
                   onClick={handleHeaderBack}
-                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-[#113D33] hover:bg-[#113D33]/5 active:bg-[#113D33]/10 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[#113D33]/25"
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-all duration-150 focus:outline-none focus:ring-2 ${
+                    isDarkStep
+                      ? "text-white hover:bg-white/10 active:bg-white/15 focus:ring-white/25"
+                      : "text-[#113D33] hover:bg-[#113D33]/5 active:bg-[#113D33]/10 focus:ring-[#113D33]/25"
+                  }`}
                   aria-label="Go back"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -1041,68 +1051,91 @@ export default function BookRemedyRoomPage() {
               ) : (
                 <span className="w-16" />
               )}
-              <div className="text-sm font-semibold text-[#113D33]">
+              <div className={`text-sm font-semibold ${isDarkStep ? "text-white" : "text-[#113D33]"}`}>
                 {stepTitle}
               </div>
               <span className="w-16" />
             </div>
-            <ProgressBar step={step} />
+            <ProgressBar step={step} dark={isDarkStep} />
           </div>
         </div>
       )}
 
-      <div className="px-4 pt-24 md:pt-28 pb-20">
+      <div className={`px-4 ${isDarkStep ? "pt-24 md:pt-28" : "pt-24 md:pt-28"} pb-20`}>
         <div className="max-w-3xl mx-auto text-center">
           {/* Hero + session card + summary — only on select step */}
           {step === "select" && (
             <>
-              <div className="mb-8 md:mb-10">
-                <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
-                  Book the Remedy Room
+              {/* Dark immersive hero */}
+              <div className="mb-10 md:mb-12">
+                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
+                  Sway Wellness Spa
+                </p>
+                <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                  The Remedy Room
                 </h1>
+                <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-6">
+                  Science-backed recovery in a shared sanctuary. Cold plunge, infrared sauna, LED therapy, and lymphatic compression — all in one 40-minute session.
+                </p>
 
-                <div className="hidden md:flex items-center justify-center gap-3 flex-wrap mb-4">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                    Cold plunge • Sauna recovery
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                    LED Light Therapy
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                    Lymphatic Compression
-                  </div>
+                <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
+                  {["Cold Plunge", "Infrared Sauna", "LED Therapy", "Compression"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 text-xs text-white/80"
+                    >
+                      <IconSpark className="w-3 h-3 text-[#9ABFB3]" />
+                      {tag}
+                    </span>
+                  ))}
                 </div>
 
-                <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
-                  Step into the Remedy Room and experience science-backed recovery. Swimsuit or athleisure required. Sessions are shared with up to three guests. Private sessions are available upon request, please call to book.
-                </p>
+                {/* Session image + pricing */}
+                <div className="max-w-lg mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
+                  <div className="relative h-48 w-full">
+                    <ImageCarousel
+                      images={[
+                        "/assets/remedy-room.jpg",
+                        "/assets/remedy-room2.jpg",
+                        "/assets/remedy-room3.jpg",
+                      ]}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+                      <div className="text-left">
+                        <div className="text-white font-semibold text-lg">{selectedOption.label}</div>
+                        <div className="text-white/70 text-sm">{selectedOption.minutes} min • Shared session</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-white font-bold text-lg">{selectedOption.price}</div>
+                        <div className="text-white/60 text-xs">Members $25</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <div className="mt-4 flex items-center justify-center gap-4 text-sm">
                   <Link
                     href="/remedy-tech"
-                    className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+                    className="text-gray-400 underline underline-offset-4 hover:text-white transition"
                   >
-                    Learn about the Remedy Room
+                    Learn more
                   </Link>
                   <Link
                     href="/offers"
-                    className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+                    className="text-gray-400 underline underline-offset-4 hover:text-white transition"
                   >
                     View offers
                   </Link>
                 </div>
               </div>
 
-              <RemedySessionCard option={selectedOption} />
-
-              <div className="mb-8 md:mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
-                <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
+              {/* Selection summary */}
+              <div className="mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
+                <div className="text-xs uppercase tracking-wider text-[#9ABFB3] mb-1">
                   Your selection
                 </div>
-                <div className="font-semibold text-[#113D33]">
+                <div className="font-semibold text-white">
                   {summaryText ?? "Select a day and time to continue."}
                 </div>
               </div>
@@ -1112,13 +1145,13 @@ export default function BookRemedyRoomPage() {
           {step === "select" && (
             <div ref={selectRef}>
               {/* Day picker */}
-              <section className="mb-12 md:mb-14">
-                <h2 className="text-xl font-semibold mb-4">1. Choose a Day</h2>
+              <section className="mb-10 md:mb-12">
+                <h2 className="text-lg font-semibold text-white/90 mb-4">Choose a Day</h2>
 
                 <div className="flex items-center justify-center gap-2">
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
-                    className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    className="px-3 py-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white transition focus:outline-none focus:ring-2 focus:ring-white/20"
                     aria-label="Previous week"
                   >
                     ←
@@ -1138,17 +1171,17 @@ export default function BookRemedyRoomPage() {
                         <button
                           key={iso}
                           onClick={() => setSelectedDate(iso)}
-                          className={`px-4 py-3 rounded-xl whitespace-nowrap transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                          className={`px-4 py-3 rounded-xl whitespace-nowrap transition focus:outline-none focus:ring-2 focus:ring-white/20 ${
                             selected
-                              ? "bg-[#113D33] text-white"
-                              : "border border-[#113D33]/25 bg-white/70 hover:bg-white text-[#113D33]"
+                              ? "bg-white text-[#113D33] shadow-lg"
+                              : "border border-white/15 bg-white/5 hover:bg-white/10 text-white"
                           }`}
                         >
                           <div className="flex flex-col items-center leading-none">
                             <div className="text-sm font-semibold">{label}</div>
                             <div
                               className={`text-[11px] mt-2 ${
-                                selected ? "text-white/80" : "text-[#113D33]/60"
+                                selected ? "text-[#113D33]/60" : "text-white/40"
                               }`}
                             >
                               {weekend ? "Weekend" : " "}
@@ -1161,7 +1194,7 @@ export default function BookRemedyRoomPage() {
 
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, 7))}
-                    className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    className="px-3 py-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white transition focus:outline-none focus:ring-2 focus:ring-white/20"
                     aria-label="Next week"
                   >
                     →
@@ -1172,22 +1205,22 @@ export default function BookRemedyRoomPage() {
               {/* Times */}
               <section className="mb-8 md:mb-10 text-left">
                 <div className="flex items-center justify-between gap-4 mb-4">
-                  <h2 className="text-xl font-semibold text-center flex-1">
-                    2. Choose a Time
+                  <h2 className="text-lg font-semibold text-white/90 text-center flex-1">
+                    Choose a Time
                   </h2>
 
                   {!loading && !error && times.length > 0 && (
                     <button
                       onClick={() => setShowAllTimes((v) => !v)}
-                      className="text-sm px-4 py-2 rounded-full border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                      className="text-sm px-4 py-2 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-white/80 transition focus:outline-none focus:ring-2 focus:ring-white/20"
                     >
                       {showAllTimes ? "Show recommended" : "Show all times"}
                     </button>
                   )}
                 </div>
 
-                {loading && <p className="text-center text-[#113D33]/70">Loading…</p>}
-                {error && <p className="text-center text-red-700">{error}</p>}
+                {loading && <p className="text-center text-white/50">Loading…</p>}
+                {error && <p className="text-center text-red-400">{error}</p>}
 
                 {!loading &&
                   !error &&
@@ -1195,11 +1228,11 @@ export default function BookRemedyRoomPage() {
                     ([label, group]) =>
                       group.length > 0 && (
                         <div key={label} className="mb-6">
-                          <h3 className="text-sm uppercase tracking-wide text-[#113D33]/60 mb-2">
+                          <h3 className="text-xs uppercase tracking-wider text-white/40 font-semibold mb-2">
                             {label}
                           </h3>
 
-                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
                             {group.map((time) => {
                               const isSelected = selectedTime?.getTime() === time.getTime();
                               const timeKey = `${String(time.getHours()).padStart(2, "0")}:${String(time.getMinutes()).padStart(2, "0")}`;
@@ -1210,10 +1243,10 @@ export default function BookRemedyRoomPage() {
                                 <button
                                   key={time.toISOString()}
                                   onClick={() => setSelectedTime(time)}
-                                  className={`py-2.5 rounded-xl border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                                  className={`py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
                                     isSelected
-                                      ? "bg-[#113D33] text-white border-[#113D33]"
-                                      : "border-[#113D33]/25 bg-white/60 hover:bg-white text-[#113D33]"
+                                      ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10 scale-[1.02]"
+                                      : "border-white/15 bg-white/5 hover:bg-white/10 text-white hover:-translate-y-0.5"
                                   }`}
                                 >
                                   <div className="font-semibold text-sm">
@@ -1224,11 +1257,11 @@ export default function BookRemedyRoomPage() {
                                       className={`text-[10px] mt-0.5 ${
                                         isSelected
                                           ? spotsLeft === 1
-                                            ? "text-amber-200"
-                                            : "text-white/60"
-                                          : spotsLeft === 1
                                             ? "text-amber-600"
-                                            : "text-[#113D33]/40"
+                                            : "text-[#113D33]/50"
+                                          : spotsLeft === 1
+                                            ? "text-amber-300"
+                                            : "text-white/40"
                                       }`}
                                     >
                                       {spotsLeft === 1
@@ -1245,7 +1278,7 @@ export default function BookRemedyRoomPage() {
                   )}
 
                 {!loading && !error && times.length === 0 && (
-                  <div className="text-center text-[#113D33]/70">
+                  <div className="text-center text-white/50">
                     <p>No times available for this day.</p>
                     <NextAvailableBanner
                       type="remedy"
@@ -1269,14 +1302,14 @@ export default function BookRemedyRoomPage() {
                     setError(null);
                     setStep("email");
                   }}
-                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
                 >
                   Continue
                 </button>
 
-                <div className="mt-5 text-center text-xs text-[#113D33]/60">
+                <div className="mt-5 text-center text-xs text-white/40">
                   Prefer to book with staff?{" "}
-                  <a className="underline underline-offset-4" href="tel:3034766150">
+                  <a className="underline underline-offset-4 hover:text-white/70 transition" href="tel:3034766150">
                     Call (303) 476-6150
                   </a>
                 </div>
@@ -1687,39 +1720,51 @@ export default function BookRemedyRoomPage() {
 
           {/* DONE */}
           {step === "done" && (
-            <div ref={doneRef} className="max-w-md mx-auto pt-20 pb-12">
-              {/* Success checkmark */}
-              <div className="animate-check-pop mb-6">
-                <div className="w-16 h-16 rounded-full bg-[#113D33] mx-auto flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+            <div ref={doneRef} className="max-w-md mx-auto pt-10 pb-12">
+              {/* Hero image with overlay */}
+              <div className="relative rounded-2xl overflow-hidden mb-8 animate-fade-in">
+                <div className="relative h-48 w-full">
+                  <Image
+                    src="/assets/remedy-room.jpg"
+                    alt="Remedy Room"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="animate-check-pop mb-3">
+                      <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                        <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white animate-fade-in-up">
+                      You&apos;re booked!
+                    </h2>
+                  </div>
                 </div>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-2 animate-fade-in-up">
-                You&apos;re booked!
-              </h2>
-
               {selectedTime && (
-                <p className="text-[#113D33]/70 mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+                <p className="text-[#113D33] font-semibold text-lg mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
                   {selectedOption.label}
                 </p>
               )}
 
               {selectedTime && (
-                <p className="text-[#113D33]/50 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   {formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, selectedOption.minutes)}
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mt-4 mb-6 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
-                Please remember to bring a swimsuit or athleisure. Check your email for confirmation.
+              <p className="text-[#113D33]/50 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+                Please bring a swimsuit or athleisure. Check your email for confirmation details.
               </p>
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">
                   Complete your visit
                 </p>
                 <Link
