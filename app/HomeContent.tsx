@@ -3,20 +3,159 @@
 import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import Image from "next/image";
-import React, { useState } from "react";
-export default function HomeContent() {
-  const [loadedA, setLoadedA] = useState(false);
-  const [loadedB, setLoadedB] = useState(false);
-  const [loadedC, setLoadedC] = useState(false);
-  const [loadedD, setLoadedD] = useState(false);
-  const [loadedE, setLoadedE] = useState(false);
+import Link from "next/link";
 
+/* ---------------------------------------------
+   DATA
+--------------------------------------------- */
+
+const SERVICES = [
+  {
+    title: "Massage",
+    tagline: "Deep Tissue, Sports, CBD & more",
+    description:
+      "Personalized massage therapy for recovery and relief. Every session is customized to your body — 50 minutes of targeted care.",
+    price: "From $129",
+    memberPrice: "From $89",
+    image: "/assets/massage2.jpg",
+    bookHref: "/locations/denver-larimer/book-service?category=massage",
+    learnHref: "/massages",
+  },
+  {
+    title: "Facials",
+    tagline: "Forever Young, Glow Getter & more",
+    description:
+      "Results-driven facials with Eminence Organics and Dr. Dennis Gross — anti-aging, hydration, and deep pore care.",
+    price: "From $129",
+    memberPrice: "From $89",
+    image: "/assets/facial5.jpg",
+    bookHref: "/locations/denver-larimer/book-service?category=facial",
+    learnHref: "/facials",
+  },
+  {
+    title: "Remedy Room",
+    tagline: "Sauna + cold plunge recovery",
+    description:
+      "Sauna, cold plunge, red light therapy, and Normatec compression — all in one 40-minute recovery session.",
+    price: "$49",
+    memberPrice: "$25",
+    image: "/assets/remedy-room2.jpg",
+    bookHref: "/locations/denver-larimer/book-remedy-room",
+    learnHref: "/remedy-tech",
+  },
+  {
+    title: "Aescape",
+    tagline: "AI-powered precision massage",
+    description:
+      "Personalized pressure mapping and real-time muscle detection — the future of massage. Sessions from 15 to 60 minutes.",
+    price: "From $49",
+    memberPrice: null,
+    image: "/assets/aescapeblog6.jpg",
+    bookHref: "/locations/denver-larimer/book-aescape",
+    learnHref: "/aescape",
+  },
+] as const;
+
+const PRICING_CARDS = [
+  {
+    title: "Facial",
+    items: ["Forever Young", "Glow Getter", "Pore Perfection", "Sensitive Silk"],
+    memberPrice: "$99",
+    dropInPrice: "$139",
+    duration: "50 min",
+    boosts: [
+      { label: "Add a Boost", member: "$30", dropIn: "$60" },
+      { label: "Add a Super Boost", member: "$50", dropIn: "$100" },
+    ],
+  },
+  {
+    title: "Massage",
+    items: ["Deep Tissue", "Swedish", "Hot Stone", "CBD"],
+    memberPrice: "$99",
+    dropInPrice: "$139",
+    duration: "50 min",
+    boosts: [
+      { label: "Add a Boost", member: "$30", dropIn: "$60" },
+      { label: "Add a Super Boost", member: "$50", dropIn: "$100" },
+    ],
+  },
+  {
+    title: "Remedy Room",
+    items: ["Cold Plunge", "Sauna", "Light Therapy", "Lymphatic Boots"],
+    memberPrice: "$25",
+    dropInPrice: "$49",
+    duration: "40 min",
+    boosts: [],
+  },
+  {
+    title: "Aescape",
+    items: ["AI Body Mapping", "Personalized Pressure", "Full Body", "Targeted Areas"],
+    memberPrice: null,
+    dropInPrice: "From $49",
+    duration: "15–60 min",
+    boosts: [],
+  },
+] as const;
+
+const CONNECT_ITEMS = [
+  {
+    image: "/assets/homepage_photo11.jpg",
+    label: "SWAY ON SPOTIFY",
+    href: "#",
+    external: true,
+  },
+  {
+    image: "/assets/homepage_photo12.png",
+    label: "IN THE PRESS",
+    href: "/press",
+    external: false,
+  },
+  {
+    image: "/assets/homepage_photo13.jpg",
+    label: "@SWAYWELLNESSCLUB",
+    href: "https://www.instagram.com/swaywellnessclub/",
+    external: true,
+  },
+  {
+    image: "/assets/homepage_photo14.png",
+    label: "ON THE APP",
+    href: "#",
+    external: true,
+  },
+] as const;
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the Remedy Room?",
+    a: "The Remedy Room is our modern recovery experience — typically featuring sauna, cold plunge, and select recovery tech designed to help you reset.",
+  },
+  {
+    q: "What is Aescape?",
+    a: "Aescape is an AI-powered massage experience designed for modern recovery. It's a separate offering from therapist-led massage therapy.",
+  },
+  {
+    q: "Do you offer memberships?",
+    a: "Yes. Sway is built around consistent care — memberships offer preferred pricing, perks, and an easier way to make wellness a ritual.",
+  },
+  {
+    q: "What should I book for a first visit?",
+    a: "Most guests start with a 50-minute facial or massage. If you want recovery-focused benefits, the Remedy Room is a great add-on.",
+  },
+  {
+    q: "How do I book?",
+    a: "You can schedule online anytime. If you have questions, you can also call the spa and our team will help you choose the right experience.",
+  },
+] as const;
+
+/* ---------------------------------------------
+   COMPONENT
+--------------------------------------------- */
+
+export default function HomeContent() {
   return (
     <div className="snap-container w-full overflow-hidden max-w-screen">
-
       {/* ======================================================
-          Hero Video
-          (Add a hidden H1 + a tiny semantic anchor without changing design)
+          1. Hero Video
           ====================================================== */}
       <section className="snap-section min-h-screen flex items-center justify-center">
         <h1 className="sr-only">
@@ -31,578 +170,419 @@ export default function HomeContent() {
       </section>
 
       {/* ======================================================
-          Intro (your original)
+          2. Brand Statement
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-lg md:text-2xl lg:text-3xl text-center max-w-3xl leading-relaxed font-vance"
-        >
-          Ever feel like you need an escape from the hustle and bustle of the
-          city? We created a wellness club where you can pause, breathe, and
-          rediscover yourself.
-        </motion.p>
-      </section>
-
-      {/* ======================================================
-          NEW: “What is Sway?” (short, elegant, not Denver-locked)
-          This adds clarity for SEO without changing your aesthetic.
-          ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="max-w-4xl text-center font-vance"
+          viewport={{ once: true }}
+          className="max-w-3xl text-center font-vance"
         >
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">
-            A modern wellness spa and club
+          <p className="text-xl md:text-3xl lg:text-4xl leading-relaxed mb-10">
+            Ever feel like you need an escape from the hustle and bustle of the
+            city? We created a wellness club where you can pause, breathe, and
+            rediscover yourself.
+          </p>
+
+          <h2 className="text-sm md:text-base uppercase tracking-[0.15em] text-[#4A776D] mb-4">
+            A Modern Wellness Spa & Club
           </h2>
-          <p className="text-base md:text-lg lg:text-xl leading-relaxed opacity-90">
+          <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-xl mx-auto">
             Sway blends expert-led care with modern recovery. From personalized
             massage therapy and facials to sauna and cold plunge rituals and the
             AI-powered Aescape massage experience, everything is designed to
             help you feel better — consistently.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
               href="/offers"
-              className="bg-[#113D33] text-white px-6 py-3 text-sm md:text-base font-bold rounded-md hover:bg-[#0a2b23]"
+              className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
             >
               New Guest Offer
-            </a>
-            <a
+            </Link>
+            <Link
               href="/membership"
-              className="border border-[#113D33] text-[#113D33] px-6 py-3 text-sm md:text-base font-bold rounded-md hover:bg-[#113D33] hover:text-white transition"
+              className="border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
             >
               Explore Membership
-            </a>
-          </div>
-
-          {/* Future-ready: if /locations exists later, this becomes valuable.
-              If it doesn’t exist yet, it’s still fine to keep hidden.
-              You can remove "hidden" when you launch /locations. */}
-          <div className="mt-5 hidden">
-            <a
-              href="/locations"
-              className="text-sm md:text-base text-[#113D33] underline underline-offset-4 hover:opacity-80"
-            >
-              Find a location
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>
 
       {/* ======================================================
-          Staggered Images (your original)
+          3a–3d. Services Showcase
           ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col lg:flex-row items-center justify-center bg-[#f4f4f1] px-6 lg:px-8 gap-12">
-        <motion.div
-          initial={{ opacity: 0, x: -50, y: -50 }}
-          whileInView={loadedA ? { opacity: 1, x: 0, y: 0 } : {}}
-          onViewportEnter={() => setLoadedA(true)}
-          transition={{ duration: 1 }}
-          className="flex justify-center lg:justify-end"
+      {SERVICES.map((service, i) => (
+        <section
+          key={service.title}
+          className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6 md:px-10"
         >
-          <Image
-            src="/assets/homepage_photo_a.jpg"
-            alt="Sway Lounge"
-            width={600}
-            height={400}
-            className="rounded-lg shadow-lg object-cover w-full max-w-[600px]"
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-[#113D33] text-center lg:text-left font-vance max-w-xl"
-        >
-          <p className="text-lg md:text-2xl lg:text-3xl leading-relaxed">
-            Forget the world’s noise. It’s time to listen to what your soul
-            craves.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 50, y: 50 }}
-          whileInView={loadedB ? { opacity: 1, x: 0, y: 0 } : {}}
-          onViewportEnter={() => setLoadedB(true)}
-          transition={{ duration: 1 }}
-          className="flex justify-center lg:justify-start"
-        >
-          <Image
-            src="/assets/homepage_photo2.jpg"
-            alt="Sway Sauna"
-            width={600}
-            height={400}
-            className="rounded-lg shadow-lg object-cover w-full max-w-[600px]"
-          />
-        </motion.div>
-      </section>
-
-      {/* ======================================================
-          Magic Wellness (your original)
-          ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-lg md:text-2xl lg:text-3xl text-center max-w-3xl font-vance"
-        >
-          Wellness is that magic that happens when you genuinely feel good.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={loadedC ? { opacity: 1, y: 0 } : {}}
-          onViewportEnter={() => setLoadedC(true)}
-          transition={{ duration: 1 }}
-          className="flex justify-center mt-6"
-        >
-          <Image
-            src="/assets/homepage_photo4.jpg"
-            alt="Wellness Magic"
-            width={600}
-            height={400}
-            className="rounded-lg shadow-lg object-cover w-full max-w-[600px]"
-          />
-        </motion.div>
-      </section>
-
-      {/* ======================================================
-          Glow Recipe (your original)
-          ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col lg:flex-row items-center justify-center bg-[#f4f4f1] px-6 lg:px-8 gap-12">
-        <motion.p
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          className="text-lg md:text-xl text-center lg:text-left max-w-md font-vance"
-        >
-          We all deserve a space where we can unwind, reflect, and just be.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={loadedD ? { opacity: 1, scale: 1 } : {}}
-          onViewportEnter={() => setLoadedD(true)}
-          transition={{ duration: 1 }}
-          className="flex justify-center"
-        >
-          <Image
-            src="/assets/homepage_photo15.jpg"
-            alt="Glow Recipe"
-            width={600}
-            height={400}
-            className="rounded-lg shadow-lg object-contain w-full max-w-[600px]"
-          />
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          className="text-lg md:text-xl text-center lg:text-right max-w-md font-vance"
-        >
-          Imagine a world where self-care means ease, and beauty is celebrated
-          in its raw form.
-        </motion.p>
-      </section>
-
-      {/* ======================================================
-          Storefront (your original)
-          ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-lg md:text-2xl lg:text-3xl text-center max-w-3xl font-vance"
-        >
-          In our wellness club, self-care is not a luxury; it’s a necessity.
-          Let Sway be your happy place.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={loadedE ? { opacity: 1, y: 0 } : {}}
-          onViewportEnter={() => setLoadedE(true)}
-          transition={{ duration: 1 }}
-          className="flex justify-center mt-8"
-        >
-          <Image
-            src="/assets/homepage_photo_outside.jpg"
-            alt="Sway Wellness Club Outside"
-            width={900}
-            height={500}
-            className="rounded-lg shadow-lg object-contain w-full max-w-[900px]"
-          />
-        </motion.div>
-      </section>
-
-      {/* ======================================================
-          Flip Cards (your original)
-          ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] px-4 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-          {[
-            {
-              id: 1,
-              image: "/assets/homepage_photo_b.jpg",
-              text: "It’s not only a massage, it’s relaxing into your deepest state.",
-            },
-            {
-              id: 2,
-              image: "/assets/homepage_photo7.jpg",
-              text: "It’s not just high-tech facials, it’s feeling your inner glow.",
-            },
-            {
-              id: 3,
-              image: "/assets/homepage_photo82.jpg",
-              text: "It’s not just a cold plunge or sauna, it’s mental clarity.",
-            },
-          ].map((card) => (
-            <div
-              key={card.id}
-              className="flip-card w-[160px] h-[200px] md:w-[320px] md:h-[480px] mx-auto"
+          <div
+            className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center w-full ${
+              i % 2 !== 0 ? "md:[direction:rtl]" : ""
+            }`}
+          >
+            {/* IMAGE */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className={i % 2 !== 0 ? "md:[direction:ltr]" : ""}
             >
-              <div className="flip-card-inner">
-                <div className="flip-card-front relative">
+              <Link href={service.bookHref}>
+                <div className="relative overflow-hidden rounded-2xl group">
                   <Image
-                    src={card.image}
-                    alt="Card"
-                    width={320}
-                    height={480}
-                    className="rounded-xl object-cover w-full h-full"
+                    src={service.image}
+                    alt={service.title}
+                    width={640}
+                    height={420}
+                    className="w-full h-[200px] sm:h-[300px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  <button className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-md hover:bg-[#0a2b23]">
-                    Learn More
-                  </button>
+                  {/* Price badge */}
+                  <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1.5 rounded-full">
+                    {service.price}
+                  </div>
                 </div>
-                <div className="flip-card-back flex items-center justify-center p-4">
-                  <p className="text-sm md:text-lg text-white">{card.text}</p>
+              </Link>
+            </motion.div>
+
+            {/* TEXT */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              viewport={{ once: true }}
+              className={`font-vance ${i % 2 !== 0 ? "md:[direction:ltr]" : ""}`}
+            >
+              <div className="text-xs uppercase tracking-[0.15em] opacity-50 mb-2">
+                {service.tagline}
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
+                {service.title}
+              </h2>
+              <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-4 max-w-md">
+                {service.description}
+              </p>
+
+              {/* Pricing line */}
+              <div className="flex items-baseline gap-3 mb-6 text-sm">
+                <span className="font-semibold">{service.price}</span>
+                {service.memberPrice && (
+                  <>
+                    <span className="opacity-40">|</span>
+                    <span className="text-[#4A776D] font-semibold">
+                      {service.memberPrice} for members
+                    </span>
+                  </>
+                )}
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href={service.bookHref}
+                  className="bg-[#113D33] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition"
+                >
+                  Book {service.title}
+                </Link>
+                <Link
+                  href={service.learnHref}
+                  className="text-sm font-medium underline underline-offset-4 opacity-70 hover:opacity-100 transition"
+                >
+                  Learn more
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      ))}
+
+      {/* ======================================================
+          4. First-Time Offer
+          ====================================================== */}
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="w-full max-w-4xl"
+        >
+          <Link
+            href="/offers"
+            className="group block rounded-3xl bg-[#113D33] text-white p-8 sm:p-10 md:p-14 hover:bg-[#0c2a23] transition"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+              <div>
+                <div className="text-xs uppercase tracking-[0.15em] text-white/50 mb-2">
+                  First-Time Guest Offer
                 </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-vance mb-3">
+                  $40 Off Your First Massage or Facial
+                </h2>
+                <p className="text-white/75 text-sm sm:text-base max-w-lg">
+                  Enjoy a 50-minute massage or facial for just $99 (regularly
+                  $139). Use code <strong>FTVO40</strong>. No membership required.
+                </p>
+              </div>
+              <div className="shrink-0">
+                <span className="inline-flex items-center gap-2 bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold group-hover:gap-3 transition-all">
+                  Book Now
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
-          ))}
-        </div>
+          </Link>
+        </motion.div>
       </section>
 
       {/* ======================================================
-          Experiences & Pricing (your original)
+          5. Experiences & Pricing
           ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] text-[#113D33] px-4 lg:px-16">
-        <div className="w-full max-w-5xl">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 font-vance text-center">
-            EXPERIENCES & PRICING
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-4 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="w-full max-w-5xl font-vance"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-3">
+            Experiences & Pricing
           </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-300 text-left text-xs md:text-base">
-              <thead>
-                <tr className="bg-[#113D33] text-white text-sm md:text-lg">
-                  <th className="p-2 md:p-4 font-bold">Service</th>
-                  <th className="p-2 md:p-4 font-bold">Description</th>
-                  <th className="p-2 md:p-4 font-bold">Member Price</th>
-                  <th className="p-2 md:p-4 font-bold">Drop-In Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  {
-                    service: "50 Min Facial",
-                    description:
-                      "Forever Young - Glow Getter - Pore Perfection - Sensitive Silk",
-                    member: "$99",
-                    dropIn: "$139",
-                    extras: [
-                      { description: "Add a Boost", member: "$30", dropIn: "$60" },
-                      { description: "Add a Super Boost", member: "$50", dropIn: "$100" },
-                    ],
-                  },
-                  {
-                    service: "50 Min Massage",
-                    description:
-                      "Deep Tissue - Swedish - Hot Stone - CBD Cause Medic",
-                    member: "$99",
-                    dropIn: "$139",
-                    extras: [
-                      { description: "Add a Boost", member: "$30", dropIn: "$60" },
-                      { description: "Add a Super Boost", member: "$50", dropIn: "$100" },
-                    ],
-                  },
-                  {
-                    service: "Remedy Room",
-                    description:
-                      "40 minutes - Cold Plunge, Sauna, Light Therapy, Lymphatic Boots",
-                    member: "$25",
-                    dropIn: "$49",
-                    extras: [],
-                  },
-                ].map((item, i) => (
-                  <React.Fragment key={i}>
-                    <tr className="border border-gray-300">
-                      <td className="p-2 md:p-4 font-bold">{item.service}</td>
-                      <td className="p-2 md:p-4">{item.description}</td>
-                      <td className="p-2 md:p-4 font-bold">{item.member}</td>
-                      <td className="p-2 md:p-4 font-bold">{item.dropIn}</td>
-                    </tr>
-                    {item.extras.map((extra, j) => (
-                      <tr key={j} className="border border-gray-300 text-gray-700">
-                        <td />
-                        <td className="p-2 md:p-4">{extra.description}</td>
-                        <td className="p-2 md:p-4 font-bold">{extra.member}</td>
-                        <td className="p-2 md:p-4 font-bold">{extra.dropIn}</td>
-                      </tr>
+          <p className="text-center text-sm md:text-base opacity-60 mb-8 md:mb-12">
+            Member pricing vs drop-in. No contracts required.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+            {PRICING_CARDS.map((card) => (
+              <div
+                key={card.title}
+                className="rounded-2xl bg-white/70 border border-[#113D33]/10 backdrop-blur-sm p-4 md:p-6 flex flex-col"
+              >
+                <h3 className="text-base md:text-lg font-semibold mb-0.5">
+                  {card.title}
+                </h3>
+                <p className="text-[10px] uppercase tracking-wider opacity-50 mb-3">
+                  {card.duration}
+                </p>
+
+                {/* Treatment list */}
+                <ul className="text-xs opacity-70 space-y-1 mb-4">
+                  {card.items.map((item) => (
+                    <li key={item} className="flex items-center gap-1.5">
+                      <span className="text-[#9ABFB3]">&#x2713;</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Pricing */}
+                <div className="mt-auto space-y-1.5 pt-3 border-t border-[#113D33]/10">
+                  {card.memberPrice && (
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-xs opacity-60">Member</span>
+                      <span className="text-base font-bold text-[#4A776D]">
+                        {card.memberPrice}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-xs opacity-60">
+                      {card.memberPrice ? "Drop-In" : "Price"}
+                    </span>
+                    <span className="text-base font-semibold">
+                      {card.dropInPrice}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Boosts */}
+                {card.boosts.length > 0 && (
+                  <div className="mt-3 pt-2 border-t border-[#113D33]/10 space-y-0.5">
+                    {card.boosts.map((boost) => (
+                      <div
+                        key={boost.label}
+                        className="flex justify-between text-[10px] opacity-60"
+                      >
+                        <span>{boost.label}</span>
+                        <span>
+                          {boost.member} / {boost.dropIn}
+                        </span>
+                      </div>
                     ))}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
-          <div className="mt-6 flex justify-center">
-            <a
-              href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#113D33] text-white px-6 py-3 text-md md:text-lg font-bold rounded-md hover:bg-[#0a2b23]"
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/locations/denver-larimer/book"
+              className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
             >
               Schedule Now
-            </a>
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ======================================================
-          Treatments Grid (your original; tiny microcopy tweaks are inside data)
-          ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col items-center justify-center bg-[#f4f4f1] px-4 lg:px-16">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.2 } },
-          }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-5xl"
-        >
-          {[
-            {
-              image: "/assets/treatment1.jpg",
-              text: "Facials",
-              link: "/facials",
-              description: "Advanced, glow-focused facials and skin treatments.",
-            },
-            {
-              image: "/assets/treatment3.jpg",
-              text: "Massage Therapy",
-              link: "/massages",
-              description: "Personalized massage therapy for recovery and relief.",
-            },
-            {
-              image: "/assets/aescape-treatment.jpg",
-              text: "Aescape",
-              link: "/aescape",
-              description: "AI-powered massage for modern recovery.",
-            },
-            {
-              image: "/assets/treatment2.jpg",
-              text: "Remedy Room",
-              link: "/remedy-tech",
-              description: "Sauna, cold plunge, red light, and lymphatic boots.",
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col items-center text-center"
-            >
-              <a href={item.link}>
-                <motion.img
-                  src={item.image}
-                  alt={item.text}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-md"
-                />
-              </a>
-              <a
-                href={item.link}
-                className="mt-2 text-sm md:text-lg font-semibold text-black hover:underline"
-              >
-                {item.text}
-              </a>
-              <p className="text-xs md:text-sm text-gray-700 max-w-[180px]">
-                {item.description}
-              </p>
-            </motion.div>
-          ))}
         </motion.div>
-
-        <p className="mt-6 text-center text-sm md:text-base max-w-2xl text-gray-800">
-          New here? Enjoy{" "}
-          <a href="/offers" className="text-[#113D33] font-semibold hover:underline">
-            $40 off your first massage or facial
-          </a>{" "}
-          with code <strong>FTVO40</strong>. Or explore our{" "}
-          <a
-            href="/membership"
-            className="text-[#113D33] font-semibold hover:underline"
-          >
-            membership plans
-          </a>{" "}
-          to save more.
-        </p>
       </section>
 
       {/* ======================================================
-          Photo Grid with OG Background (your original)
+          6. Connect / Social
           ====================================================== */}
-      <section className="snap-section relative min-h-screen flex items-center justify-center px-4 lg:px-16">
-        <img
-          src="/assets/OG/og-sway-way2.jpg"
-          alt="Sway Way background"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        />
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="w-full max-w-5xl font-vance text-center"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
+            Connect with Sway
+          </h2>
+          <p className="text-sm md:text-base opacity-60 mb-8 md:mb-12">
+            Follow along, read the press, or find us on the app.
+          </p>
 
-        <div className="relative z-20 grid grid-cols-2 md:grid-cols-4 gap-10 w-full max-w-6xl place-items-center">
-          {[
-            { image: "/assets/homepage_photo11.jpg", text: "SWAY ON SPOTIFY", link: "" },
-            { image: "/assets/homepage_photo12.png", text: "IN THE PRESS", link: "/press" },
-            {
-              image: "/assets/homepage_photo13.jpg",
-              text: "@SWAYWELLNESSCLUB",
-              link: "https://www.instagram.com/swaywellnessclub/",
-            },
-            { image: "/assets/homepage_photo14.png", text: "ON THE APP", link: "" },
-          ].map((item, i) => (
-            <div key={i} className="flex flex-col items-center text-center">
-              <a
-                href={item.link || "#"}
-                target={item.link ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden group transform transition duration-300 hover:scale-105 hover:shadow-2xl"
-              >
-                <img
-                  src={item.image}
-                  alt={item.text}
-                  className="w-full h-full object-cover rounded-full"
-                />
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition"></div>
-              </a>
-              <p className="mt-4 text-sm md:text-base font-vance text-white">{item.text}</p>
-            </div>
-          ))}
-        </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {CONNECT_ITEMS.map((item) => {
+              const inner = (
+                <div className="group block">
+                  <div className="relative overflow-hidden rounded-2xl aspect-square mb-3">
+                    <Image
+                      src={item.image}
+                      alt={item.label}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition" />
+                  </div>
+                  <p className="text-xs md:text-sm font-semibold uppercase tracking-wider">
+                    {item.label}
+                  </p>
+                </div>
+              );
+
+              return item.external ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <Link key={item.label} href={item.href}>
+                  {inner}
+                </Link>
+              );
+            })}
+          </div>
+        </motion.div>
       </section>
 
       {/* ======================================================
-          NEW: Mini FAQ (adds SEO density without being “in your face”)
+          7. FAQ
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#f4f4f1] text-[#113D33] px-6">
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
           className="w-full max-w-4xl font-vance"
         >
-          <h2 className="text-2xl md:text-4xl font-bold text-center mb-8">
-            Questions, answered
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-10">
+            Questions, Answered
           </h2>
 
-          <div className="space-y-4">
-            {[
-              {
-                q: "What is the Remedy Room?",
-                a: "The Remedy Room is our modern recovery experience — typically featuring sauna, cold plunge, and select recovery tech designed to help you reset.",
-              },
-              {
-                q: "What is Aescape?",
-                a: "Aescape is an AI-powered massage experience designed for modern recovery. It’s a separate offering from therapist-led massage therapy.",
-              },
-              {
-                q: "Do you offer memberships?",
-                a: "Yes. Sway is built around consistent care — memberships offer preferred pricing, perks, and an easier way to make wellness a ritual.",
-              },
-              {
-                q: "What should I book for a first visit?",
-                a: "Most guests start with a 50-minute facial or massage. If you want recovery-focused benefits, the Remedy Room is a great add-on.",
-              },
-              {
-                q: "How do I book?",
-                a: "You can schedule online anytime. If you have questions, you can also call the spa and our team will help you choose the right experience.",
-              },
-            ].map((item, idx) => (
+          <div>
+            {FAQ_ITEMS.map((item) => (
               <details
-                key={idx}
-                className="border border-[#113D33]/20 rounded-lg bg-white/50 px-5 py-4"
+                key={item.q}
+                className="border-b border-black/10 py-4 group"
               >
-                <summary className="cursor-pointer font-semibold text-base md:text-lg">
-                  {item.q}
+                <summary className="cursor-pointer font-medium flex items-center justify-between gap-4">
+                  <span className="text-sm md:text-base">{item.q}</span>
+                  <svg
+                    className="w-4 h-4 shrink-0 opacity-40 transition-transform duration-200 group-open:rotate-45"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
                 </summary>
-                <p className="mt-3 text-sm md:text-base opacity-90 leading-relaxed">
+                <p className="mt-3 text-sm opacity-80 leading-relaxed pr-8">
                   {item.a}
                 </p>
               </details>
             ))}
           </div>
-
-          <div className="mt-8 flex justify-center">
-            <a
-              href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=-9"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#113D33] text-white px-6 py-3 text-md md:text-lg font-bold rounded-md hover:bg-[#0a2b23]"
-            >
-              Book Now
-            </a>
-          </div>
         </motion.div>
       </section>
 
       {/* ======================================================
-          Membership CTA (your original)
+          8. Membership CTA
           ====================================================== */}
-      <section className="snap-section min-h-screen flex flex-col items-center justify-center w-full bg-[#113D33] text-white text-center px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-2xl md:text-4xl font-bold font-vance max-w-2xl"
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="w-full max-w-4xl rounded-3xl bg-[#113D33] text-white p-10 sm:p-14 text-center font-vance"
         >
-          Join the Wellness Club & Start Saving Today
-        </motion.h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
+            Join the Wellness Club & Start Saving Today
+          </h2>
+          <p className="mt-2 text-white/75 max-w-lg mx-auto mb-7 text-sm md:text-base">
+            Monthly treatments, half-off boosts, and exclusive perks designed
+            for real life.
+          </p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="mt-4 text-sm md:text-lg max-w-3xl leading-relaxed opacity-90"
-        >
-          Experience the ritual benefits of monthly treatments, half-off boosts,
-          and exclusive perks designed just for you.
-        </motion.p>
-
-        <motion.a
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 bg-white text-[#113D33] font-bold px-6 py-3 text-lg rounded-md shadow-md hover:bg-gray-200"
-        >
-          Become a Member
-        </motion.a>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
+            >
+              Become a Member
+            </a>
+            <Link
+              href="/gift-cards"
+              className="border-2 border-white/40 text-white px-6 py-3 rounded-full text-sm font-semibold hover:border-white transition"
+            >
+              Gift Cards
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </div>
   );
