@@ -157,7 +157,7 @@ export default function HomeContent() {
       {/* ======================================================
           1. Hero Video
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center">
+      <section className="snap-section h-screen flex items-center justify-center">
         <h1 className="sr-only">
           Sway Wellness Spa – Modern Wellness Experiences
         </h1>
@@ -172,7 +172,7 @@ export default function HomeContent() {
       {/* ======================================================
           2. Brand Statement
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -219,10 +219,10 @@ export default function HomeContent() {
       {SERVICES.map((service, i) => (
         <section
           key={service.title}
-          className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6 md:px-10"
+          className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6 md:px-10"
         >
           <div
-            className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center w-full ${
+            className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-14 items-center w-full ${
               i % 2 !== 0 ? "md:[direction:rtl]" : ""
             }`}
           >
@@ -241,7 +241,7 @@ export default function HomeContent() {
                     alt={service.title}
                     width={640}
                     height={420}
-                    className="w-full h-[200px] sm:h-[300px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="w-full h-[180px] sm:h-[280px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                   {/* Price badge */}
                   <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1.5 rounded-full">
@@ -305,7 +305,7 @@ export default function HomeContent() {
       {/* ======================================================
           4. First-Time Offer
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -356,7 +356,7 @@ export default function HomeContent() {
       {/* ======================================================
           5. Experiences & Pricing
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-4 md:px-8">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -364,28 +364,28 @@ export default function HomeContent() {
           viewport={{ once: true }}
           className="w-full max-w-5xl font-vance"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-3">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-2">
             Experiences & Pricing
           </h2>
-          <p className="text-center text-sm md:text-base opacity-60 mb-8 md:mb-12">
+          <p className="text-center text-sm md:text-base opacity-60 mb-4 md:mb-12">
             Member pricing vs drop-in. No contracts required.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
             {PRICING_CARDS.map((card) => (
               <div
                 key={card.title}
-                className="rounded-2xl bg-white/70 border border-[#113D33]/10 backdrop-blur-sm p-4 md:p-6 flex flex-col"
+                className="rounded-2xl bg-white/70 border border-[#113D33]/10 backdrop-blur-sm p-3 md:p-6 flex flex-col"
               >
-                <h3 className="text-base md:text-lg font-semibold mb-0.5">
+                <h3 className="text-sm md:text-lg font-semibold mb-0.5">
                   {card.title}
                 </h3>
-                <p className="text-[10px] uppercase tracking-wider opacity-50 mb-3">
+                <p className="text-[9px] md:text-[10px] uppercase tracking-wider opacity-50 mb-2 md:mb-3">
                   {card.duration}
                 </p>
 
                 {/* Treatment list */}
-                <ul className="text-xs opacity-70 space-y-1 mb-4">
+                <ul className="text-[11px] md:text-xs opacity-70 space-y-0.5 md:space-y-1 mb-3 md:mb-4">
                   {card.items.map((item) => (
                     <li key={item} className="flex items-center gap-1.5">
                       <span className="text-[#9ABFB3]">&#x2713;</span>
@@ -395,28 +395,28 @@ export default function HomeContent() {
                 </ul>
 
                 {/* Pricing */}
-                <div className="mt-auto space-y-1.5 pt-3 border-t border-[#113D33]/10">
+                <div className="mt-auto space-y-1 md:space-y-1.5 pt-2 md:pt-3 border-t border-[#113D33]/10">
                   {card.memberPrice && (
                     <div className="flex justify-between items-baseline">
-                      <span className="text-xs opacity-60">Member</span>
-                      <span className="text-base font-bold text-[#4A776D]">
+                      <span className="text-[10px] md:text-xs opacity-60">Member</span>
+                      <span className="text-sm md:text-base font-bold text-[#4A776D]">
                         {card.memberPrice}
                       </span>
                     </div>
                   )}
                   <div className="flex justify-between items-baseline">
-                    <span className="text-xs opacity-60">
+                    <span className="text-[10px] md:text-xs opacity-60">
                       {card.memberPrice ? "Drop-In" : "Price"}
                     </span>
-                    <span className="text-base font-semibold">
+                    <span className="text-sm md:text-base font-semibold">
                       {card.dropInPrice}
                     </span>
                   </div>
                 </div>
 
-                {/* Boosts */}
+                {/* Boosts — hidden on mobile to save space */}
                 {card.boosts.length > 0 && (
-                  <div className="mt-3 pt-2 border-t border-[#113D33]/10 space-y-0.5">
+                  <div className="hidden md:block mt-3 pt-2 border-t border-[#113D33]/10 space-y-0.5">
                     {card.boosts.map((boost) => (
                       <div
                         key={boost.label}
@@ -434,7 +434,7 @@ export default function HomeContent() {
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-4 md:mt-8 flex justify-center">
             <Link
               href="/locations/denver-larimer/book"
               className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
@@ -448,7 +448,7 @@ export default function HomeContent() {
       {/* ======================================================
           6. Connect / Social
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -504,7 +504,7 @@ export default function HomeContent() {
       {/* ======================================================
           7. FAQ
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -550,7 +550,7 @@ export default function HomeContent() {
       {/* ======================================================
           8. Membership CTA
           ====================================================== */}
-      <section className="snap-section min-h-screen flex items-center justify-center bg-[#F7F4E9] px-6">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
