@@ -1257,17 +1257,11 @@ export default function BookRemedyRoomPage() {
                                     <div
                                       className={`text-[10px] mt-0.5 ${
                                         isSelected
-                                          ? spotsLeft === 1
-                                            ? "text-amber-600"
-                                            : "text-[#113D33]/50"
-                                          : spotsLeft === 1
-                                            ? "text-amber-300"
-                                            : "text-white/40"
+                                          ? "text-[#113D33]/50"
+                                          : "text-white/40"
                                       }`}
                                     >
-                                      {spotsLeft === 1
-                                        ? "1 spot left"
-                                        : `${booked}/${REMEDY_MAX_CAPACITY} booked`}
+                                      {`${booked}/${REMEDY_MAX_CAPACITY} booked`}
                                     </div>
                                   )}
                                 </button>
