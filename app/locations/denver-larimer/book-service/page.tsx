@@ -1735,7 +1735,10 @@ function BookServicePage() {
 
               {/* Week navigator */}
               <section className="mb-8">
-                <h2 className="text-lg font-semibold text-[#113D33]/80 mb-4">Choose a Day</h2>
+                <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">Choose a Day</h2>
+                <p className="text-sm text-[#113D33]/40 mb-4">
+                  {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                </p>
                 <div className="flex items-center justify-center gap-1">
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
