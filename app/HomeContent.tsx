@@ -450,7 +450,7 @@ export default function HomeContent() {
         <p className="mt-6 text-center text-sm md:text-base max-w-2xl text-gray-800">
           New here? Enjoy{" "}
           <a href="/offers" className="text-[#113D33] font-semibold hover:underline">
-            $40 off your first treatment
+            $40 off your first massage or facial
           </a>{" "}
           with code <strong>FTVO40</strong>. Or explore our{" "}
           <a

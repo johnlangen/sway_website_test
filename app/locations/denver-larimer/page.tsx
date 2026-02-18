@@ -273,7 +273,7 @@ export default function SwayLarimerPage() {
                   First-Time Guest Offer
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold">
-                  $40 Off Your First Visit
+                  $40 Off Your First Massage or Facial
                 </h2>
                 <p className="mt-2 text-white/80 text-sm sm:text-base max-w-lg">
                   Enjoy a 50-minute massage or facial for just $99 (regularly
