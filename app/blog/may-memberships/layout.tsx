@@ -70,7 +70,7 @@ export default function MayMembershipsLayout() {
 
         <h3 className="text-xl font-bold mt-4">3. Aescape Robot Massage – $99/month</h3>
         <p>
-          Four monthly 30-minute robot massages with precision targeting,
+          Two monthly 60-minute robot massages with precision targeting,
           designed for high-performance recovery and deep relaxation.
         </p>
 
