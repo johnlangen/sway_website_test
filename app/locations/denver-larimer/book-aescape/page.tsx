@@ -337,41 +337,6 @@ function IconSpark(props: { className?: string }) {
   );
 }
 
-function IconCalendar(props: { className?: string }) {
-  return (
-    <svg
-      className={props.className}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M7 3v3M17 3v3"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M4.5 7.5h15"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M6.5 5.5h11A3 3 0 0 1 20.5 8.5v10A3 3 0 0 1 17.5 21.5h-11A3 3 0 0 1 3.5 18.5v-10A3 3 0 0 1 6.5 5.5Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M8 12h3M8 16h6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function CardBrandPills() {
   const pill =
     "px-2.5 py-1 rounded-full border border-[#113D33]/20 bg-white/60 text-xs text-[#113D33]/80";
@@ -1103,58 +1068,46 @@ export default function BookAescapePage() {
 
       <div className="px-4 pt-24 md:pt-28 pb-20">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Hero + summary — only on select step */}
+          {/* Hero — only on select step */}
           {step === "select" && (
             <>
-              <div className="mb-8 md:mb-10">
-                <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3">
-                  Book Your Aescape Robot Massage
+              <div className="mb-10 md:mb-12">
+                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4 animate-fade-in">
+                  Sway Wellness Spa
+                </p>
+                <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4 leading-tight animate-fade-in-up">
+                  Aescape Robot Massage
                 </h1>
-
-                <div className="hidden md:flex items-center justify-center gap-3 flex-wrap mb-4">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconSpark className="w-4 h-4 text-[#113D33]/70" />
-                    AI-guided • Personalized pressure
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconLock className="w-4 h-4 text-[#113D33]/70" />
-                    Calm, secure booking
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#113D33]/15 bg-white/60 px-4 py-2 text-sm text-[#113D33]/80">
-                    <IconCalendar className="w-4 h-4 text-[#113D33]/70" />
-                    Reserve in under a minute
-                  </div>
-                </div>
-
-                <p className="text-[#113D33]/80 max-w-2xl mx-auto leading-relaxed">
-                  Choose your session, pick a time, and we&apos;ll reserve it for you. If
-                  this is your first booking, Mindbody requires an account and a
-                  payment method on file for late cancellations or no-shows (you
-                  won&apos;t be charged today).
+                <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-6 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
+                  AI-powered precision massage that adapts to your body in real time.
+                  Choose your session and reserve in under a minute.
                 </p>
 
-                <div className="mt-4 flex items-center justify-center gap-4 text-sm">
+                <div className="flex items-center justify-center gap-2 flex-wrap mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+                  {["AI-Guided", "Personalized Pressure", "Zero Wait", "No Tipping"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[#113D33]/10 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 text-xs text-[#113D33]/60"
+                    >
+                      <IconSpark className="w-3 h-3 text-[#4A776D]" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-center gap-4 text-sm animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   <Link
                     href="/aescape"
-                    className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+                    className="text-[#113D33]/50 underline underline-offset-4 hover:text-[#113D33] transition"
                   >
                     Learn about Aescape
                   </Link>
                   <Link
                     href="/blog/aescape"
-                    className="text-[#113D33] underline underline-offset-4 opacity-80 hover:opacity-100"
+                    className="text-[#113D33]/50 underline underline-offset-4 hover:text-[#113D33] transition"
                   >
                     Read the blog
                   </Link>
-                </div>
-              </div>
-
-              <div className="mb-8 md:mb-10 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
-                <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
-                  Your selection
-                </div>
-                <div className="font-semibold text-[#113D33]">
-                  {summaryText ?? "Select a session and time to continue."}
                 </div>
               </div>
             </>
@@ -1163,81 +1116,62 @@ export default function BookAescapePage() {
           {step === "select" && (
             <div ref={selectRef}>
               {/* SESSION SELECTION */}
-              <section className="mb-8 md:mb-10">
-                <h2 className="text-xl font-semibold mb-4">
-                  Choose Your Session
-                </h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <section className="mb-10 md:mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {AESCAPE_OPTIONS.map((opt) => {
                     const selected = sessionTypeId === opt.id;
                     const isPopular = opt.id === MOST_POPULAR_ID;
-
-                    const pct = Math.max(
-                      22,
-                      Math.min(100, (opt.minutes / 60) * 100)
-                    );
 
                     return (
                       <button
                         key={opt.id}
                         onClick={() => setSessionTypeId(opt.id)}
-                        className={`relative overflow-hidden rounded-3xl border transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                        className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                           selected
-                            ? "border-[#113D33] bg-white shadow-lg"
-                            : "border-[#113D33]/20 bg-white/60 hover:bg-white hover:shadow-md"
+                            ? "border-[#113D33] bg-white shadow-xl ring-1 ring-[#113D33]/20 scale-[1.02]"
+                            : "border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-lg hover:-translate-y-1"
                         }`}
                       >
-                        <div className="relative h-44 w-full">
+                        <div className="relative h-44 w-full overflow-hidden">
                           <Image
                             src={opt.image}
                             alt={opt.label}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                             priority={opt.id === 60}
                           />
-                          <div className="absolute inset-0 bg-black/20" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
                           {isPopular && (
-                            <div className="absolute top-4 left-4 bg-white/90 text-[#113D33] text-xs px-3 py-1 rounded-full border border-[#113D33]/15">
+                            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-[10px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full">
                               Most popular
                             </div>
                           )}
 
                           {selected && (
-                            <div className="absolute top-4 right-4 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full">
+                            <div className="absolute top-3 right-3 bg-[#113D33] text-white text-[10px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+                              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
                               Selected
                             </div>
                           )}
-                        </div>
 
-                        <div className="p-5 text-left">
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <div className="font-semibold text-[#113D33]">
-                                {opt.label}
-                              </div>
-                              <div className="text-sm text-[#113D33]/70 mt-1">
-                                {opt.bestFor}
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-sm opacity-80">
-                                {opt.price}
-                              </div>
-                              <div className="text-xs text-[#113D33]/60 mt-1">
-                                {opt.minutes} min
-                              </div>
+                          {/* Price overlay on image */}
+                          <div className="absolute bottom-3 right-3">
+                            <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
+                              <div className="text-sm font-bold text-[#113D33]">{opt.price}</div>
+                              <div className="text-[10px] text-[#113D33]/60">{opt.minutes} min</div>
                             </div>
                           </div>
+                        </div>
 
-                          <div className="mt-4">
-                            <div className="h-1.5 rounded-full bg-[#113D33]/10 overflow-hidden">
-                              <div
-                                className="h-full bg-[#113D33]/60"
-                                style={{ width: `${pct}%` }}
-                              />
-                            </div>
+                        <div className="p-4 text-left">
+                          <div className="font-semibold text-[#113D33]">
+                            {opt.label}
+                          </div>
+                          <div className="text-sm text-[#113D33]/50 mt-0.5">
+                            {opt.bestFor}
                           </div>
                         </div>
                       </button>
@@ -1246,13 +1180,23 @@ export default function BookAescapePage() {
                 </div>
               </section>
 
+              {/* Selection summary */}
+              <div className="mb-8 max-w-lg mx-auto rounded-2xl border border-[#113D33]/10 bg-white/80 backdrop-blur-sm p-4 animate-fade-in">
+                <div className="text-[10px] uppercase tracking-[0.15em] text-[#4A776D] font-semibold mb-1">
+                  Your selection
+                </div>
+                <div className="font-semibold text-[#113D33] text-sm">
+                  {summaryText ?? "Select a session and time to continue."}
+                </div>
+              </div>
+
               <div className="max-w-md mx-auto">
                 <button
                   onClick={() => {
                     setError(null);
                     setStep("time");
                   }}
-                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
                 >
                   Continue
                 </button>
@@ -1263,24 +1207,24 @@ export default function BookAescapePage() {
           {step === "time" && (
             <div>
               {/* Selected session summary chip */}
-              <div className="mb-8 max-w-2xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-4 flex items-center gap-4">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0">
+              <div className="mb-8 max-w-lg mx-auto bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
                   <Image src={selectedOption.image} alt={selectedOption.label} fill className="object-cover" />
                 </div>
-                <div>
-                  <div className="font-semibold text-[#113D33]">{selectedOption.label}</div>
-                  <div className="text-sm text-[#113D33]/60">{selectedOption.minutes} min · {selectedOption.price}</div>
+                <div className="text-left">
+                  <div className="font-semibold text-[#113D33] text-sm">{selectedOption.label}</div>
+                  <div className="text-xs text-[#113D33]/50">{selectedOption.minutes} min · {selectedOption.price}</div>
                 </div>
               </div>
 
               {/* DAY PICKER */}
-              <section className="mb-12 md:mb-14">
-                <h2 className="text-xl font-semibold mb-4">1. Choose a Day</h2>
+              <section className="mb-10 md:mb-12">
+                <h2 className="text-lg font-semibold text-[#113D33]/80 mb-4">Choose a Day</h2>
 
                 <div className="flex items-center justify-center gap-2">
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
-                    className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    className="px-3 py-2 rounded-xl border border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     aria-label="Previous week"
                   >
                     ←
@@ -1307,17 +1251,17 @@ export default function BookAescapePage() {
                         <button
                           key={iso}
                           onClick={() => setSelectedDate(iso)}
-                          className={`px-4 py-3 rounded-xl whitespace-nowrap transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                          className={`px-4 py-3 rounded-xl whitespace-nowrap transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                             selected
-                              ? "bg-[#113D33] text-white"
-                              : "border border-[#113D33]/25 bg-white/70 hover:bg-white text-[#113D33]"
+                              ? "bg-[#113D33] text-white shadow-md"
+                              : "border border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm text-[#113D33]"
                           }`}
                         >
                           <div className="flex flex-col items-center leading-none">
                             <div className="text-sm font-semibold">{label}</div>
                             <div
                               className={`text-[11px] mt-2 ${
-                                selected ? "text-white/80" : "text-[#113D33]/60"
+                                selected ? "text-white/70" : "text-[#113D33]/40"
                               }`}
                             >
                               {weekend ? "Weekend" : " "}
@@ -1330,7 +1274,7 @@ export default function BookAescapePage() {
 
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, 7))}
-                    className="px-3 py-2 rounded-xl border border-[#113D33]/25 bg-white/70 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    className="px-3 py-2 rounded-xl border border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     aria-label="Next week"
                   >
                     →
@@ -1341,22 +1285,25 @@ export default function BookAescapePage() {
               {/* TIMES */}
               <section className="mb-8 md:mb-10 text-left">
                 <div className="flex items-center justify-between gap-4 mb-4">
-                  <h2 className="text-xl font-semibold text-center flex-1">
-                    2. Choose a Time
+                  <h2 className="text-lg font-semibold text-[#113D33]/80 text-center flex-1">
+                    Choose a Time
                   </h2>
 
                   {!loading && !error && times.length > 0 && (
                     <button
                       onClick={() => setShowAllTimes((v) => !v)}
-                      className="text-sm px-4 py-2 rounded-full border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                      className="text-xs px-3.5 py-1.5 rounded-full border border-[#113D33]/10 bg-white/70 hover:bg-white transition-all focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     >
-                      {showAllTimes ? "Show recommended" : "Show all times"}
+                      {showAllTimes ? "Recommended" : "Show all"}
                     </button>
                   )}
                 </div>
 
                 {loading && (
-                  <p className="text-center text-[#113D33]/70">Loading…</p>
+                  <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/50 animate-pulse">
+                    <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/15 border-t-[#113D33]/40 animate-spin" />
+                    Loading availability…
+                  </div>
                 )}
                 {error && <p className="text-center text-red-700">{error}</p>}
 
@@ -1366,34 +1313,34 @@ export default function BookAescapePage() {
                     ([label, group]) =>
                       group.length > 0 && (
                         <div key={label} className="mb-6">
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-sm uppercase tracking-wide text-[#113D33]/60 mb-2">
-                              {label}
-                            </h3>
+                          <h3 className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/40 mb-2.5">
+                            {label}
+                          </h3>
 
-                          </div>
-
-                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                            {group.map((time) => (
-                              <button
-                                key={time.toISOString()}
-                                onClick={() => setSelectedTime(time)}
-                                className={`py-2.5 rounded-xl border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
-                                  selectedTime?.getTime() === time.getTime()
-                                    ? "bg-[#113D33] text-white border-[#113D33]"
-                                    : "border-[#113D33]/25 bg-white/60 hover:bg-white text-[#113D33]"
-                                }`}
-                              >
-                                {formatTime12h(time)}
-                              </button>
-                            ))}
+                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
+                            {group.map((time) => {
+                              const isSelected = selectedTime?.getTime() === time.getTime();
+                              return (
+                                <button
+                                  key={time.toISOString()}
+                                  onClick={() => setSelectedTime(time)}
+                                  className={`py-2.5 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-sm ${
+                                    isSelected
+                                      ? "bg-[#113D33] text-white border-[#113D33] shadow-md"
+                                      : "border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 text-[#113D33]"
+                                  }`}
+                                >
+                                  {formatTime12h(time)}
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                       )
                   )}
 
                 {!loading && !error && times.length === 0 && (
-                  <div className="text-center text-[#113D33]/70">
+                  <div className="text-center text-[#113D33]/60">
                     <p>No times available for this day.</p>
                     {sessionTypeId && (
                       <NextAvailableBanner
@@ -1420,15 +1367,15 @@ export default function BookAescapePage() {
                     setError(null);
                     setStep("email");
                   }}
-                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
                 >
                   Continue
                 </button>
 
-                <div className="mt-5 text-center text-xs text-[#113D33]/60">
+                <div className="mt-5 text-center text-xs text-[#113D33]/40">
                   Prefer to book with staff?{" "}
                   <a
-                    className="underline underline-offset-4"
+                    className="underline underline-offset-4 hover:text-[#113D33]/60 transition"
                     href="tel:3034766150"
                   >
                     Call (303) 476-6150
@@ -1875,39 +1822,51 @@ export default function BookAescapePage() {
           )}
 
           {step === "done" && (
-            <div ref={doneRef} className="max-w-md mx-auto pt-20 pb-12">
-              {/* Success checkmark */}
-              <div className="animate-check-pop mb-6">
-                <div className="w-16 h-16 rounded-full bg-[#113D33] mx-auto flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+            <div ref={doneRef} className="max-w-md mx-auto pt-10 pb-12">
+              {/* Hero image with overlay */}
+              <div className="relative rounded-2xl overflow-hidden mb-8 animate-fade-in">
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={selectedOption.image}
+                    alt="Aescape"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="animate-check-pop mb-3">
+                      <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                        <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white animate-fade-in-up">
+                      You&apos;re booked!
+                    </h2>
+                  </div>
                 </div>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-2 animate-fade-in-up">
-                You&apos;re booked!
-              </h2>
-
               {selectedTime && (
-                <p className="text-[#113D33]/70 mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+                <p className="text-[#113D33] font-semibold text-lg mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
                   {selectedOption.label}
                 </p>
               )}
 
               {selectedTime && (
-                <p className="text-[#113D33]/50 text-sm mb-8 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   {formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, selectedOption.minutes)}
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/50 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Check your email for confirmation. We&apos;ll see you soon.
               </p>
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">
                   Complete your visit
                 </p>
                 <Link
