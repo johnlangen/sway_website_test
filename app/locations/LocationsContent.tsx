@@ -60,7 +60,8 @@ const LOCATIONS: Location[] = [
     city: "Dallas",
     state: "TX",
     status: "coming-soon",
-    coords: [32.7767, -96.7970],
+    coords: [32.8008, -96.7847],
+    address: "2323 Henderson Ave, Dallas, TX",
     imageUrl: "/assets/SWAY.jpg",
   },
   {

@@ -228,7 +228,7 @@ const faqs = [
   {
     question: "When does Sway Dallas open?",
     answer:
-      "We're planning to open in the Knox/Henderson neighborhood. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
+      "We're opening at 2323 Henderson Ave in the Knox/Henderson neighborhood. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
   },
   {
     question: "Do I get charged before you open?",

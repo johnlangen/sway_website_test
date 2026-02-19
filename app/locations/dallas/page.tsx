@@ -28,8 +28,10 @@ export default function SwayDallasComingSoonPage() {
     sameAs: loc.sameAs,
     address: {
       "@type": "PostalAddress",
+      streetAddress: "2323 Henderson Ave",
       addressLocality: loc.city,
       addressRegion: loc.state,
+      postalCode: "75206",
       addressCountry: "US",
     },
     areaServed: {
@@ -68,7 +70,7 @@ export default function SwayDallasComingSoonPage() {
         name: "Where in Dallas will Sway be located?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The final address will be announced soon.",
+          text: "Sway Dallas will be located at 2323 Henderson Ave, Dallas, TX.",
         },
       },
       {
@@ -127,7 +129,7 @@ export default function SwayDallasComingSoonPage() {
           <div>
             <h1 className="text-3xl md:text-5xl font-bold">Sway Dallas</h1>
             <div className="mt-3 text-lg">
-              <div>Dallas, TX</div>
+              <div>2323 Henderson Ave, Dallas, TX</div>
 
               <div className="mt-3">
                 <span
@@ -200,7 +202,7 @@ export default function SwayDallasComingSoonPage() {
           <div className="bg-white rounded-2xl p-6 shadow">
             <h2 className="text-xl font-bold mb-3">Opening Plans</h2>
             <p className="text-sm">
-              Final address and opening date will be announced here. Follow along as we get closer to welcoming our
+              Sway Dallas is coming to 2323 Henderson Ave. Opening date will be announced here. Follow along as we get closer to welcoming our
               first guests in Dallas.
             </p>
           </div>
@@ -217,7 +219,7 @@ export default function SwayDallasComingSoonPage() {
             <details className="mb-3">
               <summary className="font-semibold">Where will Sway Dallas be located?</summary>
               <p className="mt-2 text-sm">
-                The final address is coming soon.
+                2323 Henderson Ave, Dallas, TX.
               </p>
             </details>
             <details className="mb-3">
