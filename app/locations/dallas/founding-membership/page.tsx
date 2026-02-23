@@ -464,9 +464,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-[1.05] text-white"
           >
-            Be Part of What&apos;s
-            <br />
-            Coming Next.
+            Dallas, Meet Sway.
           </motion.h1>
 
           <motion.p
