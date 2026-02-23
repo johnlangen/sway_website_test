@@ -51,7 +51,7 @@ const memberships = [
   {
     key: "remedy" as const,
     title: "Remedy Room",
-    regularPrice: "$99",
+    regularPrice: "$139",
     foundingPrice: "$89",
     visits: "4 monthly visits",
     tagline: "Recovery circuit",
@@ -64,7 +64,7 @@ const memberships = [
       "50% off Boosts & Super Boosts",
     ],
     foundingPerks: [
-      "Rate locked at $89/mo forever",
+      "Founding rate of $89/mo",
       "Priority booking before launch",
       "Founding member events",
     ],
@@ -72,7 +72,7 @@ const memberships = [
   {
     key: "spa" as const,
     title: "Spa Club",
-    regularPrice: "$99",
+    regularPrice: "$139",
     foundingPrice: "$89",
     visits: "1 facial or massage / month",
     tagline: "Full spa access",
@@ -90,7 +90,7 @@ const memberships = [
       "Unused credits roll over",
     ],
     foundingPerks: [
-      "Rate locked at $89/mo forever",
+      "Founding rate of $89/mo",
       "Priority booking before launch",
       "Founding member events",
       "Complimentary guest pass monthly",
@@ -99,7 +99,7 @@ const memberships = [
   {
     key: "aescape" as const,
     title: "Aescape Robot",
-    regularPrice: "$99",
+    regularPrice: "$139",
     foundingPrice: "$89",
     visits: "2 × 60-min sessions / month",
     tagline: "AI-powered massage",
@@ -112,7 +112,7 @@ const memberships = [
       "Private, consistent sessions",
     ],
     foundingPerks: [
-      "Rate locked at $89/mo forever",
+      "Founding rate of $89/mo",
       "First in line when Aescape arrives",
       "Founding member events",
     ],
@@ -236,9 +236,9 @@ const faqs = [
       "No. Your membership doesn't start billing until we open. You lock in the rate now, but pay nothing until doors open.",
   },
   {
-    question: "Is the founding rate really locked in forever?",
+    question: "What is the founding member rate?",
     answer:
-      "Yes. As long as your membership stays active, your $89/month founding rate never increases — even when regular pricing goes up.",
+      "Founding members start at $89/month — a discounted rate compared to standard membership pricing.",
   },
   {
     question: "Can I cancel anytime?",
@@ -248,7 +248,7 @@ const faqs = [
   {
     question: "What makes founding members different?",
     answer:
-      "Founding members get a permanently lower rate ($89 vs $99/month), priority booking, exclusive event invitations, and perks that won't be available after launch.",
+      "Founding members get a lower rate ($89 vs $139/month), priority booking, exclusive event invitations, and perks that won't be available after launch.",
   },
 ];
 
@@ -292,7 +292,7 @@ const schema = {
       "@type": "Product",
       name: "Sway Dallas Founding Membership",
       description:
-        "Founding member membership for Sway Dallas wellness spa in Knox/Henderson. Lock in $89/month for life.",
+        "Founding member membership for Sway Dallas wellness spa in Knox/Henderson. Start at $89/month with exclusive perks.",
       image: "/assets/OG/og-join-the-club.jpg",
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       offers: {
@@ -464,9 +464,9 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-[1.05] text-white"
           >
-            Lock In Your Rate.
+            Be Part of What&apos;s
             <br />
-            Before We Open.
+            Coming Next.
           </motion.h1>
 
           <motion.p
@@ -475,8 +475,8 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            Founding members lock in{" "}
-            <strong className="text-white">$89/month for life</strong> — plus
+            Founding members start at{" "}
+            <strong className="text-white">$89/month</strong> — with
             priority booking, VIP events, and perks that disappear after launch.
           </motion.p>
 
@@ -611,7 +611,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-[#4A776D] text-sm uppercase tracking-[0.15em]"
           >
-            Founding Member Pricing — Locked In For Life
+            Founding Member Pricing — Limited Availability
           </motion.p>
         </div>
 
@@ -660,7 +660,7 @@ export default function DallasFoundingMembershipPage() {
                     <span className="text-sm text-gray-500">/ mo</span>
                   </div>
                   <p className="text-xs text-[#4A776D] font-semibold mt-1.5">
-                    Founding rate — locked in forever
+                    Founding member rate
                   </p>
                 </div>
 
@@ -985,8 +985,8 @@ export default function DallasFoundingMembershipPage() {
               Reserve Your Founding Spot
             </h2>
             <p className="text-gray-600 mb-2 max-w-lg mx-auto leading-relaxed">
-              Lock in{" "}
-              <strong className="text-[#113D33]">$89/month for life</strong>.
+              Start at{" "}
+              <strong className="text-[#113D33]">$89/month</strong>.
               You&apos;ll be the first to know when doors open.
             </p>
             <p className="text-sm text-[#4A776D] mb-10">
