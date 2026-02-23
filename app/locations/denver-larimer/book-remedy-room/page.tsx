@@ -744,7 +744,31 @@ export default function BookRemedyRoomPage() {
       throw new Error(bookData?.error || "Booking failed. Please try again or call us.");
     }
 
+    reportPurchaseConversion();
     setStep("done");
+  }
+
+  /* ---------------------------------------------
+     CONVERSION TRACKING
+  --------------------------------------------- */
+
+  function reportPurchaseConversion() {
+    if (typeof window === "undefined") return;
+
+    // Google Ads conversion
+    if (window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+      });
+    }
+
+    // GTM / GA4 visibility
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "remedy_room_booking_complete",
+      service_name: "Remedy Room",
+      price: "$49",
+    });
   }
 
   /* ---------------------------------------------

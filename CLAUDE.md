@@ -51,3 +51,52 @@ Typical requests include:
 - SEO-safe content or layout changes
 
 Always assume this site is live and revenue-impacting.
+
+## Tracking & Analytics (GTM / GA4 / Google Ads)
+
+### Global Setup (layout.tsx, production only)
+- GTM: `GTM-KW4TK2DL`
+- Google Ads: `AW-17421817568`
+- Attentive (email/SMS marketing)
+- Bowtie AI chat widget
+
+### Booking Funnel Tracking
+All three booking flows push the same shared funnel events to `dataLayer`, with `booking_flow` to distinguish service type:
+
+| Step | Event | Flows |
+|------|-------|-------|
+| 1 | `booking_start` | All |
+| 2 | `booking_time_selected` | All |
+| 3 | `booking_email_entered` | All |
+| 4 | `booking_card_entered` | All |
+| 5 | `booking_confirmed` | All |
+| 6 | Completion (see below) | All |
+
+### Completion Events (per flow)
+- Aescape: `aescape_booking_complete` + Google Ads conversion
+- Service (Massage/Facial): `service_booking_complete` + Google Ads conversion
+- Remedy Room: `remedy_room_booking_complete` + Google Ads conversion
+
+### `booking_flow` Values
+- `"aescape"` — book-aescape/page.tsx
+- `"massage"` — book-service/page.tsx (category=massage)
+- `"facial"` — book-service/page.tsx (category=facial)
+- `"remedy_room"` — book-remedy-room/page.tsx
+
+### Flow-Specific Events (no GTM tags, kept for future use)
+- Aescape: `booking_session_selected`
+- Service: `booking_service_selected`, `booking_boosts_done`
+
+### Google Ads Conversion
+- All three flows fire: `gtag("event", "conversion", { send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA" })`
+
+### GTM Tags (Version 17+)
+All funnel step tags include `booking_flow` as an event parameter via Data Layer Variable `DLV - booking_flow`.
+
+### TODO: GA4 Funnel Explorations
+Create funnel explorations in GA4 (Explore → Funnel Exploration) for each booking flow:
+- Aescape funnel (filter: booking_flow = aescape)
+- Massage funnel (filter: booking_flow = massage)
+- Facial funnel (filter: booking_flow = facial)
+- Remedy Room funnel (filter: booking_flow = remedy_room)
+Steps: booking_start → booking_time_selected → booking_email_entered → booking_card_entered → booking_confirmed → [completion event]
