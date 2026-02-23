@@ -103,7 +103,7 @@ export default function MembershipPage() {
           transition={{ duration: 0.4, delay: 0.35 }}
           className="text-sm text-gray-400"
         >
-          All plans $99/month — cancel anytime
+          All plans $99/month
         </motion.p>
       </section>
 

@@ -128,7 +128,7 @@ export default function LarimerOffersPage() {
               View Memberships
             </Link>
 
-            <p className="text-xs text-gray-400">Cancel anytime</p>
+            <p className="text-xs text-gray-400">Membership required</p>
           </div>
         </div>
       </section>

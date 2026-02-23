@@ -8,7 +8,6 @@ import {
   ChevronDown,
   ChevronRight,
   Star,
-  Shield,
   Clock,
   Sparkles,
   ArrowDown,
@@ -239,11 +238,6 @@ const faqs = [
     question: "What is the founding member rate?",
     answer:
       "Founding members start at $89/month — a discounted rate compared to standard membership pricing.",
-  },
-  {
-    question: "Can I cancel anytime?",
-    answer:
-      "Absolutely. No long-term contracts. Cancel anytime after your first month — no fees, no penalties.",
   },
   {
     question: "What makes founding members different?",
@@ -492,7 +486,7 @@ export default function DallasFoundingMembershipPage() {
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </button>
             <span className="text-xs text-white/50">
-              No charge until we open &middot; Cancel anytime
+              No charge until we open
             </span>
           </motion.div>
         </div>
@@ -988,7 +982,7 @@ export default function DallasFoundingMembershipPage() {
               You&apos;ll be the first to know when doors open.
             </p>
             <p className="text-sm text-[#4A776D] mb-10">
-              No charge until we open &middot; Cancel anytime
+              No charge until we open
             </p>
           </motion.div>
 
@@ -1167,9 +1161,6 @@ export default function DallasFoundingMembershipPage() {
 
           {/* Trust signals */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400">
-            <span className="flex items-center gap-1.5">
-              <Shield className="w-4 h-4" /> Cancel anytime
-            </span>
             <span className="flex items-center gap-1.5">
               <Clock className="w-4 h-4" /> No charge until we open
             </span>

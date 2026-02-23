@@ -409,7 +409,7 @@ export default function SwayLarimerPage() {
                   The Sway Club
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-3">
-                  $99/month. Cancel anytime.
+                  $99/month.
                 </h2>
                 <ul className="space-y-2 text-sm text-white/80 mb-6">
                   <li className="flex items-start gap-2">
