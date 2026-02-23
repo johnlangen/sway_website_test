@@ -1010,8 +1010,15 @@ function BookServicePage() {
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
     if (window.gtag) {
+      // Main conversion (all bookings)
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+      });
+      // Massage/Facial-specific conversion
+      window.gtag("event", "conversion", {
+        send_to: "AW-17421817568/ArEMCLWJ0P0bEOCtr_NA",
+        value: 1.0,
+        currency: "USD",
       });
     }
     window.dataLayer = window.dataLayer || [];

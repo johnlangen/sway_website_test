@@ -475,10 +475,16 @@ export default function BookAescapePage() {
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
   
-    // Google Ads conversion (keep this)
     if (window.gtag) {
+      // Main conversion (all bookings)
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+      });
+      // Aescape-specific conversion
+      window.gtag("event", "conversion", {
+        send_to: "AW-17421817568/ZY8ECK7B0P0bEOCtr_NA",
+        value: 1.0,
+        currency: "USD",
       });
     }
   

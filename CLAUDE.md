@@ -87,8 +87,17 @@ All three booking flows push the same shared funnel events to `dataLayer`, with 
 - Aescape: `booking_session_selected`
 - Service: `booking_service_selected`, `booking_boosts_done`
 
-### Google Ads Conversion
-- All three flows fire: `gtag("event", "conversion", { send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA" })`
+### Google Ads Conversions
+Each booking fires TWO conversions: one main (primary, count=One) + one per-service (secondary, count=Every).
+
+| Conversion | send_to Label | Role | Count |
+|-----------|---------------|------|-------|
+| All Purchases (main) | `T3o8CK-LoukbEOCtr_NA` | Primary (for bidding) | One |
+| Aescape Purchase | `ZY8ECK7B0P0bEOCtr_NA` | Secondary (reporting) | Every |
+| Massage/Facial Purchase | `ArEMCLWJ0P0bEOCtr_NA` | Secondary (reporting) | Every |
+| Remedy Room Purchase | `NB15CLC60P0bEOCtr_NA` | Secondary (reporting) | Every |
+
+All use Google Ads account `AW-17421817568`. Switch campaigns to "Maximize Conversions" after ~30 conversions in 30 days.
 
 ### GTM Tags (Version 17+)
 All funnel step tags include `booking_flow` as an event parameter via Data Layer Variable `DLV - booking_flow`.

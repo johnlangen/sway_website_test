@@ -755,10 +755,16 @@ export default function BookRemedyRoomPage() {
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
 
-    // Google Ads conversion
     if (window.gtag) {
+      // Main conversion (all bookings)
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+      });
+      // Remedy Room-specific conversion
+      window.gtag("event", "conversion", {
+        send_to: "AW-17421817568/NB15CLC60P0bEOCtr_NA",
+        value: 1.0,
+        currency: "USD",
       });
     }
 
