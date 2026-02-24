@@ -1853,29 +1853,43 @@ function BookServicePage() {
 
                 {!loading && !schedulesLoading && displayedSlots.length === 0 && (
                   <div className="py-16 text-center animate-fade-in">
-                    <p className="text-[#113D33]/50">
-                      {filteredTherapist
-                        ? `No availability for ${allTherapists.find((t) => t.id === filteredTherapist)?.name ?? "this therapist"} on this day.`
-                        : "No availability for this day."}
-                    </p>
-                    {selectedService && (
-                      <NextAvailableBanner
-                        type="service"
-                        sessionTypeId={selectedService.id}
-                        currentDate={selectedDate}
-                        staffId={filteredTherapist}
-                        staffName={
-                          filteredTherapist
-                            ? allTherapists.find((t) => t.id === filteredTherapist)?.name
-                            : undefined
-                        }
-                        onJumpToDate={(iso) => {
-                          const [y, m, d] = iso.split("-").map(Number);
-                          const target = new Date(y, m - 1, d);
-                          setSelectedDate(iso);
-                          setWeekStart(target);
-                        }}
-                      />
+                    {/* Check if slots were removed by extension filtering vs genuinely empty */}
+                    {slots.length > 0 && totalExtMinutes > 0 ? (
+                      <>
+                        <p className="text-[#113D33]/50">
+                          No times fit your selected boosts on this day.
+                        </p>
+                        <p className="mt-2 text-sm text-[#113D33]/40">
+                          Try a different day, or remove the time extension to see available slots.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-[#113D33]/50">
+                          {filteredTherapist
+                            ? `No availability for ${allTherapists.find((t) => t.id === filteredTherapist)?.name ?? "this therapist"} on this day.`
+                            : "No availability for this day."}
+                        </p>
+                        {selectedService && (
+                          <NextAvailableBanner
+                            type="service"
+                            sessionTypeId={selectedService.id}
+                            currentDate={selectedDate}
+                            staffId={filteredTherapist}
+                            staffName={
+                              filteredTherapist
+                                ? allTherapists.find((t) => t.id === filteredTherapist)?.name
+                                : undefined
+                            }
+                            onJumpToDate={(iso) => {
+                              const [y, m, d] = iso.split("-").map(Number);
+                              const target = new Date(y, m - 1, d);
+                              setSelectedDate(iso);
+                              setWeekStart(target);
+                            }}
+                          />
+                        )}
+                      </>
                     )}
                   </div>
                 )}
