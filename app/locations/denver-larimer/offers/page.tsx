@@ -70,7 +70,7 @@ export default function LarimerOffersPage() {
 
             <div className="mb-5">
               <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
-                First-time guests
+                For our Denver neighbors
               </p>
               <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
                 First Visit Offer
@@ -85,7 +85,7 @@ export default function LarimerOffersPage() {
               Enjoy a 50-minute massage or facial for just{" "}
               <strong>$99</strong>
             </p>
-            <p className="text-xs text-gray-500 mb-6 flex-grow">(regularly $139)</p>
+            <p className="text-xs text-gray-500 mb-6 flex-grow">(regularly $139). Massage and facial only.</p>
 
             <Link
               href="/locations/denver-larimer/book"
@@ -95,7 +95,7 @@ export default function LarimerOffersPage() {
             </Link>
 
             <p className="text-xs text-gray-400">
-              Available for first-time guests only
+              For Denver-area locals. First-time guests only.
             </p>
           </div>
 

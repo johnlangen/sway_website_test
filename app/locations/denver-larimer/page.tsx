@@ -270,14 +270,14 @@ export default function SwayLarimerPage() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
-                  First-Time Guest Offer
+                  For Our Denver Neighbors
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold">
                   $40 Off Your First Massage or Facial
                 </h2>
                 <p className="mt-2 text-white/80 text-sm sm:text-base max-w-lg">
                   Enjoy a 50-minute massage or facial for just $99 (regularly
-                  $139). No membership required.
+                  $139). For Denver-area locals. No membership required.
                 </p>
               </div>
               <div className="shrink-0">

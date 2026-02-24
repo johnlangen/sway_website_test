@@ -1180,6 +1180,14 @@ export default function BookRemedyRoomPage() {
                     View offers
                   </Link>
                 </div>
+
+                <p className="mt-3 text-xs text-white/40">
+                  Want the room to yourself?{" "}
+                  <a href="tel:3034766150" className="underline underline-offset-4 hover:text-white/60 transition">
+                    Call (303) 476-6150
+                  </a>
+                  {" "}to book a private session.
+                </p>
               </div>
 
               {/* Selection summary */}

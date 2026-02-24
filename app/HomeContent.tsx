@@ -320,14 +320,14 @@ export default function HomeContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
               <div>
                 <div className="text-xs uppercase tracking-[0.15em] text-white/50 mb-2">
-                  First-Time Guest Offer
+                  For Our Denver Neighbors
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-vance mb-3">
                   $40 Off Your First Massage or Facial
                 </h2>
                 <p className="text-white/75 text-sm sm:text-base max-w-lg">
                   Enjoy a 50-minute massage or facial for just $99 (regularly
-                  $139). Use code <strong>FTVO40</strong>. No membership required.
+                  $139). Use code <strong>FTVO40</strong>. For Denver-area locals. No membership required.
                 </p>
               </div>
               <div className="shrink-0">
