@@ -161,44 +161,55 @@ function generateTimesFromWindows(
 }
 
 /* ---------------------------------------------
-   TIME DISPLAY (curation, but safe fallback)
+   SLOT FILTERING (50-min clear window: 40 min session + 10 min buffer)
 --------------------------------------------- */
 
-function minutesOf(d: Date) {
-  return d.getMinutes();
-}
+const REMEDY_SESSION_MINUTES = 40;
+const REMEDY_BUFFER_MINUTES = 10;
+const REMEDY_BLOCK_MINUTES = REMEDY_SESSION_MINUTES + REMEDY_BUFFER_MINUTES; // 50
 
-function filterPreferredTimes(all: Date[]) {
-  // Prefer :00 / :30 first
-  const primary = all.filter((t) => {
-    const m = minutesOf(t);
-    return m === 0 || m === 30;
+/**
+ * Given all 10-min-interval candidate slots and a list of existing appointments,
+ * return only slots where the full 50-minute block (40 session + 10 buffer) is
+ * clear of other appointment blocks. Up to 3 people can share the same start time.
+ */
+function filterAvailableSlots(
+  candidates: Date[],
+  appointments: { start: Date; end: Date }[],
+  maxCapacity: number
+) {
+  return candidates.filter((slot) => {
+    const slotStart = slot.getTime();
+    const slotEnd = slotStart + REMEDY_BLOCK_MINUTES * 60_000;
+
+    // Find all appointments that overlap this slot's 50-min block
+    let overlapping = 0;
+    for (const appt of appointments) {
+      const apptStart = appt.start.getTime();
+      const apptEnd = appt.end.getTime();
+
+      // Two ranges overlap if one starts before the other ends and vice versa
+      if (apptStart < slotEnd && apptEnd > slotStart) {
+        overlapping++;
+      }
+    }
+
+    // Slot is available if fewer than maxCapacity overlapping appointments
+    // BUT also: only show if someone starting here has the full block clear
+    // of appointments that started at a DIFFERENT time
+    const sameTimeAppts = appointments.filter(
+      (a) => a.start.getTime() === slotStart
+    ).length;
+    const differentTimeOverlaps = overlapping - sameTimeAppts;
+
+    // If any appointment from a different start time overlaps our block, skip this slot
+    if (differentTimeOverlaps > 0) return false;
+
+    // If same-time bookings are at capacity, slot is full
+    if (sameTimeAppts >= maxCapacity) return false;
+
+    return true;
   });
-
-  if (primary.length >= 8) return primary;
-
-  // Add :15 / :45
-  const secondary = all.filter((t) => {
-    const m = minutesOf(t);
-    return m === 15 || m === 45;
-  });
-
-  const combined = [...primary, ...secondary];
-
-  // If still sparse, show everything
-  if (combined.length < 6) return all;
-
-  combined.sort((a, b) => a.getTime() - b.getTime());
-  return combined;
-}
-
-function withSelectedTimeIncluded(displayTimes: Date[], selectedTime: Date | null) {
-  if (!selectedTime) return displayTimes;
-  const exists = displayTimes.some((t) => t.getTime() === selectedTime.getTime());
-  if (exists) return displayTimes;
-  const merged = [...displayTimes, selectedTime];
-  merged.sort((a, b) => a.getTime() - b.getTime());
-  return merged;
 }
 
 /* ---------------------------------------------
@@ -477,7 +488,6 @@ export default function BookRemedyRoomPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [showAllTimes, setShowAllTimes] = useState(false);
 
   const [cardContext, setCardContext] = useState<CardContext>(null);
   const [clientId, setClientId] = useState<string | null>(null);
@@ -500,9 +510,10 @@ export default function BookRemedyRoomPage() {
   // Notification preferences
   const [marketingOptIn, setMarketingOptIn] = useState(true);
 
-  // Remedy room occupancy (booked count per time slot)
+  // Remedy room capacity + existing appointments for overlap filtering
   const REMEDY_MAX_CAPACITY = 3;
   const [slotOccupancy, setSlotOccupancy] = useState<Record<string, number>>({});
+  const [existingAppointments, setExistingAppointments] = useState<{ start: Date; end: Date }[]>([]);
 
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
@@ -529,9 +540,8 @@ export default function BookRemedyRoomPage() {
   );
 
   const displayedTimes = useMemo(() => {
-    const base = showAllTimes ? times : filterPreferredTimes(times);
-    return withSelectedTimeIncluded(base, selectedTime);
-  }, [showAllTimes, times, selectedTime]);
+    return filterAvailableSlots(times, existingAppointments, REMEDY_MAX_CAPACITY);
+  }, [times, existingAppointments]);
 
   const groupedTimes = useMemo(() => groupTimes(displayedTimes), [displayedTimes]);
 
@@ -640,7 +650,6 @@ export default function BookRemedyRoomPage() {
     setLoading(true);
     setSelectedTime(null);
     setError(null);
-    setShowAllTimes(false);
 
     fetch(
       `/api/remedy-room/availability?sessionTypeId=${sessionTypeId}&date=${selectedDate}`
@@ -661,9 +670,10 @@ export default function BookRemedyRoomPage() {
       .finally(() => setLoading(false));
   }, [sessionTypeId, selectedDate]);
 
-  // Fetch booked appointments for the remedy room to compute occupancy
+  // Fetch booked appointments for the remedy room to compute occupancy + overlap filtering
   useEffect(() => {
     setSlotOccupancy({});
+    setExistingAppointments([]);
 
     fetch(
       `/api/service/staff-schedule?staffId=100000014&date=${selectedDate}`
@@ -672,19 +682,31 @@ export default function BookRemedyRoomPage() {
       .then((data) => {
         if (!Array.isArray(data.appointments)) return;
 
-        // Count how many appointments overlap each 10-minute slot
+        // Count how many appointments at each start time (for X/3 display)
         const counts: Record<string, number> = {};
+        // Build appointment ranges for overlap filtering
+        const appts: { start: Date; end: Date }[] = [];
+
         for (const appt of data.appointments) {
-          // Normalize to HH:mm key
           const start = appt.start as string; // e.g. "2026-02-18T11:00:00"
           const timeKey = start.split("T")[1]?.substring(0, 5); // "11:00"
           if (timeKey) {
             counts[timeKey] = (counts[timeKey] || 0) + 1;
           }
+
+          // Each appointment blocks a full 50-min window (40 session + 10 buffer)
+          const startDate = parseMindbodyDateTime(start);
+          const endDate = new Date(startDate.getTime() + REMEDY_BLOCK_MINUTES * 60_000);
+          appts.push({ start: startDate, end: endDate });
         }
+
         setSlotOccupancy(counts);
+        setExistingAppointments(appts);
       })
-      .catch(() => setSlotOccupancy({}));
+      .catch(() => {
+        setSlotOccupancy({});
+        setExistingAppointments([]);
+      });
   }, [selectedDate]);
 
   /* ---------------------------------------------
@@ -1235,19 +1257,10 @@ export default function BookRemedyRoomPage() {
 
               {/* Times */}
               <section className="mb-8 md:mb-10 text-left">
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <h2 className="text-lg font-semibold text-white/90 text-center flex-1">
+                <div className="mb-4">
+                  <h2 className="text-lg font-semibold text-white/90 text-center">
                     Choose a Time
                   </h2>
-
-                  {!loading && !error && times.length > 0 && (
-                    <button
-                      onClick={() => setShowAllTimes((v) => !v)}
-                      className="text-sm px-4 py-2 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-white/80 transition focus:outline-none focus:ring-2 focus:ring-white/20"
-                    >
-                      {showAllTimes ? "Show recommended" : "Show all times"}
-                    </button>
-                  )}
                 </div>
 
                 {loading && <p className="text-center text-white/50">Loading…</p>}
@@ -1302,7 +1315,7 @@ export default function BookRemedyRoomPage() {
                       )
                   )}
 
-                {!loading && !error && times.length === 0 && (
+                {!loading && !error && displayedTimes.length === 0 && (
                   <div className="text-center text-white/50">
                     <p>No times available for this day.</p>
                     <NextAvailableBanner
