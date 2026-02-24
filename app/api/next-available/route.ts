@@ -84,13 +84,29 @@ async function findEarliestInRange(
 
     if (availabilities.length === 0) return null;
 
-    // Extract the earliest date from all availability windows
+    // Extract the earliest date that has a window long enough
+    // to fit at least one session start time.
+    // Mindbody returns windows with StartDateTime and BookableEndDateTime.
+    // The session length (from SessionType.StaffTimeLength or Length)
+    // determines how much contiguous time is needed.
+    // A window only produces valid slots if BookableEnd >= Start
+    // (i.e. at least one session fits).
     let earliest: string | null = null;
 
     for (const a of availabilities) {
-      const dt = a.StartDateTime; // e.g. "2025-02-16T09:00:00"
-      if (!dt) continue;
-      const dateOnly = dt.split("T")[0]; // "2025-02-16"
+      const rawStart = a.StartDateTime;
+      const rawEnd = a.BookableEndDateTime ?? a.EndDateTime;
+      if (!rawStart || !rawEnd) continue;
+
+      const start = new Date(rawStart).getTime();
+      const end = new Date(rawEnd).getTime();
+
+      // Window must be long enough for at least one session start
+      // (BookableEndDateTime already accounts for session length,
+      //  so start <= end means at least one slot fits)
+      if (start > end) continue;
+
+      const dateOnly = rawStart.split("T")[0];
       if (!earliest || dateOnly < earliest) {
         earliest = dateOnly;
       }
