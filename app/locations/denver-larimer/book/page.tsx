@@ -72,7 +72,7 @@ export default function BookingPage() {
 
                 {/* Price + duration overlay */}
                 <div className="absolute bottom-3 right-3">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
+                  <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
                     <div className="text-sm font-bold text-[#113D33]">{opt.price}</div>
                     <div className="text-[10px] text-[#113D33]/50">{opt.duration}</div>
                   </div>
