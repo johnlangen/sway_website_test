@@ -6,6 +6,13 @@ import Link from "next/link";
 export default function PressContent() {
   const pressItems = [
     {
+      title: "USA Today 10Best",
+      description:
+        "Sway Wellness Spa was voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards — recognized alongside the top spas in the country.",
+      image: "/assets/usatoday.png",
+      link: "https://10best.usatoday.com/awards/sway-denver-colorado/",
+    },
+    {
       title: "The Zoe Report",
       description:
         "Sway was named a top U.S. day spa in TZR’s 2026 Readers’ Choice Awards, recognized for redefining what it means to unwind with next-generation wellness experiences.",

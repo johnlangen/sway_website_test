@@ -51,6 +51,9 @@ export default function BookingPage() {
           <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto">
             Choose your treatment to get started.
           </p>
+          <p className="text-[11px] text-[#113D33]/40 mt-3 uppercase tracking-wider">
+            Voted #4 Best Day Spa in America — USA Today 10Best
+          </p>
         </div>
 
         {/* Cards grid */}

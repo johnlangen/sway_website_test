@@ -54,8 +54,13 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Award */}
+      <div className="mt-10 text-center text-xs text-white/40">
+        Voted #4 Best Day Spa in America — USA Today 10Best
+      </div>
+
       {/* Bottom Links */}
-      <div className="mt-10 flex justify-between text-sm text-gray-400">
+      <div className="mt-4 flex justify-between text-sm text-gray-400">
         <FooterLink href="/terms-and-conditions" text="Terms and Conditions" />
         <span>© 2024 Sway Wellness Club</span>
       </div>

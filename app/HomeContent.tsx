@@ -186,6 +186,15 @@ export default function HomeContent() {
             rediscover yourself.
           </p>
 
+          <a
+            href="https://10best.usatoday.com/awards/sway-denver-colorado/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 mb-6 hover:border-[#113D33]/40 transition"
+          >
+            Voted #4 Best Day Spa in America — USA Today 10Best
+          </a>
+
           <h2 className="text-sm md:text-base uppercase tracking-[0.15em] text-[#4A776D] mb-4">
             A Modern Wellness Spa & Club
           </h2>
@@ -196,7 +205,53 @@ export default function HomeContent() {
             help you feel better — consistently.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Press logos */}
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 mt-8 mb-8">
+            {[
+              {
+                src: "/assets/usatoday.png",
+                alt: "USA Today 10Best",
+                href: "https://10best.usatoday.com/awards/sway-denver-colorado/",
+              },
+              {
+                src: "/assets/tzr.png",
+                alt: "The Zoe Report",
+                href: "https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa",
+              },
+              {
+                src: "/assets/post.png",
+                alt: "The Denver Post",
+                href: "https://www.denverpost.com/2025/03/08/wellness-club-sway-larimer-square-ai-robot-massage/",
+              },
+              {
+                src: "/assets/5280.jpg",
+                alt: "5280 Magazine",
+                href: "https://www.5280.com/i-tried-colorados-first-robot-massage/",
+              },
+              {
+                src: "/assets/athletech2.jpg",
+                alt: "Athletech",
+                href: "https://athletechnews.com/built-by-gen-z-for-gen-z-sway-redefines-the-wellness-club/",
+              },
+            ].map((logo) => (
+              <a
+                key={logo.alt}
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={100}
+                  height={40}
+                  className="h-6 md:h-8 w-auto grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/offers"
               className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"

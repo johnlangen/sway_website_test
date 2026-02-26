@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import HomeContent from "./HomeContent";
 
 export const metadata: Metadata = {
-  title: "Sway Wellness Spa | Modern Wellness Experiences",
+  title: "Sway Wellness Spa | Voted #4 Best Day Spa in America",
   description:
-    "Sway Wellness Spa is a modern wellness club offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage. Now open on Larimer Square in Denver. Book online today.",
+    "Voted #4 Best Day Spa in America by USA Today 10Best. Sway Wellness Spa is a modern wellness club in Denver offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage on Larimer Square. Book online today.",
   openGraph: {
-    title: "Sway Wellness Spa | Modern Wellness Experiences",
+    title: "Sway Wellness Spa | Voted #4 Best Day Spa in America",
     description:
-      "A modern wellness club offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage. Now open on Larimer Square in Denver.",
+      "Voted #4 Best Day Spa in America by USA Today 10Best. A modern wellness club offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage on Larimer Square in Denver.",
     url: "https://swaywellnessspa.com/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -80,6 +80,11 @@ export default function HomePage() {
       reviewCount: "111",
       bestRating: "5",
     },
+
+    award: [
+      "USA Today 10Best: #4 Best Day Spa in the U.S. (2025)",
+      "TZR 2026 Readers' Choice Awards: Best U.S. Day Spa",
+    ],
   };
 
   return (

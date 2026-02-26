@@ -120,6 +120,11 @@ const memberships = [
 
 const pressLogos = [
   {
+    src: "/assets/usatoday.png",
+    alt: "USA Today 10Best",
+    href: "https://10best.usatoday.com/awards/sway-denver-colorado/",
+  },
+  {
     src: "/assets/tzr.png",
     alt: "The Zoe Report",
     href: "https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa",
@@ -358,7 +363,7 @@ export default function DallasFoundingMembershipPage() {
     { value: "not-sure", label: "Not sure yet", desc: "Tell me more" },
   ];
 
-  const rankCounter = useAnimatedCounter(8, 1200);
+  const rankCounter = useAnimatedCounter(4, 1200);
   const spotsCounter = useAnimatedCounter(100);
   const reviewCounter = useAnimatedCounter(111);
 
@@ -511,9 +516,9 @@ export default function DallasFoundingMembershipPage() {
           </p>
 
           <div className="grid grid-cols-3 gap-4 md:gap-8">
-            {/* #8 Day Spa */}
+            {/* #4 Day Spa */}
             <a
-              href="https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa"
+              href="https://10best.usatoday.com/awards/sway-denver-colorado/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-center group"
@@ -533,7 +538,7 @@ export default function DallasFoundingMembershipPage() {
                 Best Day Spa in the U.S.
               </p>
               <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5">
-                TZR Readers&apos; Choice
+                USA Today 10Best
               </p>
             </a>
 
