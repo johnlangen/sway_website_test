@@ -29,18 +29,24 @@ export default function TreatmentsPage() {
       name: "Facials",
       img: "/assets/treatment1.jpg",
       learn: "/facials",
+      description:
+        "Results-driven skincare with Eminence Organics and Dr. Dennis Gross.",
     },
     {
       id: 2,
       name: "Massages",
       img: "/assets/treatment3.jpg",
       learn: "/massages",
+      description:
+        "Deep Tissue, Sports, CBD, and more — customized by expert therapists.",
     },
     {
       id: 3,
       name: "Remedy Room",
       img: "/assets/treatment2.jpg",
       learn: "/remedy-tech",
+      description:
+        "Sauna, cold plunge, compression, and LED in a 40-minute recovery circuit.",
     },
     {
       id: 4,
@@ -48,6 +54,8 @@ export default function TreatmentsPage() {
       img: "/assets/aescape-treatment.jpg",
       learn: "/aescape",
       subtitle: "Select Locations",
+      description:
+        "AI-powered robot massage with personalized pressure mapping.",
     },
   ];
 
@@ -70,8 +78,9 @@ export default function TreatmentsPage() {
           transition={{ duration: 1, delay: 0.2 }}
           className="mt-4 text-sm md:text-lg max-w-3xl leading-relaxed opacity-90"
         >
-          Discover expert-led wellness experiences designed to restore, recover,
-          and elevate your body and mind.
+          Massage, facials, recovery, and AI-powered robot massage — all under
+          one roof at Denver&apos;s modern wellness club. Voted #4 Best Day Spa
+          in America by USA Today.
         </motion.p>
 
         <motion.button
@@ -119,6 +128,12 @@ export default function TreatmentsPage() {
 
                 {t.subtitle && (
                   <p className="text-xs text-gray-500 mt-1">{t.subtitle}</p>
+                )}
+
+                {t.description && (
+                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+                    {t.description}
+                  </p>
                 )}
 
                 <div className="mt-6 flex flex-col gap-3 w-full">

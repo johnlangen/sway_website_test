@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Treatments | Sway Wellness Spa",
   description:
-    "Explore Sway Wellness Spa treatments including facials, massages, Remedy Room recovery, and Aescape robot massage. Designed to restore body and mind.",
+    "Explore treatments at Sway, a modern wellness club in Denver — facials, massages, Remedy Room recovery, and Aescape robot massage. Designed to restore body and mind.",
   alternates: {
     canonical: "https://swaywellnessspa.com/treatments",
   },

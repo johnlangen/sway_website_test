@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s | Sway Wellness Spa",
   },
   description:
-    "Sway Wellness Spa is a modern wellness spa and club offering massage therapy, facials, recovery rituals, and technology-forward wellness experiences.",
+    "Sway Wellness Spa is a modern wellness club offering massage therapy, facials, recovery rituals, and technology-forward wellness experiences in Denver.",
 
   icons: {
     icon: "/assets/swaylogo3.png",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     title: "Sway Wellness Spa",
     description:
-      "A modern wellness spa and club offering massage therapy, facials, recovery rituals, and innovative wellness experiences.",
+      "A modern wellness club offering massage therapy, facials, recovery rituals, and innovative wellness experiences in Denver.",
     images: [
       {
         url: "/assets/homepage_photo_outside.jpg",

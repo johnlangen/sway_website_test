@@ -551,6 +551,54 @@ export default function AescapeContent() {
       </section>
 
       {/* ======================================================
+          EXPLORE MORE AT SWAY
+      ======================================================= */}
+      <section className="md:snap-start flex items-center justify-center px-5 md:px-10 py-16 md:py-24">
+        <div className="w-full max-w-5xl mx-auto">
+          <motion.div {...fadeUp} className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#113D33]">
+              Explore More at Sway
+            </h2>
+            <p className="mt-2 text-sm md:text-base text-[#113D33]/70">
+              Aescape is one part of Sway&apos;s modern wellness club. Pair it with
+              expert-led treatments and recovery.
+            </p>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Massages",
+                desc: "Deep Tissue, Sports, CBD, and more — customized by expert therapists with high-tech boosts.",
+                href: "/massages",
+              },
+              {
+                name: "Facials",
+                desc: "Results-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
+                href: "/facials",
+              },
+              {
+                name: "Remedy Room",
+                desc: "Sauna, cold plunge, compression, and LED light therapy in a 40-minute recovery circuit.",
+                href: "/remedy-tech",
+              },
+            ].map((s) => (
+              <Link
+                key={s.name}
+                href={s.href}
+                className="block rounded-2xl border border-[#d7e2dc] bg-white/85 shadow-sm p-6 hover:shadow-lg hover:border-[#113D33]/25 transition-all group"
+              >
+                <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
+                <p className="mt-2 text-sm text-[#5a5a5a] leading-relaxed">{s.desc}</p>
+                <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
+                  Learn More →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
           PRESS
           Fix: make this a snap section + full viewport so it can't "snap back"
       ======================================================= */}

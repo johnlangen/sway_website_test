@@ -59,6 +59,9 @@ const MassagesPage = () => {
   const [openId, setOpenId] = useState<number | null>(null);
   const [modalMaxH, setModalMaxH] = useState<number>(700);
 
+  // FAQ
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const massages: Massage[] = useMemo(
     () => [
       {
@@ -311,6 +314,29 @@ const MassagesPage = () => {
           >
             Explore our range of expert-led massage therapies. Every session is
             customized by your therapist to meet your body’s needs.
+          </motion.p>
+
+          <motion.a
+            href="https://10best.usatoday.com/awards/sway-denver-colorado/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+          >
+            Voted #4 Best Day Spa in America — USA Today 10Best
+          </motion.a>
+
+          <motion.p
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-[#113D33]/70 leading-relaxed"
+          >
+            Every massage at Sway is delivered by expert therapists in a
+            design-forward wellness club — not a strip-mall spa. Pair with a
+            recovery session, facial, or high-tech boost for a full reset.
           </motion.p>
 
           <div className="mt-9 flex items-center justify-center">
@@ -670,6 +696,107 @@ const MassagesPage = () => {
             >
               Continue to Booking
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-[#F7F4E9] px-6 py-16 md:py-24">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+            Frequently Asked Questions
+          </h2>
+
+          {[
+            {
+              q: "What makes Sway's massages different?",
+              a: "Every massage at Sway takes place in a design-forward wellness club — not a traditional spa. Our expert therapists customize every session, and you can enhance your experience with high-tech boosts like infrared PEMF mats and cupping. After your massage, members can access the Remedy Room for sauna and cold plunge recovery or book a results-driven facial — all under one roof.",
+            },
+            {
+              q: "What types of massage does Sway offer?",
+              a: "Sway offers six massage experiences: Basic Massage, Deep Tissue, Salt Stone, CBD CauseMedic, Sports Massage, and Lymphatic Drainage. Each is 50 minutes and fully customized by your therapist to address your body's specific needs.",
+            },
+            {
+              q: "Can I add anything to my massage?",
+              a: "Yes. Sway offers four add-on boosts: extend your session to 80 minutes, add Lymphatic Drainage Massage, lie on an Infrared PEMF Mat for deeper recovery, or add Cupping for targeted tension release. Members save 50% on all boosts.",
+            },
+            {
+              q: "How long is a massage session?",
+              a: "Standard massage sessions are 50 minutes. You can extend to 80 minutes by adding the 80-Minute Super Boost — ideal for full-body tension relief, injury recovery, or total relaxation.",
+            },
+            {
+              q: "Do I need a membership to book a massage?",
+              a: "No — anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts and recovery add-ons. Memberships start at $99/month.",
+            },
+          ].map((item, i) => (
+            <div key={i} className="border-b border-black/10">
+              <button
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                className="w-full py-5 flex items-center justify-between gap-4 text-left"
+              >
+                <span className="font-medium text-[#113D33]">{item.q}</span>
+                <svg
+                  className={`w-4 h-4 shrink-0 text-[#113D33] opacity-40 transition-transform duration-200 ${
+                    openFaq === i ? "rotate-45" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </button>
+              {openFaq === i && (
+                <p className="pb-5 text-sm text-[#113D33]/80 leading-relaxed pr-8">
+                  {item.a}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* EXPLORE MORE */}
+      <section className="bg-white px-6 py-16 md:py-24">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-10 text-center">
+            Explore More at Sway
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Facials",
+                desc: "Results-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
+                href: "/facials",
+              },
+              {
+                name: "Remedy Room",
+                desc: "Sauna, cold plunge, compression, and LED light therapy in a 40-minute recovery circuit.",
+                href: "/remedy-tech",
+              },
+              {
+                name: "Aescape Robot Massage",
+                desc: "AI-powered precision massage with personalized pressure mapping. Select locations.",
+                href: "/aescape",
+              },
+            ].map((s) => (
+              <Link
+                key={s.name}
+                href={s.href}
+                className="block rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-6 hover:shadow-md hover:border-[#113D33]/25 transition-all group"
+              >
+                <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
+                <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">{s.desc}</p>
+                <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
+                  Learn More →
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

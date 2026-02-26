@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Facial Treatments | Anti-Aging, Hydration & Acne | Sway Wellness Spa",
   description:
-    "Explore Sway’s advanced facial treatments including anti-aging, hydration, acne, sensitive skin, and Vitamin C facials. Personalized skincare with real results.",
+    "Explore advanced facial treatments at Sway, a modern wellness club in Denver. Anti-aging, hydration, acne, and Vitamin C facials with high-tech boosts like LED and microcurrent.",
   alternates: {
     canonical: "https://swaywellnessspa.com/facials",
   },
@@ -41,6 +41,53 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What makes Sway's facials different?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway's facials combine premium skincare from Eminence Organics and Dr. Dennis Gross with high-tech boosts like LED light therapy, microcurrent, hydraderm, and oxygen infusion. Every session is customized by your esthetician in a modern wellness club.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What types of facials does Sway offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway offers six facial experiences: Basic Facial, Forever Young (anti-aging), Glow Getter (brightening), Pore Perfection (deep pore cleansing), Sensitive Silk (calming), and Dr. Dennis Gross Vitamin C (clinical-grade brightening).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What high-tech boosts can I add to my facial?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Choose from six boosts: LED Light Therapy, Microcurrent, Hydraderm, Dermaflash, Chemical Peel, or Oxygen Infusion. Members save 50% on all boosts.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long is a facial session?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "All facial sessions at Sway are 50 minutes. Your esthetician customizes the treatment based on your skin type, concerns, and goals.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What skincare brands does Sway use?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway uses Eminence Organics — a leader in organic, results-driven skincare — and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta peel.",
+      },
+    },
+  ],
+};
+
 export default function FacialsLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -48,6 +95,10 @@ export default function FacialsLayout({ children }: { children: React.ReactNode 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );

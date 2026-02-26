@@ -11,6 +11,7 @@ const RemedyRoomPage = () => {
 
   const [saunaHref, setSaunaHref] = useState("/sauna");
   const [coldPlungeHref, setColdPlungeHref] = useState("/cold-plunge");
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     document.documentElement.style.backgroundColor = "#F7F4E9";
@@ -105,6 +106,29 @@ const RemedyRoomPage = () => {
           nervous system.
         </motion.p>
 
+        <motion.a
+          href="https://10best.usatoday.com/awards/sway-denver-colorado/"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+        >
+          Voted #4 Best Day Spa in America — USA Today 10Best
+        </motion.a>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-3 text-sm md:text-base max-w-2xl text-[#113D33]/70 leading-relaxed"
+        >
+          Recovery as a ritual. Sway&apos;s Remedy Room combines four
+          evidence-based modalities in one 40-minute circuit — designed for
+          athletes, professionals, and anyone who takes recovery seriously.
+        </motion.p>
+
         {/* Pricing */}
         <div className="mt-6 text-[#113D33]">
           <p className="text-lg font-vance-bold">
@@ -196,6 +220,107 @@ const RemedyRoomPage = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-[#F7F4E9] px-6 py-16 md:py-24">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+            Frequently Asked Questions
+          </h2>
+
+          {[
+            {
+              q: "What is the Remedy Room?",
+              a: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's designed to restore your body and reset your nervous system in a single session.",
+            },
+            {
+              q: "Who is the Remedy Room for?",
+              a: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. It's low-barrier — no experience needed, no special clothing required. Just show up and follow the guided circuit.",
+            },
+            {
+              q: "What's included in a Remedy Room session?",
+              a: "Every session follows a guided circuit: 15 minutes of Normatec compression therapy with LED light therapy, 20 minutes of infrared sauna, and 5 minutes of cold plunge. Total session time is 40 minutes.",
+            },
+            {
+              q: "Can I combine the Remedy Room with a massage or facial?",
+              a: "Yes — many Sway members pair a Remedy Room session with a massage or facial for a complete wellness experience. Recovery before a massage can help your muscles release tension more effectively.",
+            },
+            {
+              q: "How much does the Remedy Room cost?",
+              a: "The Remedy Room is $49 per session for drop-in guests and just $25 for Sway members. Memberships start at $99/month and include savings on all treatments, boosts, and recovery sessions.",
+            },
+          ].map((item, i) => (
+            <div key={i} className="border-b border-black/10">
+              <button
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                className="w-full py-5 flex items-center justify-between gap-4 text-left"
+              >
+                <span className="font-medium text-[#113D33]">{item.q}</span>
+                <svg
+                  className={`w-4 h-4 shrink-0 text-[#113D33] opacity-40 transition-transform duration-200 ${
+                    openFaq === i ? "rotate-45" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </button>
+              {openFaq === i && (
+                <p className="pb-5 text-sm text-[#113D33]/80 leading-relaxed pr-8">
+                  {item.a}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* EXPLORE MORE */}
+      <section className="bg-white px-6 py-16 md:py-24">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-10 text-center">
+            Explore More at Sway
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Massages",
+                desc: "Deep Tissue, Sports, CBD, and more — customized by expert therapists with high-tech boosts.",
+                href: "/massages",
+              },
+              {
+                name: "Facials",
+                desc: "Results-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
+                href: "/facials",
+              },
+              {
+                name: "Aescape Robot Massage",
+                desc: "AI-powered precision massage with personalized pressure mapping. Select locations.",
+                href: "/aescape",
+              },
+            ].map((s) => (
+              <Link
+                key={s.name}
+                href={s.href}
+                className="block rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-6 hover:shadow-md hover:border-[#113D33]/25 transition-all group"
+              >
+                <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
+                <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">{s.desc}</p>
+                <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
+                  Learn More →
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Wellness Spa",
   description:
-    "Explore massage therapy at Sway Wellness Spa. Choose from Deep Tissue, Sports, Salt Stone, CBD, and Lymphatic Drainage massage experiences.",
+    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, CBD, Salt Stone, and Lymphatic Drainage — customized by expert therapists.",
   alternates: {
     canonical: "https://swaywellnessspa.com/massages",
   },
@@ -51,6 +51,53 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What makes Sway's massages different?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Every massage at Sway takes place in a design-forward wellness club. Our expert therapists customize every session, and you can enhance your experience with high-tech boosts like infrared PEMF mats and cupping. After your massage, members can access the Remedy Room for sauna and cold plunge recovery or book a results-driven facial — all under one roof.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What types of massage does Sway offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway offers six massage experiences: Basic Massage, Deep Tissue, Salt Stone, CBD CauseMedic, Sports Massage, and Lymphatic Drainage. Each is 50 minutes and fully customized by your therapist.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I add anything to my massage?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Sway offers four add-on boosts: extend your session to 80 minutes, add Lymphatic Drainage Massage, lie on an Infrared PEMF Mat for deeper recovery, or add Cupping for targeted tension release. Members save 50% on all boosts.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long is a massage session?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Standard massage sessions are 50 minutes. You can extend to 80 minutes by adding the 80-Minute Super Boost.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do I need a membership to book a massage?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No — anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts. Memberships start at $99/month.",
+      },
+    },
+  ],
+};
+
 export default function MassagesLayout({
   children,
 }: {
@@ -62,6 +109,10 @@ export default function MassagesLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );
