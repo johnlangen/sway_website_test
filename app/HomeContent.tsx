@@ -209,7 +209,7 @@ export default function HomeContent() {
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 mt-8 mb-8">
             {[
               {
-                src: "/assets/usatoday.png",
+                src: "/assets/usa_today.png",
                 alt: "USA Today 10Best",
                 href: "https://10best.usatoday.com/awards/sway-denver-colorado/",
               },

@@ -9,7 +9,7 @@ export default function PressContent() {
       title: "USA Today 10Best",
       description:
         "Sway Wellness Spa was voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards — recognized alongside the top spas in the country.",
-      image: "/assets/usatoday.png",
+      image: "/assets/usa_today.png",
       link: "https://10best.usatoday.com/awards/sway-denver-colorado/",
     },
     {

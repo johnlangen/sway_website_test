@@ -120,7 +120,7 @@ const memberships = [
 
 const pressLogos = [
   {
-    src: "/assets/usatoday.png",
+    src: "/assets/usa_today.png",
     alt: "USA Today 10Best",
     href: "https://10best.usatoday.com/awards/sway-denver-colorado/",
   },
