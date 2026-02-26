@@ -177,6 +177,15 @@ export default function SwayLarimerPage() {
               </div>
             )}
 
+            <a
+              href="https://10best.usatoday.com/awards/sway-denver-colorado/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+            >
+              Voted #4 Best Day Spa in America — USA Today 10Best
+            </a>
+
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
               A modern wellness club on historic Larimer Square — offering
               massage, facials, recovery, and technology-forward experiences
