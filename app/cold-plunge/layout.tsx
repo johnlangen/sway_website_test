@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cold Plunge Therapy | Boost Recovery at Sway Wellness Spa",
+  title: "Cold Plunge Therapy in Denver | Remedy Room at Sway Wellness Spa",
   description:
-    "Boost energy, reduce inflammation, and speed recovery with cold plunge therapy at Sway Wellness Spa. Book a revitalizing session today.",
+    "Cold plunge therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with infrared sauna, Normatec compression, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
     canonical: "https://swaywellnessspa.com/cold-plunge",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/cold-plunge",
-    title: "Cold Plunge Therapy | Boost Recovery at Sway Wellness Spa",
+    title: "Cold Plunge Therapy in Denver | Sway Wellness Spa",
     description:
-      "Experience the life-changing benefits of cold plunge therapy at Sway: reduced inflammation, stronger immunity, better sleep, and enhanced mood.",
+      "Cold plunge therapy as part of the Remedy Room recovery circuit at Sway, a modern wellness club on Larimer Square in Denver.",
     images: [
       {
         url: "/assets/OG/og-cold-plunge.jpg",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cold Plunge Therapy | Boost Recovery at Sway Wellness Spa",
+    title: "Cold Plunge Therapy in Denver | Sway Wellness Spa",
     description:
-      "Recharge and recover with Sway’s cold plunge therapy — proven to boost energy, reduce pain, and improve sleep.",
+      "Cold plunge for recovery, energy, and resilience at Sway, a modern wellness club in Denver. Part of the Remedy Room circuit.",
     images: ["/assets/OG/og-cold-plunge.jpg"],
   },
   robots: { index: true, follow: true },

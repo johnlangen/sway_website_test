@@ -72,7 +72,7 @@ const FacialsPage = () => {
         time: "50 minutes",
         price: "Member $89 | Drop-In $129",
         description:
-          "A classic facial customized to your skin type — cleanse, exfoliate, extract, and hydrate.",
+          "A classic facial customized to your skin type: cleanse, exfoliate, extract, and hydrate.",
         img: "/assets/facial1.jpg",
       },
       {
@@ -327,7 +327,7 @@ const FacialsPage = () => {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33] opacity-90"
           >
-            Personalized, results-driven facials designed to support healthy, radiant skin —
+            Personalized, results-driven facials designed to support healthy, radiant skin,
             customized by your esthetician.
           </motion.p>
 
@@ -351,8 +351,8 @@ const FacialsPage = () => {
           >
             Clean, organic skincare from Eminence Organics paired with
             clinical-grade Dr. Dennis Gross protocols. Add science-backed
-            boosts — LED for acne, microcurrent for lifting, oxygen infusion
-            for hydration — to accelerate your results.
+            boosts like LED for acne, microcurrent for lifting, and oxygen infusion
+            for hydration to accelerate your results.
           </motion.p>
 
           <div className="mt-9 flex items-center justify-center">
@@ -714,7 +714,7 @@ const FacialsPage = () => {
           {[
             {
               q: "What makes Sway's facials different?",
-              a: "Sway pairs clean, organic Eminence Organics skincare with clinical-grade Dr. Dennis Gross protocols — then layers on science-backed boosts like LED light therapy for acne, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician, and you can pair your facial with a massage or sauna recovery session under one roof.",
+              a: "Sway pairs clean, organic Eminence Organics skincare with clinical-grade Dr. Dennis Gross protocols, then layers on science-backed boosts like LED light therapy for acne, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician, and you can pair your facial with a massage or sauna recovery session under one roof.",
             },
             {
               q: "What types of facials does Sway offer?",
@@ -730,7 +730,7 @@ const FacialsPage = () => {
             },
             {
               q: "What skincare brands does Sway use?",
-              a: "Sway uses Eminence Organics — a leader in organic, results-driven skincare — and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta® peel. Both brands are selected for their efficacy and clean ingredients.",
+              a: "Sway uses Eminence Organics, a leader in organic, results-driven skincare, and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta\u00ae peel. Both brands are selected for their efficacy and clean ingredients.",
             },
           ].map((item, i) => (
             <div key={i} className="border-b border-black/10">
@@ -775,7 +775,7 @@ const FacialsPage = () => {
             {[
               {
                 name: "Massages",
-                desc: "Deep Tissue, Sports, CBD, and more — customized by expert therapists with high-tech boosts.",
+                desc: "Deep Tissue, Sports, CBD, and more. Customized by expert therapists with high-tech boosts.",
                 href: "/massages",
               },
               {

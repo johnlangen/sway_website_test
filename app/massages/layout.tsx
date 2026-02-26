@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Wellness Spa",
   description:
-    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, CBD, Salt Stone, and Lymphatic Drainage — customized by expert therapists.",
+    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, CBD, Salt Stone, and Lymphatic Drainage, all customized by expert therapists.",
   alternates: {
     canonical: "https://swaywellnessspa.com/massages",
   },
@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "What makes Sway's massages different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room — sauna, cold plunge, Normatec compression — and results-driven facials with Eminence Organics are all available under one roof.",
+        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
       },
     },
     {
@@ -92,7 +92,7 @@ const faqJsonLd = {
       name: "Do I need a membership to book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No — anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts. Memberships start at $99/month.",
+        text: "No, anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts. Memberships start at $99/month.",
       },
     },
   ],

@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sway Wellness Spa",
     description:
-      "Modern wellness spa and club offering massage therapy, facials, and recovery-focused experiences.",
+      "Modern wellness club offering massage therapy, facials, and recovery-focused wellness experiences in Denver.",
     images: [{ url: "/assets/homepage_photo_outside.jpg" }],
   },
 

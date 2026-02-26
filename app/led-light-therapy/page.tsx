@@ -66,8 +66,10 @@ export default function LedLightTherapyPage() {
             Drop-In $49 | Member $25
           </p>
           <p className="text-md md:text-lg text-gray-700 mt-4 leading-relaxed font-vance-text">
-            LightStim MultiWave® Technology emits multiple wavelengths with 1,400 medical-grade LEDs, 
-            targeting anti-aging, acne, and regeneration for visible results.
+            LightStim MultiWave® Technology emits multiple wavelengths with
+            1,400 medical-grade LEDs, targeting anti-aging, acne, and
+            regeneration. At Sway, LED is part of the Remedy Room recovery
+            circuit and available as a facial boost.
           </p>
 
           {/* Recommended */}
@@ -87,7 +89,7 @@ export default function LedLightTherapyPage() {
             target="_blank"
             className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-md hover:bg-[#0a2b23] transition-all shadow-lg"
           >
-            Schedule Your Wellness
+            Book LED Light Therapy
           </Link>
         </motion.div>
       </section>

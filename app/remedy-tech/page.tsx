@@ -102,7 +102,7 @@ const RemedyRoomPage = () => {
           className="mt-4 max-w-3xl text-base md:text-xl text-[#113D33] opacity-90"
         >
           A guided recovery experience combining sauna, cold plunge, compression,
-          and LED light therapy — designed to restore your body and reset your
+          and LED light therapy. Designed to restore your body and reset your
           nervous system.
         </motion.p>
 
@@ -125,7 +125,7 @@ const RemedyRoomPage = () => {
           className="mt-3 text-sm md:text-base max-w-2xl text-[#113D33]/70 leading-relaxed"
         >
           Recovery built on science. Infrared sauna, cold plunge, Normatec
-          compression, and LED light therapy — four evidence-based modalities
+          compression, and LED light therapy: four evidence-based modalities
           in one 40-minute guided circuit. Used by athletes, remote workers,
           and anyone who takes recovery seriously.
         </motion.p>
@@ -238,7 +238,7 @@ const RemedyRoomPage = () => {
             },
             {
               q: "Who is the Remedy Room for?",
-              a: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. It's low-barrier — no experience needed, no special clothing required. Just show up and follow the guided circuit.",
+              a: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. No experience needed, no special clothing required. Just show up and follow the guided circuit.",
             },
             {
               q: "What's included in a Remedy Room session?",
@@ -246,7 +246,7 @@ const RemedyRoomPage = () => {
             },
             {
               q: "Can I combine the Remedy Room with a massage or facial?",
-              a: "Yes — many Sway members pair a Remedy Room session with a massage or facial for a complete wellness experience. Recovery before a massage can help your muscles release tension more effectively.",
+              a: "Yes, many Sway members pair a Remedy Room session with a massage or facial for a complete wellness experience. Recovery before a massage can help your muscles release tension more effectively.",
             },
             {
               q: "How much does the Remedy Room cost?",
@@ -295,7 +295,7 @@ const RemedyRoomPage = () => {
             {[
               {
                 name: "Massages",
-                desc: "Deep Tissue, Sports, CBD, and more — customized by expert therapists with high-tech boosts.",
+                desc: "Deep Tissue, Sports, CBD, and more. Customized by expert therapists with high-tech boosts.",
                 href: "/massages",
               },
               {

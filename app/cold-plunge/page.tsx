@@ -95,15 +95,17 @@ export default function ColdPlungePage() {
           </p>
 
           <p className="text-md md:text-lg text-gray-700 mt-4 leading-relaxed font-vance-text">
-            Cold plunge therapy involves brief exposure to cold water as part of a
-            balanced wellness routine focused on recovery, clarity, and resilience.
+            Cold plunge therapy involves brief exposure to cold water for
+            recovery, clarity, and resilience. At Sway, cold plunge is part of
+            the Remedy Room, a guided 40-minute circuit that also includes
+            infrared sauna, Normatec compression, and LED light therapy.
           </p>
 
           <Link
             href="/book"
             className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 font-bold rounded-md shadow-lg hover:bg-[#0a2b23]"
           >
-            Schedule Your Wellness
+            Book Cold Plunge
           </Link>
         </motion.div>
       </section>

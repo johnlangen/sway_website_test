@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
+  title: "LED Light Therapy in Denver | Anti-Aging & Recovery at Sway",
   description:
-    "Discover LED Light Therapy at Sway Wellness Spa. Reduce wrinkles, clear acne, and accelerate muscle recovery with red, blue, and infrared light treatments.",
+    "LED Light Therapy at Sway, a modern wellness club in Denver. LightStim MultiWave® with 1,400 medical-grade LEDs for anti-aging, acne, and recovery. Part of the Remedy Room circuit and available as a facial boost.",
   alternates: {
     canonical: "https://swaywellnessspa.com/led-light-therapy",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/led-light-therapy",
-    title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
+    title: "LED Light Therapy in Denver | Sway Wellness Spa",
     description:
-      "Sway’s LED Light Therapy uses LightStim MultiWave® technology with 1,400 medical-grade LEDs to target anti-aging, acne, and regeneration.",
+      "LightStim MultiWave® LED Light Therapy at Sway, a modern wellness club on Larimer Square in Denver. Anti-aging, acne, and recovery.",
     images: [
       {
         url: "/assets/OG/og-led-light.jpg",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LED Light Therapy | Anti-Aging & Skin Recovery at Sway Wellness Spa",
+    title: "LED Light Therapy in Denver | Sway Wellness Spa",
     description:
-      "Restore skin health and muscle recovery with LED Light Therapy at Sway Wellness Spa. Anti-aging, acne, and regeneration benefits in one session.",
+      "Medical-grade LED Light Therapy for skin health and recovery at Sway, a modern wellness club in Denver. Part of the Remedy Room circuit.",
     images: ["/assets/OG/og-led-light.jpg"],
   },
   robots: { index: true, follow: true },

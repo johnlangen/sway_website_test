@@ -72,8 +72,10 @@ export default function CompressionTherapyPage() {
             Drop-In $49 | Member $25
           </p>
           <p className="text-md md:text-lg text-gray-700 mt-4 leading-relaxed font-vance-text">
-            Boost circulation, relieve soreness, and accelerate recovery with Normatec lymphatic drainage boots. 
-            A science-backed solution for athletes, wellness seekers, and anyone looking to restore balance.
+            Normatec compression boots boost circulation, support lymphatic
+            drainage, and reduce muscle soreness. At Sway, Normatec is part
+            of the Remedy Room, a guided 40-minute recovery circuit that
+            also includes infrared sauna, cold plunge, and LED light therapy.
           </p>
 
           <h2 className="text-lg md:text-2xl font-vance-bold text-[#113D33] mt-6">
@@ -93,7 +95,7 @@ export default function CompressionTherapyPage() {
             target="_blank"
             className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-md hover:bg-[#0a2b23] transition-all shadow-lg"
           >
-            Schedule Your Wellness
+            Book Compression Therapy
           </Link>
         </motion.div>
       </section>

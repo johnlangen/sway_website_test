@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sauna Therapy | Relax & Recover at Sway Wellness Spa",
+  title: "Sauna Therapy in Denver | Remedy Room at Sway Wellness Spa",
   description:
-    "Relax, recover, and reset with sauna therapy at Sway Wellness Spa. Improve circulation, reduce stress, and support muscle recovery.",
+    "Sauna therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with cold plunge, Normatec compression, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
     canonical: "https://swaywellnessspa.com/sauna",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/sauna",
-    title: "Sauna Therapy | Relax & Recover at Sway Wellness Spa",
+    title: "Sauna Therapy in Denver | Sway Wellness Spa",
     description:
-      "Sauna therapy at Sway Wellness Spa for recovery, relaxation, and overall wellness.",
+      "Sauna therapy as part of the Remedy Room recovery circuit at Sway, a modern wellness club on Larimer Square in Denver.",
     images: [
       {
         url: "/assets/OG/og-sauna.jpg",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sauna Therapy | Relax & Recover at Sway Wellness Spa",
+    title: "Sauna Therapy in Denver | Sway Wellness Spa",
     description:
-      "Sauna therapy to support recovery, circulation, and stress relief at Sway Wellness Spa.",
+      "Sauna therapy for recovery, circulation, and stress relief at Sway, a modern wellness club in Denver. Part of the Remedy Room circuit.",
     images: ["/assets/OG/og-sauna.jpg"],
   },
   robots: { index: true, follow: true },
@@ -71,7 +71,7 @@ const serviceJsonLd = {
     },
   },
   description:
-    "Traditional sauna therapy at Sway Wellness Spa to support relaxation, circulation, muscle recovery, and overall wellness.",
+    "Sauna therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, Normatec compression, and LED light therapy.",
 };
 
 export default function SaunaLayout({

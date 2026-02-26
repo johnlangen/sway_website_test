@@ -30,7 +30,7 @@ const TREATMENTS = [
     title: "Massage",
     tagline: "Deep Tissue, Sports, CBD & more",
     description:
-      "From deep tissue to CBD-infused recovery, every massage is customized to your body. 50 minutes of targeted relief.",
+      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50 minutes, fully customized.",
     price: "From $129",
     memberPrice: "From $89",
     image: "/assets/massage3.jpg",
@@ -41,7 +41,7 @@ const TREATMENTS = [
     title: "Facials",
     tagline: "Forever Young, Glow Getter & more",
     description:
-      "Results-driven facials with Eminence Organics and Dr. Dennis Gross — anti-aging, hydration, and deep pore care.",
+      "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
     price: "From $129",
     memberPrice: "From $89",
     image: "/assets/facial5.jpg",
@@ -52,7 +52,7 @@ const TREATMENTS = [
     title: "Remedy Room",
     tagline: "Sauna + cold plunge recovery",
     description:
-      "Sauna, cold plunge, red light therapy, and Normatec compression — all in one 40-minute recovery session.",
+      "Infrared sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
     price: "$49",
     memberPrice: "$25",
     image: "/assets/remedy-room2.jpg",
@@ -63,7 +63,7 @@ const TREATMENTS = [
     title: "Aescape Robot Massage",
     tagline: "AI-powered precision recovery",
     description:
-      "Personalized pressure mapping, real-time muscle detection — the future of massage. Sessions from 15 to 60 minutes.",
+      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. Sessions from 15 to 60 minutes.",
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",
@@ -187,7 +187,7 @@ export default function SwayLarimerPage() {
             </a>
 
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
-              A modern wellness club on historic Larimer Square — offering
+              A modern wellness club on historic Larimer Square offering
               massage, facials, recovery, and technology-forward experiences
               designed for real life.
             </p>
@@ -319,7 +319,7 @@ export default function SwayLarimerPage() {
             Our Services
           </h2>
           <p className="opacity-75 max-w-xl mb-10 md:mb-14">
-            Massage, facials, and modern recovery — all under one roof in
+            Massage, facials, and modern recovery, all under one roof in
             downtown Denver.
           </p>
 
@@ -570,7 +570,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What makes Sway different from a traditional spa?",
-              a: "Sway blends modern wellness technology — like AI-powered massage and sauna recovery — with traditional treatments in a calm, design-forward space built for consistency and real life.",
+              a: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: infrared sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
             },
             {
               q: "How do I book a massage or facial?",
@@ -578,11 +578,11 @@ export default function SwayLarimerPage() {
             },
             {
               q: "Do I need a membership to book?",
-              a: "No — anyone can book at Sway. Memberships start at $99/month and unlock savings on every visit, but they're completely optional.",
+              a: "No, anyone can book at Sway. Memberships start at $99/month and unlock savings on every visit, but they're completely optional.",
             },
             {
               q: "What is the Remedy Room?",
-              a: "The Remedy Room is a 40-minute recovery circuit that includes sauna, cold plunge, red light therapy, and Normatec compression — all for $49 per session ($25 for members).",
+              a: "The Remedy Room is a guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
             },
             {
               q: "Is Sway Larimer walkable from Union Station?",

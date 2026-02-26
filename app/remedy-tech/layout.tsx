@@ -75,7 +75,7 @@ const faqJsonLd = {
       name: "Can I combine the Remedy Room with a massage or facial?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — many Sway members pair a Remedy Room session with a massage or facial for a complete wellness experience. Recovery before a massage can help your muscles release tension more effectively.",
+        text: "Yes, many Sway members pair a Remedy Room session with a massage or facial for a complete wellness experience. Recovery before a massage can help your muscles release tension more effectively.",
       },
     },
     {

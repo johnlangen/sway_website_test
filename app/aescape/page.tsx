@@ -3,17 +3,17 @@ import { Metadata } from "next";
 import AescapeContent from "../components/AescapeContent";
 
 export const metadata: Metadata = {
-  title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
+  title: "Aescape Robot Massage in Denver | AI-Powered Massage at Sway",
   description:
-    "Experience Aescape, the world's first AI-powered robot massage — available at Sway Wellness Spa. Personalized pressure, zero awkwardness. Book your session today.",
+    "Experience Aescape, the world's first AI-powered robot massage, available at Sway, a modern wellness club in Denver. AI body mapping, dual robotic arms, and personalized pressure. Book your session today.",
   alternates: { canonical: "https://swaywellnessspa.com/aescape" },
 
   openGraph: {
     type: "article",
     url: "https://swaywellnessspa.com/aescape",
-    title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
+    title: "Aescape Robot Massage in Denver | AI-Powered Massage at Sway",
     description:
-      "Experience Aescape, the world's first AI-powered robot massage at Sway Wellness Spa.",
+      "AI-powered robot massage with personalized pressure mapping at Sway, a modern wellness club on Larimer Square in Denver.",
     images: [
       {
         url: "/assets/OG/og-aescape.jpg",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Aescape Robot Massage | AI-Powered Massage at Sway Wellness Spa",
+    title: "Aescape Robot Massage in Denver | AI-Powered Massage at Sway",
     description:
-      "Experience Aescape, the world's first AI-powered robot massage at Sway Wellness Spa.",
+      "AI-powered robot massage with body mapping and dual robotic arms at Sway in Denver. Sessions 15–60 minutes.",
     images: ["/assets/OG/og-aescape.jpg"],
   },
 
@@ -58,7 +58,7 @@ export default function Page() {
               image: "https://swaywellnessspa.com/assets/OG/og-aescape.jpg",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "1430 Larimer St",
+                streetAddress: "1428 Larimer St.",
                 addressLocality: "Denver",
                 addressRegion: "CO",
                 postalCode: "80202",

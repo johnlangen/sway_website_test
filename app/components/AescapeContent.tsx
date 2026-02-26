@@ -106,11 +106,11 @@ const faqs = [
     answer: (
       <>
         <p>
-          You must wear Aerwear—special compression apparel designed for the
+          You must wear Aerwear, special compression apparel designed for the
           Aescape system. Sizes are provided at check-in.
         </p>
         <p className="mt-4">
-          Please also tie up long hair so it’s off the neck—we’ll provide a
+          Please also tie up long hair so it’s off the neck. We’ll provide a
           headband if needed.
         </p>
       </>
@@ -161,7 +161,7 @@ export default function AescapeContent() {
       {
         n: "④",
         t: "Adjust in real time",
-        d: "Pressure, zones, ambience, and visuals—fully controlled by you.",
+        d: "Pressure, zones, ambience, and visuals, all controlled by you.",
       },
       {
         n: "⑤",
@@ -171,7 +171,7 @@ export default function AescapeContent() {
       {
         n: "⑥",
         t: "Leave reset",
-        d: "A consistent, repeatable recovery session—no guesswork.",
+        d: "A consistent, repeatable recovery session. No guesswork.",
       },
     ],
     []
@@ -228,7 +228,7 @@ export default function AescapeContent() {
                 </h1>
 
                 <p className="mt-4 text-white/90 text-base md:text-lg italic">
-                  Massage reimagined—quiet, controlled, and repeatable.
+                  Massage reimagined: quiet, controlled, and repeatable.
                 </p>
 
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -304,19 +304,21 @@ export default function AescapeContent() {
               </p>
 
               <p className="mt-6 text-base lg:text-lg leading-relaxed text-[#2b2b2b]">
-                Aescape blends robotics and AI with a calm, spa-grade environment
-                to deliver a massage experience that&apos;s{" "}
+                Aescape uses AI body mapping and dual robotic arms to deliver a
+                massage that&apos;s{" "}
                 <span className="font-semibold text-[#113D33]">
                   controlled, consistent, and repeatable
                 </span>
-                . You guide the session—pressure, zones, ambience—without the
-                awkwardness of “is that too much?”
+                . You guide the session: pressure, target zones, and ambience,
+                all from a touchscreen console. Settings are saved for your next
+                visit.
               </p>
 
               <div className="mt-6 rounded-2xl border border-[#d7e2dc] bg-white/85 shadow-lg px-5 py-4">
                 <p className="text-sm leading-relaxed text-[#113D33]">
-                  Best for: busy professionals who want recovery that fits into
-                  real schedules.
+                  Available at Sway on Larimer Square in Denver. Part of a
+                  modern wellness club with expert-led massage, advanced facials,
+                  and sauna/cold plunge recovery.
                 </p>
               </div>
 
@@ -568,7 +570,7 @@ export default function AescapeContent() {
             {[
               {
                 name: "Massages",
-                desc: "Deep Tissue, Sports, CBD, and more — customized by expert therapists with high-tech boosts.",
+                desc: "Deep Tissue, Sports, CBD, and more. Customized by expert therapists with high-tech boosts.",
                 href: "/massages",
               },
               {

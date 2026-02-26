@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Facial Treatments | Sway Wellness Spa",
     description:
-      "Explore advanced facials at Sway — anti-aging, hydration, acne, sensitive skin, and Vitamin C treatments.",
+      "Explore advanced facials at Sway, including anti-aging, hydration, acne, sensitive skin, and Vitamin C treatments.",
     images: ["/assets/OG/og-facials.jpg"],
   },
   robots: { index: true, follow: true },
@@ -50,7 +50,7 @@ const faqJsonLd = {
       name: "What makes Sway's facials different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway pairs clean, organic Eminence Organics skincare with clinical-grade Dr. Dennis Gross protocols — then layers on science-backed boosts like LED light therapy for acne, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician.",
+        text: "Sway pairs clean, organic Eminence Organics skincare with clinical-grade Dr. Dennis Gross protocols, then layers on science-backed boosts like LED light therapy for acne, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician.",
       },
     },
     {
@@ -82,7 +82,7 @@ const faqJsonLd = {
       name: "What skincare brands does Sway use?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway uses Eminence Organics — a leader in organic, results-driven skincare — and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta peel.",
+        text: "Sway uses Eminence Organics, a leader in organic, results-driven skincare, and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta peel.",
       },
     },
   ],

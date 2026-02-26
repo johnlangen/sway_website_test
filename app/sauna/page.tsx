@@ -96,14 +96,16 @@ export default function SaunaPage() {
 
           <p className="text-md md:text-lg text-gray-700 mt-4 leading-relaxed font-vance-text">
             Sauna therapy uses dry heat to support circulation, recovery, and
-            deep relaxation as part of a balanced wellness routine.
+            deep relaxation. At Sway, sauna is part of the Remedy Room, a
+            guided 40-minute recovery circuit that also includes cold plunge,
+            Normatec compression, and LED light therapy.
           </p>
 
           <Link
             href="/book"
             className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 font-bold rounded-md shadow-lg hover:bg-[#0a2b23]"
           >
-            Schedule Your Wellness
+            Book Sauna
           </Link>
         </motion.div>
       </section>

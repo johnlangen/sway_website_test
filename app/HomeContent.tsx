@@ -14,7 +14,7 @@ const SERVICES = [
     title: "Massage",
     tagline: "Deep Tissue, Sports, CBD & more",
     description:
-      "Personalized massage therapy for recovery and relief. Every session is customized to your body — 50 minutes of targeted care.",
+      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50 minutes, fully customized.",
     price: "From $129",
     memberPrice: "From $89",
     image: "/assets/massage2.jpg",
@@ -25,7 +25,7 @@ const SERVICES = [
     title: "Facials",
     tagline: "Forever Young, Glow Getter & more",
     description:
-      "Results-driven facials with Eminence Organics and Dr. Dennis Gross — anti-aging, hydration, and deep pore care.",
+      "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
     price: "From $129",
     memberPrice: "From $89",
     image: "/assets/facial5.jpg",
@@ -36,7 +36,7 @@ const SERVICES = [
     title: "Remedy Room",
     tagline: "Sauna + cold plunge recovery",
     description:
-      "Sauna, cold plunge, red light therapy, and Normatec compression — all in one 40-minute recovery session.",
+      "Infrared sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
     price: "$49",
     memberPrice: "$25",
     image: "/assets/remedy-room2.jpg",
@@ -47,7 +47,7 @@ const SERVICES = [
     title: "Aescape",
     tagline: "AI-powered precision massage",
     description:
-      "Personalized pressure mapping and real-time muscle detection — the future of massage. Sessions from 15 to 60 minutes.",
+      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. Sessions from 15 to 60 minutes.",
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",
@@ -127,23 +127,23 @@ const CONNECT_ITEMS = [
 const FAQ_ITEMS = [
   {
     q: "What is the Remedy Room?",
-    a: "The Remedy Room is our modern recovery experience — typically featuring sauna, cold plunge, and select recovery tech designed to help you reset.",
+    a: "The Remedy Room is a guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
   },
   {
     q: "What is Aescape?",
-    a: "Aescape is an AI-powered massage experience designed for modern recovery. It's a separate offering from therapist-led massage therapy.",
+    a: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 15–60 minutes.",
   },
   {
     q: "Do you offer memberships?",
-    a: "Yes. Sway is built around consistent care — memberships offer preferred pricing, perks, and an easier way to make wellness a ritual.",
+    a: "Yes. Memberships start at $99/month and include massages and facials at $99 each (regularly $139), 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
   },
   {
     q: "What should I book for a first visit?",
-    a: "Most guests start with a 50-minute facial or massage. If you want recovery-focused benefits, the Remedy Room is a great add-on.",
+    a: "Most guests start with a 50-minute facial or massage. If you want recovery-focused benefits, the Remedy Room pairs well. Many members do both in one visit.",
   },
   {
     q: "How do I book?",
-    a: "You can schedule online anytime. If you have questions, you can also call the spa and our team will help you choose the right experience.",
+    a: "Book online anytime at swaywellnessspa.com or call (303) 476-6150. We recommend booking ahead during evenings and weekends.",
   },
 ] as const;
 
@@ -159,12 +159,13 @@ export default function HomeContent() {
           ====================================================== */}
       <section className="snap-section h-screen flex items-center justify-center">
         <h1 className="sr-only">
-          Sway Wellness Spa – Modern Wellness Experiences
+          Sway Wellness Spa – Modern Wellness Club in Denver
         </h1>
         <p className="sr-only">
-          Sway is a modern wellness spa and club offering massage therapy,
-          facials, and recovery experiences including sauna, cold plunge, and
-          AI-powered Aescape massage.
+          Sway is a modern wellness club in Denver offering massage therapy,
+          advanced facials with Eminence Organics and Dr. Dennis Gross, sauna
+          and cold plunge recovery, and AI-powered Aescape robot massage on
+          Larimer Square.
         </p>
         <VideoBackground />
       </section>
@@ -196,13 +197,13 @@ export default function HomeContent() {
           </a>
 
           <h2 className="text-sm md:text-base uppercase tracking-[0.15em] text-[#4A776D] mb-4">
-            A Modern Wellness Spa & Club
+            A Modern Wellness Club
           </h2>
           <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-xl mx-auto">
-            Sway blends expert-led care with modern recovery. From personalized
-            massage therapy and facials to sauna and cold plunge rituals and the
-            AI-powered Aescape massage experience, everything is designed to
-            help you feel better — consistently.
+            Sway blends expert-led massage and advanced skincare with
+            recovery technology: sauna, cold plunge, Normatec compression,
+            and AI-powered Aescape robot massage. All under one roof on
+            Larimer Square in Denver.
           </p>
 
           {/* Press logos */}

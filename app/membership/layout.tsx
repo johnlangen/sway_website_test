@@ -2,18 +2,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Spa Memberships | Join the Club at Sway Wellness Spa",
+  title: "Wellness Club Memberships | Join Sway from $99/month",
   description:
-    "Explore Sway Wellness Spa memberships. Memberships vary by location — select your spa to view available plans, perks, and pricing.",
+    "Join Sway, a modern wellness club with locations in Denver. Memberships from $99/month include massage and facial pricing at $99 (reg. $139), 50% off boosts and Remedy Room, private lounge access, and rollover credits.",
   alternates: {
     canonical: "https://swaywellnessspa.com/membership",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/membership",
-    title: "Spa Memberships | Join the Club at Sway Wellness Spa",
+    title: "Wellness Club Memberships | Join Sway from $99/month",
     description:
-      "Explore Sway Wellness Spa memberships. Plans, perks, and pricing vary by location.",
+      "Join Sway, a modern wellness club. Memberships from $99/month with member pricing on massages, facials, and recovery.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Spa Memberships | Join the Club at Sway Wellness Spa",
+    title: "Wellness Club Memberships | Join Sway from $99/month",
     description:
-      "Join the Sway Wellness Spa membership club. Memberships vary by location.",
+      "Sway wellness club memberships from $99/month. Member pricing on massages, facials, and recovery sessions.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
   robots: {
@@ -63,13 +63,13 @@ export default function MembershipLayout({
       },
       {
         "@type": "Service",
-        name: "Spa Memberships",
+        name: "Wellness Club Memberships",
         provider: {
           "@type": "Organization",
           name: "Sway Wellness Spa",
         },
         description:
-          "Monthly spa memberships offering exclusive pricing and member perks. Availability varies by location.",
+          "Monthly wellness club memberships from $99/month. Includes member pricing on massages and facials ($99 vs. $139), 50% off boosts and Remedy Room sessions, private lounge access, and rollover credits.",
       },
     ],
   };

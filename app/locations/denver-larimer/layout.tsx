@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sway Larimer | Spa in Downtown Denver on Larimer Square",
+  title: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver",
   description:
-    "Visit Sway Wellness Spa on Larimer Square in downtown Denver. Massage therapy, facials, sauna, cold plunge, LED light therapy, and AI-powered Aescape massage. Book online today.",
+    "Visit Sway on Larimer Square in downtown Denver. A modern wellness club offering massage therapy, advanced facials, infrared sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Book online today.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-larimer",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/denver-larimer",
-    title: "Sway Larimer | Spa in Downtown Denver on Larimer Square",
+    title: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver",
     description:
-      "Massage, facials, sauna, cold plunge & Aescape robot massage on Larimer Square in downtown Denver.",
+      "Massage, facials, sauna, cold plunge, Normatec compression, and Aescape robot massage at Sway on Larimer Square in downtown Denver.",
     images: [
       {
         url: "/assets/homepage_photo_outside.jpg",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sway Larimer | Spa in Downtown Denver",
+    title: "Sway Larimer | Modern Wellness Club in Denver",
     description:
-      "Massage, facials, sauna & cold plunge at Sway Wellness Spa on Larimer Square in downtown Denver.",
+      "Massage, facials, sauna, cold plunge, and Aescape robot massage at Sway on Larimer Square in downtown Denver.",
     images: ["/assets/homepage_photo_outside.jpg"],
   },
   robots: {
@@ -40,6 +40,8 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "DaySpa",
   name: "Sway Wellness Spa – Larimer Square",
+  description:
+    "A modern wellness club on Larimer Square in Denver offering massage therapy, advanced facials, infrared sauna, cold plunge, Normatec compression, LED light therapy, and AI-powered Aescape robot massage.",
   image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-larimer",
   url: "https://swaywellnessspa.com/locations/denver-larimer",
@@ -86,7 +88,7 @@ const localBusinessJsonLd = {
   },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Spa Services",
+    name: "Wellness Club Services",
     itemListElement: [
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Massage Therapy" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Facial Treatments" } },

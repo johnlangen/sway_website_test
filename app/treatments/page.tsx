@@ -38,7 +38,7 @@ export default function TreatmentsPage() {
       img: "/assets/treatment3.jpg",
       learn: "/massages",
       description:
-        "Deep Tissue, Sports, CBD, and more — customized by expert therapists.",
+        "Deep Tissue, Sports, CBD, and more. Customized by expert therapists.",
     },
     {
       id: 3,
@@ -78,7 +78,7 @@ export default function TreatmentsPage() {
           transition={{ duration: 1, delay: 0.2 }}
           className="mt-4 text-sm md:text-lg max-w-3xl leading-relaxed opacity-90"
         >
-          Massage, facials, recovery, and AI-powered robot massage — all under
+          Massage, facials, recovery, and AI-powered robot massage, all under
           one roof at Denver&apos;s modern wellness club. Voted #4 Best Day Spa
           in America by USA Today.
         </motion.p>

@@ -70,7 +70,7 @@ const MassagesPage = () => {
         time: "50 minutes",
         price: "Member $89 | Drop-In $129",
         description:
-          "A foundational full-body massage tailored to your needs — ideal for relaxation, tension relief, and overall wellness.",
+          "A foundational full-body massage tailored to your needs. Ideal for relaxation, tension relief, and overall wellness.",
         img: "/assets/massage7.jpg",
       },
       {
@@ -130,7 +130,7 @@ const MassagesPage = () => {
         id: 4,
         name: "80 Minutes",
         tag: "Super Boost",
-        description: "Extend your massage by 30 minutes for deeper focus on problem areas — ideal for full-body tension relief, injury recovery, or total relaxation.",
+        description: "Extend your massage by 30 minutes for deeper focus on problem areas. Ideal for full-body tension relief, injury recovery, or total relaxation.",
         price: "Member $50 | Drop-In $100",
       },
       {
@@ -334,8 +334,8 @@ const MassagesPage = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-[#113D33]/70 leading-relaxed"
           >
-            Expert therapists blend traditional techniques — cupping, salt
-            stone, lymphatic drainage — with modern recovery tools like
+            Expert therapists blend traditional techniques like cupping, salt
+            stone, and lymphatic drainage with modern recovery tools like
             infrared PEMF mats. Pair your massage with sauna and cold plunge
             recovery or a facial for a complete reset.
           </motion.p>
@@ -711,7 +711,7 @@ const MassagesPage = () => {
           {[
             {
               q: "What makes Sway's massages different?",
-              a: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room — sauna, cold plunge, Normatec compression — and results-driven facials with Eminence Organics are all available under one roof.",
+              a: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
             },
             {
               q: "What types of massage does Sway offer?",
@@ -723,11 +723,11 @@ const MassagesPage = () => {
             },
             {
               q: "How long is a massage session?",
-              a: "Standard massage sessions are 50 minutes. You can extend to 80 minutes by adding the 80-Minute Super Boost — ideal for full-body tension relief, injury recovery, or total relaxation.",
+              a: "Standard massage sessions are 50 minutes. You can extend to 80 minutes by adding the 80-Minute Super Boost, ideal for full-body tension relief, injury recovery, or total relaxation.",
             },
             {
               q: "Do I need a membership to book a massage?",
-              a: "No — anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts and recovery add-ons. Memberships start at $99/month.",
+              a: "No, anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts and recovery add-ons. Memberships start at $99/month.",
             },
           ].map((item, i) => (
             <div key={i} className="border-b border-black/10">

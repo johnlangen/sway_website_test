@@ -60,14 +60,15 @@ export default function MembershipHubPage() {
       {/* Hero */}
       <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
         <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
-          Sway Wellness Spa
+          Sway Wellness Club
         </p>
         <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
           Join the Club
         </h1>
         <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
-          Memberships unlock exclusive pricing, perks, and access.
-          Select your spa below to explore plans.
+          Memberships start at $99/month and include massages and facials
+          at member pricing, 50% off boosts and Remedy Room sessions,
+          private lounge access, and rollover credits.
         </p>
       </section>
 
