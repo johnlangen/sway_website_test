@@ -124,9 +124,10 @@ const RemedyRoomPage = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-3 text-sm md:text-base max-w-2xl text-[#113D33]/70 leading-relaxed"
         >
-          Recovery as a ritual. Sway&apos;s Remedy Room combines four
-          evidence-based modalities in one 40-minute circuit — designed for
-          athletes, professionals, and anyone who takes recovery seriously.
+          Recovery built on science. Infrared sauna, cold plunge, Normatec
+          compression, and LED light therapy — four evidence-based modalities
+          in one 40-minute guided circuit. Used by athletes, remote workers,
+          and anyone who takes recovery seriously.
         </motion.p>
 
         {/* Pricing */}

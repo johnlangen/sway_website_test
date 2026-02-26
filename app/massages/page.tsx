@@ -334,9 +334,10 @@ const MassagesPage = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-[#113D33]/70 leading-relaxed"
           >
-            Every massage at Sway is delivered by expert therapists in a
-            design-forward wellness club — not a strip-mall spa. Pair with a
-            recovery session, facial, or high-tech boost for a full reset.
+            Expert therapists blend traditional techniques — cupping, salt
+            stone, lymphatic drainage — with modern recovery tools like
+            infrared PEMF mats. Pair your massage with sauna and cold plunge
+            recovery or a facial for a complete reset.
           </motion.p>
 
           <div className="mt-9 flex items-center justify-center">
@@ -710,7 +711,7 @@ const MassagesPage = () => {
           {[
             {
               q: "What makes Sway's massages different?",
-              a: "Every massage at Sway takes place in a design-forward wellness club — not a traditional spa. Our expert therapists customize every session, and you can enhance your experience with high-tech boosts like infrared PEMF mats and cupping. After your massage, members can access the Remedy Room for sauna and cold plunge recovery or book a results-driven facial — all under one roof.",
+              a: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room — sauna, cold plunge, Normatec compression — and results-driven facials with Eminence Organics are all available under one roof.",
             },
             {
               q: "What types of massage does Sway offer?",

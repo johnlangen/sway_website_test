@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "What makes Sway's massages different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Every massage at Sway takes place in a design-forward wellness club. Our expert therapists customize every session, and you can enhance your experience with high-tech boosts like infrared PEMF mats and cupping. After your massage, members can access the Remedy Room for sauna and cold plunge recovery or book a results-driven facial — all under one roof.",
+        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room — sauna, cold plunge, Normatec compression — and results-driven facials with Eminence Organics are all available under one roof.",
       },
     },
     {
