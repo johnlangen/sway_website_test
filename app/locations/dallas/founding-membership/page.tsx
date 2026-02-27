@@ -778,7 +778,7 @@ export default function DallasFoundingMembershipPage() {
                   alt={logo.alt}
                   width={140}
                   height={56}
-                  className="h-10 md:h-14 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                  className="h-10 md:h-14 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 />
               </motion.a>
             ))}
