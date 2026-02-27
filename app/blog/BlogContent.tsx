@@ -7,6 +7,14 @@ import { motion } from "framer-motion";
 // --- Blog Index ---
 const blogs = [
   {
+    slug: "best-day-spa-in-america",
+    title: "#4 Best Day Spa in America: Sway's First Year",
+    summary:
+      "USA Today 10Best voted Sway #4 Best Day Spa in America. A look back at year one on Larimer Square and what's inside Denver's modern wellness club.",
+    tag: "Award",
+    image: "/assets/homepage_photo_outside.jpg",
+  },
+  {
     slug: "holiday-wellness-guide",
     title: "Your Wellness Guide Is Here",
     summary:
