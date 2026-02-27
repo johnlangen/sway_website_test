@@ -15,6 +15,12 @@ export default function ScienceOfRelaxationBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Science</span>
+          <span className="text-gray-500">September 2025</span>
+        </div>
+
         <p>
           Stress and anxiety can weigh heavily on our minds and bodies,
           impacting clarity, relationships, and health. At Sway, we use
@@ -27,28 +33,37 @@ export default function ScienceOfRelaxationBlogLayout() {
           Treatments like massage, cold plunge, sauna, and mindful facials are
           proven to lower cortisol, ease tension, and restore inner balance.
           Research from{" "}
-          <a
+          <Link
             href="https://www.mdpi.com/2079-9721/12/10/232"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-blue-600"
+            className="underline text-[#113D33] font-semibold"
           >
             MDPI
-          </a>{" "}
+          </Link>{" "}
           confirms spa therapy’s effect on mental health and sleep quality. And{" "}
-          <a
+          <Link
             href="https://www.thetimes.com/world/europe/article/cold-water-swimming-psychotherapy-fn72plldc?region=global"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-blue-600"
+            className="underline text-[#113D33] font-semibold"
           >
             The Times
-          </a>{" "}
+          </Link>{" "}
           explores how cold water immersion can disrupt anxiety patterns and
           foster emotional resilience.
         </p>
 
-        <h2 className="text-2xl font-bold">Here’s How Sway Works its Magic</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#how-sway-works" className="hover:underline">Here&apos;s How Sway Works its Magic</a></li>
+            <li><a href="#benefits-backed-by-science" className="hover:underline">The Benefits of Spa Treatments Backed by Science</a></li>
+            <li><a href="#join-sway-community" className="hover:underline">Join the Sway Community</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="how-sway-works" className="text-2xl font-bold scroll-mt-24">Here&apos;s How Sway Works its Magic</h2>
 
         <h3 className="text-xl font-semibold">Therapeutic Massages</h3>
         <p>
@@ -90,7 +105,7 @@ export default function ScienceOfRelaxationBlogLayout() {
           className="w-[600px] h-auto rounded-lg"
         />
 
-        <h2 className="text-2xl font-bold">
+        <h2 id="benefits-backed-by-science" className="text-2xl font-bold scroll-mt-24">
           The Benefits of Spa Treatments Backed by Science
         </h2>
 
@@ -122,7 +137,7 @@ export default function ScienceOfRelaxationBlogLayout() {
           you.
         </p>
 
-        <h2 className="text-2xl font-bold">Join the Sway Community</h2>
+        <h2 id="join-sway-community" className="text-2xl font-bold scroll-mt-24">Join the Sway Community</h2>
         <p>
           At Sway, self-care is a lifestyle. Our expert team and state-of-the-art
           services are designed to help you reset, recharge, and feel your
@@ -130,9 +145,32 @@ export default function ScienceOfRelaxationBlogLayout() {
         </p>
 
         <div className="pt-4">
-          <Link href="/membership" className="underline text-blue-600">
+          <Link href="/membership" className="underline text-[#113D33] font-semibold">
             Explore our Membership Options
           </Link>
+        </div>
+
+        {/* Related Articles */}
+        <div className="pt-10 border-t border-[#d7e2dc]">
+          <h3 className="text-xl font-bold mb-6">Related Articles</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href="/blog/cold-plunge" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog7.jpg" alt="Cold Plunge" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Cold Plunge</p></div>
+            </Link>
+            <Link href="/blog/infrared-vs-traditional-sauna" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog8.jpg" alt="Infrared vs Traditional Sauna" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Infrared vs Traditional Sauna</p></div>
+            </Link>
+            <Link href="/blog/80-minute-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="80-Minute Massage" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">80-Minute Massage</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <div className="text-sm text-gray-400 pt-6">
+          <Link href="/blog/science-of-relaxation" className="hover:underline">swaywellnessspa.com/blog/science-of-relaxation</Link>
         </div>
       </div>
     </div>

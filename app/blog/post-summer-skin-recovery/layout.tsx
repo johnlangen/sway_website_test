@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+
 export default function PostSummerSkinRecoveryBlogLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
@@ -12,6 +15,13 @@ export default function PostSummerSkinRecoveryBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-8 text-[17px] leading-relaxed">
+        {/* Back + Date + Tag */}
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Skincare</span>
+          <span className="text-gray-500">September 2025</span>
+        </div>
+
         <p>
           Summer was amazing—beach days, outdoor adventures, and endless
           sunshine. But now that fall is here, your skin might be telling a
@@ -46,7 +56,19 @@ export default function PostSummerSkinRecoveryBlogLayout() {
           prepare for the cooler months ahead.
         </p>
 
-        <h2 className="text-2xl font-bold">Why Your Skin Needs Recovery</h2>
+        {/* Table of Contents */}
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#why-recovery" className="hover:underline">Why Your Skin Needs Recovery</a></li>
+            <li><a href="#treatments" className="hover:underline">Professional Treatments</a></li>
+            <li><a href="#at-home" className="hover:underline">At-Home Care Essentials</a></li>
+            <li><a href="#expert" className="hover:underline">Expert Insight</a></li>
+            <li><a href="#book" className="hover:underline">Book Your Recovery</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="why-recovery" className="text-2xl font-bold scroll-mt-24">Why Your Skin Needs Recovery</h2>
         <p>
           Prolonged sun exposure breaks down collagen and elastin, while heat
           and humidity weaken your barrier. Even diligent sunscreen users
@@ -54,7 +76,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
           dehydration, clogged pores, pigmentation, and fine lines.
         </p>
 
-        <h2 className="text-2xl font-bold">Professional Treatments</h2>
+        <h2 id="treatments" className="text-2xl font-bold scroll-mt-24">Professional Treatments</h2>
         <h3 className="font-bold">Hydrating &amp; Exfoliating Facials</h3>
         <p>
           Clear away buildup, unclog pores, and replenish hydration. Each facial
@@ -81,7 +103,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
           faster healing, and youthful glow.
         </p>
 
-        <h2 className="text-2xl font-bold">At-Home Care Essentials</h2>
+        <h2 id="at-home" className="text-2xl font-bold scroll-mt-24">At-Home Care Essentials</h2>
         <p>
           Professional facials are just the start—daily care keeps results
           going. Our estheticians recommend barrier-repair cleansers, nourishing
@@ -93,14 +115,14 @@ export default function PostSummerSkinRecoveryBlogLayout() {
           Getter facial brought it back to life.” – Kayla, Sway Guest
         </blockquote>
 
-        <h2 className="text-2xl font-bold">Expert Insight</h2>
+        <h2 id="expert" className="text-2xl font-bold scroll-mt-24">Expert Insight</h2>
         <p>
           “Our fall facials focus on detoxifying, rehydrating, and helping skin
           bounce back from UV exposure. Most guests see dramatic results in 4–6
           weeks with consistent care,” says Trisha, esthetician at Sway.
         </p>
 
-        <h2 className="text-2xl font-bold">Book Your Recovery</h2>
+        <h2 id="book" className="text-2xl font-bold scroll-mt-24">Book Your Recovery</h2>
         <p>
           Your skin worked hard all summer. Now it’s time to restore, repair,
           and rejuvenate with customized facials and boosts at Sway. Book today
@@ -108,10 +130,45 @@ export default function PostSummerSkinRecoveryBlogLayout() {
         </p>
 
         <div className="pt-4">
-          <a href="/facials" className="underline text-blue-600">
-            Book Your Post-Summer Skin Recovery →
-          </a>
+          <Link href="/facials" className="underline text-[#113D33] font-semibold">
+            Book Your Post-Summer Skin Recovery &rarr;
+          </Link>
         </div>
+
+        {/* Related Articles */}
+        <div className="pt-6">
+          <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/blog/vitamin-c-facial" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden">
+                <Image src="/assets/blog4.jpg" alt="Vitamin C Facial" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-4">
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Winter Skincare: Brighten with Vitamin C</p>
+              </div>
+            </Link>
+            <Link href="/blog/allergy-season-skincare" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden">
+                <Image src="/assets/allergy.jpg" alt="Allergy Season Skincare" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-4">
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Allergy Season? Soothe Sensitive Skin</p>
+              </div>
+            </Link>
+            <Link href="/blog/sun-protection-post-sun-care" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden">
+                <Image src="/assets/blog18.jpg" alt="Sun Protection Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-4">
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">The Ultimate Guide to Sun Protection</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">
+          Permalink: swaywellnessspa.com/blog/post-summer-skin-recovery
+        </p>
       </div>
     </div>
   );

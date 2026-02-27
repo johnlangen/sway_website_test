@@ -16,6 +16,12 @@ export default function SwaySpaMembershipBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Membership</span>
+          <span className="text-gray-500">January 2025</span>
+        </div>
+
         <p>
           The start of a new year is the perfect time to commit to your well-being. 
           At Sway Wellness Spa, we're dedicated to helping you make 2025 your healthiest 
@@ -32,7 +38,18 @@ export default function SwaySpaMembershipBlogLayout() {
           className="rounded-lg w-full h-auto"
         />
 
-        <h2 className="text-2xl font-bold pt-4">Why Prioritize Wellness in 2025?</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#why-prioritize-wellness-in-2025" className="hover:underline">Why Prioritize Wellness in 2025?</a></li>
+            <li><a href="#what-does-a-sway-membership-include" className="hover:underline">What Does a Sway Membership Include?</a></li>
+            <li><a href="#how-a-sway-membership-helps-build-consistency" className="hover:underline">How a Sway Membership Helps Build Consistency</a></li>
+            <li><a href="#benefits-beyond-the-spa" className="hover:underline">Benefits Beyond the Spa</a></li>
+            <li><a href="#start-your-journey" className="hover:underline">Start Your Journey</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="why-prioritize-wellness-in-2025" className="text-2xl font-bold pt-4 scroll-mt-24">Why Prioritize Wellness in 2025?</h2>
         <p>
           In today's fast-paced world, it's easy to feel overwhelmed and depleted. 
           That's why prioritizing wellness is no longer a luxury – it's a necessity. 
@@ -47,7 +64,7 @@ export default function SwaySpaMembershipBlogLayout() {
           worthwhile investment in your overall well-being.
         </p>
 
-        <h2 className="text-2xl font-bold pt-4">What Does a Sway Membership Include?</h2>
+        <h2 id="what-does-a-sway-membership-include" className="text-2xl font-bold pt-4 scroll-mt-24">What Does a Sway Membership Include?</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li>Preferred Pricing: One facial or massage per month for $99.</li>
           <li>Exclusive Member Lounge with tea & snacks.</li>
@@ -58,14 +75,14 @@ export default function SwaySpaMembershipBlogLayout() {
           <li>Rollover Benefits: Unused credits valid for a year.</li>
         </ul>
 
-        <h2 className="text-2xl font-bold pt-4">How a Sway Membership Helps Build Consistency</h2>
+        <h2 id="how-a-sway-membership-helps-build-consistency" className="text-2xl font-bold pt-4 scroll-mt-24">How a Sway Membership Helps Build Consistency</h2>
         <p>
           Building new habits takes time and effort, but consistency is the key to success. 
           A Sway membership simplifies self-care by ensuring you have access to the wellness 
           treatments you need, precisely when you need them.
         </p>
 
-        <h2 className="text-2xl font-bold pt-4">Benefits Beyond the Spa</h2>
+        <h2 id="benefits-beyond-the-spa" className="text-2xl font-bold pt-4 scroll-mt-24">Benefits Beyond the Spa</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li>Increased Energy and Focus</li>
           <li>Better Quality Sleep</li>
@@ -79,7 +96,7 @@ export default function SwaySpaMembershipBlogLayout() {
           arterial flexibility.
         </p>
 
-        <h2 className="text-2xl font-bold pt-4">Start Your Journey</h2>
+        <h2 id="start-your-journey" className="text-2xl font-bold pt-4 scroll-mt-24">Start Your Journey</h2>
         <p>
           Ready to make 2025 your healthiest year yet? Join the next wave of wellness at 
           Sway Wellness Spa and discover how small, consistent habits can lead to 
@@ -94,6 +111,27 @@ export default function SwaySpaMembershipBlogLayout() {
             Join the Club!
           </Link>
         </div>
+
+        {/* Related Articles */}
+        <div className="pt-10 space-y-6">
+          <h2 className="text-2xl font-bold">Related Articles</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href="/blog/may-memberships" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog17.jpg" alt="May Memberships at Sway Wellness Spa" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">May Memberships at Sway Wellness Spa</p></div>
+            </Link>
+            <Link href="/blog/give-wellness-get-wellness" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="Give Wellness, Get Wellness: Referral Program" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Give Wellness, Get Wellness: Referral Program</p></div>
+            </Link>
+            <Link href="/blog/denver-wellness-club" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/homepage_photo_outside.jpg" alt="Denver's Most Anticipated Wellness Club" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Denver&apos;s Most Anticipated Wellness Club</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/sway-spa-membership</p>
       </div>
     </div>
   );

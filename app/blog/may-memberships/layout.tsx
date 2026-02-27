@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function MayMembershipsLayout() {
   return (
@@ -14,6 +15,12 @@ export default function MayMembershipsLayout() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Wellness</span>
+          <span className="text-gray-500">May 2025</span>
+        </div>
+
         <p>
           Discover wellness that goes beyond luxury with Sway Wellness Spa. Our
           space is thoughtfully designed to help you unwind, recharge, and
@@ -30,7 +37,18 @@ export default function MayMembershipsLayout() {
           className="rounded-lg"
         />
 
-        <h2 className="text-2xl font-bold">Why Commit to a Monthly Wellness Routine?</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#why-routine" className="hover:underline">Why Commit to a Monthly Wellness Routine?</a></li>
+            <li><a href="#options" className="hover:underline">Sway&apos;s Membership Options</a></li>
+            <li><a href="#perks" className="hover:underline">Exclusive Member Perks</a></li>
+            <li><a href="#science" className="hover:underline">The Science-Backed Benefits of Consistency</a></li>
+            <li><a href="#invitation" className="hover:underline">Your Invitation to Wellness</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="why-routine" className="text-2xl font-bold scroll-mt-24">Why Commit to a Monthly Wellness Routine?</h2>
         <p>
           Consistency is key. Whether you're aiming for glowing skin or reduced
           stress, it's regular care that brings lasting results. A recent
@@ -44,7 +62,7 @@ export default function MayMembershipsLayout() {
           <br />– Whitney G.
         </blockquote>
 
-        <h2 className="text-2xl font-bold">Sway’s Membership Options</h2>
+        <h2 id="options" className="text-2xl font-bold scroll-mt-24">Sway&apos;s Membership Options</h2>
 
         <h3 className="text-xl font-bold mt-4">1. Spa Club – $99/month</h3>
         <p>Choose a monthly facial or massage:</p>
@@ -74,7 +92,7 @@ export default function MayMembershipsLayout() {
           designed for high-performance recovery and deep relaxation.
         </p>
 
-        <h2 className="text-2xl font-bold">Exclusive Member Perks</h2>
+        <h2 id="perks" className="text-2xl font-bold scroll-mt-24">Exclusive Member Perks</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li>50% off boosts + super boosts</li>
           <li>10% off all Sway Shop products</li>
@@ -82,7 +100,7 @@ export default function MayMembershipsLayout() {
           <li>Early access to insider trends + treatments</li>
         </ul>
 
-        <h2 className="text-2xl font-bold">The Science-Backed Benefits of Consistency</h2>
+        <h2 id="science" className="text-2xl font-bold scroll-mt-24">The Science-Backed Benefits of Consistency</h2>
         <p>
           As skincare expert Michelle Skelly notes, consistency delivers
           results. The same is true for spa therapy—routines like weekly
@@ -90,7 +108,7 @@ export default function MayMembershipsLayout() {
           for your physical and emotional health.
         </p>
 
-        <h2 className="text-2xl font-bold">Your Invitation to Wellness</h2>
+        <h2 id="invitation" className="text-2xl font-bold scroll-mt-24">Your Invitation to Wellness</h2>
         <p>
           Sway is more than a spa—it’s a monthly wellness ritual. Treat yourself
           to radiant skin, reduced stress, and inner balance. All for just{" "}
@@ -98,10 +116,30 @@ export default function MayMembershipsLayout() {
         </p>
 
         <div className="pt-4">
-          <a href="/memberships" className="underline text-blue-600">
-            Explore Membership Options →
-          </a>
+          <Link href="/membership" className="underline text-[#113D33] font-semibold">
+            Explore Membership Options &rarr;
+          </Link>
         </div>
+
+        <div className="pt-6">
+          <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/blog/sway-spa-membership" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog2.jpg" alt="Sway Spa Membership" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Sway Spa Membership: Your Wellness Transformation</p></div>
+            </Link>
+            <Link href="/blog/give-wellness-get-wellness" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="Referral Program" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Give Wellness, Get Wellness: Referral Program</p></div>
+            </Link>
+            <Link href="/blog/denver-wellness-club" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/homepage_photo_outside.jpg" alt="Denver Wellness Club" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Denver&apos;s Most Anticipated Wellness Club</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/may-memberships</p>
       </div>
     </div>
   );

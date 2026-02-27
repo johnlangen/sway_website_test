@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Massage80MinBlogLayout() {
   return (
@@ -14,6 +15,13 @@ export default function Massage80MinBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        {/* Back + Date + Tag */}
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Massage</span>
+          <span className="text-gray-500">January 2025</span>
+        </div>
+
         <p>
           Sometimes, your mind and body send clear signals that it’s time for a
           break. Maybe it’s the tension building in your shoulders after sitting
@@ -52,7 +60,17 @@ export default function Massage80MinBlogLayout() {
           className="rounded-lg"
         />
 
-        <h2 className="text-2xl font-bold">
+        {/* Table of Contents */}
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#benefits" className="hover:underline">The Benefits of an 80-Minute Massage at Sway</a></li>
+            <li><a href="#why-sway" className="hover:underline">Why Choose Sway?</a></li>
+            <li><a href="#how-to-book" className="hover:underline">How to Book</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="benefits" className="text-2xl font-bold scroll-mt-24">
           The Benefits of an 80-Minute Massage at Sway
         </h2>
         <p>
@@ -87,19 +105,54 @@ export default function Massage80MinBlogLayout() {
           reduced stress levels.
         </p>
 
-        <h2 className="text-2xl font-bold">Why Choose Sway?</h2>
+        <h2 id="why-sway" className="text-2xl font-bold scroll-mt-24">Why Choose Sway?</h2>
         <p>
           At Sway Wellness Spa, self-care isn’t a luxury—it’s a necessity. From
           transparent pricing to expert therapists and holistic services, we
           make sure your wellness journey is simple and restorative.
         </p>
 
-        <h2 className="text-2xl font-bold">How to Book</h2>
+        <h2 id="how-to-book" className="text-2xl font-bold scroll-mt-24">How to Book</h2>
         <p>
           Booking is quick and easy—{" "}
-          <a href="/book" className="underline text-blue-600">
-            👉 Book Now →
-          </a>
+          <Link href="/book" className="underline text-[#113D33] font-semibold">
+            Book Now &rarr;
+          </Link>
+        </p>
+
+        {/* Related Articles */}
+        <div className="pt-6">
+          <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/blog/himalayan-salt-stone-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden">
+                <Image src="/assets/blog5.jpg" alt="Himalayan Salt Stone Massage" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-4">
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Himalayan Salt Stone Massage: Ultimate Relaxation</p>
+              </div>
+            </Link>
+            <Link href="/blog/train-like-an-athlete" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden">
+                <Image src="/assets/blog20.jpg" alt="Train Like an Athlete" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-4">
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Train Like an Athlete, Recover Like an Athlete</p>
+              </div>
+            </Link>
+            <Link href="/blog/infrared-pemf-mat" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden">
+                <Image src="/assets/blog12.jpg" alt="Infrared PEMF Mat" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-4">
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Supercharge Your Massage: Infrared PEMF Mats</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">
+          Permalink: swaywellnessspa.com/blog/80-minute-massage
         </p>
       </div>
     </div>

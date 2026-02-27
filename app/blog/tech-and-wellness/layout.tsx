@@ -16,6 +16,12 @@ export default function TechAndWellnessBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Innovation</span>
+          <span className="text-gray-500">January 2025</span>
+        </div>
+
         <p>
           Innovation and relaxation might not seem like a perfect match, but technology 
           is redefining the spa experience in truly remarkable ways. From cutting-edge 
@@ -33,7 +39,16 @@ export default function TechAndWellnessBlogLayout() {
           the future of self-care is here—and it’s powered by innovation.
         </p>
 
-        <h2 className="text-2xl font-bold">Tech-Forward Spa Experiences You Need to Know</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#tech-forward-experiences" className="hover:underline">Tech-Forward Spa Experiences You Need to Know</a></li>
+            <li><a href="#why-innovations-matter" className="hover:underline">Why Innovations Like These Matter to Spas and Wellness Experts</a></li>
+            <li><a href="#experience-future" className="hover:underline">Experience the Future of Spa Treatments</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="tech-forward-experiences" className="text-2xl font-bold scroll-mt-24">Tech-Forward Spa Experiences You Need to Know</h2>
 
         <h3 className="text-xl font-semibold">1. Aescape Robotic Massage—An AI-Powered Hands-Free Experience</h3>
         <p>
@@ -59,9 +74,9 @@ export default function TechAndWellnessBlogLayout() {
         <p>
           <strong>Exclusive Offer:</strong> With the Sway Aescape Membership, enjoy 
           2 Aescape Robot treatments for just $99/month. Contact{" "}
-          <a href="mailto:contact@swaywellnessspa.com" className="underline text-blue-600">
+          <Link href="mailto:contact@swaywellnessspa.com" className="underline text-[#113D33] font-semibold">
             contact@swaywellnessspa.com
-          </a>{" "}
+          </Link>{" "}
           to join.
         </p>
 
@@ -87,7 +102,7 @@ export default function TechAndWellnessBlogLayout() {
           or downtime required.
         </p>
 
-        <h2 className="text-2xl font-bold">Why Innovations Like These Matter to Spas and Wellness Experts</h2>
+        <h2 id="why-innovations-matter" className="text-2xl font-bold scroll-mt-24">Why Innovations Like These Matter to Spas and Wellness Experts</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li><strong>Customization:</strong> Tailor treatments to each client for better results and stronger loyalty.</li>
           <li><strong>Consistency:</strong> High-tech tools deliver precise results every time.</li>
@@ -95,7 +110,7 @@ export default function TechAndWellnessBlogLayout() {
           <li><strong>Cutting-Edge Appeal:</strong> Attract tech-savvy customers and stand out in a crowded wellness market.</li>
         </ul>
 
-        <h2 className="text-2xl font-bold">Experience the Future of Spa Treatments</h2>
+        <h2 id="experience-future" className="text-2xl font-bold scroll-mt-24">Experience the Future of Spa Treatments</h2>
         <p>
           Whether you're expanding your spa menu or upgrading your self-care game, 
           innovations like Aescape, microcurrent therapy, and LED light therapy 
@@ -103,9 +118,32 @@ export default function TechAndWellnessBlogLayout() {
         </p>
 
         <div className="pt-4">
-          <Link href="/aescape" className="underline text-blue-600">
+          <Link href="/aescape" className="underline text-[#113D33] font-semibold">
             Learn more about Aescape and our tech-forward treatments
           </Link>
+        </div>
+
+        {/* Related Articles */}
+        <div className="pt-10 border-t border-[#d7e2dc]">
+          <h3 className="text-xl font-bold mb-6">Related Articles</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href="/blog/denver-wellness-club" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/homepage_photo_outside.jpg" alt="Denver Wellness Club" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Denver Wellness Club</p></div>
+            </Link>
+            <Link href="/blog/infrared-pemf-mat" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog12.jpg" alt="Infrared PEMF Mat" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Infrared PEMF Mat</p></div>
+            </Link>
+            <Link href="/blog/train-like-an-athlete" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog20.jpg" alt="Train Like an Athlete" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Train Like an Athlete</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <div className="text-sm text-gray-400 pt-6">
+          <Link href="/blog/tech-and-wellness" className="hover:underline">swaywellnessspa.com/blog/tech-and-wellness</Link>
         </div>
       </div>
     </div>

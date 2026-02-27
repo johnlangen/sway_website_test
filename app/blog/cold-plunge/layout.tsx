@@ -15,6 +15,12 @@ export default function ColdPlungeBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Therapy</span>
+          <span className="text-gray-500">February 2025</span>
+        </div>
+
         <p>
           When winter temperatures dramatically drop, the idea of immersing
           yourself in freezing cold water might sound counterintuitive. But cold
@@ -24,7 +30,17 @@ export default function ColdPlungeBlogLayout() {
           resilience and recovery.
         </p>
 
-        <h2 className="text-2xl font-bold">What Is a Cold Plunge?</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#what-is-cold-plunge" className="hover:underline">What Is a Cold Plunge?</a></li>
+            <li><a href="#benefits-of-cold-plunges" className="hover:underline">The Benefits of Cold Plunges</a></li>
+            <li><a href="#perfect-winter-wellness" className="hover:underline">Why Cold Plunges Are the Perfect Winter Wellness Practice</a></li>
+            <li><a href="#experience-remedy-room" className="hover:underline">Experience the Remedy Room at Sway</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="what-is-cold-plunge" className="text-2xl font-bold scroll-mt-24">What Is a Cold Plunge?</h2>
         <p>
           A cold plunge involves immersing your body in water maintained between
           50–59°F. At Sway Wellness Spa, our cold plunge therapy is part of the
@@ -33,7 +49,7 @@ export default function ColdPlungeBlogLayout() {
           power of cold immersion safely and effectively.
         </p>
 
-        <h2 className="text-2xl font-bold">The Benefits of Cold Plunges</h2>
+        <h2 id="benefits-of-cold-plunges" className="text-2xl font-bold scroll-mt-24">The Benefits of Cold Plunges</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li>
             <strong>Reduces Inflammation:</strong> Used by athletes to reduce
@@ -72,7 +88,7 @@ export default function ColdPlungeBlogLayout() {
           className="rounded-lg"
         />
 
-        <h2 className="text-2xl font-bold">
+        <h2 id="perfect-winter-wellness" className="text-2xl font-bold scroll-mt-24">
           Why Cold Plunges Are the Perfect Winter Wellness Practice
         </h2>
         <p>
@@ -83,7 +99,7 @@ export default function ColdPlungeBlogLayout() {
           mentally strengthening as well.
         </p>
 
-        <h2 className="text-2xl font-bold">Experience the Remedy Room at Sway</h2>
+        <h2 id="experience-remedy-room" className="text-2xl font-bold scroll-mt-24">Experience the Remedy Room at Sway</h2>
         <p>Our Remedy Room is a high-tech wellness hub offering:</p>
         <ul className="list-disc pl-6 space-y-1">
           <li>
@@ -105,7 +121,7 @@ export default function ColdPlungeBlogLayout() {
 
         <p>
           This February, embrace the cold and try one of the most powerful tools
-          in modern wellness. Cold plunges are more than just a trend—they’re a
+          in modern wellness. Cold plunges are more than just a trend &mdash; they&apos;re a
           gateway to better health and higher energy.
         </p>
 
@@ -117,6 +133,27 @@ export default function ColdPlungeBlogLayout() {
             Schedule Your Cold Plunge Experience Today
           </Link>
         </div>
+
+        {/* Related Articles */}
+        <div className="pt-10 space-y-6">
+          <h2 className="text-2xl font-bold">Related Articles</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href="/blog/infrared-vs-traditional-sauna" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog8.jpg" alt="Infrared Sauna vs. Traditional Sauna" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Infrared Sauna vs. Traditional Sauna</p></div>
+            </Link>
+            <Link href="/blog/train-like-an-athlete" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog20.jpg" alt="Train Like an Athlete, Recover Like an Athlete" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Train Like an Athlete, Recover Like an Athlete</p></div>
+            </Link>
+            <Link href="/blog/science-of-relaxation" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog11.jpg" alt="Science of Relaxation: Spa &amp; Stress" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Science of Relaxation: Spa &amp; Stress</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/cold-plunge</p>
       </div>
     </div>
   );

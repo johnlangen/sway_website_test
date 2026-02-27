@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SwayShopFindsBlogLayout() {
   return (
@@ -14,6 +15,12 @@ export default function SwayShopFindsBlogLayout() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Retail</span>
+          <span className="text-gray-500">June 2025</span>
+        </div>
+
         <p>
           Looking to bring the spa experience home? The Sway Shop in Larimer
           Square offers a beautifully curated selection of products that blend
@@ -22,19 +29,30 @@ export default function SwayShopFindsBlogLayout() {
           this is your go-to destination for elevated self-care.
         </p>
 
-        <h2 className="text-2xl font-bold">What You'll Find at the Sway Shop</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#what-youll-find" className="hover:underline">What You&apos;ll Find at the Sway Shop</a></li>
+            <li><a href="#exclusive-member-perks" className="hover:underline">Exclusive Member Perks</a></li>
+            <li><a href="#bring-wellness-everyday" className="hover:underline">Bring Wellness Into Your Everyday</a></li>
+            <li><a href="#why-locals-love-it" className="hover:underline">Why Locals Love It</a></li>
+            <li><a href="#visit-us-today" className="hover:underline">Visit Us Today</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="what-youll-find" className="text-2xl font-bold scroll-mt-24">What You&apos;ll Find at the Sway Shop</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>
             <strong>Eminence Skincare:</strong> Natural, award-winning skincare
             like the Rosehip Triple C+E Firming Oil and Radiant Protection SPF
             Fluid.{" "}
-            <a
+            <Link
               href="https://eminenceorganics.com/us/blog/eminence-organics-award-wins"
               target="_blank"
-              className="underline text-blue-600"
+              className="underline text-[#113D33] font-semibold"
             >
               Learn more
-            </a>
+            </Link>
             .
           </li>
           <li>
@@ -51,7 +69,7 @@ export default function SwayShopFindsBlogLayout() {
           </li>
         </ul>
 
-        <h2 className="text-2xl font-bold">Exclusive Member Perks</h2>
+        <h2 id="exclusive-member-perks" className="text-2xl font-bold scroll-mt-24">Exclusive Member Perks</h2>
         <p>
           Members receive 10% off all retail (excluding Assouline, Gray Malin,
           and food/beverage items) and enjoy gift-with-purchase perks on
@@ -65,7 +83,7 @@ export default function SwayShopFindsBlogLayout() {
           selection!” – Sway Member
         </p>
 
-        <h2 className="text-2xl font-bold">Bring Wellness Into Your Everyday</h2>
+        <h2 id="bring-wellness-everyday" className="text-2xl font-bold scroll-mt-24">Bring Wellness Into Your Everyday</h2>
         <p>
           Start your day with a clean, invigorating DedCool scent. Rehydrate and
           firm your skin with Eminence Bamboo Firming Fluid. Then unwind with a
@@ -73,7 +91,7 @@ export default function SwayShopFindsBlogLayout() {
           Shop helps turn everyday moments into meaningful rituals.
         </p>
 
-        <h2 className="text-2xl font-bold">Why Locals Love It</h2>
+        <h2 id="why-locals-love-it" className="text-2xl font-bold scroll-mt-24">Why Locals Love It</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>
             <strong>Convenience:</strong> Just steps from your treatment in
@@ -89,13 +107,36 @@ export default function SwayShopFindsBlogLayout() {
           </li>
         </ul>
 
-        <h2 className="text-2xl font-bold">Visit Us Today</h2>
+        <h2 id="visit-us-today" className="text-2xl font-bold scroll-mt-24">Visit Us Today</h2>
         <p>
           Whether you're looking to restock your skincare shelf or discover a
           luxurious new gift, the Sway Shop is ready to elevate your self-care
           routine. Stop by after your treatment or just come in to explore our
           latest favorites.
         </p>
+
+        {/* Related Articles */}
+        <div className="pt-10 border-t border-[#d7e2dc]">
+          <h3 className="text-xl font-bold mb-6">Related Articles</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href="/blog/mothers-day-gift-guide" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog16.jpg" alt="Mother's Day Gift Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Mother&apos;s Day Gift Guide</p></div>
+            </Link>
+            <Link href="/blog/bridal-skincare" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog3.jpg" alt="Bridal Skincare" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Bridal Skincare</p></div>
+            </Link>
+            <Link href="/blog/summer-prep-guide" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog15.jpg" alt="Summer Prep Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Summer Prep Guide</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <div className="text-sm text-gray-400 pt-6">
+          <Link href="/blog/sway-shop-finds" className="hover:underline">swaywellnessspa.com/blog/sway-shop-finds</Link>
+        </div>
       </div>
     </div>
   );

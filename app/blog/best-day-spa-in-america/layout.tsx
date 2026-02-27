@@ -139,8 +139,8 @@ export default function BestDaySpaLayout() {
         </h2>
         <p>
           We opened with a simple premise. Wellness should feel modern. It should
-          be backed by real science. And it shouldn&apos;t require you to drive to
-          a resort or commit to a year-long contract.
+          be backed by real science. And it should be accessible enough to make
+          part of your actual routine.
         </p>
         <p>
           In our first year on Larimer Square, we brought things to Denver that

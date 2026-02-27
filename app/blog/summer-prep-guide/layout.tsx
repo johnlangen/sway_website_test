@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SummerPrepGuideBlogLayout() {
   return (
@@ -14,6 +15,12 @@ export default function SummerPrepGuideBlogLayout() {
 
       {/* Blog Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
+          <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Skincare</span>
+          <span className="text-gray-500">May 2025</span>
+        </div>
+
         <p>
           The countdown to pool days, beach weekends, and sun-soaked selfies has
           officially begun. Summer is just around the corner, bringing with it
@@ -40,7 +47,16 @@ export default function SummerPrepGuideBlogLayout() {
           className="rounded-lg"
         />
 
-        <h2 className="text-2xl font-bold">Sculpt, Smooth, and Glow</h2>
+        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+          <p className="font-bold text-lg mb-3">In This Post</p>
+          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
+            <li><a href="#sculpt" className="hover:underline">Sculpt, Smooth, and Glow</a></li>
+            <li><a href="#why-now" className="hover:underline">Why Prep Now?</a></li>
+            <li><a href="#start" className="hover:underline">Your Summer Glow Starts Here</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="sculpt" className="text-2xl font-bold scroll-mt-24">Sculpt, Smooth, and Glow</h2>
         <p>
           Summer prep doesn’t have to feel overwhelming. With a few simple and
           effective treatments, you can prime your skin and body to look and
@@ -84,7 +100,7 @@ export default function SummerPrepGuideBlogLayout() {
           while 84 trace minerals nourish your skin.
         </p>
 
-        <h2 className="text-2xl font-bold">Why Prep Now?</h2>
+        <h2 id="why-now" className="text-2xl font-bold scroll-mt-24">Why Prep Now?</h2>
         <p>
           Summer may be about spontaneity, but prepping your skin now means
           confidence that lasts. Radiant skin, a refreshed appearance, and a
@@ -97,17 +113,37 @@ export default function SummerPrepGuideBlogLayout() {
           glow-up, we’re with you every step of the way.
         </p>
 
-        <h2 className="text-2xl font-bold">Your Summer Glow Starts Here</h2>
+        <h2 id="start" className="text-2xl font-bold scroll-mt-24">Your Summer Glow Starts Here</h2>
         <p>
           Ready to sculpt, smooth, and glow? Book your pre-summer treatments
           today and feel amazing in every sun-drenched moment.
         </p>
 
         <div className="pt-4">
-          <a href="/book" className="underline text-blue-600">
-            Book Your Pre-Summer Treatment Now →
-          </a>
+          <Link href="/book" className="underline text-[#113D33] font-semibold">
+            Book Your Pre-Summer Treatment Now &rarr;
+          </Link>
         </div>
+
+        <div className="pt-6">
+          <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link href="/blog/sun-protection-post-sun-care" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog18.jpg" alt="Sun Protection Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">The Ultimate Guide to Sun Protection</p></div>
+            </Link>
+            <Link href="/blog/post-summer-skin-recovery" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog23.jpg" alt="Post-Summer Skin Recovery" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Post-Summer Skin Recovery Starts Now</p></div>
+            </Link>
+            <Link href="/blog/allergy-season-skincare" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/allergy.jpg" alt="Allergy Season Skincare" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Allergy Season? Soothe Sensitive Skin</p></div>
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/summer-prep-guide</p>
       </div>
     </div>
   );
