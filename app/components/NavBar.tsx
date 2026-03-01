@@ -128,13 +128,6 @@ const NavBar = () => {
               {swayWayOpen && (
                 <div className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg">
                   <Link
-                    href="/events/anniversary"
-                    onClick={closeAll}
-                    className="block px-4 py-3 text-white hover:bg-gray-800 font-semibold"
-                  >
-                    🎂 Anniversary Event
-                  </Link>
-                  <Link
                     href="/swayway"
                     onClick={closeAll}
                     className="block px-4 py-3 text-white hover:bg-gray-800"
@@ -233,16 +226,6 @@ const NavBar = () => {
               📍 Select Location
             </Link>
           )}
-
-          <div className="w-12 border-t border-white/20" />
-
-          <Link
-            href="/events/anniversary"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-white text-lg font-semibold"
-          >
-            🎂 Anniversary Event
-          </Link>
 
           <div className="w-12 border-t border-white/20" />
 

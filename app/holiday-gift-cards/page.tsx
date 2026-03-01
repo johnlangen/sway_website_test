@@ -93,6 +93,16 @@ export default function HolidayGiftCardsPage() {
           </div>
         </section>
 
+        {/* SEASONAL NOTICE */}
+        <section className="mt-8 md:mt-10">
+          <div className="rounded-xl border border-[#c5d2cd] bg-white/70 px-5 py-4 text-center text-sm md:text-base text-[#4A776D]">
+            <p>
+              <span className="font-semibold text-[#113D33]">The holiday bonus card offer runs December 12–25.</span>
+              {" "}Gift cards are available year-round.
+            </p>
+          </div>
+        </section>
+
         {/* FEATURE STRIP */}
         <section className="mt-14 md:mt-16">
           <div className="grid gap-6 md:grid-cols-3 text-center text-[#4A776D] text-sm md:text-base">

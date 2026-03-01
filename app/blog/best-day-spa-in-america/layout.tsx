@@ -252,7 +252,7 @@ export default function BestDaySpaLayout() {
           rate, and priority booking.
         </p>
         <p>
-          No long-term contracts. No hidden fees. Cancel anytime.{" "}
+          No hidden fees.{" "}
           <Link
             href="/membership"
             className="underline text-[#113D33] font-semibold"

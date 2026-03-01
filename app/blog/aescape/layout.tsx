@@ -279,7 +279,7 @@ export default function AescapeBlogLayout() {
                 {[
                   {
                     n: "①",
-                    t: "Change into Aerwear compression",
+                    t: "Change into compression apparel",
                     d: "Breathable fabric for precision contact",
                   },
                   {
@@ -451,7 +451,7 @@ export default function AescapeBlogLayout() {
                 {[
                   {
                     t: "Stay clothed",
-                    d: "Perfect for midday sessions — you’ll wear Aerwear compression.",
+                    d: "Perfect for midday sessions — compression apparel is provided.",
                   },
                   {
                     t: "Fully private",
@@ -513,7 +513,7 @@ export default function AescapeBlogLayout() {
               },
               {
                 q: "What should I wear?",
-                a: "We provide Aerwear at check-in — just bring socks.",
+                a: "We provide compression apparel at check-in — just bring socks.",
               },
             ].map((item) => (
               <motion.div

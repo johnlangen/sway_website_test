@@ -115,7 +115,7 @@ export default function Page() {
                 name: "What steps do I need to take for an optimal massage experience?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Guests must wear Aerwear compression apparel (sizes 2XS–4XL provided) and tie up long hair for safety.",
+                  text: "Guests must wear compression apparel (sizes 2XS–4XL provided at check-in) and tie up long hair for safety.",
                 },
               },
             ],
