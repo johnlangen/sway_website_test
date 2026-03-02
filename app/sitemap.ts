@@ -17,6 +17,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/holiday-gift-cards`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/press`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/own`, changeFrequency: "monthly" as const, priority: 0.5 },
+    { url: `${base}/date-night`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/couples-spa`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/group-events`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/careers`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${base}/terms-and-conditions`, changeFrequency: "yearly" as const, priority: 0.3 },
   ];
