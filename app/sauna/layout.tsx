@@ -64,10 +64,10 @@ const serviceJsonLd = {
     url: "https://swaywellnessspa.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Larimer St",
+      streetAddress: "1428 Larimer St.",
       addressLocality: "Denver",
       addressRegion: "CO",
-      addressCountry: "USA",
+      addressCountry: "US",
     },
   },
   description:

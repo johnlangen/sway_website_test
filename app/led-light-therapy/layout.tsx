@@ -42,6 +42,31 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "LED Light Therapy",
+  provider: {
+    "@type": "LocalBusiness",
+    name: "Sway Wellness Spa",
+    url: "https://swaywellnessspa.com",
+    image: "https://swaywellnessspa.com/assets/OG/og-led-light.jpg",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1428 Larimer St.",
+      addressLocality: "Denver",
+      addressRegion: "CO",
+      addressCountry: "US",
+    },
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Denver",
+  },
+  description:
+    "LightStim MultiWave® LED Light Therapy at Sway Wellness Spa in Denver. 1,400 medical-grade LEDs for anti-aging, acne treatment, and recovery. Available in the Remedy Room circuit or as a facial boost.",
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -80,6 +105,10 @@ export default function LedLightTherapyLayout({ children }: { children: React.Re
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       <script
         type="application/ld+json"

@@ -74,10 +74,10 @@ const serviceJsonLd = {
     image: "https://swaywellnessspa.com/assets/OG/og-massages.jpg",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Larimer St",
+      streetAddress: "1428 Larimer St.",
       addressLocality: "Denver",
       addressRegion: "CO",
-      addressCountry: "USA",
+      addressCountry: "US",
     },
   },
   areaServed: {

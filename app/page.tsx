@@ -80,10 +80,11 @@ export default function HomePage() {
 
     termsOfService: "https://swaywellnessspa.com/terms-and-conditions",
 
+    // Update reviewCount periodically — check Google Places API or Google Maps
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "5.0",
-      reviewCount: "111",
+      reviewCount: "150",
       bestRating: "5",
     },
 

@@ -42,6 +42,31 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Normatec Compression Therapy",
+  provider: {
+    "@type": "LocalBusiness",
+    name: "Sway Wellness Spa",
+    url: "https://swaywellnessspa.com",
+    image: "https://swaywellnessspa.com/assets/OG/og-compression.jpg",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1428 Larimer St.",
+      addressLocality: "Denver",
+      addressRegion: "CO",
+      addressCountry: "US",
+    },
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Denver",
+  },
+  description:
+    "Normatec compression therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, Normatec compression, and LED light therapy.",
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -80,6 +105,10 @@ export default function CompressionTherapyLayout({ children }: { children: React
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       <script
         type="application/ld+json"

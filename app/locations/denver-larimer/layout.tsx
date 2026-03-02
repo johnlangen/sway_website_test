@@ -80,10 +80,11 @@ const localBusinessJsonLd = {
     },
   ],
   priceRange: "$$",
+  // Update reviewCount periodically — check Google Places API or Google Maps
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "5.0",
-    reviewCount: "111",
+    reviewCount: "150",
     bestRating: "5",
   },
   review: [
@@ -504,6 +505,30 @@ const faqJsonLd = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Please arrive about 15 minutes early to check in and settle into the space.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is near Sway Wellness Spa on Larimer Square?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway is on Larimer Square in the heart of downtown Denver, surrounded by top restaurants, cocktail bars, and boutique shops. It's steps from 16th Street Mall and a short walk from Union Station, the Denver Performing Arts Complex, and the Colorado Convention Center.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I walk to Sway from a downtown Denver hotel?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Sway is centrally located on Larimer Square at 1428 Larimer St. Most downtown Denver hotels are within a 5–15 minute walk. It's also easily accessible via RTD light rail to Union Station.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Sway offer gift cards?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Sway gift cards are available in any dollar amount with instant digital delivery via email. They never expire and are redeemable for all services including massages, facials, the Remedy Room, Aescape, boosts, and retail products. Purchase at swaywellnessspa.com/gift-cards.",
       },
     },
   ],
