@@ -150,6 +150,43 @@ export default function BacheloretteSpaDayBlogLayout() {
           Permalink: <Link href="/blog/bachelorette-spa-day" className="underline hover:text-[#113D33]">/blog/bachelorette-spa-day</Link>
         </div>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Can you book a private spa day for a bachelorette party?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, Sway Wellness Spa offers private spa bookings for bachelorette parties. You can reserve the entire spa for an exclusive event just for your bridal crew. The experience includes customizable treatments like facials and massages, wellness add-ons such as sauna sessions and cold plunge therapy, and a relaxing environment tailored to your celebration. Contact Sway at contact@swaywellnessspa.com to plan your private bachelorette spa day.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What spa treatments are best for a bachelorette party?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Popular bachelorette spa treatments include rejuvenating facials for a pre-wedding glow, muscle-melting massages for relaxation, and wellness add-ons like sauna sessions, cold plunge therapy, body scrubs, and hydrating treatments. At Sway Wellness Spa, each guest can customize their own treatment selection, so everyone in the bridal party gets exactly what they need to feel pampered and radiant.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How far in advance should you book a bachelorette spa day?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "It is best to book your bachelorette spa day as early as possible to secure your preferred date and ensure every detail is tailored to your vision. This is especially important if you want to book a private spa experience for your group. Sway Wellness Spa recommends reaching out early via email at contact@swaywellnessspa.com to begin planning your customized bachelorette wellness celebration.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

@@ -130,6 +130,43 @@ export default function BridalSkincareBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/bridal-skincare</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "When should a bride start getting facials before her wedding?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Brides should ideally begin a consistent facial routine 6 to 12 months before their wedding day. This timeline gives the skin enough time to adjust, repair, and reach its full potential. Monthly treatments allow estheticians to tailor a skincare plan to your specific goals. Sway Wellness Spa offers a membership option that makes regular bridal facials affordable and convenient with treatments starting at $99 per month.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is the best facial for brides to get glowing skin?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best facial for bridal glow depends on your skin type and concerns. At Sway Wellness Spa, popular bridal options include the Glow Getter Facial for deep hydration and a dewy complexion, the Forever Young Facial for boosting collagen and firmness, and the Sensitive Silk Facial for calming reactive skin. Many brides also add enhancements like LED light therapy or microcurrent treatments to amplify results.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How often should brides get facials before their wedding?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Brides should aim for monthly facials starting 6 to 12 months before the wedding. This consistent schedule allows the skin to renew and repair between sessions, building toward a radiant, photo-ready complexion. Sway Wellness Spa members benefit from preferred pricing and can add discounted enhancements like dermaflash exfoliation or LED light therapy for enhanced bridal skincare results.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

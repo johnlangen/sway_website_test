@@ -169,6 +169,43 @@ export default function ScienceOfRelaxationBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How do spa treatments reduce stress and anxiety?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Spa treatments reduce stress by lowering cortisol levels, activating the parasympathetic nervous system, and triggering the release of endorphins. Massage relieves muscle tension and calms the nervous system, cold plunge therapy floods the brain with endorphins for a mental reset, and sauna therapy enhances circulation and flushes toxins. At Sway Wellness Spa in Denver, these science-backed therapies are designed for both immediate relief and long-term emotional resilience.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Can spa treatments improve sleep quality?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes. Spa therapies activate the parasympathetic nervous system, which prepares the body for deep rest and better sleep. Research confirms that treatments like massage, sauna, and cold plunge help regulate cortisol and promote hormonal balance, directly improving sleep quality. Sway Wellness Spa offers these treatments as part of a consistent wellness routine through its membership program.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is contrast therapy and how does it work?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Contrast therapy alternates between heat (sauna) and cold (cold plunge) to create a dynamic recovery effect. The heat enhances circulation and relaxes muscles, while the cold reduces inflammation and stimulates endorphin release. Together, they provide full-body restoration and emotional reset. Sway Wellness Spa's Remedy Room in Denver offers both sauna and cold plunge as part of a guided 40-minute recovery circuit.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <div className="text-sm text-gray-400 pt-6">
           <Link href="/blog/science-of-relaxation" className="hover:underline">swaywellnessspa.com/blog/science-of-relaxation</Link>
         </div>

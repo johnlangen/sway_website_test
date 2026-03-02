@@ -163,6 +163,43 @@ export default function InfraredPemfMatBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is a PEMF infrared mat?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A PEMF infrared mat combines pulsed electromagnetic field therapy with infrared heat. PEMF mimics Earth's natural frequencies to stimulate cellular repair and reduce inflammation, while infrared heat delivers penetrating warmth that boosts circulation and relieves tension. At Sway Wellness Spa, the HigherDose Infrared PEMF Mat is available as a boost add-on during massage sessions.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What are the benefits of combining PEMF therapy with massage?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Combining PEMF therapy with massage enhances pain relief through increased blood flow, improves circulation as infrared and massage work together for better oxygen delivery, accelerates muscle recovery as PEMF regenerates cells while massage soothes tightness, and provides a total-body reset through natural frequencies paired with hands-on therapy. Sway Wellness Spa offers this combination during any massage treatment.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I try the infrared PEMF mat at Sway?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "You can add the Infrared PEMF Mat as a boost to any massage at Sway Wellness Spa. During your session, you lie on the mat while your therapist works, and you can customize the heat, frequency, and intensity. Sway members receive 50% off all boosts including the PEMF Mat.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         {/* Permalink */}
         <div className="text-sm text-gray-400 pt-4">
           Permalink: <Link href="/blog/infrared-pemf-mat" className="underline hover:text-[#113D33]">/blog/infrared-pemf-mat</Link>

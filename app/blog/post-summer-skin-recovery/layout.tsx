@@ -170,6 +170,43 @@ export default function PostSummerSkinRecoveryBlogLayout() {
           Permalink: swaywellnessspa.com/blog/post-summer-skin-recovery
         </p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How do I repair my skin after summer sun damage?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "To repair skin after summer sun damage, start with professional hydrating facials to replenish lost moisture and clear away buildup. LED light therapy stimulates collagen production and calms inflammation, while oxygen infusion treatments deliver nutrients deep into the skin for faster healing. At home, use barrier-repair cleansers, nourishing night creams, and SPF 30 or higher daily. Sway Wellness Spa offers customized post-summer recovery facials that address dryness, dark spots, and premature aging from sun exposure.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are the signs of sun-damaged skin and when should I get a facial?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Signs of sun-damaged skin include persistent dullness, dehydration, clogged pores, uneven pigmentation, fine lines, and rough texture. Even if you used sunscreen consistently, microscopic UV damage accumulates over summer. Ideally, schedule a recovery facial in early fall to address these concerns before cooler, drier weather sets in. Most guests see significant improvement within 4 to 6 weeks of consistent professional treatment and at-home care.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is the best facial for dehydrated skin after summer?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best facial for dehydrated post-summer skin is a hydration-focused treatment that combines gentle exfoliation with intensive moisture replenishment. The Glow Getter Facial at Sway Wellness Spa is a signature hydration-heavy treatment that restores depleted moisture, improves skin texture, and revives radiance. Adding an oxygen infusion boost delivers pure oxygen and nutrients deep into the skin for accelerated repair and a youthful glow.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

@@ -129,3 +129,47 @@ Create funnel explorations in GA4 (Explore → Funnel Exploration) for each book
 - Facial funnel (filter: booking_flow = facial)
 - Remedy Room funnel (filter: booking_flow = remedy_room)
 Steps: booking_start → booking_time_selected → booking_email_entered → booking_card_entered → booking_confirmed → [completion event]
+
+## Google Reviews Integration
+
+- **API route**: `app/api/reviews/route.ts` — fetches live rating + totalReviews from Google Places API (24hr ISR cache)
+- **Place ID**: `ChIJtRQkUu55bIcR91jycB7Jcns` (Sway Wellness Spa Larimer)
+- **API key**: `GOOGLE_PLACES_API_KEY` env var (on Vercel + `.env.local`)
+- **Reviews component**: `app/components/GoogleReviews.tsx`
+  - 9 curated 5-star reviews, hardcoded in `CURATED_REVIEWS` array (3 pages of 3)
+  - Arrow carousel with `AnimatePresence` animations + page dots
+  - Live rating/count from API; fallback values (5.0 / 120) while loading
+  - Exports `GoogleReviews` (full section) and `ReviewBadge` (inline badge)
+- **Where used**: Homepage (snap section), Larimer location page, booking pages (ReviewBadge only)
+- **To update reviews**: Edit the `CURATED_REVIEWS` array in GoogleReviews.tsx. Pick 9 recent 5-star reviews.
+- **Google Maps URL**: `https://www.google.com/maps/search/?api=1&query=Sway+Wellness+Spa+Larimer&query_place_id=ChIJtRQkUu55bIcR91jycB7Jcns`
+
+## SEO / Structured Data (JSON-LD)
+
+### Schema per page
+- **Homepage** (`app/page.tsx`): `HealthAndBeautyBusiness` + `FAQPage` (5 Q&As)
+- **Layout** (`app/layout.tsx`): `Organization` (site-wide)
+- **Larimer layout** (`app/locations/denver-larimer/layout.tsx`): `DaySpa` (with geo coords, hours, services, aggregateRating) + `FAQPage` (7 Q&As) + `BreadcrumbList`
+- **FAQ/Larimer** (`app/faq/larimer/layout.tsx`): `FAQPage` (11 Q&As) + `BreadcrumbList`
+- **Service pages** (massages, facials, remedy-tech): `BreadcrumbList` + `FAQPage` (5 Q&As each)
+- **Aescape** (`app/aescape/page.tsx`): `BreadcrumbList` + `Service` + `FAQPage` (5 Q&As)
+- **Sauna**: `BreadcrumbList` + `Service`
+- **Cold plunge**: `BreadcrumbList`
+- **Georgetown/Dallas layouts**: `BreadcrumbList`
+- **FAQ layout** (`app/faq/layout.tsx`): `BreadcrumbList`
+
+### Sitemap
+- `app/sitemap.ts` — ~70 indexed pages. Excludes test pages, noindex pages, anniversary event.
+
+### Key SEO notes
+- Homepage H1 is `sr-only` (screen-reader-only) — intentional, valid for SEO
+- Homepage has canonical tag via `alternates`
+- `/faq/larimer` uses layout.tsx for metadata (NOT `next/head` — that doesn't work in App Router)
+- Blog posts have "By Sway Wellness Team" author attribution
+
+## Social / Connect Links
+
+- Instagram: `https://www.instagram.com/swaywellnessclub/`
+- TikTok: `https://www.tiktok.com/@swaywellnessclub`
+- Facebook: `https://www.facebook.com/swaywellnessspa`
+- Franchise: `/own` ("Own a Sway" in nav + footer)

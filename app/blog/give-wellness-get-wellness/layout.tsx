@@ -150,6 +150,43 @@ export default function GiveWellnessBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/give-wellness-get-wellness</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How does the Sway Wellness Spa referral program work?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sway Wellness Spa's Refer-a-Friend program is simple: after your visit, you receive a unique referral link that you can share via text, email, or social media. When a friend books and visits using your link, both you and your friend receive a complimentary Boost enhancement during your next treatment. There is no limit to how many friends you can refer, so every referral earns you another free Boost.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is a Boost at Sway Wellness Spa?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A Boost is a specialized enhancement that elevates your spa treatment at Sway Wellness Spa. For facials, Boost options include LED Light Therapy to target fine lines and inflammation, or Dermaflash exfoliation for a smooth, radiant glow. For massages, you can choose a PEMF Mat for recovery and relaxation, or Cupping Therapy to relieve muscle tension and improve circulation. Boosts are normally an add-on but are provided free through the referral program.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is there a limit to how many friends I can refer to Sway Wellness Spa?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No, there is no limit to how many friends you can refer through Sway Wellness Spa's referral program. Every successful referral earns you a complimentary Boost on your next visit. Whether you refer family, coworkers, or friends, each referral brings another free enhancement to your facial or massage treatment.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

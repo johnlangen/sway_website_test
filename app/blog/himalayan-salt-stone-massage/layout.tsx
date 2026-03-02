@@ -121,6 +121,43 @@ export default function HimalayanSaltStoneMassageLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/himalayan-salt-stone-massage</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is a Himalayan salt stone massage and how is it different from a regular massage?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A Himalayan salt stone massage uses smooth, warmed stones carved from pure Himalayan salt in place of or alongside traditional massage techniques. The heated salt stones release trace minerals into the skin, promote deeper relaxation than standard massage, and offer additional benefits like detoxification, improved circulation, and skin nourishment. At Sway Wellness Spa, the Himalayan Salt Stone Treatment combines expert massage techniques with these therapeutic stones for a truly elevated experience.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are the benefits of a Himalayan salt stone massage?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Himalayan salt stone massage offers several key benefits: deep relaxation from the gentle warmth of the stones, detoxification as the natural salt helps draw out toxins, improved blood circulation from the minerals in the salt, skin nourishment that leaves skin smooth and hydrated, and emotional balance through negative ions that promote well-being. Sway Wellness Spa offers this treatment with personalized pressure levels to suit your comfort.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is a Himalayan salt stone massage good for winter wellness?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, Himalayan salt stone massage is especially beneficial during winter. Cold weather can cause stiff muscles, increased stress, and fatigue. The warmth from the heated salt stones helps counteract these seasonal effects by loosening tight muscles, reducing stress hormones, and restoring energy. Sway Wellness Spa in Denver offers this as a year-round treatment, making it a popular choice for combating winter tension.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

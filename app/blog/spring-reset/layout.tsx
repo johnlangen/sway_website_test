@@ -180,6 +180,43 @@ export default function SpringResetBlogLayout() {
           <Link href="/blog/spring-reset" className="hover:underline">swaywellnessspa.com/blog/spring-reset</Link>
         </div>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is a spring wellness detox and why should I do one?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A spring wellness detox helps your body and skin recover from the effects of winter, including sluggish circulation, dull skin, and reduced hydration. It focuses on improving circulation, boosting skin elasticity, reducing inflammation, and increasing overall energy. Sway Wellness Spa offers targeted spring reset treatments like the Remedy Room, Salt Stone Massage, and Pore Perfection Facial to help you feel rejuvenated and glowing from the inside out.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What spa treatments are best for a spring skin detox?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best spa treatments for a spring skin detox include sauna sessions to promote sweating and eliminate toxins, cold plunge therapy to boost circulation and reduce inflammation, lymphatic drainage compression therapy, LED light therapy for skin rejuvenation, and exfoliating facials to clear congested pores. At Sway Wellness Spa, the Remedy Room combines all of these modalities into one comprehensive detox experience, and the Pore Perfection Facial uses Eminence Organics products to deep clean and rebalance your skin.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How can I maximize my spring detox results at home?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "To maximize your spring detox results between spa visits, focus on hydrating from the inside out by drinking lemon water, eating alkaline-rich foods like kale and bananas, incorporating healthy fats like avocado for skin elasticity, staying active with yoga or walks to promote natural detox, and getting 7 to 8 hours of quality sleep each night. Pairing these habits with regular spa treatments at Sway Wellness Spa delivers the most visible and lasting results.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

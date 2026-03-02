@@ -51,6 +51,45 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What treatments does Sway Wellness Spa offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway offers four treatment categories: massage therapy (Deep Tissue, Sports, CBD, Salt Stone, Lymphatic), advanced facials (Forever Young, Glow Getter, Pore Perfection, Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long are treatments at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Massages and facials are 50 minutes each, with the option to extend to 80 minutes. The Remedy Room is a 40-minute guided circuit. Aescape robot massage sessions run 15 to 60 minutes.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I combine treatments at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Many guests pair a massage or facial with a Remedy Room session for a complete wellness experience. You can also add boosts like LED light therapy, microcurrent, cupping, or infrared PEMF to any treatment.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much do treatments cost at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Massages and facials start at $129 ($99 for members). The Remedy Room is $49 ($25 for members). Aescape starts at $49. Members save on every visit with monthly pricing from $99/month.",
+      },
+    },
+  ],
+};
+
 export default function TreatmentsLayout({
   children,
 }: {
@@ -62,6 +101,10 @@ export default function TreatmentsLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );

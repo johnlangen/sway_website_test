@@ -153,6 +153,43 @@ export default function ColdPlungeBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What are the benefits of cold plunge therapy?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Cold plunge therapy reduces inflammation and muscle soreness, boosts circulation by alternating blood vessel constriction and dilation, triggers endorphin and norepinephrine release for improved mood and mental clarity, may support immune function, and helps reduce stress through dopamine and serotonin stimulation. At Sway Wellness Spa, cold plunge is part of the Remedy Room recovery circuit.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What temperature is a cold plunge?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A cold plunge typically involves immersion in water maintained between 50-59 degrees Fahrenheit. At Sway Wellness Spa in Denver, the cold plunge is part of the Remedy Room, where trained staff guide you through the experience safely and effectively.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Where can I try cold plunge therapy in Denver?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway Wellness Spa on Larimer Square in downtown Denver offers cold plunge therapy as part of its Remedy Room — a 40-minute guided recovery circuit that also includes sauna, Normatec compression boots, and LED light therapy. Drop-in sessions are available, and members receive a reduced rate.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/cold-plunge</p>
       </div>
     </div>

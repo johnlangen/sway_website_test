@@ -170,6 +170,43 @@ export default function GlowUpBeforeYouShowUpLayout() {
           Permalink: swaywellnessspa.com/blog/glow-up-before-you-show-up
         </p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What are the best spa treatments for college students?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best spa treatments for college students include quick robot massages for an on-the-go reset between classes, customized facials before interviews or big events, therapeutic massages for stress relief, and recovery-focused treatments like cold plunge therapy, sauna sessions, and compression boots. Sway Wellness Spa in Denver offers all of these with student-friendly pricing and flexible scheduling designed to fit a busy academic lifestyle.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How does spa therapy help with academic stress and performance?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Spa therapy helps with academic stress by lowering cortisol levels, improving sleep quality, and enhancing focus and mental clarity. Massage therapy has been proven to reduce anxiety and boost mood, while treatments like cold plunge therapy and sauna sessions improve circulation and reduce inflammation. Regular wellness routines can lead to better concentration, more resilience, and improved confidence, making self-care a practical strategy for academic success.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How should I prepare my skin before a big event or interview?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "To prepare your skin before a big event or interview, schedule a customized facial a few days in advance to allow your skin to fully absorb the benefits. A hydrating facial paired with LED light therapy can reduce redness, boost radiance, and give you a polished, confident look. At Sway Wellness Spa, estheticians tailor each treatment to your specific skin concerns so you walk in feeling your best.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

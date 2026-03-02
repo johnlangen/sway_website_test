@@ -57,12 +57,47 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "When is Sway Georgetown opening?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway Georgetown in Washington, DC is coming soon. Sign up on the Georgetown page at swaywellnessspa.com/locations/georgetown to receive updates and opening-day offers.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What services will Sway Georgetown offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway Georgetown will offer the full Sway experience: expert-led massage therapy, advanced facials, the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and memberships.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Where in Georgetown will Sway be located?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway's Georgetown location will be in the heart of the Georgetown neighborhood in Washington, DC. Exact address details will be announced closer to opening.",
+      },
+    },
+  ],
+};
+
 export default function GeorgetownLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {children}
     </>

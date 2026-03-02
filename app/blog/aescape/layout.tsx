@@ -627,6 +627,43 @@ export default function AescapeBlogLayout() {
             </Link>
           </div>
         </div>
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is Aescape robot massage?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Aescape is the world's first fully autonomous, AI-powered robot massage. It uses two heated robotic arms and a 3D body scan capturing 1.1 million data points to map your musculature and deliver a personalized massage. Aescape is available exclusively at Sway Wellness Spa in downtown Denver, with 30-minute sessions starting at $69.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Is Aescape robot massage safe?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes. Aescape has built-in emergency stop and real-time pressure controls, so you are always in control during the session. You can adjust pressure, skip segments, or pause at any time via the tablet interface.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What should I wear for an Aescape session?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway provides compression apparel at check-in for your Aescape session. The breathable fabric allows precision contact with the robotic arms. Just bring socks — everything else is provided.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/aescape</p>
       </section>
     </div>

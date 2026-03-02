@@ -42,6 +42,37 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is LED light therapy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "LED light therapy uses specific wavelengths of light to stimulate cellular repair and collagen production. Sway uses the LightStim MultiWave® system with 1,400 medical-grade LEDs that deliver multiple wavelengths simultaneously for anti-aging, acne treatment, and recovery.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is LED light therapy safe?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. LED light therapy is FDA-cleared, non-invasive, and pain-free. There's no UV exposure and no downtime. It's safe for all skin types and can be combined with facials and other treatments.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How can I get LED light therapy at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "LED light therapy is available two ways at Sway: as part of the Remedy Room recovery circuit ($49 drop-in, $25 members) or as an add-on boost to any facial treatment. Members save 50% on all boosts.",
+      },
+    },
+  ],
+};
+
 export default function LedLightTherapyLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -49,6 +80,10 @@ export default function LedLightTherapyLayout({ children }: { children: React.Re
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );

@@ -144,6 +144,43 @@ export default function ValentinesDayWellnessBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/valentines-day-wellness</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What are unique Valentine's Day date ideas that focus on wellness?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Instead of a traditional dinner, consider a couples wellness date at a spa. At Sway Wellness Spa, a Valentine's Day wellness date could include a Glow Getter Hydration Facial to combat dry winter skin, a Himalayan Salt Stone Massage for deep relaxation, and time in the Remedy Room with sauna, cold plunge, and LED light therapy. These shared experiences foster deeper connection while leaving you both feeling recharged.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is a Galentine's Day spa day?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A Galentine's Day spa day is a celebration of friendship through wellness, typically held around Valentine's Day. At Sway Wellness Spa in Denver, a Galentine's group can enjoy customized facials, therapeutic massages, Aescape robot massage sessions, and Remedy Room experiences. Located on Larimer Street, Sway makes it easy to combine your spa visit with nearby coffee shops, boutiques, and brunch spots for a full day of bonding.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How can I practice self-love on Valentine's Day?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Valentine's Day is an ideal time to prioritize self-care. Treat yourself to a rejuvenating treatment like a Vitamin C Facial, an 80-minute Deep Tissue Massage, or a Remedy Room session with cold plunge, sauna, and compression therapy. Sway Wellness Spa also offers memberships that provide monthly wellness rituals, making self-love a consistent practice rather than a one-time event.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

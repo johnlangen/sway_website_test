@@ -157,6 +157,43 @@ export default function AllergySeasonSkincareBlogLayout() {
           Permalink: <Link href="/blog/allergy-season-skincare" className="underline hover:text-[#113D33]">/blog/allergy-season-skincare</Link>
         </div>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How do seasonal allergies affect your skin?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Seasonal allergies can cause redness, irritation, dryness, and inflammatory flare-ups on your skin. Allergens like pollen trigger histamine responses that weaken the skin barrier, leading to increased sensitivity and reactivity. The skin may become dry, puffy, or develop uneven texture during allergy season. Professional treatments like the Sensitive Silk Facial at Sway Wellness Spa use soothing botanicals to calm irritation and strengthen the skin barrier.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What facial treatments are best for sensitive, allergy-prone skin?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best facial treatments for allergy-prone skin focus on calming inflammation and restoring the skin barrier rather than aggressive exfoliation. LED red light therapy reduces redness and puffiness while accelerating healing. Gentle, botanical-rich facials using products designed for reactive skin can provide immediate relief. Sway Wellness Spa offers the Sensitive Silk Facial with Eminence Organics products and LightStim LED therapy specifically designed to soothe and protect sensitive skin during allergy season.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Can lymphatic drainage help with allergy symptoms and skin puffiness?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, lymphatic drainage can help reduce allergy-related skin puffiness and overall inflammation. Lymphatic drainage stimulates your body's natural detoxification system, flushing out toxins and reducing fluid retention that contributes to a swollen, puffy appearance. Normatec compression boots, available in the Remedy Room at Sway Wellness Spa, provide targeted lymphatic drainage that boosts circulation and helps your body process allergens more efficiently.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

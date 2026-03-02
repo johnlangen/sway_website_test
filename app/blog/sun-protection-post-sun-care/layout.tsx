@@ -172,6 +172,43 @@ export default function SunProtectionBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/sun-protection-post-sun-care</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is the difference between chemical and mineral sunscreen?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Chemical sunscreens absorb UV rays and convert them to heat. They are lightweight, blend easily, and leave no white cast, making them ideal for daily wear. Mineral sunscreens use zinc oxide or titanium dioxide to physically block UV rays on the skin's surface, which makes them a great choice for sensitive skin. Both types are effective at preventing sun damage when applied correctly. Sway Wellness Spa carries esthetician-approved options in both categories, including Supergoop Unseen Sunscreen SPF 50 and Eminence Organics Mineral SPF.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How should I care for my skin after sun exposure?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "After sun exposure, focus on soothing and hydrating your skin with antioxidant-rich products like facial recovery oils. Treat dark spots and photoaging with Vitamin C serums and retinoids, always pairing them with SPF during the day. Exfoliate gently once or twice a week with mild acids like lactic or mandelic acid to remove dead cells and improve product absorption. Stay hydrated by drinking plenty of water and using hyaluronic acid serums. For deeper recovery, a professional facial at Sway Wellness Spa can restore your skin's moisture and radiance.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do I need to wear sunscreen every day, even when it's cloudy?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, you should wear broad-spectrum SPF 30 or higher every day, regardless of weather. Up to 80 percent of UV rays can penetrate clouds, and UVA rays pass through windows, meaning your skin is exposed to damage year-round. Daily sunscreen use is the single most effective step to prevent premature aging, dark spots, and skin cancer. The estheticians at Sway Wellness Spa recommend making SPF the final step in your morning skincare routine for consistent protection.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

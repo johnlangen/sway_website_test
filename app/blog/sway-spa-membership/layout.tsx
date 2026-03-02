@@ -133,6 +133,43 @@ export default function SwaySpaMembershipBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/sway-spa-membership</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is included in a Sway Wellness Spa membership?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A Sway Wellness Spa membership includes one facial or massage per month for $99, access to an exclusive member lounge with tea and snacks, a Bring-a-Friend benefit where your guest gets the same $99 rate once per month, Family Share so loved ones can use your credits, 10% off in the Sway Shop on brands like Eminence and DedCool, access to member-only events, and rollover benefits so unused credits stay valid for a year.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How does a spa membership help with wellness consistency?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A spa membership builds consistency by scheduling regular monthly wellness treatments into your routine. Research shows that consistent self-care through regular spa visits can lead to significant long-term health improvements including reduced stress, better sleep, improved skin health, and decreased muscle tension. Sway Wellness Spa's membership model is designed to make ongoing wellness simple and affordable.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Can I share my Sway spa membership with friends or family?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, Sway Wellness Spa memberships include sharing options. The Bring-a-Friend perk lets you bring a guest who receives the same treatment at the $99 member rate once per month. Additionally, the Family Share feature allows family members to use your membership credits. Unused credits roll over and remain valid for up to one year.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

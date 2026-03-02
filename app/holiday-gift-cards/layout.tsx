@@ -26,10 +26,49 @@ export const metadata: Metadata = {
   },
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is Sway's holiday gift card bonus?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "During the holiday season (typically December 12–25), buy a $150 Sway gift card and receive a $25 bonus card. The bonus card is valid for any service at Sway Wellness Spa.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I buy Sway holiday gift cards online?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Sway holiday gift cards can be purchased online at swaywellnessspa.com with instant digital delivery via email, making them a perfect last-minute gift.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What services can a Sway gift card be used for?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway gift cards work for all services: massage therapy, facials, Remedy Room recovery (sauna, cold plunge, compression, LED), Aescape robot massage, boosts, and retail products.",
+      },
+    },
+  ],
+};
+
 export default function HolidayGiftCardsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }

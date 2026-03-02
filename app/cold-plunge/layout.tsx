@@ -42,6 +42,45 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How cold is the cold plunge at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway's cold plunge is maintained at approximately 50°F (10°C). It's designed to be challenging but tolerable, even for first-timers.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long should I stay in the cold plunge?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The cold plunge portion of the Remedy Room circuit is 5 minutes. This follows 20 minutes of infrared sauna, which primes your body for the contrast therapy benefits.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What are the benefits of cold plunge therapy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Cold plunge therapy can reduce inflammation, improve circulation, boost mood and energy, support muscle recovery, and strengthen immune response. Combined with sauna in the Remedy Room, it creates a powerful contrast therapy effect.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do I need to book the cold plunge separately?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. The cold plunge is part of the Remedy Room, a guided 40-minute circuit that also includes infrared sauna, Normatec compression, and LED light therapy. Book the Remedy Room to access all four modalities. $49 drop-in, $25 for members.",
+      },
+    },
+  ],
+};
+
 export default function ColdPlungeLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -49,6 +88,10 @@ export default function ColdPlungeLayout({ children }: { children: React.ReactNo
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );

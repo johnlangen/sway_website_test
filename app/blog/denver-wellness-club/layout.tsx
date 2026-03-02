@@ -183,6 +183,43 @@ export default function DenverWellnessClubBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is Sway Wellness Spa in Denver?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway Wellness Spa is a modern wellness club located on Larimer Square in downtown Denver, Colorado. It offers science-backed massage, facials, a Remedy Room with sauna, cold plunge, Normatec compression, and LED light therapy, plus Aescape AI-powered robot massage. Sway was designed for health-conscious professionals seeking accessible, city-centric wellness.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What treatments are available at Sway in Denver?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway offers Deep Tissue, CBD, Salt Stone, and Sports massages, as well as specialized facials like Forever Young, Pore Perfection, Glow Getter, and Sensitive Silk. The Remedy Room provides sauna, cold plunge, Normatec compression boots, and LED light therapy. Sway also features Aescape, the first AI-powered autonomous robot massage in Colorado.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Does Sway offer a membership or founding member deal?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes. Sway Wellness Spa offers monthly memberships that include treatments, member pricing on boosts and add-ons, and reduced-rate Remedy Room access. Visit swaywellnessspa.com/membership for current membership details and offers.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/denver-wellness-club</p>
       </div>
     </div>

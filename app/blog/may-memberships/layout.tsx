@@ -141,6 +141,43 @@ export default function MayMembershipsLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/may-memberships</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How much does a spa membership cost at Sway Wellness Spa?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sway Wellness Spa offers memberships starting at $99 per month with three options to choose from. The Spa Club membership includes one monthly facial or massage from a curated menu. The Remedy Room membership provides four monthly visits with access to cold plunge, traditional sauna, LED light therapy, and compression therapy. The Aescape Robot Massage membership includes two 60-minute robot massage sessions per month. All memberships include additional perks like 50 percent off boosts, 10 percent off retail, and friend-sharing options.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are the benefits of a monthly spa membership?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A monthly spa membership provides consistent wellness care that delivers compounding benefits over time. Regular facials lead to clearer, more radiant skin, while consistent massage therapy reduces chronic tension and lowers stress hormones. Monthly wellness routines have been shown to improve sleep quality, boost mental clarity, and support emotional balance. At Sway Wellness Spa, members also enjoy exclusive perks including discounted boosts, retail savings, and early access to new treatments and trends.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What types of massages and facials are included in a Sway membership?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sway Wellness Spa's Spa Club membership lets you choose one monthly treatment from a diverse menu. Facial options include the Glow Getter, Pore Perfection, Forever Young, and Vitamin C facials, among others. Massage options include Deep Tissue, Salt Stone, CBD, and Sports Massage. Each treatment is performed by licensed professionals and can be customized to your specific needs and preferences.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

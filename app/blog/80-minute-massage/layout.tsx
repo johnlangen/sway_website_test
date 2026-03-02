@@ -155,6 +155,43 @@ export default function Massage80MinBlogLayout() {
           Permalink: swaywellnessspa.com/blog/80-minute-massage
         </p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Why is an 80-minute massage better than a 60-minute massage?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "An 80-minute massage gives your therapist significantly more time to address specific problem areas without rushing, while still providing a thorough full-body treatment. The extra 20 minutes allow for deeper work on stubborn knots and multiple areas of concern. At Sway Wellness Spa, the 80-minute session also includes specialty techniques like Deep Tissue, CBD Massage, Sports Recovery, and Salt Stone Therapy at no extra charge.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What massage techniques are included in an 80-minute session at Sway?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sway Wellness Spa includes specialty techniques at no additional cost with every 80-minute massage. Options include Deep Tissue for chronic tension, CBD Massage for inflammation and relaxation, Sports Recovery for athletic performance, and Himalayan Salt Stone Therapy for mineral-rich deep relaxation. Your therapist will customize the session based on your specific needs and preferences.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I book an 80-minute massage at Sway Wellness Spa?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Booking an 80-minute massage at Sway Wellness Spa is quick and easy through the online booking system at swaywellnessspa.com. You can select your preferred date, time, and treatment type. Sway members enjoy preferred pricing on all massage sessions, including the 80-minute option, starting at $99 per month for a facial or massage.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

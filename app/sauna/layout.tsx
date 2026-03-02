@@ -74,6 +74,37 @@ const serviceJsonLd = {
     "Sauna therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, Normatec compression, and LED light therapy.",
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What type of sauna does Sway have?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway uses a full-spectrum infrared sauna as part of the Remedy Room recovery circuit. Infrared saunas heat your body directly rather than the air, offering deeper tissue penetration at a more comfortable temperature than traditional saunas.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long is the sauna session at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The sauna is part of a guided 40-minute Remedy Room circuit: 15 minutes of Normatec compression with LED light therapy, 20 minutes of infrared sauna, and 5 minutes of cold plunge.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much does the sauna cost at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The Remedy Room (which includes the sauna) is $49 per session for drop-in guests and $25 for Sway members. Memberships start at $99/month.",
+      },
+    },
+  ],
+};
+
 export default function SaunaLayout({
   children,
 }: {
@@ -89,6 +120,10 @@ export default function SaunaLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );

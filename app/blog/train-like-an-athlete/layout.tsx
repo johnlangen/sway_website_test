@@ -158,6 +158,43 @@ export default function TrainLikeAnAthleteBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is the best recovery routine after a workout?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "An effective post-workout recovery routine combines multiple modalities: sports massage to target tight muscles and improve circulation, cold plunge therapy to reduce inflammation and soreness, sauna for heat-based muscle relaxation, and compression therapy for enhanced blood flow. Sway Wellness Spa in Denver offers all of these through its Sports Massage and Remedy Room, which features Normatec compression boots, cold plunge, dry sauna, and LED light therapy in a guided 40-minute circuit.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is the Remedy Room at Sway Wellness Spa?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "The Remedy Room at Sway Wellness Spa is an all-in-one recovery space featuring Normatec compression boots, cold plunge baths, dry sauna, and LED light therapy. It is designed to deliver the same quality recovery tools elite athletes use, but in a spa environment. Member access is $25 per session and drop-in is $40.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Does sports massage actually help athletic performance?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes. Research published in BMJ Open Sport & Exercise Medicine shows that sports massage reduces muscle soreness and improves flexibility. It helps the body adapt to training, rebuild muscles, and reduce fatigue. Sway Wellness Spa offers Sports Massage at $99 for members and $139 for drop-in sessions, designed specifically for people with active lifestyles.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">
           Permalink: swaywellnessspa.com/blog/train-like-an-athlete
         </p>

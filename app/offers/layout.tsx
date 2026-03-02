@@ -68,6 +68,35 @@ export default function OffersLayout({
         description:
           "Current spa offers and promotions at Sway Wellness Spa. Offers vary by location.",
       },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Does Sway have a first-time visitor offer?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. New guests can get $40 off their first 50-minute massage or facial at Sway — just $99 (regularly $139). Use code FTVO40. Available for Denver-area locals, no membership required.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What spa deals does Sway currently offer?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sway regularly offers promotions for new guests, seasonal specials, and location-specific deals. Visit swaywellnessspa.com/offers or select your location to see current promotions.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I combine Sway offers with a membership?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Intro offers are designed for non-members. Once you join the Sway club ($99/month), you unlock ongoing member pricing: $99 massages and facials, 50% off boosts, and $25 Remedy Room sessions.",
+            },
+          },
+        ],
+      },
     ],
   };
 

@@ -71,6 +71,51 @@ export default function MembershipLayout({
         description:
           "Monthly wellness club memberships from $99/month. Includes member pricing on massages and facials ($99 vs. $139), 50% off boosts and Remedy Room sessions, private lounge access, and rollover credits.",
       },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much is a Sway Wellness Spa membership?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sway memberships start at $99/month. Members get massages and facials at $99 each (regularly $139), 50% off all boosts and Remedy Room sessions, private lounge access, and rollover credits.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What's included in a Sway membership?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Members enjoy: massages and facials at $99 (vs. $139 drop-in), 50% off boosts and super boosts, Remedy Room sessions at $25 (vs. $49), private member lounge access, rollover credits, and a bring-a-friend benefit.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Do Sway membership credits roll over?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Unused monthly credits roll over so you never lose a treatment. Use them whenever works best for your schedule.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I use my Sway membership at any location?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Sway memberships work across all open Sway locations. Currently Sway is open on Larimer Square in Denver, with Georgetown (DC) and Dallas coming soon.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Do I need a membership to book at Sway?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No, anyone can book at Sway. Memberships are optional but offer significant savings — members save $40 per massage or facial and 50% on recovery sessions and boosts.",
+            },
+          },
+        ],
+      },
     ],
   };
 

@@ -138,6 +138,43 @@ export default function SwayShopFindsBlogLayout() {
           <Link href="/blog/sway-shop-finds" className="hover:underline">swaywellnessspa.com/blog/sway-shop-finds</Link>
         </div>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What skincare brands does Sway Wellness Spa carry?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The Sway Shop at Sway Wellness Spa in Larimer Square carries a curated selection of premium skincare and lifestyle brands. Skincare brands include Eminence Organics, known for natural and award-winning products like the Rosehip Triple C+E Firming Oil and Radiant Protection SPF Fluid, and Dr. Dennis Gross, offering dermatologist-developed treatments for spa-grade results at home. The shop also features DedCool clean fragrances and Assouline luxury coffee table books.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do Sway Wellness Spa members get discounts on retail products?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, Sway Wellness Spa members receive 10 percent off all retail products at the Sway Shop, excluding select items like Assouline books, Gray Malin prints, and food and beverage items. Members also enjoy seasonal gift-with-purchase perks on Eminence Organics products. These member benefits make it easy to maintain your skincare routine between professional treatments at a better value.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is the Sway Shop located and what can I find there?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The Sway Shop is located inside Sway Wellness Spa in Larimer Square, Denver. It offers a hand-picked selection of luxury wellness products including Eminence Organics skincare, Dr. Dennis Gross professional-grade treatments, DedCool clean and non-toxic fragrances, and Assouline statement coffee table books. You can visit the shop after a spa treatment or stop by any time to explore the latest curated wellness and lifestyle products.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

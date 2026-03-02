@@ -83,11 +83,46 @@ export default function Page() {
     ],
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What awards has Sway Wellness Spa won?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sway was voted #4 Best Day Spa in America by USA Today 10Best Readers' Choice Awards (2025). Sway was also named Best U.S. Day Spa by The Zoe Report Readers' Choice Awards (2026).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Where has Sway Wellness Spa been featured?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sway has been featured in USA Today, The Zoe Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life, Salon Today, Denver Business Journal, and Mile High CRE, among others.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is Sway one of the best spas in Denver?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best in just its first year. It's located on Larimer Square in downtown Denver and offers massage, facials, recovery tech, and AI-powered robot massage.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <PressContent />
     </>

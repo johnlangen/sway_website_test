@@ -140,6 +140,43 @@ export default function VitaminCFacialBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/vitamin-c-facial</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What does a Vitamin C facial do for your skin?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A Vitamin C facial delivers concentrated antioxidants to brighten skin, reduce dark spots and hyperpigmentation, boost collagen production for firmer skin, protect against UV and pollution damage, and deeply hydrate. Sway Wellness Spa features the Dr. Dennis Gross Vitamin C Facial, which uses professional-grade products developed by a board-certified dermatologist for visible, lasting results.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is winter a good time to get a Vitamin C facial?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Winter is actually the ideal time for a Vitamin C facial. Reduced sun exposure makes it the safest season to address pigmentation and repair lingering summer sun damage. The treatment also combats winter dullness and dryness, restoring hydration and radiance. Sway Wellness Spa recommends scheduling Vitamin C facials during winter months to start spring with refreshed, glowing skin.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What happens during a Vitamin C facial at Sway Wellness Spa?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "During a Vitamin C facial at Sway Wellness Spa, you can expect three key stages: a Vitamin C and Alpha Beta cleansing to prep the skin, the signature Alpha Beta Professional Peel System for exfoliation, and a customized hydration phase with masks, serums, moisturizers, and SPF tailored to your skin's needs. The treatment uses Dr. Dennis Gross Skincare products for professional-grade results.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

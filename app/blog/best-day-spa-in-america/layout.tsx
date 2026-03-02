@@ -449,6 +449,59 @@ export default function BestDaySpaLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is Sway Wellness Spa?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway is a modern wellness club on Larimer Square in downtown Denver, Colorado. It offers massage, facials, a recovery circuit called the Remedy Room (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Sway was voted #4 Best Day Spa in America by USA Today 10Best.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What does #4 Best Day Spa in America mean?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "USA Today 10Best is a nationally recognized travel and lifestyle awards program. A panel of experts nominates the top contenders, then readers across the country vote. Sway was ranked #4 Best Day Spa in the United States for 2025.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What treatments does Sway offer?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape autonomous AI-powered robot massage.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Does Sway offer memberships?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes. Sway offers monthly memberships that include treatments, member pricing on boosts and add-ons, and Remedy Room access at a reduced rate. Details at swaywellnessspa.com/membership.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Where is Sway located?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway Wellness Spa is on Larimer Square in downtown Denver, Colorado. Walk-ins are welcome and booking is recommended at swaywellnessspa.com/book.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         {/* Permalink */}
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">
           Permalink: swaywellnessspa.com/blog/best-day-spa-in-america

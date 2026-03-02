@@ -142,6 +142,43 @@ export default function TechAndWellnessBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "How is technology changing spa treatments?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Technology is transforming spa treatments through AI-powered robotic massage (like Aescape), microcurrent facial therapy for non-invasive skin rejuvenation, LED light therapy for cellular regeneration, and infrared saunas for optimized detoxification. These innovations deliver greater precision, consistency, and personalization. Sway Wellness Spa in Denver integrates several of these technologies including Aescape robot massage, LED light therapy by LightStim, and microcurrent therapy by 7E Wellness.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is Aescape robotic massage at Sway?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Aescape is a fully automated, AI-powered robotic massage system with dual robotic arms that deliver precision pressure and remember your preferences from session to session. It offers on-demand massage experiences with customizable pressure, music, and focus areas. Sway Wellness Spa in Denver is the first location in Colorado to offer Aescape, with sessions starting at $69 for 30 minutes.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is LED light therapy and how does it work?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "LED light therapy uses multi-wavelength light to stimulate skin regeneration, reduce inflammation, and boost collagen production. It is a non-invasive, painless treatment with no downtime that helps address concerns like acne, redness, and dullness. Sway Wellness Spa offers LED light therapy by LightStim as a boost add-on to facials and as part of the Remedy Room recovery circuit.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <div className="text-sm text-gray-400 pt-6">
           <Link href="/blog/tech-and-wellness" className="hover:underline">swaywellnessspa.com/blog/tech-and-wellness</Link>
         </div>

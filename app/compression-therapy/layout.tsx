@@ -42,6 +42,37 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is Normatec compression therapy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Normatec uses dynamic air compression to massage your legs, hips, and lower body. Sequential pulse technology mimics natural muscle contractions to improve circulation, reduce soreness, and speed recovery.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Who benefits from compression therapy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Anyone. Athletes use it for post-workout recovery. Desk workers use it to reduce leg fatigue and swelling. It's also excellent for lymphatic drainage, circulation, and general relaxation.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I book Normatec at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Normatec compression is part of the Remedy Room, a guided 40-minute circuit that also includes infrared sauna, cold plunge, and LED light therapy. Book the Remedy Room at swaywellnessspa.com. $49 drop-in, $25 for members.",
+      },
+    },
+  ],
+};
+
 export default function CompressionTherapyLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -49,6 +80,10 @@ export default function CompressionTherapyLayout({ children }: { children: React
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );

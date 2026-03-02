@@ -145,6 +145,43 @@ export default function SummerPrepGuideBlogLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/summer-prep-guide</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How should I prepare my skin for summer?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "To prepare your skin for summer, focus on exfoliation, hydration, and sun protection. Start with a lymphatic drainage massage to reduce water retention and improve circulation for a sculpted, refreshed appearance. Add a microcurrent facial to lift and tone facial muscles for a summer-ready glow. Build a daily hydration routine with hyaluronic acid serums and always finish with SPF. Sway Wellness Spa offers pre-summer prep treatments including lymphatic drainage massage, microcurrent facials, and Salt Stone Massage to get your skin and body summer-ready.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is a microcurrent facial and how does it help before summer?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A microcurrent facial uses low-level electrical currents to stimulate and tone facial muscles, similar to a workout for your face. It lifts, firms, and smooths the skin with no downtime, delivering visible results in a single session. This treatment is ideal before summer because it enhances your natural contours and creates a healthy, radiant glow that looks great in natural light. Sway Wellness Spa offers the Microcurrent Super-Boost as part of their pre-summer prep menu.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are the benefits of lymphatic drainage massage before summer?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Lymphatic drainage massage flushes out excess water retention, improves blood circulation, reduces swelling, and leaves your body feeling lighter and more sculpted. It supports your immune system and enhances skin radiance by promoting the natural removal of toxins. Getting lymphatic drainage before summer helps you feel more confident and look your best for beach days and outdoor activities. Licensed therapists at Sway Wellness Spa provide this therapeutic treatment with noticeable results.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

@@ -168,6 +168,43 @@ export default function SaunaComparisonBlogLayout() {
           </div>
         </div>
 
+        {/* FAQ JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is the difference between infrared and traditional saunas?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Traditional saunas heat the air using hot stones or a stove, reaching temperatures of 190 degrees Fahrenheit or higher, creating an intense dry or steamy environment. Infrared saunas use infrared light to directly warm the body at lower temperatures (120-150 degrees Fahrenheit). Traditional saunas provide deeper detoxification and a more immersive experience backed by centuries of use, while infrared saunas offer a gentler heat. Sway Wellness Spa features a traditional sauna in its Remedy Room.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What are the benefits of using a sauna?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sauna use provides stress relief by reducing cortisol levels and relaxing muscles, improved circulation through heat-induced blood vessel dilation, faster muscle recovery after workouts, and detoxification through deep sweating. At Sway Wellness Spa in Denver, the traditional sauna is part of the Remedy Room recovery circuit alongside cold plunge, Normatec compression, and LED light therapy.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Where can I use a sauna in Denver?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sway Wellness Spa on Larimer Square in downtown Denver offers a traditional sauna experience as part of its Remedy Room — a guided 40-minute recovery circuit. Whether you are a seasoned sauna enthusiast or trying it for the first time, Sway provides an expert-guided environment for deep relaxation and recovery.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         {/* Permalink */}
         <div className="text-sm text-gray-400 pt-4">
           Permalink: <Link href="/blog/infrared-vs-traditional-sauna" className="underline hover:text-[#113D33]">/blog/infrared-vs-traditional-sauna</Link>

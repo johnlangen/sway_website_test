@@ -149,6 +149,43 @@ export default function MothersDayGiftGuideLayout() {
 
         <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/mothers-day-gift-guide</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is the best Mother's Day spa gift?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best Mother's Day spa gifts combine relaxation with lasting value. Sway Wellness Spa offers gift cards with bonus specials (buy $150 get a $25 bonus, or buy $300 get a $50 bonus) that let mom choose her own treatments. For an ongoing gift, a Sway membership at $99 per month gives her monthly facials or massages, member lounge access, and shop discounts all year long.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Why is self-care important for moms?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Self-care is essential for moms because the demands of motherhood often leave little time for personal well-being. According to the Mayo Clinic, regular self-care helps reduce stress, prevent burnout, and improve emotional health. A spa experience at Sway Wellness Spa provides dedicated time for moms to recharge both mentally and physically, helping them show up more fully for their families.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Can you gift a spa membership for Mother's Day?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes, a spa membership makes an excellent Mother's Day gift. Sway Wellness Spa memberships start at $99 per month and include a monthly facial or massage, access to the exclusive member lounge, the ability to bring a friend at the member rate, and 10% off retail products. It is a thoughtful gift that keeps giving all year, reminding mom to prioritize herself every month.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

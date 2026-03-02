@@ -49,11 +49,46 @@ export default function Page() {
       "https://oc.spaviajobs.com/v2/#/a/job/a2Vlb?source=SwayWebsite",
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is Sway Wellness Spa hiring?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Sway is actively hiring licensed Massage Therapists (full-time and part-time) at our Larimer Square location in Denver, CO. We welcome therapists of all experience levels.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's it like working at Sway?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sway offers a modern, technology-forward spa environment with competitive pay, flexible scheduling, and advanced modalities including AI-powered Aescape robot massage. The culture is supportive, team-oriented, and focused on professional growth.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I apply for a job at Sway Wellness Spa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Visit swaywellnessspa.com/careers to view open positions and apply online. You can also reach out directly to the team for more information about available roles.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <CareersContent />
     </>

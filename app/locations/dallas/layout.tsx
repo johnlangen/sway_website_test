@@ -57,12 +57,47 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "When is Sway Dallas opening?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway Dallas is coming soon. Sign up as a Founding Member at swaywellnessspa.com/locations/dallas to get early access and exclusive opening-day offers.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What services will Sway Dallas offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway Dallas will offer the full Sway experience: expert-led massage therapy, advanced facials, the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and memberships starting at $99/month.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is a Founding Member at Sway Dallas?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Founding Members get exclusive benefits when Sway Dallas opens, including early access to bookings and special introductory pricing. Sign up at swaywellnessspa.com/locations/dallas.",
+      },
+    },
+  ],
+};
+
 export default function DallasLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {children}
     </>

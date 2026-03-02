@@ -1053,7 +1053,42 @@ export default function HolidayWellnessGuideLayout() {
   <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/holiday-wellness-guide</p>
 </section>
 
-
+      {/* FAQ JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What are the best wellness gifts for the holidays?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The best wellness gifts for the holidays include spa gift cards, CBD massage experiences, luxury skincare products, and curated self-care bundles. A spa gift card is versatile and lets the recipient choose their own treatment, from facials and massages to sauna sessions and cold plunge experiences. Sway Wellness Spa offers gift cards in any amount that are redeemable for treatments, products, and memberships, making them a thoughtful gift for anyone who values relaxation and self-care.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is a CBD massage and what are the benefits?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A CBD massage is a targeted massage experience that uses CBD-infused products to help calm the nervous system and release stubborn muscle tension. It is especially effective for post-workout soreness, chronic tightness, and overall stress relief. The CBD provides immediate cooling comfort and can help you feel lighter, calmer, and more mobile. Sway Wellness Spa offers CBD massage as part of their treatment menu, using award-winning CBD relief cream and body oil.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is the Glow Getter facial?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The Glow Getter is a signature facial at Sway Wellness Spa that delivers a dewy, luminous complexion using antioxidant-rich botanicals and advanced hydration techniques. It gently exfoliates and restores balance to tired, dull skin, leaving you fresh-faced and radiant. It pairs well with at-home skincare from Eminence Organics, such as the Kombucha Microbiome Foaming Cleanser and Birch Water Purifying Essence, to extend the post-facial glow.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
 
     </div>
   );
