@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 
 /* ---------------- TYPES ---------------- */
@@ -310,13 +310,33 @@ const FacialsPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO */}
-      <section className="bg-[#B6CFBF]">
-        <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+      <section className="relative bg-[#113D33] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/assets/facial2.jpg"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#113D33]/60 to-[#113D33]" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+          <motion.p
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
+          >
+            Eminence Organics · Dr. Dennis Gross
+          </motion.p>
+
           <motion.h1
             initial={prefersReducedMotion ? false : { opacity: 0, y: -14 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-[#113D33] text-5xl md:text-7xl font-light tracking-tight"
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="text-white text-5xl md:text-7xl font-light tracking-tight"
           >
             Facial Experiences
           </motion.h1>
@@ -339,11 +359,11 @@ const FacialsPage = () => {
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33] opacity-90"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/85"
           >
-            Personalized, results-driven facials designed to support healthy, radiant skin,
-            customized by your esthetician.
+            Personalized, results-driven facials designed to support healthy,
+            radiant skin — customized by your esthetician.
           </motion.p>
 
           <motion.a
@@ -352,8 +372,8 @@ const FacialsPage = () => {
             rel="noopener noreferrer"
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/50 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
           >
             Voted #4 Best Day Spa in America — USA Today 10Best
           </motion.a>
@@ -361,23 +381,47 @@ const FacialsPage = () => {
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-[#113D33]/70 leading-relaxed"
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-white/55 leading-relaxed"
           >
-            Clean, organic skincare from Eminence Organics paired with
-            clinical-grade Dr. Dennis Gross protocols. Add science-backed
-            boosts like LED for acne, microcurrent for lifting, and oxygen infusion
-            for hydration to accelerate your results.
+            Clean, organic skincare paired with clinical-grade protocols and
+            science-backed boosts like LED, microcurrent, and oxygen infusion.
           </motion.p>
 
-          <div className="mt-9 flex items-center justify-center">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mt-9 flex items-center justify-center"
+          >
             <Link
               href={bookHref}
-              className="inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-[#0a2b23] transition-all shadow-lg"
+              className="inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg"
             >
               Continue to Booking
             </Link>
-          </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* STATS STRIP */}
+      <section className="bg-white px-6 py-8 md:py-10 border-b border-[#113D33]/8">
+        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          {[
+            { value: "6", label: "Facial Treatments" },
+            { value: "2", label: "Premium Brands" },
+            { value: "6", label: "High-Tech Boosts" },
+            { value: "50", label: "Minute Sessions" },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-[#113D33]">
+                {s.value}
+              </div>
+              <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/50 font-semibold mt-1">
+                {s.label}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -719,10 +763,73 @@ const FacialsPage = () => {
         </div>
       </section>
 
+      {/* SKINCARE BRANDS */}
+      <section className="bg-white px-6 py-16 md:py-20">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33]">
+              Powered by Two Leading Skincare Brands
+            </h2>
+            <p className="mt-3 text-[#113D33]/60 max-w-2xl mx-auto">
+              Every facial at Sway uses products and protocols from these
+              industry-leading skincare lines.
+            </p>
+          </motion.div>
+
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-8"
+            >
+              <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] font-semibold">
+                Organic · Farm-Fresh
+              </p>
+              <h3 className="mt-2 text-xl font-bold text-[#113D33]">
+                Eminence Organics
+              </h3>
+              <p className="mt-3 text-sm text-[#113D33]/70 leading-relaxed">
+                Award-winning organic skincare from Hungary, crafted with
+                farm-fresh ingredients. Known for results-driven formulas that
+                nourish, protect, and transform the skin naturally.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-8"
+            >
+              <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] font-semibold">
+                Clinical-Grade · Dermatologist-Developed
+              </p>
+              <h3 className="mt-2 text-xl font-bold text-[#113D33]">
+                Dr. Dennis Gross
+              </h3>
+              <p className="mt-3 text-sm text-[#113D33]/70 leading-relaxed">
+                Clinical-grade skincare developed by a board-certified
+                dermatologist. Famous for the Alpha Beta® peel and Vitamin C
+                formulas that deliver visible, science-backed results.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-24">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-8">
             Frequently Asked Questions
           </h2>
 
@@ -770,11 +877,21 @@ const FacialsPage = () => {
                   />
                 </svg>
               </button>
-              {openFaq === i && (
-                <p className="pb-5 text-sm text-[#113D33]/80 leading-relaxed pr-8">
-                  {item.a}
-                </p>
-              )}
+              <AnimatePresence initial={false}>
+                {openFaq === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="pb-5 text-sm text-[#113D33]/80 leading-relaxed pr-8">
+                      {item.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
@@ -783,7 +900,7 @@ const FacialsPage = () => {
       {/* EXPLORE MORE */}
       <section className="bg-white px-6 py-16 md:py-24">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-10 text-center">
             Explore More at Sway
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -823,7 +940,7 @@ const FacialsPage = () => {
       {/* LOCATIONS */}
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-8">
             Book a Facial at a Location
           </h2>
           <Link
