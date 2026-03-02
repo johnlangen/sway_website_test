@@ -77,6 +77,20 @@ export default function LarimerOffersPage() {
           Introductory pricing, memberships, and recovery sessions at Sway
           Wellness Spa in Larimer Square.
         </motion.p>
+
+        <p className="sr-only">
+          Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer
+          — $40 off your first 50-minute massage or facial for just $99
+          (regularly $139), for Denver-area first-time guests. Membership —
+          $99/month for unlimited massages and facials at $99 each, 50% off all
+          boost add-ons, $25 Remedy Room sessions (normally $49), and private
+          member lounge access. Remedy Room — $49 per session ($25 for members),
+          a guided 40-minute recovery circuit combining infrared sauna, cold
+          plunge, Normatec compression therapy, and LED light therapy. Sway
+          Wellness Spa is located at 1428 Larimer St. on Larimer Square in
+          Denver, CO 80202. Voted #4 Best Day Spa in America by USA Today
+          10Best. Book at swaywellnessspa.com or call (303) 476-6150.
+        </p>
       </section>
 
       {/* OFFER CARDS */}
