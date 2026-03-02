@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
+import { ReviewBadge } from "../components/GoogleReviews";
 
 type SelectedLocation = {
   slug: string;
@@ -69,6 +70,10 @@ export default function GiftCardsHubPage() {
           Give the ultimate wellness gift. Select your location to purchase a
           Sway gift card online.
         </p>
+
+        <div className="mt-5 flex justify-center">
+          <ReviewBadge />
+        </div>
 
         <p className="sr-only">
           Sway Wellness Spa gift cards are available in any dollar amount with

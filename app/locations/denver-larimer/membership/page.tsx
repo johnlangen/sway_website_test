@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Check, ChevronDown } from "lucide-react";
+import GoogleReviews, { ReviewBadge } from "../../../components/GoogleReviews";
 
 const benefitData: Record<string, string[]> = {
   spa: [
@@ -105,6 +106,15 @@ export default function MembershipPage() {
         >
           All plans $99/month
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="mt-4 flex justify-center"
+        >
+          <ReviewBadge />
+        </motion.div>
 
         <p className="sr-only">
           Sway Wellness Spa Larimer memberships: 3 plans, all $99/month. Spa
@@ -228,6 +238,11 @@ export default function MembershipPage() {
             );
           })}
         </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="bg-[#F7F4E9] px-6 py-16 md:py-20 text-[#113D33]">
+        <GoogleReviews />
       </section>
 
       {/* LOWER IMAGE / BRAND SECTION */}

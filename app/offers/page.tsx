@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MapPin, ArrowRight } from "lucide-react";
+import { ReviewBadge } from "../components/GoogleReviews";
 
 type SelectedLocation = {
   slug: string;
@@ -69,6 +70,10 @@ export default function OffersPage() {
           Offers vary by location. Select your spa to view current promotions
           and limited-time deals.
         </p>
+
+        <div className="mt-5 flex justify-center">
+          <ReviewBadge />
+        </div>
 
         <p className="sr-only">
           Sway Wellness Spa offers and pricing across 3 locations: Denver

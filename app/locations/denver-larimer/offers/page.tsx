@@ -4,6 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ReviewBadge } from "../../../components/GoogleReviews";
 
 export default function LarimerOffersPage() {
   const offers = [
@@ -77,6 +78,15 @@ export default function LarimerOffersPage() {
           Introductory pricing, memberships, and recovery sessions at Sway
           Wellness Spa in Larimer Square.
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="mt-4 flex justify-center"
+        >
+          <ReviewBadge />
+        </motion.div>
 
         <p className="sr-only">
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import GoogleReviews, { ReviewBadge } from "../../../components/GoogleReviews";
 
 export default function LarimerGiftCardsPage() {
   const giftCardUrl =
@@ -117,6 +118,15 @@ export default function LarimerGiftCardsPage() {
           facials, and Remedy Room recovery right in Larimer Square.
         </motion.p>
 
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="mt-4 flex justify-center"
+        >
+          <ReviewBadge />
+        </motion.div>
+
         <p className="sr-only">
           Sway Wellness Spa Larimer gift cards: available in any dollar amount
           with instant digital delivery via email. Redeemable for all services
@@ -197,6 +207,11 @@ export default function LarimerGiftCardsPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="bg-[#F7F4E9] px-6 py-16 md:py-20 text-[#113D33]">
+        <GoogleReviews />
       </section>
 
       {/* IMAGE BAND */}

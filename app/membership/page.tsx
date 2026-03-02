@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MapPin, ArrowRight } from "lucide-react";
+import { ReviewBadge } from "../components/GoogleReviews";
 
 type SelectedLocation = {
   slug: string;
@@ -70,6 +71,10 @@ export default function MembershipHubPage() {
           Remedy Room sessions, private lounge access, and rollover
           credits. Select your location to view plans.
         </p>
+
+        <div className="mt-5 flex justify-center">
+          <ReviewBadge />
+        </div>
 
         <p className="sr-only">
           Sway Wellness Club memberships: 3 plans, all $99/month. Spa Club —
