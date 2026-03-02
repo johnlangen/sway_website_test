@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 
 /* ---------------- TYPES ---------------- */
@@ -295,13 +295,22 @@ const MassagesPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO */}
-      <section className="bg-[#B6CFBF]">
+      <section className="bg-[#113D33]">
         <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+          <motion.p
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
+          >
+            Expert-Led · Fully Customized
+          </motion.p>
+
           <motion.h1
             initial={prefersReducedMotion ? false : { opacity: 0, y: -14 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-[#113D33] text-5xl md:text-7xl font-light tracking-tight"
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="text-white text-5xl md:text-7xl font-light tracking-tight"
           >
             Massage Experiences
           </motion.h1>
@@ -323,11 +332,11 @@ const MassagesPage = () => {
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33] opacity-90"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/85"
           >
-            Explore our range of expert-led massage therapies. Every session is
-            customized by your therapist to meet your body&apos;s needs.
+            Six expert-led massage therapies, each customized by your therapist
+            to meet your body&apos;s needs.
           </motion.p>
 
           <motion.a
@@ -336,8 +345,8 @@ const MassagesPage = () => {
             rel="noopener noreferrer"
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/50 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
           >
             Voted #4 Best Day Spa in America — USA Today 10Best
           </motion.a>
@@ -345,23 +354,47 @@ const MassagesPage = () => {
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-[#113D33]/70 leading-relaxed"
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-white/55 leading-relaxed"
           >
-            Expert therapists blend traditional techniques like cupping, salt
-            stone, and lymphatic drainage with modern recovery tools like
-            infrared PEMF mats. Pair your massage with sauna and cold plunge
-            recovery or a facial for a complete reset.
+            Traditional techniques like cupping, salt stone, and lymphatic
+            drainage paired with modern recovery tools like infrared PEMF mats.
           </motion.p>
 
-          <div className="mt-9 flex items-center justify-center">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mt-9 flex items-center justify-center"
+          >
             <Link
               href={bookHref}
-              className="inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-[#0a2b23] transition-all shadow-lg"
+              className="inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg"
             >
               Continue to Booking
             </Link>
-          </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* STATS STRIP */}
+      <section className="bg-white px-6 py-8 md:py-10 border-b border-[#113D33]/8">
+        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          {[
+            { value: "6", label: "Massage Types" },
+            { value: "4", label: "Boost Add-Ons" },
+            { value: "50–80", label: "Minute Sessions" },
+            { value: "50%", label: "Member Savings on Boosts" },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-[#113D33]">
+                {s.value}
+              </div>
+              <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/50 font-semibold mt-1">
+                {s.label}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -394,14 +427,14 @@ const MassagesPage = () => {
                 className="shrink-0"
                 style={{ scrollSnapAlign: "center" }}
               >
-                <div className="w-[78vw] max-w-[360px] h-[520px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
-                  <div className="relative w-full h-[230px]">
+                <div className="w-[78vw] max-w-[360px] h-[520px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+                  <div className="relative w-full h-[230px] overflow-hidden">
                     <Image
                       src={m.img}
                       alt={m.name}
                       fill
                       sizes="(max-width: 1024px) 78vw, 360px"
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 hover:scale-105"
                       priority={m.id === 1}
                     />
                   </div>
@@ -517,18 +550,22 @@ const MassagesPage = () => {
             </div>
 
             <div className="mt-10 grid grid-cols-2 xl:grid-cols-3 gap-8">
-              {massages.map((m) => (
-                <div
+              {massages.map((m, i) => (
+                <motion.div
                   key={m.id}
-                  className="bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden hover:shadow-[0_16px_44px_rgba(0,0,0,0.10)] transition-shadow"
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+                  whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: i * 0.08 }}
+                  className="group bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] hover:scale-[1.02] transition-all duration-300"
                 >
-                  <div className="relative w-full h-[220px]">
+                  <div className="relative w-full h-[220px] overflow-hidden">
                     <Image
                       src={m.img}
                       alt={m.name}
                       fill
                       sizes="(min-width: 1280px) 33vw, 50vw"
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
 
@@ -560,7 +597,7 @@ const MassagesPage = () => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -577,16 +614,26 @@ const MassagesPage = () => {
       </section>
 
       {/* BOOSTS SECTION (mobile swipe, desktop grid) */}
-      <section className="bg-[#B6CFBF]/35">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="text-center">
-            <h2 className="text-[#113D33] text-3xl md:text-4xl font-light tracking-tight">
-              Elevate Your Massage with a Boost
-            </h2>
-            <p className="mt-3 text-[#113D33] opacity-75 max-w-3xl mx-auto">
-              Boosts are optional enhancements available at checkout in Mindbody.
+      <section className="bg-[#113D33] overflow-hidden">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <p className="text-sm uppercase tracking-[0.2em] text-[#9ABFB3] mb-3">
+              Optional Enhancements
             </p>
-          </div>
+            <h2 className="text-white text-3xl md:text-4xl font-light tracking-tight">
+              Elevate Your Massage
+            </h2>
+            <p className="mt-3 text-white/55 max-w-2xl mx-auto">
+              Add a boost during checkout for deeper focus and faster recovery —
+              members save 50% on every add-on.
+            </p>
+          </motion.div>
 
           {/* MOBILE: Boost swipe */}
           <div className="lg:hidden mt-10">
@@ -604,29 +651,35 @@ const MassagesPage = () => {
                   className="shrink-0"
                   style={{ scrollSnapAlign: "center" }}
                 >
-                  <div className="w-[78vw] max-w-[360px] h-[320px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col">
+                  <div
+                    className={`w-[78vw] max-w-[360px] h-[280px] rounded-2xl backdrop-blur-sm overflow-hidden flex flex-col active:scale-[0.98] transition-transform ${
+                      b.tag === "Super Boost"
+                        ? "bg-white/[0.1] border border-[#9ABFB3]/30"
+                        : "bg-white/[0.07] border border-white/10"
+                    }`}
+                  >
                     <div className="p-5 flex-1 flex flex-col">
                       <div className="flex items-center justify-between gap-3">
-                        <h3 className="text-[#113D33] text-lg font-bold leading-tight">
+                        <h3 className="text-white text-lg font-bold leading-tight">
                           {b.name}
                         </h3>
                         <span
                           className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
                             b.tag === "Super Boost"
-                              ? "bg-[#113D33] text-white"
-                              : "bg-[#113D33]/15 text-[#113D33]"
+                              ? "bg-white text-[#113D33]"
+                              : "bg-white/15 text-white/80"
                           }`}
                         >
                           {b.tag}
                         </span>
                       </div>
 
-                      <p className="mt-3 text-[15px] text-black/75 leading-relaxed" style={clampStyle(3)}>
+                      <p className="mt-3 text-[15px] text-white/65 leading-relaxed" style={clampStyle(3)}>
                         {b.description}
                       </p>
 
-                      <div className="mt-auto pt-5">
-                        <p className="text-sm text-black/60">{b.price}</p>
+                      <div className="mt-auto pt-4">
+                        <p className="text-sm text-white/40">{b.price}</p>
                       </div>
                     </div>
                   </div>
@@ -645,7 +698,7 @@ const MassagesPage = () => {
                     key={idx}
                     onClick={() => scrollBoostToIndex(idx)}
                     className={`h-2.5 rounded-full transition-all ${
-                      idx === boostActiveIndex ? "w-8 bg-[#113D33]" : "w-2.5 bg-[#113D33]/25"
+                      idx === boostActiveIndex ? "w-8 bg-white" : "w-2.5 bg-white/25"
                     }`}
                     aria-label={`Go to boost ${idx + 1}`}
                   />
@@ -656,7 +709,7 @@ const MassagesPage = () => {
                 <button
                   onClick={prevBoost}
                   disabled={boostActiveIndex === 0}
-                  className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                  className="h-11 w-11 rounded-full border border-white/20 bg-white/5 text-white shadow-sm disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.98]"
                   aria-label="Previous boost"
                 >
                   ‹
@@ -664,7 +717,7 @@ const MassagesPage = () => {
                 <button
                   onClick={nextBoost}
                   disabled={boostActiveIndex === boosts.length - 1}
-                  className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
+                  className="h-11 w-11 rounded-full border border-white/20 bg-white/5 text-white shadow-sm disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.98]"
                   aria-label="Next boost"
                 >
                   ›
@@ -675,39 +728,47 @@ const MassagesPage = () => {
 
           {/* DESKTOP: Boost grid */}
           <div className="hidden lg:grid mt-12 grid-cols-2 xl:grid-cols-4 gap-6">
-            {boosts.map((b) => (
-              <div
+            {boosts.map((b, i) => (
+              <motion.div
                 key={b.id}
-                className="bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-6 hover:shadow-[0_16px_44px_rgba(0,0,0,0.10)] transition-shadow"
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.08 }}
+                className={`rounded-2xl backdrop-blur-sm p-6 transition-all duration-300 hover:scale-[1.03] cursor-default ${
+                  b.tag === "Super Boost"
+                    ? "bg-white/[0.1] border border-[#9ABFB3]/30 hover:bg-white/[0.15] hover:border-[#9ABFB3]/50"
+                    : "bg-white/[0.07] border border-white/10 hover:bg-white/[0.12] hover:border-white/20"
+                }`}
               >
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-[#113D33] text-lg font-bold leading-tight">
+                  <h3 className="text-white text-lg font-bold leading-tight">
                     {b.name}
                   </h3>
                   <span
                     className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
                       b.tag === "Super Boost"
-                        ? "bg-[#113D33] text-white"
-                        : "bg-[#113D33]/15 text-[#113D33]"
+                        ? "bg-white text-[#113D33]"
+                        : "bg-white/15 text-white/80"
                     }`}
                   >
                     {b.tag}
                   </span>
                 </div>
 
-                <p className="mt-3 text-sm text-black/75 leading-relaxed">
+                <p className="mt-3 text-sm text-white/60 leading-relaxed">
                   {b.description}
                 </p>
 
-                <p className="mt-5 text-sm text-black/60">{b.price}</p>
-              </div>
+                <p className="mt-5 text-sm text-white/35">{b.price}</p>
+              </motion.div>
             ))}
           </div>
 
           <div className="mt-12 flex justify-center">
             <Link
               href={bookHref}
-              className="inline-flex items-center justify-center bg-[#113D33] text-white px-10 py-4 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all shadow-lg"
+              className="inline-flex items-center justify-center bg-white text-[#113D33] px-10 py-4 text-[15px] font-bold rounded-2xl hover:bg-white/90 transition-all shadow-lg"
             >
               Continue to Booking
             </Link>
@@ -718,7 +779,7 @@ const MassagesPage = () => {
       {/* FAQ */}
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-24">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-8">
             Frequently Asked Questions
           </h2>
 
@@ -766,11 +827,21 @@ const MassagesPage = () => {
                   />
                 </svg>
               </button>
-              {openFaq === i && (
-                <p className="pb-5 text-sm text-[#113D33]/80 leading-relaxed pr-8">
-                  {item.a}
-                </p>
-              )}
+              <AnimatePresence initial={false}>
+                {openFaq === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="pb-5 text-sm text-[#113D33]/80 leading-relaxed pr-8">
+                      {item.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
@@ -779,7 +850,7 @@ const MassagesPage = () => {
       {/* EXPLORE MORE */}
       <section className="bg-white px-6 py-16 md:py-24">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-10 text-center">
             Explore More at Sway
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -819,14 +890,14 @@ const MassagesPage = () => {
       {/* LOCATIONS */}
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-vance-bold text-[#113D33] mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-8">
             Book a Massage at a Location
           </h2>
           <Link
             href="/locations/denver-larimer/massage/"
             className="block rounded-2xl border border-[#113D33]/15 bg-white p-6 hover:shadow-lg hover:border-[#113D33]/30 transition-all group"
           >
-            <p className="text-lg font-vance-bold text-[#113D33]">Sway Larimer</p>
+            <p className="text-lg font-semibold text-[#113D33]">Sway Larimer</p>
             <p className="text-sm text-gray-600 mt-1">Denver, CO — Larimer Square</p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
               Book Now →

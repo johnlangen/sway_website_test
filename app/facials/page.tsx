@@ -310,19 +310,8 @@ const FacialsPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO */}
-      <section className="relative bg-[#113D33] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/assets/facial2.jpg"
-            alt=""
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#113D33]/60 to-[#113D33]" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+      <section className="bg-[#113D33]">
+        <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
