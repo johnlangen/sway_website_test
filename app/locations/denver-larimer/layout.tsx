@@ -86,6 +86,80 @@ const localBusinessJsonLd = {
     reviewCount: "111",
     bestRating: "5",
   },
+  review: [
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Kristy Wingfield" },
+      datePublished: "2026-03",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "I love being a member and coming to Sway. My facials with Bri have been not only absolutely amazing for my skin, but I also have fun with her getting them done. Steven\u2019s massages are awesome as well.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Reilly Moncrief" },
+      datePublished: "2026-03",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "I cannot rave about this place enough! I\u2019ve been seeing Bri for facials for a few months now and cannot believe the results. I have always struggled with acne and wish I\u2019d taken photos at the start of my journey to show the progress.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Ricardo Laremont" },
+      datePublished: "2026-02",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "If you\u2019re looking for the ultimate recovery spot, Sway Wellness in Larimer Square is a total game-changer. I visited right after a trail race with legs that felt like lead, and I walked out feeling like a new person!",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Evan Marx" },
+      datePublished: "2026-01",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Lilly Sheppard" },
+      datePublished: "2026-01",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "Brianna is literally the best aesthetician I have received a treatment from. She was super gentle, knowledgeable, and fostered an extremely relaxing environment. 10/10 glow getter facial.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Ian Hines-Ike" },
+      datePublished: "2026-01",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "World class massage by Steven. Seriously one of the best I\u2019ve ever had. Will absolutely be making his deep tissue massage a regular part of my routine.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Jessica Matthews" },
+      datePublished: "2025-12",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "I came in for a facial with Bri \u2014 it was my first time trying Sway and I could not be happier with the results. Bri was so knowledgeable and took the time to explain everything and recommend simple fixes for my skin.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Avery Weiss" },
+      datePublished: "2025-12",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "Easily the best spa I\u2019ve ever been to. I\u2019m visiting from out of town and had a crazy 24 hour travel day and was in major need of a massage. The deep tissue massage was both relaxing and therapeutic. The Remedy Room was incredible.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Destiny Abundis" },
+      datePublished: "2025-12",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "I\u2019m obsessed with this spa! Everyone here is so kind and welcoming, and the whole place feels clean, calming, and luxurious without being pretentious. My facial was incredible \u2014 I left with glowing skin and the most relaxed feeling.",
+    },
+  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Wellness Club Services",
