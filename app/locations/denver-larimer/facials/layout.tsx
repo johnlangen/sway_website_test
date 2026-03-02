@@ -84,12 +84,6 @@ const serviceJsonLd = {
     "@type": "City",
     name: "Denver",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "647",
-    bestRating: "5",
-  },
   description:
     "Advanced facial treatments at Sway Wellness Spa in Larimer Square, Denver. Six signature facials including anti-aging, hydration, acne, sensitive skin, and Vitamin C treatments by Eminence Organics and Dr. Dennis Gross.",
 };
