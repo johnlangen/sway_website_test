@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa is a modern wellness club offering massage therapy, facials, recovery rituals, and technology-forward wellness experiences in Denver.",
 
   icons: {
-    icon: "/assets/swaylogo3.png",
+    icon: "/favicon.ico",
     apple: "/assets/swaylogo3.png",
   },
 
@@ -69,7 +69,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="light">
       <head>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
