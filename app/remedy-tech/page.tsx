@@ -95,6 +95,17 @@ const RemedyRoomPage = () => {
           REMEDY ROOM
         </motion.h1>
 
+        <p className="sr-only">
+          The Remedy Room at Sway Wellness Spa is a guided 40-minute recovery
+          circuit combining 4 evidence-based modalities: 20 minutes of infrared
+          sauna, 5 minutes of cold plunge, 15 minutes of Normatec compression
+          therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer
+          Square in Denver. $25 for members, $49 drop-in. Pair with any of
+          Sway&apos;s 6 massage types or 6 facial treatments. Open Mon–Fri 10 AM–8
+          PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book at swaywellnessspa.com or
+          call (303) 476-6150.
+        </p>
+
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}

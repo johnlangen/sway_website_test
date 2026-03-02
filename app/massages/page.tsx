@@ -307,13 +307,17 @@ const MassagesPage = () => {
           </motion.h1>
 
           <p className="sr-only">
-            Sway Wellness Spa offers six massage experiences at 1428 Larimer St.
+            Sway Wellness Spa offers 6 massage experiences at 1428 Larimer St.
             in Denver: Basic Massage ($89 member / $129 drop-in), Deep Tissue,
             Salt Stone, CBD CauseMedic, Sports, and Lymphatic Drainage ($99
-            member / $139 drop-in each). All sessions are 50 minutes and fully
-            customized. Add boosts like infrared PEMF mats, cupping, or extend
-            to 80 minutes. Members save 50% on all boosts. Book online at
-            swaywellnessspa.com or call (303) 476-6150.
+            member / $139 drop-in each). All 6 massages are 50-minute sessions,
+            fully customized by your therapist. Choose from 4 boost add-ons:
+            extend to 80 minutes, add Lymphatic Drainage, Infrared PEMF Mat,
+            or Cupping. Members save 50% on all boosts. Pair with the Remedy
+            Room (4 recovery modalities in one 40-minute circuit) or any of
+            our 6 facial treatments for a complete wellness experience. Open
+            Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online
+            at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
           <motion.p

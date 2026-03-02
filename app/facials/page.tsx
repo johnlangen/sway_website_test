@@ -322,14 +322,18 @@ const FacialsPage = () => {
           </motion.h1>
 
           <p className="sr-only">
-            Sway Wellness Spa offers six facial treatments at 1428 Larimer St.
+            Sway Wellness Spa offers 6 facial treatments at 1428 Larimer St.
             in Denver: Basic Facial ($89 member / $129 drop-in), Forever Young
             (anti-aging), Glow Getter (brightening), Pore Perfection (acne),
             Sensitive Silk (calming), and Dr. Dennis Gross Vitamin C ($99 member
-            / $139 drop-in each). All sessions are 50 minutes using Eminence
-            Organics and Dr. Dennis Gross products. Add boosts: LED light
-            therapy, microcurrent, oxygen infusion, and more — members save 50%.
-            Book online at swaywellnessspa.com or call (303) 476-6150.
+            / $139 drop-in each). All 6 facials are 50-minute sessions using
+            2 premium skincare brands: Eminence Organics and Dr. Dennis Gross.
+            Choose from 6 high-tech boost add-ons: LED Light Therapy,
+            Microcurrent, Hydraderm, Dermaflash, Chemical Peel, and Oxygen
+            Infusion — members save 50%. Pair with any of our 6 massage types
+            or the Remedy Room recovery circuit for a complete wellness visit.
+            Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book
+            online at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
           <motion.p

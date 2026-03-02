@@ -174,13 +174,16 @@ export default function SwayLarimerPage() {
             <p className="sr-only">
               Sway Wellness Spa is located at 1428 Larimer St. on Larimer Square
               in downtown Denver, CO 80202. Voted #4 Best Day Spa in America by
-              USA Today 10Best. Offerings include massage therapy (from $89),
-              advanced facials (from $89), the Remedy Room recovery circuit with
-              infrared sauna, cold plunge, Normatec compression, and LED light
-              therapy (from $25), and AI-powered Aescape robot massage (from
-              $49). Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM.
-              Memberships from $99/month. 1st hour parking validated at Larimer
-              Square Garage. Book at swaywellnessspa.com or call (303) 476-6150.
+              USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 6
+              massage types (from $89), 6 facial treatments using Eminence
+              Organics and Dr. Dennis Gross (from $89), the Remedy Room
+              40-minute recovery circuit with 4 modalities — infrared sauna,
+              cold plunge, Normatec compression, and LED light therapy (from
+              $25), and AI-powered Aescape robot massage (from $49, 15–60 min).
+              Over 10 boost add-ons across services. Open Mon–Fri 10 AM–8 PM,
+              Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from $99/month. 1st
+              hour parking validated at Larimer Square Garage. Book at
+              swaywellnessspa.com or call (303) 476-6150.
             </p>
 
             {status && (

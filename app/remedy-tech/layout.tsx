@@ -89,6 +89,102 @@ const faqJsonLd = {
   ],
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How the Remedy Room Recovery Circuit Works",
+  description:
+    "A step-by-step guide to the Remedy Room at Sway Wellness Spa — a guided 40-minute recovery circuit combining 4 modalities: Normatec compression, LED light therapy, infrared sauna, and cold plunge.",
+  totalTime: "PT40M",
+  estimatedCost: {
+    "@type": "MonetaryAmount",
+    currency: "USD",
+    value: "25",
+  },
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Check In and Get Set Up",
+      text: "Arrive at Sway Wellness Spa on Larimer Square. Check in at the front desk and your guide will walk you through the circuit. No special clothing or experience required.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Normatec Compression Therapy (15 Minutes)",
+      text: "Start with 15 minutes of Normatec compression therapy. Pneumatic leg sleeves use sequential pulse technology to boost circulation, reduce muscle soreness, and support lymphatic drainage.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "LED Light Therapy (During Compression)",
+      text: "While in the Normatec compression sleeves, you also receive LED light therapy. Medical-grade LED panels emit red and near-infrared wavelengths to support skin health, cellular repair, and recovery.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Infrared Sauna (20 Minutes)",
+      text: "Move into the infrared sauna for 20 minutes. Infrared heat penetrates deeper than traditional saunas, promoting detoxification, relaxation, pain relief, and improved circulation at a comfortable temperature.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "Cold Plunge (5 Minutes)",
+      text: "Finish with a 5-minute cold plunge. Cold water immersion elevates energy, improves mood, reduces inflammation, relieves muscle soreness, and supports immune function.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 6,
+      name: "Recover and Continue Your Visit",
+      text: "After completing the circuit, relax in the lounge. Many guests pair the Remedy Room with a 50-minute massage or facial for a complete wellness experience. Members enjoy the private lounge with robes, snacks, and lockers.",
+    },
+  ],
+  tool: [
+    { "@type": "HowToTool", name: "Normatec Compression Boots" },
+    { "@type": "HowToTool", name: "Medical-Grade LED Light Panels" },
+    { "@type": "HowToTool", name: "Infrared Sauna" },
+    { "@type": "HowToTool", name: "Cold Plunge Pool" },
+  ],
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Remedy Room Recovery Circuit at Sway Wellness Spa",
+  description:
+    "A guided 40-minute recovery circuit combining 4 evidence-based modalities: infrared sauna (20 min), cold plunge (5 min), Normatec compression therapy (15 min), and LED light therapy. Available at Sway Wellness Spa in Denver.",
+  provider: {
+    "@type": "HealthAndBeautyBusiness",
+    name: "Sway Wellness Spa",
+    url: "https://swaywellnessspa.com",
+  },
+  areaServed: { "@type": "City", name: "Denver" },
+  serviceType: "Recovery Therapy",
+  offers: {
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: "Remedy Room Recovery Circuit",
+      description:
+        "40-minute guided circuit: 15 min Normatec compression + LED light therapy, 20 min infrared sauna, 5 min cold plunge.",
+    },
+    priceSpecification: [
+      {
+        "@type": "UnitPriceSpecification",
+        price: "25.00",
+        priceCurrency: "USD",
+        name: "Member",
+      },
+      {
+        "@type": "UnitPriceSpecification",
+        price: "49.00",
+        priceCurrency: "USD",
+        name: "Drop-In",
+      },
+    ],
+  },
+};
+
 export default function RemedyRoomLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -100,6 +196,14 @@ export default function RemedyRoomLayout({ children }: { children: React.ReactNo
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
     </>
   );
