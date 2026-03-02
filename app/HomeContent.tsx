@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
-import GoogleReviews, { ReviewBadge } from "./components/GoogleReviews";
+import GoogleReviews from "./components/GoogleReviews";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -360,11 +360,6 @@ export default function HomeContent() {
                 >
                   Learn more
                 </Link>
-              </div>
-
-              {/* Trust badge */}
-              <div className="mt-3">
-                <ReviewBadge />
               </div>
             </motion.div>
           </div>

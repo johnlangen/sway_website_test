@@ -22,6 +22,13 @@ interface ReviewsData {
 }
 
 /* ------------------------------------------------------------------
+   Shared constants
+   ------------------------------------------------------------------ */
+
+const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Sway+Wellness+Spa+Larimer&query_place_id=ChIJtRQkUu55bIcR91jycB7Jcns";
+
+/* ------------------------------------------------------------------
    Star SVG (reused in several spots)
    ------------------------------------------------------------------ */
 
@@ -79,6 +86,14 @@ function useReviews() {
   return data;
 }
 
+/* ------------------------------------------------------------------
+   Rating display helper (always shows one decimal, e.g. "5.0")
+   ------------------------------------------------------------------ */
+
+function formatRating(rating: number) {
+  return Number.isInteger(rating) ? `${rating}.0` : String(rating);
+}
+
 /* ==================================================================
    FULL REVIEWS SECTION
    Used on homepage and location pages inside a snap-section or
@@ -96,64 +111,81 @@ export default function GoogleReviews() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="w-full max-w-5xl mx-auto font-vance px-4"
+      className="w-full max-w-6xl mx-auto font-vance px-4"
     >
       {/* Header */}
       <div className="text-center mb-6 md:mb-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
           What Our Guests Are Saying
         </h2>
-        <div className="inline-flex items-center gap-2">
+        <a
+          href={GOOGLE_MAPS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 hover:opacity-80 transition"
+        >
           <div className="flex gap-0.5">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="w-5 h-5" />
             ))}
           </div>
-          <span className="font-semibold text-lg">{data.rating}</span>
+          <span className="font-semibold text-lg">
+            {formatRating(data.rating)}
+          </span>
           <span className="opacity-60 text-sm">
             ({data.totalReviews} reviews on Google)
           </span>
           <GoogleLogo className="w-4 h-4 ml-1" />
-        </div>
+        </a>
       </div>
 
-      {/* Review Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
-        {data.reviews.slice(0, 3).map((review) => (
+      {/* Review Cards — horizontal scroll on mobile, grid on desktop */}
+      <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
+        {data.reviews.map((review) => (
           <div
             key={review.author}
-            className="rounded-2xl bg-white/70 border border-[#113D33]/10 p-4 md:p-6 flex flex-col"
+            className="shrink-0 w-[280px] md:w-auto snap-start rounded-2xl bg-white/70 border border-[#113D33]/10 p-4 md:p-5 flex flex-col"
           >
             {/* Stars */}
             <div className="flex gap-0.5 mb-2">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} />
+                <Star key={i} className="w-3.5 h-3.5" />
               ))}
             </div>
 
             {/* Text — truncated */}
-            <p className="text-sm leading-relaxed opacity-80 mb-3 line-clamp-3 md:line-clamp-4">
+            <p className="text-xs md:text-sm leading-relaxed opacity-80 mb-3 line-clamp-4">
               &ldquo;{review.text}&rdquo;
             </p>
 
             {/* Author */}
             <div className="mt-auto flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#113D33]/10 flex items-center justify-center text-xs font-semibold text-[#113D33]">
+              <div className="w-7 h-7 rounded-full bg-[#113D33]/10 flex items-center justify-center text-[10px] font-semibold text-[#113D33]">
                 {review.author.charAt(0)}
               </div>
               <div>
-                <p className="text-sm font-semibold">{review.author}</p>
-                <p className="text-xs opacity-50">{review.relativeTime}</p>
+                <p className="text-xs font-semibold">{review.author}</p>
+                <p className="text-[10px] opacity-50">{review.relativeTime}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Attribution */}
-      <div className="mt-4 md:mt-6 flex items-center justify-center gap-2 opacity-40 text-xs">
-        <GoogleLogo />
-        <span>Reviews from Google</span>
+      {/* Attribution + View All link */}
+      <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 text-xs">
+        <span className="flex items-center gap-1.5 opacity-40">
+          <GoogleLogo />
+          Reviews from Google
+        </span>
+        <a
+          href={GOOGLE_MAPS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#4A776D] font-medium hover:underline"
+        >
+          View all {data.totalReviews} reviews →
+        </a>
       </div>
     </motion.div>
   );
@@ -171,7 +203,7 @@ export function ReviewBadge() {
 
   return (
     <a
-      href="https://www.google.com/maps/place/Sway+Wellness+Spa+Larimer/@39.7476,-105.0004,17z/"
+      href={GOOGLE_MAPS_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-1.5 text-sm hover:opacity-80 transition"
@@ -181,7 +213,7 @@ export function ReviewBadge() {
           <Star key={i} className="w-3.5 h-3.5" />
         ))}
       </div>
-      <span className="font-semibold">{data.rating}</span>
+      <span className="font-semibold">{formatRating(data.rating)}</span>
       <span className="opacity-60">({data.totalReviews} reviews)</span>
       <GoogleLogo className="w-3.5 h-3.5 ml-0.5" />
     </a>

@@ -67,3 +67,12 @@ html, body {
   scroll-snap-align: start;
   overflow: hidden;
 }
+
+/* Hide scrollbar but keep scrollability */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -100,31 +100,36 @@ function getOpenStatus() {
   const { hour, minute, weekday } = getDenverTimeParts();
   const mins = hour * 60 + minute;
 
-  let opens = 0;
-  let closes = 0;
-  let labelOpen = "";
+  const schedule: Record<string, { opens: number; closes: number; label: string }> = {
+    Mon: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
+    Tue: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
+    Wed: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
+    Thu: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
+    Fri: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
+    Sat: { opens: 9 * 60, closes: 18 * 60, label: "9:00 AM" },
+    Sun: { opens: 11 * 60, closes: 18 * 60, label: "11:00 AM" },
+  };
 
-  if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(weekday)) {
-    opens = 10 * 60;
-    closes = 20 * 60;
-    labelOpen = "10:00 AM";
-  } else if (weekday === "Sat") {
-    opens = 9 * 60;
-    closes = 18 * 60;
-    labelOpen = "9:00 AM";
-  } else {
-    opens = 11 * 60;
-    closes = 18 * 60;
-    labelOpen = "11:00 AM";
-  }
+  const dayOrder = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const today = schedule[weekday];
 
-  if (mins >= opens && mins < closes) {
+  if (mins >= today.opens && mins < today.closes) {
     return { open: true, label: "Open now" };
   }
 
+  // Before opening today → show today's opening time
+  if (mins < today.opens) {
+    return { open: false, label: `Closed · Opens at ${today.label}` };
+  }
+
+  // Past closing → show NEXT day's opening time
+  const todayIdx = dayOrder.indexOf(weekday);
+  const nextDay = dayOrder[(todayIdx + 1) % 7];
+  const next = schedule[nextDay];
+
   return {
     open: false,
-    label: `Closed · Opens at ${labelOpen}`,
+    label: `Closed · Opens ${nextDay} at ${next.label}`,
   };
 }
 
