@@ -85,6 +85,57 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               name: "Sway Wellness Spa",
               url: "https://swaywellnessspa.com",
               logo: "https://swaywellnessspa.com/assets/swaylogo3.png",
+              description:
+                "Sway Wellness Spa is a modern wellness club offering massage therapy, advanced facials, infrared sauna, cold plunge, Normatec compression, LED light therapy, and AI-powered Aescape robot massage. Voted #4 Best Day Spa in America by USA Today 10Best.",
+              foundingDate: "2024",
+              sameAs: [
+                "https://www.instagram.com/swaywellnessclub/",
+                "https://www.facebook.com/swaywellnessspa",
+                "https://www.tiktok.com/@swaywellnessclub",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+1-303-476-6150",
+                contactType: "reservations",
+                email: "contact@swaywellnessspa.com",
+                areaServed: "US",
+                availableLanguage: "English",
+              },
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Denver",
+                  containedInPlace: { "@type": "State", name: "Colorado" },
+                },
+                {
+                  "@type": "City",
+                  name: "Georgetown",
+                  containedInPlace: {
+                    "@type": "State",
+                    name: "Washington, D.C.",
+                  },
+                },
+                {
+                  "@type": "City",
+                  name: "Dallas",
+                  containedInPlace: { "@type": "State", name: "Texas" },
+                },
+              ],
+              award: [
+                "USA Today 10Best: #4 Best Day Spa in the U.S. (2025)",
+                "TZR 2026 Readers' Choice Awards: Best U.S. Day Spa",
+              ],
+              knowsAbout: [
+                "massage therapy",
+                "facial treatments",
+                "infrared sauna",
+                "cold plunge therapy",
+                "Normatec compression therapy",
+                "LED light therapy",
+                "AI-powered robot massage",
+                "wellness recovery",
+                "spa memberships",
+              ],
             }),
           }}
         />

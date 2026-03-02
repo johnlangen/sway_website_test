@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Massage Therapy | Deep Tissue, Sports, CBD & More | Sway Wellness Spa",
+  title: "Massage Therapy in Denver | Sway Wellness Spa",
   description:
     "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, CBD, Salt Stone, and Lymphatic Drainage, all customized by expert therapists.",
   alternates: {
@@ -98,6 +98,99 @@ const faqJsonLd = {
   ],
 };
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Massage Therapy at Sway Wellness Spa",
+  description:
+    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Basic Massage, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic Drainage — all 50 minutes, fully customized by your therapist. Add boosts like infrared PEMF mats and cupping.",
+  provider: {
+    "@type": "HealthAndBeautyBusiness",
+    name: "Sway Wellness Spa",
+    url: "https://swaywellnessspa.com",
+  },
+  areaServed: { "@type": "City", name: "Denver" },
+  serviceType: "Massage Therapy",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Massage Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Basic Massage",
+          description: "A 50-minute relaxation massage focusing on full-body tension relief.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "89.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Deep Tissue Massage",
+          description: "A 50-minute deep tissue massage targeting chronic tension and muscle knots.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Salt Stone Massage",
+          description: "A 50-minute Himalayan salt stone massage for deep relaxation and mineral-rich detox.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "CBD CauseMedic Massage",
+          description: "A 50-minute massage with CBD oil for enhanced relaxation and inflammation relief.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Sports Massage",
+          description: "A 50-minute sports massage designed for active recovery and athletic performance.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Lymphatic Drainage Massage",
+          description: "A 50-minute lymphatic drainage massage to reduce swelling and support detoxification.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+    ],
+  },
+};
+
 export default function MassagesLayout({
   children,
 }: {
@@ -113,6 +206,10 @@ export default function MassagesLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
     </>
   );

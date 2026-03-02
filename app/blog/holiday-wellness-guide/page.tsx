@@ -21,6 +21,8 @@ export default function Page() {
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
+      url: "https://swaywellnessspa.com",
+      logo: "https://swaywellnessspa.com/assets/swaylogo3.png",
     },
     publisher: {
       "@type": "Organization",
@@ -30,6 +32,8 @@ export default function Page() {
         url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
+    datePublished: "2025-12-16",
+    dateModified: "2025-12-16",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://swaywellnessspa.com/blog/holiday-wellness-guide",

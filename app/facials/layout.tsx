@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Facial Treatments | Anti-Aging, Hydration & Acne | Sway Wellness Spa",
+  title: "Facial Treatments in Denver | Sway Wellness Spa",
   description:
     "Explore advanced facial treatments at Sway, a modern wellness club in Denver. Anti-aging, hydration, acne, and Vitamin C facials with high-tech boosts like LED and microcurrent.",
   alternates: {
@@ -88,6 +88,99 @@ const faqJsonLd = {
   ],
 };
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Facial Treatments at Sway Wellness Spa",
+  description:
+    "Advanced facial treatments at Sway Wellness Spa in Denver using Eminence Organics and Dr. Dennis Gross protocols. Choose from Basic Facial, Forever Young (anti-aging), Glow Getter (brightening), Pore Perfection, Sensitive Silk, and Vitamin C facials — all 50 minutes. Add LED, microcurrent, or oxygen infusion boosts.",
+  provider: {
+    "@type": "HealthAndBeautyBusiness",
+    name: "Sway Wellness Spa",
+    url: "https://swaywellnessspa.com",
+  },
+  areaServed: { "@type": "City", name: "Denver" },
+  serviceType: "Facial Treatment",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Facial Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Basic Facial",
+          description: "A 50-minute customized facial for a quick refresh and glow.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "89.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Forever Young Facial",
+          description: "A 50-minute anti-aging facial with advanced techniques for skin rejuvenation using Eminence Organics.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Glow Getter Facial",
+          description: "A 50-minute brightening facial for luminous, even-toned skin.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Pore Perfection Facial",
+          description: "A 50-minute deep pore cleansing facial for clearer, refined skin.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Sensitive Silk Facial",
+          description: "A 50-minute calming facial for sensitive and reactive skin types.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Dr. Dennis Gross Vitamin C Facial",
+          description: "A 50-minute clinical-grade brightening facial using Dr. Dennis Gross Alpha Beta peel technology.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+    ],
+  },
+};
+
 export default function FacialsLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -99,6 +192,10 @@ export default function FacialsLayout({ children }: { children: React.ReactNode 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Date Night in Denver | Couples Massage & Dinner on Larimer Square",
+  title: "Date Night in Denver | Couples Massage at Sway",
   description:
     "Plan the perfect Denver date night — start with a couples massage or facial at Sway Wellness Spa on Larimer Square, then walk to dinner. Open Mon–Fri until 8 PM.",
   alternates: {

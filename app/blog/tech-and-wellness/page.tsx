@@ -46,6 +46,8 @@ export default function Page() {
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
+      url: "https://swaywellnessspa.com",
+      logo: "https://swaywellnessspa.com/assets/swaylogo3.png",
     },
     publisher: {
       "@type": "Organization",

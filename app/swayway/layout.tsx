@@ -49,6 +49,7 @@ export default function SwayWayLayout({
               sameAs: [
                 "https://www.instagram.com/swaywellnessclub/",
                 "https://www.facebook.com/swaywellnessclub",
+                "https://www.tiktok.com/@swaywellnessclub",
               ],
             },
             headline: "The Sway Way",

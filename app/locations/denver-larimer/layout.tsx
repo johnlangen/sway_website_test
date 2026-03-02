@@ -427,6 +427,7 @@ const localBusinessJsonLd = {
   sameAs: [
     "https://www.instagram.com/swaywellnessclub/",
     "https://www.facebook.com/swaywellnessspa",
+    "https://www.tiktok.com/@swaywellnessclub",
   ],
   potentialAction: {
     "@type": "ReserveAction",
