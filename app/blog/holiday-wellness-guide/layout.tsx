@@ -1031,6 +1031,7 @@ export default function HolidayWellnessGuideLayout() {
   <div className="flex flex-wrap items-center gap-4 text-sm">
     <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
     <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Holiday</span>
+    <span className="text-gray-500">December 2025 · By Sway Wellness Team</span>
   </div>
   <div className="pt-6">
     <h2 className="text-2xl font-bold mb-6">Related Articles</h2>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
+import { ReviewBadge } from "@/app/components/GoogleReviews";
 
 /* ---------------------------------------------
    REMEDY ROOM SESSION OPTION (ID 8)
@@ -1126,9 +1127,12 @@ export default function BookRemedyRoomPage() {
                 <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
                   The Remedy Room
                 </h1>
-                <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-6">
+                <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
                   Science-backed recovery in a shared sanctuary. Cold plunge, infrared sauna, LED therapy, and lymphatic compression — all in one 40-minute session.
                 </p>
+                <div className="flex justify-center mb-4">
+                  <ReviewBadge />
+                </div>
 
                 <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
                   {["Cold Plunge", "Infrared Sauna", "LED Therapy", "Compression"].map((tag) => (

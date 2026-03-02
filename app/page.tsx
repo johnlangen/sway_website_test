@@ -2,11 +2,13 @@ import { Metadata } from "next";
 import HomeContent from "./HomeContent";
 
 export const metadata: Metadata = {
-  title: "Sway Wellness Spa | Voted #4 Best Day Spa in America",
+  title:
+    "Sway Wellness Spa – Massage, Facials & Recovery | #4 Best Day Spa in America",
   description:
     "Voted #4 Best Day Spa in America by USA Today 10Best. Sway Wellness Spa is a modern wellness club in Denver offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage on Larimer Square. Book online today.",
   openGraph: {
-    title: "Sway Wellness Spa | Voted #4 Best Day Spa in America",
+    title:
+      "Sway Wellness Spa – Massage, Facials & Recovery | #4 Best Day Spa in America",
     description:
       "Voted #4 Best Day Spa in America by USA Today 10Best. A modern wellness club offering massage therapy, facials, sauna, cold plunge, and AI-powered Aescape massage on Larimer Square in Denver.",
     url: "https://swaywellnessspa.com/",

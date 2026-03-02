@@ -6,6 +6,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getClosingHour } from "@/lib/locationHours";
 import NextAvailableBanner from "../NextAvailableBanner";
+import { ReviewBadge } from "@/app/components/GoogleReviews";
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -1460,13 +1461,16 @@ function BookServicePage() {
                   ? "Facial"
                   : "Treatment"}
             </h1>
-            <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-6">
+            <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4">
               {category === "massage"
                 ? "Expert therapists, personalized pressure, total relaxation."
                 : category === "facial"
                   ? "Clinical-grade skincare tailored to your skin."
                   : "Choose your service, pick a time, and we\u2019ll reserve it."}
             </p>
+            <div className="flex justify-center mb-2">
+              <ReviewBadge />
+            </div>
           </div>
 
           {/* Error banner */}

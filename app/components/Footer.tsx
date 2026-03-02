@@ -23,6 +23,7 @@ export default function Footer() {
           <FooterLink href="/press" text="Press" />
           <FooterLink href="/blog" text="Blog" />
           <FooterLink href="/faq" text="FAQ" />
+          <FooterLink href="/own" text="Own a Sway" />
         </div>
 
         {/* Social Links */}
@@ -62,7 +63,7 @@ export default function Footer() {
       {/* Bottom Links */}
       <div className="mt-4 flex justify-between text-sm text-gray-400">
         <FooterLink href="/terms-and-conditions" text="Terms and Conditions" />
-        <span>© 2024 Sway Wellness Club</span>
+        <span>© 2026 Sway Wellness Club</span>
       </div>
     </footer>
   );

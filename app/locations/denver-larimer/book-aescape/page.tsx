@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
+import { ReviewBadge } from "@/app/components/GoogleReviews";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -1084,10 +1085,13 @@ export default function BookAescapePage() {
                 <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4 leading-tight animate-fade-in-up">
                   Aescape Robot Massage
                 </h1>
-                <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-6 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
+                <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
                   AI-powered precision massage that adapts to your body in real time.
                   Choose your session and reserve in under a minute.
                 </p>
+                <div className="flex justify-center mb-4 animate-fade-in-up" style={{ animationDelay: "75ms" }}>
+                  <ReviewBadge />
+                </div>
 
                 <div className="flex items-center justify-center gap-2 flex-wrap mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
                   {["AI-Guided", "Personalized Pressure", "Zero Wait", "No Tipping"].map((tag) => (

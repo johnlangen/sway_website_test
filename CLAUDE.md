@@ -20,6 +20,13 @@ Tech stack:
 
 If something looks odd but works — assume it is intentional.
 
+## Git & Deployment
+
+- Primary working branch: `master`
+- Production branch: `main` (Vercel watches this)
+- To deploy: push `master` to `origin/main` via `git push origin master:main`
+- Old worktree branches (e.g. `claude/amazing-shirley`) may exist — `master` is the source of truth
+
 ## Project Structure Notes
 
 - `app/api/**/route.ts` contains live production API routes
@@ -51,6 +58,19 @@ Typical requests include:
 - SEO-safe content or layout changes
 
 Always assume this site is live and revenue-impacting.
+
+## Content Rules
+
+- **Membership**: Do NOT say "cancel anytime" — this is not accurate
+- **Aescape apparel**: Do NOT use the brand name "Aerwear" — say "compression apparel" (provided at check-in)
+- **Anniversary event** (`/events/anniversary`): Sidelined (noindex, no links). Page kept for future reuse. API route at `app/api/events/anniversary/` still exists.
+- **Holiday gift cards** (`/holiday-gift-cards`): Kept indexed for SEO. Has a seasonal notice banner — update dates each year (currently Dec 12–25). Bonus card promo is seasonal; gift cards are year-round.
+
+## Locations
+
+- **Denver Larimer** (`/locations/denver-larimer`): Fully built out — booking flows (service, aescape, remedy room), membership, offers, gift cards
+- **Georgetown** (`/locations/georgetown`): Offers, gift cards, book, membership pages
+- **Dallas** (`/locations/dallas`): Offers, gift cards, book, membership, founding membership
 
 ## Tracking & Analytics (GTM / GA4 / Google Ads)
 

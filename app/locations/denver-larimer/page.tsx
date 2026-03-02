@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import GoogleReviews, { ReviewBadge } from "@/app/components/GoogleReviews";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -186,6 +187,10 @@ export default function SwayLarimerPage() {
               Voted #4 Best Day Spa in America — USA Today 10Best
             </a>
 
+            <div className="mt-3">
+              <ReviewBadge />
+            </div>
+
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
               A modern wellness club on historic Larimer Square offering
               massage, facials, recovery, and technology-forward experiences
@@ -366,6 +371,11 @@ export default function SwayLarimerPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ======================== REVIEWS ======================== */}
+      <section className="px-6 pb-20 md:pb-28">
+        <GoogleReviews />
       </section>
 
       {/* ======================== MEMBERSHIP TEASER ======================== */}

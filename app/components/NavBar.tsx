@@ -148,6 +148,13 @@ const NavBar = () => {
                   >
                     Blog
                   </Link>
+                  <Link
+                    href="/own"
+                    onClick={closeAll}
+                    className="block px-4 py-3 text-white hover:bg-gray-800"
+                  >
+                    Own a Sway
+                  </Link>
                 </div>
               )}
             </div>
@@ -251,6 +258,7 @@ const NavBar = () => {
             ["The Sway Way", "/swayway"],
             ["Press", "/press"],
             ["Blog", "/blog"],
+            ["Own a Sway", "/own"],
           ].map(([label, href]) => (
             <Link
               key={href}

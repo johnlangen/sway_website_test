@@ -146,12 +146,12 @@ export default function SwayWayPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {[
-              { src: "/assets/homepage_photo11.jpg", label: "SWAY ON SPOTIFY", link: "#" },
-              { src: "/assets/homepage_photo_c.jpg", label: "IN THE PRESS", link: "/press" },
               { src: "/assets/homepage_photo13.jpg", label: "@SWAYWELLNESSCLUB", link: "https://www.instagram.com/swaywellnessclub/" },
-              { src: "/assets/homepage_photo14.png", label: "ON THE APP", link: "#" },
+              { src: "/assets/homepage_photo11.jpg", label: "SWAY ON TIKTOK", link: "https://www.tiktok.com/@swaywellnessclub" },
+              { src: "/assets/homepage_photo_c.jpg", label: "IN THE PRESS", link: "/press" },
+              { src: "/assets/homepage_photo14.png", label: "OWN A SWAY", link: "/own" },
             ].map(({ src, label, link }, i) => {
-              const isExternal = link.startsWith("http") || link === "#";
+              const isExternal = link.startsWith("http");
               const inner = (
                 <div className="group block">
                   <div className="relative overflow-hidden rounded-2xl aspect-square mb-3">

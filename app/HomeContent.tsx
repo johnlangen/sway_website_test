@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
+import GoogleReviews, { ReviewBadge } from "./components/GoogleReviews";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -99,9 +100,15 @@ const PRICING_CARDS = [
 
 const CONNECT_ITEMS = [
   {
+    image: "/assets/homepage_photo13.jpg",
+    label: "@SWAYWELLNESSCLUB",
+    href: "https://www.instagram.com/swaywellnessclub/",
+    external: true,
+  },
+  {
     image: "/assets/homepage_photo11.jpg",
-    label: "SWAY ON SPOTIFY",
-    href: "#",
+    label: "SWAY ON TIKTOK",
+    href: "https://www.tiktok.com/@swaywellnessclub",
     external: true,
   },
   {
@@ -111,16 +118,10 @@ const CONNECT_ITEMS = [
     external: false,
   },
   {
-    image: "/assets/homepage_photo13.jpg",
-    label: "@SWAYWELLNESSCLUB",
-    href: "https://www.instagram.com/swaywellnessclub/",
-    external: true,
-  },
-  {
     image: "/assets/homepage_photo14.png",
-    label: "ON THE APP",
-    href: "#",
-    external: true,
+    label: "OWN A SWAY",
+    href: "/own",
+    external: false,
   },
 ] as const;
 
@@ -270,7 +271,14 @@ export default function HomeContent() {
       </section>
 
       {/* ======================================================
-          3a–3d. Services Showcase
+          3. Google Reviews
+          ====================================================== */}
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33]">
+        <GoogleReviews />
+      </section>
+
+      {/* ======================================================
+          4a–4d. Services Showcase
           ====================================================== */}
       {SERVICES.map((service, i) => (
         <section
@@ -352,6 +360,11 @@ export default function HomeContent() {
                 >
                   Learn more
                 </Link>
+              </div>
+
+              {/* Trust badge */}
+              <div className="mt-3">
+                <ReviewBadge />
               </div>
             </motion.div>
           </div>

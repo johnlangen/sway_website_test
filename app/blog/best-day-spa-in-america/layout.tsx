@@ -26,7 +26,7 @@ export default function BestDaySpaLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Award
           </span>
-          <span className="text-gray-500">February 2026</span>
+          <span className="text-gray-500">February 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}
