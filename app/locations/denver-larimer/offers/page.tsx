@@ -4,7 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ReviewBadge } from "../../../components/GoogleReviews";
+import GoogleReviews, { ReviewBadge } from "../../../components/GoogleReviews";
 
 export default function LarimerOffersPage() {
   const offers = [
@@ -156,6 +156,11 @@ export default function LarimerOffersPage() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="bg-[#F7F4E9] px-6 py-16 md:py-20 text-[#113D33]">
+        <GoogleReviews />
       </section>
 
       {/* IMAGE BAND */}
