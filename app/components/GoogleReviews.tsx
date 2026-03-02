@@ -1,25 +1,83 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ------------------------------------------------------------------
    Types
    ------------------------------------------------------------------ */
 
-interface Review {
-  author: string;
-  rating: number;
-  text: string;
-  relativeTime: string;
-  profilePhoto: string;
-}
-
-interface ReviewsData {
+interface RatingData {
   rating: number;
   totalReviews: number;
-  reviews: Review[];
 }
+
+interface CuratedReview {
+  author: string;
+  text: string;
+  date: string;
+}
+
+/* ------------------------------------------------------------------
+   Curated 5-star reviews (hand-picked, update periodically)
+   ------------------------------------------------------------------ */
+
+const CURATED_REVIEWS: CuratedReview[] = [
+  // Page 1
+  {
+    author: "Kristy Wingfield",
+    text: "I love being a member and coming to Sway. My facials with Bri have been not only absolutely amazing for my skin, but I also have fun with her getting them done. Steven\u2019s massages are awesome as well.",
+    date: "Mar 2026",
+  },
+  {
+    author: "Reilly Moncrief",
+    text: "I cannot rave about this place enough! I\u2019ve been seeing Bri for facials for a few months now and cannot believe the results. I have always struggled with acne and wish I\u2019d taken photos at the start of my journey to show the progress.",
+    date: "Mar 2026",
+  },
+  {
+    author: "Ricardo Laremont",
+    text: "If you\u2019re looking for the ultimate recovery spot, Sway Wellness in Larimer Square is a total game-changer. I visited right after a trail race with legs that felt like lead, and I walked out feeling like a new person!",
+    date: "Feb 2026",
+  },
+  // Page 2
+  {
+    author: "Evan Marx",
+    text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
+    date: "Jan 2026",
+  },
+  {
+    author: "Lilly Sheppard",
+    text: "Brianna is literally the best aesthetician I have received a treatment from. She was super gentle, knowledgeable, and fostered an extremely relaxing environment. 10/10 glow getter facial.",
+    date: "Jan 2026",
+  },
+  {
+    author: "Ian Hines-Ike",
+    text: "World class massage by Steven. Seriously one of the best I\u2019ve ever had. Will absolutely be making his deep tissue massage a regular part of my routine.",
+    date: "Jan 2026",
+  },
+  // Page 3
+  {
+    author: "Jessica Matthews",
+    text: "I came in for a facial with Bri \u2014 it was my first time trying Sway and I could not be happier with the results. Bri was so knowledgeable and took the time to explain everything and recommend simple fixes for my skin.",
+    date: "Dec 2025",
+  },
+  {
+    author: "Avery Weiss",
+    text: "Easily the best spa I\u2019ve ever been to. I\u2019m visiting from out of town and had a crazy 24 hour travel day and was in major need of a massage. The deep tissue massage was both relaxing and therapeutic. The Remedy Room was incredible.",
+    date: "Dec 2025",
+  },
+  {
+    author: "Destiny Abundis",
+    text: "I\u2019m obsessed with this spa! Everyone here is so kind and welcoming, and the whole place feels clean, calming, and luxurious without being pretentious. My facial was incredible \u2014 I left with glowing skin and the most relaxed feeling.",
+    date: "Dec 2025",
+  },
+];
+
+const PAGES = [
+  CURATED_REVIEWS.slice(0, 3),
+  CURATED_REVIEWS.slice(3, 6),
+  CURATED_REVIEWS.slice(6, 9),
+];
 
 /* ------------------------------------------------------------------
    Shared constants
@@ -29,19 +87,22 @@ const GOOGLE_MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Sway+Wellness+Spa+Larimer&query_place_id=ChIJtRQkUu55bIcR91jycB7Jcns";
 
 /* ------------------------------------------------------------------
-   Star SVG (reused in several spots)
+   Star SVG
    ------------------------------------------------------------------ */
 
 function Star({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg className={`${className} text-yellow-400 fill-current`} viewBox="0 0 20 20">
+    <svg
+      className={`${className} text-yellow-400 fill-current`}
+      viewBox="0 0 20 20"
+    >
       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
     </svg>
   );
 }
 
 /* ------------------------------------------------------------------
-   Google "G" logo for attribution
+   Google "G" logo
    ------------------------------------------------------------------ */
 
 function GoogleLogo({ className = "w-4 h-4" }: { className?: string }) {
@@ -68,11 +129,53 @@ function GoogleLogo({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------
-   Shared data-fetching hook
+   Arrow button
    ------------------------------------------------------------------ */
 
-function useReviews() {
-  const [data, setData] = useState<ReviewsData | null>(null);
+function ArrowButton({
+  direction,
+  onClick,
+}: {
+  direction: "left" | "right";
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#113D33]/15 bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:border-[#113D33]/30 transition shrink-0"
+      aria-label={direction === "left" ? "Previous reviews" : "Next reviews"}
+    >
+      <svg
+        className="w-4 h-4 text-[#113D33]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d={direction === "left" ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"}
+        />
+      </svg>
+    </button>
+  );
+}
+
+/* ------------------------------------------------------------------
+   Rating display helper
+   ------------------------------------------------------------------ */
+
+function formatRating(rating: number) {
+  return Number.isInteger(rating) ? `${rating}.0` : String(rating);
+}
+
+/* ------------------------------------------------------------------
+   Shared data-fetching hook (live rating + count only)
+   ------------------------------------------------------------------ */
+
+function useRating() {
+  const [data, setData] = useState<RatingData | null>(null);
 
   useEffect(() => {
     fetch("/api/reviews")
@@ -86,24 +189,20 @@ function useReviews() {
   return data;
 }
 
-/* ------------------------------------------------------------------
-   Rating display helper (always shows one decimal, e.g. "5.0")
-   ------------------------------------------------------------------ */
-
-function formatRating(rating: number) {
-  return Number.isInteger(rating) ? `${rating}.0` : String(rating);
-}
-
 /* ==================================================================
-   FULL REVIEWS SECTION
-   Used on homepage and location pages inside a snap-section or
-   regular section wrapper.
+   FULL REVIEWS SECTION — paginated carousel
    ================================================================== */
 
 export default function GoogleReviews() {
-  const data = useReviews();
+  const ratingData = useRating();
+  const [page, setPage] = useState(0);
 
-  if (!data || data.reviews.length === 0) return null;
+  const prev = () => setPage((p) => (p - 1 + PAGES.length) % PAGES.length);
+  const next = () => setPage((p) => (p + 1) % PAGES.length);
+
+  // Fallback rating while API loads
+  const rating = ratingData?.rating ?? 5;
+  const totalReviews = ratingData?.totalReviews ?? 120;
 
   return (
     <motion.div
@@ -111,10 +210,10 @@ export default function GoogleReviews() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="w-full max-w-6xl mx-auto font-vance px-4"
+      className="w-full max-w-5xl mx-auto font-vance px-4"
     >
       {/* Header */}
-      <div className="text-center mb-6 md:mb-10">
+      <div className="text-center mb-6 md:mb-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
           What Our Guests Are Saying
         </h2>
@@ -130,50 +229,83 @@ export default function GoogleReviews() {
             ))}
           </div>
           <span className="font-semibold text-lg">
-            {formatRating(data.rating)}
+            {formatRating(rating)}
           </span>
           <span className="opacity-60 text-sm">
-            ({data.totalReviews} reviews on Google)
+            ({totalReviews} reviews on Google)
           </span>
           <GoogleLogo className="w-4 h-4 ml-1" />
         </a>
       </div>
 
-      {/* Review Cards — horizontal scroll on mobile, grid on desktop */}
-      <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-5 md:overflow-visible md:pb-0">
-        {data.reviews.map((review) => (
-          <div
-            key={review.author}
-            className="shrink-0 w-[280px] md:w-auto snap-start rounded-2xl bg-white/70 border border-[#113D33]/10 p-4 md:p-5 flex flex-col"
-          >
-            {/* Stars */}
-            <div className="flex gap-0.5 mb-2">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5" />
+      {/* Carousel */}
+      <div className="flex items-center gap-3 md:gap-4">
+        <ArrowButton direction="left" onClick={prev} />
+
+        <div className="flex-1 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={page}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4"
+            >
+              {PAGES[page].map((review) => (
+                <div
+                  key={review.author}
+                  className="rounded-2xl bg-white/70 border border-[#113D33]/10 p-4 md:p-5 flex flex-col"
+                >
+                  {/* Stars */}
+                  <div className="flex gap-0.5 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5" />
+                    ))}
+                  </div>
+
+                  {/* Text */}
+                  <p className="text-xs md:text-sm leading-relaxed opacity-80 mb-3 line-clamp-4">
+                    &ldquo;{review.text}&rdquo;
+                  </p>
+
+                  {/* Author */}
+                  <div className="mt-auto flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-[#113D33]/10 flex items-center justify-center text-[10px] font-semibold text-[#113D33]">
+                      {review.author.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold">{review.author}</p>
+                      <p className="text-[10px] opacity-50">{review.date}</p>
+                    </div>
+                  </div>
+                </div>
               ))}
-            </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-            {/* Text — truncated */}
-            <p className="text-xs md:text-sm leading-relaxed opacity-80 mb-3 line-clamp-4">
-              &ldquo;{review.text}&rdquo;
-            </p>
+        <ArrowButton direction="right" onClick={next} />
+      </div>
 
-            {/* Author */}
-            <div className="mt-auto flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-[#113D33]/10 flex items-center justify-center text-[10px] font-semibold text-[#113D33]">
-                {review.author.charAt(0)}
-              </div>
-              <div>
-                <p className="text-xs font-semibold">{review.author}</p>
-                <p className="text-[10px] opacity-50">{review.relativeTime}</p>
-              </div>
-            </div>
-          </div>
+      {/* Page dots */}
+      <div className="mt-4 flex items-center justify-center gap-2">
+        {PAGES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setPage(i)}
+            className={`w-2 h-2 rounded-full transition-all ${
+              i === page
+                ? "bg-[#113D33] w-5"
+                : "bg-[#113D33]/20 hover:bg-[#113D33]/40"
+            }`}
+            aria-label={`Page ${i + 1}`}
+          />
         ))}
       </div>
 
-      {/* Attribution + View All link */}
-      <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 text-xs">
+      {/* Attribution + View All */}
+      <div className="mt-3 md:mt-4 flex items-center justify-center gap-3 text-xs">
         <span className="flex items-center gap-1.5 opacity-40">
           <GoogleLogo />
           Reviews from Google
@@ -184,7 +316,7 @@ export default function GoogleReviews() {
           rel="noopener noreferrer"
           className="text-[#4A776D] font-medium hover:underline"
         >
-          View all {data.totalReviews} reviews →
+          View all {totalReviews} reviews &rarr;
         </a>
       </div>
     </motion.div>
@@ -197,9 +329,10 @@ export default function GoogleReviews() {
    ================================================================== */
 
 export function ReviewBadge() {
-  const data = useReviews();
+  const ratingData = useRating();
 
-  if (!data) return null;
+  const rating = ratingData?.rating ?? 5;
+  const totalReviews = ratingData?.totalReviews ?? 120;
 
   return (
     <a
@@ -213,8 +346,8 @@ export function ReviewBadge() {
           <Star key={i} className="w-3.5 h-3.5" />
         ))}
       </div>
-      <span className="font-semibold">{formatRating(data.rating)}</span>
-      <span className="opacity-60">({data.totalReviews} reviews)</span>
+      <span className="font-semibold">{formatRating(rating)}</span>
+      <span className="opacity-60">({totalReviews} reviews)</span>
       <GoogleLogo className="w-3.5 h-3.5 ml-0.5" />
     </a>
   );

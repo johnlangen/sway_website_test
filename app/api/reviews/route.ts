@@ -15,7 +15,7 @@ export async function GET() {
       );
     }
 
-    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=name,rating,user_ratings_total,reviews&key=${apiKey}`;
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=rating,user_ratings_total&key=${apiKey}`;
 
     const res = await fetch(url, { next: { revalidate: 86400 } });
     const data = await res.json();
@@ -29,21 +29,9 @@ export async function GET() {
 
     const result = data.result;
 
-    // Only surface 5-star reviews
-    const reviews = (result.reviews || [])
-      .filter((r: any) => r.rating === 5)
-      .map((r: any) => ({
-        author: r.author_name,
-        rating: r.rating,
-        text: r.text,
-        relativeTime: r.relative_time_description,
-        profilePhoto: r.profile_photo_url,
-      }));
-
     return NextResponse.json({
       rating: result.rating,
       totalReviews: result.user_ratings_total,
-      reviews,
     });
   } catch (err) {
     console.error("Error fetching Google reviews:", err);
