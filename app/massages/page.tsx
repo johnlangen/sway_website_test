@@ -384,7 +384,7 @@ const MassagesPage = () => {
             { value: "6", label: "Massage Types" },
             { value: "4", label: "Boost Add-Ons" },
             { value: "50–80", label: "Minute Sessions" },
-            { value: "50%", label: "Member Savings on Boosts" },
+            { value: "4.8★", label: "Rated on ClassPass" },
           ].map((s) => (
             <div key={s.label} className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-[#113D33]">

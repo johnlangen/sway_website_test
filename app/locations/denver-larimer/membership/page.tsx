@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Check, ChevronDown } from "lucide-react";
-import GoogleReviews, { ReviewBadge } from "../../../components/GoogleReviews";
+import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
 
 const benefitData: Record<string, string[]> = {
   spa: [
@@ -111,9 +111,11 @@ export default function MembershipPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.4 }}
-          className="mt-4 flex justify-center"
+          className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4"
         >
           <ReviewBadge />
+          <span className="hidden sm:block opacity-30">|</span>
+          <ClassPassBadge />
         </motion.div>
 
         <p className="sr-only">

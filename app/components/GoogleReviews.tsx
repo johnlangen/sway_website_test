@@ -352,3 +352,23 @@ export function ReviewBadge() {
     </a>
   );
 }
+
+/* ==================================================================
+   CLASSPASS BADGE (inline)
+   Hardcoded rating — update periodically from ClassPass dashboard.
+   ================================================================== */
+
+export function ClassPassBadge() {
+  return (
+    <span className="inline-flex items-center gap-1.5 text-sm">
+      <span className="flex gap-0.5">
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} className="w-3.5 h-3.5" />
+        ))}
+      </span>
+      <span className="font-semibold">4.8</span>
+      <span className="opacity-60">(647 ratings)</span>
+      <span className="font-semibold text-[#7B44BC] ml-0.5">ClassPass</span>
+    </span>
+  );
+}

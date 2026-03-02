@@ -4,7 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import GoogleReviews, { ReviewBadge } from "../../../components/GoogleReviews";
+import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
 
 export default function LarimerOffersPage() {
   const offers = [
@@ -83,9 +83,11 @@ export default function LarimerOffersPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-4 flex justify-center"
+          className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4"
         >
           <ReviewBadge />
+          <span className="hidden sm:block opacity-30">|</span>
+          <ClassPassBadge />
         </motion.div>
 
         <p className="sr-only">

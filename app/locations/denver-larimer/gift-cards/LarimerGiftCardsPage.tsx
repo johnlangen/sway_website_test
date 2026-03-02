@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import GoogleReviews, { ReviewBadge } from "../../../components/GoogleReviews";
+import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
 
 export default function LarimerGiftCardsPage() {
   const giftCardUrl =
@@ -122,9 +122,11 @@ export default function LarimerGiftCardsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-4 flex justify-center"
+          className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4"
         >
           <ReviewBadge />
+          <span className="hidden sm:block opacity-30">|</span>
+          <ClassPassBadge />
         </motion.div>
 
         <p className="sr-only">

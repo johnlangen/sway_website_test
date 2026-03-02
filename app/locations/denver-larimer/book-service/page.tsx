@@ -6,7 +6,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getClosingHour } from "@/lib/locationHours";
 import NextAvailableBanner from "../NextAvailableBanner";
-import { ReviewBadge } from "@/app/components/GoogleReviews";
+import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -1468,8 +1468,10 @@ function BookServicePage() {
                   ? "Clinical-grade skincare tailored to your skin."
                   : "Choose your service, pick a time, and we\u2019ll reserve it."}
             </p>
-            <div className="flex justify-center mb-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-2">
               <ReviewBadge />
+              <span className="hidden sm:block opacity-30">|</span>
+              <ClassPassBadge />
             </div>
           </div>
 

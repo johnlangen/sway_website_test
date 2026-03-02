@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import GoogleReviews, { ReviewBadge } from "@/app/components/GoogleReviews";
+import GoogleReviews, { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -206,8 +206,10 @@ export default function SwayLarimerPage() {
               Voted #4 Best Day Spa in America — USA Today 10Best
             </a>
 
-            <div className="mt-3">
+            <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
               <ReviewBadge />
+              <span className="hidden sm:block opacity-30">|</span>
+              <ClassPassBadge />
             </div>
 
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">

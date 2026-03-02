@@ -101,6 +101,12 @@ const serviceJsonLd = {
   },
   areaServed: { "@type": "City", name: "Denver" },
   serviceType: "Facial Treatment",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "647",
+    bestRating: "5",
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Facial Services",

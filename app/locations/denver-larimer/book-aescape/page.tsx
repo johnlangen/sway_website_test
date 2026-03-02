@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
-import { ReviewBadge } from "@/app/components/GoogleReviews";
+import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -1089,8 +1089,10 @@ export default function BookAescapePage() {
                   AI-powered precision massage that adapts to your body in real time.
                   Choose your session and reserve in under a minute.
                 </p>
-                <div className="flex justify-center mb-4 animate-fade-in-up" style={{ animationDelay: "75ms" }}>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 animate-fade-in-up" style={{ animationDelay: "75ms" }}>
                   <ReviewBadge />
+                  <span className="hidden sm:block opacity-30">|</span>
+                  <ClassPassBadge />
                 </div>
 
                 <div className="flex items-center justify-center gap-2 flex-wrap mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MapPin, ArrowRight } from "lucide-react";
-import { ReviewBadge } from "../components/GoogleReviews";
+import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
 
 type SelectedLocation = {
   slug: string;
@@ -72,8 +72,10 @@ export default function MembershipHubPage() {
           credits. Select your location to view plans.
         </p>
 
-        <div className="mt-5 flex justify-center">
+        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
           <ReviewBadge />
+          <span className="hidden sm:block opacity-30">|</span>
+          <ClassPassBadge />
         </div>
 
         <p className="sr-only">

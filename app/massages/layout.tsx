@@ -111,6 +111,12 @@ const serviceJsonLd = {
   },
   areaServed: { "@type": "City", name: "Denver" },
   serviceType: "Massage Therapy",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "647",
+    bestRating: "5",
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Massage Services",

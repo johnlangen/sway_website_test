@@ -84,6 +84,12 @@ const serviceJsonLd = {
     "@type": "City",
     name: "Denver",
   },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "647",
+    bestRating: "5",
+  },
   description:
     "Professional massage therapy in Denver at Sway Wellness Spa (Larimer Square) focused on relaxation, recovery, and stress relief.",
 };
