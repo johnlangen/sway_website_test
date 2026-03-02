@@ -105,6 +105,94 @@ const localBusinessJsonLd = {
   ],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Where should I park when visiting Sway Larimer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway Larimer is located on Larimer Square in downtown Denver. We validate parking for the 1st hour at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). After the first hour, the rate is $2 every 10 minutes.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What makes Sway different from a traditional spa?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: infrared sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I book a massage or facial at Sway Larimer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "You can book online through swaywellnessspa.com, by phone at (303) 476-6150, or walk in. We recommend booking ahead during evenings and weekends.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do I need a membership to book at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No, anyone can book at Sway. Memberships start at $99/month and unlock savings on every visit, but they're completely optional.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the Remedy Room at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The Remedy Room is a guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Sway Larimer walkable from Union Station?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Sway is a short walk from Union Station and centrally located in Larimer Square in downtown Denver.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "When should I arrive for my appointment at Sway?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Please arrive about 15 minutes early to check in and settle into the space.",
+      },
+    },
+  ],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://swaywellnessspa.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Locations",
+      item: "https://swaywellnessspa.com/locations",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Denver Larimer",
+      item: "https://swaywellnessspa.com/locations/denver-larimer",
+    },
+  ],
+};
+
 export default function DenverLarimerLayout({
   children,
 }: {
@@ -115,6 +203,14 @@ export default function DenverLarimerLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

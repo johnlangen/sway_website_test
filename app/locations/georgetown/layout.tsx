@@ -32,6 +32,39 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://swaywellnessspa.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Locations",
+      item: "https://swaywellnessspa.com/locations",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Georgetown",
+      item: "https://swaywellnessspa.com/locations/georgetown",
+    },
+  ],
+};
+
 export default function GeorgetownLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }
