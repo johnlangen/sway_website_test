@@ -116,6 +116,19 @@ export default function LarimerGiftCardsPage() {
           Treat someone special to the Sway experience. Redeemable for massages,
           facials, and Remedy Room recovery right in Larimer Square.
         </motion.p>
+
+        <p className="sr-only">
+          Sway Wellness Spa Larimer gift cards: available in any dollar amount
+          with instant digital delivery via email. Redeemable for all services
+          including 6 massage types, 6 facial treatments, Remedy Room recovery
+          circuit (infrared sauna, cold plunge, Normatec compression, LED light
+          therapy), Aescape AI-powered robot massage, boost add-ons, and retail
+          products. Gift cards never expire and have no dormancy fees. Valid at
+          any Sway or Spavia branded spa in the United States. Physical gift
+          cards available in-spa at 1428 Larimer St. on Larimer Square in
+          Denver, CO 80202. Voted #4 Best Day Spa in America by USA Today
+          10Best. Call (303) 476-6150 for questions.
+        </p>
       </section>
 
       {/* GIFT CARD IMAGE + CTA */}

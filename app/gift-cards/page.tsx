@@ -69,6 +69,17 @@ export default function GiftCardsHubPage() {
           Give the ultimate wellness gift. Select your location to purchase a
           Sway gift card online.
         </p>
+
+        <p className="sr-only">
+          Sway Wellness Spa gift cards are available in any dollar amount with
+          instant digital delivery via email. Redeemable for all services:
+          massages, facials, Remedy Room recovery circuit, Aescape AI robot
+          massage, boost add-ons, and retail products. Gift cards never expire
+          and have no dormancy fees. Available at 3 locations: Denver Larimer
+          (now open), Dallas TX (coming soon), and Georgetown Washington DC
+          (coming soon). Sway was voted #4 Best Day Spa in America by USA Today
+          10Best. Purchase online at swaywellnessspa.com/gift-cards.
+        </p>
       </section>
 
       {/* Location Cards */}
