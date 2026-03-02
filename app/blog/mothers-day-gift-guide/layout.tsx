@@ -179,7 +179,7 @@ export default function MothersDayGiftGuideLayout() {
                 name: "Can you gift a spa membership for Mother's Day?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes, a spa membership makes an excellent Mother's Day gift. Sway Wellness Spa memberships start at $99 per month and include a monthly facial or massage, access to the exclusive member lounge, the ability to bring a friend at the member rate, and 10% off retail products. It is a thoughtful gift that keeps giving all year, reminding mom to prioritize herself every month.",
+                  text: "Yes, a spa membership makes an excellent Mother's Day gift. Sway Wellness Spa memberships start at $99 per month and include a monthly facial or massage, access to the exclusive member lounge, the ability to bring a friend once a month at the member rate, and 10% off retail products. It is a thoughtful gift that keeps giving all year, reminding mom to prioritize herself every month.",
                 },
               },
             ],

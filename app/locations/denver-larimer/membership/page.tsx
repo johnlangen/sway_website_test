@@ -12,7 +12,7 @@ const benefitData: Record<string, string[]> = {
     "50% off Remedy Room",
     "50% off Boosts & Super Boosts",
     "Member lounge access",
-    "Bring a friend at member pricing",
+    "Bring a friend at member pricing (once/month)",
     "10% off retail products",
     "Unused credits roll over",
   ],
@@ -105,6 +105,23 @@ export default function MembershipPage() {
         >
           All plans $99/month
         </motion.p>
+
+        <p className="sr-only">
+          Sway Wellness Spa Larimer memberships: 3 plans, all $99/month. Spa
+          Club — 1 facial or massage included monthly, unlimited additional at
+          $99 each (regularly $139), 50% off Remedy Room ($25 vs $49), 50% off
+          boosts and super boosts, private member lounge with robes, sandals,
+          warm neck pillows and snacks, bring a friend once a month at member pricing, 10%
+          off retail products, rollover credits. Remedy Room — 4 monthly
+          recovery circuit visits combining infrared sauna, cold plunge,
+          Normatec compression therapy, and LED light therapy, additional visits
+          $25 each, $99 massages and facials, 50% off boosts. Aescape Robot —
+          2 monthly 60-minute AI-powered robot massage sessions with real-time
+          body mapping and personalized pressure zones. Located at 1428 Larimer
+          St. on Larimer Square in Denver, CO 80202. Voted #4 Best Day Spa in
+          America by USA Today 10Best. Join at swaywellnessspa.com or call
+          (303) 476-6150.
+        </p>
       </section>
 
       {/* MEMBERSHIP CARDS */}

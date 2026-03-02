@@ -87,7 +87,7 @@ export default function MembershipLayout({
             name: "What's included in a Sway membership?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Members enjoy: massages and facials at $99 (vs. $139 drop-in), 50% off boosts and super boosts, Remedy Room sessions at $25 (vs. $49), private member lounge access, rollover credits, and a bring-a-friend benefit.",
+              text: "Members enjoy: massages and facials at $99 (vs. $139 drop-in), 50% off boosts and super boosts, Remedy Room sessions at $25 (vs. $49), private member lounge access, rollover credits, and a once-a-month bring-a-friend benefit at member pricing.",
             },
           },
           {

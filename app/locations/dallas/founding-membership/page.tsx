@@ -84,7 +84,7 @@ const memberships = [
       "50% off Remedy Room",
       "50% off Boosts & Super Boosts",
       "Member lounge access",
-      "Bring a friend at member pricing",
+      "Bring a friend at member pricing (once/month)",
       "10% off retail products",
       "Unused credits roll over",
     ],
