@@ -14,7 +14,7 @@ const treatments = [
     name: "Massages",
     tagline: "6 expert-led experiences",
     description:
-      "Deep Tissue, Sports, CBD, Himalayan Salt Stone, Lymphatic Drainage, and Relaxation — each customized by licensed therapists. Extend to 80 minutes or add boosts like infrared PEMF, cupping, and scalp massage.",
+      "Deep Tissue, Sports, CBD, Salt Stone, Lymphatic Drainage & Relaxation. 50 or 80 minutes.",
     price: "From $99",
     priceSuffix: " members",
     image: "/assets/treatment3.jpg",
@@ -24,7 +24,7 @@ const treatments = [
     name: "Facials",
     tagline: "6 results-driven treatments",
     description:
-      "Forever Young, Glow Getter, Pore Perfection, Vitamin C, Sensitive Silk, and Express — powered by Eminence Organics and Dr. Dennis Gross. Boost with LED, microcurrent, oxygen infusion, or chemical peel.",
+      "Eminence Organics & Dr. Dennis Gross protocols with high-tech boosts. 50 minutes.",
     price: "From $99",
     priceSuffix: " members",
     image: "/assets/treatment1.jpg",
@@ -34,7 +34,7 @@ const treatments = [
     name: "Remedy Room",
     tagline: "4-modality recovery circuit",
     description:
-      "A guided 40-minute circuit through infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. Designed for full-body recovery, inflammation reduction, and deep relaxation.",
+      "Infrared sauna, cold plunge, Normatec compression & LED light therapy. 40 minutes.",
     price: "From $25",
     priceSuffix: " members",
     image: "/assets/treatment2.jpg",
@@ -44,7 +44,7 @@ const treatments = [
     name: "Aescape",
     tagline: "AI-powered robot massage",
     description:
-      "The world's first fully autonomous massage robot. Real-time 3D body mapping, personalized pressure zones, and consistent precision — available in 15, 30, and 60-minute sessions.",
+      "Real-time 3D body mapping with personalized pressure zones. 15, 30, or 60 minutes.",
     price: "From $49",
     priceSuffix: "",
     image: "/assets/aescape-treatment.jpg",
@@ -141,81 +141,82 @@ export default function TreatmentsPage() {
         </div>
       </section>
 
-      {/* ---------- TREATMENT SECTIONS ---------- */}
+      {/* ---------- TREATMENT CARDS ---------- */}
       <section className="px-6 py-16 md:py-24">
-        <div className="max-w-6xl mx-auto space-y-12 md:space-y-20">
-          {treatments.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
-            >
-              {/* Image */}
-              <div
-                className={`relative rounded-2xl overflow-hidden ${
-                  i % 2 === 1 ? "md:order-2" : ""
-                }`}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {treatments.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (i % 2) * 0.1 }}
+                className="group relative rounded-2xl overflow-hidden h-[400px] md:h-[480px]"
               >
-                <div className="relative h-[300px] md:h-[420px]">
-                  <Image
-                    src={t.image}
-                    alt={`${t.name} at Sway Wellness Spa`}
-                    fill
-                    className="object-cover"
-                  />
-                  {t.badge && (
-                    <span className="absolute top-4 left-4 bg-[#113D33] text-white text-xs px-3 py-1.5 rounded-full font-semibold tracking-wide">
-                      {t.badge}
-                    </span>
-                  )}
+                {/* Background image */}
+                <Image
+                  src={t.image}
+                  alt={`${t.name} at Sway Wellness Spa`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                {/* Badge */}
+                {t.badge && (
+                  <span className="absolute top-4 left-4 bg-white/90 text-[#113D33] text-xs px-3 py-1.5 rounded-full font-semibold tracking-wide backdrop-blur-sm">
+                    {t.badge}
+                  </span>
+                )}
+
+                {/* Content overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 text-white">
+                  <p className="text-xs uppercase tracking-[0.15em] text-white/60 font-semibold">
+                    {t.tagline}
+                  </p>
+
+                  <h2 className="mt-1 text-2xl md:text-3xl font-semibold">
+                    {t.name}
+                  </h2>
+
+                  <p className="mt-2 text-sm text-white/75 leading-relaxed max-w-sm">
+                    {t.description}
+                  </p>
+
+                  <div className="mt-4 flex items-center justify-between">
+                    <p className="text-lg font-bold">
+                      {t.price}
+                      {t.priceSuffix && (
+                        <span className="text-sm font-normal text-white/50">
+                          {t.priceSuffix}
+                        </span>
+                      )}
+                    </p>
+
+                    <div className="flex gap-2">
+                      <Link
+                        href={t.learnHref}
+                        className="inline-flex items-center bg-white text-[#113D33] px-5 py-2.5 text-sm font-bold rounded-xl hover:bg-white/90 transition-all"
+                      >
+                        Learn More
+                        <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                      </Link>
+
+                      <Link
+                        href={bookHref}
+                        className="inline-flex items-center border border-white/40 text-white px-5 py-2.5 text-sm font-bold rounded-xl hover:bg-white/10 transition-all"
+                      >
+                        Book
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              {/* Content */}
-              <div className={i % 2 === 1 ? "md:order-1" : ""}>
-                <p className="text-xs uppercase tracking-[0.15em] text-[#113D33]/45 font-semibold">
-                  {t.tagline}
-                </p>
-
-                <h2 className="mt-2 text-3xl md:text-4xl font-semibold tracking-tight">
-                  {t.name}
-                </h2>
-
-                <p className="mt-4 text-base leading-relaxed opacity-75">
-                  {t.description}
-                </p>
-
-                <p className="mt-4 text-lg font-bold text-[#113D33]">
-                  {t.price}
-                  {t.priceSuffix && (
-                    <span className="text-sm font-normal opacity-50">
-                      {t.priceSuffix}
-                    </span>
-                  )}
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href={t.learnHref}
-                    className="inline-flex items-center justify-center bg-[#113D33] text-white px-6 py-3 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition-all"
-                  >
-                    Learn More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-
-                  <Link
-                    href={bookHref}
-                    className="inline-flex items-center justify-center border-2 border-[#113D33]/20 text-[#113D33] px-6 py-3 text-sm font-bold rounded-xl hover:border-[#113D33]/40 transition-all"
-                  >
-                    Book Now
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
