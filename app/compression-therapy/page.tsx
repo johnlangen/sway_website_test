@@ -75,7 +75,7 @@ export default function CompressionTherapyPage() {
             Normatec compression boots boost circulation, support lymphatic
             drainage, and reduce muscle soreness. At Sway, Normatec is part
             of the Remedy Room, a guided 40-minute recovery circuit that
-            also includes infrared sauna, cold plunge, and LED light therapy.
+            also includes sauna, cold plunge, and LED light therapy.
           </p>
 
           <h2 className="text-lg md:text-2xl font-vance-bold text-[#113D33] mt-6">

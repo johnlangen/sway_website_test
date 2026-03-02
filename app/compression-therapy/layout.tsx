@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Normatec Compression Therapy in Denver | Sway Wellness Spa",
   description:
-    "Normatec compression therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with infrared sauna, cold plunge, and LED light therapy. Member $25, Drop-In $49.",
+    "Normatec compression therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, cold plunge, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
     canonical: "https://swaywellnessspa.com/compression-therapy",
   },
@@ -67,7 +67,7 @@ const faqJsonLd = {
       name: "How do I book Normatec at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Normatec compression is part of the Remedy Room, a guided 40-minute circuit that also includes infrared sauna, cold plunge, and LED light therapy. Book the Remedy Room at swaywellnessspa.com. $49 drop-in, $25 for members.",
+        text: "Normatec compression is part of the Remedy Room, a guided 40-minute circuit that also includes sauna, cold plunge, and LED light therapy. Book the Remedy Room at swaywellnessspa.com. $49 drop-in, $25 for members.",
       },
     },
   ],

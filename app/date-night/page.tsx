@@ -122,7 +122,7 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Remedy Room</h3>
               <p className="text-sm text-gray-700">
-                40-minute guided recovery circuit together: infrared sauna, cold
+                40-minute guided recovery circuit together: sauna, cold
                 plunge, Normatec compression, LED light therapy.
               </p>
               <p className="text-sm font-semibold">

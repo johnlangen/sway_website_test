@@ -121,7 +121,7 @@ export default function LarimerGiftCardsPage() {
           Sway Wellness Spa Larimer gift cards: available in any dollar amount
           with instant digital delivery via email. Redeemable for all services
           including 6 massage types, 6 facial treatments, Remedy Room recovery
-          circuit (infrared sauna, cold plunge, Normatec compression, LED light
+          circuit (sauna, cold plunge, Normatec compression, LED light
           therapy), Aescape AI-powered robot massage, boost add-ons, and retail
           products. Gift cards never expire and have no dormancy fees. Valid at
           any Sway or Spavia branded spa in the United States. Physical gift

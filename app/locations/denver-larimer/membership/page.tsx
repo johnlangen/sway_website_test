@@ -113,7 +113,7 @@ export default function MembershipPage() {
           boosts and super boosts, private member lounge with robes, sandals,
           warm neck pillows and snacks, bring a friend once a month at member pricing, 10%
           off retail products, rollover credits. Remedy Room — 4 monthly
-          recovery circuit visits combining infrared sauna, cold plunge,
+          recovery circuit visits combining sauna, cold plunge,
           Normatec compression therapy, and LED light therapy, additional visits
           $25 each, $99 massages and facials, 50% off boosts. Aescape Robot —
           2 monthly 60-minute AI-powered robot massage sessions with real-time

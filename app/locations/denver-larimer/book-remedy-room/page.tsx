@@ -1128,14 +1128,14 @@ export default function BookRemedyRoomPage() {
                   The Remedy Room
                 </h1>
                 <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
-                  Science-backed recovery in a shared sanctuary. Cold plunge, infrared sauna, LED therapy, and lymphatic compression — all in one 40-minute session.
+                  Science-backed recovery in a shared sanctuary. Cold plunge, sauna, LED therapy, and lymphatic compression — all in one 40-minute session.
                 </p>
                 <div className="flex justify-center mb-4">
                   <ReviewBadge />
                 </div>
 
                 <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
-                  {["Cold Plunge", "Infrared Sauna", "LED Therapy", "Compression"].map((tag) => (
+                  {["Cold Plunge", "Sauna", "LED Therapy", "Compression"].map((tag) => (
                     <span
                       key={tag}
                       className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 text-xs text-white/80"

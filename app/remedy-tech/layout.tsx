@@ -51,7 +51,7 @@ const faqJsonLd = {
       name: "What is the Remedy Room?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+        text: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
       },
     },
     {
@@ -67,7 +67,7 @@ const faqJsonLd = {
       name: "What's included in a Remedy Room session?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Every session follows a guided circuit: 15 minutes of Normatec compression therapy with LED light therapy, 20 minutes of infrared sauna, and 5 minutes of cold plunge. Total time is 40 minutes.",
+        text: "Every session follows a guided circuit: 15 minutes of Normatec compression therapy with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge. Total time is 40 minutes.",
       },
     },
     {
@@ -94,7 +94,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How the Remedy Room Recovery Circuit Works",
   description:
-    "A step-by-step guide to the Remedy Room at Sway Wellness Spa — a guided 40-minute recovery circuit combining 4 modalities: Normatec compression, LED light therapy, infrared sauna, and cold plunge.",
+    "A step-by-step guide to the Remedy Room at Sway Wellness Spa — a guided 40-minute recovery circuit combining 4 modalities: Normatec compression, LED light therapy, sauna, and cold plunge.",
   totalTime: "PT40M",
   estimatedCost: {
     "@type": "MonetaryAmount",
@@ -123,8 +123,8 @@ const howToJsonLd = {
     {
       "@type": "HowToStep",
       position: 4,
-      name: "Infrared Sauna (20 Minutes)",
-      text: "Move into the infrared sauna for 20 minutes. Infrared heat penetrates deeper than traditional saunas, promoting detoxification, relaxation, pain relief, and improved circulation at a comfortable temperature.",
+      name: "Sauna (20 Minutes)",
+      text: "Move into the sauna for 20 minutes. Heat therapy promotes detoxification, relaxation, pain relief, and improved circulation.",
     },
     {
       "@type": "HowToStep",
@@ -142,7 +142,7 @@ const howToJsonLd = {
   tool: [
     { "@type": "HowToTool", name: "Normatec Compression Boots" },
     { "@type": "HowToTool", name: "Medical-Grade LED Light Panels" },
-    { "@type": "HowToTool", name: "Infrared Sauna" },
+    { "@type": "HowToTool", name: "Sauna" },
     { "@type": "HowToTool", name: "Cold Plunge Pool" },
   ],
 };
@@ -152,7 +152,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Remedy Room Recovery Circuit at Sway Wellness Spa",
   description:
-    "A guided 40-minute recovery circuit combining 4 evidence-based modalities: infrared sauna (20 min), cold plunge (5 min), Normatec compression therapy (15 min), and LED light therapy. Available at Sway Wellness Spa in Denver.",
+    "A guided 40-minute recovery circuit combining 4 evidence-based modalities: sauna (20 min), cold plunge (5 min), Normatec compression therapy (15 min), and LED light therapy. Available at Sway Wellness Spa in Denver.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",
@@ -166,7 +166,7 @@ const serviceJsonLd = {
       "@type": "Service",
       name: "Remedy Room Recovery Circuit",
       description:
-        "40-minute guided circuit: 15 min Normatec compression + LED light therapy, 20 min infrared sauna, 5 min cold plunge.",
+        "40-minute guided circuit: 15 min Normatec compression + LED light therapy, 20 min sauna, 5 min cold plunge.",
     },
     priceSpecification: [
       {

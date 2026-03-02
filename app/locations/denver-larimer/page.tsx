@@ -53,7 +53,7 @@ const TREATMENTS = [
     title: "Remedy Room",
     tagline: "Sauna + cold plunge recovery",
     description:
-      "Infrared sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
+      "Sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
     price: "$49",
     memberPrice: "$25",
     image: "/assets/remedy-room2.jpg",
@@ -177,7 +177,7 @@ export default function SwayLarimerPage() {
               USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 6
               massage types (from $89), 6 facial treatments using Eminence
               Organics and Dr. Dennis Gross (from $89), the Remedy Room
-              40-minute recovery circuit with 4 modalities — infrared sauna,
+              40-minute recovery circuit with 4 modalities — sauna,
               cold plunge, Normatec compression, and LED light therapy (from
               $25), and AI-powered Aescape robot massage (from $49, 15–60 min).
               Over 10 boost add-ons across services. Open Mon–Fri 10 AM–8 PM,
@@ -570,7 +570,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What makes Sway different from a traditional spa?",
-              a: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: infrared sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
+              a: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
             },
             {
               q: "How do I book a massage or facial?",
@@ -582,7 +582,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What is the Remedy Room?",
-              a: "The Remedy Room is a guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
+              a: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
             },
             {
               q: "Is Sway Larimer walkable from Union Station?",

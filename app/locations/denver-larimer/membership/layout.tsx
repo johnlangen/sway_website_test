@@ -91,7 +91,7 @@ export default function MembershipLayout({
         "@type": "Offer",
         name: "Remedy Room Membership",
         description:
-          "4 monthly recovery circuit visits (infrared sauna, cold plunge, Normatec compression, LED light therapy), additional visits $25 each, $99 massages and facials, 50% off boosts.",
+          "4 monthly recovery circuit visits (sauna, cold plunge, Normatec compression, LED light therapy), additional visits $25 each, $99 massages and facials, 50% off boosts.",
         price: "99.00",
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
@@ -131,7 +131,7 @@ export default function MembershipLayout({
         name: "What membership plans does Sway Larimer offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway Larimer offers three memberships, all $99/month: Spa Club (1 massage or facial monthly, unlimited at $99 each, 50% off boosts and Remedy Room), Remedy Room (4 monthly recovery circuit visits with infrared sauna, cold plunge, Normatec, and LED), and Aescape Robot (2 monthly 60-minute AI-powered massage sessions).",
+          text: "Sway Larimer offers three memberships, all $99/month: Spa Club (1 massage or facial monthly, unlimited at $99 each, 50% off boosts and Remedy Room), Remedy Room (4 monthly recovery circuit visits with sauna, cold plunge, Normatec, and LED), and Aescape Robot (2 monthly 60-minute AI-powered massage sessions).",
         },
       },
       {

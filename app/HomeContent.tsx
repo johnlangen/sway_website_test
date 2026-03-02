@@ -37,7 +37,7 @@ const SERVICES = [
     title: "Remedy Room",
     tagline: "Sauna + cold plunge recovery",
     description:
-      "Infrared sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
+      "Sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
     price: "$49",
     memberPrice: "$25",
     image: "/assets/remedy-room2.jpg",
@@ -128,7 +128,7 @@ const CONNECT_ITEMS = [
 const FAQ_ITEMS = [
   {
     q: "What is the Remedy Room?",
-    a: "The Remedy Room is a guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
+    a: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
   },
   {
     q: "What is Aescape?",
@@ -171,7 +171,7 @@ export default function HomeContent() {
           4 recovery technologies in the Remedy Room, and AI-powered Aescape
           robot massage. Massage therapy starts at $89/session for members
           ($129 drop-in). Facials from $89 member ($129 drop-in). The Remedy
-          Room 40-minute recovery circuit with infrared sauna, cold plunge,
+          Room 40-minute recovery circuit with sauna, cold plunge,
           Normatec compression, and LED light therapy is $25 member ($49
           drop-in). Aescape sessions from $49 (15–60 minutes). Over 10
           optional boost add-ons across services — members save 50% on all

@@ -51,7 +51,7 @@ export default function Page() {
         name: "What can a Sway gift card be used for?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway gift cards can be redeemed for any service at Sway Wellness Spa including massage therapy (6 types), facial treatments (6 types), Remedy Room recovery circuit (infrared sauna, cold plunge, Normatec, LED), Aescape AI robot massage, boost add-ons, and retail products.",
+          text: "Sway gift cards can be redeemed for any service at Sway Wellness Spa including massage therapy (6 types), facial treatments (6 types), Remedy Room recovery circuit (sauna, cold plunge, Normatec, LED), Aescape AI robot massage, boost add-ons, and retail products.",
         },
       },
       {

@@ -102,7 +102,7 @@ export default function HomePage() {
         name: "What is the Remedy Room?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The Remedy Room is a guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
+          text: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
         },
       },
       {

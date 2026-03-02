@@ -85,7 +85,7 @@ export default function LarimerOffersPage() {
           $99/month for unlimited massages and facials at $99 each, 50% off all
           boost add-ons, $25 Remedy Room sessions (normally $49), and private
           member lounge access. Remedy Room — $49 per session ($25 for members),
-          a guided 40-minute recovery circuit combining infrared sauna, cold
+          a guided 40-minute recovery circuit combining sauna, cold
           plunge, Normatec compression therapy, and LED light therapy. Sway
           Wellness Spa is located at 1428 Larimer St. on Larimer Square in
           Denver, CO 80202. Voted #4 Best Day Spa in America by USA Today

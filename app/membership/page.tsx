@@ -77,7 +77,7 @@ export default function MembershipHubPage() {
           at $99 each (regularly $139), 50% off Remedy Room ($25 vs $49), 50%
           off boosts and super boosts, private member lounge, bring a friend once a month at
           member pricing, 10% off retail, rollover credits. Remedy Room — 4
-          monthly recovery circuit visits (infrared sauna, cold plunge, Normatec
+          monthly recovery circuit visits (sauna, cold plunge, Normatec
           compression, LED light therapy), additional visits $25 each, $99
           massages and facials. Aescape Robot — 2 monthly 60-minute AI-powered
           robot massage sessions with real-time muscle mapping and personalized

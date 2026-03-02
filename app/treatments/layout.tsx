@@ -139,7 +139,7 @@ export default function TreatmentsLayout({
         "@type": "Offer",
         name: "Remedy Room Recovery Circuit",
         description:
-          "A guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+          "A guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
         url: "https://swaywellnessspa.com/remedy-tech",
         itemOffered: {
           "@type": "Service",
@@ -193,7 +193,7 @@ export default function TreatmentsLayout({
         name: "What treatments does Sway Wellness Spa offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway offers four treatment categories: 6 massage types (Deep Tissue, Sports, CBD, Himalayan Salt Stone, Lymphatic Drainage, Relaxation), 6 facial treatments (Forever Young, Glow Getter, Pore Perfection, Vitamin C, Sensitive Silk, Express), the Remedy Room recovery circuit (infrared sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Plus 10+ boost add-ons.",
+          text: "Sway offers four treatment categories: 6 massage types (Deep Tissue, Sports, CBD, Himalayan Salt Stone, Lymphatic Drainage, Relaxation), 6 facial treatments (Forever Young, Glow Getter, Pore Perfection, Vitamin C, Sensitive Silk, Express), the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Plus 10+ boost add-ons.",
         },
       },
       {

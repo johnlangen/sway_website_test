@@ -30,7 +30,7 @@ const treatments = [
     name: "Remedy Room",
     tagline: "4-modality recovery circuit",
     description:
-      "Infrared sauna, cold plunge, Normatec compression & LED light therapy. 40 minutes.",
+      "Sauna, cold plunge, Normatec compression & LED light therapy. 40 minutes.",
     image: "/assets/treatment2.jpg",
     learnHref: "/remedy-tech",
   },
@@ -84,8 +84,8 @@ export default function TreatmentsPage() {
             CBD, Himalayan Salt Stone, Lymphatic Drainage, Relaxation), 6 facial
             treatments (Forever Young, Glow Getter, Pore Perfection, Vitamin C,
             Sensitive Silk, Express) using Eminence Organics and Dr. Dennis Gross
-            products, 4 recovery technologies in the Remedy Room (infrared
-            sauna, cold plunge, Normatec compression, LED light therapy), and
+            products, 4 recovery technologies in the Remedy Room (sauna,
+            cold plunge, Normatec compression, LED light therapy), and
             Aescape AI-powered robot massage at select locations (15, 30,
             60-minute sessions). Over 10 boost add-ons including microcurrent,
             oxygen infusion, chemical peel, cupping, infrared PEMF mat, and

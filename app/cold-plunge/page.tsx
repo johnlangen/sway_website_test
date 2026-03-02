@@ -98,7 +98,7 @@ export default function ColdPlungePage() {
             Cold plunge therapy involves brief exposure to cold water for
             recovery, clarity, and resilience. At Sway, cold plunge is part of
             the Remedy Room, a guided 40-minute circuit that also includes
-            infrared sauna, Normatec compression, and LED light therapy.
+            sauna, Normatec compression, and LED light therapy.
           </p>
 
           <Link

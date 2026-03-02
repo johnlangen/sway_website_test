@@ -83,7 +83,7 @@ const faqJsonLd = {
       name: "What type of sauna does Sway have?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway uses a full-spectrum infrared sauna as part of the Remedy Room recovery circuit. Infrared saunas heat your body directly rather than the air, offering deeper tissue penetration at a more comfortable temperature than traditional saunas.",
+        text: "Sway features a traditional sauna as part of the Remedy Room recovery circuit. Heat therapy supports circulation, recovery, and deep relaxation.",
       },
     },
     {
@@ -91,7 +91,7 @@ const faqJsonLd = {
       name: "How long is the sauna session at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The sauna is part of a guided 40-minute Remedy Room circuit: 15 minutes of Normatec compression with LED light therapy, 20 minutes of infrared sauna, and 5 minutes of cold plunge.",
+        text: "The sauna is part of a guided 40-minute Remedy Room circuit: 15 minutes of Normatec compression with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge.",
       },
     },
     {

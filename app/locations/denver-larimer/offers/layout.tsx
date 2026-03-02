@@ -111,7 +111,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "Remedy Room Recovery Circuit",
         description:
-          "A guided 40-minute recovery session combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy. $49 drop-in, $25 for members.",
+          "A guided 40-minute recovery session combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. $49 drop-in, $25 for members.",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
@@ -150,7 +150,7 @@ export default function LarimerOffersLayout({
         name: "How much is the Remedy Room at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The Remedy Room recovery circuit is $49 per session for non-members and $25 per session for Sway members. It includes a guided 40-minute circuit through infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+          text: "The Remedy Room recovery circuit is $49 per session for non-members and $25 per session for Sway members. It includes a guided 40-minute circuit through sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
         },
       },
       {

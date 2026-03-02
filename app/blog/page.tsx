@@ -133,7 +133,7 @@ export default function BlogPage() {
         name: "What topics does The Sway Edit cover?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The Sway Edit covers massage therapy, skincare and facials, recovery science (cold plunge, infrared sauna, Normatec compression), wellness technology (Aescape AI robot massage, LED therapy, microcurrent), Denver lifestyle, bridal and bachelorette spa planning, and seasonal wellness guides.",
+          text: "The Sway Edit covers massage therapy, skincare and facials, recovery science (cold plunge, sauna, Normatec compression), wellness technology (Aescape AI robot massage, LED therapy, microcurrent), Denver lifestyle, bridal and bachelorette spa planning, and seasonal wellness guides.",
         },
       },
       {

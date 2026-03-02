@@ -59,7 +59,7 @@ const faqJsonLd = {
       name: "What couples spa experiences does Sway offer besides massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Beyond couples massage, Sway offers couples facials (HydraFacial, Forever Young, Glow Getter, and more), the Remedy Room recovery circuit (infrared sauna, cold plunge, Normatec compression, LED light therapy at $25 member / $49 drop-in), and Aescape AI-powered robot massage starting at $49. Boost add-ons like LED therapy and scalp massage are also available.",
+        text: "Beyond couples massage, Sway offers couples facials (HydraFacial, Forever Young, Glow Getter, and more), the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy at $25 member / $49 drop-in), and Aescape AI-powered robot massage starting at $49. Boost add-ons like LED therapy and scalp massage are also available.",
       },
     },
     {

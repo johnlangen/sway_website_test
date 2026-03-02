@@ -156,7 +156,7 @@ export default function CouplesSpaPage() {
               >
                 Remedy Room
               </Link>{" "}
-              recovery circuit together — 40 minutes through infrared{" "}
+              recovery circuit together — 40 minutes through{" "}
               <Link
                 href="/sauna"
                 className="underline text-[#113D33] font-semibold"
