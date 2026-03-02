@@ -66,9 +66,9 @@ export default function MembershipHubPage() {
           Join the Club
         </h1>
         <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
-          Memberships start at $99/month and include massages and facials
-          at member pricing, 50% off boosts and Remedy Room sessions,
-          private lounge access, and rollover credits.
+          Massages and facials at member pricing, 50% off boosts and
+          Remedy Room sessions, private lounge access, and rollover
+          credits. Select your location to view plans.
         </p>
 
         <p className="sr-only">

@@ -15,8 +15,6 @@ const treatments = [
     tagline: "6 expert-led experiences",
     description:
       "Deep Tissue, Sports, CBD, Salt Stone, Lymphatic Drainage & Relaxation. 50 or 80 minutes.",
-    price: "From $99",
-    priceSuffix: " members",
     image: "/assets/treatment3.jpg",
     learnHref: "/massages",
   },
@@ -25,8 +23,6 @@ const treatments = [
     tagline: "6 results-driven treatments",
     description:
       "Eminence Organics & Dr. Dennis Gross protocols with high-tech boosts. 50 minutes.",
-    price: "From $99",
-    priceSuffix: " members",
     image: "/assets/treatment1.jpg",
     learnHref: "/facials",
   },
@@ -35,8 +31,6 @@ const treatments = [
     tagline: "4-modality recovery circuit",
     description:
       "Infrared sauna, cold plunge, Normatec compression & LED light therapy. 40 minutes.",
-    price: "From $25",
-    priceSuffix: " members",
     image: "/assets/treatment2.jpg",
     learnHref: "/remedy-tech",
   },
@@ -45,11 +39,9 @@ const treatments = [
     tagline: "AI-powered robot massage",
     description:
       "Real-time 3D body mapping with personalized pressure zones. 15, 30, or 60 minutes.",
-    price: "From $49",
-    priceSuffix: "",
     image: "/assets/aescape-treatment.jpg",
     learnHref: "/aescape",
-    badge: "Colorado Exclusive",
+    badge: "Select Locations",
   },
 ];
 
@@ -94,14 +86,13 @@ export default function TreatmentsPage() {
             Sensitive Silk, Express) using Eminence Organics and Dr. Dennis Gross
             products, 4 recovery technologies in the Remedy Room (infrared
             sauna, cold plunge, Normatec compression, LED light therapy), and
-            Aescape AI-powered robot massage (15, 30, 60-minute sessions). Over
-            10 boost add-ons including microcurrent, oxygen infusion, chemical
-            peel, cupping, infrared PEMF mat, and scalp massage. Massages and
-            facials are 50 minutes (extendable to 80). Remedy Room is a guided
-            40-minute circuit. Member pricing from $99 per treatment. Located at
-            1428 Larimer St. on Larimer Square in Denver, CO 80202. Voted #4
-            Best Day Spa in America by USA Today 10Best. Book at
-            swaywellnessspa.com or call (303) 476-6150.
+            Aescape AI-powered robot massage at select locations (15, 30,
+            60-minute sessions). Over 10 boost add-ons including microcurrent,
+            oxygen infusion, chemical peel, cupping, infrared PEMF mat, and
+            scalp massage. Massages and facials are 50 minutes (extendable to
+            80). Remedy Room is a guided 40-minute circuit. Locations in Denver
+            CO, Dallas TX, and Washington DC. Voted #4 Best Day Spa in America
+            by USA Today 10Best. Book at swaywellnessspa.com.
           </p>
 
           <motion.p
@@ -111,7 +102,7 @@ export default function TreatmentsPage() {
             className="mt-4 text-base md:text-lg opacity-80 max-w-2xl mx-auto"
           >
             Massage, facials, recovery technology, and AI-powered robot massage
-            — all under one roof at Denver&apos;s award-winning wellness club.
+            — all under one roof at Sway&apos;s award-winning wellness clubs.
           </motion.p>
 
           <motion.p
@@ -186,16 +177,7 @@ export default function TreatmentsPage() {
                     {t.description}
                   </p>
 
-                  <div className="mt-4 flex items-center justify-between">
-                    <p className="text-lg font-bold">
-                      {t.price}
-                      {t.priceSuffix && (
-                        <span className="text-sm font-normal text-white/50">
-                          {t.priceSuffix}
-                        </span>
-                      )}
-                    </p>
-
+                  <div className="mt-4 flex items-center justify-end">
                     <div className="flex gap-2">
                       <Link
                         href={t.learnHref}
