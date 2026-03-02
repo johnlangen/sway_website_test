@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Press | Sway Wellness Spa in the Media",
     description:
-      "Voted #4 Best Day Spa in America by USA Today 10Best. See what the press is saying about Sway — featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
+      "Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by TZR. Featured in 9 major publications.",
     url: "https://swaywellnessspa.com/press",
     siteName: "Sway Wellness Spa",
     type: "website",
@@ -19,66 +19,183 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const jsonLd = {
+  const breadcrumbJsonLd = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Sway Wellness Spa Press Coverage",
-    description:
-      "Press features and media articles covering Sway Wellness Spa, Denver’s next-generation wellness club.",
+    "@type": "BreadcrumbList",
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
-        url: "https://10best.usatoday.com/awards/sway-denver-colorado/",
-        name: "#4 Best Day Spa in the U.S. — USA Today 10Best Readers' Choice Awards",
+        name: "Home",
+        item: "https://swaywellnessspa.com/",
       },
       {
         "@type": "ListItem",
         position: 2,
+        name: "Press",
+        item: "https://swaywellnessspa.com/press",
+      },
+    ],
+  };
+
+  const newsArticlesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Sway Wellness Spa Press Coverage",
+    description:
+      "Press features, awards, and media articles covering Sway Wellness Spa, voted #4 Best Day Spa in America.",
+    mainEntity: [
+      {
+        "@type": "NewsArticle",
+        headline:
+          "#4 Best Day Spa in the U.S. — USA Today 10Best Readers' Choice Awards",
+        url: "https://10best.usatoday.com/awards/sway-denver-colorado/",
+        datePublished: "2025-01-01",
+        publisher: {
+          "@type": "Organization",
+          name: "USA Today",
+          url: "https://www.usatoday.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
+      },
+      {
+        "@type": "NewsArticle",
+        headline:
+          "TZR 2026 Readers' Choice Awards: Best U.S. Day Spa",
         url: "https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa",
-        name: "TZR 2026 Readers' Choice Awards: Best U.S. Day Spa — The Zoe Report",
+        datePublished: "2026-01-01",
+        publisher: {
+          "@type": "Organization",
+          name: "The Zoe Report",
+          url: "https://www.thezoereport.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 3,
+        "@type": "NewsArticle",
+        headline:
+          "A Demographic-Built Wellness Spa — Salon Today",
         url: "https://www.bluetoad.com/publication/?i=854210&p=8&view=issueViewer",
-        name: "A Demographic-Built Wellness Spa — Salon Today (Modern Spa & Wellness)",
+        datePublished: "2025-09-01",
+        publisher: {
+          "@type": "Organization",
+          name: "Salon Today",
+          url: "https://www.salontoday.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 4,
+        "@type": "NewsArticle",
+        headline:
+          "AI, Robot Massages & More at Sway Wellness Club on Larimer Square",
         url: "https://www.denverpost.com/2025/03/08/wellness-club-sway-larimer-square-ai-robot-massage/",
-        name: "AI, Robot Massages & More at Sway — The Denver Post",
+        datePublished: "2025-03-08",
+        publisher: {
+          "@type": "Organization",
+          name: "The Denver Post",
+          url: "https://www.denverpost.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 5,
+        "@type": "NewsArticle",
+        headline:
+          "Built by Gen Z for Gen Z: Sway Redefines the Wellness Club",
         url: "https://athletechnews.com/built-by-gen-z-for-gen-z-sway-redefines-the-wellness-club/",
-        name: "Built by Gen Z for Gen Z — Athletech",
+        datePublished: "2025-01-15",
+        publisher: {
+          "@type": "Organization",
+          name: "Athletech News",
+          url: "https://athletechnews.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 6,
+        "@type": "NewsArticle",
+        headline:
+          "Revolutionary Wellness Club Coming to Larimer Square",
         url: "https://milehighcre.com/revolutionary-wellness-club-coming-to-larimer-square/",
-        name: "Revolutionary Wellness Club Coming to Larimer Square — Mile High CRE",
+        datePublished: "2024-10-01",
+        publisher: {
+          "@type": "Organization",
+          name: "Mile High CRE",
+          url: "https://milehighcre.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 7,
+        "@type": "NewsArticle",
+        headline:
+          "Sway Wellness Club Opening in Denver's Larimer Square",
         url: "https://www.bizjournals.com/denver/news/2024/11/20/wellness-club-opening-in-denvers-larimer-square.html",
-        name: "Sway Wellness Club Opening in Denver’s Larimer Square — Denver Business Journal",
+        datePublished: "2024-11-20",
+        publisher: {
+          "@type": "Organization",
+          name: "Denver Business Journal",
+          url: "https://www.bizjournals.com/denver",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 8,
+        "@type": "NewsArticle",
+        headline: "I Tried Colorado's First Robot Massage",
         url: "https://www.5280.com/i-tried-colorados-first-robot-massage/",
-        name: "I Tried Colorado’s First Robot Massage — 5280 Magazine",
+        datePublished: "2025-04-01",
+        publisher: {
+          "@type": "Organization",
+          name: "5280 Magazine",
+          url: "https://www.5280.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
       {
-        "@type": "ListItem",
-        position: 9,
+        "@type": "NewsArticle",
+        headline:
+          "This New Denver Wellness Club Is Using Robots to Rethink Self-Care",
         url: "https://yogalifelive.com/this-new-denver-wellness-club-is-using-robots-to-rethink-self-care/",
-        name: "Robots Rethink Self-Care — Yoga+Life",
+        datePublished: "2025-05-01",
+        publisher: {
+          "@type": "Organization",
+          name: "Yoga+Life",
+          url: "https://yogalifelive.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
       },
     ],
   };
@@ -97,10 +214,10 @@ export default function Page() {
       },
       {
         "@type": "Question",
-        name: "Where has Sway Wellness Spa been featured?",
+        name: "Where has Sway Wellness Spa been featured in the press?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway has been featured in USA Today, The Zoe Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life, Salon Today, Denver Business Journal, and Mile High CRE, among others.",
+          text: "Sway has been featured in 9 major publications including USA Today, The Zoe Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life, Salon Today (Modern Spa & Wellness), Denver Business Journal, and Mile High CRE.",
         },
       },
       {
@@ -108,7 +225,15 @@ export default function Page() {
         name: "Is Sway one of the best spas in Denver?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best in just its first year. It's located on Larimer Square in downtown Denver and offers massage, facials, recovery tech, and AI-powered robot massage.",
+          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best in just its first year. It's located on Larimer Square in downtown Denver and offers 6 massage types, 6 facial treatments, the Remedy Room recovery circuit, and AI-powered Aescape robot massage.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How can I contact Sway for press inquiries?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "For media requests, interviews, or press materials, contact the Sway team at contact@swaywellnessspa.com.",
         },
       },
     ],
@@ -118,7 +243,15 @@ export default function Page() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(newsArticlesJsonLd),
+        }}
       />
       <script
         type="application/ld+json"

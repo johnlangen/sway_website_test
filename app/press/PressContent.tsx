@@ -2,107 +2,283 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+
+/* ---------- DATA ---------- */
+
+const AWARDS = [
+  {
+    title: "#4 Best Day Spa in America",
+    publication: "USA Today 10Best",
+    year: "2025",
+    description:
+      "Voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards — recognized alongside the nation's top spas in just our first year.",
+    image: "/assets/usa_today.png",
+    link: "https://10best.usatoday.com/awards/sway-denver-colorado/",
+  },
+  {
+    title: "Best U.S. Day Spa",
+    publication: "The Zoe Report",
+    year: "2026",
+    description:
+      "Named Best U.S. Day Spa in TZR's 2026 Readers' Choice Awards, recognized for redefining what it means to unwind with next-generation wellness.",
+    image: "/assets/tzr.png",
+    link: "https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa",
+  },
+];
+
+const PRESS = [
+  {
+    title: "A Demographic-Built Wellness Spa",
+    publication: "Salon Today — Modern Spa & Wellness",
+    date: "Fall 2025",
+    description:
+      "A two-page editorial spotlighting Sway's Gen Z-focused wellness model, franchise roots, and blend of innovative technology with spa design.",
+    image: "/assets/salontoday.png",
+    link: "https://www.bluetoad.com/publication/?i=854210&p=8&view=issueViewer",
+  },
+  {
+    title: "AI, Robot Massages & More at Sway",
+    publication: "The Denver Post",
+    date: "March 2025",
+    description:
+      "A feature on Sway's flagship opening in Larimer Square, highlighting AI-powered robotic massage, facials, and next-gen treatments.",
+    image: "/assets/post.png",
+    link: "https://www.denverpost.com/2025/03/08/wellness-club-sway-larimer-square-ai-robot-massage/",
+  },
+  {
+    title: "Built by Gen Z, for Gen Z",
+    publication: "Athletech News",
+    date: "2025",
+    description:
+      "How Sway blends AI, community, and modern wellness design to create a Gen Z-focused club redefining self-care.",
+    image: "/assets/athletech2.jpg",
+    link: "https://athletechnews.com/built-by-gen-z-for-gen-z-sway-redefines-the-wellness-club/",
+  },
+  {
+    title: "Revolutionary Wellness Club Coming to Larimer Square",
+    publication: "Mile High CRE",
+    date: "2024",
+    description:
+      "An inside look at Sway's design, construction, and concept development — spotlighting the membership model and tech-forward experience.",
+    image: "/assets/cre.jpg",
+    link: "https://milehighcre.com/revolutionary-wellness-club-coming-to-larimer-square/",
+  },
+  {
+    title: "Wellness Club Opening in Denver's Larimer Square",
+    publication: "Denver Business Journal",
+    date: "November 2024",
+    description:
+      "A business-focused overview of Sway's expansion into Larimer Square as Spavia's newest concept for urban consumers.",
+    image: "/assets/dbj.jpg",
+    link: "https://www.bizjournals.com/denver/news/2024/11/20/wellness-club-opening-in-denvers-larimer-square.html",
+  },
+  {
+    title: "I Tried Colorado's First Robot Massage",
+    publication: "5280 Magazine",
+    date: "2025",
+    description:
+      "A first-hand review of Colorado's only robot-powered massage — available exclusively at Sway — exploring how Aescape transforms the experience.",
+    image: "/assets/5280.jpg",
+    link: "https://www.5280.com/i-tried-colorados-first-robot-massage/",
+  },
+  {
+    title: "Robots Rethink Self-Care",
+    publication: "Yoga+Life",
+    date: "2025",
+    description:
+      "How Sway's high-tech, youth-driven approach — including robotic massage — reimagines self-care for the modern wellness guest.",
+    image: "/assets/yoga.jpg",
+    link: "https://yogalifelive.com/this-new-denver-wellness-club-is-using-robots-to-rethink-self-care/",
+  },
+];
+
+/* ---------- COMPONENT ---------- */
 
 export default function PressContent() {
-  const pressItems = [
-    {
-      title: "USA Today 10Best",
-      description:
-        "Sway Wellness Spa was voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards — recognized alongside the top spas in the country.",
-      image: "/assets/usa_today.png",
-      link: "https://10best.usatoday.com/awards/sway-denver-colorado/",
-    },
-    {
-      title: "The Zoe Report",
-      description:
-        "Sway was named a top U.S. day spa in TZR’s 2026 Readers’ Choice Awards, recognized for redefining what it means to unwind with next-generation wellness experiences.",
-      image: "/assets/tzr.png",
-      link: "https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa",
-    },
-    {
-      title: "Salon Today – Modern Spa & Wellness",
-      description:
-        "A two-page editorial in the Fall 2025 issue spotlighting Sway’s Gen Z-focused wellness model, franchise roots, and blend of innovative technology with spa design.",
-      image: "/assets/salontoday.png",
-      link: "https://www.bluetoad.com/publication/?i=854210&p=8&view=issueViewer",
-    },
-    {
-      title: "The Denver Post",
-      description:
-        "A feature on Sway’s flagship opening in Larimer Square, highlighting our AI-powered robotic massage, facials, and next-gen treatments built for younger generations.",
-      image: "/assets/post.png",
-      link: "https://www.denverpost.com/2025/03/08/wellness-club-sway-larimer-square-ai-robot-massage/",
-    },
-    {
-      title: "Athletech",
-      description:
-        "Athletech explores how Sway blends AI, community, and modern wellness design to create a Gen Z–focused club redefining self-care.",
-      image: "/assets/athletech2.jpg",
-      link: "https://athletechnews.com/built-by-gen-z-for-gen-z-sway-redefines-the-wellness-club/",
-    },
-    {
-      title: "Mile High CRE",
-      description:
-        "An inside look at Sway’s design, construction, and concept development — spotlighting how our membership model and technology redefine the spa experience.",
-      image: "/assets/cre.jpg",
-      link: "https://milehighcre.com/revolutionary-wellness-club-coming-to-larimer-square/",
-    },
-    {
-      title: "Denver Business Journal",
-      description:
-        "A business-focused overview of Sway’s expansion into Larimer Square as Spavia’s newest concept, offering an innovative wellness experience for Gen Z and urban consumers.",
-      image: "/assets/dbj.jpg",
-      link: "https://www.bizjournals.com/denver/news/2024/11/20/wellness-club-opening-in-denvers-larimer-square.html",
-    },
-    {
-      title: "5280 Magazine",
-      description:
-        "5280’s first-hand review of Colorado’s only robot-powered massage—available exclusively at Sway—exploring how Aescape transforms the traditional massage experience.",
-      image: "/assets/5280.jpg",
-      link: "https://www.5280.com/i-tried-colorados-first-robot-massage/",
-    },
-    {
-      title: "Yoga+Life",
-      description:
-        "Yoga+Life examines how Sway’s high-tech, youth-driven approach—including robotic massage—reimagines self-care for the modern wellness guest.",
-      image: "/assets/yoga.jpg",
-      link: "https://yogalifelive.com/this-new-denver-wellness-club-is-using-robots-to-rethink-self-care/",
-    },
-  ];
-
   return (
-    <div className="bg-[#F7F4E9] min-h-screen flex flex-col items-center justify-start text-black font-vance">
-      {/* Top Banner */}
-      <div className="w-full bg-[#113D33] text-white py-24 flex justify-center items-center">
-        <h1 className="text-4xl md:text-6xl font-bold">In The Press</h1>
-      </div>
-
-      {/* Press Cards */}
-      <div className="w-full max-w-7xl px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12">
-        {pressItems.map((item, index) => (
-          <Link
-            key={index}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center group"
+    <div className="w-full bg-[#F7F4E9] font-vance text-[#113D33]">
+      {/* ---------- HERO ---------- */}
+      <section className="bg-[#113D33] text-white px-6 pt-28 pb-16 md:pt-40 md:pb-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: -14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-6xl font-light tracking-tight"
           >
-            <Image
-              src={item.image}
-              alt={item.title}
-              width={350}
-              height={350}
-              className="rounded-xl object-cover transition duration-300 group-hover:scale-105"
-            />
-            <h2 className="text-xl md:text-2xl font-bold mt-6 text-center">
-              {item.title}
-            </h2>
-            <p className="text-md md:text-lg font-medium mt-2 text-center opacity-80">
-              {item.description}
-            </p>
-          </Link>
-        ))}
-      </div>
+            In the Press
+          </motion.h1>
+
+          <p className="sr-only">
+            Sway Wellness Spa has been featured in USA Today 10Best, The Zoe
+            Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life,
+            Salon Today, Denver Business Journal, and Mile High CRE. Awards
+            include #4 Best Day Spa in America (USA Today 10Best 2025) and Best
+            U.S. Day Spa (TZR Readers&apos; Choice 2026). Located at 1428 Larimer
+            St. on Larimer Square in Denver, CO. Book at swaywellnessspa.com or
+            call (303) 476-6150.
+          </p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-4 text-base md:text-lg opacity-80 max-w-2xl mx-auto"
+          >
+            Featured in 9 major publications. Two national awards in our first
+            year. See what the press is saying about Sway.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ---------- AWARDS ---------- */}
+      <section className="px-6 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">
+            Awards
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {AWARDS.map((award, i) => (
+              <motion.a
+                key={award.title}
+                href={award.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="group relative rounded-2xl border-2 border-[#113D33]/15 bg-white overflow-hidden hover:border-[#113D33]/30 hover:shadow-lg transition-all"
+              >
+                <div className="p-8 md:p-10 flex flex-col items-center text-center">
+                  <div className="relative w-[200px] h-[120px] mb-6">
+                    <Image
+                      src={award.image}
+                      alt={award.publication}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+
+                  <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/50 font-semibold">
+                    {award.publication} — {award.year}
+                  </div>
+
+                  <h3 className="mt-2 text-xl md:text-2xl font-semibold">
+                    {award.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm opacity-70 max-w-md leading-relaxed">
+                    {award.description}
+                  </p>
+
+                  <span className="mt-5 inline-flex items-center text-sm font-bold text-[#113D33] group-hover:underline">
+                    Read more
+                    <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- AS FEATURED IN ---------- */}
+      <section className="bg-white px-6 py-12 md:py-16">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#113D33]/40 font-semibold mb-8">
+            As Featured In
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">
+            {[
+              { name: "USA Today", w: 120 },
+              { name: "The Zoe Report", w: 110 },
+              { name: "Denver Post", w: 120 },
+              { name: "5280", w: 60 },
+              { name: "Athletech", w: 100 },
+              { name: "Salon Today", w: 100 },
+              { name: "Denver Business Journal", w: 100 },
+              { name: "Yoga+Life", w: 80 },
+              { name: "Mile High CRE", w: 100 },
+            ].map((pub) => (
+              <span
+                key={pub.name}
+                className="text-sm md:text-base font-semibold text-[#113D33] whitespace-nowrap"
+              >
+                {pub.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- PRESS COVERAGE ---------- */}
+      <section className="px-6 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">
+            Press Coverage
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {PRESS.map((item, i) => (
+              <motion.a
+                key={item.title}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (i % 2) * 0.1 }}
+                className="group flex gap-5 rounded-2xl border border-[#113D33]/10 bg-white p-5 hover:border-[#113D33]/25 hover:shadow-md transition-all"
+              >
+                <div className="relative shrink-0 w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-xl overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.publication}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="text-[11px] uppercase tracking-wider text-[#113D33]/45 font-semibold">
+                    {item.publication} — {item.date}
+                  </div>
+                  <h3 className="mt-1 text-base md:text-lg font-semibold leading-snug group-hover:underline underline-offset-4">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm opacity-65 leading-relaxed line-clamp-2">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- PRESS INQUIRIES ---------- */}
+      <section className="bg-[#113D33] text-white px-6 py-16 md:py-20">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-semibold">
+            Press Inquiries
+          </h2>
+          <p className="mt-4 text-base opacity-80">
+            For media requests, interviews, or press materials, reach out to our
+            team.
+          </p>
+          <a
+            href="mailto:contact@swaywellnessspa.com"
+            className="mt-6 inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-white/90 transition-all"
+          >
+            contact@swaywellnessspa.com
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
