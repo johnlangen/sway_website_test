@@ -7,6 +7,14 @@ import { motion } from "framer-motion";
 // --- Blog Index ---
 const blogs = [
   {
+    slug: "things-to-do-in-denver-at-night",
+    title: "Best Things to Do in Denver at Night",
+    summary:
+      "14 of the best things to do in Denver at night — from Larimer Square dining and Red Rocks concerts to rooftop bars, Meow Wolf, and evening spa treatments.",
+    tag: "Denver",
+    image: "/assets/background.png",
+  },
+  {
     slug: "best-day-spa-in-america",
     title: "#4 Best Day Spa in America: Sway's First Year",
     summary:

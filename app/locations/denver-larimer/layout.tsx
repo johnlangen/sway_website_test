@@ -90,19 +90,285 @@ const localBusinessJsonLd = {
     "@type": "OfferCatalog",
     name: "Wellness Club Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Massage Therapy" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Facial Treatments" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Sauna Therapy" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cold Plunge Therapy" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Aescape Robot Massage" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "LED Light Therapy" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Compression Therapy" } },
+      {
+        "@type": "OfferCatalog",
+        name: "Massage Therapy",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Basic Massage",
+              description:
+                "A 50-minute relaxation massage focusing on full-body tension relief.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "89.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "129.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Deep Tissue Massage",
+              description:
+                "A 50-minute deep tissue massage targeting chronic tension and muscle knots.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "99.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Salt Stone Massage",
+              description:
+                "A 50-minute Himalayan salt stone massage for deep relaxation and mineral-rich detox.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "99.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Sports Massage",
+              description:
+                "A 50-minute sports massage designed for active recovery and athletic performance.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "99.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "CBD Massage",
+              description:
+                "A 50-minute massage with CBD oil for enhanced relaxation and inflammation relief.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "99.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        "@type": "OfferCatalog",
+        name: "Facial Treatments",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Express Facial",
+              description:
+                "A 30-minute express facial for a quick refresh and glow.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "89.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "129.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Forever Young Facial",
+              description:
+                "A 50-minute anti-aging facial with advanced techniques for skin rejuvenation.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "99.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "HydraFacial",
+              description:
+                "A 50-minute HydraFacial for deep cleansing, hydration, and radiant skin.",
+            },
+            priceSpecification: [
+              {
+                "@type": "UnitPriceSpecification",
+                price: "99.00",
+                priceCurrency: "USD",
+                name: "Member",
+              },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        "@type": "OfferCatalog",
+        name: "Aescape Robot Massage",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Aescape 15-Minute Express",
+              description:
+                "A 15-minute AI-powered autonomous robot massage session.",
+            },
+            price: "49.00",
+            priceCurrency: "USD",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Aescape 30-Minute Full Body",
+              description:
+                "A 30-minute AI-powered full-body robot massage with real-time muscle mapping.",
+            },
+            price: "69.00",
+            priceCurrency: "USD",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Aescape 60-Minute Full Body",
+              description:
+                "A 60-minute AI-powered full-body robot massage with personalized pressure zones.",
+            },
+            price: "139.00",
+            priceCurrency: "USD",
+          },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Remedy Room Recovery Circuit",
+          description:
+            "A guided 40-minute recovery circuit combining infrared sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+        },
+        priceSpecification: [
+          {
+            "@type": "UnitPriceSpecification",
+            price: "25.00",
+            priceCurrency: "USD",
+            name: "Member",
+          },
+          {
+            "@type": "UnitPriceSpecification",
+            price: "49.00",
+            priceCurrency: "USD",
+            name: "Drop-In",
+          },
+        ],
+      },
     ],
   },
   sameAs: [
     "https://www.instagram.com/swaywellnessclub/",
     "https://www.facebook.com/swaywellnessspa",
   ],
+  potentialAction: {
+    "@type": "ReserveAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://swaywellnessspa.com/locations/denver-larimer/book",
+      actionPlatform: [
+        "http://schema.org/DesktopWebPlatform",
+        "http://schema.org/MobileWebPlatform",
+      ],
+    },
+    result: {
+      "@type": "Reservation",
+      name: "Sway Wellness Spa Appointment",
+    },
+  },
 };
 
 const faqJsonLd = {
@@ -193,6 +459,59 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Visit Sway Wellness Spa on Larimer Square",
+  description:
+    "A step-by-step guide to your visit at Sway Wellness Spa in downtown Denver — from booking to parking to your treatment and beyond.",
+  totalTime: "PT90M",
+  estimatedCost: {
+    "@type": "MonetaryAmount",
+    currency: "USD",
+    value: "89",
+  },
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Book Your Appointment",
+      text: "Book online at swaywellnessspa.com, by phone at (303) 476-6150, or walk in. Choose from massage, facials, Aescape robot massage, or the Remedy Room recovery circuit. Walk-ins are welcome, but booking ahead is recommended during evenings and weekends.",
+      url: "https://swaywellnessspa.com/locations/denver-larimer/book",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Park at the Larimer Square Garage",
+      text: "Park at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). Sway validates your first hour of parking. After the first hour, the rate is $2 every 10 minutes.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Arrive 15 Minutes Early",
+      text: "Arrive about 15 minutes before your treatment to check in and settle in. Enjoy complimentary lemon water or our signature wellness tea in the lounge. Members have a dedicated lounge with lockers, spa robes, sandals, warm aromatherapy neck pillows, and snacks.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Enjoy Your Treatment",
+      text: "Your therapist or esthetician will guide your session. Massages and facials are 50 minutes. The Remedy Room is a guided 40-minute recovery circuit through infrared sauna, cold plunge, Normatec compression, and LED light therapy. Aescape robot massage sessions range from 15 to 60 minutes.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "Add a Boost (Optional)",
+      text: "Enhance your treatment with a boost add-on — options include LED light therapy, microcurrent, oxygen infusion, scalp massage, and more. Members save 50% on all boosts.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 6,
+      name: "Wrap Up and Explore Larimer Square",
+      text: "After your treatment, browse the Sway Shop for curated skincare and wellness products. Then step outside onto Larimer Square — Denver's best dining and cocktails are steps away. Book your next visit on the way out or online anytime.",
+    },
+  ],
+};
+
 export default function DenverLarimerLayout({
   children,
 }: {
@@ -211,6 +530,10 @@ export default function DenverLarimerLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
       {children}
     </>
