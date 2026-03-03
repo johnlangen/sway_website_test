@@ -4,20 +4,23 @@ import { useEffect, useRef, useState } from "react";
 
 export default function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoFailed, setVideoFailed] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Attempt autoplay — if browser blocks it (Safari Low Power Mode,
-    // iOS data saver, etc.) hide the <video> so the poster <img> shows
-    // through cleanly with no play button.
+    // Attempt autoplay — only reveal the video once it's actually playing.
+    // Keeps it invisible (behind poster) until confirmed, eliminating the
+    // brief play-button flash on Safari Low Power Mode / iOS.
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        setVideoFailed(true);
-      });
+      playPromise
+        .then(() => setVideoReady(true))
+        .catch(() => {
+          // Autoplay blocked — remove video from DOM entirely
+          video.remove();
+        });
     }
   }, []);
 
@@ -32,21 +35,21 @@ export default function VideoBackground() {
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
 
-      {/* Background Video — hidden entirely when autoplay fails
-          so no play button appears over the poster image */}
-      {!videoFailed && (
-        <video
-          ref={videoRef}
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/assets/background.jpg"
-        >
-          <source src="/assets/background2.mp4" type="video/mp4" />
-        </video>
-      )}
+      {/* Background Video — starts invisible, fades in only after
+          autoplay succeeds. Removed from DOM if autoplay fails. */}
+      <video
+        ref={videoRef}
+        className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+          videoReady ? "opacity-100" : "opacity-0"
+        }`}
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/assets/background.jpg"
+      >
+        <source src="/assets/background2.mp4" type="video/mp4" />
+      </video>
 
       {/* Dark Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20 z-10" />
