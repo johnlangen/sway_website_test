@@ -32,14 +32,14 @@ export default function VideoBackground() {
         src="/assets/background.jpg"
         alt=""
         fetchPriority="high"
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover object-[35%_center] md:object-center"
       />
 
       {/* Background Video — starts invisible, fades in only after
           autoplay succeeds. Removed from DOM if autoplay fails. */}
       <video
         ref={videoRef}
-        className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+        className={`absolute top-0 left-0 w-full h-full object-cover object-[35%_center] md:object-center transition-opacity duration-500 ${
           videoReady ? "opacity-100" : "opacity-0"
         }`}
         autoPlay
