@@ -1,32 +1,32 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Memberships | Sway Georgetown (Coming Soon)",
+  title: "Spa Memberships Georgetown DC | Sway Wellness Club",
   description:
-    "Sway Georgetown memberships are coming soon. Stay tuned for exclusive Spa Club, Remedy Room, and Aescape Robot Massage memberships in Washington, DC.",
+    "Sway Georgetown spa memberships starting at $89/month. Spa Club and Remedy Room tiers with massage, facials, sauna, cold plunge, and recovery. Washington, DC location coming soon.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/georgetown/membership",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/georgetown/membership",
-    title: "Memberships | Sway Georgetown (Coming Soon)",
+    title: "Spa Memberships Georgetown DC | Sway Wellness Club",
     description:
-      "Sway Georgetown memberships are coming soon. Founding Member Spa Club, Remedy Room, and Aescape Robot Massage perks will be available in Washington, DC.",
+      "Founding Member pricing from $89/month. Spa Club and Remedy Room memberships at Sway Georgetown in Washington, DC.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Georgetown Memberships Coming Soon",
+        alt: "Sway Georgetown Spa Memberships",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Memberships | Sway Georgetown (Coming Soon)",
+    title: "Spa Memberships Georgetown DC | Sway Wellness Club",
     description:
-      "Sway Georgetown memberships are coming soon. Stay tuned for exclusive Spa Club, Remedy Room, and Aescape Robot Massage memberships in Washington, DC.",
+      "Founding Member pricing from $89/month. Spa Club and Remedy Room memberships at Sway Georgetown. Washington, DC location coming soon.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
   robots: { index: true, follow: true },

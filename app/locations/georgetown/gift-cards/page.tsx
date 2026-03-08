@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Sway Georgetown is coming soon. Spa gift cards for facials, massage, and Remedy Room recovery will be available once we open in Washington, DC.",
     images: ["/assets/OG/og-gift-cards.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {

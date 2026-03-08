@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
     images: ["/assets/OG/og-gift-cards.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {

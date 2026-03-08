@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Sway Georgetown is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here — check back soon!",
   alternates: {
-    canonical: "/locations/georgetown/offers/",
+    canonical: "https://swaywellnessspa.com/locations/georgetown/offers",
   },
   openGraph: {
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Discover exclusive Founding Member perks and launch specials at Sway Georgetown, opening soon.",
     images: ["/assets/OG/og-offers.jpg"],
   },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {

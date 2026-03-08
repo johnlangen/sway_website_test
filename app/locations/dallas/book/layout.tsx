@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       "Sway Dallas booking is not open yet. Explore treatments and learn more about our upcoming Dallas location.",
     images: ["/assets/OG/og-book-now.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function DallasBookLayout({

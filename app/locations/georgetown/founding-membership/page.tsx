@@ -199,9 +199,9 @@ const treatments = [
 
 const faqs = [
   {
-    question: "When does Sway Dallas open?",
+    question: "When does Sway Georgetown open?",
     answer:
-      "We're opening at 2323 Henderson Ave in the Knox/Henderson neighborhood. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
+      "We're opening in the Georgetown neighborhood of Washington, DC. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
   },
   {
     question: "Do I get charged before you open?",
@@ -245,27 +245,27 @@ const schema = {
         {
           "@type": "ListItem",
           position: 3,
-          name: "Dallas",
-          item: "https://swaywellnessspa.com/locations/dallas",
+          name: "Georgetown",
+          item: "https://swaywellnessspa.com/locations/georgetown",
         },
         {
           "@type": "ListItem",
           position: 4,
           name: "Founding Membership",
-          item: "https://swaywellnessspa.com/locations/dallas/founding-membership",
+          item: "https://swaywellnessspa.com/locations/georgetown/founding-membership",
         },
       ],
     },
     {
       "@type": "Product",
-      name: "Sway Dallas Founding Membership",
+      name: "Sway Georgetown Founding Membership",
       description:
-        "Founding member membership for Sway Dallas wellness spa in Knox/Henderson. Start at $89/month with exclusive perks.",
+        "Founding member membership for Sway Georgetown wellness spa in Washington, DC. Start at $89/month with exclusive perks.",
       image: "/assets/OG/og-join-the-club.jpg",
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       offers: {
         "@type": "Offer",
-        url: "https://swaywellnessspa.com/locations/dallas/founding-membership",
+        url: "https://swaywellnessspa.com/locations/georgetown/founding-membership",
         availability: "https://schema.org/PreOrder",
         priceCurrency: "USD",
         price: "89",
@@ -296,7 +296,7 @@ const fadeUp = {
    COMPONENT
 ------------------------------------------------------------------ */
 
-export default function DallasFoundingMembershipPage() {
+export default function GeorgetownFoundingMembershipPage() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [expandedTreatment, setExpandedTreatment] = useState<number | null>(
     null
@@ -335,7 +335,6 @@ export default function DallasFoundingMembershipPage() {
   const spotsCounter = useAnimatedCounter(100);
   const reviewCounter = useAnimatedCounter(111);
 
-  // TODO: Replace with Mindbody CC + account creation flow
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("submitting");
@@ -345,7 +344,7 @@ export default function DallasFoundingMembershipPage() {
       const res = await fetch("/api/founding-member", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, location: "georgetown" }),
       });
 
       if (!res.ok) {
@@ -401,7 +400,7 @@ export default function DallasFoundingMembershipPage() {
           <source src="/assets/background2.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark overlay — neutral black, no green tint */}
+        {/* Dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80" />
 
         {/* Content */}
@@ -422,7 +421,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm md:text-base uppercase tracking-[0.2em] text-white/70 mb-5"
           >
-            Knox/Henderson — Dallas, TX
+            Georgetown — Washington, DC
           </motion.p>
 
           <motion.h1
@@ -431,7 +430,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-[1.05] text-white"
           >
-            Dallas, Meet Sway.
+            DC, Meet Sway.
           </motion.h1>
 
           <motion.p
@@ -464,7 +463,6 @@ export default function DallasFoundingMembershipPage() {
           </motion.div>
         </div>
 
-        {/* Clean bottom edge — soft shadow instead of gradient blend */}
         <div className="absolute -bottom-px left-0 right-0 h-1 bg-[#F7F4E9] z-10" />
       </section>
 
@@ -550,7 +548,7 @@ export default function DallasFoundingMembershipPage() {
           </div>
 
           <p className="text-gray-500 text-sm text-center mt-8 max-w-md mx-auto">
-            Be among the first to bring Sway to Dallas.
+            Be among the first to bring Sway to Washington, DC.
           </p>
         </motion.div>
       </section>
@@ -812,7 +810,7 @@ export default function DallasFoundingMembershipPage() {
       </section>
 
       {/* ========================================================
-          SECTION 5 — WHAT'S COMING TO DALLAS (TREATMENTS)
+          SECTION 5 — WHAT'S COMING TO GEORGETOWN (TREATMENTS)
       ======================================================== */}
       <section className="bg-[#113D33] py-20 px-6">
         <div className="max-w-5xl mx-auto text-center mb-14">
@@ -822,7 +820,7 @@ export default function DallasFoundingMembershipPage() {
             viewport={{ once: true }}
             className="text-sm uppercase tracking-[0.2em] text-white/50 mb-4"
           >
-            Coming to Knox/Henderson
+            Coming to Georgetown
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -864,7 +862,6 @@ export default function DallasFoundingMembershipPage() {
                   setExpandedTreatment(isOpen ? null : i)
                 }
               >
-                {/* Image with gradient overlay and title pinned to bottom */}
                 <div className="relative h-56 md:h-64">
                   <Image
                     src={t.image}
@@ -874,7 +871,6 @@ export default function DallasFoundingMembershipPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                  {/* Title — pinned inside the image, never covered */}
                   <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
                     <p className="text-xs uppercase tracking-[0.15em] text-white/60 mb-1">
                       {t.tagline}
@@ -894,7 +890,6 @@ export default function DallasFoundingMembershipPage() {
                   </div>
                 </div>
 
-                {/* Expandable treatment list — renders BELOW the image, not overlaying */}
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
@@ -1145,7 +1140,7 @@ export default function DallasFoundingMembershipPage() {
       </section>
 
       {/* ========================================================
-          SECTION 7 — FAQ (compact, below form)
+          SECTION 7 — FAQ
       ======================================================== */}
       <section className="bg-white py-16 px-6">
         <div className="max-w-3xl mx-auto">

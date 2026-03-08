@@ -1,240 +1,294 @@
 "use client";
 
-import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ReviewBadge } from "@/app/components/GoogleReviews";
+import GoogleReviews from "@/app/components/GoogleReviews";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.6 },
+};
 
 export default function SwayDallasComingSoonPage() {
-  const loc = {
-    name: "Sway Dallas",
-    city: "Dallas",
-    state: "TX",
-    url: "https://swaywellnessspa.com/locations/dallas",
-    heroImage: "/assets/SWAY.jpg",
-    sameAs: [
-      "https://www.instagram.com/swaywelnessspa",
-      "https://www.tiktok.com/@swaywelnessspa",
-      "https://www.facebook.com/swaywelnessspa",
-    ],
-  };
-
-  // LocalBusiness JSON-LD
-  const localBizJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "DaySpa",
-    name: loc.name,
-    url: loc.url,
-    image: [`https://swaywellnessspa.com${loc.heroImage}`],
-    priceRange: "$$",
-    sameAs: loc.sameAs,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "2323 Henderson Ave",
-      addressLocality: loc.city,
-      addressRegion: loc.state,
-      postalCode: "75206",
-      addressCountry: "US",
-    },
-    areaServed: {
-      "@type": "City",
-      name: "Dallas",
-      address: { "@type": "PostalAddress", addressRegion: "TX", addressCountry: "US" },
-    },
-  };
-
-  // Breadcrumbs
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-      { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations" },
-      { "@type": "ListItem", position: 3, name: "Dallas — Coming Soon" },
-    ],
-  };
-
-  // FAQ JSON-LD
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "When is Sway Dallas opening?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "We’re coming soon to Dallas. Final opening date will be announced here.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Where in Dallas will Sway be located?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sway Dallas will be located at 2323 Henderson Ave, Dallas, TX.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I join as a founding member now?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Founding Member details will be shared closer to opening.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Will gift cards purchased now work in Dallas?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sway gift cards are valid at participating Sway locations. Dallas redemption begins when we open.",
-        },
-      },
-    ],
-  };
-
   return (
     <main className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
-      <Head>
-        <title>Sway Dallas – Coming Soon | Wellness Club in Dallas, TX</title>
-        <meta
-          name="description"
-          content="Sway Wellness Spa is coming to Dallas, TX. Targeted facials, deeply effective massage, and the Remedy Room—launch details coming soon."
-        />
-        <link rel="canonical" href={loc.url} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Sway Dallas – Coming Soon | Wellness Club in Dallas, TX" />
-        <meta
-          property="og:description"
-          content="Monthly rituals and science-backed recovery—coming soon to Dallas, TX."
-        />
-        <meta property="og:url" content={loc.url} />
-        <meta property="og:image" content={`https://swaywellnessspa.com${loc.heroImage}`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sway Dallas – Coming Soon | Wellness Club in Dallas, TX" />
-        <meta
-          name="twitter:description"
-          content="Facials, massage, and the Remedy Room—Dallas opening details coming soon."
-        />
-        <meta name="twitter:image" content={`https://swaywellnessspa.com${loc.heroImage}`} />
-
-        {/* Structured data */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBizJsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      </Head>
-
-      {/* Hero / Header */}
-      <section className="px-6 pt-28 md:pt-36 pb-8">
+      {/* ====== HERO ====== */}
+      <section className="px-6 pt-28 md:pt-36 pb-12">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-          <div>
+          <motion.div {...fadeUp}>
             <h1 className="text-3xl md:text-5xl font-bold">Sway Dallas</h1>
             <div className="mt-3 text-lg">
-              <div>2323 Henderson Ave, Dallas, TX</div>
-
-              <div className="mt-3">
+              <div>2323 Henderson Ave, Dallas, TX 75206</div>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
                 <span
                   className="inline-block rounded-full px-3 py-1 text-sm shadow"
                   style={{ backgroundColor: "#113D33", color: "#b6cfbf" }}
                 >
                   Coming Soon
                 </span>
+                <ReviewBadge />
               </div>
 
-              {/* Intro */}
               <p className="mt-4 max-w-xl leading-relaxed">
-                <strong>Sway Dallas</strong> is on the way. We’re bringing targeted facials,
-                deeply effective massage, and the <strong>Remedy Room</strong> (cold plunge, sauna, LED)
-                to one of Texas’s most vibrant cities.
+                <strong>Sway Dallas</strong> is bringing our award-winning wellness experience to
+                the Knox/Henderson neighborhood. Expect targeted facials, deeply effective massage,
+                and the <strong>Remedy Room</strong> recovery circuit with infrared sauna, cold
+                plunge, Normatec compression, and LED light therapy. Lock in founding member pricing
+                starting at <strong>$89/month</strong> before we open.
               </p>
             </div>
 
-            {/* Single CTA: Treatments only */}
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
+                href="/locations/dallas/founding-membership"
+                className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-full hover:opacity-90 transition"
+              >
+                Become a Founding Member
+              </Link>
+              <Link
                 href="/treatments"
-                className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-full hover:opacity-90"
+                className="inline-block border border-[#113D33] text-[#113D33] px-5 py-3 rounded-full hover:bg-[#113D33]/5 transition"
               >
                 Explore Treatments
               </Link>
             </div>
+          </motion.div>
 
-            {/* Services links */}
-            <div className="mt-6 text-sm">
-              <h3 className="text-base font-bold mb-2">What’s coming to Sway Dallas</h3>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>
-                  <Link href="/facials" className="underline">
-                    Targeted Facials
-                  </Link>{" "}
-                  (Pore Perfection, Forever Young, Vitamin C)
-                </li>
-                <li>
-                  <Link href="/massages" className="underline">
-                    Massage
-                  </Link>{" "}
-                  (Deep Tissue, Sports, CBD, Salt Stone)
-                </li>
-                <li>
-                  <Link href="/remedy-tech" className="underline">
-                    The Remedy Room
-                  </Link>{" "}
-                  (cold plunge, sauna, LED, lymphatic, compression)
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Hero image */}
-          <div className="rounded-2xl overflow-hidden shadow border border-black/5 bg-white">
+          <motion.div
+            className="rounded-2xl overflow-hidden shadow border border-black/5 bg-white"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={loc.heroImage}
-              alt="Sway Dallas coming soon — wellness club concept"
+              src="/assets/SWAY.jpg"
+              alt="Sway Dallas coming soon — wellness spa in Knox/Henderson"
               className="w-full h-[320px] md:h-[420px] object-cover"
             />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ====== SERVICES PREVIEW ====== */}
+      <section className="px-6 py-16 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2 {...fadeUp} className="text-2xl md:text-3xl font-bold text-center mb-10">
+            What&apos;s Coming to Sway Dallas
+          </motion.h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Massage Therapy",
+                desc: "Deep tissue, sports recovery, CBD, and Himalayan salt stone massage. 50 or 80-minute sessions with customizable pressure and add-on boosts like hot stones and cupping.",
+                href: "/massages",
+                price: "From $99",
+              },
+              {
+                title: "Targeted Facials",
+                desc: "Results-driven facials including Pore Perfection, Forever Young anti-aging, Glow Getter, and Vitamin C brightening treatments. Expert aestheticians with medical-grade products.",
+                href: "/facials",
+                price: "From $99",
+              },
+              {
+                title: "The Remedy Room",
+                desc: "Our signature recovery circuit: infrared sauna, cold plunge, Normatec compression boots, LED light therapy, and lymphatic drainage. Perfect for athletes and anyone recovering from daily stress.",
+                href: "/remedy-tech",
+                price: "From $49",
+              },
+            ].map((svc) => (
+              <motion.div
+                key={svc.title}
+                {...fadeUp}
+                className="bg-[#F7F4E9] rounded-2xl p-6 border border-[#113D33]/10"
+              >
+                <h3 className="text-lg font-bold mb-2">{svc.title}</h3>
+                <p className="text-sm leading-relaxed opacity-80 mb-3">{svc.desc}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold opacity-60">{svc.price}</span>
+                  <Link
+                    href={svc.href}
+                    className="text-sm text-[#4A776D] font-semibold hover:underline"
+                  >
+                    Learn more &rarr;
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p {...fadeUp} className="text-center text-sm opacity-60 mt-6">
+            Member pricing available. Founding members start at $89/month.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* ====== MEMBERSHIP PREVIEW ====== */}
+      <section className="px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <motion.div {...fadeUp} className="bg-white rounded-2xl p-8 md:p-10 shadow text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Founding Member Pricing</h2>
+            <p className="text-lg mb-2">
+              Lock in <strong>$89/month</strong> before Sway Dallas opens.
+            </p>
+            <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
+              Founding members get priority booking, VIP opening-day perks, and a guaranteed rate
+              that never increases. Two tiers available: Spa Club (monthly massage or facial) and
+              Remedy Room (unlimited recovery circuit access).
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-6 text-left max-w-lg mx-auto">
+              <div className="bg-[#F7F4E9] rounded-xl p-4">
+                <h3 className="font-bold text-sm mb-1">Spa Club</h3>
+                <p className="text-xs opacity-70">1 massage or facial per month + member discounts on add-ons and retail</p>
+              </div>
+              <div className="bg-[#F7F4E9] rounded-xl p-4">
+                <h3 className="font-bold text-sm mb-1">Remedy Room</h3>
+                <p className="text-xs opacity-70">Unlimited sauna, cold plunge, compression, LED, and recovery sessions</p>
+              </div>
+            </div>
+
+            <Link
+              href="/locations/dallas/founding-membership"
+              className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-full hover:opacity-90 transition font-semibold"
+            >
+              Become a Founding Member
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ====== DENVER SOCIAL PROOF ====== */}
+      <section className="px-6 py-16 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <motion.p {...fadeUp} className="text-center text-sm opacity-50 mb-2">
+            From our Denver flagship
+          </motion.p>
+          <GoogleReviews />
+        </div>
+      </section>
+
+      {/* ====== NEIGHBORHOOD ====== */}
+      <section className="px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <motion.div {...fadeUp}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Knox/Henderson: The Perfect Fit</h2>
+            <p className="leading-relaxed mb-4">
+              Sway Dallas will be located at 2323 Henderson Ave in the heart of Knox/Henderson, one
+              of Dallas&apos;s most walkable dining and lifestyle districts. Nestled between Highland
+              Park, Uptown, and Lower Greenville, the neighborhood is known for its boutique
+              shopping, locally owned restaurants, and fitness studios. Whether you&apos;re
+              recovering from a workout at a nearby gym or winding down after a long week, Sway fits
+              right into the Knox/Henderson lifestyle.
+            </p>
+            <p className="leading-relaxed">
+              We chose Knox/Henderson because it reflects what Sway is all about: a community that
+              values wellness, quality, and taking time to recharge. Easily accessible from Lakewood,
+              Oak Lawn, Deep Ellum, and the Park Cities, Sway Dallas will be the neighborhood spa
+              that Knox/Henderson deserves.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ====== EXPANDED FAQ ====== */}
+      <section className="px-6 py-16 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <motion.h2 {...fadeUp} className="text-2xl md:text-3xl font-bold text-center mb-8">
+            Frequently Asked Questions
+          </motion.h2>
+
+          <div className="space-y-3">
+            {[
+              {
+                q: "When is Sway Dallas opening?",
+                a: "We're coming soon to Knox/Henderson at 2323 Henderson Ave, Dallas, TX. The exact opening date will be announced here. Sign up as a Founding Member to get notified first and receive exclusive opening-day perks.",
+              },
+              {
+                q: "Where in Dallas will Sway be located?",
+                a: "Sway Dallas will be at 2323 Henderson Ave in the Knox/Henderson neighborhood, easily accessible from Highland Park, Uptown, Lower Greenville, Lakewood, and the Park Cities.",
+              },
+              {
+                q: "What treatments will Sway Dallas offer?",
+                a: "Sway Dallas will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (infrared sauna, cold plunge, Normatec compression, LED light therapy, lymphatic drainage).",
+              },
+              {
+                q: "Does Sway Dallas have a sauna and cold plunge?",
+                a: "Yes. The Remedy Room at Sway Dallas will feature an infrared sauna and cold plunge pool, along with Normatec compression boots, LED light therapy panels, and a lymphatic drainage mat. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+              },
+              {
+                q: "How much are Sway Dallas memberships?",
+                a: "Founding Member pricing starts at $89/month. Two membership tiers will be available: Spa Club (one massage or facial per month plus member discounts) and Remedy Room (unlimited recovery circuit access). Founding rates are locked in and will not increase.",
+              },
+              {
+                q: "Can I become a founding member now?",
+                a: "Yes. Visit our Founding Membership page to lock in $89/month pricing before Sway Dallas opens. Founding members get priority booking, VIP perks on opening day, and a guaranteed rate for the life of their membership.",
+              },
+              {
+                q: "Are Sway gift cards valid at the Dallas location?",
+                a: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Dallas once we open.",
+              },
+            ].map((faq, i) => (
+              <motion.details
+                key={i}
+                {...fadeUp}
+                className="bg-[#F7F4E9] rounded-xl p-4 group"
+              >
+                <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
+                  {faq.q}
+                  <span className="text-lg group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed opacity-80">{faq.a}</p>
+              </motion.details>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Details */}
-      <section className="px-6 pb-20">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-2xl p-6 shadow">
-            <h2 className="text-xl font-bold mb-3">Opening Plans</h2>
-            <p className="text-sm">
-              Sway Dallas is coming to 2323 Henderson Ave. Opening date will be announced here. Follow along as we get closer to welcoming our
-              first guests in Dallas.
-            </p>
+      {/* ====== CROSS LINKS ====== */}
+      <section className="px-6 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-sm opacity-60 mb-3">Explore other Sway locations</p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/locations/denver-larimer"
+              className="text-sm text-[#4A776D] font-semibold hover:underline"
+            >
+              Denver Larimer (Now Open) &rarr;
+            </Link>
+            <Link
+              href="/locations/georgetown"
+              className="text-sm text-[#4A776D] font-semibold hover:underline"
+            >
+              Georgetown, DC (Coming Soon) &rarr;
+            </Link>
           </div>
+        </div>
+      </section>
 
-          {/* FAQs */}
-          <div className="bg-white rounded-2xl p-6 shadow md:col-span-2">
-            <h2 className="text-xl font-bold mb-4">FAQs</h2>
-            <details className="mb-3">
-              <summary className="font-semibold">When is Sway Dallas opening?</summary>
-              <p className="mt-2 text-sm">
-                We’ll share the opening date soon. Check back here for updates.
-              </p>
-            </details>
-            <details className="mb-3">
-              <summary className="font-semibold">Where will Sway Dallas be located?</summary>
-              <p className="mt-2 text-sm">
-                2323 Henderson Ave, Dallas, TX.
-              </p>
-            </details>
-            <details className="mb-3">
-              <summary className="font-semibold">Can I become a founding member now?</summary>
-              <p className="mt-2 text-sm">
-                Founding Member details will be posted closer to opening.
-              </p>
-            </details>
-            <details>
-              <summary className="font-semibold">Are gift cards valid in Dallas?</summary>
-              <p className="mt-2 text-sm">
-                Yes—Sway gift cards work at participating Sway locations. Dallas redemption begins when we open.
-              </p>
-            </details>
-          </div>
+      {/* ====== FINAL CTA ====== */}
+      <section className="px-6 py-16 bg-[#113D33] text-white text-center">
+        <div className="max-w-2xl mx-auto">
+          <motion.h2 {...fadeUp} className="text-2xl md:text-3xl font-bold mb-4">
+            Be First in Dallas
+          </motion.h2>
+          <motion.p {...fadeUp} className="mb-6 opacity-80">
+            Founding Member spots are limited. Lock in $89/month and get VIP access when Sway Dallas
+            opens in Knox/Henderson.
+          </motion.p>
+          <motion.div {...fadeUp}>
+            <Link
+              href="/locations/dallas/founding-membership"
+              className="inline-block bg-white text-[#113D33] px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
+            >
+              Become a Founding Member
+            </Link>
+          </motion.div>
         </div>
       </section>
     </main>

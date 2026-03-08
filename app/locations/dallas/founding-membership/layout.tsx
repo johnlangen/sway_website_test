@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       "Lock in exclusive founding member pricing and VIP perks at Sway Dallas. Limited spots available.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
-  robots: { index: false, follow: true },
+  robots: { index: true, follow: true },
 };
 
 export default function FoundingMembershipLayout({

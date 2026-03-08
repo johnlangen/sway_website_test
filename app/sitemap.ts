@@ -71,10 +71,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
      ------------------------------------------------------------------ */
   const georgetownPages = [
     { url: `${base}/locations/georgetown`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/georgetown/book`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/locations/georgetown/membership`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/georgetown/offers`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/georgetown/gift-cards`, changeFrequency: "monthly" as const, priority: 0.5 },
+    { url: `${base}/locations/georgetown/founding-membership`, changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
   /* ------------------------------------------------------------------
@@ -82,10 +80,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
      ------------------------------------------------------------------ */
   const dallasPages = [
     { url: `${base}/locations/dallas`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/dallas/book`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/locations/dallas/membership`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/dallas/offers`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/dallas/gift-cards`, changeFrequency: "monthly" as const, priority: 0.5 },
+    { url: `${base}/locations/dallas/founding-membership`, changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
   /* ------------------------------------------------------------------

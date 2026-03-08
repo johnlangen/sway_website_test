@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       "Sway Georgetown booking is not open yet. Explore treatments and learn more about our upcoming Washington, DC location.",
     images: ["/assets/OG/og-book-now.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function GeorgetownBookLayout({
