@@ -367,7 +367,7 @@ export function ClassPassBadge() {
         ))}
       </span>
       <span className="font-semibold">4.8</span>
-      <span className="opacity-60">(647 ratings)</span>
+      <span className="opacity-60">(666 ratings)</span>
       <span className="font-semibold text-[#7B44BC] ml-0.5">ClassPass</span>
     </span>
   );
