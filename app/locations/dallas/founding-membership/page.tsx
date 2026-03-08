@@ -321,8 +321,10 @@ export default function DallasFoundingMembershipPage() {
   );
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    phone: "",
     membership: "",
   });
   const [formStatus, setFormStatus] = useState<
@@ -363,7 +365,11 @@ export default function DallasFoundingMembershipPage() {
       const res = await fetch("/api/founding-member", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          location: "dallas",
+          source: "founding-membership",
+        }),
       });
 
       if (!res.ok) {
@@ -968,15 +974,14 @@ export default function DallasFoundingMembershipPage() {
             className="text-center"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4">
-              Reserve Your Founding Spot
+              Join the Waitlist
             </h2>
             <p className="text-gray-600 mb-2 max-w-lg mx-auto leading-relaxed">
-              Start at{" "}
-              <strong className="text-[#113D33]">$89/month</strong>.
-              You&apos;ll be the first to know when doors open.
+              Be the first to know when founding memberships go live.
+              Pricing and perks shown above are not yet final.
             </p>
             <p className="text-sm text-[#4A776D] mb-10">
-              No charge until we open
+              No commitment — we&apos;ll notify you when we&apos;re ready
             </p>
           </motion.div>
 
@@ -1016,25 +1021,46 @@ export default function DallasFoundingMembershipPage() {
               onSubmit={handleSubmit}
               className="max-w-md mx-auto space-y-4"
             >
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  value={formData.firstName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
+                  required
+                  className="w-full px-5 py-3.5 rounded-xl bg-white border border-[#113D33]/15 text-[#113D33] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#4A776D] focus:border-transparent transition shadow-sm"
+                />
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  value={formData.lastName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, lastName: e.target.value })
+                  }
+                  className="w-full px-5 py-3.5 rounded-xl bg-white border border-[#113D33]/15 text-[#113D33] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#4A776D] focus:border-transparent transition shadow-sm"
+                />
+              </div>
+
               <input
-                type="text"
-                placeholder="Your name"
-                value={formData.name}
+                type="email"
+                placeholder="Email address"
+                value={formData.email}
                 onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
+                  setFormData({ ...formData, email: e.target.value })
                 }
                 required
                 className="w-full px-5 py-3.5 rounded-xl bg-white border border-[#113D33]/15 text-[#113D33] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#4A776D] focus:border-transparent transition shadow-sm"
               />
 
               <input
-                type="email"
-                placeholder="Your email"
-                value={formData.email}
+                type="tel"
+                placeholder="Phone (optional)"
+                value={formData.phone}
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, phone: e.target.value })
                 }
-                required
                 className="w-full px-5 py-3.5 rounded-xl bg-white border border-[#113D33]/15 text-[#113D33] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#4A776D] focus:border-transparent transition shadow-sm"
               />
 
@@ -1074,7 +1100,6 @@ export default function DallasFoundingMembershipPage() {
                 <select
                   value={formData.membership}
                   onChange={() => {}}
-                  required
                   tabIndex={-1}
                   className="absolute inset-0 opacity-0 pointer-events-none"
                   aria-hidden="true"
@@ -1147,8 +1172,8 @@ export default function DallasFoundingMembershipPage() {
                 className="w-full py-4 bg-[#113D33] text-white font-bold rounded-full uppercase hover:bg-[#0a2b23] transition text-base md:text-lg disabled:opacity-50 shadow-lg"
               >
                 {formStatus === "submitting"
-                  ? "Reserving..."
-                  : "Reserve My Founding Spot"}
+                  ? "Joining..."
+                  : "Join the Waitlist"}
               </button>
             </motion.form>
           )}
@@ -1156,7 +1181,7 @@ export default function DallasFoundingMembershipPage() {
           {/* Trust signals */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" /> No charge until we open
+              <Clock className="w-4 h-4" /> No commitment required
             </span>
             <span className="flex items-center gap-1.5">
               <Trophy className="w-4 h-4" /> #4 Day Spa in the U.S.

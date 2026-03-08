@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 import GoogleReviews from "@/app/components/GoogleReviews";
+import WaitlistForm from "@/app/components/WaitlistForm";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -58,18 +59,12 @@ export default function SwayDallasComingSoonPage() {
           </motion.div>
 
           <motion.div
-            className="rounded-2xl overflow-hidden shadow border border-black/5 bg-white"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/SWAY.jpg"
-              alt="Sway Dallas coming soon — wellness spa in Knox/Henderson"
-              className="w-full h-[320px] md:h-[420px] object-cover"
-            />
+            <WaitlistForm location="dallas" source="location-page" variant="compact" />
           </motion.div>
         </div>
       </section>
