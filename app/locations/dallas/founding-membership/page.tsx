@@ -297,6 +297,24 @@ const fadeUp = {
 ------------------------------------------------------------------ */
 
 export default function DallasFoundingMembershipPage() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  // Autoplay detection — fade in video only if play() succeeds,
+  // otherwise keep the poster image (Safari Low Power Mode, etc.)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setVideoReady(true))
+        .catch(() => {
+          video.remove();
+        });
+    }
+  }, []);
+
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [expandedTreatment, setExpandedTreatment] = useState<number | null>(
     null
@@ -389,9 +407,12 @@ export default function DallasFoundingMembershipPage() {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Video background */}
+        {/* Video background — invisible until autoplay confirmed, removed if blocked */}
         <video
-          className="absolute inset-0 w-full h-full object-cover"
+          ref={videoRef}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
           autoPlay
           loop
           muted
