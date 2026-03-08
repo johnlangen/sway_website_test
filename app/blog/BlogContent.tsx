@@ -9,6 +9,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const blogs = [
   {
+    slug: "salt-stone-vs-hot-stone-massage",
+    title: "Salt Stone vs Hot Stone Massage: Why Himalayan Salt Wins",
+    summary:
+      "Salt stone and hot stone massage are not the same. Learn the key differences, benefits of Himalayan salt stones, and what real Sway guests are saying.",
+    tag: "Massage",
+    image: "/assets/saltstoneblog.jpg",
+  },
+  {
     slug: "things-to-do-in-denver-at-night",
     title: "Best Things to Do in Denver at Night",
     summary:

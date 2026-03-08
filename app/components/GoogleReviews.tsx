@@ -25,6 +25,11 @@ interface CuratedReview {
 const CURATED_REVIEWS: CuratedReview[] = [
   // Page 1
   {
+    author: "Jazmine Olson",
+    text: "Got the hot stone massage with Steven and I left in a daze. I couldn\u2019t believe how much stress relief I got from one session. The space is very relaxing and Steven is superb. I immediately signed up for a membership and the member lounge has made destressing before my massage even better.",
+    date: "Mar 2026",
+  },
+  {
     author: "Kristy Wingfield",
     text: "I love being a member and coming to Sway. My facials with Bri have been not only absolutely amazing for my skin, but I also have fun with her getting them done. Steven\u2019s massages are awesome as well.",
     date: "Mar 2026",
@@ -34,12 +39,12 @@ const CURATED_REVIEWS: CuratedReview[] = [
     text: "I cannot rave about this place enough! I\u2019ve been seeing Bri for facials for a few months now and cannot believe the results. I have always struggled with acne and wish I\u2019d taken photos at the start of my journey to show the progress.",
     date: "Mar 2026",
   },
+  // Page 2
   {
     author: "Ricardo Laremont",
     text: "If you\u2019re looking for the ultimate recovery spot, Sway Wellness in Larimer Square is a total game-changer. I visited right after a trail race with legs that felt like lead, and I walked out feeling like a new person!",
     date: "Feb 2026",
   },
-  // Page 2
   {
     author: "Evan Marx",
     text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
@@ -50,12 +55,12 @@ const CURATED_REVIEWS: CuratedReview[] = [
     text: "Brianna is literally the best aesthetician I have received a treatment from. She was super gentle, knowledgeable, and fostered an extremely relaxing environment. 10/10 glow getter facial.",
     date: "Jan 2026",
   },
+  // Page 3
   {
     author: "Ian Hines-Ike",
     text: "World class massage by Steven. Seriously one of the best I\u2019ve ever had. Will absolutely be making his deep tissue massage a regular part of my routine.",
     date: "Jan 2026",
   },
-  // Page 3
   {
     author: "Jessica Matthews",
     text: "I came in for a facial with Bri \u2014 it was my first time trying Sway and I could not be happier with the results. Bri was so knowledgeable and took the time to explain everything and recommend simple fixes for my skin.",
@@ -64,11 +69,6 @@ const CURATED_REVIEWS: CuratedReview[] = [
   {
     author: "Avery Weiss",
     text: "Easily the best spa I\u2019ve ever been to. I\u2019m visiting from out of town and had a crazy 24 hour travel day and was in major need of a massage. The deep tissue massage was both relaxing and therapeutic. The Remedy Room was incredible.",
-    date: "Dec 2025",
-  },
-  {
-    author: "Destiny Abundis",
-    text: "I\u2019m obsessed with this spa! Everyone here is so kind and welcoming, and the whole place feels clean, calming, and luxurious without being pretentious. My facial was incredible \u2014 I left with glowing skin and the most relaxed feeling.",
     date: "Dec 2025",
   },
 ];

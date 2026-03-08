@@ -92,6 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Blog posts
      ------------------------------------------------------------------ */
   const blogSlugs = [
+    "salt-stone-vs-hot-stone-massage",
     "things-to-do-in-denver-at-night",
     "best-day-spa-in-america",
     "spring-reset",
