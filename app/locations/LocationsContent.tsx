@@ -145,7 +145,6 @@ export default function LocationsContent() {
   const visible = useMemo(() => filterLocations(query, LOCATIONS), [query]);
 
   const goToLocation = (loc: Location) => {
-    if (loc.status === "coming-soon") return;
     setSelectedSlug(loc.slug);
 
     try {
@@ -232,7 +231,7 @@ export default function LocationsContent() {
                 onClick={() => goToLocation(loc)}
                 className={[
                   "w-full text-left rounded-3xl p-5 md:p-6 bg-white shadow transition cursor-pointer",
-                  loc.status === "coming-soon" ? "opacity-70 cursor-not-allowed" : "hover:shadow-lg",
+                  "hover:shadow-lg",
                   selectedSlug === loc.slug ? "ring-2 ring-[#113D33]/50" : "",
                 ].join(" ")}
               >
@@ -309,9 +308,12 @@ export default function LocationsContent() {
                           View page
                         </button>
                       ) : (
-                        <span className="mt-2 inline-block text-xs md:text-sm px-2 py-1 rounded bg-gray-200 text-gray-600">
-                          Coming soon
-                        </span>
+                        <button
+                          onClick={() => goToLocation(loc)}
+                          className="mt-2 text-[#113D33] bg-gray-200 hover:bg-gray-300 rounded px-2 py-1"
+                        >
+                          View page
+                        </button>
                       )}
                     </div>
                   </Popup>
@@ -326,11 +328,8 @@ export default function LocationsContent() {
           {LOCATIONS.map((loc) => (
             <a
               key={loc.slug}
-              href={loc.status === "open" ? `/locations/${loc.slug}` : "#"}
-              className={[
-                "rounded-2xl bg-white p-4 shadow transition",
-                loc.status === "coming-soon" ? "opacity-70 pointer-events-none" : "hover:shadow-md",
-              ].join(" ")}
+              href={`/locations/${loc.slug}`}
+              className="rounded-2xl bg-white p-4 shadow transition hover:shadow-md"
             >
               <div className="text-lg font-bold">{loc.name}</div>
               <div className="opacity-80">

@@ -30,7 +30,7 @@ const locations = [
     state: "TX",
     status: "coming-soon" as const,
     image: "/assets/SWAY.jpg",
-    href: "/locations/dallas/membership",
+    href: "/locations/dallas",
   },
   {
     slug: "georgetown",
@@ -39,7 +39,7 @@ const locations = [
     state: "DC",
     status: "coming-soon" as const,
     image: "/assets/SWAY.jpg",
-    href: "/locations/georgetown/membership",
+    href: "/locations/georgetown",
   },
 ];
 
@@ -145,9 +145,12 @@ export default function MembershipHubPage() {
                 </div>
               </Link>
             ) : (
-              <div
+              <Link
                 key={loc.slug}
-                className="relative bg-white/60 text-[#113D33] rounded-2xl overflow-hidden shadow-md flex flex-col opacity-70"
+                href={loc.href}
+                className={`group relative bg-white/80 text-[#113D33] rounded-2xl overflow-hidden shadow-md transition hover:shadow-xl hover:scale-[1.02] flex flex-col ${
+                  isSelected ? "ring-2 ring-[#9ABFB3]" : ""
+                }`}
               >
                 {/* Image */}
                 <div className="relative h-40 w-full">
@@ -155,7 +158,7 @@ export default function MembershipHubPage() {
                     src={loc.image}
                     alt={loc.name}
                     fill
-                    className="object-cover grayscale"
+                    className="object-cover"
                   />
                   <div className="absolute top-3 left-3">
                     <span className="inline-block text-xs px-3 py-1 rounded-full bg-gray-200 text-gray-600 font-semibold shadow-sm">
@@ -167,12 +170,17 @@ export default function MembershipHubPage() {
                 {/* Info */}
                 <div className="p-5 flex flex-col flex-grow">
                   <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
-                  <p className="text-sm text-gray-500 flex items-center gap-1">
+                  <p className="text-sm text-gray-500 flex items-center gap-1 mb-4">
                     <MapPin className="w-3.5 h-3.5" />
                     {loc.city}, {loc.state}
                   </p>
+
+                  <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33]/80 text-white font-semibold text-sm group-hover:bg-[#113D33] transition">
+                    Learn More
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
