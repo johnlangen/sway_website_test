@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Check, ChevronDown, Phone, Clock } from "lucide-react";
+import { Check, ChevronDown, Phone } from "lucide-react";
 import GoogleReviews, {
   ReviewBadge,
   ClassPassBadge,
@@ -189,24 +189,21 @@ export default function MembershipPage() {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="bg-gradient-to-r from-[#B8860B]/20 to-[#DAA520]/15 border-b border-[#DAA520]/30 px-4 py-3 text-center mt-[72px] md:mt-[80px]"
+          className="bg-[#9ABFB3]/15 border-b border-[#9ABFB3]/25 px-4 py-3 text-center mt-[72px] md:mt-[80px]"
         >
-          <p className="text-sm md:text-base font-semibold flex items-center justify-center gap-2">
-            <Clock className="w-4 h-4 text-[#DAA520]" />
-            <span>
-              New memberships launching April 1 —{" "}
-              <span className="text-[#DAA520]">
-                {daysLeft} {daysLeft === 1 ? "day" : "days"} left
-              </span>{" "}
-              to lock in $99/month
-            </span>
+          <p className="text-sm md:text-base font-semibold">
+            New memberships launching April 1 —{" "}
+            <span className="text-[#9ABFB3]">
+              {daysLeft} {daysLeft === 1 ? "day" : "days"} left
+            </span>{" "}
+            to lock in $99/month
           </p>
         </motion.div>
       )}
 
       {/* HERO + LOCK-IN CTA */}
       <section
-        className={`px-6 ${showCountdown ? "pt-10 md:pt-14" : "pt-28 md:pt-36"} pb-6 text-center max-w-5xl mx-auto`}
+        className={`px-6 ${showCountdown ? "pt-8 md:pt-12" : "pt-28 md:pt-36"} pb-6 text-center max-w-5xl mx-auto`}
       >
         <motion.p
           initial={{ opacity: 0, y: 8 }}
