@@ -372,10 +372,7 @@ export default function MembershipPage() {
                 </p>
 
                 <p className="text-xs text-gray-500 mt-3 leading-relaxed text-center">
-                  {tier.facials.length} facial
-                  {tier.facials.length !== 1 ? "s" : ""} ·{" "}
-                  {tier.massages.length} massage
-                  {tier.massages.length !== 1 ? "s" : ""}
+                  1 facial or massage/month
                 </p>
               </motion.button>
             );
