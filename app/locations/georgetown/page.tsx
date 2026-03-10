@@ -37,8 +37,8 @@ export default function SwayGeorgetownComingSoonPage() {
                 <strong>Sway Georgetown</strong> is bringing our award-winning wellness experience to
                 Washington, DC. Expect targeted facials, deeply effective massage, and the{" "}
                 <strong>Remedy Room</strong> recovery circuit with infrared sauna, cold plunge,
-                Normatec compression, and LED light therapy. Lock in founding member pricing starting
-                at <strong>$89/month</strong> before we open.
+                Normatec compression, and LED light therapy. Join the waitlist for
+                exclusive founding member pricing before we open.
               </p>
             </div>
 
@@ -47,7 +47,7 @@ export default function SwayGeorgetownComingSoonPage() {
                 href="/locations/georgetown/founding-membership"
                 className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-full hover:opacity-90 transition"
               >
-                Become a Founding Member
+                Join the Waitlist
               </Link>
               <Link
                 href="/treatments"
@@ -118,7 +118,7 @@ export default function SwayGeorgetownComingSoonPage() {
           </div>
 
           <motion.p {...fadeUp} className="text-center text-sm opacity-60 mt-6">
-            Member pricing available. Founding members start at $89/month.
+            Member pricing available. Join the waitlist for founding member rates.
           </motion.p>
         </div>
       </section>
@@ -127,24 +127,27 @@ export default function SwayGeorgetownComingSoonPage() {
       <section className="px-6 py-16">
         <div className="max-w-4xl mx-auto">
           <motion.div {...fadeUp} className="bg-white rounded-2xl p-8 md:p-10 shadow text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Founding Member Pricing</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Membership Tiers Coming Soon</h2>
             <p className="text-lg mb-2">
-              Lock in <strong>$89/month</strong> before Sway Georgetown opens.
+              Three tiers — <strong>Essential</strong>, <strong>Premier</strong>, and <strong>Ultimate</strong>
             </p>
             <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
-              Founding members get priority booking, VIP opening-day perks, and a guaranteed rate
-              that never increases. Two tiers available: Spa Club (monthly massage or facial) and
-              Remedy Room (unlimited recovery circuit access).
+              Founding members will receive exclusive pricing and priority booking before Sway Georgetown
+              opens. Join the waitlist to be notified when founding memberships go live.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-4 mb-6 text-left max-w-lg mx-auto">
+            <div className="grid sm:grid-cols-3 gap-4 mb-6 text-left max-w-xl mx-auto">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
-                <h3 className="font-bold text-sm mb-1">Spa Club</h3>
-                <p className="text-xs opacity-70">1 massage or facial per month + member discounts on add-ons and retail</p>
+                <h3 className="font-bold text-sm mb-1">Essential</h3>
+                <p className="text-xs opacity-70">Signature 50-minute facials and massages</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
-                <h3 className="font-bold text-sm mb-1">Remedy Room</h3>
-                <p className="text-xs opacity-70">Unlimited sauna, cold plunge, compression, LED, and recovery sessions</p>
+                <h3 className="font-bold text-sm mb-1">Premier</h3>
+                <p className="text-xs opacity-70">Enhanced products, techniques, and extended durations</p>
+              </div>
+              <div className="bg-[#F7F4E9] rounded-xl p-4">
+                <h3 className="font-bold text-sm mb-1">Ultimate</h3>
+                <p className="text-xs opacity-70">Tech-enhanced LED, microcurrent, and oxygen infusion</p>
               </div>
             </div>
 
@@ -152,7 +155,7 @@ export default function SwayGeorgetownComingSoonPage() {
               href="/locations/georgetown/founding-membership"
               className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-full hover:opacity-90 transition font-semibold"
             >
-              Become a Founding Member
+              Join the Waitlist
             </Link>
           </motion.div>
         </div>
@@ -217,11 +220,11 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "How much are Sway Georgetown memberships?",
-                a: "Founding Member pricing starts at $89/month. Two membership tiers will be available: Spa Club (one massage or facial per month plus member discounts) and Remedy Room (unlimited recovery circuit access). Founding rates are locked in and will not increase.",
+                a: "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced products and extended durations), and Ultimate (tech-enhanced premium treatments). Founding member pricing will be announced before we open — join the waitlist to be notified.",
               },
               {
-                q: "Can I become a founding member now?",
-                a: "Yes. Visit our Founding Membership page to lock in $89/month pricing before Sway Georgetown opens. Founding members get priority booking, VIP perks on opening day, and a guaranteed rate for the life of their membership.",
+                q: "Can I join the waitlist now?",
+                a: "Yes. Visit our Founding Membership page to join the waitlist. You'll be the first to know when founding memberships go live and will get priority booking and VIP perks on opening day.",
               },
               {
                 q: "Are Sway gift cards valid at the Georgetown location?",
@@ -272,7 +275,7 @@ export default function SwayGeorgetownComingSoonPage() {
             Be First in DC
           </motion.h2>
           <motion.p {...fadeUp} className="mb-6 opacity-80">
-            Founding Member spots are limited. Lock in $89/month and get VIP access when Sway
+            Join the waitlist for exclusive founding member pricing and VIP access when Sway
             Georgetown opens in Washington, DC.
           </motion.p>
           <motion.div {...fadeUp}>
@@ -280,7 +283,7 @@ export default function SwayGeorgetownComingSoonPage() {
               href="/locations/georgetown/founding-membership"
               className="inline-block bg-white text-[#113D33] px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
             >
-              Become a Founding Member
+              Join the Waitlist
             </Link>
           </motion.div>
         </div>

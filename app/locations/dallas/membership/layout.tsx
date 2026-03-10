@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Spa Memberships Dallas | Sway Wellness Club Knox/Henderson",
   description:
-    "Sway Dallas spa memberships starting at $89/month. Spa Club and Remedy Room tiers with massage, facials, sauna, cold plunge, and recovery. Knox/Henderson location coming soon.",
+    "Sway Dallas spa memberships: Essential, Premier, and Ultimate tiers with massage, facials, sauna, cold plunge, and recovery. Knox/Henderson location coming soon. Join the waitlist for founding member pricing.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/dallas/membership",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/dallas/membership",
     title: "Spa Memberships Dallas | Sway Wellness Club Knox/Henderson",
     description:
-      "Founding Member pricing from $89/month. Spa Club and Remedy Room memberships at Sway Dallas in Knox/Henderson.",
+      "Three membership tiers — Essential, Premier, and Ultimate — at Sway Dallas in Knox/Henderson. Join the waitlist for founding member pricing.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Spa Memberships Dallas | Sway Wellness Club Knox/Henderson",
     description:
-      "Founding Member pricing from $89/month. Spa Club and Remedy Room memberships at Sway Dallas. Knox/Henderson location coming soon.",
+      "Three membership tiers at Sway Dallas. Essential, Premier, and Ultimate. Knox/Henderson location coming soon.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
   robots: { index: true, follow: true },

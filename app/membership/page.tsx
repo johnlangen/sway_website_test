@@ -79,18 +79,18 @@ export default function MembershipHubPage() {
         </div>
 
         <p className="sr-only">
-          Sway Wellness Club memberships: 3 plans, all $99/month. Spa Club —
-          1 facial or massage included monthly, unlimited additional treatments
-          at $99 each (regularly $139), 50% off Remedy Room ($25 vs $49), 50%
-          off boosts and super boosts, private member lounge, bring a friend once a month at
-          member pricing, 10% off retail, rollover credits. Remedy Room — 4
-          monthly recovery circuit visits (sauna, cold plunge, Normatec
-          compression, LED light therapy), additional visits $25 each, $99
-          massages and facials. Aescape Robot — 2 monthly 60-minute AI-powered
-          robot massage sessions with real-time muscle mapping and personalized
-          pressure zones. Available at Denver Larimer (now open), Dallas TX and
-          Georgetown DC (coming soon). Voted #4 Best Day Spa in America by USA
-          Today 10Best. Join at swaywellnessspa.com/membership.
+          Sway Wellness Club memberships starting at $99/month. Three tiers:
+          Essential ($99/month) — signature 50-minute facials and massages.
+          Premier ($129/month) — enhanced products, techniques, and 80-minute
+          sessions. Ultimate ($159/month) — tech-enhanced treatments with LED,
+          microcurrent, and oxygen infusion. Additional memberships: Aescape
+          Premier ($99/month) — AI-powered robot massage sessions. Remedy Room
+          ($99/month) — 4 monthly recovery circuit visits with infrared sauna,
+          cold plunge, Normatec compression, and LED light therapy. All members
+          enjoy 50% off boosts, private lounge access, and rollover credits.
+          Available at Denver Larimer (now open), Dallas TX and Georgetown DC
+          (coming soon). Voted #4 Best Day Spa in America by USA Today 10Best.
+          Join at swaywellnessspa.com/membership.
         </p>
       </section>
 

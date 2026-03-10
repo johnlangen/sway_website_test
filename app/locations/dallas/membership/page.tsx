@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ChevronDown } from "lucide-react";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 
 const fadeUp = {
@@ -11,7 +13,85 @@ const fadeUp = {
   transition: { duration: 0.6 },
 };
 
+type TreatmentItem = { name: string; duration?: string };
+
+const tiers: {
+  key: string;
+  name: string;
+  tagline: string;
+  description: string;
+  mostPopular?: boolean;
+  facials: TreatmentItem[];
+  massages: TreatmentItem[];
+}[] = [
+  {
+    key: "essential",
+    name: "Essential",
+    tagline: "50-minute treatments",
+    description: "Signature facials and massages — your entry to Sway.",
+    facials: [{ name: "Essential Signature Facial" }],
+    massages: [
+      { name: "Essential Signature Massage" },
+      { name: "Essential Maternity Massage" },
+    ],
+  },
+  {
+    key: "premier",
+    name: "Premier",
+    tagline: "Enhanced treatments",
+    description:
+      "Targeted products, advanced techniques, and extended durations.",
+    mostPopular: true,
+    facials: [
+      { name: "Forever Young Anti-Aging Facial" },
+      { name: "Pore Perfection Acne Facial" },
+      { name: "Sensitive Silk Facial" },
+      { name: "Glow Getter Hydration Facial" },
+      { name: "Dr. Dennis Gross Vitamin C Facial" },
+      { name: "Basic Glow Peel", duration: "30 min" },
+    ],
+    massages: [
+      { name: "Signature Massage", duration: "70 min" },
+      { name: "Maternity Massage", duration: "70 min" },
+      { name: "Deep Tissue", duration: "50 min" },
+      { name: "Salt Stone Massage", duration: "50 min" },
+      { name: "Sports Massage", duration: "50 min" },
+      { name: "Lymphatic Drainage Massage", duration: "50 min" },
+    ],
+  },
+  {
+    key: "ultimate",
+    name: "Ultimate",
+    tagline: "Tech-enhanced premium",
+    description:
+      "LED, microcurrent, oxygen infusion — maximum duration and results.",
+    facials: [
+      { name: "Illuminate LED Facial" },
+      { name: "Oxygen Infusion Facial" },
+      { name: "Sculpt & Lift Microcurrent Facial" },
+      { name: "Hydraderm", duration: "50 min" },
+      { name: "Dr. Dennis Gross Vitamin C with LED" },
+      { name: "Advanced Glow Peel", duration: "40 min" },
+    ],
+    massages: [
+      { name: "Signature Massage", duration: "90 min" },
+      { name: "Deep Tissue", duration: "70 min" },
+      { name: "Salt Stone Massage", duration: "70 min" },
+      { name: "Sports Massage", duration: "70 min" },
+      { name: "Lymphatic Drainage Massage", duration: "70 min" },
+    ],
+  },
+];
+
 export default function DallasMembershipPage() {
+  const [expandedSections, setExpandedSections] = useState<
+    Record<string, boolean>
+  >({});
+
+  const toggleSection = (key: string) => {
+    setExpandedSections((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -24,27 +104,11 @@ export default function DallasMembershipPage() {
           { "@type": "ListItem", position: 4, name: "Membership", item: "https://swaywellnessspa.com/locations/dallas/membership" },
         ],
       },
-      {
-        "@type": "Product",
-        name: "Sway Dallas Spa Memberships",
-        description:
-          "Spa Club and Remedy Room memberships for Sway Dallas starting at $89/month for founding members. Knox/Henderson location coming soon.",
-        image: "/assets/OG/og-join-the-club.jpg",
-        brand: { "@type": "Brand", name: "Sway Wellness Spa" },
-        offers: {
-          "@type": "Offer",
-          url: "https://swaywellnessspa.com/locations/dallas/membership",
-          availability: "https://schema.org/PreOrder",
-          priceCurrency: "USD",
-          price: "89",
-        },
-      },
     ],
   };
 
   return (
     <div className="bg-[#f4f4f1] text-[#113D33] px-4 pt-32 md:pt-40 pb-20 min-h-screen font-vance">
-      {/* JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <div className="max-w-5xl mx-auto">
@@ -54,93 +118,134 @@ export default function DallasMembershipPage() {
             Sway Dallas Memberships
           </h1>
           <p className="text-xl md:text-2xl font-semibold mb-3">
-            Founding Member pricing starts at $89/month
+            Three membership tiers — pricing announced at launch
           </p>
           <div className="flex justify-center mb-4">
             <ReviewBadge />
           </div>
           <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto">
-            Two membership tiers will be available at our Knox/Henderson location.
-            Lock in your founding rate before Sway Dallas opens.
+            Essential, Premier, and Ultimate tiers will be available at our
+            Knox/Henderson location. Join the waitlist to be first in line for
+            founding member pricing.
           </p>
         </motion.div>
 
-        {/* Membership Tiers */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
-          <motion.div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg" {...fadeUp}>
-            <p className="text-xs uppercase tracking-widest text-[#4A776D] mb-1">Recovery circuit</p>
-            <h2 className="text-xl md:text-2xl font-bold mb-2">Remedy Room</h2>
-            <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-sm line-through text-gray-400">$139</span>
-              <span className="text-3xl font-bold">$89</span>
-              <span className="text-sm text-gray-500">/ month</span>
-            </div>
-            <ul className="space-y-2 text-sm text-gray-600 mb-6">
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                4 monthly Remedy Room visits
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                Infrared sauna, cold plunge, compression, LED
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                Additional visits just $20 each
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                $89 facials and massages
-              </li>
-            </ul>
-            <Link
-              href="/locations/dallas/founding-membership"
-              className="block text-center bg-[#113D33] text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
+        {/* Membership Tier Previews */}
+        <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto mb-12">
+          {tiers.map((tier, i) => (
+            <motion.div
+              key={tier.key}
+              className={`bg-white rounded-2xl p-6 md:p-7 shadow-lg relative flex flex-col border ${
+                tier.mostPopular
+                  ? "ring-2 ring-[#4A776D] border-[#4A776D]/20"
+                  : "border-transparent"
+              }`}
+              {...fadeUp}
             >
-              Lock In Founding Rate
-            </Link>
-          </motion.div>
+              {tier.mostPopular && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold">
+                  MOST POPULAR
+                </span>
+              )}
 
-          <motion.div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg relative" {...fadeUp}>
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold">
-              MOST POPULAR
-            </span>
-            <p className="text-xs uppercase tracking-widest text-[#4A776D] mb-1">Full spa access</p>
-            <h2 className="text-xl md:text-2xl font-bold mb-2">Spa Club</h2>
-            <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-sm line-through text-gray-400">$139</span>
-              <span className="text-3xl font-bold">$89</span>
-              <span className="text-sm text-gray-500">/ month</span>
-            </div>
-            <ul className="space-y-2 text-sm text-gray-600 mb-6">
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                1 massage or facial per month
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                Unlimited treatments at $89 each
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                50% off Remedy Room and boosts
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                Member lounge + guest pass monthly
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#4A776D] mt-0.5">&#10003;</span>
-                Unused credits roll over
-              </li>
-            </ul>
-            <Link
-              href="/locations/dallas/founding-membership"
-              className="block text-center bg-[#113D33] text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
-            >
-              Lock In Founding Rate
-            </Link>
-          </motion.div>
+              <div className="mb-4 text-center">
+                <p className="text-xs uppercase tracking-widest text-[#4A776D] mb-1">
+                  {tier.tagline}
+                </p>
+                <h2 className="text-xl md:text-2xl font-bold">{tier.name}</h2>
+              </div>
+
+              <p className="text-sm text-gray-600 mb-5 text-center leading-relaxed">
+                {tier.description}
+              </p>
+
+              {/* Expandable: Facials */}
+              <div className="border-t border-gray-100 pt-3">
+                <button
+                  onClick={() => toggleSection(`${tier.key}-facials`)}
+                  className="w-full flex items-center justify-between text-sm font-semibold text-[#113D33] py-2"
+                >
+                  <span>Facials ({tier.facials.length})</span>
+                  <motion.span
+                    animate={{
+                      rotate: expandedSections[`${tier.key}-facials`] ? 180 : 0,
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="w-4 h-4 text-[#4A776D]" />
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {expandedSections[`${tier.key}-facials`] && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="space-y-1.5 pb-3">
+                        {tier.facials.map((t, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0 mt-0.5" />
+                            <span>
+                              {t.name}
+                              {t.duration && (
+                                <span className="text-gray-400 ml-1">({t.duration})</span>
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Expandable: Massages */}
+              <div className="border-t border-gray-100 pt-3">
+                <button
+                  onClick={() => toggleSection(`${tier.key}-massages`)}
+                  className="w-full flex items-center justify-between text-sm font-semibold text-[#113D33] py-2"
+                >
+                  <span>Massages ({tier.massages.length})</span>
+                  <motion.span
+                    animate={{
+                      rotate: expandedSections[`${tier.key}-massages`] ? 180 : 0,
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="w-4 h-4 text-[#4A776D]" />
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {expandedSections[`${tier.key}-massages`] && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="space-y-1.5 pb-3">
+                        {tier.massages.map((t, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0 mt-0.5" />
+                            <span>
+                              {t.name}
+                              {t.duration && (
+                                <span className="text-gray-400 ml-1">({t.duration})</span>
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* FAQ */}
@@ -149,29 +254,29 @@ export default function DallasMembershipPage() {
           <div className="space-y-3">
             <details className="bg-white rounded-xl p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                When do memberships start billing?
+                What membership tiers will be available?
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                Founding memberships lock in your rate today but don&apos;t bill until Sway Dallas opens. You pay nothing until doors open.
+                Sway Dallas will offer three tiers: Essential (signature 50-minute treatments), Premier (enhanced products and extended durations), and Ultimate (tech-enhanced premium treatments with LED, microcurrent, and more). Additional Remedy Room and Aescape robot massage memberships will also be available.
               </p>
             </details>
             <details className="bg-white rounded-xl p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                What&apos;s the difference between Spa Club and Remedy Room?
+                Will there be founding member pricing?
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                Spa Club includes a monthly massage or facial with discounted add-ons and Remedy Room access. Remedy Room gives you 4 monthly recovery circuit visits (sauna, cold plunge, compression, LED) with deeply discounted additional visits.
+                Yes. Founding members will receive exclusive pricing before Sway Dallas opens. Join the waitlist to be notified when founding memberships become available.
               </p>
             </details>
             <details className="bg-white rounded-xl p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                Will founding rates increase?
+                When does Sway Dallas open?
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                No. Founding member rates are locked in at $89/month for the life of your membership. Standard pricing after launch will be $139/month.
+                We&apos;re opening at 2323 Henderson Ave in the Knox/Henderson neighborhood. Waitlist members will be the first to know the exact date and will get priority access.
               </p>
             </details>
           </div>
@@ -183,9 +288,9 @@ export default function DallasMembershipPage() {
             href="/locations/dallas/founding-membership"
             className="inline-block bg-[#113D33] text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition"
           >
-            Become a Founding Member
+            Join the Waitlist
           </Link>
-          <p className="text-sm text-gray-500 mt-3">No charge until we open</p>
+          <p className="text-sm text-gray-500 mt-3">Be first in line for founding member pricing</p>
         </motion.div>
       </div>
     </div>

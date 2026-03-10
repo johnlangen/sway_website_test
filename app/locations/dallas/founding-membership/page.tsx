@@ -50,8 +50,8 @@ const memberships = [
   {
     key: "remedy" as const,
     title: "Remedy Room",
-    regularPrice: "$139",
-    foundingPrice: "$89",
+    regularPrice: "",
+    foundingPrice: "",
     visits: "4 monthly visits",
     tagline: "Recovery circuit",
     description:
@@ -59,11 +59,11 @@ const memberships = [
     benefits: [
       "4 monthly Remedy Room visits",
       "Additional visits just $20 each",
-      "$89 facials & massages",
+      "Discounted facials & massages",
       "50% off Boosts & Super Boosts",
     ],
     foundingPerks: [
-      "Founding rate of $89/mo",
+      "Exclusive founding member rate",
       "Priority booking before launch",
       "Founding member events",
     ],
@@ -71,8 +71,8 @@ const memberships = [
   {
     key: "spa" as const,
     title: "Spa Club",
-    regularPrice: "$139",
-    foundingPrice: "$89",
+    regularPrice: "",
+    foundingPrice: "",
     visits: "1 facial or massage / month",
     tagline: "Full spa access",
     description:
@@ -80,7 +80,7 @@ const memberships = [
     mostPopular: true,
     benefits: [
       "1 facial or massage included",
-      "Unlimited treatments at $89 each",
+      "Unlimited treatments at member pricing",
       "50% off Remedy Room",
       "50% off Boosts & Super Boosts",
       "Member lounge access",
@@ -89,7 +89,7 @@ const memberships = [
       "Unused credits roll over",
     ],
     foundingPerks: [
-      "Founding rate of $89/mo",
+      "Exclusive founding member rate",
       "Priority booking before launch",
       "Founding member events",
       "Complimentary guest pass monthly",
@@ -206,17 +206,17 @@ const faqs = [
   {
     question: "Do I get charged before you open?",
     answer:
-      "No. Your membership doesn't start billing until we open. You lock in the rate now, but pay nothing until doors open.",
+      "No. Your membership doesn't start billing until we open. You pay nothing until doors open.",
   },
   {
-    question: "What is the founding member rate?",
+    question: "Will there be founding member pricing?",
     answer:
-      "Founding members start at $89/month — a discounted rate compared to standard membership pricing.",
+      "Yes. Founding members will receive exclusive pricing that will be announced before we open. Join the waitlist to be notified.",
   },
   {
     question: "What makes founding members different?",
     answer:
-      "Founding members get a lower rate ($89 vs $139/month), priority booking, exclusive event invitations, and perks that won't be available after launch.",
+      "Founding members get exclusive pricing, priority booking, exclusive event invitations, and perks that won't be available after launch.",
   },
 ];
 
@@ -260,7 +260,7 @@ const schema = {
       "@type": "Product",
       name: "Sway Dallas Founding Membership",
       description:
-        "Founding member membership for Sway Dallas wellness spa in Knox/Henderson. Start at $89/month with exclusive perks.",
+        "Founding member membership for Sway Dallas wellness spa in Knox/Henderson with exclusive pricing.",
       image: "/assets/OG/og-join-the-club.jpg",
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       offers: {
@@ -268,7 +268,7 @@ const schema = {
         url: "https://swaywellnessspa.com/locations/dallas/founding-membership",
         availability: "https://schema.org/PreOrder",
         priceCurrency: "USD",
-        price: "89",
+        price: "0",
       },
     },
   ],
@@ -467,8 +467,8 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            Founding members start at{" "}
-            <strong className="text-white">$89/month</strong> — with
+            Founding members get{" "}
+            <strong className="text-white">exclusive pricing</strong>,
             priority booking, VIP events, and perks that disappear after launch.
           </motion.p>
 
@@ -643,13 +643,23 @@ export default function DallasFoundingMembershipPage() {
                 {/* Price */}
                 <div className="mb-5">
                   <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-lg line-through text-gray-400">
-                      {m.regularPrice}
-                    </span>
-                    <span className="text-5xl font-bold text-[#113D33]">
-                      {m.foundingPrice}
-                    </span>
-                    <span className="text-sm text-gray-500">/ mo</span>
+                    {m.regularPrice && (
+                      <span className="text-lg line-through text-gray-400">
+                        {m.regularPrice}
+                      </span>
+                    )}
+                    {m.foundingPrice ? (
+                      <>
+                        <span className="text-5xl font-bold text-[#113D33]">
+                          {m.foundingPrice}
+                        </span>
+                        <span className="text-sm text-gray-500">/ mo</span>
+                      </>
+                    ) : (
+                      <span className="text-3xl font-bold text-[#113D33]">
+                        Pricing Coming Soon
+                      </span>
+                    )}
                   </div>
                   <p className="text-xs text-[#4A776D] font-semibold mt-1.5">
                     Founding member rate

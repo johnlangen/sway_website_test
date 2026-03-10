@@ -2,18 +2,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Wellness Club Memberships | Join Sway from $99/month",
+  title: "Wellness Club Memberships | Sway from $99/month",
   description:
-    "Join Sway, a modern wellness club with locations in Denver. Memberships from $99/month include massage and facial pricing at $99 (reg. $139), 50% off boosts and Remedy Room, private lounge access, and rollover credits.",
+    "Join Sway Wellness Club. Three membership tiers — Essential ($99), Premier ($129), Ultimate ($159) — with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Georgetown DC (coming soon).",
   alternates: {
     canonical: "https://swaywellnessspa.com/membership",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/membership",
-    title: "Wellness Club Memberships | Join Sway from $99/month",
+    title: "Wellness Club Memberships | Sway from $99/month",
     description:
-      "Join Sway, a modern wellness club. Memberships from $99/month with member pricing on massages, facials, and recovery.",
+      "Sway Wellness Club memberships from $99/month. Essential, Premier, and Ultimate tiers with massages, facials, and recovery.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wellness Club Memberships | Join Sway from $99/month",
+    title: "Wellness Club Memberships | Sway from $99/month",
     description:
-      "Sway wellness club memberships from $99/month. Member pricing on massages, facials, and recovery sessions.",
+      "Sway Wellness Club memberships from $99/month. Essential, Premier, and Ultimate tiers with massages, facials, and recovery.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
   robots: {
@@ -69,7 +69,7 @@ export default function MembershipLayout({
           name: "Sway Wellness Spa",
         },
         description:
-          "Monthly wellness club memberships from $99/month. Includes member pricing on massages and facials ($99 vs. $139), 50% off boosts and Remedy Room sessions, private lounge access, and rollover credits.",
+          "Sway Wellness Club memberships from $99/month. Three tiers — Essential, Premier, and Ultimate — with massages, facials, 50% off boosts, Remedy Room access, private lounge, and rollover credits.",
       },
       {
         "@type": "FAQPage",
@@ -79,7 +79,7 @@ export default function MembershipLayout({
             name: "How much is a Sway Wellness Spa membership?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sway memberships start at $99/month. Members get massages and facials at $99 each (regularly $139), 50% off all boosts and Remedy Room sessions, private lounge access, and rollover credits.",
+              text: "Sway memberships start at $99/month with three tiers: Essential ($99), Premier ($129), and Ultimate ($159). Each tier includes monthly facials and massages, 50% off boosts, private lounge access, and rollover credits.",
             },
           },
           {
@@ -87,7 +87,7 @@ export default function MembershipLayout({
             name: "What's included in a Sway membership?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Members enjoy: massages and facials at $99 (vs. $139 drop-in), 50% off boosts and super boosts, Remedy Room sessions at $25 (vs. $49), private member lounge access, rollover credits, and a once-a-month bring-a-friend benefit at member pricing.",
+              text: "All Sway members enjoy monthly facials and massages at member pricing, 50% off boosts, private member lounge access, rollover credits, and a bring-a-friend benefit. Higher tiers unlock enhanced products, extended sessions, and tech-enhanced treatments.",
             },
           },
           {
@@ -111,7 +111,7 @@ export default function MembershipLayout({
             name: "Do I need a membership to book at Sway?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "No, anyone can book at Sway. Memberships are optional but offer significant savings — members save $40 per massage or facial and 50% on recovery sessions and boosts.",
+              text: "No, anyone can book at Sway. Memberships are optional but offer significant savings on massages, facials, boosts, and recovery sessions.",
             },
           },
         ],

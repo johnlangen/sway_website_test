@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Spa Memberships Georgetown DC | Sway Wellness Club",
   description:
-    "Sway Georgetown spa memberships starting at $89/month. Spa Club and Remedy Room tiers with massage, facials, sauna, cold plunge, and recovery. Washington, DC location coming soon.",
+    "Sway Georgetown spa memberships: Essential, Premier, and Ultimate tiers with massage, facials, sauna, cold plunge, and recovery. Washington, DC location coming soon. Join the waitlist for founding member pricing.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/georgetown/membership",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/georgetown/membership",
     title: "Spa Memberships Georgetown DC | Sway Wellness Club",
     description:
-      "Founding Member pricing from $89/month. Spa Club and Remedy Room memberships at Sway Georgetown in Washington, DC.",
+      "Three membership tiers — Essential, Premier, and Ultimate — at Sway Georgetown in Washington, DC. Join the waitlist for founding member pricing.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Spa Memberships Georgetown DC | Sway Wellness Club",
     description:
-      "Founding Member pricing from $89/month. Spa Club and Remedy Room memberships at Sway Georgetown. Washington, DC location coming soon.",
+      "Three membership tiers at Sway Georgetown. Essential, Premier, and Ultimate. Washington, DC location coming soon.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
   robots: { index: true, follow: true },
