@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Check, ChevronDown, Phone } from "lucide-react";
@@ -21,10 +21,10 @@ function getDaysUntilApril1(): number {
 }
 
 /* ------------------------------------------------------------------
-   TIER DATA
+   TIER DATA — all treatments now have durations
 ------------------------------------------------------------------ */
 
-type TreatmentItem = { name: string; duration?: string };
+type TreatmentItem = { name: string; duration: string };
 
 type MembershipTier = {
   key: string;
@@ -47,10 +47,10 @@ const tiers: MembershipTier[] = [
     tagline: "50-minute treatments",
     description:
       "Signature facials and massages — the perfect entry to Sway.",
-    facials: [{ name: "Essential Signature Facial" }],
+    facials: [{ name: "Essential Signature Facial", duration: "50 min" }],
     massages: [
-      { name: "Essential Signature Massage" },
-      { name: "Essential Maternity Massage" },
+      { name: "Essential Signature Massage", duration: "50 min" },
+      { name: "Essential Maternity Massage", duration: "50 min" },
     ],
   },
   {
@@ -63,11 +63,11 @@ const tiers: MembershipTier[] = [
       "Targeted products, advanced techniques, and extended durations.",
     mostPopular: true,
     facials: [
-      { name: "Forever Young Anti-Aging Facial" },
-      { name: "Pore Perfection Acne Facial" },
-      { name: "Sensitive Silk Facial" },
-      { name: "Glow Getter Hydration Facial" },
-      { name: "Dr. Dennis Gross Vitamin C Facial" },
+      { name: "Forever Young Anti-Aging Facial", duration: "50 min" },
+      { name: "Pore Perfection Acne Facial", duration: "50 min" },
+      { name: "Sensitive Silk Facial", duration: "50 min" },
+      { name: "Glow Getter Hydration Facial", duration: "50 min" },
+      { name: "Dr. Dennis Gross Vitamin C Facial", duration: "50 min" },
       { name: "Basic Glow Peel", duration: "30 min" },
     ],
     massages: [
@@ -88,11 +88,11 @@ const tiers: MembershipTier[] = [
     description:
       "LED, microcurrent, oxygen infusion — maximum duration and results.",
     facials: [
-      { name: "Illuminate LED Facial" },
-      { name: "Oxygen Infusion Facial" },
-      { name: "Sculpt & Lift Microcurrent Facial" },
+      { name: "Illuminate LED Facial", duration: "60 min" },
+      { name: "Oxygen Infusion Facial", duration: "60 min" },
+      { name: "Sculpt & Lift Microcurrent Facial", duration: "60 min" },
       { name: "Hydraderm", duration: "50 min" },
-      { name: "Dr. Dennis Gross Vitamin C with LED" },
+      { name: "Dr. Dennis Gross Vitamin C with LED", duration: "60 min" },
       { name: "Advanced Glow Peel", duration: "40 min" },
     ],
     massages: [
@@ -105,29 +105,56 @@ const tiers: MembershipTier[] = [
   },
 ];
 
-const additionalMemberships = [
+/* ------------------------------------------------------------------
+   RECOVERY MEMBERSHIPS
+------------------------------------------------------------------ */
+
+const recoveryMemberships = [
   {
     key: "aescape",
-    name: "Aescape Premier",
+    name: "Aescape",
     price: "$99",
-    period: "/ month",
-    description: "AI-powered robot massage — choose 4×30 min or 2×60 min sessions per month.",
+    description:
+      "AI-powered robot massage with real-time muscle mapping and personalized pressure zones.",
+    details: "4×30 min or 2×60 min sessions per month",
+    highlights: [
+      "Real-time muscle mapping",
+      "Personalized pressure",
+      "Zero-gravity positioning",
+    ],
   },
   {
     key: "remedy",
     name: "Remedy Room",
     price: "$99",
-    period: "/ month",
-    description: "4 monthly recovery circuit visits — sauna, cold plunge, compression, LED light therapy.",
+    description:
+      "Our full recovery circuit — everything you need to reset and recover.",
+    details: "4 visits per month",
+    highlights: [
+      "Infrared sauna",
+      "Cold plunge",
+      "Normatec compression",
+      "LED light therapy",
+    ],
   },
   {
     key: "recovery",
     name: "Ultimate Tech Recovery",
     price: "$99",
-    period: "/ month",
-    description: "1×30 min robot massage + 1×40 min Remedy Room experience per month.",
+    description:
+      "The best of both worlds — robot massage plus a full Remedy Room session.",
+    details: "1×30 min robot + 1×40 min Remedy Room per month",
+    highlights: [
+      "AI robot massage",
+      "Full recovery circuit",
+      "Best value combo",
+    ],
   },
 ];
+
+/* ------------------------------------------------------------------
+   BOOSTS DATA
+------------------------------------------------------------------ */
 
 const facialBoosts = [
   { name: "Dermaflash", price: "$10" },
@@ -148,15 +175,15 @@ const massageBoosts = [
 ];
 
 /* ------------------------------------------------------------------
-   ALL-MEMBER PERKS
+   MEMBER PERKS
 ------------------------------------------------------------------ */
 
 const memberPerks = [
   "50% off all boosts",
   "Private member lounge",
-  "Bring a friend at member pricing (once/month)",
-  "10% off retail products",
-  "Unused credits roll over",
+  "Bring a friend at member pricing",
+  "10% off retail",
+  "Rollover credits",
 ];
 
 /* ------------------------------------------------------------------
@@ -165,21 +192,29 @@ const memberPerks = [
 
 export default function MembershipPage() {
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
-  const [expandedSections, setExpandedSections] = useState<
-    Record<string, boolean>
-  >({});
+  const [selectedTier, setSelectedTier] = useState("premier");
   const [boostsOpen, setBoostsOpen] = useState(false);
-  const [perksOpen, setPerksOpen] = useState(false);
+  const treatmentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setDaysLeft(getDaysUntilApril1());
   }, []);
 
-  const toggleSection = (key: string) => {
-    setExpandedSections((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
   const showCountdown = daysLeft !== null && daysLeft > 0;
+  const activeTier = tiers.find((t) => t.key === selectedTier)!;
+
+  const handleTierSelect = (key: string) => {
+    setSelectedTier(key);
+    // On mobile, scroll to treatment details after selecting a card
+    if (window.innerWidth < 768 && treatmentRef.current) {
+      setTimeout(() => {
+        treatmentRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    }
+  };
 
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
@@ -281,252 +316,235 @@ export default function MembershipPage() {
         </p>
       </section>
 
-      {/* NEW TIER PREVIEW CARDS */}
-      <section className="px-4 sm:px-6 pt-10 pb-6">
+      {/* ============================================================
+          SPA MEMBERSHIPS — 3 COMPACT CARDS + TREATMENT DETAIL PANEL
+      ============================================================ */}
+      <section className="px-4 sm:px-6 pt-10 pb-4">
         <div className="text-center mb-8">
           <p className="text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-2">
             Launching April 1
           </p>
           <h2 className="text-2xl md:text-3xl font-bold">
-            New Membership Tiers
+            Spa Memberships
           </h2>
         </div>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-start">
-          {tiers.map((tier, i) => (
-            <motion.div
-              key={tier.key}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative bg-white text-[#113D33] rounded-2xl p-6 md:p-7 shadow-xl flex flex-col border ${
-                tier.mostPopular
-                  ? "ring-2 ring-[#4A776D] border-[#4A776D]/20"
-                  : "border-[#113D33]/8"
-              }`}
-            >
-              {tier.mostPopular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap">
-                  MOST POPULAR
-                </span>
-              )}
+        {/* Tier cards — compact, equal height, clickable */}
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+          {tiers.map((tier, i) => {
+            const isSelected = selectedTier === tier.key;
+            return (
+              <motion.button
+                key={tier.key}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                onClick={() => handleTierSelect(tier.key)}
+                className={`relative bg-white text-[#113D33] rounded-2xl p-5 md:p-6 text-center text-left transition-all duration-200 ${
+                  isSelected
+                    ? "ring-2 ring-[#9ABFB3] shadow-2xl scale-[1.02]"
+                    : "shadow-lg hover:shadow-xl opacity-75 hover:opacity-100"
+                }`}
+              >
+                {tier.mostPopular && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap uppercase">
+                    Most Popular
+                  </span>
+                )}
 
-              {/* Launching badge */}
-              <span className="inline-block self-start text-[10px] uppercase tracking-wider bg-[#DAA520]/15 text-[#8B6914] px-3 py-1 rounded-full font-semibold mb-4">
-                April 1
-              </span>
-
-              {/* Header */}
-              <div className="mb-4 text-center">
-                <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-[#4A776D] mb-1 text-center">
                   {tier.tagline}
                 </p>
-                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-wide">
+                <h3 className="text-xl font-bold uppercase tracking-wide text-center">
                   {tier.name}
                 </h3>
-              </div>
 
-              {/* Price */}
-              <div className="mb-4 text-center">
-                <span className="text-4xl md:text-5xl font-bold">
-                  {tier.price}
-                </span>
-                <span className="text-sm text-gray-500 ml-1">/ month</span>
-                <p className="text-xs text-gray-400 mt-1">
+                <div className="mt-3 mb-2 text-center">
+                  <span className="text-3xl md:text-4xl font-bold">
+                    {tier.price}
+                  </span>
+                  <span className="text-sm text-gray-500 ml-1">/ month</span>
+                </div>
+                <p className="text-xs text-gray-400 text-center">
                   <span className="line-through">{tier.dropInPrice}</span>{" "}
                   drop-in
                 </p>
-              </div>
 
-              {/* Description */}
-              <p className="text-sm text-gray-600 mb-5 leading-relaxed text-center">
-                {tier.description}
-              </p>
-
-              {/* Expandable: Facials */}
-              <div className="border-t border-gray-100 pt-3">
-                <button
-                  onClick={() => toggleSection(`${tier.key}-facials`)}
-                  className="w-full flex items-center justify-between text-sm font-semibold text-[#113D33] py-2"
-                >
-                  <span>
-                    Facials ({tier.facials.length})
-                  </span>
-                  <motion.span
-                    animate={{
-                      rotate: expandedSections[`${tier.key}-facials`]
-                        ? 180
-                        : 0,
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ChevronDown className="w-4 h-4 text-[#4A776D]" />
-                  </motion.span>
-                </button>
-                <AnimatePresence>
-                  {expandedSections[`${tier.key}-facials`] && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <ul className="space-y-1.5 pb-3">
-                        {tier.facials.map((t, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2 text-sm text-gray-600"
-                          >
-                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0 mt-0.5" />
-                            <span>
-                              {t.name}
-                              {t.duration && (
-                                <span className="text-gray-400 ml-1">
-                                  ({t.duration})
-                                </span>
-                              )}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Expandable: Massages */}
-              <div className="border-t border-gray-100 pt-3">
-                <button
-                  onClick={() => toggleSection(`${tier.key}-massages`)}
-                  className="w-full flex items-center justify-between text-sm font-semibold text-[#113D33] py-2"
-                >
-                  <span>
-                    Massages ({tier.massages.length})
-                  </span>
-                  <motion.span
-                    animate={{
-                      rotate: expandedSections[`${tier.key}-massages`]
-                        ? 180
-                        : 0,
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ChevronDown className="w-4 h-4 text-[#4A776D]" />
-                  </motion.span>
-                </button>
-                <AnimatePresence>
-                  {expandedSections[`${tier.key}-massages`] && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <ul className="space-y-1.5 pb-3">
-                        {tier.massages.map((t, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2 text-sm text-gray-600"
-                          >
-                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0 mt-0.5" />
-                            <span>
-                              {t.name}
-                              {t.duration && (
-                                <span className="text-gray-400 ml-1">
-                                  ({t.duration})
-                                </span>
-                              )}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          ))}
+                <p className="text-xs text-gray-500 mt-3 leading-relaxed text-center">
+                  {tier.facials.length} facial
+                  {tier.facials.length !== 1 ? "s" : ""} ·{" "}
+                  {tier.massages.length} massage
+                  {tier.massages.length !== 1 ? "s" : ""}
+                </p>
+              </motion.button>
+            );
+          })}
         </div>
       </section>
 
-      {/* ALL-MEMBER PERKS */}
-      <section className="px-4 sm:px-6 pb-6">
-        <div className="max-w-6xl mx-auto">
-          <button
-            onClick={() => setPerksOpen(!perksOpen)}
-            className="w-full flex items-center justify-center gap-2 text-sm text-[#9ABFB3] hover:text-white transition py-3"
-          >
-            <span>All members also get</span>
-            <motion.span
-              animate={{ rotate: perksOpen ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronDown className="w-4 h-4" />
-            </motion.span>
-          </button>
-          <AnimatePresence>
-            {perksOpen && (
+      {/* Treatment detail panel — shows selected tier's treatments */}
+      <section ref={treatmentRef} className="px-4 sm:px-6 pb-6 scroll-mt-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 p-5 md:p-8">
+            {/* Tier switcher pills */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex bg-white/10 rounded-full p-1 gap-0.5">
+                {tiers.map((tier) => (
+                  <button
+                    key={tier.key}
+                    onClick={() => setSelectedTier(tier.key)}
+                    className={`px-4 md:px-5 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-200 ${
+                      selectedTier === tier.key
+                        ? "bg-white text-[#113D33] shadow-sm"
+                        : "text-gray-400 hover:text-white"
+                    }`}
+                  >
+                    {tier.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Treatment lists */}
+            <AnimatePresence mode="wait">
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
+                key={selectedTier}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
               >
-                <div className="flex flex-wrap justify-center gap-3 pb-4">
-                  {memberPerks.map((perk, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-flex items-center gap-1.5 text-sm text-gray-300 bg-white/5 rounded-full px-4 py-2"
-                    >
-                      <Check className="w-3.5 h-3.5 text-[#4A776D]" />
-                      {perk}
-                    </span>
-                  ))}
+                <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                  {/* Facials */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                      Facials ({activeTier.facials.length})
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {activeTier.facials.map((t, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span className="flex items-center gap-2 text-gray-200">
+                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
+                            {t.name}
+                          </span>
+                          <span className="text-xs text-gray-500 ml-2 shrink-0">
+                            {t.duration}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Massages */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                      Massages ({activeTier.massages.length})
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {activeTier.massages.map((t, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span className="flex items-center gap-2 text-gray-200">
+                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
+                            {t.name}
+                          </span>
+                          <span className="text-xs text-gray-500 ml-2 shrink-0">
+                            {t.duration}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
+
+                <p className="text-center text-xs text-gray-500 mt-5">
+                  {activeTier.description}
+                </p>
               </motion.div>
-            )}
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 
-      {/* ADDITIONAL MEMBERSHIPS */}
-      <section className="px-4 sm:px-6 pt-6 pb-6">
-        <div className="text-center mb-6">
-          <h2 className="text-xl md:text-2xl font-bold">
-            More Ways to Sway
+      {/* ALL-MEMBER PERKS — always visible */}
+      <section className="px-4 sm:px-6 py-4">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-center text-xs uppercase tracking-wider text-gray-500 mb-3">
+            Every member gets
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {memberPerks.map((perk, idx) => (
+              <span
+                key={idx}
+                className="inline-flex items-center gap-1.5 text-xs text-gray-300 bg-white/5 rounded-full px-3 py-1.5"
+              >
+                <Check className="w-3 h-3 text-[#4A776D]" />
+                {perk}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          RECOVERY & TECH MEMBERSHIPS
+      ============================================================ */}
+      <section className="px-4 sm:px-6 pt-10 pb-8">
+        <div className="text-center mb-8">
+          <p className="text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-2">
+            Launching April 1
+          </p>
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Recovery & Tech
           </h2>
         </div>
+
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
-          {additionalMemberships.map((m, i) => (
+          {recoveryMemberships.map((m, i) => (
             <motion.div
               key={m.key}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/10"
+              className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-white/10"
             >
-              <span className="inline-block text-[10px] uppercase tracking-wider bg-[#DAA520]/15 text-[#DAA520] px-3 py-1 rounded-full font-semibold mb-3">
-                April 1
-              </span>
               <h3 className="text-lg font-bold mb-1">{m.name}</h3>
               <div className="mb-3">
                 <span className="text-2xl font-bold">{m.price}</span>
-                <span className="text-sm text-gray-400 ml-1">{m.period}</span>
+                <span className="text-sm text-gray-400 ml-1">/ month</span>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm text-gray-300 leading-relaxed mb-3">
                 {m.description}
+              </p>
+              <ul className="space-y-1.5 mb-3">
+                {m.highlights.map((h, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-center gap-2 text-xs text-gray-400"
+                  >
+                    <Check className="w-3 h-3 text-[#4A776D] shrink-0" />
+                    {h}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider">
+                {m.details}
               </p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* BOOSTS — COLLAPSED BY DEFAULT */}
+      {/* ============================================================
+          BOOSTS — COLLAPSED
+      ============================================================ */}
       <section className="px-4 sm:px-6 py-6">
         <div className="max-w-5xl mx-auto">
           <button
@@ -553,9 +571,8 @@ export default function MembershipPage() {
                 className="overflow-hidden"
               >
                 <div className="grid md:grid-cols-2 gap-4 pt-4 pb-2">
-                  {/* Facial Boosts */}
                   <div className="bg-white/5 rounded-xl p-4">
-                    <h4 className="text-sm font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
                       Facial Boosts
                     </h4>
                     <ul className="space-y-2">
@@ -580,9 +597,8 @@ export default function MembershipPage() {
                     </ul>
                   </div>
 
-                  {/* Massage Boosts */}
                   <div className="bg-white/5 rounded-xl p-4">
-                    <h4 className="text-sm font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
                       Massage Boosts
                     </h4>
                     <ul className="space-y-2">
@@ -640,7 +656,7 @@ export default function MembershipPage() {
         <GoogleReviews />
       </section>
 
-      {/* LOWER IMAGE / BRAND SECTION */}
+      {/* BRAND SECTION */}
       <section className="relative h-[50vh] min-h-[360px]">
         <Image
           src="/assets/membership_background_logo.jpg"
