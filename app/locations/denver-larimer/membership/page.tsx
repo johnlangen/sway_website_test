@@ -446,7 +446,7 @@ export default function MembershipPage() {
           </h2>
         </div>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
           {recoveryMemberships.map((m, i) => (
             <motion.div
               key={m.key}
