@@ -284,6 +284,8 @@ export default function MembershipPage() {
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
           {tiers.map((tier, i) => {
             const isSelected = selectedTier === tier.key;
+            const isPremier = tier.key === "premier";
+            const isGrayed = !isPremier;
             return (
               <motion.button
                 key={tier.key}
@@ -295,12 +297,18 @@ export default function MembershipPage() {
                 className={`relative bg-white text-[#113D33] rounded-2xl p-5 md:p-6 text-center text-left transition-all duration-200 ${
                   isSelected
                     ? "ring-2 ring-[#9ABFB3] shadow-2xl scale-[1.02]"
-                    : "shadow-lg hover:shadow-xl opacity-75 hover:opacity-100"
-                }`}
+                    : "shadow-lg hover:shadow-xl"
+                } ${isGrayed ? "opacity-50" : ""}`}
               >
                 {tier.mostPopular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap uppercase">
                     Most Popular
+                  </span>
+                )}
+
+                {isGrayed && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-gray-500 text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap uppercase">
+                    Coming April 1
                   </span>
                 )}
 
@@ -325,6 +333,20 @@ export default function MembershipPage() {
                 <p className="text-xs text-gray-500 mt-3 leading-relaxed text-center">
                   1 facial or massage/month
                 </p>
+
+                {isPremier && (
+                  <div className="mt-4 pt-3 border-t border-[#113D33]/10">
+                    <a
+                      href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="block w-full py-2.5 rounded-full bg-[#113D33] text-white text-sm font-semibold hover:bg-[#0e3029] transition text-center"
+                    >
+                      $99/mo until April 1
+                    </a>
+                  </div>
+                )}
               </motion.button>
             );
           })}

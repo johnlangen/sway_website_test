@@ -9,6 +9,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const blogs = [
   {
+    slug: "maven-hotel-denver-spa",
+    title: "Maven Hotel + Sway: AI-Powered Massage Near Dairy Block Denver",
+    summary:
+      "Staying at The Maven Hotel in Denver? Book a 60-minute Aescape robot massage at Sway Wellness Spa on Larimer Square — just 0.6 miles from Dairy Block.",
+    tag: "Partnership",
+    image: "/assets/maven-hotel.jpg",
+  },
+  {
     slug: "salt-stone-vs-hot-stone-massage",
     title: "Salt Stone vs Hot Stone Massage: Why Himalayan Salt Wins",
     summary:

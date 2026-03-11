@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/group-events`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/careers`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${base}/terms-and-conditions`, changeFrequency: "yearly" as const, priority: 0.3 },
+    { url: `${base}/themavenhotel`, changeFrequency: "monthly" as const, priority: 0.6 },
   ];
 
   /* ------------------------------------------------------------------
@@ -88,6 +89,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Blog posts
      ------------------------------------------------------------------ */
   const blogSlugs = [
+    "maven-hotel-denver-spa",
     "salt-stone-vs-hot-stone-massage",
     "things-to-do-in-denver-at-night",
     "best-day-spa-in-america",

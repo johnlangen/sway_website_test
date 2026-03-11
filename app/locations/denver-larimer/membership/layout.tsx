@@ -164,45 +164,6 @@ export default function MembershipLayout({
     ],
   };
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What membership tiers does Sway Larimer offer?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sway Larimer offers three spa membership tiers: Essential ($99/month for 50-minute signature treatments), Premier ($129/month for enhanced products and extended durations), and Ultimate ($159/month for tech-enhanced premium treatments). Plus Aescape robot massage ($99/month), Remedy Room recovery ($99/month), and Ultimate Tech Recovery ($99/month).",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the difference between Essential, Premier, and Ultimate memberships?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Essential includes signature 50-minute facials and massages. Premier adds targeted products, dermapore technology for facials, and extended massage durations (70 min). Ultimate includes LED, microcurrent, oxygen infusion technology plus maximum durations (up to 90 min massages).",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Do Sway membership credits roll over?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. Unused monthly credits roll over so you never lose a treatment. Use them whenever works best for your schedule.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Do I need a membership to visit Sway?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No. Sway is open to everyone — no membership required. Drop-in pricing starts at $139 for treatments. Memberships save members significantly per visit and include 50% off all boosts, private lounge access, and more.",
-        },
-      },
-    ],
-  };
-
   return (
     <>
       <script
@@ -212,10 +173,6 @@ export default function MembershipLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offersJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {children}
     </>

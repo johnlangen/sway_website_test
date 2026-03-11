@@ -1292,15 +1292,16 @@ function BookServicePage() {
     try {
       setStep("booking");
 
-      /* Build guest notes if booking for someone else */
-      let notes: string | undefined;
+      /* Build appointment notes */
+      const serviceLabel = selectedService.category === "facial" ? "Facial" : "Massage";
+      const noteParts: string[] = [`Booked online — ${serviceLabel}`];
       if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
         const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
-        const parts = [`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`];
-        if (guestEmail.trim()) parts.push(`Email: ${guestEmail.trim()}`);
-        if (isSurprise) parts.push("⚠️ SURPRISE — do not contact guest");
-        notes = parts.join(" | ");
+        noteParts.push(`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`);
+        if (guestEmail.trim()) noteParts.push(`Email: ${guestEmail.trim()}`);
+        if (isSurprise) noteParts.push("⚠️ SURPRISE — do not contact guest");
       }
+      const bookingNotes = noteParts.join(" | ");
 
       const res = await fetch("/api/service/book", {
         method: "POST",
@@ -1311,7 +1312,7 @@ function BookServicePage() {
           startDateTime: selectedSlot.startDateTime,
           staffId: selectedSlot.staffId,
           addOnIds: selectedBoosts.map((b) => b.id),
-          ...(notes ? { notes } : {}),
+          notes: bookingNotes,
         }),
       });
 

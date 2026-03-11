@@ -62,14 +62,14 @@ const CURATED_REVIEWS: CuratedReview[] = [
     date: "Jan 2026",
   },
   {
-    author: "Jessica Matthews",
-    text: "I came in for a facial with Bri \u2014 it was my first time trying Sway and I could not be happier with the results. Bri was so knowledgeable and took the time to explain everything and recommend simple fixes for my skin.",
-    date: "Dec 2025",
+    author: "Jessica Koniuszewski",
+    text: "Incredible deep tissue massage!! Pressure was perfect and I left feeling relaxed and reset. Stephen was amazing. The front desk help from Jonny was great \u2014 he was the gift of connection and hospitality. 10/10 experience.",
+    date: "Mar 2026",
   },
   {
-    author: "Avery Weiss",
-    text: "Easily the best spa I\u2019ve ever been to. I\u2019m visiting from out of town and had a crazy 24 hour travel day and was in major need of a massage. The deep tissue massage was both relaxing and therapeutic. The Remedy Room was incredible.",
-    date: "Dec 2025",
+    author: "Angie Fletcher",
+    text: "The person at the front desk was very friendly. Stephen who did my massage did a great job. It was a good combination of relaxation and therapeutic. I would definitely go again if ever back in town.",
+    date: "Mar 2026",
   },
 ];
 
@@ -360,15 +360,20 @@ export function ReviewBadge() {
 
 export function ClassPassBadge() {
   return (
-    <span className="inline-flex items-center gap-1.5 text-sm">
+    <a
+      href="https://classpass.com/studios/sway-wellness-spa-denver"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-sm hover:opacity-80 transition"
+    >
       <span className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
           <Star key={i} className="w-3.5 h-3.5" />
         ))}
       </span>
       <span className="font-semibold">4.8</span>
-      <span className="opacity-60">(666 ratings)</span>
-      <span className="font-semibold text-[#7B44BC] ml-0.5">ClassPass</span>
-    </span>
+      <span className="opacity-60">(673 ratings)</span>
+      <span className="font-semibold ml-0.5">ClassPass</span>
+    </a>
   );
 }

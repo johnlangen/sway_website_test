@@ -740,15 +740,15 @@ export default function BookRemedyRoomPage() {
 
     setStep("booking");
 
-    /* Build guest notes if booking for someone else */
-    let guestNotes: string | undefined;
+    /* Build appointment notes */
+    const noteParts: string[] = ["Booked online — Remedy Room"];
     if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
       const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
-      const parts = [`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`];
-      if (guestEmail.trim()) parts.push(`Email: ${guestEmail.trim()}`);
-      if (isSurprise) parts.push("⚠️ SURPRISE — do not contact guest");
-      guestNotes = parts.join(" | ");
+      noteParts.push(`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`);
+      if (guestEmail.trim()) noteParts.push(`Email: ${guestEmail.trim()}`);
+      if (isSurprise) noteParts.push("⚠️ SURPRISE — do not contact guest");
     }
+    const bookingNotes = noteParts.join(" | ");
 
     const bookRes = await fetch("/api/mindbody/book-appointment", {
       method: "POST",
@@ -757,7 +757,7 @@ export default function BookRemedyRoomPage() {
         clientId: resolvedClientId,
         sessionTypeId,
         startDateTime: formatLocalDateTime(selectedTime),
-        ...(guestNotes ? { notes: guestNotes } : {}),
+        notes: bookingNotes,
       }),
     });
 
