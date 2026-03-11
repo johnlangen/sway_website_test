@@ -24,7 +24,7 @@ export default function CountdownBanner() {
   return (
     <>
       {/* Fixed banner pinned below navbar */}
-      <div className="fixed top-[71px] md:top-[79px] left-0 right-0 z-40 bg-[#113D33] border-b border-[#9ABFB3]/20 px-4 py-2.5 text-center">
+      <div className="fixed top-[56px] left-0 right-0 z-40 bg-[#113D33] border-b border-[#9ABFB3]/20 px-4 py-2.5 text-center">
         <Link
           href="/locations/denver-larimer/membership"
           className="text-xs md:text-sm font-semibold text-white hover:text-[#9ABFB3] transition"
