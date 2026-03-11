@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Check, ChevronDown, Phone } from "lucide-react";
@@ -8,17 +8,6 @@ import GoogleReviews, {
   ReviewBadge,
   ClassPassBadge,
 } from "../../../components/GoogleReviews";
-
-/* ------------------------------------------------------------------
-   COUNTDOWN HELPER
------------------------------------------------------------------- */
-
-function getDaysUntilApril1(): number {
-  const target = new Date("2026-04-01T00:00:00");
-  const now = new Date();
-  const diff = target.getTime() - now.getTime();
-  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
-}
 
 /* ------------------------------------------------------------------
    TIER DATA — all treatments now have durations
@@ -44,7 +33,7 @@ const tiers: MembershipTier[] = [
     name: "Essential",
     price: "$99",
     dropInPrice: "$139",
-    tagline: "50-minute treatments",
+    tagline: "50-minute signature treatments",
     description:
       "Signature facials and massages — the perfect entry to Sway.",
     facials: [{ name: "Essential Signature Facial", duration: "50 min" }],
@@ -58,7 +47,7 @@ const tiers: MembershipTier[] = [
     name: "Premier",
     price: "$129",
     dropInPrice: "$169",
-    tagline: "Enhanced treatments",
+    tagline: "Targeted treatments",
     description:
       "Targeted products, advanced techniques, and extended durations.",
     mostPopular: true,
@@ -84,7 +73,7 @@ const tiers: MembershipTier[] = [
     name: "Ultimate",
     price: "$159",
     dropInPrice: "$199",
-    tagline: "Tech-enhanced premium",
+    tagline: "Tech-enhanced + longer treatments",
     description:
       "LED, microcurrent, oxygen infusion — maximum duration and results.",
     facials: [
@@ -131,23 +120,10 @@ const recoveryMemberships = [
       "Our full recovery circuit — everything you need to reset and recover.",
     details: "4 visits per month",
     highlights: [
-      "Infrared sauna",
+      "Traditional sauna",
       "Cold plunge",
-      "Normatec compression",
+      "Lymphatic compression boots",
       "LED light therapy",
-    ],
-  },
-  {
-    key: "recovery",
-    name: "Ultimate Tech Recovery",
-    price: "$99",
-    description:
-      "The best of both worlds — robot massage plus a full Remedy Room session.",
-    details: "1×30 min robot + 1×40 min Remedy Room per month",
-    highlights: [
-      "AI robot massage",
-      "Full recovery circuit",
-      "Best value combo",
     ],
   },
 ];
@@ -180,6 +156,7 @@ const massageBoosts = [
 
 const memberPerks = [
   "50% off all boosts",
+  "50% off Remedy Room",
   "Private member lounge",
   "Bring a friend at member pricing",
   "10% off retail",
@@ -191,16 +168,10 @@ const memberPerks = [
 ------------------------------------------------------------------ */
 
 export default function MembershipPage() {
-  const [daysLeft, setDaysLeft] = useState<number | null>(null);
   const [selectedTier, setSelectedTier] = useState("premier");
   const [boostsOpen, setBoostsOpen] = useState(false);
   const treatmentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setDaysLeft(getDaysUntilApril1());
-  }, []);
-
-  const showCountdown = daysLeft !== null && daysLeft > 0;
   const activeTier = tiers.find((t) => t.key === selectedTier)!;
 
   const handleTierSelect = (key: string) => {
@@ -218,28 +189,8 @@ export default function MembershipPage() {
 
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
-      {/* COUNTDOWN BANNER */}
-      {showCountdown && (
-        <motion.div
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="bg-[#9ABFB3]/15 border-b border-[#9ABFB3]/25 px-4 py-3 text-center mt-[72px] md:mt-[80px]"
-        >
-          <p className="text-sm md:text-base font-semibold">
-            New memberships launching April 1 —{" "}
-            <span className="text-[#9ABFB3]">
-              {daysLeft} {daysLeft === 1 ? "day" : "days"} left
-            </span>{" "}
-            to lock in $99/month
-          </p>
-        </motion.div>
-      )}
-
       {/* HERO + LOCK-IN CTA */}
-      <section
-        className={`px-6 ${showCountdown ? "pt-8 md:pt-12" : "pt-28 md:pt-36"} pb-6 text-center max-w-5xl mx-auto`}
-      >
+      <section className="px-6 pt-28 md:pt-36 pb-6 text-center max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -459,10 +410,6 @@ export default function MembershipPage() {
                     </ul>
                   </div>
                 </div>
-
-                <p className="text-center text-xs text-gray-500 mt-5">
-                  {activeTier.description}
-                </p>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -494,9 +441,6 @@ export default function MembershipPage() {
       ============================================================ */}
       <section className="px-4 sm:px-6 pt-10 pb-8">
         <div className="text-center mb-8">
-          <p className="text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-2">
-            Launching April 1
-          </p>
           <h2 className="text-2xl md:text-3xl font-bold">
             Recovery & Tech
           </h2>
