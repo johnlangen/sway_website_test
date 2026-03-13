@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 function getDaysUntilApril1(): number {
@@ -10,8 +11,12 @@ function getDaysUntilApril1(): number {
   return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
 }
 
+/** Pages where the banner should not appear (booking flows, landing pages) */
+const HIDDEN_PATHS = ["/book-aescape", "/book-service", "/book-remedy-room", "/themavenhotel"];
+
 export default function CountdownBanner() {
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     setDaysLeft(getDaysUntilApril1());
@@ -20,6 +25,9 @@ export default function CountdownBanner() {
   // Hydration-safe: null on server, then real value on client
   // Auto-hides after April 1 (daysLeft = 0)
   if (daysLeft === null || daysLeft <= 0) return null;
+
+  // Hide on booking flows and partner landing pages
+  if (HIDDEN_PATHS.some((p) => pathname.startsWith(p) || pathname.includes(p))) return null;
 
   return (
     <>
