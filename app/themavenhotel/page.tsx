@@ -1067,7 +1067,7 @@ export default function MavenHotelPage() {
                     {
                       step: "2",
                       title: "Head Over",
-                      desc: "10-min walk or a quick scooter ride to 1509 Larimer St",
+                      desc: "10-min walk or a quick scooter ride to 1428 Larimer St",
                     },
                     {
                       step: "3",
@@ -1096,7 +1096,7 @@ export default function MavenHotelPage() {
                       Sway Wellness Spa — Larimer Square
                     </h3>
                     <p className="text-sm text-[#113D33]/70 mb-1">
-                      1509 Larimer Street, Denver, CO 80202
+                      1428 Larimer Street, Denver, CO 80202
                     </p>
                     <p className="text-sm text-[#113D33]/70 mb-4">
                       0.6 miles from The Maven Hotel — 10-min walk, 5-min drive, or grab a scooter
@@ -1799,7 +1799,7 @@ export default function MavenHotelPage() {
                   {confirmDetails.dateLabel} · {confirmDetails.timeLabel}
                 </div>
                 <div className="text-sm text-[#113D33]/50 mt-1">
-                  Sway Wellness Spa · 1509 Larimer Street
+                  Sway Wellness Spa · 1428 Larimer Street
                 </div>
               </div>
             )}
@@ -1810,8 +1810,8 @@ export default function MavenHotelPage() {
               </h3>
               <ul className="space-y-2 text-sm text-[#113D33]/70">
                 <li>
-                  Arrive 5 minutes early at{" "}
-                  <strong>1509 Larimer Street</strong> (10-min walk or 5-min
+                  Arrive 15 minutes early at{" "}
+                  <strong>1428 Larimer Street</strong> (10-min walk or 5-min
                   drive from The Maven)
                 </li>
                 <li>Check in at the front desk — no prep or changing needed</li>
@@ -1921,7 +1921,7 @@ export default function MavenHotelPage() {
           {[
             {
               q: "How far is Sway from The Maven Hotel?",
-              a: "Sway Wellness Spa is 0.6 miles from The Maven Hotel at Dairy Block — about a 10-minute walk, a 5-minute drive, or a quick scooter ride down Larimer Street. Our address is 1509 Larimer Street, Denver, CO 80202.",
+              a: "Sway Wellness Spa is 0.6 miles from The Maven Hotel at Dairy Block — about a 10-minute walk, a 5-minute drive, or a quick scooter ride down Larimer Street. Our address is 1428 Larimer Street, Denver, CO 80202.",
             },
             {
               q: "What is an Aescape robot massage?",
@@ -1937,7 +1937,7 @@ export default function MavenHotelPage() {
             },
             {
               q: "What should I wear? How do I prepare?",
-              a: "Just show up in comfortable clothing. Compression apparel is provided at check-in — no need to change or prep beforehand. Arrive about 5 minutes early to get settled, and the Aescape system takes care of the rest.",
+              a: "Just show up in comfortable clothing. Compression apparel is provided at check-in — no need to change or prep beforehand. Arrive about 15 minutes early to get settled, and the Aescape system takes care of the rest.",
             },
             {
               q: "Does Sway offer other treatments besides robot massage?",

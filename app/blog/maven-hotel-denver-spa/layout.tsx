@@ -183,7 +183,7 @@ export default function MavenHotelBlogLayout() {
 
         <p>
           The Maven Hotel sits at 1850 Wazee Street in the heart of Dairy Block.
-          Sway Wellness Spa is at 1509 Larimer Street — just 0.6 miles away on
+          Sway Wellness Spa is at 1428 Larimer Street — just 0.6 miles away on
           Larimer Square. You have a few ways to get there:
         </p>
 
@@ -253,8 +253,8 @@ export default function MavenHotelBlogLayout() {
           {[
             {
               step: "1",
-              title: "Arrive 5 minutes early",
-              desc: "Check in at the front desk at 1509 Larimer Street. Our team will get you settled.",
+              title: "Arrive 15 minutes early",
+              desc: "Check in at the front desk at 1428 Larimer Street. Our team will get you settled.",
             },
             {
               step: "2",
@@ -501,7 +501,7 @@ export default function MavenHotelBlogLayout() {
                   name: "Is there a spa near The Maven Hotel in Denver?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes — Sway Wellness Spa is just 0.6 miles from The Maven Hotel at Dairy Block. Located at 1509 Larimer Street on Larimer Square, Sway offers AI-powered Aescape robot massage, traditional massage therapy, facials, sauna, cold plunge, and more. The Maven Hotel has partnered with Sway to offer guests easy access to a 60-minute Aescape session for $139.",
+                    text: "Yes — Sway Wellness Spa is just 0.6 miles from The Maven Hotel at Dairy Block. Located at 1428 Larimer Street on Larimer Square, Sway offers AI-powered Aescape robot massage, traditional massage therapy, facials, sauna, cold plunge, and more. The Maven Hotel has partnered with Sway to offer guests easy access to a 60-minute Aescape session for $139.",
                   },
                 },
                 {
@@ -509,7 +509,7 @@ export default function MavenHotelBlogLayout() {
                   name: "How do I get from The Maven Hotel to Sway Wellness Spa?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway is a 10-minute walk, 5-minute drive, or quick scooter ride from The Maven Hotel. Head south on Larimer Street from Dairy Block — Sway is at 1509 Larimer Street, right on Larimer Square.",
+                    text: "Sway is a 10-minute walk, 5-minute drive, or quick scooter ride from The Maven Hotel. Head south on Larimer Street from Dairy Block — Sway is at 1428 Larimer Street, right on Larimer Square.",
                   },
                 },
                 {
