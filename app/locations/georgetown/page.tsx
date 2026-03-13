@@ -216,7 +216,7 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "Does Sway Georgetown have a sauna and cold plunge?",
-                a: "Yes. The Remedy Room at Sway Georgetown will feature a private sauna and cold plunge pool, along with Normatec compression boots, LED light therapy panels, and a lymphatic drainage mat. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+                a: "Yes. The Remedy Room at Sway Georgetown will feature a sauna and cold plunge pool, along with Normatec compression boots, LED light therapy panels, and a lymphatic drainage mat. You can book individual sessions or get unlimited access through a Remedy Room membership.",
               },
               {
                 q: "How much are Sway Georgetown memberships?",

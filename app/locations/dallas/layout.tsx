@@ -125,7 +125,7 @@ const faqJsonLd = {
       name: "Does Sway Dallas have a sauna and cold plunge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway Dallas will feature the Remedy Room, which includes a private sauna, cold plunge pool, Normatec compression boots, LED light therapy, and a lymphatic drainage mat. Remedy Room sessions can be booked individually or included with a membership.",
+        text: "Yes. Sway Dallas will feature the Remedy Room, which includes a sauna, cold plunge pool, Normatec compression boots, LED light therapy, and a lymphatic drainage mat. Remedy Room sessions can be booked individually or included with a membership.",
       },
     },
     {
