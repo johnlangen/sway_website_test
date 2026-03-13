@@ -1130,7 +1130,7 @@ export default function BookRemedyRoomPage() {
                 <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
                   Science-backed recovery in a shared sanctuary. Cold plunge, sauna, LED therapy, and lymphatic compression — all in one 40-minute session.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 text-white">
                   <ReviewBadge />
                   <span className="hidden sm:block opacity-30">|</span>
                   <ClassPassBadge />

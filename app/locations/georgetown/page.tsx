@@ -36,7 +36,7 @@ export default function SwayGeorgetownComingSoonPage() {
               <p className="mt-4 max-w-xl leading-relaxed">
                 <strong>Sway Georgetown</strong> is bringing our award-winning wellness experience to
                 Washington, DC. Expect targeted facials, deeply effective massage, and the{" "}
-                <strong>Remedy Room</strong> recovery circuit with infrared sauna, cold plunge,
+                <strong>Remedy Room</strong> recovery circuit with sauna, cold plunge,
                 Normatec compression, and LED light therapy. Join the waitlist for
                 exclusive founding member pricing before we open.
               </p>
@@ -92,7 +92,7 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 title: "The Remedy Room",
-                desc: "Our signature recovery circuit: infrared sauna, cold plunge, Normatec compression boots, LED light therapy, and lymphatic drainage. Perfect for athletes and anyone recovering from daily stress.",
+                desc: "Our signature recovery circuit: sauna, cold plunge, Normatec compression boots, LED light therapy, and lymphatic drainage. Perfect for athletes and anyone recovering from daily stress.",
                 href: "/remedy-tech",
                 price: "From $49",
               },
@@ -212,11 +212,11 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "What treatments will Sway Georgetown offer?",
-                a: "Sway Georgetown will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (infrared sauna, cold plunge, Normatec compression, LED light therapy, lymphatic drainage).",
+                a: "Sway Georgetown will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy, lymphatic drainage).",
               },
               {
                 q: "Does Sway Georgetown have a sauna and cold plunge?",
-                a: "Yes. The Remedy Room at Sway Georgetown will feature an infrared sauna and cold plunge pool, along with Normatec compression boots, LED light therapy panels, and a lymphatic drainage mat. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+                a: "Yes. The Remedy Room at Sway Georgetown will feature a private sauna and cold plunge pool, along with Normatec compression boots, LED light therapy panels, and a lymphatic drainage mat. You can book individual sessions or get unlimited access through a Remedy Room membership.",
               },
               {
                 q: "How much are Sway Georgetown memberships?",
