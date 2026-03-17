@@ -138,9 +138,9 @@ export default function ThingsToDoAtNightLayout() {
           >
             Aescape AI-powered robot massage
           </Link>
-          . Open until 8 PM on weekdays (9 AM–6 PM weekends), it&apos;s the
-          perfect first stop before dinner on Larimer Square — book a late-afternoon
-          or after-work treatment, then walk next door to eat. Voted{" "}
+          . Open until 8 PM on weekdays (Saturday 9 AM–6 PM, Sunday 11 AM–6 PM), it&apos;s the
+          perfect first stop before dinner on Larimer Square — book an
+          after-work treatment, then walk next door to eat. Voted{" "}
           <Link
             href="/blog/best-day-spa-in-america"
             className="underline text-[#113D33] font-semibold"
@@ -479,15 +479,6 @@ export default function ThingsToDoAtNightLayout() {
             </p>
           </div>
           <div>
-            <p className="font-bold">Can I book a late-afternoon spa appointment in Denver?</p>
-            <p className="text-gray-700 mt-1">
-              Yes. Sway Wellness Spa on Larimer Square is open Monday–Friday
-              10 AM–8 PM and weekends 9 AM–6 PM. After-work and late-afternoon
-              appointments are available for massage, facials, Aescape robot massage,
-              and the Remedy Room recovery circuit. Book at swaywellnessspa.com.
-            </p>
-          </div>
-          <div>
             <p className="font-bold">What are the best nightlife neighborhoods in Denver?</p>
             <p className="text-gray-700 mt-1">
               The best nightlife neighborhoods in Denver include LoDo (Larimer
@@ -592,14 +583,6 @@ export default function ThingsToDoAtNightLayout() {
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Denver is excellent for date nights. Larimer Square alone offers fine dining, cocktail bars, and Sway Wellness Spa for couples massage — all on the same block. Red Rocks concerts, rooftop bars with mountain views, and RiNo galleries add even more options.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Can I book a late-afternoon spa appointment in Denver?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Yes. Sway Wellness Spa on Larimer Square is open Monday–Friday 10 AM–8 PM and weekends 9 AM–6 PM. After-work and late-afternoon appointments are available for massage, facials, Aescape AI-powered robot massage, and the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy). Book at swaywellnessspa.com.",
                   },
                 },
                 {

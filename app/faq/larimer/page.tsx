@@ -236,10 +236,10 @@ export default function SwayLarimerFAQPage() {
                 "For the Robot Massage, do I need to bring or wear anything specific?",
               answer: (
                 <p>
-                  During the Aescape Treatment, you will be provided with Airwear, a
-                  form-fitting outfit that allows the Aescape technology to perform
-                  at its best. Please ensure your Aescape profile is updated with
-                  your smallest “fit” size.
+                  During the Aescape treatment, compression apparel is provided
+                  at check-in — a form-fitting outfit that allows the Aescape
+                  technology to perform at its best. Please ensure your Aescape
+                  profile is updated with your smallest fit size.
                 </p>
               ),
             },
