@@ -55,10 +55,10 @@ const memberships = [
     visits: "4 monthly visits",
     tagline: "Recovery circuit",
     description:
-      "Sauna, cold plunge, red light therapy, and Normatec compression in one 40-minute session.",
+      "Sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots in one 40-minute session.",
     benefits: [
       "4 monthly Remedy Room visits",
-      "Additional visits just $20 each",
+      "Additional visits just $25 each",
       "Discounted facials & massages",
       "50% off Boosts & Super Boosts",
     ],

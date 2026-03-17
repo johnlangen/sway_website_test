@@ -88,8 +88,7 @@ export default function WaitlistForm({
           Get Notified When We Open
         </h3>
         <p className="text-sm opacity-70 mb-4">
-          Be the first to know when founding memberships go live.
-          Pricing and perks are not yet final.
+          Join the waitlist for exclusive founding member pricing before we open.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-3">

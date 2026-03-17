@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Founding Membership | Sway Georgetown DC",
   description:
-    "Become a founding member at Sway Georgetown. Lock in $89/month pricing, VIP perks, and priority access at our new Washington, DC wellness spa.",
+    "Become a founding member at Sway Georgetown. Exclusive pricing, VIP perks, and priority access at our new Washington, DC wellness spa.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/georgetown/founding-membership",
   },

@@ -43,7 +43,7 @@ export default function BookingPage() {
         {/* Hero */}
         <div className="text-center mb-10 md:mb-12">
           <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
-            Sway Wellness Spa
+            Sway Larimer
           </p>
           <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
             Book Your Experience
@@ -113,17 +113,15 @@ export default function BookingPage() {
           ))}
         </div>
 
-        {/* Footer */}
-        <div className="text-center">
-          <div className="text-xs text-[#113D33]/40">
-            Prefer to book with staff?{" "}
-            <a
-              href="tel:3034766150"
-              className="underline underline-offset-4 hover:text-[#113D33]/60 transition"
-            >
-              Call (303) 476-6150
-            </a>
-          </div>
+        {/* Phone CTA */}
+        <div className="bg-[#113D33] rounded-2xl p-6 md:p-8 text-center text-white">
+          <p className="text-base md:text-lg mb-2">Prefer to book with staff?</p>
+          <a
+            href="tel:3034766150"
+            className="text-2xl md:text-3xl font-bold hover:opacity-80 transition"
+          >
+            (303) 476-6150
+          </a>
         </div>
       </div>
     </div>

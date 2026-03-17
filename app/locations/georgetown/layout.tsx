@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sway Georgetown | Spa & Wellness Club in Washington, DC | Coming Soon",
   description:
-    "Sway Wellness Spa is coming to Georgetown in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Founding memberships from $89/month.",
+    "Sway Wellness Spa is coming to Georgetown in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/georgetown",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sway Georgetown | Spa & Wellness Club in Washington, DC | Coming Soon",
     description:
-      "Massage, facials, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Georgetown, DC. Founding memberships from $89/month.",
+      "Massage, facials, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Georgetown, DC. Join the waitlist for founding member pricing.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: { index: true, follow: true },
@@ -99,7 +99,7 @@ const faqJsonLd = {
       name: "What services will Sway Georgetown offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Georgetown will offer expert-led massage therapy (deep tissue, sports recovery, CBD, salt stone), advanced facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit featuring sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+        text: "Sway Georgetown will offer expert-led massage therapy (deep tissue, sports recovery, CBD, salt stone), advanced facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit featuring sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots.",
       },
     },
     {
@@ -115,7 +115,7 @@ const faqJsonLd = {
       name: "Does Sway Georgetown have a sauna and cold plunge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway Georgetown will feature the Remedy Room, which includes a sauna, cold plunge pool, Normatec compression boots, LED light therapy, and a lymphatic drainage mat. Remedy Room sessions can be booked individually or included with a membership.",
+        text: "Yes. Sway Georgetown will feature the Remedy Room — our signature recovery circuit with sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. Remedy Room sessions can be booked individually or included with a membership.",
       },
     },
     {
@@ -123,7 +123,7 @@ const faqJsonLd = {
       name: "How much are Sway Georgetown memberships?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Founding Member pricing at Sway Georgetown starts at $89/month. Two membership tiers will be available: Spa Club (monthly massage or facial) and Remedy Room (unlimited recovery circuit access). Founding rates are locked in and will not increase.",
+        text: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open — join the waitlist to be notified.",
       },
     },
     {
@@ -131,7 +131,7 @@ const faqJsonLd = {
       name: "Can I become a founding member at Sway Georgetown?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Founding Members lock in exclusive pricing starting at $89/month before Sway Georgetown opens. Benefits include priority booking access, VIP opening-day perks, and guaranteed rates. Sign up at swaywellnessspa.com/locations/georgetown/founding-membership.",
+        text: "Yes. Founding Members receive exclusive pricing and priority booking before Sway Georgetown opens. Benefits include VIP opening-day perks and guaranteed rates. Sign up at swaywellnessspa.com/locations/georgetown/founding-membership.",
       },
     },
     {

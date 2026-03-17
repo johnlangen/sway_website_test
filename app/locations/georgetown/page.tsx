@@ -37,8 +37,7 @@ export default function SwayGeorgetownComingSoonPage() {
                 <strong>Sway Georgetown</strong> is bringing our award-winning wellness experience to
                 Washington, DC. Expect targeted facials, deeply effective massage, and the{" "}
                 <strong>Remedy Room</strong> recovery circuit with sauna, cold plunge,
-                Normatec compression, and LED light therapy. Join the waitlist for
-                exclusive founding member pricing before we open.
+                LED light therapy, and lymphatic drainage compression boots.
               </p>
             </div>
 
@@ -47,7 +46,7 @@ export default function SwayGeorgetownComingSoonPage() {
                 href="/locations/georgetown/founding-membership"
                 className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-full hover:opacity-90 transition"
               >
-                Join the Waitlist
+                Explore Memberships
               </Link>
               <Link
                 href="/treatments"
@@ -80,21 +79,18 @@ export default function SwayGeorgetownComingSoonPage() {
             {[
               {
                 title: "Massage Therapy",
-                desc: "Deep tissue, sports recovery, CBD, and Himalayan salt stone massage. 50 or 80-minute sessions with customizable pressure and add-on boosts like hot stones and cupping.",
+                desc: "Deep tissue, sports recovery, CBD, and Himalayan salt stone massage. 50, 70, or 90-minute treatments with customizable pressure and add-on boosts like hot stones and cupping.",
                 href: "/massages",
-                price: "From $99",
               },
               {
                 title: "Targeted Facials",
-                desc: "Results-driven facials including Pore Perfection, Forever Young anti-aging, Glow Getter, and Vitamin C brightening treatments. Expert aestheticians with medical-grade products.",
+                desc: "Result-driven facials including Pore Perfection, Forever Young anti-aging, Glow Getter, and Vitamin C brightening treatments. Expert estheticians with professional-grade products.",
                 href: "/facials",
-                price: "From $99",
               },
               {
                 title: "The Remedy Room",
-                desc: "Our signature recovery circuit: sauna, cold plunge, Normatec compression boots, LED light therapy, and lymphatic drainage. Perfect for athletes and anyone recovering from daily stress.",
+                desc: "Our signature recovery circuit: sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. Experience the physical and mental benefits. Restore your body and refresh your mind.",
                 href: "/remedy-tech",
-                price: "From $49",
               },
             ].map((svc) => (
               <motion.div
@@ -104,8 +100,7 @@ export default function SwayGeorgetownComingSoonPage() {
               >
                 <h3 className="text-lg font-bold mb-2">{svc.title}</h3>
                 <p className="text-sm leading-relaxed opacity-80 mb-3">{svc.desc}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold opacity-60">{svc.price}</span>
+                <div className="flex items-center justify-end">
                   <Link
                     href={svc.href}
                     className="text-sm text-[#4A776D] font-semibold hover:underline"
@@ -118,7 +113,7 @@ export default function SwayGeorgetownComingSoonPage() {
           </div>
 
           <motion.p {...fadeUp} className="text-center text-sm opacity-60 mt-6">
-            Member pricing available. Join the waitlist for founding member rates.
+            Member pricing available. Explore memberships for founding member rates.
           </motion.p>
         </div>
       </section>
@@ -129,25 +124,29 @@ export default function SwayGeorgetownComingSoonPage() {
           <motion.div {...fadeUp} className="bg-white rounded-2xl p-8 md:p-10 shadow text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Membership Tiers Coming Soon</h2>
             <p className="text-lg mb-2">
-              Three tiers — <strong>Essential</strong>, <strong>Premier</strong>, and <strong>Ultimate</strong>
+              Four tiers — <strong>Essential</strong>, <strong>Premier</strong>, <strong>Ultimate</strong>, and <strong>The Remedy Room</strong>
             </p>
             <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
               Founding members will receive exclusive pricing and priority booking before Sway Georgetown
               opens. Join the waitlist to be notified when founding memberships go live.
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-4 mb-6 text-left max-w-xl mx-auto">
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-left max-w-3xl mx-auto">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Essential</h3>
-                <p className="text-xs opacity-70">Signature 50-minute facials and massages</p>
+                <p className="text-xs opacity-70">Signature treatments — the perfect entry to Sway.</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Premier</h3>
-                <p className="text-xs opacity-70">Enhanced products, techniques, and extended durations</p>
+                <p className="text-xs opacity-70">Enhanced treatments and extended durations.</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Ultimate</h3>
-                <p className="text-xs opacity-70">Tech-enhanced LED, microcurrent, and oxygen infusion</p>
+                <p className="text-xs opacity-70">Technology-infused treatments and extended durations.</p>
+              </div>
+              <div className="bg-[#F7F4E9] rounded-xl p-4">
+                <h3 className="font-bold text-sm mb-1">The Remedy Room</h3>
+                <p className="text-xs opacity-70">Recovery circuit access — sauna, cold plunge, LED, and compression.</p>
               </div>
             </div>
 
@@ -212,15 +211,15 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "What treatments will Sway Georgetown offer?",
-                a: "Sway Georgetown will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy, lymphatic drainage).",
+                a: "Sway Georgetown will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
               },
               {
                 q: "Does Sway Georgetown have a sauna and cold plunge?",
-                a: "Yes. The Remedy Room at Sway Georgetown will feature a sauna and cold plunge pool, along with Normatec compression boots, LED light therapy panels, and a lymphatic drainage mat. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+                a: "Yes. The Remedy Room at Sway Georgetown will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or get unlimited access through a Remedy Room membership.",
               },
               {
                 q: "How much are Sway Georgetown memberships?",
-                a: "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced products and extended durations), and Ultimate (tech-enhanced premium treatments). Founding member pricing will be announced before we open — join the waitlist to be notified.",
+                a: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open — join the waitlist to be notified.",
               },
               {
                 q: "Can I join the waitlist now?",
