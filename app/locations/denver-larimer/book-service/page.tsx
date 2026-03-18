@@ -1939,11 +1939,36 @@ function BookServicePage() {
                         <p className="text-[#113D33]/50">
                           No times fit your selected boosts on this day.
                         </p>
-                        <p className="mt-2 text-sm text-[#113D33]/40">
-                          Try a different day, or remove the time extension to see available slots.
-                        </p>
+
+                        {/* Quick-remove buttons for time-extension boosts */}
+                        <div className="mt-4 space-y-2">
+                          {selectedBoosts
+                            .filter((b) => b.type === "time_extension")
+                            .map((b) => (
+                              <button
+                                key={b.id}
+                                onClick={() =>
+                                  setSelectedBoosts((prev) =>
+                                    prev.filter((x) => x.id !== b.id)
+                                  )
+                                }
+                                className="inline-flex items-center gap-1.5 rounded-full border border-[#113D33]/20 bg-white px-4 py-2 text-sm font-medium text-[#113D33] shadow-sm hover:shadow-md hover:border-[#113D33]/40 transition-all duration-200"
+                              >
+                                <svg className="w-3.5 h-3.5 text-[#113D33]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Remove {b.name}
+                              </button>
+                            ))}
+                          <p className="text-xs text-[#113D33]/35">
+                            Remove to see available times on this day
+                          </p>
+                        </div>
+
+                        {/* Or find next available day */}
                         {selectedService && (
-                          <div className="mt-2">
+                          <div className="mt-4">
+                            <p className="text-xs text-[#113D33]/40 mb-2">Or try another day:</p>
                             <NextAvailableBanner
                               type="service"
                               sessionTypeId={selectedService.id}
