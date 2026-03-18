@@ -1642,7 +1642,7 @@ function BookServicePage() {
                   Enhance your {category}. Super Boosts add extra time. Select any or skip.
                 </p>
                 <p className="text-xs text-[#113D33]/35 mt-1 italic">
-                  You can always add boosts when you arrive.
+                  Add-on enhancements can also be added at check-in.
                 </p>
               </div>
 
@@ -2047,7 +2047,7 @@ function BookServicePage() {
                                 <div className="font-semibold text-sm">
                                   {formatTime12h(slot.startDateTime)}
                                 </div>
-                                {slot.staffName && (
+                                {filteredTherapist && slot.staffName && (
                                   <div
                                     className={`text-xs mt-0.5 ${
                                       isSelected
