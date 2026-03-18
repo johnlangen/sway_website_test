@@ -6,6 +6,7 @@ type Slot = {
   startDateTime: string;
   staffId: number | null;
   staffName: string | null;
+  availableResourceIds: number[];
 };
 
 /** Strip staff-type codes like "M - ", "M/E - " (prefix) or " M", " M/E" (suffix) */
@@ -96,11 +97,32 @@ function expandAvailabilityWindow(a: any): Slot[] {
 
   if (!Number.isFinite(minutes) || minutes <= 0) return slots;
 
+  // Parse resource availabilities for this window
+  const resourceAvails: { id: number; start: Date; end: Date }[] = [];
+  if (Array.isArray(a?.ResourceAvailabilities)) {
+    for (const ra of a.ResourceAvailabilities) {
+      if (ra?.ResourceId != null) {
+        resourceAvails.push({
+          id: Number(ra.ResourceId),
+          start: parseMindbodyDateTime(ra.StartDateTime),
+          end: parseMindbodyDateTime(ra.EndDateTime),
+        });
+      }
+    }
+  }
+
   const maxSteps = 500;
   let cursor = new Date(start);
   let steps = 0;
 
   while (cursor <= end && steps < maxSteps) {
+    const slotEnd = new Date(cursor.getTime() + minutes * 60 * 1000);
+
+    // Find which resources are available during this specific slot
+    const availableResourceIds = resourceAvails
+      .filter((ra) => ra.start <= cursor && ra.end >= slotEnd)
+      .map((ra) => ra.id);
+
     slots.push({
       startDateTime: formatLocalNaive(cursor),
       staffId:
@@ -113,6 +135,7 @@ function expandAvailabilityWindow(a: any): Slot[] {
           `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
           null
       ),
+      availableResourceIds,
     });
 
     cursor = new Date(cursor.getTime() + minutes * 60 * 1000);

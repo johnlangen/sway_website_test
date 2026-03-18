@@ -34,6 +34,22 @@ const TIME_EXTENSION_IDS = new Set([
   20, // LED Light Therapy Full (facial +30 min)
 ]);
 
+/* Map boost session-type IDs → Mindbody Resource IDs.
+ * When a boost requires equipment (e.g. PEMF mat, facial devices),
+ * we assign the resource to the appointment so Mindbody prevents
+ * double-booking the same equipment at overlapping times. */
+const BOOST_RESOURCE_MAP: Record<number, number> = {
+  25: 3, // Infrared PEMF Mat → PEMF resource
+  24: 4, // Oxygen Infusion → Oxygen Infusion resource
+  22: 5, // Dermaflash → Dermaflash resource
+  20: 6, // LED Light Therapy Full → LED resource
+  31: 6, // LED Light Therapy Mini → LED resource
+  19: 7, // Microcurrent Full → Microcurrent resource
+  18: 7, // Microcurrent Mini → Microcurrent resource
+  21: 8, // Hydraderm → Hydraderm resource
+  // 28 (Make it 80 Min), 26 (Cupping), 17 (Peel) — no dedicated resource
+};
+
 export async function POST(req: Request) {
   try {
     const {
@@ -118,6 +134,19 @@ export async function POST(req: Request) {
       Authorization: `Bearer ${token}`,
     };
 
+    // Collect resource IDs needed by true add-ons (not time-extensions)
+    // so Mindbody reserves the equipment and prevents double-booking
+    const trueAddOnResourceIds = validAddOns
+      .filter((id) => !TIME_EXTENSION_IDS.has(id) && BOOST_RESOURCE_MAP[id])
+      .map((id) => BOOST_RESOURCE_MAP[id]);
+
+    // Deduplicate (in case two boosts map to same resource)
+    const mainResourceIds = [...new Set(trueAddOnResourceIds)];
+
+    if (mainResourceIds.length > 0) {
+      console.log("[SERVICE BOOK] Assigning resources to main appointment:", mainResourceIds);
+    }
+
     const mainRes = await fetch(
       "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
       {
@@ -131,6 +160,7 @@ export async function POST(req: Request) {
           StartDateTime: startDateTime,
           ApplyPayment: false,
           SendEmail: true,
+          ...(mainResourceIds.length > 0 ? { ResourceIds: mainResourceIds } : {}),
           ...(typeof notes === "string" && notes.trim()
             ? { Notes: notes.trim() }
             : {}),
@@ -138,17 +168,55 @@ export async function POST(req: Request) {
       }
     );
 
-    const mainData = await mainRes.json();
+    let mainData = await mainRes.json();
+    let resourceWarning: string | null = null;
 
-    if (!mainRes.ok) {
+    // If resource assignment fails (race condition — someone else grabbed it),
+    // retry without resources so the booking still goes through
+    if (!mainRes.ok && mainResourceIds.length > 0 && mainData?.Error?.Code === "InvalidResource") {
+      console.warn("[SERVICE BOOK] Resource unavailable, retrying without resources:", mainResourceIds);
+
+      const retryRes = await fetch(
+        "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
+        {
+          method: "POST",
+          headers: mbHeaders,
+          body: JSON.stringify({
+            ClientId: cid,
+            SessionTypeId: stid,
+            StaffId: sid,
+            LocationId: Number(locationId),
+            StartDateTime: startDateTime,
+            ApplyPayment: false,
+            SendEmail: true,
+            ...(typeof notes === "string" && notes.trim()
+              ? { Notes: notes.trim() }
+              : {}),
+          }),
+        }
+      );
+
+      mainData = await retryRes.json();
+
+      if (!retryRes.ok) {
+        console.error("[SERVICE BOOK] Main appointment rejected (retry)", mainData);
+        return NextResponse.json(
+          { error: "Booking failed", details: mainData },
+          { status: retryRes.status }
+        );
+      }
+
+      resourceWarning = "Equipment may not be available at this time — please call (303) 476-6150 to confirm.";
+      console.log("[SERVICE BOOK] Main appointment booked (without resources)", mainData);
+    } else if (!mainRes.ok) {
       console.error("[SERVICE BOOK] Main appointment rejected", mainData);
       return NextResponse.json(
         { error: "Booking failed", details: mainData },
         { status: mainRes.status }
       );
+    } else {
+      console.log("[SERVICE BOOK] Main appointment booked", mainData);
     }
-
-    console.log("[SERVICE BOOK] Main appointment booked", mainData);
 
     /* ── Attach boosts ─────────────────────────── */
 
@@ -169,12 +237,13 @@ export async function POST(req: Request) {
     /* ── Book time-extension appointments ──
      * Strategy: try WITHOUT a resource first (works for massage extensions).
      * If Mindbody rejects with InvalidResource (needs a room), retry with
-     * each esty table until one succeeds. This handles both:
+     * each resource until one succeeds. This handles both:
      *   - Massage "Make it 80 Min" → no resource needed
-     *   - Facial Super Boosts → require an esty table resource */
+     *   - Facial Super Boosts → require a device resource */
 
-    // Esty table resource IDs to try when a resource IS required
-    const ESTY_TABLE_IDS = [7, 6, 2, 5, 4]; // Esty Table 1–5
+    // Resource IDs to try when a time-extension requires one.
+    // We try the specific mapped resource first, then fall back to others.
+    const FALLBACK_RESOURCE_IDS = [7, 6, 2, 5, 4];
 
     let nextExtStart = mainEndDateTime;
 
@@ -224,8 +293,8 @@ export async function POST(req: Request) {
           nextExtStart = extData.Appointment?.EndDateTime ?? null;
           booked = true;
         } else if (extData?.Error?.Code === "InvalidResource") {
-          // Needs a resource — fall through to esty table retry below
-          console.log(`[SERVICE BOOK] Extension ${extId} requires a resource, trying esty tables...`);
+          // Needs a resource — fall through to resource retry below
+          console.log(`[SERVICE BOOK] Extension ${extId} requires a resource, trying available resources...`);
         } else {
           // Some other error — report and move on
           console.error(`[SERVICE BOOK] Time-extension ${extId} failed`, extData);
@@ -238,11 +307,16 @@ export async function POST(req: Request) {
         booked = true;
       }
 
-      // Second: if it needs a resource, try each esty table
+      // Second: if it needs a resource, try the mapped resource first, then fallbacks
       if (!booked) {
-        for (const resourceId of ESTY_TABLE_IDS) {
+        const mappedResource = BOOST_RESOURCE_MAP[extId];
+        const resourcesToTry = mappedResource
+          ? [mappedResource, ...FALLBACK_RESOURCE_IDS.filter((r) => r !== mappedResource)]
+          : FALLBACK_RESOURCE_IDS;
+
+        for (const resourceId of resourcesToTry) {
           try {
-            console.log(`[SERVICE BOOK] Trying extension ${extId} with esty table ${resourceId}`);
+            console.log(`[SERVICE BOOK] Trying extension ${extId} with resource ${resourceId}`);
 
             const extRes = await fetch(
               "https://api.mindbodyonline.com/public/v6/appointment/addappointment",
@@ -266,7 +340,7 @@ export async function POST(req: Request) {
 
             if (extRes.ok) {
               console.log(
-                `[SERVICE BOOK] Time-extension ${extId} booked on esty table ${resourceId}`,
+                `[SERVICE BOOK] Time-extension ${extId} booked with resource ${resourceId}`,
                 extData
               );
               addOnResults.push({
@@ -283,7 +357,7 @@ export async function POST(req: Request) {
             const errCode = extData?.Error?.Code;
             if (errCode === "InvalidResource") {
               console.log(
-                `[SERVICE BOOK] Esty table ${resourceId} unavailable for extension ${extId}, trying next...`
+                `[SERVICE BOOK] Resource ${resourceId} unavailable for extension ${extId}, trying next...`
               );
               continue;
             }
@@ -371,6 +445,7 @@ export async function POST(req: Request) {
       success: true,
       appointment: mainData.Appointment ?? mainData,
       addOns: addOnResults,
+      ...(resourceWarning ? { resourceWarning } : {}),
     });
   } catch (err: any) {
     console.error("[SERVICE BOOK] Server error", err);

@@ -47,6 +47,7 @@ type DisplaySlot = {
   startDateTime: string;
   staffId: number;
   staffName: string;
+  availableResourceIds?: number[];
 };
 
 type Step =
@@ -370,6 +371,23 @@ const FACIAL_BOOSTS: Boost[] = [
     detail: "Cooling, calming oxygen infused onto the skin to aid in the absorption of serums and naturally improve skin hydration levels. This technology is used with 98% pure oxygen to ensure the deep penetration of active ingredients. Breathe life back into your skin.",
   },
 ];
+
+/* ─────────────────────────────────────────────
+   BOOST → RESOURCE MAPPING
+   Maps boost IDs to Mindbody Resource IDs so we can
+   filter time slots by equipment availability.
+───────────────────────────────────────────── */
+
+const BOOST_RESOURCE_MAP: Record<number, number> = {
+  25: 3, // Infrared PEMF Mat → PEMF resource
+  24: 4, // Oxygen Infusion → Oxygen Infusion resource
+  22: 5, // Dermaflash → Dermaflash resource
+  20: 6, // LED Light Therapy Full → LED resource
+  31: 6, // LED Light Therapy Mini → LED resource
+  19: 7, // Microcurrent Full → Microcurrent resource
+  18: 7, // Microcurrent Mini → Microcurrent resource
+  21: 8, // Hydraderm → Hydraderm resource
+};
 
 /* ─────────────────────────────────────────────
    DATE HELPERS
@@ -815,12 +833,30 @@ function BookServicePage() {
     });
   }, [slots, staffSchedules, staffLastSlot, totalExtMinutes, selectedService]);
 
-  // Filter slots by selected therapist + extension availability
+  // Collect resource IDs required by selected boosts (non-time-extension add-ons)
+  const requiredResourceIds = useMemo(() => {
+    const ids = selectedBoosts
+      .filter((b) => b.type === "add_on" && BOOST_RESOURCE_MAP[b.id])
+      .map((b) => BOOST_RESOURCE_MAP[b.id]);
+    return [...new Set(ids)];
+  }, [selectedBoosts]);
+
+  // Filter slots by selected therapist + extension availability + resource availability
   const displayedSlots = useMemo(() => {
-    const base = totalExtMinutes > 0 ? filteredSlots : slots;
+    let base = totalExtMinutes > 0 ? filteredSlots : slots;
+
+    // Filter by resource availability when boosts require equipment
+    if (requiredResourceIds.length > 0) {
+      base = base.filter((s) =>
+        requiredResourceIds.every((rid) =>
+          s.availableResourceIds?.includes(rid)
+        )
+      );
+    }
+
     if (!filteredTherapist) return base;
     return base.filter((s) => s.staffId === filteredTherapist);
-  }, [slots, filteredSlots, filteredTherapist, totalExtMinutes]);
+  }, [slots, filteredSlots, filteredTherapist, totalExtMinutes, requiredResourceIds]);
 
   const groupedSlots = useMemo(() => groupSlots(displayedSlots), [displayedSlots]);
 
