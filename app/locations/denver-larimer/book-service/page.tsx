@@ -1641,13 +1641,25 @@ function BookServicePage() {
                 <p className="text-sm text-[#113D33]/50">
                   Enhance your {category}. Super Boosts add extra time. Select any or skip.
                 </p>
+                <p className="text-xs text-[#113D33]/35 mt-1 italic">
+                  You can always add boosts when you arrive.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {boostsForCategory.map((boost, i) => {
-                  const selected = selectedBoosts.some(
-                    (b) => b.id === boost.id
-                  );
+              {/* Boost groups */}
+              {[
+                { label: "Extend your session", boosts: boostsForCategory.filter(b => b.tag === "Super Boost") },
+                { label: "Add-on enhancements", boosts: boostsForCategory.filter(b => b.tag === "Boost") },
+              ].filter(g => g.boosts.length > 0).map((group, gi) => (
+                <div key={group.label} className={gi > 0 ? "mt-5" : ""}>
+                  <div className="text-[11px] uppercase tracking-wider text-[#113D33]/40 font-semibold mb-2 text-left">
+                    {group.label}
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {group.boosts.map((boost, i) => {
+                      const selected = selectedBoosts.some(
+                        (b) => b.id === boost.id
+                      );
 
                   return (
                     <button
@@ -1655,7 +1667,7 @@ function BookServicePage() {
                       onClick={() => handleToggleBoost(boost)}
                       className={`rounded-2xl border p-4 text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 animate-fade-in-up ${
                         selected
-                          ? "border-[#113D33] bg-white shadow-md ring-1 ring-[#113D33]/10"
+                          ? "border-[#113D33] border-t-2 border-t-[#113D33] bg-white shadow-md ring-1 ring-[#113D33]/10"
                           : "border-[#113D33]/10 bg-white shadow-sm hover:shadow-md hover:border-[#113D33]/20"
                       }`}
                       style={{ animationDelay: `${i * 50}ms` }}
@@ -1721,8 +1733,10 @@ function BookServicePage() {
                       </div>
                     </button>
                   );
-                })}
-              </div>
+                    })}
+                  </div>
+                </div>
+              ))}
 
               {/* Summary + Continue */}
               <div className="mt-8 space-y-3 max-w-md mx-auto">
@@ -1746,6 +1760,15 @@ function BookServicePage() {
                     </div>
                     <div className="text-[10px] text-[#113D33]/40 text-right mt-0.5">member / drop-in</div>
                   </div>
+                )}
+
+                {selectedBoosts.length === 0 && (
+                  <button
+                    onClick={handleContinueFromBoosts}
+                    className="text-sm text-[#4A776D] hover:text-[#113D33] underline underline-offset-2 transition-colors duration-200"
+                  >
+                    No thanks, skip to scheduling →
+                  </button>
                 )}
 
                 <button
@@ -1798,6 +1821,7 @@ function BookServicePage() {
                 <p className="text-sm text-[#113D33]/40 mb-4">
                   {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </p>
+                <div className="bg-white/60 rounded-2xl p-3 border border-[#113D33]/5">
                 <div className="flex items-center justify-center gap-1">
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
@@ -1837,6 +1861,9 @@ function BookServicePage() {
                             {dayName}
                           </span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
+                          {iso === formatISO(today) && (
+                            <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? "bg-white/60" : "bg-[#4A776D]"}`} />
+                          )}
                         </button>
                       );
                     })}
@@ -1851,6 +1878,7 @@ function BookServicePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
+                </div>
                 </div>
               </section>
 
@@ -1914,6 +1942,30 @@ function BookServicePage() {
                         <p className="mt-2 text-sm text-[#113D33]/40">
                           Try a different day, or remove the time extension to see available slots.
                         </p>
+                        {selectedService && (
+                          <div className="mt-2">
+                            <NextAvailableBanner
+                              type="service"
+                              sessionTypeId={selectedService.id}
+                              currentDate={selectedDate}
+                              staffId={filteredTherapist}
+                              staffName={
+                                filteredTherapist
+                                  ? allTherapists.find((t) => t.id === filteredTherapist)?.name
+                                  : undefined
+                              }
+                              onJumpToDate={(iso) => {
+                                const [y, m, d] = iso.split("-").map(Number);
+                                const target = new Date(y, m - 1, d);
+                                setSelectedDate(iso);
+                                setWeekStart(target);
+                              }}
+                            />
+                            <p className="text-[11px] text-[#113D33]/30 mt-1">
+                              Availability may vary with selected boosts.
+                            </p>
+                          </div>
+                        )}
                       </>
                     ) : (
                       <>
@@ -1952,7 +2004,27 @@ function BookServicePage() {
                     if (periodSlots.length === 0) return null;
                     return (
                       <div key={period} className="mb-5 animate-fade-in">
-                        <div className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40 mb-2 text-left">
+                        <div className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40 mb-2 text-left flex items-center gap-1.5">
+                          {period === "Morning" && (
+                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 18v4M17.24 17.24l2.83 2.83M18 12h4M17.24 6.76l2.83-2.83" /><circle cx="12" cy="12" r="4" />
+                            </svg>
+                          )}
+                          {period === "Midday" && (
+                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                            </svg>
+                          )}
+                          {period === "Afternoon" && (
+                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M12 10V2M18.4 6.6L12 10M5.6 6.6L12 10" /><circle cx="12" cy="10" r="4" /><path d="M2 18h20" />
+                            </svg>
+                          )}
+                          {period === "Evening" && (
+                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                          )}
                           {period}
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
@@ -1975,7 +2047,7 @@ function BookServicePage() {
                                 <div className="font-semibold text-sm">
                                   {formatTime12h(slot.startDateTime)}
                                 </div>
-                                {filteredTherapist && slot.staffName && (
+                                {slot.staffName && (
                                   <div
                                     className={`text-xs mt-0.5 ${
                                       isSelected
@@ -1994,6 +2066,23 @@ function BookServicePage() {
                     );
                   })}
               </section>
+
+              {/* Selected time confirmation */}
+              {selectedSlot && selectedService && (
+                <div className="max-w-md mx-auto mb-4 bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 text-sm text-left shadow-sm animate-scale-in">
+                  <div className="text-[10px] uppercase tracking-wider text-[#113D33]/50 mb-1 font-semibold">
+                    Your appointment
+                  </div>
+                  <div className="font-semibold text-[#113D33]">
+                    {formatTimeRange(selectedSlot.startDateTime, totalMinutes)}
+                  </div>
+                  <div className="text-xs text-[#113D33]/50 mt-0.5">
+                    {selectedService.name}
+                    {selectedBoosts.length > 0 ? ` + ${selectedBoosts.map(b => b.name).join(", ")}` : ""}
+                    {selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
+                  </div>
+                </div>
+              )}
 
               {/* Continue */}
               <div className="max-w-md mx-auto">
