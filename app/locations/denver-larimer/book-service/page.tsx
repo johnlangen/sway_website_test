@@ -1194,6 +1194,15 @@ function BookServicePage() {
         return;
       }
 
+      // Returning client with card — skips card step, so fire email_entered manually
+      // (normally fires on entering "card" step via useEffect)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "booking_email_entered",
+        booking_flow: category ?? "unknown",
+        client_type: "returning",
+      });
+
       setClientId(String(lookup.client!.Id));
       setStep("confirm");
     } catch (err: any) {
