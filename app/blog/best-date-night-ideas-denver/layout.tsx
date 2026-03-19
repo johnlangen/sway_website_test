@@ -35,7 +35,7 @@ export default function DateNightDenverLayout() {
           alt="Spa day rubber duck in warm water, date night vibes"
           width={900}
           height={500}
-          className="rounded-xl w-full object-cover max-h-[500px]"
+          className="rounded-xl w-full object-cover object-[center_25%] max-h-[500px]"
           priority
         />
 
