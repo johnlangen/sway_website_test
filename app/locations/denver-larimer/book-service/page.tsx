@@ -2105,7 +2105,7 @@ function BookServicePage() {
                   <div className="text-xs text-[#113D33]/50 mt-0.5">
                     {selectedService.name}
                     {selectedBoosts.length > 0 ? ` + ${selectedBoosts.map(b => b.name).join(", ")}` : ""}
-                    {selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
+                    {filteredTherapist && selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
                   </div>
                 </div>
               )}
@@ -2384,16 +2384,22 @@ function BookServicePage() {
                   {/* Therapist */}
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-[#113D33]/10 flex items-center justify-center">
-                      <span className="text-sm font-semibold text-[#113D33]">
-                        {selectedSlot.staffName?.charAt(0) || "?"}
-                      </span>
+                      {filteredTherapist ? (
+                        <span className="text-sm font-semibold text-[#113D33]">
+                          {selectedSlot.staffName?.charAt(0) || "?"}
+                        </span>
+                      ) : (
+                        <svg className="w-4 h-4 text-[#113D33]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
+                        </svg>
+                      )}
                     </div>
                     <div>
                       <div className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">
                         Therapist
                       </div>
                       <div className="text-sm font-medium text-[#113D33]">
-                        {selectedSlot.staffName}
+                        {filteredTherapist ? selectedSlot.staffName : "Assigned at check-in"}
                       </div>
                     </div>
                   </div>
@@ -2583,7 +2589,7 @@ function BookServicePage() {
 
               {selectedService && selectedSlot && (
                 <p className="text-[#113D33] font-semibold text-lg mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
-                  {selectedService.name} with {selectedSlot.staffName}
+                  {selectedService.name}{filteredTherapist && selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
                 </p>
               )}
 
