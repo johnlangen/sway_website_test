@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/blog40.jpg",
         width: 1200,
         height: 630,
         alt: "Best date night ideas in Denver — Sway Wellness Spa on Larimer Square",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Best Date Night Ideas in Denver",
     description:
       "The best date night ideas in Denver: couples massage at Sway, Larimer Square dining, rooftop bars, live jazz, Meow Wolf, and more.",
-    images: ["https://swaywellnessspa.com/assets/homepage_photo_outside.jpg"],
+    images: ["https://swaywellnessspa.com/assets/blog40.jpg"],
   },
   robots: { index: true, follow: true },
 };
@@ -43,7 +43,7 @@ export default function Page() {
     headline: "Best Date Night Ideas in Denver",
     description:
       "The best date night ideas in Denver: couples massage at Sway Wellness Spa on Larimer Square, romantic restaurants, rooftop bars, live jazz, and outdoor experiences.",
-    image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+    image: "https://swaywellnessspa.com/assets/blog40.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -55,7 +55,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/blog40.jpg",
       },
     },
     datePublished: "2026-03-19",

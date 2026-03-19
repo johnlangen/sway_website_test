@@ -31,11 +31,11 @@ export default function DateNightDenverLayout() {
 
         {/* Hero Image */}
         <Image
-          src="/assets/homepage_photo_outside.jpg"
-          alt="Sway Wellness Spa on Larimer Square, Denver, perfect for a date night"
+          src="/assets/blog40.jpg"
+          alt="Spa day rubber duck in warm water, date night vibes"
           width={900}
           height={500}
-          className="rounded-xl w-full object-cover"
+          className="rounded-xl w-full object-cover max-h-[500px]"
           priority
         />
 
@@ -59,36 +59,12 @@ export default function DateNightDenverLayout() {
         <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
-            <li>
-              <a href="#start-at-sway" className="hover:underline">
-                Start Your Date at Sway
-              </a>
-            </li>
-            <li>
-              <a href="#larimer-dining" className="hover:underline">
-                Dinner on Larimer Square
-              </a>
-            </li>
-            <li>
-              <a href="#beyond-larimer" className="hover:underline">
-                More Great Dinner Spots
-              </a>
-            </li>
-            <li>
-              <a href="#entertainment" className="hover:underline">
-                Entertainment and Experiences
-              </a>
-            </li>
-            <li>
-              <a href="#outdoor" className="hover:underline">
-                Outdoor and Seasonal Ideas
-              </a>
-            </li>
-            <li>
-              <a href="#date-plans" className="hover:underline">
-                Three Date Night Plans Worth Trying
-              </a>
-            </li>
+            <li><a href="#start-at-sway" className="hover:underline">Start Your Date at Sway</a></li>
+            <li><a href="#larimer-dining" className="hover:underline">Dinner on Larimer Square</a></li>
+            <li><a href="#beyond-larimer" className="hover:underline">More Great Dinner Spots</a></li>
+            <li><a href="#entertainment" className="hover:underline">Entertainment and Experiences</a></li>
+            <li><a href="#outdoor" className="hover:underline">Outdoor and Seasonal Ideas</a></li>
+            <li><a href="#date-plans" className="hover:underline">Three Date Night Plans Worth Trying</a></li>
           </ol>
         </nav>
 
@@ -97,59 +73,50 @@ export default function DateNightDenverLayout() {
           Start Your Date at Sway
         </h2>
 
-        <p>
-          The best date nights in Denver don&apos;t start with a reservation. They
-          start with slowing down. At{" "}
-          <Link
-            href="/locations/denver-larimer"
-            className="underline text-[#113D33] font-semibold"
-          >
-            Sway Wellness Spa
-          </Link>
-          , right on Larimer Square, you and your partner can book side-by-side{" "}
-          <Link
-            href="/massages"
-            className="underline text-[#113D33] font-semibold"
-          >
-            massages
-          </Link>{" "}
-          or{" "}
-          <Link
-            href="/facials"
-            className="underline text-[#113D33] font-semibold"
-          >
-            facials
-          </Link>{" "}
-          before heading to dinner. It is the kind of thing that turns a regular
-          Tuesday into something you actually talk about afterward.
-        </p>
-        <p>
-          Sway is open until 8 PM on weekdays, so an after-work treatment followed
-          by a walk to any restaurant on the block is one of the easiest date
-          nights you can plan. Members get monthly treatments and member pricing
-          through the{" "}
-          <Link
-            href="/membership"
-            className="underline text-[#113D33] font-semibold"
-          >
-            Sway membership
-          </Link>
-          , which makes it easy to build date night into your routine. Voted{" "}
-          <Link
-            href="/blog/best-day-spa-in-america"
-            className="underline text-[#113D33] font-semibold"
-          >
-            #4 Best Day Spa in America
-          </Link>{" "}
-          by USA Today 10Best.
-        </p>
-        <div className="pt-2">
-          <Link
-            href="/locations/denver-larimer/book"
-            className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0e322b] transition"
-          >
-            Book a Couples Treatment
-          </Link>
+        {/* Sway feature card */}
+        <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
+          <Image
+            src="/assets/homepage_photo_outside.jpg"
+            alt="Sway Wellness Spa exterior on Larimer Square at night"
+            width={900}
+            height={400}
+            className="w-full h-64 object-cover"
+          />
+          <div className="p-6 space-y-4">
+            <p>
+              The best date nights in Denver don&apos;t start with a reservation. They
+              start with slowing down. At{" "}
+              <Link
+                href="/locations/denver-larimer"
+                className="underline text-[#113D33] font-semibold"
+              >
+                Sway Wellness Spa
+              </Link>
+              , right on Larimer Square, you and your partner can book side-by-side{" "}
+              <Link href="/massages" className="underline text-[#113D33] font-semibold">massages</Link>
+              {" "}or{" "}
+              <Link href="/facials" className="underline text-[#113D33] font-semibold">facials</Link>
+              {" "}before heading to dinner. It is the kind of thing that turns a regular
+              Tuesday into something you actually talk about afterward.
+            </p>
+            <p className="text-[15px] text-[#113D33]/60">
+              Open until 8 PM on weekdays. Voted{" "}
+              <Link href="/blog/best-day-spa-in-america" className="underline font-semibold text-[#113D33]">
+                #4 Best Day Spa in America
+              </Link>{" "}
+              by USA Today 10Best.{" "}
+              <Link href="/membership" className="underline font-semibold text-[#113D33]">
+                Members
+              </Link>{" "}
+              get monthly treatments and member pricing.
+            </p>
+            <Link
+              href="/locations/denver-larimer/book"
+              className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0e322b] transition"
+            >
+              Book a Couples Treatment
+            </Link>
+          </div>
         </div>
 
         {/* ============== Section 2: Larimer Dining ============== */}
@@ -162,32 +129,55 @@ export default function DateNightDenverLayout() {
           block in Denver. Here are a few favorites within a two-minute walk.
         </p>
 
-        <h3 className="text-xl font-bold">Rioja</h3>
-        <p>
-          Mediterranean-inspired dishes with seasonal Colorado ingredients. The
-          handmade pastas are consistently excellent and the wine list is one of
-          the deepest in the city. This is the Larimer Square staple for a reason.
-        </p>
+        {/* Restaurant cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center gap-2">
+              <span className="text-[#9CB7A9] text-lg">&#9679;</span>
+              <h3 className="text-lg font-bold">Rioja</h3>
+            </div>
+            <p className="text-[15px]">
+              Mediterranean-inspired dishes with seasonal Colorado ingredients. The
+              handmade pastas are consistently excellent and the wine list is one of
+              the deepest in the city. This is the Larimer Square staple for a reason.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Ocean Prime</h3>
-        <p>
-          Seafood and steaks in a polished, dimly lit dining room. Ocean Prime is
-          where you go when you want the evening to feel like an event. Great
-          cocktails, great service, great people-watching from the patio.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center gap-2">
+              <span className="text-[#9CB7A9] text-lg">&#9679;</span>
+              <h3 className="text-lg font-bold">Ocean Prime</h3>
+            </div>
+            <p className="text-[15px]">
+              Seafood and steaks in a polished, dimly lit dining room. Ocean Prime is
+              where you go when you want the evening to feel like an event. Great
+              cocktails, great service, great people-watching from the patio.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Jovanina&apos;s</h3>
-        <p>
-          Modern Italian with wood-fired pizzas and seasonal vegetables. The space
-          is warm and inviting without being stuffy, and the outdoor seating on
-          Larimer Square is hard to beat in the summer.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center gap-2">
+              <span className="text-[#9CB7A9] text-lg">&#9679;</span>
+              <h3 className="text-lg font-bold">Jovanina&apos;s</h3>
+            </div>
+            <p className="text-[15px]">
+              Modern Italian with wood-fired pizzas and seasonal vegetables. The space
+              is warm and inviting without being stuffy, and the outdoor seating on
+              Larimer Square is hard to beat in the summer.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Corridor 44</h3>
-        <p>
-          A champagne bar with small plates. Perfect if you want to keep things
-          light after a spa treatment and let the bubbles do the talking.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center gap-2">
+              <span className="text-[#9CB7A9] text-lg">&#9679;</span>
+              <h3 className="text-lg font-bold">Corridor 44</h3>
+            </div>
+            <p className="text-[15px]">
+              A champagne bar with small plates. Perfect if you want to keep things
+              light after a spa treatment and let the bubbles do the talking.
+            </p>
+          </div>
+        </div>
 
         {/* Mid CTA */}
         <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
@@ -196,13 +186,8 @@ export default function DateNightDenverLayout() {
           </p>
           <p className="text-sm opacity-90">
             Book a{" "}
-            <Link
-              href="/massages"
-              className="underline font-semibold"
-            >
-              couples massage
-            </Link>{" "}
-            at Sway, then walk to dinner on Larimer Square. No driving, no planning, no stress.
+            <Link href="/massages" className="underline font-semibold">couples massage</Link>
+            {" "}at Sway, then walk to dinner on Larimer Square. No driving, no planning, no stress.
           </p>
           <Link
             href="/locations/denver-larimer/book"
@@ -217,144 +202,199 @@ export default function DateNightDenverLayout() {
           More Great Dinner Spots
         </h2>
 
-        <h3 className="text-xl font-bold">Williams &amp; Graham (LoHi)</h3>
-        <p>
-          A speakeasy hidden behind a bookshelf on Platte Street. The cocktails
-          are consistently on national best-of lists and the dim, intimate space
-          was basically designed for date night. No reservations, just show up and
-          put your name in.
-        </p>
+        <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-bold">Williams &amp; Graham</h3>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">LoHi</span>
+            </div>
+            <p className="text-[15px]">
+              A speakeasy hidden behind a bookshelf on Platte Street. The cocktails
+              are consistently on national best-of lists and the dim, intimate space
+              was basically designed for date night. No reservations, just show up and
+              put your name in.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Safta (RiNo)</h3>
-        <p>
-          Israeli-inspired cuisine from James Beard Award winner Alon Shaya.
-          The hummus alone is worth the trip. Located in the Source Hotel in River
-          North, it is one of the most exciting restaurants in Denver right now.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-bold">Safta</h3>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">RiNo</span>
+            </div>
+            <p className="text-[15px]">
+              Israeli-inspired cuisine from James Beard Award winner Alon Shaya.
+              The hummus alone is worth the trip. Located in the Source Hotel in River
+              North, it is one of the most exciting restaurants in Denver right now.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Mercantile Dining &amp; Provision (Union Station)</h3>
-        <p>
-          Farm-to-table fine dining inside Union Station with a beautiful bar and
-          market attached. The setting is stunning and the food lives up to it.
-          Walk over after dinner for a drink in the Great Hall.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-bold">Mercantile Dining &amp; Provision</h3>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Union Station</span>
+            </div>
+            <p className="text-[15px]">
+              Farm-to-table fine dining inside Union Station with a beautiful bar and
+              market attached. The setting is stunning and the food lives up to it.
+              Walk over after dinner for a drink in the Great Hall.
+            </p>
+          </div>
+        </div>
+
+        {/* Visual break */}
+        <Image
+          src="/assets/blog39.jpg"
+          alt="Lush tropical greenery"
+          width={900}
+          height={300}
+          className="rounded-xl w-full object-cover max-h-[280px]"
+        />
 
         {/* ============== Section 4: Entertainment ============== */}
         <h2 id="entertainment" className="text-2xl font-bold scroll-mt-24">
           Entertainment and Experiences
         </h2>
 
-        <h3 className="text-xl font-bold">Meow Wolf (Sun Valley)</h3>
-        <p>
-          Four stories of immersive, interactive art that you walk through together.
-          Open late on weekends with a full bar inside. Plan for two to three hours
-          and wear comfortable shoes.
-        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">Meow Wolf</h3>
+            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Sun Valley</p>
+            <p className="text-[15px]">
+              Four stories of immersive, interactive art that you walk through together.
+              Open late on weekends with a full bar inside. Plan for two to three hours
+              and wear comfortable shoes.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Denver Center for the Performing Arts</h3>
-        <p>
-          The largest performing arts complex under one roof in the country. Broadway
-          tours, ballet, comedy, and concerts rotate through all year. Check the
-          calendar before your date night and surprise your partner with tickets.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">Denver Center for the Performing Arts</h3>
+            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Downtown</p>
+            <p className="text-[15px]">
+              The largest performing arts complex under one roof in the country. Broadway
+              tours, ballet, comedy, and concerts rotate through all year. Check the
+              calendar and surprise your partner with tickets.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Nocturne (RiNo)</h3>
-        <p>
-          Live jazz in an intimate listening room with craft cocktails and small
-          plates. This is the kind of place that makes a regular Thursday feel
-          like something special. Reservations recommended.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">Nocturne</h3>
+            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">RiNo</p>
+            <p className="text-[15px]">
+              Live jazz in an intimate listening room with craft cocktails and small
+              plates. This is the kind of place that makes a regular Thursday feel
+              like something special. Reservations recommended.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Comedy Works (Downtown)</h3>
-        <p>
-          One of the top comedy clubs in the country, with national headliners
-          performing regularly. The downtown location is a short walk from
-          Larimer Square, making it an easy add to any date night plan.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">Comedy Works</h3>
+            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Downtown</p>
+            <p className="text-[15px]">
+              One of the top comedy clubs in the country, with national headliners
+              performing regularly. The downtown location is a short walk from
+              Larimer Square, making it an easy add to any date night.
+            </p>
+          </div>
+        </div>
 
         {/* ============== Section 5: Outdoor ============== */}
         <h2 id="outdoor" className="text-2xl font-bold scroll-mt-24">
           Outdoor and Seasonal Ideas
         </h2>
 
-        <h3 className="text-xl font-bold">Denver Botanic Gardens</h3>
-        <p>
-          During warmer months, the gardens host evening events with live music
-          and food trucks. In winter, the Blossoms of Light holiday display turns
-          the grounds into something magical. Either way, it is a change of pace
-          from the typical dinner-and-drinks formula.
-        </p>
+        <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">Denver Botanic Gardens</h3>
+            <p className="text-[15px]">
+              During warmer months, the gardens host evening events with live music
+              and food trucks. In winter, the Blossoms of Light holiday display turns
+              the grounds into something magical. Either way, it is a change of pace
+              from the typical dinner-and-drinks formula.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">54thirty Rooftop (Downtown)</h3>
-        <p>
-          The highest rooftop bar in Denver, perched on top of the Le Meridien
-          hotel. Mountain views at sunset with craft cocktails. Open roughly
-          April through October.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">54thirty Rooftop</h3>
+            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Downtown · Seasonal (Apr-Oct)</p>
+            <p className="text-[15px]">
+              The highest rooftop bar in Denver, perched on top of the Le Meridien
+              hotel. Mountain views at sunset with craft cocktails.
+            </p>
+          </div>
 
-        <h3 className="text-xl font-bold">Lookout Mountain (Golden)</h3>
-        <p>
-          A 30-minute drive west of Denver for one of the best sunset views along
-          the Front Range. Pack a blanket and something to drink, or stop at one
-          of the breweries in Golden on the way back.
-        </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
+            <h3 className="text-lg font-bold">Lookout Mountain</h3>
+            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Golden · 30 min drive</p>
+            <p className="text-[15px]">
+              One of the best sunset views along the Front Range. Pack a blanket and
+              something to drink, or stop at one of the breweries in Golden on the way back.
+            </p>
+          </div>
+        </div>
+
+        {/* Pull quote */}
+        <div className="border-l-4 border-[#9CB7A9] pl-6 py-2">
+          <p className="text-xl text-[#113D33] italic">
+            The best date nights don&apos;t need a complicated plan. They just need
+            a good starting point.
+          </p>
+        </div>
 
         {/* ============== Section 6: Itineraries ============== */}
         <h2 id="date-plans" className="text-2xl font-bold scroll-mt-24">
           Three Date Night Plans Worth Trying
         </h2>
 
-        <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-          <p className="font-bold text-lg">The Larimer Square Classic</p>
-          <ol className="list-decimal list-inside space-y-2">
-            <li>
-              Book a{" "}
-              <Link
-                href="/locations/denver-larimer/book-service"
-                className="underline text-[#113D33] font-semibold"
-              >
-                couples massage at Sway
-              </Link>{" "}
-              (50 or 80 minutes)
-            </li>
-            <li>Walk next door to Rioja or Jovanina&apos;s for dinner</li>
-            <li>Nightcap at Corridor 44 or The Cooper Lounge at Union Station</li>
-          </ol>
-        </div>
+        <div className="space-y-4">
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">1</span>
+              <p className="font-bold text-lg">The Larimer Square Classic</p>
+            </div>
+            <ol className="list-decimal list-inside space-y-2 pl-11">
+              <li>
+                Book a{" "}
+                <Link href="/locations/denver-larimer/book-service" className="underline text-[#113D33] font-semibold">
+                  couples massage at Sway
+                </Link>{" "}(50 or 80 minutes)
+              </li>
+              <li>Walk next door to Rioja or Jovanina&apos;s for dinner</li>
+              <li>Nightcap at Corridor 44 or The Cooper Lounge at Union Station</li>
+            </ol>
+          </div>
 
-        <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-          <p className="font-bold text-lg">The Culture Night</p>
-          <ol className="list-decimal list-inside space-y-2">
-            <li>
-              Start with a{" "}
-              <Link
-                href="/facials"
-                className="underline text-[#113D33] font-semibold"
-              >
-                facial at Sway
-              </Link>{" "}
-              (you will both be glowing)
-            </li>
-            <li>Dinner at Mercantile in Union Station</li>
-            <li>Catch a show at Denver Center for the Performing Arts</li>
-          </ol>
-        </div>
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">2</span>
+              <p className="font-bold text-lg">The Culture Night</p>
+            </div>
+            <ol className="list-decimal list-inside space-y-2 pl-11">
+              <li>
+                Start with a{" "}
+                <Link href="/facials" className="underline text-[#113D33] font-semibold">
+                  facial at Sway
+                </Link>{" "}(you will both be glowing)
+              </li>
+              <li>Dinner at Mercantile in Union Station</li>
+              <li>Catch a show at Denver Center for the Performing Arts</li>
+            </ol>
+          </div>
 
-        <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-          <p className="font-bold text-lg">The Weekend Adventure</p>
-          <ol className="list-decimal list-inside space-y-2">
-            <li>Sunset drive to Lookout Mountain</li>
-            <li>Dinner at Safta in RiNo</li>
-            <li>Live jazz at Nocturne, then book a{" "}
-              <Link
-                href="/locations/denver-larimer/book-service"
-                className="underline text-[#113D33] font-semibold"
-              >
-                recovery massage
-              </Link>{" "}
-              at Sway the next morning
-            </li>
-          </ol>
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">3</span>
+              <p className="font-bold text-lg">The Weekend Adventure</p>
+            </div>
+            <ol className="list-decimal list-inside space-y-2 pl-11">
+              <li>Sunset drive to Lookout Mountain</li>
+              <li>Dinner at Safta in RiNo</li>
+              <li>Live jazz at Nocturne, then book a{" "}
+                <Link href="/locations/denver-larimer/book-service" className="underline text-[#113D33] font-semibold">
+                  recovery massage
+                </Link>{" "}at Sway the next morning
+              </li>
+            </ol>
+          </div>
         </div>
 
         {/* Final CTA */}
@@ -365,13 +405,8 @@ export default function DateNightDenverLayout() {
           <p className="text-sm opacity-90">
             Sway is open daily on Larimer Square. Weekdays until 8 PM, Saturday
             9 AM to 6 PM, Sunday 11 AM to 6 PM.{" "}
-            <Link
-              href="/membership"
-              className="underline font-semibold"
-            >
-              Members
-            </Link>{" "}
-            get monthly treatments and member pricing.
+            <Link href="/membership" className="underline font-semibold">Members</Link>
+            {" "}get monthly treatments and member pricing.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -392,36 +427,36 @@ export default function DateNightDenverLayout() {
         {/* FAQ Section */}
         <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
 
-        <div className="space-y-6">
-          <div>
+        <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
             <p className="font-bold">What are the best date night ideas in Denver?</p>
-            <p className="text-gray-700 mt-1">
+            <p className="text-gray-700 mt-2 text-[15px]">
               Some of the best date night ideas in Denver include a couples massage
               at Sway Wellness Spa on Larimer Square followed by dinner, live jazz
               at Nocturne, rooftop drinks at 54thirty, exploring Meow Wolf, or catching
               a show at the Denver Center for the Performing Arts.
             </p>
           </div>
-          <div>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
             <p className="font-bold">Where should I go for a romantic dinner in Denver?</p>
-            <p className="text-gray-700 mt-1">
+            <p className="text-gray-700 mt-2 text-[15px]">
               Larimer Square is the top spot for romantic dinners in Denver. Rioja,
               Ocean Prime, and Jovanina&apos;s are all excellent choices. Williams and
               Graham in LoHi, Safta in RiNo, and Mercantile in Union Station are
               also worth the trip.
             </p>
           </div>
-          <div>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
             <p className="font-bold">Can you do a couples massage in Denver?</p>
-            <p className="text-gray-700 mt-1">
+            <p className="text-gray-700 mt-2 text-[15px]">
               Yes. Sway Wellness Spa on Larimer Square offers side-by-side couples
               massages in 50 and 80 minute sessions. Book an after-work treatment
               and walk to dinner on the same block. Sway is open weekdays until 8 PM.
             </p>
           </div>
-          <div>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
             <p className="font-bold">What are fun things to do in Denver for couples?</p>
-            <p className="text-gray-700 mt-1">
+            <p className="text-gray-700 mt-2 text-[15px]">
               Denver has something for every kind of couple. Start with a spa
               treatment at Sway on Larimer Square, explore Meow Wolf, hike to
               Lookout Mountain for sunset views, visit the Denver Botanic Gardens,

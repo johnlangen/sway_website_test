@@ -14,7 +14,7 @@ const blogs = [
     summary:
       "The best date night ideas in Denver: start with a couples massage at Sway on Larimer Square, then walk to dinner. Plus romantic restaurants, rooftop bars, live jazz, and more.",
     tag: "Denver",
-    image: "/assets/homepage_photo_outside.jpg",
+    image: "/assets/blog40.jpg",
   },
   {
     slug: "maven-hotel-denver-spa",
