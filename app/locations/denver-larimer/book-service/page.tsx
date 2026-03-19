@@ -2381,28 +2381,24 @@ function BookServicePage() {
                     </div>
                   )}
 
-                  {/* Therapist */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#113D33]/10 flex items-center justify-center">
-                      {filteredTherapist ? (
+                  {/* Therapist — only show if they specifically chose one */}
+                  {filteredTherapist && (
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#113D33]/10 flex items-center justify-center">
                         <span className="text-sm font-semibold text-[#113D33]">
                           {selectedSlot.staffName?.charAt(0) || "?"}
                         </span>
-                      ) : (
-                        <svg className="w-4 h-4 text-[#113D33]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
-                        </svg>
-                      )}
-                    </div>
-                    <div>
-                      <div className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">
-                        Therapist
                       </div>
-                      <div className="text-sm font-medium text-[#113D33]">
-                        {filteredTherapist ? selectedSlot.staffName : "Assigned at check-in"}
+                      <div>
+                        <div className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">
+                          Therapist
+                        </div>
+                        <div className="text-sm font-medium text-[#113D33]">
+                          {selectedSlot.staffName}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Date + Time */}
                   <div>
