@@ -1,6 +1,6 @@
 # Sway Blog Content Strategy — Closing the Gap with Oakwell
 
-Oakwell Beer Spa has 137+ blog posts creating a massive content moat. Sway currently has ~28. This document prioritizes future blog topics based on competitive analysis, search volume, and natural fit for Sway.
+Oakwell Beer Spa has 137+ blog posts creating a massive content moat. Sway currently has ~31. This document prioritizes future blog topics based on competitive analysis, search volume, and natural fit for Sway.
 
 ## Strategy
 
@@ -22,7 +22,7 @@ These directly compete with Oakwell's strongest content and target high-volume D
 | # | Topic | Target Slug | Target Keywords |
 |---|-------|-------------|-----------------|
 | 1 | ~~Best Things to Do in Denver at Night~~ | ~~things-to-do-in-denver-at-night~~ | **DONE** |
-| 2 | Best Date Night Ideas in Denver | best-date-night-ideas-denver | "date night denver", "romantic things to do in denver" |
+| 2 | ~~Best Date Night Ideas in Denver~~ | ~~best-date-night-ideas-denver~~ | **DONE** |
 | 3 | Best First Date Ideas in Denver | first-date-ideas-denver | "first date ideas denver", "where to go on a first date in denver" |
 | 4 | Best Day Date Ideas in Denver for Couples | day-date-ideas-denver | "day date denver", "daytime date ideas denver" |
 | 5 | Romantic Anniversary Ideas in Denver | anniversary-ideas-denver | "anniversary ideas denver", "romantic anniversary dinner denver" |
@@ -31,7 +31,7 @@ These directly compete with Oakwell's strongest content and target high-volume D
 | 8 | Best Birthday Ideas for Adults in Denver | birthday-ideas-denver-adults | "birthday ideas denver", "things to do for your birthday in denver" |
 
 ### Angle for each:
-- **Date Night**: Sway as the "start with a couples massage" recommendation, then dinner on Larimer Square
+- **Date Night**: ✅ Published March 2026. Sway as the "start with side-by-side massages" recommendation, then dinner on Larimer Square. Styled card layout with restaurant recs, itineraries, FAQs.
 - **First Date**: Sway as a unique, low-pressure experience (Aescape robot massage = no awkward conversation)
 - **Day Date**: Sway Remedy Room + lunch on Larimer Square
 - **Anniversary**: Sway couples treatment + fine dining (Rioja, Tavernetta)
@@ -120,7 +120,7 @@ These capture tourist and local discovery traffic.
 
 | Month | Posts to Publish | Notes |
 |-------|-----------------|-------|
-| March 2026 | Date Night, First Date | Valentine's momentum, spring dating season |
+| March 2026 | ~~Date Night~~, First Date | Date Night done 3/19. First Date next up |
 | April 2026 | Mother's Day, Day Date Ideas | Mother's Day prep |
 | May 2026 | Best Spas in Denver, Larimer Square Guide | Summer tourism ramp-up |
 | June 2026 | Summer Activities, Bachelorette Ideas | Wedding season + summer |
@@ -143,7 +143,7 @@ Every new post should link to:
 ## Priority Order
 
 If bandwidth is limited, write these first (highest ROI):
-1. Best Date Night Ideas in Denver
+1. ~~Best Date Night Ideas in Denver~~ ✅ Done 3/19/2026
 2. Best Spas in Denver (2026 Guide)
 3. Things to Do on Larimer Square
 4. Best Massage in Denver
