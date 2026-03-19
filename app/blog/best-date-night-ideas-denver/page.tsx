@@ -5,14 +5,14 @@ export const metadata: Metadata = {
   title:
     "Best Date Night Ideas in Denver | Sway Wellness Spa",
   description:
-    "The best date night ideas in Denver: couples massage at Sway on Larimer Square, romantic restaurants, rooftop bars, live jazz, Meow Wolf, and more.",
+    "The best date night ideas in Denver: spa treatments at Sway on Larimer Square, romantic restaurants, rooftop bars, live jazz, Meow Wolf, and more.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/best-date-night-ideas-denver",
   },
   openGraph: {
     title: "Best Date Night Ideas in Denver",
     description:
-      "The best date night ideas in Denver: couples massage at Sway, Larimer Square dining, rooftop bars, live jazz, and more.",
+      "The best date night ideas in Denver: spa treatments at Sway, Larimer Square dining, rooftop bars, live jazz, and more.",
     url: "https://swaywellnessspa.com/blog/best-date-night-ideas-denver",
     siteName: "Sway Wellness Spa",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Best Date Night Ideas in Denver",
     description:
-      "The best date night ideas in Denver: couples massage at Sway, Larimer Square dining, rooftop bars, live jazz, Meow Wolf, and more.",
+      "The best date night ideas in Denver: spa treatments at Sway, Larimer Square dining, rooftop bars, live jazz, Meow Wolf, and more.",
     images: ["https://swaywellnessspa.com/assets/blog40.jpg"],
   },
   robots: { index: true, follow: true },
@@ -42,7 +42,7 @@ export default function Page() {
     "@type": "BlogPosting",
     headline: "Best Date Night Ideas in Denver",
     description:
-      "The best date night ideas in Denver: couples massage at Sway Wellness Spa on Larimer Square, romantic restaurants, rooftop bars, live jazz, and outdoor experiences.",
+      "The best date night ideas in Denver: spa treatments at Sway Wellness Spa on Larimer Square, romantic restaurants, rooftop bars, live jazz, and outdoor experiences.",
     image: "https://swaywellnessspa.com/assets/blog40.jpg",
     author: {
       "@type": "Organization",

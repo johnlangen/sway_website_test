@@ -51,7 +51,7 @@ export default function DateNightDenverLayout() {
           >
             Sway Wellness Spa on Larimer Square
           </Link>
-          , you can start your night with a couples massage before walking to dinner.
+          , you can start your night with side-by-side massages before walking to dinner.
           Here are our favorite date night ideas in Denver.
         </p>
 
@@ -114,7 +114,7 @@ export default function DateNightDenverLayout() {
               href="/locations/denver-larimer/book"
               className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0e322b] transition"
             >
-              Book a Couples Treatment
+              Book a Treatment
             </Link>
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function DateNightDenverLayout() {
           </p>
           <p className="text-sm opacity-90">
             Book a{" "}
-            <Link href="/massages" className="underline font-semibold">couples massage</Link>
+            <Link href="/massages" className="underline font-semibold">massage</Link>
             {" "}at Sway, then walk to dinner on Larimer Square. No driving, no planning, no stress.
           </p>
           <Link
@@ -355,7 +355,7 @@ export default function DateNightDenverLayout() {
               <li>
                 Book a{" "}
                 <Link href="/locations/denver-larimer/book-service" className="underline text-[#113D33] font-semibold">
-                  couples massage at Sway
+                  side-by-side massages at Sway
                 </Link>{" "}(50 or 80 minutes)
               </li>
               <li>Walk next door to Rioja or Jovanina&apos;s for dinner</li>
@@ -431,7 +431,7 @@ export default function DateNightDenverLayout() {
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
             <p className="font-bold">What are the best date night ideas in Denver?</p>
             <p className="text-gray-700 mt-2 text-[15px]">
-              Some of the best date night ideas in Denver include a couples massage
+              Some of the best date night ideas in Denver include side-by-side massages
               at Sway Wellness Spa on Larimer Square followed by dinner, live jazz
               at Nocturne, rooftop drinks at 54thirty, exploring Meow Wolf, or catching
               a show at the Denver Center for the Performing Arts.
@@ -447,10 +447,10 @@ export default function DateNightDenverLayout() {
             </p>
           </div>
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
-            <p className="font-bold">Can you do a couples massage in Denver?</p>
+            <p className="font-bold">Can you book side-by-side massages in Denver?</p>
             <p className="text-gray-700 mt-2 text-[15px]">
-              Yes. Sway Wellness Spa on Larimer Square offers side-by-side couples
-              massages in 50 and 80 minute sessions. Book an after-work treatment
+              Yes. Sway Wellness Spa on Larimer Square offers side-by-side massages
+              in 50 and 80 minute sessions. Book an after-work treatment
               and walk to dinner on the same block. Sway is open weekdays until 8 PM.
             </p>
           </div>
@@ -542,7 +542,7 @@ export default function DateNightDenverLayout() {
                   name: "What are the best date night ideas in Denver?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Some of the best date night ideas in Denver include a couples massage at Sway Wellness Spa on Larimer Square followed by dinner, live jazz at Nocturne in RiNo, rooftop drinks at 54thirty, exploring Meow Wolf's Convergence Station, or catching a show at the Denver Center for the Performing Arts.",
+                    text: "Some of the best date night ideas in Denver include side-by-side massages at Sway Wellness Spa on Larimer Square followed by dinner, live jazz at Nocturne in RiNo, rooftop drinks at 54thirty, exploring Meow Wolf's Convergence Station, or catching a show at the Denver Center for the Performing Arts.",
                   },
                 },
                 {
@@ -555,10 +555,10 @@ export default function DateNightDenverLayout() {
                 },
                 {
                   "@type": "Question",
-                  name: "Can you do a couples massage in Denver?",
+                  name: "Can you book side-by-side massages in Denver?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes. Sway Wellness Spa on Larimer Square offers side-by-side couples massages in 50-minute and 80-minute sessions, plus facials, the Remedy Room recovery circuit, and Aescape AI-powered robot massage. Open weekdays until 8 PM, making it perfect before dinner.",
+                    text: "Yes. Sway Wellness Spa on Larimer Square offers side-by-side massages in 50-minute and 80-minute sessions, plus facials, the Remedy Room recovery circuit, and Aescape AI-powered robot massage. Open weekdays until 8 PM, making it perfect before dinner.",
                   },
                 },
                 {
