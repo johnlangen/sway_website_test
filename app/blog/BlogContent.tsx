@@ -9,6 +9,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const blogs = [
   {
+    slug: "best-date-night-ideas-denver",
+    title: "Best Date Night Ideas in Denver",
+    summary:
+      "The best date night ideas in Denver: start with a couples massage at Sway on Larimer Square, then walk to dinner. Plus romantic restaurants, rooftop bars, live jazz, and more.",
+    tag: "Denver",
+    image: "/assets/homepage_photo_outside.jpg",
+  },
+  {
     slug: "maven-hotel-denver-spa",
     title: "Maven Hotel + Sway: AI-Powered Massage Near Dairy Block Denver",
     summary:

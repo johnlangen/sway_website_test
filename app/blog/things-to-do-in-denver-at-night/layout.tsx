@@ -130,7 +130,7 @@ export default function ThingsToDoAtNightLayout() {
           >
             Remedy Room
           </Link>{" "}
-          recovery circuit (sauna, cold plunge, Normatec compression, LED light
+          recovery circuit (sauna, cold plunge, lymphatic drainage compression boots, LED light
           therapy), and{" "}
           <Link
             href="/aescape"
