@@ -1356,6 +1356,7 @@ function BookServicePage() {
           sessionTypeId: selectedService.id,
           startDateTime: selectedSlot.startDateTime,
           staffId: selectedSlot.staffId,
+          staffRequested: filteredTherapist !== null,
           addOnIds: selectedBoosts.map((b) => b.id),
           notes: bookingNotes,
         }),
