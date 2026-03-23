@@ -23,7 +23,7 @@ interface CuratedReview {
    ------------------------------------------------------------------ */
 
 const CURATED_REVIEWS: CuratedReview[] = [
-  // Page 1
+  // Page 1 — Mar 2026
   {
     author: "Jazmine Olson",
     text: "Got the hot stone massage with Steven and I left in a daze. I couldn\u2019t believe how much stress relief I got from one session. The space is very relaxing and Steven is superb. I immediately signed up for a membership and the member lounge has made destressing before my massage even better.",
@@ -39,23 +39,7 @@ const CURATED_REVIEWS: CuratedReview[] = [
     text: "I cannot rave about this place enough! I\u2019ve been seeing Bri for facials for a few months now and cannot believe the results. I have always struggled with acne and wish I\u2019d taken photos at the start of my journey to show the progress.",
     date: "Mar 2026",
   },
-  // Page 2
-  {
-    author: "Ricardo Laremont",
-    text: "If you\u2019re looking for the ultimate recovery spot, Sway Wellness in Larimer Square is a total game-changer. I visited right after a trail race with legs that felt like lead, and I walked out feeling like a new person!",
-    date: "Feb 2026",
-  },
-  {
-    author: "Evan Marx",
-    text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
-    date: "Jan 2026",
-  },
-  {
-    author: "Lilly Sheppard",
-    text: "Brianna is literally the best aesthetician I have received a treatment from. She was super gentle, knowledgeable, and fostered an extremely relaxing environment. 10/10 glow getter facial.",
-    date: "Jan 2026",
-  },
-  // Page 3
+  // Page 2 — Mar 2026
   {
     author: "Sabrina Kazmi",
     text: "I had a \u201Cforever young\u201D facial with Bri and it was amazing! She was so sweet and informative and let me know exactly what she was doing and why. You can tell she is super passionate about what she does, I can\u2019t recommend her enough!! My skin also looks and feels phenomenal. Johnny at front reception was also amazing, he was super helpful and made me feel welcome as soon as I walked in. 10/10 I can\u2019t wait to come back!",
@@ -70,6 +54,22 @@ const CURATED_REVIEWS: CuratedReview[] = [
     author: "Angie Fletcher",
     text: "The person at the front desk was very friendly. Stephen who did my massage did a great job. It was a good combination of relaxation and therapeutic. I would definitely go again if ever back in town.",
     date: "Mar 2026",
+  },
+  // Page 3 — Jan/Feb 2026
+  {
+    author: "Ricardo Laremont",
+    text: "If you\u2019re looking for the ultimate recovery spot, Sway Wellness in Larimer Square is a total game-changer. I visited right after a trail race with legs that felt like lead, and I walked out feeling like a new person!",
+    date: "Feb 2026",
+  },
+  {
+    author: "Evan Marx",
+    text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
+    date: "Jan 2026",
+  },
+  {
+    author: "Lilly Sheppard",
+    text: "Brianna is literally the best aesthetician I have received a treatment from. She was super gentle, knowledgeable, and fostered an extremely relaxing environment. 10/10 glow getter facial.",
+    date: "Jan 2026",
   },
 ];
 
