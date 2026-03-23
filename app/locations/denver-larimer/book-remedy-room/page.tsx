@@ -764,7 +764,7 @@ export default function BookRemedyRoomPage() {
     const bookData = await bookRes.json();
 
     if (!bookRes.ok) {
-      throw new Error(bookData?.error || "Booking failed. Please try again or call us.");
+      throw new Error(bookData?.error || "Booking failed. Please try again or call us at (303) 476-6150.");
     }
 
     reportPurchaseConversion();
@@ -1018,7 +1018,7 @@ export default function BookRemedyRoomPage() {
         );
       }
     } catch (err: any) {
-      setError(err.message || "Booking failed. Please try again or call us.");
+      setError(err.message || "Booking failed. Please try again or call us at (303) 476-6150.");
       setStep("confirm");
     } finally {
       bookingLock.current = false;

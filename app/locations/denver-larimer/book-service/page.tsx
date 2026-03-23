@@ -1365,7 +1365,7 @@ function BookServicePage() {
       const data = await res.json();
       if (!res.ok) {
         throw new Error(
-          data?.error || "Booking failed. Please try again or call us."
+          data?.error || "Booking failed. Please try again or call us at (303) 476-6150."
         );
       }
 
@@ -1407,7 +1407,7 @@ function BookServicePage() {
       }
     } catch (err: any) {
       setError(
-        err.message || "Booking failed. Please try again or call us."
+        err.message || "Booking failed. Please try again or call us at (303) 476-6150."
       );
       setStep("confirm");
     } finally {

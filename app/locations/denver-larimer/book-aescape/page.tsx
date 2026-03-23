@@ -723,7 +723,7 @@ export default function BookAescapePage() {
 
     if (!bookRes.ok) {
       throw new Error(
-        bookData?.error || "Booking failed. Please try again or call us."
+        bookData?.error || "Booking failed. Please try again or call us at (303) 476-6150."
       );
     }
 
@@ -969,7 +969,7 @@ export default function BookAescapePage() {
         );
       }
     } catch (err: any) {
-      setError(err.message || "Booking failed. Please try again or call us.");
+      setError(err.message || "Booking failed. Please try again or call us at (303) 476-6150.");
       setStep("confirm");
     } finally {
       bookingLock.current = false;

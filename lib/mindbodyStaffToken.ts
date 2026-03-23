@@ -25,7 +25,9 @@ let cachedToken: {
     );
   
     if (!res.ok) {
-      throw new Error("Failed to fetch Mindbody staff token");
+      cachedToken = null;
+      console.error("Mindbody staff token fetch failed:", res.status, await res.text().catch(() => ""));
+      throw new Error("Online booking is temporarily unavailable. Please call us at (303) 476-6150 to book your appointment.");
     }
   
     const data = await res.json();
