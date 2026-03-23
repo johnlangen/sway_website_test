@@ -57,9 +57,9 @@ const CURATED_REVIEWS: CuratedReview[] = [
   },
   // Page 3
   {
-    author: "Ian Hines-Ike",
-    text: "World class massage by Steven. Seriously one of the best I\u2019ve ever had. Will absolutely be making his deep tissue massage a regular part of my routine.",
-    date: "Jan 2026",
+    author: "Sabrina Kazmi",
+    text: "I had a \u201Cforever young\u201D facial with Bri and it was amazing! She was so sweet and informative and let me know exactly what she was doing and why. You can tell she is super passionate about what she does, I can\u2019t recommend her enough!! My skin also looks and feels phenomenal. Johnny at front reception was also amazing, he was super helpful and made me feel welcome as soon as I walked in. 10/10 I can\u2019t wait to come back!",
+    date: "Mar 2026",
   },
   {
     author: "Jessica Koniuszewski",
@@ -372,7 +372,7 @@ export function ClassPassBadge() {
         ))}
       </span>
       <span className="font-semibold">4.8</span>
-      <span className="opacity-60">(673 ratings)</span>
+      <span className="opacity-60">(694 ratings)</span>
       <span className="font-semibold ml-0.5">ClassPass</span>
     </a>
   );
