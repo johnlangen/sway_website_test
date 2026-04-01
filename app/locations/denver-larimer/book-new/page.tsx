@@ -812,42 +812,35 @@ export default function NewBookingFlow() {
                 </div>
                 )}
 
-                {/* Treatment cards — grouped by tier when "All" selected */}
+                {/* Treatment list — compact cards, no images */}
                 {treatmentTierFilter === "all" ? (
-                  <div className="space-y-8">
+                  <div className="space-y-6">
                     {(["essential", "premier", "ultimate"] as const).map((tier) => {
                       const tierTreatments = treatments.filter((t) => t.tier === tier);
                       const tierSavings = TIER_PRICING[tier].dropIn - TIER_PRICING[tier].member;
                       const tierIsIncluded = isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[tier];
                       return (
                         <div key={tier}>
-                          <div className="flex items-center gap-3 mb-3">
-                            <h3 className="text-lg font-bold text-[#113D33] capitalize">{tier}</h3>
-                            <span className="text-xs text-[#113D33]/40">from ${TIER_PRICING[tier].dropIn}</span>
-                            {!isMember && <span className="text-[10px] font-semibold text-white bg-[#4A776D] rounded-full px-2 py-0.5">Save ${tierSavings} as member</span>}
+                          <div className="flex items-center gap-3 mb-2.5">
+                            <h3 className="text-base font-bold text-[#113D33] capitalize">{tier}</h3>
+                            <span className="text-xs text-[#113D33]/40">${TIER_PRICING[tier].dropIn}</span>
+                            {!isMember && <span className="text-[10px] font-semibold text-white bg-[#4A776D] rounded-full px-2 py-0.5">Save ${tierSavings}</span>}
                             {tierIsIncluded && <span className="text-[10px] font-semibold text-white bg-[#113D33] rounded-full px-2 py-0.5">Your tier ✓</span>}
                           </div>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-2">
                             {tierTreatments.map((t, i) => (
-                              <motion.button key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: i * 0.03 }}
+                              <motion.button key={t.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2, delay: i * 0.03 }}
                                 onClick={() => handleTreatmentSelect(t)}
-                                className="group text-left bg-white rounded-2xl border border-[#113D33]/10 overflow-hidden hover:shadow-xl hover:border-[#113D33]/25 hover:-translate-y-1 transition-all duration-300">
-                                <div className="relative h-40 md:h-48 w-full overflow-hidden">
-                                  <Image src={t.image} alt={t.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 50vw" />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1">
-                                    <span className="text-xs font-bold text-[#113D33]">{t.duration}</span>
+                                className="w-full text-left bg-white rounded-xl border border-[#113D33]/10 px-4 py-3.5 hover:shadow-md hover:border-[#113D33]/20 active:scale-[0.99] transition-all duration-200">
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="min-w-0 flex-1">
+                                    <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
+                                    <p className="text-sm text-[#113D33]/45 mt-1 leading-snug">{t.description}</p>
                                   </div>
-                                  <div className="absolute bottom-3 right-3">
-                                    <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
-                                      <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</div>
-                                      <div className="text-[10px] text-[#4A776D]">${TIER_PRICING[t.tier].member} member</div>
-                                    </div>
+                                  <div className="text-right shrink-0">
+                                    <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</div>
+                                    <div className="text-[10px] text-[#4A776D]">{t.duration}</div>
                                   </div>
-                                </div>
-                                <div className="p-4">
-                                  <h3 className="font-semibold text-base text-[#113D33] leading-tight">{t.name}</h3>
-                                  <p className="text-sm text-[#113D33]/50 mt-1.5 leading-relaxed">{t.description}</p>
                                 </div>
                               </motion.button>
                             ))}
@@ -857,40 +850,34 @@ export default function NewBookingFlow() {
                     })}
                   </div>
                 ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="space-y-2">
                   {filteredTreatments.map((t, i) => (
                     <motion.button
                       key={t.id}
-                      initial={{ opacity: 0, y: 12 }}
+                      initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.25, delay: i * 0.05 }}
+                      transition={{ duration: 0.2, delay: i * 0.04 }}
                       onClick={() => handleTreatmentSelect(t)}
-                      className="group text-left bg-white rounded-2xl border border-[#113D33]/10 overflow-hidden hover:shadow-xl hover:border-[#113D33]/25 hover:-translate-y-1 transition-all duration-300">
-                      <div className="relative h-44 md:h-52 w-full overflow-hidden">
-                        <Image src={t.image} alt={t.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 50vw" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                        <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1">
-                          <span className="text-xs font-bold text-[#113D33]">{t.duration}</span>
+                      className="w-full text-left bg-white rounded-xl border border-[#113D33]/10 px-4 py-3.5 hover:shadow-md hover:border-[#113D33]/20 active:scale-[0.99] transition-all duration-200">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
+                          <p className="text-sm text-[#113D33]/45 mt-1 leading-snug">{t.description}</p>
                         </div>
-                        <div className="absolute bottom-3 right-3">
-                          <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
-                            {tierIncluded ? (
-                              <>
-                                <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].member}</div>
-                                <div className="text-[10px] text-[#4A776D] font-semibold">Included</div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</div>
-                                <div className="text-[10px] text-[#4A776D]">${TIER_PRICING[t.tier].member} member</div>
-                              </>
-                            )}
-                          </div>
+                        <div className="text-right shrink-0">
+                          {tierIncluded ? (
+                            <>
+                              <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].member}</div>
+                              <div className="text-[10px] text-[#4A776D] font-semibold">Included</div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</div>
+                              <div className="text-[10px] text-[#4A776D]">${TIER_PRICING[t.tier].member} member</div>
+                            </>
+                          )}
+                          <div className="text-[10px] text-[#113D33]/30 mt-0.5">{t.duration}</div>
                         </div>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-semibold text-base text-[#113D33] leading-tight">{t.name}</h3>
-                        <p className="text-sm text-[#113D33]/50 mt-1.5 leading-relaxed">{t.description}</p>
                       </div>
                     </motion.button>
                   ))}
