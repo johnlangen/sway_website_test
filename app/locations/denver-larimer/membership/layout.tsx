@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Memberships from $99/month | Sway Larimer (Denver, CO)",
   description:
-    "Spa memberships from $99/month: Essential ($99), Premier ($129), Ultimate ($159), plus Aescape robot massage and Remedy Room recovery. Lock in $99/month before April 1. Larimer Square, Denver.",
+    "Spa memberships from $99/month: Essential ($99), Premier ($129), Ultimate ($159), plus Aescape robot massage and Remedy Room recovery. Larimer Square, Denver.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-larimer/membership",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
     title: "Memberships from $99/month | Sway Larimer (Denver, CO)",
     description:
-      "Three membership tiers — Essential, Premier, and Ultimate — plus Aescape and Remedy Room. Lock in $99/month before new tiers launch April 1.",
+      "Three membership tiers — Essential, Premier, and Ultimate — plus Aescape and Remedy Room. Larimer Square, Denver.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Memberships from $99/month | Sway Larimer (Denver, CO)",
     description:
-      "Essential, Premier, and Ultimate tiers launching April 1. Lock in $99/month now at Sway on Larimer Square in Denver.",
+      "Essential, Premier, and Ultimate membership tiers plus Aescape and Remedy Room at Sway on Larimer Square in Denver.",
     images: ["/assets/OG/og-join-the-club.jpg"],
   },
   robots: { index: true, follow: true },

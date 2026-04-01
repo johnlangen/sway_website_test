@@ -5,12 +5,27 @@ export const runtime = "nodejs";
 
 /* Allowed main-service session-type IDs */
 const ALLOWED_SERVICE_IDS = new Set([
+  // Legacy
   7, 13, 14, 15, 16, 49, // massages
   5, 6, 9, 10, 11, 12, // facials
+
+  // Essential
+  75, 88, // Essential Facial, Essential Massage
+
+  // Premier facials
+  76, 77, 78, 79, 80, 81,
+  // Premier massages
+  89, 98, 99, 100, 101, 102,
+
+  // Ultimate facials
+  82, 83, 84, 85, 103, 104,
+  // Ultimate massages
+  90, 105, 106, 107, 108,
 ]);
 
 /* Allowed add-on (boost) session-type IDs */
 const ALLOWED_ADDON_IDS = new Set([
+  // Legacy boosts
   28, // Make it 80 Minutes
   25, // Infrared PEMF Mat
   26, // Cupping
@@ -22,6 +37,14 @@ const ALLOWED_ADDON_IDS = new Set([
   22, // Dermaflash
   17, // Peel
   24, // Oxygen Infusion
+
+  // New tier boosts
+  73, // LED Boost Plus (+10 min)
+  74, // LED Boost (no time)
+  86, // Oxygen Boost (no time)
+  87, // Oxygen Boost Plus (+10 min)
+  91, // PEMF Recovery Boost (no time)
+  109, // Dermaflash Boost Plus (+10 min)
 ]);
 
 /* Time-extension boosts must be booked as SEPARATE appointments

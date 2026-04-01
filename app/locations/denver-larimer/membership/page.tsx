@@ -206,7 +206,7 @@ export default function MembershipPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
         >
-          Lock In $99/Month
+          The Sway Membership
         </motion.h1>
 
         <motion.p
@@ -215,8 +215,8 @@ export default function MembershipPage() {
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-6"
         >
-          Join now at $99/month and keep Premier-level access for a full year
-          after our new membership tiers launch April 1.
+          Three tiers of wellness — from signature treatments to tech-enhanced
+          experiences. Find the membership that fits your lifestyle.
         </motion.p>
 
         <motion.div
@@ -225,14 +225,6 @@ export default function MembershipPage() {
           transition={{ duration: 0.4, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6"
         >
-          <a
-            href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block rounded-full font-semibold py-3 px-8 bg-white text-[#113D33] hover:bg-gray-100 transition text-base"
-          >
-            Join the Club — $99/month
-          </a>
           <a
             href="tel:+13034766150"
             className="inline-flex items-center gap-2 text-[#9ABFB3] hover:text-white transition text-sm"
@@ -254,16 +246,15 @@ export default function MembershipPage() {
         </motion.div>
 
         <p className="sr-only">
-          Sway Wellness Spa Larimer memberships launching April 1, 2026: three
-          tiers — Essential ($99/month), Premier ($129/month), Ultimate
-          ($159/month) — plus Aescape robot massage ($99/month), Remedy Room
-          recovery circuit ($99/month), and Ultimate Tech Recovery package
-          ($99/month). All members get 50% off boosts, private lounge access,
-          bring a friend at member pricing, 10% off retail, and rollover
-          credits. Lock in $99/month now and keep Premier access for a year.
-          Located at 1428 Larimer St. on Larimer Square in Denver, CO 80202.
-          Voted #4 Best Day Spa in America by USA Today 10Best. Call
-          (303) 476-6150 or visit swaywellnessspa.com.
+          Sway Wellness Spa Larimer memberships: three tiers — Essential
+          ($99/month), Premier ($129/month), Ultimate ($159/month) — plus
+          Aescape robot massage ($99/month), Remedy Room recovery circuit
+          ($99/month), and Ultimate Tech Recovery package ($99/month). All
+          members get 50% off boosts, private lounge access, bring a friend at
+          member pricing, 10% off retail, and rollover credits. Located at 1428
+          Larimer St. on Larimer Square in Denver, CO 80202. Voted #4 Best Day
+          Spa in America by USA Today 10Best. Call (303) 476-6150 or visit
+          swaywellnessspa.com.
         </p>
       </section>
 
@@ -272,9 +263,6 @@ export default function MembershipPage() {
       ============================================================ */}
       <section className="px-4 sm:px-6 pt-10 pb-4">
         <div className="text-center mb-8">
-          <p className="text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-2">
-            Launching April 1
-          </p>
           <h2 className="text-2xl md:text-3xl font-bold">
             Spa Memberships
           </h2>
@@ -284,8 +272,6 @@ export default function MembershipPage() {
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
           {tiers.map((tier, i) => {
             const isSelected = selectedTier === tier.key;
-            const isPremier = tier.key === "premier";
-            const isGrayed = !isPremier;
             return (
               <motion.button
                 key={tier.key}
@@ -298,17 +284,11 @@ export default function MembershipPage() {
                   isSelected
                     ? "ring-2 ring-[#9ABFB3] shadow-2xl scale-[1.02]"
                     : "shadow-lg hover:shadow-xl"
-                } ${isGrayed ? "opacity-50" : ""}`}
+                }`}
               >
                 {tier.mostPopular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap uppercase">
                     Most Popular
-                  </span>
-                )}
-
-                {isGrayed && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-gray-500 text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap uppercase">
-                    Coming April 1
                   </span>
                 )}
 
@@ -334,19 +314,17 @@ export default function MembershipPage() {
                   1 facial or massage/month
                 </p>
 
-                {isPremier && (
-                  <div className="mt-4 pt-3 border-t border-[#113D33]/10">
-                    <a
-                      href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="block w-full py-2.5 rounded-full bg-[#113D33] text-white text-sm font-semibold hover:bg-[#0e3029] transition text-center"
-                    >
-                      $99/mo until April 1
-                    </a>
-                  </div>
-                )}
+                <div className="mt-4 pt-3 border-t border-[#113D33]/10">
+                  <a
+                    href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="block w-full py-2.5 rounded-full bg-[#113D33] text-white text-sm font-semibold hover:bg-[#0e3029] transition text-center"
+                  >
+                    Join — {tier.price}/mo
+                  </a>
+                </div>
               </motion.button>
             );
           })}
@@ -642,7 +620,7 @@ export default function MembershipPage() {
             rel="noopener noreferrer"
             className="px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
           >
-            Join Now — $99/month
+            Join the Club
           </a>
         </div>
       </section>

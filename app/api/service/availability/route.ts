@@ -21,7 +21,7 @@ function cleanStaffName(raw: string | null | undefined): string | null {
 
 /* Allowed session-type IDs (massages + facials) */
 const ALLOWED_SESSION_TYPE_IDS = new Set([
-  // Massages
+  // Legacy massages
   7, // Deep Tissue
   13, // CauseMedic
   14, // Salt Stone
@@ -29,13 +29,48 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   16, // Basic
   49, // Lymphatic Drainage Detox
 
-  // Facials
+  // Legacy facials
   5, // Forever Young
   6, // Glow Getter
   9, // Pore Perfection Acne
   10, // Sensitive Silk
   11, // Dr. Dennis Gross Vitamin C
   12, // Basic Facial
+
+  // Essential tier
+  75, // Essential Basic Facial
+  88, // Essential Basic Massage
+
+  // Premier facials
+  76, // Premier Basic Glow Peel
+  77, // Premier Dr. Dennis Gross Vitamin C
+  78, // Premier Forever Young Anti-Aging
+  79, // Premier Glow Getter Hydration
+  80, // Premier Pore Perfection Acne
+  81, // Premier Sensitive Silk
+
+  // Premier massages
+  89, // Premier Lymphatic Drainage
+  98, // Premier Signature Massage
+  99, // Premier Maternity Massage
+  100, // Premier Deep Tissue
+  101, // Premier Salt Stone
+  102, // Premier Sports
+
+  // Ultimate facials
+  82, // Ultimate Oxygen Infusion
+  83, // Ultimate Advanced Glow Peel
+  84, // Ultimate Dr. Dennis Gross Vitamin C w/ LED
+  85, // Ultimate Illuminate LED
+  103, // Ultimate Sculpt & Lift Microcurrent
+  104, // Ultimate Hydraderm
+
+  // Ultimate massages
+  90, // Ultimate Lymphatic Drainage
+  105, // Ultimate Signature Massage
+  106, // Ultimate Deep Tissue
+  107, // Ultimate Salt Stone
+  108, // Ultimate Sports
 ]);
 
 function isValidISODate(iso: string) {

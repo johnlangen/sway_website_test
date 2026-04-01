@@ -1,162 +1,155 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 
-/* ---------------- TYPES ---------------- */
+/* ---------------- TIER DATA ---------------- */
 
-type Massage = {
-  id: number;
+type Treatment = { name: string; duration: string; description: string };
+
+type MassageTier = {
+  key: string;
   name: string;
-  time: string;
-  price: string;
-  description: string;
-  img: string;
+  treatments: Treatment[];
 };
 
-type Boost = {
-  id: number;
-  name: string;
-  tag: "Boost" | "Super Boost";
-  description: string;
-  price: string;
+const massageTiers: MassageTier[] = [
+  {
+    key: "essential",
+    name: "Essential",
+    treatments: [
+      {
+        name: "Signature Massage",
+        duration: "50 min",
+        description:
+          "A foundational full-body massage tailored to your needs. Ideal for relaxation, tension relief, and overall wellness.",
+      },
+      {
+        name: "Maternity Massage",
+        duration: "50 min",
+        description:
+          "A gentle, nurturing massage designed for expectant mothers. Eases tension, reduces swelling, and promotes relaxation.",
+      },
+    ],
+  },
+  {
+    key: "premier",
+    name: "Premier",
+    treatments: [
+      {
+        name: "Signature Massage",
+        duration: "70 min",
+        description:
+          "An extended full-body massage with your choice of aromatic massage lotion for a deeply relaxing, personalized experience.",
+      },
+      {
+        name: "Maternity Massage",
+        duration: "70 min",
+        description:
+          "Extended prenatal massage with extra time to address the unique needs of expectant mothers.",
+      },
+      {
+        name: "Deep Tissue Massage",
+        duration: "50 min",
+        description:
+          "Corrective massage designed to release deep muscle tension, relieve pain, and restore mobility.",
+      },
+      {
+        name: "Salt Stone Massage",
+        duration: "50 min",
+        description:
+          "Warm Himalayan salt stones help melt tension, improve circulation, and promote deep relaxation.",
+      },
+      {
+        name: "Sports Massage",
+        duration: "50 min",
+        description:
+          "Ideal for active lifestyles. Supports recovery, improves range of motion, and reduces muscle fatigue.",
+      },
+      {
+        name: "Lymphatic Drainage Massage",
+        duration: "50 min",
+        description:
+          "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support natural detoxification.",
+      },
+    ],
+  },
+  {
+    key: "ultimate",
+    name: "Ultimate",
+    treatments: [
+      {
+        name: "Signature Massage",
+        duration: "90 min",
+        description:
+          "Our longest full-body massage. Long fluid movements grace the body, gently stretching muscles and relieving tension for total relaxation.",
+      },
+      {
+        name: "Deep Tissue Massage",
+        duration: "70 min",
+        description:
+          "Extended deep tissue work to release tension, knots, and rebalance muscles for full recovery.",
+      },
+      {
+        name: "Salt Stone Massage",
+        duration: "70 min",
+        description:
+          "Extended warm salt stone therapy that deeply penetrates tense muscles, releasing toxins and restoring balance.",
+      },
+      {
+        name: "Sports Massage",
+        duration: "70 min",
+        description:
+          "Extended sports therapy with stretching and deep kneading to ease tension, stimulate healing, and speed recovery.",
+      },
+      {
+        name: "Lymphatic Drainage Massage",
+        duration: "70 min",
+        description:
+          "Extended lymphatic therapy for deeper detoxification, reduced inflammation, and enhanced immune support.",
+      },
+    ],
+  },
+];
+
+/* ---------------- BOOSTS DATA ---------------- */
+
+type BoostColumn = {
+  tier: string;
+  memberPrice: string;
+  dropInPrice: string;
+  timeNote: string;
+  items: string[];
 };
 
-/* ---------------- HELPERS ---------------- */
-
-const clampStyle = (lines: number) =>
-  ({
-    display: "-webkit-box",
-    WebkitLineClamp: lines,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
-  } as const);
-
-const getSafeVh = () => {
-  if (typeof window === "undefined") return 700;
-  const vv = window.visualViewport?.height;
-  return Math.max(520, Math.floor(vv ?? window.innerHeight));
-};
+const massageBoostColumns: BoostColumn[] = [
+  {
+    tier: "Boost",
+    memberPrice: "$10",
+    dropInPrice: "$20 Drop-In",
+    timeNote: "No Time Added",
+    items: ["CauseMedic CBD Boost", "Cupping Boost", "PEMF Recovery Boost"],
+  },
+  {
+    tier: "Boost Plus",
+    memberPrice: "$20",
+    dropInPrice: "$40 Drop-In",
+    timeNote: "Adds 10 Min",
+    items: ["CauseMedic CBD Boost Plus", "Cupping Boost Plus"],
+  },
+];
 
 /* ---------------- PAGE ---------------- */
 
 const MassagesPage = () => {
   const prefersReducedMotion = useReducedMotion();
   const [bookHref, setBookHref] = useState("/book");
-
-  // Massage carousel (mobile)
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  // Boost carousel (mobile)
-  const boostScrollerRef = useRef<HTMLDivElement | null>(null);
-  const [boostActiveIndex, setBoostActiveIndex] = useState(0);
-
-  // Modal
-  const [openId, setOpenId] = useState<number | null>(null);
-  const [modalMaxH, setModalMaxH] = useState<number>(700);
-
-  // FAQ
+  const [selectedTier, setSelectedTier] = useState("premier");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const massages: Massage[] = useMemo(
-    () => [
-      {
-        id: 6,
-        name: "Basic Massage",
-        time: "50 minutes",
-        price: "Member $89 | Drop-In $129",
-        description:
-          "A foundational full-body massage tailored to your needs. Ideal for relaxation, tension relief, and overall wellness.",
-        img: "/assets/massage7.jpg",
-      },
-      {
-        id: 1,
-        name: "Deep Tissue",
-        time: "50 minutes",
-        price: "Member $99 | Drop-In $139",
-        description:
-          "Corrective massage designed to release deep muscle tension, relieve pain, and restore mobility.",
-        img: "/assets/massage2.jpg",
-      },
-      {
-        id: 2,
-        name: "Salt Stone",
-        time: "50 minutes",
-        price: "Member $99 | Drop-In $139",
-        description:
-          "Warm Himalayan salt stones help melt tension, improve circulation, and promote deep relaxation.",
-        img: "/assets/massage4.jpg",
-      },
-      {
-        id: 3,
-        name: "CBD Cause Medic",
-        time: "50 minutes",
-        price: "Member $99 | Drop-In $139",
-        description:
-          "CBD-infused relief cream provides cooling comfort while supporting muscle recovery and relaxation.",
-        img: "/assets/massage3.jpg",
-      },
-      {
-        id: 4,
-        name: "Sports Massage",
-        time: "50 minutes",
-        price: "Member $99 | Drop-In $139",
-        description:
-          "Ideal for active lifestyles. Supports recovery, improves range of motion, and reduces muscle fatigue.",
-        img: "/assets/massage5.jpg",
-      },
-      {
-        id: 5,
-        name: "Lymphatic Drainage Detox Massage",
-        time: "50 minutes",
-        price: "Member $99 | Drop-In $139",
-        description:
-          "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support natural detoxification.",
-        img: "/assets/massage6.jpg",
-      },
-    ],
-    []
-  );
-
-  // NOTE: Boosts reordered: Super Boosts first, 80 Minutes first
-  // Descriptions shortened to single-line friendly phrases
-  const boosts: Boost[] = useMemo(
-    () => [
-      {
-        id: 4,
-        name: "80 Minutes",
-        tag: "Super Boost",
-        description: "Extend your massage by 30 minutes for deeper focus on problem areas. Ideal for full-body tension relief, injury recovery, or total relaxation.",
-        price: "Member $50 | Drop-In $100",
-      },
-      {
-        id: 3,
-        name: "Lymphatic Drainage Massage",
-        tag: "Super Boost",
-        description: "Gentle rhythmic techniques stimulate lymph flow, reduce swelling, and support your body's natural detoxification for lighter, more energized results.",
-        price: "Member $50 | Drop-In $100",
-      },
-      {
-        id: 1,
-        name: "Infrared PEMF Mat",
-        tag: "Boost",
-        description: "Lie on a therapeutic mat that combines infrared heat and pulsed electromagnetic field therapy to accelerate recovery, reduce inflammation, and promote deeper relaxation.",
-        price: "Member $30 | Drop-In $60",
-      },
-      {
-        id: 2,
-        name: "Cupping",
-        tag: "Boost",
-        description: "Traditional suction therapy lifts and separates tissue layers to release deep-seated tension, increase blood flow, and speed muscle recovery.",
-        price: "Member $30 | Drop-In $60",
-      },
-    ],
-    []
-  );
+  const activeTier = massageTiers.find((t) => t.key === selectedTier)!;
 
   useEffect(() => {
     document.documentElement.style.backgroundColor = "#F7F4E9";
@@ -170,142 +163,11 @@ const MassagesPage = () => {
     setBookHref(resolved);
   }, []);
 
-  // Modal max height that won't get hidden under iOS address bar / nav
-  useEffect(() => {
-    const update = () => setModalMaxH(getSafeVh());
-    update();
-    window.addEventListener("resize", update);
-    window.visualViewport?.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.visualViewport?.removeEventListener("resize", update as any);
-    };
-  }, []);
-
-  // Lock body scroll when modal is open
-  useEffect(() => {
-    if (!openId) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [openId]);
-
-  // Keep activeIndex in sync while user swipes (massage)
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-
-    const onScroll = () => {
-      const children = Array.from(el.querySelectorAll<HTMLElement>("[data-card]"));
-      if (!children.length) return;
-
-      const center = el.scrollLeft + el.clientWidth / 2;
-      let bestIdx = 0;
-      let bestDist = Infinity;
-
-      children.forEach((child, idx) => {
-        const childCenter = child.offsetLeft + child.clientWidth / 2;
-        const dist = Math.abs(childCenter - center);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIdx = idx;
-        }
-      });
-
-      setActiveIndex(bestIdx);
-    };
-
-    el.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => el.removeEventListener("scroll", onScroll as any);
-  }, []);
-
-  // Keep activeIndex in sync while user swipes (boosts)
-  useEffect(() => {
-    const el = boostScrollerRef.current;
-    if (!el) return;
-
-    const onScroll = () => {
-      const children = Array.from(
-        el.querySelectorAll<HTMLElement>("[data-boost-card]")
-      );
-      if (!children.length) return;
-
-      const center = el.scrollLeft + el.clientWidth / 2;
-      let bestIdx = 0;
-      let bestDist = Infinity;
-
-      children.forEach((child, idx) => {
-        const childCenter = child.offsetLeft + child.clientWidth / 2;
-        const dist = Math.abs(childCenter - center);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIdx = idx;
-        }
-      });
-
-      setBoostActiveIndex(bestIdx);
-    };
-
-    el.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => el.removeEventListener("scroll", onScroll as any);
-  }, []);
-
-  const scrollToIndex = (idx: number) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const cards = Array.from(el.querySelectorAll<HTMLElement>("[data-card]"));
-    const target = cards[idx];
-    if (!target) return;
-
-    el.scrollTo({
-      left: target.offsetLeft - 16,
-      behavior: "smooth",
-    });
-  };
-
-  const scrollBoostToIndex = (idx: number) => {
-    const el = boostScrollerRef.current;
-    if (!el) return;
-    const cards = Array.from(
-      el.querySelectorAll<HTMLElement>("[data-boost-card]")
-    );
-    const target = cards[idx];
-    if (!target) return;
-
-    el.scrollTo({
-      left: target.offsetLeft - 16,
-      behavior: "smooth",
-    });
-  };
-
-  const prev = () => scrollToIndex(Math.max(0, activeIndex - 1));
-  const next = () =>
-    scrollToIndex(Math.min(massages.length - 1, activeIndex + 1));
-
-  const prevBoost = () => scrollBoostToIndex(Math.max(0, boostActiveIndex - 1));
-  const nextBoost = () =>
-    scrollBoostToIndex(Math.min(boosts.length - 1, boostActiveIndex + 1));
-
-  const activeMassage = openId ? massages.find((m) => m.id === openId) : null;
-
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO */}
       <section className="bg-[#113D33]">
         <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
-          <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
-          >
-            Expert-Led · Fully Customized
-          </motion.p>
-
           <motion.h1
             initial={prefersReducedMotion ? false : { opacity: 0, y: -14 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
@@ -316,17 +178,15 @@ const MassagesPage = () => {
           </motion.h1>
 
           <p className="sr-only">
-            Sway Wellness Spa offers 6 massage experiences at 1428 Larimer St.
-            in Denver: Basic Massage ($89 member / $129 drop-in), Deep Tissue,
-            Salt Stone, CBD CauseMedic, Sports, and Lymphatic Drainage ($99
-            member / $139 drop-in each). All 6 massages are 50-minute sessions,
-            fully customized by your therapist. Choose from 4 boost add-ons:
-            extend to 80 minutes, add Lymphatic Drainage, Infrared PEMF Mat,
-            or Cupping. Members save 50% on all boosts. Pair with the Remedy
-            Room (4 recovery modalities in one 40-minute circuit) or any of
-            our 6 facial treatments for a complete wellness experience. Open
-            Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online
-            at swaywellnessspa.com or call (303) 476-6150.
+            Sway Wellness Spa offers massage treatments at 1428 Larimer St. in
+            Denver across three tiers: Essential (Signature and Maternity
+            Massage), Premier (Signature, Maternity, Deep Tissue, Salt Stone,
+            Sports, and Lymphatic Drainage), and Ultimate (extended duration
+            versions of Signature, Deep Tissue, Salt Stone, Sports, and
+            Lymphatic Drainage). Enhance any massage with boosts: CauseMedic
+            CBD, Cupping, and PEMF Recovery — members save 50%. Open Mon–Fri
+            10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
+            swaywellnessspa.com or call (303) 476-6150.
           </p>
 
           <motion.p
@@ -335,8 +195,8 @@ const MassagesPage = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/85"
           >
-            Six expert-led massage therapies, each customized by your therapist
-            to meet your body&apos;s needs.
+            A curated selection of massage experiences designed to release
+            tension held in the body, leaving you feeling restored.
           </motion.p>
 
           <motion.a
@@ -350,16 +210,6 @@ const MassagesPage = () => {
           >
             Voted #4 Best Day Spa in America — USA Today 10Best
           </motion.a>
-
-          <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-white/55 leading-relaxed"
-          >
-            Traditional techniques like cupping, salt stone, and lymphatic
-            drainage paired with modern recovery tools like infrared PEMF mats.
-          </motion.p>
 
           <motion.div
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
@@ -377,254 +227,109 @@ const MassagesPage = () => {
         </div>
       </section>
 
-      {/* STATS STRIP */}
-      <section className="bg-white px-6 py-8 md:py-10 border-b border-[#113D33]/8">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16">
-          {[
-            { value: "6", label: "Massage Types" },
-            { value: "4", label: "Boost Add-Ons" },
-            { value: "50–80", label: "Minute Sessions" },
-            { value: "4.8★", label: "Rated on ClassPass" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-[#113D33]">
-                {s.value}
-              </div>
-              <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/50 font-semibold mt-1">
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* MOBILE / TABLET: Massage swipe carousel */}
-      <section className="lg:hidden">
-        <div className="mx-auto max-w-6xl px-6 py-10">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-[#113D33] text-2xl font-semibold">
-                Choose your experience
-              </h2>
-              <p className="mt-1 text-[#113D33] opacity-75">
-                Swipe to browse. Tap “Customize” to explore add-ons and
-                enhancements.
-              </p>
-            </div>
-          </div>
-
-          <div
-            ref={scrollerRef}
-            className="mt-6 flex gap-4 overflow-x-auto pb-3"
-            style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
-            aria-label="Massage experiences carousel"
-          >
-            <div className="shrink-0 w-2" aria-hidden />
-            {massages.map((m) => (
-              <div
-                key={m.id}
-                data-card
-                className="shrink-0"
-                style={{ scrollSnapAlign: "center" }}
-              >
-                <div className="w-[78vw] max-w-[360px] h-[520px] bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
-                  <div className="relative w-full h-[230px] overflow-hidden">
-                    <Image
-                      src={m.img}
-                      alt={m.name}
-                      fill
-                      sizes="(max-width: 1024px) 78vw, 360px"
-                      className="object-cover transition-transform duration-500 hover:scale-105"
-                      priority={m.id === 1}
-                    />
-                  </div>
-
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="min-h-[84px]">
-                      <h3 className="text-[#113D33] text-xl font-bold leading-tight">
-                        {m.name}
-                      </h3>
-                      <p className="text-sm text-black/60 mt-1">{m.time}</p>
-                      <p className="text-sm text-black/70 mt-1">{m.price}</p>
-                    </div>
-
-                    <p
-                      className="mt-3 text-[15px] text-black/75 leading-relaxed"
-                      style={clampStyle(4)}
-                    >
-                      {m.description}
-                    </p>
-
-                    <div className="mt-auto pt-5 flex items-center justify-between">
-                      <button
-                        onClick={() => setOpenId(m.id)}
-                        className="text-[#113D33] font-semibold text-sm underline underline-offset-4 hover:opacity-80"
-                      >
-                        Customize
-                      </button>
-
-                      <Link
-                        href={bookHref}
-                        className="inline-flex items-center justify-center bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition-all"
-                      >
-                        Continue
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <div className="shrink-0 w-2" aria-hidden />
-          </div>
-
-          <div className="mt-4 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2" aria-label="Carousel pagination">
-              {massages.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => scrollToIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all ${
-                    idx === activeIndex ? "w-8 bg-[#113D33]" : "w-2.5 bg-[#113D33]/25"
-                  }`}
-                  aria-label={`Go to item ${idx + 1}`}
-                />
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={prev}
-                disabled={activeIndex === 0}
-                className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
-                aria-label="Previous"
-              >
-                ‹
-              </button>
-              <button
-                onClick={next}
-                disabled={activeIndex === massages.length - 1}
-                className="h-11 w-11 rounded-full border border-[#113D33]/20 bg-white text-[#113D33] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]"
-                aria-label="Next"
-              >
-                ›
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <Link
-              href={bookHref}
-              className="w-full inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all shadow-lg"
-            >
-              Continue to Booking
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* DESKTOP: Massage grid */}
-      <section className="hidden lg:block">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+      {/* ============================================================
+          MASSAGE MENU — Tier toggle + treatment list
+      ============================================================ */}
+      <section className="bg-[#F7F4E9] px-4 sm:px-6 py-14">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
             whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex items-end justify-between gap-6">
-              <div>
-                <h2 className="text-[#113D33] text-3xl font-semibold">
-                  Massage menu
-                </h2>
-                <p className="mt-2 text-[#113D33] opacity-75 max-w-2xl">
-                  A curated set of experiences, each customized by your therapist. Click “Customize” to explore add-ons and
-                enhancements.
-                </p>
-              </div>
-              <Link
-                href={bookHref}
-                className="inline-flex items-center justify-center bg-[#113D33] text-white px-7 py-3 text-[15px] font-bold rounded-xl hover:bg-[#0a2b23] transition-all shadow-lg"
-              >
-                Continue to Booking
-              </Link>
-            </div>
-
-            <div className="mt-10 grid grid-cols-2 xl:grid-cols-3 gap-8">
-              {massages.map((m, i) => (
-                <motion.div
-                  key={m.id}
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
-                  whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.08 }}
-                  className="group bg-white rounded-2xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] hover:scale-[1.02] transition-all duration-300"
-                >
-                  <div className="relative w-full h-[220px] overflow-hidden">
-                    <Image
-                      src={m.img}
-                      alt={m.name}
-                      fill
-                      sizes="(min-width: 1280px) 33vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-[#113D33] text-xl font-bold">{m.name}</h3>
-                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-black/60">
-                      <span>{m.time}</span>
-                      <span className="text-black/25">•</span>
-                      <span className="text-black/70">{m.price}</span>
-                    </div>
-
-                    <p className="mt-3 text-[15px] text-black/75 leading-relaxed">
-                      {m.description}
+            <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
+              {/* Header bar */}
+              <div className="bg-[#F7F4E9] px-6 py-5 border-b border-[#113D33]/10">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h2 className="text-[#113D33] text-2xl font-semibold">
+                      Massage menu
+                    </h2>
+                    <p className="mt-1 text-sm text-[#113D33]/60">
+                      A curated selection of massage experiences, each
+                      customized by your therapist.
                     </p>
-
-                    <div className="mt-6 flex items-center justify-between">
-                      <button
-                        onClick={() => setOpenId(m.id)}
-                        className="text-[#113D33] font-semibold text-sm underline underline-offset-4 hover:opacity-80"
-                      >
-                        Customize
-                      </button>
-
-                      <Link
-                        href={bookHref}
-                        className="inline-flex items-center justify-center bg-[#113D33] text-white px-4 py-2 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition-all"
-                      >
-                        Continue
-                      </Link>
-                    </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                  <Link
+                    href={bookHref}
+                    className="inline-flex items-center justify-center bg-[#113D33] text-white px-6 py-2.5 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition-all shrink-0"
+                  >
+                    Continue to Booking
+                  </Link>
+                </div>
+              </div>
 
-            <div className="mt-14 flex justify-center">
-              <Link
-                href={bookHref}
-                className="inline-flex items-center justify-center bg-[#113D33] text-white px-10 py-4 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all shadow-lg"
-              >
-                Continue to Booking
-              </Link>
+              {/* Tier toggle */}
+              <div className="px-6 pt-5">
+                <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
+                  {massageTiers.map((tier) => (
+                    <button
+                      key={tier.key}
+                      onClick={() => setSelectedTier(tier.key)}
+                      className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                        selectedTier === tier.key
+                          ? "bg-[#113D33] text-white shadow-sm"
+                          : "text-[#113D33]/60 hover:text-[#113D33]"
+                      }`}
+                    >
+                      {tier.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Treatment list */}
+              <div className="px-6 py-6">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedTier}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-4"
+                  >
+                    {activeTier.treatments.map((t, idx) => (
+                      <div
+                        key={idx}
+                        className="border border-[#113D33]/8 rounded-xl p-4 hover:border-[#113D33]/15 transition-colors"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <h3 className="text-[#113D33] font-bold text-base">
+                            {t.name}
+                          </h3>
+                          <span className="text-xs text-[#113D33]/50 shrink-0 mt-0.5">
+                            {t.duration}
+                          </span>
+                        </div>
+                        <p className="mt-1.5 text-sm text-[#113D33]/65 leading-relaxed">
+                          {t.description}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* BOOSTS SECTION (mobile swipe, desktop grid) */}
+      {/* ============================================================
+          BOOSTS — 2 columns (Boost / Boost Plus)
+      ============================================================ */}
       <section className="bg-[#113D33] overflow-hidden">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-4xl px-6 py-16 md:py-20">
           <motion.div
             initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
             whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="text-center mb-10"
           >
             <p className="text-sm uppercase tracking-[0.2em] text-[#9ABFB3] mb-3">
-              Optional Enhancements
+              Wellness Boosts : Save 50% on Any Boost
             </p>
             <h2 className="text-white text-3xl md:text-4xl font-light tracking-tight">
               Elevate Your Massage
@@ -635,132 +340,35 @@ const MassagesPage = () => {
             </p>
           </motion.div>
 
-          {/* MOBILE: Boost swipe */}
-          <div className="lg:hidden mt-10">
-            <div
-              ref={boostScrollerRef}
-              className="flex gap-4 overflow-x-auto pb-3"
-              style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
-              aria-label="Massage boosts carousel"
-            >
-              <div className="shrink-0 w-2" aria-hidden />
-              {boosts.map((b) => (
-                <div
-                  key={b.id}
-                  data-boost-card
-                  className="shrink-0"
-                  style={{ scrollSnapAlign: "center" }}
-                >
-                  <div
-                    className={`w-[78vw] max-w-[360px] h-[280px] rounded-2xl backdrop-blur-sm overflow-hidden flex flex-col active:scale-[0.98] transition-transform ${
-                      b.tag === "Super Boost"
-                        ? "bg-white/[0.1] border border-[#9ABFB3]/30"
-                        : "bg-white/[0.07] border border-white/10"
-                    }`}
-                  >
-                    <div className="p-5 flex-1 flex flex-col">
-                      <div className="flex items-center justify-between gap-3">
-                        <h3 className="text-white text-lg font-bold leading-tight">
-                          {b.name}
-                        </h3>
-                        <span
-                          className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
-                            b.tag === "Super Boost"
-                              ? "bg-white text-[#113D33]"
-                              : "bg-white/15 text-white/80"
-                          }`}
-                        >
-                          {b.tag}
-                        </span>
-                      </div>
-
-                      <p className="mt-3 text-[15px] text-white/65 leading-relaxed" style={clampStyle(3)}>
-                        {b.description}
-                      </p>
-
-                      <div className="mt-auto pt-4">
-                        <p className="text-sm text-white/40">{b.price}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              <div className="shrink-0 w-2" aria-hidden />
-            </div>
-
-            <div className="mt-4 flex items-center justify-between gap-4">
-              <div
-                className="flex items-center gap-2"
-                aria-label="Boost carousel pagination"
-              >
-                {boosts.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => scrollBoostToIndex(idx)}
-                    className={`h-2.5 rounded-full transition-all ${
-                      idx === boostActiveIndex ? "w-8 bg-white" : "w-2.5 bg-white/25"
-                    }`}
-                    aria-label={`Go to boost ${idx + 1}`}
-                  />
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={prevBoost}
-                  disabled={boostActiveIndex === 0}
-                  className="h-11 w-11 rounded-full border border-white/20 bg-white/5 text-white shadow-sm disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.98]"
-                  aria-label="Previous boost"
-                >
-                  ‹
-                </button>
-                <button
-                  onClick={nextBoost}
-                  disabled={boostActiveIndex === boosts.length - 1}
-                  className="h-11 w-11 rounded-full border border-white/20 bg-white/5 text-white shadow-sm disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.98]"
-                  aria-label="Next boost"
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* DESKTOP: Boost grid */}
-          <div className="hidden lg:grid mt-12 grid-cols-2 xl:grid-cols-4 gap-6">
-            {boosts.map((b, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {massageBoostColumns.map((col, i) => (
               <motion.div
-                key={b.id}
+                key={col.tier}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                whileInView={
+                  prefersReducedMotion ? undefined : { opacity: 1, y: 0 }
+                }
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.08 }}
-                className={`rounded-2xl backdrop-blur-sm p-6 transition-all duration-300 hover:scale-[1.03] cursor-default ${
-                  b.tag === "Super Boost"
-                    ? "bg-white/[0.1] border border-[#9ABFB3]/30 hover:bg-white/[0.15] hover:border-[#9ABFB3]/50"
-                    : "bg-white/[0.07] border border-white/10 hover:bg-white/[0.12] hover:border-white/20"
-                }`}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
+                className="bg-white/[0.07] border border-white/10 rounded-2xl p-6 backdrop-blur-sm"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-white text-lg font-bold leading-tight">
-                    {b.name}
-                  </h3>
-                  <span
-                    className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
-                      b.tag === "Super Boost"
-                        ? "bg-white text-[#113D33]"
-                        : "bg-white/15 text-white/80"
-                    }`}
-                  >
-                    {b.tag}
-                  </span>
-                </div>
-
-                <p className="mt-3 text-sm text-white/60 leading-relaxed">
-                  {b.description}
+                <h3 className="text-white text-xl font-bold uppercase tracking-wide">
+                  {col.memberPrice} {col.tier}
+                </h3>
+                <p className="text-sm text-white/40 mt-1">{col.dropInPrice}</p>
+                <p className="text-sm text-[#9ABFB3] mt-3 font-semibold">
+                  {col.timeNote}
                 </p>
-
-                <p className="mt-5 text-sm text-white/35">{b.price}</p>
+                <ul className="mt-4 space-y-2">
+                  {col.items.map((item) => (
+                    <li
+                      key={item}
+                      className="text-sm text-white/70 leading-relaxed"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
           </div>
@@ -785,24 +393,24 @@ const MassagesPage = () => {
 
           {[
             {
-              q: "What makes Sway's massages different?",
-              a: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
+              q: "What makes Sway\u2019s massages different?",
+              a: "Sway\u2019s massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and result-driven facials with Eminence Organics are all available under one roof.",
             },
             {
-              q: "What types of massage does Sway offer?",
-              a: "Sway offers six massage experiences: Basic Massage, Deep Tissue, Salt Stone, CBD CauseMedic, Sports Massage, and Lymphatic Drainage. Each is 50 minutes and fully customized by your therapist to address your body's specific needs.",
+              q: "What are the massage membership tiers?",
+              a: "Essential ($99/mo) includes Signature and Maternity Massage at 50 minutes. Premier ($129/mo) adds Deep Tissue, Salt Stone, Sports, and Lymphatic Drainage, plus extends Signature and Maternity to 70 minutes. Ultimate ($159/mo) extends all advanced massages to 70 minutes and Signature to 90 minutes.",
             },
             {
               q: "Can I add anything to my massage?",
-              a: "Yes. Sway offers four add-on boosts: extend your session to 80 minutes, add Lymphatic Drainage Massage, lie on an Infrared PEMF Mat for deeper recovery, or add Cupping for targeted tension release. Members save 50% on all boosts.",
+              a: "Yes. Choose from CauseMedic CBD, Cupping, and PEMF Recovery boosts (no extra time), or Plus versions of CBD and Cupping that add 10 minutes. Members save 50% on all boosts.",
             },
             {
               q: "How long is a massage session?",
-              a: "Standard massage sessions are 50 minutes. You can extend to 80 minutes by adding the 80-Minute Super Boost, ideal for full-body tension relief, injury recovery, or total relaxation.",
+              a: "Durations vary by tier: Essential massages are 50 minutes, Premier offers 50\u201370 minutes depending on the treatment, and Ultimate massages are 70\u201390 minutes.",
             },
             {
               q: "Do I need a membership to book a massage?",
-              a: "No, anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts and recovery add-ons. Memberships start at $99/month.",
+              a: "No, anyone can book a massage at Sway at drop-in pricing. Members save on every visit and get 50% off boosts. Memberships start at $99/month.",
             },
           ].map((item, i) => (
             <div key={i} className="border-b border-black/10">
@@ -857,7 +465,7 @@ const MassagesPage = () => {
             {[
               {
                 name: "Facials",
-                desc: "Results-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
+                desc: "Result-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
                 href: "/facials",
               },
               {
@@ -867,7 +475,7 @@ const MassagesPage = () => {
               },
               {
                 name: "Aescape Robot Massage",
-                desc: "AI-powered precision massage with personalized pressure mapping. Select locations.",
+                desc: "AI-powered precision massage with personalized pressure mapping.",
                 href: "/aescape",
               },
             ].map((s) => (
@@ -876,10 +484,14 @@ const MassagesPage = () => {
                 href={s.href}
                 className="block rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-6 hover:shadow-md hover:border-[#113D33]/25 transition-all group"
               >
-                <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
-                <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">{s.desc}</p>
+                <h3 className="text-lg font-semibold text-[#113D33]">
+                  {s.name}
+                </h3>
+                <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">
+                  {s.desc}
+                </p>
                 <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-                  Learn More →
+                  Learn More &rarr;
                 </span>
               </Link>
             ))}
@@ -897,131 +509,18 @@ const MassagesPage = () => {
             href="/locations/denver-larimer/massage/"
             className="block rounded-2xl border border-[#113D33]/15 bg-white p-6 hover:shadow-lg hover:border-[#113D33]/30 transition-all group"
           >
-            <p className="text-lg font-semibold text-[#113D33]">Sway Larimer</p>
-            <p className="text-sm text-gray-600 mt-1">Denver, CO — Larimer Square</p>
+            <p className="text-lg font-semibold text-[#113D33]">
+              Sway Larimer
+            </p>
+            <p className="text-sm text-gray-600 mt-1">
+              Denver, CO — Larimer Square
+            </p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-              Book Now →
+              Book Now &rarr;
             </span>
           </Link>
         </div>
       </section>
-
-      {/* CUSTOMIZE MODAL: fixed height, scrollable body, pinned footer */}
-      {activeMassage && (
-        <div
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Massage customize"
-        >
-          <button
-            className="absolute inset-0 bg-black/40"
-            aria-label="Close"
-            onClick={() => setOpenId(null)}
-          />
-
-          <div
-            className="relative w-full sm:max-w-xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-black/5 overflow-hidden flex flex-col"
-            style={{
-              height: Math.floor(modalMaxH * 0.88),
-              maxHeight: Math.floor(modalMaxH * 0.88),
-            }}
-          >
-            {/* header */}
-            <div className="p-6 sm:p-7 border-b border-black/5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-[#113D33] text-2xl font-bold leading-tight">
-                    {activeMassage.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-black/60">
-                    {activeMassage.time} • {activeMassage.price}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setOpenId(null)}
-                  className="h-10 w-10 rounded-full border border-black/10 text-black/70 hover:bg-black/5 active:scale-[0.98]"
-                  aria-label="Close"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* short, non-redundant summary */}
-              <p
-                className="mt-4 text-[15px] text-black/80 leading-relaxed"
-                style={clampStyle(2)}
-              >
-                {activeMassage.description}
-              </p>
-            </div>
-
-            {/* scrollable content */}
-            <div className="px-6 sm:px-7 py-6 overflow-y-auto flex-1">
-              <div className="flex items-end justify-between gap-3">
-                <div>
-                  <h4 className="text-[#113D33] text-lg font-semibold">
-                    Optional boosts
-                  </h4>
-                  <p className="mt-1 text-sm text-black/60">
-                    Available during booking in Mindbody.
-                  </p>
-                </div>
-              </div>
-
-              {/* compact boost list (single-line descriptions, no clamp ellipses needed) */}
-              <div className="mt-4 space-y-3">
-                {boosts.map((b) => (
-                  <div
-                    key={b.id}
-                    className="rounded-2xl border border-black/5 p-4"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="text-[#113D33] font-bold leading-tight">
-                          {b.name}
-                        </p>
-                        <p className="mt-1 text-xs text-black/60">{b.price}</p>
-                      </div>
-                      <span
-                        className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
-                          b.tag === "Super Boost"
-                            ? "bg-[#113D33] text-white"
-                            : "bg-[#113D33]/15 text-[#113D33]"
-                        }`}
-                      >
-                        {b.tag}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-sm text-black/75 leading-relaxed" style={clampStyle(3)}>
-                      {b.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* pinned footer */}
-            <div className="p-6 sm:p-7 border-t border-black/5 bg-white">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <Link
-                  href={bookHref}
-                  className="inline-flex items-center justify-center bg-[#113D33] text-white px-6 py-3 text-[15px] font-bold rounded-2xl hover:bg-[#0a2b23] transition-all"
-                >
-                  Continue to Booking
-                </Link>
-                <button
-                  onClick={() => setOpenId(null)}
-                  className="inline-flex items-center justify-center px-6 py-3 text-[15px] font-bold rounded-2xl border border-[#113D33]/20 text-[#113D33] hover:bg-[#113D33]/5 transition-all"
-                >
-                  Done
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
