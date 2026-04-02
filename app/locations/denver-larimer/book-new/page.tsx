@@ -244,6 +244,7 @@ export default function NewBookingFlow() {
   const [isMember, setIsMember] = useState(false);
   const [memberFirstName, setMemberFirstName] = useState<string | null>(null);
   const [hasCardOnFile, setHasCardOnFile] = useState(false);
+  const [homeLocation, setHomeLocation] = useState<string | null>(null);
 
   // Treatment
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
@@ -313,11 +314,11 @@ export default function NewBookingFlow() {
       setMemberTier(data.tier ?? null);
       setMemberFirstName(data.firstName ?? null);
       setHasCardOnFile(data.hasCardOnFile ?? false);
+      setHomeLocation(data.homeLocation ?? null);
       setMemberCheckDone(true);
       if (data.isMember && data.tier) {
         setTreatmentTierFilter(data.tier);
         setWelcomeResult("found");
-        // Brief delay so they see the welcome message before advancing
         setTimeout(() => setStep("category"), 1500);
       } else {
         setWelcomeResult("not_found");
@@ -342,6 +343,7 @@ export default function NewBookingFlow() {
       setMemberTier(data.tier ?? null);
       setMemberFirstName(data.firstName ?? null);
       setHasCardOnFile(data.hasCardOnFile ?? false);
+      setHomeLocation(data.homeLocation ?? null);
       setMemberCheckDone(true);
       setShowMemberInput(false);
       if (data.isMember && data.tier) setTreatmentTierFilter(data.tier);
@@ -447,6 +449,7 @@ export default function NewBookingFlow() {
         setMemberTier(data.tier ?? null);
         setMemberFirstName(data.firstName ?? null);
         setHasCardOnFile(data.hasCardOnFile ?? false);
+        setHomeLocation(data.homeLocation ?? null);
         setMemberCheckDone(true);
         window.dataLayer?.push({ event: "booking_email_entered", booking_flow: category, client_type: data.found ? "returning" : "new", is_member: data.isMember ?? false });
         // If member with card on file — skip straight to confirm
@@ -639,7 +642,7 @@ export default function NewBookingFlow() {
         {isMember && memberFirstName && ["treatment", "boosts", "time", "account", "confirm"].includes(step) && (
           <div className="mb-4 flex items-center justify-center gap-2 bg-[#113D33] text-white rounded-xl px-4 py-2.5">
             <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-            <p className="text-sm"><span className="font-bold">{memberFirstName}</span> · <span className="capitalize font-semibold">{memberTier}</span> Member</p>
+            <p className="text-sm"><span className="font-bold">{memberFirstName}</span> · <span className="capitalize font-semibold">{memberTier}</span> Member{homeLocation ? <span className="text-white/60 ml-1">· {homeLocation}</span> : null}</p>
           </div>
         )}
 
@@ -668,6 +671,7 @@ export default function NewBookingFlow() {
                     </div>
                     <h3 className="text-lg font-bold text-[#113D33]">Welcome back, {memberFirstName}!</h3>
                     <p className="text-sm text-[#4A776D] font-semibold capitalize">{memberTier} Member</p>
+                    {homeLocation && <p className="text-xs text-[#113D33]/50 mt-1">{homeLocation}</p>}
                   </div>
                 ) : welcomeResult === "not_found" ? (
                   <div className="p-6 space-y-3">
@@ -1014,7 +1018,7 @@ export default function NewBookingFlow() {
             {selectedTreatment && (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
                 <div className="relative h-32 w-full">
-                  <Image src={selectedTreatment.image} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
+                  <Image src={category === "facial" ? "/assets/facialExperiences.png" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4">
                     <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
@@ -1236,6 +1240,7 @@ export default function NewBookingFlow() {
                   <div className="bg-[#113D33] text-white rounded-2xl p-5 text-center">
                     <p className="text-lg font-semibold">Welcome back, {memberFirstName}!</p>
                     <p className="text-sm text-white/70 mt-1">Your <span className="font-bold capitalize">{memberTier}</span> membership pricing has been applied.</p>
+                    {homeLocation && <p className="text-xs text-white/50 mt-1">Member at {homeLocation}</p>}
                   </div>
                 )}
 
