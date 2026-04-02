@@ -1542,7 +1542,7 @@ export default function NewBookingFlow() {
                 {selectedBoosts.length > 0 && (
                   <div>
                     <p className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">Boosts</p>
-                    {selectedBoosts.map((b) => <div key={b.id} className="flex justify-between text-sm text-[#113D33] py-0.5"><span>+ {b.name}</span><span className="text-[#113D33]/50">{isMember ? b.memberPrice : b.dropInPrice}</span></div>)}
+                    {selectedBoosts.map((b) => <p key={b.id} className="text-sm text-[#113D33]/60">+ {b.name}</p>)}
                   </div>
                 )}
 
@@ -1560,15 +1560,44 @@ export default function NewBookingFlow() {
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-[#113D33]/10">
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-[#113D33]">Member</span>
-                    <span className="text-2xl font-bold text-[#113D33]">${TIER_PRICING[selectedTreatment.tier].member}</span>
-                  </div>
-                  <div className="flex items-baseline justify-between text-[#113D33]/40">
-                    <span>Drop-in</span>
-                    <span>${TIER_PRICING[selectedTreatment.tier].dropIn}</span>
-                  </div>
+                <div className="pt-3 border-t border-[#113D33]/10 space-y-2">
+                  {/* Itemized pricing */}
+                  {(() => {
+                    const treatmentMember = TIER_PRICING[selectedTreatment.tier].member;
+                    const treatmentDropIn = TIER_PRICING[selectedTreatment.tier].dropIn;
+                    const boostMemberTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.memberPrice.replace("$", "")), 0);
+                    const boostDropInTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", "")), 0);
+                    const totalMember = treatmentMember + boostMemberTotal;
+                    const totalDropIn = treatmentDropIn + boostDropInTotal;
+                    const hasBoosts = selectedBoosts.length > 0;
+
+                    return (
+                      <>
+                        {hasBoosts && (
+                          <div className="space-y-1 text-sm text-[#113D33]/60">
+                            <div className="flex justify-between"><span>{selectedTreatment.name}</span><span>{isMember ? `$${treatmentMember}` : `$${treatmentDropIn}`}</span></div>
+                            {selectedBoosts.map((b) => <div key={b.id} className="flex justify-between"><span>+ {b.name}</span><span>{isMember ? b.memberPrice : b.dropInPrice}</span></div>)}
+                          </div>
+                        )}
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-[#113D33] font-medium">{isMember ? "Member total" : "Total"}</span>
+                          <span className="text-2xl font-bold text-[#113D33]">${isMember ? totalMember : totalDropIn}</span>
+                        </div>
+                        {!isMember && (
+                          <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
+                            <span>As a member</span>
+                            <span>${totalMember}</span>
+                          </div>
+                        )}
+                        {isMember && hasBoosts && (
+                          <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
+                            <span>Drop-in price</span>
+                            <span>${totalDropIn}</span>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
 
                 <p className="text-xs text-[#113D33]/50">Reservation under <span className="font-medium text-[#113D33]/70">{email}</span></p>
