@@ -227,7 +227,8 @@ export default function NewBookingFlow() {
 
   // Treatment
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
-  const [treatmentTierFilter, setTreatmentTierFilter] = useState<"all" | "essential" | "premier" | "ultimate">("all");
+  const [treatmentTierFilter, setTreatmentTierFilter] = useState<"essential" | "premier" | "ultimate">("premier");
+  const [expandedTreatmentId, setExpandedTreatmentId] = useState<number | null>(null);
   const [showMemberInput, setShowMemberInput] = useState(false);
   const [memberCheckDone, setMemberCheckDone] = useState(false);
 
@@ -271,7 +272,7 @@ export default function NewBookingFlow() {
   /* -- computed -- */
   const treatments = category === "facial" ? FACIAL_TREATMENTS : MASSAGE_TREATMENTS;
   const boosts = category === "facial" ? FACIAL_BOOSTS : MASSAGE_BOOSTS;
-  const filteredTreatments = treatmentTierFilter === "all" ? treatments : treatments.filter((t) => t.tier === treatmentTierFilter);
+  const filteredTreatments = treatments.filter((t) => t.tier === treatmentTierFilter);
   const selectedPrice = selectedTreatment ? getTreatmentPrice(selectedTreatment.tier, isMember, memberTier) : 0;
 
   useEffect(() => { if (memberTier) setTreatmentTierFilter(memberTier); }, [memberTier]);
@@ -679,8 +680,8 @@ export default function NewBookingFlow() {
         {/* ===== EMAIL ===== */}
         {/* ===== TREATMENT ===== */}
         {step === "treatment" && (() => {
-          const activePricingTier = treatmentTierFilter === "all" ? "premier" : treatmentTierFilter;
-          const tierIncluded = treatmentTierFilter !== "all" && isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[treatmentTierFilter];
+          const activePricingTier = treatmentTierFilter;
+          const tierIncluded = isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[treatmentTierFilter];
           const savings = TIER_PRICING[activePricingTier].dropIn - TIER_PRICING[activePricingTier].member;
           return (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -695,7 +696,7 @@ export default function NewBookingFlow() {
               <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4">
                 {category === "massage"
                   ? "Expert therapists, personalized pressure, total relaxation."
-                  : "Clinical-grade skincare tailored to your skin."}
+                  : "Personalized, result-driven facials designed to support healthy, radiant skin — customized by your esthetician."}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-2">
                 <ReviewBadge />
@@ -704,18 +705,18 @@ export default function NewBookingFlow() {
               </div>
             </div>
 
-            {/* Member welcome or optional member shortcut */}
+            {/* Member shortcut — compact, non-intrusive */}
             {isMember && memberFirstName ? (
-              <div className="bg-[#113D33] text-white rounded-2xl p-4 text-center">
-                <p className="text-sm">Welcome back, {memberFirstName}! Your <span className="font-bold capitalize">{memberTier}</span> member treatments are included below.</p>
+              <div className="bg-[#113D33] text-white rounded-xl px-4 py-3 text-center">
+                <p className="text-sm">Welcome back, <span className="font-bold">{memberFirstName}</span>! Showing your <span className="font-bold capitalize">{memberTier}</span> pricing.</p>
               </div>
             ) : !memberCheckDone ? (
               <AnimatePresence mode="wait">
                 {showMemberInput ? (
                   <motion.div key="member-input" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-                    className="bg-white rounded-2xl border border-[#113D33]/10 p-4 space-y-3">
+                    className="bg-white rounded-xl border border-[#113D33]/10 p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-[#113D33]">Enter your email to see member pricing</p>
+                      <p className="text-sm font-semibold text-[#113D33]">Enter your email to unlock member pricing</p>
                       <button onClick={() => setShowMemberInput(false)} className="text-xs text-[#113D33]/40 hover:text-[#113D33]">✕</button>
                     </div>
                     <div className="flex gap-2">
@@ -727,39 +728,26 @@ export default function NewBookingFlow() {
                   </motion.div>
                 ) : (
                   <motion.div key="member-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                    className="bg-[#113D33]/[0.04] border border-[#113D33]/10 rounded-2xl p-4 text-center">
-                    <p className="text-sm text-[#113D33]">
-                      <button onClick={() => setShowMemberInput(true)} className="font-semibold text-[#4A776D] hover:text-[#113D33] underline underline-offset-2 transition-colors">
-                        Sway member? Tap here for your pricing
-                      </button>
-                      <span className="text-[#113D33]/30 mx-2">|</span>
-                      <Link href="/locations/denver-larimer/membership" className="text-[#113D33]/50 hover:text-[#113D33] transition-colors">
-                        Join the club &rarr;
-                      </Link>
-                    </p>
+                    className="text-center">
+                    <button onClick={() => setShowMemberInput(true)} className="text-sm text-[#4A776D] hover:text-[#113D33] font-medium underline underline-offset-2 transition-colors">
+                      Sway member? Tap to see your pricing
+                    </button>
                   </motion.div>
                 )}
               </AnimatePresence>
-            ) : (
-              <div className="bg-[#113D33]/[0.04] border border-[#113D33]/10 rounded-2xl p-4 text-center">
-                <p className="text-sm text-[#113D33]">
-                  Drop-in pricing shown.{" "}
-                  <Link href="/locations/denver-larimer/membership" className="underline underline-offset-2 font-semibold text-[#4A776D] hover:text-[#113D33]">Join &amp; save &rarr;</Link>
-                </p>
-              </div>
-            )}
+            ) : null}
 
-            {/* Tier toggle with "All" default */}
+            {/* Tier toggle */}
             <div className="flex justify-center">
               <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
-                {(["all", "essential", "premier", "ultimate"] as const).map((tier) => {
+                {(["essential", "premier", "ultimate"] as const).map((tier) => {
                   const isActive = treatmentTierFilter === tier;
                   const isMyTier = isMember && memberTier === tier;
                   return (
-                    <button key={tier} onClick={() => setTreatmentTierFilter(tier)}
-                      className={`relative px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${isActive ? "bg-[#113D33] text-white shadow-sm" : "text-[#113D33]/60 hover:text-[#113D33]"} ${isMyTier && !isActive ? "ring-1 ring-[#9ABFB3]" : ""}`}>
-                      {tier === "all" ? "All" : tier.charAt(0).toUpperCase() + tier.slice(1)}
-                      {isMyTier && <span className="ml-1 text-xs">{isActive ? "✓" : "★"}</span>}
+                    <button key={tier} onClick={() => { setTreatmentTierFilter(tier); setExpandedTreatmentId(null); }}
+                      className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${isActive ? "bg-[#113D33] text-white shadow-sm" : "text-[#113D33]/60 hover:text-[#113D33]"} ${isMyTier && !isActive ? "ring-1 ring-[#9ABFB3]" : ""}`}>
+                      {tier.charAt(0).toUpperCase() + tier.slice(1)}
+                      {isMyTier && <span className="ml-1 text-xs">{isActive ? " ✓" : ""}</span>}
                     </button>
                   );
                 })}
@@ -775,114 +763,97 @@ export default function NewBookingFlow() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Pricing / value-add — only show for specific tiers, not "All" */}
-                {treatmentTierFilter !== "all" && (
-                <div className="text-center space-y-2 mb-6">
+                {/* Value-add description per tier */}
+                <div className="text-center mb-4">
                   {tierIncluded ? (
                     <div className="inline-flex items-center gap-2 bg-[#113D33] text-white rounded-full px-5 py-2">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                       <span className="text-sm font-semibold">Included in your {memberTier} membership</span>
                     </div>
-                  ) : isMember ? (
-                    <div className="text-center">
-                      <p className="text-lg font-bold text-[#113D33]">${TIER_PRICING[treatmentTierFilter].dropIn} <span className="text-sm font-normal text-[#113D33]/40">drop-in</span></p>
-                      <p className="text-xs text-[#4A776D]">Upgrade to {treatmentTierFilter} membership for ${TIER_PRICING[treatmentTierFilter].member}/mo</p>
-                    </div>
                   ) : (
-                    <div className="text-center">
-                      <div className="flex items-baseline justify-center gap-3">
-                        <span className="text-2xl font-bold text-[#113D33]">${TIER_PRICING[treatmentTierFilter].member}<span className="text-sm font-normal">/mo</span></span>
-                        <span className="text-base text-[#113D33]/30 line-through">${TIER_PRICING[treatmentTierFilter].dropIn}</span>
-                        <span className="text-xs font-semibold text-white bg-[#4A776D] rounded-full px-2.5 py-0.5">Save ${savings}</span>
-                      </div>
-                      <p className="text-xs text-[#113D33]/40 mt-1">${TIER_PRICING[treatmentTierFilter].dropIn} drop-in without membership</p>
-                    </div>
+                    <p className="text-sm text-[#113D33]/60">${TIER_PRICING[treatmentTierFilter].dropIn} drop-in · <span className="text-[#4A776D] font-semibold">${TIER_PRICING[treatmentTierFilter].member}/mo as member</span></p>
                   )}
-                  <p className="text-xs text-[#113D33]/50 max-w-lg mx-auto">
+                  <p className="text-xs text-[#113D33]/40 mt-2 max-w-lg mx-auto">
                     {category === "facial" ? (
-                      treatmentTierFilter === "essential" ? "50-minute treatments" :
-                      treatmentTierFilter === "premier" ? "50-min treatments — adds targeted products for skin concern + dermapore technology" :
-                      "50–60 min treatments — adds tech enhancements + scalp/hand treatment"
+                      treatmentTierFilter === "essential" ? "50-minute customized facial" :
+                      treatmentTierFilter === "premier" ? "50 min — targeted products for your skin concern + dermapore technology" :
+                      "50–60 min — tech enhancements + scalp/hand treatment"
                     ) : (
-                      treatmentTierFilter === "essential" ? "50-minute treatments" :
+                      treatmentTierFilter === "essential" ? "50-minute customized massage" :
                       treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
                       "+20 min duration added to advanced technique massages"
                     )}
                   </p>
                 </div>
-                )}
 
-                {/* Treatment list — compact cards, no images */}
-                {treatmentTierFilter === "all" ? (
-                  <div className="space-y-6">
-                    {(["essential", "premier", "ultimate"] as const).map((tier) => {
-                      const tierTreatments = treatments.filter((t) => t.tier === tier);
-                      const tierSavings = TIER_PRICING[tier].dropIn - TIER_PRICING[tier].member;
-                      const tierIsIncluded = isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[tier];
-                      return (
-                        <div key={tier}>
-                          <div className="flex items-center gap-3 mb-2.5">
-                            <h3 className="text-base font-bold text-[#113D33] capitalize">{tier}</h3>
-                            <span className="text-xs text-[#113D33]/40">${TIER_PRICING[tier].dropIn}</span>
-                            {!isMember && <span className="text-[10px] font-semibold text-white bg-[#4A776D] rounded-full px-2 py-0.5">Save ${tierSavings}</span>}
-                            {tierIsIncluded && <span className="text-[10px] font-semibold text-white bg-[#113D33] rounded-full px-2 py-0.5">Your tier ✓</span>}
-                          </div>
-                          <div className="space-y-2">
-                            {tierTreatments.map((t, i) => (
-                              <motion.button key={t.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2, delay: i * 0.03 }}
-                                onClick={() => handleTreatmentSelect(t)}
-                                className="w-full text-left bg-white rounded-xl border border-[#113D33]/10 px-4 py-3.5 hover:shadow-md hover:border-[#113D33]/20 active:scale-[0.99] transition-all duration-200">
-                                <div className="flex items-start justify-between gap-3">
-                                  <div className="min-w-0 flex-1">
-                                    <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
-                                    <p className="text-sm text-[#113D33]/45 mt-1 leading-snug">{t.description}</p>
-                                  </div>
-                                  <div className="text-right shrink-0">
-                                    <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</div>
-                                    <div className="text-[10px] text-[#4A776D]">{t.duration}</div>
-                                  </div>
-                                </div>
-                              </motion.button>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                <div className="space-y-2">
-                  {filteredTreatments.map((t, i) => (
-                    <motion.button
+                {/* Treatment cards — expandable, tier-distinct */}
+                <div className="space-y-2.5">
+                  {filteredTreatments.map((t, i) => {
+                    const isUltimate = t.tier === "ultimate";
+                    const isPremier = t.tier === "premier";
+                    const isExpanded = expandedTreatmentId === t.id;
+                    return (
+                    <motion.div
                       key={t.id}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.2, delay: i * 0.04 }}
-                      onClick={() => handleTreatmentSelect(t)}
-                      className="w-full text-left bg-white rounded-xl border border-[#113D33]/10 px-4 py-3.5 hover:shadow-md hover:border-[#113D33]/20 active:scale-[0.99] transition-all duration-200">
-                      <div className="flex items-start justify-between gap-3">
+                      className={`rounded-xl border overflow-hidden transition-all duration-200 ${
+                        isUltimate
+                          ? "bg-[#113D33]/[0.04] border-[#113D33]/15"
+                          : isPremier
+                          ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
+                          : "bg-white border-[#113D33]/8"
+                      } ${isExpanded ? "shadow-md" : "hover:shadow-sm"}`}>
+                      {/* Collapsed row — always visible */}
+                      <button
+                        onClick={() => setExpandedTreatmentId(isExpanded ? null : t.id)}
+                        className="w-full text-left px-5 py-4 flex items-center justify-between gap-4">
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
-                          <p className="text-sm text-[#113D33]/45 mt-1 leading-snug">{t.description}</p>
+                          <div className="flex items-center gap-1.5">
+                            {isUltimate && <span className="text-[#4A776D] text-xs">✦</span>}
+                            <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
+                          </div>
+                          <p className="text-[13px] text-[#113D33]/40 mt-0.5">{t.duration}</p>
                         </div>
-                        <div className="text-right shrink-0">
-                          {tierIncluded ? (
-                            <>
-                              <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].member}</div>
-                              <div className="text-[10px] text-[#4A776D] font-semibold">Included</div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</div>
-                              <div className="text-[10px] text-[#4A776D]">${TIER_PRICING[t.tier].member} member</div>
-                            </>
-                          )}
-                          <div className="text-[10px] text-[#113D33]/30 mt-0.5">{t.duration}</div>
+                        <div className="flex items-center gap-3 shrink-0">
+                          <div className="text-right">
+                            {tierIncluded ? (
+                              <span className="text-sm font-bold text-[#4A776D]">Included</span>
+                            ) : (
+                              <span className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</span>
+                            )}
+                          </div>
+                          <svg className={`w-4 h-4 text-[#113D33]/30 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>
                         </div>
-                      </div>
-                    </motion.button>
-                  ))}
+                      </button>
+                      {/* Expanded details */}
+                      <AnimatePresence initial={false}>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            className="overflow-hidden">
+                            <div className="px-5 pb-4 pt-0">
+                              <p className="text-sm text-[#113D33]/60 leading-relaxed mb-4">{t.description}</p>
+                              <button
+                                onClick={() => handleTreatmentSelect(t)}
+                                className="w-full bg-[#113D33] text-white font-semibold text-sm py-3 rounded-lg hover:bg-[#0a2b23] transition-colors">
+                                Select {t.name.replace(/^(Essential |Premier |Ultimate )/, "")}
+                              </button>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                    );
+                  })}
                 </div>
-                )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
