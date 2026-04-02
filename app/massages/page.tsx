@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 
@@ -165,35 +166,49 @@ const MassagesPage = () => {
 
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
-      {/* HERO */}
-      <section className="bg-[#113D33]">
-        <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+      {/* HERO — background image */}
+      <section className="relative h-[60vh] min-h-[400px] max-h-[600px]">
+        <Image
+          src="/assets/massage2.jpg"
+          alt="Massage Experiences at Sway Wellness Spa"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="relative h-full flex items-center justify-center px-6 text-center">
           <motion.h1
-            initial={prefersReducedMotion ? false : { opacity: 0, y: -14 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
+            transition={{ duration: 0.7 }}
             className="text-white text-5xl md:text-7xl font-light tracking-tight"
           >
             Massage Experiences
           </motion.h1>
+        </div>
 
-          <p className="sr-only">
-            Sway Wellness Spa offers massage treatments at 1428 Larimer St. in
-            Denver across three tiers: Essential (Signature and Maternity
-            Massage), Premier (Signature, Maternity, Deep Tissue, Salt Stone,
-            Sports, and Lymphatic Drainage), and Ultimate (extended duration
-            versions of Signature, Deep Tissue, Salt Stone, Sports, and
-            Lymphatic Drainage). Enhance any massage with boosts: CauseMedic
-            CBD, Cupping, and PEMF Recovery — members save 50%. Open Mon–Fri
-            10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
-            swaywellnessspa.com or call (303) 476-6150.
-          </p>
+        <p className="sr-only">
+          Sway Wellness Spa offers massage treatments at 1428 Larimer St. in
+          Denver across three tiers: Essential (Signature and Maternity
+          Massage), Premier (Signature, Maternity, Deep Tissue, Salt Stone,
+          Sports, and Lymphatic Drainage), and Ultimate (extended duration
+          versions of Signature, Deep Tissue, Salt Stone, Sports, and
+          Lymphatic Drainage). Enhance any massage with boosts: CauseMedic
+          CBD, Cupping, and PEMF Recovery — members save 50%. Open Mon–Fri
+          10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
+          swaywellnessspa.com or call (303) 476-6150.
+        </p>
+      </section>
 
+      {/* INTRO SECTION */}
+      <section className="bg-[#F7F4E9] px-6 py-14 md:py-20 text-center">
+        <div className="max-w-3xl mx-auto">
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/85"
+            className="text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33]/80"
           >
             A curated selection of massage experiences designed to release
             tension held in the body, leaving you feeling restored.
@@ -204,22 +219,24 @@ const MassagesPage = () => {
             target="_blank"
             rel="noopener noreferrer"
             initial={prefersReducedMotion ? false : { opacity: 0 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/50 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/40 border border-[#113D33]/15 rounded-full px-4 py-1.5 hover:border-[#113D33]/30 transition"
           >
             Voted #4 Best Day Spa in America — USA Today 10Best
           </motion.a>
 
           <motion.div
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.25 }}
             className="mt-9 flex items-center justify-center"
           >
             <Link
               href={bookHref}
-              className="inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg"
+              className="inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-[#113D33]/90 transition-all shadow-lg"
             >
               Continue to Booking
             </Link>

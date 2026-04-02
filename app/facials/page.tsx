@@ -170,13 +170,13 @@ const FacialsPage = () => {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="relative h-full flex items-end justify-start px-6 pb-10 md:pb-14">
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="relative h-full flex items-center justify-center px-6 text-center">
           <motion.h1
             initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-white text-3xl md:text-5xl font-bold uppercase tracking-[0.15em]"
+            className="text-white text-5xl md:text-7xl font-light tracking-tight"
           >
             Facial Experiences
           </motion.h1>
@@ -187,31 +187,11 @@ const FacialsPage = () => {
       <section className="bg-[#F7F4E9] px-6 py-14 md:py-20 text-center">
         <div className="max-w-3xl mx-auto">
           <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4"
-          >
-            Eminence Organics &middot; Dr. Dennis Gross
-          </motion.p>
-
-          <motion.h2
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
             whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="text-[#113D33] text-4xl md:text-6xl font-light tracking-tight"
-          >
-            Facial Experiences
-          </motion.h2>
-
-          <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-5 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-[#113D33]/80"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33]/80"
           >
             Personalized, result-driven facials designed to support healthy,
             radiant skin — customized by your esthetician.
@@ -225,21 +205,10 @@ const FacialsPage = () => {
             whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/50 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/40 border border-[#113D33]/15 rounded-full px-4 py-1.5 hover:border-[#113D33]/30 transition"
           >
             Voted #4 Best Day Spa in America — USA Today 10Best
           </motion.a>
-
-          <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0 }}
-            whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-4 text-sm md:text-base max-w-2xl mx-auto text-[#113D33]/55 leading-relaxed"
-          >
-            Clean, organic skincare paired with clinical-grade protocols and
-            science-backed boosts like LED, microcurrent, and oxygen infusion.
-          </motion.p>
 
           <motion.div
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
