@@ -10,15 +10,15 @@ const ALLOWED_SERVICE_IDS = new Set([
   5, 6, 9, 10, 11, 12, // facials
 
   // Essential
-  75, 88, 112, // Essential Facial, Essential Massage, Essential Maternity
+  75, 88, 116, // Essential Facial, Essential Massage, Essential Maternity
 
   // Premier facials
-  76, 77, 78, 79, 80, 81, 110,
+  77, 78, 79, 80, 81,
   // Premier massages
   89, 98, 99, 100, 101, 102,
 
   // Ultimate facials
-  82, 83, 84, 85, 103, 104, 111,
+  82, 84, 85, 103, 104,
   // Ultimate massages
   90, 105, 106, 107, 108,
 ]);
@@ -45,9 +45,12 @@ const ALLOWED_ADDON_IDS = new Set([
   87, // Oxygen Boost Plus (+10 min)
   91, // PEMF Recovery Boost (no time)
   109, // Dermaflash Boost Plus (+10 min)
-  113, // CauseMedic CBD Boost (no time)
-  114, // CauseMedic CBD Boost Plus (+10 min)
-  115, // Cupping Boost Plus (+10 min)
+  111, // CauseMedic Muscle Cream Boost (no time)
+  112, // CauseMedic Muscle Cream Boost Plus (+10 min)
+  113, // Cupping Boost (no time)
+  114, // Cupping Boost Plus (+10 min)
+  115, // Dermaflash Boost (no time)
+  117, // Sculpt & Lift Boost Pro (+20 min)
 ]);
 
 /* Time-extension boosts must be booked as SEPARATE appointments
@@ -55,9 +58,17 @@ const ALLOWED_ADDON_IDS = new Set([
  * True add-ons (PEMF, Cupping, etc.) are attached via addappointmentaddon
  * as enhancements (no extra schedule time). */
 const TIME_EXTENSION_IDS = new Set([
+  // Legacy
   28, // Make it 80 Minutes (massage +30 min)
   19, // Microcurrent Full (facial +30 min)
   20, // LED Light Therapy Full (facial +30 min)
+  // New tier boosts that add time (must be booked as separate appointments)
+  73, // LED Boost Plus (+10 min)
+  87, // Oxygen Boost Plus (+10 min)
+  109, // Dermaflash Boost Plus (+10 min)
+  112, // CauseMedic Muscle Cream Boost Plus (+10 min)
+  114, // Cupping Boost Plus (+10 min)
+  117, // Sculpt & Lift Boost Pro (+20 min)
 ]);
 
 /* Map boost session-type IDs → Mindbody Resource IDs.
@@ -65,6 +76,7 @@ const TIME_EXTENSION_IDS = new Set([
  * we assign the resource to the appointment so Mindbody prevents
  * double-booking the same equipment at overlapping times. */
 const BOOST_RESOURCE_MAP: Record<number, number> = {
+  // Legacy
   25: 3, // Infrared PEMF Mat → PEMF resource
   24: 4, // Oxygen Infusion → Oxygen Infusion resource
   22: 5, // Dermaflash → Dermaflash resource
@@ -73,7 +85,16 @@ const BOOST_RESOURCE_MAP: Record<number, number> = {
   19: 7, // Microcurrent Full → Microcurrent resource
   18: 7, // Microcurrent Mini → Microcurrent resource
   21: 8, // Hydraderm → Hydraderm resource
-  // 28 (Make it 80 Min), 26 (Cupping), 17 (Peel) — no dedicated resource
+  // New tier boosts with resources
+  74: 6, // LED Boost → LED resource
+  73: 6, // LED Boost Plus → LED resource
+  86: 4, // Oxygen Boost → Oxygen resource
+  87: 4, // Oxygen Boost Plus → Oxygen resource
+  115: 5, // Dermaflash Boost → Dermaflash resource
+  109: 5, // Dermaflash Boost Plus → Dermaflash resource
+  91: 3, // PEMF Recovery Boost → PEMF resource
+  117: 7, // Sculpt & Lift Boost Pro → Microcurrent resource
+  // No resource: 111/112 (CauseMedic), 113/114 (Cupping), 28 (Make it 80), 17 (Peel)
 };
 
 export async function POST(req: Request) {

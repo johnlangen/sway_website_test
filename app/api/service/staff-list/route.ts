@@ -25,12 +25,12 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   7, 13, 14, 15, 16, 49, // massages
   5, 6, 9, 10, 11, 12,   // facials
   // Essential
-  75, 88, 112,
+  75, 88, 116,
   // Premier facials + massages
-  76, 77, 78, 79, 80, 81, 110,
+  77, 78, 79, 80, 81,
   89, 98, 99, 100, 101, 102,
   // Ultimate facials + massages
-  82, 83, 84, 85, 103, 104, 111,
+  82, 84, 85, 103, 104,
   90, 105, 106, 107, 108,
 ]);
 

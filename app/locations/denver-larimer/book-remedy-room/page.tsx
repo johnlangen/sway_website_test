@@ -1820,7 +1820,7 @@ export default function BookRemedyRoomPage() {
                   Complete your visit
                 </p>
                 <Link
-                  href="/locations/denver-larimer/book-service"
+                  href="/locations/denver-larimer/book"
                   className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
                 >
                   Book a Massage or Facial
