@@ -80,7 +80,7 @@ export default function LarimerMassagePage() {
           {/* ✅ CTA STACK */}
           <div className="mt-8 flex flex-col items-center md:items-start gap-3">
             <Link
-              href="/locations/denver-larimer/book-service?category=massage"
+              href="/locations/denver-larimer/book/?category=massage"
               className="bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-md hover:bg-[#0a2b23] transition-all shadow-lg text-center w-full sm:w-auto"
             >
               Book a Massage at Larimer Square
@@ -132,7 +132,7 @@ export default function LarimerMassagePage() {
 
           <div className="mt-10 text-center">
             <Link
-              href="/locations/denver-larimer/book-service?category=massage"
+              href="/locations/denver-larimer/book/?category=massage"
               className="inline-block bg-[#4A776D] hover:bg-[#3a5f56] text-white px-6 py-3 rounded-full font-semibold transition"
             >
               Schedule Your Massage
