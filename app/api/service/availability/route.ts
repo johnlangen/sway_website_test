@@ -40,6 +40,7 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   // Essential tier
   75, // Essential Basic Facial
   88, // Essential Basic Massage
+  112, // Essential Maternity Massage
 
   // Premier facials
   76, // Premier Basic Glow Peel
@@ -48,6 +49,7 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   79, // Premier Glow Getter Hydration
   80, // Premier Pore Perfection Acne
   81, // Premier Sensitive Silk
+  110, // Premier Basic Glow Peel (new ID)
 
   // Premier massages
   89, // Premier Lymphatic Drainage
@@ -64,6 +66,7 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   85, // Ultimate Illuminate LED
   103, // Ultimate Sculpt & Lift Microcurrent
   104, // Ultimate Hydraderm
+  111, // Ultimate Advanced Glow Peel (new ID)
 
   // Ultimate massages
   90, // Ultimate Lymphatic Drainage

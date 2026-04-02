@@ -10,15 +10,15 @@ const ALLOWED_SERVICE_IDS = new Set([
   5, 6, 9, 10, 11, 12, // facials
 
   // Essential
-  75, 88, // Essential Facial, Essential Massage
+  75, 88, 112, // Essential Facial, Essential Massage, Essential Maternity
 
   // Premier facials
-  76, 77, 78, 79, 80, 81,
+  76, 77, 78, 79, 80, 81, 110,
   // Premier massages
   89, 98, 99, 100, 101, 102,
 
   // Ultimate facials
-  82, 83, 84, 85, 103, 104,
+  82, 83, 84, 85, 103, 104, 111,
   // Ultimate massages
   90, 105, 106, 107, 108,
 ]);
@@ -45,6 +45,9 @@ const ALLOWED_ADDON_IDS = new Set([
   87, // Oxygen Boost Plus (+10 min)
   91, // PEMF Recovery Boost (no time)
   109, // Dermaflash Boost Plus (+10 min)
+  113, // CauseMedic CBD Boost (no time)
+  114, // CauseMedic CBD Boost Plus (+10 min)
+  115, // Cupping Boost Plus (+10 min)
 ]);
 
 /* Time-extension boosts must be booked as SEPARATE appointments

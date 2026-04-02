@@ -22,6 +22,7 @@ import NextAvailableBanner from "../NextAvailableBanner";
 ================================================================ */
 
 type Step =
+  | "welcome"
   | "category"
   | "treatment"
   | "boosts"
@@ -46,6 +47,7 @@ type Treatment = {
   description: string;
   tier: "essential" | "premier" | "ultimate";
   image: string;
+  concerns?: string[];
 };
 
 type Boost = {
@@ -61,40 +63,40 @@ type Boost = {
 
 const FACIAL_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
-  { id: 75, name: "Essential Signature Facial", duration: "50 min", durationMinutes: 50, description: "A classic facial customized to your skin type: cleanse, exfoliate, extract, and hydrate.", tier: "essential", image: "/assets/facial1.jpg" },
+  { id: 75, name: "Essential Signature Facial", duration: "50 min", durationMinutes: 50, description: "A classic facial customized to your skin type: cleanse, exfoliate, extract, and hydrate.", tier: "essential", image: "/assets/facial1.jpg", concerns: ["hydration", "sensitive", "brightening", "acne", "anti-aging"] },
   // Premier — 50 min, $129 member / $169 drop-in. Value add: targeted products + dermapore technology
-  { id: 78, name: "Premier Forever Young Anti-Aging Facial", duration: "50 min", durationMinutes: 50, description: "Hydrates, brightens, and tightens the skin while supporting collagen production.", tier: "premier", image: "/assets/facial2.jpg" },
-  { id: 80, name: "Premier Pore Perfection Acne Facial", duration: "50 min", durationMinutes: 50, description: "Targets congestion, bacteria, and inflammation for clearer, healthier skin.", tier: "premier", image: "/assets/facial4.jpg" },
-  { id: 81, name: "Premier Sensitive Silk Facial", duration: "50 min", durationMinutes: 50, description: "Calms redness, strengthens the skin barrier, and supports sensitive skin types.", tier: "premier", image: "/assets/facial5.jpg" },
-  { id: 79, name: "Premier Glow Getter Hydration Facial", duration: "50 min", durationMinutes: 50, description: "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.", tier: "premier", image: "/assets/facial3.jpg" },
-  { id: 77, name: "Premier Dr. Dennis Gross Vitamin C Facial", duration: "50 min", durationMinutes: 50, description: "A brightening facial powered by Vitamin C to improve tone, clarity, and radiance.", tier: "premier", image: "/assets/facial6.jpg" },
-  { id: 110, name: "Premier Basic Glow Peel", duration: "30 min", durationMinutes: 30, description: "A quick, effective peel that refines pores, evens tone, and supports collagen for clearer skin.", tier: "premier", image: "/assets/facial1.jpg" },
+  { id: 78, name: "Premier Forever Young Anti-Aging Facial", duration: "50 min", durationMinutes: 50, description: "Hydrates, brightens, and tightens the skin while supporting collagen production.", tier: "premier", image: "/assets/facial2.jpg", concerns: ["anti-aging", "hydration"] },
+  { id: 80, name: "Premier Pore Perfection Acne Facial", duration: "50 min", durationMinutes: 50, description: "Targets congestion, bacteria, and inflammation for clearer, healthier skin.", tier: "premier", image: "/assets/facial4.jpg", concerns: ["acne", "texture"] },
+  { id: 81, name: "Premier Sensitive Silk Facial", duration: "50 min", durationMinutes: 50, description: "Calms redness, strengthens the skin barrier, and supports sensitive skin types.", tier: "premier", image: "/assets/facial5.jpg", concerns: ["sensitive"] },
+  { id: 79, name: "Premier Glow Getter Hydration Facial", duration: "50 min", durationMinutes: 50, description: "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.", tier: "premier", image: "/assets/facial3.jpg", concerns: ["hydration", "anti-aging", "brightening"] },
+  { id: 77, name: "Premier Dr. Dennis Gross Vitamin C Facial", duration: "50 min", durationMinutes: 50, description: "A brightening facial powered by Vitamin C to improve tone, clarity, and radiance.", tier: "premier", image: "/assets/facial6.jpg", concerns: ["brightening", "anti-aging"] },
+  { id: 110, name: "Premier Basic Glow Peel", duration: "30 min", durationMinutes: 30, description: "A quick, effective peel that refines pores, evens tone, and supports collagen for clearer skin.", tier: "premier", image: "/assets/facial1.jpg", concerns: ["texture", "brightening", "acne"] },
   // Ultimate — 50–60 min, $159 member / $199 drop-in. Value add: +10 min, tech + scalp/hand
-  { id: 85, name: "Ultimate Illuminate LED Facial", duration: "60 min", durationMinutes: 60, description: "An advanced facial infused with LED light therapy to brighten, even skin tone, and support collagen.", tier: "ultimate", image: "/assets/facial2.jpg" },
-  { id: 82, name: "Ultimate Oxygen Infusion Facial", duration: "60 min", durationMinutes: 60, description: "A high-performance oxygenating facial to deeply hydrate, plump, and revitalize.", tier: "ultimate", image: "/assets/facial3.jpg" },
-  { id: 103, name: "Ultimate Sculpt & Lift Microcurrent Facial", duration: "60 min", durationMinutes: 60, description: "Microcurrent technology to re-educate muscles, smooth fine lines, and restore natural energy.", tier: "ultimate", image: "/assets/facial5.jpg" },
-  { id: 104, name: "Ultimate Hydraderm", duration: "50 min", durationMinutes: 50, description: "Advanced technology resurfaces your skin while delivering intensive hydration using result-driven serums.", tier: "ultimate", image: "/assets/facial4.jpg" },
-  { id: 84, name: "Ultimate Dr. Dennis Gross Vitamin C w/ LED", duration: "60 min", durationMinutes: 60, description: "A result-driven Vitamin C facial enhanced with LED light therapy for brightening and collagen support.", tier: "ultimate", image: "/assets/facial6.jpg" },
-  { id: 111, name: "Ultimate Advanced Glow Peel", duration: "40 min", durationMinutes: 40, description: "An intensive peel with advanced actives to resurface, refine texture, and reveal a brighter complexion.", tier: "ultimate", image: "/assets/facial1.jpg" },
+  { id: 85, name: "Ultimate Illuminate LED Facial", duration: "60 min", durationMinutes: 60, description: "An advanced facial infused with LED light therapy to brighten, even skin tone, and support collagen.", tier: "ultimate", image: "/assets/facial2.jpg", concerns: ["brightening", "anti-aging"] },
+  { id: 82, name: "Ultimate Oxygen Infusion Facial", duration: "60 min", durationMinutes: 60, description: "A high-performance oxygenating facial to deeply hydrate, plump, and revitalize.", tier: "ultimate", image: "/assets/facial3.jpg", concerns: ["hydration", "anti-aging"] },
+  { id: 103, name: "Ultimate Sculpt & Lift Microcurrent Facial", duration: "60 min", durationMinutes: 60, description: "Microcurrent technology to re-educate muscles, smooth fine lines, and restore natural energy.", tier: "ultimate", image: "/assets/facial5.jpg", concerns: ["anti-aging"] },
+  { id: 104, name: "Ultimate Hydraderm", duration: "50 min", durationMinutes: 50, description: "Advanced technology resurfaces your skin while delivering intensive hydration using result-driven serums.", tier: "ultimate", image: "/assets/facial4.jpg", concerns: ["hydration", "texture"] },
+  { id: 84, name: "Ultimate Dr. Dennis Gross Vitamin C w/ LED", duration: "60 min", durationMinutes: 60, description: "A result-driven Vitamin C facial enhanced with LED light therapy for brightening and collagen support.", tier: "ultimate", image: "/assets/facial6.jpg", concerns: ["brightening", "anti-aging"] },
+  { id: 111, name: "Ultimate Advanced Glow Peel", duration: "40 min", durationMinutes: 40, description: "An intensive peel with advanced actives to resurface, refine texture, and reveal a brighter complexion.", tier: "ultimate", image: "/assets/facial1.jpg", concerns: ["texture", "brightening", "acne"] },
 ];
 
 const MASSAGE_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
-  { id: 88, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage tailored to your needs.", tier: "essential", image: "/assets/massage7.jpg" },
-  { id: 112, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers.", tier: "essential", image: "/assets/massage5.jpg" },
+  { id: 88, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage tailored to your needs.", tier: "essential", image: "/assets/massage7.jpg", concerns: ["relaxation", "pain-relief"] },
+  { id: 112, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers.", tier: "essential", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
   // Premier — $129 member / $169 drop-in. Value add: +20 min for swedish, or advanced techniques
-  { id: 98, name: "Premier Signature Massage", duration: "70 min", durationMinutes: 70, description: "Extended full-body massage for a deeply relaxing experience.", tier: "premier", image: "/assets/massage7.jpg" },
-  { id: 99, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief.", tier: "premier", image: "/assets/massage5.jpg" },
-  { id: 100, name: "Premier Deep Tissue Massage", duration: "50 min", durationMinutes: 50, description: "Corrective massage to release deep muscle tension and restore balance.", tier: "premier", image: "/assets/massage2.jpg" },
-  { id: 101, name: "Premier Salt Stone Massage", duration: "50 min", durationMinutes: 50, description: "Warm Himalayan salt stones melt tension and promote deep relaxation.", tier: "premier", image: "/assets/massage4.jpg" },
-  { id: 102, name: "Premier Sports Massage", duration: "50 min", durationMinutes: 50, description: "Supports recovery, range of motion, and reduces fatigue.", tier: "premier", image: "/assets/massage5.jpg" },
-  { id: 89, name: "Premier Lymphatic Drainage Massage", duration: "50 min", durationMinutes: 50, description: "Gentle techniques to stimulate lymph flow and support detoxification.", tier: "premier", image: "/assets/massage6.jpg" },
+  { id: 98, name: "Premier Signature Massage", duration: "70 min", durationMinutes: 70, description: "Extended full-body massage for a deeply relaxing experience.", tier: "premier", image: "/assets/massage7.jpg", concerns: ["relaxation"] },
+  { id: 99, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
+  { id: 100, name: "Premier Deep Tissue Massage", duration: "50 min", durationMinutes: 50, description: "Corrective massage to release deep muscle tension and restore balance.", tier: "premier", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
+  { id: 101, name: "Premier Salt Stone Massage", duration: "50 min", durationMinutes: 50, description: "Warm Himalayan salt stones melt tension and promote deep relaxation.", tier: "premier", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
+  { id: 102, name: "Premier Sports Massage", duration: "50 min", durationMinutes: 50, description: "Supports recovery, range of motion, and reduces fatigue.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
+  { id: 89, name: "Premier Lymphatic Drainage Massage", duration: "50 min", durationMinutes: 50, description: "Gentle techniques to stimulate lymph flow and support detoxification.", tier: "premier", image: "/assets/massage6.jpg", concerns: ["detox", "recovery"] },
   // Ultimate — $159 member / $199 drop-in. Value add: +20 min to advanced techniques
-  { id: 105, name: "Ultimate Signature Massage", duration: "90 min", durationMinutes: 90, description: "Our longest full-body massage for complete relaxation and restoration.", tier: "ultimate", image: "/assets/massage7.jpg" },
-  { id: 106, name: "Ultimate Deep Tissue Massage", duration: "70 min", durationMinutes: 70, description: "Extended deep tissue for full recovery and rebalancing.", tier: "ultimate", image: "/assets/massage2.jpg" },
-  { id: 107, name: "Ultimate Salt Stone Massage", duration: "70 min", durationMinutes: 70, description: "Extended salt stone therapy for deep penetration and release.", tier: "ultimate", image: "/assets/massage4.jpg" },
-  { id: 108, name: "Ultimate Sports Massage", duration: "70 min", durationMinutes: 70, description: "Extended sports therapy with stretching and deep kneading.", tier: "ultimate", image: "/assets/massage5.jpg" },
-  { id: 90, name: "Ultimate Lymphatic Drainage Massage", duration: "70 min", durationMinutes: 70, description: "Extended lymphatic therapy for deeper detoxification and recovery.", tier: "ultimate", image: "/assets/massage6.jpg" },
+  { id: 105, name: "Ultimate Signature Massage", duration: "90 min", durationMinutes: 90, description: "Our longest full-body massage for complete relaxation and restoration.", tier: "ultimate", image: "/assets/massage7.jpg", concerns: ["relaxation"] },
+  { id: 106, name: "Ultimate Deep Tissue Massage", duration: "70 min", durationMinutes: 70, description: "Extended deep tissue for full recovery and rebalancing.", tier: "ultimate", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
+  { id: 107, name: "Ultimate Salt Stone Massage", duration: "70 min", durationMinutes: 70, description: "Extended salt stone therapy for deep penetration and release.", tier: "ultimate", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
+  { id: 108, name: "Ultimate Sports Massage", duration: "70 min", durationMinutes: 70, description: "Extended sports therapy with stretching and deep kneading.", tier: "ultimate", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
+  { id: 90, name: "Ultimate Lymphatic Drainage Massage", duration: "70 min", durationMinutes: 70, description: "Extended lymphatic therapy for deeper detoxification and recovery.", tier: "ultimate", image: "/assets/massage6.jpg", concerns: ["detox", "recovery"] },
 ];
 
 const FACIAL_BOOSTS: Boost[] = [
@@ -128,6 +130,24 @@ const TIER_PRICING = {
 };
 
 const TIER_RANK = { essential: 1, premier: 2, ultimate: 3 };
+const BOOST_LIMITS: Record<string, number> = { essential: 2, premier: 1, ultimate: 0 };
+
+const FACIAL_CONCERNS = [
+  { id: "acne", label: "Acne" },
+  { id: "anti-aging", label: "Anti-Aging" },
+  { id: "hydration", label: "Hydration" },
+  { id: "sensitive", label: "Sensitive" },
+  { id: "brightening", label: "Brightening" },
+  { id: "texture", label: "Texture" },
+];
+
+const MASSAGE_CONCERNS = [
+  { id: "relaxation", label: "Relaxation" },
+  { id: "pain-relief", label: "Pain Relief" },
+  { id: "prenatal", label: "Prenatal" },
+  { id: "recovery", label: "Recovery" },
+  { id: "detox", label: "Detox" },
+];
 
 function getTreatmentPrice(tier: "essential" | "premier" | "ultimate", isMember: boolean, memberTier: MembershipTier): number {
   if (isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[tier]) return TIER_PRICING[tier].member;
@@ -190,7 +210,7 @@ function ProgressBarNew({ step }: { step: Step }) {
     account: 4,
     confirm: 5,
   };
-  if (step === "booking" || step === "done") return null;
+  if (step === "welcome" || step === "booking" || step === "done") return null;
   const displayIdx = stepToIdx[step] ?? 0;
   const pct = ((displayIdx + 1) / displaySteps.length) * 100;
   return (
@@ -212,7 +232,7 @@ function ProgressBarNew({ step }: { step: Step }) {
 ================================================================ */
 
 export default function NewBookingFlow() {
-  const [step, setStep] = useState<Step>("category");
+  const [step, setStep] = useState<Step>("welcome");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [category, setCategory] = useState<Category>("massage");
@@ -229,6 +249,7 @@ export default function NewBookingFlow() {
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
   const [treatmentTierFilter, setTreatmentTierFilter] = useState<"essential" | "premier" | "ultimate">("premier");
   const [expandedTreatmentId, setExpandedTreatmentId] = useState<number | null>(null);
+  const [activeConcern, setActiveConcern] = useState<string | null>(null);
   const [showMemberInput, setShowMemberInput] = useState(false);
   const [memberCheckDone, setMemberCheckDone] = useState(false);
 
@@ -276,6 +297,36 @@ export default function NewBookingFlow() {
   const selectedPrice = selectedTreatment ? getTreatmentPrice(selectedTreatment.tier, isMember, memberTier) : 0;
 
   useEffect(() => { if (memberTier) setTreatmentTierFilter(memberTier); }, [memberTier]);
+
+  // Welcome step: member check then advance to category
+  const [welcomeShowEmail, setWelcomeShowEmail] = useState(false);
+  const [welcomeResult, setWelcomeResult] = useState<"found" | "not_found" | null>(null);
+  const handleWelcomeMemberCheck = async () => {
+    const normalized = normalizeEmail(email);
+    if (!isValidEmail(normalized)) { setError("Please enter a valid email address"); return; }
+    setLoading(true); setError(null); setWelcomeResult(null);
+    try {
+      const res = await fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}`);
+      const data = res.ok ? await res.json() : {};
+      setClientId(data.clientId ?? null);
+      setIsMember(data.isMember ?? false);
+      setMemberTier(data.tier ?? null);
+      setMemberFirstName(data.firstName ?? null);
+      setHasCardOnFile(data.hasCardOnFile ?? false);
+      setMemberCheckDone(true);
+      if (data.isMember && data.tier) {
+        setTreatmentTierFilter(data.tier);
+        setWelcomeResult("found");
+        // Brief delay so they see the welcome message before advancing
+        setTimeout(() => setStep("category"), 1500);
+      } else {
+        setWelcomeResult("not_found");
+      }
+    } catch {
+      setWelcomeResult("not_found");
+    }
+    setLoading(false);
+  };
 
   // Optional member check from treatment step shortcut
   const handleMemberCheck = async () => {
@@ -342,11 +393,19 @@ export default function NewBookingFlow() {
      HANDLERS
   ---------------------------------------------------------------- */
 
-  const handleCategorySelect = (cat: Category) => { setCategory(cat); setSelectedTreatment(null); setSelectedBoosts([]); setStep("treatment"); window.dataLayer?.push({ event: "booking_start", booking_flow: cat }); };
+  const handleCategorySelect = (cat: Category) => { setCategory(cat); setSelectedTreatment(null); setSelectedBoosts([]); setActiveConcern(null); setStep("treatment"); window.dataLayer?.push({ event: "booking_start", booking_flow: cat }); };
 
 
-  const handleTreatmentSelect = (t: Treatment) => { setSelectedTreatment(t); setSelectedBoosts([]); setStep("boosts"); };
-  const handleBoostToggle = (boost: Boost) => { setSelectedBoosts((prev) => prev.find((b) => b.id === boost.id) ? prev.filter((b) => b.id !== boost.id) : [...prev, boost]); };
+  const handleTreatmentSelect = (t: Treatment) => { setSelectedTreatment(t); setSelectedBoosts([]); setStep(BOOST_LIMITS[t.tier] === 0 ? "time" : "boosts"); };
+  const boostLimit = selectedTreatment ? BOOST_LIMITS[selectedTreatment.tier] ?? 2 : 2;
+  const handleBoostToggle = (boost: Boost) => {
+    setSelectedBoosts((prev) => {
+      const alreadySelected = prev.find((b) => b.id === boost.id);
+      if (alreadySelected) return prev.filter((b) => b.id !== boost.id);
+      if (prev.length >= boostLimit) return prev; // at limit
+      return [...prev, boost];
+    });
+  };
   const handleBoostsContinue = () => setStep("time");
 
   const handleTimeContinue = () => {
@@ -502,8 +561,10 @@ export default function NewBookingFlow() {
       setCardContext(null);
       return;
     }
-    const map: Partial<Record<Step, Step>> = { treatment: "category", boosts: "treatment", time: "boosts", account: "time", confirm: "account" };
-    const prev = map[step];
+    const map: Partial<Record<Step, Step>> = { category: "welcome", treatment: "category", boosts: "treatment", time: "boosts", account: "time", confirm: "account" };
+    let prev = map[step];
+    // Skip boosts step for Ultimate (0 boosts allowed)
+    if (prev === "boosts" && selectedTreatment && BOOST_LIMITS[selectedTreatment.tier] === 0) prev = "treatment";
     if (prev) setStep(prev);
   };
 
@@ -521,7 +582,7 @@ export default function NewBookingFlow() {
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance">
       {/* Sticky header — matches book-service: top-[56px] to sit below nav */}
-      {step !== "done" && (
+      {step !== "welcome" && step !== "done" && (
         <div
           data-booking-header="true"
           className="sticky top-[56px] z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
@@ -561,8 +622,8 @@ export default function NewBookingFlow() {
         </div>
       )}
 
-      <div className="px-4 pt-24 md:pt-28 pb-20">
-        <div className={`mx-auto ${step === "category" || step === "treatment" ? "max-w-3xl" : "max-w-xl"}`}>
+      <div className={`px-4 pb-20 ${step === "welcome" ? "pt-16 md:pt-20" : "pt-24 md:pt-28"}`}>
+        <div className={`mx-auto ${step === "welcome" || step === "category" || step === "treatment" ? "max-w-3xl" : "max-w-xl"}`}>
         {/* Error banner */}
         <AnimatePresence>
           {error && (
@@ -573,6 +634,93 @@ export default function NewBookingFlow() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Persistent member banner — shows on inner steps */}
+        {isMember && memberFirstName && ["treatment", "boosts", "time", "account", "confirm"].includes(step) && (
+          <div className="mb-4 flex items-center justify-center gap-2 bg-[#113D33] text-white rounded-xl px-4 py-2.5">
+            <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+            <p className="text-sm"><span className="font-bold">{memberFirstName}</span> · <span className="capitalize font-semibold">{memberTier}</span> Member</p>
+          </div>
+        )}
+
+        {/* ===== WELCOME ===== */}
+        {step === "welcome" && (
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-center pt-8 md:pt-12">
+            <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">Sway Wellness Spa</p>
+            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3 leading-tight">Book Your Experience</h1>
+            <p className="text-base md:text-lg text-[#113D33]/60 max-w-md mx-auto mb-10">How would you like to get started?</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+              {/* Member card */}
+              <div className="bg-white rounded-2xl border border-[#113D33]/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                {!welcomeShowEmail ? (
+                  <button onClick={() => setWelcomeShowEmail(true)} className="w-full p-6 text-left">
+                    <div className="w-10 h-10 rounded-full bg-[#113D33] flex items-center justify-center mb-4">
+                      <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold text-[#113D33] mb-1">I&apos;m a Member</h3>
+                    <p className="text-sm text-[#113D33]/50">Sign in for your member pricing &amp; perks</p>
+                  </button>
+                ) : welcomeResult === "found" ? (
+                  <div className="p-6 text-center space-y-2">
+                    <div className="w-12 h-12 rounded-full bg-[#4A776D]/10 flex items-center justify-center mx-auto">
+                      <svg className="w-6 h-6 text-[#4A776D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <h3 className="text-lg font-bold text-[#113D33]">Welcome back, {memberFirstName}!</h3>
+                    <p className="text-sm text-[#4A776D] font-semibold capitalize">{memberTier} Member</p>
+                  </div>
+                ) : welcomeResult === "not_found" ? (
+                  <div className="p-6 space-y-3">
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
+                      <p className="text-sm text-amber-800">We didn&apos;t find a membership with this email.</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button onClick={() => { setWelcomeResult(null); setEmail(""); }}
+                        className="flex-1 py-3 rounded-xl border border-[#113D33]/15 text-sm font-semibold text-[#113D33] hover:bg-[#113D33]/5 transition-colors">
+                        Try another email
+                      </button>
+                      <button onClick={() => setStep("category")}
+                        className="flex-1 py-3 rounded-xl bg-[#113D33] text-white text-sm font-semibold hover:bg-[#0e3029] transition-colors">
+                        Continue as guest
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-6 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-bold text-[#113D33]">Enter your email</h3>
+                      <button onClick={() => { setWelcomeShowEmail(false); setError(null); setWelcomeResult(null); }} className="text-xs text-[#113D33]/40 hover:text-[#113D33]">✕</button>
+                    </div>
+                    <input
+                      type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleWelcomeMemberCheck()}
+                      placeholder="you@example.com" className={inputClass} autoFocus
+                    />
+                    <button onClick={handleWelcomeMemberCheck} disabled={loading || !email.trim()}
+                      className="w-full py-3 bg-[#113D33] text-white rounded-xl text-sm font-semibold disabled:opacity-30 transition-opacity">
+                      {loading ? "Checking..." : "Continue"}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* New guest card */}
+              <button onClick={() => setStep("category")}
+                className="bg-white rounded-2xl border border-[#113D33]/10 p-6 text-left shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 rounded-full bg-[#4A776D]/10 flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 text-[#4A776D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                </div>
+                <h3 className="text-lg font-bold text-[#113D33] mb-1">New to Sway</h3>
+                <p className="text-sm text-[#113D33]/50">Browse treatments &amp; book your first visit</p>
+              </button>
+            </div>
+
+            {/* Phone CTA */}
+            <p className="mt-8 text-sm text-[#113D33]/40">
+              Prefer to call? <a href="tel:+13034766150" className="text-[#4A776D] underline underline-offset-2 font-medium">(303) 476-6150</a>
+            </p>
+          </motion.div>
+        )}
 
         {/* ===== CATEGORY ===== */}
         {step === "category" && (
@@ -705,38 +853,6 @@ export default function NewBookingFlow() {
               </div>
             </div>
 
-            {/* Member shortcut — compact, non-intrusive */}
-            {isMember && memberFirstName ? (
-              <div className="bg-[#113D33] text-white rounded-xl px-4 py-3 text-center">
-                <p className="text-sm">Welcome back, <span className="font-bold">{memberFirstName}</span>! Showing your <span className="font-bold capitalize">{memberTier}</span> pricing.</p>
-              </div>
-            ) : !memberCheckDone ? (
-              <AnimatePresence mode="wait">
-                {showMemberInput ? (
-                  <motion.div key="member-input" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-                    className="bg-white rounded-xl border border-[#113D33]/10 p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-[#113D33]">Enter your email to unlock member pricing</p>
-                      <button onClick={() => setShowMemberInput(false)} className="text-xs text-[#113D33]/40 hover:text-[#113D33]">✕</button>
-                    </div>
-                    <div className="flex gap-2">
-                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleMemberCheck()} placeholder="you@example.com" className={`${inputClass} flex-1`} autoFocus />
-                      <button onClick={handleMemberCheck} disabled={loading || !email.trim()} className="px-5 py-3 bg-[#113D33] text-white rounded-xl text-sm font-semibold disabled:opacity-30 shrink-0">
-                        {loading ? "..." : "Check"}
-                      </button>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div key="member-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                    className="text-center">
-                    <button onClick={() => setShowMemberInput(true)} className="text-sm text-[#4A776D] hover:text-[#113D33] font-medium underline underline-offset-2 transition-colors">
-                      Sway member? Tap to see your pricing
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            ) : null}
-
             {/* Tier toggle */}
             <div className="flex justify-center">
               <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
@@ -744,7 +860,7 @@ export default function NewBookingFlow() {
                   const isActive = treatmentTierFilter === tier;
                   const isMyTier = isMember && memberTier === tier;
                   return (
-                    <button key={tier} onClick={() => { setTreatmentTierFilter(tier); setExpandedTreatmentId(null); }}
+                    <button key={tier} onClick={() => { setTreatmentTierFilter(tier); setExpandedTreatmentId(null); setActiveConcern(null); }}
                       className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${isActive ? "bg-[#113D33] text-white shadow-sm" : "text-[#113D33]/60 hover:text-[#113D33]"} ${isMyTier && !isActive ? "ring-1 ring-[#9ABFB3]" : ""}`}>
                       {tier.charAt(0).toUpperCase() + tier.slice(1)}
                       {isMyTier && <span className="ml-1 text-xs">{isActive ? " ✓" : ""}</span>}
@@ -754,7 +870,7 @@ export default function NewBookingFlow() {
               </div>
             </div>
 
-            {/* Animated price + value-add section */}
+            {/* Animated price + concern filters + cards — all keyed to tier */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={treatmentTierFilter}
@@ -763,6 +879,28 @@ export default function NewBookingFlow() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
               >
+                {/* Concern filters — hide when tier has ≤3 treatments */}
+                {filteredTreatments.length > 3 && (
+                  <div className="flex flex-wrap justify-center gap-2 mb-4">
+                    {(category === "facial" ? FACIAL_CONCERNS : MASSAGE_CONCERNS).map((c) => {
+                      const isActive = activeConcern === c.id;
+                      const matchCount = filteredTreatments.filter((t) => t.concerns?.includes(c.id)).length;
+                      if (matchCount === 0) return null;
+                      return (
+                        <button
+                          key={c.id}
+                          onClick={() => { setActiveConcern(isActive ? null : c.id); setExpandedTreatmentId(null); }}
+                          className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                            isActive
+                              ? "bg-[#4A776D] text-white shadow-sm"
+                              : "bg-[#113D33]/[0.06] text-[#113D33]/60 hover:bg-[#113D33]/[0.1] hover:text-[#113D33]"
+                          }`}>
+                          {c.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
                 {/* Value-add description per tier */}
                 <div className="text-center mb-4">
                   {tierIncluded ? (
@@ -792,11 +930,13 @@ export default function NewBookingFlow() {
                     const isUltimate = t.tier === "ultimate";
                     const isPremier = t.tier === "premier";
                     const isExpanded = expandedTreatmentId === t.id;
+                    const matchesConcern = !activeConcern || (t.concerns?.includes(activeConcern) ?? false);
                     return (
                     <motion.div
                       key={t.id}
+                      layout
                       initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      animate={{ opacity: matchesConcern ? 1 : 0.35, y: 0, scale: matchesConcern ? 1 : 0.98 }}
                       transition={{ duration: 0.2, delay: i * 0.04 }}
                       className={`rounded-xl border overflow-hidden transition-all duration-200 ${
                         isUltimate
@@ -886,7 +1026,10 @@ export default function NewBookingFlow() {
 
             <div className="text-center">
               <h2 className="text-2xl font-bold text-[#113D33]">Customize your experience</h2>
-              <p className="mt-1 text-sm text-[#113D33]/60">Add science-backed enhancements to your {category}.</p>
+              <p className="mt-1 text-sm text-[#113D33]/60">
+                Add science-backed enhancements to your {category}.
+                {boostLimit < 3 && <span className="block mt-1 text-[#4A776D] font-medium">Up to {boostLimit} boost{boostLimit > 1 ? "s" : ""} with your {selectedTreatment?.tier} treatment.</span>}
+              </p>
             </div>
 
             {/* Member savings banner */}
@@ -921,9 +1064,10 @@ export default function NewBookingFlow() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {group.items.map((b) => {
                     const sel = selectedBoosts.some((sb) => sb.id === b.id);
+                    const atLimit = !sel && selectedBoosts.length >= boostLimit;
                     return (
-                      <button key={b.id} onClick={() => handleBoostToggle(b)}
-                        className={`text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
+                      <button key={b.id} onClick={() => !atLimit && handleBoostToggle(b)} disabled={atLimit}
+                        className={`text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : atLimit ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="min-w-0">
                             <h4 className={`font-semibold text-sm leading-tight ${sel ? "text-white" : "text-[#113D33]"}`}>{b.name.replace(/ Boost$| Boost Plus$| Boost Pro$/, "")}</h4>
