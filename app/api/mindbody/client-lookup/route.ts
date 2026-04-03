@@ -43,7 +43,15 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
       found: Boolean(client),
-      client,
+      client: client
+        ? {
+            Id: client.Id,
+            FirstName: client.FirstName,
+            LastName: client.LastName,
+            Email: client.Email,
+            MobilePhone: client.MobilePhone,
+          }
+        : null,
       hasCardOnFile: Boolean(client?.ClientCreditCard),
       sendScheduleEmails: client?.SendScheduleEmails ?? null,
       sendScheduleTexts: client?.SendScheduleTexts ?? null,

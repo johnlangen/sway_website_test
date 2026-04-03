@@ -282,7 +282,7 @@ export default function NewBookingFlow() {
         if (data.isMember && data.tier) setTreatmentTierFilter(data.tier);
         setStep("category"); // skip welcome
       })
-      .catch(() => {})
+      .catch(() => { clearSavedEmail(); setEmail(""); })
       .finally(() => setLoading(false));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -361,7 +361,12 @@ export default function NewBookingFlow() {
     setLoading(true); setError(null); setWelcomeResult(null);
     try {
       const res = await fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}`);
-      const data = res.ok ? await res.json() : {};
+      if (!res.ok) {
+        setError("Something went wrong checking your membership. Please try again or continue as a guest.");
+        setLoading(false);
+        return;
+      }
+      const data = await res.json();
       setClientId(data.clientId ?? null);
       setIsMember(data.isMember ?? false);
       setMemberTier(data.tier ?? null);
@@ -378,7 +383,7 @@ export default function NewBookingFlow() {
         setWelcomeResult("not_found");
       }
     } catch {
-      setWelcomeResult("not_found");
+      setError("Unable to check membership right now. Please try again.");
     }
     setLoading(false);
   };
@@ -538,6 +543,8 @@ export default function NewBookingFlow() {
     window.dataLayer?.push({ event: "booking_time_selected", booking_flow: category, booking_date: selectedDate });
     // If member already identified via shortcut and has card on file, skip to confirm
     if (memberCheckDone && hasCardOnFile && clientId) {
+      window.dataLayer?.push({ event: "booking_email_entered", booking_flow: category, client_type: "returning", is_member: isMember });
+      window.dataLayer?.push({ event: "booking_card_entered", booking_flow: category, card_source: "on_file" });
       setStep("confirm");
       return;
     }
@@ -578,6 +585,7 @@ export default function NewBookingFlow() {
         window.dataLayer?.push({ event: "booking_email_entered", booking_flow: category, client_type: data.found ? "returning" : "new", is_member: data.isMember ?? false });
         // If member with card on file — skip straight to confirm
         if (data.hasCardOnFile && data.clientId) {
+          window.dataLayer?.push({ event: "booking_card_entered", booking_flow: category, card_source: "on_file" });
           setCardContext(null);
           setStep("confirm");
           return;
@@ -687,11 +695,18 @@ export default function NewBookingFlow() {
     setError(null);
     if (step === "account" && cardContext) {
       // If on card form within account, go back to email portion
+      // But if email was already entered via treatment shortcut, go back to time
+      if (memberCheckDone && email) {
+        setStep("time");
+        return;
+      }
       setCardContext(null);
       return;
     }
     const map: Partial<Record<Step, Step>> = { category: "welcome", treatment: "category", boosts: "treatment", time: "boosts", account: "time", confirm: "account" };
     let prev = map[step];
+    // If member with card on file skipped account, back from confirm goes to time
+    if (step === "confirm" && isMember && hasCardOnFile) prev = "time";
     // Skip boosts step for Ultimate (0 boosts allowed)
     if (prev === "boosts" && selectedTreatment && BOOST_LIMITS[selectedTreatment.tier] === 0) prev = "treatment";
     if (prev) setStep(prev);
@@ -1244,13 +1259,13 @@ export default function NewBookingFlow() {
                   {group.items.map((b) => {
                     const sel = selectedBoosts.some((sb) => sb.id === b.id);
                     const familyConflict = !sel && selectedBoosts.some((sb) => sb.family === b.family);
-                    const atLimit = !sel && selectedBoosts.length >= boostLimit;
-                    const disabled = atLimit || familyConflict;
+                    const atLimit = !sel && !familyConflict && selectedBoosts.length >= boostLimit;
+                    const disabled = atLimit;
                     const showInfo = boostInfoId === b.id;
                     return (
                       <div key={b.id} className="relative">
                         <button onClick={() => !disabled && handleBoostToggle(b)} disabled={disabled}
-                          className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
+                          className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:border-[#113D33]/40" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
                           <div className="flex items-center justify-between gap-2">
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5">
@@ -1267,8 +1282,9 @@ export default function NewBookingFlow() {
                               </div>
                               <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/50"}`}>{b.description}</p>
                             </div>
-                            <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition ${sel ? "bg-white border-white" : "border-[#113D33]/20"}`}>
+                            <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition ${sel ? "bg-white border-white" : familyConflict ? "border-[#113D33]/30" : "border-[#113D33]/20"}`}>
                               {sel && <svg className="w-3 h-3 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+                              {familyConflict && <svg className="w-3 h-3 text-[#113D33]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
                             </div>
                           </div>
                         </button>

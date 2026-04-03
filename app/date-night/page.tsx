@@ -26,7 +26,7 @@ export default function DateNightPage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
-              href="/locations/denver-larimer/book-service"
+              href="/locations/denver-larimer/book"
               className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
             >
               Book a Couples Treatment
@@ -97,7 +97,7 @@ export default function DateNightPage() {
                 $89/person member · $129/person drop-in
               </p>
               <Link
-                href="/locations/denver-larimer/book-service"
+                href="/locations/denver-larimer/book"
                 className="inline-block text-[#113D33] font-semibold text-sm underline"
               >
                 Book Massage
@@ -113,7 +113,7 @@ export default function DateNightPage() {
                 $99/person member · $139/person drop-in
               </p>
               <Link
-                href="/locations/denver-larimer/book-service"
+                href="/locations/denver-larimer/book"
                 className="inline-block text-[#113D33] font-semibold text-sm underline"
               >
                 Book Facial
@@ -181,7 +181,7 @@ export default function DateNightPage() {
               <li>
                 5:30 PM — Couples massage at{" "}
                 <Link
-                  href="/locations/denver-larimer/book-service"
+                  href="/locations/denver-larimer/book"
                   className="underline text-[#113D33] font-semibold"
                 >
                   Sway

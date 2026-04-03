@@ -296,7 +296,7 @@ export default function ThingsToDoAtNightLayout() {
           is a natural wonder. Pro tip: after a show, your body will thank you for
           booking a{" "}
           <Link
-            href="/locations/denver-larimer/book-service"
+            href="/locations/denver-larimer/book"
             className="underline text-[#113D33] font-semibold"
           >
             recovery massage
@@ -356,7 +356,7 @@ export default function ThingsToDoAtNightLayout() {
             <li>
               Start with a{" "}
               <Link
-                href="/locations/denver-larimer/book-service"
+                href="/locations/denver-larimer/book"
                 className="underline text-[#113D33] font-semibold"
               >
                 side-by-side massages at Sway

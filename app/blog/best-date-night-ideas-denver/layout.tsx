@@ -354,7 +354,7 @@ export default function DateNightDenverLayout() {
             <ol className="list-decimal list-inside space-y-2 pl-11">
               <li>
                 Book a{" "}
-                <Link href="/locations/denver-larimer/book-service" className="underline text-[#113D33] font-semibold">
+                <Link href="/locations/denver-larimer/book" className="underline text-[#113D33] font-semibold">
                   side-by-side massages at Sway
                 </Link>{" "}(50 or 80 minutes)
               </li>
@@ -389,7 +389,7 @@ export default function DateNightDenverLayout() {
               <li>Sunset drive to Lookout Mountain</li>
               <li>Dinner at Safta in RiNo</li>
               <li>Live jazz at Nocturne, then book a{" "}
-                <Link href="/locations/denver-larimer/book-service" className="underline text-[#113D33] font-semibold">
+                <Link href="/locations/denver-larimer/book" className="underline text-[#113D33] font-semibold">
                   recovery massage
                 </Link>{" "}at Sway the next morning
               </li>

@@ -25,7 +25,7 @@ export default function CouplesSpaPage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
-              href="/locations/denver-larimer/book-service"
+              href="/locations/denver-larimer/book"
               className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
             >
               Book for Two
@@ -217,7 +217,7 @@ export default function CouplesSpaPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/locations/denver-larimer/book-service"
+              href="/locations/denver-larimer/book"
               className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
             >
               Book a Couples Treatment

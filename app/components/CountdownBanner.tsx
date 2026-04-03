@@ -12,7 +12,7 @@ function getDaysUntilApril1(): number {
 }
 
 /** Pages where the banner should not appear (booking flows, landing pages) */
-const HIDDEN_PATHS = ["/book-aescape", "/book-service", "/book-remedy-room", "/themavenhotel"];
+const HIDDEN_PATHS = ["/book-aescape", "/book-service", "/book-remedy-room", "/book", "/themavenhotel"];
 
 export default function CountdownBanner() {
   const [daysLeft, setDaysLeft] = useState<number | null>(null);

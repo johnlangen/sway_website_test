@@ -307,7 +307,7 @@ export default function SaltStoneVsHotStoneLayout() {
             50-minute session. $99 members / $139 drop-in.
           </p>
           <Link
-            href="/locations/denver-larimer/book-service"
+            href="/locations/denver-larimer/book"
             className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-white/90 transition"
           >
             Book a Salt Stone Massage
@@ -432,7 +432,7 @@ export default function SaltStoneVsHotStoneLayout() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/locations/denver-larimer/book-service"
+              href="/locations/denver-larimer/book"
               className="inline-block bg-[#113D33] text-white font-bold px-8 py-3 rounded-full hover:bg-[#113D33]/90 transition"
             >
               Book Now
