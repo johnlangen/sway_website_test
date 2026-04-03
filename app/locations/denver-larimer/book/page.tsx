@@ -644,6 +644,8 @@ export default function NewBookingFlow() {
     try {
       if (cardContext === "create_account") {
         if (!firstName.trim() || !lastName.trim() || !mobilePhone.trim()) { setError("First name, last name, and phone are required"); setCardSaving(false); return; }
+        const phoneDigits = mobilePhone.replace(/\D/g, "");
+        if (phoneDigits.length < 10) { setError("Please enter a valid phone number (at least 10 digits)"); setCardSaving(false); return; }
         const res = await fetch("/api/mindbody/add-client-with-card", { method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), email: normalizeEmail(email), mobilePhone: mobilePhone.trim(), cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType, sendPromotionalEmails: marketingOptIn, sendPromotionalTexts: marketingOptIn }) });
         const data = await res.json();
@@ -665,6 +667,10 @@ export default function NewBookingFlow() {
   const handleFinalConfirmAndBook = async () => {
     if (bookingLock.current) return;
     bookingLock.current = true;
+    if (forSomeoneElse && guestPhone.trim()) {
+      const guestPhoneDigits = guestPhone.replace(/\D/g, "");
+      if (guestPhoneDigits.length < 10) { setError("Please enter a valid guest phone number (at least 10 digits)"); bookingLock.current = false; return; }
+    }
     window.dataLayer?.push({ event: "booking_confirmed", booking_flow: category });
     setStep("booking"); setError(null);
     try {

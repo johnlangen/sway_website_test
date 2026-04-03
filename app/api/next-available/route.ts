@@ -154,6 +154,18 @@ export async function GET(req: Request) {
     );
   }
 
+  const SESSION_TYPE_ALLOWLISTS: Record<string, number[]> = {
+    aescape: [8, 96, 97],
+    remedy: [59, 60, 61, 62, 92, 93, 94, 95],
+  };
+  const allowlist = SESSION_TYPE_ALLOWLISTS[type];
+  if (allowlist && !allowlist.includes(Number(sessionTypeId))) {
+    return NextResponse.json(
+      { error: `Invalid sessionTypeId for ${type}` },
+      { status: 400 }
+    );
+  }
+
   if (!isValidISODate(startDate)) {
     return NextResponse.json(
       { error: "Invalid startDate format (expected YYYY-MM-DD)" },

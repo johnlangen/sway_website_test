@@ -14,6 +14,14 @@ export async function GET(req: Request) {
     );
   }
 
+  const ALLOWED_SESSION_TYPE_IDS = [8, 96, 97];
+  if (!ALLOWED_SESSION_TYPE_IDS.includes(Number(sessionTypeId))) {
+    return NextResponse.json(
+      { error: "Invalid sessionTypeId for aescape" },
+      { status: 400 }
+    );
+  }
+
   const apiKey = process.env.MINDBODY_API_KEY;
   const siteId = process.env.MINDBODY_SITE_ID;
 

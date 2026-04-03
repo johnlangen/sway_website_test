@@ -67,9 +67,14 @@ export default function LarimerMassagePage() {
             Massage in Denver
           </h1>
 
-          <p className="text-lg md:text-2xl font-vance-bold text-[#113D33] mt-2">
-            Member $99 | Drop-In $139
-          </p>
+          <div className="mt-2">
+            <p className="text-lg md:text-2xl font-vance-bold text-[#113D33]">
+              Essential $99 &nbsp;|&nbsp; Premier $129 &nbsp;|&nbsp; Ultimate $159
+            </p>
+            <p className="text-sm text-gray-500 mt-1 font-vance-text">
+              Member pricing &middot; Drop-in from $139
+            </p>
+          </div>
 
           <p className="text-md md:text-lg text-gray-700 mt-4 leading-relaxed font-vance-text">
             Experience professional massage therapy at Sway Wellness Spa in

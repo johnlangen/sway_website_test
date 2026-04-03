@@ -3,6 +3,15 @@ import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 
 export const runtime = "nodejs";
 
+function detectCardType(cardNumber: string): string {
+  if (/^3[47]/.test(cardNumber)) return "AmericanExpress";
+  if (/^4/.test(cardNumber)) return "Visa";
+  if (/^5[1-5]/.test(cardNumber)) return "MasterCard";
+  if (/^2[2-7]/.test(cardNumber)) return "MasterCard";
+  if (/^6/.test(cardNumber)) return "Discover";
+  return "Visa"; // fallback
+}
+
 export async function POST(req: Request) {
   const {
     firstName,
@@ -66,7 +75,7 @@ export async function POST(req: Request) {
             ExpYear: expYear,
             PostalCode: postalCode,
             CardHolder: cardHolder,
-            CardType: cardType ?? "Visa", // 🔴 REQUIRED (you can detect later)
+            CardType: cardType || detectCardType(cardNumber),
           },
 
           // Notification preferences

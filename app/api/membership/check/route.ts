@@ -122,7 +122,7 @@ export async function GET(req: Request) {
     );
     clientUrl.searchParams.set("request.searchText", email);
     clientUrl.searchParams.set("request.includeInactive", "false");
-    clientUrl.searchParams.set("request.limit", "1");
+    clientUrl.searchParams.set("request.limit", "10");
 
     const clientRes = await fetch(clientUrl.toString(), { headers: mbHeaders });
 
@@ -138,7 +138,13 @@ export async function GET(req: Request) {
       return NextResponse.json(NOT_FOUND);
     }
 
-    const client = clients[0];
+    // Exact email match (case-insensitive) — Mindbody searchText is fuzzy
+    const client = clients.find(
+      (c: any) => (c.Email ?? "").trim().toLowerCase() === email
+    );
+    if (!client) {
+      return NextResponse.json(NOT_FOUND);
+    }
     const clientId = String(client.Id ?? client.UniqueId);
     const firstName = client.FirstName ?? null;
     const hasCardOnFile = !!(
