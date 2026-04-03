@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Massage Therapy in Denver | Sway Wellness Spa",
   description:
-    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, CBD, Salt Stone, and Lymphatic Drainage, all customized by expert therapists.",
+    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, Salt Stone, and Lymphatic Drainage across Essential, Premier, and Ultimate tiers, all customized by expert therapists.",
   alternates: {
     canonical: "https://swaywellnessspa.com/massages",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Massage Therapy | Sway Wellness Spa",
     description:
-      "Explore massage experiences including Deep Tissue, Sports, CBD, and more at Sway Wellness Spa.",
+      "Explore massage experiences including Deep Tissue, Sports, Salt Stone, and more at Sway Wellness Spa.",
     images: ["/assets/OG/og-massages.jpg"],
   },
   robots: { index: true, follow: true },
@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "What makes Sway's massages different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like infrared PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
+        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CauseMedic CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
       },
     },
     {
@@ -68,7 +68,7 @@ const faqJsonLd = {
       name: "What types of massage does Sway offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway offers six massage experiences: Basic Massage, Deep Tissue, Salt Stone, CBD CauseMedic, Sports Massage, and Lymphatic Drainage. Each is 50 minutes and fully customized by your therapist.",
+        text: "Sway offers massages across three tiers: Essential (Signature Massage, 50 min), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage — 50–70 min), and Ultimate (Signature 90 min, Deep Tissue 70 min, Salt Stone 70 min, Sports 70 min, Lymphatic Drainage 70 min). All fully customized by your therapist.",
       },
     },
     {
@@ -76,7 +76,7 @@ const faqJsonLd = {
       name: "Can I add anything to my massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway offers four add-on boosts: extend your session to 80 minutes, add Lymphatic Drainage Massage, lie on an Infrared PEMF Mat for deeper recovery, or add Cupping for targeted tension release. Members save 50% on all boosts.",
+        text: "Yes. Sway offers add-on boosts at three tiers: Boost ($20), Boost Plus ($40), and Boost Pro ($50). Options include CauseMedic CBD, Cupping, and PEMF. Members save 50% on all boosts.",
       },
     },
     {
@@ -84,7 +84,7 @@ const faqJsonLd = {
       name: "How long is a massage session?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Standard massage sessions are 50 minutes. You can extend to 80 minutes by adding the 80-Minute Super Boost.",
+        text: "Essential massages are 50 minutes. Premier massages range from 50 to 70 minutes. Ultimate massages range from 70 to 90 minutes.",
       },
     },
     {
@@ -92,7 +92,7 @@ const faqJsonLd = {
       name: "Do I need a membership to book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No, anyone can book a massage at Sway. Drop-in pricing starts at $129. Members pay as low as $89 per session and save 50% on boosts. Memberships start at $99/month.",
+        text: "No, anyone can book a massage at Sway. Drop-in pricing starts at $139. Members pay as low as $99 per session and save 50% on boosts. Memberships start at $99/month.",
       },
     },
   ],
@@ -103,7 +103,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Massage Therapy at Sway Wellness Spa",
   description:
-    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Basic Massage, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic Drainage — all 50 minutes, fully customized by your therapist. Add boosts like infrared PEMF mats and cupping.",
+    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min) — fully customized by your therapist. Add boosts like CauseMedic CBD, cupping, and PEMF.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",
@@ -115,18 +115,20 @@ const serviceJsonLd = {
     "@type": "OfferCatalog",
     name: "Massage Services",
     itemListElement: [
+      // Essential tier
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Basic Massage",
+          name: "Essential Signature Massage",
           description: "A 50-minute relaxation massage focusing on full-body tension relief.",
         },
         priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "89.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Drop-In" },
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
         ],
       },
+      // Premier tier
       {
         "@type": "Offer",
         itemOffered: {
@@ -135,8 +137,8 @@ const serviceJsonLd = {
           description: "A 50-minute deep tissue massage targeting chronic tension and muscle knots.",
         },
         priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
         ],
       },
       {
@@ -147,20 +149,8 @@ const serviceJsonLd = {
           description: "A 50-minute Himalayan salt stone massage for deep relaxation and mineral-rich detox.",
         },
         priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "CBD CauseMedic Massage",
-          description: "A 50-minute massage with CBD oil for enhanced relaxation and inflammation relief.",
-        },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
         ],
       },
       {
@@ -171,8 +161,8 @@ const serviceJsonLd = {
           description: "A 50-minute sports massage designed for active recovery and athletic performance.",
         },
         priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
         ],
       },
       {
@@ -183,8 +173,69 @@ const serviceJsonLd = {
           description: "A 50-minute lymphatic drainage massage to reduce swelling and support detoxification.",
         },
         priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      // Ultimate tier
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Signature 90-Minute Massage",
+          description: "A 90-minute extended signature massage for full-body relaxation and recovery.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Deep Tissue 70-Minute Massage",
+          description: "A 70-minute deep tissue massage for extended chronic tension and muscle recovery.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Salt Stone 70-Minute Massage",
+          description: "A 70-minute Himalayan salt stone massage for deeper relaxation and mineral-rich detox.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Sports 70-Minute Massage",
+          description: "A 70-minute sports massage for extended active recovery and athletic performance.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Lymphatic Drainage 70-Minute Massage",
+          description: "A 70-minute lymphatic drainage massage for extended detoxification and recovery.",
+        },
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
         ],
       },
     ],

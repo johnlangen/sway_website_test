@@ -81,11 +81,11 @@ export default function MembershipHubPage() {
         <p className="sr-only">
           Sway Wellness Club memberships starting at $99/month. Three tiers:
           Essential ($99/month) — signature 50-minute facials and massages.
-          Premier ($129/month) — enhanced products, techniques, and 80-minute
+          Premier ($129/month) — enhanced products, techniques, and 70-minute
           sessions. Ultimate ($159/month) — tech-enhanced treatments with LED,
           microcurrent, and oxygen infusion. Additional memberships: Aescape
           Premier ($99/month) — AI-powered robot massage sessions. Remedy Room
-          ($99/month) — 4 monthly recovery circuit visits with infrared sauna,
+          ($99/month) — 4 monthly recovery circuit visits with traditional sauna,
           cold plunge, Normatec compression, and LED light therapy. All members
           enjoy 50% off boosts, private lounge access, and rollover credits.
           Available at Denver Larimer (now open), Dallas TX and Georgetown DC

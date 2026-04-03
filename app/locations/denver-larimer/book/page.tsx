@@ -1563,25 +1563,29 @@ export default function NewBookingFlow() {
                 <div className="pt-3 border-t border-[#113D33]/10 space-y-2">
                   {/* Itemized pricing */}
                   {(() => {
-                    const treatmentMember = TIER_PRICING[selectedTreatment.tier].member;
+                    const tierCovers = isMember && memberTier ? TIER_RANK[memberTier] >= TIER_RANK[selectedTreatment.tier] : false;
+                    const treatmentPrice = getTreatmentPrice(selectedTreatment.tier, isMember, memberTier);
                     const treatmentDropIn = TIER_PRICING[selectedTreatment.tier].dropIn;
-                    const boostMemberTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.memberPrice.replace("$", "")), 0);
+                    const treatmentMember = TIER_PRICING[selectedTreatment.tier].member;
+                    const boostTotal = selectedBoosts.reduce((sum, b) => sum + parseInt((tierCovers ? b.memberPrice : b.dropInPrice).replace("$", "")), 0);
                     const boostDropInTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", "")), 0);
-                    const totalMember = treatmentMember + boostMemberTotal;
+                    const boostMemberTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.memberPrice.replace("$", "")), 0);
+                    const total = treatmentPrice + boostTotal;
                     const totalDropIn = treatmentDropIn + boostDropInTotal;
+                    const totalMember = treatmentMember + boostMemberTotal;
                     const hasBoosts = selectedBoosts.length > 0;
 
                     return (
                       <>
                         {hasBoosts && (
                           <div className="space-y-1 text-sm text-[#113D33]/60">
-                            <div className="flex justify-between"><span>{selectedTreatment.name}</span><span>{isMember ? `$${treatmentMember}` : `$${treatmentDropIn}`}</span></div>
-                            {selectedBoosts.map((b) => <div key={b.id} className="flex justify-between"><span>+ {b.name}</span><span>{isMember ? b.memberPrice : b.dropInPrice}</span></div>)}
+                            <div className="flex justify-between"><span>{selectedTreatment.name}</span><span>${treatmentPrice}</span></div>
+                            {selectedBoosts.map((b) => <div key={b.id} className="flex justify-between"><span>+ {b.name}</span><span>{tierCovers ? b.memberPrice : b.dropInPrice}</span></div>)}
                           </div>
                         )}
                         <div className="flex items-baseline justify-between">
-                          <span className="text-[#113D33] font-medium">{isMember ? "Member total" : "Total"}</span>
-                          <span className="text-2xl font-bold text-[#113D33]">${isMember ? totalMember : totalDropIn}</span>
+                          <span className="text-[#113D33] font-medium">{tierCovers ? "Member total" : "Total"}</span>
+                          <span className="text-2xl font-bold text-[#113D33]">${total}</span>
                         </div>
                         {!isMember && (
                           <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
@@ -1589,7 +1593,7 @@ export default function NewBookingFlow() {
                             <span>${totalMember}</span>
                           </div>
                         )}
-                        {isMember && hasBoosts && (
+                        {tierCovers && hasBoosts && (
                           <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
                             <span>Drop-in price</span>
                             <span>${totalDropIn}</span>
