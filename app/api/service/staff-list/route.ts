@@ -147,6 +147,10 @@ export async function GET(req: Request) {
       ? data.StaffMembers
       : [];
 
+    /** Only include staff whose Mindbody name has a service prefix (M -, E -, M/E -, E/M -).
+     *  This filters out admin, front desk, owners, and generic accounts. */
+    const SERVICE_PREFIX_RE = /^[ME](?:\/[ME])*\s*[-–—]\s*/i;
+
     const staff: { id: number; name: string }[] = [];
 
     for (const s of staffMembers) {
@@ -157,6 +161,10 @@ export async function GET(req: Request) {
 
       const displayName =
         s?.DisplayName || s?.Name || `${s?.FirstName ?? ""} ${s?.LastName ?? ""}`.trim();
+
+      // Only include staff with a service category prefix
+      if (!displayName || !SERVICE_PREFIX_RE.test(displayName)) continue;
+
       const name = cleanStaffName(displayName);
 
       if (name) {
