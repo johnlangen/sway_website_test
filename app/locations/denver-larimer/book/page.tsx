@@ -1092,19 +1092,21 @@ export default function NewBookingFlow() {
                 {/* Pricing / included info */}
                 <div className="text-center mb-4">
                   {tierIncluded ? (
-                    <p className="text-sm text-[#4A776D] font-medium">
-                      <svg className="w-3.5 h-3.5 inline-block mr-1 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                      Included in your {memberTier} membership · {category === "facial" ? (
-                        treatmentTierFilter === "essential" ? "50 min" :
-                        treatmentTierFilter === "premier" ? "50 min + dermapore technology" :
-                        "50–60 min + tech enhancements"
-                      ) : (
-                        treatmentTierFilter === "essential" ? "50 min" :
-                        treatmentTierFilter === "premier" ? "50–70 min + advanced techniques" :
-                        "70–90 min + advanced techniques"
-                      )}
-                    </p>
-                    <p className="text-xs text-[#113D33]/40 mt-1">Credits applied at checkout if applicable</p>
+                    <>
+                      <p className="text-sm text-[#4A776D] font-medium">
+                        <svg className="w-3.5 h-3.5 inline-block mr-1 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        Included in your {memberTier} membership · {category === "facial" ? (
+                          treatmentTierFilter === "essential" ? "50 min" :
+                          treatmentTierFilter === "premier" ? "50 min + dermapore technology" :
+                          "50–60 min + tech enhancements"
+                        ) : (
+                          treatmentTierFilter === "essential" ? "50 min" :
+                          treatmentTierFilter === "premier" ? "50–70 min + advanced techniques" :
+                          "70–90 min + advanced techniques"
+                        )}
+                      </p>
+                      <p className="text-xs text-[#113D33]/40 mt-1">Credits applied at checkout if applicable</p>
+                    </>
                   ) : isUpgrade ? (
                     <>
                       <p className="text-sm text-[#113D33]/80 font-medium">
