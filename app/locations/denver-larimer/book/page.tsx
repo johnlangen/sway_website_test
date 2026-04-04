@@ -428,7 +428,13 @@ export default function NewBookingFlow() {
         setSlots(newSlots);
         const seen = new Map<number, string>();
         for (const s of newSlots) { if (s.staffId && s.staffName && !seen.has(s.staffId)) seen.set(s.staffId, s.staffName); }
-        setAllTherapists(Array.from(seen.entries()).map(([id, name]) => ({ id, name })));
+        // Accumulate therapists across dates so they don't disappear when switching days
+        setAllTherapists((prev) => {
+          const merged = new Map<number, string>();
+          for (const t of prev) merged.set(t.id, t.name);
+          for (const [id, name] of seen) merged.set(id, name);
+          return Array.from(merged.entries()).map(([id, name]) => ({ id, name }));
+        });
         // Fetch staff schedules for time-extension filtering
         const staffIds = [...new Set(newSlots.map((s) => s.staffId).filter((id): id is number => id !== null))];
         if (staffIds.length > 0) {
@@ -1388,7 +1394,7 @@ export default function NewBookingFlow() {
             </div>
 
             {/* Therapist filter */}
-            {allTherapists.length > 1 && (
+            {allTherapists.length >= 1 && (
               <div className="text-center">
                 <p className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/40 mb-2">Therapist</p>
                 <div className="flex flex-wrap gap-2 justify-center">
@@ -1432,7 +1438,7 @@ export default function NewBookingFlow() {
                         return (<button key={`${s.startDateTime}-${s.staffId}-${i}`} onClick={() => setSelectedSlot(s)}
                           className={`rounded-xl py-3 px-2 text-center transition-all duration-200 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20 scale-[1.02]" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
                           <span className="font-semibold text-sm">{formatTime12h(s.startDateTime)}</span>
-                          {filteredTherapist && s.staffName && <span className={`block text-xs mt-0.5 ${isSel ? "text-white/70" : "text-[#113D33]/45"}`}>{s.staffName}</span>}
+                          {s.staffName && <span className={`block text-xs mt-0.5 ${isSel ? "text-white/70" : "text-[#113D33]/45"}`}>{s.staffName}</span>}
                         </button>);
                       })}
                     </div>
