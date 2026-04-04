@@ -413,6 +413,20 @@ export default function NewBookingFlow() {
     finally { setLoading(false); }
   };
 
+  /* -- fetch full staff roster for this treatment (once, not date-dependent) -- */
+  useEffect(() => {
+    if (step !== "time" || !selectedTreatment) return;
+    let cancelled = false;
+    fetch(`/api/service/staff-list?sessionTypeId=${selectedTreatment.id}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (cancelled || !Array.isArray(data?.staff)) return;
+        setAllTherapists(data.staff);
+      })
+      .catch(() => { /* fail silently — slots will still populate names */ });
+    return () => { cancelled = true; };
+  }, [step, selectedTreatment?.id]);
+
   /* -- availability -- */
   const [staffSchedules, setStaffSchedules] = useState<Record<number, { start: string; end: string }[]>>({});
   const [schedulesLoaded, setSchedulesLoaded] = useState(false);
@@ -426,15 +440,7 @@ export default function NewBookingFlow() {
         if (cancelled) return;
         const newSlots: DisplaySlot[] = data.slots ?? [];
         setSlots(newSlots);
-        const seen = new Map<number, string>();
-        for (const s of newSlots) { if (s.staffId && s.staffName && !seen.has(s.staffId)) seen.set(s.staffId, s.staffName); }
-        // Accumulate therapists across dates so they don't disappear when switching days
-        setAllTherapists((prev) => {
-          const merged = new Map<number, string>();
-          for (const t of prev) merged.set(t.id, t.name);
-          for (const [id, name] of seen) merged.set(id, name);
-          return Array.from(merged.entries()).map(([id, name]) => ({ id, name }));
-        });
+        // Note: allTherapists is populated by the staff-list fetch, not from slots
         // Fetch staff schedules for time-extension filtering
         const staffIds = [...new Set(newSlots.map((s) => s.staffId).filter((id): id is number => id !== null))];
         if (staffIds.length > 0) {

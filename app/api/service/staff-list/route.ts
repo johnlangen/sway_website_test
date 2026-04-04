@@ -3,11 +3,10 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 /**
- * GET /api/service/staff-list?sessionTypeId=16
+ * GET /api/service/staff-list?sessionTypeId=88
  *
- * Returns all staff members who have any availability for the given session
- * type within the next 7 days. Uses a single Mindbody API call with a 7-day
- * range window, then extracts unique staff from the response.
+ * Returns all staff members assigned to a given session type in Mindbody,
+ * regardless of current availability. Uses /v6/staff/staff with SessionTypeId filter.
  *
  * Response: { staff: [{ id: number, name: string }] }
  */
@@ -20,10 +19,19 @@ function cleanStaffName(raw: string | null | undefined): string | null {
   return cleaned.trim() || null;
 }
 
+/** Staff IDs that are system/non-bookable accounts */
+const EXCLUDED_STAFF_IDS = new Set([
+  -5, -4, -2, 1,       // System accounts (Autoemail, Client, owner, STAFF)
+  100000004,            // Mindbody system
+  100000009,            // E/M (generic placeholder)
+  100000010,            // E/M - (2) (generic placeholder)
+  100000014,            // Remedy Room (resource, not a person)
+  100000020,            // Team (generic)
+  100000034,            // Sway (generic)
+  100000040,            // Aescape (robot, not a person)
+]);
+
 const ALLOWED_SESSION_TYPE_IDS = new Set([
-  // Legacy
-  7, 13, 14, 15, 16, 49, // massages
-  5, 6, 9, 10, 11, 12,   // facials
   // Essential
   75, 88, 116,
   // Premier facials + massages
@@ -32,11 +40,39 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   // Ultimate facials + massages
   82, 84, 85, 103, 104,
   90, 105, 106, 107, 108,
+  // Legacy (kept for backwards compat)
+  7, 13, 14, 15, 16, 49,
+  5, 6, 9, 10, 11, 12,
 ]);
 
-function formatDate(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+async function getStaffToken(): Promise<string | null> {
+  const apiKey = process.env.MINDBODY_API_KEY;
+  const siteId = process.env.MINDBODY_SITE_ID;
+  const username = process.env.MINDBODY_STAFF_USER;
+  const password = process.env.MINDBODY_STAFF_PASS;
+
+  if (!apiKey || !siteId || !username || !password) return null;
+
+  try {
+    const res = await fetch(
+      "https://api.mindbodyonline.com/public/v6/usertoken/issue",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Api-Key": apiKey,
+          SiteId: siteId,
+        },
+        body: JSON.stringify({ Username: username, Password: password }),
+        cache: "no-store",
+      }
+    );
+    const data = await res.json();
+    return data?.AccessToken ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export async function GET(req: Request) {
@@ -72,22 +108,19 @@ export async function GET(req: Request) {
     );
   }
 
-  const today = new Date();
-  const endDate = new Date(today);
-  endDate.setDate(endDate.getDate() + 14);
+  const token = await getStaffToken();
+  if (!token) {
+    return NextResponse.json(
+      { error: "Failed to authenticate with Mindbody" },
+      { status: 500 }
+    );
+  }
 
   const url = new URL(
-    "https://api.mindbodyonline.com/public/v6/appointment/bookableitems"
+    "https://api.mindbodyonline.com/public/v6/staff/staff"
   );
-
-  url.searchParams.append(
-    "request.sessionTypeIds[0]",
-    String(sessionTypeId)
-  );
-  url.searchParams.append("request.startDate", `${formatDate(today)}T00:00:00`);
-  url.searchParams.append("request.endDate", `${formatDate(endDate)}T23:59:59`);
-  url.searchParams.append("request.includeResourceAvailability", "true");
-  url.searchParams.append("request.limit", "500");
+  url.searchParams.append("SessionTypeId", String(sessionTypeId));
+  url.searchParams.append("request.limit", "100");
 
   try {
     const res = await fetch(url.toString(), {
@@ -95,6 +128,7 @@ export async function GET(req: Request) {
         Accept: "application/json",
         "Api-Key": apiKey,
         SiteId: siteId,
+        Authorization: `Bearer ${token}`,
       },
       cache: "no-store",
     });
@@ -109,33 +143,28 @@ export async function GET(req: Request) {
       );
     }
 
-    const availabilities = Array.isArray(data?.Availabilities)
-      ? data.Availabilities
+    const staffMembers = Array.isArray(data?.StaffMembers)
+      ? data.StaffMembers
       : [];
 
-    // Extract unique staff
-    const staffMap = new Map<number, string>();
+    const staff: { id: number; name: string }[] = [];
 
-    for (const a of availabilities) {
-      const id = a?.Staff?.Id;
+    for (const s of staffMembers) {
+      const id = s?.Id;
       if (id == null || !Number.isFinite(Number(id))) continue;
-      if (staffMap.has(Number(id))) continue;
+      if (EXCLUDED_STAFF_IDS.has(Number(id))) continue;
+      if (!s?.AppointmentInstructor) continue;
 
-      const name = cleanStaffName(
-        a?.Staff?.DisplayName ||
-          a?.Staff?.Name ||
-          `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
-          null
-      );
+      const displayName =
+        s?.DisplayName || s?.Name || `${s?.FirstName ?? ""} ${s?.LastName ?? ""}`.trim();
+      const name = cleanStaffName(displayName);
 
       if (name) {
-        staffMap.set(Number(id), name);
+        staff.push({ id: Number(id), name });
       }
     }
 
-    const staff = Array.from(staffMap.entries())
-      .map(([id, name]) => ({ id, name }))
-      .sort((a, b) => a.name.localeCompare(b.name));
+    staff.sort((a, b) => a.name.localeCompare(b.name));
 
     return NextResponse.json({ staff });
   } catch (err) {
