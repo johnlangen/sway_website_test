@@ -1259,7 +1259,7 @@ export default function MavenHotelPage() {
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    {s.popular && (
+                    {"popular" in s && s.popular && (
                       <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1 rounded-full">
                         Most Popular
                       </div>
