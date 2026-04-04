@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     );
   }
 
-  const ALLOWED_SESSION_TYPE_IDS = [59, 60, 61, 62, 92, 93, 94, 95];
+  const ALLOWED_SESSION_TYPE_IDS = [96, 97];
   if (!ALLOWED_SESSION_TYPE_IDS.includes(Number(sessionTypeId))) {
     return NextResponse.json(
       { error: "Invalid sessionTypeId for remedy room" },

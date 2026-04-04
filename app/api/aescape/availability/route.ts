@@ -14,7 +14,7 @@ export async function GET(req: Request) {
     );
   }
 
-  const ALLOWED_SESSION_TYPE_IDS = [8, 96, 97];
+  const ALLOWED_SESSION_TYPE_IDS = [92, 93, 94, 95];
   if (!ALLOWED_SESSION_TYPE_IDS.includes(Number(sessionTypeId))) {
     return NextResponse.json(
       { error: "Invalid sessionTypeId for aescape" },

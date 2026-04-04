@@ -13,7 +13,7 @@ import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 
 const AESCAPE_OPTIONS = [
   {
-    id: 59,
+    id: 95,
     label: "15 Minute Express",
     price: "$49",
     image: "/assets/aescapeblog6.jpg",
@@ -21,7 +21,7 @@ const AESCAPE_OPTIONS = [
     bestFor: "Quick reset ",
   },
   {
-    id: 60,
+    id: 92,
     label: "30 Minute Full Body",
     price: "$69",
     image: "/assets/aescapeblog2.jpg",
@@ -29,7 +29,7 @@ const AESCAPE_OPTIONS = [
     bestFor: "Full-body refresh",
   },
   {
-    id: 61,
+    id: 94,
     label: "45 Minute Full Body",
     price: "$99",
     image: "/assets/aescapeblog3.jpg",
@@ -37,7 +37,7 @@ const AESCAPE_OPTIONS = [
     bestFor: "Deep recovery",
   },
   {
-    id: 62,
+    id: 93,
     label: "60 Minute Full Body",
     price: "$139",
     image: "/assets/aescapeblog7.jpg",
@@ -46,7 +46,7 @@ const AESCAPE_OPTIONS = [
   },
 ] as const;
 
-const MOST_POPULAR_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 62;
+const MOST_POPULAR_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 93;
 
 /* ---------------------------------------------
    DATE HELPERS

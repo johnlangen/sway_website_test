@@ -11,13 +11,13 @@ import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
  * - Do NOT accept staffId from the frontend
  */
 function resolveStaffId(sessionTypeId: number): number | null {
-  // Remedy Room (legacy + new)
-  if ([8, 96, 97].includes(sessionTypeId)) {
+  // Remedy Room
+  if ([96, 97].includes(sessionTypeId)) {
     return 100000014;
   }
 
-  // Aescape sessions (legacy + new membership IDs)
-  if ([59, 60, 61, 62, 92, 93, 94, 95].includes(sessionTypeId)) {
+  // Aescape sessions
+  if ([92, 93, 94, 95].includes(sessionTypeId)) {
     return 100000040;
   }
 

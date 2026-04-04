@@ -5,13 +5,36 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 /* ---------------------------------------------
-   MAVEN HOTEL × SWAY — AESCAPE 60-MIN ONLY
+   MAVEN HOTEL × SWAY — AESCAPE OPTIONS
 --------------------------------------------- */
 
-const SESSION_TYPE_ID = 62; // 60-Minute Full Body Aescape
-const SESSION_LABEL = "60-Minute Full Body Massage";
-const SESSION_PRICE = "$139";
-const SESSION_MINUTES = 60;
+const MAVEN_SESSIONS = [
+  {
+    id: 92,
+    label: "30-Minute Full Body Massage",
+    shortLabel: "30 Minutes",
+    price: "$69",
+    priceNum: 69,
+    minutes: 30,
+    image: "/assets/aescapeblog2.jpg",
+    bestFor: "Quick reset between meetings or exploring",
+  },
+  {
+    id: 93,
+    label: "60-Minute Full Body Massage",
+    shortLabel: "60 Minutes",
+    price: "$139",
+    priceNum: 139,
+    minutes: 60,
+    image: "/assets/aescapeblog7.jpg",
+    bestFor: "Full recovery after a day of travel",
+    popular: true,
+  },
+] as const;
+
+type MavenSession = (typeof MAVEN_SESSIONS)[number];
+
+// Defaults for landing page display
 const SESSION_IMAGE = "/assets/aescapeblog7.jpg";
 
 /* ---------------------------------------------
@@ -287,17 +310,18 @@ function CardBrandPills() {
    PROGRESS BAR
 --------------------------------------------- */
 
-type Step = "time" | "email" | "card" | "confirm" | "booking" | "done";
+type Step = "session" | "time" | "email" | "card" | "confirm" | "booking" | "done";
 type CardContext = "create_account" | "add_card" | null;
 
 function ProgressBar({ step }: { step: Step }) {
-  const displaySteps = ["Time", "Account", "Confirm"];
+  const displaySteps = ["Session", "Time", "Account", "Confirm"];
 
   const stepToIdx: Partial<Record<Step, number>> = {
-    time: 0,
-    email: 1,
-    card: 1,
-    confirm: 2,
+    session: 0,
+    time: 1,
+    email: 2,
+    card: 2,
+    confirm: 3,
   };
 
   if (step === "booking" || step === "done") return null;
@@ -344,7 +368,8 @@ export default function MavenHotelPage() {
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
   const [email, setEmail] = useState("");
-  const [step, setStep] = useState<Step>("time");
+  const [step, setStep] = useState<Step>("session");
+  const [selectedSession, setSelectedSession] = useState<MavenSession>(MAVEN_SESSIONS[1]); // default 60-min
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -399,26 +424,27 @@ export default function MavenHotelPage() {
 
   const summaryText = useMemo(() => {
     if (!selectedTime) return null;
-    return `${SESSION_LABEL} · ${formatDayLabel(
+    return `${selectedSession.label} · ${formatDayLabel(
       new Date(selectedDate + "T00:00:00")
-    )} · ${formatTimeRange(selectedTime, SESSION_MINUTES)}`;
+    )} · ${formatTimeRange(selectedTime, selectedSession.minutes)}`;
   }, [selectedDate, selectedTime]);
 
   const confirmDetails = useMemo(() => {
     if (!selectedTime) return null;
     return {
-      session: SESSION_LABEL,
-      price: SESSION_PRICE,
-      minutes: SESSION_MINUTES,
-      image: SESSION_IMAGE,
+      session: selectedSession.label,
+      price: selectedSession.price,
+      minutes: selectedSession.minutes,
+      image: selectedSession.image,
       dateLabel: formatDayLabel(new Date(selectedDate + "T00:00:00")),
-      timeLabel: formatTimeRange(selectedTime, SESSION_MINUTES),
+      timeLabel: formatTimeRange(selectedTime, selectedSession.minutes),
     };
   }, [selectedDate, selectedTime]);
 
   const emailNormalized = useMemo(() => normalizeEmail(email), [email]);
 
   const stepTitle = useMemo(() => {
+    if (step === "session") return "Choose your session";
     if (step === "time") return "Choose a time";
     if (step === "email") return "Enter your email";
     if (step === "card") {
@@ -484,7 +510,7 @@ export default function MavenHotelPage() {
     setShowAllTimes(false);
 
     fetch(
-      `/api/aescape/availability?sessionTypeId=${SESSION_TYPE_ID}&date=${selectedDate}`
+      `/api/aescape/availability?sessionTypeId=${selectedSession.id}&date=${selectedDate}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -577,9 +603,9 @@ export default function MavenHotelPage() {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: "aescape_booking_complete",
-      session_type: SESSION_LABEL,
-      session_minutes: SESSION_MINUTES,
-      price: SESSION_PRICE,
+      session_type: selectedSession.label,
+      session_minutes: selectedSession.minutes,
+      price: selectedSession.price,
       booking_source: "maven_hotel",
     });
   }
@@ -608,16 +634,16 @@ export default function MavenHotelPage() {
 
     if (step === "email" && selectedTime) {
       payload.booking_date = selectedDate;
-      payload.session_type = SESSION_LABEL;
-      payload.session_minutes = SESSION_MINUTES;
+      payload.session_type = selectedSession.label;
+      payload.session_minutes = selectedSession.minutes;
     }
     if (step === "card") {
       payload.client_type =
         cardContext === "create_account" ? "new" : "returning";
     }
     if (step === "done") {
-      payload.service_name = SESSION_LABEL;
-      payload.total_price = SESSION_PRICE;
+      payload.service_name = selectedSession.label;
+      payload.total_price = selectedSession.price;
     }
 
     window.dataLayer.push(payload);
@@ -640,7 +666,7 @@ export default function MavenHotelPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         clientId: resolvedClientId,
-        sessionTypeId: SESSION_TYPE_ID,
+        sessionTypeId: selectedSession.id,
         startDateTime: formatLocalDateTime(selectedTime),
         notes,
       }),
@@ -851,9 +877,11 @@ export default function MavenHotelPage() {
 
   function handleHeaderBack() {
     setError(null);
-    if (step === "time") {
+    if (step === "session") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
+    } else if (step === "time") {
+      setStep("session");
     } else if (step === "email") {
       setStep("time");
     } else if (step === "card") {
@@ -864,7 +892,7 @@ export default function MavenHotelPage() {
   }
 
   /* --- Show booking header (hide on time step since landing is visible above) --- */
-  const showHeader = step !== "time" && step !== "done";
+  const showHeader = step !== "session" && step !== "done";
 
   /* =============================================
      RENDER
@@ -946,9 +974,9 @@ export default function MavenHotelPage() {
             </h1>
 
             <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto mb-8">
-              Book a 60-minute AI-powered Aescape massage at Sway Wellness
-              Spa — just 0.6 miles from The Maven Hotel. Walk, scooter, or
-              drive over in minutes.
+              Book a 30 or 60-minute AI-powered Aescape massage at Sway
+              Wellness Spa — just 0.6 miles from The Maven Hotel. Walk,
+              scooter, or drive over in minutes.
             </p>
 
             <a
@@ -993,7 +1021,7 @@ export default function MavenHotelPage() {
                     The Maven Hotel &times; Sway Wellness
                   </p>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-4 leading-tight">
-                    60-Minute Aescape
+                    Aescape
                     <br />
                     Robot Massage
                   </h2>
@@ -1034,12 +1062,19 @@ export default function MavenHotelPage() {
                     ))}
                   </div>
 
-                  <div className="flex items-baseline gap-2 mb-6">
-                    <span className="text-3xl font-bold text-[#113D33]">
-                      {SESSION_PRICE}
+                  <div className="flex items-baseline gap-3 mb-6">
+                    <span className="text-2xl font-bold text-[#113D33]">
+                      $69
                     </span>
-                    <span className="text-[#113D33]/50">
-                      / {SESSION_MINUTES} minutes
+                    <span className="text-[#113D33]/50 text-sm">
+                      / 30 min
+                    </span>
+                    <span className="text-[#113D33]/30">|</span>
+                    <span className="text-2xl font-bold text-[#113D33]">
+                      $139
+                    </span>
+                    <span className="text-[#113D33]/50 text-sm">
+                      / 60 min
                     </span>
                   </div>
 
@@ -1187,6 +1222,71 @@ export default function MavenHotelPage() {
       ══════════════════════════════════════════ */}
       <div id="book" className="scroll-mt-24">
 
+      {/* ── SESSION SELECTION STEP ── */}
+      {step === "session" && (
+        <div className="px-4 pt-12 md:pt-16 pb-20">
+          <div className="max-w-xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-2 font-vance">
+              Choose Your Session
+            </h2>
+            <p className="text-sm text-[#113D33]/60 mb-8">
+              AI-powered robot massage — pick your duration
+            </p>
+
+            <div className="space-y-4">
+              {MAVEN_SESSIONS.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedSession(s);
+                    setSelectedTime(null);
+                    setTimes([]);
+                    setStep("time");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className={`relative w-full text-left rounded-2xl border-2 overflow-hidden transition-all duration-200 ${
+                    selectedSession.id === s.id
+                      ? "border-[#113D33] shadow-lg"
+                      : "border-[#113D33]/10 hover:border-[#113D33]/30"
+                  }`}
+                >
+                  <div className="relative h-40 sm:h-48">
+                    <Image
+                      src={s.image}
+                      alt={s.label}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    {s.popular && (
+                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1 rounded-full">
+                        Most Popular
+                      </div>
+                    )}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <div className="text-white font-bold text-lg">
+                            {s.shortLabel}
+                          </div>
+                          <div className="text-white/70 text-sm">
+                            {s.bestFor}
+                          </div>
+                        </div>
+                        <div className="text-white font-bold text-2xl">
+                          {s.price}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── TIME SELECTION STEP ── */}
       {step === "time" && (
         <div className="px-4 pt-12 md:pt-16 pb-20">
@@ -1195,18 +1295,18 @@ export default function MavenHotelPage() {
             <div className="mb-8 max-w-lg mx-auto bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
               <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
                 <Image
-                  src={SESSION_IMAGE}
-                  alt={SESSION_LABEL}
+                  src={selectedSession.image}
+                  alt={selectedSession.label}
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="text-left">
                 <div className="font-semibold text-[#113D33] text-sm">
-                  {SESSION_LABEL}
+                  {selectedSession.label}
                 </div>
                 <div className="text-xs text-[#113D33]/50">
-                  {SESSION_MINUTES} min · {SESSION_PRICE}
+                  {selectedSession.minutes} min · {selectedSession.price}
                 </div>
               </div>
             </div>
@@ -1665,8 +1765,8 @@ export default function MavenHotelPage() {
                 <div className="rounded-2xl border border-[#113D33]/15 bg-white/70 overflow-hidden mb-4">
                   <div className="relative h-40 w-full">
                     <Image
-                      src={confirmDetails?.image || SESSION_IMAGE}
-                      alt={confirmDetails?.session || SESSION_LABEL}
+                      src={confirmDetails?.image || selectedSession.image}
+                      alt={confirmDetails?.session || selectedSession.label}
                       fill
                       className="object-cover"
                     />

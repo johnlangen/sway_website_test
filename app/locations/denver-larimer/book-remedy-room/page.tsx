@@ -8,12 +8,12 @@ import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 
 /* ---------------------------------------------
-   REMEDY ROOM SESSION OPTION (ID 8)
+   REMEDY ROOM SESSION OPTIONS
 --------------------------------------------- */
 
 const REMEDY_OPTIONS = [
   {
-    id: 8,
+    id: 96,
     label: "The Remedy Room Experience",
     price: "$49",
     image: "/assets/remedy-room3.jpg",
@@ -476,7 +476,7 @@ export default function BookRemedyRoomPage() {
   const router = useRouter();
   const today = useMemo(() => new Date(), []);
 
-  const [sessionTypeId] = useState<RemedyOption["id"]>(8);
+  const [sessionTypeId] = useState<RemedyOption["id"]>(96);
 
   const [weekStart, setWeekStart] = useState(today);
   const [selectedDate, setSelectedDate] = useState(formatISO(today));
@@ -1334,7 +1334,7 @@ export default function BookRemedyRoomPage() {
                     <p>No times available for this day.</p>
                     <NextAvailableBanner
                       type="remedy"
-                      sessionTypeId={8}
+                      sessionTypeId={96}
                       currentDate={selectedDate}
                       onJumpToDate={(iso) => {
                         const [y, m, d] = iso.split("-").map(Number);
