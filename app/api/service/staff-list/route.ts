@@ -31,18 +31,19 @@ const EXCLUDED_STAFF_IDS = new Set([
   100000040,            // Aescape (robot, not a person)
 ]);
 
-const ALLOWED_SESSION_TYPE_IDS = new Set([
-  // Essential
-  75, 88, 116,
-  // Premier facials + massages
-  77, 78, 79, 80, 81,
-  89, 98, 99, 100, 101, 102,
-  // Ultimate facials + massages
-  82, 84, 85, 103, 104,
-  90, 105, 106, 107, 108,
-  // Legacy (kept for backwards compat)
-  7, 13, 14, 15, 16, 49,
+const FACIAL_SESSION_TYPE_IDS = new Set([
+  75, 77, 78, 79, 80, 81, 82, 84, 85, 103, 104, 116,
   5, 6, 9, 10, 11, 12,
+]);
+
+const MASSAGE_SESSION_TYPE_IDS = new Set([
+  88, 89, 98, 99, 100, 101, 102, 90, 105, 106, 107, 108,
+  7, 13, 14, 15, 16, 49,
+]);
+
+const ALLOWED_SESSION_TYPE_IDS = new Set([
+  ...FACIAL_SESSION_TYPE_IDS,
+  ...MASSAGE_SESSION_TYPE_IDS,
 ]);
 
 async function getStaffToken(): Promise<string | null> {
@@ -147,9 +148,10 @@ export async function GET(req: Request) {
       ? data.StaffMembers
       : [];
 
-    /** Only include staff whose Mindbody name has a service prefix (M -, E -, M/E -, E/M -).
-     *  This filters out admin, front desk, owners, and generic accounts. */
-    const SERVICE_PREFIX_RE = /^[ME](?:\/[ME])*\s*[-–—]\s*/i;
+    /** Only include staff whose Mindbody name prefix matches the service category.
+     *  M - = massage only, E - = esthetics/facial only, M/E - or E/M - = both. */
+    const isFacial = FACIAL_SESSION_TYPE_IDS.has(sessionTypeId);
+    const isMassage = MASSAGE_SESSION_TYPE_IDS.has(sessionTypeId);
 
     const staff: { id: number; name: string }[] = [];
 
@@ -161,9 +163,22 @@ export async function GET(req: Request) {
 
       const displayName =
         s?.DisplayName || s?.Name || `${s?.FirstName ?? ""} ${s?.LastName ?? ""}`.trim();
+      if (!displayName) continue;
 
-      // Only include staff with a service category prefix
-      if (!displayName || !SERVICE_PREFIX_RE.test(displayName)) continue;
+      // Check prefix matches the requested service category
+      const hasM = /^M\s*[-–—]/i.test(displayName);       // M - (massage only)
+      const hasE = /^E\s*[-–—]/i.test(displayName);       // E - (esthetics only)
+      const hasBoth = /^[ME]\/[ME]\s*[-–—]/i.test(displayName); // M/E - or E/M - (both)
+
+      if (hasBoth) {
+        // M/E or E/M staff can do both — always include
+      } else if (hasM && !isMassage) {
+        continue; // Massage-only staff shouldn't show for facial bookings
+      } else if (hasE && !isFacial) {
+        continue; // Esthetics-only staff shouldn't show for massage bookings
+      } else if (!hasM && !hasE && !hasBoth) {
+        continue; // No service prefix — admin/front desk
+      }
 
       const name = cleanStaffName(displayName);
 
