@@ -1104,6 +1104,7 @@ export default function NewBookingFlow() {
                         "70–90 min + advanced techniques"
                       )}
                     </p>
+                    <p className="text-xs text-[#113D33]/40 mt-1">Credits applied at checkout if applicable</p>
                   ) : isUpgrade ? (
                     <>
                       <p className="text-sm text-[#113D33]/80 font-medium">
