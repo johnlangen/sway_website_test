@@ -43,18 +43,36 @@ const locations = [
   },
 ];
 
+function saveLocation(slug: string, name: string) {
+  try {
+    localStorage.setItem("sway_selected_location", JSON.stringify({ slug, name }));
+    document.cookie = `sway_loc=${slug}; path=/; max-age=${60 * 60 * 24 * 365}`;
+  } catch {}
+}
+
 export default function OffersPage() {
   const [selectedLocation, setSelectedLocation] =
     useState<SelectedLocation | null>(null);
+  const [showPage, setShowPage] = useState(false);
 
   useEffect(() => {
     try {
       const ls = localStorage.getItem("sway_selected_location");
       if (ls) {
-        setSelectedLocation(JSON.parse(ls));
+        const loc = JSON.parse(ls);
+        setSelectedLocation(loc);
+        // Auto-redirect to saved location's offers page
+        const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
+        if (match) {
+          window.location.replace(match.href);
+          return;
+        }
       }
     } catch {}
+    setShowPage(true);
   }, []);
+
+  if (!showPage) return <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
@@ -103,6 +121,7 @@ export default function OffersPage() {
               <Link
                 key={loc.slug}
                 href={loc.href}
+                onClick={() => saveLocation(loc.slug, loc.name)}
                 className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
                   isSelected ? "ring-2 ring-[#9ABFB3]" : ""
                 }`}
@@ -143,6 +162,7 @@ export default function OffersPage() {
               <Link
                 key={loc.slug}
                 href={loc.href}
+                onClick={() => saveLocation(loc.slug, loc.name)}
                 className={`group relative bg-white/80 text-[#113D33] rounded-2xl overflow-hidden shadow-md transition hover:shadow-xl hover:scale-[1.02] flex flex-col ${
                   isSelected ? "ring-2 ring-[#9ABFB3]" : ""
                 }`}
