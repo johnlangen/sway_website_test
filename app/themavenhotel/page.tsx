@@ -526,7 +526,7 @@ export default function MavenHotelPage() {
         setError("Unable to load availability.");
       })
       .finally(() => setLoading(false));
-  }, [selectedDate]);
+  }, [selectedDate, selectedSession.id]);
 
   /* --- Card payload --- */
   function getCardPayloadFromRefs() {
