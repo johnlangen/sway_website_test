@@ -408,7 +408,7 @@ export default function BookAescapePage() {
 
   const [sessionTypeId, setSessionTypeId] = useState<
     (typeof AESCAPE_OPTIONS)[number]["id"]
-  >(60);
+  >(92);
 
   const [weekStart, setWeekStart] = useState(today);
   const [selectedDate, setSelectedDate] = useState(formatISO(today));
@@ -1150,7 +1150,7 @@ export default function BookAescapePage() {
                             alt={opt.label}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            priority={opt.id === 60}
+                            priority={opt.id === 92}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
