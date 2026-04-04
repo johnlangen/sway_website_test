@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
+export const revalidate = 3600; // Cache staff list for 1 hour
 
 /**
  * GET /api/service/staff-list?sessionTypeId=88

@@ -441,20 +441,25 @@ export default function NewBookingFlow() {
         const newSlots: DisplaySlot[] = data.slots ?? [];
         setSlots(newSlots);
         // Note: allTherapists is populated by the staff-list fetch, not from slots
-        // Fetch staff schedules for time-extension filtering
-        const staffIds = [...new Set(newSlots.map((s) => s.staffId).filter((id): id is number => id !== null))];
-        if (staffIds.length > 0) {
-          Promise.all(staffIds.map((sid) =>
-            fetch(`/api/service/staff-schedule?staffId=${sid}&date=${selectedDate}`)
-              .then((r) => r.json()).then((d) => ({ staffId: sid, appointments: Array.isArray(d.appointments) ? d.appointments : [] }))
-              .catch(() => ({ staffId: sid, appointments: [] as { start: string; end: string }[] }))
-          )).then((results) => {
-            if (cancelled) return;
-            const map: Record<number, { start: string; end: string }[]> = {};
-            for (const r of results) map[r.staffId] = r.appointments;
-            setStaffSchedules(map);
+        // Only fetch staff schedules if boosts add time (needed for extension filtering)
+        const extMin = selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0);
+        if (extMin > 0) {
+          const staffIds = [...new Set(newSlots.map((s) => s.staffId).filter((id): id is number => id !== null))];
+          if (staffIds.length > 0) {
+            Promise.all(staffIds.map((sid) =>
+              fetch(`/api/service/staff-schedule?staffId=${sid}&date=${selectedDate}`)
+                .then((r) => r.json()).then((d) => ({ staffId: sid, appointments: Array.isArray(d.appointments) ? d.appointments : [] }))
+                .catch(() => ({ staffId: sid, appointments: [] as { start: string; end: string }[] }))
+            )).then((results) => {
+              if (cancelled) return;
+              const map: Record<number, { start: string; end: string }[]> = {};
+              for (const r of results) map[r.staffId] = r.appointments;
+              setStaffSchedules(map);
+              setSchedulesLoaded(true);
+            });
+          } else {
             setSchedulesLoaded(true);
-          });
+          }
         } else {
           setSchedulesLoaded(true);
         }
@@ -462,7 +467,8 @@ export default function NewBookingFlow() {
       .catch(() => { if (!cancelled) setError("Failed to load availability. Please try again or call (303) 476-6150."); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [step, selectedTreatment, selectedDate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, selectedTreatment, selectedDate, selectedBoosts.length]);
 
   /* -- time-extension filtering + displayed slots -- */
   const totalExtMinutes = selectedBoosts.reduce((sum, b) => sum + b.addsMinutes, 0);
