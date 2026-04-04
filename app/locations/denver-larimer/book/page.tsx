@@ -692,7 +692,7 @@ export default function NewBookingFlow() {
     window.dataLayer?.push({ event: "booking_confirmed", booking_flow: category });
     setStep("booking"); setError(null);
     try {
-      const noteParts = [`Booked online \u2014 ${selectedTreatment?.name}`];
+      const noteParts = [`Booked online (NEW) \u2014 ${selectedTreatment?.name}`];
       if (forSomeoneElse && guestFirstName && guestPhone) {
         noteParts.push(`BOOKING FOR: ${[guestFirstName, guestLastName].filter(Boolean).join(" ")}`, `Phone: ${guestPhone}`);
         if (guestEmail) noteParts.push(`Email: ${guestEmail}`);
