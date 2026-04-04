@@ -15,9 +15,9 @@ const SERVICES = [
     title: "Massage",
     tagline: "Deep Tissue, Sports, CBD & more",
     description:
-      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50 minutes, fully customized.",
-    price: "From $129",
-    memberPrice: "From $89",
+      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like PEMF mats. 50–90 minutes, fully customized.",
+    price: "From $139",
+    memberPrice: "From $99",
     image: "/assets/massage2.jpg",
     bookHref: "/locations/denver-larimer/book?category=massage",
     learnHref: "/massages",
@@ -27,9 +27,9 @@ const SERVICES = [
     tagline: "Forever Young, Glow Getter & more",
     description:
       "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
-    price: "From $129",
-    memberPrice: "From $89",
-    image: "/assets/facial5.jpg",
+    price: "From $139",
+    memberPrice: "From $99",
+    image: "/assets/facialExperiences.png",
     bookHref: "/locations/denver-larimer/book?category=facial",
     learnHref: "/facials",
   },
@@ -61,23 +61,25 @@ const PRICING_CARDS = [
   {
     title: "Facial",
     items: ["Forever Young", "Glow Getter", "Pore Perfection", "Sensitive Silk"],
-    memberPrice: "$99",
-    dropInPrice: "$139",
-    duration: "50 min",
+    memberPrice: "From $99",
+    dropInPrice: "From $139",
+    duration: "50–60 min",
     boosts: [
-      { label: "Add a Boost", member: "$30", dropIn: "$60" },
-      { label: "Add a Super Boost", member: "$50", dropIn: "$100" },
+      { label: "Boost", member: "$10", dropIn: "$20" },
+      { label: "Boost Plus", member: "$20", dropIn: "$40" },
+      { label: "Boost Pro", member: "$25", dropIn: "$50" },
     ],
   },
   {
     title: "Massage",
-    items: ["Deep Tissue", "Swedish", "Hot Stone", "CBD"],
-    memberPrice: "$99",
-    dropInPrice: "$139",
-    duration: "50 min",
+    items: ["Deep Tissue", "Sports", "Salt Stone", "CBD"],
+    memberPrice: "From $99",
+    dropInPrice: "From $139",
+    duration: "50–90 min",
     boosts: [
-      { label: "Add a Boost", member: "$30", dropIn: "$60" },
-      { label: "Add a Super Boost", member: "$50", dropIn: "$100" },
+      { label: "Boost", member: "$10", dropIn: "$20" },
+      { label: "Boost Plus", member: "$20", dropIn: "$40" },
+      { label: "Boost Pro", member: "$25", dropIn: "$50" },
     ],
   },
   {
@@ -284,7 +286,7 @@ export default function HomeContent() {
       {/* ======================================================
           3. Google Reviews
           ====================================================== */}
-      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33]">
+      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-4 pt-16 md:pt-0">
         <GoogleReviews />
       </section>
 
