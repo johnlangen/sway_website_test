@@ -160,7 +160,10 @@ const MASSAGE_CONCERNS = [
 ];
 
 function getTreatmentPrice(tier: "essential" | "premier" | "ultimate", isMember: boolean, memberTier: MembershipTier): number {
-  if (isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[tier]) return TIER_PRICING[tier].member;
+  if (isMember && memberTier) {
+    if (TIER_RANK[memberTier] >= TIER_RANK[tier]) return 0; // included in membership
+    return getUpgradeCost(memberTier, tier); // per-visit upcharge
+  }
   return TIER_PRICING[tier].dropIn;
 }
 
@@ -1110,7 +1113,7 @@ export default function NewBookingFlow() {
                   ) : isUpgrade ? (
                     <>
                       <p className="text-sm text-[#113D33]/80 font-medium">
-                        Upgrade to {treatmentTierFilter.charAt(0).toUpperCase() + treatmentTierFilter.slice(1)} · <span className="text-[#4A776D] font-bold">+${upgradeCost}/mo</span>
+                        Access with your {memberTier} membership · <span className="text-[#4A776D] font-bold">+${upgradeCost} this visit</span>
                       </p>
                       <p className="text-xs text-[#113D33]/40 mt-1">
                         Credits may apply at checkout
@@ -1180,7 +1183,7 @@ export default function NewBookingFlow() {
                             {tierIncluded ? (
                               <span className="text-sm font-bold text-[#4A776D]">Included</span>
                             ) : isUpgrade ? (
-                              <span className="text-sm font-bold text-[#4A776D]">+${upgradeCost}/mo</span>
+                              <span className="text-sm font-bold text-[#4A776D]">+${upgradeCost}</span>
                             ) : (
                               <span className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</span>
                             )}
@@ -1607,36 +1610,38 @@ export default function NewBookingFlow() {
                   {/* Itemized pricing */}
                   {(() => {
                     const tierCovers = isMember && memberTier ? TIER_RANK[memberTier] >= TIER_RANK[selectedTreatment.tier] : false;
+                    const isUpgradeVisit = isMember && memberTier && TIER_RANK[memberTier] < TIER_RANK[selectedTreatment.tier];
                     const treatmentPrice = getTreatmentPrice(selectedTreatment.tier, isMember, memberTier);
                     const treatmentDropIn = TIER_PRICING[selectedTreatment.tier].dropIn;
-                    const treatmentMember = TIER_PRICING[selectedTreatment.tier].member;
-                    const boostTotal = selectedBoosts.reduce((sum, b) => sum + parseInt((tierCovers ? b.memberPrice : b.dropInPrice).replace("$", "")), 0);
+                    const isMemberPricing = tierCovers || isUpgradeVisit;
+                    const boostTotal = selectedBoosts.reduce((sum, b) => sum + parseInt((isMemberPricing ? b.memberPrice : b.dropInPrice).replace("$", "")), 0);
                     const boostDropInTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", "")), 0);
-                    const boostMemberTotal = selectedBoosts.reduce((sum, b) => sum + parseInt(b.memberPrice.replace("$", "")), 0);
                     const total = treatmentPrice + boostTotal;
                     const totalDropIn = treatmentDropIn + boostDropInTotal;
-                    const totalMember = treatmentMember + boostMemberTotal;
                     const hasBoosts = selectedBoosts.length > 0;
 
                     return (
                       <>
-                        {hasBoosts && (
+                        {(hasBoosts || isUpgradeVisit) && (
                           <div className="space-y-1 text-sm text-[#113D33]/60">
-                            <div className="flex justify-between"><span>{selectedTreatment.name}</span><span>${treatmentPrice}</span></div>
-                            {selectedBoosts.map((b) => <div key={b.id} className="flex justify-between"><span>+ {b.name}</span><span>{tierCovers ? b.memberPrice : b.dropInPrice}</span></div>)}
+                            <div className="flex justify-between">
+                              <span>{selectedTreatment.name}</span>
+                              <span>{tierCovers ? "Included" : isUpgradeVisit ? `+$${treatmentPrice} upcharge` : `$${treatmentPrice}`}</span>
+                            </div>
+                            {selectedBoosts.map((b) => <div key={b.id} className="flex justify-between"><span>+ {b.name}</span><span>{isMemberPricing ? b.memberPrice : b.dropInPrice}</span></div>)}
                           </div>
                         )}
                         <div className="flex items-baseline justify-between">
-                          <span className="text-[#113D33] font-medium">{tierCovers ? "Member total" : "Total"}</span>
-                          <span className="text-2xl font-bold text-[#113D33]">${total}</span>
+                          <span className="text-[#113D33] font-medium">{tierCovers ? "Member total" : isUpgradeVisit ? "This visit" : "Total"}</span>
+                          <span className="text-2xl font-bold text-[#113D33]">{tierCovers && !hasBoosts ? "Included" : `$${total}`}</span>
                         </div>
                         {!isMember && (
                           <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
-                            <span>As a member</span>
-                            <span>${totalMember}</span>
+                            <span>Drop-in price</span>
+                            <span>${totalDropIn}</span>
                           </div>
                         )}
-                        {tierCovers && hasBoosts && (
+                        {(tierCovers || isUpgradeVisit) && hasBoosts && (
                           <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
                             <span>Drop-in price</span>
                             <span>${totalDropIn}</span>
