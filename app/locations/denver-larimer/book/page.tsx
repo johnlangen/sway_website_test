@@ -1710,7 +1710,7 @@ export default function NewBookingFlow() {
               {selectedBoosts.length > 0 && <p className="text-[#113D33]/50 text-sm">+ {selectedBoosts.map((b) => b.name).join(", ")}</p>}
               {selectedSlot && (
                 <p className="text-[#113D33]/60 text-sm">
-                  {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes)}
+                  {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
                   {selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
                 </p>
               )}
