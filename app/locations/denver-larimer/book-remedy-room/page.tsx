@@ -741,7 +741,7 @@ export default function BookRemedyRoomPage() {
     setStep("booking");
 
     /* Build appointment notes */
-    const noteParts: string[] = ["Booked online — Remedy Room"];
+    const noteParts: string[] = ["Booked online (NEW) — Remedy Room"];
     if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
       const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
       noteParts.push(`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`);

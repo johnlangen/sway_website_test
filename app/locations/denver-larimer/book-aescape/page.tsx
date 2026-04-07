@@ -699,7 +699,7 @@ export default function BookAescapePage() {
     setStep("booking");
 
     /* Build appointment notes */
-    const noteParts: string[] = ["Booked online — Aescape"];
+    const noteParts: string[] = ["Booked online (NEW) — Aescape"];
     if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
       const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
       noteParts.push(`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`);
