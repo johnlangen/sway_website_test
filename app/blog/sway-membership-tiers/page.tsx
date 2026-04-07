@@ -77,7 +77,7 @@ export default function Page() {
       />
 
       {/* Hero Banner */}
-      <div className="relative w-full h-[420px] md:h-[520px] overflow-hidden">
+      <div className="relative w-full h-[280px] md:h-[360px] overflow-hidden">
         <Image
           src="/assets/homepage_photo6.jpg"
           alt="Sway Wellness Spa treatment room Denver"
@@ -181,7 +181,7 @@ export default function Page() {
           alt="Facial treatment at Sway Wellness Spa Denver"
           width={800}
           height={450}
-          className="rounded-2xl w-full h-auto"
+          className="rounded-2xl w-full h-[200px] md:h-[260px] object-cover"
         />
 
         {/* Premier */}
@@ -238,7 +238,7 @@ export default function Page() {
           alt="Premier massage at Sway Wellness Spa Denver Larimer Square"
           width={800}
           height={450}
-          className="rounded-2xl w-full h-auto"
+          className="rounded-2xl w-full h-[200px] md:h-[260px] object-cover"
         />
 
         {/* Ultimate */}
