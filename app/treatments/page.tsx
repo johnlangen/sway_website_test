@@ -12,18 +12,18 @@ import { ArrowRight } from "lucide-react";
 const treatments = [
   {
     name: "Massages",
-    tagline: "6 expert-led experiences",
+    tagline: "3 tiers · 18 treatments",
     description:
-      "Deep Tissue, Sports, CBD, Salt Stone, Lymphatic Drainage & Relaxation. 50 or 80 minutes.",
+      "Signature, Deep Tissue, Sports, Salt Stone, Lymphatic Drainage, Maternity & more. 50–90 minutes across Essential, Premier & Ultimate tiers.",
     image: "/assets/treatment3.jpg",
     learnHref: "/massages",
   },
   {
     name: "Facials",
-    tagline: "6 results-driven treatments",
+    tagline: "3 tiers · 13 treatments",
     description:
-      "Eminence Organics & Dr. Dennis Gross protocols with high-tech boosts. 50 minutes.",
-    image: "/assets/treatment1.jpg",
+      "Anti-aging, acne, hydration, sensitive skin & brightening facials with dermapore technology, LED, microcurrent & oxygen infusion. 30–60 minutes.",
+    image: "/assets/facialExperiences.png",
     learnHref: "/facials",
   },
   {
@@ -38,7 +38,7 @@ const treatments = [
     name: "Aescape",
     tagline: "AI-powered robot massage",
     description:
-      "Real-time 3D body mapping with personalized pressure zones. 15, 30, or 60 minutes.",
+      "Real-time 3D body mapping with personalized pressure zones. 30 or 60 minutes.",
     image: "/assets/aescape-treatment.jpg",
     learnHref: "/aescape",
     badge: "Select Locations",
@@ -46,8 +46,8 @@ const treatments = [
 ];
 
 const stats = [
-  { value: "6", label: "Massage Types" },
-  { value: "6", label: "Facial Treatments" },
+  { value: "18", label: "Massage Types" },
+  { value: "13", label: "Facial Treatments" },
   { value: "4", label: "Recovery Technologies" },
   { value: "10+", label: "Boost Add-Ons" },
 ];
@@ -80,18 +80,20 @@ export default function TreatmentsPage() {
           </motion.h1>
 
           <p className="sr-only">
-            Sway Wellness Spa treatments: 6 massage types (Deep Tissue, Sports,
-            CBD, Himalayan Salt Stone, Lymphatic Drainage, Relaxation), 6 facial
-            treatments (Forever Young, Glow Getter, Pore Perfection, Vitamin C,
-            Sensitive Silk, Express) using Eminence Organics and Dr. Dennis Gross
-            products, 4 recovery technologies in the Remedy Room (sauna,
-            cold plunge, Normatec compression, LED light therapy), and
-            Aescape AI-powered robot massage at select locations (15, 30,
-            60-minute sessions). Over 10 boost add-ons including microcurrent,
-            oxygen infusion, chemical peel, cupping, infrared PEMF mat, and
-            scalp massage. Massages and facials are 50 minutes (extendable to
-            80). Remedy Room is a guided 40-minute circuit. Locations in Denver
-            CO, Dallas TX, and Washington DC. Voted #4 Best Day Spa in America
+            Sway Wellness Spa treatments across 3 membership tiers: Essential,
+            Premier, and Ultimate. 18 massage types including Signature, Deep
+            Tissue, Sports, Salt Stone, Lymphatic Drainage, Maternity, and
+            CauseMedic CBD (50–90 minutes). 13 facial treatments including
+            Forever Young Anti-Aging, Pore Perfection Acne, Glow Getter
+            Hydration, Sensitive Silk, Dr. Dennis Gross Vitamin C, Illuminate
+            LED, Oxygen Infusion, Sculpt &amp; Lift Microcurrent, and Hydraderm
+            (30–60 minutes). 4 recovery technologies in the Remedy Room (sauna,
+            cold plunge, Normatec compression, LED light therapy — 40 minutes).
+            Aescape AI-powered robot massage at select locations (30 or
+            60-minute sessions). Over 10 boost add-ons including LED light
+            therapy, microcurrent, oxygen infusion, dermaflash, cupping,
+            CauseMedic muscle cream, and PEMF mat. Locations in Denver CO,
+            Dallas TX, and Washington DC. Voted #4 Best Day Spa in America
             by USA Today 10Best. Book at swaywellnessspa.com.
           </p>
 
