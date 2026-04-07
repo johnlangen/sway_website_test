@@ -31,9 +31,9 @@ const TREATMENTS = [
     title: "Massage",
     tagline: "Deep Tissue, Sports, CBD & more",
     description:
-      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50 minutes, fully customized.",
-    price: "From $129",
-    memberPrice: "From $89",
+      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50–90 minutes, fully customized.",
+    price: "From $139",
+    memberPrice: "From $99",
     image: "/assets/massage3.jpg",
     bookHref: "/locations/denver-larimer/book/?category=massage",
     learnHref: "/massages",
@@ -43,8 +43,8 @@ const TREATMENTS = [
     tagline: "Forever Young, Glow Getter & more",
     description:
       "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
-    price: "From $129",
-    memberPrice: "From $89",
+    price: "From $139",
+    memberPrice: "From $99",
     image: "/assets/facialExperiences.png",
     bookHref: "/locations/denver-larimer/book/?category=facial",
     learnHref: "/facials",
@@ -64,7 +64,7 @@ const TREATMENTS = [
     title: "Aescape Robot Massage",
     tagline: "AI-powered precision recovery",
     description:
-      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. Sessions from 15 to 60 minutes.",
+      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 30 or 60 minute sessions.",
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",
@@ -174,16 +174,17 @@ export default function SwayLarimerPage() {
             <p className="sr-only">
               Sway Wellness Spa is located at 1428 Larimer St. on Larimer Square
               in downtown Denver, CO 80202. Voted #4 Best Day Spa in America by
-              USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 6
-              massage types (from $89), 6 facial treatments using Eminence
-              Organics and Dr. Dennis Gross (from $89), the Remedy Room
+              USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 18
+              massage types across 3 tiers (from $99 member, $139 drop-in),
+              13 facial treatments across 3 tiers using Eminence Organics and
+              Dr. Dennis Gross (from $99 member, $139 drop-in), the Remedy Room
               40-minute recovery circuit with 4 modalities — sauna,
               cold plunge, Normatec compression, and LED light therapy (from
-              $25), and AI-powered Aescape robot massage (from $49, 15–60 min).
-              Over 10 boost add-ons across services. Open Mon–Fri 10 AM–8 PM,
-              Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from $99/month. 1st
-              hour parking validated at Larimer Square Garage. Book at
-              swaywellnessspa.com or call (303) 476-6150.
+              $25), and AI-powered Aescape robot massage (from $49, 30 or 60
+              min). Over 10 boost add-ons across services. Open Mon–Fri 10
+              AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from
+              $99/month. 1st hour parking validated at Larimer Square Garage.
+              Book at swaywellnessspa.com or call (303) 476-6150.
             </p>
 
             {status && (
@@ -425,7 +426,7 @@ export default function SwayLarimerPage() {
                 <ul className="space-y-2 text-sm text-white/80 mb-6">
                   <li className="flex items-start gap-2">
                     <span className="mt-0.5 text-[#9ABFB3]">✓</span>
-                    Unlimited massages & facials at $99 each
+                    Massages & facials from $99 across 3 tiers
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-0.5 text-[#9ABFB3]">✓</span>

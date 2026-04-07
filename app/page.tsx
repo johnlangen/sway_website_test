@@ -111,7 +111,7 @@ export default function HomePage() {
         name: "What is Aescape?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 15–60 minutes.",
+          text: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 30 or 60 minutes.",
         },
       },
       {
@@ -119,7 +119,7 @@ export default function HomePage() {
         name: "Do you offer memberships?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Memberships start at $99/month and include massages and facials at $99 each (regularly $139), 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
+          text: "Yes. Memberships start at $99/month and include massages and facials from $99 (regularly from $139) across three tiers — Essential, Premier, and Ultimate. Members also get 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
         },
       },
       {

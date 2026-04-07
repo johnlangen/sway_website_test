@@ -51,7 +51,7 @@ const faqJsonLd = {
       name: "Does Sway offer couples massage in Denver?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway Wellness Spa on Larimer Square offers couples massage in side-by-side treatment rooms. Choose from Basic Massage ($89 member / $129 drop-in), Deep Tissue, Salt Stone, Sports, or CBD massage ($99 member / $139 drop-in). Book online at swaywellnessspa.com.",
+        text: "Yes. Sway Wellness Spa on Larimer Square offers couples massage in side-by-side treatment rooms. Choose from 18 massage types across 3 tiers — Essential (from $99 member / $139 drop-in), Premier ($129 / $169), and Ultimate ($159 / $199). Book online at swaywellnessspa.com.",
       },
     },
     {
@@ -59,7 +59,7 @@ const faqJsonLd = {
       name: "How much does a date night at Sway cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "A couples massage at Sway starts at $89 per person for members or $129 per person for drop-ins (50-minute Basic Massage). Specialty massages and facials are $99 member / $139 drop-in. Members save on every visit with memberships starting at $99/month.",
+        text: "A couples massage at Sway starts at $99 per person for members or $139 per person for drop-ins (Essential tier, 50 minutes). Premier ($129/$169) and Ultimate ($159/$199) tiers offer longer sessions up to 90 minutes. Members save on every visit with memberships starting at $99/month.",
       },
     },
     {

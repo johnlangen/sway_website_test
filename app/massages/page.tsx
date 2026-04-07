@@ -16,6 +16,12 @@ type MassageTier = {
   treatments: Treatment[];
 };
 
+const TIER_PRICING: Record<string, { member: number; dropIn: number }> = {
+  essential: { member: 99, dropIn: 139 },
+  premier: { member: 129, dropIn: 169 },
+  ultimate: { member: 159, dropIn: 199 },
+};
+
 const massageTiers: MassageTier[] = [
   {
     key: "essential",
@@ -294,6 +300,15 @@ const MassagesPage = () => {
                     </button>
                   ))}
                 </div>
+              </div>
+
+              {/* Tier pricing */}
+              <div className="px-6 pt-4 text-center">
+                <p className="text-sm text-[#113D33]/60">
+                  <span className="font-semibold text-[#4A776D]">${TIER_PRICING[selectedTier].member}/mo</span>
+                  <span className="mx-1.5">·</span>
+                  <span>${TIER_PRICING[selectedTier].dropIn} drop-in</span>
+                </p>
               </div>
 
               {/* Treatment list */}

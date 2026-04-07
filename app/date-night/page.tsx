@@ -90,11 +90,11 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Massage</h3>
               <p className="text-sm text-gray-700">
-                Side-by-side 50-minute sessions. Choose from Basic, Deep Tissue,
-                Salt Stone, Sports, Hot Stone, or CBD massage.
+                Side-by-side sessions from 50–90 minutes. Choose from 18 massage
+                types across Essential, Premier, and Ultimate tiers.
               </p>
               <p className="text-sm font-semibold">
-                $89/person member · $129/person drop-in
+                From $99/person member · $139/person drop-in
               </p>
               <Link
                 href="/locations/denver-larimer/book"
@@ -106,11 +106,11 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Facial</h3>
               <p className="text-sm text-gray-700">
-                50-minute facials for two. Options include Forever Young, Glow
-                Getter, Pore Perfection, Sensitive Silk, and HydraFacial.
+                Facials for two, 30–60 minutes. Choose from 13 facial treatments
+                across Essential, Premier, and Ultimate tiers.
               </p>
               <p className="text-sm font-semibold">
-                $99/person member · $139/person drop-in
+                From $99/person member · $139/person drop-in
               </p>
               <Link
                 href="/locations/denver-larimer/book"
@@ -138,7 +138,7 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Aescape Robot Massage</h3>
               <p className="text-sm text-gray-700">
-                AI-powered autonomous massage — 15, 30, 45, or 60 minutes. No
+                AI-powered autonomous massage — 30 or 60 minutes. No
                 conversation required (if that&apos;s your vibe).
               </p>
               <p className="text-sm font-semibold">Starting at $49</p>

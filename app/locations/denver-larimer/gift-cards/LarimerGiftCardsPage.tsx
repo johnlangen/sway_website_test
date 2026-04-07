@@ -44,7 +44,7 @@ export default function LarimerGiftCardsPage() {
   const reasons = [
     {
       title: "Massages & Facials",
-      description: "50-minute sessions with expert therapists",
+      description: "50–90 min sessions with expert therapists",
       icon: (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -132,7 +132,7 @@ export default function LarimerGiftCardsPage() {
         <p className="sr-only">
           Sway Wellness Spa Larimer gift cards: available in any dollar amount
           with instant digital delivery via email. Redeemable for all services
-          including 6 massage types, 6 facial treatments, Remedy Room recovery
+          including 18 massage types, 13 facial treatments across 3 tiers, Remedy Room recovery
           circuit (sauna, cold plunge, Normatec compression, LED light
           therapy), Aescape AI-powered robot massage, boost add-ons, and retail
           products. Gift cards never expire and have no dormancy fees. Valid at

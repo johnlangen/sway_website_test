@@ -128,8 +128,8 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  50 min · $89 member / $129 drop-in (Basic) · $99 / $139
-                  (specialty)
+                  50–90 min · From $99/person member · $139/person drop-in
+                  (Essential). Premier and Ultimate tiers available.
                 </p>
               </div>
             </li>
@@ -147,8 +147,8 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  50 min · $99 member / $139 drop-in · HydraFacial, Forever
-                  Young, Glow Getter, and more
+                  30–60 min · From $99/person member · $139/person drop-in
+                  (Essential). 13 treatments across 3 tiers.
                 </p>
               </div>
             </li>
@@ -185,7 +185,7 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  15–60 min · Starting at $49 · AI-powered autonomous massage
+                  30 or 60 min · Starting at $49 · AI-powered autonomous massage
                 </p>
               </div>
             </li>

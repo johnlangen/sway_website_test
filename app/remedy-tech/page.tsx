@@ -111,7 +111,7 @@ const RemedyRoomPage = () => {
             sauna, 5 minutes of cold plunge, 15 minutes of Normatec compression
             therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer
             Square in Denver. $25 for members, $49 drop-in. Pair with any of
-            Sway&apos;s 6 massage types or 6 facial treatments. Open Mon–Fri 10 AM–8
+            Sway&apos;s 18 massage types or 13 facial treatments. Open Mon–Fri 10 AM–8
             PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book at swaywellnessspa.com or
             call (303) 476-6150.
           </p>

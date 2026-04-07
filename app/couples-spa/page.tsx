@@ -88,36 +88,26 @@ export default function CouplesSpaPage() {
               <table className="w-full text-sm">
                 <thead className="bg-[#113D33] text-white">
                   <tr>
-                    <th className="text-left p-3">Massage</th>
+                    <th className="text-left p-3">Tier</th>
                     <th className="text-right p-3">Member</th>
                     <th className="text-right p-3">Drop-In</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-t border-[#d7e2dc]">
-                    <td className="p-3">Basic (50 min)</td>
-                    <td className="p-3 text-right">$89/person</td>
+                    <td className="p-3">Essential (50 min)</td>
+                    <td className="p-3 text-right">$99/person</td>
+                    <td className="p-3 text-right">$139/person</td>
+                  </tr>
+                  <tr className="border-t border-[#d7e2dc]">
+                    <td className="p-3">Premier (70 min)</td>
                     <td className="p-3 text-right">$129/person</td>
+                    <td className="p-3 text-right">$169/person</td>
                   </tr>
                   <tr className="border-t border-[#d7e2dc]">
-                    <td className="p-3">Deep Tissue (50 min)</td>
-                    <td className="p-3 text-right">$99/person</td>
-                    <td className="p-3 text-right">$139/person</td>
-                  </tr>
-                  <tr className="border-t border-[#d7e2dc]">
-                    <td className="p-3">Salt Stone (50 min)</td>
-                    <td className="p-3 text-right">$99/person</td>
-                    <td className="p-3 text-right">$139/person</td>
-                  </tr>
-                  <tr className="border-t border-[#d7e2dc]">
-                    <td className="p-3">Sports (50 min)</td>
-                    <td className="p-3 text-right">$99/person</td>
-                    <td className="p-3 text-right">$139/person</td>
-                  </tr>
-                  <tr className="border-t border-[#d7e2dc]">
-                    <td className="p-3">CBD (50 min)</td>
-                    <td className="p-3 text-right">$99/person</td>
-                    <td className="p-3 text-right">$139/person</td>
+                    <td className="p-3">Ultimate (90 min)</td>
+                    <td className="p-3 text-right">$159/person</td>
+                    <td className="p-3 text-right">$199/person</td>
                   </tr>
                 </tbody>
               </table>
@@ -134,15 +124,16 @@ export default function CouplesSpaPage() {
               >
                 facials
               </Link>{" "}
-              for a shared glow-up. All 50-minute facials are $99 member / $139
-              drop-in per person.
+              for a shared glow-up. 13 facial treatments across 3 tiers, from
+              $99/person member · $139/person drop-in (Essential). Premier and
+              Ultimate tiers also available.
             </p>
             <ul className="list-disc pl-6 space-y-1 text-sm">
               <li>Forever Young — anti-aging</li>
               <li>Glow Getter — brightening</li>
               <li>Pore Perfection — deep cleansing</li>
               <li>Sensitive Silk — calming</li>
-              <li>HydraFacial — hydration + radiance</li>
+              <li>And more across Premier and Ultimate tiers</li>
             </ul>
           </div>
 

@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "How much does a group spa day at Sway cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Individual treatments at Sway start at $89 (member) / $129 (drop-in) for a 50-minute massage, and $25 (member) / $49 (drop-in) for the Remedy Room recovery circuit. Group pricing depends on the size of your party and treatments selected. Contact Sway at (303) 476-6150 or contact@swaywellnessspa.com for group coordination.",
+        text: "Individual treatments at Sway start at $99 (member) / $139 (drop-in) for an Essential tier massage, with Premier ($129/$169) and Ultimate ($159/$199) tiers available. The Remedy Room is $25 (member) / $49 (drop-in). Group pricing depends on the size of your party and treatments selected. Contact Sway at (303) 476-6150 or contact@swaywellnessspa.com for group coordination.",
       },
     },
     {

@@ -595,7 +595,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 4,
       name: "Enjoy Your Treatment",
-      text: "Your therapist or esthetician will guide your session. Massages and facials are 50 minutes. The Remedy Room is a guided 40-minute recovery circuit through sauna, cold plunge, Normatec compression, and LED light therapy. Aescape robot massage sessions range from 15 to 60 minutes.",
+      text: "Your therapist or esthetician will guide your session. Massages range from 50 to 90 minutes and facials from 30 to 60 minutes depending on the tier. The Remedy Room is a guided 40-minute recovery circuit through sauna, cold plunge, Normatec compression, and LED light therapy. Aescape robot massage sessions are 30 or 60 minutes.",
     },
     {
       "@type": "HowToStep",

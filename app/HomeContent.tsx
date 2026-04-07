@@ -48,7 +48,7 @@ const SERVICES = [
     title: "Aescape",
     tagline: "AI-powered precision massage",
     description:
-      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. Sessions from 15 to 60 minutes.",
+      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 30 or 60 minute sessions.",
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",
@@ -63,7 +63,7 @@ const PRICING_CARDS = [
     items: ["Forever Young", "Glow Getter", "Pore Perfection", "Sensitive Silk"],
     memberPrice: "From $99",
     dropInPrice: "From $139",
-    duration: "50–60 min",
+    duration: "30–60 min",
     boosts: [
       { label: "Boost", member: "$10", dropIn: "$20" },
       { label: "Boost Plus", member: "$20", dropIn: "$40" },
@@ -95,7 +95,7 @@ const PRICING_CARDS = [
     items: ["AI Body Mapping", "Personalized Pressure", "Full Body", "Targeted Areas"],
     memberPrice: null,
     dropInPrice: "From $49",
-    duration: "15–60 min",
+    duration: "30–60 min",
     boosts: [],
   },
 ] as const;
@@ -134,15 +134,15 @@ const FAQ_ITEMS = [
   },
   {
     q: "What is Aescape?",
-    a: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 15–60 minutes.",
+    a: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 30 or 60 minutes.",
   },
   {
     q: "Do you offer memberships?",
-    a: "Yes. Memberships start at $99/month and include massages and facials at $99 each (regularly $139), 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
+    a: "Yes. Memberships start at $99/month and include massages and facials from $99 (regularly from $139) across three tiers — Essential, Premier, and Ultimate. Members also get 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
   },
   {
     q: "What should I book for a first visit?",
-    a: "Most guests start with a 50-minute facial or massage. If you want recovery-focused benefits, the Remedy Room pairs well. Many members do both in one visit.",
+    a: "Most guests start with an Essential tier massage or facial (50 minutes, from $99 member / $139 drop-in). If you want recovery-focused benefits, the Remedy Room pairs well. Many members do both in one visit.",
   },
   {
     q: "How do I book?",
@@ -168,18 +168,18 @@ export default function HomeContent() {
           Sway Wellness Spa is a modern wellness club at 1428 Larimer St. on
           Larimer Square in Denver, CO. Voted #4 Best Day Spa in America by
           USA Today 10Best and Best U.S. Day Spa by TZR 2026 Readers&apos; Choice
-          Awards. Sway offers 6 massage types, 6 facial treatments using
-          2 premium skincare brands (Eminence Organics, Dr. Dennis Gross),
-          4 recovery technologies in the Remedy Room, and AI-powered Aescape
-          robot massage. Massage therapy starts at $89/session for members
-          ($129 drop-in). Facials from $89 member ($129 drop-in). The Remedy
-          Room 40-minute recovery circuit with sauna, cold plunge,
-          Normatec compression, and LED light therapy is $25 member ($49
-          drop-in). Aescape sessions from $49 (15–60 minutes). Over 10
-          optional boost add-ons across services — members save 50% on all
-          boosts. Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM.
-          Memberships from $99/month. Book online at swaywellnessspa.com or
-          call (303) 476-6150.
+          Awards. Sway offers 18 massage types across 3 tiers, 13 facial
+          treatments across 3 tiers using 2 premium skincare brands (Eminence
+          Organics, Dr. Dennis Gross), 4 recovery technologies in the Remedy
+          Room, and AI-powered Aescape robot massage. Massage therapy starts
+          at $99/session for members ($139 drop-in). Facials from $99 member
+          ($139 drop-in). The Remedy Room 40-minute recovery circuit with
+          sauna, cold plunge, Normatec compression, and LED light therapy is
+          $25 member ($49 drop-in). Aescape sessions from $49 (30 or 60
+          minutes). Over 10 optional boost add-ons across services — members
+          save 50% on all boosts. Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM,
+          Sun 11 AM–6 PM. Memberships from $99/month. Book online at
+          swaywellnessspa.com or call (303) 476-6150.
         </p>
         <VideoBackground />
       </section>
