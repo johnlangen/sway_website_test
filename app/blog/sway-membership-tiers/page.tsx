@@ -176,14 +176,6 @@ export default function Page() {
           </div>
         </div>
 
-        <Image
-          src="/assets/facial1.jpg"
-          alt="Facial treatment at Sway Wellness Spa Denver"
-          width={800}
-          height={450}
-          className="rounded-2xl w-full h-[200px] md:h-[260px] object-cover"
-        />
-
         {/* Premier */}
         <div id="premier" className="scroll-mt-24 bg-white rounded-2xl overflow-hidden shadow-sm border-l-4 border-[#113D33]">
           <div className="bg-[#F0F4F0] px-6 py-5 border-b border-gray-100">
@@ -232,14 +224,6 @@ export default function Page() {
             </div>
           </div>
         </div>
-
-        <Image
-          src="/assets/massage2.jpg"
-          alt="Premier massage at Sway Wellness Spa Denver Larimer Square"
-          width={800}
-          height={450}
-          className="rounded-2xl w-full h-[200px] md:h-[260px] object-cover"
-        />
 
         {/* Ultimate */}
         <div id="ultimate" className="scroll-mt-24 bg-white rounded-2xl overflow-hidden shadow-sm">
