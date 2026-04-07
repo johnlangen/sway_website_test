@@ -9,6 +9,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const blogs = [
   {
+    slug: "sway-membership-tiers",
+    title: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
+    summary:
+      "We just launched three membership tiers designed to match exactly where you are in your wellness journey. Here's what's new, what's included, and which tier is right for you.",
+    tag: "Membership",
+    image: "/assets/homepage_photo6.jpg",
+    featured: true,
+  },
+  {
     slug: "best-date-night-ideas-denver",
     title: "Best Date Night Ideas in Denver",
     summary:

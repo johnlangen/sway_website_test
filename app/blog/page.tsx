@@ -62,6 +62,16 @@ export default function BlogPage() {
     blogPost: [
       {
         "@type": "BlogPosting",
+        headline: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
+        url: "https://swaywellnessspa.com/blog/sway-membership-tiers",
+        datePublished: "2026-04-07",
+        author: {
+          "@type": "Organization",
+          name: "Sway Wellness Team",
+        },
+      },
+      {
+        "@type": "BlogPosting",
         headline: "#4 Best Day Spa in America: Sway's First Year",
         url: "https://swaywellnessspa.com/blog/best-day-spa-in-america",
         datePublished: "2025-01-01",
