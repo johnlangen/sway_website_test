@@ -422,6 +422,9 @@ export default function MembershipPage() {
           <p className="text-center text-xs uppercase tracking-wider text-gray-500 mb-3">
             Every member gets
           </p>
+          <p className="text-center text-xs text-gray-400 mb-4">
+            Your membership works at all Sway and Spavia locations nationwide.
+          </p>
           <div className="flex flex-wrap justify-center gap-2">
             {memberPerks.map((perk, idx) => (
               <span

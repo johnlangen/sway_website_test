@@ -13,6 +13,7 @@ export default function Footer() {
         {/* Logo */}
         <div className="flex flex-col">
           <Image src="/assets/swaylogo.png" width={75} height={25} alt="Sway Logo" />
+          <span className="text-xs text-white/40 mt-1">Part of the Spavia family</span>
         </div>
 
         {/* Links */}
