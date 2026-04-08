@@ -1632,8 +1632,8 @@ export default function NewBookingFlow() {
                           </div>
                         )}
                         <div className="flex items-baseline justify-between">
-                          <span className="text-[#113D33] font-medium">{tierCovers ? "With monthly credit" : isUpgradeVisit ? "This visit" : "Total"}</span>
-                          <span className="text-2xl font-bold text-[#113D33]">{tierCovers && !hasBoosts ? "$0" : `$${total}`}</span>
+                          <span className="text-[#113D33] font-medium">{tierCovers ? "Member total" : isUpgradeVisit ? "This visit" : "Total"}</span>
+                          <span className="text-2xl font-bold text-[#113D33]">{tierCovers && !hasBoosts ? "Included*" : `$${total}`}</span>
                         </div>
                         {!isMember && (
                           <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
