@@ -1632,8 +1632,8 @@ export default function NewBookingFlow() {
                           </div>
                         )}
                         <div className="flex items-baseline justify-between">
-                          <span className="text-[#113D33] font-medium">{tierCovers ? "Member total" : isUpgradeVisit ? "This visit" : "Total"}</span>
-                          <span className="text-2xl font-bold text-[#113D33]">{tierCovers && !hasBoosts ? "Included" : `$${total}`}</span>
+                          <span className="text-[#113D33] font-medium">{tierCovers ? "With monthly credit" : isUpgradeVisit ? "This visit" : "Total"}</span>
+                          <span className="text-2xl font-bold text-[#113D33]">{tierCovers && !hasBoosts ? "$0" : `$${total}`}</span>
                         </div>
                         {!isMember && (
                           <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
@@ -1656,7 +1656,7 @@ export default function NewBookingFlow() {
 
                 {/* Member pricing note */}
                 <div className="rounded-xl bg-[#113D33]/[0.04] p-3 text-xs text-[#113D33]/70 leading-relaxed">
-                  Member pricing is automatically applied at checkout. If you have a membership credit or package, it will be applied to this visit.
+                  Your monthly membership credit will be applied at checkout. If your credit has already been used this month, the member rate of ${memberTier ? TIER_PRICING[memberTier].member : ""} applies instead of drop-in pricing.
                 </div>
 
                 {/* Security note */}
