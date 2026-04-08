@@ -168,7 +168,7 @@ const FacialsPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO — background image */}
-      <section className="relative h-[60vh] min-h-[400px] max-h-[600px]">
+      <section className="relative h-[45vh] min-h-[280px] md:h-[60vh] md:min-h-[400px] max-h-[600px]">
         <Image
           src="/assets/facialExperiences.png"
           alt="Facial Experiences at Sway Wellness Spa"
@@ -190,7 +190,7 @@ const FacialsPage = () => {
       </section>
 
       {/* INTRO SECTION */}
-      <section className="bg-[#F7F4E9] px-6 py-14 md:py-20 text-center">
+      <section className="bg-[#F7F4E9] px-6 py-10 md:py-20 text-center">
         <div className="max-w-3xl mx-auto">
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
@@ -281,12 +281,12 @@ const FacialsPage = () => {
 
               {/* Tier toggle */}
               <div className="px-6 pt-5">
-                <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
+                <div className="flex bg-[#113D33]/10 rounded-full p-1 gap-0.5 w-full sm:w-auto sm:inline-flex">
                   {facialTiers.map((tier) => (
                     <button
                       key={tier.key}
                       onClick={() => setSelectedTier(tier.key)}
-                      className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                      className={`flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                         selectedTier === tier.key
                           ? "bg-[#113D33] text-white shadow-sm"
                           : "text-[#113D33]/60 hover:text-[#113D33]"
