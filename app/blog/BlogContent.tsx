@@ -14,7 +14,7 @@ const blogs = [
     summary:
       "We just launched three membership tiers designed to match exactly where you are in your wellness journey. Here's what's new, what's included, and which tier is right for you.",
     tag: "Membership",
-    image: "/assets/homepage_photo6.jpg",
+    image: "/assets/join2.jpg",
     featured: true,
   },
   {
@@ -56,7 +56,6 @@ const blogs = [
       "USA Today 10Best voted Sway #4 Best Day Spa in America. A look back at year one on Larimer Square and what's inside Denver's modern wellness club.",
     tag: "Award",
     image: "/assets/homepage_photo_outside.jpg",
-    featured: true,
   },
   {
     slug: "holiday-wellness-guide",
