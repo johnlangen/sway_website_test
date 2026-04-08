@@ -1656,7 +1656,7 @@ export default function NewBookingFlow() {
 
                 {/* Member pricing note */}
                 <div className="rounded-xl bg-[#113D33]/[0.04] p-3 text-xs text-[#113D33]/70 leading-relaxed">
-                  Your monthly membership credit will be applied at checkout. If your credit has already been used this month, the member rate of ${memberTier ? TIER_PRICING[memberTier].member : ""} applies instead of drop-in pricing.
+                  Your monthly membership credit will be applied at checkout. If your credit has already been used this month, standard pricing applies for this visit.
                 </div>
 
                 {/* Security note */}
