@@ -35,7 +35,13 @@ function detectTierFromName(name: string): MembershipTier {
   if (lower.includes("premier")) return "premier";
   if (lower.includes("essential")) return "essential";
   // Legacy members absorbed into premier
-  if (lower.includes("spa membership") || lower.includes("wellness membership"))
+  if (
+    lower.includes("spa club") ||
+    lower.includes("spa membership") ||
+    lower.includes("wellness membership") ||
+    lower.includes("sway club") ||
+    lower.includes("sway membership")
+  )
     return "premier";
   // Cross-regional "premier membership" etc
   if (lower.includes("membership")) {
@@ -169,9 +175,15 @@ export async function GET(req: Request) {
       const contracts = contractsData?.Contracts ?? [];
 
       for (const contract of contracts) {
+        const termDate = contract.TerminationDate ?? "";
+        // Mindbody returns "0001-01-01T00:00:00Z" as a null/empty termination date
+        const isRealTermination =
+          termDate &&
+          !termDate.startsWith("0001-01-01") &&
+          termDate !== "" &&
+          new Date(termDate) < new Date();
         const isActive =
-          contract.IsActive === true ||
-          (contract.AgreementDate && !contract.TerminationDate);
+          contract.IsActive !== false && !isRealTermination;
         if (!isActive) continue;
 
         const name = contract.Name ?? contract.ContractName ?? "";

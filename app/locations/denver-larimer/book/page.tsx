@@ -832,7 +832,7 @@ export default function NewBookingFlow() {
             <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3 leading-tight">Book Your Experience</h1>
             <p className="text-base md:text-lg text-[#113D33]/60 max-w-md mx-auto mb-10">How would you like to get started?</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+            <div className={`grid gap-4 max-w-lg mx-auto ${welcomeShowEmail ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
               {/* Member card */}
               <div className="bg-white rounded-2xl border border-[#113D33]/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 {!welcomeShowEmail ? (
