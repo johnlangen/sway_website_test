@@ -145,153 +145,96 @@ export async function GET(req: Request) {
     }
 
     // Exact email match (case-insensitive) — Mindbody searchText is fuzzy
-    const client = clients.find(
+    // Multiple clients can share the same email — collect all matches
+    const matchingClients = clients.filter(
       (c: any) => (c.Email ?? "").trim().toLowerCase() === email
     );
-    if (!client) {
+    if (matchingClients.length === 0) {
       return NextResponse.json(NOT_FOUND);
     }
-    const clientId = String(client.Id ?? client.UniqueId);
-    const firstName = client.FirstName ?? null;
-    const hasCardOnFile = !!(
-      client.ClientCreditCard?.CardNumber &&
-      client.ClientCreditCard.CardNumber !== ""
-    );
 
-    /* ── Step 2: Check local contracts first (fast path) ── */
-    const contractsUrl = new URL(
-      "https://api.mindbodyonline.com/public/v6/client/clientcontracts"
-    );
-    contractsUrl.searchParams.set("request.clientId", clientId);
-
-    const contractsRes = await fetch(contractsUrl.toString(), {
-      headers: mbHeaders,
-    });
-
-    let tier: MembershipTier = null;
-
-    if (contractsRes.ok) {
-      const contractsData = await contractsRes.json();
-      const contracts = contractsData?.Contracts ?? [];
-
-      for (const contract of contracts) {
-        const termDate = contract.TerminationDate ?? "";
-        // Mindbody returns "0001-01-01T00:00:00Z" as a null/empty termination date
-        const isRealTermination =
-          termDate &&
-          !termDate.startsWith("0001-01-01") &&
-          termDate !== "" &&
-          new Date(termDate) < new Date();
-        const isActive =
-          contract.IsActive !== false && !isRealTermination;
-        if (!isActive) continue;
-
-        const name = contract.Name ?? contract.ContractName ?? "";
-        const detected = detectTierFromName(name);
-
-        if (detected === "ultimate") {
-          tier = "ultimate";
-          break;
-        }
-        if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) {
-          tier = detected;
-        }
-      }
-    }
-
-    // If local membership found, return immediately — no cross-regional needed
-    if (tier) {
-      return NextResponse.json({
-        found: true,
-        isMember: true,
-        tier,
-        firstName,
-        clientId,
-        hasCardOnFile,
-        homeLocation: null, // local member, no need to show location
-        isLocalMember: true,
-      });
-    }
-
-    /* ── Step 3: Cross-regional membership check ── */
-    // One API call to get active memberships across ALL sites in the org
-    const membershipUrl = new URL(
-      "https://api.mindbodyonline.com/public/v6/client/activeclientmemberships"
-    );
-    membershipUrl.searchParams.set("request.clientId", clientId);
-    membershipUrl.searchParams.set("request.crossRegionalLookup", "true");
-
-    const membershipRes = await fetch(membershipUrl.toString(), {
-      headers: mbHeaders,
-    });
-
-    if (membershipRes.ok) {
-      const membershipData = await membershipRes.json();
-      const memberships = membershipData?.ClientMemberships ?? [];
-
-      // Find the highest tier from any active membership across all sites
-      let bestTier: MembershipTier = null;
-      let bestSiteId: number | null = null;
-
-      for (const m of memberships) {
-        if (!m.Current) continue;
-        const name = m.Name ?? "";
-        const detected = detectTierFromName(name);
-        if (
-          detected &&
-          (!bestTier || TIER_RANK[detected] > TIER_RANK[bestTier])
-        ) {
-          bestTier = detected;
-          bestSiteId = m.SiteId ?? null;
-        }
-        if (bestTier === "ultimate") break; // highest possible
-      }
-
-      if (bestTier) {
-        // Look up the site name for the home location (null for local memberships)
-        const siteName = bestSiteId ? await getSiteName(bestSiteId, apiKey) : null;
-
-        return NextResponse.json({
-          found: true,
-          isMember: true,
-          tier: bestTier,
-          firstName,
-          clientId,
-          hasCardOnFile,
-          homeLocation: siteName,
-          isLocalMember: false,
-        });
-      }
-    } else {
-      console.error(
-        "[MEMBERSHIP CHECK] Cross-regional lookup failed:",
-        membershipRes.status
+    /* ── Steps 2–4: Check each matching client for a membership ──
+       Multiple clients can share the same email in Mindbody (duplicates).
+       Try each one — return the first that has an active membership. */
+    for (const client of matchingClients) {
+      const clientId = String(client.Id ?? client.UniqueId);
+      const firstName = client.FirstName ?? null;
+      const hasCardOnFile = !!(
+        client.ClientCreditCard?.CardNumber &&
+        client.ClientCreditCard.CardNumber !== ""
       );
+
+      // Step 2: local contracts
+      let tier: MembershipTier = null;
+      const contractsUrl = new URL(
+        "https://api.mindbodyonline.com/public/v6/client/clientcontracts"
+      );
+      contractsUrl.searchParams.set("request.clientId", clientId);
+      const contractsRes = await fetch(contractsUrl.toString(), { headers: mbHeaders });
+
+      if (contractsRes.ok) {
+        const contracts = (await contractsRes.json())?.Contracts ?? [];
+        for (const contract of contracts) {
+          const termDate = contract.TerminationDate ?? "";
+          const isRealTermination =
+            termDate &&
+            !termDate.startsWith("0001-01-01") &&
+            termDate !== "" &&
+            new Date(termDate) < new Date();
+          if (contract.IsActive === false || isRealTermination) continue;
+          const detected = detectTierFromName(contract.Name ?? contract.ContractName ?? "");
+          if (detected === "ultimate") { tier = "ultimate"; break; }
+          if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) tier = detected;
+        }
+      }
+
+      if (tier) {
+        return NextResponse.json({ found: true, isMember: true, tier, firstName, clientId, hasCardOnFile, homeLocation: null, isLocalMember: true });
+      }
+
+      // Step 3: cross-regional memberships
+      const membershipUrl = new URL(
+        "https://api.mindbodyonline.com/public/v6/client/activeclientmemberships"
+      );
+      membershipUrl.searchParams.set("request.clientId", clientId);
+      membershipUrl.searchParams.set("request.crossRegionalLookup", "true");
+      const membershipRes = await fetch(membershipUrl.toString(), { headers: mbHeaders });
+
+      if (membershipRes.ok) {
+        const memberships = (await membershipRes.json())?.ClientMemberships ?? [];
+        let bestTier: MembershipTier = null;
+        let bestSiteId: number | null = null;
+        for (const m of memberships) {
+          if (!m.Current) continue;
+          const detected = detectTierFromName(m.Name ?? "");
+          if (detected && (!bestTier || TIER_RANK[detected] > TIER_RANK[bestTier])) {
+            bestTier = detected;
+            bestSiteId = m.SiteId ?? null;
+          }
+          if (bestTier === "ultimate") break;
+        }
+        if (bestTier) {
+          const siteName = bestSiteId ? await getSiteName(bestSiteId, apiKey) : null;
+          return NextResponse.json({ found: true, isMember: true, tier: bestTier, firstName, clientId, hasCardOnFile, homeLocation: siteName, isLocalMember: !bestSiteId });
+        }
+      }
+
+      // Step 4: status field fallback
+      const status = (client.Status ?? "").toLowerCase();
+      if (status.includes("member") && status !== "non-member") {
+        return NextResponse.json({ found: true, isMember: true, tier: "premier" as MembershipTier, firstName, clientId, hasCardOnFile, homeLocation: null, isLocalMember: false });
+      }
     }
 
-    /* ── Step 4: Fallback — check client status field ── */
-    const status = (client.Status ?? "").toLowerCase();
-    if (status.includes("member") && status !== "non-member") {
-      return NextResponse.json({
-        found: true,
-        isMember: true,
-        tier: "premier" as MembershipTier,
-        firstName,
-        clientId,
-        hasCardOnFile,
-        homeLocation: null,
-        isLocalMember: false,
-      });
-    }
-
-    // Client found but no membership anywhere
+    // Found in Mindbody but no membership on any matching client
+    const fallbackClient = matchingClients[0];
     return NextResponse.json({
       found: true,
       isMember: false,
       tier: null,
-      firstName,
-      clientId,
-      hasCardOnFile,
+      firstName: fallbackClient.FirstName ?? null,
+      clientId: String(fallbackClient.Id ?? fallbackClient.UniqueId),
+      hasCardOnFile: !!(fallbackClient.ClientCreditCard?.CardNumber && fallbackClient.ClientCreditCard.CardNumber !== ""),
       homeLocation: null,
       isLocalMember: false,
     });
