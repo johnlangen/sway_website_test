@@ -153,10 +153,29 @@ export async function GET(req: Request) {
       return NextResponse.json(NOT_FOUND);
     }
 
-    /* ── Steps 2–4: Check each matching client for a membership ──
-       Multiple clients can share the same email in Mindbody (duplicates).
-       Try each one — return the first that has an active membership. */
-    for (const client of matchingClients) {
+    // If multiple clients share this email AND a specific clientId was provided,
+    // only check that one. Otherwise if >1 match, ask the user to identify themselves.
+    const { searchParams } = new URL(req.url);
+    const requestedClientId = searchParams.get("clientId");
+
+    let clientsToCheck = matchingClients;
+    if (requestedClientId) {
+      const specific = matchingClients.find((c: any) => String(c.Id ?? c.UniqueId) === requestedClientId);
+      if (specific) clientsToCheck = [specific];
+    } else if (matchingClients.length > 1) {
+      // Return the list so the frontend can ask "Which one are you?"
+      return NextResponse.json({
+        found: true,
+        multipleClients: matchingClients.map((c: any) => ({
+          firstName: c.FirstName ?? "Guest",
+          lastName: c.LastName ?? "",
+          clientId: String(c.Id ?? c.UniqueId),
+        })),
+      });
+    }
+
+    /* ── Steps 2–4: Check each matching client for a membership ── */
+    for (const client of clientsToCheck) {
       const clientId = String(client.Id ?? client.UniqueId);
       const firstName = client.FirstName ?? null;
       const hasCardOnFile = !!(

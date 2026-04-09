@@ -357,34 +357,55 @@ export default function NewBookingFlow() {
 
   // Welcome step: member check then advance to category
   const [welcomeShowEmail, setWelcomeShowEmail] = useState(false);
-  const [welcomeResult, setWelcomeResult] = useState<"found" | "not_found" | null>(null);
+  const [welcomeResult, setWelcomeResult] = useState<"found" | "not_found" | "multiple" | null>(null);
+  const [welcomeMultipleClients, setWelcomeMultipleClients] = useState<{firstName: string; lastName: string; clientId: string}[]>([]);
+
+  const applyMemberData = (data: any, normalized: string) => {
+    setClientId(data.clientId ?? null);
+    setIsMember(data.isMember ?? false);
+    setMemberTier(data.tier ?? null);
+    setMemberFirstName(data.firstName ?? null);
+    setHasCardOnFile(data.hasCardOnFile ?? false);
+    setHomeLocation(data.homeLocation ?? null);
+    setMemberCheckDone(true);
+    if (data.isMember && data.tier) {
+      saveEmail(normalized);
+      setTreatmentTierFilter(data.tier);
+      setWelcomeResult("found");
+      setTimeout(() => setStep("category"), 1500);
+    } else {
+      setWelcomeResult("not_found");
+    }
+  };
+
   const handleWelcomeMemberCheck = async () => {
     const normalized = normalizeEmail(email);
     if (!isValidEmail(normalized)) { setError("Please enter a valid email address"); return; }
     setLoading(true); setError(null); setWelcomeResult(null);
     try {
       const res = await fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}`);
-      if (!res.ok) {
-        setError("Something went wrong checking your membership. Please try again or continue as a guest.");
-        setLoading(false);
-        return;
-      }
+      if (!res.ok) { setError("Something went wrong. Please try again or continue as a guest."); setLoading(false); return; }
       const data = await res.json();
-      setClientId(data.clientId ?? null);
-      setIsMember(data.isMember ?? false);
-      setMemberTier(data.tier ?? null);
-      setMemberFirstName(data.firstName ?? null);
-      setHasCardOnFile(data.hasCardOnFile ?? false);
-      setHomeLocation(data.homeLocation ?? null);
-      setMemberCheckDone(true);
-      if (data.isMember && data.tier) {
-        saveEmail(normalized);
-        setTreatmentTierFilter(data.tier);
-        setWelcomeResult("found");
-        setTimeout(() => setStep("category"), 1500);
+      if (data.multipleClients?.length > 1) {
+        setWelcomeMultipleClients(data.multipleClients);
+        setWelcomeResult("multiple");
       } else {
-        setWelcomeResult("not_found");
+        applyMemberData(data, normalized);
       }
+    } catch {
+      setError("Unable to check membership right now. Please try again.");
+    }
+    setLoading(false);
+  };
+
+  const handleWelcomeClientSelect = async (clientId: string) => {
+    const normalized = normalizeEmail(email);
+    setLoading(true); setError(null);
+    try {
+      const res = await fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}&clientId=${clientId}`);
+      if (!res.ok) { setError("Something went wrong. Please try again."); setLoading(false); return; }
+      const data = await res.json();
+      applyMemberData(data, normalized);
     } catch {
       setError("Unable to check membership right now. Please try again.");
     }
@@ -851,6 +872,21 @@ export default function NewBookingFlow() {
                     <h3 className="text-lg font-bold text-[#113D33]">Welcome back, {memberFirstName}!</h3>
                     <p className="text-sm text-[#4A776D] font-semibold capitalize">{memberTier} Member</p>
                     {homeLocation && <p className="text-xs text-[#113D33]/50 mt-1">{homeLocation}</p>}
+                  </div>
+                ) : welcomeResult === "multiple" ? (
+                  <div className="p-6 space-y-3">
+                    <p className="text-sm font-bold text-[#113D33]">We found multiple accounts — which one are you?</p>
+                    <div className="flex flex-col gap-2">
+                      {welcomeMultipleClients.map((c) => (
+                        <button key={c.clientId} onClick={() => handleWelcomeClientSelect(c.clientId)}
+                          className="w-full py-3 px-4 rounded-xl border border-[#113D33]/15 text-sm font-semibold text-[#113D33] hover:bg-[#113D33]/5 transition-colors text-left">
+                          {c.firstName} {c.lastName}
+                        </button>
+                      ))}
+                    </div>
+                    <button onClick={() => { setWelcomeResult(null); setEmail(""); }} className="text-xs text-[#113D33]/40 hover:text-[#113D33] w-full text-center pt-1">
+                      Try a different email
+                    </button>
                   </div>
                 ) : welcomeResult === "not_found" ? (
                   <div className="p-6 space-y-3">
