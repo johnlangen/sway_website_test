@@ -247,9 +247,9 @@ export async function GET(req: Request) {
         if (bestTier === "ultimate") break; // highest possible
       }
 
-      if (bestTier && bestSiteId) {
-        // Look up the site name for the home location
-        const siteName = await getSiteName(bestSiteId, apiKey);
+      if (bestTier) {
+        // Look up the site name for the home location (null for local memberships)
+        const siteName = bestSiteId ? await getSiteName(bestSiteId, apiKey) : null;
 
         return NextResponse.json({
           found: true,
