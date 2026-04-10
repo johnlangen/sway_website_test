@@ -612,10 +612,12 @@ export default function BookRemedyRoomPage() {
     setAutoCheckDone(true);
     setEmail(saved);
     setLoading(true);
-    fetch(`/api/membership/check?email=${encodeURIComponent(saved)}`)
+    const savedClientId = typeof window !== "undefined" ? localStorage.getItem("sway_booking_client_id") : null;
+    const url = `/api/membership/check?email=${encodeURIComponent(saved)}${savedClientId ? `&clientId=${savedClientId}` : ""}`;
+    fetch(url)
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
-        if (!data || !data.found) { clearSavedEmail(); setEmail(""); setLoading(false); return; }
+        if (data?.multipleClients || !data || !data.found) { clearSavedEmail(); setEmail(""); setLoading(false); return; }
         setClientId(data.clientId ?? null);
         setIsMember(data.isMember ?? false);
         setMemberTier(data.tier ?? null);

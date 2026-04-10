@@ -245,6 +245,7 @@ function ProgressBarNew({ step }: { step: Step }) {
 ================================================================ */
 
 const SAVED_EMAIL_KEY = "sway_booking_email";
+const SAVED_CLIENT_KEY = "sway_booking_client_id";
 
 export default function NewBookingFlow() {
   const [step, setStep] = useState<Step>("welcome");
@@ -271,9 +272,13 @@ export default function NewBookingFlow() {
     setAutoCheckDone(true);
     setEmail(saved);
     setLoading(true);
-    fetch(`/api/membership/check?email=${encodeURIComponent(saved)}`)
+    const savedClientId = typeof window !== "undefined" ? localStorage.getItem(SAVED_CLIENT_KEY) : null;
+    const url = `/api/membership/check?email=${encodeURIComponent(saved)}${savedClientId ? `&clientId=${savedClientId}` : ""}`;
+    fetch(url)
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
+        // If multiple clients and no saved clientId, clear and show fresh welcome
+        if (data?.multipleClients) { clearSavedEmail(); setEmail(""); setLoading(false); return; }
         if (!data || !data.found) { clearSavedEmail(); setEmail(""); setLoading(false); return; }
         setClientId(data.clientId ?? null);
         setIsMember(data.isMember ?? false);
@@ -337,7 +342,8 @@ export default function NewBookingFlow() {
 
   /* -- helpers -- */
   const saveEmail = (e: string) => { try { localStorage.setItem(SAVED_EMAIL_KEY, e); } catch {} };
-  const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); } catch {} };
+  const saveClientId = (id: string) => { try { localStorage.setItem(SAVED_CLIENT_KEY, id); } catch {} };
+  const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); localStorage.removeItem(SAVED_CLIENT_KEY); } catch {} };
   const handleSwitchAccount = () => {
     clearSavedEmail();
     setEmail(""); setClientId(null); setIsMember(false); setMemberTier(null);
@@ -368,6 +374,7 @@ export default function NewBookingFlow() {
     setHasCardOnFile(data.hasCardOnFile ?? false);
     setHomeLocation(data.homeLocation ?? null);
     setMemberCheckDone(true);
+    if (data.clientId) saveClientId(data.clientId);
     if (data.isMember && data.tier) {
       saveEmail(normalized);
       setTreatmentTierFilter(data.tier);
