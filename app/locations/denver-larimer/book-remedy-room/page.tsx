@@ -615,7 +615,7 @@ export default function BookRemedyRoomPage() {
     fetch(`/api/membership/check?email=${encodeURIComponent(saved)}`)
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
-        if (!data || !data.found) { setLoading(false); return; }
+        if (!data || !data.found) { clearSavedEmail(); setEmail(""); setLoading(false); return; }
         setClientId(data.clientId ?? null);
         setIsMember(data.isMember ?? false);
         setMemberTier(data.tier ?? null);
