@@ -264,6 +264,8 @@ export default function NewBookingFlow() {
   const [memberFirstName, setMemberFirstName] = useState<string | null>(null);
   const [hasCardOnFile, setHasCardOnFile] = useState(false);
   const [homeLocation, setHomeLocation] = useState<string | null>(null);
+  const [hasAescapeMembership, setHasAescapeMembership] = useState(false);
+  const [hasRemedyMembership, setHasRemedyMembership] = useState(false);
 
   // Auto-check saved email on mount
   useEffect(() => {
@@ -286,6 +288,8 @@ export default function NewBookingFlow() {
         setMemberFirstName(data.firstName ?? null);
         setHasCardOnFile(data.hasCardOnFile ?? false);
         setHomeLocation(data.homeLocation ?? null);
+        setHasAescapeMembership(data.hasAescapeMembership ?? false);
+        setHasRemedyMembership(data.hasRemedyMembership ?? false);
         setMemberCheckDone(true);
         if (data.isMember && data.tier) setTreatmentTierFilter(data.tier);
         setStep("category"); // skip welcome
@@ -348,6 +352,7 @@ export default function NewBookingFlow() {
     clearSavedEmail();
     setEmail(""); setClientId(null); setIsMember(false); setMemberTier(null);
     setMemberFirstName(null); setHasCardOnFile(false); setHomeLocation(null);
+    setHasAescapeMembership(false); setHasRemedyMembership(false);
     setMemberCheckDone(false); setWelcomeShowEmail(false); setWelcomeResult(null);
     setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null);
     setStep("welcome");
@@ -373,11 +378,14 @@ export default function NewBookingFlow() {
     setMemberFirstName(data.firstName ?? null);
     setHasCardOnFile(data.hasCardOnFile ?? false);
     setHomeLocation(data.homeLocation ?? null);
+    setHasAescapeMembership(data.hasAescapeMembership ?? false);
+    setHasRemedyMembership(data.hasRemedyMembership ?? false);
     setMemberCheckDone(true);
     if (data.clientId) saveClientId(data.clientId);
-    if (data.isMember && data.tier) {
+    const hasAnyMembership = (data.isMember && data.tier) || data.hasAescapeMembership || data.hasRemedyMembership;
+    if (hasAnyMembership) {
       saveEmail(normalized);
-      setTreatmentTierFilter(data.tier);
+      if (data.tier) setTreatmentTierFilter(data.tier);
       setWelcomeResult("found");
       setTimeout(() => setStep("category"), 1500);
     } else {
@@ -835,16 +843,25 @@ export default function NewBookingFlow() {
         </AnimatePresence>
 
         {/* Persistent identity banner — members + remembered guests */}
-        {memberCheckDone && clientId && ["category", "treatment", "boosts", "time", "account", "confirm"].includes(step) && (
-          <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${isMember ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
-            {isMember && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+        {memberCheckDone && clientId && ["category", "treatment", "boosts", "time", "account", "confirm"].includes(step) && (() => {
+          const anyMember = isMember || hasAescapeMembership || hasRemedyMembership;
+          const memberLabel = isMember && memberTier
+            ? <><span className="capitalize font-semibold">{memberTier}</span> Member</>
+            : hasAescapeMembership ? <span className="font-semibold">Aescape Member</span>
+            : hasRemedyMembership ? <span className="font-semibold">Remedy Room Member</span>
+            : null;
+          return (
+          <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${anyMember ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
+            {anyMember && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
             <p className="text-sm">
               <span className="font-bold">{memberFirstName ?? email}</span>
-              {isMember && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-              {homeLocation && <span className={isMember ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
+              {memberLabel && <> · {memberLabel}</>}
+              {homeLocation && <span className={anyMember ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
             </p>
-            <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isMember ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
+            <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${anyMember ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
           </div>
+          );
+        })()
         )}
 
         {/* ===== WELCOME ===== */}

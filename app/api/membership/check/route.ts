@@ -33,6 +33,8 @@ const TIER_RANK: Record<string, number> = { essential: 1, premier: 2, ultimate: 
  */
 function detectTierFromName(name: string): MembershipTier {
   const lower = name.toLowerCase();
+  // Aescape and Remedy Room are NOT spa tier memberships — skip them
+  if (lower.includes("aescape") || lower.includes("remedy")) return null;
   if (lower.includes("ultimate")) return "ultimate";
   if (lower.includes("premier")) return "premier";
   if (lower.includes("essential")) return "essential";
