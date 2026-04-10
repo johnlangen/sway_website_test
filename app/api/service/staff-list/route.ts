@@ -183,6 +183,9 @@ export async function GET(req: Request) {
 
       const name = cleanStaffName(displayName);
 
+      // Hide specific staff who can't be removed from Mindbody
+      if (name && /^amber$/i.test(name)) continue;
+
       if (name) {
         staff.push({ id: Number(id), name });
       }

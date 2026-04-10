@@ -19,6 +19,8 @@ export const runtime = "nodejs";
  *     hasCardOnFile: boolean,
  *     homeLocation: string | null,   // e.g. "Spavia Park Meadows, CO"
  *     isLocalMember: boolean,         // true if membership is at this site
+ *     hasAescapeMembership: boolean,  // true if aescape-specific membership
+ *     hasRemedyMembership: boolean,   // true if remedy-room-specific membership
  *   }
  */
 
@@ -111,6 +113,8 @@ export async function GET(req: Request) {
     hasCardOnFile: false,
     homeLocation: null,
     isLocalMember: false,
+    hasAescapeMembership: false,
+    hasRemedyMembership: false,
   };
 
   try {
@@ -183,8 +187,13 @@ export async function GET(req: Request) {
         client.ClientCreditCard.CardNumber !== ""
       );
 
-      // Step 2: local contracts
       let tier: MembershipTier = null;
+      let hasAescapeMembership = false;
+      let hasRemedyMembership = false;
+      let homeLocation: string | null = null;
+      let isLocalMember = false;
+
+      // Step 2: local contracts — scan ALL active contracts for spa tier + aescape + remedy
       const contractsUrl = new URL(
         "https://api.mindbodyonline.com/public/v6/client/clientcontracts"
       );
@@ -201,47 +210,70 @@ export async function GET(req: Request) {
             termDate !== "" &&
             new Date(termDate) < new Date();
           if (contract.IsActive === false || isRealTermination) continue;
+
+          const contractName = (contract.Name ?? contract.ContractName ?? "").toLowerCase();
+
+          // Check for aescape / remedy specific memberships
+          if (contractName.includes("aescape")) hasAescapeMembership = true;
+          if (contractName.includes("remedy")) hasRemedyMembership = true;
+
+          // Check for spa tier
           const detected = detectTierFromName(contract.Name ?? contract.ContractName ?? "");
-          if (detected === "ultimate") { tier = "ultimate"; break; }
           if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) tier = detected;
         }
       }
 
       if (tier) {
-        return NextResponse.json({ found: true, isMember: true, tier, firstName, clientId, hasCardOnFile, homeLocation: null, isLocalMember: true });
+        isLocalMember = true;
       }
 
-      // Step 3: cross-regional memberships
-      const membershipUrl = new URL(
-        "https://api.mindbodyonline.com/public/v6/client/activeclientmemberships"
-      );
-      membershipUrl.searchParams.set("request.clientId", clientId);
-      membershipUrl.searchParams.set("request.crossRegionalLookup", "true");
-      const membershipRes = await fetch(membershipUrl.toString(), { headers: mbHeaders });
+      // Step 3: cross-regional memberships (only if no local spa tier found)
+      if (!tier) {
+        const membershipUrl = new URL(
+          "https://api.mindbodyonline.com/public/v6/client/activeclientmemberships"
+        );
+        membershipUrl.searchParams.set("request.clientId", clientId);
+        membershipUrl.searchParams.set("request.crossRegionalLookup", "true");
+        const membershipRes = await fetch(membershipUrl.toString(), { headers: mbHeaders });
 
-      if (membershipRes.ok) {
-        const memberships = (await membershipRes.json())?.ClientMemberships ?? [];
-        let bestTier: MembershipTier = null;
-        let bestSiteId: number | null = null;
-        for (const m of memberships) {
-          if (!m.Current) continue;
-          const detected = detectTierFromName(m.Name ?? "");
-          if (detected && (!bestTier || TIER_RANK[detected] > TIER_RANK[bestTier])) {
-            bestTier = detected;
-            bestSiteId = m.SiteId ?? null;
+        if (membershipRes.ok) {
+          const memberships = (await membershipRes.json())?.ClientMemberships ?? [];
+          let bestSiteId: number | null = null;
+          for (const m of memberships) {
+            if (!m.Current) continue;
+            const mName = (m.Name ?? "").toLowerCase();
+
+            // Check for aescape / remedy specific memberships
+            if (mName.includes("aescape")) hasAescapeMembership = true;
+            if (mName.includes("remedy")) hasRemedyMembership = true;
+
+            const detected = detectTierFromName(m.Name ?? "");
+            if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) {
+              tier = detected;
+              bestSiteId = m.SiteId ?? null;
+            }
           }
-          if (bestTier === "ultimate") break;
-        }
-        if (bestTier) {
-          const siteName = bestSiteId ? await getSiteName(bestSiteId, apiKey) : null;
-          return NextResponse.json({ found: true, isMember: true, tier: bestTier, firstName, clientId, hasCardOnFile, homeLocation: siteName, isLocalMember: !bestSiteId });
+          if (tier && bestSiteId) {
+            homeLocation = await getSiteName(bestSiteId, apiKey);
+          }
         }
       }
 
       // Step 4: status field fallback
-      const status = (client.Status ?? "").toLowerCase();
-      if (status.includes("member") && status !== "non-member") {
-        return NextResponse.json({ found: true, isMember: true, tier: "premier" as MembershipTier, firstName, clientId, hasCardOnFile, homeLocation: null, isLocalMember: false });
+      if (!tier) {
+        const status = (client.Status ?? "").toLowerCase();
+        if (status.includes("member") && status !== "non-member") {
+          tier = "premier";
+        }
+      }
+
+      const isMember = !!tier;
+      if (isMember || hasAescapeMembership || hasRemedyMembership) {
+        return NextResponse.json({
+          found: true, isMember, tier, firstName, clientId, hasCardOnFile,
+          homeLocation, isLocalMember,
+          hasAescapeMembership, hasRemedyMembership,
+        });
       }
     }
 
@@ -256,6 +288,8 @@ export async function GET(req: Request) {
       hasCardOnFile: !!(fallbackClient.ClientCreditCard?.CardNumber && fallbackClient.ClientCreditCard.CardNumber !== ""),
       homeLocation: null,
       isLocalMember: false,
+      hasAescapeMembership: false,
+      hasRemedyMembership: false,
     });
   } catch (err: any) {
     console.error("[MEMBERSHIP CHECK] Error:", err?.message ?? err);

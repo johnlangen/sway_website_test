@@ -450,6 +450,28 @@ export default function BookAescapePage() {
   // Notification preferences
   const [marketingOptIn, setMarketingOptIn] = useState(true);
 
+  // Membership state
+  const SAVED_EMAIL_KEY = "sway_booking_email";
+  const [isMember, setIsMember] = useState(false);
+  const [memberTier, setMemberTier] = useState<string | null>(null);
+  const [memberFirstName, setMemberFirstName] = useState<string | null>(null);
+  const [hasAescapeMembership, setHasAescapeMembership] = useState(false);
+  const [hasCardOnFile, setHasCardOnFile] = useState(false);
+  const [homeLocation, setHomeLocation] = useState<string | null>(null);
+  const [memberCheckDone, setMemberCheckDone] = useState(false);
+  const [autoCheckDone, setAutoCheckDone] = useState(false);
+
+  const saveEmail = (e: string) => { try { localStorage.setItem(SAVED_EMAIL_KEY, e); } catch {} };
+  const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); } catch {} };
+  const handleSwitchAccount = () => {
+    clearSavedEmail();
+    setEmail(""); setClientId(null); setIsMember(false); setMemberTier(null);
+    setMemberFirstName(null); setHasAescapeMembership(false); setHasCardOnFile(false);
+    setHomeLocation(null); setMemberCheckDone(false);
+    setCardContext(null);
+    setStep("select");
+  };
+
   // Uncontrolled card input refs (so card data is never in React state)
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
@@ -554,6 +576,33 @@ export default function BookAescapePage() {
       body.style.scrollSnapType = prevBodySnap;
     };
   }, []);
+
+  /* ---------------------------------------------
+     AUTO-CHECK SAVED EMAIL ON MOUNT
+  --------------------------------------------- */
+
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? localStorage.getItem(SAVED_EMAIL_KEY) : null;
+    if (!saved || autoCheckDone) return;
+    setAutoCheckDone(true);
+    setEmail(saved);
+    setLoading(true);
+    fetch(`/api/membership/check?email=${encodeURIComponent(saved)}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data || !data.found) { setLoading(false); return; }
+        setClientId(data.clientId ?? null);
+        setIsMember(data.isMember ?? false);
+        setMemberTier(data.tier ?? null);
+        setMemberFirstName(data.firstName ?? null);
+        setHasAescapeMembership(data.hasAescapeMembership ?? false);
+        setHomeLocation(data.homeLocation ?? null);
+        setHasCardOnFile(data.hasCardOnFile ?? false);
+        setMemberCheckDone(true);
+      })
+      .catch(() => { clearSavedEmail(); setEmail(""); })
+      .finally(() => setLoading(false));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ---------------------------------------------
      MOBILE STEP SCROLL (UI ONLY)
@@ -672,16 +721,26 @@ export default function BookAescapePage() {
 
   async function lookupClientByEmail(emailToCheck: string) {
     const res = await fetch(
-      `/api/mindbody/client-lookup?email=${encodeURIComponent(emailToCheck)}`
+      `/api/membership/check?email=${encodeURIComponent(emailToCheck)}`
     );
     const data = await res.json();
     if (!res.ok) {
       throw new Error(data?.error || "Client lookup failed.");
     }
-    return data as {
-      found: boolean;
-      client: { Id: string } | null;
-      hasCardOnFile: boolean;
+    // Populate membership state from response
+    if (data.found) {
+      setIsMember(data.isMember ?? false);
+      setMemberTier(data.tier ?? null);
+      setMemberFirstName(data.firstName ?? null);
+      setHasAescapeMembership(data.hasAescapeMembership ?? false);
+      setHasCardOnFile(data.hasCardOnFile ?? false);
+      setHomeLocation(data.homeLocation ?? null);
+      setMemberCheckDone(true);
+    }
+    return {
+      found: data.found ?? false,
+      client: data.clientId ? { Id: data.clientId } : null,
+      hasCardOnFile: data.hasCardOnFile ?? false,
     };
   }
 
@@ -793,6 +852,8 @@ export default function BookAescapePage() {
       setError("Please enter a valid email address.");
       return;
     }
+
+    saveEmail(normalized);
 
     try {
       const lookup = await lookupClientByEmail(normalized);
@@ -987,8 +1048,12 @@ export default function BookAescapePage() {
     } else if (step === "email") {
       setStep("time");
     } else if (step === "card") {
+      // If user had email auto-filled, go back to time instead of email
+      if (memberCheckDone && clientId) { setStep("time"); return; }
       setStep("email");
     } else if (step === "confirm") {
+      // If user skipped email+card (returning with card on file), go back to time
+      if (memberCheckDone && hasCardOnFile && clientId) { setStep("time"); return; }
       setStep("email");
     }
   }
@@ -1075,6 +1140,20 @@ export default function BookAescapePage() {
 
       <div className="px-4 pt-24 md:pt-28 pb-20">
         <div className="max-w-3xl mx-auto text-center">
+          {/* Persistent identity banner — members + remembered guests */}
+          {memberCheckDone && clientId && ["select", "time", "email", "card", "confirm"].includes(step) && (
+            <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${isMember || hasAescapeMembership ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
+              {(isMember || hasAescapeMembership) && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+              <p className="text-sm">
+                <span className="font-bold">{memberFirstName ?? email}</span>
+                {hasAescapeMembership && <> · <span className="font-semibold">Aescape Member</span></>}
+                {isMember && !hasAescapeMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
+                {homeLocation && <span className={isMember || hasAescapeMembership ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
+              </p>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isMember || hasAescapeMembership ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
+            </div>
+          )}
+
           {/* Hero — only on select step */}
           {step === "select" && (
             <>
@@ -1185,6 +1264,11 @@ export default function BookAescapePage() {
                           <div className="text-sm text-[#113D33]/50 mt-0.5">
                             {opt.bestFor}
                           </div>
+                          {hasAescapeMembership && (
+                            <div className="text-xs text-[#4A776D] font-semibold mt-1">
+                              Included in your Aescape membership
+                            </div>
+                          )}
                         </div>
                       </button>
                     );
@@ -1361,6 +1445,17 @@ export default function BookAescapePage() {
                   disabled={!selectedTime}
                   onClick={() => {
                     setError(null);
+                    // If returning user with card on file, skip email+card
+                    if (memberCheckDone && hasCardOnFile && clientId) {
+                      setStep("confirm");
+                      return;
+                    }
+                    // If returning user without card, go to card step
+                    if (memberCheckDone && clientId && !hasCardOnFile) {
+                      setCardContext("add_card");
+                      setStep("card");
+                      return;
+                    }
                     setStep("email");
                   }}
                   className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"

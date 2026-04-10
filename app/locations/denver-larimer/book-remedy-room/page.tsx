@@ -511,6 +511,31 @@ export default function BookRemedyRoomPage() {
   // Notification preferences
   const [marketingOptIn, setMarketingOptIn] = useState(true);
 
+  // Membership state
+  const SAVED_EMAIL_KEY = "sway_booking_email";
+  const [isMember, setIsMember] = useState(false);
+  const [memberTier, setMemberTier] = useState<string | null>(null);
+  const [memberFirstName, setMemberFirstName] = useState<string | null>(null);
+  const [hasRemedyMembership, setHasRemedyMembership] = useState(false);
+  const [hasCardOnFile, setHasCardOnFile] = useState(false);
+  const [homeLocation, setHomeLocation] = useState<string | null>(null);
+  const [memberCheckDone, setMemberCheckDone] = useState(false);
+  const [autoCheckDone, setAutoCheckDone] = useState(false);
+
+  const saveEmail = (e: string) => { try { localStorage.setItem(SAVED_EMAIL_KEY, e); } catch {} };
+  const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); } catch {} };
+  const handleSwitchAccount = () => {
+    clearSavedEmail();
+    setEmail(""); setClientId(null); setIsMember(false); setMemberTier(null);
+    setMemberFirstName(null); setHasRemedyMembership(false); setHasCardOnFile(false);
+    setHomeLocation(null); setMemberCheckDone(false);
+    setCardContext(null);
+    setStep("select");
+  };
+
+  // Member pricing: $25 for any spa member, $49 for non-members
+  const memberPrice = isMember || hasRemedyMembership ? "$25" : "$49";
+
   // Remedy room capacity + existing appointments for overlap filtering
   const REMEDY_MAX_CAPACITY = 3;
   const [slotOccupancy, setSlotOccupancy] = useState<Record<string, number>>({});
@@ -579,6 +604,30 @@ export default function BookRemedyRoomPage() {
       body.style.scrollSnapType = prevBodySnap;
     };
   }, []);
+
+  /* Auto-check saved email on mount */
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? localStorage.getItem(SAVED_EMAIL_KEY) : null;
+    if (!saved || autoCheckDone) return;
+    setAutoCheckDone(true);
+    setEmail(saved);
+    setLoading(true);
+    fetch(`/api/membership/check?email=${encodeURIComponent(saved)}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data || !data.found) { setLoading(false); return; }
+        setClientId(data.clientId ?? null);
+        setIsMember(data.isMember ?? false);
+        setMemberTier(data.tier ?? null);
+        setMemberFirstName(data.firstName ?? null);
+        setHasRemedyMembership(data.hasRemedyMembership ?? false);
+        setHasCardOnFile(data.hasCardOnFile ?? false);
+        setHomeLocation(data.homeLocation ?? null);
+        setMemberCheckDone(true);
+      })
+      .catch(() => { clearSavedEmail(); setEmail(""); })
+      .finally(() => setLoading(false));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* Scroll to top when step changes (keeps UI centered like massage/facial flow) */
   useEffect(() => {
@@ -716,14 +765,24 @@ export default function BookRemedyRoomPage() {
 
   async function lookupClientByEmail(emailToCheck: string) {
     const res = await fetch(
-      `/api/mindbody/client-lookup?email=${encodeURIComponent(emailToCheck)}`
+      `/api/membership/check?email=${encodeURIComponent(emailToCheck)}`
     );
     const data = await res.json();
     if (!res.ok) throw new Error(data?.error || "Client lookup failed.");
-    return data as {
-      found: boolean;
-      client: { Id: string } | null;
-      hasCardOnFile: boolean;
+    // Populate membership state from response
+    if (data.found) {
+      setIsMember(data.isMember ?? false);
+      setMemberTier(data.tier ?? null);
+      setMemberFirstName(data.firstName ?? null);
+      setHasRemedyMembership(data.hasRemedyMembership ?? false);
+      setHasCardOnFile(data.hasCardOnFile ?? false);
+      setHomeLocation(data.homeLocation ?? null);
+      setMemberCheckDone(true);
+    }
+    return {
+      found: data.found ?? false,
+      client: data.clientId ? { Id: data.clientId } : null,
+      hasCardOnFile: data.hasCardOnFile ?? false,
     };
   }
 
@@ -796,7 +855,8 @@ export default function BookRemedyRoomPage() {
     window.dataLayer.push({
       event: "remedy_room_booking_complete",
       service_name: "Remedy Room",
-      price: "$49",
+      price: memberPrice,
+      is_member: isMember || hasRemedyMembership,
     });
   }
 
@@ -834,7 +894,8 @@ export default function BookRemedyRoomPage() {
     }
     if (step === "done") {
       payload.service_name = "Remedy Room";
-      payload.total_price = 49;
+      payload.total_price = (isMember || hasRemedyMembership) ? 25 : 49;
+      payload.is_member = isMember || hasRemedyMembership;
     }
 
     window.dataLayer.push(payload);
@@ -858,6 +919,8 @@ export default function BookRemedyRoomPage() {
       setError("Please enter a valid email address.");
       return;
     }
+
+    saveEmail(normalized);
 
     try {
       const lookup = await lookupClientByEmail(normalized);
@@ -1032,8 +1095,13 @@ export default function BookRemedyRoomPage() {
       return;
     }
     if (step === "email") setStep("select");
-    else if (step === "card") setStep("email");
-    else if (step === "confirm") setStep("email");
+    else if (step === "card") {
+      if (memberCheckDone && clientId) { setStep("select"); return; }
+      setStep("email");
+    } else if (step === "confirm") {
+      if (memberCheckDone && hasCardOnFile && clientId) { setStep("select"); return; }
+      setStep("email");
+    }
   }
 
   const summaryText = useMemo(() => {
@@ -1047,14 +1115,14 @@ export default function BookRemedyRoomPage() {
     if (!selectedTime) return null;
     return {
       session: selectedOption.label,
-      price: selectedOption.price,
+      price: memberPrice,
       minutes: selectedOption.minutes,
       bestFor: selectedOption.bestFor,
       image: selectedOption.image,
       dateLabel: formatDayLabel(new Date(selectedDate + "T00:00:00")),
       timeLabel: formatTimeRange(selectedTime, selectedOption.minutes),
     };
-  }, [selectedOption, selectedDate, selectedTime]);
+  }, [selectedOption, selectedDate, selectedTime, memberPrice]);
 
   const emailNormalized = useMemo(() => normalizeEmail(email), [email]);
 
@@ -1116,6 +1184,24 @@ export default function BookRemedyRoomPage() {
 
       <div className={`px-4 ${isDarkStep ? "pt-24 md:pt-28" : "pt-24 md:pt-28"} pb-20`}>
         <div className="max-w-3xl mx-auto text-center">
+          {/* Persistent identity banner — members + remembered guests */}
+          {memberCheckDone && clientId && ["select", "email", "card", "confirm"].includes(step) && (
+            <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${
+              isMember || hasRemedyMembership
+                ? isDarkStep ? "bg-white/10 border border-white/15 text-white" : "bg-[#113D33] text-white"
+                : isDarkStep ? "bg-white/5 border border-white/10 text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"
+            }`}>
+              {(isMember || hasRemedyMembership) && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+              <p className="text-sm">
+                <span className="font-bold">{memberFirstName ?? email}</span>
+                {hasRemedyMembership && <> · <span className="font-semibold">Remedy Room Member</span></>}
+                {isMember && !hasRemedyMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
+                {homeLocation && <span className={isDarkStep ? "text-white/50 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
+              </p>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/40 hover:text-white" : isMember ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
+            </div>
+          )}
+
           {/* Hero + session card + summary — only on select step */}
           {step === "select" && (
             <>
@@ -1165,8 +1251,13 @@ export default function BookRemedyRoomPage() {
                         <div className="text-white/70 text-sm">{selectedOption.minutes} min • Shared session</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-white font-bold text-lg">{selectedOption.price}</div>
-                        <div className="text-white/60 text-xs">Members $25</div>
+                        <div className="text-white font-bold text-lg">{memberPrice}</div>
+                        {!(isMember || hasRemedyMembership) && (
+                          <div className="text-white/60 text-xs">Members $25</div>
+                        )}
+                        {(isMember || hasRemedyMembership) && (
+                          <div className="text-[#9ABFB3] text-xs font-semibold">Member price</div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1352,6 +1443,17 @@ export default function BookRemedyRoomPage() {
                   disabled={!selectedTime}
                   onClick={() => {
                     setError(null);
+                    // If returning user with card on file, skip email+card
+                    if (memberCheckDone && hasCardOnFile && clientId) {
+                      setStep("confirm");
+                      return;
+                    }
+                    // If returning user without card, go to card step
+                    if (memberCheckDone && clientId && !hasCardOnFile) {
+                      setCardContext("add_card");
+                      setStep("card");
+                      return;
+                    }
                     setStep("email");
                   }}
                   className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
@@ -1638,8 +1740,12 @@ export default function BookRemedyRoomPage() {
                         </div>
                       </div>
                       <div className="text-right text-[#113D33]">
-                        <div className="text-sm font-semibold">$49</div>
-                        <div className="text-xs opacity-70">Members $25</div>
+                        <div className="text-sm font-semibold">{memberPrice}</div>
+                        {(isMember || hasRemedyMembership) ? (
+                          <div className="text-xs text-[#4A776D] font-semibold">Member price</div>
+                        ) : (
+                          <div className="text-xs opacity-70">Members $25</div>
+                        )}
                         </div>
 
                     </div>
