@@ -168,6 +168,8 @@ const serviceJsonLd = {
       description:
         "40-minute guided circuit: 15 min Normatec compression + LED light therapy, 20 min sauna, 5 min cold plunge.",
     },
+    price: "49.00",
+    priceCurrency: "USD",
     priceSpecification: [
       {
         "@type": "UnitPriceSpecification",

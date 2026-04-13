@@ -111,122 +111,102 @@ const serviceJsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Essential Signature Facial",
-          description: "A 50-minute customized facial for a quick refresh and glow.",
+          description: "A 50-minute customized facial tailored to your skin type.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "139.00",
+        priceCurrency: "USD",
       },
       // Premier tier
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Forever Young Facial",
+          name: "Premier Forever Young Anti-Aging Facial",
           description: "A 50-minute anti-aging facial with advanced techniques for skin rejuvenation using Eminence Organics.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "169.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Glow Getter Facial",
+          name: "Premier Glow Getter Hydration Facial",
           description: "A 50-minute brightening facial for luminous, even-toned skin.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "169.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Pore Perfection Facial",
+          name: "Premier Pore Perfection Acne Facial",
           description: "A 50-minute deep pore cleansing facial for clearer, refined skin.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "169.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Sensitive Silk Facial",
+          name: "Premier Sensitive Silk Facial",
           description: "A 50-minute calming facial for sensitive and reactive skin types.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "169.00",
+        priceCurrency: "USD",
       },
       // Ultimate tier
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Illuminate LED Facial",
+          name: "Ultimate Illuminate LED Facial",
           description: "A 60-minute facial with LED light therapy for enhanced skin rejuvenation.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "199.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Oxygen Infusion Facial",
+          name: "Ultimate Oxygen Infusion Facial",
           description: "A 60-minute facial with oxygen infusion for deep hydration and radiance.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "199.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Sculpt & Lift Microcurrent Facial",
+          name: "Ultimate Sculpt & Lift Microcurrent Facial",
           description: "A 60-minute facial with microcurrent technology for lifting and toning.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "199.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Hydraderm Facial",
-          description: "A 60-minute advanced hydration facial for plump, dewy skin.",
+          name: "Ultimate Hydraderm Facial",
+          description: "A 50-minute advanced hydration facial for plump, dewy skin.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "199.00",
+        priceCurrency: "USD",
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Dr. Dennis Gross Vitamin C w/ LED Facial",
+          name: "Ultimate Dr. Dennis Gross Vitamin C w/ LED Facial",
           description: "A 60-minute clinical-grade brightening facial using Dr. Dennis Gross Alpha Beta peel technology with LED light therapy.",
         },
-        priceSpecification: [
-          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
-          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
-        ],
+        price: "199.00",
+        priceCurrency: "USD",
       },
     ],
   },

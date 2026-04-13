@@ -125,45 +125,6 @@ export default function LarimerOffersLayout({
     ],
   };
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What is Sway's first-time visitor offer in Denver?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "New guests can get $40 off their first 50-minute massage or facial at Sway Larimer — just $99 (regularly $139). This offer is available for Denver-area locals visiting for the first time. No membership required.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How much does a Sway membership cost?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sway memberships start at $99 per month. Members get unlimited massages and facials at $99 each (normally $139), 50% off all boost add-ons, Remedy Room sessions for just $25 (normally $49), and access to the private member lounge.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How much is the Remedy Room at Sway?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The Remedy Room recovery circuit is $49 per session for non-members and $25 per session for Sway members. It includes a guided 40-minute circuit through sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I try Sway without a membership?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. Sway is open to everyone — no membership required. Drop-in pricing starts at $129 for massages and $139 for most services. First-time guests can use the intro offer to get a massage or facial for just $99. Memberships are optional and unlock ongoing savings.",
-        },
-      },
-    ],
-  };
-
   return (
     <>
       <script
@@ -173,10 +134,6 @@ export default function LarimerOffersLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offersJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {children}
     </>

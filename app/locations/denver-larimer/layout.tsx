@@ -173,43 +173,47 @@ const localBusinessJsonLd = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Basic Massage",
+              name: "Essential Signature Massage",
               description:
-                "A 50-minute relaxation massage focusing on full-body tension relief.",
+                "A 50-minute therapeutic Swedish massage customized to your pressure preference.",
             },
+            price: "139.00",
+            priceCurrency: "USD",
             priceSpecification: [
               {
                 "@type": "UnitPriceSpecification",
-                price: "89.00",
+                price: "99.00",
                 priceCurrency: "USD",
                 name: "Member",
               },
+              {
+                "@type": "UnitPriceSpecification",
+                price: "139.00",
+                priceCurrency: "USD",
+                name: "Drop-In",
+              },
+            ],
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Premier Deep Tissue Massage",
+              description:
+                "A 50-minute deep tissue massage targeting chronic tension and muscle knots.",
+            },
+            price: "169.00",
+            priceCurrency: "USD",
+            priceSpecification: [
               {
                 "@type": "UnitPriceSpecification",
                 price: "129.00",
                 priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Deep Tissue Massage",
-              description:
-                "A 50-minute deep tissue massage targeting chronic tension and muscle knots.",
-            },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "99.00",
-                priceCurrency: "USD",
                 name: "Member",
               },
               {
                 "@type": "UnitPriceSpecification",
-                price: "139.00",
+                price: "169.00",
                 priceCurrency: "USD",
                 name: "Drop-In",
               },
@@ -219,70 +223,23 @@ const localBusinessJsonLd = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Salt Stone Massage",
+              name: "Premier Salt Stone Massage",
               description:
                 "A 50-minute Himalayan salt stone massage for deep relaxation and mineral-rich detox.",
             },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "99.00",
-                priceCurrency: "USD",
-                name: "Member",
-              },
-              {
-                "@type": "UnitPriceSpecification",
-                price: "139.00",
-                priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
+            price: "169.00",
+            priceCurrency: "USD",
           },
           {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Sports Massage",
+              name: "Premier Sports Massage",
               description:
                 "A 50-minute sports massage designed for active recovery and athletic performance.",
             },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "99.00",
-                priceCurrency: "USD",
-                name: "Member",
-              },
-              {
-                "@type": "UnitPriceSpecification",
-                price: "139.00",
-                priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "CBD Massage",
-              description:
-                "A 50-minute massage with CBD oil for enhanced relaxation and inflammation relief.",
-            },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "99.00",
-                priceCurrency: "USD",
-                name: "Member",
-              },
-              {
-                "@type": "UnitPriceSpecification",
-                price: "139.00",
-                priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
+            price: "169.00",
+            priceCurrency: "USD",
           },
         ],
       },
@@ -294,70 +251,34 @@ const localBusinessJsonLd = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Express Facial",
+              name: "Essential Signature Facial",
               description:
-                "A 30-minute express facial for a quick refresh and glow.",
+                "A 50-minute customized facial tailored to your skin type.",
             },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "89.00",
-                priceCurrency: "USD",
-                name: "Member",
-              },
-              {
-                "@type": "UnitPriceSpecification",
-                price: "129.00",
-                priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
+            price: "139.00",
+            priceCurrency: "USD",
           },
           {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Forever Young Facial",
+              name: "Premier Forever Young Facial",
               description:
                 "A 50-minute anti-aging facial with advanced techniques for skin rejuvenation.",
             },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "99.00",
-                priceCurrency: "USD",
-                name: "Member",
-              },
-              {
-                "@type": "UnitPriceSpecification",
-                price: "139.00",
-                priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
+            price: "169.00",
+            priceCurrency: "USD",
           },
           {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "HydraFacial",
+              name: "Ultimate Hydraderm Facial",
               description:
-                "A 50-minute HydraFacial for deep cleansing, hydration, and radiant skin.",
+                "A 50-minute advanced hydration facial for plump, dewy skin.",
             },
-            priceSpecification: [
-              {
-                "@type": "UnitPriceSpecification",
-                price: "99.00",
-                priceCurrency: "USD",
-                name: "Member",
-              },
-              {
-                "@type": "UnitPriceSpecification",
-                price: "139.00",
-                priceCurrency: "USD",
-                name: "Drop-In",
-              },
-            ],
+            price: "199.00",
+            priceCurrency: "USD",
           },
         ],
       },
@@ -408,6 +329,8 @@ const localBusinessJsonLd = {
           description:
             "A guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
         },
+        price: "49.00",
+        priceCurrency: "USD",
         priceSpecification: [
           {
             "@type": "UnitPriceSpecification",
