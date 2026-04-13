@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-02-01",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/cold-plunge",
+      "@id": "https://swaywellnessspa.com/blog/cold-plunge/",
     },
   };
 

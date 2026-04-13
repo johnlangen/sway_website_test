@@ -62,7 +62,7 @@ export default function Page() {
     dateModified: "2025-06-10",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/sway-shop-finds",
+      "@id": "https://swaywellnessspa.com/blog/sway-shop-finds/",
     },
   };
 

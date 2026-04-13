@@ -25,7 +25,7 @@ export default function GeorgetownGiftCardsPage() {
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
         offers: {
           "@type": "Offer",
-          url: "https://swaywellnessspa.com/locations/georgetown/gift-cards",
+          url: "https://swaywellnessspa.com/locations/georgetown/gift-cards/",
           availability: "https://schema.org/PreOrder",
           priceCurrency: "USD",
         },

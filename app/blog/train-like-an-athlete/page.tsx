@@ -61,7 +61,7 @@ export default function Page() {
     dateModified: "2025-01-20",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/train-like-an-athlete",
+      "@id": "https://swaywellnessspa.com/blog/train-like-an-athlete/",
     },
   };
 

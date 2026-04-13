@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-02-20",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/himalayan-salt-stone-massage",
+      "@id": "https://swaywellnessspa.com/blog/himalayan-salt-stone-massage/",
     },
   };
 

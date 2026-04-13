@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-01-20",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/aescape",
+      "@id": "https://swaywellnessspa.com/blog/aescape/",
     },
   };
 

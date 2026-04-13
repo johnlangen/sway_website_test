@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-03-05",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/infrared-pemf-mat",
+      "@id": "https://swaywellnessspa.com/blog/infrared-pemf-mat/",
     },
   };
 

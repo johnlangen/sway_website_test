@@ -61,7 +61,7 @@ export default function Page() {
     dateModified: "2025-02-01",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/valentines-day-wellness",
+      "@id": "https://swaywellnessspa.com/blog/valentines-day-wellness/",
     },
   };
 

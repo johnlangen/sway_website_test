@@ -54,7 +54,7 @@ export default function Page() {
     dateModified: "2025-03-20",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/bachelorette-spa-day",
+      "@id": "https://swaywellnessspa.com/blog/bachelorette-spa-day/",
     },
   };
 

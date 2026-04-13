@@ -32,7 +32,7 @@ export default function LarimerGiftCardsPage() {
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
         offers: {
           "@type": "Offer",
-          url: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards/",
           priceCurrency: "USD",
           eligibleRegion: { "@type": "Place", name: "Denver, CO" },
           availability: "https://schema.org/InStock",

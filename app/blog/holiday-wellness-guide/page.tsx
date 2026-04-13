@@ -36,7 +36,7 @@ export default function Page() {
     dateModified: "2025-12-16",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/holiday-wellness-guide",
+      "@id": "https://swaywellnessspa.com/blog/holiday-wellness-guide/",
     },
   };
 

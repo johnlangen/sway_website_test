@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-01-15",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/denver-wellness-club",
+      "@id": "https://swaywellnessspa.com/blog/denver-wellness-club/",
     },
   };
 

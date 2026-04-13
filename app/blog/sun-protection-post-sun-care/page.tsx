@@ -62,7 +62,7 @@ export default function Page() {
     dateModified: "2025-06-01",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/sun-protection-post-sun-care",
+      "@id": "https://swaywellnessspa.com/blog/sun-protection-post-sun-care/",
     },
   };
 

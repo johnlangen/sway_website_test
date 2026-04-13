@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-09-15",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/post-summer-skin-recovery",
+      "@id": "https://swaywellnessspa.com/blog/post-summer-skin-recovery/",
     },
   };
 

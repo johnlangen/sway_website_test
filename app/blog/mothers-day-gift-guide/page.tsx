@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-05-05",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/mothers-day-gift-guide",
+      "@id": "https://swaywellnessspa.com/blog/mothers-day-gift-guide/",
     },
   };
 

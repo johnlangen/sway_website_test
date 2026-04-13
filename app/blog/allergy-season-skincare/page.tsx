@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-03-15",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/allergy-season-skincare",
+      "@id": "https://swaywellnessspa.com/blog/allergy-season-skincare/",
     },
   };
 

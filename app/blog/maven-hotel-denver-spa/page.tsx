@@ -72,7 +72,7 @@ export default function Page() {
     dateModified: "2026-03-11",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/maven-hotel-denver-spa",
+      "@id": "https://swaywellnessspa.com/blog/maven-hotel-denver-spa/",
     },
   };
 

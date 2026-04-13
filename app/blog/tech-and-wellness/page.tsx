@@ -61,7 +61,7 @@ export default function Page() {
     dateModified: "2025-01-10",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/tech-and-wellness",
+      "@id": "https://swaywellnessspa.com/blog/tech-and-wellness/",
     },
   };
 

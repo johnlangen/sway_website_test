@@ -61,7 +61,7 @@ export default function Page() {
     dateModified: "2025-01-02",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/sway-spa-membership",
+      "@id": "https://swaywellnessspa.com/blog/sway-spa-membership/",
     },
   };
 

@@ -54,7 +54,7 @@ export default function Page() {
     dateModified: "2025-03-10",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/infrared-vs-traditional-sauna",
+      "@id": "https://swaywellnessspa.com/blog/infrared-vs-traditional-sauna/",
     },
   };
 

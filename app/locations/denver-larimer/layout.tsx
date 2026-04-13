@@ -43,7 +43,7 @@ const localBusinessJsonLd = {
   description:
     "A modern wellness club on Larimer Square in Denver offering massage therapy, advanced facials, sauna, cold plunge, Normatec compression, LED light therapy, and AI-powered Aescape robot massage.",
   image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
-  "@id": "https://swaywellnessspa.com/locations/denver-larimer",
+  "@id": "https://swaywellnessspa.com/locations/denver-larimer/",
   url: "https://swaywellnessspa.com/locations/denver-larimer/",
   telephone: "+1-303-476-6150",
   address: {

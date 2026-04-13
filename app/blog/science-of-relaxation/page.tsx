@@ -53,7 +53,7 @@ export default function Page() {
     dateModified: "2025-09-20",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/science-of-relaxation",
+      "@id": "https://swaywellnessspa.com/blog/science-of-relaxation/",
     },
   };
 

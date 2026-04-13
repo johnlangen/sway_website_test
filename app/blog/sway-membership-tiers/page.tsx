@@ -65,7 +65,7 @@ export default function Page() {
     dateModified: "2026-04-07",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://swaywellnessspa.com/blog/sway-membership-tiers",
+      "@id": "https://swaywellnessspa.com/blog/sway-membership-tiers/",
     },
   };
 

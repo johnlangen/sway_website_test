@@ -18,7 +18,7 @@ export default function OffersContent() {
       {
         "@type": "OfferCatalog",
         name: "Dallas Spa Offers - Coming Soon",
-        url: "https://swaywellnessspa.com/locations/dallas/offers",
+        url: "https://swaywellnessspa.com/locations/dallas/offers/",
         description: "Founding Member offers and launch specials will be shared here prior to opening.",
       },
       {

@@ -24,7 +24,7 @@ export default function DallasGiftCardsPage() {
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
         offers: {
           "@type": "Offer",
-          url: "https://swaywellnessspa.com/locations/dallas/gift-cards",
+          url: "https://swaywellnessspa.com/locations/dallas/gift-cards/",
           availability: "https://schema.org/PreOrder",
           priceCurrency: "USD",
         },

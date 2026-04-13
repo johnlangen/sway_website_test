@@ -265,7 +265,7 @@ const schema = {
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       offers: {
         "@type": "Offer",
-        url: "https://swaywellnessspa.com/locations/dallas/founding-membership",
+        url: "https://swaywellnessspa.com/locations/dallas/founding-membership/",
         availability: "https://schema.org/PreOrder",
         priceCurrency: "USD",
         price: "0",
