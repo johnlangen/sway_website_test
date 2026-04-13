@@ -53,7 +53,7 @@ export default function Page() {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-              { "@type": "ListItem", position: 2, name: "Aescape", item: "https://swaywellnessspa.com/aescape" },
+              { "@type": "ListItem", position: 2, name: "Aescape", item: "https://swaywellnessspa.com/aescape/" },
             ],
           }),
         }}
@@ -79,7 +79,7 @@ export default function Page() {
                 postalCode: "80202",
                 addressCountry: "US",
               },
-              telephone: "+1-303-476-6150", // 🔧 replace with real number
+              telephone: "+1-303-476-6150",
               url: "https://swaywellnessspa.com/aescape/",
             },
           }),

@@ -51,7 +51,7 @@ export default function TreatmentsLayout({
         "@type": "ListItem",
         position: 2,
         name: "Treatments",
-        item: "https://swaywellnessspa.com/treatments",
+        item: "https://swaywellnessspa.com/treatments/",
       },
     ],
   };

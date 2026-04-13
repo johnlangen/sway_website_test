@@ -134,13 +134,13 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       position: 2,
       name: "FAQ",
-      item: "https://swaywellnessspa.com/faq",
+      item: "https://swaywellnessspa.com/faq/",
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Sway Larimer",
-      item: "https://swaywellnessspa.com/faq/larimer",
+      item: "https://swaywellnessspa.com/faq/larimer/",
     },
   ],
 };

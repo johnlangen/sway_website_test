@@ -33,7 +33,7 @@ export default function Page() {
         "@type": "ListItem",
         position: 2,
         name: "Press",
-        item: "https://swaywellnessspa.com/press",
+        item: "https://swaywellnessspa.com/press/",
       },
     ],
   };

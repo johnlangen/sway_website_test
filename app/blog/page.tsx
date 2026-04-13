@@ -42,7 +42,7 @@ export default function BlogPage() {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://swaywellnessspa.com/blog",
+        item: "https://swaywellnessspa.com/blog/",
       },
     ],
   };

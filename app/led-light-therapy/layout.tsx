@@ -38,7 +38,7 @@ const breadcrumbJsonLd = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-    { "@type": "ListItem", position: 2, name: "LED Light Therapy", item: "https://swaywellnessspa.com/led-light-therapy" },
+    { "@type": "ListItem", position: 2, name: "LED Light Therapy", item: "https://swaywellnessspa.com/led-light-therapy/" },
   ],
 };
 

@@ -68,7 +68,7 @@ export default function HolidayWellnessGuideLayout() {
           SECTION 2 — CBD COLLAGE (snap)
           Goal: fits on screen across breakpoints
          ========================= */}
-      <section   id="as-seen-in" className="snap-start min-min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-24">
+      <section   id="as-seen-in" className="snap-start min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-24">
         <div className="w-full max-w-6xl mx-auto">
           {/* -------------------------
               MOBILE (single “page”, no overlay)
@@ -307,7 +307,7 @@ export default function HolidayWellnessGuideLayout() {
       {/* =========================
     SECTION 3 — GLOW GETTER (snap)
    ========================= */}
-<section className="snap-start min-min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-28 lg:pt-24">
+<section className="snap-start min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-28 lg:pt-24">
   <div className="w-full max-w-6xl mx-auto">
     {/* -------------------------
         MOBILE (clean single page, no overlay)
@@ -526,7 +526,7 @@ export default function HolidayWellnessGuideLayout() {
 {/* =========================
     SECTION X — THE SWAY SHOP (snap)
    ========================= */}
-<section className="snap-start min-min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-28 lg:pt-24">
+<section className="snap-start min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-28 lg:pt-24">
   <div className="w-full max-w-6xl mx-auto">
     {/* -------------------------
         MOBILE (clean single page, no overlay)
@@ -745,7 +745,7 @@ export default function HolidayWellnessGuideLayout() {
 {/* =========================
     SECTION X — SWAY GIFT CARD (snap)
    ========================= */}
-<section className="snap-start min-min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-28 lg:pt-24">
+<section className="snap-start min-h-[100svh] flex items-start justify-center px-4 pt-20 md:pt-28 lg:pt-24">
   <div className="w-full max-w-6xl mx-auto">
     {/* -------------------------
         MOBILE (single page, no overlay)

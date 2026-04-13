@@ -46,7 +46,7 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       position: 2,
       name: "Locations",
-      item: "https://swaywellnessspa.com/locations",
+      item: "https://swaywellnessspa.com/locations/",
     },
     {
       "@type": "ListItem",
@@ -58,7 +58,7 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       position: 4,
       name: "Facials",
-      item: "https://swaywellnessspa.com/locations/denver-larimer/facials",
+      item: "https://swaywellnessspa.com/locations/denver-larimer/facials/",
     },
   ],
 };

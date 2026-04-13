@@ -73,13 +73,13 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       position: 2,
       name: "Locations",
-      item: "https://swaywellnessspa.com/locations",
+      item: "https://swaywellnessspa.com/locations/",
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Dallas",
-      item: "https://swaywellnessspa.com/locations/dallas",
+      item: "https://swaywellnessspa.com/locations/dallas/",
     },
   ],
 };

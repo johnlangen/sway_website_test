@@ -99,9 +99,9 @@ export default function DallasMembershipPage() {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-          { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations" },
-          { "@type": "ListItem", position: 3, name: "Dallas", item: "https://swaywellnessspa.com/locations/dallas" },
-          { "@type": "ListItem", position: 4, name: "Membership", item: "https://swaywellnessspa.com/locations/dallas/membership" },
+          { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations/" },
+          { "@type": "ListItem", position: 3, name: "Dallas", item: "https://swaywellnessspa.com/locations/dallas/" },
+          { "@type": "ListItem", position: 4, name: "Membership", item: "https://swaywellnessspa.com/locations/dallas/membership/" },
         ],
       },
     ],

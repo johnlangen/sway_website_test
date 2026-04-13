@@ -57,7 +57,7 @@ export default function MembershipLayout({
             "@type": "ListItem",
             position: 2,
             name: "Memberships",
-            item: "https://swaywellnessspa.com/membership",
+            item: "https://swaywellnessspa.com/membership/",
           },
         ],
       },

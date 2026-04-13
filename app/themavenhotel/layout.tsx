@@ -143,7 +143,7 @@ export default function MavenHotelLayout({
         "@type": "ListItem",
         position: 2,
         name: "Maven Hotel Guest Experience",
-        item: "https://swaywellnessspa.com/themavenhotel",
+        item: "https://swaywellnessspa.com/themavenhotel/",
       },
     ],
   };

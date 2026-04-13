@@ -19,9 +19,9 @@ export default function LarimerGiftCardsPage() {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-          { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations" },
-          { "@type": "ListItem", position: 3, name: "Denver Larimer", item: "https://swaywellnessspa.com/locations/denver-larimer" },
-          { "@type": "ListItem", position: 4, name: "Gift Cards", item: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards" },
+          { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations/" },
+          { "@type": "ListItem", position: 3, name: "Denver Larimer", item: "https://swaywellnessspa.com/locations/denver-larimer/" },
+          { "@type": "ListItem", position: 4, name: "Gift Cards", item: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards/" },
         ],
       },
       {

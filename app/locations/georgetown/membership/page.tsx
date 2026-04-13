@@ -99,9 +99,9 @@ export default function GeorgetownMembershipPage() {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
-          { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations" },
-          { "@type": "ListItem", position: 3, name: "Georgetown", item: "https://swaywellnessspa.com/locations/georgetown" },
-          { "@type": "ListItem", position: 4, name: "Membership", item: "https://swaywellnessspa.com/locations/georgetown/membership" },
+          { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations/" },
+          { "@type": "ListItem", position: 3, name: "Georgetown", item: "https://swaywellnessspa.com/locations/georgetown/" },
+          { "@type": "ListItem", position: 4, name: "Membership", item: "https://swaywellnessspa.com/locations/georgetown/membership/" },
         ],
       },
     ],

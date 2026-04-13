@@ -46,7 +46,7 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       position: 2,
       name: "Massages",
-      item: "https://swaywellnessspa.com/massages",
+      item: "https://swaywellnessspa.com/massages/",
     },
   ],
 };
