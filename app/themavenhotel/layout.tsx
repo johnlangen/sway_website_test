@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "Denver hotel spa experience",
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/themavenhotel",
+    canonical: "https://swaywellnessspa.com/themavenhotel/",
   },
   openGraph: {
     title: "Maven Hotel × Sway Wellness Spa | 60-Min Aescape Massage",

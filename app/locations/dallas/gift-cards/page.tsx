@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/dallas/gift-cards",
+    canonical: "https://swaywellnessspa.com/locations/dallas/gift-cards/",
   },
   openGraph: {
     type: "website",

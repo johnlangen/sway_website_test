@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here — check back soon!",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/dallas/offers",
+    canonical: "https://swaywellnessspa.com/locations/dallas/offers/",
   },
   openGraph: {
     type: "website",

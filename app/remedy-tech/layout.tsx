@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sauna, cold plunge, compression therapy, and LED light therapy in one 40-minute recovery session. Experience the Remedy Room at Sway, a modern wellness club in Denver.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/remedy-tech",
+    canonical: "https://swaywellnessspa.com/remedy-tech/",
   },
   openGraph: {
     type: "website",

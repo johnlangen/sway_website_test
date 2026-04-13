@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Join Sway Wellness Club. Three membership tiers — Essential ($99), Premier ($129), Ultimate ($159) — with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Georgetown DC (coming soon).",
   alternates: {
-    canonical: "https://swaywellnessspa.com/membership",
+    canonical: "https://swaywellnessspa.com/membership/",
   },
   openGraph: {
     type: "website",

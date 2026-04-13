@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Book advanced facials at Sway Wellness Spa in Larimer Square, Denver. Anti-aging, hydration, acne, sensitive skin, and Vitamin C treatments.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/denver-larimer/facials",
+    canonical: "https://swaywellnessspa.com/locations/denver-larimer/facials/",
   },
   openGraph: {
     type: "website",

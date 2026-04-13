@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Plan a luxurious bachelorette spa day at Sway Wellness Spa. Enjoy massages, facials, cold plunge, sauna & private bookings for your bridal crew.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/bachelorette-spa-day",
+    canonical: "https://swaywellnessspa.com/blog/bachelorette-spa-day/",
   },
   openGraph: {
     title: "The Ultimate Bachelorette Spa Day in Denver | Sway Wellness Spa",

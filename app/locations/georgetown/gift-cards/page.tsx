@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Sway Georgetown is coming soon. Spa gift cards for facials, massage, and Remedy Room recovery will be available once we open in Washington, DC.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/georgetown/gift-cards",
+    canonical: "https://swaywellnessspa.com/locations/georgetown/gift-cards/",
   },
   openGraph: {
     type: "website",

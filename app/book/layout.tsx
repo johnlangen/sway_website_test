@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Book your appointment at Sway Wellness Spa. Choose your location, then reserve facials, massages, Aescape robot massage, or Remedy Room recovery sessions.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/book",
+    canonical: "https://swaywellnessspa.com/book/",
   },
   openGraph: {
     type: "website",

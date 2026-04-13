@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/train-like-an-athlete",
+    canonical: "https://swaywellnessspa.com/blog/train-like-an-athlete/",
   },
   openGraph: {
     title: "Train Like an Athlete, Recover Like an Athlete",

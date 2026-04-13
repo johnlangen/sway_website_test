@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, Salt Stone, and Lymphatic Drainage across Essential, Premier, and Ultimate tiers, all customized by expert therapists.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/massages",
+    canonical: "https://swaywellnessspa.com/massages/",
   },
   openGraph: {
     type: "website",

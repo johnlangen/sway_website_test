@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "18 massages, 13 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage — plus 10+ boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/treatments",
+    canonical: "https://swaywellnessspa.com/treatments/",
   },
   openGraph: {
     type: "website",

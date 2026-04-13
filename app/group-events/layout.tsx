@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Host your bachelorette party, birthday celebration, corporate wellness event, or group spa day at Sway on Larimer Square in Denver. Massage, facials, and Remedy Room recovery for groups.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/group-events",
+    canonical: "https://swaywellnessspa.com/group-events/",
   },
   openGraph: {
     title: "Group Events & Spa Parties | Sway Wellness Spa",

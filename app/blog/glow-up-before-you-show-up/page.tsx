@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Recharge, refocus, and reset with facials, massages, and student-friendly spa treatments at Sway Wellness Spa. Special offers with student ID!",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/glow-up-before-you-show-up",
+    canonical: "https://swaywellnessspa.com/blog/glow-up-before-you-show-up/",
   },
   openGraph: {
     title: "Glow Up Before You Show Up: Spa Treatments for Students",

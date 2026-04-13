@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "14 of the best things to do in Denver at night — from Larimer Square dining and Red Rocks concerts to rooftop bars, Meow Wolf, and evening spa treatments at Sway.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/things-to-do-in-denver-at-night",
+    canonical: "https://swaywellnessspa.com/blog/things-to-do-in-denver-at-night/",
   },
   openGraph: {
     title: "Best Things to Do in Denver at Night",

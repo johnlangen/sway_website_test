@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway Dallas booking is not open yet. Explore treatments and learn more about our upcoming Dallas location.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/dallas/book",
+    canonical: "https://swaywellnessspa.com/locations/dallas/book/",
   },
   openGraph: {
     type: "website",

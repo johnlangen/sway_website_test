@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway Georgetown booking is not open yet. Explore treatments and learn more about our upcoming Washington, DC location.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/georgetown/book",
+    canonical: "https://swaywellnessspa.com/locations/georgetown/book/",
   },
   openGraph: {
     type: "website",

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Discover the benefits of cold plunges at Sway Wellness Spa—from improved circulation and mood to faster recovery and immune support.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/cold-plunge",
+    canonical: "https://swaywellnessspa.com/blog/cold-plunge/",
   },
   openGraph: {
     title: "Why Cold Plunges Are the Hottest Wellness Trend | Sway Wellness Spa",

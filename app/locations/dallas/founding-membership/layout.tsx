@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Become a founding member at Sway Dallas. Lock in exclusive pricing, VIP perks, and priority access at our new Knox/Henderson wellness spa.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/dallas/founding-membership",
+    canonical: "https://swaywellnessspa.com/locations/dallas/founding-membership/",
   },
   openGraph: {
     type: "website",

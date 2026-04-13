@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Experience the healing warmth of our Himalayan Salt Stone Massage. Relieve stress, improve circulation, and detox naturally at Sway Wellness Spa.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/himalayan-salt-stone-massage",
+    canonical: "https://swaywellnessspa.com/blog/himalayan-salt-stone-massage/",
   },
   openGraph: {
     title: "Himalayan Salt Stone Massage | Deep Relaxation at Sway Wellness Spa",

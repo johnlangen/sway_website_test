@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Refer your friends to Sway Wellness Spa and earn free Boosts. Enjoy LED therapy, PEMF mats, and more—because wellness is better when shared.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/give-wellness-get-wellness",
+    canonical: "https://swaywellnessspa.com/blog/give-wellness-get-wellness/",
   },
   openGraph: {
     title: "Give Wellness, Get Wellness: Sway Spa Referral Program",

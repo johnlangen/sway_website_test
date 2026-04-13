@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Repair sun damage with Sway's post-summer facial treatments. Hydrating facials, LED therapy, and expert skincare to restore your glow.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/post-summer-skin-recovery",
+    canonical: "https://swaywellnessspa.com/blog/post-summer-skin-recovery/",
   },
   openGraph: {
     title: "Post-Summer Skin Recovery | Sway Wellness Spa",

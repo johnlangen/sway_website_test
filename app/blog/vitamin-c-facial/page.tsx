@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/vitamin-c-facial",
+    canonical: "https://swaywellnessspa.com/blog/vitamin-c-facial/",
   },
   openGraph: {
     title: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa",

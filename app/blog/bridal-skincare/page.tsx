@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Get glowing, photo-ready skin for your big day with customized bridal facials at Sway. Explore treatments, timelines, and skincare tips for brides.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/bridal-skincare",
+    canonical: "https://swaywellnessspa.com/blog/bridal-skincare/",
   },
   openGraph: {
     title: "Bridal Skincare: Wedding-Ready Facials at Sway Wellness Spa",

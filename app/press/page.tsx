@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Voted #4 Best Day Spa in America by USA Today 10Best. See what the press is saying about Sway — featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/press",
+    canonical: "https://swaywellnessspa.com/press/",
   },
   openGraph: {
     title: "Press | Sway Wellness Spa in the Media",

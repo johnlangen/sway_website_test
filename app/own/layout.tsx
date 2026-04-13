@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway is the premium, next-generation wellness concept within the Spavia franchise system. 60+ locations, proven membership model, and 20+ years of franchise expertise. Explore ownership.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/own",
+    canonical: "https://swaywellnessspa.com/own/",
   },
   openGraph: {
     type: "website",

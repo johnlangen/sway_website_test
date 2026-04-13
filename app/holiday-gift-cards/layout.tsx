@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Give the gift of wellness this holiday season. Buy a $150 spa gift card at Sway and receive a $25 bonus card. Instant digital delivery.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/holiday-gift-cards",
+    canonical: "https://swaywellnessspa.com/holiday-gift-cards/",
   },
   openGraph: {
     title: "Holiday Spa Gift Cards | Sway Wellness Spa",

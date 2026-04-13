@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Plan the perfect Denver date night — start with a couples massage or facial at Sway Wellness Spa on Larimer Square, then walk to dinner. Open Mon–Fri until 8 PM.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/date-night",
+    canonical: "https://swaywellnessspa.com/date-night/",
   },
   openGraph: {
     title: "Date Night in Denver | Sway Wellness Spa",

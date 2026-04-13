@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/tech-and-wellness",
+    canonical: "https://swaywellnessspa.com/blog/tech-and-wellness/",
   },
   openGraph: {
     title: "How Technological Innovation is Transforming Spa Treatments",

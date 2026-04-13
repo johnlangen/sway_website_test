@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Frequently asked questions for Sway Larimer in Denver. Booking, parking, cancellation policies, Remedy Room, Aescape robot massage, pregnancy services, and celebrations.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/faq/larimer",
+    canonical: "https://swaywellnessspa.com/faq/larimer/",
   },
   openGraph: {
     type: "website",

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Refresh your skin and body this spring with detoxifying spa treatments from Sway. Featuring sauna, cold plunge, lymphatic massage, and more.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/spring-reset",
+    canonical: "https://swaywellnessspa.com/blog/spring-reset/",
   },
   openGraph: {
     title: "Spring Detox Treatments for Skin & Body | Sway Wellness Spa",

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Find a Sway Wellness Spa location near you. Visit our Denver spa or join founding-member waitlists for Dallas and Georgetown.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations",
+    canonical: "https://swaywellnessspa.com/locations/",
   },
   openGraph: {
     title: "Sway Wellness Spa | Locations",

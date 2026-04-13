@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Discover Sway’s Holiday Wellness Gift Guide—thoughtful spa experiences, modern self-care, and restorative gifts designed to elevate the season.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/holiday-wellness-guide",
+    canonical: "https://swaywellnessspa.com/blog/holiday-wellness-guide/",
   },
 };
 

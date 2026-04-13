@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Give the gift of wellness. Purchase a Sway Wellness Spa gift card online for massages, facials, and Remedy Room experiences.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/gift-cards",
+    canonical: "https://swaywellnessspa.com/gift-cards/",
   },
   robots: { index: true, follow: true },
   openGraph: {

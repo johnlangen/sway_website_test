@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Review the Terms and Conditions for using Sway Wellness Spa’s website, services, memberships, and policies.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/terms-and-conditions",
+    canonical: "https://swaywellnessspa.com/terms-and-conditions/",
   },
   robots: {
     index: true,

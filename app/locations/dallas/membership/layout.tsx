@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway Dallas spa memberships: Essential, Premier, and Ultimate tiers with massage, facials, sauna, cold plunge, and recovery. Knox/Henderson location coming soon. Join the waitlist for founding member pricing.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/dallas/membership",
+    canonical: "https://swaywellnessspa.com/locations/dallas/membership/",
   },
   openGraph: {
     type: "website",

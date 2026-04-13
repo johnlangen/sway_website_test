@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Discover how the Infrared PEMF Mat enhances massage therapy. Reduce inflammation, relieve pain, and elevate your recovery at Sway Wellness Spa.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/infrared-pemf-mat",
+    canonical: "https://swaywellnessspa.com/blog/infrared-pemf-mat/",
   },
   openGraph: {
     title: "Infrared PEMF Mat Benefits | Massage Recovery at Sway Spa",

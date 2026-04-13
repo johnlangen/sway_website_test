@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "LED Light Therapy at Sway, a modern wellness club in Denver. LightStim MultiWave® with 1,400 medical-grade LEDs for anti-aging, acne, and recovery. Part of the Remedy Room circuit and available as a facial boost.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/led-light-therapy",
+    canonical: "https://swaywellnessspa.com/led-light-therapy/",
   },
   openGraph: {
     type: "website",

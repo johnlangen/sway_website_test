@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "best spa shop Denver"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/sway-shop-finds",
+    canonical: "https://swaywellnessspa.com/blog/sway-shop-finds/",
   },
   openGraph: {
     title: "Best Wellness Products at The Sway Shop in Larimer Square",

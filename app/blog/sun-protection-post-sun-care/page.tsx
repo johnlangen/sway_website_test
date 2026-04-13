@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa Denver"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/sun-protection-post-sun-care",
+    canonical: "https://swaywellnessspa.com/blog/sun-protection-post-sun-care/",
   },
   openGraph: {
     title: "The Ultimate Guide to Sun Protection & Post-Sun Skin Care",

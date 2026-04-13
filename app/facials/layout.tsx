@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Explore advanced facial treatments at Sway, a modern wellness club in Denver. Anti-aging, hydration, acne, and Vitamin C facials with high-tech boosts like LED and microcurrent.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/facials",
+    canonical: "https://swaywellnessspa.com/facials/",
   },
   openGraph: {
     type: "website",

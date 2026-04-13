@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway Wellness Spa is coming to Knox/Henderson in Dallas, TX. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/dallas",
+    canonical: "https://swaywellnessspa.com/locations/dallas/",
   },
   openGraph: {
     type: "website",

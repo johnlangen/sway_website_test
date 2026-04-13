@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Book a couples massage, facial, or spa experience at Sway Wellness Spa on Larimer Square in Denver. Perfect for anniversaries, Valentine's Day, birthdays, and date nights.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/couples-spa",
+    canonical: "https://swaywellnessspa.com/couples-spa/",
   },
   openGraph: {
     title: "Couples Spa in Denver | Sway Wellness Spa",

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sauna therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with cold plunge, Normatec compression, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/sauna",
+    canonical: "https://swaywellnessspa.com/sauna/",
   },
   openGraph: {
     type: "website",

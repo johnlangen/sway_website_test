@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Explore FAQs for each Sway Wellness Spa location. Learn about booking, policies, parking, and what makes Sway unique.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/faq",
+    canonical: "https://swaywellnessspa.com/faq/",
   },
   openGraph: {
     type: "website",

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Become a founding member at Sway Georgetown. Exclusive pricing, VIP perks, and priority access at our new Washington, DC wellness spa.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/georgetown/founding-membership",
+    canonical: "https://swaywellnessspa.com/locations/georgetown/founding-membership/",
   },
   openGraph: {
     type: "website",

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Join Sway Wellness Spa for just $99/month. Choose from facials, massages, Remedy Room access, or Aescape robot massage—plus exclusive member perks.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/may-memberships",
+    canonical: "https://swaywellnessspa.com/blog/may-memberships/",
   },
   openGraph: {
     title: "May Memberships | $99 Monthly Wellness at Sway Spa",

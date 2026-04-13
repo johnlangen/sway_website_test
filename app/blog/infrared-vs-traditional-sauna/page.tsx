@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Discover the difference between traditional and infrared saunas. Learn why Sway’s traditional sauna offers deeper detox and timeless relaxation.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/infrared-vs-traditional-sauna",
+    canonical: "https://swaywellnessspa.com/blog/infrared-vs-traditional-sauna/",
   },
   openGraph: {
     title: "Infrared vs. Traditional Sauna | Sway Wellness Spa",

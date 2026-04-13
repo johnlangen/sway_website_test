@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Book Sway Larimer in Denver: targeted facials, deeply effective massage, Remedy Room, and Aescape robot massage. Reserve online or call our team.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/denver-larimer/book",
+    canonical: "https://swaywellnessspa.com/locations/denver-larimer/book/",
   },
   openGraph: {
     type: "website",

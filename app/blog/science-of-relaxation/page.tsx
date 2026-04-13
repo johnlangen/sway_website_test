@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Explore the science of relaxation with Sway’s spa treatments. Learn how massage, cold plunge, and sauna reduce stress, anxiety, and improve sleep.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/science-of-relaxation",
+    canonical: "https://swaywellnessspa.com/blog/science-of-relaxation/",
   },
   openGraph: {
     title: "How Spa Treatments Reduce Stress & Anxiety | Sway Wellness Spa",

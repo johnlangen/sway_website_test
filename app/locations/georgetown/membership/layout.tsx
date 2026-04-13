@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway Georgetown spa memberships: Essential, Premier, and Ultimate tiers with massage, facials, sauna, cold plunge, and recovery. Washington, DC location coming soon. Join the waitlist for founding member pricing.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/georgetown/membership",
+    canonical: "https://swaywellnessspa.com/locations/georgetown/membership/",
   },
   openGraph: {
     type: "website",

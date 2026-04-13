@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "The best date night ideas in Denver: spa treatments at Sway on Larimer Square, romantic restaurants, rooftop bars, live jazz, Meow Wolf, and more.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/best-date-night-ideas-denver",
+    canonical: "https://swaywellnessspa.com/blog/best-date-night-ideas-denver/",
   },
   openGraph: {
     title: "Best Date Night Ideas in Denver",

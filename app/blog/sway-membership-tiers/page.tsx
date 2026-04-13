@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "spa membership Larimer Square",
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/sway-membership-tiers",
+    canonical: "https://swaywellnessspa.com/blog/sway-membership-tiers/",
   },
   openGraph: {
     title: "Sway's New Membership Tiers: Essential, Premier & Ultimate",

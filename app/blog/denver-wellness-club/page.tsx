@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Discover Sway—Denver’s modern wellness club with facials, massages, sauna, cold plunge & more. Affordable luxury for a new generation of self-care.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/denver-wellness-club",
+    canonical: "https://swaywellnessspa.com/blog/denver-wellness-club/",
   },
   openGraph: {
     title: "Denver’s Most Anticipated Wellness Club | Sway Wellness Spa",

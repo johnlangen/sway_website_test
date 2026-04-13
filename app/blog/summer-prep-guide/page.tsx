@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Get summer-ready with lymphatic massage, microcurrent facials, and hydrating treatments from Sway Wellness Spa in Denver. Your glow-up starts here.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/summer-prep-guide",
+    canonical: "https://swaywellnessspa.com/blog/summer-prep-guide/",
   },
   openGraph: {
     title: "Pre-Summer Skin Prep: Massage, Facials & Glow Tips | Sway Wellness",

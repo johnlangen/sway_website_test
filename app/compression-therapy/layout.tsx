@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Normatec compression therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, cold plunge, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/compression-therapy",
+    canonical: "https://swaywellnessspa.com/compression-therapy/",
   },
   openGraph: {
     type: "website",

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Spa memberships from $99/month: Essential ($99), Premier ($129), Ultimate ($159), plus Aescape robot massage and Remedy Room recovery. Larimer Square, Denver.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+    canonical: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
   },
   openGraph: {
     type: "website",

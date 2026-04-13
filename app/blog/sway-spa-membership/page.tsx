@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/sway-spa-membership",
+    canonical: "https://swaywellnessspa.com/blog/sway-spa-membership/",
   },
   openGraph: {
     title: "Sway Spa Membership: Your 2025 Wellness Transformation",

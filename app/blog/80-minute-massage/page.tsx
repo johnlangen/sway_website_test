@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Relax fully with an 80-minute massage at Sway Wellness Spa in Denver. Extra time, specialty techniques, and total rejuvenation. Your body will thank you.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/80-minute-massage",
+    canonical: "https://swaywellnessspa.com/blog/80-minute-massage/",
   },
   openGraph: {
     title: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",

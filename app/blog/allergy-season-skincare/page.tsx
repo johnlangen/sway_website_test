@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Soothe sensitive skin during allergy season with facials, LED light therapy, and lymphatic drainage at Sway Wellness Spa in Denver.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/allergy-season-skincare",
+    canonical: "https://swaywellnessspa.com/blog/allergy-season-skincare/",
   },
   openGraph: {
     title: "Allergy Season Skincare in Denver | Sway Wellness Spa",

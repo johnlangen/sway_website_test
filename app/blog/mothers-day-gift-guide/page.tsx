@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Celebrate Mom with the perfect spa gift. Explore Sway’s Mother’s Day gift cards, memberships, and self-care experiences for the wellness she deserves.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/mothers-day-gift-guide",
+    canonical: "https://swaywellnessspa.com/blog/mothers-day-gift-guide/",
   },
   openGraph: {
     title: "Mother’s Day Spa Gift Guide | Sway Wellness Spa",

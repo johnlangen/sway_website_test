@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Sway Wellness Spa is coming to Georgetown in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/georgetown",
+    canonical: "https://swaywellnessspa.com/locations/georgetown/",
   },
   openGraph: {
     type: "website",

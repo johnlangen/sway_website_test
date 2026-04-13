@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Sway Wellness Spa"
   ],
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/valentines-day-wellness",
+    canonical: "https://swaywellnessspa.com/blog/valentines-day-wellness/",
   },
   openGraph: {
     title: "Valentine's Day Wellness at Sway",

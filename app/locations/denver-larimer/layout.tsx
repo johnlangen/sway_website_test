@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Visit Sway on Larimer Square in downtown Denver. A modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Book online today.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/locations/denver-larimer",
+    canonical: "https://swaywellnessspa.com/locations/denver-larimer/",
   },
   openGraph: {
     type: "website",

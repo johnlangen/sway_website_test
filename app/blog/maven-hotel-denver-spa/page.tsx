@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Staying at The Maven Hotel in Denver? Book a 60-minute Aescape robot massage at Sway Wellness Spa on Larimer Square — just 0.6 miles from Dairy Block.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/maven-hotel-denver-spa",
+    canonical: "https://swaywellnessspa.com/blog/maven-hotel-denver-spa/",
   },
   keywords: [
     "Maven Hotel spa",

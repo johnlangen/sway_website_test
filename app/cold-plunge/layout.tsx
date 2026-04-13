@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Cold plunge therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, Normatec compression, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/cold-plunge",
+    canonical: "https://swaywellnessspa.com/cold-plunge/",
   },
   openGraph: {
     type: "website",

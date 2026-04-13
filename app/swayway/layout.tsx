@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Discover The Sway Way — a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/swayway",
+    canonical: "https://swaywellnessspa.com/swayway/",
   },
   openGraph: {
     title: "The Sway Way | Modern Wellness Redefined in Denver",

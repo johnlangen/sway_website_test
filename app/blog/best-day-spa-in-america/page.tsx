@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "USA Today 10Best voted Sway #4 Best Day Spa in America. A look at year one on Larimer Square and what's inside Denver's modern wellness club.",
   alternates: {
-    canonical: "https://swaywellnessspa.com/blog/best-day-spa-in-america",
+    canonical: "https://swaywellnessspa.com/blog/best-day-spa-in-america/",
   },
   openGraph: {
     title: "#4 Best Day Spa in America: Sway's First Year",
