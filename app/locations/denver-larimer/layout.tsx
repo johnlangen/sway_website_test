@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/denver-larimer",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/",
     title: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver",
     description:
       "Massage, facials, sauna, cold plunge, Normatec compression, and Aescape robot massage at Sway on Larimer Square in downtown Denver.",
@@ -44,7 +44,7 @@ const localBusinessJsonLd = {
     "A modern wellness club on Larimer Square in Denver offering massage therapy, advanced facials, sauna, cold plunge, Normatec compression, LED light therapy, and AI-powered Aescape robot massage.",
   image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-larimer",
-  url: "https://swaywellnessspa.com/locations/denver-larimer",
+  url: "https://swaywellnessspa.com/locations/denver-larimer/",
   telephone: "+1-303-476-6150",
   address: {
     "@type": "PostalAddress",
@@ -500,7 +500,7 @@ const howToJsonLd = {
       position: 1,
       name: "Book Your Appointment",
       text: "Book online at swaywellnessspa.com, by phone at (303) 476-6150, or walk in. Choose from massage, facials, Aescape robot massage, or the Remedy Room recovery circuit. Walk-ins are welcome, but booking ahead is recommended during evenings and weekends.",
-      url: "https://swaywellnessspa.com/locations/denver-larimer/book",
+      url: "https://swaywellnessspa.com/locations/denver-larimer/book/",
     },
     {
       "@type": "HowToStep",

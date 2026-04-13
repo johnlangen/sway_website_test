@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Give Wellness, Get Wellness: Sway Spa Referral Program",
     description:
       "Refer a friend to Sway Wellness Spa and both of you earn a free Boost. Share the love of self-care with facials, massages, PEMF mats, and LED therapy.",
-    url: "https://swaywellnessspa.com/blog/give-wellness-get-wellness",
+    url: "https://swaywellnessspa.com/blog/give-wellness-get-wellness/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog19.jpg",
+        url: "https://swaywellnessspa.com/assets/blog19.jpg/",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa Referral Program",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-02-01",

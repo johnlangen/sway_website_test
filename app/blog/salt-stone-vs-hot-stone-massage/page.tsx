@@ -14,11 +14,11 @@ export const metadata: Metadata = {
     title: "Salt Stone vs Hot Stone Massage: Why Himalayan Salt Wins",
     description:
       "Salt stone massage and hot stone massage are not the same. Learn the key differences, benefits of Himalayan salt stones, and why Sway Wellness Spa chose salt stone.",
-    url: "https://swaywellnessspa.com/blog/salt-stone-vs-hot-stone-massage",
+    url: "https://swaywellnessspa.com/blog/salt-stone-vs-hot-stone-massage/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/saltstoneblog.jpg",
+        url: "https://swaywellnessspa.com/assets/saltstoneblog.jpg/",
         width: 1200,
         height: 630,
         alt: "Himalayan salt stone massage at Sway Wellness Spa in Denver",
@@ -59,7 +59,7 @@ export default function Page() {
           name: "Sway Wellness Spa",
           logo: {
             "@type": "ImageObject",
-            url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+            url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
           },
         },
         datePublished: "2026-03-08",

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/denver-larimer/book-service",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/book-service/",
     title: "Book Massage or Facial | Sway Larimer (Denver, CO)",
     description:
       "Reserve a massage or facial at Sway Larimer in Denver's Larimer Square. Choose your treatment, customize with boosts, and book online.",

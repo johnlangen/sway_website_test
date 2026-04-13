@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     title: "Best Things to Do in Denver at Night",
     description:
       "14 of the best things to do in Denver at night — Larimer Square dining, Red Rocks concerts, rooftop bars, Meow Wolf, and evening spa treatments at Sway.",
-    url: "https://swaywellnessspa.com/blog/things-to-do-in-denver-at-night",
+    url: "https://swaywellnessspa.com/blog/things-to-do-in-denver-at-night/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/background.png",
+        url: "https://swaywellnessspa.com/assets/background.png/",
         width: 1200,
         height: 630,
         alt: "Best things to do in Denver at night — Larimer Square and downtown Denver",
@@ -55,7 +55,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2026-03-01",

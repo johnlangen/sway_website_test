@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/membership",
+    url: "https://swaywellnessspa.com/membership/",
     title: "Wellness Club Memberships | Sway from $99/month",
     description:
       "Sway Wellness Club memberships from $99/month. Essential, Premier, and Ultimate tiers with massages, facials, and recovery.",

@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "May Memberships | $99 Monthly Wellness at Sway Spa",
     description:
       "Discover Sway Wellness Spa’s $99/month memberships. Enjoy facials, massages, Remedy Room, or Aescape robot massage plus perks like discounts and boosts.",
-    url: "https://swaywellnessspa.com/blog/may-memberships",
+    url: "https://swaywellnessspa.com/blog/may-memberships/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog17.jpg",
+        url: "https://swaywellnessspa.com/assets/blog17.jpg/",
         width: 1200,
         height: 630,
         alt: "Sway May Memberships",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-05-01",

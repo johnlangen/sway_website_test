@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/dallas/book",
+    url: "https://swaywellnessspa.com/locations/dallas/book/",
     title: "Book Your Appointment | Sway Dallas (Coming Soon)",
     description:
       "Sway Dallas booking is not open yet. Explore treatments and learn more about our upcoming Dallas location.",

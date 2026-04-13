@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room/",
     title: "Book Remedy Room | Cold Plunge + Sauna | Sway Larimer (Denver, CO)",
     description:
       "Reserve the Remedy Room at Sway Larimer in Denver’s Larimer Square. Cold plunge + sauna recovery experience. Choose a time and book online.",

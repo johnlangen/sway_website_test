@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Post-Summer Skin Recovery | Sway Wellness Spa",
     description:
       "Undo sun damage and refresh your skin with Sway's post-summer facials, LED therapy, and hydrating treatments tailored for healthy, glowing skin.",
-    url: "https://swaywellnessspa.com/blog/post-summer-skin-recovery",
+    url: "https://swaywellnessspa.com/blog/post-summer-skin-recovery/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog20.jpg",
+        url: "https://swaywellnessspa.com/assets/blog20.jpg/",
         width: 1200,
         height: 630,
         alt: "Post-Summer Skin Recovery at Sway Wellness Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-09-15",

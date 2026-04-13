@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Himalayan Salt Stone Massage | Deep Relaxation at Sway Wellness Spa",
     description:
       "Discover the ultimate Himalayan Salt Stone Massage at Sway Wellness Spa. Relieve stress, boost circulation, and absorb healing minerals naturally.",
-    url: "https://swaywellnessspa.com/blog/himalayan-salt-stone-massage",
+    url: "https://swaywellnessspa.com/blog/himalayan-salt-stone-massage/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog5.jpg",
+        url: "https://swaywellnessspa.com/assets/blog5.jpg/",
         width: 1200,
         height: 630,
         alt: "Himalayan Salt Stone Massage at Sway Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-02-20",

@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Glow Up Before You Show Up: Spa Treatments for Students",
     description:
       "Discover facials, massages, Remedy Room therapies, and student-exclusive offers at Sway Wellness Spa. Recharge, refocus, and thrive.",
-    url: "https://swaywellnessspa.com/blog/glow-up-before-you-show-up",
+    url: "https://swaywellnessspa.com/blog/glow-up-before-you-show-up/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog21.jpg",
+        url: "https://swaywellnessspa.com/assets/blog21.jpg/",
         width: 1200,
         height: 630,
         alt: "Glow Up Before You Show Up Spa Treatments",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-02-15",

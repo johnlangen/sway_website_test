@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/faq/larimer",
+    url: "https://swaywellnessspa.com/faq/larimer/",
     title: "FAQ – Sway Larimer | Wellness Spa Denver",
     description:
       "Find answers about booking, parking, cancellation policies, the Remedy Room, Aescape robot massage, and more at Sway Larimer on Larimer Square in Denver.",

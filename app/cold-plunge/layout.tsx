@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/cold-plunge",
+    url: "https://swaywellnessspa.com/cold-plunge/",
     title: "Cold Plunge Therapy in Denver | Sway Wellness Spa",
     description:
       "Cold plunge therapy as part of the Remedy Room recovery circuit at Sway, a modern wellness club on Larimer Square in Denver.",

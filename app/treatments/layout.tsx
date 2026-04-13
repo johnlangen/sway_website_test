@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/treatments",
+    url: "https://swaywellnessspa.com/treatments/",
     title: "Treatments | Massage, Facials, Recovery & Aescape at Sway",
     description:
       "18 massages, 13 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage. 10+ boosts. Member pricing from $99 at Sway in Denver.",
@@ -60,7 +60,7 @@ export default function TreatmentsLayout({
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     name: "Sway Wellness Spa Treatments",
-    url: "https://swaywellnessspa.com/treatments",
+    url: "https://swaywellnessspa.com/treatments/",
     description:
       "All treatment categories at Sway Wellness Spa: massage therapy, facial treatments, Remedy Room recovery, and Aescape AI-powered robot massage.",
     numberOfItems: 4,
@@ -70,7 +70,7 @@ export default function TreatmentsLayout({
         name: "Massage Therapy",
         description:
           "18 massage types across 3 tiers — Essential, Premier, and Ultimate. 50–90 minutes.",
-        url: "https://swaywellnessspa.com/massages",
+        url: "https://swaywellnessspa.com/massages/",
         numberOfItems: 18,
         itemListElement: [
           {
@@ -105,7 +105,7 @@ export default function TreatmentsLayout({
         name: "Facial Treatments",
         description:
           "13 facial treatments across 3 tiers — Essential, Premier, and Ultimate. 30–60 minutes. Powered by Eminence Organics and Dr. Dennis Gross.",
-        url: "https://swaywellnessspa.com/facials",
+        url: "https://swaywellnessspa.com/facials/",
         numberOfItems: 13,
         itemListElement: [
           {
@@ -140,7 +140,7 @@ export default function TreatmentsLayout({
         name: "Remedy Room Recovery Circuit",
         description:
           "A guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
-        url: "https://swaywellnessspa.com/remedy-tech",
+        url: "https://swaywellnessspa.com/remedy-tech/",
         itemOffered: {
           "@type": "Service",
           name: "Remedy Room",
@@ -169,7 +169,7 @@ export default function TreatmentsLayout({
         name: "Aescape AI Robot Massage",
         description:
           "AI-powered autonomous robot massage with real-time 3D body mapping and personalized pressure zones. 30 or 60 minutes.",
-        url: "https://swaywellnessspa.com/aescape",
+        url: "https://swaywellnessspa.com/aescape/",
         itemOffered: {
           "@type": "Service",
           name: "Aescape Robot Massage",

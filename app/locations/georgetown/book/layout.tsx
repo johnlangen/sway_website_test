@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/georgetown/book",
+    url: "https://swaywellnessspa.com/locations/georgetown/book/",
     title: "Book Your Appointment | Sway Georgetown (Coming Soon)",
     description:
       "Sway Georgetown booking is not open yet. Explore treatments and learn more about our upcoming Washington, DC location.",

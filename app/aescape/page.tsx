@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "article",
-    url: "https://swaywellnessspa.com/aescape",
+    url: "https://swaywellnessspa.com/aescape/",
     title: "Aescape Robot Massage in Denver | AI-Powered Massage at Sway",
     description:
       "AI-powered robot massage with personalized pressure mapping at Sway, a modern wellness club on Larimer Square in Denver.",

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Massage Therapist Job – Denver, CO | Sway Wellness Spa",
     description:
       "Join Sway Wellness Spa as a Massage Therapist. Competitive pay, flexible scheduling, advanced modalities, and a next-generation wellness environment.",
-    url: "https://swaywellnessspa.com/careers",
+    url: "https://swaywellnessspa.com/careers/",
     siteName: "Sway Wellness Spa",
     type: "website",
   },

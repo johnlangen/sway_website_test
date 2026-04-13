@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/led-light-therapy",
+    url: "https://swaywellnessspa.com/led-light-therapy/",
     title: "LED Light Therapy in Denver | Sway Wellness Spa",
     description:
       "LightStim MultiWave® LED Light Therapy at Sway, a modern wellness club on Larimer Square in Denver. Anti-aging, acne, and recovery.",

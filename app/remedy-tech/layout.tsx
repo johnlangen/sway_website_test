@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/remedy-tech",
+    url: "https://swaywellnessspa.com/remedy-tech/",
     title: "Sauna, Cold Plunge & Recovery | The Remedy Room at Sway Wellness Spa",
     description:
       "Sauna, cold plunge, compression therapy, and LED light therapy in one 40-minute recovery session at Sway Wellness Spa.",

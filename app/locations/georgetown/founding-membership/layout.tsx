@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/georgetown/founding-membership",
+    url: "https://swaywellnessspa.com/locations/georgetown/founding-membership/",
     title: "Become a Founding Member | Sway Georgetown DC",
     description:
       "Lock in exclusive founding member pricing and VIP perks at Sway Georgetown. Limited spots available.",

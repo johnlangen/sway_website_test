@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Holiday Spa Gift Cards | Sway Wellness Spa",
     description:
       "Holiday bonus: Buy a $150 spa gift card at Sway and get a $25 bonus card. Perfect for massages, facials, sauna, cold plunge, and Aescape.",
-    url: "https://swaywellnessspa.com/holiday-gift-cards",
+    url: "https://swaywellnessspa.com/holiday-gift-cards/",
     siteName: "Sway Wellness Spa",
     images: [
       {

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Terms & Conditions | Sway Wellness Spa",
     description:
       "Review the Terms and Conditions for using Sway Wellness Spa’s website, services, memberships, and policies.",
-    url: "https://swaywellnessspa.com/terms-and-conditions",
+    url: "https://swaywellnessspa.com/terms-and-conditions/",
     siteName: "Sway Wellness Spa",
     type: "website",
   },
@@ -29,7 +29,7 @@ export default function TermsPage() {
     name: "Terms & Conditions | Sway Wellness Spa",
     description:
       "Review the Terms and Conditions for using Sway Wellness Spa’s website, services, memberships, and policies.",
-    url: "https://swaywellnessspa.com/terms-and-conditions",
+    url: "https://swaywellnessspa.com/terms-and-conditions/",
     mainEntity: {
       "@type": "CreativeWork",
       name: "Terms and Conditions",
@@ -42,7 +42,7 @@ export default function TermsPage() {
         url: "https://swaywellnessspa.com",
         logo: {
           "@type": "ImageObject",
-          url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+          url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
         },
       },
     },

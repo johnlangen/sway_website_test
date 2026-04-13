@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "#4 Best Day Spa in America: Sway's First Year",
     description:
       "USA Today 10Best voted Sway #4 Best Day Spa in America. A look at year one on Larimer Square and what's inside Denver's modern wellness club.",
-    url: "https://swaywellnessspa.com/blog/best-day-spa-in-america",
+    url: "https://swaywellnessspa.com/blog/best-day-spa-in-america/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa on Larimer Square in Denver",
@@ -57,7 +57,7 @@ export default function Page() {
           name: "Sway Wellness Spa",
           logo: {
             "@type": "ImageObject",
-            url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+            url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
           },
         },
         datePublished: "2026-02-27",

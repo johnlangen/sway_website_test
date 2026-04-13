@@ -84,11 +84,11 @@ export default function LarimerOffersLayout({
         priceCurrency: "USD",
         eligibleCustomerType: "http://schema.org/NewCustomer",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/book",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/book/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -100,11 +100,11 @@ export default function LarimerOffersLayout({
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -115,11 +115,11 @@ export default function LarimerOffersLayout({
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
     ],

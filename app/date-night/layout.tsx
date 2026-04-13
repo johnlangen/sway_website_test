@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Date Night in Denver | Sway Wellness Spa",
     description:
       "Plan the perfect Denver date night — couples massage or facial at Sway on Larimer Square, then dinner steps away.",
-    url: "https://swaywellnessspa.com/date-night",
+    url: "https://swaywellnessspa.com/date-night/",
     siteName: "Sway Wellness Spa",
     images: [
       {

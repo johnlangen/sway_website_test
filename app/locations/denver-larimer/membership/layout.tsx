@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
     title: "Memberships from $99/month | Sway Larimer (Denver, CO)",
     description:
       "Three membership tiers — Essential, Premier, and Ultimate — plus Aescape and Remedy Room. Larimer Square, Denver.",
@@ -66,7 +66,7 @@ export default function MembershipLayout({
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     name: "Sway Larimer Memberships",
-    url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
     description:
       "Wellness club memberships at Sway Wellness Spa on Larimer Square in Denver, CO. Essential ($99/mo), Premier ($129/mo), Ultimate ($159/mo), plus Aescape and Remedy Room.",
     numberOfItems: 6,
@@ -79,11 +79,11 @@ export default function MembershipLayout({
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -94,11 +94,11 @@ export default function MembershipLayout({
         price: "129.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -109,11 +109,11 @@ export default function MembershipLayout({
         price: "159.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -124,11 +124,11 @@ export default function MembershipLayout({
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -139,11 +139,11 @@ export default function MembershipLayout({
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -154,11 +154,11 @@ export default function MembershipLayout({
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-larimer/membership",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
     ],

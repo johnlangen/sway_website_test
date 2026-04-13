@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Spa Gift Cards | Sway Wellness Spa",
     description:
       "Give the ultimate gift of relaxation. Buy Sway Wellness Spa gift cards online for massages, facials, and Remedy Room treatments.",
-    url: "https://swaywellnessspa.com/gift-cards",
+    url: "https://swaywellnessspa.com/gift-cards/",
     siteName: "Sway Wellness Spa",
     images: [
       {

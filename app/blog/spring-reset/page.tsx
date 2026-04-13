@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Spring Detox Treatments for Skin & Body | Sway Wellness Spa",
     description:
       "Rejuvenate with Sway’s spring reset spa therapies: sauna, cold plunge, lymphatic massage, and facials that detoxify, refresh, and energize your body.",
-    url: "https://swaywellnessspa.com/blog/spring-reset",
+    url: "https://swaywellnessspa.com/blog/spring-reset/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog15.jpg",
+        url: "https://swaywellnessspa.com/assets/blog15.jpg/",
         width: 1200,
         height: 630,
         alt: "Spring spa detox and reset treatments at Sway Wellness Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-03-15",

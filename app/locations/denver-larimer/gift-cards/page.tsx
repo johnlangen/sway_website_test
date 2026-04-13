@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards/",
     title: "Spa Gift Cards Larimer | Buy Wellness Gifts Online at Sway Denver",
     description:
       "Give the gift of wellness in Denver. Purchase Sway Larimer gift cards online for facials, massage, and Remedy Room recovery experiences.",

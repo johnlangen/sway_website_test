@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/denver-larimer/facials",
+    url: "https://swaywellnessspa.com/locations/denver-larimer/facials/",
     title: "Facials in Denver | Sway Wellness Spa Larimer Square",
     description:
       "Advanced facial treatments in Denver at Sway Wellness Spa (Larimer Square). Anti-aging, hydration, acne, and Vitamin C facials.",

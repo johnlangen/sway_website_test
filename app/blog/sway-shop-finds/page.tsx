@@ -21,11 +21,11 @@ export const metadata: Metadata = {
     title: "Best Wellness Products at The Sway Shop in Larimer Square",
     description:
       "From Eminence skincare to DedCool fragrances, discover luxury wellness products curated at Sway Shop in Denver.",
-    url: "https://swaywellnessspa.com/blog/sway-shop-finds",
+    url: "https://swaywellnessspa.com/blog/sway-shop-finds/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog19.jpg",
+        url: "https://swaywellnessspa.com/assets/blog19.jpg/",
         width: 1200,
         height: 630,
         alt: "Best products at the Sway Shop in Larimer Square",
@@ -55,7 +55,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-06-10",

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/book",
+    url: "https://swaywellnessspa.com/book/",
     title: "Book Your Appointment | Sway Wellness Spa",
     description:
       "Reserve your Sway Wellness Spa experience. Select your location to book facials, massages, Aescape, or Remedy Room sessions.",

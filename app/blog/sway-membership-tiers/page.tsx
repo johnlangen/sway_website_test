@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     title: "Sway's New Membership Tiers: Essential, Premier & Ultimate",
     description:
       "Three tiers, one goal: consistent wellness. Monthly massage or facial starting at $99. 50% off boosts. Works at 60+ Spavia locations nationwide.",
-    url: "https://swaywellnessspa.com/blog/sway-membership-tiers",
+    url: "https://swaywellnessspa.com/blog/sway-membership-tiers/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/join2.jpg",
+        url: "https://swaywellnessspa.com/assets/join2.jpg/",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa membership Denver",
@@ -58,7 +58,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/swaylogo3.png",
+        url: "https://swaywellnessspa.com/assets/swaylogo3.png/",
       },
     },
     datePublished: "2026-04-07",

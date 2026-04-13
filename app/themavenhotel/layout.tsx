@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Maven Hotel × Sway Wellness Spa | 60-Min Aescape Massage",
     description:
       "Book a 60-minute AI-powered Aescape massage at Sway on Larimer Square — minutes from The Maven Hotel in Denver.",
-    url: "https://swaywellnessspa.com/themavenhotel",
+    url: "https://swaywellnessspa.com/themavenhotel/",
     siteName: "Sway Wellness Spa",
     type: "website",
   },

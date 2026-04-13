@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/facials",
+    url: "https://swaywellnessspa.com/facials/",
     title: "Facial Treatments | Sway Wellness Spa",
     description:
       "Science-backed facials using cutting-edge skincare and technology. Anti-aging, hydration, acne, and Vitamin C treatments.",

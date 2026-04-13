@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/dallas",
+    url: "https://swaywellnessspa.com/locations/dallas/",
     title: "Sway Dallas | Spa & Wellness Club in Knox/Henderson | Coming Soon",
     description:
       "Targeted facials, deeply effective massage, sauna, cold plunge, and the Remedy Room recovery circuit. Sway Wellness Spa opening soon in Dallas, TX.",
@@ -36,7 +36,7 @@ const daySpaJsonLd = {
   "@context": "https://schema.org",
   "@type": "DaySpa",
   name: "Sway Dallas",
-  url: "https://swaywellnessspa.com/locations/dallas",
+  url: "https://swaywellnessspa.com/locations/dallas/",
   image: ["https://swaywellnessspa.com/assets/SWAY.jpg"],
   priceRange: "$$",
   sameAs: [

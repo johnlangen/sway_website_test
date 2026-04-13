@@ -20,11 +20,11 @@ export const metadata: Metadata = {
     title: "Sway Spa Membership: Your 2025 Wellness Transformation",
     description:
       "Commit to wellness this year with Sway’s $99/month membership—monthly facials or massages, member perks, and a healthier you.",
-    url: "https://swaywellnessspa.com/blog/sway-spa-membership",
+    url: "https://swaywellnessspa.com/blog/sway-spa-membership/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog2.jpg",
+        url: "https://swaywellnessspa.com/assets/blog2.jpg/",
         width: 1200,
         height: 630,
         alt: "Sway Spa Membership wellness experience",
@@ -54,7 +54,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-01-02",

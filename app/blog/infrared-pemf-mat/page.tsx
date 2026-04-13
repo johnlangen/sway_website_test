@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Infrared PEMF Mat Benefits | Massage Recovery at Sway Spa",
     description:
       "Supercharge your massage with the Infrared PEMF Mat at Sway Spa. Reduce pain, improve circulation, and accelerate recovery naturally.",
-    url: "https://swaywellnessspa.com/blog/infrared-pemf-mat",
+    url: "https://swaywellnessspa.com/blog/infrared-pemf-mat/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog12.jpg",
+        url: "https://swaywellnessspa.com/assets/blog12.jpg/",
         width: 1200,
         height: 630,
         alt: "Infrared PEMF Mat at Sway Wellness Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-03-05",

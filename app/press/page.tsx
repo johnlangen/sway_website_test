@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Press | Sway Wellness Spa in the Media",
     description:
       "Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by TZR. Featured in 9 major publications.",
-    url: "https://swaywellnessspa.com/press",
+    url: "https://swaywellnessspa.com/press/",
     siteName: "Sway Wellness Spa",
     type: "website",
   },

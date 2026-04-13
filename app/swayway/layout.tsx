@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "The Sway Way | Modern Wellness Redefined in Denver",
     description:
       "Discover The Sway Way — a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
-    url: "https://swaywellnessspa.com/swayway",
+    url: "https://swaywellnessspa.com/swayway/",
     siteName: "Sway Wellness Spa",
     images: [
       {

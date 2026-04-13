@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Why Cold Plunges Are the Hottest Wellness Trend | Sway Wellness Spa",
     description:
       "Explore how cold plunge therapy boosts recovery, reduces stress, improves immunity, and enhances wellness at Sway’s Remedy Room in Denver.",
-    url: "https://swaywellnessspa.com/blog/cold-plunge",
+    url: "https://swaywellnessspa.com/blog/cold-plunge/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog7.jpg",
+        url: "https://swaywellnessspa.com/assets/blog7.jpg/",
         width: 1200,
         height: 630,
         alt: "Cold Plunge Remedy Room at Sway Wellness Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-02-01",

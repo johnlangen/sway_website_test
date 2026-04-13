@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/sauna",
+    url: "https://swaywellnessspa.com/sauna/",
     title: "Sauna Therapy in Denver | Sway Wellness Spa",
     description:
       "Sauna therapy as part of the Remedy Room recovery circuit at Sway, a modern wellness club on Larimer Square in Denver.",

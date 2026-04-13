@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/own",
+    url: "https://swaywellnessspa.com/own/",
     title: "Own a Sway | Franchise Opportunity by Spavia",
     description:
       "Sway is the premium wellness concept within the Spavia franchise system. Explore franchise ownership with 60+ locations and 20+ years of industry expertise.",

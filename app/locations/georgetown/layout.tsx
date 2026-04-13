@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/georgetown",
+    url: "https://swaywellnessspa.com/locations/georgetown/",
     title: "Sway Georgetown | Spa & Wellness Club in Washington, DC | Coming Soon",
     description:
       "Targeted facials, deeply effective massage, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Georgetown, Washington, DC.",
@@ -36,7 +36,7 @@ const daySpaJsonLd = {
   "@context": "https://schema.org",
   "@type": "DaySpa",
   name: "Sway Georgetown",
-  url: "https://swaywellnessspa.com/locations/georgetown",
+  url: "https://swaywellnessspa.com/locations/georgetown/",
   image: ["https://swaywellnessspa.com/assets/SWAY.jpg"],
   priceRange: "$$",
   sameAs: [

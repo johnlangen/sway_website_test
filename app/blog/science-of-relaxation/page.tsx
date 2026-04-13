@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "How Spa Treatments Reduce Stress & Anxiety | Sway Wellness Spa",
     description:
       "Discover how massage, sauna, cold plunge, and facials backed by science help reduce stress, regulate the nervous system, and improve overall wellness.",
-    url: "https://swaywellnessspa.com/blog/science-of-relaxation",
+    url: "https://swaywellnessspa.com/blog/science-of-relaxation/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog11.jpg",
+        url: "https://swaywellnessspa.com/assets/blog11.jpg/",
         width: 1200,
         height: 630,
         alt: "A flow chart to test if Sway can help reduce your stress",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-09-20",

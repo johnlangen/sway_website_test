@@ -20,11 +20,11 @@ export const metadata: Metadata = {
     title: "Train Like an Athlete, Recover Like an Athlete",
     description:
       "Explore how advanced recovery methods like sports massage, sauna, cold plunge, and LED light therapy boost performance and reduce soreness.",
-    url: "https://swaywellnessspa.com/blog/train-like-an-athlete",
+    url: "https://swaywellnessspa.com/blog/train-like-an-athlete/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog20.jpg",
+        url: "https://swaywellnessspa.com/assets/blog20.jpg/",
         width: 1200,
         height: 630,
         alt: "Athlete recovery treatments at Sway",
@@ -54,7 +54,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-01-20",

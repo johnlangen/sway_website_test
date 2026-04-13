@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Couples Spa in Denver | Sway Wellness Spa",
     description:
       "Couples massage, facials, and spa experiences at Sway on Larimer Square. For anniversaries, Valentine's Day, birthdays, and date nights.",
-    url: "https://swaywellnessspa.com/couples-spa",
+    url: "https://swaywellnessspa.com/couples-spa/",
     siteName: "Sway Wellness Spa",
     images: [
       {

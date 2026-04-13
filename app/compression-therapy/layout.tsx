@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/compression-therapy",
+    url: "https://swaywellnessspa.com/compression-therapy/",
     title: "Normatec Compression Therapy in Denver | Sway Wellness Spa",
     description:
       "Normatec compression therapy as part of the Remedy Room at Sway, a modern wellness club on Larimer Square in Denver.",

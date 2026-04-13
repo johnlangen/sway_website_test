@@ -24,11 +24,11 @@ export const metadata: Metadata = {
     title: "Maven Hotel + Sway: AI-Powered Massage Near Dairy Block Denver",
     description:
       "Book a 60-minute Aescape robot massage at Sway Wellness Spa — a short trip from The Maven Hotel at Dairy Block in Denver.",
-    url: "https://swaywellnessspa.com/blog/maven-hotel-denver-spa",
+    url: "https://swaywellnessspa.com/blog/maven-hotel-denver-spa/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/maven-hotel.jpg",
+        url: "https://swaywellnessspa.com/assets/maven-hotel.jpg/",
         width: 1200,
         height: 630,
         alt: "The Maven Hotel at Dairy Block, Denver — partner of Sway Wellness Spa",
@@ -65,7 +65,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2026-03-11",

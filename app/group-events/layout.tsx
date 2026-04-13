@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Group Events & Spa Parties | Sway Wellness Spa",
     description:
       "Bachelorette parties, birthdays, corporate wellness, and group spa days at Sway on Larimer Square in Denver.",
-    url: "https://swaywellnessspa.com/group-events",
+    url: "https://swaywellnessspa.com/group-events/",
     siteName: "Sway Wellness Spa",
     images: [
       {

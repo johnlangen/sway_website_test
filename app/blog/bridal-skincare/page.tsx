@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "Bridal Skincare: Wedding-Ready Facials at Sway Wellness Spa",
     description:
       "Discover bridal skincare facials in Denver. From Forever Young to Glow Getter facials, Sway helps brides achieve radiant, wedding-ready skin.",
-    url: "https://swaywellnessspa.com/blog/bridal-skincare",
+    url: "https://swaywellnessspa.com/blog/bridal-skincare/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog3.jpg",
+        url: "https://swaywellnessspa.com/assets/blog3.jpg/",
         width: 1200,
         height: 630,
         alt: "Bridal Skincare at Sway Wellness Spa Denver",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-03-20",

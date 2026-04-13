@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "AI-Powered Aescape Massage in Denver | Sway Wellness Spa",
     description:
       "Discover Aescape at Sway Wellness Spa — the world’s first AI-powered robot massage, exclusive to Denver. Perfect for coders, engineers, and designers.",
-    url: "https://swaywellnessspa.com/blog/aescape",
+    url: "https://swaywellnessspa.com/blog/aescape/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog22.jpg",
+        url: "https://swaywellnessspa.com/assets/blog22.jpg/",
         width: 1200,
         height: 630,
         alt: "Aescape Robot Massage at Sway Wellness Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
       },
     },
     datePublished: "2025-01-20",

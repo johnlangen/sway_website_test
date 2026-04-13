@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://swaywellnessspa.com/locations/dallas/founding-membership",
+    url: "https://swaywellnessspa.com/locations/dallas/founding-membership/",
     title: "Become a Founding Member | Sway Dallas",
     description:
       "Lock in exclusive founding member pricing and VIP perks at Sway Dallas. Limited spots available.",

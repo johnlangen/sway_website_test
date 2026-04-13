@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "The Sway Edit | Denver Wellness Blog by Sway Spa",
     description:
       "28 expert articles on massage, skincare, recovery, and wellness from Sway Wellness Spa in Denver. Tips from the team at the #4 Best Day Spa in America.",
-    url: "https://swaywellnessspa.com/blog",
+    url: "https://swaywellnessspa.com/blog/",
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
         width: 1200,
         height: 630,
         alt: "Sway Wellness Spa Blog",
@@ -53,7 +53,7 @@ export default function BlogPage() {
     name: "The Sway Edit",
     description:
       "Expert wellness advice, skincare science, recovery tips, and Denver lifestyle from the team at Sway Wellness Spa — voted #4 Best Day Spa in America by USA Today 10Best.",
-    url: "https://swaywellnessspa.com/blog",
+    url: "https://swaywellnessspa.com/blog/",
     publisher: {
       "@type": "Organization",
       name: "Sway Wellness Spa",
@@ -63,7 +63,7 @@ export default function BlogPage() {
       {
         "@type": "BlogPosting",
         headline: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
-        url: "https://swaywellnessspa.com/blog/sway-membership-tiers",
+        url: "https://swaywellnessspa.com/blog/sway-membership-tiers/",
         datePublished: "2026-04-07",
         author: {
           "@type": "Organization",
@@ -73,7 +73,7 @@ export default function BlogPage() {
       {
         "@type": "BlogPosting",
         headline: "#4 Best Day Spa in America: Sway's First Year",
-        url: "https://swaywellnessspa.com/blog/best-day-spa-in-america",
+        url: "https://swaywellnessspa.com/blog/best-day-spa-in-america/",
         datePublished: "2025-01-01",
         author: {
           "@type": "Organization",
@@ -84,7 +84,7 @@ export default function BlogPage() {
         "@type": "BlogPosting",
         headline:
           "AI Meets Recovery: Reset with Aescape",
-        url: "https://swaywellnessspa.com/blog/aescape",
+        url: "https://swaywellnessspa.com/blog/aescape/",
         datePublished: "2025-01-01",
         author: {
           "@type": "Organization",
@@ -95,7 +95,7 @@ export default function BlogPage() {
         "@type": "BlogPosting",
         headline:
           "Cold Outside? Cold Plunge: Why Cold Plunges Are a Hot Trend in Wellness",
-        url: "https://swaywellnessspa.com/blog/cold-plunge",
+        url: "https://swaywellnessspa.com/blog/cold-plunge/",
         datePublished: "2025-01-01",
         author: {
           "@type": "Organization",
@@ -106,7 +106,7 @@ export default function BlogPage() {
         "@type": "BlogPosting",
         headline:
           "Science of Relaxation: How Spa Treatments Ease Stress & Anxiety",
-        url: "https://swaywellnessspa.com/blog/science-of-relaxation",
+        url: "https://swaywellnessspa.com/blog/science-of-relaxation/",
         datePublished: "2025-01-01",
         author: {
           "@type": "Organization",
@@ -116,7 +116,7 @@ export default function BlogPage() {
       {
         "@type": "BlogPosting",
         headline: "Best Things to Do in Denver at Night",
-        url: "https://swaywellnessspa.com/blog/things-to-do-in-denver-at-night",
+        url: "https://swaywellnessspa.com/blog/things-to-do-in-denver-at-night/",
         datePublished: "2025-01-01",
         author: {
           "@type": "Organization",
