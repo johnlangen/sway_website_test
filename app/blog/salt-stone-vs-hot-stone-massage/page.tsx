@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/saltstoneblog.jpg/",
+        url: "https://swaywellnessspa.com/assets/saltstoneblog.jpg",
         width: 1200,
         height: 630,
         alt: "Himalayan salt stone massage at Sway Wellness Spa in Denver",
@@ -59,7 +59,7 @@ export default function Page() {
           name: "Sway Wellness Spa",
           logo: {
             "@type": "ImageObject",
-            url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
+            url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
           },
         },
         datePublished: "2026-03-08",

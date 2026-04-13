@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog18.jpg/",
+        url: "https://swaywellnessspa.com/assets/blog18.jpg",
         width: 1200,
         height: 630,
         alt: "Sun Protection Essentials from Sway Wellness Spa",
@@ -55,7 +55,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-06-01",

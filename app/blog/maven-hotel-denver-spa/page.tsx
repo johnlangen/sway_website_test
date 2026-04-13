@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/maven-hotel.jpg/",
+        url: "https://swaywellnessspa.com/assets/maven-hotel.jpg",
         width: 1200,
         height: 630,
         alt: "The Maven Hotel at Dairy Block, Denver — partner of Sway Wellness Spa",
@@ -65,7 +65,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2026-03-11",

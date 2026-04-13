@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog15.jpg/",
+        url: "https://swaywellnessspa.com/assets/blog15.jpg",
         width: 1200,
         height: 630,
         alt: "Pre-summer spa prep treatments at Sway Wellness Spa",
@@ -46,7 +46,7 @@ export default function Page() {
       name: "Sway Wellness Spa",
       logo: {
         "@type": "ImageObject",
-        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg/",
+        url: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
       },
     },
     datePublished: "2025-05-01",
