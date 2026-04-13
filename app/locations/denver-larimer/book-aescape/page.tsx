@@ -1506,6 +1506,7 @@ export default function BookAescapePage() {
                   onChange={(e) => setEmail(e.target.value)}
                   inputMode="email"
                   autoComplete="email"
+                  aria-label="Email address"
                   name="email"
                   placeholder="you@email.com"
                   className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"

@@ -1642,7 +1642,7 @@ function BookServicePage() {
                 <p className="text-sm text-[#113D33]/65">
                   Enhance your {category}. Super Boosts add extra time. Select any or skip.
                 </p>
-                <p className="text-xs text-[#113D33]/35 mt-1 italic">
+                <p className="text-xs text-[#113D33]/60 mt-1 italic">
                   Add-on enhancements can also be added at check-in.
                 </p>
               </div>
@@ -1961,7 +1961,7 @@ function BookServicePage() {
                                 Remove {b.name}
                               </button>
                             ))}
-                          <p className="text-xs text-[#113D33]/35">
+                          <p className="text-xs text-[#113D33]/60">
                             Remove to see available times on this day
                           </p>
                         </div>
@@ -1987,7 +1987,7 @@ function BookServicePage() {
                                 setWeekStart(target);
                               }}
                             />
-                            <p className="text-[11px] text-[#113D33]/30 mt-1">
+                            <p className="text-[11px] text-[#113D33]/60 mt-1">
                               Availability may vary with selected boosts.
                             </p>
                           </div>
@@ -2078,7 +2078,7 @@ function BookServicePage() {
                                     className={`text-xs mt-0.5 ${
                                       isSelected
                                         ? "text-white/70"
-                                        : "text-[#113D33]/45"
+                                        : "text-[#113D33]/60"
                                     }`}
                                   >
                                     {slot.staffName}

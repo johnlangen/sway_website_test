@@ -1509,7 +1509,7 @@ export default function NewBookingFlow() {
                         return (<button key={`${s.startDateTime}-${s.staffId}-${i}`} onClick={() => setSelectedSlot(s)}
                           className={`rounded-xl py-3 px-2 text-center transition-all duration-200 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20 scale-[1.02]" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
                           <span className="font-semibold text-sm">{formatTime12h(s.startDateTime)}</span>
-                          {filteredTherapist !== null && s.staffName && <span className={`block text-xs mt-0.5 ${isSel ? "text-white/70" : "text-[#113D33]/45"}`}>{s.staffName}</span>}
+                          {filteredTherapist !== null && s.staffName && <span className={`block text-xs mt-0.5 ${isSel ? "text-white/70" : "text-[#113D33]/60"}`}>{s.staffName}</span>}
                         </button>);
                       })}
                     </div>
