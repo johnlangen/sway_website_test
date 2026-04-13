@@ -276,7 +276,7 @@ export default function GoogleReviews() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold">{review.author}</p>
-                      <p className="text-[10px] opacity-50">{review.date}</p>
+                      <p className="text-[11px] opacity-70">{review.date}</p>
                     </div>
                   </div>
                 </div>
@@ -306,7 +306,7 @@ export default function GoogleReviews() {
 
       {/* Attribution + View All */}
       <div className="mt-3 md:mt-4 flex items-center justify-center gap-3 text-xs">
-        <span className="flex items-center gap-1.5 opacity-40">
+        <span className="flex items-center gap-1.5 opacity-60">
           <GoogleLogo />
           Reviews from Google
         </span>

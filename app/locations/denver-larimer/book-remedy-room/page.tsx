@@ -1198,9 +1198,9 @@ export default function BookRemedyRoomPage() {
                 <span className="font-bold">{memberFirstName ?? email}</span>
                 {hasRemedyMembership && <> · <span className="font-semibold">Remedy Room Member</span></>}
                 {isMember && !hasRemedyMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-                {homeLocation && <span className={isDarkStep ? "text-white/50 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
+                {homeLocation && <span className={isDarkStep ? "text-white/50 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
               </p>
-              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/40 hover:text-white" : isMember ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/40 hover:text-white" : isMember ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
             </div>
           )}
 
@@ -1407,7 +1407,7 @@ export default function BookRemedyRoomPage() {
                                     <div
                                       className={`text-[10px] mt-0.5 ${
                                         isSelected
-                                          ? "text-[#113D33]/50"
+                                          ? "text-[#113D33]/65"
                                           : "text-white/40"
                                       }`}
                                     >
@@ -1501,7 +1501,7 @@ export default function BookRemedyRoomPage() {
                   className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
 
                 <button
                   disabled={!selectedTime || !isValidEmail(email)}
@@ -1671,7 +1671,7 @@ export default function BookRemedyRoomPage() {
                   </label>
                 )}
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
 
                 <button
                   onClick={handleSaveCardAndContinue}
@@ -1791,14 +1791,14 @@ export default function BookRemedyRoomPage() {
                           placeholder="Guest first name *"
                           value={guestFirstName}
                           onChange={(e) => setGuestFirstName(e.target.value)}
-                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
                           type="text"
                           placeholder="Guest last name"
                           value={guestLastName}
                           onChange={(e) => setGuestLastName(e.target.value)}
-                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                       </div>
                       <input
@@ -1806,14 +1806,14 @@ export default function BookRemedyRoomPage() {
                         placeholder="Guest phone *"
                         value={guestPhone}
                         onChange={(e) => setGuestPhone(e.target.value)}
-                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <input
                         type="email"
                         placeholder="Guest email (optional)"
                         value={guestEmail}
                         onChange={(e) => setGuestEmail(e.target.value)}
-                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -1830,7 +1830,7 @@ export default function BookRemedyRoomPage() {
                   )}
                 </div>
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
 
                 <button
                   onClick={handleFinalConfirmAndBook}
@@ -1918,13 +1918,13 @@ export default function BookRemedyRoomPage() {
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Please bring a swimsuit or athleisure. Check your email for confirmation details.
               </p>
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
                   Complete your visit
                 </p>
                 <Link
@@ -1943,7 +1943,7 @@ export default function BookRemedyRoomPage() {
 
               <Link
                 href="/locations/denver-larimer"
-                className="text-sm text-[#113D33]/50 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
               >
                 Done — back to Sway Larimer
               </Link>
@@ -1951,7 +1951,7 @@ export default function BookRemedyRoomPage() {
               <div className="mt-6">
                 <a
                   href="tel:3034766150"
-                  className="text-sm text-[#113D33]/40 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                  className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors"
                 >
                   Questions? (303) 476-6150
                 </a>

@@ -1150,9 +1150,9 @@ export default function BookAescapePage() {
                 <span className="font-bold">{memberFirstName ?? email}</span>
                 {hasAescapeMembership && <> · <span className="font-semibold">Aescape Member</span></>}
                 {isMember && !hasAescapeMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-                {homeLocation && <span className={isMember || hasAescapeMembership ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
+                {homeLocation && <span className={isMember || hasAescapeMembership ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
               </p>
-              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isMember || hasAescapeMembership ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isMember || hasAescapeMembership ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
             </div>
           )}
 
@@ -1191,13 +1191,13 @@ export default function BookAescapePage() {
                 <div className="flex items-center justify-center gap-4 text-sm animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   <Link
                     href="/aescape"
-                    className="text-[#113D33]/50 underline underline-offset-4 hover:text-[#113D33] transition"
+                    className="text-[#113D33]/65 underline underline-offset-4 hover:text-[#113D33] transition"
                   >
                     Learn about Aescape
                   </Link>
                   <Link
                     href="/blog/aescape"
-                    className="text-[#113D33]/50 underline underline-offset-4 hover:text-[#113D33] transition"
+                    className="text-[#113D33]/65 underline underline-offset-4 hover:text-[#113D33] transition"
                   >
                     Read the blog
                   </Link>
@@ -1263,7 +1263,7 @@ export default function BookAescapePage() {
                           <div className="font-semibold text-[#113D33]">
                             {opt.label}
                           </div>
-                          <div className="text-sm text-[#113D33]/50 mt-0.5">
+                          <div className="text-sm text-[#113D33]/65 mt-0.5">
                             {opt.bestFor}
                           </div>
                           {hasAescapeMembership && (
@@ -1301,14 +1301,14 @@ export default function BookAescapePage() {
                 </div>
                 <div className="text-left">
                   <div className="font-semibold text-[#113D33] text-sm">{selectedOption.label}</div>
-                  <div className="text-xs text-[#113D33]/50">{selectedOption.minutes} min · {selectedOption.price}</div>
+                  <div className="text-xs text-[#113D33]/65">{selectedOption.minutes} min · {selectedOption.price}</div>
                 </div>
               </div>
 
               {/* DAY PICKER */}
               <section className="mb-10 md:mb-12">
                 <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">Choose a Day</h2>
-                <p className="text-sm text-[#113D33]/40 mb-4">
+                <p className="text-sm text-[#113D33]/60 mb-4">
                   {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </p>
 
@@ -1382,7 +1382,7 @@ export default function BookAescapePage() {
                 </div>
 
                 {loading && (
-                  <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/50 animate-pulse">
+                  <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/65 animate-pulse">
                     <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/15 border-t-[#113D33]/40 animate-spin" />
                     Loading availability…
                   </div>
@@ -1395,7 +1395,7 @@ export default function BookAescapePage() {
                     ([label, group]) =>
                       group.length > 0 && (
                         <div key={label} className="mb-6">
-                          <h3 className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/40 mb-2.5">
+                          <h3 className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/60 mb-2.5">
                             {label}
                           </h3>
 
@@ -1465,7 +1465,7 @@ export default function BookAescapePage() {
                   Continue
                 </button>
 
-                <div className="mt-5 text-center text-xs text-[#113D33]/40">
+                <div className="mt-5 text-center text-xs text-[#113D33]/60">
                   Prefer to book with staff?{" "}
                   <a
                     className="underline underline-offset-4 hover:text-[#113D33]/60 transition"
@@ -1511,7 +1511,7 @@ export default function BookAescapePage() {
                   className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
 
                 <button
                   disabled={!selectedTime || !isValidEmail(email)}
@@ -1692,7 +1692,7 @@ export default function BookAescapePage() {
                   </label>
                 )}
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
 
                 <button
                   onClick={handleSaveCardAndContinue}
@@ -1818,14 +1818,14 @@ export default function BookAescapePage() {
                           placeholder="Guest first name *"
                           value={guestFirstName}
                           onChange={(e) => setGuestFirstName(e.target.value)}
-                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
                           type="text"
                           placeholder="Guest last name"
                           value={guestLastName}
                           onChange={(e) => setGuestLastName(e.target.value)}
-                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                       </div>
                       <input
@@ -1833,14 +1833,14 @@ export default function BookAescapePage() {
                         placeholder="Guest phone *"
                         value={guestPhone}
                         onChange={(e) => setGuestPhone(e.target.value)}
-                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <input
                         type="email"
                         placeholder="Guest email (optional)"
                         value={guestEmail}
                         onChange={(e) => setGuestEmail(e.target.value)}
-                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -1857,7 +1857,7 @@ export default function BookAescapePage() {
                   )}
                 </div>
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
 
                 <button
                   onClick={handleFinalConfirmAndBook}
@@ -1953,13 +1953,13 @@ export default function BookAescapePage() {
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Check your email for confirmation. We&apos;ll see you soon.
               </p>
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
                   Complete your visit
                 </p>
                 <Link
@@ -1978,7 +1978,7 @@ export default function BookAescapePage() {
 
               <Link
                 href="/locations/denver-larimer"
-                className="text-sm text-[#113D33]/50 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
               >
                 Done — back to Sway Larimer
               </Link>
@@ -1986,7 +1986,7 @@ export default function BookAescapePage() {
               <div className="mt-6">
                 <a
                   href="tel:3034766150"
-                  className="text-sm text-[#113D33]/40 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                  className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors"
                 >
                   Questions? (303) 476-6150
                 </a>

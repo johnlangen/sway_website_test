@@ -1433,7 +1433,7 @@ function BookServicePage() {
   ───────────────────────────────────────────── */
 
   const inputClass =
-    "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
+    "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
 
   const primaryBtn =
     "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
@@ -1524,7 +1524,7 @@ function BookServicePage() {
 
           {/* Error banner */}
           {error && (
-            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50/80 p-4 text-left text-red-800 text-sm animate-slide-down backdrop-blur-sm">
+            <div role="alert" className="mb-6 rounded-2xl border border-red-200 bg-red-50/80 p-4 text-left text-red-800 text-sm animate-slide-down backdrop-blur-sm">
               <div className="flex items-start gap-3">
                 <div className="shrink-0 w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mt-0.5">
                   <span className="text-red-500 text-xs font-bold">!</span>
@@ -1581,8 +1581,8 @@ function BookServicePage() {
                         {/* Price overlay */}
                         <div className="absolute bottom-3 right-3">
                           <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
-                            <div className="text-sm font-bold text-[#113D33]">${svc.memberPrice}<span className="font-normal text-[#113D33]/40"> / </span><span className="font-normal text-[#113D33]/50">${svc.dropInPrice}</span></div>
-                            <div className="text-[10px] text-[#113D33]/50">{svc.minutes} min</div>
+                            <div className="text-sm font-bold text-[#113D33]">${svc.memberPrice}<span className="font-normal text-[#113D33]/60"> / </span><span className="font-normal text-[#113D33]/65">${svc.dropInPrice}</span></div>
+                            <div className="text-[10px] text-[#113D33]/65">{svc.minutes} min</div>
                           </div>
                         </div>
                       </div>
@@ -1595,7 +1595,7 @@ function BookServicePage() {
                             {svc.subtitle}
                           </div>
                         )}
-                        <p className="text-sm text-[#113D33]/50 mt-1.5 leading-relaxed">
+                        <p className="text-sm text-[#113D33]/65 mt-1.5 leading-relaxed">
                           {svc.description}
                         </p>
                       </div>
@@ -1627,7 +1627,7 @@ function BookServicePage() {
                       <div className="font-semibold text-[#113D33] text-sm">
                         {selectedService.name}
                       </div>
-                      <div className="text-xs text-[#113D33]/50">
+                      <div className="text-xs text-[#113D33]/65">
                         {selectedService.minutes} min · ${selectedService.memberPrice} member / ${selectedService.dropInPrice} drop-in
                       </div>
                     </div>
@@ -1639,7 +1639,7 @@ function BookServicePage() {
                 <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">
                   Optional Boosts
                 </h2>
-                <p className="text-sm text-[#113D33]/50">
+                <p className="text-sm text-[#113D33]/65">
                   Enhance your {category}. Super Boosts add extra time. Select any or skip.
                 </p>
                 <p className="text-xs text-[#113D33]/35 mt-1 italic">
@@ -1653,7 +1653,7 @@ function BookServicePage() {
                 { label: "Add-on enhancements", boosts: boostsForCategory.filter(b => b.tag === "Boost") },
               ].filter(g => g.boosts.length > 0).map((group, gi) => (
                 <div key={group.label} className={gi > 0 ? "mt-5" : ""}>
-                  <div className="text-[11px] uppercase tracking-wider text-[#113D33]/40 font-semibold mb-2 text-left">
+                  <div className="text-[11px] uppercase tracking-wider text-[#113D33]/60 font-semibold mb-2 text-left">
                     {group.label}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1684,7 +1684,7 @@ function BookServicePage() {
                           {boost.tag}
                         </span>
                         {boost.minutesAdded > 0 && (
-                          <span className="text-xs text-[#113D33]/50">
+                          <span className="text-xs text-[#113D33]/65">
                             +{boost.minutesAdded} min
                           </span>
                         )}
@@ -1743,7 +1743,7 @@ function BookServicePage() {
               <div className="mt-8 space-y-3 max-w-md mx-auto">
                 {selectedBoosts.length > 0 && (
                   <div className="bg-white border border-[#113D33]/10 rounded-2xl p-4 text-sm text-left shadow-sm animate-scale-in">
-                    <div className="text-[10px] uppercase tracking-wider text-[#113D33]/50 mb-2 font-semibold">
+                    <div className="text-[10px] uppercase tracking-wider text-[#113D33]/65 mb-2 font-semibold">
                       Your boosts
                     </div>
                     {selectedBoosts.map((b) => (
@@ -1759,7 +1759,7 @@ function BookServicePage() {
                       <span>{totalMinutes} min total</span>
                       <span>${totalMemberPrice} / ${totalPrice}</span>
                     </div>
-                    <div className="text-[10px] text-[#113D33]/40 text-right mt-0.5">member / drop-in</div>
+                    <div className="text-[10px] text-[#113D33]/60 text-right mt-0.5">member / drop-in</div>
                   </div>
                 )}
 
@@ -1808,7 +1808,7 @@ function BookServicePage() {
                           ? ` + ${selectedBoosts.map((b) => b.name).join(", ")}`
                           : ""}
                       </div>
-                      <div className="text-xs text-[#113D33]/50">
+                      <div className="text-xs text-[#113D33]/65">
                         {totalMinutes} min · ${totalMemberPrice} member / ${totalPrice} drop-in
                       </div>
                     </div>
@@ -1819,7 +1819,7 @@ function BookServicePage() {
               {/* Week navigator */}
               <section className="mb-8">
                 <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">Choose a Day</h2>
-                <p className="text-sm text-[#113D33]/40 mb-4">
+                <p className="text-sm text-[#113D33]/60 mb-4">
                   {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </p>
                 <div className="bg-white/60 rounded-2xl p-3 border border-[#113D33]/5">
@@ -1886,7 +1886,7 @@ function BookServicePage() {
               {/* Therapist filter */}
               {allTherapists.length > 1 && (
                 <section className="mb-6 animate-fade-in">
-                  <div className="text-xs uppercase tracking-wider text-[#113D33]/50 mb-2 font-semibold">
+                  <div className="text-xs uppercase tracking-wider text-[#113D33]/65 mb-2 font-semibold">
                     Therapist
                   </div>
                   <div className="flex flex-wrap gap-2 justify-center">
@@ -1928,7 +1928,7 @@ function BookServicePage() {
                 {(loading || schedulesLoading) && (
                   <div className="py-16 flex flex-col items-center gap-3 animate-fade-in">
                     <div className="w-8 h-8 rounded-full border-2 border-[#113D33]/20 border-t-[#113D33] animate-spin" />
-                    <span className="text-sm text-[#113D33]/50">Loading times…</span>
+                    <span className="text-sm text-[#113D33]/65">Loading times…</span>
                   </div>
                 )}
 
@@ -1937,7 +1937,7 @@ function BookServicePage() {
                     {/* Check if slots were removed by extension filtering vs genuinely empty */}
                     {slots.length > 0 && totalExtMinutes > 0 ? (
                       <>
-                        <p className="text-[#113D33]/50">
+                        <p className="text-[#113D33]/65">
                           No times fit your selected boosts on this day.
                         </p>
 
@@ -1955,7 +1955,7 @@ function BookServicePage() {
                                 }
                                 className="inline-flex items-center gap-1.5 rounded-full border border-[#113D33]/20 bg-white px-4 py-2 text-sm font-medium text-[#113D33] shadow-sm hover:shadow-md hover:border-[#113D33]/40 transition-all duration-200"
                               >
-                                <svg className="w-3.5 h-3.5 text-[#113D33]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <svg className="w-3.5 h-3.5 text-[#113D33]/65" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                                 Remove {b.name}
@@ -1969,7 +1969,7 @@ function BookServicePage() {
                         {/* Or find next available day */}
                         {selectedService && (
                           <div className="mt-4">
-                            <p className="text-xs text-[#113D33]/40 mb-2">Or try another day:</p>
+                            <p className="text-xs text-[#113D33]/60 mb-2">Or try another day:</p>
                             <NextAvailableBanner
                               type="service"
                               sessionTypeId={selectedService.id}
@@ -1995,7 +1995,7 @@ function BookServicePage() {
                       </>
                     ) : (
                       <>
-                        <p className="text-[#113D33]/50">
+                        <p className="text-[#113D33]/65">
                           {filteredTherapist
                             ? `No availability for ${allTherapists.find((t) => t.id === filteredTherapist)?.name ?? "this therapist"} on this day.`
                             : "No availability for this day."}
@@ -2030,7 +2030,7 @@ function BookServicePage() {
                     if (periodSlots.length === 0) return null;
                     return (
                       <div key={period} className="mb-5 animate-fade-in">
-                        <div className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40 mb-2 text-left flex items-center gap-1.5">
+                        <div className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/60 mb-2 text-left flex items-center gap-1.5">
                           {period === "Morning" && (
                             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                               <path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 18v4M17.24 17.24l2.83 2.83M18 12h4M17.24 6.76l2.83-2.83" /><circle cx="12" cy="12" r="4" />
@@ -2096,13 +2096,13 @@ function BookServicePage() {
               {/* Selected time confirmation */}
               {selectedSlot && selectedService && (
                 <div className="max-w-md mx-auto mb-4 bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 text-sm text-left shadow-sm animate-scale-in">
-                  <div className="text-[10px] uppercase tracking-wider text-[#113D33]/50 mb-1 font-semibold">
+                  <div className="text-[10px] uppercase tracking-wider text-[#113D33]/65 mb-1 font-semibold">
                     Your appointment
                   </div>
                   <div className="font-semibold text-[#113D33]">
                     {formatTimeRange(selectedSlot.startDateTime, totalMinutes)}
                   </div>
-                  <div className="text-xs text-[#113D33]/50 mt-0.5">
+                  <div className="text-xs text-[#113D33]/65 mt-0.5">
                     {selectedService.name}
                     {selectedBoosts.length > 0 ? ` + ${selectedBoosts.map(b => b.name).join(", ")}` : ""}
                     {filteredTherapist && selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
@@ -2143,7 +2143,7 @@ function BookServicePage() {
                 />
 
                 <div className="mt-4 flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">
-                  <IconLock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/40" />
+                  <IconLock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/60" />
                   <span>
                     We use your email to find or create your Mindbody account.
                     You won&apos;t be charged today.
@@ -2222,7 +2222,7 @@ function BookServicePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-[#113D33]/50 mb-1">
+                  <label className="block text-xs text-[#113D33]/65 mb-1">
                     Name on card
                   </label>
                   <input
@@ -2235,7 +2235,7 @@ function BookServicePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-[#113D33]/50 mb-1">
+                  <label className="block text-xs text-[#113D33]/65 mb-1">
                     Card number
                   </label>
                   <input
@@ -2250,7 +2250,7 @@ function BookServicePage() {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs text-[#113D33]/50 mb-1">
+                    <label className="block text-xs text-[#113D33]/65 mb-1">
                       Month
                     </label>
                     <select ref={expMonthRef} className={inputClass}>
@@ -2263,7 +2263,7 @@ function BookServicePage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-[#113D33]/50 mb-1">
+                    <label className="block text-xs text-[#113D33]/65 mb-1">
                       Year
                     </label>
                     <select ref={expYearRef} className={inputClass}>
@@ -2276,7 +2276,7 @@ function BookServicePage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-[#113D33]/50 mb-1">
+                    <label className="block text-xs text-[#113D33]/65 mb-1">
                       ZIP
                     </label>
                     <input
@@ -2289,7 +2289,7 @@ function BookServicePage() {
                 </div>
 
                 <div className="flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">
-                  <IconLock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/40" />
+                  <IconLock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/60" />
                   <span>
                     Your card is stored securely in Mindbody for no-show / late
                     cancellation protection. You won&apos;t be charged today.
@@ -2329,7 +2329,7 @@ function BookServicePage() {
               <div className="mt-6 text-center">
                 <a
                   href="tel:3034766150"
-                  className="text-sm text-[#113D33]/50 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                  className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
                 >
                   Prefer to book by phone? (303) 476-6150
                 </a>
@@ -2366,7 +2366,7 @@ function BookServicePage() {
                   {/* Boosts */}
                   {selectedBoosts.length > 0 && (
                     <div>
-                      <div className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold mb-1">
+                      <div className="text-[10px] uppercase tracking-wider text-[#113D33]/60 font-semibold mb-1">
                         Boosts
                       </div>
                       {selectedBoosts.map((b) => (
@@ -2390,7 +2390,7 @@ function BookServicePage() {
                         </span>
                       </div>
                       <div>
-                        <div className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">
+                        <div className="text-[10px] uppercase tracking-wider text-[#113D33]/60 font-semibold">
                           Therapist
                         </div>
                         <div className="text-sm font-medium text-[#113D33]">
@@ -2402,7 +2402,7 @@ function BookServicePage() {
 
                   {/* Date + Time */}
                   <div>
-                    <div className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold mb-0.5">
+                    <div className="text-[10px] uppercase tracking-wider text-[#113D33]/60 font-semibold mb-0.5">
                       When
                     </div>
                     <div className="text-sm font-medium text-[#113D33]">
@@ -2422,15 +2422,15 @@ function BookServicePage() {
                       </span>
                     </div>
                     <div className="flex justify-between items-baseline mt-0.5">
-                      <span className="text-sm text-[#113D33]/40">Drop-in</span>
-                      <span className="text-sm text-[#113D33]/40">
+                      <span className="text-sm text-[#113D33]/60">Drop-in</span>
+                      <span className="text-sm text-[#113D33]/60">
                         ${totalPrice}
                       </span>
                     </div>
                   </div>
 
                   {/* Email */}
-                  <div className="text-xs text-[#113D33]/50">
+                  <div className="text-xs text-[#113D33]/65">
                     Reservation under{" "}
                     <span className="font-medium text-[#113D33]/70">
                       {normalizeEmail(email)}
@@ -2445,7 +2445,7 @@ function BookServicePage() {
 
                   {/* No charge notice */}
                   <div className="flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">
-                    <IconLock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/40" />
+                    <IconLock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/60" />
                     <span>
                       No charge today &mdash; your card is stored for no-show /
                       late cancellation protection.
@@ -2483,14 +2483,14 @@ function BookServicePage() {
                             placeholder="Guest first name *"
                             value={guestFirstName}
                             onChange={(e) => setGuestFirstName(e.target.value)}
-                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                           />
                           <input
                             type="text"
                             placeholder="Guest last name"
                             value={guestLastName}
                             onChange={(e) => setGuestLastName(e.target.value)}
-                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                           />
                         </div>
                         <input
@@ -2498,14 +2498,14 @@ function BookServicePage() {
                           placeholder="Guest phone *"
                           value={guestPhone}
                           onChange={(e) => setGuestPhone(e.target.value)}
-                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
                           type="email"
                           placeholder="Guest email (optional)"
                           value={guestEmail}
                           onChange={(e) => setGuestEmail(e.target.value)}
-                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <label className="flex items-center gap-2 cursor-pointer">
                           <input
@@ -2545,7 +2545,7 @@ function BookServicePage() {
               <div className="text-xl font-semibold text-[#113D33] mb-2">
                 Booking your appointment…
               </div>
-              <p className="text-sm text-[#113D33]/50">
+              <p className="text-sm text-[#113D33]/65">
                 Please don&apos;t close this page.
               </p>
             </div>
@@ -2590,7 +2590,7 @@ function BookServicePage() {
               )}
 
               {selectedBoosts.length > 0 && (
-                <p className="text-[#113D33]/50 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "125ms" }}>
+                <p className="text-[#113D33]/65 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "125ms" }}>
                   + {selectedBoosts.map((b) => b.name).join(", ")}
                 </p>
               )}
@@ -2602,7 +2602,7 @@ function BookServicePage() {
                 </p>
               )}
 
-              <p className="text-[#113D33]/50 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Check your email for confirmation. We&apos;ll see you soon.
               </p>
 
@@ -2616,7 +2616,7 @@ function BookServicePage() {
 
               {/* Add another service */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
                   Complete your visit
                 </p>
                 <Link
@@ -2641,7 +2641,7 @@ function BookServicePage() {
 
               <Link
                 href="/locations/denver-larimer"
-                className="text-sm text-[#113D33]/50 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
               >
                 Done — back to Sway Larimer
               </Link>
@@ -2649,7 +2649,7 @@ function BookServicePage() {
               <div className="mt-6">
                 <a
                   href="tel:3034766150"
-                  className="text-sm text-[#113D33]/40 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                  className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors"
                 >
                   Questions? (303) 476-6150
                 </a>

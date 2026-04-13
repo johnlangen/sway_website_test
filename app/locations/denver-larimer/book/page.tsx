@@ -776,7 +776,7 @@ export default function NewBookingFlow() {
   };
 
   /* -- styles (matched to book-service) -- */
-  const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
+  const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
   const primaryBtn = "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
   const secondaryBtn = "w-full rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200";
 
@@ -835,7 +835,7 @@ export default function NewBookingFlow() {
         <AnimatePresence>
           {error && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-              className="mb-4 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-700 text-sm flex items-start justify-between gap-2">
+              role="alert" className="mb-4 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-700 text-sm flex items-start justify-between gap-2">
               <span dangerouslySetInnerHTML={{ __html: error.replace(/\(303\) 476-6150/g, '<a href="tel:+13034766150" class="underline font-semibold">(303) 476-6150</a>') }} />
               <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 shrink-0">&times;</button>
             </motion.div>
@@ -851,9 +851,9 @@ export default function NewBookingFlow() {
               {isMember && memberTier && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
               {hasAescapeMembership && !isMember && <> · <span className="font-semibold">Aescape Member</span></>}
               {hasRemedyMembership && !isMember && <> · <span className="font-semibold">Remedy Room Member</span></>}
-              {homeLocation && <span className={(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/60 ml-1" : "text-[#113D33]/40 ml-1"}>· {homeLocation}</span>}
+              {homeLocation && <span className={(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
             </p>
-            <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/50 hover:text-white" : "text-[#113D33]/40 hover:text-[#113D33]"}`}>Switch</button>
+            <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
           </div>
         )}
 
@@ -861,7 +861,7 @@ export default function NewBookingFlow() {
         {step === "welcome" && loading && (
           <div className="text-center pt-24">
             <div className="inline-block w-8 h-8 border-3 border-[#113D33]/20 border-t-[#113D33] rounded-full animate-spin" />
-            <p className="mt-3 text-sm text-[#113D33]/50">Loading your account...</p>
+            <p className="mt-3 text-sm text-[#113D33]/65">Loading your account...</p>
           </div>
         )}
         {step === "welcome" && !loading && (
@@ -879,7 +879,7 @@ export default function NewBookingFlow() {
                       <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                     </div>
                     <h3 className="text-lg font-bold text-[#113D33] mb-1">I&apos;m a Member</h3>
-                    <p className="text-sm text-[#113D33]/50">Sway or Spavia membership</p>
+                    <p className="text-sm text-[#113D33]/65">Sway or Spavia membership</p>
                   </button>
                 ) : welcomeResult === "found" ? (
                   <div className="p-6 text-center space-y-2">
@@ -888,7 +888,7 @@ export default function NewBookingFlow() {
                     </div>
                     <h3 className="text-lg font-bold text-[#113D33]">Welcome back, {memberFirstName}!</h3>
                     <p className="text-sm text-[#4A776D] font-semibold capitalize">{memberTier} Member</p>
-                    {homeLocation && <p className="text-xs text-[#113D33]/50 mt-1">{homeLocation}</p>}
+                    {homeLocation && <p className="text-xs text-[#113D33]/65 mt-1">{homeLocation}</p>}
                   </div>
                 ) : welcomeResult === "multiple" ? (
                   <div className="p-6 space-y-3">
@@ -901,7 +901,7 @@ export default function NewBookingFlow() {
                         </button>
                       ))}
                     </div>
-                    <button onClick={() => { setWelcomeResult(null); setEmail(""); }} className="text-xs text-[#113D33]/40 hover:text-[#113D33] w-full text-center pt-1">
+                    <button onClick={() => { setWelcomeResult(null); setEmail(""); }} className="text-xs text-[#113D33]/60 hover:text-[#113D33] w-full text-center pt-1">
                       Try a different email
                     </button>
                   </div>
@@ -925,7 +925,7 @@ export default function NewBookingFlow() {
                   <div className="p-6 space-y-3">
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm font-bold text-[#113D33]">Enter your email</h3>
-                      <button onClick={() => { setWelcomeShowEmail(false); setError(null); setWelcomeResult(null); }} className="text-xs text-[#113D33]/40 hover:text-[#113D33]">✕</button>
+                      <button onClick={() => { setWelcomeShowEmail(false); setError(null); setWelcomeResult(null); }} className="text-xs text-[#113D33]/60 hover:text-[#113D33]">✕</button>
                     </div>
                     <input
                       type="email" value={email} onChange={(e) => setEmail(e.target.value)}
@@ -947,12 +947,12 @@ export default function NewBookingFlow() {
                   <svg className="w-5 h-5 text-[#4A776D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
                 </div>
                 <h3 className="text-lg font-bold text-[#113D33] mb-1">Continue as Guest</h3>
-                <p className="text-sm text-[#113D33]/50">Browse treatments &amp; book your visit</p>
+                <p className="text-sm text-[#113D33]/65">Browse treatments &amp; book your visit</p>
               </button>
             </div>
 
             {/* Phone CTA */}
-            <p className="mt-8 text-sm text-[#113D33]/40">
+            <p className="mt-8 text-sm text-[#113D33]/60">
               Prefer to call? <a href="tel:+13034766150" className="text-[#4A776D] underline underline-offset-2 font-medium">(303) 476-6150</a>
             </p>
           </motion.div>
@@ -979,7 +979,7 @@ export default function NewBookingFlow() {
             <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto">
               Choose your treatment to get started.
             </p>
-            <p className="text-[11px] text-[#113D33]/40 mt-3 uppercase tracking-wider">
+            <p className="text-[11px] text-[#113D33]/60 mt-3 uppercase tracking-wider">
               Voted #4 Best Day Spa in America — USA Today 10Best
             </p>
 
@@ -997,7 +997,7 @@ export default function NewBookingFlow() {
                     <div className="absolute bottom-3 right-3">
                       <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
                         <div className="text-sm font-bold text-[#113D33]">{item.price}</div>
-                        <div className="text-[10px] text-[#113D33]/50">{item.dur}</div>
+                        <div className="text-[10px] text-[#113D33]/65">{item.dur}</div>
                       </div>
                     </div>
                   </div>
@@ -1005,7 +1005,7 @@ export default function NewBookingFlow() {
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <h2 className="text-base font-semibold leading-tight text-[#113D33]">{item.label}</h2>
-                        <p className="text-sm text-[#113D33]/50 mt-0.5">{item.sub}</p>
+                        <p className="text-sm text-[#113D33]/65 mt-0.5">{item.sub}</p>
                       </div>
                       <div className="shrink-0 w-8 h-8 rounded-full bg-[#113D33]/5 flex items-center justify-center group-hover:bg-[#113D33]/10 transition-colors">
                         <svg className="w-4 h-4 text-[#113D33] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -1032,7 +1032,7 @@ export default function NewBookingFlow() {
                     <div className="absolute bottom-3 right-3">
                       <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
                         <div className="text-sm font-bold text-[#113D33]">{item.price}</div>
-                        <div className="text-[10px] text-[#113D33]/50">{item.dur}</div>
+                        <div className="text-[10px] text-[#113D33]/65">{item.dur}</div>
                       </div>
                     </div>
                   </div>
@@ -1040,7 +1040,7 @@ export default function NewBookingFlow() {
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <h2 className="text-base font-semibold leading-tight text-[#113D33]">{item.label}</h2>
-                        <p className="text-sm text-[#113D33]/50 mt-0.5">{item.sub}</p>
+                        <p className="text-sm text-[#113D33]/65 mt-0.5">{item.sub}</p>
                       </div>
                       <div className="shrink-0 w-8 h-8 rounded-full bg-[#113D33]/5 flex items-center justify-center group-hover:bg-[#113D33]/10 transition-colors">
                         <svg className="w-4 h-4 text-[#113D33] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -1161,17 +1161,17 @@ export default function NewBookingFlow() {
                           "70–90 min + advanced techniques"
                         )}
                       </p>
-                      <p className="text-xs text-[#113D33]/40 mt-1">Credits applied at checkout if applicable</p>
+                      <p className="text-xs text-[#113D33]/60 mt-1">Credits applied at checkout if applicable</p>
                     </>
                   ) : isUpgrade ? (
                     <>
                       <p className="text-sm text-[#113D33]/80 font-medium">
                         Access with your {memberTier} membership · <span className="text-[#4A776D] font-bold">+${upgradeCost} this visit</span>
                       </p>
-                      <p className="text-xs text-[#113D33]/40 mt-1">
+                      <p className="text-xs text-[#113D33]/60 mt-1">
                         Credits may apply at checkout
                       </p>
-                      <p className="text-xs text-[#113D33]/40 mt-1 max-w-lg mx-auto">
+                      <p className="text-xs text-[#113D33]/60 mt-1 max-w-lg mx-auto">
                         {category === "facial" ? (
                           treatmentTierFilter === "premier" ? "50 min — targeted products for your skin concern + dermapore technology" :
                           "50–60 min — tech enhancements + scalp/hand treatment"
@@ -1184,7 +1184,7 @@ export default function NewBookingFlow() {
                   ) : (
                     <>
                       <p className="text-sm text-[#113D33]/60">${TIER_PRICING[treatmentTierFilter].dropIn} drop-in · <span className="text-[#4A776D] font-semibold">${TIER_PRICING[treatmentTierFilter].member}/mo as member</span></p>
-                      <p className="text-xs text-[#113D33]/40 mt-1.5 max-w-lg mx-auto">
+                      <p className="text-xs text-[#113D33]/60 mt-1.5 max-w-lg mx-auto">
                         {category === "facial" ? (
                           treatmentTierFilter === "essential" ? "50-minute customized facial" :
                           treatmentTierFilter === "premier" ? "50 min — targeted products for your skin concern + dermapore technology" :
@@ -1229,7 +1229,7 @@ export default function NewBookingFlow() {
                             {isUltimate && <span className="text-[#4A776D] text-xs">✦</span>}
                             <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
                           </div>
-                          <p className="text-[13px] text-[#113D33]/40 mt-0.5">{t.duration}</p>
+                          <p className="text-[13px] text-[#113D33]/60 mt-0.5">{t.duration}</p>
                         </div>
                         <div className="flex items-center gap-3 shrink-0">
                           <div className="text-right">
@@ -1333,7 +1333,7 @@ export default function NewBookingFlow() {
                       <h3 className="text-sm font-bold text-[#113D33] uppercase tracking-wide">{group.label}</h3>
                       <span className="text-[11px] text-[#4A776D] font-semibold bg-[#4A776D]/10 rounded-full px-2.5 py-0.5">{group.subtitle}</span>
                     </div>
-                    <p className="text-xs text-[#113D33]/40 mt-0.5">
+                    <p className="text-xs text-[#113D33]/60 mt-0.5">
                       {isMember ? <>{group.price} each <span className="line-through opacity-60">{group.key === "boost" ? "$20" : group.key === "boost_plus" ? "$40" : "$50"}</span></> : <>{group.price} each · {group.key === "boost" ? "$10" : group.key === "boost_plus" ? "$20" : "$25"} for members</>}
                     </p>
                   </div>
@@ -1359,15 +1359,15 @@ export default function NewBookingFlow() {
                                     onClick={(e) => { e.stopPropagation(); setBoostInfoId(showInfo ? null : b.id); }}
                                     className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${sel ? "border-white/50 hover:border-white" : "border-[#113D33]/20 hover:border-[#113D33]/40"}`}
                                   >
-                                    <span className={`text-[10px] font-bold leading-none ${sel ? "text-white/70" : "text-[#113D33]/40"}`}>i</span>
+                                    <span className={`text-[10px] font-bold leading-none ${sel ? "text-white/70" : "text-[#113D33]/60"}`}>i</span>
                                   </button>
                                 )}
                               </div>
-                              <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/50"}`}>{b.description}</p>
+                              <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/65"}`}>{b.description}</p>
                             </div>
                             <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition ${sel ? "bg-white border-white" : familyConflict ? "border-[#113D33]/30" : "border-[#113D33]/20"}`}>
                               {sel && <svg className="w-3 h-3 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
-                              {familyConflict && <svg className="w-3 h-3 text-[#113D33]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
+                              {familyConflict && <svg className="w-3 h-3 text-[#113D33]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
                             </div>
                           </div>
                         </button>
@@ -1437,7 +1437,7 @@ export default function NewBookingFlow() {
             {/* "Choose a Day" header with month */}
             <div className="text-center pt-4">
               <h2 className="text-2xl font-bold text-[#113D33]">Choose a Day</h2>
-              <p className="text-sm text-[#113D33]/50 mt-1">
+              <p className="text-sm text-[#113D33]/65 mt-1">
                 {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { month: "long", year: "numeric" })}
               </p>
             </div>
@@ -1467,7 +1467,7 @@ export default function NewBookingFlow() {
             {/* Therapist filter */}
             {allTherapists.length >= 1 && (
               <div className="text-center">
-                <p className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/40 mb-2">Therapist</p>
+                <p className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/60 mb-2">Therapist</p>
                 <div className="flex flex-wrap gap-2 justify-center">
                   <button onClick={() => setFilteredTherapist(null)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === null ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>All therapists</button>
                   {allTherapists.map((t) => (<button key={t.id} onClick={() => setFilteredTherapist(t.id)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === t.id ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>{t.name}</button>))}
@@ -1490,13 +1490,13 @@ export default function NewBookingFlow() {
               />
             )}
             {/* Slots */}
-            {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div className="text-center py-12 text-[#113D33]/50">Loading availability...</div>
-            : displayedSlots.length === 0 ? <div className="text-center py-12 text-[#113D33]/50"><p>No availability on this date.</p><p className="text-xs mt-1">Try another date or therapist.</p></div>
+            {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div className="text-center py-12 text-[#113D33]/65">Loading availability...</div>
+            : displayedSlots.length === 0 ? <div className="text-center py-12 text-[#113D33]/65"><p>No availability on this date.</p><p className="text-xs mt-1">Try another date or therapist.</p></div>
             : (
               <div className="space-y-5">
                 {Object.entries(grouped).map(([period, ps]) => ps.length > 0 && (
                   <div key={period}>
-                    <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/40 mb-2 flex items-center gap-1.5">
+                    <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/60 mb-2 flex items-center gap-1.5">
                       {period === "morning" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" /></svg>}
                       {period === "midday" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="12" r="5" /><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" /></svg>}
                       {period === "afternoon" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="10" r="4" /><path d="M12 2v2m0 12v2M4.93 2.93l1.41 1.41m11.32 11.32l1.41 1.41M2 10h2m16 0h2M4.93 17.07l1.41-1.41m11.32-11.32l1.41-1.41M3 18h18" /></svg>}
@@ -1520,9 +1520,9 @@ export default function NewBookingFlow() {
             {/* Selected time confirmation card */}
             {selectedSlot && selectedTreatment && (
               <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 text-sm text-left shadow-sm">
-                <p className="text-[10px] uppercase tracking-wider text-[#113D33]/50 mb-1">Your appointment</p>
+                <p className="text-[10px] uppercase tracking-wider text-[#113D33]/65 mb-1">Your appointment</p>
                 <p className="font-semibold text-[#113D33]">{formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}</p>
-                <p className="text-xs text-[#113D33]/50 mt-0.5">
+                <p className="text-xs text-[#113D33]/65 mt-0.5">
                   {selectedTreatment.name}
                   {selectedBoosts.length > 0 && ` + ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}`}
                   {selectedSlot.staffName && filteredTherapist ? ` with ${selectedSlot.staffName}` : ""}
@@ -1553,7 +1553,7 @@ export default function NewBookingFlow() {
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
-                      <p className="text-xs text-[#113D33]/50">
+                      <p className="text-xs text-[#113D33]/65">
                         {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {formatTime12h(selectedSlot.startDateTime)}
                       </p>
                     </div>
@@ -1640,7 +1640,7 @@ export default function NewBookingFlow() {
               <div className="p-5 text-left space-y-4">
                 {selectedBoosts.length > 0 && (
                   <div>
-                    <p className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">Boosts</p>
+                    <p className="text-[10px] uppercase tracking-wider text-[#113D33]/60 font-semibold">Boosts</p>
                     {selectedBoosts.map((b) => <p key={b.id} className="text-sm text-[#113D33]/60">+ {b.name}</p>)}
                   </div>
                 )}
@@ -1648,12 +1648,12 @@ export default function NewBookingFlow() {
                 {selectedSlot.staffName && filteredTherapist && (
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-[#113D33]/10 flex items-center justify-center"><span className="text-sm font-semibold text-[#113D33]">{selectedSlot.staffName.charAt(0)}</span></div>
-                    <div><p className="text-[10px] uppercase tracking-wider text-[#113D33]/40">{category === "facial" ? "Esthetician" : "Therapist"}</p><p className="text-sm font-medium text-[#113D33]">{selectedSlot.staffName}</p></div>
+                    <div><p className="text-[10px] uppercase tracking-wider text-[#113D33]/60">{category === "facial" ? "Esthetician" : "Therapist"}</p><p className="text-sm font-medium text-[#113D33]">{selectedSlot.staffName}</p></div>
                   </div>
                 )}
 
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-[#113D33]/40 font-semibold">When</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[#113D33]/60 font-semibold">When</p>
                   <p className="text-sm font-medium text-[#113D33]">
                     {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
                   </p>
@@ -1689,13 +1689,13 @@ export default function NewBookingFlow() {
                           <span className="text-2xl font-bold text-[#113D33]">{tierCovers && !hasBoosts ? "Included*" : `$${total}`}</span>
                         </div>
                         {!isMember && (
-                          <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
+                          <div className="flex items-baseline justify-between text-[#113D33]/60 text-sm">
                             <span>Drop-in price</span>
                             <span>${totalDropIn}</span>
                           </div>
                         )}
                         {(tierCovers || isUpgradeVisit) && hasBoosts && (
-                          <div className="flex items-baseline justify-between text-[#113D33]/40 text-sm">
+                          <div className="flex items-baseline justify-between text-[#113D33]/60 text-sm">
                             <span>Drop-in price</span>
                             <span>${totalDropIn}</span>
                           </div>
@@ -1705,7 +1705,7 @@ export default function NewBookingFlow() {
                   })()}
                 </div>
 
-                <p className="text-xs text-[#113D33]/50">Reservation under <span className="font-medium text-[#113D33]/70">{email}</span></p>
+                <p className="text-xs text-[#113D33]/65">Reservation under <span className="font-medium text-[#113D33]/70">{email}</span></p>
 
                 {/* Member pricing note */}
                 <div className="rounded-xl bg-[#113D33]/[0.04] p-3 text-xs text-[#113D33]/70 leading-relaxed">
@@ -1714,7 +1714,7 @@ export default function NewBookingFlow() {
 
                 {/* Security note */}
                 <div className="flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">
-                  <svg className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                  <svg className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                   No charge today — your card is stored for no-show / late cancellation protection.
                 </div>
               </div>
@@ -1732,7 +1732,7 @@ export default function NewBookingFlow() {
               )}
             </div>
             <button onClick={handleFinalConfirmAndBook} disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())} className={primaryBtn}>Confirm & book</button>
-            <p className="text-xs text-center text-[#113D33]/40">Your card will not be charged today. It is held to secure your appointment.</p>
+            <p className="text-xs text-center text-[#113D33]/60">Your card will not be charged today. It is held to secure your appointment.</p>
           </motion.div>
         )}
 
@@ -1741,7 +1741,7 @@ export default function NewBookingFlow() {
           <div className="text-center py-24">
             <div className="inline-block w-10 h-10 border-4 border-[#113D33]/20 border-t-[#113D33] rounded-full animate-spin" />
             <p className="mt-4 text-[#113D33] font-semibold">Booking your appointment...</p>
-            <p className="text-sm text-[#113D33]/50 mt-1">Please don&apos;t close this page</p>
+            <p className="text-sm text-[#113D33]/65 mt-1">Please don&apos;t close this page</p>
           </div>
         )}
 
@@ -1765,30 +1765,30 @@ export default function NewBookingFlow() {
             {/* Booking details */}
             <div className="text-left space-y-1">
               <p className="text-[#113D33] font-semibold text-lg">{selectedTreatment.name}</p>
-              {selectedBoosts.length > 0 && <p className="text-[#113D33]/50 text-sm">+ {selectedBoosts.map((b) => b.name).join(", ")}</p>}
+              {selectedBoosts.length > 0 && <p className="text-[#113D33]/65 text-sm">+ {selectedBoosts.map((b) => b.name).join(", ")}</p>}
               {selectedSlot && (
                 <p className="text-[#113D33]/60 text-sm">
                   {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
                   {selectedSlot.staffName ? ` with ${selectedSlot.staffName}` : ""}
                 </p>
               )}
-              <p className="text-[#113D33]/50 text-sm mt-4">A confirmation has been sent to {email}.</p>
-              <p className="text-[#113D33]/50 text-sm">Please arrive 15 minutes early.</p>
+              <p className="text-[#113D33]/65 text-sm mt-4">A confirmation has been sent to {email}.</p>
+              <p className="text-[#113D33]/65 text-sm">Please arrive 15 minutes early.</p>
             </div>
 
             {boostWarning && <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900 leading-relaxed">{boostWarning}</div>}
 
             {/* Upsells */}
             <div className="pt-6 space-y-3">
-              <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/40">Add another service</p>
+              <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">Add another service</p>
               <Link href="/locations/denver-larimer/book-aescape" className={secondaryBtn + " inline-flex items-center justify-center"}>Book Aescape Robot Massage</Link>
               <Link href="/locations/denver-larimer/book-remedy-room" className={secondaryBtn + " inline-flex items-center justify-center"}>Book Remedy Room</Link>
               <button onClick={() => { setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
             </div>
 
             <div className="pt-4 space-y-2">
-              <Link href="/locations/denver-larimer" className="text-sm text-[#113D33]/50 hover:text-[#113D33] underline underline-offset-4">&larr; Back to Sway Larimer</Link>
-              <a href="tel:+13034766150" className="block text-sm text-[#113D33]/40 hover:text-[#113D33]">(303) 476-6150</a>
+              <Link href="/locations/denver-larimer" className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4">&larr; Back to Sway Larimer</Link>
+              <a href="tel:+13034766150" className="block text-sm text-[#113D33]/60 hover:text-[#113D33]">(303) 476-6150</a>
             </div>
           </motion.div>
         )}

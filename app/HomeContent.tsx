@@ -336,7 +336,7 @@ export default function HomeContent() {
               viewport={{ once: true }}
               className={`font-vance ${i % 2 !== 0 ? "md:[direction:ltr]" : ""}`}
             >
-              <div className="text-xs uppercase tracking-[0.15em] opacity-50 mb-2">
+              <div className="text-xs uppercase tracking-[0.15em] opacity-70 mb-2">
                 {service.tagline}
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
@@ -396,7 +396,7 @@ export default function HomeContent() {
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
               <div>
-                <div className="text-xs uppercase tracking-[0.15em] text-white/50 mb-2">
+                <div className="text-xs uppercase tracking-[0.15em] text-white/70 mb-2">
                   For Our Denver Neighbors
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-vance mb-3">
@@ -457,7 +457,7 @@ export default function HomeContent() {
                 <h3 className="text-sm md:text-lg font-semibold mb-0.5">
                   {card.title}
                 </h3>
-                <p className="text-[9px] md:text-[10px] uppercase tracking-wider opacity-50 mb-2 md:mb-3">
+                <p className="text-[10px] md:text-[11px] uppercase tracking-wider opacity-70 mb-2 md:mb-3">
                   {card.duration}
                 </p>
 

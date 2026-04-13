@@ -63,6 +63,8 @@ export default function WaitlistForm({
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        style={{ willChange: "opacity, transform" }}
         className={
           variant === "compact"
             ? "bg-[#113D33] text-white rounded-2xl p-6 text-center"
@@ -87,7 +89,7 @@ export default function WaitlistForm({
         <h3 className="text-lg md:text-xl font-bold mb-1">
           Get Notified When We Open
         </h3>
-        <p className="text-sm opacity-70 mb-4">
+        <p className="text-sm opacity-80 mb-4">
           Join the waitlist for exclusive founding member pricing before we open.
         </p>
 
@@ -96,37 +98,41 @@ export default function WaitlistForm({
             <input
               type="text"
               placeholder="First name"
+              aria-label="First name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/50 focus:outline-none focus:border-white/50"
+              className="rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/70 focus:outline-none focus:border-white/50"
             />
             <input
               type="text"
               placeholder="Last name"
+              aria-label="Last name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/50 focus:outline-none focus:border-white/50"
+              className="rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/70 focus:outline-none focus:border-white/50"
             />
           </div>
           <input
             type="email"
             placeholder="Email address"
+            aria-label="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/50 focus:outline-none focus:border-white/50"
+            className="w-full rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/70 focus:outline-none focus:border-white/50"
           />
           <input
             type="tel"
             placeholder="Phone (optional)"
+            aria-label="Phone number (optional)"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/50 focus:outline-none focus:border-white/50"
+            className="w-full rounded-lg px-4 py-3 text-sm bg-white/10 border border-white/20 placeholder:text-white/70 focus:outline-none focus:border-white/50"
           />
 
           {status === "error" && (
-            <p className="text-red-300 text-sm">{errorMsg}</p>
+            <p className="text-red-300 text-sm" role="alert">{errorMsg}</p>
           )}
 
           <button
@@ -138,7 +144,7 @@ export default function WaitlistForm({
           </button>
         </form>
 
-        <p className="text-[10px] opacity-40 mt-3 leading-relaxed">
+        <p className="text-[11px] opacity-60 mt-3 leading-relaxed">
           By signing up you agree to receive updates about Sway Wellness.
           We&apos;ll never share your info.
         </p>
@@ -194,7 +200,7 @@ export default function WaitlistForm({
 
         <div>
           <label className="block text-sm font-semibold mb-1">
-            Phone <span className="text-xs opacity-50 font-normal">(optional)</span>
+            Phone <span className="text-xs opacity-70 font-normal">(optional)</span>
           </label>
           <input
             type="tel"
@@ -206,7 +212,7 @@ export default function WaitlistForm({
         </div>
 
         {status === "error" && (
-          <p className="text-red-600 text-sm">{errorMsg}</p>
+          <p className="text-red-600 text-sm" role="alert">{errorMsg}</p>
         )}
 
         <button
@@ -218,7 +224,7 @@ export default function WaitlistForm({
         </button>
       </form>
 
-      <p className="text-[11px] opacity-40 mt-3 text-center leading-relaxed">
+      <p className="text-[11px] opacity-60 mt-3 text-center leading-relaxed">
         By signing up you agree to receive updates about Sway Wellness.
         We&apos;ll never share your info. Membership pricing and perks are
         not yet final.
