@@ -23,15 +23,10 @@ interface CuratedReview {
    ------------------------------------------------------------------ */
 
 const CURATED_REVIEWS: CuratedReview[] = [
-  // Page 1 — Mar 2026
+  // Page 1 — Membership + loyalty stories
   {
     author: "Jazmine Olson",
     text: "Got the hot stone massage with Steven and I left in a daze. I couldn\u2019t believe how much stress relief I got from one session. The space is very relaxing and Steven is superb. I immediately signed up for a membership and the member lounge has made destressing before my massage even better.",
-    date: "Mar 2026",
-  },
-  {
-    author: "Kristy Wingfield",
-    text: "I love being a member and coming to Sway. My facials with Bri have been not only absolutely amazing for my skin, but I also have fun with her getting them done. Steven\u2019s massages are awesome as well.",
     date: "Mar 2026",
   },
   {
@@ -39,37 +34,42 @@ const CURATED_REVIEWS: CuratedReview[] = [
     text: "I cannot rave about this place enough! I\u2019ve been seeing Bri for facials for a few months now and cannot believe the results. I have always struggled with acne and wish I\u2019d taken photos at the start of my journey to show the progress.",
     date: "Mar 2026",
   },
-  // Page 2 — Mar 2026
+  {
+    author: "Evan Marx",
+    text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
+    date: "Jan 2026",
+  },
+  // Page 2 — Specific services + staff
+  {
+    author: "Bonner Gilmore",
+    text: "Holly is the best masseuse that I have had the pleasure to run across in the Denver Metro area. I have fused vertebrae and hardware in my back which requires specific work in my upper back and neck region and unfortunately the majority of the massages that I have received rub but do not work the area requested properly. Holly is the opposite, her knowledge and experience shined through as she worked the problem area thoroughly. I will definitely be back.",
+    date: "Apr 2026",
+  },
   {
     author: "Sabrina Kazmi",
     text: "I had a \u201Cforever young\u201D facial with Bri and it was amazing! She was so sweet and informative and let me know exactly what she was doing and why. You can tell she is super passionate about what she does, I can\u2019t recommend her enough!! My skin also looks and feels phenomenal. Johnny at front reception was also amazing, he was super helpful and made me feel welcome as soon as I walked in. 10/10 I can\u2019t wait to come back!",
     date: "Mar 2026",
   },
   {
-    author: "Jessica Koniuszewski",
+    author: "Amanda",
+    text: "I had a great experience at Sway this week. I decided to try the Aescape robotic massage (first time!) and it was great! There is a screen that has step-by-step instructions and you can adjust the pressure & specify a targeted area. There is also an option for you to listen to music and/or choose different backgrounds to watch. The massage itself was pretty relaxing. I thought this was fun to try & would recommend!",
+    date: "Apr 2026",
+  },
+  // Page 3 — Recent, broad appeal
+  {
+    author: "Jenna Star",
+    text: "I had not had a massage in years & chose Sway \u2014 it was an amazing experience! I felt welcomed as soon as I walked in the door, and the massage that I received addressed all of my aches and pains. As someone who has not gotten a massage in a very long time, I would absolutely recommend Sway, and will be going back!",
+    date: "Apr 2026",
+  },
+  {
+    author: "Allison Maisells",
+    text: "I came in today for pore perfection facial with dermaflash. Bri was so welcoming and knowledgeable. She made me feel super comfortable. The actual facial was amazing and so relaxing. You can tell how much goes into picking out scents and creating a calming experience.",
+    date: "Apr 2026",
+  },
+  {
+    author: "Jessica Stout",
     text: "Incredible deep tissue massage!! Pressure was perfect and I left feeling relaxed and reset. Stephen was amazing. The front desk help from Jonny was great \u2014 he was the gift of connection and hospitality. 10/10 experience.",
     date: "Mar 2026",
-  },
-  {
-    author: "Angie Fletcher",
-    text: "The person at the front desk was very friendly. Stephen who did my massage did a great job. It was a good combination of relaxation and therapeutic. I would definitely go again if ever back in town.",
-    date: "Mar 2026",
-  },
-  // Page 3 — Jan/Feb 2026
-  {
-    author: "Ricardo Laremont",
-    text: "If you\u2019re looking for the ultimate recovery spot, Sway Wellness in Larimer Square is a total game-changer. I visited right after a trail race with legs that felt like lead, and I walked out feeling like a new person!",
-    date: "Feb 2026",
-  },
-  {
-    author: "Evan Marx",
-    text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
-    date: "Jan 2026",
-  },
-  {
-    author: "Lilly Sheppard",
-    text: "Brianna is literally the best aesthetician I have received a treatment from. She was super gentle, knowledgeable, and fostered an extremely relaxing environment. 10/10 glow getter facial.",
-    date: "Jan 2026",
   },
 ];
 
