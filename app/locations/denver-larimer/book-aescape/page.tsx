@@ -1437,6 +1437,39 @@ export default function BookAescapePage() {
                         }}
                       />
                     )}
+
+                    {/* Cross-sell CTAs */}
+                    <div className="mt-6 pt-5 border-t border-[#113D33]/10">
+                      <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/50 mb-3">Also available at Sway</p>
+                      <div className="flex flex-col gap-2 max-w-xs mx-auto">
+                        <Link
+                          href="/locations/denver-larimer/book"
+                          className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm hover:shadow-md transition group text-left"
+                        >
+                          <div className="w-9 h-9 rounded-full bg-[#4A776D]/10 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-4 h-4 text-[#4A776D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-[#113D33] group-hover:text-[#4A776D] transition">Massage & Facials</p>
+                            <p className="text-xs text-[#113D33]/50">With a licensed therapist</p>
+                          </div>
+                          <span className="text-[#4A776D] text-sm">&rarr;</span>
+                        </Link>
+                        <Link
+                          href="/locations/denver-larimer/book-remedy-room"
+                          className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-sm hover:shadow-md transition group text-left"
+                        >
+                          <div className="w-9 h-9 rounded-full bg-[#4A776D]/10 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-4 h-4 text-[#4A776D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" /></svg>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-[#113D33] group-hover:text-[#4A776D] transition">The Remedy Room</p>
+                            <p className="text-xs text-[#113D33]/50">Sauna, cold plunge & more · From $49</p>
+                          </div>
+                          <span className="text-[#4A776D] text-sm">&rarr;</span>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 )}
               </section>
