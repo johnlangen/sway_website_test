@@ -1437,38 +1437,17 @@ export default function BookRemedyRoomPage() {
                       }}
                     />
 
-                    {/* Cross-sell CTAs */}
-                    <div className="mt-6 pt-5 border-t border-white/10">
-                      <p className="text-xs uppercase tracking-[0.15em] font-semibold text-white/40 mb-3">Also available at Sway</p>
-                      <div className="flex flex-col gap-2 max-w-xs mx-auto">
-                        <Link
-                          href="/locations/denver-larimer/book"
-                          className="flex items-center gap-3 rounded-xl bg-white/10 backdrop-blur-sm px-4 py-3 hover:bg-white/15 transition group text-left"
-                        >
-                          <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-4 h-4 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-white group-hover:text-white/90 transition">Massage & Facials</p>
-                            <p className="text-xs text-white/40">With a licensed therapist</p>
-                          </div>
-                          <span className="text-white/50 text-sm">&rarr;</span>
-                        </Link>
-                        <Link
-                          href="/locations/denver-larimer/book-aescape"
-                          className="flex items-center gap-3 rounded-xl bg-white/10 backdrop-blur-sm px-4 py-3 hover:bg-white/15 transition group text-left"
-                        >
-                          <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-4 h-4 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714a2.25 2.25 0 0 0 .659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 0 1-1.59.659H9.06a2.25 2.25 0 0 1-1.59-.659L5 14.5m14 0H5" /></svg>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-white group-hover:text-white/90 transition">Aescape AI Massage</p>
-                            <p className="text-xs text-white/40">Often same-day availability · From $49</p>
-                          </div>
-                          <span className="text-white/50 text-sm">&rarr;</span>
-                        </Link>
-                      </div>
-                    </div>
+                    {/* Massage cross-sell — banner style */}
+                    <Link
+                      href="/locations/denver-larimer/book"
+                      className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-4 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-white/20"
+                    >
+                      <span>Try <span className="text-white/90">Massage & Facials</span> — with a licensed therapist</span>
+                      <span className="text-white/70">&rarr;</span>
+                    </Link>
+                    <p className="mt-3 text-xs text-white/30">
+                      <Link href="/locations/denver-larimer/book-aescape" className="underline hover:text-white/60 transition">Try Aescape AI Massage</Link> — often same-day availability
+                    </p>
                   </div>
                 )}
               </section>
