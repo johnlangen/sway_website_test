@@ -197,7 +197,7 @@ export default function BestDaySpaLayout() {
           Six types: Basic, Deep Tissue, Himalayan Salt Stone, CBD, Sports, and
           Lymphatic. Every session is 50 minutes with the option to extend to 80.
           Specialty techniques are included in the price. You can add boosts like
-          a PEMF infrared mat, cupping, or hot stones to customize your
+          PEMF mat, cupping, or CBD to customize your
           treatment.
         </p>
 
@@ -210,7 +210,7 @@ export default function BestDaySpaLayout() {
           Six types built on Eminence Organics and Dr. Dennis Gross protocols:
           Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and
           Dr. Dennis Gross Vitamin C. Add high-tech boosts like LED light
-          therapy, microcurrent, oxygen infusion, or a chemical peel for
+          therapy, microcurrent, oxygen infusion, or dermaflash for
           targeted results.
         </p>
 

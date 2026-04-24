@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "What makes Sway's massages different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CauseMedic CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
+        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
       },
     },
     {
@@ -76,7 +76,7 @@ const faqJsonLd = {
       name: "Can I add anything to my massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway offers add-on boosts at three tiers: Boost ($20), Boost Plus ($40), and Boost Pro ($50). Options include CauseMedic CBD, Cupping, and PEMF. Members save 50% on all boosts.",
+        text: "Yes. Sway offers add-on boosts at three tiers: Boost ($20), Boost Plus ($40), and Boost Pro ($50). Options include CBD, Cupping, and PEMF. Members save 50% on all boosts.",
       },
     },
     {
@@ -103,7 +103,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Massage Therapy at Sway Wellness Spa",
   description:
-    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min) — fully customized by your therapist. Add boosts like CauseMedic CBD, cupping, and PEMF.",
+    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min) — fully customized by your therapist. Add boosts like CBD, cupping, and PEMF.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",

@@ -143,11 +143,11 @@ const facialBoosts = [
 ];
 
 const massageBoosts = [
-  { name: "CauseMedic CBD", price: "$10" },
-  { name: "CauseMedic CBD Plus", price: "$20", note: "+10 min" },
+  { name: "CBD", price: "$10" },
+  { name: "CBD Plus", price: "$20", note: "+10 min" },
   { name: "Cupping", price: "$10" },
   { name: "Cupping Plus", price: "$20", note: "+10 min" },
-  { name: "PEMF Recovery", price: "$10" },
+  { name: "PEMF", price: "$10" },
 ];
 
 /* ------------------------------------------------------------------

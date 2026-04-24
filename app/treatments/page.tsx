@@ -49,7 +49,7 @@ const stats = [
   { value: "18", label: "Massage Types" },
   { value: "13", label: "Facial Treatments" },
   { value: "4", label: "Recovery Technologies" },
-  { value: "10+", label: "Boost Add-Ons" },
+  { value: "7", label: "Boost Add-Ons" },
 ];
 
 /* ---------- COMPONENT ---------- */
@@ -82,17 +82,17 @@ export default function TreatmentsPage() {
           <p className="sr-only">
             Sway Wellness Spa treatments across 3 membership tiers: Essential,
             Premier, and Ultimate. 18 massage types including Signature, Deep
-            Tissue, Sports, Salt Stone, Lymphatic Drainage, Maternity, and
-            CauseMedic CBD (50–90 minutes). 13 facial treatments including
+            Tissue, Sports, Salt Stone, Lymphatic Drainage, and Maternity
+            (50–90 minutes). 13 facial treatments including
             Forever Young Anti-Aging, Pore Perfection Acne, Glow Getter
             Hydration, Sensitive Silk, Dr. Dennis Gross Vitamin C, Illuminate
             LED, Oxygen Infusion, Sculpt &amp; Lift Microcurrent, and Hydraderm
             (30–60 minutes). 4 recovery technologies in the Remedy Room (sauna,
             cold plunge, Normatec compression, LED light therapy — 40 minutes).
             Aescape AI-powered robot massage at select locations (30 or
-            60-minute sessions). Over 10 boost add-ons including LED light
-            therapy, microcurrent, oxygen infusion, dermaflash, cupping,
-            CauseMedic muscle cream, and PEMF mat. Locations in Denver CO,
+            60-minute sessions). 7 boost add-ons: Dermaflash, LED light
+            therapy, microcurrent, PEMF mat, oxygen infusion, cupping,
+            and CBD. Locations in Denver CO,
             Dallas TX, and Washington DC. Voted #4 Best Day Spa in America
             by USA Today 10Best. Book at swaywellnessspa.com.
           </p>
@@ -212,22 +212,19 @@ export default function TreatmentsPage() {
           </h2>
           <p className="mt-4 text-base opacity-70 max-w-2xl mx-auto leading-relaxed">
             Add a boost to your massage or facial for a deeper, more targeted
-            experience. Choose from 10+ options designed to complement your
-            treatment.
+            experience. Choose from a variety of options designed to complement
+            your treatment.
           </p>
 
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
+              "Dermaflash",
               "LED Light Therapy",
               "Microcurrent",
+              "PEMF Mat",
               "Oxygen Infusion",
-              "Chemical Peel",
               "Cupping",
-              "Infrared PEMF Mat",
-              "Scalp Massage",
-              "Hydraderm",
-              "Dermaflash",
-              "Extended Time",
+              "CBD",
             ].map((boost) => (
               <div
                 key={boost}

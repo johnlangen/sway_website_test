@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Treatments | Massage, Facials, Recovery & Aescape at Sway",
   description:
-    "18 massages, 13 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage — plus 10+ boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
+    "18 massages, 13 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage — plus boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
   alternates: {
     canonical: "https://swaywellnessspa.com/treatments/",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/treatments/",
     title: "Treatments | Massage, Facials, Recovery & Aescape at Sway",
     description:
-      "18 massages, 13 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage. 10+ boosts. Member pricing from $99 at Sway in Denver.",
+      "18 massages, 13 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage. Member pricing from $99 at Sway in Denver.",
     images: [
       {
         url: "/assets/OG/og-treatments.jpg",
@@ -193,7 +193,7 @@ export default function TreatmentsLayout({
         name: "What treatments does Sway Wellness Spa offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway offers four treatment categories: 18 massage types across 3 tiers (Essential, Premier, Ultimate), 13 facial treatments across 3 tiers, the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Plus 10+ boost add-ons.",
+          text: "Sway offers four treatment categories: 18 massage types across 3 tiers (Essential, Premier, Ultimate), 13 facial treatments across 3 tiers, the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Plus boost add-ons.",
         },
       },
       {
@@ -217,7 +217,7 @@ export default function TreatmentsLayout({
         name: "Can I combine treatments or add boosts at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Many guests pair a massage or facial with a Remedy Room session for a complete experience. You can also add 10+ boost options like LED light therapy, microcurrent, cupping, infrared PEMF mat, oxygen infusion, glow peel, and more. Members save 50% on all boosts.",
+          text: "Yes. Many guests pair a massage or facial with a Remedy Room session for a complete experience. You can also add boost options like Dermaflash, LED light therapy, microcurrent, PEMF mat, oxygen infusion, cupping, and CBD. Members save 50% on all boosts.",
         },
       },
     ],

@@ -137,14 +137,14 @@ const massageBoostColumns: BoostColumn[] = [
     memberPrice: "$10",
     dropInPrice: "$20 Drop-In",
     timeNote: "No Time Added",
-    items: ["CauseMedic CBD Boost", "Cupping Boost", "PEMF Recovery Boost"],
+    items: ["CBD Boost", "Cupping Boost", "PEMF Boost"],
   },
   {
     tier: "Boost Plus",
     memberPrice: "$20",
     dropInPrice: "$40 Drop-In",
     timeNote: "Adds 10 Min",
-    items: ["CauseMedic CBD Boost Plus", "Cupping Boost Plus"],
+    items: ["CBD Boost Plus", "Cupping Boost Plus"],
   },
 ];
 
@@ -199,8 +199,8 @@ const MassagesPage = () => {
           Massage), Premier (Signature, Maternity, Deep Tissue, Salt Stone,
           Sports, and Lymphatic Drainage), and Ultimate (extended duration
           versions of Signature, Deep Tissue, Salt Stone, Sports, and
-          Lymphatic Drainage). Enhance any massage with boosts: CauseMedic
-          CBD, Cupping, and PEMF Recovery — members save 50%. Open Mon–Fri
+          Lymphatic Drainage). Enhance any massage with boosts: CBD,
+          Cupping, and PEMF — members save 50%. Open Mon–Fri
           10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
           swaywellnessspa.com or call (303) 476-6150.
         </p>
@@ -434,7 +434,7 @@ const MassagesPage = () => {
             },
             {
               q: "Can I add anything to my massage?",
-              a: "Yes. Choose from CauseMedic CBD, Cupping, and PEMF Recovery boosts (no extra time), or Plus versions of CBD and Cupping that add 10 minutes. Members save 50% on all boosts.",
+              a: "Yes. Choose from CBD, Cupping, and PEMF boosts (no extra time), or Plus versions of CBD and Cupping that add 10 minutes. Members save 50% on all boosts.",
             },
             {
               q: "How long is a massage session?",

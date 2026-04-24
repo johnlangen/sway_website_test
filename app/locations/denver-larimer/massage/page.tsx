@@ -260,7 +260,7 @@ export default function LarimerMassagePage() {
           CBD, cupping, or PEMF recovery — science-backed add-ons that deepen your results. Members save 50% on every boost.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
-          {["CauseMedic CBD", "Cupping", "PEMF Recovery"].map((b) => (
+          {["CBD", "Cupping", "PEMF"].map((b) => (
             <span key={b} className="bg-white/10 border border-white/15 text-white/80 px-4 py-2 rounded-full">{b}</span>
           ))}
         </div>

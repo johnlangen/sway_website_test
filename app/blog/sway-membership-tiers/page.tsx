@@ -426,11 +426,11 @@ export default function Page() {
               </p>
               <ul className="space-y-3 text-sm text-gray-700">
                 {[
-                  ["CauseMedic CBD Boost", "$10", "$20", "no added time"],
-                  ["CauseMedic CBD Boost Plus", "$20", "$40", "+10 min"],
+                  ["CBD Boost", "$10", "$20", "no added time"],
+                  ["CBD Boost Plus", "$20", "$40", "+10 min"],
                   ["Cupping Boost", "$10", "$20", "no added time"],
                   ["Cupping Boost Plus", "$20", "$40", "+10 min"],
-                  ["PEMF Recovery Boost", "$10", "$20", "no added time"],
+                  ["PEMF Boost", "$10", "$20", "no added time"],
                 ].map(([name, mem, drop, time]) => (
                   <li key={name} className="flex items-center justify-between gap-2">
                     <span className="font-medium">{name}</span>

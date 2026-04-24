@@ -75,7 +75,7 @@ const faqJsonLd = {
       name: "Can I book a date night spa package in Denver?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Book two treatments at the same time for a couples experience at Sway. You can also add boosts like LED light therapy or scalp massage. Sway gift cards are available for surprising your partner. Book at swaywellnessspa.com or call (303) 476-6150.",
+        text: "Yes. Book two treatments at the same time for a couples experience at Sway. You can also add boosts like LED light therapy or CBD. Sway gift cards are available for surprising your partner. Book at swaywellnessspa.com or call (303) 476-6150.",
       },
     },
   ],

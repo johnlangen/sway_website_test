@@ -181,7 +181,7 @@ export default function SwayLarimerPage() {
               40-minute recovery circuit with 4 modalities — sauna,
               cold plunge, Normatec compression, and LED light therapy (from
               $25), and AI-powered Aescape robot massage (from $49, 30 or 60
-              min). Over 10 boost add-ons across services. Open Mon–Fri 10
+              min). 7 boost add-ons across services. Open Mon–Fri 10
               AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from
               $99/month. 1st hour parking validated at Larimer Square Garage.
               Book at swaywellnessspa.com or call (303) 476-6150.
