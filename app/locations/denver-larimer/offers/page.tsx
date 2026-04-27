@@ -29,7 +29,7 @@ export default function LarimerOffersPage() {
         "Enjoy a 50-minute massage or facial for just $99 (regularly $139). Massage and facial only.",
       cta: "Book Your First Visit",
       href: "/locations/denver-larimer/book",
-      footnote: "For Denver-area locals. First-time guests only.",
+      footnote: "For Denver-area locals. First-time guests only. Excludes robot massage.",
       highlight: true,
       badge: "MOST POPULAR",
     },
