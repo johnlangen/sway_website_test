@@ -839,15 +839,23 @@ export default function BookRemedyRoomPage() {
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
 
+    // Use drop-in equivalent value ($49) for consistent ad attribution
+    const bookingValue = 49;
+    const txnTimestamp = Date.now();
+
     if (window.gtag) {
       // Main conversion (all bookings)
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+        transaction_id: `remedy-${txnTimestamp}`,
+        value: bookingValue,
+        currency: "USD",
       });
       // Remedy Room-specific conversion
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/NB15CLC60P0bEOCtr_NA",
-        value: 1.0,
+        transaction_id: `remedy-${txnTimestamp}-svc`,
+        value: bookingValue,
         currency: "USD",
       });
     }
@@ -859,6 +867,8 @@ export default function BookRemedyRoomPage() {
       service_name: "Remedy Room",
       price: memberPrice,
       is_member: isMember || hasRemedyMembership,
+      value: bookingValue,
+      currency: "USD",
     });
   }
 

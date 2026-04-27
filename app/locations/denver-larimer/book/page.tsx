@@ -742,13 +742,19 @@ export default function NewBookingFlow() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Booking failed");
       if (data.addOns?.some((a: any) => !a.success)) setBoostWarning("Some boosts couldn\u2019t be added automatically. Call (303) 476-6150 to add them.");
+      // Compute booking value (drop-in equivalent — represents business value of booking,
+      // independent of whether customer paid via membership or per-visit)
+      const bookingValueTreatment = selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn : 0;
+      const bookingValueBoosts = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0);
+      const bookingValue = bookingValueTreatment + bookingValueBoosts;
+      const txnTimestamp = Date.now();
       // Fire conversions
       const gtagFn = (window as any).gtag;
       if (typeof gtagFn === "function") {
-        gtagFn("event", "conversion", { send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA", transaction_id: `${clientId}-${Date.now()}` });
-        gtagFn("event", "conversion", { send_to: "AW-17421817568/ArEMCLWJ0P0bEOCtr_NA", transaction_id: `${clientId}-${Date.now()}-svc` });
+        gtagFn("event", "conversion", { send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA", transaction_id: `${clientId}-${txnTimestamp}`, value: bookingValue, currency: "USD" });
+        gtagFn("event", "conversion", { send_to: "AW-17421817568/ArEMCLWJ0P0bEOCtr_NA", transaction_id: `${clientId}-${txnTimestamp}-svc`, value: bookingValue, currency: "USD" });
       }
-      window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember });
+      window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD" });
       setStep("done");
     } catch (e: any) { setError(e?.message ? `${e.message} Call (303) 476-6150 to complete your booking.` : "Booking failed. Call (303) 476-6150 to complete your booking."); setStep("confirm"); }
     finally { bookingLock.current = false; }

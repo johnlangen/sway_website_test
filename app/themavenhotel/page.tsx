@@ -589,13 +589,21 @@ export default function MavenHotelPage() {
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
 
+    // Parse the drop-in price ("$49" → 49) for ad attribution
+    const bookingValue = parseInt(String(selectedSession.price).replace(/\D/g, ""), 10) || 0;
+    const txnTimestamp = Date.now();
+
     if (window.gtag) {
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+        transaction_id: `maven-aescape-${txnTimestamp}`,
+        value: bookingValue,
+        currency: "USD",
       });
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/ZY8ECK7B0P0bEOCtr_NA",
-        value: 1.0,
+        transaction_id: `maven-aescape-${txnTimestamp}-svc`,
+        value: bookingValue,
         currency: "USD",
       });
     }
@@ -607,6 +615,8 @@ export default function MavenHotelPage() {
       session_minutes: selectedSession.minutes,
       price: selectedSession.price,
       booking_source: "maven_hotel",
+      value: bookingValue,
+      currency: "USD",
     });
   }
 

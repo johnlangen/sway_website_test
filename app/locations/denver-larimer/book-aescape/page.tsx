@@ -497,20 +497,28 @@ export default function BookAescapePage() {
 
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
-  
+
+    // Parse the drop-in price ("$49" → 49) for ad attribution
+    const bookingValue = parseInt(String(selectedOption.price).replace(/\D/g, ""), 10) || 0;
+    const txnTimestamp = Date.now();
+
     if (window.gtag) {
       // Main conversion (all bookings)
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+        transaction_id: `aescape-${txnTimestamp}`,
+        value: bookingValue,
+        currency: "USD",
       });
       // Aescape-specific conversion
       window.gtag("event", "conversion", {
         send_to: "AW-17421817568/ZY8ECK7B0P0bEOCtr_NA",
-        value: 1.0,
+        transaction_id: `aescape-${txnTimestamp}-svc`,
+        value: bookingValue,
         currency: "USD",
       });
     }
-  
+
     // GTM / GA4 visibility
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
@@ -518,6 +526,8 @@ export default function BookAescapePage() {
       session_type: selectedOption.label,
       session_minutes: selectedOption.minutes,
       price: selectedOption.price,
+      value: bookingValue,
+      currency: "USD",
     });
   }
 
