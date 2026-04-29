@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Press | Sway Wellness Spa in the Media",
     description:
-      "Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by TZR. Featured in 9 major publications.",
+      "Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by TZR. Featured in 11 major publications.",
     url: "https://swaywellnessspa.com/press/",
     siteName: "Sway Wellness Spa",
     type: "website",
@@ -72,6 +72,40 @@ export default function Page() {
           "@type": "Organization",
           name: "The Zoe Report",
           url: "https://www.thezoereport.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
+      },
+      {
+        "@type": "NewsArticle",
+        headline:
+          "I Got a Robot Massage. Here's Why Human Therapists Shouldn't Worry",
+        url: "https://denverite.com/2026/03/17/denver-robot-massage/",
+        datePublished: "2026-03-17",
+        publisher: {
+          "@type": "Organization",
+          name: "Denverite",
+          url: "https://denverite.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
+      },
+      {
+        "@type": "NewsArticle",
+        headline:
+          "I Got a Massage From the State's First Aescape Robot",
+        url: "https://www.cpr.org/show-segment/i-got-a-massage-from-the-states-first-aescape-robot/",
+        datePublished: "2026-03-17",
+        publisher: {
+          "@type": "Organization",
+          name: "Colorado Public Radio",
+          url: "https://www.cpr.org",
         },
         about: {
           "@type": "DaySpa",
@@ -217,7 +251,7 @@ export default function Page() {
         name: "Where has Sway Wellness Spa been featured in the press?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway has been featured in 9 major publications including USA Today, The Zoe Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life, Salon Today (Modern Spa & Wellness), Denver Business Journal, and Mile High CRE.",
+          text: "Sway has been featured in 11 major publications including USA Today, The Zoe Report, Colorado Public Radio, The Denver Post, Denverite, 5280 Magazine, Athletech News, Yoga+Life, Salon Today (Modern Spa & Wellness), Denver Business Journal, and Mile High CRE.",
         },
       },
       {

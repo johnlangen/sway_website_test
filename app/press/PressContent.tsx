@@ -30,6 +30,24 @@ const AWARDS = [
 
 const PRESS = [
   {
+    title: "I Got a Robot Massage. Here's Why Human Therapists Shouldn't Worry",
+    publication: "Denverite",
+    date: "March 2026",
+    description:
+      "A first-person feature on Sway's Aescape robot — Colorado Matters host Ryan Warner walks in skeptical and leaves convinced the robot complements, rather than replaces, human touch.",
+    image: "/assets/denverite.png",
+    link: "https://denverite.com/2026/03/17/denver-robot-massage/",
+  },
+  {
+    title: "I Got a Massage From the State's First Aescape Robot",
+    publication: "Colorado Public Radio",
+    date: "March 2026",
+    description:
+      "Colorado Matters senior host Ryan Warner visits Sway to try the state's first robot massage in this audio segment from CPR News.",
+    image: "/assets/cpr.png",
+    link: "https://www.cpr.org/show-segment/i-got-a-massage-from-the-states-first-aescape-robot/",
+  },
+  {
     title: "A Demographic-Built Wellness Spa",
     publication: "Salon Today — Modern Spa & Wellness",
     date: "Fall 2025",
@@ -114,11 +132,11 @@ export default function PressContent() {
           <p className="sr-only">
             Sway Wellness Spa has been featured in USA Today 10Best, The Zoe
             Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life,
-            Salon Today, Denver Business Journal, and Mile High CRE. Awards
-            include #4 Best Day Spa in America (USA Today 10Best 2025) and Best
-            U.S. Day Spa (TZR Readers&apos; Choice 2026). Located at 1428 Larimer
-            St. on Larimer Square in Denver, CO. Book at swaywellnessspa.com or
-            call (303) 476-6150.
+            Salon Today, Denver Business Journal, Mile High CRE, Colorado Public
+            Radio, and Denverite. Awards include #4 Best Day Spa in America
+            (USA Today 10Best 2025) and Best U.S. Day Spa (TZR Readers&apos;
+            Choice 2026). Located at 1428 Larimer St. on Larimer Square in
+            Denver, CO. Book at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
           <motion.p
@@ -127,7 +145,7 @@ export default function PressContent() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="mt-4 text-base md:text-lg opacity-80 max-w-2xl mx-auto"
           >
-            Featured in 9 major publications. Two national awards in our first
+            Featured in 11 major publications. Two national awards in our first
             year. See what the press is saying about Sway.
           </motion.p>
         </div>
@@ -196,7 +214,9 @@ export default function PressContent() {
             {[
               { name: "USA Today", w: 120 },
               { name: "The Zoe Report", w: 110 },
+              { name: "CPR News", w: 90 },
               { name: "Denver Post", w: 120 },
+              { name: "Denverite", w: 90 },
               { name: "5280", w: 60 },
               { name: "Athletech", w: 100 },
               { name: "Salon Today", w: 100 },
