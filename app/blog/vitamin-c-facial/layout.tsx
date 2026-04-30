@@ -88,7 +88,7 @@ export default function VitaminCFacialBlogLayout() {
         <h2 id="what-to-expect" className="text-2xl font-bold scroll-mt-24">What to Expect During Your Dr. Dennis Vitamin C Facial at Sway</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li><strong>Cleansing:</strong> Vitamin C and Alpha Beta Cleansing</li>
-          <li><strong>Exfoliation:</strong> The Signature Alpha Beta® Professional Peel System</li>
+          <li><strong>Exfoliation:</strong> Signature Alpha Beta® dual-acid exfoliation</li>
           <li><strong>Hydration & Glow:</strong> Masks, serums, moisturizers, SPF and more tailored to your needs</li>
         </ul>
 
@@ -170,7 +170,7 @@ export default function VitaminCFacialBlogLayout() {
                 name: "What happens during a Vitamin C facial at Sway Wellness Spa?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "During a Vitamin C facial at Sway Wellness Spa, you can expect three key stages: a Vitamin C and Alpha Beta cleansing to prep the skin, the signature Alpha Beta Professional Peel System for exfoliation, and a customized hydration phase with masks, serums, moisturizers, and SPF tailored to your skin's needs. The treatment uses Dr. Dennis Gross Skincare products for professional-grade results.",
+                  text: "During a Vitamin C facial at Sway Wellness Spa, you can expect three key stages: a Vitamin C and Alpha Beta cleansing to prep the skin, signature Alpha Beta dual-acid exfoliation, and a customized hydration phase with masks, serums, moisturizers, and SPF tailored to your skin's needs. The treatment uses Dr. Dennis Gross Skincare products for professional-grade results.",
                 },
               },
             ],

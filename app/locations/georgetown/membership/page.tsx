@@ -48,7 +48,6 @@ const tiers: {
       { name: "Sensitive Silk Facial" },
       { name: "Glow Getter Hydration Facial" },
       { name: "Dr. Dennis Gross Vitamin C Facial" },
-      { name: "Basic Glow Peel", duration: "30 min" },
     ],
     massages: [
       { name: "Signature Massage", duration: "70 min" },
@@ -71,7 +70,6 @@ const tiers: {
       { name: "Sculpt & Lift Microcurrent Facial" },
       { name: "Hydraderm", duration: "50 min" },
       { name: "Dr. Dennis Gross Vitamin C with LED" },
-      { name: "Advanced Glow Peel", duration: "40 min" },
     ],
     massages: [
       { name: "Signature Massage", duration: "90 min" },

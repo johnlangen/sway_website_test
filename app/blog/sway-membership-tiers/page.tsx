@@ -247,7 +247,7 @@ export default function Page() {
           </div>
           <div className="px-6 py-6 space-y-5">
             <p className="text-gray-700">
-              Premier is our most popular Denver spa membership — and it&apos;s easy to see why. For $30 more per month than Essential, you unlock a dramatically wider menu: six distinct facials with targeted products and dermapore technology, plus six massage modalities including deep tissue, Himalayan salt stone, sports massage, and lymphatic drainage.
+              Premier is our most popular Denver spa membership — and it&apos;s easy to see why. For $30 more per month than Essential, you unlock a dramatically wider menu: five distinct facials with targeted products and dermapore technology, plus six massage modalities including deep tissue, Himalayan salt stone, sports massage, and lymphatic drainage.
             </p>
             <p className="text-gray-700">
               Premier massages run 70 minutes on Signature and Maternity — or apply advanced techniques for targeted results on 50-minute options. Premier facials include targeted skincare matched to your specific concern — anti-aging, acne, hydration, sensitivity — plus dermapore technology for deeper product absorption.
@@ -255,7 +255,7 @@ export default function Page() {
             <div className="grid md:grid-cols-2 gap-5 pt-2">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <p className="font-semibold text-[#113D33] text-sm mb-3 uppercase tracking-wide">Facials</p>
-                <p className="text-gray-400 text-xs mb-2">50 min · Glow Peel 30 min</p>
+                <p className="text-gray-400 text-xs mb-2">50 min</p>
                 <ul className="space-y-2 text-sm text-gray-700">
                   {[
                     "Premier Forever Young Anti-Aging Facial",
@@ -269,10 +269,6 @@ export default function Page() {
                       <span>{t}</span>
                     </li>
                   ))}
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#113D33] mt-0.5">✦</span>
-                    <span>Premier Basic Glow Peel <span className="text-gray-400">· 30 min</span></span>
-                  </li>
                 </ul>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
@@ -295,7 +291,7 @@ export default function Page() {
               </div>
             </div>
             <div className="bg-[#F0F4F0] rounded-xl px-4 py-3 text-sm text-[#113D33] font-medium">
-              💡 12 treatment options across massage &amp; facial — the most versatile membership we offer.
+              💡 11 treatment options across massage &amp; facial — the most versatile membership we offer.
             </div>
           </div>
         </div>
@@ -333,7 +329,6 @@ export default function Page() {
                     ["Ultimate Sculpt & Lift Microcurrent Facial", "60 min"],
                     ["Ultimate Hydraderm", "50 min"],
                     ["Ultimate Dr. Dennis Gross Vitamin C with LED", "60 min"],
-                    ["Ultimate Advanced Glow Peel", "40 min"],
                   ].map(([name, dur]) => (
                     <li key={name} className="flex items-start gap-2">
                       <span className="text-[#9CB7A9] mt-0.5">✦</span>
@@ -493,7 +488,7 @@ export default function Page() {
               {
                 emoji: "⭐",
                 tier: "Choose Premier if...",
-                desc: "You want more options, longer sessions, and targeted results. Premier is where most people land — it's the sweet spot between value and experience. Six facials, six massages, dermapore technology, and 70-minute sessions.",
+                desc: "You want more options, longer sessions, and targeted results. Premier is where most people land — it's the sweet spot between value and experience. Five facials, six massages, dermapore technology, and 70-minute sessions.",
                 price: "$129/mo",
                 bg: "bg-[#F0F4F0]",
                 accent: true,

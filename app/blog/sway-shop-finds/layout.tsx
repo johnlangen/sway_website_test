@@ -79,7 +79,7 @@ export default function SwayShopFindsBlogLayout() {
 
         <p className="italic">
           “I always leave Sway with a new skincare obsession—whether it’s an
-          Eminence serum or a Dr. Dennis Gross peel, they have the best
+          Eminence serum or a Dr. Dennis Gross treatment, they have the best
           selection!” – Sway Member
         </p>
 

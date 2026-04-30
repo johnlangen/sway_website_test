@@ -82,7 +82,7 @@ const faqJsonLd = {
       name: "What skincare brands does Sway use?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway uses Eminence Organics, a leader in organic, results-driven skincare, and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta peel.",
+        text: "Sway uses Eminence Organics, a leader in organic, results-driven skincare, and Dr. Dennis Gross, known for clinical-grade formulas.",
       },
     },
   ],
@@ -203,7 +203,7 @@ const serviceJsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Ultimate Dr. Dennis Gross Vitamin C w/ LED Facial",
-          description: "A 60-minute clinical-grade brightening facial using Dr. Dennis Gross Alpha Beta peel technology with LED light therapy.",
+          description: "A 60-minute clinical-grade brightening facial using Dr. Dennis Gross Alpha Beta technology with LED light therapy.",
         },
         price: "199.00",
         priceCurrency: "USD",

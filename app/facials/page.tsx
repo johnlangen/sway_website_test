@@ -471,7 +471,7 @@ const FacialsPage = () => {
               </h3>
               <p className="mt-3 text-sm text-[#113D33]/70 leading-relaxed">
                 Clinical-grade skincare developed by a board-certified
-                dermatologist. Famous for the Alpha Beta&reg; peel and Vitamin C
+                dermatologist. Famous for Alpha Beta&reg; and Vitamin C
                 formulas that deliver visible, science-backed results.
               </p>
             </motion.div>
@@ -505,7 +505,7 @@ const FacialsPage = () => {
             },
             {
               q: "What skincare brands does Sway use?",
-              a: "Sway uses Eminence Organics, a leader in organic, result-driven skincare, and Dr. Dennis Gross, known for clinical-grade formulas including the Alpha Beta\u00ae peel. Both brands are selected for their efficacy and clean ingredients.",
+              a: "Sway uses Eminence Organics, a leader in organic, result-driven skincare, and Dr. Dennis Gross, known for clinical-grade formulas. Both brands are selected for their efficacy and clean ingredients.",
             },
           ].map((item, i) => (
             <div key={i} className="border-b border-black/10">
