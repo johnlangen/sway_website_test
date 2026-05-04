@@ -21,15 +21,15 @@ export default function LarimerOffersPage() {
       highlight: false,
     },
     {
-      label: "For our Denver neighbors",
+      label: "",
       title: "First Visit Offer",
       price: "$40 OFF",
       priceSuffix: "",
       description:
-        "Enjoy a 50-minute massage or facial for just $99 (regularly $139). Massage and facial only.",
+        "Enjoy a 50-minute massage or facial for just $99 (regularly $139). Only available for the Essential Signature Massage or Facial.",
       cta: "Book Your First Visit",
       href: "/locations/denver-larimer/book",
-      footnote: "For Denver-area locals. First-time guests only. Excludes robot massage.",
+      footnote: "For Denver-area locals. First-time guests only.",
       highlight: true,
       badge: "MOST POPULAR",
     },
@@ -92,8 +92,9 @@ export default function LarimerOffersPage() {
 
         <p className="sr-only">
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer
-          — $40 off your first 50-minute massage or facial for just $99
-          (regularly $139), for Denver-area first-time guests. Membership —
+          — $40 off your first 50-minute Essential Signature Massage or Facial
+          for just $99 (regularly $139), for Denver-area first-time guests.
+          Membership —
           $99/month for unlimited massages and facials at $99 each, 50% off all
           boost add-ons, $25 Remedy Room sessions (normally $49), and private
           member lounge access. Remedy Room — $49 per session ($25 for members),
@@ -128,9 +129,11 @@ export default function LarimerOffersPage() {
               )}
 
               <div className="mb-5">
-                <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
-                  {o.label}
-                </p>
+                {o.label && (
+                  <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
+                    {o.label}
+                  </p>
+                )}
                 <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
                   {o.title}
                 </h2>

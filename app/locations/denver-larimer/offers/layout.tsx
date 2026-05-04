@@ -79,7 +79,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "First Visit Offer",
         description:
-          "Enjoy a 50-minute massage or facial for just $99 (regularly $139). $40 off for first-time Denver-area guests.",
+          "Enjoy a 50-minute Essential Signature Massage or Facial for just $99 (regularly $139). $40 off for first-time Denver-area guests.",
         price: "99.00",
         priceCurrency: "USD",
         eligibleCustomerType: "http://schema.org/NewCustomer",
