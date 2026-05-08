@@ -46,7 +46,7 @@ export default function MothersDayGiftCardsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                Mother's Day · May 11
+                Mother's Day · Sunday, May 10
               </motion.p>
 
               <motion.h1
