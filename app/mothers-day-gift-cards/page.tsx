@@ -3,10 +3,30 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function MothersDayGiftCardsPage() {
   const MINDBODY_GC_URL =
     "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42";
+
+  const [timeLeft, setTimeLeft] = useState<string | null>(null);
+
+  useEffect(() => {
+    const target = new Date("2026-05-10T00:00:00").getTime();
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        setTimeLeft(null);
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      setTimeLeft(days > 0 ? `${days}d ${hours}h` : `${hours}h`);
+    };
+    tick();
+    const id = setInterval(tick, 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#f4f4f1] pt-24 md:pt-28 pb-20 font-vance text-[#113D33]">
@@ -81,6 +101,9 @@ export default function MothersDayGiftCardsPage() {
                 >
                   Buy Mom a Gift Card
                 </Link>
+                <p className="mt-3 text-[11px] md:text-xs text-white/75">
+                  Secure · Instant · Never expires
+                </p>
               </motion.div>
             </div>
           </div>
@@ -90,8 +113,10 @@ export default function MothersDayGiftCardsPage() {
         <section className="mt-8 md:mt-10">
           <div className="rounded-xl border border-[#c5d2cd] bg-white/70 px-5 py-4 text-center text-sm md:text-base text-[#4A776D]">
             <p>
-              <span className="font-semibold text-[#113D33]">Order anytime — gift cards arrive in seconds by email.</span>
-              {" "}Perfect for last-minute Mother's Day gifting.
+              <span className="font-semibold text-[#113D33]">
+                {timeLeft ? `Mother's Day in ${timeLeft}` : "Mother's Day this Sunday"}
+              </span>
+              {" · Gift cards arrive in seconds by email."}
             </p>
           </div>
         </section>
@@ -112,6 +137,10 @@ export default function MothersDayGiftCardsPage() {
               <p>Massage, facials, Remedy Room, sauna, and more.</p>
             </div>
           </div>
+
+          <p className="mt-8 text-center text-xs md:text-sm text-[#7b9b92]">
+            $150 covers a signature service · $250 adds the Remedy Room · $400+ a half-day
+          </p>
         </section>
 
         {/* ONE GIFT CARD, EVERY EXPERIENCE */}
@@ -242,6 +271,9 @@ export default function MothersDayGiftCardsPage() {
             >
               Buy Mom a Gift Card
             </Link>
+            <p className="mt-3 text-[11px] md:text-xs text-white/70">
+              Secure · Instant · Never expires
+            </p>
           </div>
         </section>
       </div>
