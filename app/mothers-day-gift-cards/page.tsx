@@ -16,7 +16,7 @@ export default function MothersDayGiftCardsPage() {
           {/* Desktop */}
           <div className="hidden md:block relative h-[380px] w-full">
             <Image
-              src="/assets/giftcard.jpg"
+              src="/assets/mothersday.jpg"
               alt="Mother's Day Spa Gift Card at Sway Wellness"
               fill
               className="object-cover"
@@ -26,7 +26,7 @@ export default function MothersDayGiftCardsPage() {
           {/* Mobile */}
           <div className="block md:hidden relative h-[360px] w-full">
             <Image
-              src="/assets/giftcard.jpg"
+              src="/assets/mothersday.jpg"
               alt="Mother's Day Spa Gift Card at Sway Wellness"
               fill
               className="object-cover"
@@ -64,9 +64,9 @@ export default function MothersDayGiftCardsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
               >
-                <span className="font-semibold">Delivered instantly</span> to Mom's inbox.
+                <span className="font-semibold">Delivered instantly</span> by email.
                 <br />
-                Any amount. Any service. No shipping.
+                Any amount. Print, forward, or send to Mom.
               </motion.p>
 
               <motion.div
@@ -105,7 +105,7 @@ export default function MothersDayGiftCardsPage() {
             </div>
             <div>
               <p className="font-semibold text-[#113D33] mb-1">Instant Digital Delivery</p>
-              <p>Sent straight to her inbox in seconds.</p>
+              <p>Email it, print it, or forward it — yours in seconds.</p>
             </div>
             <div>
               <p className="font-semibold text-[#113D33] mb-1">Redeem on Any Service</p>
@@ -181,7 +181,7 @@ export default function MothersDayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Gift cards are emailed instantly. You can purchase right up to Mother's Day morning and Mom will receive it in seconds.
+                Gift cards are emailed instantly to you. You can purchase right up to Mother's Day morning, then print it, forward it, or send it straight to Mom.
               </p>
             </details>
 
