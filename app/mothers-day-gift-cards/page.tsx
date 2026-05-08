@@ -57,6 +57,18 @@ export default function MothersDayGiftCardsPage() {
           {/* Overlay */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/15" />
 
+          {/* Sway wordmark */}
+          <div className="pointer-events-none absolute top-4 right-4 md:top-6 md:right-6 z-10">
+            <Image
+              src="/assets/swaylogo.png"
+              alt="Sway Wellness Spa"
+              width={70}
+              height={70}
+              className="w-[52px] md:w-[64px] h-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
+              priority
+            />
+          </div>
+
           {/* Text */}
           <div className="absolute inset-0 flex items-end md:items-center justify-start">
             <div className="pointer-events-auto px-6 md:px-10 pb-8 md:pb-0 md:max-w-md">
