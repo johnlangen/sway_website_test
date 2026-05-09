@@ -161,25 +161,62 @@ export default function MothersDayGiftCardsPage() {
             One Gift Card, Every Experience
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 text-sm md:text-base">
-            <Link href="/massages" className="rounded-xl border border-[#c5d2cd] bg-white/70 px-4 py-3 text-center hover:bg-white hover:border-[#113D33] transition-colors">
-              Massage
-            </Link>
-            <Link href="/facials" className="rounded-xl border border-[#c5d2cd] bg-white/70 px-4 py-3 text-center hover:bg-white hover:border-[#113D33] transition-colors">
-              Facial
-            </Link>
-            <Link href="/sauna" className="rounded-xl border border-[#c5d2cd] bg-white/70 px-4 py-3 text-center hover:bg-white hover:border-[#113D33] transition-colors">
-              Sauna
-            </Link>
-            <Link href="/cold-plunge" className="rounded-xl border border-[#c5d2cd] bg-white/70 px-4 py-3 text-center hover:bg-white hover:border-[#113D33] transition-colors">
-              Cold Plunge
-            </Link>
-            <Link href="/remedy-tech" className="rounded-xl border border-[#c5d2cd] bg-white/70 px-4 py-3 text-center hover:bg-white hover:border-[#113D33] transition-colors">
-              Remedy Room
-            </Link>
-            <Link href="/aescape" className="rounded-xl border border-[#c5d2cd] bg-white/70 px-4 py-3 text-center hover:bg-white hover:border-[#113D33] transition-colors">
-              Aescape Massage
-            </Link>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            {[
+              { href: "/massages", label: "Massage", src: "/assets/massage7.jpg" },
+              { href: "/facials", label: "Facial", src: "/assets/facial.jpg" },
+              { href: "/sauna", label: "Sauna", src: "/assets/sauna.jpg" },
+              { href: "/cold-plunge", label: "Cold Plunge", src: "/assets/cold_plunge.jpg" },
+              { href: "/remedy-tech", label: "Remedy Room", src: "/assets/remedy-room.jpg" },
+              { href: "/aescape", label: "Aescape Massage", src: "/assets/aescapeblog7.jpg" },
+            ].map((tile) => (
+              <Link
+                key={tile.href}
+                href={tile.href}
+                className="group relative block aspect-[4/5] overflow-hidden rounded-xl"
+              >
+                <Image
+                  src={tile.src}
+                  alt={tile.label}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/0" />
+                <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4">
+                  <p className="text-white text-sm md:text-base font-medium tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                    {tile.label}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* LARIMER SQUARE */}
+        <section className="mt-16 md:mt-20">
+          <div className="grid md:grid-cols-2 items-stretch rounded-2xl overflow-hidden bg-white/70 border border-[#d4dfda]">
+            <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[340px]">
+              <Image
+                src="/assets/larimer-outside.jpg"
+                alt="Sway Wellness Spa storefront on Larimer Square in downtown Denver"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col justify-center">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#7b9b92] mb-2">
+                On Larimer Square
+              </p>
+              <h2 className="text-2xl md:text-3xl font-light mb-3 leading-tight">
+                In the heart of downtown Denver
+              </h2>
+              <p className="text-sm md:text-base text-[#4A776D] leading-relaxed">
+                Pair Mom's gift card with brunch, dinner, or a stroll along Denver's flagship street.
+                Sway sits at 1428 Larimer St — between historic facades, twinkle lights, and the city's best restaurants.
+              </p>
+            </div>
           </div>
         </section>
 
