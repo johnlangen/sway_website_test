@@ -225,6 +225,16 @@ export default function HolidayGiftCardsPage() {
               </p>
             </details>
 
+            <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
+              <summary className="cursor-pointer list-none flex justify-between items-center">
+                <span className="font-semibold text-[#113D33]">Are gift cards refundable?</span>
+                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p className="mt-2">
+                Gift card and bonus card purchases are non-refundable.
+              </p>
+            </details>
+
           </div>
         </section>
 
@@ -238,7 +248,8 @@ export default function HolidayGiftCardsPage() {
 
             <p>
                 Valid Only On Purchases of $100 or More. Not Redeemable for Cash. May Not Be Combined With
-                Membership or Any Other Offer. Terms & Conditions May Change At Any Time. Expires 2.28.2026.
+                Membership or Any Other Offer. Gift card and bonus card purchases are non-refundable.
+                Terms & Conditions May Change At Any Time. Expires 2.28.2026.
             </p>
         </section>
 

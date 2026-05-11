@@ -285,6 +285,16 @@ export default function MothersDayGiftCardsPage() {
 
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
+                <span className="font-semibold text-[#113D33]">Are gift cards refundable?</span>
+                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p className="mt-2">
+                Gift card purchases are non-refundable. They never expire, so they can be used anytime.
+              </p>
+            </details>
+
+            <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
+              <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">What can Mom use it for?</span>
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
@@ -325,6 +335,10 @@ export default function MothersDayGiftCardsPage() {
             </p>
           </div>
         </section>
+
+        <p className="mt-8 text-center text-[11px] text-[#7b9b92]">
+          Gift card purchases are non-refundable. Gift cards never expire.
+        </p>
       </div>
     </main>
   );
