@@ -68,6 +68,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   /* ------------------------------------------------------------------
+     Denver RiNo location (opening June 2026)
+     ------------------------------------------------------------------ */
+  const rinoPages = [
+    { url: `${base}/locations/denver-rino/`, changeFrequency: "monthly" as const, priority: 0.7 },
+  ];
+
+  /* ------------------------------------------------------------------
+     Denver Central Park location (opening June 2026)
+     ------------------------------------------------------------------ */
+  const centralParkPages = [
+    { url: `${base}/locations/denver-central-park/`, changeFrequency: "monthly" as const, priority: 0.7 },
+  ];
+
+  /* ------------------------------------------------------------------
      Georgetown location
      ------------------------------------------------------------------ */
   const georgetownPages = [
@@ -137,6 +151,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...servicePages,
     ...infoPages,
     ...larimerPages,
+    ...rinoPages,
+    ...centralParkPages,
     ...georgetownPages,
     ...dallasPages,
     ...blogPages,
