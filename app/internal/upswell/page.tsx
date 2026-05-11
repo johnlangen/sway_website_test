@@ -29,18 +29,18 @@ const SEGMENTS = [
 ];
 
 const CAMPAIGNS = [
-  { date: "2026-05-15", audience: "All members + opted-in", channel: "Email", goal: "Announcement (Heather voice)", csv: "01 + 02 deduped", status: "Drafted" },
-  { date: "2026-05-15", audience: "Public", channel: "Press + blog + social + banner", goal: "Public announcement", csv: "—", status: "Drafted" },
-  { date: "2026-05-21", audience: "VIPs (211)", channel: "Email", goal: "Founding Ambassador early access", csv: "03b", status: "Drafted" },
-  { date: "2026-05-22", audience: "Active members", channel: "Email × 3 versions", goal: "Segmented details by tier", csv: "01 split", status: "Drafted" },
-  { date: "2026-05-26", audience: "Active members", channel: "Email", goal: "Logistics + first visit", csv: "01", status: "Drafted" },
-  { date: "2026-05-27", audience: "All opted-in", channel: "Email", goal: "General pre-launch + first visit offer", csv: "02", status: "Drafted" },
-  { date: "2026-05-30", audience: "VIPs", channel: "Email", goal: "Final priority booking link", csv: "03b", status: "Drafted" },
-  { date: "2026-06-01", audience: "Active members", channel: "Email", goal: "Launch day welcome", csv: "01", status: "Drafted" },
-  { date: "2026-06-02", audience: "All opted-in", channel: "Email", goal: "Public launch + first visit offer", csv: "02", status: "Drafted" },
-  { date: "2026-06-08", audience: "Lost segment", channel: "Email", goal: "Re-engagement #1", csv: "04", status: "Drafted" },
-  { date: "2026-06-17", audience: "At Risk segment", channel: "Email", goal: "Re-engagement #2 / urgency", csv: "04b", status: "Drafted" },
-  { date: "2026-06-22", audience: "ClassPass users", channel: "Email", goal: "Convert to Sway membership", csv: "05", status: "Drafted" },
+  { date: "2026-05-15", audience: "All members + opted-in", channel: "Email", goal: "Announcement (Heather voice)", from: "Heather · Upswell domain", csv: "01 + 02 deduped", status: "Drafted" },
+  { date: "2026-05-15", audience: "Public", channel: "Press + blog + social + banner", goal: "Public announcement", from: "Sway brand", csv: "—", status: "Drafted" },
+  { date: "2026-05-21", audience: "VIPs (211)", channel: "Email", goal: "Founding Ambassador early access", from: "Heather · Upswell domain", csv: "03b", status: "Drafted" },
+  { date: "2026-05-22", audience: "Active members", channel: "Email × 3 versions", goal: "Segmented details by tier", from: "Sway team · Upswell domain", csv: "01 split", status: "Drafted" },
+  { date: "2026-05-26", audience: "Active members", channel: "Email", goal: "Logistics + first visit", from: "Sway team · Upswell domain", csv: "01", status: "Drafted" },
+  { date: "2026-05-27", audience: "All opted-in", channel: "Email", goal: "General pre-launch + first visit offer", from: "Sway · Upswell domain", csv: "02", status: "Drafted" },
+  { date: "2026-05-30", audience: "VIPs", channel: "Email", goal: "Final priority booking link", from: "Heather · Upswell domain", csv: "03b", status: "Drafted" },
+  { date: "2026-06-01", audience: "Active members", channel: "Email", goal: "Launch day welcome", from: "Heather · Sway domain", csv: "01", status: "Drafted" },
+  { date: "2026-06-02", audience: "All opted-in", channel: "Email", goal: "Public launch + first visit offer", from: "Sway brand · Sway domain", csv: "02", status: "Drafted" },
+  { date: "2026-06-08", audience: "Lost segment", channel: "Email", goal: "Re-engagement #1", from: "Sway · Sway domain", csv: "04", status: "Drafted" },
+  { date: "2026-06-17", audience: "At Risk segment", channel: "Email", goal: "Re-engagement #2 / urgency", from: "Sway · Sway domain", csv: "04b", status: "Drafted" },
+  { date: "2026-06-22", audience: "ClassPass users", channel: "Email", goal: "Convert to Sway membership", from: "Sway · Sway domain", csv: "05", status: "Drafted" },
 ];
 
 const PRICING = [
@@ -56,7 +56,8 @@ const PRICING = [
 const BLOCKERS_P0 = [
   "Press contact info (name, email, phone) — blocks press release boilerplate",
   "Heather photo (high-res) — blocks LinkedIn / press / blog",
-  "Email send platform decision — Klaviyo / Mailchimp / Mindbody / Mariana Tek?",
+  "Email send platform decision — use whatever Heather already has for Upswell (recommend)",
+  "Update /membership page to show both Sway Membership + Sway Unlimited side-by-side — emails reference these tiers, page needs to land them somewhere",
   "GBP claim filing — START NOW. 1-2 week processing window.",
   "Permit applications for Phase 2 buildout — START NOW. 2-3 month lead.",
 ];
@@ -142,7 +143,7 @@ export default function UpswellDashboard() {
   const daysToLaunch = daysBetween(today, KEY_DATES.launch);
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance">
+    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance pt-20 sm:pt-24 md:pt-28">
       {/* HEADER */}
       <header className="border-b border-[#113D33]/10 bg-white">
         <div className="max-w-7xl mx-auto px-6 py-6">
@@ -314,14 +315,17 @@ function CampaignsTab({ today }: { today: string }) {
       </Section>
 
       <Section title="Full campaign calendar">
+        <p className="text-xs opacity-70 mb-3">
+          <b>Sender strategy:</b> Pre-launch from Upswell domain (warm sender, recognized by recipients). Post-launch from Sway domain — Sway brand has built relationship through the prior emails. CAN-SPAM consent transfers; no fresh opt-in needed (May 15 announcement = required notice).
+        </p>
         <div className="overflow-x-auto -mx-6 px-6">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
                 <th className="text-left py-2 pr-4">Date</th>
                 <th className="text-left py-2 pr-4">Audience</th>
-                <th className="text-left py-2 pr-4">Channel</th>
                 <th className="text-left py-2 pr-4">Goal</th>
+                <th className="text-left py-2 pr-4">From</th>
                 <th className="text-left py-2 pr-4">CSV</th>
                 <th className="text-left py-2">Status</th>
               </tr>
@@ -329,12 +333,23 @@ function CampaignsTab({ today }: { today: string }) {
             <tbody>
               {CAMPAIGNS.map((c, i) => {
                 const past = c.date < today;
+                const isUpswellDomain = c.from?.includes("Upswell domain");
                 return (
                   <tr key={i} className={`border-b border-black/5 ${past ? "opacity-50" : ""}`}>
                     <td className="py-2 pr-4 whitespace-nowrap font-medium">{formatDate(c.date)}</td>
                     <td className="py-2 pr-4">{c.audience}</td>
-                    <td className="py-2 pr-4 text-xs opacity-80">{c.channel}</td>
                     <td className="py-2 pr-4">{c.goal}</td>
+                    <td className="py-2 pr-4 text-xs">
+                      <span className={`inline-block px-2 py-0.5 rounded ${
+                        isUpswellDomain
+                          ? "bg-amber-50 text-amber-900"
+                          : c.from?.includes("Sway domain")
+                            ? "bg-emerald-50 text-emerald-900"
+                            : "opacity-70"
+                      }`}>
+                        {c.from || "—"}
+                      </span>
+                    </td>
                     <td className="py-2 pr-4 text-xs font-mono opacity-60">{c.csv}</td>
                     <td className="py-2">
                       <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-[#4A776D]/15 text-[#113D33] font-medium">
