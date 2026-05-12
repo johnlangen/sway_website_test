@@ -44,13 +44,55 @@ const CAMPAIGNS = [
 ];
 
 const PRICING = [
-  { rate: "$0/mo", count: 73, note: "Comp / partner / employee / family" },
+  { rate: "$0/mo", count: 72, note: "Comp / partner / employee / family (50 customer-facing + 22 employees)" },
   { rate: "$99/mo", count: 36, note: "Early Central Park founders + partner tiers" },
   { rate: "$129/mo", count: 36, note: "Mid-period founders + Broadway Legacy" },
   { rate: "$159/mo", count: 29, note: "RiNo late founders" },
   { rate: "$189/mo", count: 2, note: "Retail All Access (list price)" },
   { rate: "$1,599/yr", count: 1, note: "Single annual prepay" },
   { rate: "$59-$89/mo", count: 5, note: "Discounted contracts" },
+];
+
+const FREE_BREAKDOWN = [
+  { count: 22, contract: "Affiliate | All Access Membership", note: "Broad reciprocal arrangement — needs Heather to identify the actual partner" },
+  { count: 22, contract: "Upswell Team Membership", note: "Employees (not customer-facing)" },
+  { count: 16, contract: "Gravity Haus | All Access Monthly Membership", note: "Peer Denver wellness club — KEEP recommended" },
+  { count: 3, contract: "Central Park Founding Membership", note: "Comp founders" },
+  { count: 2, contract: "Creator Crew | All Access Creator Membership", note: "Content creators" },
+  { count: 2, contract: "All Access Monthly Membership", note: "Comp — needs Heather context" },
+  { count: 1, contract: "RiNo Station Founding Membership", note: "Comp founder" },
+  { count: 1, contract: "Friends & Family | All Access Monthly Membership", note: "Staff family discount" },
+  { count: 1, contract: "Household | All Access Monthly Membership", note: "Comp household tier" },
+  { count: 1, contract: "Junior Membership", note: "Youth tier comp" },
+  { count: 1, contract: "LT Buddy | All Access Membership", note: "Brand partnership" },
+];
+
+const ANNUAL_PREPAYS = [
+  {
+    name: "Terry Wei",
+    contract: "1 Year | All Access Membership",
+    rate: "$1,599/yr",
+    purchased: "Dec 29, 2025",
+    termEnds: "Dec 29, 2026",
+    status: "Active",
+    note: "ONLY active annual prepay. Honor through end of term."
+  },
+];
+
+const COMMITMENT_FULFILLED = [
+  { name: "Sean Astrup", contract: "RiNo Station Founding Membership", rate: "$129/mo", term: "9-month commitment", status: "Fulfilled, now month-to-month" },
+  { name: "Jenny Chau", contract: "RiNo Station Founding Membership", rate: "$129/mo", term: "9-month commitment", status: "Fulfilled, now month-to-month" },
+  { name: "Sara Lopez", contract: "Broadway Legacy Membership", rate: "$99/mo", term: "15-month commitment", status: "Fulfilled, now month-to-month" },
+  { name: "Austin Outhavong", contract: "The Edit | All Access Monthly", rate: "$99/mo", term: "2-month commitment", status: "Fulfilled, now month-to-month" },
+  { name: "joanna ross", contract: "The Edit | All Access Monthly", rate: "$99/mo", term: "2-month commitment", status: "Fulfilled, now month-to-month" },
+];
+
+const TERMINATED_ANNUALS = [
+  { name: "Mark Scalercio", contract: "1 Year | All Access Membership", rate: "$1,899/yr", purchased: "May 2025", status: "Terminated" },
+  { name: "Colby Walters", contract: "Year of Wellness | All Access", rate: "$0 (comp)", purchased: "Jan 2025", status: "Terminated" },
+  { name: "Ashley Carrigan", contract: "Year of Wellness | All Access", rate: "$0 (comp)", purchased: "Jan 2025", status: "Terminated" },
+  { name: "Emily Beirne", contract: "Year of Wellness | All Access", rate: "$0 (comp)", purchased: "Jan 2025", status: "Terminated" },
+  { name: "Terry Wei (prior)", contract: "Year of Wellness | All Access", rate: "$0 (comp)", purchased: "Jan 2025", status: "Done — upgraded to paid 1-year above" },
 ];
 
 const BLOCKERS_P0 = [
@@ -269,7 +311,7 @@ function OverviewTab() {
       <Section title="Member economics">
         <Stat label="Total Mariana Tek contacts" value="9,094" />
         <Stat label="Marketing-opted-in" value="4,628" sublabel="51% of list — Friday email audience" />
-        <Stat label="Active paying members" value="108" sublabel="excluding employees + $0 partner tiers" />
+        <Stat label="Active paying members" value="109" sublabel="excluding employees + $0 partner tiers" />
         <Stat label="Total active membership contracts" value="181" />
         <Stat label="Grandfathered monthly revenue" value="~$13K" sublabel="if every existing rate honored permanently" />
         <Stat label="Annual prepay holders" value="1" sublabel="single $1,599/yr member — minimal liability" />
@@ -495,6 +537,124 @@ function PricingTab() {
           <li>Recommended <b>Sway Unlimited price: $189</b> — matches the existing retail list, doesn't undercut grandfathered members</li>
           <li>Only 1 annual prepay member ($1,599/yr) — minimal annual liability</li>
         </ul>
+      </Section>
+
+      <Section title="🆓 Free membership breakdown (72 total)">
+        <p className="text-xs opacity-60 mb-3">
+          50 customer-facing + 22 employees. The 38 partnership-tier free memberships need Heather/Marty keep-or-sunset decisions (see Partnership Decisions doc).
+        </p>
+        <div className="overflow-x-auto -mx-6 px-6">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-right py-2 pr-4">Count</th>
+                <th className="text-left py-2 pr-4">Contract</th>
+                <th className="text-left py-2">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {FREE_BREAKDOWN.map((f, i) => (
+                <tr key={i} className="border-b border-black/5">
+                  <td className="py-2 pr-4 text-right font-bold tabular-nums">{f.count}</td>
+                  <td className="py-2 pr-4 font-medium">{f.contract}</td>
+                  <td className="py-2 text-xs opacity-70">{f.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section title="📅 Annual prepays — actual humans (1 active)">
+        <div className="overflow-x-auto -mx-6 px-6">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 pr-4">Name</th>
+                <th className="text-left py-2 pr-4">Contract</th>
+                <th className="text-left py-2 pr-4">Rate</th>
+                <th className="text-left py-2 pr-4">Purchased</th>
+                <th className="text-left py-2 pr-4">Term ends</th>
+                <th className="text-left py-2">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ANNUAL_PREPAYS.map((a, i) => (
+                <tr key={i} className="border-b border-black/5 bg-emerald-50/30">
+                  <td className="py-2 pr-4 font-medium">{a.name}</td>
+                  <td className="py-2 pr-4 text-xs">{a.contract}</td>
+                  <td className="py-2 pr-4 font-mono">{a.rate}</td>
+                  <td className="py-2 pr-4 text-xs">{a.purchased}</td>
+                  <td className="py-2 pr-4 text-xs font-semibold">{a.termEnds}</td>
+                  <td className="py-2 text-xs opacity-70">{a.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs opacity-60 mt-3">
+          <b>Verify with Heather:</b> Are there other prepaid annuals that don&apos;t show as Payment Interval=YR in Mariana Tek? Possibly someone who paid 12 months upfront but is billed as monthly in the system.
+        </p>
+      </Section>
+
+      <Section title="⏱️ Members with prior commitment terms (now month-to-month)">
+        <p className="text-xs opacity-60 mb-3">
+          These joined under fixed-term commitments at signup. Their terms are already fulfilled, so they&apos;re NOT prepaid annuals — just standard monthly members at the grandfathered rate. Listing them in case your dad was thinking of one of these.
+        </p>
+        <div className="overflow-x-auto -mx-6 px-6">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 pr-4">Name</th>
+                <th className="text-left py-2 pr-4">Contract</th>
+                <th className="text-left py-2 pr-4">Rate</th>
+                <th className="text-left py-2 pr-4">Original term</th>
+                <th className="text-left py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMMITMENT_FULFILLED.map((c, i) => (
+                <tr key={i} className="border-b border-black/5">
+                  <td className="py-2 pr-4 font-medium">{c.name}</td>
+                  <td className="py-2 pr-4 text-xs">{c.contract}</td>
+                  <td className="py-2 pr-4 font-mono text-xs">{c.rate}</td>
+                  <td className="py-2 pr-4 text-xs">{c.term}</td>
+                  <td className="py-2 text-xs opacity-70">{c.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section title="🪦 Terminated annual contracts (historical reference)">
+        <p className="text-xs opacity-60 mb-3">
+          Past annual or year-long memberships that are no longer active. Listed in case your dad remembers one of these — verify with Heather.
+        </p>
+        <div className="overflow-x-auto -mx-6 px-6">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 pr-4">Name</th>
+                <th className="text-left py-2 pr-4">Contract</th>
+                <th className="text-left py-2 pr-4">Rate</th>
+                <th className="text-left py-2 pr-4">Purchased</th>
+                <th className="text-left py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {TERMINATED_ANNUALS.map((t, i) => (
+                <tr key={i} className="border-b border-black/5 opacity-60">
+                  <td className="py-2 pr-4 font-medium">{t.name}</td>
+                  <td className="py-2 pr-4 text-xs">{t.contract}</td>
+                  <td className="py-2 pr-4 font-mono text-xs">{t.rate}</td>
+                  <td className="py-2 pr-4 text-xs">{t.purchased}</td>
+                  <td className="py-2 text-xs">{t.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Section>
     </div>
   );
