@@ -58,13 +58,13 @@ const BLOCKERS_P0 = [
   "Heather photo (high-res) — blocks LinkedIn / press / blog",
   "Email send platform decision — use whatever Heather already has for Upswell (recommend)",
   "Update /membership page to show both Sway Membership + Sway Unlimited side-by-side — emails reference these tiers, page needs to land them somewhere",
-  "Mindbody: confirm if Unlimited tier is actually supportable — recurring credits vs unlimited bookings of specific service types? Critical: if Mindbody can't model 'unlimited recovery,' the whole Sway Unlimited tier doesn't work.",
+  "Mindbody: set up Sway Unlimited as a Membership contract with unlimited bookings of the Remedy Room session type (session 96 at Larimer; equivalent at new locations). Mindbody supports this natively. Not a feasibility blocker — a setup task.",
   "GBP — confirm Heather has admin access on Upswell GBPs. If YES, can update listings today (preserves Upswell reviews + local rank). If NO, file claims now (1-2 week wait).",
   "Permit applications for Phase 2 buildout — START NOW. 2-3 month lead.",
 ];
 
 const BLOCKERS_P1 = [
-  "Partnership decisions (Wellhub auto, ClassPass confirm modality split, EGYM Wellpass evaluate, plus 14 brand partners)",
+  "Partnership decisions (Wellhub auto, ClassPass confirm listings, EGYM Wellpass evaluate, plus 14 brand partners)",
   "First Visit Offer policy ($40 off / $99 same as Larimer?)",
   "VIP / Founding Ambassador perks — what specifically?",
   "Mindbody site provisioning — blocks member import",
@@ -288,7 +288,7 @@ function OverviewTab() {
           <li>✓ <b>Cold plunge regulatory OK</b> at both locations</li>
           <li>✓ <b>Broadway Legacy honored</b> in Mindbody</li>
           <li>✓ <b>Wellhub continues</b> (Gympass rebrand, auto)</li>
-          <li>✓ <b>ClassPass continues</b> with individual modality listings at new locations</li>
+          <li>✓ <b>ClassPass continues</b> at new locations (same circuit-based listings as Larimer)</li>
           <li>✓ <b>All existing rates honored indefinitely</b> ($13K/mo retained revenue)</li>
         </ul>
       </Section>
