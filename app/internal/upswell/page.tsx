@@ -129,6 +129,24 @@ const QUESTIONS_QUICK = [
   "Mindbody site provisioning: who owns? when ready?",
 ];
 
+const MEETINGS = [
+  {
+    date: "2026-05-12",
+    title: "Pricing meeting",
+    status: "in-progress",
+    attendees: "John + Heather + Marty",
+    topics: [
+      "Sway Unlimited final price — recommend $189",
+      "Whether to standardize / sunset grandfathered rates over time",
+      "First Visit Offer at new locations — same $40 off / $99 as Larimer?",
+      "Annual prepay handling — verify Terry Wei is the only one",
+      "Partnership default rule — KEEP all $99/$129/$159 + peer $0 reciprocals?",
+      "Founder rate cohorts ($99 / $129 / $159) — honor all permanently?",
+    ],
+    decisions: [],
+  },
+];
+
 const DOCS = [
   { title: "README", path: "docs/upswell-conversion/README.md" },
   { title: "Campaign master plan", path: "docs/upswell-conversion/campaign-master-plan.md" },
@@ -303,10 +321,67 @@ function SenderTimeline() {
   );
 }
 
+/* ---- Meetings & decisions log ---- */
+function MeetingsLog() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-amber-300 p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <h2 className="text-sm uppercase tracking-wider opacity-60">Meetings & decisions log</h2>
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full">
+          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+          IN PROGRESS
+        </span>
+      </div>
+
+      {MEETINGS.map((m, i) => (
+        <div key={i} className="space-y-3">
+          <div className="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 className="text-lg font-bold">{m.title}</h3>
+            <div className="text-xs opacity-70">
+              {m.date} · {m.attendees}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <div className="text-xs uppercase tracking-wider opacity-60 mb-2">Topics on the table</div>
+              <ul className="text-sm space-y-1.5 opacity-90">
+                {m.topics.map((t, j) => (
+                  <li key={j} className="flex gap-2">
+                    <span className="opacity-40">○</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-wider opacity-60 mb-2">Decisions made</div>
+              {m.decisions.length === 0 ? (
+                <p className="text-sm italic opacity-50">— Add decisions as they land. Tell Claude and they&apos;ll be logged here.</p>
+              ) : (
+                <ul className="text-sm space-y-1.5">
+                  {m.decisions.map((d, j) => (
+                    <li key={j} className="flex gap-2">
+                      <span className="text-emerald-600">✓</span>
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ---- Overview tab ---- */
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
+      <MeetingsLog />
       <SenderTimeline />
       <Section title="Member economics">
         <Stat label="Total Mariana Tek contacts" value="9,094" />
