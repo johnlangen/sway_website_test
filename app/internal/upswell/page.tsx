@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { EMAIL_DRAFTS } from "./emails-data";
 
 /* ---------------------------------------------
    DATA — kept inline so dashboard is self-contained
@@ -234,7 +235,7 @@ function formatDate(d: string) {
 }
 
 export default function UpswellDashboard() {
-  const [tab, setTab] = useState<"overview" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
+  const [tab, setTab] = useState<"overview" | "emails" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
   const [today, setToday] = useState<string>(KEY_DATES.today);
 
   useEffect(() => {
@@ -267,7 +268,7 @@ export default function UpswellDashboard() {
         {/* TABS */}
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 overflow-x-auto">
-            {(["overview", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
+            {(["overview", "emails", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -287,6 +288,7 @@ export default function UpswellDashboard() {
       {/* CONTENT */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {tab === "overview" && <OverviewTab />}
+        {tab === "emails" && <EmailsTab />}
         {tab === "campaigns" && <CampaignsTab today={today} />}
         {tab === "segments" && <SegmentsTab />}
         {tab === "pricing" && <PricingTab />}
@@ -569,6 +571,109 @@ function Stat({ label, value, sublabel }: { label: string; value: string; sublab
         {sublabel && <div className="text-xs opacity-60 mt-0.5">{sublabel}</div>}
       </div>
       <div className="text-xl font-bold tabular-nums">{value}</div>
+    </div>
+  );
+}
+
+/* ---- Emails tab ---- */
+function EmailsTab() {
+  return (
+    <div className="space-y-4">
+      <Section title="11 email drafts — full content">
+        <p className="text-xs opacity-70 mb-4">
+          Every email in send order. <span className="inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Amber</span> = Upswell domain (pre-launch, warm sender).{" "}
+          <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">Emerald</span> = Sway domain (post-launch).
+          Click any email to expand the full draft.
+        </p>
+      </Section>
+
+      {EMAIL_DRAFTS.map((e) => {
+        const domainColor =
+          e.fromDomain === "upswell"
+            ? "bg-amber-50 border-amber-200"
+            : e.fromDomain === "sway"
+              ? "bg-emerald-50 border-emerald-200"
+              : "bg-gray-50 border-gray-200";
+        const badgeColor =
+          e.fromDomain === "upswell"
+            ? "bg-amber-200 text-amber-900"
+            : e.fromDomain === "sway"
+              ? "bg-emerald-200 text-emerald-900"
+              : "bg-gray-200 text-gray-700";
+
+        return (
+          <details
+            key={e.n}
+            className={`group rounded-xl border-2 ${domainColor} overflow-hidden`}
+          >
+            <summary className="cursor-pointer p-5 hover:bg-black/[0.02] transition list-none">
+              <div className="flex items-start gap-4 flex-wrap">
+                <div className={`shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-bold ${badgeColor}`}>
+                  {e.n}
+                </div>
+                <div className="flex-1 min-w-[200px]">
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="text-xs font-semibold opacity-60">{e.date}</span>
+                    <h3 className="text-base md:text-lg font-bold">{e.title}</h3>
+                  </div>
+                  <div className="text-xs opacity-80 mt-1.5 space-y-0.5">
+                    <div>
+                      <b>FROM</b> <span className="font-mono">{e.from}</span>
+                    </div>
+                    <div>
+                      <b>TO</b> {e.to} <span className="font-mono opacity-60">· {e.toCount.toLocaleString()} recipients</span>
+                    </div>
+                    <div className="opacity-70">
+                      <b>CSV</b> <span className="font-mono">{e.csv}</span>
+                    </div>
+                  </div>
+                </div>
+                <svg
+                  className="w-5 h-5 shrink-0 opacity-50 transition-transform group-open:rotate-90 mt-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </summary>
+
+            <div className="px-5 pb-6 pt-2 border-t border-black/10 bg-white space-y-4">
+              <div>
+                <div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Subject line options</div>
+                {e.subjectOptions.map((s, i) => (
+                  <div key={i} className="text-sm font-medium">
+                    {i === 0 ? "▶ " : "   "}{s}
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Preview text</div>
+                <div className="text-sm italic opacity-80">{e.previewText}</div>
+              </div>
+
+              <div>
+                <div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Body</div>
+                <div className="text-sm leading-relaxed whitespace-pre-wrap bg-[#F7F4E9]/60 p-4 rounded-lg border border-[#113D33]/10">
+                  {e.body}
+                </div>
+              </div>
+
+              {e.notes && (
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider opacity-50 mb-1">Notes</div>
+                  <div className="text-xs opacity-80 leading-relaxed bg-amber-50/50 p-3 rounded border border-amber-200">
+                    {e.notes}
+                  </div>
+                </div>
+              )}
+            </div>
+          </details>
+        );
+      })}
     </div>
   );
 }
