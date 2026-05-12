@@ -58,7 +58,8 @@ const BLOCKERS_P0 = [
   "Heather photo (high-res) — blocks LinkedIn / press / blog",
   "Email send platform decision — use whatever Heather already has for Upswell (recommend)",
   "Update /membership page to show both Sway Membership + Sway Unlimited side-by-side — emails reference these tiers, page needs to land them somewhere",
-  "GBP claim filing — START NOW. 1-2 week processing window.",
+  "Mindbody: confirm if Unlimited tier is actually supportable — recurring credits vs unlimited bookings of specific service types? Critical: if Mindbody can't model 'unlimited recovery,' the whole Sway Unlimited tier doesn't work.",
+  "GBP — confirm Heather has admin access on Upswell GBPs. If YES, can update listings today (preserves Upswell reviews + local rank). If NO, file claims now (1-2 week wait).",
   "Permit applications for Phase 2 buildout — START NOW. 2-3 month lead.",
 ];
 
@@ -214,10 +215,57 @@ function CountdownCard({ label, days, target, accent }: { label: string; days: n
   );
 }
 
+/* ---- Sender timeline (visual) ---- */
+function SenderTimeline() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-4">Email sender strategy</h2>
+
+      <div className="relative">
+        {/* Bar */}
+        <div className="flex h-12 rounded-lg overflow-hidden border border-black/10">
+          <div className="flex-1 bg-amber-100 flex items-center justify-center px-4">
+            <span className="text-xs md:text-sm font-semibold text-amber-900">
+              May 15 → May 30 · Upswell domain (Heather / warm sender)
+            </span>
+          </div>
+          <div className="flex-1 bg-emerald-100 flex items-center justify-center px-4">
+            <span className="text-xs md:text-sm font-semibold text-emerald-900">
+              June 1 → onward · Sway domain (transition complete)
+            </span>
+          </div>
+        </div>
+
+        {/* Switchover marker */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-full flex flex-col items-center justify-center pointer-events-none">
+          <div className="w-0.5 h-full bg-[#113D33]/40 absolute" />
+          <div className="bg-[#113D33] text-white text-xs px-2 py-0.5 rounded font-semibold relative -top-7">
+            Launch · June 1
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 grid sm:grid-cols-2 gap-3 text-xs opacity-80">
+        <div className="border-l-2 border-amber-400 pl-3">
+          <b>Pre-launch (5 emails)</b> from a warm, recognized sender. List opted in to Upswell, knows Heather&apos;s voice. Maximum trust, best deliverability.
+        </div>
+        <div className="border-l-2 border-emerald-400 pl-3">
+          <b>Post-launch (6 emails)</b> from Sway sender. By June 1 recipients have received 5+ messages from Heather about Sway — Sway brand is no longer cold.
+        </div>
+      </div>
+
+      <p className="text-[11px] opacity-60 mt-4">
+        Legal note: CAN-SPAM marketing consent transfers in a business handover. The May 15 announcement is the required notice of the change. No fresh opt-in needed.
+      </p>
+    </div>
+  );
+}
+
 /* ---- Overview tab ---- */
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
+      <SenderTimeline />
       <Section title="Member economics">
         <Stat label="Total Mariana Tek contacts" value="9,094" />
         <Stat label="Marketing-opted-in" value="4,628" sublabel="51% of list — Friday email audience" />
