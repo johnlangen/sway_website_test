@@ -133,17 +133,60 @@ const MEETINGS = [
   {
     date: "2026-05-12",
     title: "Pricing meeting",
-    status: "in-progress",
-    attendees: "John + Heather + Marty",
+    status: "completed",
+    attendees: "John + Heather",
     topics: [
-      "Sway Unlimited final price — recommend $189",
-      "Whether to standardize / sunset grandfathered rates over time",
-      "First Visit Offer at new locations — same $40 off / $99 as Larimer?",
-      "Annual prepay handling — verify Terry Wei is the only one",
-      "Partnership default rule — KEEP all $99/$129/$159 + peer $0 reciprocals?",
-      "Founder rate cohorts ($99 / $129 / $159) — honor all permanently?",
+      "Sway Unlimited final price",
+      "Member migration approach (opt-in vs automatic)",
+      "First visit offer for opt-in capture",
+      "Hours expansion as messaging asset",
+      "Local employer / building partnership discounts",
+      "Card migration mechanics (Mariana Tek Stripe → Mindbody Payments)",
+      "May 31 in-person sign-up event idea",
+      "Back-to-school campaign idea (Aug/Sept)",
     ],
-    decisions: [],
+    decisions: [
+      "Sway Unlimited at new locations = $99/mo (matches Sway Larimer $99 membership price, but unlimited recovery instead of $25/session). $129 possible if needed — RiNo/CP has more cold plunge + sauna capacity than Larimer's single room.",
+      "Member migration is OPT-IN. Initial May 15 email transactional, includes 'sign up to roll over your membership' CTA. Lock in their existing rate (e.g., $99 founder) for minimum 12 months — customer chooses term length.",
+      "Rollover language: members who roll over get massage/facial at $99 each as Sway member perk (was Sway Larimer's $25 remedy benefit reversed for these locations).",
+      "Initial emails treated as transactional (CAN-SPAM safe). Get explicit Sway-marketing opt-in via a first-visit offer hook: 'opt in to Sway communications + get your first visit at $40 off'.",
+      "Hours expansion is a real story for re-engagement: Upswell rarely open past 4PM, only 3 days/week. Sway will be open more reliably — use this in Lost + At Risk re-engagement copy.",
+      "Yoga decision still locked: dropped. (But analyze visit data: yoga-heavy users vs recovery-heavy users — yoga users may need a graceful offboarding email.)",
+      "Sway Unlimited cap when capacity is approached (no hard cap now, monitor and gate later).",
+      "Average Upswell unlimited remedy member visited ~7×/mo — supports the economics of $99 unlimited.",
+    ],
+    openQuestions: [
+      "Katie question: Mariana Tek uses Stripe; Mindbody Payments has its own gateway. Can we transfer cards directly with consent + signature, or do members re-add at first visit?",
+      "Yoga visit frequency analysis: how many Upswell members used yoga heavily vs recovery? (Need Class Session report or Reservations report from Mariana Tek.)",
+      "May 31 event: is the space presentable by then? Or push to a later date when temp partitions look right?",
+      "Phone outreach to members: do we call to sign up for migration, or email-only?",
+      "Sway Larimer team comms: how casual/formal, what documentation, dedicated phone line for migration questions?",
+    ],
+  },
+];
+
+const LOCAL_PARTNERSHIPS_TO_PURSUE = [
+  { name: "Xcel Energy", type: "Major Denver employer", note: "Corporate wellness benefit discount tier" },
+  { name: "Davis Graham", type: "Law firm", note: "Professional services partnership" },
+  { name: "Catbird Hotel", type: "Hospitality / hotel", note: "Guest day-pass partnership or perks" },
+  { name: "Volo Sports", type: "Social/recreational league", note: "Member discount, sponsorship?" },
+  { name: "Nearby apartment buildings", type: "Resident perks", note: "RiNo & Stapleton/Central Park residential. Lots of new buildings nearby — concierge tier." },
+];
+
+const NEW_CAMPAIGNS = [
+  {
+    date: "2026-05-31",
+    title: "In-person membership sign-up event",
+    audience: "Active members + interested locals",
+    goal: "Live demo of the space + on-the-spot membership sign-ups",
+    status: "Idea — confirm space readiness or push to later date",
+  },
+  {
+    date: "2026-08-15",
+    title: "Back-to-school re-engagement",
+    audience: "Lost + At Risk + dormant members",
+    goal: "Membership offer starting when school starts. Hits the September routine-reset moment.",
+    status: "Idea — draft in early August",
   },
 ];
 
@@ -324,35 +367,32 @@ function SenderTimeline() {
 /* ---- Meetings & decisions log ---- */
 function MeetingsLog() {
   return (
-    <div className="md:col-span-2 bg-white rounded-xl border-2 border-amber-300 p-6">
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-emerald-300 p-6">
       <div className="flex items-center gap-3 mb-4">
         <h2 className="text-sm uppercase tracking-wider opacity-60">Meetings & decisions log</h2>
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-          IN PROGRESS
-        </span>
       </div>
 
-      {MEETINGS.map((m, i) => (
-        <div key={i} className="space-y-3">
-          <div className="flex items-baseline justify-between flex-wrap gap-2">
-            <h3 className="text-lg font-bold">{m.title}</h3>
-            <div className="text-xs opacity-70">
-              {m.date} · {m.attendees}
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <div className="text-xs uppercase tracking-wider opacity-60 mb-2">Topics on the table</div>
-              <ul className="text-sm space-y-1.5 opacity-90">
-                {m.topics.map((t, j) => (
-                  <li key={j} className="flex gap-2">
-                    <span className="opacity-40">○</span>
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
+      {MEETINGS.map((m, i) => {
+        const inProgress = m.status === "in-progress";
+        return (
+          <div key={i} className="space-y-4">
+            <div className="flex items-baseline justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-3">
+                <h3 className="text-lg font-bold">{m.title}</h3>
+                {inProgress ? (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                    IN PROGRESS
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-900 bg-emerald-100 px-2 py-0.5 rounded-full">
+                    ✓ COMPLETED
+                  </span>
+                )}
+              </div>
+              <div className="text-xs opacity-70">
+                {m.date} · {m.attendees}
+              </div>
             </div>
 
             <div>
@@ -360,19 +400,102 @@ function MeetingsLog() {
               {m.decisions.length === 0 ? (
                 <p className="text-sm italic opacity-50">— Add decisions as they land. Tell Claude and they&apos;ll be logged here.</p>
               ) : (
-                <ul className="text-sm space-y-1.5">
+                <ul className="text-sm space-y-2">
                   {m.decisions.map((d, j) => (
                     <li key={j} className="flex gap-2">
-                      <span className="text-emerald-600">✓</span>
+                      <span className="text-emerald-600 mt-0.5">✓</span>
                       <span>{d}</span>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
+
+            {m.openQuestions && m.openQuestions.length > 0 && (
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-60 mb-2 mt-3">Still open from this meeting</div>
+                <ul className="text-sm space-y-2">
+                  {m.openQuestions.map((q, j) => (
+                    <li key={j} className="flex gap-2">
+                      <span className="text-amber-600 mt-0.5">?</span>
+                      <span className="opacity-90">{q}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <details className="mt-2">
+              <summary className="text-xs uppercase tracking-wider opacity-50 cursor-pointer">Topics discussed</summary>
+              <ul className="text-sm space-y-1 mt-2 opacity-80">
+                {m.topics.map((t, j) => (
+                  <li key={j} className="flex gap-2">
+                    <span className="opacity-40">·</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </details>
           </div>
-        </div>
-      ))}
+        );
+      })}
+    </div>
+  );
+}
+
+/* ---- Local partnerships to pursue ---- */
+function LocalPartnerships() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-3">Local partnership pursuit list (new from May 12 meeting)</h2>
+      <p className="text-xs opacity-70 mb-4">
+        Heather called out specific Denver employers, hospitality, and apartment buildings within walking distance of RiNo + Central Park to pursue for corporate / resident / guest perks. Recovery is becoming commoditized; bundled access via partner orgs is a real growth lever.
+      </p>
+      <div className="overflow-x-auto -mx-6 px-6">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+              <th className="text-left py-2 pr-4">Partner</th>
+              <th className="text-left py-2 pr-4">Type</th>
+              <th className="text-left py-2">Opportunity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {LOCAL_PARTNERSHIPS_TO_PURSUE.map((p, i) => (
+              <tr key={i} className="border-b border-black/5">
+                <td className="py-2 pr-4 font-medium">{p.name}</td>
+                <td className="py-2 pr-4 text-xs opacity-80">{p.type}</td>
+                <td className="py-2 text-xs opacity-80">{p.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="text-[11px] opacity-60 mt-3 italic">
+        Strategic context: tons of free recovery offered at Denver fitness places — pricing pressure on Remedy Room alone. Massage + facial is more luxury, harder to commoditize, where margin lives.
+      </p>
+    </div>
+  );
+}
+
+/* ---- New campaigns from meeting ---- */
+function NewCampaigns() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-3">New campaigns added from May 12 meeting</h2>
+      <div className="space-y-3">
+        {NEW_CAMPAIGNS.map((c, i) => (
+          <div key={i} className="border-l-2 border-[#4A776D] pl-4 py-1">
+            <div className="flex items-baseline justify-between flex-wrap gap-2">
+              <h3 className="font-semibold">{c.title}</h3>
+              <span className="text-xs opacity-70">{formatDate(c.date)}</span>
+            </div>
+            <p className="text-xs opacity-80 mt-1"><b>Audience:</b> {c.audience}</p>
+            <p className="text-xs opacity-80"><b>Goal:</b> {c.goal}</p>
+            <p className="text-xs italic opacity-60 mt-1">{c.status}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -382,6 +505,8 @@ function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
       <MeetingsLog />
+      <NewCampaigns />
+      <LocalPartnerships />
       <SenderTimeline />
       <Section title="Member economics">
         <Stat label="Total Mariana Tek contacts" value="9,094" />
