@@ -236,41 +236,9 @@ const MEETINGS = [
 const LAUNCH_SCENARIOS = [
   {
     plan: "A",
-    title: "Big bang — full launch June 1",
-    color: "rose",
-    description: "Everything ready June 1: brand, recovery, massage in finished suites, members migrated, booking live.",
-    pros: ["Single launch moment", "Maximum PR impact", "Clean narrative"],
-    cons: [
-      "Massage license in Denver = 2-4 weeks; may not be in hand by June 1",
-      "Sister's curtain/structure work compressed to 19 days while she's also doing Spavia marketing",
-      "Mindbody provisioning timing tight",
-      "If ANY piece slips, the whole launch looks unfinished",
-    ],
-    verdict: "HIGH RISK. One missed item undermines the whole brand launch. Not recommended.",
-  },
-  {
-    plan: "B",
-    title: "Phased launch — brand June 1, massage June 7-14",
-    color: "amber",
-    description: "June 1: brand transition + recovery uninterrupted + member migration. Massage suites open when actually ready. Public message: 'Sway opens June 1. Massage suites open the week of June [7/14].'",
-    pros: [
-      "Compressed timeline keeps momentum across one launch arc",
-      "Brand launches with confidence",
-    ],
-    cons: [
-      "License stuck at FBI background check — June 7-14 is no longer realistic",
-      "Jocelyn out May 16-25 — hiring slows during half the pre-launch window",
-      "Emily already overwhelmed; compression makes it worse",
-      "Heather + Jocelyn still not aligned on hiring/retention basics",
-      "If any piece slips even days, becomes Plan C with the cost of broken promises",
-    ],
-    verdict: "ABANDONED as of May 13 — license + Jocelyn timing make this unviable.",
-  },
-  {
-    plan: "C",
-    title: "Conservative — recovery only June 1, massage late June",
+    title: "THE PLAN — brand June 1, massage late June",
     color: "emerald",
-    description: "Pure brand transition June 1: recovery operational, members migrated, branding live. Massage opens late June when license, hires, Mindbody, and temp suites are unambiguously ready.",
+    description: "June 1: brand transition. Recovery operational, members migrated, branding live. Massage opens late June when license, hires, Mindbody, and temp suites are unambiguously ready.",
     pros: [
       "Realistic against the FBI license timeline (mid-to-late June arrival)",
       "Gives Emily three more weeks of breathing room on buildout",
@@ -284,7 +252,41 @@ const LAUNCH_SCENARIOS = [
       "Less revenue Day 1 (no massage bookings)",
       "Requires deliberate comms across two launch moments",
     ],
-    verdict: "★ RECOMMENDED. Commit to this in writing this week — don't fall into it later.",
+    verdict: "★ COMMITTED PLAN as of May 13.",
+  },
+  {
+    plan: "B",
+    title: "Considered: Phased early June (massage June 7-14)",
+    color: "amber",
+    description: "Brand transition June 1, massage suites open mid-June. Compressed but split timeline.",
+    pros: [
+      "Compressed timeline kept momentum across one launch arc",
+      "Brand launched with confidence",
+    ],
+    cons: [
+      "License stuck at FBI background check — June 7-14 no longer realistic",
+      "Jocelyn out May 16-25 covers half the pre-launch hiring window",
+      "Emily already overwhelmed; compression made it worse",
+      "Heather + Jocelyn still not aligned on hiring/retention basics",
+      "Any slip would force a walk-back",
+    ],
+    verdict: "ABANDONED May 13 — license + Jocelyn timing made this unviable.",
+  },
+  {
+    plan: "C",
+    title: "Considered: Big bang — full launch June 1",
+    color: "rose",
+    description: "Everything ready by June 1: brand, recovery, massage in finished suites, members migrated, booking live.",
+    pros: [
+      "Single launch moment, maximum PR impact, clean narrative",
+    ],
+    cons: [
+      "Massage license in Denver = 2-4 weeks minimum; not in hand by June 1",
+      "Sister's curtain/structure work compressed to 19 days",
+      "Mindbody provisioning timing tight",
+      "Any piece slipping = whole launch looks unfinished",
+    ],
+    verdict: "REJECTED early May — too high risk for a brand launch this important.",
   },
 ];
 
@@ -616,9 +618,9 @@ function SenderTimeline() {
 function LaunchScenarios() {
   return (
     <div className="md:col-span-2 bg-white rounded-xl border-2 border-[#113D33]/20 p-6">
-      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">Launch scenarios — A / B / C</h2>
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">Launch plan</h2>
       <p className="text-sm opacity-80 mb-5">
-        Three viable approaches to the June 1 date. Choose based on risk tolerance and how confident sister + Marty are on their work by mid-May.
+        Plan A is the committed plan as of May 13. B and C below were considered earlier and are kept here as a history of the decision — anyone arriving on the dashboard can see what we considered and why we landed where we did.
       </p>
 
       <div className="grid lg:grid-cols-3 gap-4">
@@ -631,7 +633,7 @@ function LaunchScenarios() {
             s.color === "rose" ? "bg-rose-200 text-rose-900" :
             s.color === "emerald" ? "bg-emerald-300 text-emerald-900" :
             "bg-amber-200 text-amber-900";
-          const isRecommended = s.plan === "C";
+          const isRecommended = s.plan === "A";
           return (
             <div key={s.plan} className={`rounded-xl border-2 ${bg} p-4 flex flex-col ${isRecommended ? "ring-2 ring-emerald-500 ring-offset-2" : ""}`}>
               <div className="flex items-center justify-between mb-2">
@@ -640,7 +642,7 @@ function LaunchScenarios() {
                 </span>
                 {isRecommended && (
                   <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-white px-2 py-0.5 rounded">
-                    ★ Recommended
+                    ★ Committed
                   </span>
                 )}
               </div>
