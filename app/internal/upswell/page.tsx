@@ -20,13 +20,25 @@ const SEGMENTS = [
   { name: "Opted-in · Central Park", csv: "02b-announce-may15-central-park.csv", count: 760, useFor: "Location-specific marketing", optIn: "Yes" },
   { name: "VIPs · Champion + Loyal", csv: "03-vip-champions-loyal.csv", count: 277, useFor: "High-touch personal outreach", optIn: "Mixed" },
   { name: "VIPs · opted-in", csv: "03b-vip-marketing-opted-in.csv", count: 211, useFor: "VIP marketing campaigns", optIn: "Yes" },
-  { name: "Re-engagement · Lost", csv: "04-reengagement-lost.csv", count: 1406, useFor: "Cold re-engagement", optIn: "Yes" },
-  { name: "Re-engagement · At Risk", csv: "04b-reengagement-at-risk.csv", count: 3519, useFor: "Warmer re-engagement", optIn: "Yes" },
+  { name: "Re-engagement · Lost (all)", csv: "04-reengagement-lost.csv", count: 1406, useFor: "Cold re-engagement (broad)", optIn: "Yes" },
+  { name: "🆕 Lost (recovery-loyal)", csv: "04a-reengagement-lost-recovery.csv", count: 1017, useFor: "HIGH-VALUE recovery-loyal churners — Sway is what they want", optIn: "Yes" },
+  { name: "Re-engagement · At Risk (all)", csv: "04b-reengagement-at-risk.csv", count: 3519, useFor: "Warmer re-engagement", optIn: "Yes" },
+  { name: "🆕 At Risk (recovery-loyal)", csv: "04c-reengagement-atrisk-recovery.csv", count: 575, useFor: "At-risk recovery-loyal — re-engage with urgency", optIn: "Yes" },
   { name: "ClassPass converters", csv: "05-classpass-converters.csv", count: 314, useFor: "Convert to Sway membership", optIn: "Yes" },
   { name: "Frozen memberships", csv: "06-frozen-memberships.csv", count: 3, useFor: "Phone, don't email", optIn: "No" },
   { name: "Payment failure", csv: "07-payment-failure.csv", count: 27, useFor: "Resolve before transition", optIn: "No" },
   { name: "Unredeemed credits liability", csv: "08-unredeemed-credits-liability.csv", count: 74, useFor: "Must honor in Mindbody", optIn: "No" },
   { name: "Employees (internal)", csv: "09-employees-internal.csv", count: 81, useFor: "Internal comms only", optIn: "—" },
+  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga", optIn: "Yes" },
+  { name: "🆕 Sway Unlimited prime targets", csv: "12-sway-unlimited-prime-targets.csv", count: 782, useFor: "Recovery-heavy customers — perfect Sway Unlimited candidates", optIn: "Yes" },
+];
+
+const BEHAVIOR_BUCKETS = [
+  { bucket: "Recovery heavy (>70%)", count: 533, checkins: 21542, avgVisits: 40.4, note: "★ CORE BASE — top Sway Unlimited candidates", color: "emerald" },
+  { bucket: "Recovery only", count: 1325, checkins: 11150, avgVisits: 8.4, note: "Casual recovery — Sway Unlimited prospects", color: "emerald" },
+  { bucket: "Mixed (30-70% yoga)", count: 446, checkins: 7214, avgVisits: 16.2, note: "Use both — recovery message works, soften yoga loss", color: "amber" },
+  { bucket: "Yoga heavy (>70%)", count: 41, checkins: 950, avgVisits: 23.2, note: "Small but loyal — call them personally, offer partner studio referral", color: "rose" },
+  { bucket: "Yoga only", count: 809, checkins: 1585, avgVisits: 2.0, note: "Mostly casual — easy graceful offboarding", color: "rose" },
 ];
 
 const CAMPAIGNS = [
@@ -647,6 +659,58 @@ function CurtainDesign() {
   );
 }
 
+/* ---- Behavior buckets (yoga vs recovery) ---- */
+function BehaviorBuckets() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-emerald-300 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">🧘 Yoga vs recovery — customer behavior analysis</h2>
+      <p className="text-sm opacity-80 mb-4">
+        From 43,927 check-ins (3,408 unique customers) at Upswell. <b>74% of all check-ins were recovery; only 6% were yoga-dominant.</b> The yoga-loyalist backlash risk is smaller than feared — but the recovery loyalty is enormous.
+      </p>
+
+      <div className="overflow-x-auto -mx-6 px-6">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+              <th className="text-left py-2 pr-4">Bucket</th>
+              <th className="text-right py-2 pr-4">People</th>
+              <th className="text-right py-2 pr-4">Check-ins</th>
+              <th className="text-right py-2 pr-4">Avg/person</th>
+              <th className="text-left py-2">Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {BEHAVIOR_BUCKETS.map((b, i) => {
+              const colorClass =
+                b.color === "emerald" ? "bg-emerald-50" :
+                b.color === "amber" ? "bg-amber-50" :
+                "bg-rose-50";
+              return (
+                <tr key={i} className={`border-b border-black/5 ${colorClass}`}>
+                  <td className="py-2 pr-4 font-medium">{b.bucket}</td>
+                  <td className="py-2 pr-4 text-right font-mono tabular-nums">{b.count.toLocaleString()}</td>
+                  <td className="py-2 pr-4 text-right font-mono tabular-nums">{b.checkins.toLocaleString()}</td>
+                  <td className="py-2 pr-4 text-right font-mono tabular-nums">{b.avgVisits.toFixed(1)}</td>
+                  <td className="py-2 text-xs opacity-90">{b.note}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-4 grid md:grid-cols-2 gap-3 text-xs">
+        <div className="bg-emerald-50 border border-emerald-200 rounded p-3">
+          <b className="text-emerald-900">★ Top user:</b> 1,016 check-ins (95% recovery) over the years. At ~4-5 visits/week. Sway Unlimited at $99 is a steal for users like this.
+        </div>
+        <div className="bg-rose-50 border border-rose-200 rounded p-3">
+          <b className="text-rose-900">Yoga-loyalist offboarding:</b> 360 opted-in yoga-loyalists (yoga-only + yoga-heavy) saved to <code className="bg-white px-1 rounded">10-yoga-loyalists-offboarding.csv</code>. Graceful offboarding email only — no re-engagement spam.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---- Staffing questions ---- */
 function StaffingQuestions() {
   return (
@@ -858,6 +922,7 @@ function OverviewTab() {
     <div className="grid md:grid-cols-2 gap-6">
       <LaunchScenarios />
       <CriticalGating />
+      <BehaviorBuckets />
       <StaffingQuestions />
       <ConstructionTiming />
       <CurtainDesign />
