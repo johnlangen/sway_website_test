@@ -237,9 +237,9 @@ const MEETINGS = [
 const LAUNCH_SCENARIOS = [
   {
     plan: "A",
-    title: "THE PLAN — brand transitions June 1, massage opens June 15",
+    title: "THE PLAN — quiet member-only transition + late-June PR push",
     color: "emerald",
-    description: "June 1 is a brand transition, not a launch. Recovery space continues operating as it has — same equipment, same rooms — under Sway branding. Members migrate to Mindbody at their grandfathered rates. Massage suites open June 15. Marty's call: operate massage with the license application in flight (FBI fingerprint expedite pending) rather than wait for full approval. Risk acknowledged; his lane.",
+    description: "REVISED May 13 PM: this is a QUIET June 1 launch. Members-only comms until the space is finished and beautiful. Big Sway PR + social push held for late June / early July when everything is camera-ready. Three phases: (1) May 15 → June 1: members hear from Heather on her voice + segmented member emails. NO Sway-channel public posts. (2) June 1 → ~June 25: quiet operational launch. Brand transition happens, recovery continues, massage opens June 15. Word-of-mouth only. (3) Late June / Early July: BIG public PR push when everything looks finished. Sway social goes live with announcement, press distribution, paid ads. Main strategic goal throughout: keep existing members happy.",
     pros: [
       "Realistic against the FBI license timeline (mid-to-late June arrival)",
       "Gives Emily three more weeks of breathing room on buildout",
@@ -782,6 +782,45 @@ function SenderTimeline() {
       <p className="text-[11px] opacity-60 mt-4">
         Legal note: CAN-SPAM marketing consent transfers in a business handover. The May 15 announcement is the required notice of the change. No fresh opt-in needed.
       </p>
+    </div>
+  );
+}
+
+/* ---- Strategic priorities (May 13 PM revision) ---- */
+function StrategicPriorities() {
+  return (
+    <div className="md:col-span-2 bg-[#113D33] text-white rounded-xl p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-70 mb-3">⭐ Strategic priorities (May 13 PM revision)</h2>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="bg-white/10 rounded-lg p-4">
+          <h3 className="text-sm font-bold mb-2">🤫 Quiet June 1 launch</h3>
+          <p className="text-xs opacity-95 leading-relaxed">
+            Members-only comms May 15 → June 1. No Sway-channel public posts. June 1 = quiet operational launch (members notice; public doesn&apos;t). Massage launches June 15, also quietly. <b>Big PR + social push held for late June / early July</b> when the space is finished and beautiful. The story we want when we go public: &quot;the thing you&apos;ve been hearing about is open, and it&apos;s exactly what they said it would be.&quot;
+          </p>
+        </div>
+
+        <div className="bg-white/10 rounded-lg p-4">
+          <h3 className="text-sm font-bold mb-2">💎 Exclusive $99 transition pricing</h3>
+          <p className="text-xs opacity-95 leading-relaxed">
+            $99/mo grandfathered rate for existing members, plus an angle: limited-access exclusivity during the transition window. Some closure days for construction = &quot;you have exclusive access while we transition.&quot; <b>This exact pricing won&apos;t be offered to new members after the public launch.</b> Builds urgency for current members to confirm rollover now.
+          </p>
+        </div>
+
+        <div className="bg-white/10 rounded-lg p-4">
+          <h3 className="text-sm font-bold mb-2">💚 Keep current members happy</h3>
+          <p className="text-xs opacity-95 leading-relaxed">
+            Main strategic goal through June. Member retention &gt; new acquisition during the transition. Heather&apos;s personal calls to yoga-leaning members. Honored grandfathered rates. Reliable hours. Soft handoff into massage when it&apos;s ready. Acquisition campaigns wait until the experience is dialed.
+          </p>
+        </div>
+
+        <div className="bg-white/10 rounded-lg p-4">
+          <h3 className="text-sm font-bold mb-2">📝 Rollover form (Mindbody gap)</h3>
+          <p className="text-xs opacity-95 leading-relaxed">
+            Mindbody site won&apos;t be provisioned until <b>~May 25</b>. Gap between May 15 announcement and May 25 Mindbody-ready = members have nowhere to sign up for rollover. Solution: <b>simple form (Typeform / Google Form / hosted page)</b> captures rollover intent + preferences. Imported into Mindbody once provisioned. Build this before May 15.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1422,6 +1461,7 @@ function NewCampaigns() {
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
+      <StrategicPriorities />
       <DealScope />
       <LaunchScenarios />
       <CriticalGating />
