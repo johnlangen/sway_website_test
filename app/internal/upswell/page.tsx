@@ -41,6 +41,21 @@ const BEHAVIOR_BUCKETS = [
   { bucket: "Yoga only", count: 809, checkins: 1585, avgVisits: 2.0, note: "Mostly casual — easy graceful offboarding", color: "rose" },
 ];
 
+const ACTIVE_MEMBER_BUCKETS = [
+  { bucket: "Recovery heavy", count: 71, action: "Standard May 22 email — they're perfect Sway customers", color: "emerald" },
+  { bucket: "Recovery only", count: 49, action: "Standard May 22 email", color: "emerald" },
+  { bucket: "Mixed (use both)", count: 21, action: "May 22 email with softer yoga-winddown language — they'll miss yoga but will keep recovery", color: "amber" },
+  { bucket: "No check-in history", count: 14, action: "Standard May 22 email (likely recent signups or comp accounts)", color: "amber" },
+  { bucket: "Yoga heavy / Yoga only", count: 4, action: "⚠️ PERSONAL CALL FROM HEATHER — don't send them the standard email. 4 names listed below.", color: "rose" },
+];
+
+const YOGA_HEAVY_ACTIVE_MEMBERS = [
+  { name: "Christina Aguila", location: "Central Park", yoga: 113, recovery: 26, email: "xtina.aguila@gmail.com" },
+  { name: "Gregory Anderson", location: "RiNo Station", yoga: 50, recovery: 1, email: "thegregory@usa.net" },
+  { name: "Jessica Blackwell", location: "RiNo Station", yoga: 12, recovery: 0, email: "jessilynne85@yahoo.com" },
+  { name: "Nathan Khomutov", location: "RiNo Station", yoga: 12, recovery: 5, email: "nathan.khomutov@gmail.com" },
+];
+
 const CAMPAIGNS = [
   { date: "2026-05-15", audience: "All members + opted-in", channel: "Email", goal: "Announcement (Heather voice)", from: "Heather · Upswell domain", csv: "01 + 02 deduped", status: "Drafted" },
   { date: "2026-05-15", audience: "Public", channel: "Press + blog + social + banner", goal: "Public announcement", from: "Sway brand", csv: "—", status: "Drafted" },
@@ -659,6 +674,79 @@ function CurtainDesign() {
   );
 }
 
+/* ---- Active member buckets — who needs what ---- */
+function ActiveMemberBuckets() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-rose-400 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">⚠️ Active members by behavior — who needs special handling</h2>
+      <p className="text-sm opacity-80 mb-4">
+        Of the 159 active paying members, almost all are recovery users — but <b>4 are yoga-heavy or yoga-only</b>. They need a personal call from Heather, not the standard email arc.
+      </p>
+
+      <div className="overflow-x-auto -mx-6 px-6 mb-4">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+              <th className="text-left py-2 pr-4">Bucket</th>
+              <th className="text-right py-2 pr-4">Count</th>
+              <th className="text-left py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ACTIVE_MEMBER_BUCKETS.map((b, i) => {
+              const bg = b.color === "emerald" ? "bg-emerald-50" : b.color === "amber" ? "bg-amber-50" : "bg-rose-50";
+              return (
+                <tr key={i} className={`border-b border-black/5 ${bg}`}>
+                  <td className="py-2 pr-4 font-medium">{b.bucket}</td>
+                  <td className="py-2 pr-4 text-right font-mono tabular-nums">{b.count}</td>
+                  <td className="py-2 text-xs">{b.action}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="bg-rose-50 border-2 border-rose-300 rounded-lg p-4">
+        <h3 className="text-sm font-bold text-rose-900 mb-2">📞 The 4 yoga-leaning active members — Heather should call before May 15</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-rose-200">
+                <th className="text-left py-1 pr-3">Name</th>
+                <th className="text-left py-1 pr-3">Location</th>
+                <th className="text-right py-1 pr-3">Yoga visits</th>
+                <th className="text-right py-1 pr-3">Rec visits</th>
+                <th className="text-left py-1">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {YOGA_HEAVY_ACTIVE_MEMBERS.map((m, i) => (
+                <tr key={i} className="border-b border-rose-100">
+                  <td className="py-1.5 pr-3 font-medium">{m.name}</td>
+                  <td className="py-1.5 pr-3">{m.location}</td>
+                  <td className="py-1.5 pr-3 text-right font-mono">{m.yoga}</td>
+                  <td className="py-1.5 pr-3 text-right font-mono">{m.recovery}</td>
+                  <td className="py-1.5 font-mono">{m.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <details className="mt-3">
+          <summary className="text-xs font-bold text-rose-900 cursor-pointer">Suggested call script (click to expand)</summary>
+          <div className="mt-3 p-3 bg-white rounded text-xs leading-relaxed italic border border-rose-200">
+            &quot;Hey {`{name}`}, this is Heather from Upswell. Two reasons I&apos;m calling: we&apos;re becoming Sway on June 1, and I wanted you to hear that from me directly. Second — I know you joined for yoga, and Sway doesn&apos;t have yoga classes. So I want to be honest about that and figure out what would actually work for you. Options: (1) keep your membership at your current rate and use the recovery space (cold plunge, sauna, compression, red light) which all stays the same. (2) I can refund the rest of your prepaid time. (3) I&apos;m happy to introduce you to CorePower or a partner studio if you&apos;d rather continue yoga. What feels right?&quot;
+          </div>
+          <p className="mt-2 text-[11px] opacity-70 italic">
+            Goal: not retention at any cost — it&apos;s respect. Even if they cancel, they leave feeling respected. That&apos;s 4 people who don&apos;t become public complaints.
+          </p>
+        </details>
+      </div>
+    </div>
+  );
+}
+
 /* ---- Behavior buckets (yoga vs recovery) ---- */
 function BehaviorBuckets() {
   return (
@@ -922,6 +1010,7 @@ function OverviewTab() {
     <div className="grid md:grid-cols-2 gap-6">
       <LaunchScenarios />
       <CriticalGating />
+      <ActiveMemberBuckets />
       <BehaviorBuckets />
       <StaffingQuestions />
       <ConstructionTiming />
