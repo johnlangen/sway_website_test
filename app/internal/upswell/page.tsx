@@ -172,7 +172,7 @@ const MEETINGS = [
       "Back-to-school campaign idea (Aug/Sept)",
     ],
     decisions: [
-      "⚠️ WELLHUB: SUNSET. Wellhub users consume capacity without converting to paid memberships. On capacity-constrained recovery-led locations, opportunity cost > the low-margin Wellhub revenue. Notify users with 30+ day notice.",
+      "Wellhub: SUNSET. Wellhub users consume capacity without converting to paid memberships. On capacity-constrained recovery-led locations, opportunity cost > the low-margin Wellhub revenue. Notify users with 30+ day notice.",
       "Sway Unlimited at new locations = $99/mo (matches Sway Larimer $99 membership price, but unlimited recovery instead of $25/session). $129 possible if needed — RiNo/CP has more cold plunge + sauna capacity than Larimer's single room.",
       "Member migration is OPT-IN. Initial May 15 email transactional, includes 'sign up to roll over your membership' CTA. Lock in their existing rate for minimum 12 months — customer chooses term length.",
       "Rollover perk: members who roll over get massage/facial at $99 each as Sway member benefit.",
@@ -294,8 +294,8 @@ const STAFFING_QUESTIONS = [
   },
   {
     role: "Massage therapists",
-    question: "How many to hire per location for opening week? Are we cross-staffing from Sway Larimer?",
-    context: "Going from yoga instructors → massage therapists is a different hire entirely. Sister is reportedly coordinating with Jocelyn (Sway Larimer spa manager) on this. Realistic minimum: 2-3 MTs per location for a 6-day operating schedule.",
+    question: "How many to hire per location for opening week, and what's the pipeline status?",
+    context: "Going from yoga instructors → massage therapists is a different hire entirely. Cross-staffing from Sway Larimer is NOT viable — Larimer is already running thin on MTs. So new hires for the new locations are critical-path. Sister coordinating with Jocelyn on this. Realistic minimum: 2-3 MTs per location for a 6-day operating schedule.",
     decision: "TBD — pipeline status?",
   },
   {
@@ -753,18 +753,12 @@ function MeetingsLog() {
                 <p className="text-sm italic opacity-50">— Add decisions as they land. Tell Claude and they&apos;ll be logged here.</p>
               ) : (
                 <ul className="text-sm space-y-2">
-                  {m.decisions.map((d, j) => {
-                    const isHighlight = d.includes("⚠️") || d.includes("WELLHUB");
-                    return (
-                      <li
-                        key={j}
-                        className={`flex gap-2 ${isHighlight ? "bg-amber-50 border-l-4 border-amber-400 pl-3 py-2 rounded-r" : ""}`}
-                      >
-                        <span className="text-emerald-600 mt-0.5">✓</span>
-                        <span className={isHighlight ? "font-semibold" : ""}>{d}</span>
-                      </li>
-                    );
-                  })}
+                  {m.decisions.map((d, j) => (
+                    <li key={j} className="flex gap-2">
+                      <span className="text-emerald-600 mt-0.5">✓</span>
+                      <span>{d}</span>
+                    </li>
+                  ))}
                 </ul>
               )}
             </div>
