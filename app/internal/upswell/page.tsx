@@ -387,18 +387,30 @@ const THURSDAY_SITE_VISIT_AGENDA = {
     "Walk Emily through the physical space (gentle — she's working from photos and is stretched)",
     "Punch list for buildout: signage, curtains, partitions, drywall, pillars — what physically must happen by which date?",
     "Confirm Allison takes signage + visual identity lead (off Emily's plate)",
-    "ACCESS: Heather grants John access to (a) Upswell email marketing platform, (b) upswellstudio.com domain registrar",
-    "Physical infrastructure walkthrough: cameras installed? sound system in place? payment terminals — what hardware?",
+    "🔑 BIG QUESTION: Did Sway acquire the Upswell brand/IP including upswellstudio.com? Or did Heather keep the Upswell brand? Determines redirect strategy + social handle ownership.",
+    "ACCESS: Heather grants John access to (a) Upswell email marketing platform, (b) upswellstudio.com domain registrar (assuming we own it)",
+    "Ring camera account: who owns it? Does it transfer with the business / lease, or do we take over the account?",
+    "Sound system walkthrough — what's in place, can it be repurposed?",
+    "Payment terminals — current hardware, can it work with Mindbody?",
     "Confirm Upswell's payment processor (Mariana Tek = Stripe — what about retail / gift card processing?)",
+    "Mariana Tek shutdown date — when do we fully turn it off post-migration?",
   ],
 };
 
 const OPERATIONAL_CHECKLIST = [
   {
-    category: "Brand / digital cleanup",
+    category: "Upswell domain + brand decisions (needs Heather/Marty clarification)",
     items: [
-      { task: "Get domain access (upswellstudio.com) from Heather → set up redirect to swaywellnessspa.com OR transition banner saying 'we are now Sway'", owner: "John (needs Heather access)" },
-      { task: "Turn off Upswell's existing marketing automations so they don't fire conflicting messages during transition", owner: "John (needs platform access)" },
+      { task: "BIG QUESTION: Did Sway acquire the Upswell brand/IP (incl. upswellstudio.com domain) as part of the deal, OR did Heather keep the Upswell brand? This determines everything else below.", owner: "Marty + Heather — answer at Thursday meeting" },
+      { task: "If Sway owns Upswell IP: take over upswellstudio.com — set up redirect to swaywellnessspa.com or transition banner. Also take over @upswellstudio on Instagram, TikTok, FB.", owner: "John (once access transferred)" },
+      { task: "If Heather kept Upswell IP: handshake agreement on what she does with the site (redirect voluntarily? Park it? Use it for a future project?) — needs to be documented either way", owner: "Marty + Heather" },
+    ],
+  },
+  {
+    category: "Brand / digital cleanup (post Upswell ownership clarification)",
+    items: [
+      { task: "Turn off Upswell's existing marketing automations BEFORE May 15 announcement so they don't fire conflicting messages during transition", owner: "John (needs platform access)" },
+      { task: "Plan Mariana Tek FULL SHUTDOWN date — after Mindbody migration is verified complete + members no longer transacting through MT. Likely 30 days post-launch. Set a hard cutover.", owner: "John + Heather" },
       { task: "Take over Google Business Profile listings at 3636 Blake + 2271 Clinton — rename Upswell → Sway, preserve reviews. Same-day update IF Heather has admin access.", owner: "Heather (if admin) / John" },
       { task: "Confirm Sway GBP categories are set up correctly for the recovery-led format", owner: "John" },
     ],
@@ -413,9 +425,9 @@ const OPERATIONAL_CHECKLIST = [
     ],
   },
   {
-    category: "Physical infrastructure (confirm at Thursday site visit)",
+    category: "Physical infrastructure",
     items: [
-      { task: "Cameras already installed? Functional? Coverage map?", owner: "Heather (walk the space)" },
+      { task: "Cameras = installed (Ring system confirmed). Need to ask: who owns the Ring account? Do we take over the account, or does it transfer with the lease/business?", owner: "Heather + Marty" },
       { task: "Sound system — what's in place, can it be repurposed for Sway audio?", owner: "Heather (walk the space)" },
       { task: "Payment terminals — current setup, can existing hardware work with Mindbody?", owner: "John + Heather" },
       { task: "Wi-Fi / networking / point-of-sale infrastructure — does Mindbody connect cleanly?", owner: "John + Mindbody admin" },
