@@ -50,10 +50,19 @@ const ACTIVE_MEMBER_BUCKETS = [
 ];
 
 const YOGA_HEAVY_ACTIVE_MEMBERS = [
-  { name: "Christina Aguila", location: "Central Park", yoga: 113, recovery: 26, email: "xtina.aguila@gmail.com" },
-  { name: "Gregory Anderson", location: "RiNo Station", yoga: 50, recovery: 1, email: "thegregory@usa.net" },
-  { name: "Jessica Blackwell", location: "RiNo Station", yoga: 12, recovery: 0, email: "jessilynne85@yahoo.com" },
-  { name: "Nathan Khomutov", location: "RiNo Station", yoga: 12, recovery: 5, email: "nathan.khomutov@gmail.com" },
+  { name: "Jessica Blackwell", location: "RiNo Station", yoga: 12, recovery: 0, email: "jessilynne85@yahoo.com", rate: "$159/mo PAYING", contract: "All Access - Core (signed up 4/24/2026 — only 19 days ago)", flag: "⚠️ HIGHEST RISK — paid for yoga 3 weeks ago, lead the call with a refund offer" },
+  { name: "Gregory Anderson", location: "RiNo Station", yoga: 50, recovery: 1, email: "thegregory@usa.net", rate: "$129/mo PAYING", contract: "Broadway Legacy (since Sept 2023 — transferred from closed South Broadway)", flag: "Long relationship — softer touch, 'we tried' acceptable" },
+  { name: "Christina Aguila", location: "Central Park", yoga: 113, recovery: 26, email: "xtina.aguila@gmail.com", rate: "$99/mo PAYING", contract: "Hayes partnership tier", flag: "Partner-tier — coordinate with Hayes brand decision" },
+  { name: "Nathan Khomutov", location: "RiNo Station", yoga: 12, recovery: 5, email: "nathan.khomutov@gmail.com", rate: "🆓 $0/mo (Gravity Haus comp)", contract: "Gravity Haus | All Access Monthly Membership", flag: "Free via Gravity Haus reciprocal — courtesy call, no refund needed" },
+];
+
+const ACTIVE_MEMBER_FREE_VS_PAYING = [
+  { bucket: "Recovery heavy", free: 14, paying: 57, total: 71 },
+  { bucket: "Recovery only", free: 17, paying: 32, total: 49 },
+  { bucket: "Mixed (both)", free: 5, paying: 16, total: 21 },
+  { bucket: "Yoga heavy", free: 1, paying: 2, total: 3 },
+  { bucket: "Yoga only", free: 0, paying: 1, total: 1 },
+  { bucket: "No check-in data", free: 14, paying: 0, total: 14 },
 ];
 
 const CAMPAIGNS = [
@@ -707,31 +716,55 @@ function ActiveMemberBuckets() {
         </table>
       </div>
 
-      <div className="bg-rose-50 border-2 border-rose-300 rounded-lg p-4">
-        <h3 className="text-sm font-bold text-rose-900 mb-2">📞 The 4 yoga-leaning active members — Heather should call before May 15</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-rose-200">
-                <th className="text-left py-1 pr-3">Name</th>
-                <th className="text-left py-1 pr-3">Location</th>
-                <th className="text-right py-1 pr-3">Yoga visits</th>
-                <th className="text-right py-1 pr-3">Rec visits</th>
-                <th className="text-left py-1">Email</th>
+      <div className="bg-white rounded-lg p-4 mb-4 border border-black/10">
+        <h3 className="text-sm font-bold mb-2">Free vs paying breakdown across all 159 active members</h3>
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+              <th className="text-left py-1 pr-3">Bucket</th>
+              <th className="text-right py-1 pr-3">Free</th>
+              <th className="text-right py-1 pr-3">Paying</th>
+              <th className="text-right py-1">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ACTIVE_MEMBER_FREE_VS_PAYING.map((b, i) => (
+              <tr key={i} className="border-b border-black/5">
+                <td className="py-1.5 pr-3 font-medium">{b.bucket}</td>
+                <td className="py-1.5 pr-3 text-right font-mono">{b.free}</td>
+                <td className="py-1.5 pr-3 text-right font-mono">{b.paying}</td>
+                <td className="py-1.5 text-right font-mono font-bold">{b.total}</td>
               </tr>
-            </thead>
-            <tbody>
-              {YOGA_HEAVY_ACTIVE_MEMBERS.map((m, i) => (
-                <tr key={i} className="border-b border-rose-100">
-                  <td className="py-1.5 pr-3 font-medium">{m.name}</td>
-                  <td className="py-1.5 pr-3">{m.location}</td>
-                  <td className="py-1.5 pr-3 text-right font-mono">{m.yoga}</td>
-                  <td className="py-1.5 pr-3 text-right font-mono">{m.recovery}</td>
-                  <td className="py-1.5 font-mono">{m.email}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))}
+            <tr className="font-bold border-t-2 border-black/20">
+              <td className="py-1.5 pr-3">TOTAL</td>
+              <td className="py-1.5 pr-3 text-right font-mono">51</td>
+              <td className="py-1.5 pr-3 text-right font-mono">108</td>
+              <td className="py-1.5 text-right font-mono">159</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="bg-rose-50 border-2 border-rose-300 rounded-lg p-4">
+        <h3 className="text-sm font-bold text-rose-900 mb-2">📞 The 4 yoga-leaning active members — sorted by call priority</h3>
+        <div className="space-y-3">
+          {YOGA_HEAVY_ACTIVE_MEMBERS.map((m, i) => {
+            const isHighRisk = m.flag.includes("HIGHEST RISK");
+            return (
+              <div key={i} className={`p-3 rounded ${isHighRisk ? "bg-rose-100 border-2 border-rose-400" : "bg-white border border-rose-200"}`}>
+                <div className="flex items-baseline justify-between flex-wrap gap-2 mb-1">
+                  <h4 className="font-bold text-sm">{m.name} <span className="opacity-60 text-xs">· {m.location}</span></h4>
+                  <span className="text-xs font-semibold">{m.rate}</span>
+                </div>
+                <div className="text-[11px] opacity-80">
+                  <div><b>Contract:</b> {m.contract}</div>
+                  <div><b>Visits:</b> {m.yoga} yoga / {m.recovery} recovery · <b>Email:</b> <span className="font-mono">{m.email}</span></div>
+                </div>
+                <div className={`text-xs mt-2 font-medium ${isHighRisk ? "text-rose-900" : ""}`}>{m.flag}</div>
+              </div>
+            );
+          })}
         </div>
         <details className="mt-3">
           <summary className="text-xs font-bold text-rose-900 cursor-pointer">Suggested call script (click to expand)</summary>
