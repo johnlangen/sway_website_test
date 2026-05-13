@@ -251,37 +251,40 @@ const LAUNCH_SCENARIOS = [
   {
     plan: "B",
     title: "Phased launch — brand June 1, massage June 7-14",
-    color: "emerald",
-    description: "June 1: brand transition + recovery uninterrupted + member migration. Massage suites open when actually ready and looking like Sway. Public message: 'Sway opens June 1. Massage suites open the week of June [7/14].'",
+    color: "amber",
+    description: "June 1: brand transition + recovery uninterrupted + member migration. Massage suites open when actually ready. Public message: 'Sway opens June 1. Massage suites open the week of June [7/14].'",
     pros: [
-      "Massage launch decoupled from license timing — wait for license then open",
-      "Curtains/structure get appropriate design time (sister isn't crushed)",
-      "Brand launches with confidence; massage launches with quality",
-      "Members never lose recovery access",
-      "Two PR waves instead of one (June 1 + massage open) = more sustained press",
+      "Compressed timeline keeps momentum across one launch arc",
+      "Brand launches with confidence",
     ],
     cons: [
-      "Some momentum split across two dates",
-      "Public has to wait a beat for full menu",
+      "License stuck at FBI background check — June 7-14 is no longer realistic",
+      "Jocelyn out May 16-25 — hiring slows during half the pre-launch window",
+      "Emily already overwhelmed; compression makes it worse",
+      "Heather + Jocelyn still not aligned on hiring/retention basics",
+      "If any piece slips even days, becomes Plan C with the cost of broken promises",
     ],
-    verdict: "RECOMMENDED. Lower risk, better brand image, allows sister + Marty to do their work without compression.",
+    verdict: "ABANDONED as of May 13 — license + Jocelyn timing make this unviable.",
   },
   {
     plan: "C",
-    title: "Conservative — recovery only June 1, massage June 21+",
-    color: "amber",
-    description: "Pure brand transition June 1. Recovery operates. Massage opens 3+ weeks later when permits, license, hires, and treatment rooms are all unambiguously ready.",
+    title: "Conservative — recovery only June 1, massage late June",
+    color: "emerald",
+    description: "Pure brand transition June 1: recovery operational, members migrated, branding live. Massage opens late June when license, hires, Mindbody, and temp suites are unambiguously ready.",
     pros: [
-      "Maximum quality cushion for the massage open",
-      "Removes all timeline pressure on Marty's license and sister's design",
-      "Easier to absorb if Mindbody slips",
+      "Realistic against the FBI license timeline (mid-to-late June arrival)",
+      "Gives Emily three more weeks of breathing room on buildout",
+      "Covers Jocelyn's absence cleanly — she's back ~May 26, full hiring restart possible",
+      "Two PR waves instead of one (June 1 brand + late June massage) = more sustained press + paid acquisition arc",
+      "One clean message, no walkbacks: 'massage opens late June' said once",
+      "Members never lose recovery access; revenue continues throughout",
     ],
     cons: [
-      "Public launch feels less complete",
+      "Public launch on June 1 is recovery-only (less complete menu)",
       "Less revenue Day 1 (no massage bookings)",
-      "Two-stage rollout requires more comms touches",
+      "Requires deliberate comms across two launch moments",
     ],
-    verdict: "FALLBACK. Pivot to this if massage license isn't in Marty's hands by ~May 22.",
+    verdict: "★ RECOMMENDED. Commit to this in writing this week — don't fall into it later.",
   },
 ];
 
@@ -628,7 +631,7 @@ function LaunchScenarios() {
             s.color === "rose" ? "bg-rose-200 text-rose-900" :
             s.color === "emerald" ? "bg-emerald-300 text-emerald-900" :
             "bg-amber-200 text-amber-900";
-          const isRecommended = s.plan === "B";
+          const isRecommended = s.plan === "C";
           return (
             <div key={s.plan} className={`rounded-xl border-2 ${bg} p-4 flex flex-col ${isRecommended ? "ring-2 ring-emerald-500 ring-offset-2" : ""}`}>
               <div className="flex items-center justify-between mb-2">
