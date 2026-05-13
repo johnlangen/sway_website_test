@@ -236,9 +236,9 @@ const MEETINGS = [
 const LAUNCH_SCENARIOS = [
   {
     plan: "A",
-    title: "THE PLAN — brand transitions June 1, massage opens late June",
+    title: "THE PLAN — brand transitions June 1, massage opens June 15",
     color: "emerald",
-    description: "June 1 is a brand transition, not a launch. Recovery space continues operating as it has — same equipment, same rooms — under Sway branding. Members migrate to Mindbody at their grandfathered rates. Massage suites open late June when license, hires, and treatment rooms are unambiguously ready. The actual NEW thing at the new locations is massage in late June.",
+    description: "June 1 is a brand transition, not a launch. Recovery space continues operating as it has — same equipment, same rooms — under Sway branding. Members migrate to Mindbody at their grandfathered rates. Massage suites open June 15. Marty's call: operate massage with the license application in flight (FBI fingerprint expedite pending) rather than wait for full approval. Risk acknowledged; his lane.",
     pros: [
       "Realistic against the FBI license timeline (mid-to-late June arrival)",
       "Gives Emily three more weeks of breathing room on buildout",
@@ -316,10 +316,10 @@ const NO_CLOSURE_REASONING = [
 
 const CRITICAL_GATING = [
   {
-    item: "Massage establishment license — STUCK at FBI background check",
+    item: "Massage establishment license — application in flight, FBI fingerprint pending",
     owner: "Marty",
-    leadTime: "4-8 weeks standard · Standard FBI fingerprint clearance is the bottleneck · Expedited processing may be available for a fee",
-    impact: "GATES massage launch. Larimer's license is location-specific and cannot cover the new addresses. Plan B target (June 7-14) likely slips to Plan C (June 21+). Marty should call CO DORA today to ask about expedited processing.",
+    leadTime: "Marty's call (May 13): submit application + expedite the FBI fingerprint, but proceed with massage launch June 15 even if full approval hasn't landed",
+    impact: "Real risk: operating massage with the application in process but not approved means any DORA complaint or insurance issue carries exposure. Marty owns this lane and is choosing to accept the gap. Massage target = June 15.",
   },
   {
     item: "EIN obtained ✓",
@@ -387,29 +387,39 @@ const THURSDAY_SITE_VISIT_AGENDA = {
     "Walk Emily through the physical space (gentle — she's working from photos and is stretched)",
     "Punch list for buildout: signage, curtains, partitions, drywall, pillars — what physically must happen by which date?",
     "Confirm Allison takes signage + visual identity lead (off Emily's plate)",
-    "🔑 BIG QUESTION: Did Sway acquire the Upswell brand/IP including upswellstudio.com? Or did Heather keep the Upswell brand? Determines redirect strategy + social handle ownership.",
-    "ACCESS: Heather grants John access to (a) Upswell email marketing platform, (b) upswellstudio.com domain registrar (assuming we own it)",
+    "🔑 IP scope verification: Marty says agreement gives us Upswell IP for 6 months — pull the exact schedule from the purchase agreement to confirm (domain, trademarks, social handles all in scope?). Decide what happens at end of 6 months.",
+    "ACCESS Heather grants John: (a) Upswell email marketing platform, (b) upswellstudio.com domain registrar, (c) @upswellstudio social handles (IG / FB / TikTok), (d) Upswell's Google Ads account if it exists, (e) Upswell's Google Analytics, (f) Upswell's Google Search Console",
+    "Confirm: did Upswell run Google Ads? If yes — those campaigns need to be PAUSED before May 15 so they don't keep spending against a dying brand",
     "Ring camera account: who owns it? Does it transfer with the business / lease, or do we take over the account?",
     "Sound system walkthrough — what's in place, can it be repurposed?",
     "Payment terminals — current hardware, can it work with Mindbody?",
     "Confirm Upswell's payment processor (Mariana Tek = Stripe — what about retail / gift card processing?)",
     "Mariana Tek shutdown date — when do we fully turn it off post-migration?",
+    "Did Upswell run Google Ads? If yes, we need to PAUSE those campaigns before May 15 so they don't keep spending against a dying brand. Also: who has the ad account access?",
+    "Does Upswell have Google Analytics set up on upswellstudio.com? Historical traffic data is gold for transition planning. Grant Sway analytics access if so.",
+    "Does Upswell have Google Search Console set up? Take ownership so we can manage SEO migration cleanly.",
   ],
 };
 
 const OPERATIONAL_CHECKLIST = [
   {
-    category: "Upswell domain + brand decisions (needs Heather/Marty clarification)",
+    category: "Upswell domain + brand decisions",
     items: [
-      { task: "BIG QUESTION: Did Sway acquire the Upswell brand/IP (incl. upswellstudio.com domain) as part of the deal, OR did Heather keep the Upswell brand? This determines everything else below.", owner: "Marty + Heather — answer at Thursday meeting" },
-      { task: "If Sway owns Upswell IP: take over upswellstudio.com — set up redirect to swaywellnessspa.com or transition banner. Also take over @upswellstudio on Instagram, TikTok, FB.", owner: "John (once access transferred)" },
-      { task: "If Heather kept Upswell IP: handshake agreement on what she does with the site (redirect voluntarily? Park it? Use it for a future project?) — needs to be documented either way", owner: "Marty + Heather" },
+      { task: "Per Marty (May 13): purchase agreement appears to include Upswell IP for 6 months. Exact language needs verification — pull the IP/Intangible Assets schedule from the purchase agreement to confirm scope (domain, trademarks, social handles) and exact term.", owner: "Marty — verify with the agreement" },
+      { task: "Working assumption: we have rights to upswellstudio.com + @upswellstudio social handles for at least the 6-month window. Use that window to redirect traffic, post transition content, and migrate audience to Sway channels.", owner: "John (executes during the window)" },
+      { task: "POST on @upswellstudio Instagram, FB, TikTok on May 15: 'Upswell is becoming Sway.' Highlight: same space, same recovery, professional massage being added, extended hours, member rates rolling over (including new massage/facial perk). Pin the post to each channel.", owner: "John (needs Heather's social passwords)" },
+      { task: "Add a TRANSITION BANNER to upswellstudio.com on May 15: 'Upswell is becoming Sway on June 1' with link to swaywellnessspa.com/locations/denver-rino and /denver-central-park. Keep the rest of the site live for SEO/discovery — don't immediately 301 redirect.", owner: "John (needs domain access)" },
+      { task: "After ~30-60 days post-launch (when Mindbody migration is verified clean): set up 301 redirects from upswellstudio.com → swaywellnessspa.com. Preserves SEO equity, transfers any residual link authority.", owner: "John" },
+      { task: "Plan for what happens at end of the 6-month window (if that's accurate): does the domain revert to Heather? Stay with Sway? Need clarity before the window expires.", owner: "Marty (legal review)" },
     ],
   },
   {
-    category: "Brand / digital cleanup (post Upswell ownership clarification)",
+    category: "Brand / digital cleanup",
     items: [
-      { task: "Turn off Upswell's existing marketing automations BEFORE May 15 announcement so they don't fire conflicting messages during transition", owner: "John (needs platform access)" },
+      { task: "Turn off Upswell's marketing automations BEFORE May 15 announcement so they don't fire conflicting messages during transition", owner: "John (needs platform access)" },
+      { task: "Pause any active Upswell Google Ads campaigns before May 15. If Sway has ad account access (likely via the IP transfer), pause from there. Otherwise Heather pauses.", owner: "John or Heather" },
+      { task: "Get access to Upswell's Google Analytics property on upswellstudio.com. Historical traffic data is valuable for transition planning + helps inform paid media targeting.", owner: "John (needs Heather to grant)" },
+      { task: "Take ownership of Upswell's Google Search Console property for upswellstudio.com. Critical for managing the SEO migration cleanly.", owner: "John (needs Heather to grant)" },
       { task: "Plan Mariana Tek FULL SHUTDOWN date — after Mindbody migration is verified complete + members no longer transacting through MT. Likely 30 days post-launch. Set a hard cutover.", owner: "John + Heather" },
       { task: "Take over Google Business Profile listings at 3636 Blake + 2271 Clinton — rename Upswell → Sway, preserve reviews. Same-day update IF Heather has admin access.", owner: "Heather (if admin) / John" },
       { task: "Confirm Sway GBP categories are set up correctly for the recovery-led format", owner: "John" },
