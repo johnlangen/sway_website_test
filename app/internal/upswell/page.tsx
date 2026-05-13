@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { EMAIL_DRAFTS } from "./emails-data";
+import { SOCIAL_POSTS, WEBSITE_TASKS } from "./content-data";
 
 /* ---------------------------------------------
    DATA — kept inline so dashboard is self-contained
@@ -508,13 +509,13 @@ const MY_LIST = [
 
 const OPERATIONAL_CHECKLIST = [
   {
-    category: "Upswell domain + brand — REVISED per APA (May 13)",
+    category: "Upswell domain + brand — cooperative model (May 13 reading)",
     items: [
-      { task: "❌ DROPPED: take over upswellstudio.com. Per Schedule 1.B and Exhibit E §7, Upswell domain + social + email lists are EXCLUDED ASSETS. Heather keeps all digital channels.", owner: "—" },
-      { task: "❌ DROPPED: post on @upswellstudio social. Exhibit E §7 explicitly prohibits Sway from posting through Upswell's accounts or representing itself through those channels.", owner: "—" },
-      { task: "✓ ALLOWED: keep 'Upswell' name on physical signage at the Store during the 6-month brand license (Outside Conversion Date). Must convert to 'Sway by Spavia' brand by ~Nov 2026.", owner: "John + Allison (signage timing)" },
-      { task: "Sway's announcement happens on SWAY channels only (swaywellnessspa.com blog, @swaywellnessclub social, press). Heather voluntarily may mention on her Upswell channels — her call.", owner: "John (Sway channels) · Heather (her channels)" },
-      { task: "Coordinate with Heather on what she plans to communicate to her Upswell list / yoga community independently. Sway should not have surprise messaging crossing hers.", owner: "John + Heather (Thursday meeting)" },
+      { task: "Domain (upswellstudio.com), social accounts (@upswellstudio), email distribution list = Heather's per APA. Sway can't claim ownership. BUT Heather's cooperation makes this practically workable — she's already given Sway POS access and is open to coordinated comms.", owner: "Reference" },
+      { task: "Posts on @upswellstudio social = Heather's voice, drafted cooperatively with Sway. See Content tab for the May 15 drafts written from Heather's voice. She posts, we help draft.", owner: "Heather (posts) + John (drafts)" },
+      { task: "Customer/member contact data IS transferred (per §5.O). Marketing list customers can be emailed from Sway's own platform once Sway sets up — Heather's blessing + CAN-SPAM successor-in-interest covers this.", owner: "John (set up Sway email platform)" },
+      { task: "Keep 'Upswell' name on physical signage at the Store during 6-month brand license. Convert to 'Sway by Spavia' brand by ~Nov 2026.", owner: "John + Allison (signage timing)" },
+      { task: "30-60 days post-launch, coordinate with Heather on 301 redirect upswellstudio.com → swaywellnessspa.com. Her call, her domain — cooperative move.", owner: "John + Heather" },
     ],
   },
   {
@@ -652,7 +653,7 @@ function formatDate(d: string) {
 }
 
 export default function UpswellDashboard() {
-  const [tab, setTab] = useState<"overview" | "mylist" | "emails" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
+  const [tab, setTab] = useState<"overview" | "mylist" | "emails" | "content" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
   const [today, setToday] = useState<string>(KEY_DATES.today);
 
   useEffect(() => {
@@ -685,7 +686,7 @@ export default function UpswellDashboard() {
         {/* TABS */}
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 overflow-x-auto">
-            {(["overview", "mylist", "emails", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
+            {(["overview", "mylist", "emails", "content", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -707,6 +708,7 @@ export default function UpswellDashboard() {
         {tab === "overview" && <OverviewTab />}
         {tab === "mylist" && <MyListTab today={today} />}
         {tab === "emails" && <EmailsTab />}
+        {tab === "content" && <ContentTab />}
         {tab === "campaigns" && <CampaignsTab today={today} />}
         {tab === "segments" && <SegmentsTab />}
         {tab === "pricing" && <PricingTab />}
@@ -1555,6 +1557,122 @@ function MyListTab({ today }: { today: string }) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+/* ---- Content tab (social media + website) ---- */
+function ContentTab() {
+  const channelBadge = (ch: string) => {
+    if (ch.startsWith("Upswell")) return "bg-amber-100 text-amber-900 border-amber-300";
+    if (ch.includes("IG")) return "bg-pink-100 text-pink-900 border-pink-300";
+    if (ch.includes("FB")) return "bg-blue-100 text-blue-900 border-blue-300";
+    if (ch.includes("TikTok")) return "bg-purple-100 text-purple-900 border-purple-300";
+    if (ch.includes("LinkedIn")) return "bg-sky-100 text-sky-900 border-sky-300";
+    return "bg-gray-100 text-gray-900 border-gray-300";
+  };
+
+  const statusBadge = (s: string) => {
+    if (s === "shipped" || s === "posted") return "bg-emerald-100 text-emerald-900";
+    if (s === "scheduled") return "bg-blue-100 text-blue-900";
+    if (s === "in-progress") return "bg-amber-100 text-amber-900";
+    return "bg-gray-100 text-gray-700";
+  };
+
+  const typeBadge = (t: string) => {
+    if (t === "new page") return "bg-emerald-100 text-emerald-900 border-emerald-300";
+    if (t === "page update") return "bg-amber-100 text-amber-900 border-amber-300";
+    if (t === "blog post") return "bg-pink-100 text-pink-900 border-pink-300";
+    if (t === "banner") return "bg-purple-100 text-purple-900 border-purple-300";
+    if (t === "redirect") return "bg-sky-100 text-sky-900 border-sky-300";
+    return "bg-gray-100 text-gray-900 border-gray-300";
+  };
+
+  return (
+    <div className="space-y-6">
+      <Section title="Content plan — social + website">
+        <p className="text-xs opacity-80 mb-2">
+          Two channels for social: <span className="font-semibold">Sway-owned</span> (post freely under our brand) and <span className="font-semibold">Upswell-cooperative</span> (Heather posts from her voice, we draft + assist). Per APA Exhibit E §7, Sway-as-entity can't directly post AS Upswell, but Heather can cooperate openly including with content we draft.
+        </p>
+        <p className="text-xs opacity-60">
+          {SOCIAL_POSTS.length} social posts planned · {WEBSITE_TASKS.length} website tasks · click any item to see full draft below
+        </p>
+      </Section>
+
+      {/* SOCIAL */}
+      <Section title="📱 Social posts">
+        <div className="space-y-3">
+          {SOCIAL_POSTS.map((p, i) => (
+            <details key={i} className="group rounded-lg border border-black/10 bg-white overflow-hidden">
+              <summary className="cursor-pointer p-4 hover:bg-black/[0.02] transition list-none">
+                <div className="flex items-start gap-3 flex-wrap">
+                  <div className="text-xs font-mono shrink-0 opacity-60 w-24">{p.date}</div>
+                  <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${channelBadge(p.channel)} shrink-0`}>
+                    {p.channel}
+                  </span>
+                  <span className="text-xs opacity-70 shrink-0">{p.format}</span>
+                  <div className="flex-1 min-w-[200px]">
+                    <div className="text-sm font-medium">{p.hook}</div>
+                  </div>
+                  <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded shrink-0 ${statusBadge(p.status)}`}>
+                    {p.status}
+                  </span>
+                  <svg className="w-4 h-4 shrink-0 opacity-50 group-open:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </summary>
+              <div className="px-4 pb-4 pt-2 border-t border-black/10 bg-[#F7F4E9]/40">
+                <div className="text-xs whitespace-pre-wrap leading-relaxed mt-3">{p.body}</div>
+                {p.notes && (
+                  <div className="mt-3 text-[11px] italic opacity-70 border-l-2 border-amber-300 pl-3">
+                    <b>Note:</b> {p.notes}
+                  </div>
+                )}
+              </div>
+            </details>
+          ))}
+        </div>
+      </Section>
+
+      {/* WEBSITE */}
+      <Section title="💻 Website tasks">
+        <div className="overflow-x-auto -mx-6 px-6">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-xs uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 pr-3">Date</th>
+                <th className="text-left py-2 pr-3">Type</th>
+                <th className="text-left py-2 pr-3">Page</th>
+                <th className="text-left py-2 pr-3">Goal</th>
+                <th className="text-left py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {WEBSITE_TASKS.map((t, i) => (
+                <tr key={i} className="border-b border-black/5 align-top">
+                  <td className="py-2 pr-3 whitespace-nowrap font-mono text-xs opacity-70">{t.date}</td>
+                  <td className="py-2 pr-3">
+                    <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded border ${typeBadge(t.type)}`}>
+                      {t.type}
+                    </span>
+                  </td>
+                  <td className="py-2 pr-3 font-mono text-xs">{t.page}</td>
+                  <td className="py-2 pr-3 text-xs leading-relaxed">
+                    {t.goal}
+                    {t.notes && <div className="text-[11px] opacity-60 mt-1 italic">{t.notes}</div>}
+                  </td>
+                  <td className="py-2">
+                    <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${statusBadge(t.status)}`}>
+                      {t.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
     </div>
   );
 }
