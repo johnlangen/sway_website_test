@@ -83,7 +83,7 @@ const CAMPAIGNS = [
   { date: "2026-05-27", audience: "All opted-in", channel: "Email", goal: "General pre-launch + first visit offer", from: "Sway · Upswell domain", csv: "02", status: "Drafted" },
   { date: "2026-05-30", audience: "VIPs", channel: "Email", goal: "Final priority booking link", from: "Heather · Upswell domain", csv: "03b", status: "Drafted" },
   { date: "2026-06-01", audience: "Active members", channel: "Email", goal: "Launch day welcome", from: "Heather · Sway domain", csv: "01", status: "Drafted" },
-  { date: "2026-06-02", audience: "All opted-in", channel: "Email", goal: "Public launch + first visit offer", from: "Sway brand · Sway domain", csv: "02", status: "Drafted" },
+  { date: "2026-06-02", audience: "All opted-in", channel: "Email", goal: "Public brand reveal — Sway is here (massage coming late June)", from: "Sway brand · Sway domain", csv: "02", status: "Drafted" },
   { date: "2026-06-08", audience: "Lost segment", channel: "Email", goal: "Re-engagement #1", from: "Sway · Sway domain", csv: "04", status: "Drafted" },
   { date: "2026-06-17", audience: "At Risk segment", channel: "Email", goal: "Re-engagement #2 / urgency", from: "Sway · Sway domain", csv: "04b", status: "Drafted" },
   { date: "2026-06-22", audience: "ClassPass users", channel: "Email", goal: "Convert to Sway membership", from: "Sway · Sway domain", csv: "05", status: "Drafted" },
@@ -236,9 +236,9 @@ const MEETINGS = [
 const LAUNCH_SCENARIOS = [
   {
     plan: "A",
-    title: "THE PLAN — brand June 1, massage late June",
+    title: "THE PLAN — brand transitions June 1, massage opens late June",
     color: "emerald",
-    description: "June 1: brand transition. Recovery operational, members migrated, branding live. Massage opens late June when license, hires, Mindbody, and temp suites are unambiguously ready.",
+    description: "June 1 is a brand transition, not a launch. Recovery space continues operating as it has — same equipment, same rooms — under Sway branding. Members migrate to Mindbody at their grandfathered rates. Massage suites open late June when license, hires, and treatment rooms are unambiguously ready. The actual NEW thing at the new locations is massage in late June.",
     pros: [
       "Realistic against the FBI license timeline (mid-to-late June arrival)",
       "Gives Emily three more weeks of breathing room on buildout",

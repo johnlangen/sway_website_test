@@ -382,26 +382,26 @@ P.S. If you haven't updated your card on file yet, the app will prompt you on fi
     n: "08",
     date: "Jun 2",
     dateISO: "2026-06-02",
-    title: "Public launch + first-visit offer",
+    title: "Public brand reveal — Sway is here",
     from: "Sway · hello@swaywellnessspa.com",
     fromDomain: "sway",
     to: "All marketing-opted-in non-members (~4,470)",
     toCount: 4470,
     csv: "02-announce-may15-all.csv MINUS 01-members-transactional.csv",
     subjectOptions: [
-      "Sway is open. Your first visit is $40 off.",
-      "Yesterday we opened. Today is your turn.",
-      "Doors open. $99 first visit. Members rates from day one.",
+      "Sway is here — at RiNo and Central Park",
+      "The doors that used to say Upswell now say Sway",
+      "Three Denver locations. Recovery you know. Massage coming late June.",
     ],
-    previewText: "50-minute massage or facial for $99 — for Denver locals, no membership required.",
+    previewText: "Same recovery space you may know — now under Sway. Massage suites open late June.",
     classification: "marketing",
     body: `Hi {first_name},
 
-Sway is open at **RiNo** (3636 Blake St) and **Central Park** (2271 Clinton St).
+As of yesterday, **Sway operates at RiNo (3636 Blake St) and Central Park (2271 Clinton St).** The buildings that used to say Upswell now say Sway.
 
-The recovery suite you may know — saunas, cold plunge, compression, red light — is live now. Same rooms, more days open, more reliable hours than the prior operator.
+**The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. What's changed: a fuller, more reliable operating schedule than Upswell ran in its last months, and a new brand on the door.
 
-**Massage suites open the week of {massage_open_date}.** We're finishing them with the care you'd expect from Sway. Pre-booking opens that week.
+**Massage suites open late June.** We're finishing the new treatment rooms with the care you'd expect from Sway. Pre-booking opens that week — we'll let you know.
 
 ### Sway Unlimited — $99/month, exclusive to these locations
 
