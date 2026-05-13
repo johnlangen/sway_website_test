@@ -133,36 +133,38 @@ const QUESTIONS_QUICK = [
 const MEETINGS = [
   {
     date: "2026-05-13",
-    title: "Strategy + Wellhub + phased launch decisions",
+    title: "Strategy + phased launch decisions",
     status: "completed",
-    attendees: "John + Heather + dad context",
+    attendees: "John + Heather",
     topics: [
-      "Wellhub continuation",
       "Phased launch (June 1 brand / massage later)",
       "Transactional vs marketing email clarification",
       "Hours expansion as a member value story (not just re-engagement)",
       "Yoga vs recovery member analysis needed",
     ],
     decisions: [
-      "Wellhub: SUNSET. Heather says Wellhub users hog capacity without converting to paid memberships. Opportunity cost > revenue on capacity-constrained recovery-led locations. Notify users with 30+ day notice.",
+      "Phased launch (Plan B): brand June 1, massage suites open week of June 7-14 when treatment rooms are presentable.",
       "Hours expansion is a member-facing story too, not just re-engagement. Members who stayed get more access/reliability. Use in member emails as value-add.",
       "Unlimited at Upswell was Remedy + Yoga combined — not just Remedy. Some churn was caused by insufficient yoga classes. This changes the re-engagement story: yoga-churners are NOT a recapture target. Recovery-churners are.",
-      "Opt-in question clarified: CAN-SPAM consent transfers in a business handover. The May 15 announcement is the legal notice. NO fresh opt-in needed for the 4,628 marketing-opted-in folks. The 'first-visit offer = opt-in gate' framing is dropped — first-visit offer is now a pure conversion tool.",
+      "CAN-SPAM consent transfers in a business handover. The May 15 announcement is the legal notice. NO fresh opt-in needed for the 4,628 marketing-opted-in folks. First-visit offer is a pure conversion tool, not an opt-in gate.",
     ],
     openQuestions: [
       "Yoga vs recovery visit frequency from Mariana Tek (next POS pull — John to grab Class Session + Reservations reports)",
-      "Math sanity check: confirm with Heather that ~7×/mo unlimited remedy usage avg is real (currently a placeholder)",
       "Massage license timing in Denver — 2-4 weeks typical. Gates the massage launch date.",
+      "Front desk staffing: keep current Upswell staff or replace? What were their wage rates?",
+      "Massage therapist + esthetician pipeline: who's interviewing/onboarding, target headcount per location for opening week?",
+      "Construction timing: build curtain/partition structures during current operating hours, off-hours, or hybrid?",
     ],
   },
   {
     date: "2026-05-12",
     title: "Pricing meeting",
     status: "completed",
-    attendees: "John + Heather",
+    attendees: "John + Heather + Emily + Marty",
     topics: [
       "Sway Unlimited final price",
       "Member migration approach (opt-in vs automatic)",
+      "Wellhub continuation",
       "Hours expansion as messaging asset",
       "Local employer / building partnership discounts",
       "Card migration mechanics (Mariana Tek Stripe → Mindbody Payments)",
@@ -170,6 +172,7 @@ const MEETINGS = [
       "Back-to-school campaign idea (Aug/Sept)",
     ],
     decisions: [
+      "⚠️ WELLHUB: SUNSET. Wellhub users consume capacity without converting to paid memberships. On capacity-constrained recovery-led locations, opportunity cost > the low-margin Wellhub revenue. Notify users with 30+ day notice.",
       "Sway Unlimited at new locations = $99/mo (matches Sway Larimer $99 membership price, but unlimited recovery instead of $25/session). $129 possible if needed — RiNo/CP has more cold plunge + sauna capacity than Larimer's single room.",
       "Member migration is OPT-IN. Initial May 15 email transactional, includes 'sign up to roll over your membership' CTA. Lock in their existing rate for minimum 12 months — customer chooses term length.",
       "Rollover perk: members who roll over get massage/facial at $99 each as Sway member benefit.",
@@ -216,7 +219,7 @@ const LAUNCH_SCENARIOS = [
       "Some momentum split across two dates",
       "Public has to wait a beat for full menu",
     ],
-    verdict: "RECOMMENDED. Lower risk, better brand image, allows sister + dad to do their work without compression.",
+    verdict: "RECOMMENDED. Lower risk, better brand image, allows sister + Marty to do their work without compression.",
   },
   {
     plan: "C",
@@ -225,7 +228,7 @@ const LAUNCH_SCENARIOS = [
     description: "Pure brand transition June 1. Recovery operates. Massage opens 3+ weeks later when permits, license, hires, and treatment rooms are all unambiguously ready.",
     pros: [
       "Maximum quality cushion for the massage open",
-      "Removes all timeline pressure on dad's license and sister's design",
+      "Removes all timeline pressure on Marty's license and sister's design",
       "Easier to absorb if Mindbody slips",
     ],
     cons: [
@@ -233,7 +236,7 @@ const LAUNCH_SCENARIOS = [
       "Less revenue Day 1 (no massage bookings)",
       "Two-stage rollout requires more comms touches",
     ],
-    verdict: "FALLBACK. Pivot to this if massage license isn't in dad's hands by ~May 22.",
+    verdict: "FALLBACK. Pivot to this if massage license isn't in Marty's hands by ~May 22.",
   },
 ];
 
@@ -264,7 +267,7 @@ const NO_CLOSURE_REASONING = [
 const CRITICAL_GATING = [
   {
     item: "Colorado massage establishment license (Denver)",
-    owner: "Dad",
+    owner: "Marty",
     leadTime: "2-4 weeks",
     impact: "GATES the massage launch date. Can't legally do massage without it. If not in hand by May 22, automatically defaults to Plan C.",
   },
@@ -281,6 +284,51 @@ const CRITICAL_GATING = [
     impact: "Blocks member import, booking, and pricing setup. Needs to be done by May 22 to be safe.",
   },
 ];
+
+const STAFFING_QUESTIONS = [
+  {
+    role: "Front desk",
+    question: "Keep current Upswell front desk staff, or replace?",
+    context: "They know the members and the space. Member trust + continuity arguments favor keeping. Need to know current wage rates to model the labor budget. If keeping: align them on the Sway brand standard. If replacing: who runs front of house from June 1?",
+    decision: "TBD — needs Heather + Marty input",
+  },
+  {
+    role: "Massage therapists",
+    question: "How many to hire per location for opening week? Are we cross-staffing from Sway Larimer?",
+    context: "Going from yoga instructors → massage therapists is a different hire entirely. Sister is reportedly coordinating with Jocelyn (Sway Larimer spa manager) on this. Realistic minimum: 2-3 MTs per location for a 6-day operating schedule.",
+    decision: "TBD — pipeline status?",
+  },
+  {
+    role: "Estheticians",
+    question: "Hire for Phase 2 (facials launch) or wait until closer to Phase 2 open?",
+    context: "Sway has 2 facial chairs at the new locations. Phase 2 launches Aug/Sept. Estheticians have a different hiring cycle than MTs — typically less of a Denver shortage but quality varies.",
+    decision: "TBD — likely Phase 2 prep starting July",
+  },
+];
+
+const CONSTRUCTION_TIMING = {
+  question: "When do we install curtains, partitions, signage — during open hours, off-hours, or hybrid?",
+  options: [
+    {
+      label: "During open hours",
+      pros: "Cheap labor, normal workday schedule",
+      cons: "Loud, disruptive to current members in the recovery space, members notice the chaos and lose confidence",
+      verdict: "Bad for member experience during the transition window — when retention matters most",
+    },
+    {
+      label: "Off-hours only (overnight / early AM)",
+      pros: "Zero member-facing disruption",
+      cons: "Overtime labor cost, slower if same crew (fatigue)",
+      verdict: "Safe but slow — risks the timeline",
+    },
+    {
+      label: "Hybrid: light prep daytime, heavy construction at night",
+      pros: "Best of both. Curtain track mounting + signage placement can be done midday (low-impact). Drywall, sanding, electrical at night.",
+      cons: "Requires coordination between sister, contractor, and operations",
+      verdict: "RECOMMENDED. Standard retail-conversion playbook.",
+    },
+  ],
+};
 
 const LOCAL_PARTNERSHIPS_TO_PURSUE = [
   { name: "Xcel Energy", type: "Major Denver employer", note: "Corporate wellness benefit discount tier" },
@@ -488,7 +536,7 @@ function LaunchScenarios() {
     <div className="md:col-span-2 bg-white rounded-xl border-2 border-[#113D33]/20 p-6">
       <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">Launch scenarios — A / B / C</h2>
       <p className="text-sm opacity-80 mb-5">
-        Three viable approaches to the June 1 date. Choose based on risk tolerance and how confident sister + dad are on their work by mid-May.
+        Three viable approaches to the June 1 date. Choose based on risk tolerance and how confident sister + Marty are on their work by mid-May.
       </p>
 
       <div className="grid lg:grid-cols-3 gap-4">
@@ -599,11 +647,63 @@ function CurtainDesign() {
   );
 }
 
+/* ---- Staffing questions ---- */
+function StaffingQuestions() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-3">👥 Staffing — open decisions</h2>
+      <div className="space-y-3">
+        {STAFFING_QUESTIONS.map((s, i) => (
+          <div key={i} className="border-l-2 border-[#4A776D] pl-4 py-1">
+            <div className="flex items-baseline justify-between flex-wrap gap-2">
+              <h3 className="font-semibold">{s.role}</h3>
+              <span className="text-xs font-mono opacity-60 bg-amber-50 px-2 py-0.5 rounded">{s.decision}</span>
+            </div>
+            <p className="text-sm font-medium mt-1">{s.question}</p>
+            <p className="text-xs opacity-80 mt-1.5">{s.context}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---- Construction timing ---- */
+function ConstructionTiming() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">🔨 Construction timing</h2>
+      <p className="text-sm font-medium opacity-90 mb-4">{CONSTRUCTION_TIMING.question}</p>
+
+      <div className="grid md:grid-cols-3 gap-3">
+        {CONSTRUCTION_TIMING.options.map((o, i) => {
+          const isRecommended = o.verdict.toLowerCase().includes("recommended");
+          return (
+            <div key={i} className={`rounded-lg p-4 ${isRecommended ? "bg-emerald-50 border-2 border-emerald-400" : "bg-gray-50 border border-gray-200"}`}>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-bold text-sm">{o.label}</h3>
+                {isRecommended && (
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-white px-2 py-0.5 rounded">★</span>
+                )}
+              </div>
+              <div className="text-xs space-y-1.5">
+                <div><b className="text-emerald-700">+</b> <span className="opacity-90">{o.pros}</span></div>
+                <div><b className="text-rose-700">−</b> <span className="opacity-90">{o.cons}</span></div>
+              </div>
+              <p className="text-xs italic mt-2 pt-2 border-t border-black/10 font-medium">{o.verdict}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 /* ---- Why we're NOT closing ---- */
 function NoClosureReasoning() {
   return (
     <div className="md:col-span-2 bg-[#113D33] text-white rounded-xl p-6">
-      <h2 className="text-sm uppercase tracking-wider opacity-70 mb-2">✓ Why we're not closing during the transition (dad is right)</h2>
+      <h2 className="text-sm uppercase tracking-wider opacity-70 mb-2">✓ Why we're not closing during the transition</h2>
       <ol className="space-y-3 text-sm">
         {NO_CLOSURE_REASONING.map((r, i) => (
           <li key={i} className="flex gap-3">
@@ -653,12 +753,18 @@ function MeetingsLog() {
                 <p className="text-sm italic opacity-50">— Add decisions as they land. Tell Claude and they&apos;ll be logged here.</p>
               ) : (
                 <ul className="text-sm space-y-2">
-                  {m.decisions.map((d, j) => (
-                    <li key={j} className="flex gap-2">
-                      <span className="text-emerald-600 mt-0.5">✓</span>
-                      <span>{d}</span>
-                    </li>
-                  ))}
+                  {m.decisions.map((d, j) => {
+                    const isHighlight = d.includes("⚠️") || d.includes("WELLHUB");
+                    return (
+                      <li
+                        key={j}
+                        className={`flex gap-2 ${isHighlight ? "bg-amber-50 border-l-4 border-amber-400 pl-3 py-2 rounded-r" : ""}`}
+                      >
+                        <span className="text-emerald-600 mt-0.5">✓</span>
+                        <span className={isHighlight ? "font-semibold" : ""}>{d}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>
@@ -758,6 +864,8 @@ function OverviewTab() {
     <div className="grid md:grid-cols-2 gap-6">
       <LaunchScenarios />
       <CriticalGating />
+      <StaffingQuestions />
+      <ConstructionTiming />
       <CurtainDesign />
       <NoClosureReasoning />
       <MeetingsLog />
@@ -1184,7 +1292,7 @@ function PricingTab() {
 
       <Section title="⏱️ Members with prior commitment terms (now month-to-month)">
         <p className="text-xs opacity-60 mb-3">
-          These joined under fixed-term commitments at signup. Their terms are already fulfilled, so they&apos;re NOT prepaid annuals — just standard monthly members at the grandfathered rate. Listing them in case your dad was thinking of one of these.
+          These joined under fixed-term commitments at signup. Their terms are already fulfilled, so they&apos;re NOT prepaid annuals — just standard monthly members at the grandfathered rate. Listing them in case your Marty was thinking of one of these.
         </p>
         <div className="overflow-x-auto -mx-6 px-6">
           <table className="w-full text-sm">
@@ -1214,7 +1322,7 @@ function PricingTab() {
 
       <Section title="🪦 Terminated annual contracts (historical reference)">
         <p className="text-xs opacity-60 mb-3">
-          Past annual or year-long memberships that are no longer active. Listed in case your dad remembers one of these — verify with Heather.
+          Past annual or year-long memberships that are no longer active. Listed in case your Marty remembers one of these — verify with Heather.
         </p>
         <div className="overflow-x-auto -mx-6 px-6">
           <table className="w-full text-sm">
