@@ -387,8 +387,50 @@ const THURSDAY_SITE_VISIT_AGENDA = {
     "Walk Emily through the physical space (gentle — she's working from photos and is stretched)",
     "Punch list for buildout: signage, curtains, partitions, drywall, pillars — what physically must happen by which date?",
     "Confirm Allison takes signage + visual identity lead (off Emily's plate)",
+    "ACCESS: Heather grants John access to (a) Upswell email marketing platform, (b) upswellstudio.com domain registrar",
+    "Physical infrastructure walkthrough: cameras installed? sound system in place? payment terminals — what hardware?",
+    "Confirm Upswell's payment processor (Mariana Tek = Stripe — what about retail / gift card processing?)",
   ],
 };
+
+const OPERATIONAL_CHECKLIST = [
+  {
+    category: "Brand / digital cleanup",
+    items: [
+      { task: "Get domain access (upswellstudio.com) from Heather → set up redirect to swaywellnessspa.com OR transition banner saying 'we are now Sway'", owner: "John (needs Heather access)" },
+      { task: "Turn off Upswell's existing marketing automations so they don't fire conflicting messages during transition", owner: "John (needs platform access)" },
+      { task: "Take over Google Business Profile listings at 3636 Blake + 2271 Clinton — rename Upswell → Sway, preserve reviews. Same-day update IF Heather has admin access.", owner: "Heather (if admin) / John" },
+      { task: "Confirm Sway GBP categories are set up correctly for the recovery-led format", owner: "John" },
+    ],
+  },
+  {
+    category: "Member experience setup (Mindbody)",
+    items: [
+      { task: "Set up Sway Unlimited as a Mindbody Pricing Option (unlimited bookings of session type 96 + new individual modality session types — cold plunge, sauna, infrared, compression)", owner: "Mindbody admin" },
+      { task: "Honor existing Upswell gift cards in Mindbody — pull balances + set up redemption flow", owner: "John + Mindbody admin" },
+      { task: "Pull Upswell's existing discount / promo code list from POS — decide which carry over to Sway", owner: "John" },
+      { task: "Front desk training on Mindbody POS — gift cards, member lookup, discounts, walk-in flow", owner: "Jocelyn (or Heather while Jocelyn out)" },
+    ],
+  },
+  {
+    category: "Physical infrastructure (confirm at Thursday site visit)",
+    items: [
+      { task: "Cameras already installed? Functional? Coverage map?", owner: "Heather (walk the space)" },
+      { task: "Sound system — what's in place, can it be repurposed for Sway audio?", owner: "Heather (walk the space)" },
+      { task: "Payment terminals — current setup, can existing hardware work with Mindbody?", owner: "John + Heather" },
+      { task: "Wi-Fi / networking / point-of-sale infrastructure — does Mindbody connect cleanly?", owner: "John + Mindbody admin" },
+    ],
+  },
+  {
+    category: "Partnerships",
+    items: [
+      { task: "ClassPass listing migration — KEEP with individual-modality offerings (decided May 12)", owner: "Heather" },
+      { task: "Wellhub (Gympass) — SUNSET with 30+ day notice (decided May 12)", owner: "Heather" },
+      { task: "Local brand partnerships review (Gravity Haus, Mach 983, Hayes, Lululemon, F45, etc.) — keep / sunset / negotiate per partnership-decisions.md", owner: "Heather + Marty" },
+      { task: "Pitch EGYM Wellpass — net-new B2B channel different from Wellhub's audience", owner: "Marty" },
+    ],
+  },
+];
 
 const CONSTRUCTION_TIMING = {
   question: "When do we install curtains, partitions, signage — during open hours, off-hours, or hybrid?",
@@ -952,6 +994,37 @@ function StaffingQuestions() {
   );
 }
 
+/* ---- Operational checklist (tactical to-dos) ---- */
+function OperationalChecklist() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">🔧 Operational checklist</h2>
+      <p className="text-sm opacity-80 mb-4">
+        Tactical items beyond the main plan. Most are small individually but they add up — losing track of any of these creates friction at launch.
+      </p>
+
+      <div className="space-y-5">
+        {OPERATIONAL_CHECKLIST.map((cat, i) => (
+          <div key={i}>
+            <h3 className="text-xs uppercase tracking-wider font-bold text-[#4A776D] mb-2">{cat.category}</h3>
+            <ul className="space-y-1.5">
+              {cat.items.map((item, j) => (
+                <li key={j} className="flex gap-3 text-sm border-l-2 border-black/10 pl-3 py-1">
+                  <span className="text-black/30 text-xs mt-1">☐</span>
+                  <div className="flex-1">
+                    <span>{item.task}</span>
+                    <div className="text-[11px] opacity-60 mt-0.5"><b>Owner:</b> {item.owner}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ---- Thursday May 14 site visit agenda ---- */
 function ThursdaySiteVisit() {
   return (
@@ -1166,6 +1239,7 @@ function OverviewTab() {
       <LaunchScenarios />
       <CriticalGating />
       <ThursdaySiteVisit />
+      <OperationalChecklist />
       <ActiveMemberBuckets />
       <BehaviorBuckets />
       <StaffingQuestions />
