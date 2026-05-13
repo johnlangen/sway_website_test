@@ -401,6 +401,111 @@ const THURSDAY_SITE_VISIT_AGENDA = {
   ],
 };
 
+// John's personal task list — organized by week
+const MY_LIST = [
+  {
+    phase: "This week (May 13-17) — Pre-announcement",
+    color: "rose",
+    tasks: [
+      { task: "Push pending dashboard commits to production", status: "in-progress", dep: "" },
+      { task: "Build /membership page update — Sway Unlimited tier shown alongside standard Sway Membership. Both tiers visible on the new location pages and main /membership.", status: "pending", dep: "" },
+      { task: "Build homepage announcement banner for May 15 — slim band, sitewide, dismissable cookie, links to /locations. Copy B from public-announcement-may15.md.", status: "pending", dep: "" },
+      { task: "Get domain access from Heather (Thursday) → upswellstudio.com registrar credentials", status: "pending", dep: "Thursday meeting" },
+      { task: "Get social access from Heather (Thursday) → @upswellstudio IG / FB / TikTok", status: "pending", dep: "Thursday meeting" },
+      { task: "Get email platform admin access from Heather (Thursday) → whichever platform Upswell sends from", status: "pending", dep: "Thursday meeting" },
+      { task: "Get Google access from Heather (Thursday) → Ads / Analytics / Search Console for upswellstudio.com", status: "pending", dep: "Thursday meeting" },
+      { task: "PAUSE Upswell Google Ads campaigns before May 15 (once access granted)", status: "pending", dep: "Heather access" },
+      { task: "Draft transition banner for upswellstudio.com — 'Upswell is becoming Sway on June 1' with links to /locations/denver-rino + /locations/denver-central-park", status: "pending", dep: "domain access" },
+      { task: "Schedule Upswell social posts for May 15 announcing the transition (IG carousel, FB, TikTok)", status: "pending", dep: "social access" },
+      { task: "Final review of all 12 emails with Heather + Marty by Thursday EOD", status: "pending", dep: "" },
+      { task: "Photos: integrate real RiNo + Central Park photos into the two location pages (replace SWAY.jpg placeholder)", status: "pending", dep: "photos from John" },
+    ],
+  },
+  {
+    phase: "May 15 — Announcement day",
+    color: "amber",
+    tasks: [
+      { task: "Send Email 01 (Heather announcement) to members + opted-in list, AM from Upswell domain", status: "pending", dep: "list uploaded" },
+      { task: "Send Email 12 (yoga offboarding) to 360 yoga loyalists, PM from Heather", status: "pending", dep: "" },
+      { task: "Publish blog post on swaywellnessspa.com/blog (A New Chapter for Sway)", status: "pending", dep: "" },
+      { task: "Deploy homepage announcement banner live (toggle the env flag or push commit)", status: "pending", dep: "" },
+      { task: "Post Sway announcement on @swaywellnessclub IG / FB / TikTok carousel", status: "pending", dep: "" },
+      { task: "Post Upswell transition on @upswellstudio IG / FB / TikTok", status: "pending", dep: "social access" },
+      { task: "Push transition banner live on upswellstudio.com", status: "pending", dep: "domain access" },
+      { task: "Press distribution — email Tier 1 reporters (Ryan Warner CPR, Denverite, BusinessDen, Denver Post, 5280, Yoga+Life, Athletech, Salon Today)", status: "pending", dep: "press contacts researched" },
+      { task: "Monitor inbox for member replies + press inquiries", status: "pending", dep: "" },
+    ],
+  },
+  {
+    phase: "Week of May 18-24",
+    color: "amber",
+    tasks: [
+      { task: "Press follow-up Tier 1 reporters Mon May 18 (no reply nudge)", status: "pending", dep: "" },
+      { task: "Tier 2 press push Tue May 19 (DBJ, Mile High CRE, Westword, 303 Magazine)", status: "pending", dep: "" },
+      { task: "Send Email 02 (VIP early access) Wed May 21, AM, Heather voice", status: "pending", dep: "" },
+      { task: "Send Email 03 (Segmented member details) Fri May 22 — 4 versions (paying / mixed / partner / annual)", status: "pending", dep: "" },
+      { task: "Tier 3 press push Fri May 22 (Fitt Insider, Well+Good, American Spa)", status: "pending", dep: "" },
+      { task: "GBP claim filing / update progress — if Heather has admin, do same-day update. Otherwise file claim.", status: "pending", dep: "GBP access decision" },
+      { task: "Begin Mindbody member data import (once site is provisioned)", status: "pending", dep: "Mindbody provisioned" },
+      { task: "Build photo media kit folder for press follow-ups", status: "pending", dep: "photos available" },
+    ],
+  },
+  {
+    phase: "Week of May 25-31 — Pre-launch",
+    color: "amber",
+    tasks: [
+      { task: "Send Email 04 (Member logistics) Tue May 26", status: "pending", dep: "" },
+      { task: "Send Email 05 (General pre-launch) Wed May 27", status: "pending", dep: "" },
+      { task: "Send Email 06 (VIP final priority booking) Sat May 30", status: "pending", dep: "Mindbody booking links live" },
+      { task: "Mindbody booking flows tested end-to-end at both new locations", status: "pending", dep: "Mindbody provisioned" },
+      { task: "Build /book routes for the new locations (clone Larimer pattern, swap Mindbody IDs)", status: "pending", dep: "Mindbody IDs" },
+      { task: "Final QA on both location pages — hours, photos, copy, mobile UX", status: "pending", dep: "" },
+      { task: "Final QA on /membership page (Sway Membership + Sway Unlimited)", status: "pending", dep: "" },
+      { task: "Make sure OG images are set on location pages for social embeds", status: "pending", dep: "photos" },
+    ],
+  },
+  {
+    phase: "Week of June 1-7 — Brand transition week",
+    color: "emerald",
+    tasks: [
+      { task: "Send Email 07 (Member welcome) Mon June 1 at 6 AM, Heather voice", status: "pending", dep: "" },
+      { task: "Flip LocationsContent.tsx status from 'coming-soon' → 'open' for both", status: "pending", dep: "" },
+      { task: "Remove 'Opening June 2026' badges from location pages", status: "pending", dep: "" },
+      { task: "Add live 'Open now' status indicator to location pages (mirror Larimer pattern)", status: "pending", dep: "hours decided" },
+      { task: "Send Email 08 (Public brand reveal) Tue June 2", status: "pending", dep: "" },
+      { task: "Launch paid Google Ads geo-targeted to RiNo / Central Park zips (80205, 80238, 80045, 80010)", status: "pending", dep: "ad budget approved" },
+      { task: "Launch paid Meta Ads — same geo targeting", status: "pending", dep: "ad budget approved" },
+      { task: "First-week social proof / member stories content Fri June 6", status: "pending", dep: "" },
+      { task: "Daily monitoring: reply volume, deliverability, paid ad spend, conversion rates", status: "pending", dep: "" },
+    ],
+  },
+  {
+    phase: "June 8-22 — Re-engagement + massage launch prep",
+    color: "emerald",
+    tasks: [
+      { task: "Send Email 09 (Lost re-engagement, recovery-loyal cut) Mon June 8", status: "pending", dep: "" },
+      { task: "Massage suites launch June 15 — update location pages to show massage as bookable, swap waitlist mailto for real booking link", status: "pending", dep: "license + suites ready" },
+      { task: "Send Email 10 (At Risk re-engagement) Wed June 17", status: "pending", dep: "" },
+      { task: "Send Email 11 (ClassPass conversion) Mon June 22", status: "pending", dep: "" },
+      { task: "Second press wave for massage launch — Tier 1 outlets, same pitch list", status: "pending", dep: "" },
+      { task: "Continue paid acquisition arc — increase budget allocation post-massage-launch", status: "pending", dep: "" },
+    ],
+  },
+  {
+    phase: "Post-launch (late June+)",
+    color: "emerald",
+    tasks: [
+      { task: "Set up 301 redirects: upswellstudio.com → swaywellnessspa.com (after 30-60 day soft transition)", status: "pending", dep: "" },
+      { task: "Mariana Tek full POS shutdown — verify all members are in Mindbody and not transacting through MT, then cut over", status: "pending", dep: "30 days clean Mindbody data" },
+      { task: "SEO migration monitoring — Search Console + Analytics for both old and new domain", status: "pending", dep: "GSC + GA access" },
+      { task: "Pull first reviews into Mindbody/GBP for both new locations", status: "pending", dep: "" },
+      { task: "Add aggregateRating + reviews to DaySpa JSON-LD on location pages (once 10+ Google reviews accumulate)", status: "pending", dep: "" },
+      { task: "Phase 2 planning kickoff — facials + Aescape launch July-Sept", status: "pending", dep: "" },
+      { task: "GA4 funnel exploration for new locations (per CLAUDE.md TODO)", status: "pending", dep: "post-launch data" },
+    ],
+  },
+];
+
 const OPERATIONAL_CHECKLIST = [
   {
     category: "Upswell domain + brand decisions",
@@ -547,7 +652,7 @@ function formatDate(d: string) {
 }
 
 export default function UpswellDashboard() {
-  const [tab, setTab] = useState<"overview" | "emails" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
+  const [tab, setTab] = useState<"overview" | "mylist" | "emails" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
   const [today, setToday] = useState<string>(KEY_DATES.today);
 
   useEffect(() => {
@@ -580,7 +685,7 @@ export default function UpswellDashboard() {
         {/* TABS */}
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 overflow-x-auto">
-            {(["overview", "emails", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
+            {(["overview", "mylist", "emails", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -590,7 +695,7 @@ export default function UpswellDashboard() {
                     : "border-transparent text-[#113D33]/50 hover:text-[#113D33]"
                 }`}
               >
-                {t.charAt(0).toUpperCase() + t.slice(1)}
+                {t === "mylist" ? "My List" : t.charAt(0).toUpperCase() + t.slice(1)}
               </button>
             ))}
           </nav>
@@ -600,6 +705,7 @@ export default function UpswellDashboard() {
       {/* CONTENT */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {tab === "overview" && <OverviewTab />}
+        {tab === "mylist" && <MyListTab today={today} />}
         {tab === "emails" && <EmailsTab />}
         {tab === "campaigns" && <CampaignsTab today={today} />}
         {tab === "segments" && <SegmentsTab />}
@@ -1333,6 +1439,65 @@ function Stat({ label, value, sublabel }: { label: string; value: string; sublab
         {sublabel && <div className="text-xs opacity-60 mt-0.5">{sublabel}</div>}
       </div>
       <div className="text-xl font-bold tabular-nums">{value}</div>
+    </div>
+  );
+}
+
+/* ---- My List tab (John's personal checklist) ---- */
+function MyListTab({ today }: { today: string }) {
+  const totalTasks = MY_LIST.reduce((sum, p) => sum + p.tasks.length, 0);
+  const inProgress = MY_LIST.reduce((sum, p) => sum + p.tasks.filter(t => t.status === "in-progress").length, 0);
+
+  return (
+    <div className="space-y-5">
+      <Section title="My list — John's lane">
+        <p className="text-xs opacity-80 mb-1">
+          Everything <b>I'm</b> responsible for during the conversion. Grouped by week / phase. Use this as a working list — others can see it but the ownership is mine.
+        </p>
+        <p className="text-xs opacity-60">
+          {totalTasks} tasks total · {inProgress} in progress · color-coded by phase
+        </p>
+      </Section>
+
+      {MY_LIST.map((phase, i) => {
+        const phaseColor =
+          phase.color === "rose" ? "border-rose-300 bg-rose-50" :
+          phase.color === "amber" ? "border-amber-300 bg-amber-50" :
+          phase.color === "emerald" ? "border-emerald-300 bg-emerald-50" :
+          "border-black/10 bg-white";
+
+        return (
+          <div key={i} className={`rounded-xl border-2 ${phaseColor} p-5`}>
+            <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
+              <h3 className="font-bold text-base">{phase.phase}</h3>
+              <span className="text-xs opacity-60">{phase.tasks.length} tasks</span>
+            </div>
+            <ul className="space-y-2 bg-white rounded-lg p-4 border border-black/5">
+              {phase.tasks.map((t, j) => {
+                const statusColor =
+                  t.status === "in-progress" ? "text-amber-600" :
+                  t.status === "done" ? "text-emerald-600 line-through opacity-60" :
+                  "text-black/30";
+                const statusIcon =
+                  t.status === "in-progress" ? "◐" :
+                  t.status === "done" ? "✓" :
+                  "☐";
+                return (
+                  <li key={j} className="flex gap-3 text-sm border-b border-black/5 last:border-b-0 pb-2 last:pb-0">
+                    <span className={`${statusColor} text-base shrink-0 mt-0.5`}>{statusIcon}</span>
+                    <div className="flex-1">
+                      <span className={t.status === "done" ? "line-through opacity-60" : ""}>{t.task}</span>
+                      {t.dep && (
+                        <div className="text-[11px] opacity-60 mt-0.5"><b>Depends on:</b> {t.dep}</div>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }
