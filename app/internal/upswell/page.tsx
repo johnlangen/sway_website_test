@@ -302,15 +302,27 @@ const NO_CLOSURE_REASONING = [
 
 const CRITICAL_GATING = [
   {
-    item: "Colorado massage establishment license (Denver)",
+    item: "Massage establishment license — STUCK at FBI background check",
     owner: "Marty",
-    leadTime: "2-4 weeks",
-    impact: "GATES the massage launch date. Can't legally do massage without it. If not in hand by May 22, automatically defaults to Plan C.",
+    leadTime: "4-8 weeks standard · Standard FBI fingerprint clearance is the bottleneck · Expedited processing may be available for a fee",
+    impact: "GATES massage launch. Larimer's license is location-specific and cannot cover the new addresses. Plan B target (June 7-14) likely slips to Plan C (June 21+). Marty should call CO DORA today to ask about expedited processing.",
+  },
+  {
+    item: "EIN obtained ✓",
+    owner: "Marty",
+    leadTime: "Done May 13",
+    impact: "Unblocks bank, payroll, vendor accounts. ✓",
+  },
+  {
+    item: "Jocelyn (Spa Director) out of town May 16–25 (10 days)",
+    owner: "Heather steps in for hiring decisions during absence",
+    leadTime: "Coverage gap covers MOST of the pre-launch hiring window",
+    impact: "Must finalize headcount target, wage bands, in-flight candidates, and Upswell-staff retention decisions at Thursday's (May 14) site visit BEFORE she leaves. Heather covers hiring decisions while Jocelyn's out.",
   },
   {
     item: "Curtain / temp structure design quality",
-    owner: "Sister (with mom helping)",
-    leadTime: "Material lead times are real (custom linen, lighting fixtures, curtain tracks). Order this week or push to Plan C.",
+    owner: "Allison (mom) leading visual identity + signage. Emily (sister) on curtains/partitions. Allison stepping in harder to take signage off Emily's plate.",
+    leadTime: "Material lead times real — order this week or push to Plan C",
     impact: "Gates Plan B viability. Done well = brand asset. Done poorly = brand damage. No middle ground.",
   },
   {
@@ -325,22 +337,44 @@ const STAFFING_QUESTIONS = [
   {
     role: "Front desk",
     question: "Keep current Upswell front desk staff, or replace?",
-    context: "They know the members and the space. Member trust + continuity arguments favor keeping. Need to know current wage rates to model the labor budget. If keeping: align them on the Sway brand standard. If replacing: who runs front of house from June 1?",
-    decision: "TBD — needs Heather + Marty input",
+    context: "Upswell pay rate: Denver minimum wage (FD reps), $24/hr (manager). They know the members and the space — member trust + continuity favor keeping. Heather/Jocelyn need to decide retention list before Jocelyn leaves Friday May 16.",
+    decision: "Decision needed at Thursday May 14 site visit",
   },
   {
     role: "Massage therapists",
     question: "How many to hire per location for opening week, and what's the pipeline status?",
-    context: "Going from yoga instructors → massage therapists is a different hire entirely. Cross-staffing from Sway Larimer is NOT viable — Larimer is already running thin on MTs. So new hires for the new locations are critical-path. Sister coordinating with Jocelyn on this. Realistic minimum: 2-3 MTs per location for a 6-day operating schedule.",
-    decision: "TBD — pipeline status?",
+    context: "Going from yoga instructors → massage therapists is a different hire entirely. Cross-staffing from Sway Larimer is NOT viable — Larimer already running thin. Emily interviewed someone today but didn't know Upswell's existing team might be inherited (Jocelyn hadn't communicated this). Pipeline status to be reviewed at Thursday's site visit. Realistic minimum: 2-3 MTs per location for a 6-day operating schedule.",
+    decision: "Pipeline review Thursday May 14",
   },
   {
     role: "Estheticians",
     question: "Hire for Phase 2 (facials launch) or wait until closer to Phase 2 open?",
-    context: "Sway has 2 facial chairs at the new locations. Phase 2 launches Aug/Sept. Estheticians have a different hiring cycle than MTs — typically less of a Denver shortage but quality varies.",
-    decision: "TBD — likely Phase 2 prep starting July",
+    context: "Sway has 2 facial chairs at the new locations. Phase 2 launches Aug/Sept. Estheticians have a different hiring cycle than MTs.",
+    decision: "Likely Phase 2 prep starting July",
   },
 ];
+
+const KNOWN_WAGES = [
+  { role: "Front desk reps", upswellRate: "Denver minimum wage" },
+  { role: "Front desk manager", upswellRate: "$24/hr" },
+  { role: "Massage therapists", upswellRate: "N/A (Upswell had no MTs)" },
+  { role: "Estheticians", upswellRate: "N/A (Upswell had no estheticians)" },
+];
+
+const THURSDAY_SITE_VISIT_AGENDA = {
+  date: "Thursday May 14",
+  why: "Last in-person window before Jocelyn leaves Friday. Must lock down hiring + buildout decisions today.",
+  attendees: "Heather, Jocelyn, Allison (mom), Emily (sister) — note: keep agenda focused, Emily is stretched thin",
+  agenda: [
+    "Headcount target per location (FD reps, FD manager, MTs)",
+    "Wage bands locked (use Upswell base rates: min wage for FD, $24/hr for manager)",
+    "Decision: keep which existing Upswell FD staff vs. replace?",
+    "Hand off any in-flight candidate interviews to Heather for the next 10 days while Jocelyn is out",
+    "Walk Emily through the physical space (gentle — she's working from photos and is stretched)",
+    "Punch list for buildout: signage, curtains, partitions, drywall, pillars — what physically must happen by which date?",
+    "Confirm Allison takes signage + visual identity lead (off Emily's plate)",
+  ],
+};
 
 const CONSTRUCTION_TIMING = {
   question: "When do we install curtains, partitions, signage — during open hours, off-hours, or hybrid?",
@@ -837,6 +871,21 @@ function StaffingQuestions() {
   return (
     <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
       <h2 className="text-sm uppercase tracking-wider opacity-60 mb-3">👥 Staffing — open decisions</h2>
+
+      <div className="bg-amber-50 border border-amber-200 rounded p-3 mb-4">
+        <h3 className="text-xs font-bold text-amber-900 uppercase tracking-wider mb-2">Known Upswell wage rates (reference for Sway offers)</h3>
+        <table className="w-full text-xs">
+          <tbody>
+            {KNOWN_WAGES.map((w, i) => (
+              <tr key={i} className="border-b border-amber-100 last:border-b-0">
+                <td className="py-1.5 pr-3 font-medium">{w.role}</td>
+                <td className="py-1.5 font-mono">{w.upswellRate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <div className="space-y-3">
         {STAFFING_QUESTIONS.map((s, i) => (
           <div key={i} className="border-l-2 border-[#4A776D] pl-4 py-1">
@@ -848,6 +897,29 @@ function StaffingQuestions() {
             <p className="text-xs opacity-80 mt-1.5">{s.context}</p>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---- Thursday May 14 site visit agenda ---- */
+function ThursdaySiteVisit() {
+  return (
+    <div className="md:col-span-2 bg-emerald-50 rounded-xl border-2 border-emerald-400 p-6">
+      <h2 className="text-sm uppercase tracking-wider text-emerald-900 mb-2">📋 {THURSDAY_SITE_VISIT_AGENDA.date} site visit — agenda</h2>
+      <p className="text-sm font-semibold mb-1">{THURSDAY_SITE_VISIT_AGENDA.why}</p>
+      <p className="text-xs opacity-80 mb-4"><b>Attendees:</b> {THURSDAY_SITE_VISIT_AGENDA.attendees}</p>
+
+      <div className="bg-white rounded-lg p-4 border border-emerald-200">
+        <h3 className="text-xs font-bold uppercase tracking-wider opacity-60 mb-2">Lock these down before Jocelyn leaves Friday</h3>
+        <ul className="space-y-1.5 text-sm">
+          {THURSDAY_SITE_VISIT_AGENDA.agenda.map((a, i) => (
+            <li key={i} className="flex gap-2">
+              <span className="text-emerald-600 mt-1 text-xs">☐</span>
+              <span>{a}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -1043,6 +1115,7 @@ function OverviewTab() {
     <div className="grid md:grid-cols-2 gap-6">
       <LaunchScenarios />
       <CriticalGating />
+      <ThursdaySiteVisit />
       <ActiveMemberBuckets />
       <BehaviorBuckets />
       <StaffingQuestions />
