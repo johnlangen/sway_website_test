@@ -133,7 +133,7 @@ P.S. Reply with what you want as the Founding Ambassador first-week perk. I'm re
     ],
     previewText: "Your rate. Your access. Your timeline. Everything you need.",
     classification: "transactional",
-    body: `[VERSION A — Paying member ($99 / $129 / $159 / $189) · ~108 recipients]
+    body: `[VERSION A — Recovery-focused paying member · ~87 recipients]
 
 Hi {first_name},
 
@@ -145,21 +145,47 @@ This email is the specifics — what your membership becomes, what you get, what
 
 **Your access stays exactly where it is.** Sauna (traditional + infrared), cold plunge, compression therapy, red light therapy — all open. Same rooms, same equipment.
 
-**What's new at your location starting June 1:**
-- **Massage therapy** — expert therapists in newly-built treatment suites. As a member, your rate is **$99 per 50-minute session** (regularly $139). This is your Sway perk.
-- **The Sway app** — bookings, member info, an easier check-in flow. Login info coming May 28.
+**More hours, more open days.** Sway operates on a fuller schedule than Upswell did toward the end. More reliable hours, more days open.
+
+**What's new at your location:**
+- **Massage therapy** — expert therapists in newly-built treatment suites. Your member rate is **$99 per 50-minute session** (regularly $139). Coming the week of {massage_open_date}.
+- **The Sway app** — bookings, member info, easier check-in. Login info coming May 28.
 
 **What's coming this summer:** Advanced facials at $99 member rate. AI-powered Aescape robot massage.
 
 **Your founding rate stays as long as you stay.** When Phase 2 launches, you can add those services at member rates without changing your underlying membership.
 
-**One important note on cards:** for security, we can't directly transfer your card info from Upswell's system to Sway's. You'll either (1) get a secure link to re-add your card, OR (2) re-add at the front desk on your first Sway visit (we'll comp your first visit as a thank-you for the friction).
-
-**Yoga and Pilates classes are winding down.** If movement classes were a meaningful part of why you joined and recovery alone won't replace that for you, reply — we'll make it right (credit, referral to a partner studio, or pro-rata refund).
+**One note on cards:** for security, we can't directly transfer your card info from Upswell's system. The app will prompt you to re-add (30 seconds), or do it at the front desk on your first Sway visit (first visit comped as a thank-you for the friction).
 
 — The Sway team
 
 P.S. Watch for Heather's note around opening day. She's writing a personal welcome to every member.
+
+---
+
+[VERSION A-MIXED — Paying member who used yoga AND recovery · ~16 recipients]
+
+Hi {first_name},
+
+Last week we shared the news: Upswell becomes Sway on **June 1**. I want to write to you specifically because the records show you used both the recovery space AND yoga classes here. Some of this email is good news, some of it isn't, and I want to be direct about both.
+
+**Good news first — your rate stays exactly where it is.** \${current_rate}/month. Locked. No re-signing, no surprise increase. Honored as long as you stay.
+
+**Your recovery access stays exactly where it is.** Sauna (traditional + infrared), cold plunge, compression, red light — all open. Same rooms, same equipment, on a fuller schedule than Upswell ran toward the end.
+
+**The hard part: yoga and Pilates classes are winding down.** Sway is a wellness club focused on massage, facials, and recovery. We don't have yoga in the brand. I know that's part of what you came for, and I don't want to gloss over it.
+
+**Three things I want to make available to you:**
+
+1. **Stay** at your current rate, keep using the recovery side, and get the new Sway services at member pricing (massage is **$99/50 min** for members; facials and Aescape coming this summer at member pricing too).
+2. **Move to a yoga studio** — Heather has personal recommendations and is happy to make introductions. CorePower (multiple Denver locations), The River Yoga (RiNo), Yoga Pod, Kindness Yoga.
+3. **Refund the rest of your time** if you'd rather not continue — pro-rata refund through your next billing date, no hard feelings.
+
+Reply to this email with what works for you. If we don't hear from you, we'll keep your current membership active at your rate — which is the right choice for most of the recovery side, but I want it to be your choice.
+
+— The Sway team
+
+P.S. Heather is personally calling our heaviest yoga users this week. If you're one of them, expect a call.
 
 ---
 
@@ -181,10 +207,14 @@ You're our only active annual prepay member, which means I wanted to write you p
 
 Your annual term — purchased Dec 29, 2025, runs through Dec 29, 2026 — is honored in full. Same access, no changes.
 
-When your term ends, we'll reach out with options. Reply anytime with questions.
+The records show you've used yoga as part of your time here. Yoga is winding down at our locations. Two options if that changes the math for you:
+1. Continue through your term, use the recovery side + new massage (we'll honor the $99 member rate)
+2. Pro-rata refund for the remaining term — say the word
+
+When your term ends, we'll reach out with options. Reply anytime.
 
 — Heather`,
-    notes: "Three versions deployed simultaneously, segmented by rate cohort. Version C goes to one person (Terry Wei). Per May 12 meeting: members who roll over get $99 massage/facial as a perk on top of grandfathered rate.",
+    notes: "FOUR versions now: A (recovery-focused paying members, ~87), A-MIXED (members who used both yoga + recovery, ~21 — softer yoga-winddown language + explicit 3 options), B (partner/comp), C (annual prepay Terry Wei who is mixed-use). Per May 12 meeting: members who roll over get $99 massage/facial as a perk on top of grandfathered rate. The 4 yoga-heavy members (Christina Aguila, Gregory Anderson, Jessica Blackwell, Nathan Khomutov) get a PERSONAL CALL from Heather and do NOT receive this email.",
   },
   {
     n: "04",
@@ -460,6 +490,55 @@ We've been open at {home_location} for about two weeks. The first wave has come 
 [See what's at your location →]
 
 — Sway`,
+  },
+  {
+    n: "12",
+    date: "May 15 PM",
+    dateISO: "2026-05-15",
+    title: "Yoga loyalist graceful offboarding",
+    from: "Heather Holland · heather@upswellstudio.com",
+    fromDomain: "upswell",
+    to: "Yoga-only + yoga-heavy buckets, marketing-opted-in",
+    toCount: 360,
+    csv: "10-yoga-loyalists-offboarding.csv",
+    subjectOptions: [
+      "A direct note about yoga at Upswell",
+      "We have to be straight with you about yoga",
+      "Yoga at Upswell — what's happening",
+    ],
+    previewText: "We're not continuing yoga classes. Here's the honest version of what that means for you.",
+    classification: "transactional",
+    body: `Hi {first_name},
+
+I'm writing because you came to yoga at Upswell, and I owe you the direct version of what's happening today.
+
+**Upswell is becoming Sway on June 1.** Sway doesn't have yoga or Pilates — they're a wellness club focused on massage, facials, recovery, and Aescape robot massage. **We're winding down all movement classes at RiNo Station and Central Park.**
+
+I know that's the thing you came for. I want to acknowledge that clearly, not bury it.
+
+**A few things I want to make available to you:**
+
+**If you want to continue yoga locally**, here are studios I'd personally recommend in Denver — I've taught at or worked with most of them and they're good:
+
+- **CorePower Yoga** — multiple Denver locations. *(I was COO there before founding Upswell — they were good to me and they'll be good to you.)*
+- **Yoga Pod Cherry Creek + LoHi** — vinyasa, sculpt, gentle
+- **The River Yoga (RiNo)** — closest to our RiNo location, smaller community feel
+- **Kindness Yoga** — Boulder + Denver, strong restorative + Yin practice
+
+If you'd like an introduction to any of them, reply to this email and I'll make it.
+
+**If you bought a class package or had unused credits**, we'll honor whatever's on your account. Two options:
+1. Use the credits toward Sway services after June 1 (massage, recovery, etc.) at a 1:1 dollar conversion
+2. Receive a refund for the unused balance — reply and we'll process it
+
+**If you ever want to try the recovery side**, the saunas, cold plunge, compression therapy, and red light are all still there. You won't get a marketing email about it — but if recovery is ever on your radar, the door is open.
+
+This wasn't an easy decision, but I want to be honest with you about it rather than pretend it isn't happening. Thank you for being part of what we built at Upswell. You made the space what it was.
+
+— Heather
+
+P.S. Reply to this directly if you have questions or want any of those studio introductions. I read every one.`,
+    notes: "Sent the SAME DAY as the May 15 announcement but separately, so yoga loyalists hear the news from Heather directly rather than via the general announcement or press. Studio recommendations are placeholders — Heather should substitute her real picks. Tone is direct + accountable, not apologetic. The 'try recovery sometime' line is intentionally soft (opt-in-respecting), not a marketing CTA.",
   },
   {
     n: "11",

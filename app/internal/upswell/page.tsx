@@ -56,6 +56,15 @@ const YOGA_HEAVY_ACTIVE_MEMBERS = [
   { name: "Nathan Khomutov", location: "RiNo Station", yoga: 12, recovery: 5, email: "nathan.khomutov@gmail.com", rate: "🆓 $0/mo (Gravity Haus comp)", contract: "Gravity Haus | All Access Monthly Membership", flag: "Free via Gravity Haus reciprocal — courtesy call, no refund needed" },
 ];
 
+// Top mixed-use members worth a personal touch from Heather (yoga + recovery mixed, sorted by yoga visits, paying-only)
+const MIXED_PERSONAL_TOUCH_TARGETS = [
+  { name: "Nicole Doty", location: "Central Park", yoga: 148, recovery: 103, yogaPct: 59, rate: "$159/mo" },
+  { name: "Anne Brown", location: "Central Park", yoga: 116, recovery: 85, yogaPct: 58, rate: "$129/mo" },
+  { name: "Sam Sylar", location: "Central Park", yoga: 73, recovery: 113, yogaPct: 39, rate: "$159/mo" },
+  { name: "Leslie Gamache", location: "Central Park", yoga: 63, recovery: 46, yogaPct: 58, rate: "$99/mo" },
+  { name: "Kendal Nattinger", location: "RiNo Station", yoga: 61, recovery: 62, yogaPct: 50, rate: "$159/mo" },
+];
+
 const ACTIVE_MEMBER_FREE_VS_PAYING = [
   { bucket: "Recovery heavy", free: 14, paying: 57, total: 71 },
   { bucket: "Recovery only", free: 17, paying: 32, total: 49 },
@@ -809,6 +818,42 @@ function ActiveMemberBuckets() {
             Goal: not retention at any cost — it&apos;s respect. Even if they cancel, they leave feeling respected. That&apos;s 4 people who don&apos;t become public complaints.
           </p>
         </details>
+      </div>
+
+      <div className="mt-4 bg-amber-50 border-2 border-amber-300 rounded-lg p-4">
+        <h3 className="text-sm font-bold text-amber-900 mb-1">📞 Top mixed members worth a personal note (optional)</h3>
+        <p className="text-xs opacity-80 mb-3">
+          These 5 mixed-use members use yoga heavily within their mix. They&apos;ll get the May 22 segmented &quot;Mixed&quot; email automatically — but a personal text or note from Heather adds ~15 min and could save high-LTV relationships. All paying, all heavy users.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-amber-200">
+                <th className="text-left py-1 pr-3">Name</th>
+                <th className="text-left py-1 pr-3">Location</th>
+                <th className="text-left py-1 pr-3">Rate</th>
+                <th className="text-right py-1 pr-3">Yoga</th>
+                <th className="text-right py-1 pr-3">Rec</th>
+                <th className="text-right py-1">% Yoga</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MIXED_PERSONAL_TOUCH_TARGETS.map((m, i) => (
+                <tr key={i} className="border-b border-amber-100">
+                  <td className="py-1.5 pr-3 font-medium">{m.name}</td>
+                  <td className="py-1.5 pr-3">{m.location}</td>
+                  <td className="py-1.5 pr-3 font-mono">{m.rate}</td>
+                  <td className="py-1.5 pr-3 text-right font-mono">{m.yoga}</td>
+                  <td className="py-1.5 pr-3 text-right font-mono">{m.recovery}</td>
+                  <td className="py-1.5 text-right font-mono">{m.yogaPct}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-2 text-[11px] opacity-70 italic">
+          Suggested text: &quot;{`{name}`} — wanted to make sure you saw the news. We&apos;re wrapping yoga but recovery + new massage continues at your rate. Reply if you want to chat about what works for you. — Heather&quot;
+        </p>
       </div>
     </div>
   );
