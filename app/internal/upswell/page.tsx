@@ -132,6 +132,30 @@ const QUESTIONS_QUICK = [
 
 const MEETINGS = [
   {
+    date: "2026-05-13",
+    title: "Strategy + Wellhub + phased launch decisions",
+    status: "completed",
+    attendees: "John + Heather + dad context",
+    topics: [
+      "Wellhub continuation",
+      "Phased launch (June 1 brand / massage later)",
+      "Transactional vs marketing email clarification",
+      "Hours expansion as a member value story (not just re-engagement)",
+      "Yoga vs recovery member analysis needed",
+    ],
+    decisions: [
+      "Wellhub: SUNSET. Heather says Wellhub users hog capacity without converting to paid memberships. Opportunity cost > revenue on capacity-constrained recovery-led locations. Notify users with 30+ day notice.",
+      "Hours expansion is a member-facing story too, not just re-engagement. Members who stayed get more access/reliability. Use in member emails as value-add.",
+      "Unlimited at Upswell was Remedy + Yoga combined — not just Remedy. Some churn was caused by insufficient yoga classes. This changes the re-engagement story: yoga-churners are NOT a recapture target. Recovery-churners are.",
+      "Opt-in question clarified: CAN-SPAM consent transfers in a business handover. The May 15 announcement is the legal notice. NO fresh opt-in needed for the 4,628 marketing-opted-in folks. The 'first-visit offer = opt-in gate' framing is dropped — first-visit offer is now a pure conversion tool.",
+    ],
+    openQuestions: [
+      "Yoga vs recovery visit frequency from Mariana Tek (next POS pull — John to grab Class Session + Reservations reports)",
+      "Math sanity check: confirm with Heather that ~7×/mo unlimited remedy usage avg is real (currently a placeholder)",
+      "Massage license timing in Denver — 2-4 weeks typical. Gates the massage launch date.",
+    ],
+  },
+  {
     date: "2026-05-12",
     title: "Pricing meeting",
     status: "completed",
@@ -139,7 +163,6 @@ const MEETINGS = [
     topics: [
       "Sway Unlimited final price",
       "Member migration approach (opt-in vs automatic)",
-      "First visit offer for opt-in capture",
       "Hours expansion as messaging asset",
       "Local employer / building partnership discounts",
       "Card migration mechanics (Mariana Tek Stripe → Mindbody Payments)",
@@ -148,21 +171,114 @@ const MEETINGS = [
     ],
     decisions: [
       "Sway Unlimited at new locations = $99/mo (matches Sway Larimer $99 membership price, but unlimited recovery instead of $25/session). $129 possible if needed — RiNo/CP has more cold plunge + sauna capacity than Larimer's single room.",
-      "Member migration is OPT-IN. Initial May 15 email transactional, includes 'sign up to roll over your membership' CTA. Lock in their existing rate (e.g., $99 founder) for minimum 12 months — customer chooses term length.",
-      "Rollover language: members who roll over get massage/facial at $99 each as Sway member perk (was Sway Larimer's $25 remedy benefit reversed for these locations).",
-      "Initial emails treated as transactional (CAN-SPAM safe). Get explicit Sway-marketing opt-in via a first-visit offer hook: 'opt in to Sway communications + get your first visit at $40 off'.",
-      "Hours expansion is a real story for re-engagement: Upswell rarely open past 4PM, only 3 days/week. Sway will be open more reliably — use this in Lost + At Risk re-engagement copy.",
-      "Yoga decision still locked: dropped. (But analyze visit data: yoga-heavy users vs recovery-heavy users — yoga users may need a graceful offboarding email.)",
-      "Sway Unlimited cap when capacity is approached (no hard cap now, monitor and gate later).",
-      "Average Upswell unlimited remedy member visited ~7×/mo — supports the economics of $99 unlimited.",
+      "Member migration is OPT-IN. Initial May 15 email transactional, includes 'sign up to roll over your membership' CTA. Lock in their existing rate for minimum 12 months — customer chooses term length.",
+      "Rollover perk: members who roll over get massage/facial at $99 each as Sway member benefit.",
+      "Yoga: dropped (confirmed). Need data on yoga-heavy vs recovery-heavy members for graceful offboarding.",
+      "Sway Unlimited capacity-gated — no hard cap now, monitor.",
     ],
     openQuestions: [
-      "Katie question: Mariana Tek uses Stripe; Mindbody Payments has its own gateway. Can we transfer cards directly with consent + signature, or do members re-add at first visit?",
-      "Yoga visit frequency analysis: how many Upswell members used yoga heavily vs recovery? (Need Class Session report or Reservations report from Mariana Tek.)",
-      "May 31 event: is the space presentable by then? Or push to a later date when temp partitions look right?",
-      "Phone outreach to members: do we call to sign up for migration, or email-only?",
-      "Sway Larimer team comms: how casual/formal, what documentation, dedicated phone line for migration questions?",
+      "Katie: Mariana Tek uses Stripe; Mindbody Payments has its own gateway. Card transfer with consent + signature, or members re-add at first visit?",
+      "May 31 event: space presentable by then or push?",
+      "Phone outreach for migration: call members or email only?",
+      "Sway Larimer team comms documentation",
     ],
+  },
+];
+
+const LAUNCH_SCENARIOS = [
+  {
+    plan: "A",
+    title: "Big bang — full launch June 1",
+    color: "rose",
+    description: "Everything ready June 1: brand, recovery, massage in finished suites, members migrated, booking live.",
+    pros: ["Single launch moment", "Maximum PR impact", "Clean narrative"],
+    cons: [
+      "Massage license in Denver = 2-4 weeks; may not be in hand by June 1",
+      "Sister's curtain/structure work compressed to 19 days while she's also doing Spavia marketing",
+      "Mindbody provisioning timing tight",
+      "If ANY piece slips, the whole launch looks unfinished",
+    ],
+    verdict: "HIGH RISK. One missed item undermines the whole brand launch. Not recommended.",
+  },
+  {
+    plan: "B",
+    title: "Phased launch — brand June 1, massage June 7-14",
+    color: "emerald",
+    description: "June 1: brand transition + recovery uninterrupted + member migration. Massage suites open when actually ready and looking like Sway. Public message: 'Sway opens June 1. Massage suites open the week of June [7/14].'",
+    pros: [
+      "Massage launch decoupled from license timing — wait for license then open",
+      "Curtains/structure get appropriate design time (sister isn't crushed)",
+      "Brand launches with confidence; massage launches with quality",
+      "Members never lose recovery access",
+      "Two PR waves instead of one (June 1 + massage open) = more sustained press",
+    ],
+    cons: [
+      "Some momentum split across two dates",
+      "Public has to wait a beat for full menu",
+    ],
+    verdict: "RECOMMENDED. Lower risk, better brand image, allows sister + dad to do their work without compression.",
+  },
+  {
+    plan: "C",
+    title: "Conservative — recovery only June 1, massage June 21+",
+    color: "amber",
+    description: "Pure brand transition June 1. Recovery operates. Massage opens 3+ weeks later when permits, license, hires, and treatment rooms are all unambiguously ready.",
+    pros: [
+      "Maximum quality cushion for the massage open",
+      "Removes all timeline pressure on dad's license and sister's design",
+      "Easier to absorb if Mindbody slips",
+    ],
+    cons: [
+      "Public launch feels less complete",
+      "Less revenue Day 1 (no massage bookings)",
+      "Two-stage rollout requires more comms touches",
+    ],
+    verdict: "FALLBACK. Pivot to this if massage license isn't in dad's hands by ~May 22.",
+  },
+];
+
+const CURTAIN_DESIGN = {
+  doneWell: {
+    description: "Heavy linen drapery on real curtain tracks. Intentional lighting (warm + dim, no fluorescent). Design-considered pillars. Reads as 'curated pop-up' or 'speakeasy spa.' Brand asset.",
+    references: [
+      "Equinox Hotels spa interiors",
+      "the Well NYC treatment rooms",
+      "Heyday Skin pop-ups",
+      "Drybar's first locations (curtained intimacy thing)",
+      "Soho House's Soho Beach pop-up rooms",
+    ],
+  },
+  donePoorly: {
+    description: "Thin fabric over PVC frames. Fluorescent overheads. Drywall partitions you can hear through. Reads as 'trade show booth.' Brand damage.",
+    references: [],
+  },
+  context: "Sister is doing this alongside Spavia marketing — stretched thin. Mom helping. If she's not confident she can hit the 'done well' bar in 19 days, default to Plan C (push massage to June 21+) instead of trying to force it.",
+};
+
+const NO_CLOSURE_REASONING = [
+  "Revenue continues — members keep paying grandfathered rates, walk-ins continue. Recovery suite doesn't need any changes during transition.",
+  "Google local algorithm punishes closures — even a few weeks of 'temporarily closed' status loses local search rank and takes weeks/months to recover.",
+  "Member confidence — closing then reopening tests trust at exactly the moment you need to build it. Staying open is the loudest reassurance you can give them.",
+];
+
+const CRITICAL_GATING = [
+  {
+    item: "Colorado massage establishment license (Denver)",
+    owner: "Dad",
+    leadTime: "2-4 weeks",
+    impact: "GATES the massage launch date. Can't legally do massage without it. If not in hand by May 22, automatically defaults to Plan C.",
+  },
+  {
+    item: "Curtain / temp structure design quality",
+    owner: "Sister (with mom helping)",
+    leadTime: "Material lead times are real (custom linen, lighting fixtures, curtain tracks). Order this week or push to Plan C.",
+    impact: "Gates Plan B viability. Done well = brand asset. Done poorly = brand damage. No middle ground.",
+  },
+  {
+    item: "Mindbody site provisioning",
+    owner: "TBD (Sway Mindbody admin)",
+    leadTime: "1-2 weeks",
+    impact: "Blocks member import, booking, and pricing setup. Needs to be done by May 22 to be safe.",
   },
 ];
 
@@ -366,6 +482,140 @@ function SenderTimeline() {
   );
 }
 
+/* ---- Launch scenarios (A / B / C) ---- */
+function LaunchScenarios() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-[#113D33]/20 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">Launch scenarios — A / B / C</h2>
+      <p className="text-sm opacity-80 mb-5">
+        Three viable approaches to the June 1 date. Choose based on risk tolerance and how confident sister + dad are on their work by mid-May.
+      </p>
+
+      <div className="grid lg:grid-cols-3 gap-4">
+        {LAUNCH_SCENARIOS.map((s) => {
+          const bg =
+            s.color === "rose" ? "bg-rose-50 border-rose-300" :
+            s.color === "emerald" ? "bg-emerald-50 border-emerald-400" :
+            "bg-amber-50 border-amber-300";
+          const badge =
+            s.color === "rose" ? "bg-rose-200 text-rose-900" :
+            s.color === "emerald" ? "bg-emerald-300 text-emerald-900" :
+            "bg-amber-200 text-amber-900";
+          const isRecommended = s.plan === "B";
+          return (
+            <div key={s.plan} className={`rounded-xl border-2 ${bg} p-4 flex flex-col ${isRecommended ? "ring-2 ring-emerald-500 ring-offset-2" : ""}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${badge}`}>
+                  {s.plan}
+                </span>
+                {isRecommended && (
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-white px-2 py-0.5 rounded">
+                    ★ Recommended
+                  </span>
+                )}
+              </div>
+              <h3 className="font-bold text-sm mb-2">{s.title}</h3>
+              <p className="text-xs opacity-80 mb-3">{s.description}</p>
+
+              <div className="mb-2">
+                <div className="text-[10px] uppercase tracking-wider opacity-60 mb-1">Pros</div>
+                <ul className="text-xs space-y-0.5">
+                  {s.pros.map((p, i) => (
+                    <li key={i} className="flex gap-1"><span className="text-emerald-600">+</span><span>{p}</span></li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mb-3">
+                <div className="text-[10px] uppercase tracking-wider opacity-60 mb-1">Cons</div>
+                <ul className="text-xs space-y-0.5">
+                  {s.cons.map((c, i) => (
+                    <li key={i} className="flex gap-1"><span className="text-rose-600">−</span><span>{c}</span></li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-auto pt-2 border-t border-black/10">
+                <div className="text-[10px] uppercase tracking-wider opacity-60 mb-1">Verdict</div>
+                <p className="text-xs font-semibold">{s.verdict}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ---- Critical gating items ---- */
+function CriticalGating() {
+  return (
+    <div className="md:col-span-2 bg-rose-50 rounded-xl border-2 border-rose-300 p-6">
+      <h2 className="text-sm uppercase tracking-wider text-rose-900 mb-3">🚨 Critical gating items (these set the timeline)</h2>
+      <div className="space-y-3">
+        {CRITICAL_GATING.map((g, i) => (
+          <div key={i} className="bg-white rounded-lg p-4 border border-rose-200">
+            <div className="flex items-baseline justify-between flex-wrap gap-2 mb-1">
+              <h3 className="font-bold">{g.item}</h3>
+              <span className="text-xs opacity-70"><b>Owner:</b> {g.owner}</span>
+            </div>
+            <p className="text-xs opacity-80"><b>Lead time:</b> {g.leadTime}</p>
+            <p className="text-sm mt-2 font-medium text-rose-900">{g.impact}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---- Curtain design framework ---- */
+function CurtainDesign() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-3">🎨 Curtain & temp structure design framework</h2>
+
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div className="bg-emerald-50 rounded-lg p-4 border-2 border-emerald-300">
+          <div className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">✓ DONE WELL = brand asset</div>
+          <p className="text-sm mb-3 opacity-90">{CURTAIN_DESIGN.doneWell.description}</p>
+          <div className="text-[10px] uppercase tracking-wider opacity-60 mb-1">References for sister</div>
+          <ul className="text-xs space-y-1">
+            {CURTAIN_DESIGN.doneWell.references.map((r, i) => (
+              <li key={i} className="flex gap-2"><span className="opacity-50">·</span><span>{r}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="bg-rose-50 rounded-lg p-4 border-2 border-rose-300">
+          <div className="text-xs uppercase tracking-wider font-bold text-rose-900 mb-2">✗ DONE POORLY = brand damage</div>
+          <p className="text-sm opacity-90">{CURTAIN_DESIGN.donePoorly.description}</p>
+        </div>
+      </div>
+
+      <p className="text-xs italic opacity-80 bg-amber-50 border border-amber-200 rounded p-3">
+        <b>Important context:</b> {CURTAIN_DESIGN.context}
+      </p>
+    </div>
+  );
+}
+
+/* ---- Why we're NOT closing ---- */
+function NoClosureReasoning() {
+  return (
+    <div className="md:col-span-2 bg-[#113D33] text-white rounded-xl p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-70 mb-2">✓ Why we're not closing during the transition (dad is right)</h2>
+      <ol className="space-y-3 text-sm">
+        {NO_CLOSURE_REASONING.map((r, i) => (
+          <li key={i} className="flex gap-3">
+            <span className="text-[#9ABFB3] font-bold tabular-nums">{i + 1}.</span>
+            <span className="opacity-95">{r}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 /* ---- Meetings & decisions log ---- */
 function MeetingsLog() {
   return (
@@ -506,6 +756,10 @@ function NewCampaigns() {
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
+      <LaunchScenarios />
+      <CriticalGating />
+      <CurtainDesign />
+      <NoClosureReasoning />
       <MeetingsLog />
       <NewCampaigns />
       <LocalPartnerships />
@@ -580,11 +834,20 @@ function EmailsTab() {
   return (
     <div className="space-y-4">
       <Section title="11 email drafts — full content">
-        <p className="text-xs opacity-70 mb-4">
+        <p className="text-xs opacity-70 mb-3">
           Every email in send order. <span className="inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Amber</span> = Upswell domain (pre-launch, warm sender).{" "}
           <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">Emerald</span> = Sway domain (post-launch).
           Click any email to expand the full draft.
         </p>
+        <div className="text-xs opacity-80 bg-blue-50 border border-blue-200 rounded p-3 leading-relaxed">
+          <b>Transactional vs Marketing:</b>{" "}
+          <span className="inline-block px-2 py-0.5 rounded-full border bg-blue-100 text-blue-900 border-blue-300 font-semibold text-[10px] mx-1">TRANSACTIONAL</span>
+          informs about the existing relationship (membership change, billing, account details) — no opt-in required.{" "}
+          <span className="inline-block px-2 py-0.5 rounded-full border bg-purple-100 text-purple-900 border-purple-300 font-semibold text-[10px] mx-1">MARKETING</span>
+          is promotional — requires CAN-SPAM opt-in (transferred from Upswell consent).{" "}
+          <span className="inline-block px-2 py-0.5 rounded-full border bg-indigo-100 text-indigo-900 border-indigo-300 font-semibold text-[10px] mx-1">TRANSACTIONAL + MARKETING</span>
+          hybrid — primary purpose is transactional, with secondary marketing content (legally classifies as transactional).
+        </div>
       </Section>
 
       {EMAIL_DRAFTS.map((e) => {
@@ -601,6 +864,20 @@ function EmailsTab() {
               ? "bg-emerald-200 text-emerald-900"
               : "bg-gray-200 text-gray-700";
 
+        const classColor =
+          e.classification === "transactional"
+            ? "bg-blue-100 text-blue-900 border-blue-300"
+            : e.classification === "marketing"
+              ? "bg-purple-100 text-purple-900 border-purple-300"
+              : "bg-indigo-100 text-indigo-900 border-indigo-300";
+
+        const classLabel =
+          e.classification === "transactional"
+            ? "TRANSACTIONAL"
+            : e.classification === "marketing"
+              ? "MARKETING"
+              : "TRANSACTIONAL + MARKETING";
+
         return (
           <details
             key={e.n}
@@ -615,6 +892,9 @@ function EmailsTab() {
                   <div className="flex items-baseline gap-3 flex-wrap">
                     <span className="text-xs font-semibold opacity-60">{e.date}</span>
                     <h3 className="text-base md:text-lg font-bold">{e.title}</h3>
+                    <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border ${classColor}`}>
+                      {classLabel}
+                    </span>
                   </div>
                   <div className="text-xs opacity-80 mt-1.5 space-y-0.5">
                     <div>

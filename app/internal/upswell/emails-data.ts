@@ -18,6 +18,7 @@ export type EmailDraft = {
   subjectOptions: string[];
   previewText: string;
   body: string;
+  classification: "transactional" | "marketing" | "transactional-with-marketing";
   notes?: string;
 };
 
@@ -38,6 +39,7 @@ export const EMAIL_DRAFTS: EmailDraft[] = [
       "What's next for our space — a note from Heather",
     ],
     previewText: "Your membership is honored. Here's what's changing — and what's not.",
+    classification: "transactional",
     body: `Hi {first_name},
 
 Today we're sharing news I've been working toward for a while: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club. Both locations transition on **June 1, 2026**.
@@ -81,6 +83,7 @@ P.S. If you have questions, reply directly. I read every one.`,
       "Before we open the doors",
     ],
     previewText: "A small thank-you to the people who made this place what it is.",
+    classification: "transactional-with-marketing",
     body: `Hi {first_name},
 
 I'm sending this to a small group of people — about 200 of you — who showed up for Upswell more than anyone else over the last two years.
@@ -129,6 +132,7 @@ P.S. Reply with what you want as the Founding Ambassador first-week perk. I'm re
       "A personal note about your membership (annual)",
     ],
     previewText: "Your rate. Your access. Your timeline. Everything you need.",
+    classification: "transactional",
     body: `[VERSION A — Paying member ($99 / $129 / $159 / $189) · ~108 recipients]
 
 Hi {first_name},
@@ -194,6 +198,7 @@ When your term ends, we'll reach out with options. Reply anytime with questions.
     csv: "01-members-transactional.csv",
     subjectOptions: ["Sway opens Monday — your first-week guide"],
     previewText: "Hours, parking, the app, and what to expect on day one.",
+    classification: "transactional",
     body: `Hi {first_name},
 
 Sway opens at your location in six days. Here's the practical info you need.
@@ -245,6 +250,7 @@ See you next week.
       "Doors open Monday at RiNo and Central Park",
     ],
     previewText: "$40 off your first 50-minute massage or facial. For our Denver neighbors only.",
+    classification: "marketing",
     body: `Hi {first_name},
 
 In **5 days**, Sway opens at your neighborhood: **RiNo** (3636 Blake St) and **Central Park** (2271 Clinton St).
@@ -289,6 +295,7 @@ See you soon.
       "The door's open for you, {first_name}",
     ],
     previewText: "First pick of times. First pick of therapists. Public booking opens Monday.",
+    classification: "transactional-with-marketing",
     body: `{first_name} —
 
 Two days until Sway opens at RiNo and Central Park. Per the note I sent earlier this month, you have priority booking access starting today, **48 hours before public reservations open**.
@@ -321,25 +328,25 @@ When you walk in Monday, you'll see most of the team you know. New name on the b
     csv: "01-members-transactional.csv",
     subjectOptions: ["Today is the day", "Welcome to Sway", "We're open"],
     previewText: "A short note from Heather on opening day.",
+    classification: "transactional",
     body: `{first_name} —
 
 It's official. **As of today, you're a member of Sway** at {home_location}.
 
 This took a year of work and a lot of decisions I wasn't sure about. The reason any of it went right is because you stayed. So before today gets busy: **thank you.**
 
-**Walk in whenever you want.** Saunas, cold plunge, compression, red light — all open, all yours. Your member rate applies for everything.
+**Walk in whenever you want.** Saunas, cold plunge, compression, red light — all open, all yours. Your member rate applies. We're also open more days and more hours than Upswell was at the end — full schedule, more reliably.
 
-**Massage is now bookable** through the Sway app or at the front desk. Member rate is $99 for a 50-minute session.
-
-**If anything feels off** — system, scheduling, signage, vibe, literally anything — tell us. Reply or grab a team member at the front desk.
+**Massage suites open the week of {massage_open_date}.** We're finishing the treatment rooms with the care you'd expect from Sway. Booking opens in the app once they're ready. Member rate will be $99 for a 50-minute session.
 
 **Coming this summer:** advanced facials and Aescape AI-powered robot massage.
 
-Come in. Use the space. Feel out the new chapter.
+**If anything feels off** — system, scheduling, signage, vibe, literally anything — tell us. Reply or grab a team member at the front desk.
 
 — Heather
 
 P.S. If you haven't updated your card on file yet, the app will prompt you on first booking. Or do it at the front desk on your way in.`,
+    notes: "Phased launch: brand opens June 1 with recovery uninterrupted; massage suites open week of June 7-14 (or June 21+ depending on license + curtain readiness). The {massage_open_date} merge tag fills with the actual date once locked. Hours-expansion language added as member value-add.",
   },
   {
     n: "08",
@@ -357,28 +364,29 @@ P.S. If you haven't updated your card on file yet, the app will prompt you on fi
       "Doors open. $99 first visit. Members rates from day one.",
     ],
     previewText: "50-minute massage or facial for $99 — for Denver locals, no membership required.",
+    classification: "marketing",
     body: `Hi {first_name},
 
-We opened yesterday.
+Sway is open at **RiNo** (3636 Blake St) and **Central Park** (2271 Clinton St).
 
-If you've been waiting for the right reason to try Sway — this is it.
+The recovery suite you may know — saunas, cold plunge, compression, red light — is live now. Same rooms, more days open, more reliable hours than the prior operator.
 
-**Your first visit is $40 off.**
-50-minute Essential Signature Massage or Facial — just **$99** (regularly $139). One-time intro pricing, no membership required.
+**Massage suites open the week of {massage_open_date}.** We're finishing them with the care you'd expect from Sway. Pre-booking opens that week.
 
-[Book at RiNo →] [Book at Central Park →]
+### Sway Unlimited — $99/month, exclusive to these locations
 
-**Two memberships at the new locations:**
+Unlimited Remedy Room access at $99/mo. The only Sway location where unlimited makes sense, because RiNo and Central Park were built for recovery. Membership unlocks massage and (soon) facials at $99 each as a member perk.
 
-**Sway Membership · $99/mo** — massages + facials at $99 each, 50% off recovery and boosts.
+[See memberships →]
 
-**Sway Unlimited · $99/mo** *(RiNo + Central Park only)* — unlimited Remedy Room recovery, designed for these recovery-led locations.
+### What's coming this summer
+- Advanced facials with Eminence Organics + Dr. Dennis Gross
+- **Aescape AI-powered robot massage** — the only one in Denver outside our Larimer location
 
-**Why we built this:** Voted #4 Best Day Spa in America by USA Today 10Best. Best U.S. Day Spa by The Zoe Report 2026. Now in three Denver locations.
-
-Coming this summer: advanced facials + AI-powered Aescape robot massage.
+We were voted **#4 Best Day Spa in America** by USA Today 10Best and **Best U.S. Day Spa** by The Zoe Report 2026. Now you can find us in three Denver neighborhoods.
 
 — Sway`,
+    notes: "Phased launch update: opens with recovery only on Day 1, massage week-of date noted. First-visit offer removed from this email until massage is available (the offer doesn't apply to recovery-only sessions — those are $49 drop-in for the Remedy Room). Sway Unlimited at $99/mo is the lead offer.",
   },
   {
     n: "09",
@@ -396,6 +404,7 @@ Coming this summer: advanced facials + AI-powered Aescape robot massage.
       "Your old wellness club, evolved",
     ],
     previewText: "Sway is here. Massage, recovery, a fresh start — and $40 off your first visit.",
+    classification: "marketing",
     body: `Hi {first_name},
 
 Last week, Upswell at {home_location} became **Sway**.
@@ -436,6 +445,7 @@ We'd love to have you in.
       "Your intro offer is still here (but not forever)",
     ],
     previewText: "$40 off ends soon. Use it before it's gone.",
+    classification: "marketing",
     body: `Hi {first_name},
 
 We've been open at {home_location} for about two weeks. The first wave has come in. Before our intro pricing wraps, circling back.
@@ -467,6 +477,7 @@ We've been open at {home_location} for about two weeks. The first wave has come 
       "Sway membership vs. your ClassPass habit",
     ],
     previewText: "You've been visiting via ClassPass. Membership is a better deal — here's the math.",
+    classification: "marketing",
     body: `Hi {first_name},
 
 You've been visiting us at {home_location} through **ClassPass**.
