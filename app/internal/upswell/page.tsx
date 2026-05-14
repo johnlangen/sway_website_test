@@ -383,6 +383,7 @@ const CRITICAL_GATING = [
   },
 ];
 
+const STAFFING_QUESTIONS = [
   {
     role: "Wellness Associates (RiNo + Central Park combined)",
     question: "Target headcount: 14-17 hourly Wellness Associates + 1 Wellness Team Lead at Larimer hours. 6 retained from Upswell — need to hire 8-11 more.",
