@@ -712,8 +712,48 @@ function formatDate(d: string) {
   return `${months[parseInt(m) - 1]} ${parseInt(day)}, ${y}`;
 }
 
+/* ---------------------------------------------
+   DATE SORT HELPER — turns any of our date string
+   formats into an ISO-ish sort key
+--------------------------------------------- */
+
+const MONTH_MAP: Record<string, string> = {
+  Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
+  Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12",
+};
+
+function dateToSortKey(date: string): string {
+  if (!date) return "9999-12-31";
+  if (date === "Done") return "2024-01-01";
+  if (date.startsWith("By ")) return dateToSortKey(date.substring(3));
+  if (date.includes("Late Jun") || date.includes("PR push")) return "2026-06-25";
+  if (date.includes("Mid-July") || date.includes("July")) return "2026-07-15";
+  if (date.includes("Aug/Sept") || date.includes("August")) return "2026-09-01";
+  if (date.includes("Post-launch")) return "2026-08-01";
+  if (date.includes("After 30-60 days")) return "2026-07-15";
+
+  const months = Object.keys(MONTH_MAP).join("|");
+  const re = new RegExp(`^(${months})\\s+(\\d+)`, "i");
+  const match = date.match(re);
+  if (match) {
+    const monthStr = match[1].charAt(0).toUpperCase() + match[1].slice(1, 3).toLowerCase();
+    const month = MONTH_MAP[monthStr];
+    if (month) {
+      const day = match[2].padStart(2, "0");
+      let sub = "00";
+      if (date.match(/AM/i)) sub = "06";
+      else if (date.match(/noon/i)) sub = "12";
+      else if (date.match(/PM/i)) sub = "16";
+      return `2026-${month}-${day} ${sub}`;
+    }
+  }
+
+  if (date.match(/^\d{4}-\d{2}-\d{2}/)) return date;
+  return "9999-12-31";
+}
+
 export default function UpswellDashboard() {
-  const [tab, setTab] = useState<"overview" | "mylist" | "emails" | "content" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
+  const [tab, setTab] = useState<"overview" | "calendar" | "mylist" | "emails" | "content" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
   const [today, setToday] = useState<string>(KEY_DATES.today);
 
   useEffect(() => {
@@ -746,7 +786,7 @@ export default function UpswellDashboard() {
         {/* TABS */}
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 overflow-x-auto">
-            {(["overview", "mylist", "emails", "content", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
+            {(["overview", "calendar", "mylist", "emails", "content", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -766,6 +806,7 @@ export default function UpswellDashboard() {
       {/* CONTENT */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {tab === "overview" && <OverviewTab />}
+        {tab === "calendar" && <CalendarTab today={today} />}
         {tab === "mylist" && <MyListTab today={today} />}
         {tab === "emails" && <EmailsTab />}
         {tab === "content" && <ContentTab />}
@@ -1651,8 +1692,159 @@ function MyListTab({ today }: { today: string }) {
   );
 }
 
+/* ---- Calendar tab — unified timeline across emails + social + website ---- */
+type CalEvent = {
+  date: string;
+  sortKey: string;
+  kind: "email" | "social" | "website";
+  title: string;
+  audience: string;
+  status: string;
+  detail?: string;
+};
+
+function buildCalendar(): CalEvent[] {
+  const events: CalEvent[] = [];
+
+  for (const e of EMAIL_DRAFTS) {
+    events.push({
+      date: e.date,
+      sortKey: dateToSortKey(e.date),
+      kind: "email",
+      title: e.title,
+      audience: `${e.to} · ${e.toCount.toLocaleString()} recipients`,
+      status: "drafted",
+      detail: `From: ${e.from}`,
+    });
+  }
+  for (const p of SOCIAL_POSTS) {
+    events.push({
+      date: p.date,
+      sortKey: dateToSortKey(p.date),
+      kind: "social",
+      title: p.hook,
+      audience: p.channel,
+      status: p.status,
+      detail: p.format,
+    });
+  }
+  for (const w of WEBSITE_TASKS) {
+    events.push({
+      date: w.date,
+      sortKey: dateToSortKey(w.date),
+      kind: "website",
+      title: w.goal,
+      audience: w.page,
+      status: w.status,
+      detail: w.type,
+    });
+  }
+
+  events.sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+  return events;
+}
+
+function CalendarTab({ today }: { today: string }) {
+  const events = buildCalendar();
+
+  // group by date display string
+  const groups: { date: string; events: CalEvent[]; sortKey: string }[] = [];
+  for (const e of events) {
+    const last = groups[groups.length - 1];
+    if (last && last.date === e.date) {
+      last.events.push(e);
+    } else {
+      groups.push({ date: e.date, events: [e], sortKey: e.sortKey });
+    }
+  }
+
+  const todaySortKey = `${today} 00`;
+
+  const kindBadge = (k: string) =>
+    k === "email" ? "bg-blue-100 text-blue-900 border-blue-300" :
+    k === "social" ? "bg-pink-100 text-pink-900 border-pink-300" :
+    "bg-emerald-100 text-emerald-900 border-emerald-300";
+
+  const kindIcon = (k: string) => k === "email" ? "📧" : k === "social" ? "📱" : "💻";
+
+  const statusColor = (s: string) =>
+    s === "shipped" || s === "posted" || s === "✓ Done" ? "bg-emerald-100 text-emerald-900" :
+    s === "scheduled" ? "bg-blue-100 text-blue-900" :
+    s === "in-progress" ? "bg-amber-100 text-amber-900" :
+    "bg-gray-100 text-gray-700";
+
+  return (
+    <div className="space-y-4">
+      <Section title="📅 Unified calendar — emails · social · website">
+        <p className="text-xs opacity-80 mb-2">
+          Every transition activity in one timeline. <span className="px-1.5 py-0.5 rounded bg-blue-100 text-blue-900">📧 Email</span>{" "}
+          <span className="px-1.5 py-0.5 rounded bg-pink-100 text-pink-900">📱 Social</span>{" "}
+          <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-900">💻 Website</span>
+        </p>
+        <p className="text-xs opacity-60">
+          {events.length} total activities · sorted chronologically · today indicator shows where you are in the timeline
+        </p>
+      </Section>
+
+      {groups.map((g, i) => {
+        const isPast = g.sortKey < todaySortKey;
+        const isToday = g.sortKey.startsWith(today);
+        const dateColor = isToday
+          ? "bg-[#113D33] text-white"
+          : isPast
+            ? "bg-gray-100 text-gray-700"
+            : "bg-[#F7F4E9] text-[#113D33]";
+
+        return (
+          <div key={i} className={`rounded-xl border-2 ${isToday ? "border-[#113D33]" : "border-black/10"} overflow-hidden ${isPast ? "opacity-70" : ""}`}>
+            <div className={`px-5 py-3 ${dateColor}`}>
+              <div className="flex items-baseline justify-between flex-wrap gap-2">
+                <h3 className="text-base font-bold">
+                  {g.date}
+                  {isToday && <span className="ml-2 text-xs font-semibold uppercase tracking-wider opacity-80">· Today</span>}
+                </h3>
+                <span className="text-xs opacity-70">{g.events.length} {g.events.length === 1 ? "item" : "items"}</span>
+              </div>
+            </div>
+            <div className="bg-white divide-y divide-black/5">
+              {g.events.map((e, j) => (
+                <div key={j} className="p-4">
+                  <div className="flex items-start gap-3 flex-wrap">
+                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded border ${kindBadge(e.kind)} shrink-0`}>
+                      <span>{kindIcon(e.kind)}</span>
+                      <span>{e.kind.toUpperCase()}</span>
+                    </span>
+                    <div className="flex-1 min-w-[200px]">
+                      <div className="text-sm font-medium leading-snug">{e.title}</div>
+                      <div className="text-xs opacity-75 mt-0.5">
+                        <span className="font-mono">{e.audience}</span>
+                        {e.detail && <span className="opacity-60"> · {e.detail}</span>}
+                      </div>
+                    </div>
+                    <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${statusColor(e.status)}`}>
+                      {e.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ---- Content tab (social media + website) ---- */
 function ContentTab() {
+  // Sort chronologically using the shared helper
+  const sortedPosts = [...SOCIAL_POSTS].sort((a, b) =>
+    dateToSortKey(a.date).localeCompare(dateToSortKey(b.date))
+  );
+  const sortedTasks = [...WEBSITE_TASKS].sort((a, b) =>
+    dateToSortKey(a.date).localeCompare(dateToSortKey(b.date))
+  );
+
   const channelBadge = (ch: string) => {
     if (ch.startsWith("Upswell")) return "bg-amber-100 text-amber-900 border-amber-300";
     if (ch.includes("IG")) return "bg-pink-100 text-pink-900 border-pink-300";
@@ -1692,7 +1884,7 @@ function ContentTab() {
       {/* SOCIAL */}
       <Section title="📱 Social posts">
         <div className="space-y-3">
-          {SOCIAL_POSTS.map((p, i) => (
+          {sortedPosts.map((p, i) => (
             <details key={i} className="group rounded-lg border border-black/10 bg-white overflow-hidden">
               <summary className="cursor-pointer p-4 hover:bg-black/[0.02] transition list-none">
                 <div className="flex items-start gap-3 flex-wrap">
@@ -1739,7 +1931,7 @@ function ContentTab() {
               </tr>
             </thead>
             <tbody>
-              {WEBSITE_TASKS.map((t, i) => (
+              {sortedTasks.map((t, i) => (
                 <tr key={i} className="border-b border-black/5 align-top">
                   <td className="py-2 pr-3 whitespace-nowrap font-mono text-xs opacity-70">{t.date}</td>
                   <td className="py-2 pr-3">
