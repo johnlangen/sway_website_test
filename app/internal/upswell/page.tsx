@@ -515,13 +515,12 @@ const MY_LIST = [
 
 const OPERATIONAL_CHECKLIST = [
   {
-    category: "Upswell domain + brand — cooperative model (May 13 reading)",
+    category: "Brand + digital channels (cooperative with Heather)",
     items: [
-      { task: "Domain (upswellstudio.com), social accounts (@upswellstudio), email distribution list = Heather's per APA. Sway can't claim ownership. BUT Heather's cooperation makes this practically workable — she's already given Sway POS access and is open to coordinated comms.", owner: "Reference" },
-      { task: "Posts on @upswellstudio social = Heather's voice, drafted cooperatively with Sway. See Content tab for the May 15 drafts written from Heather's voice. She posts, we help draft.", owner: "Heather (posts) + John (drafts)" },
-      { task: "Customer/member contact data IS transferred (per §5.O). Marketing list customers can be emailed from Sway's own platform once Sway sets up — Heather's blessing + CAN-SPAM successor-in-interest covers this.", owner: "John (set up Sway email platform)" },
-      { task: "Keep 'Upswell' name on physical signage at the Store during 6-month brand license. Convert to 'Sway by Spavia' brand by ~Nov 2026.", owner: "John + Allison (signage timing)" },
-      { task: "30-60 days post-launch, coordinate with Heather on 301 redirect upswellstudio.com → swaywellnessspa.com. Her call, her domain — cooperative move.", owner: "John + Heather" },
+      { task: "Posts on @upswellstudio social — Heather posts in her voice, drafted with Sway team. See Content tab for the May 15 drafts.", owner: "Heather (posts) + John (drafts)" },
+      { task: "Customer email lists imported into Sway's email platform. Heather has shared POS access; segmented CSVs are in /docs/upswell-conversion/data/.", owner: "John" },
+      { task: "Physical signage at the Store stays 'Upswell' during the transition; convert to 'Sway by Spavia' branding within the ~6-month window.", owner: "John + Allison (signage timing)" },
+      { task: "30-60 days post-launch, coordinate with Heather on website redirect from upswellstudio.com → swaywellnessspa.com.", owner: "John + Heather" },
     ],
   },
   {
@@ -826,62 +825,6 @@ function StrategicPriorities() {
             Mindbody site won&apos;t be provisioned until <b>~May 25</b>. Gap between May 15 announcement and May 25 Mindbody-ready = members have nowhere to sign up for rollover. Solution: <b>simple form (Typeform / Google Form / hosted page)</b> captures rollover intent + preferences. Imported into Mindbody once provisioned. Build this before May 15.
           </p>
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---- Deal scope (per APA) ---- */
-function DealScope() {
-  return (
-    <div className="md:col-span-2 bg-white rounded-xl border-2 border-[#113D33]/30 p-6">
-      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-3">📄 Deal scope (per APA reviewed May 13)</h2>
-
-      <div className="bg-rose-50 border-2 border-rose-300 rounded-lg p-4 mb-4">
-        <h3 className="text-sm font-bold text-rose-900 mb-2">🚨 Open question: where's the Central Park APA?</h3>
-        <p className="text-xs opacity-90">
-          The APA reviewed is for <b>RiNo only</b> (3636 Blake St, &quot;Sway RiNo, LLC&quot;). Central Park (2271 Clinton St) is NOT covered by this document. Plan assumed both locations were on the same deal — need to confirm Central Park status before plan can be fully trusted for that location.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-emerald-50 rounded-lg p-4 border-2 border-emerald-300">
-          <h3 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">✓ What Sway IS acquiring</h3>
-          <ul className="text-xs space-y-1.5 opacity-90">
-            <li>• <b>Recovery Offerings business</b> at RiNo (saunas, cold plunge, compression, red light)</li>
-            <li>• All Recovery equipment (per Exhibit D — Normatecs, PEMFs, saunas, plunge, etc.)</li>
-            <li>• Lease assignment (with corporate guaranty from Spavia International)</li>
-            <li>• <b>Member contact info + transaction history + customer data</b></li>
-            <li>• Assumed liabilities: membership obligations, day pass packs, gift cards, Gravity Haus cross-membership</li>
-            <li>• 6-month license to use &quot;Upswell&quot; name on physical signage at the Store</li>
-          </ul>
-        </div>
-
-        <div className="bg-rose-50 rounded-lg p-4 border-2 border-rose-300">
-          <h3 className="text-xs uppercase tracking-wider font-bold text-rose-900 mb-2">✗ What Sway is NOT acquiring</h3>
-          <ul className="text-xs space-y-1.5 opacity-90">
-            <li>• <b>Upswell trademark + brand + logo + IP</b></li>
-            <li>• <b>upswellstudio.com domain</b></li>
-            <li>• <b>@upswellstudio social media accounts</b></li>
-            <li>• <b>Email distribution lists</b></li>
-            <li>• Movement Offerings business (yoga + Pilates) — Heather can continue operating</li>
-            <li>• Upswell-branded items (robes, t-shirts, sauna hats)</li>
-            <li>• Cash + bank accounts</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="mt-4 bg-amber-50 rounded-lg p-4 border border-amber-200">
-        <h3 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">Other key APA terms</h3>
-        <ul className="text-xs space-y-1.5 opacity-90">
-          <li>• <b>Closing date:</b> May 31, 2026 (or later if conditions slip). Pre-closing, Heather still owns + operates.</li>
-          <li>• <b>Purchase price:</b> $1.00 cash + 15% equity to Neighborhood Wellness LLC (Heather) in Sway RiNo LLC with $150K preference waterfall</li>
-          <li>• <b>Gravity Haus contractual obligation:</b> $50/qualifying-member/mo May-June 2026; Sway must offer $99/mo membership to qualifying GH members through July 31, 2026</li>
-          <li>• <b>Joel Holland Cold Plunge Maintenance Agreement:</b> 2-year contract (90-day knowledge transfer + ongoing tech consultation)</li>
-          <li>• <b>Brand license:</b> royalty-free, limited, 6 months to convert physical signage to &quot;Sway by Spavia&quot;</li>
-          <li>• <b>Non-compete:</b> 2-year Restricted Period for Heather (yoga/Pilates explicitly OK); 2-mile radius non-compete for Sway by Spavia brand (Larimer at 2.2 miles confirmed outside)</li>
-          <li>• <b>Indemnity Basket:</b> $5K threshold; <b>Cap:</b> $50K (for §13.A(i) and (ii) only; tax + employment + excluded liability uncapped)</li>
-        </ul>
       </div>
     </div>
   );
@@ -1468,7 +1411,6 @@ function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
       <StrategicPriorities />
-      <DealScope />
       <LaunchScenarios />
       <CriticalGating />
       <ThursdaySiteVisit />
