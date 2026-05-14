@@ -547,10 +547,11 @@ const OPERATIONAL_CHECKLIST = [
   {
     category: "Physical infrastructure",
     items: [
-      { task: "Cameras = installed (Ring system confirmed). Need to ask: who owns the Ring account? Do we take over the account, or does it transfer with the lease/business?", owner: "Heather + Marty" },
-      { task: "Sound system — what's in place, can it be repurposed for Sway audio?", owner: "Heather (walk the space)" },
-      { task: "Payment terminals — current setup, can existing hardware work with Mindbody?", owner: "John + Heather" },
-      { task: "Wi-Fi / networking / point-of-sale infrastructure — does Mindbody connect cleanly?", owner: "John + Mindbody admin" },
+      { task: "Wi-Fi: keep existing Xfinity hardware in place. Emily reaches out to Sway Larimer's Xfinity rep to set up new service account in Sway's name (or transfer billing). Same hardware, new account.", owner: "Emily (via Sway Larimer Xfinity rep)" },
+      { task: "Ring cameras: hardware stays installed. Take over the software side — either transfer the Ring account from Heather/Upswell to Sway's email, or connect with Ring B2B support to set up Sway-owned login pointed at existing devices.", owner: "John (Ring software) + Heather (auth transfer)" },
+      { task: "Sound system: walk the space, identify what's in place. If it's tied to a B2B music service (Soundtrack, Mood Media, Pandora for Business, etc.), confirm whether the subscription transfers or Sway needs to start its own. Music licensing is real — don't run public-facing audio on consumer Spotify.", owner: "Heather (walk space) + John (subscription setup)" },
+      { task: "Payment terminals — current hardware, can it work with Mindbody Payments? Or new terminals needed?", owner: "John + Mindbody / Katie" },
+      { task: "Point-of-sale infrastructure — Mindbody connects to printers / barcode scanners / cash drawer cleanly?", owner: "John + Mindbody admin" },
     ],
   },
   {
