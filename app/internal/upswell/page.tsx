@@ -1771,59 +1771,115 @@ function MonthGrid({
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startWeekday = firstDay.getDay();
 
-  const cells: ({ day: number; iso: string } | null)[] = [];
+  const cells: ({ day: number; iso: string; weekday: number } | null)[] = [];
   for (let i = 0; i < startWeekday; i++) cells.push(null);
   for (let d = 1; d <= daysInMonth; d++) {
     const iso = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-    cells.push({ day: d, iso });
+    const weekday = new Date(year, month, d).getDay();
+    cells.push({ day: d, iso, weekday });
   }
   while (cells.length % 7 !== 0) cells.push(null);
 
   return (
-    <div className="bg-white rounded-xl border border-[#113D33]/10 p-4">
-      <h3 className="text-lg font-bold mb-3">{monthNames[month]} {year}</h3>
-      <div className="grid grid-cols-7 gap-1 text-xs">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d} className="text-[10px] uppercase tracking-wider opacity-60 text-center py-1">
+    <div className="bg-white rounded-xl border border-[#113D33]/10 overflow-hidden">
+      <div className="bg-[#113D33] text-white px-5 py-3">
+        <h3 className="text-lg font-bold">{monthNames[month]} <span className="opacity-60 font-normal">{year}</span></h3>
+      </div>
+      <div className="grid grid-cols-7 border-b border-black/10 bg-[#F7F4E9]/40">
+        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d, i) => (
+          <div
+            key={d}
+            className={`text-[10px] uppercase tracking-wider font-bold text-center py-2 ${
+              i === 0 || i === 6 ? "opacity-50" : "opacity-70"
+            }`}
+          >
             {d}
           </div>
         ))}
+      </div>
+      <div className="grid grid-cols-7">
         {cells.map((c, i) => {
-          if (!c) return <div key={i} className="aspect-square" />;
+          if (!c) return <div key={i} className="min-h-[88px] bg-gray-50/40 border-r border-b border-black/5 last:border-r-0" />;
           const dayEvents = eventsByDay.get(c.iso) || [];
           const isToday = c.iso === today;
           const isPast = c.iso < today;
+          const isWeekend = c.weekday === 0 || c.weekday === 6;
           const counts = {
             email: dayEvents.filter((e) => e.kind === "email").length,
             social: dayEvents.filter((e) => e.kind === "social").length,
             website: dayEvents.filter((e) => e.kind === "website").length,
           };
           const hasEvents = dayEvents.length > 0;
+
+          const titles = dayEvents.slice(0, 3).map((e) => e.title);
+          const tooltipText = dayEvents.map((e) => `${e.kind === "email" ? "📧" : e.kind === "social" ? "📱" : "💻"} ${e.title}`).join("\n");
+
+          let cellClass = "min-h-[88px] p-2 flex flex-col text-left transition border-r border-b border-black/5 last:border-r-0";
+          if (isToday) {
+            cellClass += " bg-[#113D33] text-white";
+          } else if (hasEvents) {
+            cellClass += " bg-white hover:bg-[#F7F4E9]/50 cursor-pointer";
+          } else if (isWeekend) {
+            cellClass += " bg-gray-50/60";
+          } else {
+            cellClass += " bg-white";
+          }
+          if (isPast && !isToday) cellClass += " opacity-50";
+
+          const dayNumClass = isToday
+            ? "text-base font-bold"
+            : hasEvents
+              ? "text-base font-bold text-[#113D33]"
+              : "text-sm font-medium text-black/60";
+
           return (
             <a
               key={i}
-              href={`#day-${c.iso}`}
-              className={`aspect-square rounded p-1.5 flex flex-col text-left transition ${
-                isToday
-                  ? "bg-[#113D33] text-white ring-2 ring-[#113D33] ring-offset-1"
-                  : hasEvents
-                    ? "bg-[#F7F4E9] hover:bg-[#F7F4E9]/70 cursor-pointer"
-                    : "bg-gray-50 opacity-50"
-              } ${isPast && !isToday ? "opacity-60" : ""}`}
+              href={hasEvents ? `#day-${c.iso}` : undefined}
+              className={cellClass}
+              title={tooltipText || undefined}
             >
-              <span className={`text-xs font-bold ${isToday ? "" : ""}`}>{c.day}</span>
+              <div className="flex items-baseline justify-between">
+                <span className={dayNumClass}>{c.day}</span>
+                {isToday && <span className="text-[8px] uppercase tracking-widest font-bold opacity-80">Today</span>}
+              </div>
+
               {hasEvents && (
-                <div className="flex flex-wrap gap-0.5 mt-auto text-[9px]">
-                  {counts.email > 0 && (
-                    <span className={`px-1 rounded ${isToday ? "bg-white/20" : "bg-blue-100 text-blue-900"}`}>📧{counts.email}</span>
-                  )}
-                  {counts.social > 0 && (
-                    <span className={`px-1 rounded ${isToday ? "bg-white/20" : "bg-pink-100 text-pink-900"}`}>📱{counts.social}</span>
-                  )}
-                  {counts.website > 0 && (
-                    <span className={`px-1 rounded ${isToday ? "bg-white/20" : "bg-emerald-100 text-emerald-900"}`}>💻{counts.website}</span>
-                  )}
-                </div>
+                <>
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {counts.email > 0 && (
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${isToday ? "bg-white/25 text-white" : "bg-blue-100 text-blue-900"}`}>
+                        📧 {counts.email}
+                      </span>
+                    )}
+                    {counts.social > 0 && (
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${isToday ? "bg-white/25 text-white" : "bg-pink-100 text-pink-900"}`}>
+                        📱 {counts.social}
+                      </span>
+                    )}
+                    {counts.website > 0 && (
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${isToday ? "bg-white/25 text-white" : "bg-emerald-100 text-emerald-900"}`}>
+                        💻 {counts.website}
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-1 flex-1 overflow-hidden">
+                    {titles.map((t, ti) => (
+                      <div
+                        key={ti}
+                        className={`text-[9px] leading-tight truncate ${isToday ? "opacity-90" : "opacity-65"}`}
+                        title={t}
+                      >
+                        · {t}
+                      </div>
+                    ))}
+                    {dayEvents.length > 3 && (
+                      <div className={`text-[9px] italic ${isToday ? "opacity-70" : "opacity-50"}`}>
+                        +{dayEvents.length - 3} more
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
             </a>
           );
@@ -1891,9 +1947,20 @@ function CalendarTab({ today }: { today: string }) {
       </Section>
 
       {/* MONTH GRIDS */}
-      <div className="grid md:grid-cols-2 gap-4">
-        <MonthGrid year={2026} month={4} today={today} eventsByDay={eventsByDay} />
-        <MonthGrid year={2026} month={5} today={today} eventsByDay={eventsByDay} />
+      <div className="space-y-4">
+        <div className="grid md:grid-cols-2 gap-4">
+          <MonthGrid year={2026} month={4} today={today} eventsByDay={eventsByDay} />
+          <MonthGrid year={2026} month={5} today={today} eventsByDay={eventsByDay} />
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <MonthGrid year={2026} month={6} today={today} eventsByDay={eventsByDay} />
+          <div className="bg-amber-50 rounded-xl border-2 border-amber-300 p-5 flex flex-col justify-center">
+            <h3 className="text-base font-bold text-amber-900 mb-2">📌 Approximate-date activity</h3>
+            <p className="text-xs opacity-80 leading-relaxed">
+              Some items don&apos;t have a fixed calendar day yet — they cluster in &quot;Late June PR push&quot;, &quot;Mid-July blog&quot;, &quot;Post-launch redirects&quot;, etc. These appear at the bottom of the timeline below in an &quot;Approximate&quot; bucket. They&apos;ll move to real calendar cells once dates lock in.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* TIMELINE — day blocks */}
@@ -2106,7 +2173,7 @@ function EmailsTab() {
         </div>
       </Section>
 
-      {EMAIL_DRAFTS.map((e) => {
+      {[...EMAIL_DRAFTS].sort((a, b) => dateToSortKey(a.date).localeCompare(dateToSortKey(b.date))).map((e) => {
         const domainColor =
           e.fromDomain === "upswell"
             ? "bg-amber-50 border-amber-200"
