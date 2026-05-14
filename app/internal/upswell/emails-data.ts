@@ -50,9 +50,11 @@ And before anything else: **a benefit for you.**
 
 **Your membership auto-rolls over. No action needed on your part.** No re-signing, no re-confirming, no card to update.
 
-**The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. On a fuller, more reliable schedule than we've been able to maintain in the last few months.
+**The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. **Hours stay similar through June**, with **extended hours coming this summer** as we ramp up.
 
 **What's new at your location:** Sway brings expert massage therapy in newly-finished treatment suites — opening **June 15**. Advanced facials and AI-powered Aescape robot massage come later this summer. As a member, you'll have access to massage at **$99 per 50-minute session** (regularly $139) — that's a real perk on top of everything you already have.
+
+**Want to experience Sway right now? $40 off your first visit at Sway Larimer.** Our flagship on Larimer Square is fully open today with the full menu — massage, facials, Aescape robot massage, and the Remedy Room. As a current member, your first visit there is **$99** (regularly $139). Reply for the booking link, or head to swaywellnessspa.com/locations/denver-larimer.
 
 **Why this move:** after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building. These locations deserve more services, more capacity, and the operational backbone I couldn't deliver solo.
 
@@ -88,19 +90,20 @@ P.S. Reply to this directly with anything. I read every one.`,
 
 A new chapter, and one I want you to hear about from me: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club — on **June 1, 2026**.
 
-The recovery space stays exactly the same. Saunas, cold plunge, compression, red light therapy — same rooms, same equipment, on a fuller and more reliable schedule.
+The recovery space stays exactly the same. Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. **Hours stay similar through June**, with **extended hours coming this summer**.
 
 **What's new:**
 - **Massage therapy** in newly-finished suites — opens **June 15**
 - **Advanced facials** with Eminence Organics + Dr. Dennis Gross protocols — late summer
 - **AI-powered Aescape robot massage** — the only one in Denver outside Sway's Larimer location — late summer
-- **More days open. More hours.** A reliable schedule.
+
+**Want to experience Sway right now? $40 off your first visit at Sway Larimer.** Sway's flagship on Larimer Square is fully open today — full menu including massage, facials, Aescape, and the Remedy Room. Your first visit is **$99** (regularly $139). [Book at Sway Larimer →](https://swaywellnessspa.com/locations/denver-larimer)
 
 **Sway's track record:** voted #4 Best Day Spa in America by USA Today 10Best, Best U.S. Day Spa by The Zoe Report 2026. Now in three Denver locations.
 
 **Why me:** after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building. These locations deserve more services, more capacity, and the operational backbone I couldn't deliver solo.
 
-**Want to be there from day one?** [See what's coming + join the waitlist →]
+**Want to be there from day one?** [See what's coming at your location →]
 
 — Heather
 
