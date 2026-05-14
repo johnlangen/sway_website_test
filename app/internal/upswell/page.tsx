@@ -383,6 +383,25 @@ const CRITICAL_GATING = [
   },
 ];
 
+const ACCESS_TRACKER = [
+  { platform: "Google Analytics (upswellstudio.com)", type: "Add user", status: "Pending Heather", note: "Add john@swaywellnessspa.com as Admin on the Analytics property" },
+  { platform: "Google Business Profile (3636 Blake)", type: "Add Manager", status: "Pending Heather", note: "She confirmed she has admin. Same-day name update possible." },
+  { platform: "Google Business Profile (2271 Clinton)", type: "Add Manager", status: "Pending Heather", note: "Same as RiNo GBP" },
+  { platform: "Google Ads", type: "Skip", status: "N/A", note: "Heather confirmed no active campaigns since Q3 2025" },
+  { platform: "Google Search Console", type: "Skip", status: "N/A", note: "Heather confirmed Upswell never had one" },
+  { platform: "Instagram @upswellstudio", type: "Meta Business Manager", status: "Pending Heather", note: "Add as admin. Will never post AS Upswell — just visibility." },
+  { platform: "Facebook (Upswell page)", type: "Meta Business Manager", status: "Pending Heather", note: "Same Business Manager as IG" },
+  { platform: "TikTok @upswellstudio", type: "TikTok Business Center", status: "Pending Heather", note: "Add as user" },
+  { platform: "Loopz (gift cards)", type: "Add user OR send report", status: "Pending Heather", note: "If access not granted, request export: card ID + customer email + original $ + balance + issue date" },
+  { platform: "BrandBot (email)", type: "Add user (optional)", status: "Pending Heather", note: "Heather sends emails herself. Sway access useful for stats + coordination but not blocking." },
+  { platform: "upswellstudio.com domain", type: "Registrar credentials", status: "Pending Heather", note: "Share via password manager (1Password / Bitwarden) — most registrars don't support multi-user" },
+  { platform: "Mariana Tek", type: "Already have access", status: "✓ Done", note: "Marty granted access earlier" },
+  { platform: "Stripe (Heather's account)", type: "NOT NEEDED", status: "✓ N/A", note: "Heather initiates migration request from her side. Stripe Support handles the transfer. John never enters Heather's Stripe." },
+  { platform: "Ring cameras", type: "New Sway account", status: "Joel/Emily", note: "Hardware stays. New Sway-owned account on existing devices." },
+  { platform: "Sonos", type: "New Sway account", status: "Joel/Emily", note: "Hardware stays. New Sway-owned account." },
+  { platform: "Xfinity (Wi-Fi)", type: "New account via Sway Larimer rep", status: "Emily", note: "Existing hardware. Emily reaches out to Larimer Xfinity rep." },
+];
+
 const STAFFING_QUESTIONS = [
   {
     role: "Wellness Associates (RiNo + Central Park combined)",
@@ -1235,6 +1254,52 @@ function OperationalChecklist() {
   );
 }
 
+/* ---- Access tracker (what to get from Heather) ---- */
+function AccessTracker() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
+      <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">🔑 Access tracker — what to get from Heather</h2>
+      <p className="text-xs opacity-80 mb-4">
+        Pattern: she <b>adds you as a user</b> where possible (more secure than sharing passwords). Domain registrar is the exception — needs shared credentials via password manager (1Password / Bitwarden), never a plain doc.
+      </p>
+
+      <div className="overflow-x-auto -mx-6 px-6">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+              <th className="text-left py-2 pr-3">Platform</th>
+              <th className="text-left py-2 pr-3">Access type</th>
+              <th className="text-left py-2 pr-3">Status</th>
+              <th className="text-left py-2">Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ACCESS_TRACKER.map((a, i) => {
+              const statusColor =
+                a.status === "✓ Done" || a.status === "✓ N/A" ? "bg-emerald-100 text-emerald-900" :
+                a.status === "N/A" ? "bg-gray-100 text-gray-700" :
+                a.status.startsWith("Pending") ? "bg-amber-100 text-amber-900" :
+                "bg-blue-100 text-blue-900";
+              return (
+                <tr key={i} className="border-b border-black/5 align-top">
+                  <td className="py-2 pr-3 font-medium">{a.platform}</td>
+                  <td className="py-2 pr-3">{a.type}</td>
+                  <td className="py-2 pr-3">
+                    <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${statusColor}`}>
+                      {a.status}
+                    </span>
+                  </td>
+                  <td className="py-2 opacity-80">{a.note}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 /* ---- Thursday May 14 site visit agenda ---- */
 function ThursdaySiteVisit() {
   return (
@@ -1450,6 +1515,7 @@ function OverviewTab() {
       <LaunchScenarios />
       <CriticalGating />
       <ThursdaySiteVisit />
+      <AccessTracker />
       <OperationalChecklist />
       <ActiveMemberBuckets />
       <BehaviorBuckets />
