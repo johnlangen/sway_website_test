@@ -1682,7 +1682,7 @@ function ContentTab() {
     <div className="space-y-6">
       <Section title="Content plan — social + website">
         <p className="text-xs opacity-80 mb-2">
-          Two channels for social: <span className="font-semibold">Sway-owned</span> (post freely under our brand) and <span className="font-semibold">Upswell-cooperative</span> (Heather posts from her voice, we draft + assist). Per APA Exhibit E §7, Sway-as-entity can't directly post AS Upswell, but Heather can cooperate openly including with content we draft.
+          <b>Quiet-launch strategy:</b> Sway-channel posts about this transition all hold for the <span className="bg-emerald-100 text-emerald-900 px-1 rounded font-semibold">late-June PR push</span> when the space is finished and beautiful. May 15 → mid-June, the only social activity is on <span className="bg-amber-100 text-amber-900 px-1 rounded font-semibold">Heather&apos;s Upswell channels in her voice</span>. Sway IG continues normal Sway Larimer content; no mention of new locations until PR push.
         </p>
         <p className="text-xs opacity-60">
           {SOCIAL_POSTS.length} social posts planned · {WEBSITE_TASKS.length} website tasks · click any item to see full draft below
