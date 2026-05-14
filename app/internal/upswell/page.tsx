@@ -15,7 +15,7 @@ const KEY_DATES = {
 };
 
 const SEGMENTS = [
-  { name: "Active members (transactional)", csv: "01-members-transactional-159.csv", count: 159, useFor: "Membership-affecting emails", optIn: "No (transactional)" },
+  { name: "Active members (transactional)", csv: "01-members-transactional-155.csv", count: 159, useFor: "Membership-affecting emails", optIn: "No (transactional)" },
   { name: "All marketing-opted-in", csv: "02-announce-may15-all-4628.csv", count: 4628, useFor: "Main announcement send", optIn: "Yes" },
   { name: "Opted-in · RiNo", csv: "02a-announce-may15-rino-3865.csv", count: 3865, useFor: "Location-specific marketing", optIn: "Yes" },
   { name: "Opted-in · Central Park", csv: "02b-announce-may15-central-park-760.csv", count: 760, useFor: "Location-specific marketing", optIn: "Yes" },
@@ -30,7 +30,7 @@ const SEGMENTS = [
   { name: "Payment failure", csv: "07-payment-failure-27.csv", count: 27, useFor: "Resolve before transition", optIn: "No" },
   { name: "Unredeemed credits liability", csv: "08-unredeemed-credits-liability-74.csv", count: 74, useFor: "Must honor in Mindbody", optIn: "No" },
   { name: "Employees (internal)", csv: "09-employees-internal-81.csv", count: 81, useFor: "Internal comms only", optIn: "—" },
-  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding-360.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga", optIn: "Yes" },
+  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding-357.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga", optIn: "Yes" },
   { name: "🆕 Sway Unlimited prime targets", csv: "12-sway-unlimited-prime-targets-782.csv", count: 782, useFor: "Recovery-heavy customers — perfect Sway Unlimited candidates", optIn: "Yes" },
 ];
 
@@ -1221,7 +1221,7 @@ function BehaviorBuckets() {
           <b className="text-emerald-900">★ Top user:</b> 1,016 check-ins (95% recovery) over the years. At ~4-5 visits/week. Sway Unlimited at $99 is a steal for users like this.
         </div>
         <div className="bg-rose-50 border border-rose-200 rounded p-3">
-          <b className="text-rose-900">Yoga-loyalist offboarding:</b> 360 opted-in yoga-loyalists (yoga-only + yoga-heavy) saved to <code className="bg-white px-1 rounded">10-yoga-loyalists-offboarding-360.csv</code>. Graceful offboarding email only — no re-engagement spam.
+          <b className="text-rose-900">Yoga-loyalist offboarding:</b> 360 opted-in yoga-loyalists (yoga-only + yoga-heavy) saved to <code className="bg-white px-1 rounded">10-yoga-loyalists-offboarding-357.csv</code>. Graceful offboarding email only — no re-engagement spam.
         </div>
       </div>
     </div>
