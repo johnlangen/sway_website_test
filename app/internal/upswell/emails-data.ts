@@ -32,7 +32,7 @@ export const EMAIL_DRAFTS: EmailDraft[] = [
     fromDomain: "upswell",
     to: "Active members (159) — regardless of marketing opt-in",
     toCount: 159,
-    csv: "01-members-transactional.csv",
+    csv: "01-members-transactional-159.csv",
     subjectOptions: [
       "A letter from Heather — and a thank-you",
       "Upswell is becoming Sway · your new $99 rate",
@@ -76,7 +76,7 @@ P.S. Reply to this directly with anything. I read every one.`,
     fromDomain: "upswell",
     to: "Marketing-opted-in non-members (~4,470 after dedup against members)",
     toCount: 4470,
-    csv: "02-announce-may15-all.csv MINUS 01-members-transactional.csv",
+    csv: "02-announce-may15-all-4628.csv MINUS 01-members-transactional-159.csv",
     subjectOptions: [
       "A new chapter at RiNo + Central Park",
       "Upswell is becoming Sway",
@@ -116,7 +116,7 @@ P.S. If you came to Upswell for yoga, I want you to know it's winding down at th
     fromDomain: "upswell",
     to: "VIPs · Champion + Loyal, marketing-opted-in",
     toCount: 211,
-    csv: "03b-vip-marketing-opted-in.csv",
+    csv: "03b-vip-marketing-opted-in-211.csv",
     subjectOptions: [
       "You're getting first access",
       "Founding Ambassadors of Sway — that's you",
@@ -165,7 +165,7 @@ P.S. Reply with what you want as the Founding Ambassador first-week perk. I'm re
     fromDomain: "upswell",
     to: "Active members, segmented by tier",
     toCount: 159,
-    csv: "01-members-transactional.csv (further split by rate)",
+    csv: "01-members-transactional-159.csv (further split by rate)",
     subjectOptions: [
       "Your Sway membership: every detail",
       "Your Upswell partner access — what changes on June 1",
@@ -265,7 +265,7 @@ When your term ends, we'll reach out with options. Reply anytime.
     fromDomain: "upswell",
     to: "Active members (159)",
     toCount: 159,
-    csv: "01-members-transactional.csv",
+    csv: "01-members-transactional-159.csv",
     subjectOptions: ["Sway opens Monday — your first-week guide"],
     previewText: "Hours, parking, the app, and what to expect on day one.",
     classification: "transactional",
@@ -313,7 +313,7 @@ See you next week.
     fromDomain: "upswell",
     to: "All marketing-opted-in non-members (~4,470 after dedup)",
     toCount: 4470,
-    csv: "02-announce-may15-all.csv MINUS 01-members-transactional.csv",
+    csv: "02-announce-may15-all-4628.csv MINUS 01-members-transactional-159.csv",
     subjectOptions: [
       "Sway opens Monday — and you're invited",
       "5 days. New massage suites, full recovery, $40 off your first visit.",
@@ -358,7 +358,7 @@ See you soon.
     fromDomain: "upswell",
     to: "VIPs (211)",
     toCount: 211,
-    csv: "03b-vip-marketing-opted-in.csv",
+    csv: "03b-vip-marketing-opted-in-211.csv",
     subjectOptions: [
       "Your priority booking link (as promised)",
       "48 hours before everyone else",
@@ -395,7 +395,7 @@ When you walk in Monday, you'll see most of the team you know. New name on the b
     fromDomain: "sway",
     to: "Active members (159)",
     toCount: 159,
-    csv: "01-members-transactional.csv",
+    csv: "01-members-transactional-159.csv",
     subjectOptions: ["Today is the day", "Welcome to Sway", "We're open"],
     previewText: "A short note from Heather on opening day.",
     classification: "transactional",
@@ -427,7 +427,7 @@ P.S. If you haven't updated your card on file yet, the app will prompt you on fi
     fromDomain: "sway",
     to: "All marketing-opted-in non-members (~4,470)",
     toCount: 4470,
-    csv: "02-announce-may15-all.csv MINUS 01-members-transactional.csv",
+    csv: "02-announce-may15-all-4628.csv MINUS 01-members-transactional-159.csv",
     subjectOptions: [
       "Sway is here — at RiNo and Central Park",
       "The doors that used to say Upswell now say Sway",
@@ -467,7 +467,7 @@ We were voted **#4 Best Day Spa in America** by USA Today 10Best and **Best U.S.
     fromDomain: "sway",
     to: "Retention 'Lost,' marketing-opted-in (1,406)",
     toCount: 1406,
-    csv: "04-reengagement-lost.csv",
+    csv: "04-reengagement-lost-1406.csv",
     subjectOptions: [
       "It's not the same place. Come back and see.",
       "We changed. Worth a re-visit?",
@@ -508,7 +508,7 @@ We'd love to have you in.
     fromDomain: "sway",
     to: "Activity 'At Risk,' marketing-opted-in (after dedupe from June 8 send)",
     toCount: 2500,
-    csv: "04b-reengagement-at-risk.csv MINUS 04-reengagement-lost.csv",
+    csv: "04b-reengagement-at-risk-3519.csv MINUS 04-reengagement-lost-1406.csv",
     subjectOptions: [
       "Last chance: $40 off your first Sway visit",
       "2 weeks open. We'd love to see you.",
@@ -540,7 +540,7 @@ We've been open at {home_location} for about two weeks. The first wave has come 
     fromDomain: "upswell",
     to: "Yoga-only + yoga-heavy buckets, marketing-opted-in",
     toCount: 360,
-    csv: "10-yoga-loyalists-offboarding.csv",
+    csv: "10-yoga-loyalists-offboarding-360.csv",
     subjectOptions: [
       "A direct note about yoga at Upswell",
       "We have to be straight with you about yoga",
@@ -589,7 +589,7 @@ P.S. Reply to this directly if you have questions or want any of those studio in
     fromDomain: "sway",
     to: "ClassPass users, opted-in (314)",
     toCount: 314,
-    csv: "05-classpass-converters.csv",
+    csv: "05-classpass-converters-314.csv",
     subjectOptions: [
       "The math on your ClassPass: a comparison",
       "You're spending more on ClassPass than you'd pay as a member",

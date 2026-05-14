@@ -15,23 +15,23 @@ const KEY_DATES = {
 };
 
 const SEGMENTS = [
-  { name: "Active members (transactional)", csv: "01-members-transactional.csv", count: 159, useFor: "Membership-affecting emails", optIn: "No (transactional)" },
-  { name: "All marketing-opted-in", csv: "02-announce-may15-all.csv", count: 4628, useFor: "Main announcement send", optIn: "Yes" },
-  { name: "Opted-in · RiNo", csv: "02a-announce-may15-rino.csv", count: 3865, useFor: "Location-specific marketing", optIn: "Yes" },
-  { name: "Opted-in · Central Park", csv: "02b-announce-may15-central-park.csv", count: 760, useFor: "Location-specific marketing", optIn: "Yes" },
-  { name: "VIPs · Champion + Loyal", csv: "03-vip-champions-loyal.csv", count: 277, useFor: "High-touch personal outreach", optIn: "Mixed" },
-  { name: "VIPs · opted-in", csv: "03b-vip-marketing-opted-in.csv", count: 211, useFor: "VIP marketing campaigns", optIn: "Yes" },
-  { name: "Re-engagement · Lost (all)", csv: "04-reengagement-lost.csv", count: 1406, useFor: "Cold re-engagement (broad)", optIn: "Yes" },
-  { name: "🆕 Lost (recovery-loyal)", csv: "04a-reengagement-lost-recovery.csv", count: 1017, useFor: "HIGH-VALUE recovery-loyal churners — Sway is what they want", optIn: "Yes" },
-  { name: "Re-engagement · At Risk (all)", csv: "04b-reengagement-at-risk.csv", count: 3519, useFor: "Warmer re-engagement", optIn: "Yes" },
-  { name: "🆕 At Risk (recovery-loyal)", csv: "04c-reengagement-atrisk-recovery.csv", count: 575, useFor: "At-risk recovery-loyal — re-engage with urgency", optIn: "Yes" },
-  { name: "ClassPass converters", csv: "05-classpass-converters.csv", count: 314, useFor: "Convert to Sway membership", optIn: "Yes" },
-  { name: "Frozen memberships", csv: "06-frozen-memberships.csv", count: 3, useFor: "Phone, don't email", optIn: "No" },
-  { name: "Payment failure", csv: "07-payment-failure.csv", count: 27, useFor: "Resolve before transition", optIn: "No" },
-  { name: "Unredeemed credits liability", csv: "08-unredeemed-credits-liability.csv", count: 74, useFor: "Must honor in Mindbody", optIn: "No" },
-  { name: "Employees (internal)", csv: "09-employees-internal.csv", count: 81, useFor: "Internal comms only", optIn: "—" },
-  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga", optIn: "Yes" },
-  { name: "🆕 Sway Unlimited prime targets", csv: "12-sway-unlimited-prime-targets.csv", count: 782, useFor: "Recovery-heavy customers — perfect Sway Unlimited candidates", optIn: "Yes" },
+  { name: "Active members (transactional)", csv: "01-members-transactional-159.csv", count: 159, useFor: "Membership-affecting emails", optIn: "No (transactional)" },
+  { name: "All marketing-opted-in", csv: "02-announce-may15-all-4628.csv", count: 4628, useFor: "Main announcement send", optIn: "Yes" },
+  { name: "Opted-in · RiNo", csv: "02a-announce-may15-rino-3865.csv", count: 3865, useFor: "Location-specific marketing", optIn: "Yes" },
+  { name: "Opted-in · Central Park", csv: "02b-announce-may15-central-park-760.csv", count: 760, useFor: "Location-specific marketing", optIn: "Yes" },
+  { name: "VIPs · Champion + Loyal", csv: "03-vip-champions-loyal-277.csv", count: 277, useFor: "High-touch personal outreach", optIn: "Mixed" },
+  { name: "VIPs · opted-in", csv: "03b-vip-marketing-opted-in-211.csv", count: 211, useFor: "VIP marketing campaigns", optIn: "Yes" },
+  { name: "Re-engagement · Lost (all)", csv: "04-reengagement-lost-1406.csv", count: 1406, useFor: "Cold re-engagement (broad)", optIn: "Yes" },
+  { name: "🆕 Lost (recovery-loyal)", csv: "04a-reengagement-lost-recovery-1017.csv", count: 1017, useFor: "HIGH-VALUE recovery-loyal churners — Sway is what they want", optIn: "Yes" },
+  { name: "Re-engagement · At Risk (all)", csv: "04b-reengagement-at-risk-3519.csv", count: 3519, useFor: "Warmer re-engagement", optIn: "Yes" },
+  { name: "🆕 At Risk (recovery-loyal)", csv: "04c-reengagement-atrisk-recovery-575.csv", count: 575, useFor: "At-risk recovery-loyal — re-engage with urgency", optIn: "Yes" },
+  { name: "ClassPass converters", csv: "05-classpass-converters-314.csv", count: 314, useFor: "Convert to Sway membership", optIn: "Yes" },
+  { name: "Frozen memberships", csv: "06-frozen-memberships-3.csv", count: 3, useFor: "Phone, don't email", optIn: "No" },
+  { name: "Payment failure", csv: "07-payment-failure-27.csv", count: 27, useFor: "Resolve before transition", optIn: "No" },
+  { name: "Unredeemed credits liability", csv: "08-unredeemed-credits-liability-74.csv", count: 74, useFor: "Must honor in Mindbody", optIn: "No" },
+  { name: "Employees (internal)", csv: "09-employees-internal-81.csv", count: 81, useFor: "Internal comms only", optIn: "—" },
+  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding-360.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga", optIn: "Yes" },
+  { name: "🆕 Sway Unlimited prime targets", csv: "12-sway-unlimited-prime-targets-782.csv", count: 782, useFor: "Recovery-heavy customers — perfect Sway Unlimited candidates", optIn: "Yes" },
 ];
 
 const BEHAVIOR_BUCKETS = [
@@ -1221,7 +1221,7 @@ function BehaviorBuckets() {
           <b className="text-emerald-900">★ Top user:</b> 1,016 check-ins (95% recovery) over the years. At ~4-5 visits/week. Sway Unlimited at $99 is a steal for users like this.
         </div>
         <div className="bg-rose-50 border border-rose-200 rounded p-3">
-          <b className="text-rose-900">Yoga-loyalist offboarding:</b> 360 opted-in yoga-loyalists (yoga-only + yoga-heavy) saved to <code className="bg-white px-1 rounded">10-yoga-loyalists-offboarding.csv</code>. Graceful offboarding email only — no re-engagement spam.
+          <b className="text-rose-900">Yoga-loyalist offboarding:</b> 360 opted-in yoga-loyalists (yoga-only + yoga-heavy) saved to <code className="bg-white px-1 rounded">10-yoga-loyalists-offboarding-360.csv</code>. Graceful offboarding email only — no re-engagement spam.
         </div>
       </div>
     </div>
