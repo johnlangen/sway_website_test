@@ -389,9 +389,9 @@ const ACCESS_TRACKER = [
   { platform: "Google Business Profile (2271 Clinton)", type: "Add Manager", status: "Pending Heather", note: "Same as RiNo GBP" },
   { platform: "Google Ads", type: "Skip", status: "N/A", note: "Heather confirmed no active campaigns since Q3 2025" },
   { platform: "Google Search Console", type: "Skip", status: "N/A", note: "Heather confirmed Upswell never had one" },
-  { platform: "Instagram @upswellstudio", type: "Meta Business Manager", status: "Pending Heather", note: "Add as admin. Will never post AS Upswell — just visibility." },
-  { platform: "Facebook (Upswell page)", type: "Meta Business Manager", status: "Pending Heather", note: "Same Business Manager as IG" },
-  { platform: "TikTok @upswellstudio", type: "TikTok Business Center", status: "Pending Heather", note: "Add as user" },
+  { platform: "Instagram @upswellstudio", type: "Coordination only", status: "✓ N/A", note: "Don't ask for admin. Heather owns the brand voice + account. Pattern: she drafts with John in shared doc → she posts → John verifies by following public account." },
+  { platform: "Facebook (Upswell page)", type: "Coordination only", status: "✓ N/A", note: "Same — Heather posts, John verifies publicly" },
+  { platform: "TikTok @upswellstudio", type: "Coordination only", status: "✓ N/A", note: "Same — Heather posts, John verifies publicly" },
   { platform: "Loopz (gift cards)", type: "Add user OR send report", status: "Pending Heather", note: "If access not granted, request export: card ID + customer email + original $ + balance + issue date" },
   { platform: "BrandBot (email)", type: "Add user (optional)", status: "Pending Heather", note: "Heather sends emails herself. Sway access useful for stats + coordination but not blocking." },
   { platform: "upswellstudio.com domain", type: "Registrar credentials", status: "Pending Heather", note: "Share via password manager (1Password / Bitwarden) — most registrars don't support multi-user" },
@@ -1260,7 +1260,7 @@ function AccessTracker() {
     <div className="md:col-span-2 bg-white rounded-xl border border-[#113D33]/10 p-6">
       <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">🔑 Access tracker — what to get from Heather</h2>
       <p className="text-xs opacity-80 mb-4">
-        Pattern: she <b>adds you as a user</b> where possible (more secure than sharing passwords). Domain registrar is the exception — needs shared credentials via password manager (1Password / Bitwarden), never a plain doc.
+        Patterns: <b>Google products</b> = she adds you as a user (most secure). <b>Social accounts</b> = no access needed; she posts in her voice from her account, you verify publicly. She owns the brand. <b>Loopz / domain registrar</b> = run a report or share credentials via password manager (1Password / Bitwarden), never plain text.
       </p>
 
       <div className="overflow-x-auto -mx-6 px-6">
