@@ -178,6 +178,35 @@ const QUESTIONS_QUICK = [
 
 const MEETINGS = [
   {
+    date: "2026-05-14",
+    title: "Heather's response doc + operational alignment",
+    status: "completed",
+    attendees: "John + Heather (async via doc)",
+    topics: [
+      "APA execution status (both ready for signature)",
+      "Headcount target (14-17 wellness associates + 1 lead)",
+      "Mackenzie as Transition Lead + 4-part training plan",
+      "Member renewal approach (Option 2: drop to $99 proactively)",
+      "Send timing for May 15 (noon, not AM)",
+      "Wellpass event June 3 + The River Yoga $59 offer",
+    ],
+    decisions: [
+      "Central Park APA exists, both ready for signature. Sign May 14 before comms go out.",
+      "All members get proactively dropped to $99/mo Sway Unlimited (Option 2 from Heather's doc). ~$3K/mo revenue cost vs. simpler operations + stronger retention. Update Email 01a to lead with the rate reduction.",
+      "Send time shifted from AM to NOON on Friday May 15. Heather sends team FAQs Thursday eve so Upswell team has them before Friday shift.",
+      "Mariana Tek admin access extended to ~June 15 (Sway covers cost). Insurance against Stripe migration running late.",
+      "Yes to Wellpass private event June 3 at RiNo — aligns with quiet-launch B2B sneak-peek strategy, gives Marty/Heather face time to evaluate Wellpass partnership.",
+      "The River Yoga $59 unlimited month offer added to Email 12 (yoga offboarding) — specific, real partner offering.",
+      "BrandBot: Heather turns off all Upswell marketing automations at 11 PM Thursday 5/14.",
+      "Ring + Sonos: new accounts under Sway entities (hardware stays). Joel contacts Comcast about Wi-Fi account transfer.",
+      "Mackenzie + all 6 Wellness Crew offered retention. Hiring lift for the other 8-11 positions begins immediately.",
+    ],
+    openQuestions: [
+      "Gift card mapping: build CSV with original_card_id, source_system, customer details, original_balance, new_sway_card_id, etc. Maintained permanently for audit. Most cards in Loopz, some in Mariana Tek. Reconcile by migration date and load to Mindbody as gift cards (NOT 'on account').",
+      "RiNo lease assignment consent — Heather requested correct version from JLL; awaiting today (May 14).",
+    ],
+  },
+  {
     date: "2026-05-13",
     title: "Strategy + phased launch decisions",
     status: "completed",
@@ -354,12 +383,17 @@ const CRITICAL_GATING = [
   },
 ];
 
-const STAFFING_QUESTIONS = [
   {
-    role: "Front desk (6 RiNo employees confirmed in APA Schedule 5.I)",
-    question: "Which of the 6 existing RiNo employees to retain? Per APA §7.H, Sway has the right but not obligation to offer employment.",
-    context: "Mackenzie Miller (Operations Lead, $24/hr) + 5 Wellness Crew at $20/hr each: George Jay Mayberry, Madeleine Medley, Kyana Cook, Sarah Hathaway, Halle Nicholas. Per §7.H, Sway must notify Seller of intended offers ≥5 business days pre-Closing (so by ~May 26). Non-solicit period of 2 years applies to those NOT offered.",
-    decision: "Decide retention list at Thursday May 14 site visit. Notify Seller by May 26.",
+    role: "Wellness Associates (RiNo + Central Park combined)",
+    question: "Target headcount: 14-17 hourly Wellness Associates + 1 Wellness Team Lead at Larimer hours. 6 retained from Upswell — need to hire 8-11 more.",
+    context: "Per Heather's May 14 doc. Existing 6: Mackenzie Miller (Operations Lead → Transition Lead, $24/hr) + 5 Wellness Crew at $20/hr (George Jay Mayberry, Madeleine Medley, Kyana Cook, Sarah Hathaway, Halle Nicholas). All retained. Heather + Jocelyn agreed; Heather will help fill schedule by Jocelyn's return.",
+    decision: "RETAIN ALL 6 ✓ · Hire 8-11 more by ~June 15 to cover Larimer-equivalent hours",
+  },
+  {
+    role: "Transition Lead (Mackenzie Miller)",
+    question: "4-part Sway training plan during quiet launch May 18-26 — covers Jocelyn's absence",
+    context: "(1) SpaStream — Jess identifies modules; (2) Mindbody training — Whitney; (3) Front Desk scripting — Emily; (4) Sway Shadow Shifts — Heavon. Mackenzie up to speed when Jocelyn returns, can help train new hires.",
+    decision: "Locked May 14",
   },
   {
     role: "Massage therapists",

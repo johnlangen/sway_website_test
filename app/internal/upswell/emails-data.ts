@@ -25,28 +25,30 @@ export type EmailDraft = {
 export const EMAIL_DRAFTS: EmailDraft[] = [
   {
     n: "01a",
-    date: "May 15",
+    date: "May 15 noon",
     dateISO: "2026-05-15",
-    title: "Member announcement — Heather (auto-enroll, soft opt-out)",
+    title: "Member announcement — Heather ($99 proactive drop + auto-enroll)",
     from: "Heather Holland · heather@upswellstudio.com",
     fromDomain: "upswell",
     to: "Active members (159) — regardless of marketing opt-in",
     toCount: 159,
     csv: "01-members-transactional.csv",
     subjectOptions: [
-      "A letter from Heather",
-      "Your membership rolls over",
-      "Upswell is becoming Sway — your membership is set",
+      "A letter from Heather — and a thank-you",
+      "Upswell is becoming Sway · your new $99 rate",
+      "Your rate is going down",
     ],
-    previewText: "Your $99 rate is locked. No action required. Read on for the details.",
+    previewText: "We're moving every current member to $99/month — exclusive to you. Read on.",
     classification: "transactional",
     body: `Hi {first_name},
 
 I have news, and it's the kind I want you to hear from me directly: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club — on **June 1, 2026**.
 
-Here's the thing I most want you to know:
+And before anything else: **a benefit for you.**
 
-**Your membership rolls over. No action needed.** Your \${current_rate}/month rate is locked. We're not asking you to re-sign anything, re-confirm anything, or update anything on your end. The contract you have continues exactly as it stands.
+**We're proactively moving every existing member to our new $99/month Sway Unlimited rate** — exclusive to you. If you were already at $99 or less, you stay where you are. If you were at $129, $159, or $189, your rate is going DOWN starting with your next billing cycle. This rate is exclusive to current members during the transition — new members signing up later won't get it.
+
+**Your membership auto-rolls over. No action needed on your part.** No re-signing, no re-confirming, no card to update.
 
 **The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. On a fuller, more reliable schedule than we've been able to maintain in the last few months.
 
@@ -63,11 +65,11 @@ That's the news. The rest of the details — what's coming, what's different at 
 — Heather
 
 P.S. Reply to this directly with anything. I read every one.`,
-    notes: "AUTO-ENROLL framing (May 14 revision). Members are inherited as Assumed Liabilities under APA §1.C — they don't need to confirm anything to continue. Optional 'Confirm here' CTA captures engagement signal + preferences for Mindbody import + drives complimentary first massage perk. Reply-based opt-out for those who want to leave. Sends to 01-members-transactional.csv only (159 people).",
+    notes: "May 14 PM revision per Heather's response doc: now the $99 proactive drop (Option 2). All members move to $99/mo Sway Unlimited regardless of historical rate. ~$3K/mo revenue decrease (~$36K/yr) but stronger retention + cleaner Mindbody setup. Auto-enroll continues. Optional 'Confirm here' CTA gets engagement + perks. Send time shifted from AM to NOON Friday 5/15 (so Upswell team has FAQs Thursday eve + Friday AM before public message).",
   },
   {
     n: "01b",
-    date: "May 15",
+    date: "May 15 noon",
     dateISO: "2026-05-15",
     title: "Non-member announcement — Heather (positive new chapter)",
     from: "Heather Holland · heather@upswellstudio.com",
@@ -558,9 +560,9 @@ I know that's the thing you came for. I want to acknowledge that clearly, not bu
 
 **If you want to continue yoga locally**, here are studios I'd personally recommend in Denver — I've taught at or worked with most of them and they're good:
 
+- **The River Yoga (RiNo)** — closest to our RiNo location. They're offering **$59 unlimited month** to Upswell students through a private link. → [The River Yoga $59 month link]
 - **CorePower Yoga** — multiple Denver locations. *(I was COO there before founding Upswell — they were good to me and they'll be good to you.)*
 - **Yoga Pod Cherry Creek + LoHi** — vinyasa, sculpt, gentle
-- **The River Yoga (RiNo)** — closest to our RiNo location, smaller community feel
 - **Kindness Yoga** — Boulder + Denver, strong restorative + Yin practice
 
 If you'd like an introduction to any of them, reply to this email and I'll make it.
