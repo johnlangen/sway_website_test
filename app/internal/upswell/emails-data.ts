@@ -24,48 +24,86 @@ export type EmailDraft = {
 
 export const EMAIL_DRAFTS: EmailDraft[] = [
   {
-    n: "01",
+    n: "01a",
     date: "May 15",
     dateISO: "2026-05-15",
-    title: "Announcement — Heather to members + opted-in list",
+    title: "Member announcement — Heather (auto-enroll, soft opt-out)",
     from: "Heather Holland · heather@upswellstudio.com",
     fromDomain: "upswell",
-    to: "Active members + marketing-opted-in (deduped)",
-    toCount: 4628,
-    csv: "01-members-transactional.csv + 02-announce-may15-all.csv (deduped)",
+    to: "Active members (159) — regardless of marketing opt-in",
+    toCount: 159,
+    csv: "01-members-transactional.csv",
     subjectOptions: [
       "A letter from Heather",
-      "Upswell is becoming Sway",
-      "What's next for our space — a note from Heather",
+      "Your membership rolls over",
+      "Upswell is becoming Sway — your membership is set",
     ],
-    previewText: "Your membership is honored. Here's what's changing — and what's not.",
+    previewText: "Your $99 rate is locked. No action required. Read on for the details.",
     classification: "transactional",
     body: `Hi {first_name},
 
-Today we're sharing news I've been working toward for a while: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club. Both locations transition on **June 1, 2026**.
+I have news, and it's the kind I want you to hear from me directly: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club — on **June 1, 2026**.
 
-You're getting this note because you've been part of what made these spaces work, and I wanted you in my inbox before this goes anywhere else.
+Here's the thing I most want you to know:
 
-I'll keep it direct:
+**Your membership rolls over. No action needed.** Your \${current_rate}/month rate is locked. We're not asking you to re-sign anything, re-confirm anything, or update anything on your end. The contract you have continues exactly as it stands.
 
-**Your membership is honored at the same rate, on the same terms.** Whether you joined as a founder, a monthly member, or paid annually — nothing about your billing changes. We're not asking you to re-sign anything.
+**The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. On a fuller, more reliable schedule than we've been able to maintain in the last few months.
 
-**What's actually different:** Sway brings expert massage therapy to both locations starting June 1, with full-service facials and our AI-powered Aescape robot massage coming later this summer. The recovery space you already know — saunas, cold plunge, compression, red light — stays exactly where it is.
+**What's new at your location:** Sway brings expert massage therapy in newly-finished treatment suites — opening **June 15**. Advanced facials and AI-powered Aescape robot massage come later this summer. As a member, you'll have access to massage at **$99 per 50-minute session** (regularly $139) — that's a real perk on top of everything you already have.
 
-**What's not different:** the rooms you walk into, the front desk team, the feeling of the space. We're not gutting the place.
+**Why this move:** after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building. These locations deserve more services, more capacity, and the operational backbone I couldn't deliver solo.
 
-Why this move: after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building — and because I wanted to give the community we built here a longer runway, with more services, more capacity, and more staying power than I could deliver alone.
+**One optional thing you can do today:** if you want to lock in some launch-week perks, **tell us a few things about how you use the space → [Confirm here]**. We'll use it to pre-build your account in the new system, save your therapist preferences, and put your first complimentary massage on the calendar for the week of June 15. Not required — just nice to have.
 
-**Want to roll over your membership and lock in your current rate for the next 12 months (or longer — your choice)?** → [Confirm rollover here]
+**If you'd rather not continue**, just reply to this email and we'll take care of it gracefully — pro-rata refund, no hard feelings.
 
-There's more to share — full details on what's new, what stays, and how your specific membership maps over. Watch for a follow-up next week.
-
-Until then: thank you. Truly. You've been the reason this place exists, and you'll be the reason Sway RiNo and Sway Central Park feel like home from day one.
+That's the news. The rest of the details — what's coming, what's different at your specific tier, how the transition unfolds — comes in a follow-up next week.
 
 — Heather
 
-P.S. If you have questions, reply directly. I read every one.`,
-    notes: "Per May 12 meeting: migration is now OPT-IN via the 'Confirm rollover here' CTA. Members lock in their existing rate for min 12 months (customer chooses term length). Email treated as transactional (informing of brand change) — opt-in CTA is secondary and functional, keeps email transactional.",
+P.S. Reply to this directly with anything. I read every one.`,
+    notes: "AUTO-ENROLL framing (May 14 revision). Members are inherited as Assumed Liabilities under APA §1.C — they don't need to confirm anything to continue. Optional 'Confirm here' CTA captures engagement signal + preferences for Mindbody import + drives complimentary first massage perk. Reply-based opt-out for those who want to leave. Sends to 01-members-transactional.csv only (159 people).",
+  },
+  {
+    n: "01b",
+    date: "May 15",
+    dateISO: "2026-05-15",
+    title: "Non-member announcement — Heather (positive new chapter)",
+    from: "Heather Holland · heather@upswellstudio.com",
+    fromDomain: "upswell",
+    to: "Marketing-opted-in non-members (~4,470 after dedup against members)",
+    toCount: 4470,
+    csv: "02-announce-may15-all.csv MINUS 01-members-transactional.csv",
+    subjectOptions: [
+      "A new chapter at RiNo + Central Park",
+      "Upswell is becoming Sway",
+      "What's next for your wellness space",
+    ],
+    previewText: "A positive new chapter — everything you came for, plus what's been missing.",
+    classification: "marketing",
+    body: `Hi {first_name},
+
+A new chapter, and one I want you to hear about from me: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club — on **June 1, 2026**.
+
+The recovery space stays exactly the same. Saunas, cold plunge, compression, red light therapy — same rooms, same equipment, on a fuller and more reliable schedule.
+
+**What's new:**
+- **Massage therapy** in newly-finished suites — opens **June 15**
+- **Advanced facials** with Eminence Organics + Dr. Dennis Gross protocols — late summer
+- **AI-powered Aescape robot massage** — the only one in Denver outside Sway's Larimer location — late summer
+- **More days open. More hours.** A reliable schedule.
+
+**Sway's track record:** voted #4 Best Day Spa in America by USA Today 10Best, Best U.S. Day Spa by The Zoe Report 2026. Now in three Denver locations.
+
+**Why me:** after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building. These locations deserve more services, more capacity, and the operational backbone I couldn't deliver solo.
+
+**Want to be there from day one?** [See what's coming + join the waitlist →]
+
+— Heather
+
+P.S. If you came to Upswell for yoga, I want you to know it's winding down at these locations. If you want a personal introduction to CorePower, Yoga Pod, The River, or a partner studio, reply — I'll make it.`,
+    notes: "May 14 revision — SPLIT email-01 into 01a (members, auto-enroll) and 01b (opt-in non-members, marketing). This sends to opt-in non-members only — those who consented to Upswell marketing. Frames the change as a positive new chapter. Soft yoga handoff at the end for the small subset that came for movement classes.",
   },
   {
     n: "02",

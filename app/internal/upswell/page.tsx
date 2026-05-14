@@ -329,6 +329,12 @@ const CRITICAL_GATING = [
     impact: "Unblocks bank, payroll, vendor accounts. ✓",
   },
   {
+    item: "Insurance — add new locations to existing Sway policies or issue new",
+    owner: "Marty",
+    leadTime: "Days to a week depending on carrier",
+    impact: "Required by June 1 operational launch. Coverage needed: general liability, workers' comp (Colorado-required for the 6 inherited staff + new hires), property (saunas, plunge, equipment), cyber liability (customer data migration). Massage malpractice / professional liability adds when MTs come online June 15.",
+  },
+  {
     item: "Jocelyn (Spa Director) out of town May 16–25 (10 days)",
     owner: "Heather steps in for hiring decisions during absence",
     leadTime: "Coverage gap covers MOST of the pre-launch hiring window",
