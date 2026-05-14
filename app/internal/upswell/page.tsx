@@ -194,7 +194,7 @@ const MEETINGS = [
       "Central Park APA exists, both ready for signature. Sign May 14 before comms go out.",
       "All members get proactively dropped to $99/mo Sway Unlimited (Option 2 from Heather's doc). ~$3K/mo revenue cost vs. simpler operations + stronger retention. Update Email 01a to lead with the rate reduction.",
       "Send time shifted from AM to NOON on Friday May 15. Heather sends team FAQs Thursday eve so Upswell team has them before Friday shift.",
-      "Mariana Tek admin access extended to ~June 15 (Sway covers cost). Insurance against Stripe migration running late.",
+      "Mariana Tek admin access scheduled to end May 31. Marty raised that we might want to extend as insurance against Stripe migration running late — Heather is open if needed but no automatic offer. IDEAL: get it all done by May 31. FALLBACK: ask for ~2 more weeks if migration is mid-flight.",
       "Yes to Wellpass private event June 3 at RiNo — aligns with quiet-launch B2B sneak-peek strategy, gives Marty/Heather face time to evaluate Wellpass partnership.",
       "The River Yoga $59 unlimited month offer added to Email 12 (yoga offboarding) — specific, real partner offering.",
       "BrandBot: Heather turns off all Upswell marketing automations at 11 PM Thursday 5/14.",
@@ -574,7 +574,7 @@ const OPERATIONAL_CHECKLIST = [
     category: "Member experience setup (Mindbody)",
     items: [
       { task: "Set up Sway Unlimited as a Mindbody Pricing Option (unlimited bookings of session type 96 + new individual modality session types — cold plunge, sauna, infrared, compression)", owner: "Mindbody admin" },
-      { task: "Honor existing Upswell gift cards in Mindbody — pull balances + set up redemption flow", owner: "John + Mindbody admin" },
+      { task: "Honor existing Upswell gift cards: most recent ones in Loopz (need Heather access), older ones in Mariana Tek (have access). Combine into one mapping CSV: original_card_id, source, customer email, original_balance, new_sway_card_id, issued_date. Re-issue in Mindbody as gift cards (NOT 'on account' — Heather is firm on this). Maintain the mapping permanently for audit.", owner: "John (needs Loopz access from Heather)" },
       { task: "Pull Upswell's existing discount / promo code list from POS — decide which carry over to Sway", owner: "John" },
       { task: "Front desk training on Mindbody POS — gift cards, member lookup, discounts, walk-in flow", owner: "Jocelyn (or Heather while Jocelyn out)" },
     ],
@@ -1069,7 +1069,7 @@ function ActiveMemberBuckets() {
         <details className="mt-3">
           <summary className="text-xs font-bold text-rose-900 cursor-pointer">Suggested call script (click to expand)</summary>
           <div className="mt-3 p-3 bg-white rounded text-xs leading-relaxed italic border border-rose-200">
-            &quot;Hey {`{name}`}, this is Heather from Upswell. Two reasons I&apos;m calling: we&apos;re becoming Sway on June 1, and I wanted you to hear that from me directly. Second — I know you joined for yoga, and Sway doesn&apos;t have yoga classes. So I want to be honest about that and figure out what would actually work for you. Options: (1) keep your membership at your current rate and use the recovery space (cold plunge, sauna, compression, red light) which all stays the same. (2) I can refund the rest of your prepaid time. (3) I&apos;m happy to introduce you to CorePower or a partner studio if you&apos;d rather continue yoga. What feels right?&quot;
+            &quot;Hey {`{name}`}, this is Heather from Upswell. Two reasons I&apos;m calling: we&apos;re becoming Sway on June 1, and I wanted you to hear that from me directly. Second — I know you joined for yoga, and Sway doesn&apos;t have yoga classes. So I want to be honest about that and figure out what would actually work for you. Options: (1) keep your membership — we&apos;re moving everyone to $99/mo Sway Unlimited — and use the recovery space (cold plunge, sauna, compression, red light) which all stays the same. (2) I can refund the rest of your prepaid time. (3) The River Yoga is offering Upswell students $59 for an unlimited month — I&apos;ll send you the private link. CorePower, Yoga Pod, and Kindness are other great options I can introduce you to. What feels right?&quot;
           </div>
           <p className="mt-2 text-[11px] opacity-70 italic">
             Goal: not retention at any cost — it&apos;s respect. Even if they cancel, they leave feeling respected. That&apos;s 4 people who don&apos;t become public complaints.

@@ -218,7 +218,7 @@ Last week we shared the news: Upswell becomes Sway on **June 1**. I want to writ
 **Three things I want to make available to you:**
 
 1. **Stay** at your current rate, keep using the recovery side, and get the new Sway services at member pricing (massage is **$99/50 min** for members; facials and Aescape coming this summer at member pricing too).
-2. **Move to a yoga studio** — Heather has personal recommendations and is happy to make introductions. CorePower (multiple Denver locations), The River Yoga (RiNo), Yoga Pod, Kindness Yoga.
+2. **Move to a yoga studio** — Heather has personal recommendations and is happy to make introductions. **The River Yoga (RiNo) is offering Upswell students $59 for an unlimited month** through a private purchase link — reply and Heather will send it to you. Other recommendations: CorePower, Yoga Pod, Kindness Yoga.
 3. **Refund the rest of your time** if you'd rather not continue — pro-rata refund through your next billing date, no hard feelings.
 
 Reply to this email with what works for you. If we don't hear from you, we'll keep your current membership active at your rate — which is the right choice for most of the recovery side, but I want it to be your choice.
