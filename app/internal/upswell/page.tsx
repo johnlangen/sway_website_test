@@ -394,7 +394,7 @@ const ACCESS_TRACKER = [
   { platform: "TikTok @upswellstudio", type: "Coordination only", status: "✓ N/A", note: "Same — Heather posts, John verifies publicly" },
   { platform: "Loopz (gift cards)", type: "Add user OR send report", status: "Pending Heather", note: "If access not granted, request export: card ID + customer email + original $ + balance + issue date" },
   { platform: "BrandBot (email)", type: "Add user (optional)", status: "Pending Heather", note: "Heather sends emails herself. Sway access useful for stats + coordination but not blocking." },
-  { platform: "upswellstudio.com domain", type: "Registrar credentials", status: "Pending Heather", note: "Share via password manager (1Password / Bitwarden) — most registrars don't support multi-user" },
+  { platform: "upswellstudio.com — Squarespace", type: "Squarespace Contributor invite", status: "Pending Heather", note: "Site is on Squarespace. She invites John as a Contributor or Editor — Squarespace supports multi-user. Lets Sway add a transition banner / redirect later. No password sharing needed." },
   { platform: "Mariana Tek", type: "Already have access", status: "✓ Done", note: "Marty granted access earlier" },
   { platform: "Stripe (Heather's account)", type: "NOT NEEDED", status: "✓ N/A", note: "Heather initiates migration request from her side. Stripe Support handles the transfer. John never enters Heather's Stripe." },
   { platform: "Ring cameras", type: "New Sway account", status: "Joel/Emily", note: "Hardware stays. New Sway-owned account on existing devices." },
@@ -599,11 +599,11 @@ const OPERATIONAL_CHECKLIST = [
     ],
   },
   {
-    category: "Physical infrastructure",
+    category: "Physical infrastructure — Sway sets up its own",
     items: [
-      { task: "Wi-Fi: keep existing Xfinity hardware in place. Emily reaches out to Sway Larimer's Xfinity rep to set up new service account in Sway's name (or transfer billing). Same hardware, new account.", owner: "Emily (via Sway Larimer Xfinity rep)" },
-      { task: "Ring cameras: hardware stays installed. Take over the software side — either transfer the Ring account from Heather/Upswell to Sway's email, or connect with Ring B2B support to set up Sway-owned login pointed at existing devices.", owner: "John (Ring software) + Heather (auth transfer)" },
-      { task: "Sound system: walk the space, identify what's in place. If it's tied to a B2B music service (Soundtrack, Mood Media, Pandora for Business, etc.), confirm whether the subscription transfers or Sway needs to start its own. Music licensing is real — don't run public-facing audio on consumer Spotify.", owner: "Heather (walk space) + John (subscription setup)" },
+      { task: "Wi-Fi: new Sway-owned Xfinity (Comcast) account at both locations. Emily reaches out to Sway Larimer's Xfinity rep to get the new service set up. Hardware can stay; account is fresh.", owner: "Emily" },
+      { task: "Ring cameras: new Sway Ring account from scratch. Existing hardware works with any Ring account — set up new Sway login, claim the devices.", owner: "John" },
+      { task: "Sonos: new Sway Sonos account. Sonos hardware persists across accounts — set up + claim.", owner: "John" },
       { task: "Payment terminals — current hardware, can it work with Mindbody Payments? Or new terminals needed?", owner: "John + Mindbody / Katie" },
       { task: "Point-of-sale infrastructure — Mindbody connects to printers / barcode scanners / cash drawer cleanly?", owner: "John + Mindbody admin" },
     ],
@@ -919,6 +919,13 @@ function StrategicPriorities() {
           <h3 className="text-sm font-bold mb-2">📝 Rollover form (Mindbody gap)</h3>
           <p className="text-xs opacity-95 leading-relaxed">
             Mindbody site won&apos;t be provisioned until <b>~May 25</b>. Gap between May 15 announcement and May 25 Mindbody-ready = members have nowhere to sign up for rollover. Solution: <b>simple form (Typeform / Google Form / hosted page)</b> captures rollover intent + preferences. Imported into Mindbody once provisioned. Build this before May 15.
+          </p>
+        </div>
+
+        <div className="md:col-span-2 bg-amber-50/15 rounded-lg p-4 border border-white/20">
+          <h3 className="text-sm font-bold mb-2">🤝 Brand narrative — &quot;joining forces&quot; not &quot;acquisition&quot;</h3>
+          <p className="text-xs opacity-95 leading-relaxed">
+            <b>The story we tell:</b> The Upswell wellness clubs at RiNo and Central Park are <b>joining forces with Sway</b>. The locations become <b>Sway Wellness Club</b>. Upswell itself isn&apos;t going away — Heather keeps the brand and is going back to its roots: outdoor yoga, pop-ups, the original Upswell. Summer break, then Upswell returns outside. The two brands coexist naturally — different formats, different teams, friendly handoff. Some Upswell teachers may still use the brand in pop-up settings going forward. This is the framing for every email, every social post, every conversation.
           </p>
         </div>
       </div>

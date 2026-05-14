@@ -42,7 +42,9 @@ export const EMAIL_DRAFTS: EmailDraft[] = [
     classification: "transactional",
     body: `Hi {first_name},
 
-I have news, and it's the kind I want you to hear from me directly: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club — on **June 1, 2026**.
+I have news, and it's the kind I want you to hear from me directly: **the Upswell wellness clubs at RiNo and Central Park are joining forces with Sway**. On **June 1, 2026**, the locations become **Sway Wellness Club**.
+
+A note on Upswell itself: the brand isn't going away. We're going back to our roots — Upswell started as outdoor yoga and pop-ups, and we're taking summer to focus on that side again. The indoor wellness club spaces are joining Sway; Upswell continues outside.
 
 And before anything else: **a benefit for you.**
 
@@ -52,7 +54,7 @@ And before anything else: **a benefit for you.**
 
 **The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. **Hours stay similar through June**, with **extended hours coming this summer** as we ramp up.
 
-**What's new at your location:** Sway brings expert massage therapy in newly-finished treatment suites — opening **June 15**. Advanced facials and AI-powered Aescape robot massage come later this summer. As a member, you'll have access to massage at **$99 per 50-minute session** (regularly $139) — that's a real perk on top of everything you already have.
+**What's new at your location:** Sway brings expert massage therapy in newly-finished treatment suites — opening **mid-to-late June**. Advanced facials and AI-powered Aescape robot massage come later this summer. As a member, you'll have access to massage at **$99 per 50-minute session** (regularly $139) — that's a real perk on top of everything you already have.
 
 **Want to experience Sway right now? $40 off your first visit at Sway Larimer.** Our flagship on Larimer Square is fully open today with the full menu — massage, facials, Aescape robot massage, and the Remedy Room. As a current member, your first visit there is **$99** (regularly $139). Reply for the booking link, or head to swaywellnessspa.com/locations/denver-larimer.
 
@@ -88,12 +90,14 @@ P.S. Reply to this directly with anything. I read every one.`,
     classification: "marketing",
     body: `Hi {first_name},
 
-A new chapter, and one I want you to hear about from me: **Upswell RiNo and Upswell Central Park are becoming Sway** — Denver's modern wellness club — on **June 1, 2026**.
+A new chapter, and one I want you to hear about from me: **the Upswell wellness clubs at RiNo and Central Park are joining forces with Sway**. On **June 1, 2026**, the locations become **Sway Wellness Club**.
+
+The Upswell brand isn't going away — we're going back to our roots, focusing on outdoor experiences for the summer. The indoor wellness clubs you know are joining Sway, our teams together, our spaces evolving.
 
 The recovery space stays exactly the same. Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. **Hours stay similar through June**, with **extended hours coming this summer**.
 
 **What's new:**
-- **Massage therapy** in newly-finished suites — opens **June 15**
+- **Massage therapy** in newly-finished suites — opens **mid-to-late June**
 - **Advanced facials** with Eminence Organics + Dr. Dennis Gross protocols — late summer
 - **AI-powered Aescape robot massage** — the only one in Denver outside Sway's Larimer location — late summer
 
@@ -553,9 +557,11 @@ We've been open at {home_location} for about two weeks. The first wave has come 
     classification: "transactional",
     body: `Hi {first_name},
 
-I'm writing because you came to yoga at Upswell, and I owe you the direct version of what's happening today.
+I'm writing because you came to yoga at Upswell, and I owe you the direct version of what's happening.
 
-**Upswell is becoming Sway on June 1.** Sway doesn't have yoga or Pilates — they're a wellness club focused on massage, facials, recovery, and Aescape robot massage. **We're winding down all movement classes at RiNo Station and Central Park.**
+**On June 1, the Upswell wellness clubs at RiNo and Central Park join forces with Sway** and become Sway Wellness Club. Sway is focused on massage, facials, recovery, and Aescape robot massage — they don't run movement classes. So **yoga and Pilates at the indoor wellness clubs are winding down**.
+
+A note on what's next for Upswell: the brand isn't going away. **We're going back to our roots — outdoor yoga, pop-ups, the original Upswell.** Taking summer off to plan it out, then bringing Upswell back outside where it started. So this isn't really goodbye to Upswell, just goodbye to indoor yoga at these two locations.
 
 I know that's the thing you came for. I want to acknowledge that clearly, not bury it.
 
