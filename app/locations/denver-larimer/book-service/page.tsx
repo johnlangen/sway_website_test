@@ -682,6 +682,10 @@ function BookServicePage() {
   const expMonthRef = useRef<HTMLSelectElement | null>(null);
   const expYearRef = useRef<HTMLSelectElement | null>(null);
   const postalCodeRef = useRef<HTMLInputElement | null>(null);
+  // Billing address — required by Mindbody AVS Address verification
+  const billingAddressRef = useRef<HTMLInputElement | null>(null);
+  const billingCityRef = useRef<HTMLInputElement | null>(null);
+  const billingStateRef = useRef<HTMLInputElement | null>(null);
 
   /* ── Derived data ──────────────────────────── */
 
@@ -930,6 +934,9 @@ function BookServicePage() {
     if (expMonthRef.current) expMonthRef.current.value = "";
     if (expYearRef.current) expYearRef.current.value = "";
     if (postalCodeRef.current) postalCodeRef.current.value = "";
+    if (billingAddressRef.current) billingAddressRef.current.value = "";
+    if (billingCityRef.current) billingCityRef.current.value = "";
+    if (billingStateRef.current) billingStateRef.current.value = "";
   }
 
   useEffect(() => {
@@ -993,14 +1000,17 @@ function BookServicePage() {
     const expMonthRaw = (expMonthRef.current?.value || "").trim();
     const expYearRaw = (expYearRef.current?.value || "").trim();
     const postalCode = (postalCodeRef.current?.value || "").trim();
+    const address = (billingAddressRef.current?.value || "").trim();
+    const city = (billingCityRef.current?.value || "").trim();
+    const state = (billingStateRef.current?.value || "").trim();
     const expMonth = expMonthRaw.padStart(2, "0");
     const expYear = expYearRaw.length === 2 ? `20${expYearRaw}` : expYearRaw;
     const cardType = detectCardType(cardNumber);
-    return { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType };
+    return { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType, address, city, state };
   }
 
   function validateCardFields() {
-    const { cardHolder, cardNumber, expMonth, expYear, postalCode } =
+    const { cardHolder, cardNumber, expMonth, expYear, postalCode, address, city, state } =
       getCardPayloadFromRefs();
 
     if (!cardHolder) return "Please enter the name on the card.";
@@ -1021,6 +1031,9 @@ function BookServicePage() {
       return "This card appears to be expired.";
     }
 
+    if (!address) return "Please enter your billing street address.";
+    if (!city) return "Please enter your billing city.";
+    if (!state) return "Please enter your billing state.";
     if (!postalCode || postalCode.length < 3)
       return "Please enter a valid ZIP/postal code.";
 
@@ -1221,7 +1234,7 @@ function BookServicePage() {
       return;
     }
 
-    const { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType } =
+    const { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType, address, city, state } =
       getCardPayloadFromRefs();
 
     setCardSaving(true);
@@ -1251,6 +1264,9 @@ function BookServicePage() {
             postalCode,
             cardHolder,
             cardType,
+            address,
+            city,
+            state,
             sendPromotionalEmails: marketingOptIn,
             sendPromotionalTexts: marketingOptIn,
           }),
@@ -1258,6 +1274,13 @@ function BookServicePage() {
 
         const data = await res.json();
         if (!res.ok) {
+          // If MB created the client but silently dropped the card, switch to
+          // "add_card" mode so the next retry uses /update-client-card and
+          // doesn't fail with a duplicate-email error.
+          if (data?.cardSaveFailed && data?.clientId) {
+            setClientId(String(data.clientId));
+            setCardContext("add_card");
+          }
           throw new Error(
             data?.error ||
               "Unable to create your account. Please double-check your details."
@@ -1286,6 +1309,9 @@ function BookServicePage() {
             postalCode,
             cardHolder,
             cardType,
+            address,
+            city,
+            state,
           }),
         });
 
@@ -2235,7 +2261,7 @@ function BookServicePage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs text-[#113D33]/65 mb-1">
                       Month
@@ -2262,17 +2288,55 @@ function BookServicePage() {
                       ))}
                     </select>
                   </div>
-                  <div>
+                </div>
+
+                <div>
+                  <label className="block text-xs text-[#113D33]/65 mb-1">
+                    Billing street address
+                  </label>
+                  <input
+                    ref={billingAddressRef}
+                    className={inputClass}
+                    autoComplete="billing street-address"
+                    placeholder="123 Main St"
+                  />
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="col-span-2">
                     <label className="block text-xs text-[#113D33]/65 mb-1">
-                      ZIP
+                      City
                     </label>
                     <input
-                      ref={postalCodeRef}
+                      ref={billingCityRef}
                       className={inputClass}
-                      autoComplete="postal-code"
-                      inputMode="numeric"
+                      autoComplete="billing address-level2"
                     />
                   </div>
+                  <div>
+                    <label className="block text-xs text-[#113D33]/65 mb-1">
+                      State
+                    </label>
+                    <input
+                      ref={billingStateRef}
+                      className={inputClass}
+                      autoComplete="billing address-level1"
+                      maxLength={2}
+                      placeholder="CO"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs text-[#113D33]/65 mb-1">
+                    ZIP
+                  </label>
+                  <input
+                    ref={postalCodeRef}
+                    className={inputClass}
+                    autoComplete="billing postal-code"
+                    inputMode="numeric"
+                  />
                 </div>
 
                 <div className="flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">

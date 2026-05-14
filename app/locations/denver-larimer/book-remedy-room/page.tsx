@@ -546,6 +546,10 @@ export default function BookRemedyRoomPage() {
   const expMonthRef = useRef<HTMLSelectElement | null>(null);
   const expYearRef = useRef<HTMLSelectElement | null>(null);
   const postalCodeRef = useRef<HTMLInputElement | null>(null);
+  // Billing address — required by Mindbody AVS Address verification
+  const billingAddressRef = useRef<HTMLInputElement | null>(null);
+  const billingCityRef = useRef<HTMLInputElement | null>(null);
+  const billingStateRef = useRef<HTMLInputElement | null>(null);
 
   const selectRef = useRef<HTMLDivElement | null>(null);
   const emailRef = useRef<HTMLDivElement | null>(null);
@@ -646,6 +650,9 @@ export default function BookRemedyRoomPage() {
     if (expMonthRef.current) expMonthRef.current.value = "";
     if (expYearRef.current) expYearRef.current.value = "";
     if (postalCodeRef.current) postalCodeRef.current.value = "";
+    if (billingAddressRef.current) billingAddressRef.current.value = "";
+    if (billingCityRef.current) billingCityRef.current.value = "";
+    if (billingStateRef.current) billingStateRef.current.value = "";
   }
 
   useEffect(() => {
@@ -660,17 +667,20 @@ export default function BookRemedyRoomPage() {
     const expMonthRaw = (expMonthRef.current?.value || "").trim();
     const expYearRaw = (expYearRef.current?.value || "").trim();
     const postalCode = (postalCodeRef.current?.value || "").trim();
+    const address = (billingAddressRef.current?.value || "").trim();
+    const city = (billingCityRef.current?.value || "").trim();
+    const state = (billingStateRef.current?.value || "").trim();
 
     const expMonth = expMonthRaw.padStart(2, "0");
     const expYear = expYearRaw.length === 2 ? `20${expYearRaw}` : expYearRaw;
 
     const cardType = detectCardType(cardNumber);
 
-    return { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType };
+    return { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType, address, city, state };
   }
 
   function validateCardFields() {
-    const { cardHolder, cardNumber, expMonth, expYear, postalCode } =
+    const { cardHolder, cardNumber, expMonth, expYear, postalCode, address, city, state } =
       getCardPayloadFromRefs();
 
     if (!cardHolder) return "Please enter the name on the card.";
@@ -688,6 +698,9 @@ export default function BookRemedyRoomPage() {
       return "This card appears to be expired.";
     }
 
+    if (!address) return "Please enter your billing street address.";
+    if (!city) return "Please enter your billing city.";
+    if (!state) return "Please enter your billing state.";
     if (!postalCode || postalCode.length < 3)
       return "Please enter a valid ZIP/postal code.";
 
@@ -981,7 +994,7 @@ export default function BookRemedyRoomPage() {
       return;
     }
 
-    const { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType } =
+    const { cardHolder, cardNumber, expMonth, expYear, postalCode, cardType, address, city, state } =
       getCardPayloadFromRefs();
 
     setCardSaving(true);
@@ -1011,6 +1024,9 @@ export default function BookRemedyRoomPage() {
             postalCode,
             cardHolder,
             cardType,
+            address,
+            city,
+            state,
             sendPromotionalEmails: marketingOptIn,
             sendPromotionalTexts: marketingOptIn,
           }),
@@ -1018,6 +1034,12 @@ export default function BookRemedyRoomPage() {
 
         const data = await res.json();
         if (!res.ok) {
+          // MB created the client but silently dropped the card —
+          // switch to "add_card" mode so retries don't hit duplicate-email.
+          if (data?.cardSaveFailed && data?.clientId) {
+            setClientId(String(data.clientId));
+            setCardContext("add_card");
+          }
           throw new Error(
             data?.error ||
               "Unable to create your account. Please double-check your details."
@@ -1042,6 +1064,9 @@ export default function BookRemedyRoomPage() {
             postalCode,
             cardHolder,
             cardType,
+            address,
+            city,
+            state,
           }),
         });
 
@@ -1622,7 +1647,7 @@ export default function BookRemedyRoomPage() {
                     className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
 
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 gap-3">
                     <select
                       ref={expMonthRef}
                       name="cc-exp-month"
@@ -1660,17 +1685,46 @@ export default function BookRemedyRoomPage() {
                         </option>
                       ))}
                     </select>
+                  </div>
 
+                  <input
+                    ref={billingAddressRef}
+                    autoComplete="billing street-address"
+                    data-lpignore="true"
+                    data-1p-ignore
+                    placeholder="Billing street address"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
+
+                  <div className="grid grid-cols-3 gap-3">
                     <input
-                      ref={postalCodeRef}
-                      autoComplete="off"
-                      name="postalCode"
+                      ref={billingCityRef}
+                      autoComplete="billing address-level2"
                       data-lpignore="true"
                       data-1p-ignore
-                      placeholder="ZIP"
+                      placeholder="City"
+                      className="col-span-2 w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    />
+                    <input
+                      ref={billingStateRef}
+                      autoComplete="billing address-level1"
+                      data-lpignore="true"
+                      data-1p-ignore
+                      placeholder="State"
+                      maxLength={2}
                       className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     />
                   </div>
+
+                  <input
+                    ref={postalCodeRef}
+                    autoComplete="billing postal-code"
+                    name="postalCode"
+                    data-lpignore="true"
+                    data-1p-ignore
+                    placeholder="ZIP"
+                    className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
                 </div>
 
                 <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">

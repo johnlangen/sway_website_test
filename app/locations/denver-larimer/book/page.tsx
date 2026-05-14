@@ -331,6 +331,10 @@ export default function NewBookingFlow() {
   const expMonthRef = useRef<HTMLSelectElement | null>(null);
   const expYearRef = useRef<HTMLSelectElement | null>(null);
   const postalCodeRef = useRef<HTMLInputElement | null>(null);
+  // Billing address — required by Mindbody AVS Address verification
+  const billingAddressRef = useRef<HTMLInputElement | null>(null);
+  const billingCityRef = useRef<HTMLInputElement | null>(null);
+  const billingStateRef = useRef<HTMLInputElement | null>(null);
 
   // Confirm/booking
   const [boostWarning, setBoostWarning] = useState<string | null>(null);
@@ -671,6 +675,9 @@ export default function NewBookingFlow() {
     if (expMonthRef.current) expMonthRef.current.value = "";
     if (expYearRef.current) expYearRef.current.value = "";
     if (postalCodeRef.current) postalCodeRef.current.value = "";
+    if (billingAddressRef.current) billingAddressRef.current.value = "";
+    if (billingCityRef.current) billingCityRef.current.value = "";
+    if (billingStateRef.current) billingStateRef.current.value = "";
   };
 
   const validateCardFields = (): string | null => {
@@ -679,11 +686,17 @@ export default function NewBookingFlow() {
     const month = expMonthRef.current?.value ?? "";
     const year = expYearRef.current?.value ?? "";
     const postal = postalCodeRef.current?.value?.trim() ?? "";
+    const billingAddress = billingAddressRef.current?.value?.trim() ?? "";
+    const billingCity = billingCityRef.current?.value?.trim() ?? "";
+    const billingState = billingStateRef.current?.value?.trim() ?? "";
     if (!holder) return "Name on card is required";
     if (digits.length < 13 || digits.length > 19) return "Invalid card number";
     if (!luhnCheck(digits)) return "Invalid card number";
     if (!month || !year) return "Expiration date is required";
     if (new Date(parseInt(year), parseInt(month), 0) < new Date()) return "Card is expired";
+    if (!billingAddress) return "Billing street address is required";
+    if (!billingCity) return "Billing city is required";
+    if (!billingState) return "Billing state is required";
     if (postal.length < 3) return "Postal code is required";
     return null;
   };
@@ -697,6 +710,9 @@ export default function NewBookingFlow() {
     const expMonth = expMonthRef.current?.value ?? "";
     const expYear = expYearRef.current?.value ?? "";
     const postalCode = postalCodeRef.current?.value?.trim() ?? "";
+    const address = billingAddressRef.current?.value?.trim() ?? "";
+    const city = billingCityRef.current?.value?.trim() ?? "";
+    const stateCode = billingStateRef.current?.value?.trim() ?? "";
     const cardType = detectCardType(digits);
     try {
       if (cardContext === "create_account") {
@@ -704,20 +720,29 @@ export default function NewBookingFlow() {
         const phoneDigits = mobilePhone.replace(/\D/g, "");
         if (phoneDigits.length < 10) { setError("Please enter a valid phone number (at least 10 digits)"); setCardSaving(false); return; }
         const res = await fetch("/api/mindbody/add-client-with-card", { method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), email: normalizeEmail(email), mobilePhone: mobilePhone.trim(), cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType, sendPromotionalEmails: marketingOptIn, sendPromotionalTexts: marketingOptIn }) });
+          body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), email: normalizeEmail(email), mobilePhone: mobilePhone.trim(), cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType, address, city, state: stateCode, sendPromotionalEmails: marketingOptIn, sendPromotionalTexts: marketingOptIn }) });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error ?? "Failed to create account");
+        if (!res.ok) {
+          // If the client was created in Mindbody but the card silently failed,
+          // switch into "add_card" mode so the next retry uses /update-client-card
+          // (avoids "duplicate email" errors on retry).
+          if (data?.cardSaveFailed && data?.clientId) {
+            setClientId(String(data.clientId));
+            setCardContext("add_card");
+          }
+          throw new Error(data?.error ?? "Failed to create account");
+        }
         setClientId(data.clientId);
       } else {
         const res = await fetch("/api/mindbody/update-client-card", { method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ clientId, cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType }) });
+          body: JSON.stringify({ clientId, cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType, address, city, state: stateCode }) });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error ?? "Failed to save card");
+        if (!res.ok) throw new Error(data?.error ?? "Failed to save card");
       }
       clearCardRefs();
       window.dataLayer?.push({ event: "booking_card_entered", booking_flow: category });
       setStep("confirm");
-    } catch (e: any) { setError(e?.message ? `${e.message} Call (303) 476-6150 for help.` : "Failed to save card. Call (303) 476-6150 for help."); }
+    } catch (e: any) { setError(e?.message ?? "Failed to save card. Call (303) 476-6150 for help."); }
     finally { setCardSaving(false); }
   };
 
@@ -1622,11 +1647,16 @@ export default function NewBookingFlow() {
                   )}
                   <div><label className="block text-xs font-medium text-[#113D33] mb-1">Name on card</label><input ref={cardHolderRef} type="text" className={inputClass} data-lpignore="true" data-1p-ignore="true" /></div>
                   <div><label className="block text-xs font-medium text-[#113D33] mb-1">Card number</label><input ref={cardNumberRef} type="text" inputMode="numeric" className={inputClass} placeholder="•••• •••• •••• ••••" data-lpignore="true" data-1p-ignore="true" /></div>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 gap-3">
                     <div><label className="block text-xs font-medium text-[#113D33] mb-1">Month</label><select ref={expMonthRef} className={inputClass}><option value="">MM</option>{Array.from({ length: 12 }, (_, i) => { const m = String(i + 1).padStart(2, "0"); return <option key={m} value={m}>{m}</option>; })}</select></div>
                     <div><label className="block text-xs font-medium text-[#113D33] mb-1">Year</label><select ref={expYearRef} className={inputClass}><option value="">YYYY</option>{Array.from({ length: 12 }, (_, i) => { const y = String(new Date().getFullYear() + i); return <option key={y} value={y}>{y}</option>; })}</select></div>
-                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">Zip code</label><input ref={postalCodeRef} type="text" className={inputClass} data-lpignore="true" data-1p-ignore="true" /></div>
                   </div>
+                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Billing street address</label><input ref={billingAddressRef} type="text" className={inputClass} autoComplete="billing street-address" placeholder="123 Main St" data-lpignore="true" data-1p-ignore="true" /></div>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="col-span-2"><label className="block text-xs font-medium text-[#113D33] mb-1">City</label><input ref={billingCityRef} type="text" className={inputClass} autoComplete="billing address-level2" data-lpignore="true" data-1p-ignore="true" /></div>
+                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">State</label><input ref={billingStateRef} type="text" maxLength={2} className={inputClass} autoComplete="billing address-level1" placeholder="CO" data-lpignore="true" data-1p-ignore="true" /></div>
+                  </div>
+                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Zip code</label><input ref={postalCodeRef} type="text" className={inputClass} autoComplete="billing postal-code" data-lpignore="true" data-1p-ignore="true" /></div>
                   <button onClick={handleSaveCardAndContinue} disabled={cardSaving} className={primaryBtn}>{cardSaving ? "Saving..." : "Save & continue"}</button>
                 </div>
 
