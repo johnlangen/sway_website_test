@@ -1696,6 +1696,8 @@ function MyListTab({ today }: { today: string }) {
 type CalEvent = {
   date: string;
   sortKey: string;
+  dayKey: string;        // ISO YYYY-MM-DD for day-level grouping
+  timeLabel: string;     // 'noon' / 'AM' / 'PM' / '' — shown inside each event
   kind: "email" | "social" | "website";
   title: string;
   audience: string;
@@ -1703,13 +1705,24 @@ type CalEvent = {
   detail?: string;
 };
 
+function extractDayInfo(date: string, sortKey: string): { dayKey: string; timeLabel: string } {
+  // dayKey is the first 10 chars of sortKey if it looks like a date
+  const dayKey = sortKey.match(/^\d{4}-\d{2}-\d{2}/) ? sortKey.substring(0, 10) : "9999-12-31";
+  let timeLabel = "";
+  if (date.match(/noon/i)) timeLabel = "noon";
+  else if (date.match(/AM/i)) timeLabel = "AM";
+  else if (date.match(/PM/i)) timeLabel = "PM";
+  return { dayKey, timeLabel };
+}
+
 function buildCalendar(): CalEvent[] {
   const events: CalEvent[] = [];
 
   for (const e of EMAIL_DRAFTS) {
+    const sortKey = dateToSortKey(e.date);
+    const { dayKey, timeLabel } = extractDayInfo(e.date, sortKey);
     events.push({
-      date: e.date,
-      sortKey: dateToSortKey(e.date),
+      date: e.date, sortKey, dayKey, timeLabel,
       kind: "email",
       title: e.title,
       audience: `${e.to} · ${e.toCount.toLocaleString()} recipients`,
@@ -1718,9 +1731,10 @@ function buildCalendar(): CalEvent[] {
     });
   }
   for (const p of SOCIAL_POSTS) {
+    const sortKey = dateToSortKey(p.date);
+    const { dayKey, timeLabel } = extractDayInfo(p.date, sortKey);
     events.push({
-      date: p.date,
-      sortKey: dateToSortKey(p.date),
+      date: p.date, sortKey, dayKey, timeLabel,
       kind: "social",
       title: p.hook,
       audience: p.channel,
@@ -1729,9 +1743,10 @@ function buildCalendar(): CalEvent[] {
     });
   }
   for (const w of WEBSITE_TASKS) {
+    const sortKey = dateToSortKey(w.date);
+    const { dayKey, timeLabel } = extractDayInfo(w.date, sortKey);
     events.push({
-      date: w.date,
-      sortKey: dateToSortKey(w.date),
+      date: w.date, sortKey, dayKey, timeLabel,
       kind: "website",
       title: w.goal,
       audience: w.page,
@@ -1744,21 +1759,109 @@ function buildCalendar(): CalEvent[] {
   return events;
 }
 
+/* ---- Month grid renderer ---- */
+function MonthGrid({
+  year, month, today, eventsByDay,
+}: {
+  year: number; month: number; today: string;
+  eventsByDay: Map<string, CalEvent[]>;
+}) {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const firstDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startWeekday = firstDay.getDay();
+
+  const cells: ({ day: number; iso: string } | null)[] = [];
+  for (let i = 0; i < startWeekday; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+    cells.push({ day: d, iso });
+  }
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  return (
+    <div className="bg-white rounded-xl border border-[#113D33]/10 p-4">
+      <h3 className="text-lg font-bold mb-3">{monthNames[month]} {year}</h3>
+      <div className="grid grid-cols-7 gap-1 text-xs">
+        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+          <div key={d} className="text-[10px] uppercase tracking-wider opacity-60 text-center py-1">
+            {d}
+          </div>
+        ))}
+        {cells.map((c, i) => {
+          if (!c) return <div key={i} className="aspect-square" />;
+          const dayEvents = eventsByDay.get(c.iso) || [];
+          const isToday = c.iso === today;
+          const isPast = c.iso < today;
+          const counts = {
+            email: dayEvents.filter((e) => e.kind === "email").length,
+            social: dayEvents.filter((e) => e.kind === "social").length,
+            website: dayEvents.filter((e) => e.kind === "website").length,
+          };
+          const hasEvents = dayEvents.length > 0;
+          return (
+            <a
+              key={i}
+              href={`#day-${c.iso}`}
+              className={`aspect-square rounded p-1.5 flex flex-col text-left transition ${
+                isToday
+                  ? "bg-[#113D33] text-white ring-2 ring-[#113D33] ring-offset-1"
+                  : hasEvents
+                    ? "bg-[#F7F4E9] hover:bg-[#F7F4E9]/70 cursor-pointer"
+                    : "bg-gray-50 opacity-50"
+              } ${isPast && !isToday ? "opacity-60" : ""}`}
+            >
+              <span className={`text-xs font-bold ${isToday ? "" : ""}`}>{c.day}</span>
+              {hasEvents && (
+                <div className="flex flex-wrap gap-0.5 mt-auto text-[9px]">
+                  {counts.email > 0 && (
+                    <span className={`px-1 rounded ${isToday ? "bg-white/20" : "bg-blue-100 text-blue-900"}`}>📧{counts.email}</span>
+                  )}
+                  {counts.social > 0 && (
+                    <span className={`px-1 rounded ${isToday ? "bg-white/20" : "bg-pink-100 text-pink-900"}`}>📱{counts.social}</span>
+                  )}
+                  {counts.website > 0 && (
+                    <span className={`px-1 rounded ${isToday ? "bg-white/20" : "bg-emerald-100 text-emerald-900"}`}>💻{counts.website}</span>
+                  )}
+                </div>
+              )}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function CalendarTab({ today }: { today: string }) {
   const events = buildCalendar();
 
-  // group by date display string
-  const groups: { date: string; events: CalEvent[]; sortKey: string }[] = [];
+  // Index events by dayKey for grid rendering
+  const eventsByDay = new Map<string, CalEvent[]>();
   for (const e of events) {
-    const last = groups[groups.length - 1];
-    if (last && last.date === e.date) {
-      last.events.push(e);
-    } else {
-      groups.push({ date: e.date, events: [e], sortKey: e.sortKey });
-    }
+    const existing = eventsByDay.get(e.dayKey) || [];
+    existing.push(e);
+    eventsByDay.set(e.dayKey, existing);
   }
 
-  const todaySortKey = `${today} 00`;
+  // Group events into day blocks for timeline view (events with same dayKey grouped together)
+  const dayGroups: { dayKey: string; displayDate: string; events: CalEvent[] }[] = [];
+  for (const e of events) {
+    const last = dayGroups[dayGroups.length - 1];
+    if (last && last.dayKey === e.dayKey) {
+      last.events.push(e);
+    } else {
+      // Pretty display date from dayKey if it's a real date
+      let displayDate = e.date;
+      if (e.dayKey !== "9999-12-31") {
+        const d = new Date(e.dayKey + "T12:00:00");
+        const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()];
+        const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()];
+        displayDate = `${dayName}, ${monthName} ${d.getDate()}`;
+      }
+      dayGroups.push({ dayKey: e.dayKey, displayDate, events: [e] });
+    }
+  }
 
   const kindBadge = (k: string) =>
     k === "email" ? "bg-blue-100 text-blue-900 border-blue-300" :
@@ -1777,31 +1880,49 @@ function CalendarTab({ today }: { today: string }) {
     <div className="space-y-4">
       <Section title="📅 Unified calendar — emails · social · website">
         <p className="text-xs opacity-80 mb-2">
-          Every transition activity in one timeline. <span className="px-1.5 py-0.5 rounded bg-blue-100 text-blue-900">📧 Email</span>{" "}
+          Every transition activity in one timeline. Month grid shows where activity clusters; click any day to jump to details.{" "}
+          <span className="px-1.5 py-0.5 rounded bg-blue-100 text-blue-900">📧 Email</span>{" "}
           <span className="px-1.5 py-0.5 rounded bg-pink-100 text-pink-900">📱 Social</span>{" "}
           <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-900">💻 Website</span>
         </p>
         <p className="text-xs opacity-60">
-          {events.length} total activities · sorted chronologically · today indicator shows where you are in the timeline
+          {events.length} total activities · sorted chronologically · today highlighted in green
         </p>
       </Section>
 
-      {groups.map((g, i) => {
-        const isPast = g.sortKey < todaySortKey;
-        const isToday = g.sortKey.startsWith(today);
+      {/* MONTH GRIDS */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <MonthGrid year={2026} month={4} today={today} eventsByDay={eventsByDay} />
+        <MonthGrid year={2026} month={5} today={today} eventsByDay={eventsByDay} />
+      </div>
+
+      {/* TIMELINE — day blocks */}
+      <h2 className="text-sm uppercase tracking-wider opacity-60 pt-4">Day-by-day detail</h2>
+      {dayGroups.map((g, i) => {
+        const isPast = g.dayKey < today;
+        const isToday = g.dayKey === today;
+        const isFuture = g.dayKey !== "9999-12-31" && g.dayKey > today;
+        const isApprox = g.dayKey === "9999-12-31";
         const dateColor = isToday
           ? "bg-[#113D33] text-white"
           : isPast
             ? "bg-gray-100 text-gray-700"
-            : "bg-[#F7F4E9] text-[#113D33]";
+            : isApprox
+              ? "bg-amber-50 text-amber-900"
+              : "bg-[#F7F4E9] text-[#113D33]";
 
         return (
-          <div key={i} className={`rounded-xl border-2 ${isToday ? "border-[#113D33]" : "border-black/10"} overflow-hidden ${isPast ? "opacity-70" : ""}`}>
+          <div
+            key={i}
+            id={`day-${g.dayKey}`}
+            className={`rounded-xl border-2 ${isToday ? "border-[#113D33]" : "border-black/10"} overflow-hidden ${isPast ? "opacity-70" : ""}`}
+          >
             <div className={`px-5 py-3 ${dateColor}`}>
               <div className="flex items-baseline justify-between flex-wrap gap-2">
                 <h3 className="text-base font-bold">
-                  {g.date}
+                  {g.displayDate}
                   {isToday && <span className="ml-2 text-xs font-semibold uppercase tracking-wider opacity-80">· Today</span>}
+                  {isApprox && <span className="ml-2 text-xs font-semibold uppercase tracking-wider opacity-70">· Approximate</span>}
                 </h3>
                 <span className="text-xs opacity-70">{g.events.length} {g.events.length === 1 ? "item" : "items"}</span>
               </div>
@@ -1814,6 +1935,11 @@ function CalendarTab({ today }: { today: string }) {
                       <span>{kindIcon(e.kind)}</span>
                       <span>{e.kind.toUpperCase()}</span>
                     </span>
+                    {e.timeLabel && (
+                      <span className="text-[10px] font-mono uppercase tracking-wider opacity-60 shrink-0 mt-1">
+                        {e.timeLabel}
+                      </span>
+                    )}
                     <div className="flex-1 min-w-[200px]">
                       <div className="text-sm font-medium leading-snug">{e.title}</div>
                       <div className="text-xs opacity-75 mt-0.5">
