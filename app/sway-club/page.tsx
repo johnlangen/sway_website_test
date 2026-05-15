@@ -193,8 +193,8 @@ export default function SwayClubPage() {
                   unlimited recovery
                 </div>
                 <div className="text-xs opacity-60 leading-relaxed">
-                  Standard public rate after our summer launch will be{" "}
-                  <b>$129/month</b>. Sign up by June 30 to keep your locked $99.
+                  Standard rate becomes <b>$129/month</b> at our public launch
+                  on <b>June 1</b>. Sign up before then to keep your $99 rate.
                 </div>
               </div>
 
@@ -226,12 +226,8 @@ export default function SwayClubPage() {
                     mid-to-late June (not included in unlimited)
                   </li>
                   <li>
-                    <b>Aescape robot massage</b> at member rates when it
-                    launches (Phase 2, later this summer)
-                  </li>
-                  <li>
-                    <b>$40 off</b> your first visit at Sway Larimer — available
-                    right now
+                    <b>$40 off</b> your first massage or facial at Sway
+                    Larimer — available right now
                   </li>
                   <li>
                     Access at <b>both RiNo and Central Park</b>
@@ -298,8 +294,8 @@ export default function SwayClubPage() {
               <h2 className="text-2xl font-bold mb-2">You&apos;re on the list.</h2>
               <p className="text-sm opacity-80 leading-relaxed">
                 Your $99/month rate is locked. We&apos;ll reach out the week
-                of May 25 to activate your membership in our new system.
-                No card charged today.
+                of May 18 to activate your membership — recovery access starts
+                as soon as you&apos;re set up. No card charged today.
               </p>
               <p className="text-xs opacity-60 mt-4">
                 Questions in the meantime? Reply to Heather&apos;s email or
@@ -314,9 +310,10 @@ export default function SwayClubPage() {
               <div>
                 <h2 className="text-2xl font-bold mb-1">Lock in your rate</h2>
                 <p className="text-sm opacity-70 mb-4">
-                  Sign up by <b>June 30, 2026</b> to claim the $99/month rate.
-                  No card today — we&apos;ll reach out the week of May 25 to
-                  activate.
+                  Sign up by <b>June 1, 2026</b> to claim the $99/month rate
+                  — that&apos;s when our public launch begins and the rate
+                  goes to $129. No card today; we&apos;ll reach out the week
+                  of May 18 to activate.
                 </p>
               </div>
 
@@ -421,7 +418,7 @@ export default function SwayClubPage() {
 
               <p className="text-[11px] opacity-60 text-center leading-relaxed pt-1">
                 No charge today. Your rate is reserved until we activate your
-                membership the week of May 25. You can decline activation with
+                membership the week of May 18. You can decline activation with
                 no obligation.
               </p>
             </form>
