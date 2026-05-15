@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Check, Sparkles, Trophy, ArrowRight, ArrowDown } from "lucide-react";
 
 type LocationPref = "denver-rino" | "denver-central-park" | "either";
@@ -17,6 +16,20 @@ export default function SwayClubPage() {
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState("");
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setVideoReady(true))
+        .catch(() => video.remove());
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,30 +69,35 @@ export default function SwayClubPage() {
   return (
     <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
       {/* ===========================
-          HERO
+          HERO — video background (same as homepage)
       =========================== */}
       <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden">
-        {/* Desktop hero image */}
-        <Image
-          src="/assets/landing_remedy_desktop.jpg"
+        {/* Poster for instant LCP */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/background.jpg"
           alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hidden md:block object-cover"
-        />
-        {/* Mobile hero image */}
-        <Image
-          src="/assets/landing_remedy_mobile.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="md:hidden object-cover"
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover object-[35%_center] md:object-center"
         />
 
+        {/* Video — invisible until autoplay confirmed, removed if blocked */}
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 w-full h-full object-cover object-[35%_center] md:object-center transition-opacity duration-500 ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/assets/background.jpg"
+        >
+          <source src="/assets/background2.mp4" type="video/mp4" />
+        </video>
+
         {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/55 to-black/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/85" />
 
         {/* Content */}
         <div className="relative z-10 px-6 pt-24 md:pt-32 pb-16 text-center max-w-3xl mx-auto text-white">
@@ -111,8 +129,8 @@ export default function SwayClubPage() {
             className="text-base md:text-lg opacity-90 max-w-xl mx-auto leading-relaxed mb-8"
           >
             Unlimited recovery at Sway Wellness Club — RiNo + Central Park.
-            Sauna, cold plunge, compression, red light. Massage opens
-            mid-to-late June. Standard rate after public launch:{" "}
+            Traditional &amp; infrared sauna, cold plunge, PEMF mats, lymphatic
+            compression boots. Standard rate after public launch:{" "}
             <b>$129/month</b>.
           </motion.p>
 
@@ -168,33 +186,58 @@ export default function SwayClubPage() {
                   unlimited recovery
                 </div>
                 <div className="text-xs opacity-60 leading-relaxed">
-                  12-month commitment. Then continues month-to-month at your
-                  locked $99 rate. Standard public rate after our summer
-                  launch will be <b>$129/month</b>.
+                  Standard public rate after our summer launch will be{" "}
+                  <b>$129/month</b>. Sign up by June 30 to keep your locked $99.
                 </div>
               </div>
 
-              <ul className="space-y-3 text-sm">
-                {[
-                  "Unlimited Remedy Lounge — sauna, cold plunge, compression, red light therapy",
-                  "Massage at member rates when suites open mid-to-late June",
-                  "Access at both RiNo and Central Park",
-                  "Phase 2 services (facials, Aescape robot massage) included when added",
-                  "$40 off your first visit at Sway Larimer — available right now",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#113D33]" />
-                    <span className="opacity-90">{item}</span>
+              <div>
+                <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-3">
+                  What&apos;s included in unlimited
+                </div>
+                <ul className="space-y-2.5 text-sm mb-5">
+                  {[
+                    "Traditional sauna",
+                    "Infrared sauna",
+                    "Cold plunge",
+                    "PEMF mats",
+                    "Lymphatic compression boots",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#113D33]" />
+                      <span className="opacity-90">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-2 pt-2 border-t border-[#113D33]/10">
+                  Also a member — booked separately
+                </div>
+                <ul className="space-y-2 text-xs opacity-80">
+                  <li>
+                    <b>Massage &amp; facial</b> at member rates — both open
+                    mid-to-late June (not included in unlimited)
                   </li>
-                ))}
-              </ul>
+                  <li>
+                    <b>Aescape robot massage</b> at member rates when it
+                    launches (Phase 2, later this summer)
+                  </li>
+                  <li>
+                    <b>$40 off</b> your first visit at Sway Larimer — available
+                    right now
+                  </li>
+                  <li>
+                    Access at <b>both RiNo and Central Park</b>
+                  </li>
+                </ul>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* ===========================
-          MODALITY IMAGERY STRIP
+          MODALITY IMAGERY STRIP — 4 tiles, what's in unlimited
       =========================== */}
       <section className="px-6 pb-16">
         <div className="max-w-5xl mx-auto">
@@ -206,10 +249,10 @@ export default function SwayClubPage() {
             className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
           >
             {[
-              { img: "/assets/sauna.jpg", label: "Traditional sauna" },
+              { img: "/assets/sauna.jpg", label: "Traditional + infrared sauna" },
               { img: "/assets/cold_plunge.jpg", label: "Cold plunge" },
-              { img: "/assets/compression_therapy.jpg", label: "Compression therapy" },
-              { img: "/assets/remedy-room.jpg", label: "Red light therapy" },
+              { img: "/assets/compression_therapy.jpg", label: "Compression boots" },
+              { img: "/assets/recover_room.jpg", label: "PEMF mats" },
             ].map((m, i) => (
               <div
                 key={i}
