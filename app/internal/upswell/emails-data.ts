@@ -56,9 +56,9 @@ And before anything else: **a benefit for you.**
 
 **What's new at your location:** Sway brings expert massage therapy in newly-finished treatment suites — opening **mid-to-late June**. Advanced facials and AI-powered Aescape robot massage come later this summer. As a member, you'll have access to massage at **$99 per 50-minute session** (regularly $139) — that's a real perk on top of everything you already have.
 
-**Want to experience Sway right now? $40 off your first visit at Sway Larimer.** Our flagship on Larimer Square is fully open today with the full menu — massage, facials, Aescape robot massage, and the Remedy Room. As a current member, your first visit there is **$99** (regularly $139). Reply for the booking link, or head to swaywellnessspa.com/locations/denver-larimer.
+**Want to experience Sway right now? $40 off your first visit at Sway Larimer.** Our flagship on Larimer Square — **voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by The Zoe Report 2026** — is fully open today with the full menu: massage, facials, Aescape robot massage, and the Remedy Room. As a current member, your first visit there is **$99** (regularly $139). Reply for the booking link, or head to swaywellnessspa.com/locations/denver-larimer.
 
-**Why this move:** after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building. These locations deserve more services, more capacity, and the operational backbone I couldn't deliver solo.
+**Why this move:** after pouring myself into building Upswell, I came on as COO at Sway because I believe in what they're building. These locations deserve more services, more capacity, and the operational backbone I couldn't deliver solo. You're joining a brand with a real track record — and the same recovery space you already love.
 
 **One optional thing you can do today:** if you want to lock in some launch-week perks, **tell us a few things about how you use the space → [Confirm here]**. We'll use it to pre-build your account in the new system, save your therapist preferences, and put your first complimentary massage on the calendar for the week of June 15. Not required — just nice to have.
 
