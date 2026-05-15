@@ -175,6 +175,7 @@ const BLOCKERS_P2 = [
   "Rollover form for Mindbody gap (May 15 → ~May 25) — optional capture for engaged members; simple Typeform",
   "Soft member referral incentive for quiet period (June 1 → mid-summer PR push) — costs nothing, seeds word-of-mouth before public push",
   "Sway Larimer team comms documentation + dedicated phone line for migration questions",
+  "📞 Phone numbers for RiNo + Central Park — decide: take over Heather's existing Upswell numbers (cleanest for Google/SEO/legacy referral continuity, LNP portable) vs. provision new Sway numbers with forwarding from old vs. brand new numbers no forwarding. Lean: take over. Affects website location pages, GBP listings, front desk routing, voicemail-to-email, customer service. Needs to land before June 1 brand transition. Flagged May 15.",
 ];
 
 const QUESTIONS_QUICK = [
