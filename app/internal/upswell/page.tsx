@@ -681,6 +681,13 @@ const NEW_CAMPAIGNS = [
     status: "Idea added May 14 — confirm exact perk + build into member welcome flow",
   },
   {
+    date: "2026-06-05",
+    title: "🆕 June: take over Upswell email list at Sway",
+    audience: "Inherited 4,628 marketing-opted-in (Upswell) + segmented sub-lists",
+    goal: "On June 1, Sway entity owns the email list per APA. Run June campaigns directly from Sway email infrastructure (Klaviyo or BrandBot or whatever the choice is). Highest-priority segments to re-engage: (1) opted-in non-members who didn't claim the $99 founding rate before June 1 (now standard $129 pitch), (2) Lost / At Risk recovery-loyal segments (1,406 + 3,519, filtered to recovery-heavy for highest convert rate), (3) ClassPass converters (314), (4) the 357 yoga loyalists with a soft re-engagement framed around recovery now that they've had time to process. Plus founding-member list from /sway-club + MT signups as a nurture audience.",
+    status: "Plan in concept — design specific campaigns post-launch when we have baseline metrics from the May 15 send",
+  },
+  {
     date: "2026-08-15",
     title: "Back-to-school re-engagement",
     audience: "Lost + At Risk + dormant members",
@@ -703,8 +710,8 @@ const DOCS = [
 ];
 
 const EMAILS = [
-  { n: "01a", date: "May 15", title: "Member announcement — $99 drop + auto-enroll", to: "Active members · 155 (transactional)", path: "email-01a-may15-members.md" },
-  { n: "01b", date: "May 15", title: "Non-member announcement — positive new chapter", to: "Marketing-opted-in deduped · 4,146", path: "email-01b-may15-nonmembers.md" },
+  { n: "01a", date: "May 15", title: "Member announcement — $99 Sway Remedy Lounge Unlimited (FINAL from Heather)", to: "Active members · 155 (transactional)", path: "email-01a-may15-members.md" },
+  { n: "01b", date: "May 15", title: "Non-member announcement — Reserve $99 rate via Mariana Tek (FINAL from Heather)", to: "Marketing-opted-in deduped · 4,146 · CTA links to Heather's MT signup, NOT /sway-club", path: "email-01b-may15-nonmembers.md" },
   { n: "12", date: "May 15", title: "Yoga loyalist offboarding + River Yoga offer", to: "Yoga loyalists · 357 (TRANSACTIONAL — service wind-down notice; filtered to opted-in only, but legally could widen to all ~890 yoga-only if needed)", path: "email-12-may15-yoga-offboarding.md" },
   { n: "02", date: "May 21", title: "VIP early access (Founding Ambassadors)", to: "VIPs · 211", path: "email-02-may21-vip-early-access.md" },
   { n: "03", date: "May 22", title: "Segmented details (3 versions)", to: "Members · split by tier", path: "email-03-may22-members-segmented.md" },
