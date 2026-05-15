@@ -148,7 +148,7 @@ export default function SwayClubPage() {
             onClick={scrollToForm}
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#113D33] rounded-full text-sm font-semibold uppercase tracking-wider hover:bg-[#F7F4E9] transition-colors"
           >
-            Lock in my rate
+            Reserve my rate
             <ArrowDown className="w-4 h-4" />
           </motion.button>
 
@@ -183,7 +183,7 @@ export default function SwayClubPage() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-12">
               <div className="md:border-r md:border-[#113D33]/10 md:pr-10">
                 <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-3">
-                  Your locked rate
+                  Your reserved rate
                 </div>
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="text-6xl md:text-7xl font-bold">$99</span>
@@ -193,8 +193,9 @@ export default function SwayClubPage() {
                   unlimited recovery
                 </div>
                 <div className="text-xs opacity-60 leading-relaxed">
-                  Standard rate becomes <b>$129/month</b> at our public launch
-                  on <b>June 1</b>. Sign up before then to keep your $99 rate.
+                  Membership begins <b>June 1</b> when our new system goes
+                  live. Reserve before then to keep your $99 rate. Standard
+                  rate after launch: <b>$129/month</b>.
                 </div>
               </div>
 
@@ -291,11 +292,11 @@ export default function SwayClubPage() {
               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[#113D33] flex items-center justify-center">
                 <Check className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">You&apos;re on the list.</h2>
+              <h2 className="text-2xl font-bold mb-2">Your rate is reserved.</h2>
               <p className="text-sm opacity-80 leading-relaxed">
-                Your $99/month rate is locked. We&apos;ll reach out the week
-                of May 18 to activate your membership. Recovery access starts
-                as soon as you&apos;re set up. No card charged today.
+                Your $99/month rate is locked in. We&apos;ll reach out before
+                June 1 to confirm your activation. Recovery access begins
+                June 1 when our new system goes live. No card charged today.
               </p>
               <p className="text-xs opacity-60 mt-4">
                 Questions in the meantime? Reply to Heather&apos;s email or
@@ -308,12 +309,12 @@ export default function SwayClubPage() {
               className="bg-white rounded-2xl border border-[#113D33]/10 p-6 md:p-8 space-y-4 shadow-sm"
             >
               <div>
-                <h2 className="text-2xl font-bold mb-1">Lock in your rate</h2>
+                <h2 className="text-2xl font-bold mb-1">Reserve your rate</h2>
                 <p className="text-sm opacity-70 mb-4">
-                  Sign up by <b>June 1, 2026</b> to claim the $99/month rate.
-                  That&apos;s when our public launch begins and the rate
-                  goes to $129. No card today; we&apos;ll reach out the week
-                  of May 18 to activate.
+                  Reserve by <b>June 1, 2026</b> to claim the $99/month rate.
+                  That&apos;s when membership begins and our standard rate
+                  becomes $129. No card today; we&apos;ll reach out before
+                  June 1 to confirm activation.
                 </p>
               </div>
 
@@ -412,14 +413,13 @@ export default function SwayClubPage() {
                 disabled={status === "submitting"}
                 className="w-full bg-[#113D33] text-white py-3.5 rounded-lg font-semibold text-sm uppercase tracking-wider hover:bg-[#0d2e26] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
               >
-                {status === "submitting" ? "Submitting…" : "Lock in my rate"}
+                {status === "submitting" ? "Submitting…" : "Reserve my rate"}
                 {status !== "submitting" && <ArrowRight className="w-4 h-4" />}
               </button>
 
               <p className="text-[11px] opacity-60 text-center leading-relaxed pt-1">
-                No charge today. Your rate is reserved until we activate your
-                membership the week of May 18. You can decline activation with
-                no obligation.
+                No charge today. Your rate is reserved until membership begins
+                June 1. You can decline activation with no obligation.
               </p>
             </form>
           )}
