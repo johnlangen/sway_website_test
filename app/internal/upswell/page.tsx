@@ -30,7 +30,7 @@ const SEGMENTS = [
   { name: "Payment failure", csv: "07-payment-failure-27.csv", count: 27, useFor: "Resolve before transition", optIn: "No" },
   { name: "Unredeemed credits liability", csv: "08-unredeemed-credits-liability-74.csv", count: 74, useFor: "Must honor in Mindbody", optIn: "No" },
   { name: "Employees (internal)", csv: "09-employees-internal-81.csv", count: 81, useFor: "Internal comms only", optIn: "—" },
-  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding-357.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga", optIn: "Yes" },
+  { name: "🆕 Yoga loyalists — graceful offboarding", csv: "10-yoga-loyalists-offboarding-357.csv", count: 360, useFor: "Graceful offboarding ONLY — Sway has no yoga. Email 12 is classified TRANSACTIONAL (service wind-down notice), so legally could be sent to all yoga-only/yoga-heavy regardless of marketing opt-in (~890). We chose the conservative path: opted-in only.", optIn: "Yes (filtered) — but transactional, so widening allowed if needed" },
   { name: "🆕 Sway Unlimited prime targets", csv: "12-sway-unlimited-prime-targets-782.csv", count: 782, useFor: "Recovery-heavy customers — perfect Sway Unlimited candidates", optIn: "Yes" },
 ];
 
@@ -76,8 +76,9 @@ const ACTIVE_MEMBER_FREE_VS_PAYING = [
 ];
 
 const CAMPAIGNS = [
-  { date: "2026-05-15", audience: "All members + opted-in", channel: "Email", goal: "Announcement (Heather voice)", from: "Heather · Upswell domain", csv: "01 + 02 deduped", status: "Drafted" },
-  { date: "2026-05-15", audience: "Public", channel: "Press + blog + social + banner", goal: "Public announcement", from: "Sway brand", csv: "—", status: "Drafted" },
+  { date: "2026-05-15 noon", audience: "Active members (155)", channel: "Email 01a", goal: "Member announcement + $99 drop + auto-enroll", from: "Heather · Upswell domain", csv: "01-members-transactional-155.csv", status: "Drafted" },
+  { date: "2026-05-15 noon", audience: "Non-members deduped (4,146)", channel: "Email 01b", goal: "Positive new chapter + $40 off Larimer bridge", from: "Heather · Upswell domain", csv: "02c-may15-general-optin-deduped-4146.csv", status: "Drafted" },
+  { date: "2026-05-15 noon", audience: "Yoga loyalists (357)", channel: "Email 12", goal: "Graceful offboarding + River Yoga $59 offer", from: "Heather · Upswell domain", csv: "10-yoga-loyalists-offboarding-357.csv", status: "Drafted" },
   { date: "2026-05-21", audience: "VIPs (211)", channel: "Email", goal: "Founding Ambassador early access", from: "Heather · Upswell domain", csv: "03b", status: "Drafted" },
   { date: "2026-05-22", audience: "Active members", channel: "Email × 3 versions", goal: "Segmented details by tier", from: "Sway team · Upswell domain", csv: "01 split", status: "Drafted" },
   { date: "2026-05-26", audience: "Active members", channel: "Email", goal: "Logistics + first visit", from: "Sway team · Upswell domain", csv: "01", status: "Drafted" },
@@ -122,7 +123,7 @@ const ANNUAL_PREPAYS = [
     purchased: "Dec 29, 2025",
     termEnds: "Dec 29, 2026",
     status: "Active",
-    note: "ONLY active annual prepay. Honor through end of term."
+    note: "ONLY active annual prepay. Honored as-is through end of term. ⭐ Personal note from Heather/Marty before Friday noon send — see Overview tab for framing. Renews Jan 2027 at $99/mo member rate."
   },
 ];
 
@@ -143,37 +144,47 @@ const TERMINATED_ANNUALS = [
 ];
 
 const BLOCKERS_P0 = [
-  "Press contact info (name, email, phone) — blocks press release boilerplate",
-  "Heather photo (high-res) — blocks LinkedIn / press / blog",
-  "Email send platform decision — use whatever Heather already has for Upswell (recommend)",
-  "Update /membership page to show both Sway Membership + Sway Unlimited side-by-side — emails reference these tiers, page needs to land them somewhere",
-  "Mindbody: set up Sway Unlimited as a Membership contract with unlimited bookings of the Remedy Room session type (session 96 at Larimer; equivalent at new locations). Mindbody supports this natively. Not a feasibility blocker — a setup task.",
-  "GBP — confirm Heather has admin access on Upswell GBPs. If YES, can update listings today (preserves Upswell reviews + local rank). If NO, file claims now (1-2 week wait).",
+  "🔥 TONIGHT: Pull future-reservations report from Mariana Tek before May 15 send. Heather noted someone became a member recently — need to know exactly who has bookings on the books for June 1+ so we can port them or proactively reach out.",
+  "🔥 TONIGHT/FRI AM: Heather's 5 personal touches — text-first to the 4 yoga members (Jessica, Gregory, Christina, Nathan), personal email to Terry Wei. Must close before noon Friday so none of them hear from a friend first.",
+  "🔥 Heather kills Upswell marketing automations at 11 PM Thursday 5/14 — confirm done so they don't fire after our Friday noon send.",
+  "Stripe Data Migration Request — Heather initiates with Stripe Support. ~2-4 weeks. Today (May 14) + 4 weeks = June 11, past June 1. If not initiated, P0.",
+  "Insurance (GL + workers' comp) for both new locations — required by June 1. Commercial policies typically 2-3 weeks via broker. If not in motion already, urgency.",
+  "Email send platform — locked as BrandBot (Heather's existing Upswell platform).",
+  "Update /membership page to show Sway Unlimited tier — emails reference $99/mo, page needs to land them somewhere.",
+  "Mindbody: set up Sway Unlimited as a Membership contract with unlimited bookings of the Remedy Room session type (session 96 at Larimer; equivalent at new locations).",
+  "GBP — Heather has access. She adds John as OWNER (not Manager) on both listings this week. Submit Upswell → Sway rename request June 1 AM (Google approval 3-5 days). Preserves review history.",
+  "Reply-to address for May 15 sends — still TBD per John. Decision blocks BrandBot send setup.",
   "Permit applications for Phase 2 buildout — START NOW. 2-3 month lead.",
 ];
 
 const BLOCKERS_P1 = [
-  "Partnership decisions (Wellhub auto, ClassPass confirm listings, EGYM Wellpass evaluate, plus 14 brand partners)",
-  "First Visit Offer policy ($40 off / $99 same as Larimer?)",
+  "ClassPass: confirm individual-modality listings (cold plunge / sauna / infrared as separate listings) at new locations",
+  "EGYM Wellpass: post-June 3 partnership evaluation",
+  "Brand partner decisions (Mach 983, Hayes, Lululemon, F45, etc.) — keep / sunset / negotiate per partnership-decisions.md",
   "VIP / Founding Ambassador perks — what specifically?",
-  "Mindbody site provisioning — blocks member import",
+  "Mindbody site provisioning — blocks member import (~May 25 target)",
+  "Member migration mechanics: customer records export from Mariana Tek + import to Mindbody",
+  "Gift card migration: Loopz export needed from Heather + Mariana Tek report. Build mapping CSV — issue as Mindbody gift cards (NOT 'on account').",
+  "74 customers with unredeemed credits/gift cards not in any of the 3 May 15 lists — decide whether to send them a separate transactional notice.",
 ];
 
 const BLOCKERS_P2 = [
   "Temp partition designer assigned (visual quality critical)",
   "Massage therapist hires + first-week schedules",
-  "Hours decision for both locations",
-  "Unredeemed credits conversion plan (74 customers)",
+  "Hours decision for both locations (currently framed loosely: 'similar through June, extended this summer')",
+  "Rollover form for Mindbody gap (May 15 → ~May 25) — optional capture for engaged members; simple Typeform",
+  "Soft member referral incentive for quiet period (June 1 → mid-summer PR push) — costs nothing, seeds word-of-mouth before public push",
+  "Sway Larimer team comms documentation + dedicated phone line for migration questions",
 ];
 
 const QUESTIONS_QUICK = [
-  "Email platform: Mailchimp / Klaviyo / Mariana Tek / other?",
+  "Reply-to address for May 15 sends: Heather's inbox, Sway-monitored inbox (members@swaywellnessclub.com?), or location-specific?",
   "Heather photo: existing file or do we shoot this week?",
   "Press contact: who handles inbound press inquiries?",
-  "Partnership decisions: 80/20 default — keep all $99/$129/$159 + all peer $0 reciprocals?",
-  "First Visit Offer: same $40 off / $99 as Larimer?",
-  "Sway Unlimited price: $189 confirmed?",
-  "Mindbody site provisioning: who owns? when ready?",
+  "Free-tier cohort decisions (Heather running keep/sunset recs per partner category — when ready?)",
+  "74 unredeemed-credits holders: send them a separate transactional notice tomorrow, or fold into 01b?",
+  "Mindbody site provisioning: who owns? when ready (~May 25 target)?",
+  "Phase 2 sequencing (facials + Aescape) — together or separate? Fall timing TBD.",
 ];
 
 const MEETINGS = [
@@ -266,23 +277,24 @@ const MEETINGS = [
 const LAUNCH_SCENARIOS = [
   {
     plan: "A",
-    title: "THE PLAN — quiet member-only transition + late-June PR push",
+    title: "THE PLAN — quiet member-only transition + mid-Aug PR push",
     color: "emerald",
-    description: "REVISED May 13 PM: this is a QUIET June 1 launch. Members-only comms until the space is finished and beautiful. Big Sway PR + social push held for late June / early July when everything is camera-ready. Three phases: (1) May 15 → June 1: members hear from Heather on her voice + segmented member emails. NO Sway-channel public posts. (2) June 1 → ~June 25: quiet operational launch. Brand transition happens, recovery continues, massage opens June 15. Word-of-mouth only. (3) Late June / Early July: BIG public PR push when everything looks finished. Sway social goes live with announcement, press distribution, paid ads. Main strategic goal throughout: keep existing members happy.",
+    description: "REVISED May 14: this is a QUIET June 1 launch. Members-only comms until the space is finished and beautiful. Big Sway PR + social push held for MID-JULY (week of July 13-17, green wall in but retail not yet) OR MID-AUGUST (week of Aug 17 or 24, both green wall + retail in). Leaning mid-August because 'this is finished' framing matters more than tight cadence. Three phases: (1) May 15 → June 1: members hear from Heather on her voice + segmented member emails. NO Sway-channel public posts. (2) June 1 → mid-July or mid-August: quiet operational launch. Brand transition happens, recovery continues, massage opens mid-to-late June (intentionally vague — license + buildout). Word-of-mouth only. (3) Mid-July or Mid-August: BIG public PR push when everything looks finished. Sway social goes live with announcement, press distribution, paid ads. Main strategic goal throughout: keep existing members happy.",
     pros: [
       "Realistic against the FBI license timeline (mid-to-late June arrival)",
-      "Gives Emily three more weeks of breathing room on buildout",
+      "Gives Emily breathing room on buildout — green wall 6-8 weeks, retail 8-10 weeks",
       "Covers Jocelyn's absence cleanly — she's back ~May 26, full hiring restart possible",
-      "Two PR waves instead of one (June 1 brand + late June massage) = more sustained press + paid acquisition arc",
-      "One clean message, no walkbacks: 'massage opens late June' said once",
+      "Two PR waves instead of one (June 1 brand + mid-summer big push) = more sustained press + paid acquisition arc",
+      "One clean message, no walkbacks: 'massage opens mid-to-late June' said once, vague enough to absorb slip",
       "Members never lose recovery access; revenue continues throughout",
+      "Going public with a half-built space (no green wall, no retail) creates a 'soft opening' perception that's hard to dislodge — wait until camera-ready",
     ],
     cons: [
       "Public launch on June 1 is recovery-only (less complete menu)",
       "Less revenue Day 1 (no massage bookings)",
       "Requires deliberate comms across two launch moments",
     ],
-    verdict: "★ COMMITTED PLAN as of May 13.",
+    verdict: "★ COMMITTED PLAN as of May 13, PR timing refined May 14 (leaning mid-August).",
   },
   {
     plan: "B",
@@ -348,8 +360,8 @@ const CRITICAL_GATING = [
   {
     item: "Massage establishment license — application in flight, FBI fingerprint pending",
     owner: "Marty",
-    leadTime: "Marty's call (May 13): submit application + expedite the FBI fingerprint, but proceed with massage launch June 15 even if full approval hasn't landed",
-    impact: "Real risk: operating massage with the application in process but not approved means any DORA complaint or insurance issue carries exposure. Marty owns this lane and is choosing to accept the gap. Massage target = June 15.",
+    leadTime: "Marty's call (May 13): submit application + expedite the FBI fingerprint, but proceed with massage launch mid-to-late June even if full approval hasn't landed",
+    impact: "Real risk: operating massage with the application in process but not approved means any DORA complaint or insurance issue carries exposure. Marty owns this lane and is choosing to accept the gap. Massage target = mid-to-late June (intentionally vague to absorb any slip).",
   },
   {
     item: "EIN obtained ✓",
@@ -361,7 +373,7 @@ const CRITICAL_GATING = [
     item: "Insurance — add new locations to existing Sway policies or issue new",
     owner: "Marty",
     leadTime: "Days to a week depending on carrier",
-    impact: "Required by June 1 operational launch. Coverage needed: general liability, workers' comp (Colorado-required for the 6 inherited staff + new hires), property (saunas, plunge, equipment), cyber liability (customer data migration). Massage malpractice / professional liability adds when MTs come online June 15.",
+    impact: "Required by June 1 operational launch. Coverage needed: general liability, workers' comp (Colorado-required for the 6 inherited staff + new hires), property (saunas, plunge, equipment), cyber liability (customer data migration). Massage malpractice / professional liability adds when MTs come online mid-to-late June. ⚠️ Commercial GL + workers' comp typically 2-3 weeks via broker — if not in motion by mid-May, June 1 deadline is at risk.",
   },
   {
     item: "Jocelyn (Spa Director) out of town May 16–25 (10 days)",
@@ -385,8 +397,8 @@ const CRITICAL_GATING = [
 
 const ACCESS_TRACKER = [
   { platform: "Google Analytics (upswellstudio.com)", type: "Add user", status: "Pending Heather", note: "Add john@swaywellnessspa.com as Admin on the Analytics property" },
-  { platform: "Google Business Profile (3636 Blake)", type: "Add Manager", status: "Pending Heather", note: "She confirmed she has admin. Same-day name update possible." },
-  { platform: "Google Business Profile (2271 Clinton)", type: "Add Manager", status: "Pending Heather", note: "Same as RiNo GBP" },
+  { platform: "Google Business Profile (3636 Blake)", type: "Add John as OWNER", status: "Heather confirmed access", note: "Plan: (1) Heather adds John as OWNER (not Manager) this week — Owner can't be revoked. (2) NO new listing — rebrand the existing one to preserve review history + local rank. (3) Submit Upswell → Sway rename request June 1 AM (Google approval can take 3-5 days). Update categories for recovery-led format at same time." },
+  { platform: "Google Business Profile (2271 Clinton)", type: "Add John as OWNER", status: "Heather confirmed access", note: "Same plan as RiNo GBP — Owner role this week, rename request June 1 AM." },
   { platform: "Google Ads", type: "Skip", status: "N/A", note: "Heather confirmed no active campaigns since Q3 2025" },
   { platform: "Google Search Console", type: "Skip", status: "N/A", note: "Heather confirmed Upswell never had one" },
   { platform: "Instagram @upswellstudio", type: "Coordination only", status: "✓ N/A", note: "Don't ask for admin. Heather owns the brand voice + account. Pattern: she drafts with John in shared doc → she posts → John verifies by following public account." },
@@ -407,7 +419,7 @@ const STAFFING_QUESTIONS = [
     role: "Wellness Associates (RiNo + Central Park combined)",
     question: "Target headcount: 14-17 hourly Wellness Associates + 1 Wellness Team Lead at Larimer hours. 6 retained from Upswell — need to hire 8-11 more.",
     context: "Per Heather's May 14 doc. Existing 6: Mackenzie Miller (Operations Lead → Transition Lead, $24/hr) + 5 Wellness Crew at $20/hr (George Jay Mayberry, Madeleine Medley, Kyana Cook, Sarah Hathaway, Halle Nicholas). All retained. Heather + Jocelyn agreed; Heather will help fill schedule by Jocelyn's return.",
-    decision: "RETAIN ALL 6 ✓ · Hire 8-11 more by ~June 15 to cover Larimer-equivalent hours",
+    decision: "RETAIN ALL 6 ✓ · Hire 8-11 more by ~mid-to-late June to cover Larimer-equivalent hours",
   },
   {
     role: "Transition Lead (Mackenzie Miller)",
@@ -506,7 +518,7 @@ const MY_LIST = [
       { task: "Send Email 02 (VIP early access) Wed May 21, AM, Heather voice", status: "pending", dep: "" },
       { task: "Send Email 03 (Segmented member details) Fri May 22 — 4 versions (paying / mixed / partner / annual)", status: "pending", dep: "" },
       { task: "Tier 3 press push Fri May 22 (Fitt Insider, Well+Good, American Spa)", status: "pending", dep: "" },
-      { task: "GBP claim filing / update progress — if Heather has admin, do same-day update. Otherwise file claim.", status: "pending", dep: "GBP access decision" },
+      { task: "GBP — get added as OWNER (not Manager) on both 3636 Blake + 2271 Clinton listings. Heather has access. Owner can't be revoked.", status: "pending", dep: "" },
       { task: "Begin Mindbody member data import (once site is provisioned)", status: "pending", dep: "Mindbody provisioned" },
       { task: "Build photo media kit folder for press follow-ups", status: "pending", dep: "photos available" },
     ],
@@ -545,7 +557,7 @@ const MY_LIST = [
     color: "emerald",
     tasks: [
       { task: "Send Email 09 (Lost re-engagement, recovery-loyal cut) Mon June 8", status: "pending", dep: "" },
-      { task: "Massage suites launch June 15 — update location pages to show massage as bookable, swap waitlist mailto for real booking link", status: "pending", dep: "license + suites ready" },
+      { task: "Massage suites launch mid-to-late June — update location pages to show massage as bookable, swap waitlist mailto for real booking link", status: "pending", dep: "license + suites ready" },
       { task: "Send Email 10 (At Risk re-engagement) Wed June 17", status: "pending", dep: "" },
       { task: "Send Email 11 (ClassPass conversion) Mon June 22", status: "pending", dep: "" },
       { task: "Second press wave for massage launch — Tier 1 outlets, same pitch list", status: "pending", dep: "" },
@@ -553,7 +565,7 @@ const MY_LIST = [
     ],
   },
   {
-    phase: "Post-launch (late June+)",
+    phase: "Post-launch (mid-July / mid-Aug+)",
     color: "emerald",
     tasks: [
       { task: "Set up 301 redirects: upswellstudio.com → swaywellnessspa.com (after 30-60 day soft transition)", status: "pending", dep: "" },
@@ -585,7 +597,7 @@ const OPERATIONAL_CHECKLIST = [
       { task: "Get access to Upswell's Google Analytics property on upswellstudio.com. Historical traffic data is valuable for transition planning + helps inform paid media targeting.", owner: "John (needs Heather to grant)" },
       { task: "Take ownership of Upswell's Google Search Console property for upswellstudio.com. Critical for managing the SEO migration cleanly.", owner: "John (needs Heather to grant)" },
       { task: "Plan Mariana Tek FULL SHUTDOWN date — after Mindbody migration is verified complete + members no longer transacting through MT. Likely 30 days post-launch. Set a hard cutover.", owner: "John + Heather" },
-      { task: "Take over Google Business Profile listings at 3636 Blake + 2271 Clinton — rename Upswell → Sway, preserve reviews. Same-day update IF Heather has admin access.", owner: "Heather (if admin) / John" },
+      { task: "Submit GBP rename request (Upswell → Sway) June 1 AM at both listings. Google approval typically 3-5 days. Preserves reviews + local rank. Update categories for recovery-led format.", owner: "John (Owner role granted by Heather this week)" },
       { task: "Confirm Sway GBP categories are set up correctly for the recovery-led format", owner: "John" },
     ],
   },
@@ -661,6 +673,13 @@ const NEW_CAMPAIGNS = [
     status: "Idea — confirm space readiness or push to later date",
   },
   {
+    date: "2026-06-15",
+    title: "🆕 Soft member referral (quiet-period growth)",
+    audience: "Existing Sway Wellness Club members",
+    goal: "Member refers a friend → friend gets first recovery session free (or first month $49). Member gets a Larimer credit or comparable perk. Costs nothing, seeds word-of-mouth before the mid-July/mid-Aug public PR push. Not aggressive — just present in the dashboard / welcome email.",
+    status: "Idea added May 14 — confirm exact perk + build into member welcome flow",
+  },
+  {
     date: "2026-08-15",
     title: "Back-to-school re-engagement",
     audience: "Lost + At Risk + dormant members",
@@ -683,13 +702,15 @@ const DOCS = [
 ];
 
 const EMAILS = [
-  { n: "01", date: "May 15", title: "Heather announcement", to: "Members + opted-in", path: "email-01-may15-announcement.md" },
+  { n: "01a", date: "May 15", title: "Member announcement — $99 drop + auto-enroll", to: "Active members · 155 (transactional)", path: "email-01a-may15-members.md" },
+  { n: "01b", date: "May 15", title: "Non-member announcement — positive new chapter", to: "Marketing-opted-in deduped · 4,146", path: "email-01b-may15-nonmembers.md" },
+  { n: "12", date: "May 15", title: "Yoga loyalist offboarding + River Yoga offer", to: "Yoga loyalists · 357 (TRANSACTIONAL — service wind-down notice; filtered to opted-in only, but legally could widen to all ~890 yoga-only if needed)", path: "email-12-may15-yoga-offboarding.md" },
   { n: "02", date: "May 21", title: "VIP early access (Founding Ambassadors)", to: "VIPs · 211", path: "email-02-may21-vip-early-access.md" },
   { n: "03", date: "May 22", title: "Segmented details (3 versions)", to: "Members · split by tier", path: "email-03-may22-members-segmented.md" },
-  { n: "04", date: "May 26", title: "Logistics + first visit guide", to: "Members · 159", path: "email-04-may26-logistics.md" },
+  { n: "04", date: "May 26", title: "Logistics + first visit guide", to: "Members · 155", path: "email-04-may26-logistics.md" },
   { n: "05", date: "May 27", title: "General audience pre-launch", to: "Non-member opted-in · 4,470", path: "email-05-may27-general-prelaunch.md" },
   { n: "06", date: "May 30", title: "VIP final priority booking", to: "VIPs · 211", path: "email-06-may30-vip-final.md" },
-  { n: "07", date: "Jun 1", title: "Launch day member welcome", to: "Members · 159", path: "email-07-june01-member-welcome.md" },
+  { n: "07", date: "Jun 1", title: "Launch day member welcome", to: "Members · 155", path: "email-07-june01-member-welcome.md" },
   { n: "08", date: "Jun 2", title: "Public launch + $40 off offer", to: "Non-member opted-in · 4,470", path: "email-08-june02-public-launch.md" },
   { n: "09", date: "Jun 8", title: "Re-engagement (Lost)", to: "Lost · 1,406", path: "email-09-june08-reengagement-lost.md" },
   { n: "10", date: "Jun 17", title: "Re-engagement (At Risk)", to: "At Risk · 3,519", path: "email-10-june17-reengagement-atrisk.md" },
@@ -897,21 +918,21 @@ function StrategicPriorities() {
         <div className="bg-white/10 rounded-lg p-4">
           <h3 className="text-sm font-bold mb-2">🤫 Quiet June 1 launch</h3>
           <p className="text-xs opacity-95 leading-relaxed">
-            Members-only comms May 15 → June 1. No Sway-channel public posts. June 1 = quiet operational launch (members notice; public doesn&apos;t). Massage launches June 15, also quietly. <b>Big PR + social push held for late June / early July</b> when the space is finished and beautiful. The story we want when we go public: &quot;the thing you&apos;ve been hearing about is open, and it&apos;s exactly what they said it would be.&quot;
+            Members-only comms May 15 → June 1. No Sway-channel public posts. June 1 = quiet operational launch (members notice; public doesn&apos;t). Massage opens mid-to-late June, also quietly. <b>Big PR + social push held for mid-July or mid-August</b> (leaning mid-Aug) when both green wall + retail are in and the space is camera-ready. The story we want when we go public: &quot;the thing you&apos;ve been hearing about is open, and it&apos;s exactly what they said it would be.&quot;
           </p>
         </div>
 
         <div className="bg-white/10 rounded-lg p-4">
-          <h3 className="text-sm font-bold mb-2">💎 Exclusive $99 transition pricing</h3>
+          <h3 className="text-sm font-bold mb-2">💎 $99 proactive drop (Option 2)</h3>
           <p className="text-xs opacity-95 leading-relaxed">
-            $99/mo grandfathered rate for existing members, plus an angle: limited-access exclusivity during the transition window. Some closure days for construction = &quot;you have exclusive access while we transition.&quot; <b>This exact pricing won&apos;t be offered to new members after the public launch.</b> Builds urgency for current members to confirm rollover now.
+            All members move to $99/mo Sway Unlimited regardless of current rate. Members at $129/$159/$189 get a rate DECREASE. Auto-enroll with reply-based opt-out — no &quot;click to confirm&quot; required. <b>This exclusive rate is for current members during transition; new signups later get standard pricing.</b> ~$3K/mo revenue decrease for cleaner ops + stronger loyalty narrative.
           </p>
         </div>
 
         <div className="bg-white/10 rounded-lg p-4">
           <h3 className="text-sm font-bold mb-2">💚 Keep current members happy</h3>
           <p className="text-xs opacity-95 leading-relaxed">
-            Main strategic goal through June. Member retention &gt; new acquisition during the transition. Heather&apos;s personal calls to yoga-leaning members. Honored grandfathered rates. Reliable hours. Soft handoff into massage when it&apos;s ready. Acquisition campaigns wait until the experience is dialed.
+            Main strategic goal through June. Member retention &gt; new acquisition during the transition. Heather&apos;s personal calls to 4 yoga-leaning members + personal note to Terry Wei (annual prepay). All rates drop to $99. Reliable hours. Soft handoff into massage mid-to-late June. Acquisition campaigns wait until the experience is dialed.
           </p>
         </div>
 
@@ -1056,7 +1077,7 @@ function ActiveMemberBuckets() {
     <div className="md:col-span-2 bg-white rounded-xl border-2 border-rose-400 p-6">
       <h2 className="text-sm uppercase tracking-wider opacity-60 mb-2">⚠️ Active members by behavior — who needs special handling</h2>
       <p className="text-sm opacity-80 mb-4">
-        Of the 159 active paying members, almost all are recovery users — but <b>4 are yoga-heavy or yoga-only</b>. They need a personal call from Heather, not the standard email arc.
+        Of the 159 active paying members, almost all are recovery users — but <b>4 are yoga-heavy or yoga-only</b> and need a personal call from Heather, not the standard email arc. Plus a 5th personal touch: <b>Terry Wei</b> — single annual prepay — gets a personal note (see below).
       </p>
 
       <div className="overflow-x-auto -mx-6 px-6 mb-4">
@@ -1142,6 +1163,22 @@ function ActiveMemberBuckets() {
             Goal: not retention at any cost — it&apos;s respect. Even if they cancel, they leave feeling respected. That&apos;s 4 people who don&apos;t become public complaints.
           </p>
         </details>
+      </div>
+
+      <div className="mt-4 bg-emerald-50 border-2 border-emerald-300 rounded-lg p-4">
+        <h3 className="text-sm font-bold text-emerald-900 mb-1">📧 Terry Wei — annual prepay edge case (5th personal touch)</h3>
+        <p className="text-xs opacity-80 mb-3">
+          Single active annual prepay. $1,599 paid upfront (~$133/mo effective) for term ending <b>12/29/2026</b>. Not a yoga member — recovery user — but a unique enough contract that she warrants a personal note so she doesn&apos;t feel like an afterthought when the &quot;everyone gets $99&quot; framing lands.
+        </p>
+        <div className="bg-white border border-emerald-200 rounded p-3 text-xs leading-relaxed">
+          <div className="font-semibold mb-1">Framing (email, from Heather or Marty Thursday eve / Friday AM):</div>
+          <p className="italic opacity-90">
+            &quot;Terry — wanted to reach out personally before the wider news goes out tomorrow. Your annual membership through Dec 29, 2026 is honored exactly as-is. You&apos;ll have full access to the new Sway Wellness Club locations at no additional cost through the end of your term. When you renew in January 2027, you&apos;ll roll into our member rate of $99/mo. Nothing changes for you in the meantime — we just wanted to make sure you heard it from us directly. Reach out anytime.&quot;
+          </p>
+        </div>
+        <p className="mt-2 text-[11px] opacity-70 italic">
+          Lower urgency than the 4 yoga members — recovery user, paid upfront, not a churn flight risk. But the personal note is cheap insurance against confusion.
+        </p>
       </div>
 
       <div className="mt-4 bg-amber-50 border-2 border-amber-300 rounded-lg p-4">
@@ -1577,11 +1614,11 @@ function OverviewTab() {
       <SenderTimeline />
       <Section title="Member economics">
         <Stat label="Total Mariana Tek contacts" value="9,094" />
-        <Stat label="Marketing-opted-in" value="4,628" sublabel="51% of list — Friday email audience" />
+        <Stat label="Marketing-opted-in" value="4,628" sublabel="total list — Friday May 15 deduped audience: 4,146" />
         <Stat label="Active paying members" value="109" sublabel="excluding employees + $0 partner tiers" />
         <Stat label="Total active membership contracts" value="181" />
-        <Stat label="Grandfathered monthly revenue" value="~$13K" sublabel="if every existing rate honored permanently" />
-        <Stat label="Annual prepay holders" value="1" sublabel="single $1,599/yr member — minimal liability" />
+        <Stat label="Revenue impact of $99 drop" value="~-$3K/mo" sublabel="vs. original honor-all-rates plan (Option 2 locked May 14)" />
+        <Stat label="Annual prepay holders" value="1" sublabel="Terry Wei · $1,599/yr through 12/29/2026 — personal touch" />
       </Section>
 
       <Section title="Location split">
@@ -1596,9 +1633,13 @@ function OverviewTab() {
           <li>✓ <b>Buildout phased</b> — temp partitions Phase 1, full buildout Phase 2 (Aug/Sept)</li>
           <li>✓ <b>Cold plunge regulatory OK</b> at both locations</li>
           <li>✓ <b>Broadway Legacy honored</b> in Mindbody</li>
-          <li>✓ <b>Wellhub continues</b> (Gympass rebrand, auto)</li>
-          <li>✓ <b>ClassPass continues</b> at new locations (same circuit-based listings as Larimer)</li>
-          <li>✓ <b>All existing rates honored indefinitely</b> ($13K/mo retained revenue)</li>
+          <li>✓ <b>Wellhub SUNSET</b> with 30+ day notice (decided May 12)</li>
+          <li>✓ <b>ClassPass continues</b> at new locations with individual-modality offerings (cold plunge / sauna / infrared as separate listings)</li>
+          <li>✓ <b>All members drop to $99/mo Sway Unlimited</b> (Option 2, locked May 14) — ~$3K/mo revenue decrease, cleaner Mindbody setup, stronger retention narrative</li>
+          <li>✓ <b>Auto-enroll w/ reply-based opt-out</b> — no "click to confirm" required for the rate drop</li>
+          <li>✓ <b>Gravity Haus</b> contractually locked per APA — Sway must offer $99/mo to qualifying GH members through July 31, 2026</li>
+          <li>✓ <b>Wellpass private event June 3 at RiNo</b> — B2B sneak-peek + partnership evaluation</li>
+          <li>✓ <b>$40 off Sway Larimer bridge offer</b> — added to emails 01a + 01b for existing customers to experience Sway today while their location transitions (drives Larimer revenue during gap)</li>
         </ul>
       </Section>
 
@@ -2444,13 +2485,22 @@ function PricingTab() {
         </div>
       </Section>
 
-      <Section title="What this changes about strategy">
+      <Section title="⭐ Pricing strategy — LOCKED May 14 (Option 2)">
+        <div className="bg-emerald-50 border-2 border-emerald-300 rounded-lg p-4 mb-3">
+          <p className="text-sm font-bold text-emerald-900 mb-2">All existing members proactively drop to $99/mo Sway Unlimited.</p>
+          <p className="text-xs opacity-80">
+            Was originally going to be "grandfather all existing rates indefinitely." Heather proposed the proactive drop in her May 14 response doc; aligned and approved. Cleaner Mindbody setup (one tier, not many historical rates) + stronger member loyalty narrative ("your rate is going down").
+          </p>
+        </div>
         <ul className="text-sm space-y-2 opacity-90 list-disc list-inside">
-          <li>The "$149 founders" framing was wrong — actual founders are at $99 / $129 / $159 in 3 cohorts</li>
-          <li>Only 2 members ever paid the $189 retail rate currently active — almost everyone got onto discounted tiers</li>
-          <li>Cost of honoring every grandfathered rate indefinitely: ~$13K/month retained revenue. Cheap loyalty investment.</li>
-          <li>Recommended <b>Sway Unlimited price: $189</b> — matches the existing retail list, doesn't undercut grandfathered members</li>
-          <li>Only 1 annual prepay member ($1,599/yr) — minimal annual liability</li>
+          <li>Members at <b>$99</b> → no change (36 people)</li>
+          <li>Members at <b>$129 / $159 / $189</b> → rate goes DOWN (67 people)</li>
+          <li><b>$0</b> partner / comp tiers → stay (separate decisions per partnership)</li>
+          <li>Net revenue impact: <b>~$3K/mo decrease (~$36K/yr)</b> vs. the original honor-all-rates plan</li>
+          <li>Exclusive to current members during transition — new signups later get standard Sway Unlimited pricing</li>
+          <li>Auto-enroll model: membership rolls over automatically. No "click to confirm" required. Optional "Confirm here" CTA in 01a captures engagement + locks in a complimentary first massage perk. Reply-based opt-out for the few who want to leave.</li>
+          <li>The "$149 founders" framing was wrong — actual founders were at $99 / $129 / $159 in 3 cohorts. Only 2 members ever paid the $189 retail rate.</li>
+          <li>Terry Wei's annual prepay ($1,599/yr term ending 12/29/2026) is honored as-is through end of term. She gets access to Sway Wellness Club locations at no additional cost. Renewal in Jan 2027 at the $99 member rate. Personal note from Heather/Marty Thursday eve or Friday AM.</li>
         </ul>
       </Section>
 
