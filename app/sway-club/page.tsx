@@ -255,7 +255,7 @@ export default function SwayClubPage() {
               { img: "/assets/sauna.jpg", label: "Traditional + infrared sauna" },
               { img: "/assets/cold_plunge.jpg", label: "Cold plunge" },
               { img: "/assets/compression_therapy.jpg", label: "Compression boots" },
-              { img: "/assets/recover_room.jpg", label: "PEMF mats" },
+              { img: "/assets/pemf.jpg", label: "PEMF mats" },
             ].map((m, i) => (
               <div
                 key={i}
