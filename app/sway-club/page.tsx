@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Check, Sparkles, Trophy, ArrowRight, ArrowDown } from "lucide-react";
 
-type LocationPref = "denver-rino" | "denver-central-park" | "either";
+type LocationPref = "denver-rino" | "denver-central-park" | "";
 
 export default function SwayClubPage() {
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ export default function SwayClubPage() {
     lastName: "",
     email: "",
     phone: "",
-    location: "either" as LocationPref,
+    location: "" as LocationPref,
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState("");
@@ -33,6 +33,13 @@ export default function SwayClubPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.location) {
+      setError("Please select a location");
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
     setError("");
 
@@ -376,17 +383,16 @@ export default function SwayClubPage() {
                 <label className="block text-xs font-semibold uppercase tracking-wider opacity-70 mb-2">
                   Which location?
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   {[
                     { val: "denver-rino" as const, label: "RiNo" },
                     { val: "denver-central-park" as const, label: "Central Park" },
-                    { val: "either" as const, label: "Either" },
                   ].map((opt) => (
                     <button
                       type="button"
                       key={opt.val}
                       onClick={() => setFormData({ ...formData, location: opt.val })}
-                      className={`px-3 py-2.5 rounded-lg border-2 text-xs font-semibold transition-colors ${
+                      className={`px-3 py-3 rounded-lg border-2 text-sm font-semibold transition-colors ${
                         formData.location === opt.val
                           ? "border-[#113D33] bg-[#113D33] text-white"
                           : "border-[#113D33]/15 bg-[#F7F4E9]/50 hover:border-[#113D33]/40"
