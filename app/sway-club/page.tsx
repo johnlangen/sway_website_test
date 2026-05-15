@@ -299,7 +299,7 @@ export default function SwayClubPage() {
               </p>
               <p className="text-xs opacity-60 mt-4">
                 Questions in the meantime? Reply to Heather&apos;s email or
-                reach us at hello@swaywellnessspa.com.
+                reach us at contact@swaywellnessspa.com.
               </p>
             </motion.div>
           ) : (
