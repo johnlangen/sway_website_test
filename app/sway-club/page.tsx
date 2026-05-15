@@ -76,7 +76,7 @@ export default function SwayClubPage() {
   return (
     <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
       {/* ===========================
-          HERO — video background (same as homepage)
+          HERO - video background (same as homepage)
       =========================== */}
       <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden">
         {/* Poster for instant LCP */}
@@ -88,7 +88,7 @@ export default function SwayClubPage() {
           className="absolute inset-0 w-full h-full object-cover object-[35%_center] md:object-center"
         />
 
-        {/* Video — invisible until autoplay confirmed, removed if blocked */}
+        {/* Video - invisible until autoplay confirmed, removed if blocked */}
         <video
           ref={videoRef}
           className={`absolute inset-0 w-full h-full object-cover object-[35%_center] md:object-center transition-opacity duration-500 ${
@@ -115,7 +115,7 @@ export default function SwayClubPage() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs uppercase tracking-[0.22em] mb-6"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            Limited offer — opens June 1
+            Limited offer · opens June 1
           </motion.span>
 
           <motion.h1
@@ -135,7 +135,7 @@ export default function SwayClubPage() {
             transition={{ duration: 0.6, delay: 0.12 }}
             className="text-base md:text-lg opacity-90 max-w-xl mx-auto leading-relaxed mb-8"
           >
-            Unlimited recovery at Sway Wellness Club — RiNo + Central Park.
+            Unlimited recovery at Sway Wellness Club, RiNo + Central Park.
             Traditional &amp; infrared sauna, cold plunge, PEMF mats, lymphatic
             compression boots. Standard rate after public launch:{" "}
             <b>$129/month</b>.
@@ -218,16 +218,16 @@ export default function SwayClubPage() {
                 </ul>
 
                 <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-2 pt-2 border-t border-[#113D33]/10">
-                  Also a member — booked separately
+                  Also a member, booked separately
                 </div>
                 <ul className="space-y-2 text-xs opacity-80">
                   <li>
-                    <b>Massage &amp; facial</b> at member rates — both open
+                    <b>Massage &amp; facial</b> at member rates. Both open
                     mid-to-late June (not included in unlimited)
                   </li>
                   <li>
                     <b>$40 off</b> your first massage or facial at Sway
-                    Larimer — available right now
+                    Larimer, available right now
                   </li>
                   <li>
                     Access at <b>both RiNo and Central Park</b>
@@ -240,7 +240,7 @@ export default function SwayClubPage() {
       </section>
 
       {/* ===========================
-          MODALITY IMAGERY STRIP — 4 tiles, what's in unlimited
+          MODALITY IMAGERY STRIP - 4 tiles, what's in unlimited
       =========================== */}
       <section className="px-6 pb-16">
         <div className="max-w-5xl mx-auto">
@@ -294,7 +294,7 @@ export default function SwayClubPage() {
               <h2 className="text-2xl font-bold mb-2">You&apos;re on the list.</h2>
               <p className="text-sm opacity-80 leading-relaxed">
                 Your $99/month rate is locked. We&apos;ll reach out the week
-                of May 18 to activate your membership — recovery access starts
+                of May 18 to activate your membership. Recovery access starts
                 as soon as you&apos;re set up. No card charged today.
               </p>
               <p className="text-xs opacity-60 mt-4">
@@ -310,8 +310,8 @@ export default function SwayClubPage() {
               <div>
                 <h2 className="text-2xl font-bold mb-1">Lock in your rate</h2>
                 <p className="text-sm opacity-70 mb-4">
-                  Sign up by <b>June 1, 2026</b> to claim the $99/month rate
-                  — that&apos;s when our public launch begins and the rate
+                  Sign up by <b>June 1, 2026</b> to claim the $99/month rate.
+                  That&apos;s when our public launch begins and the rate
                   goes to $129. No card today; we&apos;ll reach out the week
                   of May 18 to activate.
                 </p>
@@ -438,7 +438,7 @@ export default function SwayClubPage() {
           </p>
           <p>
             Already a member of Upswell at one of these locations? Your
-            membership is automatically rolling over — no action needed. This
+            membership is automatically rolling over. No action needed. This
             page is for new members only.
           </p>
         </div>
