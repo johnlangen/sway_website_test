@@ -147,7 +147,7 @@ const BLOCKERS_P0 = [
   "🔥 TONIGHT: Pull future-reservations report from Mariana Tek before May 15 send. Heather noted someone became a member recently — need to know exactly who has bookings on the books for June 1+ so we can port them or proactively reach out.",
   "🔥 TONIGHT/FRI AM: Heather's 5 personal touches — text-first to the 4 yoga members (Jessica, Gregory, Christina, Nathan), personal email to Terry Wei. Must close before noon Friday so none of them hear from a friend first.",
   "🔥 Heather kills Upswell marketing automations at 11 PM Thursday 5/14 — confirm done so they don't fire after our Friday noon send.",
-  "Stripe Data Migration Request — Heather initiates with Stripe Support. ~2-4 weeks. Today (May 14) + 4 weeks = June 11, past June 1. If not initiated, P0.",
+  "Stripe Data Migration Request — Heather initiates with Stripe Support on Wednesday May 20 (shifted from Mon May 18 — May 18-19 focused on other items). Need Mindbody Stripe Connect account IDs first; check by Wed whether Mindbody has stood up the two new sites. ~2-4 weeks once initiated. Snapshot captures all 155 existing + any new MT signups Heather closes during May 16-19 (the cleaner single-batch outcome).",
   "Insurance (GL + workers' comp) for both new locations — required by June 1. Commercial policies typically 2-3 weeks via broker. If not in motion already, urgency.",
   "Email send platform — locked as BrandBot (Heather's existing Upswell platform).",
   "Update /membership page to show Sway Unlimited tier — emails reference $99/mo, page needs to land them somewhere.",
@@ -162,7 +162,7 @@ const BLOCKERS_P1 = [
   "EGYM Wellpass: post-June 3 partnership evaluation",
   "Brand partner decisions (Mach 983, Hayes, Lululemon, F45, etc.) — keep / sunset / negotiate per partnership-decisions.md",
   "VIP / Founding Ambassador perks — what specifically?",
-  "Mindbody site provisioning — blocks member import (~May 25 target)",
+  "Mindbody site provisioning — Katie at Mindbody said earliest Mon May 18; CHECK STATUS Wednesday May 20 before Stripe migration kickoff. Two sites needed: RiNo + Central Park. Need Stripe Connect account IDs from Mindbody once provisioned.",
   "Member migration mechanics: customer records export from Mariana Tek + import to Mindbody",
   "Gift card migration: Loopz export needed from Heather + Mariana Tek report. Build mapping CSV — issue as Mindbody gift cards (NOT 'on account').",
   "74 customers with unredeemed credits/gift cards not in any of the 3 May 15 lists — decide whether to send them a separate transactional notice.",
@@ -189,6 +189,26 @@ const QUESTIONS_QUICK = [
 ];
 
 const MEETINGS = [
+  {
+    date: "2026-05-18",
+    title: "Plan shift: Stripe migration pushed to Wednesday May 20",
+    status: "active",
+    attendees: "John (Mon AM update)",
+    topics: [
+      "Stripe Data Migration Request timing",
+      "Mindbody site provisioning status check",
+      "Heather's Squarespace banner + landing page (already done by her over weekend)",
+    ],
+    decisions: [
+      "Stripe migration kickoff shifted from Mon May 18 → Wed May 20. Today and tomorrow focused on other priorities.",
+      "Mindbody site provisioning to be CHECKED Wednesday before kicking off Stripe — Katie said earliest Mon May 18 but we need to verify both RiNo + Central Park sites are live and get Stripe Connect account IDs from Mindbody.",
+      "Heather went above and beyond over the weekend — built a transition banner AND a landing page on upswellstudio.com herself with the announcement info. No Squarespace Contributor invite or content work needed from Sway side. Big help.",
+    ],
+    openQuestions: [
+      "Are the Mindbody sites actually provisioned by Wed May 20? Email Katie / Michael Mon-Tue to confirm.",
+      "How many MT signups did Heather close over the weekend with her banner + landing page driving traffic? (Counts toward the Stripe snapshot.)",
+    ],
+  },
   {
     date: "2026-05-14",
     title: "Heather's response doc + operational alignment",
@@ -407,7 +427,7 @@ const ACCESS_TRACKER = [
   { platform: "TikTok @upswellstudio", type: "Coordination only", status: "✓ N/A", note: "Same — Heather posts, John verifies publicly" },
   { platform: "Loopz (gift cards)", type: "Add user OR send report", status: "Pending Heather", note: "If access not granted, request export: card ID + customer email + original $ + balance + issue date" },
   { platform: "BrandBot (email)", type: "Add user (optional)", status: "Pending Heather", note: "Heather sends emails herself. Sway access useful for stats + coordination but not blocking." },
-  { platform: "upswellstudio.com — Squarespace", type: "Squarespace Contributor invite", status: "Pending Heather", note: "Site is on Squarespace. She invites John as a Contributor or Editor — Squarespace supports multi-user. Lets Sway add a transition banner / redirect later. No password sharing needed." },
+  { platform: "upswellstudio.com — Squarespace", type: "Banner + landing page (done by Heather)", status: "✓ Done by Heather May 16-17", note: "Heather went above and beyond — added a transition banner to upswellstudio.com AND built a landing page on her site with the announcement info. No Contributor invite needed for Sway side; can revisit if we want to update content later." },
   { platform: "Mariana Tek", type: "Already have access", status: "✓ Done", note: "Marty granted access earlier" },
   { platform: "Stripe (Heather's account)", type: "NOT NEEDED", status: "✓ N/A", note: "Heather initiates migration request from her side. Stripe Support handles the transfer. John never enters Heather's Stripe." },
   { platform: "Ring cameras", type: "New Sway account", status: "Joel/Emily", note: "Hardware stays. New Sway-owned account on existing devices." },
@@ -489,7 +509,7 @@ const MY_LIST = [
       { task: "Get email platform admin access from Heather (Thursday) → whichever platform Upswell sends from", status: "pending", dep: "Thursday meeting" },
       { task: "Get Google access from Heather (Thursday) → Ads / Analytics / Search Console for upswellstudio.com", status: "pending", dep: "Thursday meeting" },
       { task: "PAUSE Upswell Google Ads campaigns before May 15 (once access granted)", status: "pending", dep: "Heather access" },
-      { task: "Draft transition banner for upswellstudio.com — 'Upswell is becoming Sway on June 1' with links to /locations/denver-rino + /locations/denver-central-park", status: "pending", dep: "domain access" },
+      { task: "Transition banner + landing page on upswellstudio.com — DONE by Heather May 16-17 (she went above and beyond and built it herself)", status: "done", dep: "" },
       { task: "Schedule Upswell social posts for May 15 announcing the transition (IG carousel, FB, TikTok)", status: "pending", dep: "social access" },
       { task: "Final review of all 12 emails with Heather + Marty by Thursday EOD", status: "pending", dep: "" },
       { task: "Photos: integrate real RiNo + Central Park photos into the two location pages (replace SWAY.jpg placeholder)", status: "pending", dep: "photos from John" },
@@ -505,7 +525,7 @@ const MY_LIST = [
       { task: "Deploy homepage announcement banner live (toggle the env flag or push commit)", status: "pending", dep: "" },
       { task: "Post Sway announcement on @swaywellnessclub IG / FB / TikTok carousel", status: "pending", dep: "" },
       { task: "Post Upswell transition on @upswellstudio IG / FB / TikTok", status: "pending", dep: "social access" },
-      { task: "Push transition banner live on upswellstudio.com", status: "pending", dep: "domain access" },
+      { task: "Push transition banner live on upswellstudio.com — DONE by Heather", status: "done", dep: "" },
       { task: "Press distribution — email Tier 1 reporters (Ryan Warner CPR, Denverite, BusinessDen, Denver Post, 5280, Yoga+Life, Athletech, Salon Today)", status: "pending", dep: "press contacts researched" },
       { task: "Monitor inbox for member replies + press inquiries", status: "pending", dep: "" },
     ],
