@@ -69,9 +69,9 @@ export default function FathersDayGiftGuideLayout() {
                 >
                   The Remedy Room
                 </Link>
-                . 40 minutes, private suite, cold plunge plus traditional
-                sauna, relaxation room in between. $49, or $25 if he is
-                already a member.
+                . 40 minutes, cold plunge plus traditional sauna with a
+                relaxation space in between. $49, or $25 if he is already
+                a member.
               </p>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function FathersDayGiftGuideLayout() {
                   Sway gift card
                 </Link>
                 . Any amount. Never expires. Works on every service, every
-                add-on, and in the retail shop. He picks the experience,
+                add-on, and in the Sway Shop. He picks the experience,
                 you get the credit.
               </p>
             </div>
@@ -228,7 +228,8 @@ export default function FathersDayGiftGuideLayout() {
                 </div>
                 <p className="text-[15px] mt-1.5">
                   1428 Larimer Street. We tell guests to arrive 15 minutes
-                  early for a reason. The lounge is the warm-up.
+                  early for a reason. Let him decompress before the first
+                  treatment.
                 </p>
               </div>
             </div>
@@ -246,8 +247,9 @@ export default function FathersDayGiftGuideLayout() {
                   <span className="font-bold text-[#113D33]">The Remedy Room</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
-                  40 minutes, contrast therapy, private. He will come out
-                  talking about it.
+                  40 minutes of contrast therapy. Cold plunge, traditional
+                  sauna, a moment to reset between. He will come out talking
+                  about it.
                 </p>
               </div>
             </div>
@@ -274,23 +276,24 @@ export default function FathersDayGiftGuideLayout() {
               </div>
             </div>
 
-            {/* Step 4 — Lounge */}
+            {/* Step 4 — Sway Shop */}
             <div className="flex gap-4 items-start relative">
               <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0 z-10 shadow-md">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
-                  <path d="M18 8h1a3 3 0 0 1 0 6h-1" />
-                  <path d="M4 8h14v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8z" />
-                  <path d="M8 3v3M12 3v3M16 3v3" />
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                  <path d="M3 6h18" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
                 </svg>
               </div>
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
                   <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">12:45 PM</span>
-                  <span className="font-bold text-[#113D33]">Lounge</span>
+                  <span className="font-bold text-[#113D33]">Sway Shop</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
-                  Water, tea, no phone, no obligations. Build this into the
-                  day on purpose.
+                  Stop by the Sway Shop on the way out. CauseMedic muscle
+                  cream, recovery tea, or a small something to extend the
+                  day at home.
                 </p>
               </div>
             </div>
@@ -385,7 +388,7 @@ export default function FathersDayGiftGuideLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-[#113D33]">The Remedy Room</div>
-              <div className="text-xs sm:text-sm opacity-70">40-min private contrast suite</div>
+              <div className="text-xs sm:text-sm opacity-70">40-min contrast circuit</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
               <div>$49</div>
@@ -631,7 +634,7 @@ export default function FathersDayGiftGuideLayout() {
                 name: "What is a good Father's Day gift in Denver?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The most-requested Father's Day gifts at Sway Wellness Spa in downtown Denver are The Remedy Room (40-minute private cold plunge plus traditional sauna for $49), an 80-minute deep tissue or sports massage, and Aescape AI robotic massage. For the dad who wants to pick his own experience, a Sway gift card works on every service and never expires.",
+                  text: "The most-requested Father's Day gifts at Sway Wellness Spa in downtown Denver are The Remedy Room (40-minute cold plunge plus traditional sauna for $49), an 80-minute deep tissue or sports massage, and Aescape AI robotic massage. For the dad who wants to pick his own experience, a Sway gift card works on every service and never expires.",
                 },
               },
               {
@@ -647,7 +650,7 @@ export default function FathersDayGiftGuideLayout() {
                 name: "Is cold plunge a good gift for Dad?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes. Contrast therapy with cold plunge and traditional sauna is one of the most-requested experiences for men at Sway. Cold plunge is associated with reduced inflammation and improved mood, and regular sauna use has been linked to better cardiovascular health and sleep. Sway's Remedy Room is a private 40-minute suite that includes both, with a relaxation room in between.",
+                  text: "Yes. Contrast therapy with cold plunge and traditional sauna is one of the most-requested experiences for men at Sway. Cold plunge is associated with reduced inflammation and improved mood, and regular sauna use has been linked to better cardiovascular health and sleep. Sway's Remedy Room is a 40-minute contrast circuit that includes both, with a relaxation space in between.",
                 },
               },
               {
@@ -655,7 +658,7 @@ export default function FathersDayGiftGuideLayout() {
                 name: "How much does a Father's Day spa gift cost at Sway?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway has options at every price point. Aescape AI massage starts at $49 for a 15-minute express session. The Remedy Room is $49 for a 40-minute private contrast suite, or $25 for members. A 50-minute massage starts at $129 drop-in, or $89 with an Essential membership. Sway gift cards are available in any amount and never expire.",
+                  text: "Sway has options at every price point. Aescape AI massage starts at $49 for a 15-minute express session. The Remedy Room is $49 for a 40-minute contrast circuit, or $25 for members. A 50-minute massage starts at $129 drop-in, or $89 with an Essential membership. Sway gift cards are available in any amount and never expire.",
                 },
               },
               {
@@ -663,7 +666,7 @@ export default function FathersDayGiftGuideLayout() {
                 name: "Where is Sway Wellness Spa located?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway Wellness Spa is at 1428 Larimer Street in downtown Denver, Colorado, on Larimer Square. We recommend arriving 15 minutes early to settle in at the lounge.",
+                  text: "Sway Wellness Spa is at 1428 Larimer Street in downtown Denver, Colorado, on Larimer Square. We recommend arriving 15 minutes early to settle in before your appointment.",
                 },
               },
             ],
