@@ -75,20 +75,20 @@ const ACTIVE_MEMBER_FREE_VS_PAYING = [
   { bucket: "No check-in data", free: 14, paying: 0, total: 14 },
 ];
 
+// CAMPAIGNS — May 20 revision (campaign strategy reshape)
+// Phase 1 (Heather goodwill, pre-takeover): May 15 announce (sent) + May 22 details + Jun 1 welcome. That's it.
+// Phase 2 (June 1 → massage+facials open): quiet operational period, no marketing.
+// Phase 3 (when massage+facials open, mid-to-late June): public reveal + re-engagement cascade.
 const CAMPAIGNS = [
-  { date: "2026-05-15 noon", audience: "Active members (155)", channel: "Email 01a", goal: "Member announcement + $99 drop + auto-enroll", from: "Heather · Upswell domain", csv: "01-members-transactional-155.csv", status: "Drafted" },
-  { date: "2026-05-15 noon", audience: "Non-members deduped (4,146)", channel: "Email 01b", goal: "Positive new chapter + $40 off Larimer bridge", from: "Heather · Upswell domain", csv: "02c-may15-general-optin-deduped-4146.csv", status: "Drafted" },
-  { date: "2026-05-15 noon", audience: "Yoga loyalists (357)", channel: "Email 12", goal: "Graceful offboarding + River Yoga $59 offer", from: "Heather · Upswell domain", csv: "10-yoga-loyalists-offboarding-357.csv", status: "Drafted" },
-  { date: "2026-05-21", audience: "VIPs (211)", channel: "Email", goal: "Founding Ambassador early access", from: "Heather · Upswell domain", csv: "03b", status: "Drafted" },
-  { date: "2026-05-22", audience: "Active members", channel: "Email × 3 versions", goal: "Segmented details by tier", from: "Sway team · Upswell domain", csv: "01 split", status: "Drafted" },
-  { date: "2026-05-26", audience: "Active members", channel: "Email", goal: "Logistics + first visit", from: "Sway team · Upswell domain", csv: "01", status: "Drafted" },
-  { date: "2026-05-27", audience: "All opted-in", channel: "Email", goal: "General pre-launch + first visit offer", from: "Sway · Upswell domain", csv: "02", status: "Drafted" },
-  { date: "2026-05-30", audience: "VIPs", channel: "Email", goal: "Final priority booking link", from: "Heather · Upswell domain", csv: "03b", status: "Drafted" },
-  { date: "2026-06-01", audience: "Active members", channel: "Email", goal: "Launch day welcome", from: "Heather · Sway domain", csv: "01", status: "Drafted" },
-  { date: "2026-06-02", audience: "All opted-in", channel: "Email", goal: "Public brand reveal — Sway is here (massage coming late June)", from: "Sway brand · Sway domain", csv: "02", status: "Drafted" },
-  { date: "2026-06-08", audience: "Lost segment", channel: "Email", goal: "Re-engagement #1", from: "Sway · Sway domain", csv: "04", status: "Drafted" },
-  { date: "2026-06-17", audience: "At Risk segment", channel: "Email", goal: "Re-engagement #2 / urgency", from: "Sway · Sway domain", csv: "04b", status: "Drafted" },
-  { date: "2026-06-22", audience: "ClassPass users", channel: "Email", goal: "Convert to Sway membership", from: "Sway · Sway domain", csv: "05", status: "Drafted" },
+  { date: "2026-05-15 noon", audience: "Active members (155)", channel: "Email 01a", goal: "Member announcement + $99 drop + auto-enroll", from: "Heather · Upswell domain", csv: "01-members-transactional-155.csv", status: "Sent" },
+  { date: "2026-05-15 noon", audience: "Non-members deduped (4,146)", channel: "Email 01b", goal: "Positive new chapter + $99 lock-in CTA + $40 off Larimer bridge", from: "Heather · Upswell domain", csv: "02c-may15-general-optin-deduped-4146.csv", status: "Sent" },
+  { date: "2026-05-15 noon", audience: "Yoga loyalists (357)", channel: "Email 12", goal: "Graceful offboarding + River Yoga $59 offer", from: "Heather · Upswell domain", csv: "10-yoga-loyalists-offboarding-357.csv", status: "Sent" },
+  { date: "2026-05-22", audience: "Active members (155)", channel: "Email × 4 versions", goal: "Member details + first-week guide (03)", from: "Heather · Upswell domain", csv: "01 split (A / A-MIXED / B / C)", status: "Drafted" },
+  { date: "2026-06-01", audience: "Active members (155)", channel: "Email", goal: "Launch day welcome — short, Heather voice (07)", from: "Heather · Sway domain", csv: "01", status: "Drafted" },
+  { date: "When massage + facials open", audience: "Opted-in non-members (4,470)", channel: "Email", goal: "Phase 3 public launch · $40 off first visit (08)", from: "Sway · Sway domain", csv: "02 minus 01", status: "Drafted — defers from June 2" },
+  { date: "~1 week after Email 08", audience: "Lost (1,406)", channel: "Email", goal: "Re-engagement #1 (09)", from: "Sway · Sway domain", csv: "04", status: "Drafted — defers from June 8" },
+  { date: "~2 weeks after Email 08", audience: "At Risk (~2,500)", channel: "Email", goal: "Re-engagement #2 / urgency (10)", from: "Sway · Sway domain", csv: "04b minus 04", status: "Drafted — defers from June 17" },
+  { date: "~3 weeks after Email 08", audience: "ClassPass users (314)", channel: "Email", goal: "Convert to Sway membership (11)", from: "Sway · Sway domain", csv: "05", status: "Drafted — defers from June 22" },
 ];
 
 const PRICING = [
@@ -161,7 +161,7 @@ const BLOCKERS_P1 = [
   "ClassPass: confirm individual-modality listings (cold plunge / sauna / infrared as separate listings) at new locations",
   "EGYM Wellpass: post-June 3 partnership evaluation",
   "Brand partner decisions (Mach 983, Hayes, Lululemon, F45, etc.) — keep / sunset / negotiate per partnership-decisions.md",
-  "VIP / Founding Ambassador perks — what specifically?",
+  "First Visit Offer policy at the new locations — $40 off / $99 same as Larimer for Phase 3?",
   "Mindbody site provisioning — Katie at Mindbody said earliest Mon May 18; CHECK STATUS Wednesday May 20 before Stripe migration kickoff. Two sites needed: RiNo + Central Park. Need Stripe Connect account IDs from Mindbody once provisioned.",
   "Member migration mechanics: customer records export from Mariana Tek + import to Mindbody",
   "Gift card migration: Loopz export needed from Heather + Mariana Tek report. Build mapping CSV — issue as Mindbody gift cards (NOT 'on account').",
@@ -496,106 +496,87 @@ const THURSDAY_SITE_VISIT_AGENDA = {
 };
 
 // John's personal task list — organized by week
+// John's personal task list — May 20 revision (Phase 1 done, Phase 2 holding, Phase 3 fires when massage+facials open)
 const MY_LIST = [
   {
-    phase: "This week (May 13-17) — Pre-announcement",
-    color: "rose",
+    phase: "Phase 0 — Already done (May 15)",
+    color: "emerald",
     tasks: [
-      { task: "Push pending dashboard commits to production", status: "in-progress", dep: "" },
-      { task: "Build /membership page update — Sway Unlimited tier shown alongside standard Sway Membership. Both tiers visible on the new location pages and main /membership.", status: "pending", dep: "" },
-      { task: "Build homepage announcement banner for May 15 — slim band, sitewide, dismissable cookie, links to /locations. Copy B from public-announcement-may15.md.", status: "pending", dep: "" },
-      { task: "Get domain access from Heather (Thursday) → upswellstudio.com registrar credentials", status: "pending", dep: "Thursday meeting" },
-      { task: "Get social access from Heather (Thursday) → @upswellstudio IG / FB / TikTok", status: "pending", dep: "Thursday meeting" },
-      { task: "Get email platform admin access from Heather (Thursday) → whichever platform Upswell sends from", status: "pending", dep: "Thursday meeting" },
-      { task: "Get Google access from Heather (Thursday) → Ads / Analytics / Search Console for upswellstudio.com", status: "pending", dep: "Thursday meeting" },
-      { task: "PAUSE Upswell Google Ads campaigns before May 15 (once access granted)", status: "pending", dep: "Heather access" },
-      { task: "Transition banner + landing page on upswellstudio.com — DONE by Heather May 16-17 (she went above and beyond and built it herself)", status: "done", dep: "" },
-      { task: "Schedule Upswell social posts for May 15 announcing the transition (IG carousel, FB, TikTok)", status: "pending", dep: "social access" },
-      { task: "Final review of all 12 emails with Heather + Marty by Thursday EOD", status: "pending", dep: "" },
-      { task: "Photos: integrate real RiNo + Central Park photos into the two location pages (replace SWAY.jpg placeholder)", status: "pending", dep: "photos from John" },
+      { task: "Send Email 01a (Heather member announcement · $99 Sway Remedy Lounge Unlimited) — May 15 noon ✓", status: "done", dep: "" },
+      { task: "Send Email 01b (Heather non-member announcement · $99 lock-in CTA) — May 15 noon ✓", status: "done", dep: "" },
+      { task: "Send Email 12 (Yoga graceful offboarding · 357 yoga loyalists) — May 15 PM ✓", status: "done", dep: "" },
+      { task: "Homepage announcement banner deployed ✓", status: "done", dep: "" },
+      { task: "Blog post: A New Chapter for Sway ✓", status: "done", dep: "" },
+      { task: "Upswell social posts (Heather voice) — May 15 ✓", status: "done", dep: "" },
+      { task: "Transition banner + landing page on upswellstudio.com — DONE by Heather May 16-17", status: "done", dep: "" },
     ],
   },
   {
-    phase: "May 15 — Announcement day",
+    phase: "Phase 1 — Quiet brand transition (NOW → June 1)",
     color: "amber",
     tasks: [
-      { task: "Send Email 01 (Heather announcement) to members + opted-in list, AM from Upswell domain", status: "pending", dep: "list uploaded" },
-      { task: "Send Email 12 (yoga offboarding) to 360 yoga loyalists, PM from Heather", status: "pending", dep: "" },
-      { task: "Publish blog post on swaywellnessspa.com/blog (A New Chapter for Sway)", status: "pending", dep: "" },
-      { task: "Deploy homepage announcement banner live (toggle the env flag or push commit)", status: "pending", dep: "" },
-      { task: "Post Sway announcement on @swaywellnessclub IG / FB / TikTok carousel", status: "pending", dep: "" },
-      { task: "Post Upswell transition on @upswellstudio IG / FB / TikTok", status: "pending", dep: "social access" },
-      { task: "Push transition banner live on upswellstudio.com — DONE by Heather", status: "done", dep: "" },
-      { task: "Press distribution — email Tier 1 reporters (Ryan Warner CPR, Denverite, BusinessDen, Denver Post, 5280, Yoga+Life, Athletech, Salon Today)", status: "pending", dep: "press contacts researched" },
-      { task: "Monitor inbox for member replies + press inquiries", status: "pending", dep: "" },
-    ],
-  },
-  {
-    phase: "Week of May 18-24",
-    color: "amber",
-    tasks: [
-      { task: "Press follow-up Tier 1 reporters Mon May 18 (no reply nudge)", status: "pending", dep: "" },
-      { task: "Tier 2 press push Tue May 19 (DBJ, Mile High CRE, Westword, 303 Magazine)", status: "pending", dep: "" },
-      { task: "Send Email 02 (VIP early access) Wed May 21, AM, Heather voice", status: "pending", dep: "" },
-      { task: "Send Email 03 (Segmented member details) Fri May 22 — 4 versions (paying / mixed / partner / annual)", status: "pending", dep: "" },
-      { task: "Tier 3 press push Fri May 22 (Fitt Insider, Well+Good, American Spa)", status: "pending", dep: "" },
+      { task: "Send Email 03 (Member details + first-week guide, 4 versions) Fri May 22 — Heather voice, Heather's domain", status: "pending", dep: "list segmentation locked" },
+      { task: "Heather completes 4 personal calls to yoga-heavy active members (Jessica, Gregory, Christina, Nathan)", status: "pending", dep: "" },
+      { task: "Build /membership page — Sway Unlimited tier ($99) alongside standard Sway Membership ($99). Both tiers visible on the new location pages and main /membership.", status: "pending", dep: "" },
+      { task: "Real RiNo + Central Park photos into the two location pages (replace SWAY.jpg placeholder)", status: "pending", dep: "photos from John" },
+      { task: "Photo media kit folder ready for the Phase 3 PR moment", status: "pending", dep: "photos available" },
       { task: "GBP — get added as OWNER (not Manager) on both 3636 Blake + 2271 Clinton listings. Heather has access. Owner can't be revoked.", status: "pending", dep: "" },
       { task: "Begin Mindbody member data import (once site is provisioned)", status: "pending", dep: "Mindbody provisioned" },
-      { task: "Build photo media kit folder for press follow-ups", status: "pending", dep: "photos available" },
+      { task: "Soften homepage banner copy — remove any 'massage at launch' implication; lead with 'expanding to RiNo + Central Park'", status: "pending", dep: "" },
     ],
   },
   {
-    phase: "Week of May 25-31 — Pre-launch",
+    phase: "June 1 — Logo swap day",
+    color: "emerald",
+    tasks: [
+      { task: "Send Email 07 (Heather launch-day welcome, light) Mon June 1 at 6 AM — short note, no booking promise", status: "pending", dep: "" },
+      { task: "Flip LocationsContent.tsx status from 'coming-soon' → 'open' for both locations", status: "pending", dep: "" },
+      { task: "Remove 'Opening June 2026' badges from location pages", status: "pending", dep: "" },
+      { task: "Add 'Open now' indicator + current hours to location pages (mirror Larimer pattern)", status: "pending", dep: "hours decided" },
+      { task: "Signage swap on both buildings (Upswell → Sway)", status: "pending", dep: "signage delivered" },
+      { task: "Daily monitoring: member reply volume, deliverability, walk-in foot traffic", status: "pending", dep: "" },
+    ],
+  },
+  {
+    phase: "Phase 2 — Holding pattern (June 1 → massage + facials open)",
     color: "amber",
     tasks: [
-      { task: "Send Email 04 (Member logistics) Tue May 26", status: "pending", dep: "" },
-      { task: "Send Email 05 (General pre-launch) Wed May 27", status: "pending", dep: "" },
-      { task: "Send Email 06 (VIP final priority booking) Sat May 30", status: "pending", dep: "Mindbody booking links live" },
+      { task: "Build /book routes for new locations (clone Larimer pattern, swap Mindbody IDs) — ready for Phase 3 launch", status: "pending", dep: "Mindbody IDs" },
       { task: "Mindbody booking flows tested end-to-end at both new locations", status: "pending", dep: "Mindbody provisioned" },
-      { task: "Build /book routes for the new locations (clone Larimer pattern, swap Mindbody IDs)", status: "pending", dep: "Mindbody IDs" },
-      { task: "Final QA on both location pages — hours, photos, copy, mobile UX", status: "pending", dep: "" },
-      { task: "Final QA on /membership page (Sway Membership + Sway Unlimited)", status: "pending", dep: "" },
-      { task: "Make sure OG images are set on location pages for social embeds", status: "pending", dep: "photos" },
+      { task: "Massage establishment license — track FBI fingerprint clearance progress with Marty", status: "pending", dep: "" },
+      { task: "Curtain + treatment-suite buildout completion (Emily + Allison)", status: "pending", dep: "" },
+      { task: "Massage therapist hiring — at least 2-3 per location for opening week", status: "pending", dep: "Jocelyn return" },
+      { task: "Esthetician hiring for facials launch (paired with massage)", status: "pending", dep: "" },
+      { task: "NO marketing campaigns during this window. Sway Remedy Lounge operates as usual. Word-of-mouth only.", status: "pending", dep: "" },
     ],
   },
   {
-    phase: "Week of June 1-7 — Brand transition week",
+    phase: "Phase 3 — Real launch (when massage + facials open, mid-to-late June)",
     color: "emerald",
     tasks: [
-      { task: "Send Email 07 (Member welcome) Mon June 1 at 6 AM, Heather voice", status: "pending", dep: "" },
-      { task: "Flip LocationsContent.tsx status from 'coming-soon' → 'open' for both", status: "pending", dep: "" },
-      { task: "Remove 'Opening June 2026' badges from location pages", status: "pending", dep: "" },
-      { task: "Add live 'Open now' status indicator to location pages (mirror Larimer pattern)", status: "pending", dep: "hours decided" },
-      { task: "Send Email 08 (Public brand reveal) Tue June 2", status: "pending", dep: "" },
+      { task: "Send Email 08 (Phase 3 public launch · $40 off) to 4,470 opted-in non-members — ON THE DAY booking opens", status: "pending", dep: "massage + facials bookable" },
+      { task: "Update location pages — swap waitlist mailto for real booking links on massage + facial cards", status: "pending", dep: "Mindbody live" },
+      { task: "Publish Phase 3 blog post on /blog (Sway is open at RiNo + CP with massage + facials)", status: "pending", dep: "" },
+      { task: "Press distribution — Tier 1 reporters (CPR, Denverite, BusinessDen, Denver Post, 5280, Athletech, Salon Today)", status: "pending", dep: "press contacts confirmed" },
       { task: "Launch paid Google Ads geo-targeted to RiNo / Central Park zips (80205, 80238, 80045, 80010)", status: "pending", dep: "ad budget approved" },
       { task: "Launch paid Meta Ads — same geo targeting", status: "pending", dep: "ad budget approved" },
-      { task: "First-week social proof / member stories content Fri June 6", status: "pending", dep: "" },
-      { task: "Daily monitoring: reply volume, deliverability, paid ad spend, conversion rates", status: "pending", dep: "" },
+      { task: "Send Email 09 (Lost re-engagement) ~1 week after Email 08", status: "pending", dep: "" },
+      { task: "Send Email 10 (At Risk re-engagement) ~2 weeks after Email 08", status: "pending", dep: "" },
+      { task: "Send Email 11 (ClassPass conversion) ~3 weeks after Email 08", status: "pending", dep: "" },
+      { task: "Sway-channel social push begins — IG / FB / TikTok carousel + Heather Q&A reel", status: "pending", dep: "" },
     ],
   },
   {
-    phase: "June 8-22 — Re-engagement + massage launch prep",
-    color: "emerald",
+    phase: "Post-launch (July+)",
+    color: "amber",
     tasks: [
-      { task: "Send Email 09 (Lost re-engagement, recovery-loyal cut) Mon June 8", status: "pending", dep: "" },
-      { task: "Massage suites launch mid-to-late June — update location pages to show massage as bookable, swap waitlist mailto for real booking link", status: "pending", dep: "license + suites ready" },
-      { task: "Send Email 10 (At Risk re-engagement) Wed June 17", status: "pending", dep: "" },
-      { task: "Send Email 11 (ClassPass conversion) Mon June 22", status: "pending", dep: "" },
-      { task: "Second press wave for massage launch — Tier 1 outlets, same pitch list", status: "pending", dep: "" },
-      { task: "Continue paid acquisition arc — increase budget allocation post-massage-launch", status: "pending", dep: "" },
-    ],
-  },
-  {
-    phase: "Post-launch (mid-July / mid-Aug+)",
-    color: "emerald",
-    tasks: [
-      { task: "Set up 301 redirects: upswellstudio.com → swaywellnessspa.com (after 30-60 day soft transition)", status: "pending", dep: "" },
-      { task: "Mariana Tek full POS shutdown — verify all members are in Mindbody and not transacting through MT, then cut over", status: "pending", dep: "30 days clean Mindbody data" },
+      { task: "Set up 301 redirects: upswellstudio.com → swaywellnessspa.com (after 30-60 day soft transition)", status: "pending", dep: "Heather approval" },
+      { task: "Mariana Tek full POS shutdown — verify all members in Mindbody, then cut over", status: "pending", dep: "30 days clean Mindbody data" },
       { task: "SEO migration monitoring — Search Console + Analytics for both old and new domain", status: "pending", dep: "GSC + GA access" },
       { task: "Pull first reviews into Mindbody/GBP for both new locations", status: "pending", dep: "" },
-      { task: "Add aggregateRating + reviews to DaySpa JSON-LD on location pages (once 10+ Google reviews accumulate)", status: "pending", dep: "" },
-      { task: "Phase 2 planning kickoff — facials + Aescape launch July-Sept", status: "pending", dep: "" },
+      { task: "Add aggregateRating + reviews to DaySpa JSON-LD on location pages (once 10+ Google reviews)", status: "pending", dep: "" },
       { task: "GA4 funnel exploration for new locations (per CLAUDE.md TODO)", status: "pending", dep: "post-launch data" },
+      { task: "Decide on Aescape — when/if to bring to the new locations (or skip)", status: "pending", dep: "" },
     ],
   },
 ];
@@ -730,19 +711,15 @@ const DOCS = [
 ];
 
 const EMAILS = [
-  { n: "01a", date: "May 15", title: "Member announcement — $99 Sway Remedy Lounge Unlimited (FINAL from Heather)", to: "Active members · 155 (transactional)", path: "email-01a-may15-members.md" },
-  { n: "01b", date: "May 15", title: "Non-member announcement — Reserve $99 rate via Mariana Tek (FINAL from Heather)", to: "Marketing-opted-in deduped · 4,146 · CTA links to Heather's MT signup, NOT /sway-club", path: "email-01b-may15-nonmembers.md" },
-  { n: "12", date: "May 15", title: "Yoga loyalist offboarding + River Yoga offer", to: "Yoga loyalists · 357 (TRANSACTIONAL — service wind-down notice; filtered to opted-in only, but legally could widen to all ~890 yoga-only if needed)", path: "email-12-may15-yoga-offboarding.md" },
-  { n: "02", date: "May 21", title: "VIP early access (Founding Ambassadors)", to: "VIPs · 211", path: "email-02-may21-vip-early-access.md" },
-  { n: "03", date: "May 22", title: "Segmented details (3 versions)", to: "Members · split by tier", path: "email-03-may22-members-segmented.md" },
-  { n: "04", date: "May 26", title: "Logistics + first visit guide", to: "Members · 155", path: "email-04-may26-logistics.md" },
-  { n: "05", date: "May 27", title: "General audience pre-launch", to: "Non-member opted-in · 4,470", path: "email-05-may27-general-prelaunch.md" },
-  { n: "06", date: "May 30", title: "VIP final priority booking", to: "VIPs · 211", path: "email-06-may30-vip-final.md" },
-  { n: "07", date: "Jun 1", title: "Launch day member welcome", to: "Members · 155", path: "email-07-june01-member-welcome.md" },
-  { n: "08", date: "Jun 2", title: "Public launch + $40 off offer", to: "Non-member opted-in · 4,470", path: "email-08-june02-public-launch.md" },
-  { n: "09", date: "Jun 8", title: "Re-engagement (Lost)", to: "Lost · 1,406", path: "email-09-june08-reengagement-lost.md" },
-  { n: "10", date: "Jun 17", title: "Re-engagement (At Risk)", to: "At Risk · 3,519", path: "email-10-june17-reengagement-atrisk.md" },
-  { n: "11", date: "Jun 22", title: "ClassPass conversion", to: "ClassPass users · 314", path: "email-11-june22-classpass-conversion.md" },
+  { n: "01a", date: "May 15 (sent)", title: "Member announcement — $99 Sway Remedy Lounge Unlimited (FINAL from Heather)", to: "Active members · 155 (transactional)", path: "email-01a-may15-members.md" },
+  { n: "01b", date: "May 15 (sent)", title: "Non-member announcement — Reserve $99 rate via Mariana Tek (FINAL from Heather)", to: "Marketing-opted-in deduped · 4,146", path: "email-01b-may15-nonmembers.md" },
+  { n: "12", date: "May 15 PM (sent)", title: "Yoga loyalist offboarding + River Yoga offer", to: "Yoga loyalists · 357", path: "email-12-may15-yoga-offboarding.md" },
+  { n: "03", date: "May 22", title: "Member details + first-week guide (4 versions)", to: "Active members · split by tier · 155", path: "email-03-may22-members-segmented.md" },
+  { n: "07", date: "Jun 1", title: "Launch day member welcome (Heather, light)", to: "Active members · 155", path: "email-07-june01-member-welcome.md" },
+  { n: "08", date: "When massage + facials open", title: "Public launch — Phase 3 kickoff", to: "Opted-in non-members · 4,470", path: "email-08-june02-public-launch.md" },
+  { n: "09", date: "~1 wk after Email 08", title: "Re-engagement (Lost)", to: "Lost · 1,406", path: "email-09-june08-reengagement-lost.md" },
+  { n: "10", date: "~2 wks after Email 08", title: "Re-engagement (At Risk)", to: "At Risk · ~2,500", path: "email-10-june17-reengagement-atrisk.md" },
+  { n: "11", date: "~3 wks after Email 08", title: "ClassPass conversion", to: "ClassPass users · 314", path: "email-11-june22-classpass-conversion.md" },
 ];
 
 /* ---------------------------------------------
@@ -2232,7 +2209,7 @@ function ContentTab() {
 function EmailsTab() {
   return (
     <div className="space-y-4">
-      <Section title="11 email drafts — full content">
+      <Section title="9 email drafts — full content">
         <p className="text-xs opacity-70 mb-3">
           Every email in send order. <span className="inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Amber</span> = Upswell domain (pre-launch, warm sender).{" "}
           <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">Emerald</span> = Sway domain (post-launch).
@@ -2361,7 +2338,7 @@ function EmailsTab() {
 function CampaignsTab({ today }: { today: string }) {
   return (
     <div className="space-y-6">
-      <Section title="11 emails drafted">
+      <Section title="9 emails drafted">
         <div className="overflow-x-auto -mx-6 px-6">
           <table className="w-full text-sm">
             <thead>
@@ -2526,7 +2503,7 @@ function PricingTab() {
           <li><b>$0</b> partner / comp tiers → stay (separate decisions per partnership)</li>
           <li>Net revenue impact: <b>~$3K/mo decrease (~$36K/yr)</b> vs. the original honor-all-rates plan</li>
           <li>Exclusive to current members during transition — new signups later get standard Sway Unlimited pricing</li>
-          <li>Auto-enroll model: membership rolls over automatically. No "click to confirm" required. Optional "Confirm here" CTA in 01a captures engagement + locks in a complimentary first massage perk. Reply-based opt-out for the few who want to leave.</li>
+          <li>Auto-enroll model: membership rolls over automatically. No "click to confirm" required. Heather's locked 01a uses reply-based opt-out for changes — no "Confirm here" CTA in the sent version. First Sway visit is on the house as a small thank-you for the friction of re-adding card at the front desk.</li>
           <li>The "$149 founders" framing was wrong — actual founders were at $99 / $129 / $159 in 3 cohorts. Only 2 members ever paid the $189 retail rate.</li>
           <li>Terry Wei's annual prepay ($1,599/yr term ending 12/29/2026) is honored as-is through end of term. She gets access to Sway Wellness Club locations at no additional cost. Renewal in Jan 2027 at the $99 member rate. Personal note from Heather/Marty Thursday eve or Friday AM.</li>
         </ul>

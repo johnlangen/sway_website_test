@@ -3,6 +3,23 @@
  *
  * NOTE: This is hand-maintained. If the .md files change, update here too.
  * The dashboard renders these for at-a-glance review.
+ *
+ * May 20 revision — campaign strategy reshape:
+ *   - Heather's 01a/01b/12 are her FINAL May 15 language and are preserved verbatim.
+ *   - Killed Emails 02, 04, 05, 06 (no priority booking, no Sway app, no pre-launch
+ *     marketing on a logo-swap day, no complimentary first massage). June 1 is a
+ *     logo + signage swap — nothing new is bookable, so no goodwill-emails from
+ *     Heather pretending otherwise.
+ *   - Heather sends ONLY one more before takeover: Email 03 (May 22). Plus a light
+ *     Heather welcome on June 1 (Email 07).
+ *   - Sway-domain Phase 3 emails (08-11) defer until massage + facials are actually
+ *     bookable (mid-to-late June). No specific dates; relative cadence after Email 08.
+ *   - Removed all "Sway app" references — booking is via swaywellnessspa.com or at
+ *     the front desk.
+ *   - Removed Aescape promises from forward (unsent) emails — uncertain timeline.
+ *     Facials stay (open with massage per May 20 decision).
+ *   - Recovery space at the new locations = "Sway Remedy Lounge" (Heather's locked
+ *     naming). Larimer's = "Remedy Room."
  */
 
 export type EmailDraft = {
@@ -79,7 +96,7 @@ I hope to see you on the other side :)
 
 Be well & stay vibrant,
 Heather`,
-    notes: "FINAL version from Heather May 15. Frames Sway as Spavia-created (parent brand), Heather stepping into COO at Spavia not Sway. New recovery space name: 'Sway Remedy Lounge.' $99 rate effective immediately for current members. Yoga continues through May 31 then winds down. June 1 brand transition. Reply-based opt-out for changes. NOTE: this version contains em dashes per Heather's draft — John's house style prefers no em dashes but Heather's voice owns this email.",
+    notes: "FINAL version from Heather May 15 (SENT). Frames Sway as Spavia-created (parent brand), Heather stepping into COO at Spavia not Sway. New recovery space name: 'Sway Remedy Lounge.' $99 rate effective immediately for current members. Yoga continues through May 31 then winds down. June 1 brand transition. Reply-based opt-out for changes. NOTE: this version contains em dashes per Heather's draft — John's house style prefers no em dashes but Heather's voice owns this email.",
   },
   {
     n: "01b",
@@ -130,127 +147,77 @@ I hope to see you on the other side :)
 
 Be well & stay vibrant,
 Heather`,
-    notes: "FINAL version from Heather May 15. Hybrid plan: 'Reserve your rate' CTA links to Heather's Mariana Tek signup (not /sway-club) so she can capture $99 memberships during May 16-31 to offset Upswell's operating expenses. Sway gains those members on June 1. Facials still framed as 'later this summer' (NOT mid-to-late June with massage) — leaving room for slippage. /sway-club remains live for anyone who prefers rate-reservation without immediate billing.",
-  },
-  {
-    n: "02",
-    date: "May 21",
-    dateISO: "2026-05-21",
-    title: "VIP early access — Founding Ambassadors",
-    from: "Heather Holland · heather@upswellstudio.com",
-    fromDomain: "upswell",
-    to: "VIPs · Champion + Loyal, marketing-opted-in",
-    toCount: 211,
-    csv: "03b-vip-marketing-opted-in-211.csv",
-    subjectOptions: [
-      "You're getting first access",
-      "Founding Ambassadors of Sway — that's you",
-      "Before we open the doors",
-    ],
-    previewText: "A small thank-you to the people who made this place what it is.",
-    classification: "transactional-with-marketing",
-    body: `Hi {first_name},
-
-I'm sending this to a small group of people — about 200 of you — who showed up for Upswell more than anyone else over the last two years.
-
-You're the people who came in three times a week. Who brought your friends. Who told us when something wasn't working and stuck around while we fixed it. You're the reason this place became a place at all.
-
-When we open as **Sway** on June 1, I want you to walk in first.
-
-**Here's what that looks like:**
-
-- **Priority booking for opening week.** Starting Friday May 30, you'll get a link to book before public reservations open. First pick of times, first pick of therapists.
-- **Founding Ambassador status** in your member profile. We'll honor it through every future change to the brand — and it'll mean something when Phase 2 services (facials, Aescape robot massage) launch later this summer.
-- **A first-week perk** I'm still finalizing — could be a complimentary upgrade, could be a private lounge hour, depends on what you want. Reply and tell me what would matter most to you.
-
-**A note on your membership:**
-
-Whatever you're paying now stays the same. No re-signing, no surprise rate changes. Founding members at $99, $129, or $159 — you're locked at your rate.
-
-The grandfather is permanent. We're treating it like the loyalty it is, not a promo to sunset.
-
-**One ask in return:**
-
-When we open, tell your friends. Bring them to the Remedy Room. Try the new massage suites. Be loud about what's good and louder about what's not. I want the version of Sway RiNo and Sway Central Park that you'd actually want to spend your weekly hours in.
-
-Watch your inbox Friday May 30 — that's when the priority booking link comes through.
-
-Until then: thank you. For real.
-
-— Heather
-
-P.S. Reply with what you want as the Founding Ambassador first-week perk. I'm reading every one.`,
+    notes: "FINAL version from Heather May 15 (SENT). Hybrid plan: 'Reserve your rate' CTA links to Heather's Mariana Tek signup (not /sway-club) so she can capture $99 memberships during May 16-31 to offset Upswell's operating expenses. Sway gains those members on June 1. Facials still framed as 'later this summer' (NOT mid-to-late June with massage) — leaving room for slippage. /sway-club remains live for anyone who prefers rate-reservation without immediate billing.",
   },
   {
     n: "03",
     date: "May 22",
     dateISO: "2026-05-22",
-    title: "Segmented member details (3 versions: paying / partner / annual)",
-    from: "Sway team · heather@upswellstudio.com",
+    title: "Member details + first-week guide (4 versions: A / A-MIXED / B / C)",
+    from: "Heather Holland · heather@upswellstudio.com",
     fromDomain: "upswell",
-    to: "Active members, segmented by tier",
+    to: "Active members, segmented by tier + behavior",
     toCount: 155,
-    csv: "01-members-transactional-155.csv (further split by rate)",
+    csv: "01-members-transactional-155.csv (split: A ~87, A-MIXED ~21, B ~73, C 1)",
     subjectOptions: [
-      "Your Sway membership: every detail",
-      "Your Upswell partner access — what changes on June 1",
-      "A personal note about your membership (annual)",
+      "Your Sway membership: what changes (and what doesn't)",
+      "The details on your transition — rate is locked at $99",
+      "A personal note about yoga and your membership (A-MIXED)",
+      "Your Upswell partner access — what changes on June 1 (B)",
     ],
-    previewText: "Your rate. Your access. Your timeline. Everything you need.",
+    previewText: "Your rate is locked at $99. Your space is the same. Here's everything you need to know.",
     classification: "transactional",
     body: `[VERSION A — Recovery-focused paying member · ~87 recipients]
 
 Hi {first_name},
 
-Last week we shared the news: Upswell RiNo and Upswell Central Park become Sway on **June 1**.
+Last week I shared the news: on June 1, the Upswell wellness clubs at RiNo and Central Park become Sway Wellness Club, a Spavia concept. This note is the specifics on what your membership becomes.
 
-This email is the specifics — what your membership becomes, what you get, what's not changing.
+**Your rate is locked at $99/month.** If you were paying more, your rate drops to $99 starting your next billing cycle. If you were at $99 or less, no change. Exclusive to current members.
 
-**Your rate stays exactly where it is.** You're currently at \${current_rate}/month. That rate is locked. No re-signing, no surprise increase, no sunset window. We honor it as long as you stay a member.
+**Your Sway Remedy Lounge access is the same.** Sauna, cold plunge, and revive — same rooms, same equipment, same access. Hours stay similar through June; extended hours gradually expand into full-day access over the summer.
 
-**Your access stays exactly where it is.** Sauna (traditional + infrared), cold plunge, compression therapy, red light therapy — all open. Same rooms, same equipment.
+**What changes on June 1.** Honestly, not much you'll see day one: new signage, small finishing touches, same friendly faces at the front desk. Recovery operations continue uninterrupted.
 
-**More hours, more open days.** Sway operates on a fuller schedule than Upswell did toward the end. More reliable hours, more days open.
+**What's coming later in June.** Massage therapy and advanced facials open in newly-built treatment suites later in June. As a member, your rate is $99 per 50-minute session for both (regularly $139). We'll send the booking link as soon as reservations open. Exact date depends on final buildout and licensing.
 
-**What's new at your location:**
-- **Massage therapy** — expert therapists in newly-built treatment suites. Your member rate is **$99 per 50-minute session** (regularly $139). Coming the week of {massage_open_date}.
-- **The Sway app** — bookings, member info, easier check-in. Login info coming May 28.
+**About your card.** For security, we can't transfer card information directly from Upswell's system to Sway. The front desk will get you set up in about 30 seconds on your first Sway visit. Your first visit is on us as a thank-you for the friction.
 
-**What's coming this summer:** Advanced facials at $99 member rate. AI-powered Aescape robot massage.
+**Parking + hours.** Same as Upswell — nothing changes. Current hours posted at swaywellnessspa.com/locations.
 
-**Your founding rate stays as long as you stay.** When Phase 2 launches, you can add those services at member rates without changing your underlying membership.
+If anything about this transition doesn't feel right, reply. I read every one.
 
-**One note on cards:** for security, we can't directly transfer your card info from Upswell's system. The app will prompt you to re-add (30 seconds), or do it at the front desk on your first Sway visit (first visit comped as a thank-you for the friction).
-
-— The Sway team
-
-P.S. Watch for Heather's note around opening day. She's writing a personal welcome to every member.
+Be well,
+Heather
 
 ---
 
-[VERSION A-MIXED — Paying member who used yoga AND recovery · ~16 recipients]
+[VERSION A-MIXED — Paying member who used yoga AND recovery · ~21 recipients]
 
 Hi {first_name},
 
-Last week we shared the news: Upswell becomes Sway on **June 1**. I want to write to you specifically because the records show you used both the recovery space AND yoga classes here. Some of this email is good news, some of it isn't, and I want to be direct about both.
+Last week I shared the news that Upswell at RiNo and Central Park is becoming Sway Wellness Club on June 1.
 
-**Good news first — your rate stays exactly where it is.** \${current_rate}/month. Locked. No re-signing, no surprise increase. Honored as long as you stay.
+I'm writing to you specifically because our records show you used both the recovery space AND yoga classes here. Some of this is good news, some of it isn't, and I want to be direct about both.
 
-**Your recovery access stays exactly where it is.** Sauna (traditional + infrared), cold plunge, compression, red light — all open. Same rooms, same equipment, on a fuller schedule than Upswell ran toward the end.
+**Good news first — your rate is going to $99/month.** If you were paying more, that's a drop. If you were at $99 or less, no change. Locked, no re-signing, no surprise increase.
 
-**The hard part: yoga and Pilates classes are winding down.** Sway is a wellness club focused on massage, facials, and recovery. We don't have yoga in the brand. I know that's part of what you came for, and I don't want to gloss over it.
+**Your Sway Remedy Lounge access is the same.** Sauna, cold plunge, and revive — same rooms, same equipment. The team who welcomed you into Upswell will welcome you into Sway.
+
+**The hard part — yoga and Pilates are winding down.** Yoga continues through May 31 at Upswell. After that, the indoor wellness clubs evolve into Sway, which focuses on massage, facials, and recovery — not movement classes. I know yoga is part of what you came for, and I don't want to gloss over it.
 
 **Three things I want to make available to you:**
 
-1. **Stay** at your current rate, keep using the recovery side, and get the new Sway services at member pricing (massage is **$99/50 min** for members; facials and Aescape coming this summer at member pricing too).
-2. **Move to a yoga studio** — Heather has personal recommendations and is happy to make introductions. **The River Yoga (RiNo) is offering Upswell students $59 for an unlimited month** through a private purchase link — reply and Heather will send it to you. Other recommendations: CorePower, Yoga Pod, Kindness Yoga.
-3. **Refund the rest of your time** if you'd rather not continue — pro-rata refund through your next billing date, no hard feelings.
+1. Stay at $99/month, keep using the Sway Remedy Lounge, and add massage + facials at $99/session when they open later in June.
+2. Move to a yoga studio you'll love. I have personal recommendations and I'll make introductions. The River Yoga (RiNo) is offering Upswell students $59 for an unlimited month — reply and I'll send the private link. CorePower, Yoga Pod, and Kindness are other good options.
+3. Refund the rest of your time — pro-rata refund, no hard feelings.
 
-Reply to this email with what works for you. If we don't hear from you, we'll keep your current membership active at your rate — which is the right choice for most of the recovery side, but I want it to be your choice.
+Reply with what works for you. If we don't hear from you, we'll keep your membership active at the $99 Sway Remedy Lounge rate — but I want it to be your choice.
 
-— The Sway team
+Be well,
+Heather
 
-P.S. Heather is personally calling our heaviest yoga users this week. If you're one of them, expect a call.
+P.S. About your card — the front desk will get you set up on your first Sway visit, and that first visit is on us.
 
 ---
 
@@ -258,13 +225,18 @@ P.S. Heather is personally calling our heaviest yoga users this week. If you're 
 
 Hi {first_name},
 
-You currently have Upswell access through {partner_program_name}. On **June 1**, the locations become Sway. Your access continues — we're working with each partner program to confirm exactly how it maps. You'll get a specific note from us within 2 weeks. Don't book until then.
+You currently have access at our locations through {partner_program_name}.
 
-— The Sway team
+On June 1, the locations become Sway Wellness Club. Your access continues — we're working with each partner program to confirm exactly how it maps under the Sway brand.
+
+You'll get a specific note from us within 2 weeks with the confirmed details. Please don't try to book before then.
+
+Be well,
+Heather
 
 ---
 
-[VERSION C — Annual prepay ($1,599/year) · 1 recipient: Terry Wei]
+[VERSION C — Annual prepay · 1 recipient: Terry Wei]
 
 Hi Terry,
 
@@ -272,221 +244,101 @@ You're our only active annual prepay member, which means I wanted to write you p
 
 Your annual term — purchased Dec 29, 2025, runs through Dec 29, 2026 — is honored in full. Same access, no changes.
 
-The records show you've used yoga as part of your time here. Yoga is winding down at our locations. Two options if that changes the math for you:
-1. Continue through your term, use the recovery side + new massage (we'll honor the $99 member rate)
-2. Pro-rata refund for the remaining term — say the word
+Our records show you've used yoga as part of your time here. Yoga continues through May 31. After that, two options if the change in offerings affects you:
 
-When your term ends, we'll reach out with options. Reply anytime.
+1. Continue through your term, use the Sway Remedy Lounge plus massage and facials when they open later in June (at the $99 member rate).
+2. Pro-rata refund for the remaining term — say the word.
 
-— Heather`,
-    notes: "FOUR versions now: A (recovery-focused paying members, ~87), A-MIXED (members who used both yoga + recovery, ~21 — softer yoga-winddown language + explicit 3 options), B (partner/comp), C (annual prepay Terry Wei who is mixed-use). Per May 12 meeting: members who roll over get $99 massage/facial as a perk on top of grandfathered rate. The 4 yoga-heavy members (Christina Aguila, Gregory Anderson, Jessica Blackwell, Nathan Khomutov) get a PERSONAL CALL from Heather and do NOT receive this email.",
-  },
-  {
-    n: "04",
-    date: "May 26",
-    dateISO: "2026-05-26",
-    title: "Member logistics + first-week guide",
-    from: "Sway team · heather@upswellstudio.com",
-    fromDomain: "upswell",
-    to: "Active members (155)",
-    toCount: 155,
-    csv: "01-members-transactional-155.csv",
-    subjectOptions: ["Sway opens Monday — your first-week guide"],
-    previewText: "Hours, parking, the app, and what to expect on day one.",
-    classification: "transactional",
-    body: `Hi {first_name},
+When your term ends, we'll reach out with renewal options. Reply anytime.
 
-Sway opens at your location in six days. Here's the practical info you need.
-
-**📅 Opening hours**
-- Mon–Fri: 10:00 AM – 8:00 PM
-- Saturday: 9:00 AM – 6:00 PM
-- Sunday: 11:00 AM – 6:00 PM
-*(Confirm with Heather — placeholder above mirrors Larimer hours)*
-
-**📱 The Sway app**
-Tomorrow you'll get a separate email with login instructions. Same email and phone you used at Upswell — your account is migrated.
-
-**💳 About your card**
-For security, we couldn't transfer card data directly. Two options:
-- **Update now (preferred):** the Sway app will prompt you the first time you log in. 30 seconds.
-- **Update at first visit:** stop at the front desk. We'll comp that first visit.
-
-**🚗 Parking**
-Same as Upswell — nothing changes.
-
-**🧘 What to expect on Day 1**
-The space is the space you know. Same saunas, same cold plunge, same recovery equipment. New signage. New massage suites bookable through the app. Same front-desk team you know.
-
-The yoga and Pilates studios are being repurposed — that's the transition in progress.
-
-**🌿 What we're NOT changing**
-Your membership rate. Your access to the recovery suite. The team. The vibe.
-
-**Booking opens Friday May 30** — opening week booking link comes to your inbox.
-
-See you next week.
-
-— The Sway team`,
-  },
-  {
-    n: "05",
-    date: "May 27",
-    dateISO: "2026-05-27",
-    title: "General audience pre-launch (with first-visit offer)",
-    from: "Sway · heather@upswellstudio.com",
-    fromDomain: "upswell",
-    to: "All marketing-opted-in non-members (~4,470 after dedup)",
-    toCount: 4470,
-    csv: "02-announce-may15-all-4628.csv MINUS 01-members-transactional-155.csv",
-    subjectOptions: [
-      "Sway opens Monday — and you're invited",
-      "5 days. New massage suites, full recovery, $40 off your first visit.",
-      "Doors open Monday at RiNo and Central Park",
-    ],
-    previewText: "$40 off your first 50-minute massage or facial. For our Denver neighbors only.",
-    classification: "marketing",
-    body: `Hi {first_name},
-
-In **5 days**, Sway opens at your neighborhood: **RiNo** (3636 Blake St) and **Central Park** (2271 Clinton St).
-
-We're a modern wellness club. Same recovery space you may already know — saunas, cold plunge, compression, red light. Plus what we're best known for at our Larimer location: expert massage therapy in newly-built treatment suites.
-
-**For Denver locals, your first visit is $40 off.**
-
-50-minute Essential Signature Massage or Facial — just **$99** (regularly $139). One-time intro pricing, no membership required.
-
-[Book your first visit →]
-
-**Why Sway**
-Voted **#4 Best Day Spa in America** by USA Today 10Best in our first year. **Best U.S. Day Spa** by The Zoe Report 2026.
-
-**Memberships at the new locations:**
-- **Sway Membership · $99/mo** — massages + facials at $99 each, 50% off recovery (all locations)
-- **Sway Unlimited · $99/mo** — unlimited Remedy Room recovery, exclusive to RiNo + Central Park
-
-Coming this summer: advanced facials + AI-powered Aescape robot massage.
-
-[Book at RiNo →] [Book at Central Park →]
-
-See you soon.
-
-— Sway`,
-    notes: "Per May 12 meeting: Sway Unlimited locked at $99/mo. Marketing send requires Sway opt-in — but recipients on this list ARE already opted in (came from Upswell's marketing list, transferred under CAN-SPAM).",
-  },
-  {
-    n: "06",
-    date: "May 30",
-    dateISO: "2026-05-30",
-    title: "VIP final priority booking link",
-    from: "Heather Holland · heather@upswellstudio.com",
-    fromDomain: "upswell",
-    to: "VIPs (211)",
-    toCount: 211,
-    csv: "03b-vip-marketing-opted-in-211.csv",
-    subjectOptions: [
-      "Your priority booking link (as promised)",
-      "48 hours before everyone else",
-      "The door's open for you, {first_name}",
-    ],
-    previewText: "First pick of times. First pick of therapists. Public booking opens Monday.",
-    classification: "transactional-with-marketing",
-    body: `{first_name} —
-
-Two days until Sway opens at RiNo and Central Park. Per the note I sent earlier this month, you have priority booking access starting today, **48 hours before public reservations open**.
-
-[Book your first Sway visit →]
-
-**Your Founding Ambassador perk:** Your first massage at Sway is complimentary. One per person, our gift. Book the time that works for you — no code needed, it's already on your account.
-*(Heather to confirm — depends on final perk decision)*
-
-**What's bookable now:**
-- 50, 60, 75, or 90-minute massage in our new treatment suites
-- Remedy Room recovery circuit
-- (Facials + Aescape coming later this summer)
-
-**A small ask:** Tell us after your visit what worked and what didn't. The whole point of doing this is to get the experience right for you specifically. Reply to this email and I'll read it.
-
-When you walk in Monday, you'll see most of the team you know. New name on the building, mostly the same people inside.
-
-— Heather`,
+Be well,
+Heather`,
+    notes: "May 20 rewrite: absorbed the useful logistics from killed Email 04 (hours, card, parking, first visit on us). Removed all 'Sway app' references — booking is via swaywellnessspa.com or front desk. No specific massage/facial date — 'later in June.' Uses 'Sway Remedy Lounge' per Heather's locked terminology. Frames Sway as Spavia concept. 4 yoga-heavy active members (Christina, Gregory, Jessica, Nathan) DO NOT get this email — personal calls from Heather instead.",
   },
   {
     n: "07",
     date: "Jun 1",
     dateISO: "2026-06-01",
-    title: "Launch day member welcome",
+    title: "Launch day member welcome (Heather, light)",
     from: "Heather Holland · heather@swaywellnessspa.com",
     fromDomain: "sway",
     to: "Active members (155)",
     toCount: 155,
     csv: "01-members-transactional-155.csv",
-    subjectOptions: ["Today is the day", "Welcome to Sway", "We're open"],
-    previewText: "A short note from Heather on opening day.",
+    subjectOptions: ["Today is the day", "Welcome to Sway", "We're open as Sway"],
+    previewText: "A short note from Heather on day one.",
     classification: "transactional",
     body: `{first_name} —
 
-It's official. **As of today, you're a member of Sway** at {home_location}.
+It's official. As of today, you're a member of Sway Wellness Club at {home_location}.
 
-This took a year of work and a lot of decisions I wasn't sure about. The reason any of it went right is because you stayed. So before today gets busy: **thank you.**
+This took a year of work and a lot of decisions I wasn't sure about. The reason any of it went right is because you stayed. Before today gets busy: thank you.
 
-**Walk in whenever you want.** Saunas, cold plunge, compression, red light — all open, all yours. Your member rate applies. We're also open more days and more hours than Upswell was at the end — full schedule, more reliably.
+A few quick things:
 
-**Massage suites open the week of {massage_open_date}.** We're finishing the treatment rooms with the care you'd expect from Sway. Booking opens in the app once they're ready. Member rate will be $99 for a 50-minute session.
+**Walk in whenever you want.** Same Sway Remedy Lounge — sauna, cold plunge, and revive. Same hours through June, expanding into full-day access over the summer. Your $99 member rate applies.
 
-**Coming this summer:** advanced facials and Aescape AI-powered robot massage.
+**Massage suites and facial treatment rooms open later this month.** We're finishing them with the care you'd expect. As soon as we open reservations, you'll get a link in your inbox. Member rate is $99 for a 50-minute session for both.
 
-**If anything feels off** — system, scheduling, signage, vibe, literally anything — tell us. Reply or grab a team member at the front desk.
+**If anything feels off** — system, scheduling, signage, vibe, anything — tell us. Reply or grab a team member at the front desk. The first weeks are when we learn.
 
-— Heather
+Come in. Use the space. Feel out the new chapter.
 
-P.S. If you haven't updated your card on file yet, the app will prompt you on first booking. Or do it at the front desk on your way in.`,
-    notes: "Phased launch: brand opens June 1 with recovery uninterrupted; massage suites open week of June 7-14 (or June 21+ depending on license + curtain readiness). The {massage_open_date} merge tag fills with the actual date once locked. Hours-expansion language added as member value-add.",
+Be well,
+Heather
+
+P.S. Your first Sway visit is on the house — a thank-you for re-adding your card at the front desk on the way in. Just stop by.`,
+    notes: "May 20 rewrite: short Heather note. No app references. No specific massage/facial date (later this month). No Aescape mention. Uses 'Sway Remedy Lounge.' 6 AM send.",
   },
   {
     n: "08",
-    date: "Jun 2",
-    dateISO: "2026-06-02",
-    title: "Public brand reveal — Sway is here",
+    date: "When massage + facials open",
+    dateISO: "9999-12-31",
+    title: "Public launch — Sway is open, $40 off first visit (Phase 3 kickoff)",
     from: "Sway · contact@swaywellnessspa.com",
     fromDomain: "sway",
     to: "All marketing-opted-in non-members (~4,470)",
     toCount: 4470,
     csv: "02-announce-may15-all-4628.csv MINUS 01-members-transactional-155.csv",
     subjectOptions: [
-      "Sway is here — at RiNo and Central Park",
-      "The doors that used to say Upswell now say Sway",
-      "Three Denver locations. Recovery you know. Massage coming late June.",
+      "Sway is open at RiNo and Central Park. $40 off your first visit.",
+      "Massage and facials are here.",
+      "We're open, and bookable.",
     ],
-    previewText: "Same recovery space you may know — now under Sway. Massage suites open late June.",
+    previewText: "50-minute massage or facial for $99 — for Denver locals, no membership required.",
     classification: "marketing",
     body: `Hi {first_name},
 
-As of yesterday, **Sway operates at RiNo (3636 Blake St) and Central Park (2271 Clinton St).** The buildings that used to say Upswell now say Sway.
+Sway is now open at RiNo (3636 Blake St) and Central Park (2271 Clinton St) — bringing what's been missing to the neighborhood: expert massage therapy and advanced facials, in brand-new treatment suites.
 
-**The recovery space is the same space.** Saunas, cold plunge, compression, red light therapy — same rooms, same equipment. What's changed: a fuller, more reliable operating schedule than Upswell ran in its last months, and a new brand on the door.
+**Your first visit is $40 off.**
+50-minute Essential Signature Massage or Facial — just $99 (regularly $139). One-time intro pricing, no membership required. For Denver-area locals.
 
-**Massage suites open late June.** We're finishing the new treatment rooms with the care you'd expect from Sway. Pre-booking opens that week — we'll let you know.
+[Book at RiNo →] [Book at Central Park →]
 
-### Sway Unlimited — $99/month, exclusive to these locations
+**What's at your location:**
+- Expert massage therapy in newly-built treatment suites
+- Advanced facials with Eminence Organics + Dr. Dennis Gross protocols
+- The Sway Remedy Lounge — sauna, cold plunge, and revive
+- A more reliable operating schedule than these locations had before
 
-Unlimited Remedy Room access at $99/mo. The only Sway location where unlimited makes sense, because RiNo and Central Park were built for recovery. Membership unlocks massage and (soon) facials at $99 each as a member perk.
+**Two membership options:**
+
+**Sway Membership · $99/mo** — massages + facials at $99 each, 50% off recovery, all three Sway locations.
+
+**Sway Unlimited · $99/mo** *(RiNo + Central Park only)* — unlimited Sway Remedy Lounge, plus member rates on massage and facials.
 
 [See memberships →]
 
-### What's coming this summer
-- Advanced facials with Eminence Organics + Dr. Dennis Gross
-- **Aescape AI-powered robot massage** — the only one in Denver outside our Larimer location
-
-We were voted **#4 Best Day Spa in America** by USA Today 10Best and **Best U.S. Day Spa** by The Zoe Report 2026. Now you can find us in three Denver neighborhoods.
+Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by The Zoe Report 2026. Now in three Denver neighborhoods.
 
 — Sway`,
-    notes: "Phased launch update: opens with recovery only on Day 1, massage week-of date noted. First-visit offer removed from this email until massage is available (the offer doesn't apply to recovery-only sessions — those are $49 drop-in for the Remedy Room). Sway Unlimited at $99/mo is the lead offer.",
+    notes: "May 20 rewrite: deferred from June 2 to fire ONLY when massage + facials are actually bookable (mid-to-late June). Don't burn the 4,470-person warm list on a logo swap. This is the Phase 3 kickoff; emails 09/10/11 follow at +1/+2/+3 weeks. No Aescape promise. Uses 'Sway Remedy Lounge' for the new locations.",
   },
   {
     n: "09",
-    date: "Jun 8",
-    dateISO: "2026-06-08",
+    date: "~1 week after Email 08",
+    dateISO: "9999-12-31",
     title: "Re-engagement — Lost segment",
     from: "Sway · contact@swaywellnessspa.com",
     fromDomain: "sway",
@@ -498,63 +350,111 @@ We were voted **#4 Best Day Spa in America** by USA Today 10Best and **Best U.S.
       "We changed. Worth a re-visit?",
       "Your old wellness club, evolved",
     ],
-    previewText: "Sway is here. Massage, recovery, a fresh start — and $40 off your first visit.",
+    previewText: "Massage and facials are new. Recovery is the same. $40 off your first visit.",
     classification: "marketing",
     body: `Hi {first_name},
 
-Last week, Upswell at {home_location} became **Sway**.
+The wellness club at {home_location} used to be Upswell. Now it's Sway — and there's a real reason to come back.
 
-You used to come here. Then you didn't. We don't know exactly why — schedule, life, the space stopped fitting.
+You used to come here. Then you didn't. We don't know exactly why — schedule, life, the space stopped fitting. Most reasons aren't dramatic.
 
-But something changed last week worth telling you about.
+But something changed worth telling you about.
 
-**What's the same:** The saunas, cold plunge, compression, and red light recovery suite you remember. Same rooms, same equipment.
+**What's the same:** the Sway Remedy Lounge — sauna, cold plunge, and revive. Same rooms, same equipment.
 
 **What's new:**
-- **Expert massage therapy** in brand-new treatment suites. Member rate $99 (drop-in $139).
-- **Advanced facials** and **AI-powered Aescape robot massage** coming this summer.
-- **More open days.** Upswell was open 3 days a week with limited hours by the end. Sway is open 7 days. Recovery when you actually want it.
+- Expert massage therapy in brand-new treatment suites — never available at Upswell. Member rate $99 (drop-in $139).
+- Advanced facials — Eminence Organics + Dr. Dennis Gross protocols. Member rate $99.
+- More open days, more reliable hours. Upswell ran a limited schedule by the end. Sway is open 7 days.
 
-[**Welcome back. $40 off your first Sway visit.** →]
-
+**Welcome back. $40 off your first Sway visit.**
 50-minute massage or facial — $99. No membership required.
 
-We'd love to have you in.
+[Book at RiNo →] [Book at Central Park →]
 
 — Sway`,
-    notes: "Per May 12 meeting: lean into 'more days open, more reliable hours' — Upswell's biggest weakness was unpredictable schedule. Re-engagement story writes itself.",
+    notes: "May 20 rewrite: defers from June 8 to ~1 week after Email 08 (so it only fires once massage + facials are actually open). No Aescape mention. 'Sway Remedy Lounge' framing.",
   },
   {
     n: "10",
-    date: "Jun 17",
-    dateISO: "2026-06-17",
+    date: "~2 weeks after Email 08",
+    dateISO: "9999-12-31",
     title: "Re-engagement — At Risk (urgency)",
     from: "Sway · contact@swaywellnessspa.com",
     fromDomain: "sway",
-    to: "Activity 'At Risk,' marketing-opted-in (after dedupe from June 8 send)",
+    to: "Activity 'At Risk,' marketing-opted-in (after dedupe from Email 09)",
     toCount: 2500,
     csv: "04b-reengagement-at-risk-3519.csv MINUS 04-reengagement-lost-1406.csv",
     subjectOptions: [
       "Last chance: $40 off your first Sway visit",
-      "2 weeks open. We'd love to see you.",
-      "Your intro offer is still here (but not forever)",
+      "Two weeks open. We'd love to see you.",
+      "Your intro offer is still here",
     ],
     previewText: "$40 off ends soon. Use it before it's gone.",
     classification: "marketing",
     body: `Hi {first_name},
 
-We've been open at {home_location} for about two weeks. The first wave has come in. Before our intro pricing wraps, circling back.
+We've been open as Sway at {home_location} for about two weeks. The first wave has come in. Before our intro pricing wraps, circling back.
 
 **Your first visit at Sway is still $40 off.**
-50-minute massage or facial — **$99** (regularly $139). Available through end of June.
+50-minute massage or facial — $99 (regularly $139). Available through the end of this month.
 
 [Book at RiNo →] [Book at Central Park →]
 
-**Coming soon:** Advanced facials this summer. AI-powered Aescape robot massage shortly after.
+**What people are coming for in week 1:**
+- Massage in the new treatment suites — the most-asked-about service
+- Advanced facials — same suites, $99 member rate
+- The Sway Remedy Lounge on a fuller schedule
+- Sway Unlimited memberships ($99/mo, exclusive to RiNo + Central Park)
 
 [See what's at your location →]
 
 — Sway`,
+    notes: "May 20 rewrite: defers from June 17 to ~2 weeks after Email 08. No Aescape mention. Dedupe against Email 09.",
+  },
+  {
+    n: "11",
+    date: "~3 weeks after Email 08",
+    dateISO: "9999-12-31",
+    title: "ClassPass conversion — the math",
+    from: "Sway · contact@swaywellnessspa.com",
+    fromDomain: "sway",
+    to: "ClassPass users at new locations (314)",
+    toCount: 314,
+    csv: "05-classpass-converters-314.csv",
+    subjectOptions: [
+      "The math on your ClassPass: a comparison",
+      "You're spending more on ClassPass than you'd pay as a member",
+      "Sway membership vs. your ClassPass habit",
+    ],
+    previewText: "You've been visiting via ClassPass. Membership is a better deal — here's the math.",
+    classification: "marketing",
+    body: `Hi {first_name},
+
+You've been visiting us at {home_location} through ClassPass.
+
+Quick math worth considering:
+
+**Your ClassPass spend:** typically 7-10 credits per visit = $40-$60. At 4 visits/month = $160-$240.
+
+**What that same spend gets as a Sway member:**
+
+**Sway Membership · $99/month**
+- 50% off the Sway Remedy Lounge (visits drop to $25 each)
+- Massage and facials at $99 per session (vs $139 drop-in)
+
+**Sway Unlimited · $99/month** *(RiNo + Central Park only)*
+- Unlimited Sway Remedy Lounge access
+- Plus member rates on massage and facials
+
+At 4 visits/month, Sway Unlimited pays for itself vs. ClassPass. At 6+ visits, you're way ahead.
+
+[Compare memberships →]
+
+If you have questions, reply and we'll answer.
+
+— Sway`,
+    notes: "May 20 rewrite: defers from June 22 to ~3 weeks after Email 08. Removed 'cancel anytime' per CLAUDE.md. No Aescape mention. Sway Unlimited at $99 (per May 12 pricing).",
   },
   {
     n: "12",
@@ -605,50 +505,6 @@ This wasn't an easy decision, but I want to be honest with you about it rather t
 — Heather
 
 P.S. Reply to this directly if you have questions or want any of those studio introductions. I read every one.`,
-    notes: "Sent the SAME DAY as the May 15 announcement but separately, so yoga loyalists hear the news from Heather directly rather than via the general announcement or press. Studio recommendations are placeholders — Heather should substitute her real picks. Tone is direct + accountable, not apologetic. The 'try recovery sometime' line is intentionally soft (opt-in-respecting), not a marketing CTA.",
-  },
-  {
-    n: "11",
-    date: "Jun 22",
-    dateISO: "2026-06-22",
-    title: "ClassPass conversion — the math",
-    from: "Sway · contact@swaywellnessspa.com",
-    fromDomain: "sway",
-    to: "ClassPass users, opted-in (314)",
-    toCount: 314,
-    csv: "05-classpass-converters-314.csv",
-    subjectOptions: [
-      "The math on your ClassPass: a comparison",
-      "You're spending more on ClassPass than you'd pay as a member",
-      "Sway membership vs. your ClassPass habit",
-    ],
-    previewText: "You've been visiting via ClassPass. Membership is a better deal — here's the math.",
-    classification: "marketing",
-    body: `Hi {first_name},
-
-You've been visiting us at {home_location} through **ClassPass**.
-
-Quick math on something worth considering:
-
-**Your ClassPass spend:** typically 7-10 credits per visit = **$40-$60**. At 4 visits/month = $160-$240.
-
-**What that same spend gets as a Sway member:**
-
-**Sway Membership · $99/month:**
-- 50% off the Remedy Room (visits drop to $25 each)
-- Massage and facials at $99 per session (vs $139 drop-in)
-
-**Sway Unlimited · $99/month** *(RiNo + Central Park only):*
-- **Unlimited** Remedy Room access
-- Plus member rates on massage and facials
-
-At 4 visits/month, **Sway Unlimited pays for itself** vs ClassPass. At 6+, you're way ahead.
-
-[Compare memberships →]
-
-Switching is one form. Cancel anytime.
-
-— Sway`,
-    notes: "Per May 12 meeting: Sway Unlimited at $99 — this email pencils out beautifully at that price. Average Upswell unlimited remedy member visited ~7×/mo, so $99 is genuinely strong value.",
+    notes: "SENT May 15 PM. Historical record. Retains original Aescape mention (in the world, can't unfix). Same day as 01a/01b but separate send so yoga loyalists hear it from Heather directly.",
   },
 ];

@@ -36,10 +36,10 @@ export const SOCIAL_POSTS: SocialPost[] = [
     body: `Slide 1: "We're expanding." (Sway logo + RiNo + Central Park · June 1, 2026)
 Slide 2: Map of Denver with all 3 pins · "Three Denver locations"
 Slide 3: Heather Holland photo · "Led by Heather Holland — Upswell founder, ex-CorePower COO, now Sway COO"
-Slide 4: Recovery space photo · "Massage + recovery at launch. Facials + Aescape this fall."
-Slide 5: "Join the waitlist" CTA · swaywellnessspa.com
+Slide 4: Treatment suite + Sway Remedy Lounge photo · "Expert massage and advanced facials in newly-built suites. Plus the Sway Remedy Lounge."
+Slide 5: "Book your first visit · $40 off" CTA · swaywellnessspa.com
 
-Caption: Sway is expanding to RiNo (3636 Blake) and Central Park (2271 Clinton) on June 1, 2026. The recovery space stays the same. What's new: expert massage therapy at launch + advanced facials + AI-powered Aescape robot massage later this summer. Led by Heather Holland — Upswell founder, former CorePower Yoga COO, our new COO. Existing Upswell members → your membership is honored. Same rate. Same terms. ✨ Everyone else → waitlist is open. Link in bio. 📍 Sway RiNo · 3636 Blake St 📍 Sway Central Park · 2271 Clinton St #SwayWellness #DenverWellness #RiNoDenver #CentralParkDenver #DenverSpa`,
+Caption: Sway is now open at RiNo (3636 Blake) and Central Park (2271 Clinton). The Sway Remedy Lounge (sauna, cold plunge, revive) stays exactly the same. What's new: expert massage therapy and advanced facials, in brand-new treatment suites. Led by Heather Holland — Upswell founder, former CorePower Yoga COO, now Spavia's COO. Existing Upswell members → your membership is honored at $99/mo. Everyone else → first visit is $40 off. Link in bio. 📍 Sway RiNo · 3636 Blake St 📍 Sway Central Park · 2271 Clinton St #SwayWellness #DenverWellness #RiNoDenver #CentralParkDenver #DenverSpa`,
     status: "drafted",
     notes: "Same content as in public-announcement-may15.md. Post early AM Friday before press cycle.",
   },
@@ -48,12 +48,12 @@ Caption: Sway is expanding to RiNo (3636 Blake) and Central Park (2271 Clinton) 
     channel: "Sway IG",
     format: "Story sequence · 6 frames",
     hook: "Live story drop right after the carousel goes up",
-    body: `Frame 1: "We have news." (teaser, no specifics)
-Frame 2: "Sway is coming to RiNo + Central Park."
-Frame 3: "Opening June 1, 2026."
-Frame 4: "Massage + recovery at launch. Facials + Aescape this fall."
-Frame 5: "Upswell members — your membership is honored."
-Frame 6: "Join the waitlist." (with link sticker)`,
+    body: `Frame 1: "Sway is open at RiNo + Central Park."
+Frame 2: "The Sway Remedy Lounge you know."
+Frame 3: "Plus expert massage + advanced facials in newly-built suites."
+Frame 4: "Upswell members — your membership is honored at $99/mo."
+Frame 5: "Everyone else — first visit is $40 off."
+Frame 6: "Book now." (with link sticker)`,
     status: "drafted",
   },
   {
@@ -74,14 +74,12 @@ Frame 6: "Join the waitlist." (with link sticker)`,
 Cut to: sauna interior
 "...you know the vibe."
 Cut to: Denver map, pins drop on RiNo + Central Park
-"Now we're bringing it to RiNo. And Central Park."
-Cut to: cold plunge, sauna, compression boots quick cuts
-"Recovery you already love."
-Cut to: massage room
-"Plus massage."
-Cut to: Aescape robot
-"And eventually, Aescape."
-End card: "June 1, 2026. Waitlist open. swaywellnessspa.com"`,
+"Now we're at RiNo. And Central Park."
+Cut to: cold plunge, sauna, revive quick cuts
+"The Sway Remedy Lounge you already love."
+Cut to: massage room + facial chair
+"Plus expert massage and advanced facials in newly-built suites."
+End card: "First visit $40 off. Book at swaywellnessspa.com"`,
     status: "drafted",
   },
   {
@@ -89,17 +87,17 @@ End card: "June 1, 2026. Waitlist open. swaywellnessspa.com"`,
     channel: "Sway LinkedIn",
     format: "Long-form post · tag Heather",
     hook: "Sway Wellness Spa is expanding into Denver's RiNo and Central Park...",
-    body: `Today we're announcing that Sway Wellness Spa is expanding into Denver's RiNo Art District and Central Park neighborhood, opening June 1, 2026 — and we're thrilled to welcome Heather Holland as our Chief Operating Officer.
+    body: `Today we're announcing that Sway Wellness Spa is now open at our two new Denver locations — RiNo Art District (3636 Blake St) and Central Park (2271 Clinton St) — and we're thrilled to have Heather Holland join Spavia as our Chief Operating Officer.
 
-Heather brings deep operating experience from her time as COO at CorePower Yoga and her work founding Upswell. The two locations Sway is taking over were built by her team and represent some of the most thoughtfully designed recovery infrastructure in the Denver wellness market.
+Heather brings deep operating experience from her time as COO at CorePower Yoga and her work founding Upswell. The two locations Sway has taken over were built by her team and represent some of the most thoughtfully designed recovery infrastructure in the Denver wellness market.
 
-What's most exciting: this expansion isn't about replacing what these locations did well. The recovery suite at each — saunas, cold plunge, compression, red light — stays. We're adding what's been missing: hands-on massage therapy at launch, with facials and our AI-powered Aescape robot massage joining later in 2026.
+What's most exciting: this expansion isn't about replacing what these locations did well. The Sway Remedy Lounge at each — sauna, cold plunge, revive — stays exactly the same. We're adding what's been missing: expert massage therapy and advanced facials, in brand-new treatment suites.
 
-Existing Upswell members are protected at their current rates and terms.
+Existing Upswell members are protected — all moved to our $99/mo Sway Remedy Lounge Unlimited tier.
 
-Sway Larimer was voted #4 Best Day Spa in America (USA Today 10Best, 2025) and Best U.S. Day Spa (The Zoe Report, 2026). With RiNo and Central Park joining the family, plus franchise locations in Dallas and Washington, DC, we're building something genuinely new in the wellness category.
+Sway Larimer was voted #4 Best Day Spa in America (USA Today 10Best) and Best U.S. Day Spa (The Zoe Report 2026). With RiNo and Central Park joining the family, plus franchise locations in Dallas and Washington, DC, we're building something genuinely new in the wellness category.
 
-Waitlist is open at swaywellnessspa.com.`,
+First visit is $40 off at swaywellnessspa.com.`,
     status: "drafted",
     notes: "Tag Heather Holland's LinkedIn profile. Tag Spavia International.",
   },
@@ -124,8 +122,8 @@ I'll keep posting here on @upswellstudio about my next chapter — I'm not done 
 
 📍 RiNo: 3636 Blake St → swaywellnessspa.com/locations/denver-rino
 📍 Central Park: 2271 Clinton St → swaywellnessspa.com/locations/denver-central-park`,
-    status: "drafted",
-    notes: "Heather's voice. Post on @upswellstudio. Sway team helps draft, Heather posts. Tag @swaywellnessclub.",
+    status: "posted",
+    notes: "Heather's voice. Posted May 15 on @upswellstudio.",
   },
   {
     date: "May 15 AM",
@@ -138,7 +136,7 @@ Frame 3: "I'm joining Sway as COO."
 Frame 4: "Same recovery space. Massage added. Your membership honored."
 Frame 5: "Yoga is winding down — DM me, I'll help you find a studio you'll love."
 Frame 6: "Read the full note on my feed ↓"`,
-    status: "drafted",
+    status: "posted",
   },
   {
     date: "May 15 AM",
@@ -146,7 +144,7 @@ Frame 6: "Read the full note on my feed ↓"`,
     format: "Feed post (same content as IG)",
     hook: "Use the IG caption",
     body: "Same as Upswell IG feed post.",
-    status: "drafted",
+    status: "posted",
   },
 
   // ============ MAY 16-31: BUILD-UP ============
@@ -207,7 +205,7 @@ Frame 6: "Read the full note on my feed ↓"`,
     channel: "Sway IG",
     format: "Feed + multiple stories",
     hook: "Today.",
-    body: "Launch day post: photo of either space at opening hour. Caption: 'Sway is officially open at RiNo and Central Park. Walk in. Recovery is yours. Massage suites open June 15. We can't wait to see you.'",
+    body: "Phase 3 launch day post: photo of either space at opening hour. Caption: 'Sway is open at RiNo and Central Park — with expert massage and advanced facials in brand-new treatment suites. Plus the Sway Remedy Lounge you may already know. First visit $40 off. We can't wait to see you.' (Fires on the day massage + facials open — not June 1.)",
     status: "drafted",
   },
   {
@@ -258,8 +256,8 @@ Frame 6: "Read the full note on my feed ↓"`,
     date: "Late Jun · PR push",
     channel: "Sway IG",
     format: "Massage preview",
-    hook: "8 days until massage opens",
-    body: "Photo of one of the finished massage suites + caption: 'Massage opens June 15 at RiNo + Central Park. Book now: link in bio.'",
+    hook: "Massage + facials coming soon",
+    body: "Photo of one of the finished treatment suites + caption: 'Expert massage and advanced facials open later this month at RiNo + Central Park. Booking link comes when reservations open.'",
     status: "drafted",
   },
 
@@ -268,16 +266,16 @@ Frame 6: "Read the full note on my feed ↓"`,
     date: "Late Jun · PR push",
     channel: "Sway IG",
     format: "Feed + stories",
-    hook: "Massage is here.",
-    body: "Massage suite reveal. Multiple frames showing the curtains, lighting, table. Caption: 'Massage suites are open at Sway RiNo and Sway Central Park. Member rate $99/50 min. Book in the app.'",
+    hook: "Massage and facials are here.",
+    body: "Treatment suite reveal. Multiple frames showing the curtains, lighting, massage table, facial chair. Caption: 'Massage and facials are open at Sway RiNo and Sway Central Park. Member rate $99 / 50 min for both. Book at swaywellnessspa.com.'",
     status: "drafted",
   },
   {
     date: "Late Jun · PR push",
     channel: "Sway TikTok",
     format: "60-second video",
-    hook: "Step inside our new massage suites",
-    body: "Walkthrough video of one of the new treatment rooms. Show the design intent — heavy linen curtains, warm lighting, the speakeasy-spa aesthetic.",
+    hook: "Step inside our new treatment suites",
+    body: "Walkthrough video of one of the new treatment rooms (massage + facial). Show the design intent — heavy linen curtains, warm lighting, the speakeasy-spa aesthetic. End card: 'Book your first visit · $40 off · swaywellnessspa.com'.",
     status: "drafted",
   },
 ];
@@ -338,10 +336,10 @@ export const WEBSITE_TASKS: WebsiteTask[] = [
     status: "drafted",
   },
   {
-    date: "May 27",
+    date: "Phase 3 (when massage + facials open)",
     type: "page update",
     page: "/locations/denver-rino/offers + /locations/denver-central-park/offers",
-    goal: "Clone Larimer's /offers page for the new locations. First Visit Offer ($40 off / $99). Sway Unlimited tier shown. Remedy Room recovery option highlighted.",
+    goal: "Clone Larimer's /offers page. First Visit Offer ($40 off / $99). Sway Unlimited tier shown. Sway Remedy Lounge highlighted. Defers from May 27 — first-visit offer only goes live when massage + facials are bookable.",
     status: "drafted",
     notes: "Mirror of /locations/denver-larimer/offers.",
   },
@@ -363,7 +361,7 @@ export const WEBSITE_TASKS: WebsiteTask[] = [
     date: "June 1",
     type: "blog post",
     page: "/blog/welcome-to-sway-rino-central-park",
-    goal: "Launch day blog post. Real photos from opening morning. Member welcome + first-visit offer prompt.",
+    goal: "Logo-swap-day blog post. Short, warm: 'Sway is now operating at RiNo + Central Park. Sway Remedy Lounge continues. Massage and facials open later this month.' No first-visit offer prompt (defers to Phase 3 when there's something new to offer).",
     status: "drafted",
   },
   {
@@ -383,32 +381,33 @@ export const WEBSITE_TASKS: WebsiteTask[] = [
     notes: "Blocked on Mindbody session type setup.",
   },
   {
-    date: "June 15",
+    date: "Phase 3 (when massage + facials open)",
     type: "page update",
-    page: "Location pages — massage section",
-    goal: "Update massage service cards: remove 'Coming June 2026' badge, swap waitlist mailto for real booking link.",
+    page: "Location pages — massage + facial sections",
+    goal: "Update massage AND facial service cards together: remove 'Coming June 2026' badges, swap waitlist mailto for real booking links. Both go live together (mid-to-late June).",
     status: "drafted",
   },
   {
-    date: "June 15",
+    date: "Phase 3 (when massage + facials open)",
     type: "blog post",
-    page: "/blog/sway-massage-rino-central-park-open",
-    goal: "Massage launch announcement. Photos of finished suites. Second press wave.",
+    page: "/blog/sway-rino-central-park-massage-facials-open",
+    goal: "Phase 3 launch blog post. Photos of finished treatment suites. Coincides with Email 08 and the press push.",
     status: "drafted",
   },
   {
     date: "Mid-July",
     type: "blog post",
     page: "/blog/recovery-led-wellness-sway",
-    goal: "Trend / brand piece on the recovery-led format. Positions RiNo + Central Park as a different kind of Sway. Phase 2 teaser.",
+    goal: "Trend / brand piece on the recovery-led format. Positions RiNo + Central Park as a different kind of Sway.",
     status: "drafted",
   },
   {
-    date: "Aug/Sept",
+    date: "TBD (Aescape decision)",
     type: "page update",
-    page: "Location pages — facial + Aescape sections",
-    goal: "Phase 2 launch — remove 'Coming late 2026' badges, add booking links for facials + Aescape.",
+    page: "Location pages — Aescape section (if added)",
+    goal: "Aescape may or may not come to the new locations. If it does, remove 'Coming' badge and add booking. If not, remove the placeholder cards entirely.",
     status: "drafted",
+    notes: "Open decision — see MY_LIST Post-launch tasks.",
   },
   {
     date: "Post-launch",
