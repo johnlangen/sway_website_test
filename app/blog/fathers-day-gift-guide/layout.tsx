@@ -37,14 +37,6 @@ export default function FathersDayGiftGuideLayout() {
           about, here in downtown Denver.
         </p>
 
-        <Image
-          src="/assets/cold_plunge.jpg"
-          alt="Cold plunge at Sway Wellness Spa Denver, the most-gifted Father's Day experience"
-          width={1600}
-          height={600}
-          className="rounded-lg w-full h-[280px] md:h-[420px] object-cover"
-        />
-
         {/* ─────────────────────────────────────────── */}
         <h2 className="text-2xl md:text-3xl font-bold pt-4">
           For the Dad Who&hellip;
@@ -181,9 +173,26 @@ export default function FathersDayGiftGuideLayout() {
           <div>
             <p className="font-bold text-[#113D33]">1:30 PM &middot; Walk to lunch</p>
             <p>
-              You are on Larimer Square. Walk to any of the restaurants on
-              the block. He has earned the steak.
+              You are on Larimer Square. Pick based on his vibe:
             </p>
+            <ul className="mt-2 space-y-1 text-[15px]">
+              <li>
+                <strong>NADC Burger</strong> &middot; if he wants a great
+                burger and a cold beer, full stop
+              </li>
+              <li>
+                <strong>Tamayo</strong> &middot; rooftop, modern Mexican,
+                margaritas in the sun
+              </li>
+              <li>
+                <strong>Ocean Prime</strong> &middot; full steakhouse
+                treatment if you are pulling out all the stops
+              </li>
+              <li>
+                <strong>Rioja</strong> &middot; the upscale-classic pick, a
+                Larimer Square fixture
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -215,6 +224,71 @@ export default function FathersDayGiftGuideLayout() {
             <span className="font-semibold">Sway gift card</span> &middot; any
             amount, never expires
           </p>
+        </div>
+
+        {/* ─────────────────────────────────────────── */}
+        <h2 className="text-2xl md:text-3xl font-bold pt-8">
+          What a Gift Card Gets Him
+        </h2>
+        <p>
+          If you would rather let him pick, here is what each amount unlocks
+          at Sway.
+        </p>
+        <div className="bg-white rounded-xl p-6 border border-[#d7e2dc] space-y-4">
+          <div className="flex items-start gap-4">
+            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
+              $50
+            </div>
+            <p>
+              A 15-minute Aescape express session, or a Remedy Room visit.
+              A nice tasting plate before the main course.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
+              $100
+            </div>
+            <p>
+              A 30-minute Aescape Full Body, or covers a Remedy Room session
+              with room to add a CBD muscle cream from the shop.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
+              $150
+            </div>
+            <p>
+              A full 50-minute massage with a licensed therapist, the
+              sweet spot.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
+              $200
+            </div>
+            <p>
+              A 50-minute massage plus a boost (cupping, hot stones, CBD),
+              or a 60-minute Aescape session.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
+              $250
+            </div>
+            <p>
+              An 80-minute massage with a boost. This is the &ldquo;he is
+              going to text you a thank-you&rdquo; tier.
+            </p>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
+              $300+
+            </div>
+            <p>
+              The full day. Remedy Room, an 80-minute massage, and a boost.
+              Or two visits. Or one visit and a gift toward a membership.
+            </p>
+          </div>
         </div>
 
         {/* ─────────────────────────────────────────── */}
