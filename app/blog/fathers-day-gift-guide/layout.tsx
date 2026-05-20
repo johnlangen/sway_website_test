@@ -173,13 +173,27 @@ export default function FathersDayGiftGuideLayout() {
           <div>
             <p className="font-bold text-[#113D33]">1:30 PM &middot; Walk to lunch</p>
             <p>
-              You are on Larimer Square. Pick based on his vibe:
+              You are on Larimer Square. Our top pick, no contest:
             </p>
+            <div className="mt-2 rounded-xl bg-[#113D33]/5 border border-[#113D33]/15 p-4">
+              <p className="font-bold text-[#113D33]">
+                <a
+                  href="https://www.nadcburger.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-[#0e3029]"
+                >
+                  NADC Burger
+                </a>{" "}
+                &middot; the move
+              </p>
+              <p className="text-[15px] mt-1">
+                Great burger, great beer list, two-minute walk from Sway.
+                Dads love burgers. Trust us.
+              </p>
+            </div>
+            <p className="text-[15px] mt-3 opacity-80">Or if he is in a different mood:</p>
             <ul className="mt-2 space-y-1 text-[15px]">
-              <li>
-                <strong>NADC Burger</strong> &middot; if he wants a great
-                burger and a cold beer, full stop
-              </li>
               <li>
                 <strong>Tamayo</strong> &middot; rooftop, modern Mexican,
                 margaritas in the sun
@@ -299,10 +313,11 @@ export default function FathersDayGiftGuideLayout() {
           <li className="flex gap-3">
             <span className="text-[#113D33] font-bold shrink-0">1.</span>
             <span>
-              <strong>Book it for him.</strong> The whole point is that he
-              does not have to plan. If you hand him a gift card and tell
-              him to schedule it himself, he will not. Pick the slot, lock
-              it in, send him the time and address.
+              <strong>Make it effortless either way.</strong> Both paths
+              work. If you want the day handled, pick the time and book it
+              for him. If you want him to choose the experience, send a
+              gift card with a short note so he knows it is a real
+              invitation. The point is no planning friction on his end.
             </span>
           </li>
           <li className="flex gap-3">
