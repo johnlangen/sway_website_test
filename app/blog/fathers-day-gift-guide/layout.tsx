@@ -45,91 +45,158 @@ export default function FathersDayGiftGuideLayout() {
           Pick the one that sounds like him. Click. Done.
         </p>
 
-        {/* Persona card */}
-        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
-          <p className="font-bold text-lg">&hellip; thinks recovery is a personality.</p>
-          <p>
-            The dad who listens to Huberman on the drive in, owns a foam
-            roller, and would buy a cold plunge if he had the basement
-            space. Get him{" "}
-            <Link
-              href="/locations/denver-larimer/book-remedy-room"
-              className="font-semibold text-[#113D33] underline underline-offset-2"
-            >
-              The Remedy Room
-            </Link>
-            . 40 minutes, private suite, cold plunge plus traditional sauna,
-            relaxation room in between. $49, or $25 if he is already a member.
-          </p>
+        {/* Persona cards — image left on desktop, image top on mobile */}
+        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+              <Image
+                src="/assets/cold_plunge.jpg"
+                alt="Cold plunge in The Remedy Room at Sway Wellness Spa"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 space-y-2 flex-1">
+              <p className="font-bold text-lg">&hellip; thinks recovery is a personality.</p>
+              <p>
+                The dad who listens to Huberman on the drive in, owns a foam
+                roller, and would buy a cold plunge if he had the basement
+                space. Get him{" "}
+                <Link
+                  href="/locations/denver-larimer/book-remedy-room"
+                  className="font-semibold text-[#113D33] underline underline-offset-2"
+                >
+                  The Remedy Room
+                </Link>
+                . 40 minutes, private suite, cold plunge plus traditional
+                sauna, relaxation room in between. $49, or $25 if he is
+                already a member.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
-          <p className="font-bold text-lg">&hellip; says &ldquo;my back is killing me&rdquo; every Sunday.</p>
-          <p>
-            The dad with a desk job and a 9-year-old who wants to be picked
-            up nonstop. He needs a proper{" "}
-            <Link
-              href="/locations/denver-larimer/book-service?category=massage"
-              className="font-semibold text-[#113D33] underline underline-offset-2"
-            >
-              deep tissue or sports massage
-            </Link>
-            . 80 minutes if you love him. Add the CBD CauseMedic finisher
-            for the knot under his right shoulder blade he has been talking
-            about for three years.
-          </p>
+        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+              <Image
+                src="/assets/massage2.jpg"
+                alt="Deep tissue sports massage at Sway Wellness Spa Denver"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 space-y-2 flex-1">
+              <p className="font-bold text-lg">&hellip; says &ldquo;my back is killing me&rdquo; every Sunday.</p>
+              <p>
+                The dad with a desk job and a 9-year-old who wants to be
+                picked up nonstop. He needs a proper{" "}
+                <Link
+                  href="/locations/denver-larimer/book-service?category=massage"
+                  className="font-semibold text-[#113D33] underline underline-offset-2"
+                >
+                  deep tissue or sports massage
+                </Link>
+                . 80 minutes if you love him. Add the CBD CauseMedic finisher
+                for the knot under his right shoulder blade he has been
+                talking about for three years.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
-          <p className="font-bold text-lg">&hellip; pre-orders every new gadget.</p>
-          <p>
-            The tech dad who already knows what Aescape is, or the one who
-            does not but will not stop talking about it after he tries it.{" "}
-            <Link
-              href="/locations/denver-larimer/book-aescape"
-              className="font-semibold text-[#113D33] underline underline-offset-2"
-            >
-              Aescape AI massage
-            </Link>{" "}
-            is a robot-driven, no-oil, fully-clothed (compression apparel
-            provided at check-in) full-body massage that maps his body in
-            3D. Sessions start at 15 minutes for $49.
-          </p>
+        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+              <Image
+                src="/assets/aescapeblog3.jpg"
+                alt="Aescape AI robotic massage table at Sway Wellness Spa"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 space-y-2 flex-1">
+              <p className="font-bold text-lg">&hellip; pre-orders every new gadget.</p>
+              <p>
+                The tech dad who already knows what Aescape is, or the one
+                who does not but will not stop talking about it after he
+                tries it.{" "}
+                <Link
+                  href="/locations/denver-larimer/book-aescape"
+                  className="font-semibold text-[#113D33] underline underline-offset-2"
+                >
+                  Aescape AI massage
+                </Link>{" "}
+                is a robot-driven, no-oil, fully-clothed (compression apparel
+                provided at check-in) full-body massage that maps his body
+                in 3D. Sessions start at 15 minutes for $49.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
-          <p className="font-bold text-lg">&hellip; has everything and wants nothing.</p>
-          <p>
-            The dad who tells you not to get him anything every single year
-            and means it. Give him a{" "}
-            <Link
-              href="/gift-cards"
-              className="font-semibold text-[#113D33] underline underline-offset-2"
-            >
-              Sway gift card
-            </Link>
-            . Any amount. Never expires. Works on every service, every add-on,
-            and in the retail shop. He picks the experience, you get the
-            credit.
-          </p>
+        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+              <Image
+                src="/assets/giftcard.jpg"
+                alt="Sway Wellness Spa gift card"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 space-y-2 flex-1">
+              <p className="font-bold text-lg">&hellip; has everything and wants nothing.</p>
+              <p>
+                The dad who tells you not to get him anything every single
+                year and means it. Give him a{" "}
+                <Link
+                  href="/gift-cards"
+                  className="font-semibold text-[#113D33] underline underline-offset-2"
+                >
+                  Sway gift card
+                </Link>
+                . Any amount. Never expires. Works on every service, every
+                add-on, and in the retail shop. He picks the experience,
+                you get the credit.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
-          <p className="font-bold text-lg">&hellip; needs to make this a habit, not a holiday.</p>
-          <p>
-            For the dad whose stress level is the thing you are actually
-            worried about. A{" "}
-            <Link
-              href="/locations/denver-larimer/membership"
-              className="font-semibold text-[#113D33] underline underline-offset-2"
-            >
-              Sway membership
-            </Link>{" "}
-            puts a monthly treatment on the calendar, gives him member
-            pricing on everything else, and turns recovery from a once-a-year
-            event into a routine. This is the big one. It is also the gift
-            that keeps showing up after June 21.
-          </p>
+        <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+              <Image
+                src="/assets/join2.jpg"
+                alt="Sway Wellness Spa membership"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-6 space-y-2 flex-1">
+              <p className="font-bold text-lg">&hellip; needs to make this a habit, not a holiday.</p>
+              <p>
+                For the dad whose stress level is the thing you are actually
+                worried about. A{" "}
+                <Link
+                  href="/locations/denver-larimer/membership"
+                  className="font-semibold text-[#113D33] underline underline-offset-2"
+                >
+                  Sway membership
+                </Link>{" "}
+                puts a monthly treatment on the calendar, gives him member
+                pricing on everything else, and turns recovery from a
+                once-a-year event into a routine. This is the big one. It is
+                also the gift that keeps showing up after June 21.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* ─────────────────────────────────────────── */}
@@ -141,72 +208,145 @@ export default function FathersDayGiftGuideLayout() {
           carry anything. Here is the day, in the order it should happen.
         </p>
 
-        <div className="bg-white rounded-xl p-6 space-y-5 border border-[#d7e2dc]">
-          <div>
-            <p className="font-bold text-[#113D33]">10:15 AM &middot; Arrive at Sway</p>
-            <p>
-              1428 Larimer Street. We tell guests to arrive 15 minutes early
-              for a reason. The lounge is the warm-up.
-            </p>
-          </div>
-          <div>
-            <p className="font-bold text-[#113D33]">10:30 AM &middot; The Remedy Room</p>
-            <p>
-              40 minutes, contrast therapy, private. He will come out
-              talking about it.
-            </p>
-          </div>
-          <div>
-            <p className="font-bold text-[#113D33]">11:15 AM &middot; 80-minute massage</p>
-            <p>
-              Deep tissue or sports. By now his nervous system has caught
-              up. This is when the actual work happens.
-            </p>
-          </div>
-          <div>
-            <p className="font-bold text-[#113D33]">12:45 PM &middot; Lounge</p>
-            <p>
-              Water, tea, no phone, no obligations. Build this into the day
-              on purpose.
-            </p>
-          </div>
-          <div>
-            <p className="font-bold text-[#113D33]">1:30 PM &middot; Walk to lunch</p>
-            <p>
-              You are on Larimer Square. Our top pick, no contest:
-            </p>
-            <div className="mt-2 rounded-xl bg-[#113D33]/5 border border-[#113D33]/15 p-4">
-              <p className="font-bold text-[#113D33]">
-                <a
-                  href="https://www.nadcburger.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-2 hover:text-[#0e3029]"
-                >
-                  NADC Burger
-                </a>{" "}
-                &middot; the move
-              </p>
-              <p className="text-[15px] mt-1">
-                Great burger, great beer list, two-minute walk from Sway.
-                Dads love burgers. Trust us.
-              </p>
+        <div className="relative">
+          {/* Vertical line behind the badges */}
+          <div className="absolute left-[19px] top-6 bottom-6 w-0.5 bg-[#113D33]/15 z-0" />
+
+          <div className="space-y-4 relative">
+            {/* Step 1 — Arrive */}
+            <div className="flex gap-4 items-start relative">
+              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0 z-10 shadow-md">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                  <path d="M9 21V9h6v12" />
+                  <path d="M3 9l9-7 9 7v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" />
+                </svg>
+              </div>
+              <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">10:15 AM</span>
+                  <span className="font-bold text-[#113D33]">Arrive at Sway</span>
+                </div>
+                <p className="text-[15px] mt-1.5">
+                  1428 Larimer Street. We tell guests to arrive 15 minutes
+                  early for a reason. The lounge is the warm-up.
+                </p>
+              </div>
             </div>
-            <p className="text-[15px] mt-3 opacity-80">Or if he is in a different mood:</p>
-            <ul className="mt-2 space-y-1 text-[15px]">
-              <li>
-                <strong>Tamayo</strong> &middot; rooftop, modern Mexican,
-                margaritas in the sun
-              </li>
-              <li>
-                <strong>Ocean Prime</strong> &middot; full steakhouse
-                treatment if you are pulling out all the stops
-              </li>
-              <li>
-                <strong>Rioja</strong> &middot; the upscale-classic pick, a
-                Larimer Square fixture
-              </li>
-            </ul>
+
+            {/* Step 2 — Remedy Room */}
+            <div className="flex gap-4 items-start relative">
+              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0 z-10 shadow-md">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                  <path d="M12 3l6 7a6 6 0 1 1-12 0l6-7z" />
+                </svg>
+              </div>
+              <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">10:30 AM</span>
+                  <span className="font-bold text-[#113D33]">The Remedy Room</span>
+                </div>
+                <p className="text-[15px] mt-1.5">
+                  40 minutes, contrast therapy, private. He will come out
+                  talking about it.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 — Massage */}
+            <div className="flex gap-4 items-start relative">
+              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0 z-10 shadow-md">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                  <path d="M7 11c0-2 1-4 3-4s3 2 3 4v3a3 3 0 0 1-6 0v-3z" />
+                  <path d="M13 11c0-2 1-4 3-4s3 2 3 4v3a3 3 0 0 1-6 0" />
+                  <path d="M10 16v4" />
+                  <path d="M16 16v4" />
+                </svg>
+              </div>
+              <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">11:15 AM</span>
+                  <span className="font-bold text-[#113D33]">80-minute massage</span>
+                </div>
+                <p className="text-[15px] mt-1.5">
+                  Deep tissue or sports. By now his nervous system has caught
+                  up. This is when the actual work happens.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 — Lounge */}
+            <div className="flex gap-4 items-start relative">
+              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0 z-10 shadow-md">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                  <path d="M18 8h1a3 3 0 0 1 0 6h-1" />
+                  <path d="M4 8h14v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8z" />
+                  <path d="M8 3v3M12 3v3M16 3v3" />
+                </svg>
+              </div>
+              <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">12:45 PM</span>
+                  <span className="font-bold text-[#113D33]">Lounge</span>
+                </div>
+                <p className="text-[15px] mt-1.5">
+                  Water, tea, no phone, no obligations. Build this into the
+                  day on purpose.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 5 — Lunch */}
+            <div className="flex gap-4 items-start relative">
+              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0 z-10 shadow-md">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                  <path d="M7 3v18" />
+                  <path d="M5 3v6a2 2 0 0 0 4 0V3" />
+                  <path d="M15 3v18" />
+                  <path d="M15 13c0-3 2-5 4-5v10" />
+                </svg>
+              </div>
+              <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">1:30 PM</span>
+                  <span className="font-bold text-[#113D33]">Walk to lunch</span>
+                </div>
+                <p className="text-[15px] mt-1.5">
+                  You are on Larimer Square. Our top pick, no contest:
+                </p>
+                <div className="mt-3 rounded-xl bg-[#113D33]/5 border border-[#113D33]/15 p-4">
+                  <p className="font-bold text-[#113D33]">
+                    <a
+                      href="https://www.nadcburger.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-[#0e3029]"
+                    >
+                      NADC Burger
+                    </a>{" "}
+                    &middot; the move
+                  </p>
+                  <p className="text-[15px] mt-1">
+                    Great burger, great beer list, two-minute walk from Sway.
+                    Dads love burgers. Trust us.
+                  </p>
+                </div>
+                <p className="text-[15px] mt-3 opacity-80">Or if he is in a different mood:</p>
+                <ul className="mt-2 space-y-1 text-[15px]">
+                  <li>
+                    <strong>Tamayo</strong> &middot; rooftop, modern Mexican,
+                    margaritas in the sun
+                  </li>
+                  <li>
+                    <strong>Ocean Prime</strong> &middot; full steakhouse
+                    treatment if you are pulling out all the stops
+                  </li>
+                  <li>
+                    <strong>Rioja</strong> &middot; the upscale-classic pick,
+                    a Larimer Square fixture
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
