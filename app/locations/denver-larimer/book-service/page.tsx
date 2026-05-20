@@ -56,6 +56,7 @@ type Step =
   | "boosts"
   | "time"
   | "email"
+  | "name"
   | "card"
   | "confirm"
   | "booking"
@@ -654,6 +655,13 @@ function BookServicePage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobilePhone, setMobilePhone] = useState("");
+  // Returning client lookup returned blank FirstName/LastName (likely a stub
+  // record created by ClassPass/ResortPass/etc). Force a name-collection step
+  // and PATCH the Mindbody record before booking so the appointment isn't
+  // nameless on the schedule.
+  const [needsNameUpdate, setNeedsNameUpdate] = useState(false);
+  const [needsPhoneUpdate, setNeedsPhoneUpdate] = useState(false);
+  const [nameSaving, setNameSaving] = useState(false);
 
   /* ── UI state ──────────────────────────────── */
 
@@ -890,6 +898,7 @@ function BookServicePage() {
     if (step === "boosts") return "Customize with boosts";
     if (step === "time") return "Pick your therapist & time";
     if (step === "email") return "Enter your email";
+    if (step === "name") return "Confirm your name";
     if (step === "card")
       return cardContext === "create_account"
         ? "Create your account"
@@ -1176,39 +1185,132 @@ function BookServicePage() {
 
       const lookup = data as {
         found: boolean;
-        client: { Id: string } | null;
+        client: {
+          Id: string;
+          FirstName?: string | null;
+          LastName?: string | null;
+          MobilePhone?: string | null;
+        } | null;
         hasCardOnFile: boolean;
       };
 
-      if (lookup.found && !lookup.hasCardOnFile) {
-        setCardContext("add_card");
+      if (lookup.found) {
+        const existingFirst = (lookup.client!.FirstName ?? "").trim();
+        const existingLast = (lookup.client!.LastName ?? "").trim();
+        const existingPhone = (lookup.client!.MobilePhone ?? "").trim();
+        const missingName = !existingFirst || !existingLast;
+
         setClientId(String(lookup.client!.Id));
-        setStep("card");
+
+        if (missingName) {
+          // Pre-fill whatever Mindbody has so the user only fixes what's blank
+          setFirstName(existingFirst);
+          setLastName(existingLast);
+          setMobilePhone(existingPhone);
+          setNeedsNameUpdate(true);
+          setNeedsPhoneUpdate(!existingPhone);
+          if (!lookup.hasCardOnFile) setCardContext("add_card");
+
+          // If next step after "name" is "confirm" (has card on file), the
+          // "card" step's auto-fire of booking_email_entered won't happen, so
+          // push it manually now. If the flow will pass through "card", the
+          // useEffect on step change will handle it — don't double-fire here.
+          if (lookup.hasCardOnFile) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "booking_email_entered",
+              booking_flow: category ?? "unknown",
+              client_type: "returning",
+            });
+          }
+
+          setStep("name");
+          return;
+        }
+
+        if (!lookup.hasCardOnFile) {
+          setCardContext("add_card");
+          setStep("card");
+          return;
+        }
+
+        // Returning client with card — skips card step, so fire email_entered manually
+        // (normally fires on entering "card" step via useEffect)
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "booking_email_entered",
+          booking_flow: category ?? "unknown",
+          client_type: "returning",
+        });
+
+        setStep("confirm");
         return;
       }
 
-      if (!lookup.found) {
-        setCardContext("create_account");
-        setClientId(null);
-        setStep("card");
-        return;
-      }
-
-      // Returning client with card — skips card step, so fire email_entered manually
-      // (normally fires on entering "card" step via useEffect)
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "booking_email_entered",
-        booking_flow: category ?? "unknown",
-        client_type: "returning",
-      });
-
-      setClientId(String(lookup.client!.Id));
-      setStep("confirm");
+      // Not found — collect name + card + phone via create_account flow
+      setCardContext("create_account");
+      setClientId(null);
+      setStep("card");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleSaveNameAndContinue() {
+    setError(null);
+
+    if (!clientId) {
+      setError("Missing client ID. Please start again.");
+      setStep("email");
+      return;
+    }
+
+    const trimmedFirst = firstName.trim();
+    const trimmedLast = lastName.trim();
+    const trimmedPhone = mobilePhone.trim();
+
+    if (!trimmedFirst || !trimmedLast) {
+      setError("Please enter your first and last name.");
+      return;
+    }
+    if (needsPhoneUpdate && trimmedPhone.replace(/\D/g, "").length < 10) {
+      setError("Please enter a valid mobile phone number.");
+      return;
+    }
+
+    setNameSaving(true);
+    try {
+      const res = await fetch("/api/mindbody/update-client", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId,
+          firstName: trimmedFirst,
+          lastName: trimmedLast,
+          ...(needsPhoneUpdate ? { mobilePhone: trimmedPhone } : {}),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || "We couldn't save your name. Please try again.");
+      }
+
+      setNeedsNameUpdate(false);
+      setNeedsPhoneUpdate(false);
+
+      // Next step: card if we still need one, otherwise confirm
+      if (cardContext === "add_card") {
+        setStep("card");
+      } else {
+        setStep("confirm");
+      }
+    } catch (err: any) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setNameSaving(false);
     }
   }
 
@@ -1437,8 +1539,9 @@ function BookServicePage() {
     } else if (step === "boosts") setStep("service");
     else if (step === "time") setStep("boosts");
     else if (step === "email") setStep("time");
-    else if (step === "card") setStep("email");
-    else if (step === "confirm") setStep("email");
+    else if (step === "name") setStep("email");
+    else if (step === "card") setStep(needsNameUpdate ? "name" : "email");
+    else if (step === "confirm") setStep(needsNameUpdate ? "name" : "email");
   }
 
   /* ─────────────────────────────────────────────
@@ -2172,6 +2275,82 @@ function BookServicePage() {
                     <span className="flex items-center justify-center gap-2">
                       <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                       Looking up…
+                    </span>
+                  ) : (
+                    "Continue"
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ═══════════════════════════════════════
+             STEP: NAME (existing client with missing FirstName/LastName)
+          ═══════════════════════════════════════ */}
+          {step === "name" && (
+            <div className="max-w-md mx-auto animate-fade-in-up">
+              <div className="bg-white border border-[#113D33]/10 rounded-2xl p-6 text-left space-y-4 shadow-sm">
+                <p className="text-sm text-[#113D33]/70">
+                  We found your account but we&apos;re missing your name. Please add
+                  it so your appointment is on file correctly.
+                </p>
+                <div>
+                  <label className="block text-sm font-medium text-[#113D33] mb-1">
+                    First name
+                  </label>
+                  <input
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className={inputClass}
+                    autoComplete="given-name"
+                    autoFocus
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#113D33] mb-1">
+                    Last name
+                  </label>
+                  <input
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className={inputClass}
+                    autoComplete="family-name"
+                  />
+                </div>
+                {needsPhoneUpdate && (
+                  <div>
+                    <label className="block text-sm font-medium text-[#113D33] mb-1">
+                      Mobile phone
+                    </label>
+                    <input
+                      value={mobilePhone}
+                      onChange={(e) => setMobilePhone(e.target.value)}
+                      className={inputClass}
+                      autoComplete="tel"
+                      type="tel"
+                      inputMode="tel"
+                    />
+                  </div>
+                )}
+                {error && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                    {error}
+                  </div>
+                )}
+                <button
+                  disabled={
+                    nameSaving ||
+                    !firstName.trim() ||
+                    !lastName.trim() ||
+                    (needsPhoneUpdate && mobilePhone.replace(/\D/g, "").length < 10)
+                  }
+                  onClick={handleSaveNameAndContinue}
+                  className={primaryBtn}
+                >
+                  {nameSaving ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                      Saving…
                     </span>
                   ) : (
                     "Continue"

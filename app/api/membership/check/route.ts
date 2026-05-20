@@ -15,6 +15,7 @@ export const runtime = "nodejs";
  *     isMember: boolean,
  *     tier: "essential" | "premier" | "ultimate" | null,
  *     firstName: string | null,
+ *     lastName: string | null,
  *     clientId: string | null,
  *     hasCardOnFile: boolean,
  *     homeLocation: string | null,   // e.g. "Spavia Park Meadows, CO"
@@ -111,6 +112,7 @@ export async function GET(req: Request) {
     isMember: false,
     tier: null,
     firstName: null,
+    lastName: null,
     clientId: null,
     hasCardOnFile: false,
     homeLocation: null,
@@ -184,6 +186,7 @@ export async function GET(req: Request) {
     for (const client of clientsToCheck) {
       const clientId = String(client.Id ?? client.UniqueId);
       const firstName = client.FirstName ?? null;
+      const lastName = client.LastName ?? null;
       const hasCardOnFile = !!(
         client.ClientCreditCard?.CardNumber &&
         client.ClientCreditCard.CardNumber !== ""
@@ -272,7 +275,7 @@ export async function GET(req: Request) {
       const isMember = !!tier;
       if (isMember || hasAescapeMembership || hasRemedyMembership) {
         return NextResponse.json({
-          found: true, isMember, tier, firstName, clientId, hasCardOnFile,
+          found: true, isMember, tier, firstName, lastName, clientId, hasCardOnFile,
           homeLocation, isLocalMember,
           hasAescapeMembership, hasRemedyMembership,
         });
@@ -286,6 +289,7 @@ export async function GET(req: Request) {
       isMember: false,
       tier: null,
       firstName: fallbackClient.FirstName ?? null,
+      lastName: fallbackClient.LastName ?? null,
       clientId: String(fallbackClient.Id ?? fallbackClient.UniqueId),
       hasCardOnFile: !!(fallbackClient.ClientCreditCard?.CardNumber && fallbackClient.ClientCreditCard.CardNumber !== ""),
       homeLocation: null,

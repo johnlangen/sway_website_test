@@ -355,7 +355,7 @@ function CardBrandPills() {
    PAGE
 --------------------------------------------- */
 
-type Step = "select" | "time" | "email" | "card" | "confirm" | "booking" | "done";
+type Step = "select" | "time" | "email" | "name" | "card" | "confirm" | "booking" | "done";
 type CardContext = "create_account" | "add_card" | null;
 
 /* ─── PROGRESS BAR ─── */
@@ -432,6 +432,12 @@ export default function BookAescapePage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobilePhone, setMobilePhone] = useState("");
+
+  // Returning client lookup returned blank FirstName/LastName (likely a stub
+  // record from ClassPass/ResortPass/etc). Force a name-collection step and
+  // PATCH the Mindbody record before booking so the appointment isn't nameless.
+  const [needsNameUpdate, setNeedsNameUpdate] = useState(false);
+  const [nameSaving, setNameSaving] = useState(false);
 
   // Card flow flag
   const [cardSaving, setCardSaving] = useState(false);
@@ -560,6 +566,7 @@ export default function BookAescapePage() {
     if (step === "select") return "Choose your session";
     if (step === "time") return "Choose a time";
     if (step === "email") return "Enter your email";
+    if (step === "name") return "Confirm your name";
     if (step === "card") {
       return cardContext === "create_account"
         ? "Create your account"
@@ -615,6 +622,17 @@ export default function BookAescapePage() {
         setHomeLocation(data.homeLocation ?? null);
         setHasCardOnFile(data.hasCardOnFile ?? false);
         setMemberCheckDone(true);
+
+        // Flag returning clients missing name on file (stub records from
+        // ClassPass/etc.) so the time-step CTA routes through "name" before
+        // booking — see handleConfirmBooking for the manual-entry path.
+        const lookedUpFirst = (data.firstName ?? "").trim();
+        const lookedUpLast = (data.lastName ?? "").trim();
+        if (!lookedUpFirst || !lookedUpLast) {
+          setFirstName(lookedUpFirst);
+          setLastName(lookedUpLast);
+          setNeedsNameUpdate(true);
+        }
       })
       .catch(() => { clearSavedEmail(); setEmail(""); })
       .finally(() => setLoading(false));
@@ -753,6 +771,7 @@ export default function BookAescapePage() {
       throw new Error(data?.error || "Client lookup failed.");
     }
     // Populate membership state from response
+    let missingName = false;
     if (data.found) {
       setIsMember(data.isMember ?? false);
       setMemberTier(data.tier ?? null);
@@ -761,11 +780,23 @@ export default function BookAescapePage() {
       setHasCardOnFile(data.hasCardOnFile ?? false);
       setHomeLocation(data.homeLocation ?? null);
       setMemberCheckDone(true);
+
+      const lookedUpFirst = (data.firstName ?? "").trim();
+      const lookedUpLast = (data.lastName ?? "").trim();
+      missingName = !lookedUpFirst || !lookedUpLast;
+      if (missingName) {
+        setFirstName(lookedUpFirst);
+        setLastName(lookedUpLast);
+        setNeedsNameUpdate(true);
+      } else {
+        setNeedsNameUpdate(false);
+      }
     }
     return {
       found: data.found ?? false,
       client: data.clientId ? { Id: data.clientId } : null,
       hasCardOnFile: data.hasCardOnFile ?? false,
+      missingName,
     };
   }
 
@@ -883,14 +914,6 @@ export default function BookAescapePage() {
     try {
       const lookup = await lookupClientByEmail(normalized);
 
-      // CASE B: email exists but no card -> updateclient route
-      if (lookup.found && !lookup.hasCardOnFile) {
-        setCardContext("add_card");
-        setClientId(String(lookup.client!.Id));
-        setStep("card");
-        return;
-      }
-
       // CASE A: no account -> addclient route
       if (!lookup.found) {
         setCardContext("create_account");
@@ -899,12 +922,79 @@ export default function BookAescapePage() {
         return;
       }
 
-      // Already has account + card -> go to confirm
       setClientId(String(lookup.client!.Id));
+
+      // CASE B': returning client whose Mindbody record is missing first or
+      // last name (stub from ClassPass/ResortPass/etc) — collect + PATCH the
+      // name before booking so the appointment isn't nameless.
+      if (lookup.missingName) {
+        if (!lookup.hasCardOnFile) setCardContext("add_card");
+        setStep("name");
+        return;
+      }
+
+      // CASE B: email exists but no card -> updateclient route
+      if (!lookup.hasCardOnFile) {
+        setCardContext("add_card");
+        setStep("card");
+        return;
+      }
+
+      // Already has account + card + name -> go to confirm
       setStep("confirm");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
       setStep("email");
+    }
+  }
+
+  async function handleSaveNameAndContinue() {
+    setError(null);
+
+    if (!clientId) {
+      setError("Missing client ID. Please start again.");
+      setStep("email");
+      return;
+    }
+
+    const trimmedFirst = firstName.trim();
+    const trimmedLast = lastName.trim();
+
+    if (!trimmedFirst || !trimmedLast) {
+      setError("Please enter your first and last name.");
+      return;
+    }
+
+    setNameSaving(true);
+    try {
+      const res = await fetch("/api/mindbody/update-client", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId,
+          firstName: trimmedFirst,
+          lastName: trimmedLast,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || "We couldn't save your name. Please try again.");
+      }
+
+      setMemberFirstName(trimmedFirst);
+      setNeedsNameUpdate(false);
+
+      if (hasCardOnFile) {
+        setStep("confirm");
+      } else {
+        setCardContext("add_card");
+        setStep("card");
+      }
+    } catch (err: any) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setNameSaving(false);
     }
   }
 
@@ -1084,6 +1174,10 @@ export default function BookAescapePage() {
       setStep("select");
     } else if (step === "email") {
       setStep("time");
+    } else if (step === "name") {
+      // Backed out of name step — return to time (memberCheckDone) or email
+      if (memberCheckDone && clientId) { setStep("time"); return; }
+      setStep("email");
     } else if (step === "card") {
       // If user had email auto-filled, go back to time instead of email
       if (memberCheckDone && clientId) { setStep("time"); return; }
@@ -1138,7 +1232,7 @@ export default function BookAescapePage() {
   const showHeader = step !== "done";
 
   const showHeaderBack =
-    step === "select" || step === "time" || step === "email" || step === "card" || step === "confirm";
+    step === "select" || step === "time" || step === "email" || step === "name" || step === "card" || step === "confirm";
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">
@@ -1178,7 +1272,7 @@ export default function BookAescapePage() {
       <div className="px-4 pt-24 md:pt-28 pb-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Persistent identity banner — members + remembered guests */}
-          {memberCheckDone && clientId && ["select", "time", "email", "card", "confirm"].includes(step) && (
+          {memberCheckDone && clientId && ["select", "time", "email", "name", "card", "confirm"].includes(step) && (
             <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${isMember || hasAescapeMembership ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
               {(isMember || hasAescapeMembership) && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
               <p className="text-sm">
@@ -1494,6 +1588,13 @@ export default function BookAescapePage() {
                   disabled={!selectedTime}
                   onClick={() => {
                     setError(null);
+                    // Returning user missing FirstName/LastName -> collect name
+                    // before booking (PATCH lands at handleSaveNameAndContinue)
+                    if (memberCheckDone && clientId && needsNameUpdate) {
+                      if (!hasCardOnFile) setCardContext("add_card");
+                      setStep("name");
+                      return;
+                    }
                     // If returning user with card on file, skip email+card
                     if (memberCheckDone && hasCardOnFile && clientId) {
                       setStep("confirm");
@@ -1577,6 +1678,60 @@ export default function BookAescapePage() {
                   className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 >
                   Back
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === "name" && (
+            <div className="min-h-[calc(100vh-320px)] flex items-start justify-center">
+              <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in-up space-y-4">
+                <h2 className="text-xl font-semibold text-center">Confirm your name</h2>
+                <p className="text-sm text-[#113D33]/70">
+                  We found your account but we&apos;re missing your name. Please add
+                  it so your appointment is on file correctly.
+                </p>
+                <div>
+                  <label className="block text-sm font-medium text-[#113D33] mb-1">
+                    First name
+                  </label>
+                  <input
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
+                    autoComplete="given-name"
+                    autoFocus
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#113D33] mb-1">
+                    Last name
+                  </label>
+                  <input
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
+                    autoComplete="family-name"
+                  />
+                </div>
+                {error && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                    {error}
+                  </div>
+                )}
+                <button
+                  disabled={nameSaving || !firstName.trim() || !lastName.trim()}
+                  onClick={handleSaveNameAndContinue}
+                  className="w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg"
+                >
+                  {nameSaving ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                      Saving…
+                    </span>
+                  ) : (
+                    "Continue"
+                  )}
                 </button>
               </div>
             </div>
