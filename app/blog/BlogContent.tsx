@@ -138,6 +138,14 @@ const blogs = [
     image: "/assets/blog17.jpg",
   },
   {
+    slug: "fathers-day-gift-guide",
+    title: "A Father's Day in Denver Your Dad Will Actually Remember",
+    summary:
+      "He has enough ties. Cold plunge, sauna, sports massage, Aescape AI, and a full Sway-anchored Father's Day itinerary on Larimer Square.",
+    tag: "Holiday",
+    image: "/assets/cold_plunge.jpg",
+  },
+  {
     slug: "mothers-day-gift-guide",
     title: "Moms Deserve Sway More: A Mother's Day Spa Day Gift Guide",
     summary:

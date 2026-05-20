@@ -123,6 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "summer-prep-guide",
     "sun-protection-post-sun-care",
     "mothers-day-gift-guide",
+    "fathers-day-gift-guide",
     "sway-shop-finds",
     "cold-plunge",
     "aescape",
