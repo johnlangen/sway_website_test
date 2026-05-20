@@ -7,14 +7,14 @@ export default function FathersDayGiftGuideLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-center max-w-3xl">
+      <div className="w-full bg-[#113D33] text-white pt-24 pb-12 md:pt-32 md:pb-20 flex justify-center items-center px-4">
+        <h1 className="text-[26px] leading-tight md:text-5xl font-bold text-center max-w-3xl">
           A Father&apos;s Day in Denver Your Dad Will Actually Remember
         </h1>
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-3xl mx-auto px-6 py-16 space-y-8 text-[17px] leading-relaxed">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-16 space-y-6 md:space-y-8 text-[17px] leading-relaxed">
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">
             &larr; Back to Blog
@@ -38,7 +38,7 @@ export default function FathersDayGiftGuideLayout() {
         </p>
 
         {/* ─────────────────────────────────────────── */}
-        <h2 className="text-2xl md:text-3xl font-bold pt-4">
+        <h2 className="text-[22px] sm:text-2xl md:text-3xl font-bold pt-4">
           For the Dad Who&hellip;
         </h2>
         <p className="text-[#113D33]/70">
@@ -47,8 +47,8 @@ export default function FathersDayGiftGuideLayout() {
 
         {/* Persona cards — image left on desktop, image top on mobile */}
         <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
-          <div className="flex flex-col sm:flex-row">
-            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+          <div className="flex flex-col sm:flex-row sm:min-h-[14rem]">
+            <div className="w-full sm:w-56 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
               <Image
                 src="/assets/cold_plunge.jpg"
                 alt="Cold plunge in The Remedy Room at Sway Wellness Spa"
@@ -57,7 +57,7 @@ export default function FathersDayGiftGuideLayout() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-6 space-y-2 flex-1">
+            <div className="p-5 sm:p-6 space-y-2 flex-1">
               <p className="font-bold text-lg">&hellip; thinks recovery is a personality.</p>
               <p>
                 The dad who listens to Huberman on the drive in, owns a foam
@@ -78,8 +78,8 @@ export default function FathersDayGiftGuideLayout() {
         </div>
 
         <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
-          <div className="flex flex-col sm:flex-row">
-            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+          <div className="flex flex-col sm:flex-row sm:min-h-[14rem]">
+            <div className="w-full sm:w-56 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
               <Image
                 src="/assets/massage2.jpg"
                 alt="Deep tissue sports massage at Sway Wellness Spa Denver"
@@ -88,7 +88,7 @@ export default function FathersDayGiftGuideLayout() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-6 space-y-2 flex-1">
+            <div className="p-5 sm:p-6 space-y-2 flex-1">
               <p className="font-bold text-lg">&hellip; says &ldquo;my back is killing me&rdquo; every Sunday.</p>
               <p>
                 The dad with a desk job and a 9-year-old who wants to be
@@ -108,8 +108,8 @@ export default function FathersDayGiftGuideLayout() {
         </div>
 
         <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
-          <div className="flex flex-col sm:flex-row">
-            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+          <div className="flex flex-col sm:flex-row sm:min-h-[14rem]">
+            <div className="w-full sm:w-56 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
               <Image
                 src="/assets/aescapeblog3.jpg"
                 alt="Aescape AI robotic massage table at Sway Wellness Spa"
@@ -118,7 +118,7 @@ export default function FathersDayGiftGuideLayout() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-6 space-y-2 flex-1">
+            <div className="p-5 sm:p-6 space-y-2 flex-1">
               <p className="font-bold text-lg">&hellip; pre-orders every new gadget.</p>
               <p>
                 The tech dad who already knows what Aescape is, or the one
@@ -139,8 +139,8 @@ export default function FathersDayGiftGuideLayout() {
         </div>
 
         <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
-          <div className="flex flex-col sm:flex-row">
-            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+          <div className="flex flex-col sm:flex-row sm:min-h-[14rem]">
+            <div className="w-full sm:w-56 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
               <Image
                 src="/assets/giftcard.jpg"
                 alt="Sway Wellness Spa gift card"
@@ -149,7 +149,7 @@ export default function FathersDayGiftGuideLayout() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-6 space-y-2 flex-1">
+            <div className="p-5 sm:p-6 space-y-2 flex-1">
               <p className="font-bold text-lg">&hellip; has everything and wants nothing.</p>
               <p>
                 The dad who tells you not to get him anything every single
@@ -169,17 +169,17 @@ export default function FathersDayGiftGuideLayout() {
         </div>
 
         <div className="bg-white border-l-4 border-[#9CB7A9] rounded-xl overflow-hidden shadow-sm">
-          <div className="flex flex-col sm:flex-row">
-            <div className="sm:w-48 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
+          <div className="flex flex-col sm:flex-row sm:min-h-[14rem]">
+            <div className="w-full sm:w-56 h-44 sm:h-auto shrink-0 overflow-hidden bg-[#eae7db]">
               <Image
-                src="/assets/join2.jpg"
-                alt="Sway Wellness Spa membership"
+                src="/assets/homepage_photo_outside.jpg"
+                alt="Sway Wellness Spa on Larimer Square in downtown Denver"
                 width={400}
                 height={400}
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-6 space-y-2 flex-1">
+            <div className="p-5 sm:p-6 space-y-2 flex-1">
               <p className="font-bold text-lg">&hellip; needs to make this a habit, not a holiday.</p>
               <p>
                 For the dad whose stress level is the thing you are actually
@@ -200,7 +200,7 @@ export default function FathersDayGiftGuideLayout() {
         </div>
 
         {/* ─────────────────────────────────────────── */}
-        <h2 className="text-2xl md:text-3xl font-bold pt-8">
+        <h2 className="text-[22px] sm:text-2xl md:text-3xl font-bold pt-6 md:pt-8">
           The Itinerary: A Sway-Anchored Father&apos;s Day in Denver
         </h2>
         <p>
@@ -351,102 +351,159 @@ export default function FathersDayGiftGuideLayout() {
         </div>
 
         {/* ─────────────────────────────────────────── */}
-        <h2 className="text-2xl md:text-3xl font-bold pt-8">
+        <h2 className="text-[22px] sm:text-2xl md:text-3xl font-bold pt-6 md:pt-8">
           The Receipt
         </h2>
         <p>
           No surprise math. These are the actual prices, today, in May 2026.
         </p>
-        <div className="bg-white rounded-xl p-6 border border-[#d7e2dc] space-y-2">
-          <p>
-            <span className="font-semibold">Aescape AI massage</span> &middot;{" "}
-            from $49 (15 min) to $139 (60 min)
-          </p>
-          <p>
-            <span className="font-semibold">Remedy Room</span> &middot; $49,
-            or $25 for members (40 min)
-          </p>
-          <p>
-            <span className="font-semibold">50-minute massage</span> &middot;{" "}
-            from $129 drop-in, $89 for Essential members
-          </p>
-          <p>
-            <span className="font-semibold">Make it 80 minutes</span> &middot;{" "}
-            add $50
-          </p>
-          <p>
-            <span className="font-semibold">Sway gift card</span> &middot; any
-            amount, never expires
-          </p>
+        <div className="bg-white rounded-2xl border border-[#d7e2dc] overflow-hidden divide-y divide-[#d7e2dc] shadow-sm">
+          {/* Aescape */}
+          <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="w-10 h-10 rounded-full bg-[#113D33]/8 flex items-center justify-center text-[#113D33] shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                <rect x="3" y="6" width="18" height="12" rx="2" />
+                <circle cx="8" cy="12" r="1.5" />
+                <circle cx="16" cy="12" r="1.5" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-[#113D33]">Aescape AI massage</div>
+              <div className="text-xs sm:text-sm opacity-70">15-min express up to 60-min full body</div>
+            </div>
+            <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
+              $49 &ndash; $139
+            </div>
+          </div>
+
+          {/* Remedy Room */}
+          <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="w-10 h-10 rounded-full bg-[#113D33]/8 flex items-center justify-center text-[#113D33] shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                <path d="M12 3l6 7a6 6 0 1 1-12 0l6-7z" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-[#113D33]">The Remedy Room</div>
+              <div className="text-xs sm:text-sm opacity-70">40-min private contrast suite</div>
+            </div>
+            <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
+              <div>$49</div>
+              <div className="text-xs opacity-70 font-normal">$25 member</div>
+            </div>
+          </div>
+
+          {/* Massage */}
+          <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="w-10 h-10 rounded-full bg-[#113D33]/8 flex items-center justify-center text-[#113D33] shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                <path d="M7 11c0-2 1-4 3-4s3 2 3 4v3a3 3 0 0 1-6 0v-3z" />
+                <path d="M13 11c0-2 1-4 3-4s3 2 3 4v3a3 3 0 0 1-6 0" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-[#113D33]">50-minute massage</div>
+              <div className="text-xs sm:text-sm opacity-70">Deep tissue, sports, or relaxation</div>
+            </div>
+            <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
+              <div>$129</div>
+              <div className="text-xs opacity-70 font-normal">$89 Essential</div>
+            </div>
+          </div>
+
+          {/* Make it 80 */}
+          <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="w-10 h-10 rounded-full bg-[#113D33]/8 flex items-center justify-center text-[#113D33] shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-[#113D33]">Make it 80 minutes</div>
+              <div className="text-xs sm:text-sm opacity-70">Add 30 minutes to any massage</div>
+            </div>
+            <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
+              + $50
+            </div>
+          </div>
+
+          {/* Gift card */}
+          <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
+            <div className="w-10 h-10 rounded-full bg-[#113D33]/8 flex items-center justify-center text-[#113D33] shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="13" rx="2" />
+                <path d="M3 11h18" />
+                <path d="M12 7c-2-3-6-3-6 0 0 2 3 2 6 0 3 2 6 2 6 0 0-3-4-3-6 0z" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-[#113D33]">Sway gift card</div>
+              <div className="text-xs sm:text-sm opacity-70">Any amount, never expires</div>
+            </div>
+            <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
+              You pick
+            </div>
+          </div>
         </div>
 
         {/* ─────────────────────────────────────────── */}
-        <h2 className="text-2xl md:text-3xl font-bold pt-8">
+        <h2 className="text-[22px] sm:text-2xl md:text-3xl font-bold pt-6 md:pt-8">
           What a Gift Card Gets Him
         </h2>
         <p>
           If you would rather let him pick, here is what each amount unlocks
           at Sway.
         </p>
-        <div className="bg-white rounded-xl p-6 border border-[#d7e2dc] space-y-4">
-          <div className="flex items-start gap-4">
-            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
-              $50
-            </div>
-            <p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
+            <div className="text-3xl font-bold text-[#113D33]">$50</div>
+            <p className="mt-2 text-[15px] text-gray-700">
               A 15-minute Aescape express session, or a Remedy Room visit.
               A nice tasting plate before the main course.
             </p>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
-              $100
-            </div>
-            <p>
-              A 30-minute Aescape Full Body, or covers a Remedy Room session
-              with room to add a CBD muscle cream from the shop.
+          <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
+            <div className="text-3xl font-bold text-[#113D33]">$100</div>
+            <p className="mt-2 text-[15px] text-gray-700">
+              A 30-minute Aescape Full Body, or a Remedy Room session with
+              room to add a CBD muscle cream from the shop.
             </p>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
-              $150
-            </div>
-            <p>
-              A full 50-minute massage with a licensed therapist, the
+          <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
+            <div className="text-3xl font-bold text-[#113D33]">$150</div>
+            <p className="mt-2 text-[15px] text-gray-700">
+              A full 50-minute massage with a licensed therapist. The
               sweet spot.
             </p>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
-              $200
-            </div>
-            <p>
+          <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
+            <div className="text-3xl font-bold text-[#113D33]">$200</div>
+            <p className="mt-2 text-[15px] text-gray-700">
               A 50-minute massage plus a boost (cupping, hot stones, CBD),
               or a 60-minute Aescape session.
             </p>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
-              $250
-            </div>
-            <p>
-              An 80-minute massage with a boost. This is the &ldquo;he is
-              going to text you a thank-you&rdquo; tier.
+          <div className="bg-[#113D33] text-white rounded-2xl p-5 shadow-md relative">
+            <span className="absolute top-3 right-3 text-[10px] uppercase tracking-wider bg-white text-[#113D33] px-2 py-0.5 rounded-full font-bold">
+              Most generous
+            </span>
+            <div className="text-3xl font-bold">$250</div>
+            <p className="mt-2 text-[15px] text-white/85">
+              An 80-minute massage with a boost. The &ldquo;he is going to
+              text you a thank-you&rdquo; tier.
             </p>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="font-bold text-[#113D33] text-lg w-16 shrink-0">
-              $300+
-            </div>
-            <p>
+          <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
+            <div className="text-3xl font-bold text-[#113D33]">$300+</div>
+            <p className="mt-2 text-[15px] text-gray-700">
               The full day. Remedy Room, an 80-minute massage, and a boost.
-              Or two visits. Or one visit and a gift toward a membership.
+              Or two visits. Or one visit plus a gift toward a membership.
             </p>
           </div>
         </div>
 
         {/* ─────────────────────────────────────────── */}
-        <h2 className="text-2xl md:text-3xl font-bold pt-8">
+        <h2 className="text-[22px] sm:text-2xl md:text-3xl font-bold pt-6 md:pt-8">
           Two Pro Tips
         </h2>
         <ul className="space-y-3">
