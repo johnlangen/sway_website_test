@@ -40,9 +40,9 @@ export default function FathersDayGiftGuideLayout() {
         <Image
           src="/assets/cold_plunge.jpg"
           alt="Cold plunge at Sway Wellness Spa Denver, the most-gifted Father's Day experience"
-          width={1200}
-          height={700}
-          className="rounded-lg w-full h-auto"
+          width={1600}
+          height={600}
+          className="rounded-lg w-full h-[280px] md:h-[420px] object-cover"
         />
 
         {/* ─────────────────────────────────────────── */}
