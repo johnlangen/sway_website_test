@@ -252,7 +252,7 @@ export default function FathersDayGiftGuideLayout() {
               href="/locations/denver-larimer/book"
               className="bg-white text-[#113D33] font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition"
             >
-              Book a Service
+              Schedule a Treatment
             </Link>
             <Link
               href="/gift-cards"
