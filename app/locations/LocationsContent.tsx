@@ -95,6 +95,24 @@ const LOCATIONS: Location[] = [
   },
 ];
 
+// Full state names for group headings (extend as new states come online)
+const STATE_NAMES: Record<string, string> = {
+  CO: "Colorado",
+  TX: "Texas",
+  DC: "Washington, D.C.",
+  CA: "California",
+  FL: "Florida",
+  NY: "New York",
+  IL: "Illinois",
+  WA: "Washington",
+  AZ: "Arizona",
+  GA: "Georgia",
+  NC: "North Carolina",
+  VA: "Virginia",
+  MA: "Massachusetts",
+};
+const fullStateName = (code: string) => STATE_NAMES[code] ?? code;
+
 // --- Filter helper ---
 function filterLocations(q: string, list: Location[]) {
   const s = q.trim().toLowerCase();
@@ -105,6 +123,18 @@ function filterLocations(q: string, list: Location[]) {
       .join(" ")
       .toLowerCase()
       .includes(s)
+  );
+}
+
+// Group coming-soon by state. Returns ordered entries (alphabetical by state name).
+function groupByState(list: Location[]) {
+  const buckets: Record<string, Location[]> = {};
+  for (const l of list) {
+    if (!buckets[l.state]) buckets[l.state] = [];
+    buckets[l.state].push(l);
+  }
+  return Object.entries(buckets).sort(([a], [b]) =>
+    fullStateName(a).localeCompare(fullStateName(b))
   );
 }
 
@@ -125,6 +155,25 @@ function distanceKm(a: [number, number], b: [number, number]) {
 
 const cream = "#F7F4E9";
 const deepGreen = "#113D33";
+
+// --- Small pin icon (no external deps) ---
+function PinIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
+  );
+}
 
 export default function LocationsContent() {
   const router = useRouter();
@@ -163,6 +212,14 @@ export default function LocationsContent() {
   }, [map, userCenter]);
 
   const visible = useMemo(() => filterLocations(query, LOCATIONS), [query]);
+  const openLocs = useMemo(
+    () => visible.filter((l) => l.status === "open"),
+    [visible]
+  );
+  const comingSoonByState = useMemo(
+    () => groupByState(visible.filter((l) => l.status === "coming-soon")),
+    [visible]
+  );
 
   const goToLocation = (loc: Location) => {
     setSelectedSlug(loc.slug);
@@ -199,6 +256,77 @@ export default function LocationsContent() {
     });
   };
 
+  // Featured "Open" card (full-width inside its column)
+  const OpenCard = ({ loc }: { loc: Location }) => (
+    <div
+      onClick={() => goToLocation(loc)}
+      className={[
+        "rounded-3xl p-5 md:p-6 bg-white shadow transition cursor-pointer",
+        "hover:shadow-lg",
+        selectedSlug === loc.slug ? "ring-2 ring-[#113D33]/50" : "",
+      ].join(" ")}
+    >
+      <div className="flex items-center gap-4">
+        <div className="h-20 w-28 shrink-0 rounded-2xl overflow-hidden bg-[#eae7db]">
+          {loc.imageUrl ? (
+            <img
+              src={loc.imageUrl}
+              alt={loc.name}
+              className="h-full w-full object-cover"
+            />
+          ) : null}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="text-xl md:text-2xl font-bold">{loc.name}</div>
+            <span className="inline-block text-[11px] md:text-xs px-2.5 py-0.5 rounded-full bg-emerald-200 text-[#113D33] font-semibold">
+              Open
+            </span>
+          </div>
+          <div className="opacity-80">
+            {loc.city}, {loc.state}
+          </div>
+          {loc.address && (
+            <div className="mt-1 text-sm opacity-70">{loc.address}</div>
+          )}
+        </div>
+        <div className="hidden md:block text-[#113D33]/40 text-2xl">&rarr;</div>
+      </div>
+    </div>
+  );
+
+  // Compact "Coming soon" card (no photo, denser, fits 2-up grid)
+  const ComingSoonCard = ({ loc }: { loc: Location }) => (
+    <div
+      onClick={() => goToLocation(loc)}
+      className={[
+        "rounded-2xl p-4 bg-white shadow-sm transition cursor-pointer",
+        "hover:shadow-md hover:-translate-y-0.5",
+        selectedSlug === loc.slug ? "ring-2 ring-[#113D33]/40" : "",
+      ].join(" ")}
+    >
+      <div className="flex items-start gap-3">
+        <div className="h-10 w-10 shrink-0 rounded-xl bg-[#113D33]/8 flex items-center justify-center text-[#113D33]/70">
+          <PinIcon className="h-5 w-5" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="font-bold text-[#113D33] truncate">{loc.name}</div>
+          <div className="text-sm opacity-70 truncate">
+            {loc.city}, {loc.state}
+          </div>
+          {loc.address && (
+            <div className="text-xs opacity-60 truncate mt-0.5">
+              {loc.address}
+            </div>
+          )}
+          <span className="inline-block mt-2 text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
+            Coming soon
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div
       className="min-h-screen font-vance"
@@ -223,7 +351,6 @@ export default function LocationsContent() {
           </button>
         </div>
 
-
         {/* Search */}
         <div className="flex gap-3 md:gap-4 mb-6">
           <input
@@ -244,53 +371,44 @@ export default function LocationsContent() {
         {/* Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
           {/* List */}
-          <div className="space-y-4">
-            {visible.map((loc) => (
-              <div
-                key={loc.slug}
-                onClick={() => goToLocation(loc)}
-                className={[
-                  "w-full text-left rounded-3xl p-5 md:p-6 bg-white shadow transition cursor-pointer",
-                  "hover:shadow-lg",
-                  selectedSlug === loc.slug ? "ring-2 ring-[#113D33]/50" : "",
-                ].join(" ")}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="hidden sm:block h-16 w-24 rounded-2xl overflow-hidden bg-[#eae7db]">
-                    {loc.imageUrl ? (
-                      <img
-                        src={loc.imageUrl}
-                        alt={loc.name}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : null}
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="text-xl md:text-2xl font-bold">
-                      {loc.name}
-                    </div>
-                    <div className="opacity-80">
-                      {loc.city}, {loc.state}
-                    </div>
-                    {loc.address && (
-                      <div className="mt-1 text-sm opacity-70">{loc.address}</div>
-                    )}
-                    <div className="mt-3">
-                      {loc.status === "open" ? (
-                        <span className="inline-block text-xs md:text-sm px-3 py-1 rounded-full shadow bg-emerald-200 text-[#113D33]">
-                          Open
-                        </span>
-                      ) : (
-                        <span className="inline-block text-xs md:text-sm px-3 py-1 rounded-full shadow bg-gray-200 text-gray-600">
-                          Coming soon
-                        </span>
-                      )}
-                    </div>
-                  </div>
+          <div className="space-y-8">
+            {/* Open Now */}
+            {openLocs.length > 0 && (
+              <section>
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] opacity-60 mb-3">
+                  Open Now
+                </h2>
+                <div className="space-y-3">
+                  {openLocs.map((loc) => (
+                    <OpenCard key={loc.slug} loc={loc} />
+                  ))}
                 </div>
-              </div>
-            ))}
+              </section>
+            )}
+
+            {/* Coming Soon, grouped by state */}
+            {comingSoonByState.length > 0 && (
+              <section>
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] opacity-60 mb-3">
+                  Coming Soon
+                </h2>
+                <div className="space-y-5">
+                  {comingSoonByState.map(([state, locs]) => (
+                    <div key={state}>
+                      <h3 className="text-base font-semibold mb-2">
+                        {fullStateName(state)}
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {locs.map((loc) => (
+                          <ComingSoonCard key={loc.slug} loc={loc} />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {visible.length === 0 && (
               <div className="text-sm opacity-80">
                 No locations match your search.
@@ -299,7 +417,7 @@ export default function LocationsContent() {
           </div>
 
           {/* Map */}
-          <div className="h-[360px] md:h-[520px] rounded-3xl overflow-hidden border border-black/5 bg-white shadow">
+          <div className="h-[360px] md:h-[520px] rounded-3xl overflow-hidden border border-black/5 bg-white shadow md:sticky md:top-24">
             <MapContainer
               center={[39.8283, -98.5795]}
               zoom={4}
@@ -343,21 +461,45 @@ export default function LocationsContent() {
           </div>
         </div>
 
-        {/* Crawlable SEO links */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {LOCATIONS.map((loc) => (
-            <a
-              key={loc.slug}
-              href={`/locations/${loc.slug}`}
-              className="rounded-2xl bg-white p-4 shadow transition hover:shadow-md"
-            >
-              <div className="text-lg font-bold">{loc.name}</div>
-              <div className="opacity-80">
-                {loc.address || `${loc.city}, ${loc.state}`}
-
+        {/* Crawlable SEO links, grouped by state */}
+        <div className="mt-12 pt-8 border-t border-black/10">
+          <h2 className="text-xs uppercase tracking-[0.18em] opacity-60 mb-4">
+            All Locations
+          </h2>
+          <div className="space-y-5">
+            {groupByState(LOCATIONS).map(([state, locs]) => (
+              <div key={state}>
+                <h3 className="text-sm font-semibold mb-2 opacity-80">
+                  {fullStateName(state)}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {locs.map((loc) => (
+                    <a
+                      key={loc.slug}
+                      href={`/locations/${loc.slug}`}
+                      className="rounded-xl bg-white px-4 py-3 shadow-sm transition hover:shadow-md flex items-center justify-between gap-3"
+                    >
+                      <div className="min-w-0">
+                        <div className="font-semibold truncate">{loc.name}</div>
+                        <div className="text-xs opacity-70 truncate">
+                          {loc.address || `${loc.city}, ${loc.state}`}
+                        </div>
+                      </div>
+                      {loc.status === "open" ? (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-200 text-[#113D33] font-semibold shrink-0">
+                          Open
+                        </span>
+                      ) : (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium shrink-0">
+                          Soon
+                        </span>
+                      )}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </a>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
