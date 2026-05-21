@@ -12,6 +12,17 @@ type EnterToWinFormProps = {
 
 const INSTAGRAM_URL = "https://www.instagram.com/swaywellnessclub/";
 
+/**
+ * TCPA + CAN-SPAM compliant bundled consent.
+ *
+ * Bumping the version string changes the audit-trail tag saved with each
+ * entry. If the disclosure copy changes, bump CONSENT_VERSION and update
+ * CONSENT_TEXT so we have a clean record of what each entrant agreed to.
+ */
+const CONSENT_VERSION = "v1-2026-05-20";
+const CONSENT_TEXT =
+  "By clicking Enter to Win, you agree to receive recurring automated marketing emails and text messages from Sway Dallas at the email and number you provide. Consent is not a condition of entry. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. See our Terms and Privacy Policy.";
+
 export default function EnterToWinForm({
   location = "dallas",
   source = "enter-to-win",
@@ -21,7 +32,6 @@ export default function EnterToWinForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [igBonus, setIgBonus] = useState(false);
-  const [smsOptIn, setSmsOptIn] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -39,7 +49,6 @@ export default function EnterToWinForm({
         event: "enter_to_win_submit",
         location,
         ig_bonus: igBonus,
-        sms_opt_in: smsOptIn,
       });
     }
 
@@ -53,11 +62,12 @@ export default function EnterToWinForm({
           email: email.trim(),
           phone: phone.trim() || undefined,
           location,
-          // Embed bonus + SMS consent flags in the source string so they
-          // appear in the Upstash list without changing the API contract.
-          // Email opt-in is implicit (entry = consent per disclaimer),
-          // SMS opt-in requires explicit TCPA-compliant consent.
-          source: `${source}${igBonus ? "+ig" : ""}${smsOptIn ? "+sms" : ""}`,
+          // Bundled consent: submitting the form IS the express written
+          // consent for marketing emails AND texts (matches Attentive's
+          // popup pattern). Source string just tracks IG bonus.
+          source: `${source}${igBonus ? "+ig" : ""}`,
+          consentVersion: CONSENT_VERSION,
+          consentText: CONSENT_TEXT,
         }),
       });
 
@@ -91,7 +101,7 @@ export default function EnterToWinForm({
           You&apos;re entered!
         </h3>
         <p className="text-base text-[#113D33]/70 mb-6 max-w-md mx-auto">
-          We&apos;ll email the winner before Sway Dallas opens. Good luck.
+          We&apos;ll email the winner after Sway Dallas opens. Good luck.
         </p>
 
         {!igBonus && (
@@ -246,26 +256,28 @@ export default function EnterToWinForm({
         </label>
       </div>
 
-      {/* Optional SMS opt-in (TCPA requires explicit consent for marketing texts) */}
-      <label className="flex items-start gap-3 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={smsOptIn}
-          onChange={(e) => setSmsOptIn(e.target.checked)}
-          className="mt-1 h-4 w-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
-        />
-        <span className="text-xs text-[#113D33]/70">
-          Text me Sway Dallas opening news{" "}
-          <span className="text-[#113D33]/50">(optional)</span>. Message and
-          data rates may apply. Reply STOP to opt out.
-        </span>
-      </label>
-
       {status === "error" && (
         <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
           {errorMsg}
         </div>
       )}
+
+      {/* TCPA + CAN-SPAM bundled consent disclosure — sits directly above
+          the submit button so the button click is the express consent. */}
+      <p className="text-[11px] text-[#113D33]/65 leading-relaxed">
+        By clicking <strong>Enter to Win</strong>, you agree to receive
+        recurring automated marketing emails and text messages from Sway
+        Dallas at the email and number you provide. Consent is not a
+        condition of entry. Reply HELP for help and STOP to cancel. Msg
+        frequency varies. Msg and data rates may apply. See our{" "}
+        <a
+          href="/terms-and-conditions"
+          className="underline underline-offset-2 hover:text-[#113D33]"
+        >
+          Terms and Privacy Policy
+        </a>
+        .
+      </p>
 
       <button
         type="submit"
@@ -281,12 +293,6 @@ export default function EnterToWinForm({
           "Enter to Win"
         )}
       </button>
-
-      <p className="text-[11px] text-[#113D33]/55 text-center leading-relaxed">
-        By entering, you agree to receive Sway Dallas updates and exclusive
-        offers by email. Unsubscribe anytime. Your phone number is used to
-        contact the winner unless you opt in to texts above.
-      </p>
 
       <p className="text-[11px] text-[#113D33]/45 text-center leading-relaxed">
         No purchase necessary. Must be 18+. One entry per email. Bonus entry

@@ -39,6 +39,11 @@ export async function POST(req: Request) {
     location?: string;
     source?: string;
     membership?: string; // backward compat
+    // TCPA + CAN-SPAM audit trail: exact disclosure shown to the user
+    // and its version tag at the moment of submission. Set by forms
+    // that use a bundled consent pattern (e.g. EnterToWinForm).
+    consentVersion?: string;
+    consentText?: string;
   };
 
   try {
@@ -79,6 +84,16 @@ export async function POST(req: Request) {
     );
   }
 
+  const consentVersion = body.consentVersion?.trim() || null;
+  const consentText = body.consentText?.trim() || null;
+
+  // Capture IP + user agent as part of the TCPA/CAN-SPAM audit trail.
+  // These are stored alongside the consent text so we can prove what
+  // was shown and how it was submitted if challenged.
+  const userAgent = req.headers.get("user-agent") || null;
+  const forwardedFor = req.headers.get("x-forwarded-for");
+  const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : null;
+
   const entry = {
     firstName,
     lastName,
@@ -87,6 +102,10 @@ export async function POST(req: Request) {
     location,
     source,
     createdAt: new Date().toISOString(),
+    ...(consentVersion ? { consentVersion } : {}),
+    ...(consentText ? { consentText } : {}),
+    ...(ip ? { consentIp: ip } : {}),
+    ...(userAgent ? { consentUserAgent: userAgent } : {}),
   };
 
   // Log for debugging
