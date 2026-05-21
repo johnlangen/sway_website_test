@@ -8,6 +8,20 @@ import { useEffect, useMemo, useRef, useState } from "react";
    MAVEN HOTEL × SWAY — AESCAPE OPTIONS
 --------------------------------------------- */
 
+/* Maven Bundle promo codes — case-insensitive match.
+ * Code itself is meaningless without front-desk verification of the
+ * guest's hotel confirmation showing the Aescape add-on. The code just
+ * surfaces "this person says they prepaid" in the appointment notes so
+ * the front desk knows to verify rather than auto-charge. To add or
+ * change codes later, edit this array. */
+const MAVEN_PROMO_CODES = ["MavenHotelGuest"];
+
+function isValidMavenPromoCode(code: string) {
+  const normalized = code.trim().toLowerCase();
+  if (!normalized) return false;
+  return MAVEN_PROMO_CODES.some((c) => c.toLowerCase() === normalized);
+}
+
 const MAVEN_SESSIONS = [
   {
     id: 92,
@@ -387,6 +401,12 @@ export default function MavenHotelPage() {
   const [marketingOptIn, setMarketingOptIn] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Maven Bundle promo code — entered at confirm step by guests who
+  // prepaid the Aescape add-on as part of their Maven Hotel room bundle.
+  const [promoCode, setPromoCode] = useState("");
+  const promoCodeTrimmed = promoCode.trim();
+  const promoValid = isValidMavenPromoCode(promoCode);
+
   const bookingLock = useRef(false);
 
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
@@ -669,7 +689,15 @@ export default function MavenHotelPage() {
 
     setStep("booking");
 
-    const notes = "MAVEN HOTEL GUEST — booked online";
+    // Front desk reads this on the appointment in Mindbody. If a promo
+    // code was entered and validates, prepend an explicit verification
+    // instruction so staff knows to check the hotel confirmation rather
+    // than auto-charge the card on file.
+    const baseNote = "Booked online via The Maven Hotel landing page.";
+    const promoNote = promoValid
+      ? ` BUNDLE REDEMPTION · code entered: ${promoCodeTrimmed} · VERIFY guest's Maven Hotel confirmation shows the Aescape bundle at check-in. If unverified, charge normally.`
+      : "";
+    const notes = `${baseNote}${promoNote}`;
 
     const bookRes = await fetch("/api/mindbody/book-appointment", {
       method: "POST",
@@ -1818,9 +1846,71 @@ export default function MavenHotelPage() {
                 <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
                   We&apos;ll reserve this appointment under{" "}
                   <span className="font-semibold">{emailNormalized}</span>. No
-                  charge today — your card is stored in Mindbody for no-show /
-                  late cancellation protection.
+                  charge today. Your card is stored in Mindbody for no-show
+                  and late-cancellation protection.
                 </p>
+
+                {/* Maven Bundle promo code */}
+                <div className="rounded-2xl border border-[#113D33]/15 bg-white/80 p-4 mb-4">
+                  <label
+                    htmlFor="maven-promo"
+                    className="block text-sm font-semibold text-[#113D33] mb-1.5"
+                  >
+                    Maven Bundle Code{" "}
+                    <span className="font-normal text-[#113D33]/50">
+                      (optional)
+                    </span>
+                  </label>
+                  <input
+                    id="maven-promo"
+                    type="text"
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    placeholder="Enter your bundle code"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                  />
+
+                  {promoValid && (
+                    <div className="mt-3 flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-200 px-3 py-2 text-xs text-[#113D33]">
+                      <svg
+                        className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2.5}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span>
+                        Bundle redemption confirmed. Please bring your Maven
+                        Hotel confirmation showing the Aescape add-on to
+                        check-in.
+                      </span>
+                    </div>
+                  )}
+
+                  {!promoValid && promoCodeTrimmed.length > 0 && (
+                    <p className="mt-2 text-xs text-[#113D33]/60">
+                      We don&apos;t recognize this code. You can leave it
+                      blank or double-check your Maven Hotel confirmation
+                      email.
+                    </p>
+                  )}
+
+                  <p className="mt-2 text-xs text-[#113D33]/55 leading-relaxed">
+                    If you prepaid your massage as part of your Maven Hotel
+                    bundle, enter the code from your hotel confirmation.
+                    Otherwise leave blank.
+                  </p>
+                </div>
 
                 {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
 
