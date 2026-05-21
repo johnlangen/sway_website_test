@@ -1,33 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Sparkles,
-  ArrowDown,
-  Check,
-  Calendar,
-  MapPin,
-  Trophy,
-  Instagram,
-} from "lucide-react";
+import { Sparkles, ArrowDown, Instagram } from "lucide-react";
 import EnterToWinForm from "@/app/components/EnterToWinForm";
 
 /* ------------------------------------------------------------------
    PLACEHOLDER CONTEST DETAILS — replace with sister's final answers
 ------------------------------------------------------------------ */
 const CONTEST = {
-  prizeTitle: "12 Months of Spa Services",
-  prizeSubtitle: "One full year of Sway Dallas membership",
-  prizeValue: "$1,200",
-  prizeBreakdown: [
-    "12 monthly facials or massages (Spa Club tier)",
-    "Member pricing on every additional service",
-    "Sway Shop discounts",
-    "Bring-a-friend perks",
-    "First in line on opening day",
-  ],
+  prizeTitle: "12 Months of Sway Dallas",
+  prizeSummary:
+    "One winner gets a full year of Sway Dallas. Monthly massage or facial, unlimited Remedy Room visits, member pricing on everything else.",
+  prizeValue: "$2,400",
   endDate: "Sway Dallas Opening Day", // sister to confirm specific date
   drawDate: "Announced before opening day",
   eligibility: "18+ U.S. residents",
@@ -134,9 +119,10 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/85 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            One year of spa services at Sway Dallas.{" "}
+            Monthly massage or facial, unlimited Remedy Room, member
+            pricing on everything else.{" "}
             <strong className="text-white">{CONTEST.prizeValue} value.</strong>{" "}
-            Free to enter. Bonus entry on Instagram.
+            Free to enter.
           </motion.p>
 
           <motion.div
@@ -161,85 +147,37 @@ export default function DallasEnterToWinPage() {
         <div className="absolute -bottom-px left-0 right-0 h-1 bg-[#F7F4E9] z-10" />
       </section>
 
-      {/* =========================================================
-          SECTION 2 — PRIZE BREAKDOWN
-      ========================================================= */}
-      <section className="px-6 py-16 md:py-20">
-        <div className="max-w-5xl mx-auto">
-          <motion.div {...fadeUp} className="text-center mb-10">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#4A776D] mb-3">
-              The Prize
-            </p>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              {CONTEST.prizeTitle}
-            </h2>
-            <p className="text-lg text-[#113D33]/70 max-w-2xl mx-auto">
-              {CONTEST.prizeSubtitle}. A full year of treatments, member
-              pricing, and Sway perks at the new Knox/Henderson location.
-            </p>
-          </motion.div>
-
-          <motion.div
-            {...fadeUp}
-            className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-[#113D33]/10"
-          >
-            <div className="flex items-start gap-4 mb-6 pb-6 border-b border-[#113D33]/10">
-              <div className="w-12 h-12 rounded-full bg-[#113D33] text-white flex items-center justify-center shrink-0">
-                <Trophy className="w-6 h-6" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold mb-1">
-                  Estimated Value
-                </p>
-                <p className="text-3xl md:text-4xl font-bold">
-                  {CONTEST.prizeValue}
-                </p>
-              </div>
-            </div>
-
-            <p className="font-semibold text-[#113D33] mb-4">
-              The winner gets a full year of:
-            </p>
-            <ul className="space-y-3">
-              {CONTEST.prizeBreakdown.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#113D33]/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <Check className="w-3.5 h-3.5 text-[#113D33]" />
-                  </div>
-                  <span className="text-base">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-      </section>
 
       {/* =========================================================
-          SECTION 3 — ENTRY FORM (anchor)
+          SECTION 2 — ENTRY FORM (anchor)
       ========================================================= */}
       <section id="enter-form" className="px-6 py-16 md:py-20 bg-white scroll-mt-24">
         <div className="max-w-3xl mx-auto">
-          <motion.div {...fadeUp} className="text-center mb-10">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#4A776D] mb-3">
-              Enter the Drawing
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Free to enter. Takes 30 seconds.
+          <motion.div {...fadeUp} className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Enter to Win
             </h2>
-            <p className="text-lg text-[#113D33]/70 max-w-2xl mx-auto">
-              We&apos;ll email the winner before Sway Dallas opens. Bonus entry
-              if you&apos;re following @swaywellnessclub on Instagram.
+            <p className="text-base text-[#113D33]/70">
+              {CONTEST.prizeValue} value. Free entry. Takes 30 seconds.
             </p>
           </motion.div>
 
           <motion.div {...fadeUp}>
             <EnterToWinForm location="dallas" source="enter-to-win" />
           </motion.div>
+
+          <motion.p
+            {...fadeUp}
+            className="text-center text-xs text-[#113D33]/55 mt-6"
+          >
+            Open through {CONTEST.endDate} &middot; {CONTEST.eligibility} &middot;{" "}
+            Winner emailed before opening day
+          </motion.p>
         </div>
       </section>
 
       {/* =========================================================
-          SECTION 4 — BONUS ENTRY EXPLAINER (Instagram)
+          SECTION 3 — BONUS ENTRY EXPLAINER (Instagram)
       ========================================================= */}
       <section className="px-6 py-16 md:py-20">
         <div className="max-w-4xl mx-auto">
@@ -280,91 +218,7 @@ export default function DallasEnterToWinPage() {
       </section>
 
       {/* =========================================================
-          SECTION 5 — KEY DETAILS
-      ========================================================= */}
-      <section className="px-6 py-16 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <motion.h2
-            {...fadeUp}
-            className="text-2xl md:text-3xl font-bold text-center mb-10"
-          >
-            The Details
-          </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <motion.div
-              {...fadeUp}
-              className="bg-[#F7F4E9] rounded-2xl p-6 border border-[#113D33]/10"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center mb-3">
-                <Calendar className="w-5 h-5" />
-              </div>
-              <p className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold mb-1">
-                Entry Window
-              </p>
-              <p className="font-bold">Now through {CONTEST.endDate}</p>
-            </motion.div>
-
-            <motion.div
-              {...fadeUp}
-              className="bg-[#F7F4E9] rounded-2xl p-6 border border-[#113D33]/10"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center mb-3">
-                <Trophy className="w-5 h-5" />
-              </div>
-              <p className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold mb-1">
-                Winner Announced
-              </p>
-              <p className="font-bold">{CONTEST.drawDate}</p>
-            </motion.div>
-
-            <motion.div
-              {...fadeUp}
-              className="bg-[#F7F4E9] rounded-2xl p-6 border border-[#113D33]/10"
-            >
-              <div className="w-10 h-10 rounded-full bg-[#113D33] text-white flex items-center justify-center mb-3">
-                <MapPin className="w-5 h-5" />
-              </div>
-              <p className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold mb-1">
-                Eligibility
-              </p>
-              <p className="font-bold">{CONTEST.eligibility}</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          SECTION 6 — CROSS LINK to Founding Membership
-      ========================================================= */}
-      <section className="px-6 py-16">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            {...fadeUp}
-            className="bg-white rounded-2xl p-6 md:p-8 border border-[#113D33]/10 shadow text-center"
-          >
-            <p className="text-xs uppercase tracking-[0.25em] text-[#4A776D] mb-3">
-              Don&apos;t want to wait?
-            </p>
-            <h3 className="text-xl md:text-2xl font-bold mb-3">
-              Lock in founding member pricing
-            </h3>
-            <p className="text-[#113D33]/70 mb-5 max-w-xl mx-auto">
-              Reserve your spot as a Sway Dallas founding member. Exclusive
-              pricing, priority booking, and VIP perks before we open. No
-              charge until we open.
-            </p>
-            <Link
-              href="/locations/dallas/founding-membership"
-              className="inline-block px-6 py-3 rounded-full bg-[#113D33] text-white font-semibold hover:opacity-90 transition"
-            >
-              Become a Founding Member
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          SECTION 7 — RULES / FINE PRINT
+          SECTION 4 — RULES / FINE PRINT
       ========================================================= */}
       <section className="px-6 py-12 bg-white border-t border-[#113D33]/10">
         <div className="max-w-3xl mx-auto">
@@ -399,10 +253,11 @@ export default function DallasEnterToWinPage() {
               </p>
               <p>
                 <strong>Prize.</strong> One (1) winner will receive twelve (12)
-                months of Spa Club tier membership at Sway Dallas, beginning on
-                the location&apos;s opening day. Estimated retail value:{" "}
-                {CONTEST.prizeValue}. Prize is non-transferable and has no cash
-                value.
+                months of Sway Dallas access, beginning on the location&apos;s
+                opening day, including: one (1) monthly facial or massage,
+                unlimited Remedy Room visits, and member pricing on additional
+                services. Estimated retail value: {CONTEST.prizeValue}. Prize
+                is non-transferable and has no cash value.
               </p>
               <p>
                 <strong>Winner selection &amp; notification.</strong> Winner
