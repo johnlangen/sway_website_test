@@ -21,7 +21,7 @@ export default function EnterToWinForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [igBonus, setIgBonus] = useState(false);
-  const [marketingOptIn, setMarketingOptIn] = useState(true);
+  const [smsOptIn, setSmsOptIn] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -39,6 +39,7 @@ export default function EnterToWinForm({
         event: "enter_to_win_submit",
         location,
         ig_bonus: igBonus,
+        sms_opt_in: smsOptIn,
       });
     }
 
@@ -52,9 +53,11 @@ export default function EnterToWinForm({
           email: email.trim(),
           phone: phone.trim() || undefined,
           location,
-          // Embed bonus + marketing flags in the source string so they
-          // appear in the Upstash list without changing the API contract
-          source: `${source}${igBonus ? "+ig" : ""}${marketingOptIn ? "+mkt" : ""}`,
+          // Embed bonus + SMS consent flags in the source string so they
+          // appear in the Upstash list without changing the API contract.
+          // Email opt-in is implicit (entry = consent per disclaimer),
+          // SMS opt-in requires explicit TCPA-compliant consent.
+          source: `${source}${igBonus ? "+ig" : ""}${smsOptIn ? "+sms" : ""}`,
         }),
       });
 
@@ -243,15 +246,18 @@ export default function EnterToWinForm({
         </label>
       </div>
 
+      {/* Optional SMS opt-in (TCPA requires explicit consent for marketing texts) */}
       <label className="flex items-start gap-3 cursor-pointer">
         <input
           type="checkbox"
-          checked={marketingOptIn}
-          onChange={(e) => setMarketingOptIn(e.target.checked)}
+          checked={smsOptIn}
+          onChange={(e) => setSmsOptIn(e.target.checked)}
           className="mt-1 h-4 w-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
         />
         <span className="text-xs text-[#113D33]/70">
-          Email me Sway Dallas updates, opening news, and exclusive offers.
+          Text me Sway Dallas opening news{" "}
+          <span className="text-[#113D33]/50">(optional)</span>. Message and
+          data rates may apply. Reply STOP to opt out.
         </span>
       </label>
 
@@ -276,7 +282,13 @@ export default function EnterToWinForm({
         )}
       </button>
 
-      <p className="text-[11px] text-[#113D33]/50 text-center leading-relaxed">
+      <p className="text-[11px] text-[#113D33]/55 text-center leading-relaxed">
+        By entering, you agree to receive Sway Dallas updates and exclusive
+        offers by email. Unsubscribe anytime. Your phone number is used to
+        contact the winner unless you opt in to texts above.
+      </p>
+
+      <p className="text-[11px] text-[#113D33]/45 text-center leading-relaxed">
         No purchase necessary. Must be 18+. One entry per email. Bonus entry
         requires following @swaywellnessclub on Instagram. See full rules
         below.
