@@ -2,17 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowDown, Instagram } from "lucide-react";
+import { ArrowDown, Instagram } from "lucide-react";
 import EnterToWinForm from "@/app/components/EnterToWinForm";
 
 /* ------------------------------------------------------------------
    PLACEHOLDER CONTEST DETAILS — replace with sister's final answers
 ------------------------------------------------------------------ */
 const CONTEST = {
-  prizeTitle: "A Year of Sway Dallas",
+  prizeTitle: "A Year of Wellness at Sway Dallas",
   prizeSummary:
-    "One winner gets a full year of Sway Dallas membership. One monthly massage or facial, plus member pricing on every additional service.",
-  prizeValue: "$1,548",
+    "Receive a monthly massage or facial for 12 months at Sway Dallas in Knox/Henderson.",
+  prizeValue: "$1,700",
   endDate: "Sway Dallas Opening Day", // sister to confirm specific date
   drawDate: "Announced before opening day",
   eligibility: "18+ U.S. residents",
@@ -85,21 +85,11 @@ export default function DallasEnterToWinPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/65 to-black/80" />
 
         <div className="relative z-10 px-6 pt-28 md:pt-36 pb-20 text-center max-w-4xl mx-auto">
-          <motion.span
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/25 bg-white/10 text-white/90 text-xs uppercase tracking-[0.25em] backdrop-blur-md mb-8"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            Sway Dallas Giveaway
-          </motion.span>
-
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-sm md:text-base uppercase tracking-[0.2em] text-white/70 mb-5"
+            className="text-sm md:text-base uppercase tracking-[0.2em] text-white/70 mb-6"
           >
             Knox/Henderson &middot; Dallas, TX
           </motion.p>
@@ -110,7 +100,7 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-[1.05] text-white"
           >
-            Win a Year of Sway Dallas.
+            Win a year of wellness.
           </motion.h1>
 
           <motion.p
@@ -119,10 +109,8 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/85 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            A full year of membership. One monthly massage or facial.
-            Member pricing on everything else.{" "}
-            <strong className="text-white">{CONTEST.prizeValue} value.</strong>{" "}
-            Free to enter.
+            Receive a monthly massage or facial for 12 months.{" "}
+            <strong className="text-white">{CONTEST.prizeValue} value.</strong>
           </motion.p>
 
           <motion.div
@@ -158,8 +146,8 @@ export default function DallasEnterToWinPage() {
               Enter to Win
             </h2>
             <p className="text-base text-[#113D33]/70">
-              A full year of Sway Dallas. {CONTEST.prizeValue} value. Takes
-              30 seconds.
+              A monthly massage or facial for 12 months.{" "}
+              {CONTEST.prizeValue} value.
             </p>
           </motion.div>
 
@@ -253,12 +241,11 @@ export default function DallasEnterToWinPage() {
                 {CONTEST.endDate}.
               </p>
               <p>
-                <strong>Prize.</strong> One (1) winner will receive a twelve
-                (12) month Sway Dallas Essential membership, beginning on the
-                location&apos;s opening day. Includes one (1) included facial
-                or massage per month and member pricing on all additional
-                services. Estimated retail value: {CONTEST.prizeValue}. Prize
-                is non-transferable and has no cash value.
+                <strong>Prize.</strong> One (1) winner will receive one (1)
+                monthly facial or massage for 12 months at Sway Dallas,
+                beginning on the location&apos;s opening day. Estimated retail
+                value: {CONTEST.prizeValue}. Prize is non-transferable and has
+                no cash value.
               </p>
               <p>
                 <strong>Winner selection &amp; notification.</strong> Winner

@@ -26,7 +26,7 @@ export default function SwayDallasComingSoonPage() {
             <span>✦</span> Giveaway
           </span>
           <span className="text-sm md:text-base font-semibold">
-            Win a year of Sway Dallas
+            Win a year of wellness at Sway Dallas
           </span>
           <span className="text-xs md:text-sm opacity-80 underline underline-offset-2">
             Enter free &rarr;
