@@ -249,14 +249,9 @@ export default function DallasEnterToWinPage() {
               </p>
               <p>
                 <strong>Winner selection &amp; notification.</strong> Winner
-                will be selected at random from all eligible entries.
-                Notification will be sent via email to the address provided at
-                entry. If the selected winner does not respond within 7 days,
-                an alternate winner may be drawn.
-              </p>
-              <p>
-                <strong>Sponsor.</strong> Sway Wellness Spa, 1428 Larimer
-                Street, Denver, CO 80202.
+                will be selected after our grand opening and announced via
+                email and Instagram. If the selected winner does not respond
+                within 7 days, an alternate winner may be drawn.
               </p>
             </div>
           </details>
