@@ -1,32 +1,32 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Win 12 Months of Spa Services | Sway Dallas",
+  title: "Win a 12-Month Sway Dallas Membership | Enter to Win",
   description:
-    "Enter to win 12 months of spa services at Sway Dallas. Free entry, bonus entry for Instagram followers. $1,200 value. Knox/Henderson, Dallas, TX.",
+    "Enter to win a free 12-month membership to Sway Dallas. Monthly massage or facial, plus member pricing on everything else. $1,548 value. Free entry. Knox/Henderson, Dallas, TX.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/dallas/enter-to-win/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/dallas/enter-to-win/",
-    title: "Win 12 Months of Spa Services at Sway Dallas",
+    title: "Win a 12-Month Sway Dallas Membership",
     description:
-      "Free entry. $1,200 value. One year of spa services at the new Sway Dallas. Bonus entry for following @swaywellnessclub on Instagram.",
+      "Free entry. $1,548 value. A full year of Sway Dallas membership. Bonus entry for following @swaywellnessclub on Instagram.",
     images: [
       {
         url: "/assets/SWAY.jpg",
         width: 1200,
         height: 630,
-        alt: "Win 12 Months of Spa Services at Sway Dallas",
+        alt: "Win a 12-Month Sway Dallas Membership",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Win 12 Months of Spa Services at Sway Dallas",
+    title: "Win a 12-Month Sway Dallas Membership",
     description:
-      "Free entry. $1,200 value. One year of spa services at Sway Dallas in Knox/Henderson.",
+      "Free entry. $1,548 value. A free year of Sway Dallas membership in Knox/Henderson.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: { index: true, follow: true },
@@ -68,9 +68,9 @@ const breadcrumbJsonLd = {
 const eventJsonLd = {
   "@context": "https://schema.org",
   "@type": "Event",
-  name: "Win 12 Months of Spa Services at Sway Dallas",
+  name: "Win a 12-Month Sway Dallas Membership",
   description:
-    "Enter for a chance to win 12 months of spa services at Sway Dallas in Knox/Henderson. Free entry, bonus entry for Instagram followers.",
+    "Enter for a chance to win a free 12-month membership to Sway Dallas in Knox/Henderson. Monthly facial or massage included plus member pricing. Free entry, bonus entry for Instagram followers.",
   startDate: "2026-05-20",
   // Sister to confirm — placeholder = Dallas opening window
   endDate: "2026-09-30",

@@ -9,10 +9,10 @@ import EnterToWinForm from "@/app/components/EnterToWinForm";
    PLACEHOLDER CONTEST DETAILS — replace with sister's final answers
 ------------------------------------------------------------------ */
 const CONTEST = {
-  prizeTitle: "12 Months of Sway Dallas",
+  prizeTitle: "12-Month Sway Dallas Membership",
   prizeSummary:
-    "One winner gets a full year of Sway Dallas. Monthly massage or facial, unlimited Remedy Room visits, member pricing on everything else.",
-  prizeValue: "$2,400",
+    "One winner gets a free year of Sway Dallas at the Essential tier. One monthly massage or facial, plus member pricing on every additional service.",
+  prizeValue: "$1,548",
   endDate: "Sway Dallas Opening Day", // sister to confirm specific date
   drawDate: "Announced before opening day",
   eligibility: "18+ U.S. residents",
@@ -110,7 +110,7 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-[1.05] text-white"
           >
-            Win 12 Months of Sway.
+            Win a 12-Month Sway Dallas Membership.
           </motion.h1>
 
           <motion.p
@@ -119,8 +119,7 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/85 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            Monthly massage or facial, unlimited Remedy Room, member
-            pricing on everything else.{" "}
+            One monthly massage or facial. Member pricing on everything else.{" "}
             <strong className="text-white">{CONTEST.prizeValue} value.</strong>{" "}
             Free to enter.
           </motion.p>
@@ -252,10 +251,10 @@ export default function DallasEnterToWinPage() {
                 {CONTEST.endDate}.
               </p>
               <p>
-                <strong>Prize.</strong> One (1) winner will receive twelve (12)
-                months of Sway Dallas access, beginning on the location&apos;s
-                opening day, including: one (1) monthly facial or massage,
-                unlimited Remedy Room visits, and member pricing on additional
+                <strong>Prize.</strong> One (1) winner will receive a twelve
+                (12) month Sway Dallas Essential membership, beginning on the
+                location&apos;s opening day. Includes one (1) included facial
+                or massage per month and member pricing on all additional
                 services. Estimated retail value: {CONTEST.prizeValue}. Prize
                 is non-transferable and has no cash value.
               </p>

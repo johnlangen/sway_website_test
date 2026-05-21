@@ -410,7 +410,7 @@ export default function DallasFoundingMembershipPage() {
             <span>✦</span> Giveaway
           </span>
           <span className="text-sm md:text-base font-semibold">
-            Win 12 months of spa services at Sway Dallas
+            Win a 12-month Sway Dallas membership
           </span>
           <span className="text-xs md:text-sm opacity-80 underline underline-offset-2">
             Enter free &rarr;
