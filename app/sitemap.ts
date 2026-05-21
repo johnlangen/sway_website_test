@@ -97,6 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/locations/dallas/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/dallas/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/locations/dallas/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/dallas/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------
