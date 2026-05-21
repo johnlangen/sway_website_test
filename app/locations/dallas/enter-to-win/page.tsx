@@ -224,10 +224,8 @@ export default function DallasEnterToWinPage() {
                 improve your chances of winning. Void where prohibited.
               </p>
               <p>
-                <strong>Eligibility.</strong> Open to legal residents of the
-                United States who are 18 years of age or older at the time of
-                entry. Employees of Sway Wellness Spa and their immediate
-                families are not eligible.
+                <strong>Eligibility.</strong> Open to residents of the United
+                States 18 years of age or older.
               </p>
               <p>
                 <strong>How to enter.</strong> Complete the entry form on this
