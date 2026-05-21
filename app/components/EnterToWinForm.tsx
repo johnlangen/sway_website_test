@@ -199,12 +199,13 @@ export default function EnterToWinForm({
           htmlFor="etw-phone"
           className="block text-sm font-semibold text-[#113D33] mb-1.5"
         >
-          Mobile phone <span className="font-normal text-[#113D33]/50">(optional)</span>
+          Mobile phone
         </label>
         <input
           id="etw-phone"
           type="tel"
           inputMode="tel"
+          required
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           autoComplete="tel"

@@ -9,9 +9,9 @@ import EnterToWinForm from "@/app/components/EnterToWinForm";
    PLACEHOLDER CONTEST DETAILS — replace with sister's final answers
 ------------------------------------------------------------------ */
 const CONTEST = {
-  prizeTitle: "12-Month Sway Dallas Membership",
+  prizeTitle: "A Year of Sway Dallas",
   prizeSummary:
-    "One winner gets a free year of Sway Dallas at the Essential tier. One monthly massage or facial, plus member pricing on every additional service.",
+    "One winner gets a full year of Sway Dallas membership. One monthly massage or facial, plus member pricing on every additional service.",
   prizeValue: "$1,548",
   endDate: "Sway Dallas Opening Day", // sister to confirm specific date
   drawDate: "Announced before opening day",
@@ -110,7 +110,7 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-[1.05] text-white"
           >
-            Win a 12-Month Sway Dallas Membership.
+            Win a Year of Sway Dallas.
           </motion.h1>
 
           <motion.p
@@ -119,7 +119,8 @@ export default function DallasEnterToWinPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/85 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            One monthly massage or facial. Member pricing on everything else.{" "}
+            A full year of membership. One monthly massage or facial.
+            Member pricing on everything else.{" "}
             <strong className="text-white">{CONTEST.prizeValue} value.</strong>{" "}
             Free to enter.
           </motion.p>
@@ -157,7 +158,8 @@ export default function DallasEnterToWinPage() {
               Enter to Win
             </h2>
             <p className="text-base text-[#113D33]/70">
-              {CONTEST.prizeValue} value. Free entry. Takes 30 seconds.
+              A full year of Sway Dallas. {CONTEST.prizeValue} value. Takes
+              30 seconds.
             </p>
           </motion.div>
 
