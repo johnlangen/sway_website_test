@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
+import InstagramCallout from "@/app/components/InstagramCallout";
 import {
   Check,
   ChevronDown,
@@ -1279,6 +1280,14 @@ export default function DallasFoundingMembershipPage() {
           </div>
         </div>
       </section>
+
+      {/* ========================================================
+          INSTAGRAM CALLOUT
+      ======================================================== */}
+      <InstagramCallout
+        title="Stay in the know."
+        subtitle="Follow @swaywellnessclub on Instagram for Sway Dallas opening news, Knox/Henderson build updates, and founding member moments."
+      />
 
       {/* ========================================================
           FINAL CTA BANNER

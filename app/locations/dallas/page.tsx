@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 import GoogleReviews from "@/app/components/GoogleReviews";
 import WaitlistForm from "@/app/components/WaitlistForm";
+import InstagramCallout from "@/app/components/InstagramCallout";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -264,6 +265,12 @@ export default function SwayDallasComingSoonPage() {
           </div>
         </div>
       </section>
+
+      {/* ====== INSTAGRAM CALLOUT ====== */}
+      <InstagramCallout
+        title="Stay in the know."
+        subtitle="Follow @swaywellnessclub on Instagram for Sway Dallas opening news, Knox/Henderson build updates, and behind-the-scenes from the team."
+      />
 
       {/* ====== CROSS LINKS ====== */}
       <section className="px-6 py-12">
