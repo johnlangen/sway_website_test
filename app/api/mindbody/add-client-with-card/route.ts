@@ -13,11 +13,9 @@ function detectCardType(cardNumber: string): string {
 }
 
 export async function POST(req: Request) {
+  const rawBody = await req.json();
   const {
-    firstName,
-    lastName,
     email,
-    mobilePhone,
     cardNumber,
     expMonth,
     expYear,
@@ -33,7 +31,16 @@ export async function POST(req: Request) {
     sendScheduleTexts = true,
     sendPromotionalEmails = false,
     sendPromotionalTexts = false,
-  } = await req.json();
+  } = rawBody;
+
+  // Defensive trim on identity fields. Frontend already trims, but a
+  // bypassed-frontend submission with whitespace-only names ("  ") would
+  // otherwise pass the truthy check below and land in Mindbody as a blank
+  // name. This is the same failure mode that produced the May 15 and May
+  // 19 nameless client creations.
+  const firstName = typeof rawBody.firstName === "string" ? rawBody.firstName.trim() : "";
+  const lastName = typeof rawBody.lastName === "string" ? rawBody.lastName.trim() : "";
+  const mobilePhone = typeof rawBody.mobilePhone === "string" ? rawBody.mobilePhone.trim() : "";
 
   if (
     !firstName ||
@@ -131,14 +138,50 @@ export async function POST(req: Request) {
 
     const createdClientId = data?.Client?.Id != null ? String(data.Client.Id) : null;
 
+    // SAFETY NET #2: Verify Mindbody actually persisted the name fields.
+    // Same pattern as cardSaved — Mindbody can return 200 + Client.Id with
+    // FirstName/LastName silently dropped (special chars, email dedup
+    // merge into a stub record, etc.). Without this check we report success
+    // and the booking proceeds with a nameless client. May 15 and May 19
+    // pre-fix cases hit this path.
+    const returnedFirst =
+      typeof data?.Client?.FirstName === "string" ? data.Client.FirstName.trim() : "";
+    const returnedLast =
+      typeof data?.Client?.LastName === "string" ? data.Client.LastName.trim() : "";
+    const namesPersisted = !!(returnedFirst && returnedLast);
+
     console.log("[add-client-with-card] MB result:", {
       httpStatus: res.status,
       mbStatus: data?.Status,
       clientId: createdClientId,
       cardSaved,
+      namesPersisted,
       lastFour: data?.Client?.ClientCreditCard?.LastFour ?? null,
       errors: data?.Errors ?? null,
     });
+
+    // If names didn't persist, log the request payload + Mindbody response
+    // for debugging next time, and return a friendly error. Server-side
+    // log only — does not leak to the browser.
+    if (!namesPersisted) {
+      console.error("[add-client-with-card] Names NOT persisted in Mindbody", {
+        sentFirstName: firstName,
+        sentLastName: lastName,
+        clientId: createdClientId,
+        returnedFirstName: data?.Client?.FirstName ?? null,
+        returnedLastName: data?.Client?.LastName ?? null,
+        mbStatus: data?.Status,
+        mbErrors: data?.Errors ?? null,
+      });
+      return NextResponse.json(
+        {
+          error:
+            "We couldn't save your name to your account. Please try again or call (303) 476-6150.",
+          clientId: createdClientId,
+        },
+        { status: 400 }
+      );
+    }
 
     if (!cardSaved) {
       const firstError = Array.isArray(data?.Errors) ? data.Errors[0] : null;

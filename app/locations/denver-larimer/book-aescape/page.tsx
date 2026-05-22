@@ -814,7 +814,22 @@ export default function BookAescapePage() {
     setStep("booking");
 
     /* Build appointment notes */
-    const noteParts: string[] = ["Booked online (NEW) — Aescape"];
+    // Prepend booker + timestamp so front desk can recover the booker name
+    // from notes if Mindbody ever loses it on the client record.
+    const fn = firstName.trim();
+    const ln = lastName.trim();
+    const bookerLabel = fn && ln ? `${fn} ${ln}` : email.trim() || "(unknown)";
+    const bookedAt = new Date().toLocaleString("en-US", {
+      timeZone: "America/Denver",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    const noteParts: string[] = [
+      `Booked: ${bookerLabel} · ${bookedAt} MT — Aescape`,
+    ];
     if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
       const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
       noteParts.push(`BOOKING FOR: ${guestName}`, `Phone: ${guestPhone.trim()}`);

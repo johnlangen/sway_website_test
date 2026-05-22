@@ -692,8 +692,21 @@ export default function MavenHotelPage() {
     // Front desk reads this on the appointment in Mindbody. If a promo
     // code was entered and validates, prepend an explicit verification
     // instruction so staff knows to check the hotel confirmation rather
-    // than auto-charge the card on file.
-    const baseNote = "Booked online via The Maven Hotel landing page.";
+    // than auto-charge the card on file. We also prepend a booker label
+    // and timestamp so the booker's name is recoverable from notes if
+    // Mindbody ever loses it on the client record.
+    const fn = firstName.trim();
+    const ln = lastName.trim();
+    const bookerLabel = fn && ln ? `${fn} ${ln}` : email.trim() || "(unknown)";
+    const bookedAt = new Date().toLocaleString("en-US", {
+      timeZone: "America/Denver",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    const baseNote = `Booked: ${bookerLabel} · ${bookedAt} MT — Maven Hotel landing page.`;
     const promoNote = promoValid
       ? ` BUNDLE REDEMPTION · code entered: ${promoCodeTrimmed} · VERIFY guest's Maven Hotel confirmation shows the Aescape bundle at check-in. If unverified, charge normally.`
       : "";
