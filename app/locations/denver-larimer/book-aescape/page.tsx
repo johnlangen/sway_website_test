@@ -1116,6 +1116,8 @@ export default function BookAescapePage() {
             state,
             cardHolder,
             cardType, // ✅ important for Mindbody reliability
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
           }),
         });
 

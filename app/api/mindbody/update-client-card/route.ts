@@ -12,6 +12,7 @@ function detectCardType(cardNumber: string) {
 }
 
 export async function POST(req: Request) {
+  const rawBody = await req.json();
   const {
     clientId,
     cardNumber,
@@ -23,7 +24,21 @@ export async function POST(req: Request) {
     address,
     city,
     state,
-  } = await req.json();
+  } = rawBody;
+
+  // Mindbody's UpdateClient endpoint validates the ENTIRE client object even on
+  // partial updates. If the existing client record has blank FirstName/LastName
+  // (very common: Consumer Identity Service stubs created when anyone with a
+  // universal Mindbody account first touches Sway), the call rejects with
+  // 400 ValidationFailed — "Client first name is required."
+  //
+  // We accept optional firstName/lastName from the frontend (pre-filled from
+  // /api/membership/check or collected via the "name" step). If not provided,
+  // we GET the existing client and use whatever's on file. If those are still
+  // blank, the existing failure mode persists (handled by the name-collection
+  // step upstream).
+  const requestFirstName = typeof rawBody.firstName === "string" ? rawBody.firstName.trim() : "";
+  const requestLastName = typeof rawBody.lastName === "string" ? rawBody.lastName.trim() : "";
 
   if (
     !clientId ||
@@ -46,6 +61,37 @@ export async function POST(req: Request) {
     const token = await getMindbodyStaffToken();
     const cardType = detectCardType(cardNumber);
 
+    // Resolve names: prefer request payload, fall back to a GetClient lookup.
+    let resolvedFirst = requestFirstName;
+    let resolvedLast = requestLastName;
+    if (!resolvedFirst || !resolvedLast) {
+      try {
+        const lookupUrl = new URL(
+          "https://api.mindbodyonline.com/public/v6/client/clients"
+        );
+        lookupUrl.searchParams.set("request.clientIds", String(clientId));
+        lookupUrl.searchParams.set("request.limit", "1");
+        const lookupRes = await fetch(lookupUrl.toString(), {
+          headers: {
+            Accept: "application/json",
+            "Api-Key": process.env.MINDBODY_API_KEY!,
+            SiteId: process.env.MINDBODY_SITE_ID!,
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (lookupRes.ok) {
+          const lookupData = await lookupRes.json();
+          const existing = Array.isArray(lookupData?.Clients) ? lookupData.Clients[0] : null;
+          const existingFirst = typeof existing?.FirstName === "string" ? existing.FirstName.trim() : "";
+          const existingLast = typeof existing?.LastName === "string" ? existing.LastName.trim() : "";
+          if (!resolvedFirst) resolvedFirst = existingFirst;
+          if (!resolvedLast) resolvedLast = existingLast;
+        }
+      } catch (lookupErr) {
+        console.warn("[update-client-card] GetClient lookup for name fallback failed:", lookupErr);
+      }
+    }
+
     const res = await fetch(
       "https://api.mindbodyonline.com/public/v6/client/updateclient",
       {
@@ -60,6 +106,11 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           Client: {
             Id: clientId,
+            // Include name fields whenever we have them. Mindbody validates the
+            // whole client object; sending blanks against a stub will still fail
+            // (caller should run /api/mindbody/update-client first).
+            ...(resolvedFirst ? { FirstName: resolvedFirst } : {}),
+            ...(resolvedLast ? { LastName: resolvedLast } : {}),
             ClientCreditCard: {
               CardNumber: cardNumber,
               ExpMonth: expMonth,

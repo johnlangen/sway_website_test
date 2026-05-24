@@ -805,7 +805,7 @@ export default function NewBookingFlow() {
         setClientId(data.clientId);
       } else {
         const res = await fetch("/api/mindbody/update-client-card", { method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ clientId, cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType, address, city, state: stateCode }) });
+          body: JSON.stringify({ clientId, cardNumber: digits, expMonth, expYear, postalCode, cardHolder, cardType, address, city, state: stateCode, firstName: firstName.trim(), lastName: lastName.trim() }) });
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error ?? "Failed to save card");
       }

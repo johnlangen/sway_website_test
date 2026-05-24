@@ -1414,6 +1414,8 @@ function BookServicePage() {
             address,
             city,
             state,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
           }),
         });
 

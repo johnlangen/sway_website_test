@@ -866,6 +866,8 @@ export default function MavenHotelPage() {
             postalCode,
             cardHolder,
             cardType,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
           }),
         });
 

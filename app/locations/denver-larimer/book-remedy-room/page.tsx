@@ -1171,6 +1171,8 @@ export default function BookRemedyRoomPage() {
             address,
             city,
             state,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
           }),
         });
 
