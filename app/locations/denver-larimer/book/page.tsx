@@ -29,6 +29,7 @@ type Step =
   | "boosts"
   | "time"
   | "account"
+  | "name"
   | "confirm"
   | "booking"
   | "done";
@@ -221,6 +222,7 @@ function ProgressBarNew({ step }: { step: Step }) {
     boosts: 2,
     time: 3,
     account: 4,
+    name: 4,
     confirm: 5,
   };
   if (step === "welcome" || step === "booking" || step === "done") return null;
@@ -291,6 +293,14 @@ export default function NewBookingFlow() {
         setHasAescapeMembership(data.hasAescapeMembership ?? false);
         setHasRemedyMembership(data.hasRemedyMembership ?? false);
         setMemberCheckDone(true);
+        // Pre-fill name state for notes prefix; flag stub if blank.
+        const existingFirst = typeof data.firstName === "string" ? data.firstName.trim() : "";
+        const existingLast = typeof data.lastName === "string" ? data.lastName.trim() : "";
+        if (existingFirst) setFirstName(existingFirst);
+        if (existingLast) setLastName(existingLast);
+        if (data.clientId && (!existingFirst || !existingLast)) {
+          setNeedsNameUpdate(true);
+        }
         if (data.isMember && data.tier) setTreatmentTierFilter(data.tier);
         setStep("category"); // skip welcome
       })
@@ -326,6 +336,12 @@ export default function NewBookingFlow() {
   const [mobilePhone, setMobilePhone] = useState("");
   const [cardSaving, setCardSaving] = useState(false);
   const [marketingOptIn, setMarketingOptIn] = useState(true);
+  // Returning Mindbody record has blank FirstName/LastName (stub from
+  // ClassPass/ResortPass/etc). Force a "name" step that PATCHes the record
+  // before booking so the appointment isn't nameless on the schedule.
+  const [needsNameUpdate, setNeedsNameUpdate] = useState(false);
+  const [needsPhoneUpdate, setNeedsPhoneUpdate] = useState(false);
+  const [nameSaving, setNameSaving] = useState(false);
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
   const expMonthRef = useRef<HTMLSelectElement | null>(null);
@@ -359,6 +375,8 @@ export default function NewBookingFlow() {
     setHasAescapeMembership(false); setHasRemedyMembership(false);
     setMemberCheckDone(false); setWelcomeShowEmail(false); setWelcomeResult(null);
     setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null);
+    setNeedsNameUpdate(false); setNeedsPhoneUpdate(false);
+    setFirstName(""); setLastName("");
     setStep("welcome");
   };
 
@@ -386,6 +404,19 @@ export default function NewBookingFlow() {
     setHasRemedyMembership(data.hasRemedyMembership ?? false);
     setMemberCheckDone(true);
     if (data.clientId) saveClientId(data.clientId);
+    // Pre-fill firstName/lastName from the API response so the notes-prefix
+    // generator (and any visible UI) always has the full name handy. Detect
+    // stub records (clientId present but blank first/last name) and force a
+    // "name" step before booking.
+    const existingFirst = typeof data.firstName === "string" ? data.firstName.trim() : "";
+    const existingLast = typeof data.lastName === "string" ? data.lastName.trim() : "";
+    if (existingFirst) setFirstName(existingFirst);
+    if (existingLast) setLastName(existingLast);
+    if (data.clientId && (!existingFirst || !existingLast)) {
+      setNeedsNameUpdate(true);
+    } else {
+      setNeedsNameUpdate(false);
+    }
     const hasAnyMembership = (data.isMember && data.tier) || data.hasAescapeMembership || data.hasRemedyMembership;
     if (hasAnyMembership) {
       saveEmail(normalized);
@@ -448,6 +479,14 @@ export default function NewBookingFlow() {
       setHomeLocation(data.homeLocation ?? null);
       setMemberCheckDone(true);
       setShowMemberInput(false);
+      // Pre-fill name state for notes prefix; flag stub if blank.
+      const existingFirst = typeof data.firstName === "string" ? data.firstName.trim() : "";
+      const existingLast = typeof data.lastName === "string" ? data.lastName.trim() : "";
+      if (existingFirst) setFirstName(existingFirst);
+      if (existingLast) setLastName(existingLast);
+      if (data.clientId && (!existingFirst || !existingLast)) {
+        setNeedsNameUpdate(true);
+      }
       if (data.isMember && data.tier) setTreatmentTierFilter(data.tier);
     } catch {
       setMemberCheckDone(true);
@@ -602,6 +641,19 @@ export default function NewBookingFlow() {
   const handleTimeContinue = () => {
     if (!selectedSlot) return;
     window.dataLayer?.push({ event: "booking_time_selected", booking_flow: category, booking_date: selectedDate });
+    // Stub returning client (clientId but blank name) — collect name before
+    // anything else. Defense against booking under a nameless profile, which
+    // creates schedule entries with no first/last on the calendar.
+    if (memberCheckDone && clientId && needsNameUpdate) {
+      window.dataLayer?.push({ event: "booking_email_entered", booking_flow: category, client_type: "returning", is_member: isMember });
+      if (hasCardOnFile) {
+        setCardContext(null);
+      } else {
+        setCardContext("add_card");
+      }
+      setStep("name");
+      return;
+    }
     // If member already identified via shortcut and has card on file, skip to confirm
     if (memberCheckDone && hasCardOnFile && clientId) {
       window.dataLayer?.push({ event: "booking_email_entered", booking_flow: category, client_type: "returning", is_member: isMember });
@@ -644,6 +696,24 @@ export default function NewBookingFlow() {
         setMemberCheckDone(true);
         saveEmail(normalized);
         window.dataLayer?.push({ event: "booking_email_entered", booking_flow: category, client_type: data.found ? "returning" : "new", is_member: data.isMember ?? false });
+        // Pre-fill name state for notes prefix; detect stubs (blank name)
+        const existingFirst = typeof data.firstName === "string" ? data.firstName.trim() : "";
+        const existingLast = typeof data.lastName === "string" ? data.lastName.trim() : "";
+        if (existingFirst) setFirstName(existingFirst);
+        if (existingLast) setLastName(existingLast);
+        const stubMissingName = !!data.clientId && (!existingFirst || !existingLast);
+        if (stubMissingName) {
+          setNeedsNameUpdate(true);
+          // If they have a card on file, "name" step will route to "confirm"
+          // afterward. Otherwise, route to account/add_card to collect a card.
+          if (data.hasCardOnFile) {
+            setCardContext(null);
+          } else {
+            setCardContext("add_card");
+          }
+          setStep("name");
+          return;
+        }
         // If member with card on file — skip straight to confirm
         if (data.hasCardOnFile && data.clientId) {
           window.dataLayer?.push({ event: "booking_card_entered", booking_flow: category, card_source: "on_file" });
@@ -746,6 +816,42 @@ export default function NewBookingFlow() {
     finally { setCardSaving(false); }
   };
 
+  const handleSaveNameAndContinue = async () => {
+    setError(null);
+    if (!clientId) { setError("Missing client ID. Please start again."); setStep("welcome"); return; }
+    const trimmedFirst = firstName.trim();
+    const trimmedLast = lastName.trim();
+    const trimmedPhone = mobilePhone.trim();
+    if (!trimmedFirst || !trimmedLast) { setError("Please enter your first and last name."); return; }
+    if (needsPhoneUpdate && trimmedPhone.replace(/\D/g, "").length < 10) { setError("Please enter a valid mobile phone number."); return; }
+    setNameSaving(true);
+    try {
+      const res = await fetch("/api/mindbody/update-client", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId,
+          firstName: trimmedFirst,
+          lastName: trimmedLast,
+          ...(needsPhoneUpdate ? { mobilePhone: trimmedPhone } : {}),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error ?? "We couldn't save your name. Please try again.");
+      setNeedsNameUpdate(false);
+      setNeedsPhoneUpdate(false);
+      // Route forward: if we still need a card, go to account/add_card.
+      // Otherwise (card on file) jump straight to confirm.
+      if (cardContext === "add_card") {
+        setStep("account");
+      } else {
+        window.dataLayer?.push({ event: "booking_card_entered", booking_flow: category, card_source: "on_file" });
+        setStep("confirm");
+      }
+    } catch (e: any) { setError(e?.message ?? "Something went wrong."); }
+    finally { setNameSaving(false); }
+  };
+
   const handleFinalConfirmAndBook = async () => {
     if (bookingLock.current) return;
     bookingLock.current = true;
@@ -756,7 +862,18 @@ export default function NewBookingFlow() {
     window.dataLayer?.push({ event: "booking_confirmed", booking_flow: category });
     setStep("booking"); setError(null);
     try {
-      const noteParts = [`Booked online (NEW) \u2014 ${selectedTreatment?.name}`];
+      // Prepend booker name + Mountain Time stamp so front desk can recover
+      // the booker from notes if the Mindbody calendar entry ever shows blank
+      // (defense-in-depth for the rare case where MB silently drops a name).
+      const fn = firstName.trim();
+      const ln = lastName.trim();
+      const fullName = [fn, ln].filter(Boolean).join(" ").trim();
+      const bookerLabel = fullName || email.trim() || "(unknown)";
+      const bookedAt = new Date().toLocaleString("en-US", { timeZone: "America/Denver", month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
+      const noteParts = [
+        `Booked: ${bookerLabel} \u00B7 ${bookedAt} MT \u2014 ${selectedTreatment?.name}`,
+        `Booked online (NEW)`,
+      ];
       if (forSomeoneElse && guestFirstName && guestPhone) {
         noteParts.push(`BOOKING FOR: ${[guestFirstName, guestLastName].filter(Boolean).join(" ")}`, `Phone: ${guestPhone}`);
         if (guestEmail) noteParts.push(`Email: ${guestEmail}`);
@@ -797,10 +914,11 @@ export default function NewBookingFlow() {
       setCardContext(null);
       return;
     }
-    const map: Partial<Record<Step, Step>> = { category: "welcome", treatment: "category", boosts: "treatment", time: "boosts", account: "time", confirm: "account" };
+    const map: Partial<Record<Step, Step>> = { category: "welcome", treatment: "category", boosts: "treatment", time: "boosts", account: "time", name: "time", confirm: "account" };
     let prev = map[step];
     // If member with card on file skipped account, back from confirm goes to time
-    if (step === "confirm" && isMember && hasCardOnFile) prev = "time";
+    // (or "name" if a stub-update is still required before booking)
+    if (step === "confirm" && isMember && hasCardOnFile) prev = needsNameUpdate ? "name" : "time";
     // Skip boosts step for Ultimate (0 boosts allowed)
     if (prev === "boosts" && selectedTreatment && BOOST_LIMITS[selectedTreatment.tier] === 0) prev = "treatment";
     if (prev) setStep(prev);
@@ -848,6 +966,7 @@ export default function NewBookingFlow() {
                  step === "boosts" ? "Customize with boosts" :
                  step === "time" ? "Pick your therapist & time" :
                  step === "account" ? (cardContext ? (cardContext === "create_account" ? "Create your account" : "Payment details") : "Your account") :
+                 step === "name" ? "Confirm your name" :
                  step === "confirm" ? "Review and confirm" :
                  step === "booking" ? "Booking your appointment" : ""}
               </div>
@@ -1578,6 +1697,41 @@ export default function NewBookingFlow() {
             )}
 
             {selectedSlot && <button onClick={handleTimeContinue} className={primaryBtn}>Continue</button>}
+          </motion.div>
+        )}
+
+        {/* ===== NAME (returning client with blank FirstName/LastName) ===== */}
+        {step === "name" && (
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            <div className="text-center pt-4">
+              <h2 className="text-2xl font-bold text-[#113D33]">One quick thing</h2>
+              <p className="mt-2 text-sm text-[#113D33]/60">We found your account, but we&apos;re missing your name. Add it so your appointment is on file correctly.</p>
+            </div>
+            <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-medium text-[#113D33] mb-1">First name</label>
+                  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} autoComplete="given-name" autoFocus />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-[#113D33] mb-1">Last name</label>
+                  <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} autoComplete="family-name" />
+                </div>
+              </div>
+              {needsPhoneUpdate && (
+                <div>
+                  <label className="block text-xs font-medium text-[#113D33] mb-1">Mobile phone</label>
+                  <input type="tel" inputMode="tel" value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} placeholder="(303) 555-1234" className={inputClass} autoComplete="tel" />
+                </div>
+              )}
+              <button
+                onClick={handleSaveNameAndContinue}
+                disabled={nameSaving || !firstName.trim() || !lastName.trim() || (needsPhoneUpdate && mobilePhone.replace(/\D/g, "").length < 10)}
+                className={primaryBtn}
+              >
+                {nameSaving ? "Saving..." : "Continue"}
+              </button>
+            </div>
           </motion.div>
         )}
 
