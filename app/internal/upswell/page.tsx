@@ -212,7 +212,7 @@ const PAYMENT_MIGRATION_PLAN = {
 // Locked May 25: Option C (hybrid 90-min time slots, soft cap)
 // Capacity numbers added May 25 from RiNo + CP architectural permit sets
 const CAPACITY_DECISION = {
-  status: "Locked May 25 — Option C, slot cap = 20 concurrent guests per location",
+  status: "Locked May 25 PM — Option C, slot cap = 15 concurrent guests per location (revised down from 20 based on John's on-the-ground read)",
   question: "How members access the Sway Remedy Lounge at the new locations — individual modality bookings (current Upswell), unlimited walk-in (Larimer model), or hybrid time-slot booking?",
   options: [
     {
@@ -236,7 +236,7 @@ const CAPACITY_DECISION = {
   ],
   implementation: [
     "New Mindbody session type at each new location: 'Sway Remedy Lounge' — 90 minute slot",
-    "★ Capacity per slot: 20 concurrent guests at each location (source: architectural permit sets — see capacity table below)",
+    "★ Capacity per slot: 15 concurrent guests at each location. Sauna is the bottleneck — see capacity table below for sauna math.",
     "Archive / disable the legacy 40-min 'Remedy Room' session at RiNo + CP (carried over from Larimer setup — doesn't match Option C)",
     "Keep Remedy membership tier but link it to the new 90-min Lounge sessions",
     "Members can book back-to-back slots if availability allows",
@@ -258,19 +258,19 @@ const CAPACITY_DECISION = {
       totalSF: "4,000 SF",
       loungeSF: "1,786 SF",
       codeMax: 36,
-      recommendedCap: 20,
-      equipment: "4 SwimEx cold plunges · 1 B Saunas cube sauna · 3 Clearlight infrared sauna cabins · 1 Glow room (red light) · Movement room (compression) · rinse shower",
+      recommendedCap: 15,
+      equipment: "Big cold plunge (4-6 people) · Big sauna (4-6) · Infrared standalone (3-4) · Mixed room w/ infrared + Normatec (6-8)",
     },
     {
       location: "Central Park (2271 Clinton St, Aurora)",
       totalSF: "3,500 SF",
       loungeSF: "1,900 SF",
       codeMax: 38,
-      recommendedCap: 20,
-      equipment: "2 cold plunges + 2 hot tubs (contrast therapy) · 1 sauna · 2 Glow rooms (red light) · Recover room with Normatec compression (3-4 stations) · Zone 2 lounge area",
+      recommendedCap: 15,
+      equipment: "Smaller cold plunge (4-6) · Big sauna (4-6) · Infrared (3-4) · Two sections w/ infrared + Normatec (8-10)",
     },
   ],
-  capacityContext: "Code max comes from IBC table 1004.1.2 at 50 SF/gross occupant for exercise rooms. Comfortable use is typically 50-60% of code max. Setting Mindbody cap at 20 leaves generous safety margin (about 55% of code), accommodates walk-ins on top of bookings, and matches the ~8 dedicated modality stations per location (members rotate through). Historically Upswell averaged ~55 check-ins/day across both locations (~50 RiNo + ~10 CP). Even doubling under $99 Unlimited push = ~100/day combined, easily accommodated by a 20-cap × multiple 90-min slots per day.",
+  capacityContext: "Sauna is the bottleneck — and most members come for sauna. Code max from IBC table 1004.1.2 (50 SF/gross occupant for exercise rooms) is 36-38, but code max isn't the right number — sauna throughput is. RiNo simultaneous sauna seats ≈ 8-12, CP ≈ 9-14. At 15 booked guests with ~25-30% in sauna at any moment, that's 4-5 sauna users at peak (within capacity), leaving 9-10 in plunges/normatec/transition. 20 was too high — peak hour sauna would queue and the experience would suffer. Mindbody capacity is adjustable slot-by-slot, so start at 15, monitor first 2 weeks, raise to 18 or drop to 12 based on actual peak feel.",
 };
 
 // MEETING_525_AGENDA — Today's 1pm with Heather + Emily
