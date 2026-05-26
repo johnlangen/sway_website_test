@@ -279,14 +279,17 @@ const CAPACITY_DECISION = {
 const LOUNGE_FINAL = {
   status: "LOCKED · May 26 2026",
   oneLiner:
-    "75-min Sway Remedy Lounge slot, cap 15 RiNo / 18 CP. Optional infrared cabin reservation within the slot (3 × 25-min rotations). Open-floor for sauna, plunge, compression. Infrared is the only modality where peak demand approaches peak hourly throughput — it's the only modality that's bookable. Matches every social recovery brand in the market (Bathhouse, Othership, Aire) for the open-floor parts and HigherDose for the constrained part. $99/mo Founding (existing members + launch window through Aug 31) → $129/mo Standard. $49 drop-in, $25 first-time intro.",
+    "75-min Sway Remedy Lounge slot (85-min Mindbody backend = 75 member-facing + 10 cleanup), cap 15 RiNo / 18 CP. Two optional add-on reservations within the slot: 25-min infrared cabin (150-175°F) AND 25-min traditional sauna seat (200°F) — both with 3 rotation windows each. Cold plunge, compression, and lounge stay open-floor (biology and timers enforce rotation). Heat-modality single-user/seat reservations clean up the only real friction points and match every social recovery brand's hybrid pattern. $99/mo Founding (existing members + launch window through Aug 31) → $129/mo Standard. $49 drop-in, $25 first-time intro. Unlimited = no per-day cap, max 5 active future bookings.",
   decisionTable: [
     { row: "Booking product", rino: "One: 75-min Sway Remedy Lounge slot", cp: "Same" },
-    { row: "Slot length", rino: "75 minutes", cp: "75 minutes" },
-    { row: "Slot cap", rino: "15", cp: "18", bold: true },
-    { row: "Bookable modality", rino: "Infrared cabin (optional, within slot)", cp: "Infrared cabin (optional, within slot)" },
-    { row: "Infrared seats per slot", rino: "9 (3 cabins × 3 × 25-min)", cp: "12 (4 cabins × 3 × 25-min)" },
-    { row: "Open-floor modalities", rino: "Sauna, cold plunge, compression, lounge", cp: "Same" },
+    { row: "Member-facing slot length", rino: "75 minutes", cp: "75 minutes" },
+    { row: "Mindbody backend slot length", rino: "85 min (75 + 10 min cleanup)", cp: "Same" },
+    { row: "Slot cap (concurrent members)", rino: "15", cp: "18", bold: true },
+    { row: "Bookable add-on #1: Infrared cabin", rino: "25-min reservation, 3 cabins × 3 rotations", cp: "25-min reservation, 4 cabins × 3 rotations" },
+    { row: "Infrared seats per slot", rino: "9 (3 × 3 × 25-min @ 150-175°F)", cp: "12 (4 × 3 × 25-min @ 150-175°F)" },
+    { row: "Bookable add-on #2: Sauna seat", rino: "25-min reservation, 4 seats × 3 rotations", cp: "25-min reservation, 4 seats × 3 rotations" },
+    { row: "Sauna seats per slot", rino: "12 (4 × 3 × 25-min @ 200°F)", cp: "12 (4 × 3 × 25-min @ 200°F)" },
+    { row: "Open-floor (no booking)", rino: "Cold plunge, compression, lounge", cp: "Same" },
     { row: "Membership — Founding (through Aug 31)", rino: "$99/mo unlimited", cp: "$99/mo unlimited" },
     { row: "Membership — Standard (post-Aug 31)", rino: "$129/mo unlimited", cp: "$129/mo unlimited" },
     { row: "Drop-in (75 min)", rino: "$49", cp: "$49" },
@@ -297,15 +300,15 @@ const LOUNGE_FINAL = {
   ],
   // Throughput math — the why behind the model
   throughputRiNo: [
-    { mod: "Sauna (200°F forces 10-15 min exits)", seats: "4-6", session: "12 min avg", per75: "25-37", demand: "5-6 (40%×14)", used: "16-24%", flag: "ok" },
+    { mod: "★ Sauna (200°F, 25-min booked seat) — BOOKABLE", seats: "4 capped (of 4-6)", session: "25 min", per75: "12", demand: "5-6 (40%×14)", used: "42-50%", flag: "bookable" },
     { mod: "Cold plunge (38°F forces 2-5 min exits)", seats: "4-6", session: "3 min avg", per75: "100-150", demand: "5 (35%×14)", used: "3-5%", flag: "ok" },
-    { mod: "Infrared (140°F, 25-min holds, no biological exit)", seats: "3 cabins", session: "25 min", per75: "9", demand: "7 (50%×14)", used: "78%", flag: "tight" },
+    { mod: "★ Infrared (150-175°F, 25-min cabin) — BOOKABLE", seats: "3 cabins", session: "25 min", per75: "9", demand: "7 (50%×14)", used: "78%", flag: "tight" },
     { mod: "Compression (30-min program timer)", seats: "4-6", session: "30 min", per75: "10-15", demand: "3-4 (25%×14)", used: "23-40%", flag: "ok" },
   ],
   throughputCP: [
-    { mod: "Sauna", seats: "4-6", session: "12 min avg", per75: "25-37", demand: "7 (40%×17)", used: "19-28%", flag: "ok" },
+    { mod: "★ Sauna (BOOKABLE)", seats: "4 capped (of 4-6)", session: "25 min", per75: "12", demand: "7 (40%×17)", used: "58%", flag: "bookable" },
     { mod: "Cold plunge", seats: "4-6", session: "3 min avg", per75: "100-150", demand: "6 (35%×17)", used: "4-6%", flag: "ok" },
-    { mod: "Infrared (4 cabins)", seats: "4 cabins", session: "25 min", per75: "12", demand: "8-9 (50%×17)", used: "67-75%", flag: "tight" },
+    { mod: "★ Infrared (4 cabins) — BOOKABLE", seats: "4 cabins", session: "25 min", per75: "12", demand: "8-9 (50%×17)", used: "67-75%", flag: "tight" },
     { mod: "Compression", seats: "6-8", session: "30 min", per75: "15-20", demand: "4 (25%×17)", used: "20-27%", flag: "ok" },
   ],
   coldPlungeInsight:
@@ -363,15 +366,21 @@ const LOUNGE_FINAL = {
       experience: "25-min focused session, guaranteed cabin, zero wait",
     },
     {
+      label: "The Heat Stacker (~30% sauna + infrared)",
+      pct: "Sauna lovers who also do infrared",
+      flow: "Books slot + sauna 6:00-6:25 + infrared 6:50-7:15 → arrives 6:00, sauna → plunge → lounge → infrared → leave",
+      experience: "Two guaranteed heat sessions bookended around plunge / cool-down",
+    },
+    {
       label: "The Full Experience (~50% multi-modality)",
       pct: "~50%",
-      flow: "Books slot + reserves infrared 6:25-6:50 (middle anchor) → 6:00-6:25 sauna/plunge/lounge · 6:25-6:50 infrared · 6:50-7:15 compression",
-      experience: "Full circuit with infrared anchored, flexible flow around it",
+      flow: "Books slot + sauna 6:00-6:25 OR infrared 6:25-6:50 → flexible flow around the anchor",
+      experience: "Full circuit with one or both heat sessions anchored",
     },
     {
       label: "The Chill Visit (~30% open-floor)",
       pct: "~30%",
-      flow: "Books slot, skips infrared reservation → walks in, flows wherever feels right",
+      flow: "Books slot, skips both add-ons → walks in, flows wherever feels right (cold plunge, compression, lounge always open)",
       experience: "Zero booking friction, social recovery lounge feel",
     },
   ],
@@ -460,34 +469,44 @@ const LOUNGE_FINAL = {
       ],
     },
   ],
-  // Why NOT bookings for everything (the core defensible argument)
+  // Why these modalities are bookable, why others aren't
   whyNotAll: [
     {
-      modality: "Sauna",
-      reason: "Booking 1 of 4-6 seats with 70%+ slack. Creates fake scarcity — member books 'sauna 6:15-6:30' then sees 3 empty seats on arrival. Friction with zero payoff. Body forces 10-15 min rotation regardless.",
-    },
-    {
-      modality: "Cold plunge",
-      reason: "Booking 1 of 4-6 seats with 95%+ slack. Absurd: member books a 3-min plunge slot. Equivalent of OpenTable booking a public drinking fountain. Body forces 2-5 min rotation.",
-    },
-    {
-      modality: "Compression",
-      reason: "Booking 1 of 4-6 chairs with 60%+ slack. Mild friction, low payoff. 30-min program timer self-rotates. Could add later if patterns shift.",
-    },
-    {
-      modality: "★ INFRARED — the only exception",
-      reason: "78% peak utilization at RiNo, 67-75% at CP. One member's use blocks another's for 25 min. No biological exit cue. Reservation here creates real value: guarantees the 17-20% infrared-only segment never has a wasted trip.",
+      modality: "★ INFRARED — BOOKABLE",
+      reason: "78% peak utilization at RiNo, 67-75% at CP. One member's use blocks another's for 25 min. No biological exit cue. Reservation guarantees the 17-20% infrared-only segment never has a wasted trip. Cabins are private 1-person rooms — perfect match for resource booking.",
       locked: true,
     },
+    {
+      modality: "★ TRADITIONAL SAUNA — BOOKABLE",
+      reason: "42-58% peak utilization. While biology forces rotation (200°F = 10-15 min body tolerance), members who specifically want sauna at a specific time deserve guaranteed access. Capped at 4 simultaneous seats per 25-min window keeps the room social, not crowded. Solves the predictability concern without adding member friction. Both heat-modalities now follow the same booking pattern = consistent UX.",
+      locked: true,
+    },
+    {
+      modality: "Cold plunge — open-floor",
+      reason: "Booking 1 of 4-6 seats with 95%+ slack. Absurd: member books a 3-min plunge slot. Body forces 2-5 min rotation. A single tub serves 100-150 sessions per 75-min slot vs demand of 5. Throughput utterly destroys demand.",
+    },
+    {
+      modality: "Compression / Normatec — open-floor",
+      reason: "30-min program timer self-rotates. 4-6 chairs with 60%+ slack at peak demand. Could add later if patterns shift, but not needed at launch.",
+    },
+    {
+      modality: "Lounge / chill space — open-floor",
+      reason: "Not a constrained resource. Just space.",
+    },
   ],
-  // Operational rules
+  // Operational rules + Unlimited membership stipulations
   operations: [
     { rule: "Member booking window", detail: "7 days ahead" },
     { rule: "Drop-in booking window", detail: "48 hours ahead (Phase 2+)" },
     { rule: "Cancellation", detail: "6 hours ahead, no penalty" },
     { rule: "No-show policy", detail: "3 free/quarter, then $20 fee (matches Larimer)" },
     { rule: "Guest pass", detail: "1 free guest/month per member, must accompany member" },
-    { rule: "Front desk view", detail: "Mindbody surfaces Lounge slot manifest + infrared cabin schedule side-by-side" },
+    { rule: "Front desk view", detail: "Mindbody surfaces Lounge slot manifest + infrared schedule + sauna schedule" },
+    { rule: "Unlimited: per-day cap", detail: "None — true unlimited. Members can do morning + evening." },
+    { rule: "Unlimited: max active future bookings", detail: "5 (prevents slot hoarding 30+ days out)" },
+    { rule: "Unlimited: back-to-back bookings", detail: "Allowed. Member can book 6:00 + 7:25 slots = 150 min on premises with 10-min cleanup gap." },
+    { rule: "Add-ons per slot", detail: "Up to 2 (1 infrared + 1 sauna, different rotation windows recommended for circuit flow)" },
+    { rule: "Mindbody backend", detail: "Each booking = master 85-min Lounge slot + (optional) 25-min infrared resource + (optional) 25-min sauna resource. Cancellation of master auto-releases resources." },
   ],
 };
 
@@ -3515,13 +3534,13 @@ function LoungeTab() {
             </thead>
             <tbody>
               {LOUNGE_FINAL.throughputRiNo.map((r, i) => (
-                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${r.flag === "tight" ? "bg-rose-50" : ""}`}>
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${r.flag === "tight" ? "bg-rose-50" : r.flag === "bookable" ? "bg-emerald-50" : ""}`}>
                   <td className="py-2 px-2 font-medium">{r.mod}</td>
                   <td className="py-2 px-2 text-right font-mono">{r.seats}</td>
                   <td className="py-2 px-2 text-right font-mono">{r.session}</td>
                   <td className="py-2 px-2 text-right font-mono font-bold text-emerald-900">{r.per75}</td>
                   <td className="py-2 px-2 text-right font-mono">{r.demand}</td>
-                  <td className={`py-2 px-2 text-right font-mono font-bold ${r.flag === "tight" ? "text-rose-700" : "text-emerald-700"}`}>{r.used}{r.flag === "tight" ? " ⚠️" : ""}</td>
+                  <td className={`py-2 px-2 text-right font-mono font-bold ${r.flag === "tight" ? "text-rose-700" : r.flag === "bookable" ? "text-emerald-700" : "text-emerald-700"}`}>{r.used}{r.flag === "tight" ? " ⚠️" : r.flag === "bookable" ? " 📅" : ""}</td>
                 </tr>
               ))}
             </tbody>
@@ -3544,25 +3563,25 @@ function LoungeTab() {
             </thead>
             <tbody>
               {LOUNGE_FINAL.throughputCP.map((r, i) => (
-                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${r.flag === "tight" ? "bg-rose-50" : ""}`}>
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${r.flag === "tight" ? "bg-rose-50" : r.flag === "bookable" ? "bg-emerald-50" : ""}`}>
                   <td className="py-2 px-2 font-medium">{r.mod}</td>
                   <td className="py-2 px-2 text-right font-mono">{r.seats}</td>
                   <td className="py-2 px-2 text-right font-mono">{r.session}</td>
                   <td className="py-2 px-2 text-right font-mono font-bold text-emerald-900">{r.per75}</td>
                   <td className="py-2 px-2 text-right font-mono">{r.demand}</td>
-                  <td className={`py-2 px-2 text-right font-mono font-bold ${r.flag === "tight" ? "text-rose-700" : "text-emerald-700"}`}>{r.used}{r.flag === "tight" ? " ⚠️" : ""}</td>
+                  <td className={`py-2 px-2 text-right font-mono font-bold ${r.flag === "tight" ? "text-rose-700" : r.flag === "bookable" ? "text-emerald-700" : "text-emerald-700"}`}>{r.used}{r.flag === "tight" ? " ⚠️" : r.flag === "bookable" ? " 📅" : ""}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <p className="text-[11px] opacity-70 mt-3 italic">
-          <b>Pattern:</b> Sauna, plunge, compression all have 3-25× more capacity than peak demand. Only infrared approaches the line. That&apos;s why infrared is the only modality with a booking — every other modality has biology or equipment timers enforcing rotation.
+          <b>Pattern (📅 = bookable, ⚠️ = capacity-constrained):</b> Infrared at 67-78% peak utilization is the genuine bottleneck — bookable to guarantee the 17-20% infrared-only segment never has a wasted trip. Sauna at 42-58% utilization is bookable not because of math but for member predictability and UX consistency (both heat modalities follow the same pattern). Cold plunge + compression stay open-floor: cold plunge has 95%+ throughput slack (body forces 2-5 min rotation), compression has 60%+ slack with built-in 30-min program timer.
         </p>
       </Section>
 
       {/* Why NOT bookings for every modality */}
-      <Section title="Why NOT per-modality booking for everything">
+      <Section title="What's bookable, what's not — and why">
         <div className="space-y-2">
           {LOUNGE_FINAL.whyNotAll.map((w, i) => (
             <div key={i} className={`rounded-lg p-3 border ${w.locked ? "bg-emerald-50 border-emerald-400 border-2" : "bg-gray-50 border-gray-200"}`}>
@@ -3645,18 +3664,27 @@ function LoungeTab() {
           ))}
         </div>
         <div className="mt-4 bg-emerald-50 rounded-lg p-4 border border-emerald-300">
-          <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">Booking flow</h4>
+          <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">Booking flow (frontend)</h4>
           <ol className="text-xs space-y-1.5 list-decimal pl-5">
             <li>Pick a 75-min slot (e.g. Tuesday 6:00-7:15pm)</li>
-            <li>One question: &quot;Want to guarantee an infrared cabin?&quot;
+            <li>Two optional add-ons:
               <ul className="list-none mt-1 space-y-0.5 text-[11px] opacity-80">
-                <li>· No → done, open-floor access</li>
-                <li>· Yes → pick 25-min rotation (6:00-6:25 / 6:25-6:50 / 6:50-7:15)</li>
+                <li>☐ Reserve <b>infrared cabin</b>? Pick rotation: 6:00-6:25 / 6:25-6:50 / 6:50-7:15</li>
+                <li>☐ Reserve <b>sauna seat</b>? Pick rotation: 6:00-6:25 / 6:25-6:50 / 6:50-7:15</li>
               </ul>
             </li>
-            <li>Optional preferences for staff (doesn&apos;t lock anything): ☐ Sauna ☐ Plunge ☐ Compression ☐ Lounging</li>
             <li>Confirm</li>
           </ol>
+          <div className="mt-3 pt-3 border-t border-emerald-300">
+            <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">Mindbody mechanics (backend)</h4>
+            <ul className="text-[11px] space-y-1 opacity-90">
+              <li>· <b>Master booking:</b> 85-min Sway Remedy Lounge session (75 member-facing + 10 cleanup)</li>
+              <li>· <b>Resource #1 (if infrared chosen):</b> 25-min infrared cabin appointment, paired</li>
+              <li>· <b>Resource #2 (if sauna chosen):</b> 25-min sauna seat appointment, paired</li>
+              <li>· Cancelling master auto-releases paired resources</li>
+              <li>· Cold plunge, compression, lounge: walk-in access during the slot window</li>
+            </ul>
+          </div>
         </div>
       </Section>
 
