@@ -273,6 +273,217 @@ const CAPACITY_DECISION = {
   capacityContext: "Sauna is the bottleneck — and most members come for sauna. Code max from IBC table 1004.1.2 (50 SF/gross occupant for exercise rooms) is 36-38, but code max isn't the right number — sauna throughput is. RiNo simultaneous sauna seats ≈ 8-12, CP ≈ 9-14. At 15 booked guests with ~25-30% in sauna at any moment, that's 4-5 sauna users at peak (within capacity), leaving 9-10 in plunges/normatec/transition. 20 was too high — peak hour sauna would queue and the experience would suffer. Mindbody capacity is adjustable slot-by-slot, so start at 15, monitor first 2 weeks, raise to 18 or drop to 12 based on actual peak feel.",
 };
 
+// LOUNGE_FINAL — Final locked Sway Remedy Lounge model (data-backed, May 26 2026)
+// All numbers derived from Upswell MT data Nov 2025 → May 2026
+// Source: report-reservations.csv, report-average-attendance-by-time-slot.csv, report-customer-frequency.csv
+const LOUNGE_FINAL = {
+  status: "LOCKED · May 26 2026",
+  oneLiner:
+    "75-min Sway Remedy Lounge slot, cap 15 RiNo / 18 CP. Optional infrared cabin reservation within the slot (3 × 25-min rotations). Open-floor for sauna, plunge, compression. Infrared is the only modality where peak demand approaches peak hourly throughput — it's the only modality that's bookable. Matches every social recovery brand in the market (Bathhouse, Othership, Aire) for the open-floor parts and HigherDose for the constrained part. $99/mo unlimited, $40 drop-in, $25 first-time.",
+  decisionTable: [
+    { row: "Booking product", rino: "One: 75-min Sway Remedy Lounge slot", cp: "Same" },
+    { row: "Slot length", rino: "75 minutes", cp: "75 minutes" },
+    { row: "Slot cap", rino: "15", cp: "18", bold: true },
+    { row: "Bookable modality", rino: "Infrared cabin (optional, within slot)", cp: "Infrared cabin (optional, within slot)" },
+    { row: "Infrared seats per slot", rino: "9 (3 cabins × 3 × 25-min)", cp: "12 (4 cabins × 3 × 25-min)" },
+    { row: "Open-floor modalities", rino: "Sauna, cold plunge, compression, lounge", cp: "Same" },
+    { row: "Membership", rino: "$99/mo unlimited", cp: "$99/mo unlimited" },
+    { row: "Drop-in", rino: "$40 / 75 min ($25 first-time)", cp: "$40 / 75 min ($25 first-time)" },
+    { row: "Phase 1 hours (June 1, recovery only)", rino: "Mon closed · Tue-Fri 7am-8pm · Sat-Sun 8am-6pm", cp: "Same" },
+    { row: "Phase 2 hours (mid-June, treatments live)", rino: "Mon 12-8 · Tue-Thu 7-9 · Fri 7-8 · Sat-Sun 8-6", cp: "Same" },
+  ],
+  // Throughput math — the why behind the model
+  throughputRiNo: [
+    { mod: "Sauna (200°F forces 10-15 min exits)", seats: "4-6", session: "12 min avg", per75: "25-37", demand: "5-6 (40%×14)", used: "16-24%", flag: "ok" },
+    { mod: "Cold plunge (38°F forces 2-5 min exits)", seats: "4-6", session: "3 min avg", per75: "100-150", demand: "5 (35%×14)", used: "3-5%", flag: "ok" },
+    { mod: "Infrared (140°F, 25-min holds, no biological exit)", seats: "3 cabins", session: "25 min", per75: "9", demand: "7 (50%×14)", used: "78%", flag: "tight" },
+    { mod: "Compression (30-min program timer)", seats: "4-6", session: "30 min", per75: "10-15", demand: "3-4 (25%×14)", used: "23-40%", flag: "ok" },
+  ],
+  throughputCP: [
+    { mod: "Sauna", seats: "4-6", session: "12 min avg", per75: "25-37", demand: "7 (40%×17)", used: "19-28%", flag: "ok" },
+    { mod: "Cold plunge", seats: "4-6", session: "3 min avg", per75: "100-150", demand: "6 (35%×17)", used: "4-6%", flag: "ok" },
+    { mod: "Infrared (4 cabins)", seats: "4 cabins", session: "25 min", per75: "12", demand: "8-9 (50%×17)", used: "67-75%", flag: "tight" },
+    { mod: "Compression", seats: "6-8", session: "30 min", per75: "15-20", demand: "4 (25%×17)", used: "20-27%", flag: "ok" },
+  ],
+  coldPlungeInsight:
+    'Cold plunge looks like it "only fits a few" — but each person stays only 3 minutes. So during a 75-min slot, a single plunge tub serves 25 different people. Multiply by 4-6 simultaneous seats, and you\'re at 100-150 plunge sessions per slot. With only 5 people wanting plunge in that slot, you\'d use 3-5% of capacity. Members never queue. This is why "small footprint" doesn\'t mean "needs booking" — body cold-shock enforces rotation automatically.',
+  // Slot length rationale
+  slotLengthOptions: [
+    { length: "40 min (Larimer)", pro: "Fast turnover", con: "Too short for multi-room flow at our larger spaces" },
+    { length: "60 min", pro: "Matches median visit", con: "No slack — anyone running over creates conflicts" },
+    { length: "75 min ★ LOCKED", pro: "Median + 25% slack. Fits a full circuit. Enables exactly 3 infrared rotations.", con: "None significant", locked: true },
+    { length: "90 min", pro: "Generous", con: "Wastes slot density; only 25% of members need more than 75" },
+    { length: "Day pass", pro: "Bathhouse model", con: "Requires per-modality enforcement; can't run with our equipment" },
+  ],
+  slotLengthData: [
+    { label: "Upswell median visit duration", value: "60 min" },
+    { label: "p75 visit duration", value: "90 min" },
+    { label: "p90 visit duration", value: "120 min (only 10%)" },
+    { label: "Infrared rotations in 75 min", value: "3 × 25 min" },
+    { label: "Full circuit time", value: "15 sauna + 5 plunge + 25 infrared + 15 compression + 15 lounge = 75 min" },
+  ],
+  // Cap rationale
+  capRationale: [
+    { col: "Recovery area SF", rino: "1,786", cp: "1,900" },
+    { col: "IBC code max occupancy", rino: "36", cp: "38" },
+    { col: "Our cap", rino: "15", cp: "18", bold: true },
+    { col: "% of code max", rino: "42%", cp: "47%" },
+    { col: "Median demand / slot (last 6 mo)", rino: "2", cp: "3" },
+    { col: "p95 demand", rino: "7", cp: "8" },
+    { col: "Max concurrent observed", rino: "14", cp: "17" },
+    { col: "Slots rejected at our cap (last 6 mo)", rino: "0 of 1,291", cp: "0 of 1,633" },
+  ],
+  // Hours
+  hours: [
+    { day: "Monday", p1: "Closed", p2: "12pm – 8pm" },
+    { day: "Tuesday", p1: "7am – 8pm", p2: "7am – 9pm" },
+    { day: "Wednesday", p1: "7am – 8pm", p2: "7am – 9pm" },
+    { day: "Thursday", p1: "7am – 8pm", p2: "7am – 9pm" },
+    { day: "Friday", p1: "7am – 8pm", p2: "7am – 8pm" },
+    { day: "Saturday", p1: "8am – 6pm", p2: "8am – 6pm" },
+    { day: "Sunday", p1: "8am – 6pm", p2: "8am – 6pm" },
+    { day: "Total hrs/week", p1: "62 hrs", p2: "83 hrs", bold: true },
+  ],
+  hoursData: [
+    "Weekday-before-9am traffic: 6-7% (justifies 7am open)",
+    "Weekday-after-8pm: 4% recovery-only (lifts in Phase 2 for treatments)",
+    "Weekend-before-10am at CP: 20% of weekend traffic (must open 8am Sat-Sun)",
+    "Mon-before-noon: dead at both locations",
+    "Larimer reference: 50 hrs/wk (treatment-first); new locations are recovery-first = longer windows",
+  ],
+  // Member personas
+  personas: [
+    {
+      label: "The Planner (17-20% infrared-only)",
+      pct: "20% RiNo · 15% CP",
+      flow: "Books slot + reserves infrared 6:00-6:25 → arrives 5:55, does cabin, leaves 6:30",
+      experience: "25-min focused session, guaranteed cabin, zero wait",
+    },
+    {
+      label: "The Full Experience (~50% multi-modality)",
+      pct: "~50%",
+      flow: "Books slot + reserves infrared 6:25-6:50 (middle anchor) → 6:00-6:25 sauna/plunge/lounge · 6:25-6:50 infrared · 6:50-7:15 compression",
+      experience: "Full circuit with infrared anchored, flexible flow around it",
+    },
+    {
+      label: "The Chill Visit (~30% open-floor)",
+      pct: "~30%",
+      flow: "Books slot, skips infrared reservation → walks in, flows wherever feels right",
+      experience: "Zero booking friction, social recovery lounge feel",
+    },
+  ],
+  // Visit composition (last 6 months, both locations, 4,916 visits)
+  visitComposition: [
+    { type: "Open-floor only (no specific modality)", visits: 1451, pct: "29.5%" },
+    { type: "Single modality: sauna/plunge", visits: 1074, pct: "21.8%" },
+    { type: "Two modalities", visits: 938, pct: "19.1%" },
+    { type: "Single modality: INFRARED", visits: 828, pct: "16.8%", highlight: true },
+    { type: "Single modality: compression", visits: 379, pct: "7.7%" },
+    { type: "All three modalities", visits: 246, pct: "5.0%" },
+  ],
+  infraredOnlyShare: {
+    rino: { num: 381, total: 1898, pct: "20.1%" },
+    cp: { num: 447, total: 3018, pct: "14.8%" },
+  },
+  peakHours: [
+    { loc: "RiNo", peak: "Sunday 3pm", avg: 7, max: 16 },
+    { loc: "Central Park", peak: "Sunday 10am", avg: 11, max: 17 },
+  ],
+  infraredCrunch: [
+    { loc: "RiNo (3 cabins)", atCap: "16% of slots", worst: "Sat 12pm — 43% at cap", checkins: "755 over 6 months" },
+    { loc: "Central Park (4 cabins)", atCap: "3% of slots", worst: "Sun 10am — 16% at cap", checkins: "806 over 6 months" },
+  ],
+  // Competitors
+  competitors: [
+    { brand: "Bathhouse Brooklyn", model: "All-day open-floor day pass", books: "Nothing", why: "High redundancy (8-10 saunas, 3-4 plunges)" },
+    { brand: "Othership (NYC, Toronto)", model: "Class-paced 75-min experience", books: "Slot only", why: "One big sauna, class-paced" },
+    { brand: "Aire Ancient Baths", model: "90-min timed entry", books: "Slot only", why: "8+ pools, no contention" },
+    { brand: "Korean / Russian bathhouses", model: "All-day pass", books: "Nothing", why: "Massive equipment redundancy" },
+    { brand: "HigherDose", model: "Per-cabin booking", books: "Infrared cabin (their whole product)", why: "Single capacity-constrained modality" },
+    { brand: "Restore Hyper Wellness", model: "Per-treatment booking", books: "Every modality", why: "Clinical/medical positioning" },
+    { brand: "Pause Studio", model: "Per-treatment booking", books: "Every modality", why: "Clinical positioning" },
+    { brand: "Sway Larimer Remedy Room", model: "Private 40-min, max 3", books: "Whole room", why: "Tiny single-room space" },
+    { brand: "★ Sway new (THIS MODEL)", model: "75-min open-floor + optional infrared cabin", books: "Slot + infrared only", why: "Multi-room space, only infrared is capacity-constrained", locked: true },
+  ],
+  // Pricing comparison
+  pricingCompare: [
+    { brand: "Bathhouse Brooklyn", drop: "$60", unlimited: "$200/mo", breakeven: "3.3 visits/mo" },
+    { brand: "Othership", drop: "$35-55", unlimited: "$295/mo", breakeven: "6-8 visits/mo" },
+    { brand: "HigherDose", drop: "$50-75", unlimited: "$295/mo", breakeven: "4-6 visits/mo" },
+    { brand: "★ Sway new", drop: "$40", unlimited: "$99/mo", breakeven: "2.5 visits/mo", locked: true },
+  ],
+  // Phase plan
+  phases: [
+    {
+      phase: "Phase 1 (June 1 → mid-June)",
+      label: "Recovery lounge only",
+      items: [
+        "Sway Remedy Lounge live",
+        "Membership + drop-in pricing live",
+        "No treatments bookable (clearly communicated as 'coming June 15+')",
+        "Online drop-ins OFF (members + walk-ins only)",
+        "Hours: Mon closed, Tue-Fri 7-8, Sat-Sun 8-6",
+      ],
+    },
+    {
+      phase: "Phase 2 (mid-June → early July)",
+      label: "Facials open",
+      items: [
+        "Facial booking goes live in Mindbody",
+        "Hours expand: Tue-Thu close 9pm",
+        "Online drop-ins ON",
+        "Member discount applies (15% off treatments)",
+      ],
+    },
+    {
+      phase: "Phase 3 (early July+)",
+      label: "Massage open",
+      items: [
+        "Massage booking goes live",
+        "Full hours schedule active",
+        "Aescape decision still TBD",
+      ],
+    },
+    {
+      phase: "Phase 4 (TBD)",
+      label: "Aescape evaluation",
+      items: [
+        "Wait for 4-6 weeks of member behavior data",
+        "If demand justifies the equipment cost, add it",
+      ],
+    },
+  ],
+  // Why NOT bookings for everything (the core defensible argument)
+  whyNotAll: [
+    {
+      modality: "Sauna",
+      reason: "Booking 1 of 4-6 seats with 70%+ slack. Creates fake scarcity — member books 'sauna 6:15-6:30' then sees 3 empty seats on arrival. Friction with zero payoff. Body forces 10-15 min rotation regardless.",
+    },
+    {
+      modality: "Cold plunge",
+      reason: "Booking 1 of 4-6 seats with 95%+ slack. Absurd: member books a 3-min plunge slot. Equivalent of OpenTable booking a public drinking fountain. Body forces 2-5 min rotation.",
+    },
+    {
+      modality: "Compression",
+      reason: "Booking 1 of 4-6 chairs with 60%+ slack. Mild friction, low payoff. 30-min program timer self-rotates. Could add later if patterns shift.",
+    },
+    {
+      modality: "★ INFRARED — the only exception",
+      reason: "78% peak utilization at RiNo, 67-75% at CP. One member's use blocks another's for 25 min. No biological exit cue. Reservation here creates real value: guarantees the 17-20% infrared-only segment never has a wasted trip.",
+      locked: true,
+    },
+  ],
+  // Operational rules
+  operations: [
+    { rule: "Member booking window", detail: "7 days ahead" },
+    { rule: "Drop-in booking window", detail: "48 hours ahead (Phase 2+)" },
+    { rule: "Cancellation", detail: "6 hours ahead, no penalty" },
+    { rule: "No-show policy", detail: "3 free/quarter, then $20 fee (matches Larimer)" },
+    { rule: "Guest pass", detail: "1 free guest/month per member, must accompany member" },
+    { rule: "Front desk view", detail: "Mindbody surfaces Lounge slot manifest + infrared cabin schedule side-by-side" },
+  ],
+};
+
 // MEETING_525_AGENDA — Today's 1pm with Heather + Emily
 const MEETING_525_AGENDA = {
   date: "Today · May 25 · 1:00 PM",
@@ -1079,7 +1290,7 @@ function dateToSortKey(date: string): string {
 }
 
 export default function UpswellDashboard() {
-  const [tab, setTab] = useState<"overview" | "calendar" | "mylist" | "emails" | "content" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
+  const [tab, setTab] = useState<"overview" | "lounge" | "calendar" | "mylist" | "emails" | "content" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
   const [today, setToday] = useState<string>(KEY_DATES.today);
 
   useEffect(() => {
@@ -1112,7 +1323,7 @@ export default function UpswellDashboard() {
         {/* TABS */}
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 overflow-x-auto">
-            {(["overview", "calendar", "mylist", "emails", "content", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
+            {(["overview", "lounge", "calendar", "mylist", "emails", "content", "campaigns", "segments", "pricing", "blockers", "docs"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -1122,7 +1333,7 @@ export default function UpswellDashboard() {
                     : "border-transparent text-[#113D33]/50 hover:text-[#113D33]"
                 }`}
               >
-                {t === "mylist" ? "My List" : t.charAt(0).toUpperCase() + t.slice(1)}
+                {t === "mylist" ? "My List" : t === "lounge" ? "🛋️ Lounge Decision" : t.charAt(0).toUpperCase() + t.slice(1)}
               </button>
             ))}
           </nav>
@@ -1132,6 +1343,7 @@ export default function UpswellDashboard() {
       {/* CONTENT */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {tab === "overview" && <OverviewTab />}
+        {tab === "lounge" && <LoungeTab />}
         {tab === "calendar" && <CalendarTab today={today} />}
         {tab === "mylist" && <MyListTab today={today} />}
         {tab === "emails" && <EmailsTab />}
@@ -3232,6 +3444,412 @@ function BlockersTab() {
 }
 
 /* ---- Docs tab ---- */
+/* ---- LoungeTab — Final locked Sway Remedy Lounge model (May 26 2026) ---- */
+function LoungeTab() {
+  return (
+    <div className="space-y-6">
+      {/* Header / TL;DR */}
+      <div className="bg-emerald-50 rounded-xl border-2 border-emerald-500 p-6">
+        <div className="flex items-baseline justify-between flex-wrap gap-2 mb-2">
+          <h2 className="text-base uppercase tracking-wider font-bold text-emerald-900">🛋️ Sway Remedy Lounge — Final Locked Decisions</h2>
+          <span className="text-xs font-mono opacity-70 bg-white px-2 py-0.5 rounded border border-emerald-300">{LOUNGE_FINAL.status}</span>
+        </div>
+        <p className="text-xs italic opacity-80 mb-4">Data from Upswell MT (Nov 2025 → May 2026, 4,916 visits across both locations). Every number defensible.</p>
+        <div className="bg-white rounded-lg p-4 border border-emerald-300 text-sm leading-relaxed">
+          <b>The single defensible sentence:</b> {LOUNGE_FINAL.oneLiner}
+        </div>
+      </div>
+
+      {/* Decision Table */}
+      <Section title="Decision table">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 px-2"></th>
+                <th className="text-left py-2 px-2">RiNo</th>
+                <th className="text-left py-2 px-2">Central Park</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.decisionTable.map((row, i) => (
+                <tr key={i} className="border-b border-black/5 last:border-b-0">
+                  <td className="py-2 px-2 font-medium text-xs">{row.row}</td>
+                  <td className={`py-2 px-2 text-xs ${row.bold ? "font-bold text-emerald-900 text-lg tabular-nums" : ""}`}>{row.rino}</td>
+                  <td className={`py-2 px-2 text-xs ${row.bold ? "font-bold text-emerald-900 text-lg tabular-nums" : ""}`}>{row.cp}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      {/* The Cold Plunge Insight — featured */}
+      <div className="bg-sky-50 rounded-xl border-2 border-sky-400 p-6">
+        <h2 className="text-sm uppercase tracking-wider font-bold text-sky-900 mb-3">❄️ The Cold Plunge Insight — why throughput beats seat count</h2>
+        <blockquote className="text-sm leading-relaxed border-l-4 border-sky-400 pl-4 italic opacity-90">
+          {LOUNGE_FINAL.coldPlungeInsight}
+        </blockquote>
+      </div>
+
+      {/* Throughput Math */}
+      <Section title="Throughput math — RiNo (peak 14 concurrent)">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-1.5 px-2">Modality</th>
+                <th className="text-right py-1.5 px-2">Seats</th>
+                <th className="text-right py-1.5 px-2">Session</th>
+                <th className="text-right py-1.5 px-2">Per 75-min slot</th>
+                <th className="text-right py-1.5 px-2">Demand</th>
+                <th className="text-right py-1.5 px-2">Capacity used</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.throughputRiNo.map((r, i) => (
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${r.flag === "tight" ? "bg-rose-50" : ""}`}>
+                  <td className="py-2 px-2 font-medium">{r.mod}</td>
+                  <td className="py-2 px-2 text-right font-mono">{r.seats}</td>
+                  <td className="py-2 px-2 text-right font-mono">{r.session}</td>
+                  <td className="py-2 px-2 text-right font-mono font-bold text-emerald-900">{r.per75}</td>
+                  <td className="py-2 px-2 text-right font-mono">{r.demand}</td>
+                  <td className={`py-2 px-2 text-right font-mono font-bold ${r.flag === "tight" ? "text-rose-700" : "text-emerald-700"}`}>{r.used}{r.flag === "tight" ? " ⚠️" : ""}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section title="Throughput math — Central Park (peak 17 concurrent)">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-1.5 px-2">Modality</th>
+                <th className="text-right py-1.5 px-2">Seats</th>
+                <th className="text-right py-1.5 px-2">Session</th>
+                <th className="text-right py-1.5 px-2">Per 75-min slot</th>
+                <th className="text-right py-1.5 px-2">Demand</th>
+                <th className="text-right py-1.5 px-2">Capacity used</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.throughputCP.map((r, i) => (
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${r.flag === "tight" ? "bg-rose-50" : ""}`}>
+                  <td className="py-2 px-2 font-medium">{r.mod}</td>
+                  <td className="py-2 px-2 text-right font-mono">{r.seats}</td>
+                  <td className="py-2 px-2 text-right font-mono">{r.session}</td>
+                  <td className="py-2 px-2 text-right font-mono font-bold text-emerald-900">{r.per75}</td>
+                  <td className="py-2 px-2 text-right font-mono">{r.demand}</td>
+                  <td className={`py-2 px-2 text-right font-mono font-bold ${r.flag === "tight" ? "text-rose-700" : "text-emerald-700"}`}>{r.used}{r.flag === "tight" ? " ⚠️" : ""}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-[11px] opacity-70 mt-3 italic">
+          <b>Pattern:</b> Sauna, plunge, compression all have 3-25× more capacity than peak demand. Only infrared approaches the line. That&apos;s why infrared is the only modality with a booking — every other modality has biology or equipment timers enforcing rotation.
+        </p>
+      </Section>
+
+      {/* Why NOT bookings for every modality */}
+      <Section title="Why NOT per-modality booking for everything">
+        <div className="space-y-2">
+          {LOUNGE_FINAL.whyNotAll.map((w, i) => (
+            <div key={i} className={`rounded-lg p-3 border ${w.locked ? "bg-emerald-50 border-emerald-400 border-2" : "bg-gray-50 border-gray-200"}`}>
+              <div className={`font-bold text-sm mb-1 ${w.locked ? "text-emerald-900" : ""}`}>{w.modality}</div>
+              <div className="text-xs opacity-80">{w.reason}</div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Slot length */}
+      <Section title="Why 75 minutes (slot length)">
+        <div className="grid lg:grid-cols-2 gap-4">
+          <div>
+            <h4 className="text-xs uppercase tracking-wider opacity-60 mb-2">Options considered</h4>
+            <div className="space-y-2">
+              {LOUNGE_FINAL.slotLengthOptions.map((o, i) => (
+                <div key={i} className={`rounded-lg p-3 ${o.locked ? "bg-emerald-50 border-2 border-emerald-500" : "bg-gray-50 border border-gray-200 opacity-80"}`}>
+                  <div className="font-bold text-xs mb-1">{o.length}</div>
+                  <div className="text-[11px] mb-0.5"><b className="text-emerald-700">+</b> {o.pro}</div>
+                  <div className="text-[11px]"><b className="text-rose-700">−</b> {o.con}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="text-xs uppercase tracking-wider opacity-60 mb-2">Data behind 75</h4>
+            <div className="space-y-1.5">
+              {LOUNGE_FINAL.slotLengthData.map((d, i) => (
+                <div key={i} className="flex justify-between gap-3 border-b border-black/5 pb-1.5 text-xs">
+                  <span className="opacity-80">{d.label}</span>
+                  <span className="font-mono font-bold text-emerald-900">{d.value}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 bg-emerald-50 rounded p-3 border border-emerald-200 text-[11px] italic opacity-90">
+              <b>Larimer&apos;s 40 min</b> works for a single tiny room (max 3). RiNo/CP are 6-10× larger with multi-room separation. <b>75 enables exactly 3 infrared rotations per cabin</b> (3 × 25 = 75), perfectly matching the booking math.
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Cap rationale */}
+      <Section title="Why these caps: 15 RiNo / 18 CP">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 px-2"></th>
+                <th className="text-right py-2 px-2">RiNo</th>
+                <th className="text-right py-2 px-2">Central Park</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.capRationale.map((r, i) => (
+                <tr key={i} className="border-b border-black/5 last:border-b-0">
+                  <td className="py-2 px-2 text-xs">{r.col}</td>
+                  <td className={`py-2 px-2 text-right font-mono ${r.bold ? "font-bold text-emerald-900 text-base" : "text-xs"}`}>{r.rino}</td>
+                  <td className={`py-2 px-2 text-right font-mono ${r.bold ? "font-bold text-emerald-900 text-base" : "text-xs"}`}>{r.cp}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-[11px] italic opacity-70 mt-3 bg-black/[0.03] p-3 rounded">
+          <b>Why CP gets a higher cap:</b> larger footprint, ~50% busier overall, Sunday 10am peaked at 17 concurrent (within 18 cap), 4 infrared cabins vs RiNo&apos;s 3, more plunge/sauna seats. <b>Why we don&apos;t cap higher:</b> sauna physical capacity is 4-6 seats — at 25+ people, queue forms. <b>Why not match Larimer&apos;s 3:</b> Larimer is one small room. RiNo/CP are multi-room spaces 6-10× larger.
+        </p>
+      </Section>
+
+      {/* Member personas */}
+      <Section title="The member experience — your 75 minutes, your way">
+        <div className="grid lg:grid-cols-3 gap-3">
+          {LOUNGE_FINAL.personas.map((p, i) => (
+            <div key={i} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <div className="text-[11px] uppercase tracking-wider opacity-60 mb-1">{p.pct}</div>
+              <h4 className="font-bold text-sm mb-2">{p.label}</h4>
+              <p className="text-[11px] opacity-80 mb-2">{p.flow}</p>
+              <p className="text-[11px] italic font-medium pt-2 border-t border-black/10">{p.experience}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 bg-emerald-50 rounded-lg p-4 border border-emerald-300">
+          <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">Booking flow</h4>
+          <ol className="text-xs space-y-1.5 list-decimal pl-5">
+            <li>Pick a 75-min slot (e.g. Tuesday 6:00-7:15pm)</li>
+            <li>One question: &quot;Want to guarantee an infrared cabin?&quot;
+              <ul className="list-none mt-1 space-y-0.5 text-[11px] opacity-80">
+                <li>· No → done, open-floor access</li>
+                <li>· Yes → pick 25-min rotation (6:00-6:25 / 6:25-6:50 / 6:50-7:15)</li>
+              </ul>
+            </li>
+            <li>Optional preferences for staff (doesn&apos;t lock anything): ☐ Sauna ☐ Plunge ☐ Compression ☐ Lounging</li>
+            <li>Confirm</li>
+          </ol>
+        </div>
+      </Section>
+
+      {/* Hours */}
+      <Section title="Hours — Phase 1 vs Phase 2">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-2 px-2"></th>
+                <th className="text-left py-2 px-2">Phase 1 (June 1, recovery only)</th>
+                <th className="text-left py-2 px-2">Phase 2 (mid-June+, treatments live)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.hours.map((h, i) => (
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${h.bold ? "bg-emerald-50 font-bold" : ""}`}>
+                  <td className="py-2 px-2 text-xs font-medium">{h.day}</td>
+                  <td className={`py-2 px-2 text-xs ${h.bold ? "text-emerald-900" : ""}`}>{h.p1}</td>
+                  <td className={`py-2 px-2 text-xs ${h.bold ? "text-emerald-900" : ""}`}>{h.p2}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-3 bg-gray-50 rounded p-3 border border-gray-200">
+          <h4 className="text-[11px] uppercase tracking-wider opacity-70 mb-2">Data backing the hours</h4>
+          <ul className="text-[11px] space-y-1 opacity-90">
+            {LOUNGE_FINAL.hoursData.map((d, i) => (
+              <li key={i} className="flex gap-2"><span className="opacity-50">·</span><span>{d}</span></li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      {/* Demand data */}
+      <Section title="Demand composition (last 6 months, 4,916 visits, both locations)">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-1.5 px-2">Visit type</th>
+                <th className="text-right py-1.5 px-2">Visits</th>
+                <th className="text-right py-1.5 px-2">%</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.visitComposition.map((v, i) => (
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${v.highlight ? "bg-amber-50" : ""}`}>
+                  <td className={`py-2 px-2 text-xs ${v.highlight ? "font-bold" : ""}`}>{v.type}</td>
+                  <td className="py-2 px-2 text-right font-mono text-xs">{v.visits.toLocaleString()}</td>
+                  <td className={`py-2 px-2 text-right font-mono text-xs ${v.highlight ? "font-bold text-amber-900" : ""}`}>{v.pct}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-3 grid md:grid-cols-2 gap-3">
+          <div className="bg-amber-50 rounded p-3 border border-amber-300">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-amber-900 mb-1">Infrared-only share — RiNo</div>
+            <div className="text-2xl font-bold text-amber-900 tabular-nums">{LOUNGE_FINAL.infraredOnlyShare.rino.pct}</div>
+            <div className="text-[11px] opacity-80">{LOUNGE_FINAL.infraredOnlyShare.rino.num} of {LOUNGE_FINAL.infraredOnlyShare.rino.total} visits — these members get the guaranteed cabin via the reservation option</div>
+          </div>
+          <div className="bg-amber-50 rounded p-3 border border-amber-300">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-amber-900 mb-1">Infrared-only share — Central Park</div>
+            <div className="text-2xl font-bold text-amber-900 tabular-nums">{LOUNGE_FINAL.infraredOnlyShare.cp.pct}</div>
+            <div className="text-[11px] opacity-80">{LOUNGE_FINAL.infraredOnlyShare.cp.num} of {LOUNGE_FINAL.infraredOnlyShare.cp.total} visits</div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Peak hours + infrared crunch */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <Section title="Peak hours">
+          <div className="space-y-2">
+            {LOUNGE_FINAL.peakHours.map((p, i) => (
+              <div key={i} className="border-b border-black/5 pb-2 last:border-b-0">
+                <div className="font-bold text-sm">{p.loc}</div>
+                <div className="text-xs opacity-80">Biggest hour: <b>{p.peak}</b> · avg {p.avg} concurrent · max {p.max} observed</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] opacity-70 mt-3 italic">
+            Day-of-week: Sunday is the biggest day at both locations. CP runs 2.7× Monday volume on Sundays. Weekday secondary peaks 4-7pm at both.
+          </p>
+        </Section>
+
+        <Section title="Infrared crunch (the bottleneck)">
+          <div className="space-y-2">
+            {LOUNGE_FINAL.infraredCrunch.map((c, i) => (
+              <div key={i} className="border-b border-black/5 pb-2 last:border-b-0">
+                <div className="font-bold text-sm">{c.loc}</div>
+                <div className="text-[11px] opacity-80 space-y-0.5">
+                  <div>Slots at cap: <b>{c.atCap}</b></div>
+                  <div>Worst window: <b>{c.worst}</b></div>
+                  <div>Total infrared check-ins: {c.checkins}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+      </div>
+
+      {/* Competitors */}
+      <Section title="Competitor landscape — where Sway fits">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-1.5 px-2">Brand</th>
+                <th className="text-left py-1.5 px-2">Model</th>
+                <th className="text-left py-1.5 px-2">Books</th>
+                <th className="text-left py-1.5 px-2">Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.competitors.map((c, i) => (
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${c.locked ? "bg-emerald-50 font-medium" : ""}`}>
+                  <td className={`py-2 px-2 ${c.locked ? "text-emerald-900 font-bold" : "font-medium"}`}>{c.brand}</td>
+                  <td className="py-2 px-2 opacity-80">{c.model}</td>
+                  <td className="py-2 px-2 opacity-80">{c.books}</td>
+                  <td className="py-2 px-2 text-[11px] opacity-70">{c.why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-[11px] opacity-70 mt-3 italic">
+          <b>Pattern:</b> social/recovery-lounge brands run open-floor for unconstrained modalities and book only where capacity is tight. Clinical brands book everything. Sway&apos;s positioning is social, so the model is open-floor + targeted reservation for infrared only.
+        </p>
+      </Section>
+
+      {/* Pricing comparison */}
+      <Section title="Pricing — breakeven analysis vs market">
+        <div className="overflow-x-auto -mx-2">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
+                <th className="text-left py-1.5 px-2">Brand</th>
+                <th className="text-right py-1.5 px-2">Drop-in</th>
+                <th className="text-right py-1.5 px-2">Unlimited</th>
+                <th className="text-right py-1.5 px-2">Breakeven (visits/mo)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {LOUNGE_FINAL.pricingCompare.map((p, i) => (
+                <tr key={i} className={`border-b border-black/5 last:border-b-0 ${p.locked ? "bg-emerald-50" : ""}`}>
+                  <td className={`py-2 px-2 ${p.locked ? "font-bold text-emerald-900" : "font-medium"}`}>{p.brand}</td>
+                  <td className="py-2 px-2 text-right font-mono">{p.drop}</td>
+                  <td className="py-2 px-2 text-right font-mono">{p.unlimited}</td>
+                  <td className={`py-2 px-2 text-right font-mono ${p.locked ? "font-bold text-emerald-900" : ""}`}>{p.breakeven}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-[11px] opacity-70 mt-3 italic">
+          Sway&apos;s 2.5 visits/mo breakeven is the best ratio in the market. Average Upswell member visit frequency was 4-6/mo, so membership is the obvious choice. Drop-ins are lead generation, not the revenue stream.
+        </p>
+      </Section>
+
+      {/* Phase plan */}
+      <Section title="Phase plan">
+        <div className="grid lg:grid-cols-2 gap-3">
+          {LOUNGE_FINAL.phases.map((p, i) => (
+            <div key={i} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <div className="text-[10px] uppercase tracking-wider opacity-60">{p.phase}</div>
+              <h4 className="font-bold text-sm mb-2">{p.label}</h4>
+              <ul className="text-[11px] space-y-1">
+                {p.items.map((item, j) => (
+                  <li key={j} className="flex gap-2"><span className="opacity-50 mt-0.5">·</span><span className="opacity-90">{item}</span></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Operational rules */}
+      <Section title="Operational rules">
+        <div className="space-y-2">
+          {LOUNGE_FINAL.operations.map((op, i) => (
+            <div key={i} className="flex justify-between gap-4 border-b border-black/5 pb-2 last:border-b-0 last:pb-0 text-sm">
+              <span className="font-medium">{op.rule}</span>
+              <span className="opacity-80 text-right">{op.detail}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Footer note */}
+      <div className="bg-emerald-50 rounded-xl border-2 border-emerald-500 p-4 text-xs">
+        <p className="leading-relaxed">
+          <b>Data sources:</b> Upswell Mariana Tek admin (May 26 2026 pull). Reports: <code className="bg-white px-1 rounded">report-reservations.csv</code> (55,616 rows), <code className="bg-white px-1 rounded">report-average-attendance-by-time-slot.csv</code>, <code className="bg-white px-1 rounded">report-customer-frequency.csv</code>, <code className="bg-white px-1 rounded">report-customer-retention-details.csv</code>. Window analyzed: Nov 26 2025 → May 12 2026 (last 6 months). 4,916 recovery visits at RiNo + CP combined.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function DocsTab() {
   return (
     <div className="space-y-6">
