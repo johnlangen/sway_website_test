@@ -279,7 +279,7 @@ const CAPACITY_DECISION = {
 const LOUNGE_FINAL = {
   status: "LOCKED · May 26 2026",
   oneLiner:
-    "75-min Sway Remedy Lounge slot, cap 15 RiNo / 18 CP. Optional infrared cabin reservation within the slot (3 × 25-min rotations). Open-floor for sauna, plunge, compression. Infrared is the only modality where peak demand approaches peak hourly throughput — it's the only modality that's bookable. Matches every social recovery brand in the market (Bathhouse, Othership, Aire) for the open-floor parts and HigherDose for the constrained part. $99/mo unlimited, $40 drop-in, $25 first-time.",
+    "75-min Sway Remedy Lounge slot, cap 15 RiNo / 18 CP. Optional infrared cabin reservation within the slot (3 × 25-min rotations). Open-floor for sauna, plunge, compression. Infrared is the only modality where peak demand approaches peak hourly throughput — it's the only modality that's bookable. Matches every social recovery brand in the market (Bathhouse, Othership, Aire) for the open-floor parts and HigherDose for the constrained part. $99/mo Founding (existing members + launch window through Aug 31) → $129/mo Standard. $49 drop-in, $25 first-time intro.",
   decisionTable: [
     { row: "Booking product", rino: "One: 75-min Sway Remedy Lounge slot", cp: "Same" },
     { row: "Slot length", rino: "75 minutes", cp: "75 minutes" },
@@ -287,8 +287,11 @@ const LOUNGE_FINAL = {
     { row: "Bookable modality", rino: "Infrared cabin (optional, within slot)", cp: "Infrared cabin (optional, within slot)" },
     { row: "Infrared seats per slot", rino: "9 (3 cabins × 3 × 25-min)", cp: "12 (4 cabins × 3 × 25-min)" },
     { row: "Open-floor modalities", rino: "Sauna, cold plunge, compression, lounge", cp: "Same" },
-    { row: "Membership", rino: "$99/mo unlimited", cp: "$99/mo unlimited" },
-    { row: "Drop-in", rino: "$40 / 75 min ($25 first-time)", cp: "$40 / 75 min ($25 first-time)" },
+    { row: "Membership — Founding (through Aug 31)", rino: "$99/mo unlimited", cp: "$99/mo unlimited" },
+    { row: "Membership — Standard (post-Aug 31)", rino: "$129/mo unlimited", cp: "$129/mo unlimited" },
+    { row: "Drop-in (75 min)", rino: "$49", cp: "$49" },
+    { row: "First-time intro", rino: "$25", cp: "$25" },
+    { row: "5-pack / 10-pack", rino: "$220 ($44/visit) / $399 ($40/visit)", cp: "Same" },
     { row: "Phase 1 hours (June 1, recovery only)", rino: "Mon closed · Tue-Fri 7am-8pm · Sat-Sun 8am-6pm", cp: "Same" },
     { row: "Phase 2 hours (mid-June, treatments live)", rino: "Mon 12-8 · Tue-Thu 7-9 · Fri 7-8 · Sat-Sun 8-6", cp: "Same" },
   ],
@@ -405,12 +408,16 @@ const LOUNGE_FINAL = {
     { brand: "Sway Larimer Remedy Room", model: "Private 40-min, max 3", books: "Whole room", why: "Tiny single-room space" },
     { brand: "★ Sway new (THIS MODEL)", model: "75-min open-floor + optional infrared cabin", books: "Slot + infrared only", why: "Multi-room space, only infrared is capacity-constrained", locked: true },
   ],
-  // Pricing comparison
+  // Pricing comparison — Denver-local + national benchmarks (May 26 2026)
   pricingCompare: [
-    { brand: "Bathhouse Brooklyn", drop: "$60", unlimited: "$200/mo", breakeven: "3.3 visits/mo" },
-    { brand: "Othership", drop: "$35-55", unlimited: "$295/mo", breakeven: "6-8 visits/mo" },
-    { brand: "HigherDose", drop: "$50-75", unlimited: "$295/mo", breakeven: "4-6 visits/mo" },
-    { brand: "★ Sway new", drop: "$40", unlimited: "$99/mo", breakeven: "2.5 visits/mo", locked: true },
+    { brand: "Embrace North (1-2 mi from RiNo)", drop: "$25", unlimited: "$50/mo", breakeven: "2.0 visits/mo", why: "Budget anchor — 3 saunas + 1 cold plunge only, no infrared/compression/treatments" },
+    { brand: "Denver Sports Recovery", drop: "$35-45", unlimited: "$120/mo (Basic)", breakeven: "2.7-3.4 visits/mo", why: "Direct multi-modality comp — same modality menu" },
+    { brand: "Sway Larimer Remedy Room", drop: "$49 / 40 min", unlimited: "$99/mo for 4 visits (credit-based, not unlimited)", breakeven: "n/a — credit pack", why: "Downtown private suite, different market" },
+    { brand: "Bathhouse Brooklyn", drop: "$60", unlimited: "$200/mo", breakeven: "3.3 visits/mo", why: "National open-floor benchmark" },
+    { brand: "Othership", drop: "$35-55", unlimited: "$295/mo", breakeven: "6-8 visits/mo", why: "Class-paced experience" },
+    { brand: "HigherDose", drop: "$50-75", unlimited: "$295/mo", breakeven: "4-6 visits/mo", why: "Single-modality (infrared only)" },
+    { brand: "★ Sway new (Founding)", drop: "$49 / 75 min", unlimited: "$99/mo", breakeven: "2.0 visits/mo", why: "Launch tier — existing Upswell + signups through Aug 31", locked: true },
+    { brand: "★ Sway new (Standard)", drop: "$49 / 75 min", unlimited: "$129/mo", breakeven: "2.6 visits/mo", why: "Post-Aug 31 standard rate", locked: true },
   ],
   // Phase plan
   phases: [
@@ -3783,31 +3790,41 @@ function LoungeTab() {
       </Section>
 
       {/* Pricing comparison */}
-      <Section title="Pricing — breakeven analysis vs market">
+      <Section title="Pricing — Denver-local + national benchmarks">
         <div className="overflow-x-auto -mx-2">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs">
             <thead>
               <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-black/10">
                 <th className="text-left py-1.5 px-2">Brand</th>
                 <th className="text-right py-1.5 px-2">Drop-in</th>
                 <th className="text-right py-1.5 px-2">Unlimited</th>
-                <th className="text-right py-1.5 px-2">Breakeven (visits/mo)</th>
+                <th className="text-right py-1.5 px-2">Breakeven</th>
+                <th className="text-left py-1.5 px-2">Positioning</th>
               </tr>
             </thead>
             <tbody>
               {LOUNGE_FINAL.pricingCompare.map((p, i) => (
                 <tr key={i} className={`border-b border-black/5 last:border-b-0 ${p.locked ? "bg-emerald-50" : ""}`}>
                   <td className={`py-2 px-2 ${p.locked ? "font-bold text-emerald-900" : "font-medium"}`}>{p.brand}</td>
-                  <td className="py-2 px-2 text-right font-mono">{p.drop}</td>
-                  <td className="py-2 px-2 text-right font-mono">{p.unlimited}</td>
-                  <td className={`py-2 px-2 text-right font-mono ${p.locked ? "font-bold text-emerald-900" : ""}`}>{p.breakeven}</td>
+                  <td className="py-2 px-2 text-right font-mono whitespace-nowrap">{p.drop}</td>
+                  <td className="py-2 px-2 text-right font-mono whitespace-nowrap">{p.unlimited}</td>
+                  <td className={`py-2 px-2 text-right font-mono whitespace-nowrap ${p.locked ? "font-bold text-emerald-900" : ""}`}>{p.breakeven}</td>
+                  <td className="py-2 px-2 text-[11px] opacity-70">{p.why}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <div className="mt-3 grid md:grid-cols-2 gap-3">
+          <div className="bg-emerald-50 rounded p-3 border border-emerald-300 text-[11px]">
+            <b className="text-emerald-900">Founding tier (2.0 visits/mo breakeven):</b> Existing Upswell members + launch-window signups through Aug 31. Locked rate for life of membership. Best ratio in the entire competitive set.
+          </div>
+          <div className="bg-emerald-50 rounded p-3 border border-emerald-300 text-[11px]">
+            <b className="text-emerald-900">Standard tier (2.6 visits/mo breakeven):</b> Post-Aug 31 signups at $129/mo. Still beats every full-multi-modality competitor (Denver Sports Recovery 2.7-3.4, Bathhouse 3.3, Othership 6-8, HigherDose 4-6).
+          </div>
+        </div>
         <p className="text-[11px] opacity-70 mt-3 italic">
-          Sway&apos;s 2.5 visits/mo breakeven is the best ratio in the market. Average Upswell member visit frequency was 4-6/mo, so membership is the obvious choice. Drop-ins are lead generation, not the revenue stream.
+          <b>On Embrace North:</b> Their $50/mo / $25 drop-in is a different product (3 saunas + 1 cold plunge, no infrared/compression/treatments). Don&apos;t race to the bottom — Sway is the premium tier above them. <b>$25 first-time intro</b> neutralizes their trial pricing, then the full Sway experience converts to membership. <b>On Larimer:</b> No price overlap concern — Larimer&apos;s $99-159/mo are credit-based (1 treatment/mo) and Larimer Remedy Room membership is $99/mo for 4 visits. Sway new is fundamentally different product (unlimited recovery lounge).
         </p>
       </Section>
 
