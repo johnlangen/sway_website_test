@@ -208,9 +208,11 @@ const PAYMENT_MIGRATION_PLAN = {
   ],
 };
 
-// CAPACITY_DECISION — Sway Remedy Lounge booking model (locked Option C on May 25)
+// CAPACITY_DECISION — Sway Remedy Lounge booking model
+// Locked May 25: Option C (hybrid 90-min time slots, soft cap)
+// Capacity numbers added May 25 from RiNo + CP architectural permit sets
 const CAPACITY_DECISION = {
-  status: "Locked May 25 — Option C: Hybrid lounge time-slot bookings (soft cap)",
+  status: "Locked May 25 — Option C, slot cap = 20 concurrent guests per location",
   question: "How members access the Sway Remedy Lounge at the new locations — individual modality bookings (current Upswell), unlimited walk-in (Larimer model), or hybrid time-slot booking?",
   options: [
     {
@@ -234,22 +236,41 @@ const CAPACITY_DECISION = {
   ],
   implementation: [
     "New Mindbody session type at each new location: 'Sway Remedy Lounge' — 90 minute slot",
-    "Capacity per slot: TBD per location (need Emily's space plan with modality stations marked)",
-    "Archive / disable the legacy 40-min 'Remedy Room' session at RiNo + CP (was carried over from Larimer site provisioning — doesn't match Option C)",
+    "★ Capacity per slot: 20 concurrent guests at each location (source: architectural permit sets — see capacity table below)",
+    "Archive / disable the legacy 40-min 'Remedy Room' session at RiNo + CP (carried over from Larimer setup — doesn't match Option C)",
     "Keep Remedy membership tier but link it to the new 90-min Lounge sessions",
     "Members can book back-to-back slots if availability allows",
     "Front-desk check-in: time-of-arrival noted; visual cue (wristband / time card) for self-management",
     "Soft enforcement only — bigger space + multiple rooms = no hard kick-out at 90 min unless at cap with others waiting",
     "Walk-ins welcome when capacity is open (auto-book on the spot)",
-    "Peak hours (5-7pm) might warrant a 60-min slot — decide once we have the capacity number",
+    "Peak hours (5-7pm) may warrant a 60-min slot (decision pending)",
   ],
   openItems: [
-    "🗺️ Emily: SPACE PLAN / SKETCH for both locations with modality stations marked (saunas, plunges, compression chairs, red light) — this defines concurrent-guest capacity",
-    "Peak vs off-peak slot length — informed by capacity number",
-    "Capacity cap when massage + facials launch — those bookings use same staff awareness",
-    "Treatments (massage + facials): ALREADY in Mindbody at both locations ✓ — no setup needed for those, only the Lounge session types",
+    "✓ Space plans: pulled from both architectural permit sets (May 25 PM)",
+    "Peak vs off-peak slot length — 60 min at 5-7pm? Or same 90 min?",
+    "Capacity cap when massage + facials launch — same staff awareness model",
+    "Treatments (massage + facials): ALREADY in Mindbody at both locations ✓ — only Lounge session types need new config",
+    "Sauna terminology — RiNo has 3 Clearlight infrared cabins + 1 B Saunas cube sauna. Marketing says 'traditional sauna' — verify which is the customer-facing description.",
   ],
-  capacityContext: "Upswell ran ~55 check-ins/day across both locations historically (43,927 check-ins / 2 years / 365 days ≈ 60/day, split 83% RiNo / 17% CP = 50 RiNo + 10 CP per day). Even doubling that with the $99 Unlimited push lands ~100 check-ins/day combined — manageable with a 90-min slot and reasonable capacity caps.",
+  capacityTable: [
+    {
+      location: "RiNo (3636 Blake St)",
+      totalSF: "4,000 SF",
+      loungeSF: "1,786 SF",
+      codeMax: 36,
+      recommendedCap: 20,
+      equipment: "4 SwimEx cold plunges · 1 B Saunas cube sauna · 3 Clearlight infrared sauna cabins · 1 Glow room (red light) · Movement room (compression) · rinse shower",
+    },
+    {
+      location: "Central Park (2271 Clinton St, Aurora)",
+      totalSF: "3,500 SF",
+      loungeSF: "1,900 SF",
+      codeMax: 38,
+      recommendedCap: 20,
+      equipment: "2 cold plunges + 2 hot tubs (contrast therapy) · 1 sauna · 2 Glow rooms (red light) · Recover room with Normatec compression (3-4 stations) · Zone 2 lounge area",
+    },
+  ],
+  capacityContext: "Code max comes from IBC table 1004.1.2 at 50 SF/gross occupant for exercise rooms. Comfortable use is typically 50-60% of code max. Setting Mindbody cap at 20 leaves generous safety margin (about 55% of code), accommodates walk-ins on top of bookings, and matches the ~8 dedicated modality stations per location (members rotate through). Historically Upswell averaged ~55 check-ins/day across both locations (~50 RiNo + ~10 CP). Even doubling under $99 Unlimited push = ~100/day combined, easily accommodated by a 20-cap × multiple 90-min slots per day.",
 };
 
 // MEETING_525_AGENDA — Today's 1pm with Heather + Emily
@@ -1320,8 +1341,38 @@ function CapacityDecision() {
         </div>
       </div>
 
+      <div className="mt-4 bg-emerald-50 rounded-lg p-4 border-2 border-emerald-300">
+        <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">📐 Capacity numbers — from architectural permit sets</h4>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-emerald-200">
+                <th className="text-left py-1.5 pr-3">Location</th>
+                <th className="text-right py-1.5 pr-3">Total SF</th>
+                <th className="text-right py-1.5 pr-3">Lounge SF</th>
+                <th className="text-right py-1.5 pr-3">Code Max</th>
+                <th className="text-right py-1.5 pr-3">Recommended Cap</th>
+                <th className="text-left py-1.5">Equipment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CAPACITY_DECISION.capacityTable.map((row, i) => (
+                <tr key={i} className="border-b border-emerald-100 last:border-b-0 align-top">
+                  <td className="py-2 pr-3 font-medium">{row.location}</td>
+                  <td className="py-2 pr-3 text-right font-mono">{row.totalSF}</td>
+                  <td className="py-2 pr-3 text-right font-mono">{row.loungeSF}</td>
+                  <td className="py-2 pr-3 text-right font-mono">{row.codeMax}</td>
+                  <td className="py-2 pr-3 text-right font-mono font-bold text-emerald-900">{row.recommendedCap}</td>
+                  <td className="py-2 text-[11px] opacity-90">{row.equipment}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <p className="text-[11px] italic opacity-70 mt-3 bg-black/[0.03] p-3 rounded">
-        <b>Capacity context:</b> {CAPACITY_DECISION.capacityContext}
+        <b>Capacity rationale:</b> {CAPACITY_DECISION.capacityContext}
       </p>
     </div>
   );
