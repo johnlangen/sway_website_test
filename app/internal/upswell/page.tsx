@@ -147,50 +147,205 @@ const TERMINATED_ANNUALS = [
 // Stripe Data Migration Request was never initiated; with 6 days to June 1 it's not viable.
 // Path forward: front-desk re-add at first Sway visit, bridged by MT extension.
 const PAYMENT_MIGRATION_PLAN = {
-  status: "Revised May 25 — Stripe migration out, front-desk re-add in",
+  status: "Revised May 25 — Mindbody-only POS June 1. MT shuts down May 31 midnight. No two-system bridge.",
   whyChanged:
-    "Stripe Data Migration Request was never initiated. Stripe Support typically takes 2-4 weeks once you ask, and we have 6 days to June 1. Even if we'd started: Mindbody Payments isn't Stripe-based — so 'transfer Stripe tokens to Mindbody' was never a real path. The only true migration option was per-member consent re-tokenization, which needs signed paperwork from each member. Not viable in this window.",
+    "Stripe Data Migration Request was never initiated (would have taken 2-4 weeks anyway). Initial fallback was a Mariana Tek extension as a billing bridge — but running two POS systems means reconciliation hell, Heather collecting on Sway's behalf creates tax/accounting complexity post-takeover, and front desk has to juggle MT for billing + Mindbody for everything else. Cleaner answer: hard cut to Mindbody June 1. Members re-add card at first Sway visit. Mindbody first-bill-date set to day AFTER their last MT cycle ended — no double-bill, no gap.",
   thePath: [
     {
       step: "1",
-      label: "Members re-add card at front desk on first Sway visit",
-      detail: "Mindbody POS flow targets <60 seconds per add. Front desk handles it during normal check-in. First visit is on us as a thank-you for the friction (already promised in Email 03's 'first visit on us' language).",
+      label: "Pull MT data this week (admin access ends May 31)",
+      detail: "Per-member 'last billed date' + cycle length + last-90-day visit frequency. Store on each member record. Used to set Mindbody first-bill-date correctly, AND to segment dormant active members for a re-engagement campaign.",
     },
     {
       step: "2",
-      label: "Extend Mariana Tek admin access 2-3 weeks past May 31",
-      detail: "Heather raised this as the May 14 fallback. MT keeps billing existing members via Heather's Stripe during the runway. Members trickle in to Sway, re-add card to Mindbody, and we migrate one-by-one in-person. ASK HEATHER TODAY.",
+      label: "Verify the $99 drop actually executed in MT (May 16 onward)",
+      detail: "Email 01a promised members at $129/$159/$189 dropped to $99 'effective immediately.' If MT charged old rates in late May, owe partial credits to those members. Audit this week before MT shuts down.",
     },
     {
       step: "3",
-      label: "Front desk training: tight Mindbody card-add flow",
-      detail: "Part of Mackenzie's 4-part training. Verify the team can do it in <60 seconds. Standard script: 'Welcome to Sway. Your membership rolled over at $99 — let's just get a card on file real quick. First visit's on us.'",
+      label: "Mindbody member import + correct first-bill-dates",
+      detail: "Import all 155 active members. For each, set first-bill-date = (last MT bill date + cycle length). Card-on-file is empty until they come in. Membership status 'active, awaiting card.'",
     },
     {
       step: "4",
-      label: "Soft email reminder mid-June to members who haven't visited",
-      detail: "Around June 15, send a brief 'we haven't seen you yet — come in for your free first visit and we'll get you set up' note to active members who haven't checked in since June 1. Recovers the long tail.",
+      label: "May 31 midnight: MT shutdown. June 1: Mindbody is the only POS",
+      detail: "Hard cut. No two-system bridge. Front desk runs Mindbody for everything — bookings, billing, retail, gift cards.",
+    },
+    {
+      step: "5",
+      label: "Members re-add card at front desk on first Sway visit (<60 sec)",
+      detail: "Mindbody POS flow. Front desk script: 'Welcome to Sway. Your membership rolled over at $99 — let's get a card on file real quick. First visit's on us.' Already promised in Email 03's 'first visit on us' language.",
+    },
+    {
+      step: "6",
+      label: "Billing edge case rule",
+      detail: "If a member's MT cycle already ended before they re-add (e.g. last bill May 12, comes in June 20), comp the gap and start billing from re-add date. Costs ~$1-2K total across 155 members, eliminates 'you're already late!' awkwardness at the desk.",
+    },
+    {
+      step: "7",
+      label: "Mid-June reminder email to active members who haven't visited",
+      detail: "Around June 15, soft email: 'We haven't seen you yet — come in for your free first visit and we'll get you set up.' Recovers the long tail.",
     },
   ],
   revenueImpact: [
-    { window: "June 1", expectedPctOfMonthly: 0, note: "No cards on file in Mindbody yet — auto-bills run on $0" },
-    { window: "End of week 1 (~June 7)", expectedPctOfMonthly: 50, note: "Recovery-heavy members come in for their usual sauna/plunge routine, re-add at front desk" },
-    { window: "End of week 3 (~June 21)", expectedPctOfMonthly: 80, note: "Massage + facials open mid-to-late June drives an additional wave of in-person visits" },
-    { window: "Mid-July", expectedPctOfMonthly: 100, note: "Long-tail members captured via mid-June reminder" },
+    { window: "June 1", expectedPctOfMonthly: 0, note: "No cards on file yet — Mindbody auto-bills run on $0. Expected." },
+    { window: "End of week 1 (~June 7)", expectedPctOfMonthly: 50, note: "Recovery-heavy members come in for their usual routine, re-add at front desk → billing engages" },
+    { window: "End of week 3 (~June 21)", expectedPctOfMonthly: 80, note: "Massage + facials open drives an additional wave of in-person visits" },
+    { window: "Mid-July", expectedPctOfMonthly: 100, note: "Long-tail captured via mid-June reminder" },
   ],
   risks: [
-    "Members who NEVER come in are lost revenue. Mitigation: mid-June email reminder + a 'haven't seen you in a while?' follow-up at 30 days.",
-    "Email 01a promised 'no card to update' — front-desk re-add is technically a contradiction. Mitigation: handle in person ('your first visit's on us, just need to get a card on file') and lean on Email 03's 'first visit on us' framing.",
-    "Mariana Tek extension is up to Heather's goodwill. If she says no, we lose the billing bridge and the ramp gets harder.",
-    "Front desk capacity in the first week — extra friction per visit. Mitigation: staffing slightly heavier the first two weeks.",
+    "Members who NEVER come in = lost revenue. Mitigation: mid-June reminder + a dormant-member re-engagement campaign mid-July.",
+    "Email 01a's 'no card to update' promise is technically broken by the re-add ask. Mitigation: Email 03's 'first visit on us' framing softens it. Front desk handles in person.",
+    "If MT didn't actually execute the $99 drop, members at $129/$159/$189 paid more than promised in May. We owe credits.",
+    "Front desk friction in the first week — extra step per visit. Mitigation: staff heavier the first 10 days. Goal <60 sec per card add.",
   ],
   asks: [
-    "Heather: extend Mariana Tek admin access by 2-3 weeks past May 31 (the May 14 fallback Marty raised).",
-    "Confirm Email 03 (May 22 segmented member details) actually sent. If not, send this week. Its 'first visit on us' framing IS the soft correction to Email 01a's promise.",
-    "Mindbody site provisioning status — are both RiNo + Central Park sites live and ready for card capture by June 1?",
-    "Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 seconds. Train all front-desk staff before June 1.",
+    "John: pull MT data this week (last billed date + visit frequency per member). Admin ends May 31 — do it now.",
+    "John + Heather: verify the $99 drop actually ran in MT for members at $129/$159/$189. If not, credits owed.",
+    "Mindbody: confirm both sites provisioned + member-import ready. Status check needed today.",
+    "Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 sec. Train all front-desk before June 1.",
+    "Did Email 03 (May 22 segmented details) send? If not, send this week — its 'first visit on us' framing is the soft correction to Email 01a's promise.",
   ],
 };
+
+// CAPACITY_DECISION — Sway Remedy Lounge booking model (locked Option C on May 25)
+const CAPACITY_DECISION = {
+  status: "Locked May 25 — Option C: Hybrid lounge time-slot bookings (soft cap)",
+  question: "How members access the Sway Remedy Lounge at the new locations — individual modality bookings (current Upswell), unlimited walk-in (Larimer model), or hybrid time-slot booking?",
+  options: [
+    {
+      label: "Option A — Individual modality booking (current Upswell model)",
+      pros: "Familiar to Upswell members · guaranteed slots · highest utilization data per modality",
+      cons: "Complex booking UX · Mindbody needs session-type-per-modality workaround · blocks spontaneous walk-ins · members can hoard slots inefficiently",
+      verdict: "Rejected — too complex for Day 1, doesn't match $99 Unlimited marketing message",
+    },
+    {
+      label: "Option B — Unlimited walk-in (Larimer Remedy Room model)",
+      pros: "Simple ops · one Mindbody session type · spontaneous · matches '$99 Unlimited' marketing",
+      cons: "No guarantee of availability at peak (5-7pm) · possible crowding · less per-modality data",
+      verdict: "Considered — workable but no capacity signal, risky for bigger space with multiple rooms",
+    },
+    {
+      label: "Option C — Hybrid lounge time-slot bookings ★ LOCKED",
+      pros: "Members book a 60 or 90 min Lounge window, drop-in to any modality within. Capacity = concurrent guests, not modality slots. Familiar (Upswell users booked time too). Simple Mindbody setup (one session type with capacity). Self-regulating: empty = stay longer, busy = soft nudge.",
+      cons: "Members might overrun their window — but with multiple rooms / bigger space, soft enforcement only. Not a hard kick-out.",
+      verdict: "★ LOCKED — book a window as capacity signal, soft enforcement",
+    },
+  ],
+  implementation: [
+    "Mindbody session type: 'Sway Remedy Lounge' — 90 minute slot",
+    "Capacity per slot: TBD per location (need to count concurrent-guest comfortable maximum based on room sizes)",
+    "Members can book back-to-back slots if availability allows",
+    "Front-desk check-in: time-of-arrival noted; visual cue (wristband / time card) for self-management",
+    "Soft enforcement only — staff don't kick people out at exactly 90 min unless room is at cap and others waiting",
+    "Walk-ins welcome when capacity is open (auto-book on the spot)",
+    "Peak hours (5-7pm) might warrant a 60-min slot or stricter booking pressure",
+  ],
+  openItems: [
+    "Concurrent-guest capacity per location — need RiNo + CP room dimensions / chair counts (Emily can answer at 1pm)",
+    "Mindbody session 96 (Larimer's Remedy Room) — clone or new session type? Likely new since 90-min vs Larimer's setup",
+    "Should peak slot length differ from off-peak? (5-7pm = 60 min, otherwise 90 min?)",
+    "Capacity cap when massage + facials launch — those bookings use same staff capacity awareness",
+  ],
+  capacityContext: "Upswell ran ~55 check-ins/day across both locations historically (43,927 check-ins / 2 years / 365 days ≈ 60/day, split 83% RiNo / 17% CP = 50 RiNo + 10 CP per day). Even doubling that with the $99 Unlimited push lands ~100 check-ins/day combined — manageable with a 90-min slot and reasonable capacity caps.",
+};
+
+// MEETING_525_AGENDA — Today's 1pm with Heather + Emily
+const MEETING_525_AGENDA = {
+  date: "Today · May 25 · 1:00 PM",
+  attendees: "John + Heather + Emily",
+  title: "Pre-launch alignment: Lounge model, capacity, week-of plan",
+  decisionsToLock: [
+    "Sway Remedy Lounge booking model: confirm Option C (hybrid 90-min time slots, soft cap). Lock Mindbody session type design.",
+    "Concurrent-guest capacity per location (RiNo + Central Park) — Emily walks us through the room dimensions to set the cap",
+    "Whether peak hours (5-7pm) get a shorter slot (60 min) vs off-peak (90 min)",
+    "Confirm $99 drop actually executed in MT for members at $129/$159/$189 — Heather audits",
+    "Treatments (massage + facials): which port from Larimer vs new at RiNo/CP — Emily walks through her list",
+    "Final June 1 day-one operating hours both locations",
+  ],
+  asks: [
+    "Heather: pull MT 'last billed date' + 'last 90-day visit frequency' per member. Admin access ends May 31.",
+    "Heather: confirm Email 03 (May 22) sent. If not, prioritize this week.",
+    "Heather: any blockers from Mindbody (Katie / Michael) on site provisioning?",
+    "Emily: room dimensions / current Upswell concurrent capacity numbers per location",
+    "Emily: list of treatments unique to RiNo/CP (not ported from Larimer)",
+  ],
+  followups: [
+    "John: build Mindbody session types based on locked Lounge model + treatment list (this week)",
+    "John: build /book routes for new locations on swaywellnessspa.com (this week)",
+    "Heather: front-desk training session for Mackenzie + crew before June 1",
+  ],
+};
+
+// WEEK_PLAN — May 25 → June 1 critical path (7 days)
+const WEEK_PLAN = [
+  {
+    day: "Mon May 25 (TODAY)",
+    items: [
+      "🔥 1:00 PM meeting with Heather + Emily — lock Lounge model, capacity, treatment list",
+      "Pull MT data: last billed date + cycle + 90-day visit frequency per member",
+      "Verify the $99 drop actually ran in MT for $129/$159/$189 members",
+      "Mindbody site provisioning status check (Katie/Michael)",
+    ],
+  },
+  {
+    day: "Tue May 26",
+    items: [
+      "Mindbody member import — all 155 active members with correct first-bill-dates",
+      "Set up Sway Remedy Lounge session type (90 min, capacity per locked decision)",
+      "Configure $99 Sway Unlimited rate as a Mindbody Membership contract",
+    ],
+  },
+  {
+    day: "Wed May 27",
+    items: [
+      "Set up massage + facial session types in Mindbody (port from Larimer + new ones from Emily)",
+      "Configure providers, resources (treatment rooms), schedules",
+      "Send Email 03 (May 22 segmented details) if it hasn't gone out yet",
+    ],
+  },
+  {
+    day: "Thu May 28",
+    items: [
+      "Build /book routes for new locations on swaywellnessspa.com (clone Larimer, swap Mindbody site IDs)",
+      "Build /book-remedy-room equivalent (Lounge bookings)",
+      "Update /locations/denver-rino + /locations/denver-central-park with launch-ready copy + booking buttons",
+    ],
+  },
+  {
+    day: "Fri May 29",
+    items: [
+      "End-to-end test booking flows on staging — Lounge, future massage, future facial",
+      "Front desk training session: Mindbody card-add flow timed at <60 sec, Lounge check-in process, capacity etiquette",
+      "Draft dormant-active-member re-engagement email for mid-July send",
+    ],
+  },
+  {
+    day: "Sat May 30",
+    items: [
+      "Final QA on all booking flows",
+      "Soft test bookings by Sway team members",
+      "Photo media kit final pass for Phase 3 press push",
+    ],
+  },
+  {
+    day: "Sun May 31",
+    items: [
+      "🔥 MT shutdown at midnight — last billing day on the old system",
+      "Data reconciliation: confirm all members are in Mindbody, all MT charges from May are recorded",
+      "Final pre-launch checklist walk-through",
+    ],
+  },
+  {
+    day: "Mon Jun 1",
+    items: [
+      "6 AM: Send Email 07 (Heather launch-day welcome)",
+      "Flip LocationsContent.tsx to 'open' for both locations",
+      "Mindbody is the only POS. First Sway visits begin.",
+      "Signage swap on both buildings",
+    ],
+  },
+];
 
 const BLOCKERS_P0 = [
   "🔥 TONIGHT: Pull future-reservations report from Mariana Tek before May 15 send. Heather noted someone became a member recently — need to know exactly who has bookings on the books for June 1+ so we can port them or proactively reach out.",
@@ -239,30 +394,52 @@ const QUESTIONS_QUICK = [
 
 const MEETINGS = [
   {
-    date: "2026-05-25",
-    title: "Stripe migration KILLED — front-desk re-add is the path",
+    date: "2026-05-25 1:00 PM",
+    title: "Pre-launch alignment with Heather + Emily (IN PROGRESS)",
     status: "active",
+    attendees: "John + Heather + Emily",
+    topics: [
+      "Sway Remedy Lounge booking model — locked Option C (hybrid 90-min time slots, soft cap)",
+      "Concurrent-guest capacity per location (Emily walks through dimensions)",
+      "Peak-hour slot length (60 vs 90 min for 5-7pm)",
+      "MT data pull this week (per-member last billed + visit frequency)",
+      "$99 drop verification in MT for $129/$159/$189 members",
+      "Treatment list — what ports from Larimer vs new at RiNo/CP",
+      "June 1 operating hours decision",
+    ],
+    decisions: [
+      "★ LOCKED OPTION C — Sway Remedy Lounge bookings = 90-min time-slot windows, soft cap. Members book a slot, drop-in to any modality within. Self-regulating — empty = stay, busy = courtesy nudge. Bigger space + multiple rooms = no hard kick-out enforcement.",
+    ],
+    openQuestions: [
+      "Pending 1pm: concurrent-guest capacity per location",
+      "Pending 1pm: peak hour shorter slots?",
+      "Pending 1pm: treatment list confirmation from Emily",
+      "Pending 1pm: $99 MT drop verification status",
+    ],
+  },
+  {
+    date: "2026-05-25 AM",
+    title: "Stripe migration KILLED — pivot to Mindbody-only POS",
+    status: "completed",
     attendees: "John",
     topics: [
       "Stripe Data Migration Request — never initiated",
-      "Realistic payment path for June 1",
-      "Mariana Tek admin extension as the bridge",
-      "Email 01a's 'no card to update' promise vs. reality",
-      "Front desk training + first-visit-on-us framing",
+      "MT extension bridge as fallback (rejected — two POS systems = bad ops)",
+      "Mindbody-only POS June 1 (locked path)",
+      "Front desk re-add flow",
       "June revenue ramp expectations",
     ],
     decisions: [
-      "Stripe migration is OUT. No request was initiated; Stripe Support typically takes 2-4 weeks. With 6 days to June 1, it's not viable. Also: Mindbody Payments isn't Stripe — there was never a clean token-transfer path anyway. Per-member consent re-tokenization (the only true migration option) needs paperwork we can't realistically collect in 6 days.",
-      "Path forward: members re-add their card at the front desk on first Sway visit. Mindbody POS flow targeted at <60 seconds. First visit on us as a thank-you for the friction (already promised in Email 03).",
-      "Ask Heather to extend Mariana Tek admin access by 2-3 weeks past May 31 (per May 14 fallback that Marty raised). MT keeps billing during the runway while members come in and re-add to Mindbody.",
-      "Email 01a's locked 'no card to update' promise is now soft. Front-desk re-add is the gentle correction — Email 03 already covers it ('first visit on us'). If Email 03 didn't go May 22, send ASAP. If sent, no extra correction needed — front-desk team handles it in person.",
-      "June revenue: expect ~$0 from members on June 1 auto-bill, ~50% by end of week 1, ~80% by week 3, full by mid-July as members trickle in.",
+      "Stripe migration is OUT. No request was initiated; Stripe Support typically takes 2-4 weeks. With 6 days to June 1, it's not viable. Also: Mindbody Payments isn't Stripe — there was never a clean token-transfer path anyway.",
+      "MT extension as a billing bridge — REJECTED. Two POS systems mean reconciliation hell, Heather collecting on Sway's behalf post-takeover creates accounting/tax complexity, and front desk juggles MT for billing + Mindbody for everything else. Not worth the operational drag.",
+      "Clean cut: Mindbody is the only POS June 1. MT shuts down May 31 midnight. Members re-add card at front desk on first Sway visit. Mindbody first-bill-date = (last MT bill date + cycle length) so no double-bill, no gap.",
+      "Billing edge case rule: if a member's MT cycle already ended before they re-add, comp the gap and start fresh from re-add date. ~$1-2K total cost across 155 members; eliminates 'you're already late!' front-desk awkwardness.",
+      "June revenue ramp: ~$0 on June 1 auto-bill (no cards on file yet), ~50% by end of week 1, ~80% by week 3, 100% by mid-July as members trickle in.",
     ],
     openQuestions: [
-      "Did Email 03 (May 22 segmented member details) actually go out? If not, send this week — it sets up the front-desk-re-add expectation.",
-      "Will Heather extend Mariana Tek access past May 31? Ask today.",
-      "Mindbody site provisioning status — are RiNo + Central Park sites live and ready for member imports + card capture?",
-      "Front desk Mindbody card-add flow tested + timed? Mackenzie's 4-part training plan should already cover this.",
+      "Did Email 03 (May 22 segmented member details) actually go out?",
+      "Mindbody site provisioning status — both sites live, ready for member import by Tue May 26?",
+      "Did the $99 drop actually execute in MT for members at $129/$159/$189?",
     ],
   },
   {
@@ -588,20 +765,28 @@ const MY_LIST = [
     ],
   },
   {
-    phase: "Phase 1 — Quiet brand transition (NOW → June 1)",
+    phase: "Phase 1 — This week (May 25 → June 1) · Mindbody-only POS cutover",
     color: "rose",
     tasks: [
-      { task: "🔥 PAYMENT MIGRATION — ASK HEATHER TODAY: extend Mariana Tek admin access by 2-3 weeks past May 31 (the May 14 fallback Marty raised). MT keeps billing during the runway.", status: "in-progress", dep: "Heather response" },
-      { task: "🔥 PAYMENT MIGRATION — Confirm Email 03 (May 22 segmented member details) actually sent. If not, send this week — its 'first visit on us' framing IS the soft correction to Email 01a's 'no card to update' promise.", status: "in-progress", dep: "" },
-      { task: "🔥 PAYMENT MIGRATION — Mindbody site provisioning status check. Both RiNo + Central Park sites live and ready for member card capture on June 1?", status: "pending", dep: "Katie / Michael at Mindbody" },
-      { task: "🔥 PAYMENT MIGRATION — Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 seconds. Train all front-desk staff before June 1. 'Welcome to Sway. Your membership rolled over at $99 — let's get a card on file. First visit's on us.'", status: "pending", dep: "Mindbody provisioned + Mackenzie's training plan" },
+      { task: "🔥 TODAY 1PM: Heather + Emily meeting — lock Lounge model, capacity per location, MT data, treatment list", status: "in-progress", dep: "" },
+      { task: "🔥 PAYMENT MIGRATION — Pull MT data this week: per-member last billed date + cycle + 90-day visit frequency. Admin access ends May 31.", status: "pending", dep: "" },
+      { task: "🔥 PAYMENT MIGRATION — Verify the $99 drop actually executed in MT for $129/$159/$189 members (Email 01a promised effective May 16). If not, credits owed.", status: "pending", dep: "MT audit" },
+      { task: "🔥 PAYMENT MIGRATION — Mindbody site provisioning status check. Both RiNo + Central Park sites live and ready for member import by Tue May 26?", status: "pending", dep: "Katie / Michael at Mindbody" },
+      { task: "🔥 PAYMENT MIGRATION — Mindbody member import (Tue) with correct first-bill-dates = (last MT bill + cycle length). Card-on-file empty until they visit.", status: "pending", dep: "MT data pulled + Mindbody provisioned" },
+      { task: "🔥 LOUNGE MODEL — Set up Sway Remedy Lounge session type in Mindbody (90 min slot, capacity per locked decision)", status: "pending", dep: "1pm meeting decisions" },
+      { task: "🔥 TREATMENTS — Set up massage + facial session types in Mindbody (port from Larimer + new ones from Emily's list)", status: "pending", dep: "Emily's treatment list" },
+      { task: "🔥 BOOKING SITE — Build /book routes for new locations on swaywellnessspa.com (clone Larimer, swap Mindbody site IDs)", status: "pending", dep: "Mindbody session types live" },
+      { task: "🔥 BOOKING SITE — Build /book-remedy-room equivalent for Lounge bookings at both new locations", status: "pending", dep: "Mindbody session types live" },
+      { task: "🔥 FRONT DESK — Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 seconds. Train all front-desk before June 1.", status: "pending", dep: "Mindbody provisioned" },
+      { task: "🔥 END-TO-END TEST — Booking flows on staging (Lounge + future massage + future facial). Thu/Fri May 28-29.", status: "pending", dep: "Booking routes live" },
       { task: "Heather completes 4 personal calls to yoga-heavy active members (Jessica, Gregory, Christina, Nathan)", status: "pending", dep: "" },
-      { task: "Build /membership page — Sway Unlimited tier ($99) alongside standard Sway Membership ($99). Both tiers visible on the new location pages and main /membership.", status: "pending", dep: "" },
+      { task: "Build /membership page — Sway Unlimited tier ($99) alongside standard Sway Membership ($99). Both tiers visible on new location pages + main /membership.", status: "pending", dep: "" },
       { task: "Real RiNo + Central Park photos into the two location pages (replace SWAY.jpg placeholder)", status: "pending", dep: "photos from John" },
       { task: "Photo media kit folder ready for the Phase 3 PR moment", status: "pending", dep: "photos available" },
-      { task: "GBP — get added as OWNER (not Manager) on both 3636 Blake + 2271 Clinton listings. Heather has access. Owner can't be revoked.", status: "pending", dep: "" },
-      { task: "Begin Mindbody member data import (once site is provisioned)", status: "pending", dep: "Mindbody provisioned" },
+      { task: "GBP — get added as OWNER (not Manager) on both 3636 Blake + 2271 Clinton listings. Heather has access.", status: "pending", dep: "" },
       { task: "Soften homepage banner copy — remove any 'massage at launch' implication; lead with 'expanding to RiNo + Central Park'", status: "pending", dep: "" },
+      { task: "Confirm Email 03 (May 22 segmented member details) actually sent. If not, send this week.", status: "pending", dep: "" },
+      { task: "🔥 SUN MAY 31 MIDNIGHT — MT shutdown. Hard cut. Data reconciliation: all members in Mindbody, all May MT charges recorded.", status: "pending", dep: "Mindbody import complete" },
     ],
   },
   {
@@ -621,11 +806,9 @@ const MY_LIST = [
     color: "amber",
     tasks: [
       { task: "💳 Daily monitoring: how many members visited + re-added card. Target ~50% by end of week 1, ~80% by week 3.", status: "pending", dep: "" },
-      { task: "💳 Mariana Tek runs in parallel through ~mid-June (extension window). Existing members keep getting billed via MT until they re-add to Mindbody at the front desk.", status: "pending", dep: "MT extension confirmed" },
-      { task: "💳 Mid-June reminder email to members who haven't visited yet — 'come in for your free first visit, we'll get you set up.'", status: "pending", dep: "" },
-      { task: "💳 Mariana Tek FULL SHUTDOWN — hard cutover once 80%+ of members are in Mindbody. Likely ~mid-to-late June.", status: "pending", dep: "MT extension expires + Mindbody coverage >80%" },
-      { task: "Build /book routes for new locations (clone Larimer pattern, swap Mindbody IDs) — ready for Phase 3 launch", status: "pending", dep: "Mindbody IDs" },
-      { task: "Mindbody booking flows tested end-to-end at both new locations", status: "pending", dep: "Mindbody provisioned" },
+      { task: "💳 Mid-June reminder email to active members who haven't visited yet — 'come in for your free first visit, we'll get you set up.'", status: "pending", dep: "" },
+      { task: "💳 Mid-July dormant-active-member re-engagement email — for members who STILL haven't visited 30+ days post-launch. Last nudge before evaluating churn.", status: "pending", dep: "" },
+      { task: "💳 Billing edge case rule applied at front desk: if member's MT cycle already ended before they re-add, comp the gap and start billing from re-add date (~$1-2K total cost across 155 members, eliminates 'you're already late!' awkwardness)", status: "pending", dep: "" },
       { task: "Massage establishment license — track FBI fingerprint clearance progress with Marty", status: "pending", dep: "" },
       { task: "Curtain + treatment-suite buildout completion (Emily + Allison)", status: "pending", dep: "" },
       { task: "Massage therapist hiring — at least 2-3 per location for opening week", status: "pending", dep: "Jocelyn return" },
@@ -750,6 +933,13 @@ const LOCAL_PARTNERSHIPS_TO_PURSUE = [
 ];
 
 const NEW_CAMPAIGNS = [
+  {
+    date: "Mid-July (~July 15)",
+    title: "🆕 Dormant active-member re-engagement",
+    audience: "Active members who have NOT visited in their first 30+ days of Sway (segmented from MT visit data + Mindbody check-ins post-June 1)",
+    goal: "Active members paying $99 who never came in to re-add their card / use the space. They're the easiest revenue saves — already paying, just disengaged. Single send (Heather voice from Sway domain): 'You're a member but we haven't seen you in a while. Sway is open with new massage + facials. Come use what you're paying for. First visit is on us.' If still no visit by 60 days, evaluate for soft churn / proactive cancellation outreach.",
+    status: "Plan — fires after Phase 3 launch when massage + facials are open (mid-to-late June + 30 days)",
+  },
   {
     date: "2026-05-31",
     title: "In-person membership sign-up event",
@@ -996,7 +1186,141 @@ function SenderTimeline() {
   );
 }
 
-/* ---- Payment Migration Plan (May 25 revision — Stripe path killed) ---- */
+/* ---- Today's 1pm meeting agenda — Heather + Emily (May 25) ---- */
+function MeetingPrep525() {
+  return (
+    <div className="md:col-span-2 bg-amber-50 rounded-xl border-2 border-amber-500 p-6">
+      <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
+        <h2 className="text-sm uppercase tracking-wider text-amber-900">🔥 {MEETING_525_AGENDA.date}</h2>
+        <span className="text-xs font-mono opacity-70 bg-white px-2 py-0.5 rounded border border-amber-300">{MEETING_525_AGENDA.attendees}</span>
+      </div>
+      <h3 className="text-lg font-bold mb-4">{MEETING_525_AGENDA.title}</h3>
+
+      <div className="grid md:grid-cols-2 gap-3">
+        <div className="bg-white rounded-lg p-4 border border-amber-300">
+          <h4 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">✓ Decisions to lock</h4>
+          <ul className="text-xs space-y-1.5">
+            {MEETING_525_AGENDA.decisionsToLock.map((d, i) => (
+              <li key={i} className="flex gap-2"><span className="text-amber-700 mt-0.5">·</span><span className="opacity-90">{d}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-white rounded-lg p-4 border border-amber-300">
+          <h4 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">📋 Asks of Heather + Emily</h4>
+          <ul className="text-xs space-y-1.5">
+            {MEETING_525_AGENDA.asks.map((a, i) => (
+              <li key={i} className="flex gap-2"><span className="text-amber-700 mt-0.5">→</span><span className="opacity-90">{a}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-3 bg-white rounded-lg p-4 border border-amber-300">
+        <h4 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">Follow-ups (post-meeting, this week)</h4>
+        <ul className="text-xs space-y-1.5">
+          {MEETING_525_AGENDA.followups.map((f, i) => (
+            <li key={i} className="flex gap-2"><span className="text-amber-700 mt-0.5">·</span><span className="opacity-90">{f}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+/* ---- Week-of-launch critical path (May 25 → Jun 1) ---- */
+function WeekPlan() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-[#113D33] p-6">
+      <div className="flex items-baseline justify-between flex-wrap gap-2 mb-4">
+        <h2 className="text-sm uppercase tracking-wider opacity-60">📆 Week of launch — daily critical path</h2>
+        <span className="text-xs opacity-70">May 25 → June 1 · 7 days to go</span>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+        {WEEK_PLAN.map((d, i) => {
+          const isToday = d.day.includes("TODAY");
+          const cardClass = isToday
+            ? "bg-amber-50 border-2 border-amber-500"
+            : i < 4
+              ? "bg-white border border-black/10"
+              : "bg-emerald-50 border border-emerald-300";
+          return (
+            <div key={i} className={`rounded-lg p-3 ${cardClass}`}>
+              <h3 className={`text-xs font-bold mb-2 ${isToday ? "text-amber-900" : "text-[#113D33]"}`}>{d.day}</h3>
+              <ul className="space-y-1.5">
+                {d.items.map((item, j) => (
+                  <li key={j} className="text-[11px] leading-snug flex gap-1.5">
+                    <span className="opacity-40 shrink-0">·</span>
+                    <span className="opacity-90">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ---- Sway Remedy Lounge booking model decision ---- */
+function CapacityDecision() {
+  return (
+    <div className="md:col-span-2 bg-white rounded-xl border-2 border-emerald-400 p-6">
+      <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
+        <h2 className="text-sm uppercase tracking-wider opacity-60">🛋️ Sway Remedy Lounge booking model</h2>
+        <span className="text-xs font-mono opacity-70 bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded">{CAPACITY_DECISION.status}</span>
+      </div>
+      <p className="text-sm opacity-80 mb-4">{CAPACITY_DECISION.question}</p>
+
+      <div className="grid lg:grid-cols-3 gap-3 mb-4">
+        {CAPACITY_DECISION.options.map((o, i) => {
+          const isLocked = o.label.includes("LOCKED");
+          const bg = isLocked
+            ? "bg-emerald-50 border-2 border-emerald-500 ring-2 ring-emerald-300 ring-offset-2"
+            : o.verdict.toLowerCase().includes("rejected")
+              ? "bg-rose-50 border border-rose-200 opacity-70"
+              : "bg-gray-50 border border-gray-200 opacity-80";
+          return (
+            <div key={i} className={`rounded-lg p-4 ${bg}`}>
+              <h3 className="font-bold text-xs mb-2">{o.label}</h3>
+              <div className="text-[11px] space-y-1.5 mb-2">
+                <div><b className="text-emerald-700">+</b> <span className="opacity-90">{o.pros}</span></div>
+                <div><b className="text-rose-700">−</b> <span className="opacity-90">{o.cons}</span></div>
+              </div>
+              <p className="text-[11px] italic font-semibold pt-2 border-t border-black/10">{o.verdict}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-3">
+        <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-300">
+          <h4 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">Implementation (Option C)</h4>
+          <ul className="text-xs space-y-1.5">
+            {CAPACITY_DECISION.implementation.map((i, idx) => (
+              <li key={idx} className="flex gap-2"><span className="text-emerald-600 mt-0.5">·</span><span className="opacity-90">{i}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-amber-50 rounded-lg p-4 border border-amber-300">
+          <h4 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">Open items for 1pm meeting</h4>
+          <ul className="text-xs space-y-1.5">
+            {CAPACITY_DECISION.openItems.map((i, idx) => (
+              <li key={idx} className="flex gap-2"><span className="text-amber-700 mt-0.5">?</span><span className="opacity-90">{i}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <p className="text-[11px] italic opacity-70 mt-3 bg-black/[0.03] p-3 rounded">
+        <b>Capacity context:</b> {CAPACITY_DECISION.capacityContext}
+      </p>
+    </div>
+  );
+}
+
+/* ---- Payment Migration Plan (May 25 revision — Mindbody-only POS) ---- */
 function PaymentMigrationPlan() {
   return (
     <div className="md:col-span-2 bg-rose-50 rounded-xl border-2 border-rose-400 p-6">
@@ -1757,6 +2081,9 @@ function NewCampaigns() {
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
+      <MeetingPrep525 />
+      <WeekPlan />
+      <CapacityDecision />
       <PaymentMigrationPlan />
       <StrategicPriorities />
       <LaunchScenarios />
