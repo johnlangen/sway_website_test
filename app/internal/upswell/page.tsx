@@ -143,11 +143,60 @@ const TERMINATED_ANNUALS = [
   { name: "Terry Wei (prior)", contract: "Year of Wellness | All Access", rate: "$0 (comp)", purchased: "Jan 2025", status: "Done — upgraded to paid 1-year above" },
 ];
 
+// PAYMENT_MIGRATION_PLAN — May 25 reshape after Stripe path was abandoned.
+// Stripe Data Migration Request was never initiated; with 6 days to June 1 it's not viable.
+// Path forward: front-desk re-add at first Sway visit, bridged by MT extension.
+const PAYMENT_MIGRATION_PLAN = {
+  status: "Revised May 25 — Stripe migration out, front-desk re-add in",
+  whyChanged:
+    "Stripe Data Migration Request was never initiated. Stripe Support typically takes 2-4 weeks once you ask, and we have 6 days to June 1. Even if we'd started: Mindbody Payments isn't Stripe-based — so 'transfer Stripe tokens to Mindbody' was never a real path. The only true migration option was per-member consent re-tokenization, which needs signed paperwork from each member. Not viable in this window.",
+  thePath: [
+    {
+      step: "1",
+      label: "Members re-add card at front desk on first Sway visit",
+      detail: "Mindbody POS flow targets <60 seconds per add. Front desk handles it during normal check-in. First visit is on us as a thank-you for the friction (already promised in Email 03's 'first visit on us' language).",
+    },
+    {
+      step: "2",
+      label: "Extend Mariana Tek admin access 2-3 weeks past May 31",
+      detail: "Heather raised this as the May 14 fallback. MT keeps billing existing members via Heather's Stripe during the runway. Members trickle in to Sway, re-add card to Mindbody, and we migrate one-by-one in-person. ASK HEATHER TODAY.",
+    },
+    {
+      step: "3",
+      label: "Front desk training: tight Mindbody card-add flow",
+      detail: "Part of Mackenzie's 4-part training. Verify the team can do it in <60 seconds. Standard script: 'Welcome to Sway. Your membership rolled over at $99 — let's just get a card on file real quick. First visit's on us.'",
+    },
+    {
+      step: "4",
+      label: "Soft email reminder mid-June to members who haven't visited",
+      detail: "Around June 15, send a brief 'we haven't seen you yet — come in for your free first visit and we'll get you set up' note to active members who haven't checked in since June 1. Recovers the long tail.",
+    },
+  ],
+  revenueImpact: [
+    { window: "June 1", expectedPctOfMonthly: 0, note: "No cards on file in Mindbody yet — auto-bills run on $0" },
+    { window: "End of week 1 (~June 7)", expectedPctOfMonthly: 50, note: "Recovery-heavy members come in for their usual sauna/plunge routine, re-add at front desk" },
+    { window: "End of week 3 (~June 21)", expectedPctOfMonthly: 80, note: "Massage + facials open mid-to-late June drives an additional wave of in-person visits" },
+    { window: "Mid-July", expectedPctOfMonthly: 100, note: "Long-tail members captured via mid-June reminder" },
+  ],
+  risks: [
+    "Members who NEVER come in are lost revenue. Mitigation: mid-June email reminder + a 'haven't seen you in a while?' follow-up at 30 days.",
+    "Email 01a promised 'no card to update' — front-desk re-add is technically a contradiction. Mitigation: handle in person ('your first visit's on us, just need to get a card on file') and lean on Email 03's 'first visit on us' framing.",
+    "Mariana Tek extension is up to Heather's goodwill. If she says no, we lose the billing bridge and the ramp gets harder.",
+    "Front desk capacity in the first week — extra friction per visit. Mitigation: staffing slightly heavier the first two weeks.",
+  ],
+  asks: [
+    "Heather: extend Mariana Tek admin access by 2-3 weeks past May 31 (the May 14 fallback Marty raised).",
+    "Confirm Email 03 (May 22 segmented member details) actually sent. If not, send this week. Its 'first visit on us' framing IS the soft correction to Email 01a's promise.",
+    "Mindbody site provisioning status — are both RiNo + Central Park sites live and ready for card capture by June 1?",
+    "Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 seconds. Train all front-desk staff before June 1.",
+  ],
+};
+
 const BLOCKERS_P0 = [
   "🔥 TONIGHT: Pull future-reservations report from Mariana Tek before May 15 send. Heather noted someone became a member recently — need to know exactly who has bookings on the books for June 1+ so we can port them or proactively reach out.",
   "🔥 TONIGHT/FRI AM: Heather's 5 personal touches — text-first to the 4 yoga members (Jessica, Gregory, Christina, Nathan), personal email to Terry Wei. Must close before noon Friday so none of them hear from a friend first.",
   "🔥 Heather kills Upswell marketing automations at 11 PM Thursday 5/14 — confirm done so they don't fire after our Friday noon send.",
-  "Stripe Data Migration Request — Heather initiates with Stripe Support on Wednesday May 20 (shifted from Mon May 18 — May 18-19 focused on other items). Need Mindbody Stripe Connect account IDs first; check by Wed whether Mindbody has stood up the two new sites. ~2-4 weeks once initiated. Snapshot captures all 155 existing + any new MT signups Heather closes during May 16-19 (the cleaner single-batch outcome).",
+  "🆕 Payment migration: STRIPE PATH KILLED (May 25). No Stripe Data Migration Request was initiated; can't realistically complete by June 1. Front-desk re-add is the path forward. SEE: Payment Migration Plan section below.",
   "Insurance (GL + workers' comp) for both new locations — required by June 1. Commercial policies typically 2-3 weeks via broker. If not in motion already, urgency.",
   "Email send platform — locked as BrandBot (Heather's existing Upswell platform).",
   "Update /membership page to show Sway Unlimited tier — emails reference $99/mo, page needs to land them somewhere.",
@@ -162,7 +211,7 @@ const BLOCKERS_P1 = [
   "EGYM Wellpass: post-June 3 partnership evaluation",
   "Brand partner decisions (Mach 983, Hayes, Lululemon, F45, etc.) — keep / sunset / negotiate per partnership-decisions.md",
   "First Visit Offer policy at the new locations — $40 off / $99 same as Larimer for Phase 3?",
-  "Mindbody site provisioning — Katie at Mindbody said earliest Mon May 18; CHECK STATUS Wednesday May 20 before Stripe migration kickoff. Two sites needed: RiNo + Central Park. Need Stripe Connect account IDs from Mindbody once provisioned.",
+  "Mindbody site provisioning — Two sites needed: RiNo + Central Park. Status check needed (last checked May 20). Required for member card add at front desk on June 1.",
   "Member migration mechanics: customer records export from Mariana Tek + import to Mindbody",
   "Gift card migration: Loopz export needed from Heather + Mariana Tek report. Build mapping CSV — issue as Mindbody gift cards (NOT 'on account').",
   "74 customers with unredeemed credits/gift cards not in any of the 3 May 15 lists — decide whether to send them a separate transactional notice.",
@@ -190,9 +239,36 @@ const QUESTIONS_QUICK = [
 
 const MEETINGS = [
   {
-    date: "2026-05-18",
-    title: "Plan shift: Stripe migration pushed to Wednesday May 20",
+    date: "2026-05-25",
+    title: "Stripe migration KILLED — front-desk re-add is the path",
     status: "active",
+    attendees: "John",
+    topics: [
+      "Stripe Data Migration Request — never initiated",
+      "Realistic payment path for June 1",
+      "Mariana Tek admin extension as the bridge",
+      "Email 01a's 'no card to update' promise vs. reality",
+      "Front desk training + first-visit-on-us framing",
+      "June revenue ramp expectations",
+    ],
+    decisions: [
+      "Stripe migration is OUT. No request was initiated; Stripe Support typically takes 2-4 weeks. With 6 days to June 1, it's not viable. Also: Mindbody Payments isn't Stripe — there was never a clean token-transfer path anyway. Per-member consent re-tokenization (the only true migration option) needs paperwork we can't realistically collect in 6 days.",
+      "Path forward: members re-add their card at the front desk on first Sway visit. Mindbody POS flow targeted at <60 seconds. First visit on us as a thank-you for the friction (already promised in Email 03).",
+      "Ask Heather to extend Mariana Tek admin access by 2-3 weeks past May 31 (per May 14 fallback that Marty raised). MT keeps billing during the runway while members come in and re-add to Mindbody.",
+      "Email 01a's locked 'no card to update' promise is now soft. Front-desk re-add is the gentle correction — Email 03 already covers it ('first visit on us'). If Email 03 didn't go May 22, send ASAP. If sent, no extra correction needed — front-desk team handles it in person.",
+      "June revenue: expect ~$0 from members on June 1 auto-bill, ~50% by end of week 1, ~80% by week 3, full by mid-July as members trickle in.",
+    ],
+    openQuestions: [
+      "Did Email 03 (May 22 segmented member details) actually go out? If not, send this week — it sets up the front-desk-re-add expectation.",
+      "Will Heather extend Mariana Tek access past May 31? Ask today.",
+      "Mindbody site provisioning status — are RiNo + Central Park sites live and ready for member imports + card capture?",
+      "Front desk Mindbody card-add flow tested + timed? Mackenzie's 4-part training plan should already cover this.",
+    ],
+  },
+  {
+    date: "2026-05-18",
+    title: "Plan shift: Stripe migration pushed to Wednesday May 20 (since killed — see May 25)",
+    status: "completed",
     attendees: "John (Mon AM update)",
     topics: [
       "Stripe Data Migration Request timing",
@@ -429,7 +505,7 @@ const ACCESS_TRACKER = [
   { platform: "BrandBot (email)", type: "Add user (optional)", status: "Pending Heather", note: "Heather sends emails herself. Sway access useful for stats + coordination but not blocking." },
   { platform: "upswellstudio.com — Squarespace", type: "Banner + landing page (done by Heather)", status: "✓ Done by Heather May 16-17", note: "Heather went above and beyond — added a transition banner to upswellstudio.com AND built a landing page on her site with the announcement info. No Contributor invite needed for Sway side; can revisit if we want to update content later." },
   { platform: "Mariana Tek", type: "Already have access", status: "✓ Done", note: "Marty granted access earlier" },
-  { platform: "Stripe (Heather's account)", type: "NOT NEEDED", status: "✓ N/A", note: "Heather initiates migration request from her side. Stripe Support handles the transfer. John never enters Heather's Stripe." },
+  { platform: "Stripe (Heather's account)", type: "Out of scope", status: "✓ N/A", note: "May 25 update: Stripe Data Migration Request was never initiated and is now off the table — too late before June 1. Front-desk re-add is the path (see Payment Migration Plan). Heather's Stripe stays as-is through Mariana Tek's extended runway." },
   { platform: "Ring cameras", type: "New Sway account", status: "Joel/Emily", note: "Hardware stays. New Sway-owned account on existing devices." },
   { platform: "Sonos", type: "New Sway account", status: "Joel/Emily", note: "Hardware stays. New Sway-owned account." },
   { platform: "Xfinity (Wi-Fi)", type: "New account via Sway Larimer rep", status: "Emily", note: "Existing hardware. Emily reaches out to Larimer Xfinity rep." },
@@ -513,9 +589,12 @@ const MY_LIST = [
   },
   {
     phase: "Phase 1 — Quiet brand transition (NOW → June 1)",
-    color: "amber",
+    color: "rose",
     tasks: [
-      { task: "Send Email 03 (Member details + first-week guide, 4 versions) Fri May 22 — Heather voice, Heather's domain", status: "pending", dep: "list segmentation locked" },
+      { task: "🔥 PAYMENT MIGRATION — ASK HEATHER TODAY: extend Mariana Tek admin access by 2-3 weeks past May 31 (the May 14 fallback Marty raised). MT keeps billing during the runway.", status: "in-progress", dep: "Heather response" },
+      { task: "🔥 PAYMENT MIGRATION — Confirm Email 03 (May 22 segmented member details) actually sent. If not, send this week — its 'first visit on us' framing IS the soft correction to Email 01a's 'no card to update' promise.", status: "in-progress", dep: "" },
+      { task: "🔥 PAYMENT MIGRATION — Mindbody site provisioning status check. Both RiNo + Central Park sites live and ready for member card capture on June 1?", status: "pending", dep: "Katie / Michael at Mindbody" },
+      { task: "🔥 PAYMENT MIGRATION — Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 seconds. Train all front-desk staff before June 1. 'Welcome to Sway. Your membership rolled over at $99 — let's get a card on file. First visit's on us.'", status: "pending", dep: "Mindbody provisioned + Mackenzie's training plan" },
       { task: "Heather completes 4 personal calls to yoga-heavy active members (Jessica, Gregory, Christina, Nathan)", status: "pending", dep: "" },
       { task: "Build /membership page — Sway Unlimited tier ($99) alongside standard Sway Membership ($99). Both tiers visible on the new location pages and main /membership.", status: "pending", dep: "" },
       { task: "Real RiNo + Central Park photos into the two location pages (replace SWAY.jpg placeholder)", status: "pending", dep: "photos from John" },
@@ -541,6 +620,10 @@ const MY_LIST = [
     phase: "Phase 2 — Holding pattern (June 1 → massage + facials open)",
     color: "amber",
     tasks: [
+      { task: "💳 Daily monitoring: how many members visited + re-added card. Target ~50% by end of week 1, ~80% by week 3.", status: "pending", dep: "" },
+      { task: "💳 Mariana Tek runs in parallel through ~mid-June (extension window). Existing members keep getting billed via MT until they re-add to Mindbody at the front desk.", status: "pending", dep: "MT extension confirmed" },
+      { task: "💳 Mid-June reminder email to members who haven't visited yet — 'come in for your free first visit, we'll get you set up.'", status: "pending", dep: "" },
+      { task: "💳 Mariana Tek FULL SHUTDOWN — hard cutover once 80%+ of members are in Mindbody. Likely ~mid-to-late June.", status: "pending", dep: "MT extension expires + Mindbody coverage >80%" },
       { task: "Build /book routes for new locations (clone Larimer pattern, swap Mindbody IDs) — ready for Phase 3 launch", status: "pending", dep: "Mindbody IDs" },
       { task: "Mindbody booking flows tested end-to-end at both new locations", status: "pending", dep: "Mindbody provisioned" },
       { task: "Massage establishment license — track FBI fingerprint clearance progress with Marty", status: "pending", dep: "" },
@@ -598,7 +681,7 @@ const OPERATIONAL_CHECKLIST = [
       { task: "Pause any active Upswell Google Ads campaigns before May 15. If Sway has ad account access (likely via the IP transfer), pause from there. Otherwise Heather pauses.", owner: "John or Heather" },
       { task: "Get access to Upswell's Google Analytics property on upswellstudio.com. Historical traffic data is valuable for transition planning + helps inform paid media targeting.", owner: "John (needs Heather to grant)" },
       { task: "Take ownership of Upswell's Google Search Console property for upswellstudio.com. Critical for managing the SEO migration cleanly.", owner: "John (needs Heather to grant)" },
-      { task: "Plan Mariana Tek FULL SHUTDOWN date — after Mindbody migration is verified complete + members no longer transacting through MT. Likely 30 days post-launch. Set a hard cutover.", owner: "John + Heather" },
+      { task: "Plan Mariana Tek FULL SHUTDOWN date — May 25 revision: MT acts as billing bridge through ~mid-June while members re-add cards to Mindbody at front desk. Hard cutover when Mindbody coverage hits ~80% of active members. Depends on Heather extending MT admin past May 31.", owner: "John + Heather" },
       { task: "Submit GBP rename request (Upswell → Sway) June 1 AM at both listings. Google approval typically 3-5 days. Preserves reviews + local rank. Update categories for recovery-led format.", owner: "John (Owner role granted by Heather this week)" },
       { task: "Confirm Sway GBP categories are set up correctly for the recovery-led format", owner: "John" },
     ],
@@ -909,6 +992,79 @@ function SenderTimeline() {
       <p className="text-[11px] opacity-60 mt-4">
         Legal note: CAN-SPAM marketing consent transfers in a business handover. The May 15 announcement is the required notice of the change. No fresh opt-in needed.
       </p>
+    </div>
+  );
+}
+
+/* ---- Payment Migration Plan (May 25 revision — Stripe path killed) ---- */
+function PaymentMigrationPlan() {
+  return (
+    <div className="md:col-span-2 bg-rose-50 rounded-xl border-2 border-rose-400 p-6">
+      <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
+        <h2 className="text-sm uppercase tracking-wider text-rose-900">💳 Payment migration plan</h2>
+        <span className="text-xs font-mono opacity-70 bg-white px-2 py-0.5 rounded border border-rose-200">{PAYMENT_MIGRATION_PLAN.status}</span>
+      </div>
+
+      <div className="bg-white rounded-lg p-4 border border-rose-200 mb-4">
+        <h3 className="text-xs uppercase tracking-wider font-bold text-rose-900 mb-2">Why the plan changed</h3>
+        <p className="text-sm leading-relaxed opacity-90">{PAYMENT_MIGRATION_PLAN.whyChanged}</p>
+      </div>
+
+      <div className="bg-white rounded-lg p-4 border border-rose-200 mb-4">
+        <h3 className="text-xs uppercase tracking-wider font-bold text-rose-900 mb-3">The path forward</h3>
+        <ol className="space-y-3">
+          {PAYMENT_MIGRATION_PLAN.thePath.map((p, i) => (
+            <li key={i} className="flex gap-3">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-rose-200 text-rose-900 font-bold text-xs shrink-0">{p.step}</span>
+              <div className="flex-1">
+                <div className="font-semibold text-sm">{p.label}</div>
+                <div className="text-xs opacity-80 mt-0.5">{p.detail}</div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="bg-white rounded-lg p-4 border border-rose-200 mb-4">
+        <h3 className="text-xs uppercase tracking-wider font-bold text-rose-900 mb-3">Revenue ramp (target: ~$15K/mo from members)</h3>
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="text-[10px] uppercase tracking-wider opacity-60 border-b border-rose-200">
+              <th className="text-left py-1.5 pr-3">Window</th>
+              <th className="text-right py-1.5 pr-3">% of monthly</th>
+              <th className="text-left py-1.5">Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PAYMENT_MIGRATION_PLAN.revenueImpact.map((r, i) => (
+              <tr key={i} className="border-b border-rose-100 last:border-b-0">
+                <td className="py-1.5 pr-3 font-medium">{r.window}</td>
+                <td className="py-1.5 pr-3 text-right font-mono font-bold">{r.expectedPctOfMonthly}%</td>
+                <td className="py-1.5 text-xs opacity-80">{r.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-3">
+        <div className="bg-white rounded-lg p-4 border border-rose-200">
+          <h3 className="text-xs uppercase tracking-wider font-bold text-rose-900 mb-2">⚠️ Risks</h3>
+          <ul className="text-xs space-y-1.5">
+            {PAYMENT_MIGRATION_PLAN.risks.map((r, i) => (
+              <li key={i} className="flex gap-2"><span className="text-rose-600 mt-0.5">·</span><span className="opacity-90">{r}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-amber-50 rounded-lg p-4 border border-amber-300">
+          <h3 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">📋 Asks (this week)</h3>
+          <ul className="text-xs space-y-1.5">
+            {PAYMENT_MIGRATION_PLAN.asks.map((a, i) => (
+              <li key={i} className="flex gap-2"><span className="text-amber-700 mt-0.5">→</span><span className="opacity-90">{a}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1601,6 +1757,7 @@ function NewCampaigns() {
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
+      <PaymentMigrationPlan />
       <StrategicPriorities />
       <LaunchScenarios />
       <CriticalGating />
