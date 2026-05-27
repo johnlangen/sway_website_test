@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import GoogleReviews from "./components/GoogleReviews";
@@ -187,6 +188,29 @@ const PRESS_LOGOS = [
 const SAND = "#EBE4D1";
 
 export default function HomeContent() {
+  // Global cursor tracking → CSS vars on <body>. Service panels read these
+  // for the warm spotlight overlay. rAF-throttled so it can't fire faster
+  // than the browser can paint.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Skip on touch devices — no cursor, no spotlight.
+    if (!window.matchMedia("(hover: hover)").matches) return;
+
+    let raf: number | null = null;
+    const onMove = (e: MouseEvent) => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        document.body.style.setProperty("--mx", `${e.clientX}px`);
+        document.body.style.setProperty("--my", `${e.clientY}px`);
+      });
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <>
       <ChapterRail />
@@ -364,6 +388,10 @@ export default function HomeContent() {
                   : "bg-gradient-to-t from-black/85 via-black/35 to-transparent"
               }`}
             />
+
+            {/* Warm cursor-following spotlight (desktop only). Reads CSS vars
+                set by the global mousemove listener above. */}
+            <div className="cursor-spotlight hidden md:block" aria-hidden="true" />
 
             {/* Chapter eyebrow — TikTok metadata pill */}
             <div className="absolute top-20 md:top-24 left-6 md:left-12 z-10">

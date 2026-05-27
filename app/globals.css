@@ -104,6 +104,51 @@ html, body {
   will-change: transform;
 }
 
+/* Sway logo easter egg — wave draw + quote fade. */
+@keyframes eggFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes eggWaveDraw {
+  from { stroke-dasharray: 1200; stroke-dashoffset: 1200; }
+  to   { stroke-dasharray: 1200; stroke-dashoffset: 0; }
+}
+@keyframes eggQuoteRise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-egg-fade {
+  animation: eggFade 0.4s ease-out;
+}
+.egg-wave-draw {
+  animation: eggWaveDraw 1.4s ease-out forwards;
+}
+.egg-quote {
+  opacity: 0;
+  animation: eggQuoteRise 0.8s ease-out 1s forwards;
+}
+.egg-quote-sub {
+  opacity: 0;
+  animation: eggQuoteRise 0.6s ease-out 1.6s forwards;
+}
+
+/* Cursor-following warm spotlight on service panels (desktop only).
+   `--mx` and `--my` are set globally on document.body via a mousemove
+   listener in HomeContent; the gradient just reads them. No mix-blend-mode
+   so it stays cheap over the Ken Burns animation underneath. */
+.cursor-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    circle 380px at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 240, 210, 0.18),
+    transparent 65%
+  );
+  transition: opacity 0.4s ease-out;
+}
+
 /* Respect user preference for reduced motion (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

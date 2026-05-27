@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
+import SwayEasterEgg from "./SwayEasterEgg";
 
 const NavBar = () => {
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
   const [swayWayOpen, setSwayWayOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [savedLocation, setSavedLocation] = useState<any>(null);
+  const [eggOpen, setEggOpen] = useState(false);
+  const pathname = usePathname();
 
   // Load saved location
   useEffect(() => {
@@ -60,8 +64,18 @@ const NavBar = () => {
     <header className="fixed top-0 left-0 w-full z-50 bg-[#113D33]">
       <nav className="h-[56px] px-4 md:px-12">
         <div className="h-full max-w-[1300px] mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-4">
-          {/* Logo */}
-          <Link href="/" className="block">
+          {/* Logo — on the homepage, intercept the click to trigger an
+              easter egg instead of navigating (we're already on /). */}
+          <Link
+            href="/"
+            className="block"
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault();
+                setEggOpen(true);
+              }
+            }}
+          >
             <img
               src="/assets/swaylogo.png"
               alt="Sway Logo"
@@ -282,6 +296,9 @@ const NavBar = () => {
           </a>
         </div>
       )}
+
+      {/* Logo-click easter egg overlay (homepage only) */}
+      <SwayEasterEgg open={eggOpen} onClose={() => setEggOpen(false)} />
     </header>
   );
 };

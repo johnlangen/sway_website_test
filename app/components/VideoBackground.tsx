@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import BookingPeek from "./BookingPeek";
 
 export default function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [greeting, setGreeting] = useState<string | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -22,6 +24,22 @@ export default function VideoBackground() {
           video.remove();
         });
     }
+  }, []);
+
+  // Time-of-day greeting — computed client-side from the visitor's local time.
+  // Server-side render keeps the iconic H1 static; this only changes the small
+  // eyebrow above it, so SEO sees consistent hero copy.
+  useEffect(() => {
+    const h = new Date().getHours();
+    setGreeting(
+      h < 11
+        ? "Good morning, Denver."
+        : h < 17
+          ? "Good afternoon."
+          : h < 22
+            ? "Good evening."
+            : "After hours."
+    );
   }, []);
 
   return (
@@ -56,12 +74,18 @@ export default function VideoBackground() {
 
       {/* Overlay Text */}
       <div className="absolute bottom-28 md:bottom-24 left-6 md:left-20 z-20">
+        {greeting && (
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/75 mb-3 font-vance">
+            {greeting}
+          </p>
+        )}
         <h1 className="text-3xl md:text-5xl leading-tight font-vance text-white">
           RESTORE YOUR BODY <br /> & REFRESH YOUR MIND.
         </h1>
         <p className="text-sm md:text-lg mt-2 font-vance text-white opacity-80">
           Discover the future of spa.
         </p>
+        <BookingPeek />
       </div>
     </div>
   );
