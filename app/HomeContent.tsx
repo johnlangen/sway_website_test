@@ -330,11 +330,11 @@ export default function HomeContent() {
 
           <blockquote className="text-3xl md:text-5xl lg:text-6xl leading-[1.1] mb-5 max-w-3xl mx-auto font-semibold">
             <span className="text-[#4A776D]/60">&ldquo;</span>
-            Sway redefines the wellness club.
+            #4 Best Day Spa in America.
             <span className="text-[#4A776D]/60">&rdquo;</span>
           </blockquote>
           <p className="text-sm md:text-base text-[#4A776D] italic mb-14">
-            — Athletech News
+            — USA Today 10Best
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-10 md:gap-x-14 gap-y-7 max-w-4xl mx-auto">
