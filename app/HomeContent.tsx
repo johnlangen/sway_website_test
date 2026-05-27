@@ -353,7 +353,7 @@ export default function HomeContent() {
                 fill
                 sizes="100vw"
                 className="object-cover"
-                priority={i === 0}
+                priority
               />
             </div>
 
@@ -379,7 +379,7 @@ export default function HomeContent() {
             {/* Bottom caption — alternating alignment for rhythm */}
             <div
               className={`absolute inset-x-0 bottom-0 z-10 px-6 md:px-12 pb-14 md:pb-20 flex ${
-                isLeft ? "justify-start" : "justify-end"
+                isLeft ? "justify-start" : "justify-start md:justify-end"
               }`}
             >
               <motion.div
@@ -388,7 +388,7 @@ export default function HomeContent() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 viewport={{ once: true }}
                 className={`font-vance max-w-md ${
-                  isLeft ? "text-left" : "text-right"
+                  isLeft ? "text-left" : "text-left md:text-right"
                 }`}
               >
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-3 leading-[1.02]">
@@ -401,7 +401,7 @@ export default function HomeContent() {
                 {/* Pricing line */}
                 <div
                   className={`flex items-baseline gap-3 mb-6 text-sm ${
-                    isLeft ? "" : "justify-end"
+                    isLeft ? "" : "md:justify-end"
                   }`}
                 >
                   <span className="font-semibold">{service.price}</span>
@@ -418,7 +418,7 @@ export default function HomeContent() {
                 {/* CTAs */}
                 <div
                   className={`flex flex-wrap items-center gap-5 ${
-                    isLeft ? "" : "justify-end"
+                    isLeft ? "" : "md:justify-end"
                   }`}
                 >
                   <Link
