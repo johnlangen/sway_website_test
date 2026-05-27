@@ -103,7 +103,7 @@ export default function HomePage() {
         name: "What is the Remedy Room?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
+          text: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy. It's $49 per session or $25 for members.",
         },
       },
       {
@@ -111,7 +111,7 @@ export default function HomePage() {
         name: "What is Aescape?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 30 or 60 minutes.",
+          text: "Aescape is an AI-powered robot massage that uses body mapping and dual robotic arms to deliver personalized pressure. You control pressure, target zones, and ambience in real time. Sessions run 15 to 60 minutes.",
         },
       },
       {

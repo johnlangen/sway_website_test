@@ -252,10 +252,12 @@ export default function GoogleReviews() {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4"
             >
-              {PAGES[page].map((review) => (
+              {PAGES[page].map((review, idx) => (
                 <div
                   key={review.author}
-                  className="rounded-2xl bg-white/70 border border-[#113D33]/10 p-4 md:p-5 flex flex-col"
+                  className={`rounded-2xl bg-white/85 border border-[#113D33]/10 p-4 md:p-5 flex flex-col ${
+                    idx > 0 ? "hidden md:flex" : ""
+                  }`}
                 >
                   {/* Stars */}
                   <div className="flex gap-0.5 mb-2">

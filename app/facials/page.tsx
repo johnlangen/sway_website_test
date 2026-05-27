@@ -170,7 +170,7 @@ const FacialsPage = () => {
       {/* HERO — background image */}
       <section className="relative h-[45vh] min-h-[280px] md:h-[60vh] md:min-h-[400px] max-h-[600px]">
         <Image
-          src="/assets/facialExperiences.png"
+          src="/assets/facialExperiences.jpg"
           alt="Facial Experiences at Sway Wellness Spa"
           fill
           className="object-cover"

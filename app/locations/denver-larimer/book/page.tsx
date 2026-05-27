@@ -1137,7 +1137,7 @@ export default function NewBookingFlow() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10">
               {([
                 { cat: "massage" as Category, label: "Massage", img: "/assets/massage2.jpg", sub: "Deep Tissue, Sports, Salt Stone & more", price: "From $139", dur: "50 min" },
-                { cat: "facial" as Category, label: "Facial", img: "/assets/facialExperiences.png", sub: "Forever Young, LED, Microcurrent & more", price: "From $139", dur: "50 min" },
+                { cat: "facial" as Category, label: "Facial", img: "/assets/facialExperiences.jpg", sub: "Forever Young, LED, Microcurrent & more", price: "From $139", dur: "50 min" },
               ]).map((item) => (
                 <button key={item.cat} onClick={() => handleCategorySelect(item.cat)}
                   className="group relative overflow-hidden rounded-2xl bg-white/70 border border-[#113D33]/10 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-left">
@@ -1441,7 +1441,7 @@ export default function NewBookingFlow() {
             {selectedTreatment && (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
                 <div className="relative h-32 w-full">
-                  <Image src={category === "facial" ? "/assets/facialExperiences.png" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
+                  <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4">
                     <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
@@ -1560,7 +1560,7 @@ export default function NewBookingFlow() {
             {selectedTreatment && (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
                 <div className="relative h-28 w-full">
-                  <Image src={category === "facial" ? "/assets/facialExperiences.png" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
+                  <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
                     <div>
@@ -1750,7 +1750,7 @@ export default function NewBookingFlow() {
                 {selectedTreatment && selectedSlot && (
                   <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-3">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
-                      <Image src={category === "facial" ? "/assets/facialExperiences.png" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
+                      <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
@@ -1835,7 +1835,7 @@ export default function NewBookingFlow() {
             <div className="bg-white border border-[#113D33]/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {/* Service image header */}
               <div className="relative h-44 w-full overflow-hidden">
-                <Image src={category === "facial" ? "/assets/facialExperiences.png" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-5">
                   <p className="text-xs uppercase tracking-wider text-white/70 font-semibold capitalize">{selectedTreatment.tier} {category}</p>
@@ -1957,7 +1957,7 @@ export default function NewBookingFlow() {
             {/* Image hero with checkmark */}
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={category === "facial" ? "/assets/facialExperiences.png" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center">

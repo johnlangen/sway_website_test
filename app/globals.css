@@ -61,11 +61,15 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* Scroll Snap Section */
+/* Scroll Snap Section
+   content-visibility lets the browser skip rendering work (and pause animations)
+   for panels not currently in the viewport. Big win on low-end devices. */
 .snap-section {
   height: 100vh;
   scroll-snap-align: start;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 100vh;
 }
 
 /* Hide scrollbar but keep scrollability */
@@ -75,6 +79,29 @@ html, body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Slow Ken Burns zoom — used on full-bleed image panels.
+   Pure CSS so the animation runs on the compositor (GPU), not the JS thread —
+   no jank when snap-scroll settles into a new panel. */
+@keyframes kenBurns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+.ken-burns {
+  animation: kenBurns 16s ease-in-out infinite alternate;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Hero scroll-affordance bounce — pure CSS so it doesn't burn JS frames. */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+.scroll-bounce {
+  animation: scrollBounce 1.8s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Respect user preference for reduced motion (WCAG 2.3.3) */

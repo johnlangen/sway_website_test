@@ -64,6 +64,8 @@ Always assume this site is live and revenue-impacting.
 - **Address**: Sway Wellness Spa is at **1428 Larimer St., Denver, CO 80202** (NOT 1509 Larimer)
 - **Arrival time**: Guests should arrive **15 minutes early** (NOT 5 minutes)
 - **Sauna**: Traditional sauna — do NOT say "infrared sauna"
+- **Remedy Room compression**: Do NOT say "Normatec" — use "compression therapy" (brand-neutral)
+- **Aescape sessions**: 15, 30, 45, or 60 minutes — do NOT say "30 or 60" (stale)
 - **Membership**: Do NOT say "cancel anytime" — this is not accurate
 - **Aescape apparel**: Do NOT use the brand name "Aerwear" — say "compression apparel" (provided at check-in)
 - **Anniversary event** (`/events/anniversary`): Sidelined (noindex, no links). Page kept for future reuse. API route at `app/api/events/anniversary/` still exists.

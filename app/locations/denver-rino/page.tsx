@@ -56,7 +56,7 @@ const TREATMENTS = [
       "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
     price: "From $139",
     memberPrice: "From $99",
-    image: "/assets/facialExperiences.png",
+    image: "/assets/facialExperiences.jpg",
     learnHref: "/facials",
     phase: "Coming late 2026",
   },

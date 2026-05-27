@@ -23,7 +23,7 @@ const treatments = [
     tagline: "3 tiers · 13 treatments",
     description:
       "Anti-aging, acne, hydration, sensitive skin & brightening facials with dermapore technology, LED, microcurrent & oxygen infusion. 30–60 minutes.",
-    image: "/assets/facialExperiences.png",
+    image: "/assets/facialExperiences.jpg",
     learnHref: "/facials",
   },
   {
