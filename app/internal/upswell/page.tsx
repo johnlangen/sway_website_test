@@ -9,10 +9,66 @@ import { SOCIAL_POSTS, WEBSITE_TASKS } from "./content-data";
 --------------------------------------------- */
 
 const KEY_DATES = {
-  today: "2026-05-11",
+  today: "2026-05-27",
   announce: "2026-05-15",
   launch: "2026-06-01",
+  systemCutover: "2026-06-15",
 };
+
+// DAILY_STATUS — top-of-dashboard daily update. Edit this every working day.
+const DAILY_STATUS = {
+  date: "Wednesday May 27 2026",
+  headline: "Stripe migration in motion. MT bridge confirmed. Awaiting Mindbody (Michael Calderon) on PGP vs destination account ID.",
+  framing: [
+    "🟢 June 1 = brand-only flip (Sway signage, website, comms). Mariana Tek keeps running for bookings + payments.",
+    "🎯 June 15 = target Mindbody cutover (with Stripe credit-card migration complete).",
+    "🛟 July = backstop if migration slips. MT can extend through end of month.",
+  ],
+  pending: [
+    {
+      label: "Mindbody (Michael Calderon): PGP file vs destination account ID?",
+      detail: "Email sent 12:19 PM today. Heather's MT rep is holding pending Mindbody's answer. Follow-up trigger: Thursday EOD.",
+      owner: "Awaiting Mindbody",
+    },
+    {
+      label: "Mindbody Payments onboarding at RiNo + Central Park",
+      detail: "Other Spavia accounts show in payments.mindbody.io. RiNo + CP don't — confirm with Michael whether they're fully onboarded. Gating item for either migration option.",
+      owner: "Awaiting Mindbody",
+    },
+    {
+      label: "Heather: redirect Stripe Connect payouts to Sway bank effective June 1",
+      detail: "5-min config in her Stripe dashboard (Settings → Payouts → Bank). Independent of migration. Required so MT-collected revenue flows to Sway during the bridge period.",
+      owner: "Heather",
+    },
+    {
+      label: "Heather: confirm Stripe Connect login access",
+      detail: "Many merchants haven't logged into Stripe in years. Recover credentials via stripe.com/support if needed. Don't discover lost access on June 1.",
+      owner: "Heather",
+    },
+    {
+      label: "Sway entity bank account ready to receive Stripe payouts",
+      detail: "LLC banking — if not done, becomes the new gating item.",
+      owner: "John",
+    },
+  ],
+  decisionsLockedToday: [
+    "🛋️ Lounge model FINAL: 75-min slot (85-min MB backend), cap 15 RiNo / 18 CP, two bookable add-ons (infrared 25-min + sauna 25-min), open-floor for plunge/compression/lounge",
+    "💰 Pricing FINAL: $99/mo Founding (through Aug 31) → $129/mo Standard. $49 drop-in / 75 min. $25 first-time intro.",
+    "🕐 Hours FINAL: Phase 1 Mon closed, Tue-Fri 7am-8pm, Sat-Sun 8am-6pm. Phase 2 expands to Mon 12-8, Tue-Thu 7-9pm.",
+    "♾️ Unlimited stipulations: no per-day cap, max 5 active future bookings, back-to-back allowed, 3 no-shows/quarter = $20 fee.",
+    "💳 Stripe migration path REOPENED (was killed May 25): Heather's MT contact confirmed feasibility. Awaiting Mindbody's preferred method.",
+    "📅 Timeline reframed: June 1 = brand-only, June 15 = system cutover, July = backstop.",
+  ],
+  whatsNext: [
+    "Thursday May 28 EOD: follow up Michael Calderon if no response",
+    "Friday May 29: Heather redirects Stripe payouts (5 min)",
+    "Weekend May 30-31: Mindbody session-type setup at both new sites (Sway Remedy Lounge, 85-min, cap 15/18, 2 resource types)",
+    "June 1: Brand flip. Email 07 sends. MT continues. Sway website live for both new locations.",
+    "June 10-14: Stripe migration target completion",
+    "June 15: Target Mindbody cutover",
+  ],
+};
+
 
 const SEGMENTS = [
   { name: "Active members (transactional)", csv: "01-members-transactional-155.csv", count: 159, useFor: "Membership-affecting emails", optIn: "No (transactional)" },
@@ -147,72 +203,79 @@ const TERMINATED_ANNUALS = [
 // Stripe Data Migration Request was never initiated; with 6 days to June 1 it's not viable.
 // Path forward: front-desk re-add at first Sway visit, bridged by MT extension.
 const PAYMENT_MIGRATION_PLAN = {
-  status: "Revised May 25 — Mindbody-only POS June 1. MT shuts down May 31 midnight. No two-system bridge.",
+  status: "REOPENED May 27 — Stripe PGP migration in progress. MT bridges June 1 → June 15. Cards never re-added by members.",
   whyChanged:
-    "Stripe Data Migration Request was never initiated (would have taken 2-4 weeks anyway). Initial fallback was a Mariana Tek extension as a billing bridge — but running two POS systems means reconciliation hell, Heather collecting on Sway's behalf creates tax/accounting complexity post-takeover, and front desk has to juggle MT for billing + Mindbody for everything else. Cleaner answer: hard cut to Mindbody June 1. Members re-add card at first Sway visit. Mindbody first-bill-date set to day AFTER their last MT cycle ended — no double-bill, no gap.",
+    "Researched May 27: Mindbody Payments is built on Stripe Connect (confirmed via Stripe's published customer story). Mariana Tek is also Stripe Connect. Both ends are Stripe — making cross-platform customer + payment-method migration technically straightforward via Stripe's documented PAN Import process (PGP-encrypted file OR direct destination account ID transfer). Heather's MT rep confirmed they can execute it. Revised path: MT keeps running as POS through June 15, Stripe migration runs in parallel (~2-3 weeks), then clean cutover with member cards already in Mindbody. June 1 becomes brand-only flip (signage, website, comms). Worst case: extend MT bridge through July if Stripe slips.",
   thePath: [
     {
       step: "1",
-      label: "Pull MT data this week (admin access ends May 31)",
-      detail: "Per-member 'last billed date' + cycle length + last-90-day visit frequency. Store on each member record. Used to set Mindbody first-bill-date correctly, AND to segment dormant active members for a re-engagement campaign.",
+      label: "John → Michael Calderon at Mindbody: confirm migration method + destination info",
+      detail: "Email sent 12:19 PM May 27. Ask: (a) PGP file or destination account ID? (b) Are RiNo + CP fully onboarded in payments.mindbody.io? (c) If destination-ID path: provide acct_XXXXXXXXXX IDs for both locations.",
     },
     {
       step: "2",
-      label: "Verify the $99 drop actually executed in MT (May 16 onward)",
-      detail: "Email 01a promised members at $129/$159/$189 dropped to $99 'effective immediately.' If MT charged old rates in late May, owe partial credits to those members. Audit this week before MT shuts down.",
+      label: "Heather → MT (via Stripe contact): pass Mindbody's answer",
+      detail: "Once Mindbody confirms, Heather forwards method + destination details to her MT contact who is holding pending this answer.",
     },
     {
       step: "3",
-      label: "Mindbody member import + correct first-bill-dates",
-      detail: "Import all 155 active members. For each, set first-bill-date = (last MT bill date + cycle length). Card-on-file is empty until they come in. Membership status 'active, awaiting card.'",
+      label: "Heather: redirect MT/Stripe Connect payouts to Sway bank, effective June 1",
+      detail: "5-min config in her Stripe dashboard (Settings → Payouts → Bank account). Independent of migration. After June 1, all MT-collected revenue flows to Sway directly.",
     },
     {
       step: "4",
-      label: "May 31 midnight: MT shutdown. June 1: Mindbody is the only POS",
-      detail: "Hard cut. No two-system bridge. Front desk runs Mindbody for everything — bookings, billing, retail, gift cards.",
+      label: "June 1: Brand-only flip. MT continues as POS.",
+      detail: "Sway signage, website, GBP rename submitted, Email 07 sends. New-location pages on swaywellnessspa.com link to MT booking site for actual bookings. Mindbody Payments and Lounge session types set up in background.",
     },
     {
       step: "5",
-      label: "Members re-add card at front desk on first Sway visit (<60 sec)",
-      detail: "Mindbody POS flow. Front desk script: 'Welcome to Sway. Your membership rolled over at $99 — let's get a card on file real quick. First visit's on us.' Already promised in Email 03's 'first visit on us' language.",
+      label: "June 1-14: MT runs the business, Stripe migration runs in parallel",
+      detail: "Members book and pay through MT as usual. Revenue flows MT → Stripe Connect → Sway bank. Stripe imports the encrypted card data (PGP file) or directly transfers tokens (destination account ID) to Mindbody.",
     },
     {
       step: "6",
-      label: "Billing edge case rule",
-      detail: "If a member's MT cycle already ended before they re-add (e.g. last bill May 12, comes in June 20), comp the gap and start billing from re-add date. Costs ~$1-2K total across 155 members, eliminates 'you're already late!' awkwardness at the desk.",
+      label: "~June 10-14: Verify Stripe migration complete, test cards in Mindbody",
+      detail: "Confirm member cards are visible in Mindbody Payments. Run 3-5 test charges against real member cards (small refunded amounts) to verify token validity end-to-end.",
     },
     {
       step: "7",
-      label: "Mid-June reminder email to active members who haven't visited",
-      detail: "Around June 15, soft email: 'We haven't seen you yet — come in for your free first visit and we'll get you set up.' Recovers the long tail.",
+      label: "June 15: Mindbody cutover",
+      detail: "MT shuts down. Mindbody becomes the sole POS. Members never re-entered a card. Booking URL on Sway website flips from MT to Mindbody.",
+    },
+    {
+      step: "8",
+      label: "June 15+: Mid-June reminder email to active members",
+      detail: "Soft email: 'We've upgraded our system — your card is already on file. Here's your new booking URL. Come in!' Recovers any dormant members.",
     },
   ],
   revenueImpact: [
-    { window: "June 1", expectedPctOfMonthly: 0, note: "No cards on file yet — Mindbody auto-bills run on $0. Expected." },
-    { window: "End of week 1 (~June 7)", expectedPctOfMonthly: 50, note: "Recovery-heavy members come in for their usual routine, re-add at front desk → billing engages" },
-    { window: "End of week 3 (~June 21)", expectedPctOfMonthly: 80, note: "Massage + facials open drives an additional wave of in-person visits" },
-    { window: "Mid-July", expectedPctOfMonthly: 100, note: "Long-tail captured via mid-June reminder" },
+    { window: "June 1 → June 14", expectedPctOfMonthly: 100, note: "MT continues collecting. Payouts redirected to Sway bank. Full revenue continuity." },
+    { window: "June 15 cutover", expectedPctOfMonthly: 100, note: "Mindbody takes over with cards already migrated. No re-add gauntlet, no double-bill." },
+    { window: "June 16+", expectedPctOfMonthly: 100, note: "Standard ongoing operations" },
   ],
   risks: [
-    "Members who NEVER come in = lost revenue. Mitigation: mid-June reminder + a dormant-member re-engagement campaign mid-July.",
-    "Email 01a's 'no card to update' promise is technically broken by the re-add ask. Mitigation: Email 03's 'first visit on us' framing softens it. Front desk handles in person.",
-    "If MT didn't actually execute the $99 drop, members at $129/$159/$189 paid more than promised in May. We owe credits.",
-    "Front desk friction in the first week — extra step per visit. Mitigation: staff heavier the first 10 days. Goal <60 sec per card add.",
+    "🟡 Stripe migration timeline slip: if MT or Stripe is slow, push cutover to late June or early July. MT can extend.",
+    "🟡 Mindbody Payments onboarding at RiNo + CP not yet complete (per payments.mindbody.io screenshot showing other Spavia accounts but not these two). Critical gating item — push Michael Calderon on this.",
+    "🟡 Heather may have lost Stripe Connect login from inactivity. Recover NOW before June 1, not on June 1.",
+    "🟡 Sway entity bank account may not be ready to receive Stripe payouts. If LLC banking incomplete, becomes new gating item.",
+    "🟢 Member experience risk = LOW (vs HIGH under the cut-card plan). Cards transfer silently; members never know there was a migration.",
   ],
   asks: [
-    "John: pull MT data this week (last billed date + visit frequency per member). Admin ends May 31 — do it now.",
-    "John + Heather: verify the $99 drop actually ran in MT for members at $129/$159/$189. If not, credits owed.",
-    "Mindbody: confirm both sites provisioned + member-import ready. Status check needed today.",
-    "Mackenzie: time the Mindbody card-add flow end-to-end. Target <60 sec. Train all front-desk before June 1.",
-    "Did Email 03 (May 22 segmented details) send? If not, send this week — its 'first visit on us' framing is the soft correction to Email 01a's promise.",
+    "🔥 Michael Calderon @ Mindbody: PGP file or destination account ID? Provide RiNo + CP Stripe Connect account IDs if option B. Confirm RiNo + CP fully onboarded in payments.mindbody.io. (Email sent 12:19 PM May 27.)",
+    "Heather: confirm Stripe Connect dashboard login. Redirect payout bank to Sway effective June 1.",
+    "John: confirm Sway entity bank account ready to receive Stripe payouts.",
+    "John: weekend May 30-31: configure Sway Remedy Lounge session type at both Mindbody sites (85-min backend, cap 15/18, 2 resource types).",
+    "Mackenzie: front desk script for the bridge period — 'we're on Upswell's system through June 15, then we transition. Your card is staying on file.'",
   ],
+  oldPlanArchived:
+    "PREVIOUS PLAN (killed May 27): Members re-add card at front desk on first Sway visit after a June 1 hard cut. Killed because (a) Stripe migration was researched and confirmed feasible, (b) cut-card approach would have lost 20-40% of members to re-add friction, (c) MT bridge preserves revenue continuity with zero member-facing change.",
 };
 
 // CAPACITY_DECISION — Sway Remedy Lounge booking model
-// Locked May 25: Option C (hybrid 90-min time slots, soft cap)
-// Capacity numbers added May 25 from RiNo + CP architectural permit sets
+// SUPERSEDED May 26: See the "🛋️ Lounge Decision" tab for final locked model
+// Original locked May 25 (Option C). Iterated May 26 with MT data → final model with 2 bookable resources.
 const CAPACITY_DECISION = {
-  status: "Locked May 25 PM — Option C, slot cap = 15 concurrent guests per location (revised down from 20 based on John's on-the-ground read)",
+  status: "SUPERSEDED — see Lounge Decision tab for final (75-min slot, 15/18 cap, infrared + sauna bookable, $99/$129 pricing)",
   question: "How members access the Sway Remedy Lounge at the new locations — individual modality bookings (current Upswell), unlimited walk-in (Larimer model), or hybrid time-slot booking?",
   options: [
     {
@@ -510,12 +573,12 @@ const LOUNGE_FINAL = {
   ],
 };
 
-// MEETING_525_AGENDA — Today's 1pm with Heather + Emily
+// MEETING_525_AGENDA — May 25 1pm with Heather + Emily (COMPLETED)
 const MEETING_525_AGENDA = {
-  date: "Today · May 25 · 1:00 PM",
+  date: "✅ COMPLETED · May 25 · 1:00 PM (historical record)",
   attendees: "John + Heather + Emily",
   title: "Pre-launch alignment: Lounge capacity, comms strategy, week-of plan",
-  context: "Status check before the meeting: Mindbody is UP. Treatments (massage + facials) ALREADY set up at both new locations — only Remedy Lounge session types need new config. John has MT access and can pull data himself. Email 03 (May 22 segmented details) did NOT send — and that's OK, we're sticking to '1-2 more from Heather' (Email 07 June 1 will be her only remaining touch). Heather already ran a $99 last-chance offer + got at least one new member.",
+  context: "OUTCOMES (logged May 27): Lounge Option C locked → iterated May 26 with MT data into final 2-bookable-resource model (see Lounge Decision tab). Capacity decision (15/18) backed by Upswell utilization data. Stripe migration path was killed in this meeting, then REOPENED May 27 when researched and confirmed feasible. Email 03 confirmed killed. Email 07 rewrite needed (now updated for bridge framing, not card re-add). $99 drop audit pending.",
   decisionsToLock: [
     "Sway Remedy Lounge — concurrent-guest capacity per location. Need Emily's space plan / room sketch with modality stations marked (saunas, plunges, compression chairs, red light) to set the cap.",
     "Peak vs off-peak slot length (5-7pm = 60 min? otherwise 90 min?) — informed by the capacity number",
@@ -545,84 +608,103 @@ const MEETING_525_AGENDA = {
 // WEEK_PLAN — May 25 → June 1 critical path (7 days)
 const WEEK_PLAN = [
   {
-    day: "Mon May 25 (TODAY)",
+    day: "Wed May 27 (TODAY)",
     items: [
-      "🔥 1:00 PM meeting with Heather + Emily — get space plan from Emily for capacity, align on Email 07 rewrite",
-      "Pull MT data: last billed date + cycle + 90-day visit frequency per member (John does this directly)",
-      "Audit: did $99 drop actually charge correctly in MT for $129/$159/$189 members in late May?",
-    ],
-  },
-  {
-    day: "Tue May 26",
-    items: [
-      "Set up new 'Sway Remedy Lounge' session type at both Mindbody sites (90 min, capacity from 1pm decision)",
-      "Archive the legacy 40-min Remedy Room session at the new locations",
-      "Configure $99 Sway Unlimited rate as Mindbody Membership contract",
-    ],
-  },
-  {
-    day: "Wed May 27",
-    items: [
-      "Mindbody member import — all 155 active members + Heather's $99 last-chance offer members",
-      "Set first-bill-date per member = (last MT bill + cycle length). Card-on-file empty until they visit.",
-      "Identify any $99-drop credit-owed members from MT audit and flag for goodwill credit",
+      "✅ DONE: Lounge model + pricing + hours FINAL (75-min slot, 15/18 cap, 2 bookable resources, $99/$129, $49 drop-in)",
+      "✅ DONE: Stripe migration path researched + confirmed feasible (Mindbody = Stripe Connect)",
+      "✅ DONE: Email to Michael Calderon @ Mindbody asking PGP vs destination account ID (12:19 PM)",
+      "✅ DONE: Heather's MT rep is on hold pending Mindbody's answer",
+      "Heather: confirm Stripe Connect dashboard login access (recover via stripe.com/support if needed)",
+      "John: confirm Sway entity bank account is ready to receive Stripe payouts",
     ],
   },
   {
     day: "Thu May 28",
     items: [
-      "Build /book routes for new locations on swaywellnessspa.com (clone Larimer, swap Mindbody site IDs)",
-      "Build /book-remedy-lounge route for the new 90-min Lounge bookings",
-      "Update /locations/denver-rino + /locations/denver-central-park with launch-ready copy + booking buttons",
-      "Rewrite Email 07 — card-re-add in body (not P.S.) since Email 03 didn't send",
+      "🔥 Follow up with Michael Calderon if no Mindbody response by EOD",
+      "Heather: log into Stripe dashboard, redirect Connect payouts to Sway bank effective June 1 (5-min task)",
+      "Pull final MT data: per-member last billed date + cycle + visit frequency (still useful for analytics + dormant re-engagement campaigns)",
+      "Build /book routes on swaywellnessspa.com for new locations — links to MT booking site for now",
+      "Rewrite Email 07 for the new bridge framing (NOT card re-add)",
     ],
   },
   {
     day: "Fri May 29",
     items: [
-      "End-to-end test booking flows on the live site (Lounge + massage + facial)",
-      "Front desk training session with Mackenzie: card-add timed at <60 sec, Lounge check-in, capacity etiquette",
-      "Draft dormant-active-member re-engagement email for mid-July send",
+      "Once Mindbody responds: pass migration method to Heather → MT, kick off the actual data transfer",
+      "Verify RiNo + CP onboarding status in payments.mindbody.io",
+      "End-to-end test: book a slot on swaywellnessspa.com that links to MT booking site",
+      "Front desk training: Mackenzie on the bridge-period flow ('we're on Upswell's system through June 15')",
     ],
   },
   {
-    day: "Sat May 30",
+    day: "Sat-Sun May 30-31",
     items: [
-      "Final QA on all booking flows",
-      "Soft test bookings by Sway team members",
+      "Configure Sway Remedy Lounge session type at both Mindbody sites (85-min backend, cap 15/18, infrared + sauna as resources, 3 rotation windows each)",
+      "Archive legacy 40-min Remedy Room session at the new locations",
+      "Configure Sway Unlimited Founding ($99/mo) and Standard ($129/mo) as Mindbody Membership contracts",
+      "Configure drop-in product ($49 / 75 min) and first-time intro ($25)",
       "Photo media kit final pass for Phase 3 press push",
     ],
   },
   {
-    day: "Sun May 31",
+    day: "Mon Jun 1 — BRAND FLIP DAY",
     items: [
-      "🔥 MT shutdown at midnight — last billing day on the old system",
-      "Data reconciliation: confirm all members are in Mindbody, all May MT charges recorded",
-      "Final pre-launch checklist walk-through",
+      "6 AM: Send Email 07 (Heather launch-day welcome — bridge framing, not cutover)",
+      "Flip LocationsContent.tsx to 'open' for both locations",
+      "Signage swap on both buildings",
+      "GBP rename submission (Upswell → Sway)",
+      "MT keeps running as POS — members book/pay through MT as before (URL linked from Sway site)",
+      "Stripe payouts now flow to Sway bank, not Heather",
     ],
   },
   {
-    day: "Mon Jun 1",
+    day: "Tue-Fri Jun 2-12",
     items: [
-      "6 AM: Send Email 07 (Heather launch-day welcome, with card-re-add framing)",
-      "Flip LocationsContent.tsx to 'open' for both locations",
-      "Mindbody is the only POS. First Sway visits begin.",
-      "Signage swap on both buildings",
+      "Stripe migration runs in parallel: MT sends encrypted card data → Stripe imports to Mindbody Connect accounts (10 business days)",
+      "Monitor MT operations: revenue capture, member experience, any tech issues",
+      "Prep Mindbody site: bookings, treatments, gift cards, retail",
+      "Phase 2 prep: facial booking ready to flip live mid-June",
+    ],
+  },
+  {
+    day: "~Jun 10-14",
+    items: [
+      "Verify Stripe migration complete in Mindbody Payments portal",
+      "Run 3-5 test charges against real member cards (small, refunded) to verify tokens work",
+      "Front desk training: full Mindbody flow for the June 15 cutover",
+      "Send pre-cutover heads-up email: 'New system goes live June 15, your card is already on file'",
+    ],
+  },
+  {
+    day: "Mon Jun 15 — SYSTEM CUTOVER",
+    items: [
+      "🔥 MT shuts down. Mindbody becomes the sole POS.",
+      "Booking URLs on swaywellnessspa.com flip from MT to Mindbody",
+      "Members never re-entered a card — cards already in MB via Stripe migration",
+      "Facials go live (Phase 2)",
+      "Send Email 08: 'We're fully on the new system. Book a 75-min Sway Remedy Lounge slot here.'",
+    ],
+  },
+  {
+    day: "Backstop: extend MT through July if needed",
+    items: [
+      "If Stripe migration slips past June 14, push cutover to June 22 / June 29 / July 6 in 1-week increments",
+      "MT extension is on the table per Heather",
+      "Don't force a hard cutover with incomplete migration — preserve member experience",
     ],
   },
 ];
 
 const BLOCKERS_P0 = [
-  "🔥 TONIGHT: Pull future-reservations report from Mariana Tek before May 15 send. Heather noted someone became a member recently — need to know exactly who has bookings on the books for June 1+ so we can port them or proactively reach out.",
-  "🔥 TONIGHT/FRI AM: Heather's 5 personal touches — text-first to the 4 yoga members (Jessica, Gregory, Christina, Nathan), personal email to Terry Wei. Must close before noon Friday so none of them hear from a friend first.",
-  "🔥 Heather kills Upswell marketing automations at 11 PM Thursday 5/14 — confirm done so they don't fire after our Friday noon send.",
-  "🆕 Payment migration: STRIPE PATH KILLED (May 25). No Stripe Data Migration Request was initiated; can't realistically complete by June 1. Front-desk re-add is the path forward. SEE: Payment Migration Plan section below.",
-  "Insurance (GL + workers' comp) for both new locations — required by June 1. Commercial policies typically 2-3 weeks via broker. If not in motion already, urgency.",
-  "Email send platform — locked as BrandBot (Heather's existing Upswell platform).",
-  "Update /membership page to show Sway Unlimited tier — emails reference $99/mo, page needs to land them somewhere.",
-  "Mindbody: set up Sway Unlimited as a Membership contract with unlimited bookings of the Remedy Room session type (session 96 at Larimer; equivalent at new locations).",
-  "GBP — Heather has access. She adds John as OWNER (not Manager) on both listings this week. Submit Upswell → Sway rename request June 1 AM (Google approval 3-5 days). Preserves review history.",
-  "Reply-to address for May 15 sends — still TBD per John. Decision blocks BrandBot send setup.",
+  "🔥 AWAITING: Michael Calderon @ Mindbody — PGP file vs destination account ID? Confirm RiNo + CP onboarded in payments.mindbody.io. Email sent 12:19 PM May 27. Follow-up trigger Thursday May 28 EOD.",
+  "🔥 Heather: Stripe Connect dashboard login (recover if lost) + redirect payouts to Sway bank effective June 1. Independent of migration. 5-min task.",
+  "🔥 Sway entity bank account ready to receive Stripe payouts. If LLC banking not complete, becomes the new gating item.",
+  "Insurance (GL + workers' comp) for both new locations — required by June 1. Commercial policies typically 2-3 weeks via broker.",
+  "Email 07 rewrite — new bridge framing (NOT card re-add). 'We're transitioning systems mid-June, your card stays on file.' Send June 1.",
+  "Update /membership page to show Sway Unlimited tier — emails reference $99/mo, page needs to land them somewhere. Founding vs Standard split.",
+  "Sway Remedy Lounge session-type setup in Mindbody at both sites (85-min backend, cap 15/18, infrared + sauna resources × 3 rotation windows). Weekend May 30-31.",
+  "GBP — Heather has access. Add John as OWNER on both listings this week. Submit Upswell → Sway rename request June 1 AM (Google approval 3-5 days). Preserves review history.",
   "Permit applications for Phase 2 buildout — START NOW. 2-3 month lead.",
 ];
 
@@ -1383,7 +1465,7 @@ export default function UpswellDashboard() {
 
       <footer className="border-t border-[#113D33]/10 py-6 mt-12">
         <div className="max-w-7xl mx-auto px-6 text-xs opacity-50">
-          Internal dashboard · noindex · Last updated May 11 2026 · Source: <code className="bg-black/5 px-1.5 py-0.5 rounded">docs/upswell-conversion/</code>
+          Internal dashboard · noindex · Last updated May 27 2026 · Source: <code className="bg-black/5 px-1.5 py-0.5 rounded">docs/upswell-conversion/</code>
         </div>
       </footer>
     </main>
@@ -1451,16 +1533,70 @@ function SenderTimeline() {
   );
 }
 
-/* ---- Today's 1pm meeting agenda — Heather + Emily (May 25) ---- */
+/* ---- Daily status — top of dashboard (edit DAILY_STATUS constant each day) ---- */
+function DailyStatus() {
+  return (
+    <div className="md:col-span-2 bg-gradient-to-br from-emerald-50 to-sky-50 rounded-xl border-2 border-emerald-500 p-6">
+      <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
+        <h2 className="text-sm uppercase tracking-wider font-bold text-emerald-900">📅 Daily Status · {DAILY_STATUS.date}</h2>
+        <span className="text-[10px] font-mono opacity-60 bg-white px-2 py-0.5 rounded border border-emerald-300">Updated daily</span>
+      </div>
+      <p className="text-base font-medium leading-snug mb-4">{DAILY_STATUS.headline}</p>
+
+      <div className="bg-white rounded-lg p-4 border border-emerald-200 mb-4">
+        <h3 className="text-xs uppercase tracking-wider opacity-70 mb-2">Timeline framing</h3>
+        <ul className="space-y-1.5 text-sm">
+          {DAILY_STATUS.framing.map((f, i) => (
+            <li key={i} className="opacity-90">{f}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-3 mb-4">
+        <div className="bg-white rounded-lg p-4 border border-amber-300">
+          <h3 className="text-xs uppercase tracking-wider font-bold text-amber-900 mb-2">⏳ Pending / awaiting</h3>
+          <ul className="space-y-2.5 text-xs">
+            {DAILY_STATUS.pending.map((p, i) => (
+              <li key={i} className="border-b border-amber-100 last:border-b-0 pb-2 last:pb-0">
+                <div className="font-bold">{p.label}</div>
+                <div className="opacity-80 mt-0.5">{p.detail}</div>
+                <div className="mt-1 text-[10px] uppercase tracking-wider font-mono inline-block bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded">{p.owner}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-white rounded-lg p-4 border border-emerald-300">
+          <h3 className="text-xs uppercase tracking-wider font-bold text-emerald-900 mb-2">✅ Decisions locked today</h3>
+          <ul className="space-y-1.5 text-xs">
+            {DAILY_STATUS.decisionsLockedToday.map((d, i) => (
+              <li key={i} className="opacity-90">{d}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg p-4 border border-sky-300">
+        <h3 className="text-xs uppercase tracking-wider font-bold text-sky-900 mb-2">🚀 What's next</h3>
+        <ul className="space-y-1 text-xs">
+          {DAILY_STATUS.whatsNext.map((w, i) => (
+            <li key={i} className="flex gap-2"><span className="text-sky-600 mt-0.5">→</span><span className="opacity-90">{w}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+/* ---- Historical: May 25 meeting prep (kept for record) ---- */
 function MeetingPrep525() {
   return (
-    <div className="md:col-span-2 bg-amber-50 rounded-xl border-2 border-amber-500 p-6">
+    <div className="md:col-span-2 bg-gray-50 rounded-xl border border-gray-300 p-6 opacity-90">
       <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
-        <h2 className="text-sm uppercase tracking-wider text-amber-900">🔥 {MEETING_525_AGENDA.date}</h2>
-        <span className="text-xs font-mono opacity-70 bg-white px-2 py-0.5 rounded border border-amber-300">{MEETING_525_AGENDA.attendees}</span>
+        <h2 className="text-sm uppercase tracking-wider text-gray-700">{MEETING_525_AGENDA.date}</h2>
+        <span className="text-xs font-mono opacity-70 bg-white px-2 py-0.5 rounded border border-gray-300">{MEETING_525_AGENDA.attendees}</span>
       </div>
       <h3 className="text-lg font-bold mb-2">{MEETING_525_AGENDA.title}</h3>
-      <p className="text-xs italic opacity-80 mb-4 bg-white p-3 rounded border border-amber-200">{MEETING_525_AGENDA.context}</p>
+      <p className="text-xs italic opacity-80 mb-4 bg-white p-3 rounded border border-gray-200">{MEETING_525_AGENDA.context}</p>
 
       <div className="grid md:grid-cols-2 gap-3">
         <div className="bg-white rounded-lg p-4 border border-amber-300">
@@ -1532,10 +1668,13 @@ function WeekPlan() {
 /* ---- Sway Remedy Lounge booking model decision ---- */
 function CapacityDecision() {
   return (
-    <div className="md:col-span-2 bg-white rounded-xl border-2 border-emerald-400 p-6">
+    <div className="md:col-span-2 bg-gray-50 rounded-xl border border-gray-300 p-6 opacity-90">
       <div className="flex items-baseline justify-between flex-wrap gap-2 mb-3">
-        <h2 className="text-sm uppercase tracking-wider opacity-60">🛋️ Sway Remedy Lounge booking model</h2>
-        <span className="text-xs font-mono opacity-70 bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded">{CAPACITY_DECISION.status}</span>
+        <h2 className="text-sm uppercase tracking-wider opacity-60">🛋️ Lounge booking model (historical decision log — see Lounge Decision tab for FINAL)</h2>
+        <span className="text-xs font-mono opacity-70 bg-gray-200 text-gray-800 px-2 py-0.5 rounded">{CAPACITY_DECISION.status}</span>
+      </div>
+      <div className="bg-emerald-50 border-2 border-emerald-500 rounded-lg p-3 mb-4">
+        <p className="text-sm font-bold text-emerald-900">⚠️ This section is the historical decision path. The FINAL model (75-min slot, infrared + sauna bookable, $99/$129 pricing) is in the &quot;🛋️ Lounge Decision&quot; tab.</p>
       </div>
       <p className="text-sm opacity-80 mb-4">{CAPACITY_DECISION.question}</p>
 
@@ -2377,10 +2516,11 @@ function NewCampaigns() {
 function OverviewTab() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
-      <MeetingPrep525 />
+      <DailyStatus />
       <WeekPlan />
-      <CapacityDecision />
       <PaymentMigrationPlan />
+      <MeetingPrep525 />
+      <CapacityDecision />
       <StrategicPriorities />
       <LaunchScenarios />
       <CriticalGating />
