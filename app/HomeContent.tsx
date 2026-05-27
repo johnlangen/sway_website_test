@@ -338,7 +338,6 @@ export default function HomeContent() {
           4a–4d. Services — full-bleed TikTok-style frames
           ====================================================== */}
       {SERVICES.map((service, i) => {
-        const isLeft = i % 2 === 0;
         const isDarkVibe = service.title === "Aescape";
         return (
           <section
@@ -376,20 +375,15 @@ export default function HomeContent() {
               </div>
             </div>
 
-            {/* Bottom caption — alternating alignment for rhythm */}
-            <div
-              className={`absolute inset-x-0 bottom-0 z-10 px-6 md:px-12 pb-14 md:pb-20 flex ${
-                isLeft ? "justify-start" : "justify-start md:justify-end"
-              }`}
-            >
+            {/* Bottom caption — always left-aligned so it never collides with
+                the persistent bottom-right chat widget (Bowtie). */}
+            <div className="absolute inset-x-0 bottom-0 z-10 px-6 md:px-12 pb-14 md:pb-20 flex justify-start">
               <motion.div
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
                 viewport={{ once: true }}
-                className={`font-vance max-w-md ${
-                  isLeft ? "text-left" : "text-left md:text-right"
-                }`}
+                className="font-vance max-w-md text-left"
               >
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-3 leading-[1.02]">
                   {service.title}
@@ -399,11 +393,7 @@ export default function HomeContent() {
                 </p>
 
                 {/* Pricing line */}
-                <div
-                  className={`flex items-baseline gap-3 mb-6 text-sm ${
-                    isLeft ? "" : "md:justify-end"
-                  }`}
-                >
+                <div className="flex items-baseline gap-3 mb-6 text-sm">
                   <span className="font-semibold">{service.price}</span>
                   {service.memberPrice && (
                     <>
@@ -416,11 +406,7 @@ export default function HomeContent() {
                 </div>
 
                 {/* CTAs */}
-                <div
-                  className={`flex flex-wrap items-center gap-5 ${
-                    isLeft ? "" : "md:justify-end"
-                  }`}
-                >
+                <div className="flex flex-wrap items-center gap-5">
                   <Link
                     href={service.bookHref}
                     className="bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-white/90 transition shadow-lg"
