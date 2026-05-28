@@ -288,12 +288,12 @@ export default function HomeContent() {
           </p>
 
           <a
-            href="https://10best.usatoday.com/awards/sway-denver-colorado/"
+            href="https://www.thezoereport.com/living/readers-choice-awards-best-us-day-spa"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 mb-8 hover:border-[#113D33]/40 transition"
           >
-            Voted #4 Best Day Spa in America — USA Today 10Best
+            Voted Best U.S. Day Spa — TZR Readers&apos; Choice
           </a>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
