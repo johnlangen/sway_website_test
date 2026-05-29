@@ -44,20 +44,25 @@ export default function VideoBackground() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Poster image for instant LCP — displays while video buffers
-          or permanently when autoplay is blocked */}
-      <img
-        src="/assets/background.jpg"
-        alt=""
-        fetchPriority="high"
-        className="absolute top-0 left-0 w-full h-full object-cover object-[45%_center] md:object-center"
-      />
+      {/* Poster image. <picture> serves a mobile-specific portrait shot
+          (the SWAY sign) on small viewports; desktop keeps the wider
+          first-frame of the video for a seamless poster-to-video handoff. */}
+      <picture>
+        <source media="(max-width: 767px)" srcSet="/assets/swaysign.jpg" />
+        <img
+          src="/assets/background.jpg"
+          alt=""
+          fetchPriority="high"
+          className="absolute top-0 left-0 w-full h-full object-cover object-center"
+        />
+      </picture>
 
-      {/* Background Video — starts invisible, fades in only after
-          autoplay succeeds. Removed from DOM if autoplay fails. */}
+      {/* Background Video — desktop only. On mobile the SWAY-sign poster
+          is the whole hero (avoids the ugly jump from the static sign to
+          the video's desk first-frame when autoplay actually succeeds). */}
       <video
         ref={videoRef}
-        className={`absolute top-0 left-0 w-full h-full object-cover object-[45%_center] md:object-center transition-opacity duration-500 ${
+        className={`hidden md:block absolute top-0 left-0 w-full h-full object-cover object-center transition-opacity duration-500 ${
           videoReady ? "opacity-100" : "opacity-0"
         }`}
         autoPlay
@@ -69,13 +74,12 @@ export default function VideoBackground() {
         <source src="/assets/background2.mp4" type="video/mp4" />
       </video>
 
-      {/* Mobile overlay — heavier bottom-fade gradient.
-          When the video can't autoplay (iOS low-power mode etc.) and the
-          poster is all the user sees, this makes the framing read as
-          deliberately cinematic instead of "the frame the video froze on."
-          The hero text sits on the dark foundation; the SWAY sign stays
-          legible at the top. */}
-      <div className="md:hidden absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/65 via-black/15 to-transparent z-10" />
+      {/* Mobile overlay — heavier gradient because the SWAY-sign poster
+          is bright and needs to be tamed for the white text overlay to
+          read. Dark grounded at the bottom (where hero copy sits), softer
+          but still tinted at the top so the sign reads as deliberately
+          moody rather than washed out. */}
+      <div className="md:hidden absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/80 via-black/40 to-black/15 z-10" />
 
       {/* Desktop overlay — light haze (unchanged) */}
       <div className="hidden md:block absolute top-0 left-0 w-full h-full bg-black opacity-20 z-10" />

@@ -22,6 +22,7 @@ const SERVICES = [
     price: "From $139",
     memberPrice: "From $99",
     image: "/assets/homepage-massage.jpg",
+    mobileImage: null,
     bookHref: "/locations/denver-larimer/book?category=massage",
     learnHref: "/massages",
   },
@@ -33,6 +34,7 @@ const SERVICES = [
     price: "From $139",
     memberPrice: "From $99",
     image: "/assets/facialExperiences.jpg",
+    mobileImage: null,
     bookHref: "/locations/denver-larimer/book?category=facial",
     learnHref: "/facials",
   },
@@ -44,6 +46,7 @@ const SERVICES = [
     price: "$49",
     memberPrice: "$25",
     image: "/assets/homepage-remedy.jpg",
+    mobileImage: "/assets/remedyRoomMobile.jpg",
     bookHref: "/locations/denver-larimer/book-remedy-room",
     learnHref: "/remedy-tech",
   },
@@ -55,6 +58,7 @@ const SERVICES = [
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",
+    mobileImage: "/assets/aescapeMobile.jpg",
     bookHref: "/locations/denver-larimer/book-aescape",
     learnHref: "/aescape",
   },
@@ -404,16 +408,26 @@ export default function HomeContent() {
             key={service.title}
             className="snap-section h-screen relative overflow-hidden text-white"
           >
-            {/* Background image with slow Ken Burns zoom (CSS, GPU-driven) */}
+            {/* Background image with slow Ken Burns zoom (CSS, GPU-driven).
+                <picture> serves a portrait-framed mobile image where one
+                exists (Remedy Room, Aescape) — the desktop horizontal
+                shots don't crop well on portrait phones. */}
             <div className="absolute inset-0 ken-burns">
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                priority
-              />
+              <picture className="block w-full h-full">
+                {service.mobileImage && (
+                  <source
+                    media="(max-width: 767px)"
+                    srcSet={service.mobileImage}
+                  />
+                )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover"
+                  fetchPriority="high"
+                />
+              </picture>
             </div>
 
             {/* Gradient overlay for text readability */}
