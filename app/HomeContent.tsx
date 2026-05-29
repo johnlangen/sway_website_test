@@ -577,13 +577,24 @@ export default function HomeContent() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 [perspective:1200px]">
             {PRICING_CARDS.map((card, idx) => (
+              // Two-element pattern (entry on outer, all visual styling on
+              // inner) so framer-motion's transform animation cannot collide
+              // with the CSS transition on the inner card. Pre-fix the inner
+              // card was a single motion.div carrying transition-all +
+              // hover:[transform:...] + a transform driven by framer-motion
+              // — the conflict caused a flash when framer-motion released
+              // its inline style at animation end.
               <motion.div
                 key={card.title}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: idx * 0.08, ease: "easeOut" }}
                 viewport={{ once: true, margin: "-5%" }}
-                className="group relative rounded-2xl bg-gradient-to-b from-white to-white/60 p-3 md:p-6 flex flex-col shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] hover:[transform:translateY(-8px)_rotateX(3deg)] transition-all duration-300 ease-out [transform-style:preserve-3d] [backface-visibility:hidden]"
+                className="[transform-style:preserve-3d] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+                style={{ willChange: "transform, opacity" }}
+              >
+              <div
+                className="group relative rounded-2xl bg-gradient-to-b from-white to-white/60 p-3 md:p-6 flex flex-col shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] hover:[transform:translateY(-8px)_rotateX(3deg)] transition-[box-shadow,transform] duration-300 ease-out [transform-style:preserve-3d] [backface-visibility:hidden] [-webkit-backface-visibility:hidden] h-full"
               >
                 {/* Card index — small dimensional accent */}
                 <span className="absolute top-3 right-3 text-[9px] md:text-[10px] font-semibold tracking-[0.2em] text-[#113D33]/30">
@@ -649,6 +660,7 @@ export default function HomeContent() {
                     </div>
                   </>
                 )}
+              </div>
               </motion.div>
             ))}
           </div>
