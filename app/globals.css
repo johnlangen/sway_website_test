@@ -113,9 +113,10 @@ html, body {
 .sway-curve-draw {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  /* 1s delay (a beat of pause before the curve starts forming), 2.6s
-     duration (slow enough to actually read as a deliberate animation). */
-  animation: swayDraw 2.6s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+  /* No delay — the IntersectionObserver in SwayCurve.tsx already gates
+     attachment on viewport entry, so the animation begins exactly when
+     the curve becomes visible. 2.6s duration so it reads as deliberate. */
+  animation: swayDraw 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Sway curve gentle breath — every SwayCurve sways horizontally on a slow
