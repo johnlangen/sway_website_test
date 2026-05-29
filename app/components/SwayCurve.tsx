@@ -33,7 +33,7 @@ export function SwayCurve({
       stroke="currentColor"
       strokeWidth={strokeWidth}
       strokeLinecap="round"
-      className={className}
+      className={`sway-curve-breath ${className}`}
       aria-hidden="true"
     >
       <path

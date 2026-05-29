@@ -116,6 +116,20 @@ html, body {
   animation: swayDraw 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
 }
 
+/* Sway curve gentle breath — every SwayCurve sways horizontally on a slow
+   loop so the brand mark feels alive instead of static. Paused on
+   off-screen panels via content-visibility, so only one curve animates
+   at a time (cheap GPU work). */
+@keyframes swayBreath {
+  0%, 100% { transform: translateX(-2px); }
+  50%      { transform: translateX(2px); }
+}
+.sway-curve-breath {
+  animation: swayBreath 6s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
 /* Sway curve flourish on primary CTA hover — the curve fades + lifts
    above the button. Works on any element with `group` + a child using
    `sway-cta-flourish`. */

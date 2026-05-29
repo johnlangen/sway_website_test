@@ -227,7 +227,7 @@ export default function HomeContent() {
     );
     // eslint-disable-next-line no-console
     console.log(
-      "%cBuilt in Denver. Designed for the long pause.",
+      "%cBuilt for the long pause.",
       "color: #4A776D; opacity: 0.6; font-size: 11px; padding-bottom: 4px;"
     );
   }, []);
@@ -360,6 +360,7 @@ export default function HomeContent() {
           <SwayCurve
             width={160}
             strokeWidth={2.4}
+            animate
             className="text-[#4A776D]/85 mx-auto block mb-8"
           />
 
@@ -567,6 +568,7 @@ export default function HomeContent() {
           <SwayCurve
             width={160}
             strokeWidth={2.4}
+            animate
             className="text-[#4A776D]/85 mx-auto block mb-3"
           />
           <p className="text-center text-sm md:text-base opacity-60 mb-4 md:mb-10">
@@ -682,6 +684,7 @@ export default function HomeContent() {
           <SwayCurve
             width={160}
             strokeWidth={2.4}
+            animate
             className="text-[#4A776D]/85 mx-auto block mb-4"
           />
           <p className="text-sm md:text-base opacity-60 mb-8 md:mb-12">
@@ -743,6 +746,7 @@ export default function HomeContent() {
           <SwayCurve
             width={160}
             strokeWidth={2.4}
+            animate
             className="text-[#4A776D]/85 mx-auto block mb-10"
           />
 
@@ -804,6 +808,7 @@ export default function HomeContent() {
           <SwayCurve
             width={160}
             strokeWidth={2.4}
+            animate
             className="text-white/75 mx-auto block mb-4"
           />
           <p className="mt-2 text-white/75 max-w-lg mx-auto mb-7 text-sm md:text-base">
