@@ -104,6 +104,31 @@ html, body {
   will-change: transform;
 }
 
+/* Sway curve draw-in.
+   Paired with <SwayCurve animate /> + the pathLength="100" attribute on the
+   path so the dasharray is normalized regardless of actual path length. */
+@keyframes swayDraw {
+  to { stroke-dashoffset: 0; }
+}
+.sway-curve-draw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: swayDraw 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+/* Sway curve flourish on primary CTA hover — the curve fades + lifts
+   above the button. Works on any element with `group` + a child using
+   `sway-cta-flourish`. */
+.sway-cta-flourish {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.group:hover .sway-cta-flourish {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Sway logo easter egg — wave draw + quote fade. */
 @keyframes eggFade {
   from { opacity: 0; }

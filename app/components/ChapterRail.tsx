@@ -1,9 +1,15 @@
 "use client";
 
+/**
+ * ChapterRail — right-edge section navigator.
+ *
+ * Simple white dots with mix-blend-mode: difference so they read against
+ * every panel background. The Sway curve lives separately in SwayThread
+ * on the left side.
+ */
+
 import { useEffect, useState } from "react";
 
-// Section labels for the homepage chapter rail. Order MUST match the
-// .snap-section order rendered in HomeContent.tsx.
 const SECTIONS = [
   "Sway",
   "Story",
@@ -18,6 +24,7 @@ const SECTIONS = [
   "Follow",
   "FAQ",
   "Join",
+  "Pause",
 ];
 
 export default function ChapterRail() {
@@ -30,8 +37,6 @@ export default function ChapterRail() {
     const sections = Array.from(container.querySelectorAll(".snap-section"));
     if (sections.length === 0) return;
 
-    // IntersectionObserver scoped to the snap-container's own scroll viewport.
-    // The section with the highest intersection ratio (>0.5) wins.
     const observer = new IntersectionObserver(
       (entries) => {
         let best = -1;
@@ -60,9 +65,6 @@ export default function ChapterRail() {
 
   return (
     <div
-      // mix-blend-mode: difference keeps the rail legible against any
-      // background — cream, sand, dark green, or full-bleed photography —
-      // without per-section styling.
       className="hidden md:flex fixed top-1/2 right-5 -translate-y-1/2 z-[60] flex-col items-end gap-2 pointer-events-none"
       style={{ mixBlendMode: "difference" }}
       aria-label="Page sections"

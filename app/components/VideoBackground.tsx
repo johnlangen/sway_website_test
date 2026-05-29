@@ -33,7 +33,7 @@ export default function VideoBackground() {
     const h = new Date().getHours();
     setGreeting(
       h < 11
-        ? "Good morning, Denver."
+        ? "Good morning."
         : h < 17
           ? "Good afternoon."
           : h < 22

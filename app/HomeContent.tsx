@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import GoogleReviews from "./components/GoogleReviews";
 import ChapterRail from "./components/ChapterRail";
+import { SwayCurve } from "./components/SwayCurve";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -211,6 +212,26 @@ export default function HomeContent() {
     };
   }, []);
 
+  // Console easter egg — for the curious who open dev tools.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // eslint-disable-next-line no-console
+    console.log(
+      "%cSway",
+      "font-family: Georgia, serif; font-style: italic; font-size: 42px; color: #113D33; letter-spacing: -0.02em; padding: 4px 0;"
+    );
+    // eslint-disable-next-line no-console
+    console.log(
+      "%c~  pause.  breathe.  rediscover.  ~",
+      "color: #4A776D; font-size: 12px; letter-spacing: 0.3em; font-family: Georgia, serif; padding: 2px 0 8px;"
+    );
+    // eslint-disable-next-line no-console
+    console.log(
+      "%cBuilt in Denver. Designed for the long pause.",
+      "color: #4A776D; opacity: 0.6; font-size: 11px; padding-bottom: 4px;"
+    );
+  }, []);
+
   return (
     <>
       <ChapterRail />
@@ -276,9 +297,15 @@ export default function HomeContent() {
           viewport={{ once: true }}
           className="max-w-3xl text-center font-vance"
         >
-          <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-6">
+          <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
             A Modern Wellness Club
           </div>
+          <SwayCurve
+            width={160}
+            strokeWidth={2.4}
+            animate
+            className="text-[#4A776D]/85 mx-auto block mb-7"
+          />
 
           <p className="text-2xl md:text-4xl lg:text-5xl leading-[1.15] mb-10">
             Ever feel like you need an escape from the hustle and bustle of the
@@ -299,8 +326,11 @@ export default function HomeContent() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             <Link
               href="/offers"
-              className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
+              className="group relative bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
+              </span>
               New Guest Offer
             </Link>
             <Link
@@ -324,9 +354,14 @@ export default function HomeContent() {
           viewport={{ once: true }}
           className="max-w-4xl text-center font-vance"
         >
-          <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-6">
+          <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
             In the press
           </div>
+          <SwayCurve
+            width={160}
+            strokeWidth={2.4}
+            className="text-[#4A776D]/85 mx-auto block mb-8"
+          />
 
           <blockquote className="text-3xl md:text-5xl lg:text-6xl leading-[1.1] mb-5 max-w-3xl mx-auto font-semibold">
             <span className="text-[#4A776D]/60">&ldquo;</span>
@@ -526,10 +561,15 @@ export default function HomeContent() {
           viewport={{ once: true }}
           className="w-full max-w-5xl font-vance"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-3">
             Experiences &amp; Pricing
           </h2>
-          <p className="text-center text-sm md:text-base opacity-60 mb-4 md:mb-12">
+          <SwayCurve
+            width={160}
+            strokeWidth={2.4}
+            className="text-[#4A776D]/85 mx-auto block mb-3"
+          />
+          <p className="text-center text-sm md:text-base opacity-60 mb-4 md:mb-10">
             Member pricing vs drop-in. No contracts required.
           </p>
 
@@ -614,8 +654,11 @@ export default function HomeContent() {
           <div className="mt-4 md:mt-8 flex justify-center">
             <Link
               href="/locations/denver-larimer/book"
-              className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
+              className="group relative bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
+              </span>
               Schedule Now
             </Link>
           </div>
@@ -636,6 +679,11 @@ export default function HomeContent() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
             Connect with Sway
           </h2>
+          <SwayCurve
+            width={160}
+            strokeWidth={2.4}
+            className="text-[#4A776D]/85 mx-auto block mb-4"
+          />
           <p className="text-sm md:text-base opacity-60 mb-8 md:mb-12">
             Follow along, read the press, or find us on the app.
           </p>
@@ -689,9 +737,15 @@ export default function HomeContent() {
           viewport={{ once: true }}
           className="w-full max-w-4xl font-vance"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-4">
             Questions, Answered
           </h2>
+          <SwayCurve
+            width={160}
+            strokeWidth={2.4}
+            className="text-[#4A776D]/85 mx-auto block mb-10"
+          />
+
 
           <div>
             {FAQ_ITEMS.map((item) => (
@@ -747,6 +801,11 @@ export default function HomeContent() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
             Join the Wellness Club &amp; Start Saving Today
           </h2>
+          <SwayCurve
+            width={160}
+            strokeWidth={2.4}
+            className="text-white/75 mx-auto block mb-4"
+          />
           <p className="mt-2 text-white/75 max-w-lg mx-auto mb-7 text-sm md:text-base">
             Monthly treatments, half-off boosts, and exclusive perks designed
             for real life.
@@ -757,8 +816,11 @@ export default function HomeContent() {
               href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition shadow-sm"
+              className="group relative bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition shadow-sm"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+              </span>
               Become a Member
             </a>
             <Link
@@ -767,6 +829,33 @@ export default function HomeContent() {
             >
               Gift Cards
             </Link>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ======================================================
+          11. Signature Signoff — closing brand moment.
+              The Sway curve, the brand line, the place.
+          ====================================================== */}
+      <section className="snap-section h-screen flex flex-col items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6 relative">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center text-center max-w-md"
+        >
+          <SwayCurve
+            width={200}
+            strokeWidth={1.5}
+            animate
+            className="text-[#113D33]/55 mb-10"
+          />
+          <p className="font-vance italic text-2xl md:text-4xl leading-[1.25] text-[#113D33] mb-7">
+            Pause. Breathe. Rediscover.
+          </p>
+          <div className="text-xs uppercase tracking-[0.35em] text-[#4A776D]">
+            Sway &nbsp;·&nbsp; Est. 2025
           </div>
         </motion.div>
       </section>
