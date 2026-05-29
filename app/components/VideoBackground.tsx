@@ -50,14 +50,14 @@ export default function VideoBackground() {
         src="/assets/background.jpg"
         alt=""
         fetchPriority="high"
-        className="absolute top-0 left-0 w-full h-full object-cover object-[35%_center] md:object-center"
+        className="absolute top-0 left-0 w-full h-full object-cover object-[45%_center] md:object-center"
       />
 
       {/* Background Video — starts invisible, fades in only after
           autoplay succeeds. Removed from DOM if autoplay fails. */}
       <video
         ref={videoRef}
-        className={`absolute top-0 left-0 w-full h-full object-cover object-[35%_center] md:object-center transition-opacity duration-500 ${
+        className={`absolute top-0 left-0 w-full h-full object-cover object-[45%_center] md:object-center transition-opacity duration-500 ${
           videoReady ? "opacity-100" : "opacity-0"
         }`}
         autoPlay
@@ -69,8 +69,16 @@ export default function VideoBackground() {
         <source src="/assets/background2.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20 z-10" />
+      {/* Mobile overlay — heavier bottom-fade gradient.
+          When the video can't autoplay (iOS low-power mode etc.) and the
+          poster is all the user sees, this makes the framing read as
+          deliberately cinematic instead of "the frame the video froze on."
+          The hero text sits on the dark foundation; the SWAY sign stays
+          legible at the top. */}
+      <div className="md:hidden absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/65 via-black/15 to-transparent z-10" />
+
+      {/* Desktop overlay — light haze (unchanged) */}
+      <div className="hidden md:block absolute top-0 left-0 w-full h-full bg-black opacity-20 z-10" />
 
       {/* Overlay Text */}
       <div className="absolute bottom-28 md:bottom-24 left-6 md:left-20 z-20">
