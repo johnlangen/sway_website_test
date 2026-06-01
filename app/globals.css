@@ -81,15 +81,19 @@ html, body {
   display: none;
 }
 
-/* Slow Ken Burns zoom — used on full-bleed image panels.
+/* Slow Ken Burns zoom — used on full-bleed image panels and the mobile hero.
    Pure CSS so the animation runs on the compositor (GPU), not the JS thread —
-   no jank when snap-scroll settles into a new panel. */
+   no jank when snap-scroll settles into a new panel.
+
+   Tuning history: started at scale 1.06 / 16s and was effectively invisible.
+   Bumped to 1.08 / 10s so the motion actually reads as deliberate without
+   tipping into "TikTok aggressive." */
 @keyframes kenBurns {
   from { transform: scale(1); }
-  to   { transform: scale(1.06); }
+  to   { transform: scale(1.08); }
 }
 .ken-burns {
-  animation: kenBurns 16s ease-in-out infinite alternate;
+  animation: kenBurns 10s ease-in-out infinite alternate;
   will-change: transform;
   transform: translateZ(0);
 }
