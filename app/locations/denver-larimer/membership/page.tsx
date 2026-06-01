@@ -101,6 +101,7 @@ const recoveryMemberships = [
   {
     key: "aescape",
     name: "Aescape",
+    image: "/assets/aescapeMobile.jpg",
     price: "$99",
     description:
       "AI-powered robot massage with real-time muscle mapping and personalized pressure zones.",
@@ -114,6 +115,7 @@ const recoveryMemberships = [
   {
     key: "remedy",
     name: "Remedy Room",
+    image: "/assets/remedyRoomMobile.jpg",
     price: "$99",
     description:
       "Our full recovery circuit. Everything you need to reset and recover.",
@@ -189,7 +191,20 @@ export default function MembershipPage() {
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
       {/* HERO + LOCK-IN CTA */}
-      <section className="px-6 pt-28 md:pt-36 pb-6 text-center max-w-5xl mx-auto">
+      <section className="relative overflow-hidden">
+        {/* Background image under a dark-green overlay, matching the other page
+            heroes. Overlay fades to the page's base green so it blends into the
+            Spa Memberships section below. */}
+        <Image
+          src="/assets/membership_background.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/85 via-[#113D33]/80 to-[#0b1f1a]" />
+
+        <div className="relative px-6 pt-28 md:pt-36 pb-8 text-center max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -262,6 +277,7 @@ export default function MembershipPage() {
           Spa in America by USA Today 10Best. Call (303) 476-6150 or visit
           swaywellnessspa.com.
         </p>
+        </div>
       </section>
 
       {/* ============================================================
@@ -481,30 +497,41 @@ export default function MembershipPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-white/10"
+              className="bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden"
             >
-              <h3 className="text-lg font-bold mb-1">{m.name}</h3>
-              <div className="mb-3">
-                <span className="text-2xl font-bold">{m.price}</span>
-                <span className="text-sm text-gray-400 ml-1">/ month</span>
+              <div className="relative h-44 w-full">
+                <Image
+                  src={m.image}
+                  alt={m.name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e2b24]/70 to-transparent" />
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed mb-3">
-                {m.description}
-              </p>
-              <ul className="space-y-1.5 mb-3">
-                {m.highlights.map((h, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center gap-2 text-xs text-gray-400"
-                  >
-                    <Check className="w-3 h-3 text-[#4A776D] shrink-0" />
-                    {h}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider">
-                {m.details}
-              </p>
+              <div className="p-5 md:p-6">
+                <h3 className="text-lg font-bold mb-1">{m.name}</h3>
+                <div className="mb-3">
+                  <span className="text-2xl font-bold">{m.price}</span>
+                  <span className="text-sm text-gray-400 ml-1">/ month</span>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed mb-3">
+                  {m.description}
+                </p>
+                <ul className="space-y-1.5 mb-3">
+                  {m.highlights.map((h, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-center gap-2 text-xs text-gray-400"
+                    >
+                      <Check className="w-3 h-3 text-[#4A776D] shrink-0" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider">
+                  {m.details}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
