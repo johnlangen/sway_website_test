@@ -44,7 +44,7 @@ const localBusinessJsonLd = {
   alternateName: "Upswell Studio",
   description:
     "A recovery-led wellness club in Denver's RiNo Art District, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy. Massage and facial treatments are coming this summer.",
-  image: "https://swaywellnessspa.com/assets/SWAY.jpg",
+  image: "https://swaywellnessspa.com/assets/rino1.jpeg",
   "@id": "https://swaywellnessspa.com/locations/denver-rino/",
   url: "https://swaywellnessspa.com/locations/denver-rino/",
   telephone: "+1-303-476-6150",

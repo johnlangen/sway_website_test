@@ -19,7 +19,7 @@ const loc = {
   neighborhood: "RiNo Art District",
   phone: "(303) 476-6150",
   phoneHref: "tel:+13034766150",
-  heroImage: "/assets/SWAY.jpg",
+  heroImage: "/assets/rino1.jpeg",
   bookHref: "/locations/denver-rino/book",
   mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",
 };
@@ -143,9 +143,9 @@ export default function SwayRinoPage() {
           <div className="relative">
             <Image
               src={loc.heroImage}
-              alt="Sway Wellness Spa RiNo recovery lounge in Denver's RiNo Art District"
-              width={720}
-              height={520}
+              alt="Cold plunge and recovery pool at Sway Wellness Spa RiNo"
+              width={959}
+              height={1640}
               priority
               className="rounded-3xl shadow-lg w-full h-[300px] sm:h-[360px] md:h-[460px] object-cover"
             />
@@ -160,10 +160,10 @@ export default function SwayRinoPage() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
               <div className="relative overflow-hidden rounded-2xl">
                 <Image
-                  src="/assets/remedy-room.jpg"
-                  alt="Sway Remedy Lounge with sauna, cold plunge, infrared, and compression therapy"
-                  width={640}
-                  height={420}
+                  src="/assets/rino2.jpeg"
+                  alt="Traditional sauna at Sway Wellness Spa RiNo"
+                  width={1093}
+                  height={1438}
                   className="w-full h-[240px] sm:h-[300px] md:h-[340px] object-cover"
                 />
               </div>
