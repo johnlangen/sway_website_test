@@ -9,15 +9,15 @@ import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/
 export default function LarimerOffersPage() {
   const offers = [
     {
-      label: "Recovery circuit",
+      label: "First Remedy Room visit",
       title: "Remedy Room",
-      price: "$49",
-      priceSuffix: "/ session",
+      price: "$25",
+      priceSuffix: " first visit",
       description:
-        "Sauna, cold plunge, red light therapy, and compression therapy — all in one 40-minute session.",
-      cta: "Book Remedy Room",
+        "Sauna, cold plunge, red light therapy, and compression therapy. A 40-minute recovery circuit at member pricing for your first visit.",
+      cta: "Book First Remedy Visit",
       href: "/locations/denver-larimer/book-remedy-room",
-      footnote: "Members pay just $25/session",
+      footnote: "Code FTVORR. Any day. First-time guests. Regularly $49.",
       highlight: false,
     },
     {
@@ -26,10 +26,10 @@ export default function LarimerOffersPage() {
       price: "$40 OFF",
       priceSuffix: "",
       description:
-        "Enjoy a 50-minute massage or facial for just $99 (regularly $139). Only available for the Essential Signature Massage or Facial.",
+        "Your first massage, facial, or 60-minute Aescape robot massage at member pricing. Choose any tier: Essential, Premier, or Ultimate.",
       cta: "Book Your First Visit",
       href: "/locations/denver-larimer/book",
-      footnote: "For Denver-area locals. First-time guests only.",
+      footnote: "Code FTVO40. Mon-Fri. First-time guests only.",
       highlight: true,
       badge: "MOST POPULAR",
     },
@@ -39,7 +39,7 @@ export default function LarimerOffersPage() {
       price: "$99",
       priceSuffix: "/ month",
       description:
-        "Unlimited massages & facials at $99 each, 50% off boosts & Remedy Room, private lounge, and more.",
+        "Unlimited massages & facials at member pricing, 50% off boosts & Remedy Room, private lounge, and more.",
       cta: "View Memberships",
       href: "/locations/denver-larimer/membership",
       footnote: "Membership required",
@@ -92,17 +92,18 @@ export default function LarimerOffersPage() {
 
         <p className="sr-only">
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer
-          — $40 off your first 50-minute Essential Signature Massage or Facial
-          for just $99 (regularly $139), for Denver-area first-time guests.
-          Membership —
-          $99/month for unlimited massages and facials at $99 each, 50% off all
-          boost add-ons, $25 Remedy Room sessions (normally $49), and private
-          member lounge access. Remedy Room — $49 per session ($25 for members),
-          a guided 40-minute recovery circuit combining sauna, cold
-          plunge, compression therapy, and LED light therapy. Sway
-          Wellness Spa is located at 1428 Larimer St. on Larimer Square in
-          Denver, CO 80202. Voted #4 Best Day Spa in America by USA Today
-          10Best. Book at swaywellnessspa.com or call (303) 476-6150.
+          (code FTVO40) — $40 off your first massage, facial, or 60-minute
+          Aescape robot massage at any tier (Essential, Premier, or Ultimate),
+          valid Monday through Friday for first-time guests. First Remedy Room
+          Visit (code FTVORR) — $25 for your first 40-minute recovery circuit
+          combining sauna, cold plunge, compression therapy, and LED light
+          therapy (regularly $49), any day, first-time guests. Membership —
+          $99/month for unlimited massages and facials at member pricing, 50%
+          off all boost add-ons, $25 Remedy Room sessions (normally $49), and
+          private member lounge access. Sway Wellness Spa is located at 1428
+          Larimer St. on Larimer Square in Denver, CO 80202. Voted #4 Best Day
+          Spa in America by USA Today 10Best. Book at swaywellnessspa.com or
+          call (303) 476-6150.
         </p>
       </section>
 

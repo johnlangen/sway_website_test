@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
   description:
-    "First-visit offer: $40 off your first massage or facial ($99). Membership from $99/mo. Remedy Room recovery circuit $49 ($25 members). Sway on Larimer Square, Denver.",
+    "First-visit offer FTVO40: $40 off your first massage, facial, or 60-min Aescape (Mon-Fri). First Remedy Room visit $25 (FTVORR, any day). Membership from $99/mo. Sway on Larimer Square, Denver.",
   alternates: {
     canonical: "/locations/denver-larimer/offers/",
   },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-larimer/offers/",
     title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
     description:
-      "First-visit offer: $40 off your first massage or facial. Memberships from $99/mo. Remedy Room from $25. Sway on Larimer Square.",
+      "$40 off any first visit (Mon-Fri), $25 first Remedy Room visit, memberships from $99/mo. Sway on Larimer Square.",
     images: [
       {
         url: "/assets/OG/og-offers.jpg",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
     description:
-      "First-visit offer: $40 off your first massage or facial. Memberships from $99/mo. Sway on Larimer Square.",
+      "$40 off first visit (Mon-Fri), $25 first Remedy Room visit, memberships from $99/mo. Sway on Larimer Square.",
     images: ["/assets/OG/og-offers.jpg"],
   },
   robots: {
@@ -73,13 +73,13 @@ export default function LarimerOffersLayout({
     url: "https://swaywellnessspa.com/locations/denver-larimer/offers/",
     description:
       "Current spa offers, introductory pricing, and membership deals at Sway Wellness Spa on Larimer Square in Denver, CO.",
-    numberOfItems: 3,
+    numberOfItems: 4,
     itemListElement: [
       {
         "@type": "Offer",
-        name: "First Visit Offer",
+        name: "First Visit Offer (FTVO40)",
         description:
-          "Enjoy a 50-minute Essential Signature Massage or Facial for just $99 (regularly $139). $40 off for first-time Denver-area guests.",
+          "$40 off your first massage, facial, or 60-minute Aescape robot massage at any tier (Essential, Premier, or Ultimate). Brings first-time guests to member pricing. Valid Monday through Friday. Use code FTVO40 at booking.",
         price: "99.00",
         priceCurrency: "USD",
         eligibleCustomerType: "http://schema.org/NewCustomer",
@@ -93,9 +93,25 @@ export default function LarimerOffersLayout({
       },
       {
         "@type": "Offer",
+        name: "First Remedy Room Visit (FTVORR)",
+        description:
+          "$25 for your first 40-minute Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy). Regularly $49. Valid any day for first-time guests. Use code FTVORR at booking.",
+        price: "25.00",
+        priceCurrency: "USD",
+        eligibleCustomerType: "http://schema.org/NewCustomer",
+        availability: "https://schema.org/InStock",
+        url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room/",
+        seller: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa – Larimer Square",
+          url: "https://swaywellnessspa.com/locations/denver-larimer/",
+        },
+      },
+      {
+        "@type": "Offer",
         name: "Sway Membership",
         description:
-          "Unlimited massages and facials at $99 each, 50% off boosts and Remedy Room ($25/session), private member lounge, and more.",
+          "Unlimited massages and facials at member pricing, 50% off boosts and Remedy Room ($25/session), private member lounge, and more.",
         price: "99.00",
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
@@ -111,7 +127,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "Remedy Room Recovery Circuit",
         description:
-          "A guided 40-minute recovery session combining sauna, cold plunge, compression therapy, and LED light therapy. $49 drop-in, $25 for members.",
+          "A guided 40-minute recovery session combining sauna, cold plunge, compression therapy, and LED light therapy. $49 drop-in, $25 for members or first-time guests (code FTVORR).",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
