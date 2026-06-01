@@ -66,6 +66,7 @@ Always assume this site is live and revenue-impacting.
 - **Sauna**: Traditional sauna — do NOT say "infrared sauna"
 - **Remedy Room compression**: Do NOT say "Normatec" — use "compression therapy" (brand-neutral)
 - **Aescape sessions**: 15, 30, 45, or 60 minutes — do NOT say "30 or 60" (stale)
+- **Facials brand split**: Eminence Organics powers most of the menu (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk). Dr. Dennis Gross is its OWN dedicated Vitamin C facial (Premier + Ultimate tiers). They are NOT a combined per-treatment protocol — do NOT say "Eminence paired with Dr. Dennis Gross" or any phrasing implying every facial uses both.
 - **Membership**: Do NOT say "cancel anytime" — this is not accurate
 - **Aescape apparel**: Do NOT use the brand name "Aerwear" — say "compression apparel" (provided at check-in)
 - **Anniversary event** (`/events/anniversary`): Sidelined (noindex, no links). Page kept for future reuse. API route at `app/api/events/anniversary/` still exists.
