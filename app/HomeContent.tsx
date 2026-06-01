@@ -406,10 +406,9 @@ export default function HomeContent() {
           ====================================================== */}
       {SERVICES.map((service, i) => {
         const isDarkVibe = service.title === "Aescape";
-        // Alternate caption anchor (bottom-left vs upper-left) so the four
-        // frames don't read as one repeated template. Never bottom-right:
+        // All captions bottom-anchored (bottom-left). Never bottom-right:
         // that corner holds the persistent Bowtie chat widget.
-        const captionTop = i % 2 === 1;
+        const captionTop = false;
         return (
           <section
             key={service.title}

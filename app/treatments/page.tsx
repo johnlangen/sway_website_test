@@ -176,9 +176,8 @@ export default function TreatmentsPage() {
           2-5. Treatment frames (full-bleed, snap)
           ====================================================== */}
       {treatments.map((t, i) => {
-        // Alternate caption anchor, but keep badged frames bottom-anchored so
-        // the stacked pill + badge at top-left never collides with the caption.
-        const captionTop = i % 2 === 1 && !t.badge;
+        // All captions bottom-anchored.
+        const captionTop = false;
         return (
           <section
             key={t.name}
