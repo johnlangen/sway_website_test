@@ -4,14 +4,14 @@ import LocationsContent from "./LocationsContent";
 export const metadata: Metadata = {
   title: "Sway Wellness Spa | Locations",
   description:
-    "Find a Sway Wellness Spa location near you. Visit our Denver spa or join founding-member waitlists for Dallas and Georgetown.",
+    "Find a Sway Wellness Spa near you. Three Denver locations now open in Larimer Square, RiNo, and Central Park, with Dallas and Georgetown coming soon.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/",
   },
   openGraph: {
     title: "Sway Wellness Spa | Locations",
     description:
-      "Explore Sway Wellness Spa locations. Denver is open now — Dallas and Georgetown coming soon.",
+      "Explore Sway Wellness Spa locations. Three Denver spas now open in Larimer Square, RiNo, and Central Park. Dallas and Georgetown coming soon.",
     url: "https://swaywellnessspa.com/locations/",
     images: [
       {
