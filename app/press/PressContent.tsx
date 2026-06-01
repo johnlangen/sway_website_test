@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { SwayCurve } from "../components/SwayCurve";
 
 /* ---------- DATA ---------- */
 
@@ -13,7 +13,7 @@ const AWARDS = [
     publication: "USA Today 10Best",
     year: "2025",
     description:
-      "Voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards — recognized alongside the nation's top spas in just our first year.",
+      "Voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards, recognized alongside the nation's top spas in just our first year.",
     image: "/assets/usa_today.png",
     link: "https://10best.usatoday.com/awards/sway-denver-colorado/",
   },
@@ -34,7 +34,7 @@ const PRESS = [
     publication: "Denverite",
     date: "March 2026",
     description:
-      "A first-person feature on Sway's Aescape robot — Colorado Matters host Ryan Warner walks in skeptical and leaves convinced the robot complements, rather than replaces, human touch.",
+      "A first-person feature on Sway's Aescape robot. Colorado Matters host Ryan Warner walks in skeptical and leaves convinced the robot complements, rather than replaces, human touch.",
     image: "/assets/denverite.png",
     link: "https://denverite.com/2026/03/17/denver-robot-massage/",
   },
@@ -49,7 +49,7 @@ const PRESS = [
   },
   {
     title: "A Demographic-Built Wellness Spa",
-    publication: "Salon Today — Modern Spa & Wellness",
+    publication: "Salon Today, Modern Spa & Wellness",
     date: "Fall 2025",
     description:
       "A two-page editorial spotlighting Sway's Gen Z-focused wellness model, franchise roots, and blend of innovative technology with spa design.",
@@ -79,7 +79,7 @@ const PRESS = [
     publication: "Mile High CRE",
     date: "2024",
     description:
-      "An inside look at Sway's design, construction, and concept development — spotlighting the membership model and tech-forward experience.",
+      "An inside look at Sway's design, construction, and concept development, spotlighting the membership model and tech-forward experience.",
     image: "/assets/cre.jpg",
     link: "https://milehighcre.com/revolutionary-wellness-club-coming-to-larimer-square/",
   },
@@ -97,7 +97,7 @@ const PRESS = [
     publication: "5280 Magazine",
     date: "2025",
     description:
-      "A first-hand review of Colorado's only robot-powered massage — available exclusively at Sway — exploring how Aescape transforms the experience.",
+      "A first-hand review of Colorado's only robot-powered massage, available exclusively at Sway, exploring how Aescape transforms the experience.",
     image: "/assets/5280.jpg",
     link: "https://www.5280.com/i-tried-colorados-first-robot-massage/",
   },
@@ -106,11 +106,28 @@ const PRESS = [
     publication: "Yoga+Life",
     date: "2025",
     description:
-      "How Sway's high-tech, youth-driven approach — including robotic massage — reimagines self-care for the modern wellness guest.",
+      "How Sway's high-tech, youth-driven approach, including robotic massage, reimagines self-care for the modern wellness guest.",
     image: "/assets/yoga.jpg",
     link: "https://yogalifelive.com/this-new-denver-wellness-club-is-using-robots-to-rethink-self-care/",
   },
 ];
+
+const FEATURED_IN = [
+  "USA Today",
+  "The Zoe Report",
+  "CPR News",
+  "The Denver Post",
+  "Denverite",
+  "5280",
+  "Athletech",
+  "Salon Today",
+  "Denver Business Journal",
+  "Yoga+Life",
+  "Mile High CRE",
+];
+
+// Secondary background tone, matching the homepage rhythm.
+const SAND = "#EBE4D1";
 
 /* ---------- COMPONENT ---------- */
 
@@ -118,16 +135,25 @@ export default function PressContent() {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance text-[#113D33]">
       {/* ---------- HERO ---------- */}
-      <section className="bg-[#113D33] text-white px-6 pt-28 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-4xl md:text-6xl font-light tracking-tight"
-          >
+      <section className="bg-[#113D33] text-white px-6 pt-32 pb-20 md:pt-44 md:pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <div className="text-xs uppercase tracking-[0.35em] text-[#A9D2C5] mb-4">
+            Sway in the Media
+          </div>
+          <SwayCurve
+            width={170}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-7"
+          />
+          <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
             In the Press
-          </motion.h1>
+          </h1>
 
           <p className="sr-only">
             Sway Wellness Spa has been featured in USA Today 10Best, The Zoe
@@ -139,40 +165,59 @@ export default function PressContent() {
             Denver, CO. Book at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-4 text-base md:text-lg opacity-80 max-w-2xl mx-auto"
-          >
+          <p className="mt-5 text-base md:text-lg text-white/80 max-w-2xl mx-auto">
             Featured in 11 major publications. Two national awards in our first
-            year. See what the press is saying about Sway.
-          </motion.p>
-        </div>
+            year.
+          </p>
+
+          {/* Award proof badges */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            {AWARDS.map((a) => (
+              <span
+                key={a.title}
+                className="inline-flex items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.12em] text-white/90 border border-white/20 rounded-full px-4 py-1.5"
+              >
+                <span className="text-[#A9D2C5]">&#9733;</span>
+                {a.title} &middot; {a.publication}
+              </span>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* ---------- AWARDS ---------- */}
       <section className="px-6 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">
-            Awards
-          </h2>
+          <div className="text-center mb-10 md:mb-14">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+              Recognition
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+              Awards
+            </h2>
+            <SwayCurve
+              width={150}
+              strokeWidth={2.4}
+              animate
+              className="text-[#4A776D]/85 mx-auto block mt-4"
+            />
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {AWARDS.map((award, i) => (
               <motion.a
                 key={award.title}
                 href={award.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="group relative rounded-2xl border-2 border-[#113D33]/15 bg-white overflow-hidden hover:border-[#113D33]/30 hover:shadow-lg transition-all"
+                className="group rounded-3xl bg-white overflow-hidden shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] transition-shadow duration-300"
               >
                 <div className="p-8 md:p-10 flex flex-col items-center text-center">
-                  <div className="relative w-[200px] h-[120px] mb-6">
+                  <div className="relative w-[200px] h-[110px] mb-6">
                     <Image
                       src={award.image}
                       alt={award.publication}
@@ -181,8 +226,8 @@ export default function PressContent() {
                     />
                   </div>
 
-                  <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/50 font-semibold">
-                    {award.publication} — {award.year}
+                  <div className="text-xs uppercase tracking-[0.18em] text-[#4A776D] font-semibold">
+                    {award.publication} &middot; {award.year}
                   </div>
 
                   <h3 className="mt-2 text-xl md:text-2xl font-semibold">
@@ -193,7 +238,7 @@ export default function PressContent() {
                     {award.description}
                   </p>
 
-                  <span className="mt-5 inline-flex items-center text-sm font-bold text-[#113D33] group-hover:underline">
+                  <span className="mt-5 inline-flex items-center text-sm font-semibold text-[#113D33] group-hover:underline underline-offset-4">
                     Read more
                     <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                   </span>
@@ -205,30 +250,18 @@ export default function PressContent() {
       </section>
 
       {/* ---------- AS FEATURED IN ---------- */}
-      <section className="bg-white px-6 py-12 md:py-16">
+      <section className="px-6 py-14 md:py-20" style={{ backgroundColor: SAND }}>
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#113D33]/40 font-semibold mb-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-8">
             As Featured In
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">
-            {[
-              { name: "USA Today", w: 120 },
-              { name: "The Zoe Report", w: 110 },
-              { name: "CPR News", w: 90 },
-              { name: "Denver Post", w: 120 },
-              { name: "Denverite", w: 90 },
-              { name: "5280", w: 60 },
-              { name: "Athletech", w: 100 },
-              { name: "Salon Today", w: 100 },
-              { name: "Denver Business Journal", w: 100 },
-              { name: "Yoga+Life", w: 80 },
-              { name: "Mile High CRE", w: 100 },
-            ].map((pub) => (
+          <div className="flex flex-wrap items-center justify-center gap-x-8 md:gap-x-12 gap-y-5">
+            {FEATURED_IN.map((name) => (
               <span
-                key={pub.name}
-                className="text-sm md:text-base font-semibold text-[#113D33] whitespace-nowrap"
+                key={name}
+                className="text-base md:text-xl font-semibold text-[#113D33]/75 whitespace-nowrap"
               >
-                {pub.name}
+                {name}
               </span>
             ))}
           </div>
@@ -238,11 +271,22 @@ export default function PressContent() {
       {/* ---------- PRESS COVERAGE ---------- */}
       <section className="px-6 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">
-            Press Coverage
-          </h2>
+          <div className="text-center mb-10 md:mb-14">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+              Coverage
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+              Press Coverage
+            </h2>
+            <SwayCurve
+              width={150}
+              strokeWidth={2.4}
+              animate
+              className="text-[#4A776D]/85 mx-auto block mt-4"
+            />
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {PRESS.map((item, i) => (
               <motion.a
                 key={item.title}
@@ -253,7 +297,7 @@ export default function PressContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: (i % 2) * 0.1 }}
-                className="group flex gap-5 rounded-2xl border border-[#113D33]/10 bg-white p-5 hover:border-[#113D33]/25 hover:shadow-md transition-all"
+                className="group flex gap-5 rounded-2xl bg-white p-5 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] transition-shadow duration-300"
               >
                 <div className="relative shrink-0 w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-xl overflow-hidden">
                   <Image
@@ -265,8 +309,8 @@ export default function PressContent() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="text-[11px] uppercase tracking-wider text-[#113D33]/45 font-semibold">
-                    {item.publication} — {item.date}
+                  <div className="text-[11px] uppercase tracking-wider text-[#4A776D] font-semibold">
+                    {item.publication} &middot; {item.date}
                   </div>
                   <h3 className="mt-1 text-base md:text-lg font-semibold leading-snug group-hover:underline underline-offset-4">
                     {item.title}
@@ -282,19 +326,28 @@ export default function PressContent() {
       </section>
 
       {/* ---------- PRESS INQUIRIES ---------- */}
-      <section className="bg-[#113D33] text-white px-6 py-16 md:py-20">
+      <section className="bg-[#113D33] text-white px-6 py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
             Press Inquiries
           </h2>
-          <p className="mt-4 text-base opacity-80">
+          <SwayCurve
+            width={150}
+            strokeWidth={2.4}
+            animate
+            className="text-[#A9D2C5] mx-auto block mt-4 mb-5"
+          />
+          <p className="text-base text-white/80 max-w-lg mx-auto">
             For media requests, interviews, or press materials, reach out to our
             team.
           </p>
           <a
             href="mailto:contact@swaywellnessspa.com"
-            className="mt-6 inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-white/90 transition-all"
+            className="group relative mt-8 inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-semibold rounded-full hover:bg-gray-100 transition shadow-sm"
           >
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+              <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+            </span>
             contact@swaywellnessspa.com
           </a>
         </div>
