@@ -477,7 +477,9 @@ export default function HomeContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="font-vance max-w-md text-left"
+                className={`font-vance max-w-md text-left ${
+                  captionTop ? "ml-3.5" : ""
+                }`}
               >
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-3 leading-[1.02]">
                   {service.title}
@@ -628,7 +630,7 @@ export default function HomeContent() {
                 style={{ willChange: "transform, opacity" }}
               >
               <div
-                className="group relative rounded-2xl bg-gradient-to-b from-white to-white/60 p-3 md:p-6 flex flex-col shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] hover:[transform:translateY(-8px)_rotateX(3deg)] transition-[box-shadow,transform] duration-300 ease-out [transform-style:preserve-3d] [backface-visibility:hidden] [-webkit-backface-visibility:hidden] h-full"
+                className="group relative rounded-2xl bg-gradient-to-b from-white to-white/60 text-[#113D33] p-3 md:p-6 flex flex-col shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] hover:[transform:translateY(-8px)_rotateX(3deg)] transition-[box-shadow,transform] duration-300 ease-out [transform-style:preserve-3d] [backface-visibility:hidden] [-webkit-backface-visibility:hidden] h-full"
               >
                 {/* Card index — small dimensional accent */}
                 <span className="absolute top-3 right-3 text-[9px] md:text-[10px] font-semibold tracking-[0.2em] text-[#113D33]/30">
