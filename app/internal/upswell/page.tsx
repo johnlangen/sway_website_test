@@ -34,8 +34,8 @@ const DAILY_STATUS = {
       owner: "Awaiting Mariana Tek (via Heather)",
     },
     {
-      label: "Parallel: Sway Stripe backend hookup (Heather pursuing)",
-      detail: "In parallel with full PAN migration, Heather asked MT if they can hook up Sway's own Stripe Connect account on the backend now. If yes, this redirects new transactions to Sway directly without waiting on the full member card migration. Cleaner than the 'Heather collects then wires' bridge model.",
+      label: "Sway Stripe payout hookup for MT bridge period (Heather pursuing)",
+      detail: "Separate from the Mindbody migration: while Sway continues operating on MT through June, Heather asked MT to swap the connected Stripe account from hers to Sway's. If approved, all MT-collected revenue in June routes directly to Sway's Stripe — no Heather-collects-then-wires reconciliation needed. This is a payout-routing change for the bridge, not a card migration path.",
       owner: "Heather (pursuing with MT)",
     },
     {
@@ -82,7 +82,7 @@ const DAILY_STATUS = {
     "🔗 Upswell.com 'Book' button → repoints to Sway location pages (Heather updates). Builds muscle-memory shift before July 1.",
     "✏️ Booking-experience tease copy locked: 'Massage and facial treatments are coming, along with an updated booking experience. For now, book your recovery session below.' No date, no 'faster' claim.",
     "📋 Website coding brief delivered to separate chat — location pages + /book sub-routes + MT embed (tenant: upswellstudio, RiNo=48717, CP=48718, schedule=48541).",
-    "💳 Stripe migration in motion: Mindbody data team engaged via Katie. MT rep working on migration files (started last week, Heather hounding). Heather pursuing parallel Sway Stripe backend hookup as faster alternative. MT bridges through end of June minimum.",
+    "💳 Two separate Stripe workstreams in motion: (1) Card migration to Mindbody — Katie's team engaged, MT rep finalizing test files. (2) Sway Stripe payout hookup at MT — Heather asking MT to swap connected Stripe account so June revenue routes to Sway directly during the bridge (no reconciliation needed). MT bridges through end of June minimum.",
     "🏢 GBP timing: name change submission ~T-5 business days before signage install (target ~July 1). Today: only update URL + phone + transition post.",
   ],
   whatsNext: [
@@ -230,7 +230,7 @@ const TERMINATED_ANNUALS = [
 // Stripe Data Migration Request was never initiated; with 6 days to June 1 it's not viable.
 // Path forward: front-desk re-add at first Sway visit, bridged by MT extension.
 const PAYMENT_MIGRATION_PLAN = {
-  status: "June 1 — APA closed. Mindbody data team engaged via Katie. Awaiting MT migration test file from Heather's rep. Parallel: Heather pursuing Sway Stripe backend hookup. MT bridge through ~end of June. July 1 = unified Mindbody cutover + brand launch. Members never re-add cards.",
+  status: "June 1 — APA closed. Two parallel Stripe workstreams: (A) Card migration to Mindbody — Mindbody data team engaged via Katie, awaiting MT test file from Heather's rep. (B) Sway Stripe payout hookup at MT — Heather pursuing so June bridge revenue routes to Sway directly. MT bridge through end of June. July 1 = unified Mindbody cutover + brand launch.",
   whyChanged:
     "Researched May 27: Mindbody Payments is built on Stripe Connect (confirmed via Stripe's published customer story). Mariana Tek is also Stripe Connect. Both ends are Stripe — making cross-platform customer + payment-method migration technically straightforward via Stripe's documented PAN Import process (PGP-encrypted file OR direct destination account ID transfer). Heather's MT rep confirmed they can execute it. Revised path: MT keeps running as POS through June 15, Stripe migration runs in parallel (~2-3 weeks), then clean cutover with member cards already in Mindbody. June 1 becomes brand-only flip (signage, website, comms). Worst case: extend MT bridge through July if Stripe slips.",
   thePath: [
@@ -246,13 +246,13 @@ const PAYMENT_MIGRATION_PLAN = {
     },
     {
       step: "3",
-      label: "🔄 Parallel: Sway Stripe backend hookup (Heather pursuing with MT)",
-      detail: "Independent of the card migration, Heather asked MT if they can hook up Sway's own Stripe Connect account on the backend. If yes, new transactions route to Sway directly — cleaner than the 'Heather collects, wires later' bridge model. Best case: this lands first and simplifies everything.",
+      label: "🔄 Separate workstream: Sway Stripe payout hookup at MT (Heather pursuing)",
+      detail: "Independent of the card migration to Mindbody. While Sway continues to operate on MT through June, Heather is asking MT to swap the connected Stripe account from hers to Sway's. If approved, all MT-collected revenue during the bridge routes directly to Sway's Stripe — no reconciliation needed. This is about WHERE June revenue lands, not about moving members to Mindbody.",
     },
     {
       step: "4",
-      label: "Reconciliation arrangement (fallback if Sway Stripe hookup is slow)",
-      detail: "Heather pays MT extension fee (her card on file). Sway reimburses. If MT can't route to Sway's Stripe directly, Heather receives June Stripe revenue and wires net to Sway at end of bridge. Reconciliation backed by Stripe transactions report.",
+      label: "Reconciliation arrangement (fallback if Sway Stripe hookup at MT doesn't happen)",
+      detail: "Heather pays MT extension fee (her card on file). Sway reimburses. If MT can't swap the connected Stripe account, Heather receives June MT revenue and wires net to Sway at end of bridge. Reconciliation backed by Stripe transactions report.",
     },
     {
       step: "5",
@@ -760,7 +760,7 @@ const WEEK_PLAN = [
 
 const BLOCKERS_P0 = [
   "🔥 AWAITING: MT migration test file (Heather's rep — started last week, Heather hounding them). Mindbody data team already engaged via Katie, ready to receive.",
-  "🔥 IN PARALLEL: Heather asked MT to hook up Sway Stripe Connect on backend (faster path if approved). Awaiting MT response.",
+  "🔥 SEPARATE WORKSTREAM: Heather asked MT to swap connected Stripe account from hers → Sway's, so June MT-bridge revenue routes to Sway directly (not a migration path, just where bridge revenue lands). Awaiting MT response.",
   "✅ IN MOTION TODAY: GBP admin access — Heather setting up. John accepts when invites arrive.",
   "🔥 Heather: send MT booking widget embed code for both locations. John embeds on Sway location pages.",
   "🔥 Heather: update Upswell.com 'Book' button → Sway location pages.",
