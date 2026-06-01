@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
 
 /**
@@ -62,7 +61,10 @@ export default function ClubsBookPage() {
         </p>
         <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
           {clubs.map((club) => (
-            <Link
+            // Plain <a> (hard navigation), not next/link. The Mariana Tek widget
+            // on the destination /book page only initializes on a full page load;
+            // a soft client-side nav leaves the widget unrendered.
+            <a
               key={club.slug}
               href={club.href}
               className="group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col"
@@ -94,7 +96,7 @@ export default function ClubsBookPage() {
                   <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       </section>
