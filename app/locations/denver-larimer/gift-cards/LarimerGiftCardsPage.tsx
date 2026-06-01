@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
+import { SwayCurve } from "../../../components/SwayCurve";
 import { trackGiftCardIntent } from "../../../lib/track";
 
 export default function LarimerGiftCardsPage() {
@@ -28,7 +29,7 @@ export default function LarimerGiftCardsPage() {
       {
         "@type": "Product",
         name: "Sway Larimer Spa Gift Card",
-        description: "Give the gift of wellness in Denver's Larimer Square — redeemable for facials, massages, and Remedy Room experiences.",
+        description: "Give the gift of wellness in Denver's Larimer Square. Redeemable for facials, massages, and Remedy Room experiences.",
         image: "/assets/OG/og-gift-cards.jpg",
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       },
@@ -90,8 +91,15 @@ export default function LarimerGiftCardsPage() {
           transition={{ duration: 0.4 }}
           className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
         >
-          Sway Larimer — Denver, CO
+          Sway Larimer &middot; Denver, CO
         </motion.p>
+
+        <SwayCurve
+          width={150}
+          strokeWidth={2.2}
+          animate
+          className="text-[#A9D2C5] mx-auto block mb-6"
+        />
 
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
@@ -161,8 +169,11 @@ export default function LarimerGiftCardsPage() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackGiftCardIntent("larimer_gc_hero")}
-              className="inline-block w-full max-w-sm px-8 py-4 bg-white text-[#113D33] font-bold rounded-full text-lg hover:bg-gray-100 transition shadow-lg"
+              className="group relative inline-block w-full max-w-sm px-8 py-4 bg-white text-[#113D33] font-bold rounded-full text-lg hover:bg-gray-100 transition shadow-lg"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+              </span>
               Purchase a Gift Card
             </a>
             <p className="text-sm text-white/50 mt-3">
@@ -180,10 +191,16 @@ export default function LarimerGiftCardsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-center text-2xl md:text-3xl font-bold mb-10"
+            className="text-center text-2xl md:text-3xl font-bold mb-4"
           >
             Redeemable For
           </motion.h2>
+          <SwayCurve
+            width={140}
+            strokeWidth={2.4}
+            animate
+            className="text-[#A9D2C5] mx-auto block mb-10"
+          />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {reasons.map((r, i) => (
@@ -230,6 +247,12 @@ export default function LarimerGiftCardsPage() {
           >
             The Perfect Gift
           </motion.h2>
+          <SwayCurve
+            width={150}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-5"
+          />
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -237,7 +260,7 @@ export default function LarimerGiftCardsPage() {
             transition={{ duration: 0.4, delay: 0.15 }}
             className="max-w-2xl text-base md:text-lg text-gray-200 mb-6"
           >
-            Whether it&apos;s a birthday, anniversary, or just because — give them
+            Whether it&apos;s a birthday, anniversary, or just because. Give them
             something they&apos;ll actually use.
           </motion.p>
           <motion.a
@@ -249,8 +272,11 @@ export default function LarimerGiftCardsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
+            className="group relative px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
           >
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+              <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
+            </span>
             Buy a Gift Card
           </motion.a>
         </div>

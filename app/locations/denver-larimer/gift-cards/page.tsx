@@ -4,7 +4,7 @@ import LarimerGiftCardsPage from "./LarimerGiftCardsPage";
 export const metadata: Metadata = {
   title: "Spa Gift Cards Larimer | Buy Wellness Gifts Online at Sway Denver",
   description:
-    "Give the gift of wellness in Denver. Buy Sway Larimer gift cards online — instant delivery. Redeemable for massages, facials, Remedy Room, and Aescape. Never expires.",
+    "Give the gift of wellness in Denver. Buy Sway Larimer gift cards online with instant delivery. Redeemable for massages, facials, Remedy Room, and Aescape. Never expires.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-larimer/gift-cards/",
   },
