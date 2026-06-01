@@ -477,9 +477,7 @@ export default function HomeContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
                 viewport={{ once: true }}
-                className={`font-vance max-w-md text-left ${
-                  captionTop ? "ml-3.5" : ""
-                }`}
+                className="font-vance max-w-md text-left"
               >
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-3 leading-[1.02]">
                   {service.title}
