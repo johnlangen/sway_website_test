@@ -11,8 +11,11 @@
 
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    // Both fields optional to align with existing declaration in
+    // app/themavenhotel/page.tsx — TypeScript merges global declarations
+    // only when signatures match exactly (optional-ness included).
+    dataLayer?: any[];
+    gtag?: (...args: any[]) => void;
   }
 }
 
