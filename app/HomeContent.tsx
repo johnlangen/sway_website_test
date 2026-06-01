@@ -145,7 +145,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Do you offer memberships?",
-    a: "Yes. Memberships start at $99/month and include massages and facials from $99 (regularly from $139) across three tiers — Essential, Premier, and Ultimate. Members also get 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
+    a: "Yes. Memberships start at $99/month and include massages and facials from $99 (regularly from $139) across three tiers: Essential, Premier, and Ultimate. Members also get 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
   },
   {
     q: "What should I book for a first visit?",
@@ -259,7 +259,7 @@ export default function HomeContent() {
           ($139 drop-in). The Remedy Room 40-minute recovery circuit with
           sauna, cold plunge, compression therapy, and LED light therapy is
           $25 member ($49 drop-in). Aescape sessions from $49 (15 to 60
-          minutes). Over 10 optional boost add-ons across services — members
+          minutes). Over 10 optional boost add-ons across services. Members
           save 50% on all boosts. Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM,
           Sun 11 AM–6 PM. Memberships from $99/month. Book online at
           swaywellnessspa.com or call (303) 476-6150.
@@ -324,7 +324,7 @@ export default function HomeContent() {
             rel="noopener noreferrer"
             className="inline-block text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 mb-8 hover:border-[#113D33]/40 transition"
           >
-            Voted Best U.S. Day Spa — TZR Readers&apos; Choice
+            Voted Best U.S. Day Spa &middot; TZR Readers&apos; Choice
           </a>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
@@ -350,7 +350,10 @@ export default function HomeContent() {
       {/* ======================================================
           3. In the Press — pull quote + logo strip
           ====================================================== */}
-      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section
+        className="snap-section h-screen flex items-center justify-center text-[#113D33] px-6"
+        style={{ backgroundColor: SAND }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -374,7 +377,7 @@ export default function HomeContent() {
             <span className="text-[#4A776D]/60">&rdquo;</span>
           </blockquote>
           <p className="text-sm md:text-base text-[#4A776D] italic mb-14">
-            — USA Today 10Best
+            USA Today 10Best
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-10 md:gap-x-14 gap-y-7 max-w-4xl mx-auto">
@@ -403,6 +406,10 @@ export default function HomeContent() {
           ====================================================== */}
       {SERVICES.map((service, i) => {
         const isDarkVibe = service.title === "Aescape";
+        // Alternate caption anchor (bottom-left vs upper-left) so the four
+        // frames don't read as one repeated template. Never bottom-right:
+        // that corner holds the persistent Bowtie chat widget.
+        const captionTop = i % 2 === 1;
         return (
           <section
             key={service.title}
@@ -433,9 +440,13 @@ export default function HomeContent() {
             {/* Gradient overlay for text readability */}
             <div
               className={`absolute inset-0 ${
-                isDarkVibe
-                  ? "bg-gradient-to-t from-black/90 via-black/55 to-black/30"
-                  : "bg-gradient-to-t from-black/85 via-black/35 to-transparent"
+                captionTop
+                  ? isDarkVibe
+                    ? "bg-gradient-to-b from-black/90 via-black/55 to-black/30"
+                    : "bg-gradient-to-b from-black/85 via-black/35 to-transparent"
+                  : isDarkVibe
+                    ? "bg-gradient-to-t from-black/90 via-black/55 to-black/30"
+                    : "bg-gradient-to-t from-black/85 via-black/35 to-transparent"
               }`}
             />
 
@@ -453,9 +464,14 @@ export default function HomeContent() {
               </div>
             </div>
 
-            {/* Bottom caption — always left-aligned so it never collides with
-                the persistent bottom-right chat widget (Bowtie). */}
-            <div className="absolute inset-x-0 bottom-0 z-10 px-6 md:px-12 pb-14 md:pb-20 flex justify-start">
+            {/* Caption — alternates upper-left / bottom-left per frame, always
+                left-aligned so it never collides with the persistent
+                bottom-right chat widget (Bowtie). */}
+            <div
+              className={`absolute inset-x-0 z-10 px-6 md:px-12 flex justify-start ${
+                captionTop ? "top-32 md:top-40" : "bottom-0 pb-14 md:pb-20"
+              }`}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -514,7 +530,10 @@ export default function HomeContent() {
       {/* ======================================================
           6. First-Time Offer
           ====================================================== */}
-      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section
+        className="snap-section h-screen flex items-center justify-center text-[#113D33] px-6"
+        style={{ backgroundColor: SAND }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -563,11 +582,12 @@ export default function HomeContent() {
       </section>
 
       {/* ======================================================
-          7. Experiences & Pricing  (sand bg anchors this panel)
+          7. Experiences & Pricing  (deep-green bg anchors this panel —
+             the white pricing cards pop against it)
           ====================================================== */}
       <section
-        className="snap-section h-screen flex items-center justify-center text-[#113D33] px-4 md:px-8"
-        style={{ backgroundColor: SAND }}
+        className="snap-section h-screen flex items-center justify-center text-[#F7F4E9] px-4 md:px-8"
+        style={{ backgroundColor: "#113D33" }}
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -583,7 +603,7 @@ export default function HomeContent() {
             width={160}
             strokeWidth={2.4}
             animate
-            className="text-[#4A776D]/85 mx-auto block mb-3"
+            className="text-[#A9D2C5] mx-auto block mb-3"
           />
           <p className="text-center text-sm md:text-base opacity-60 mb-4 md:mb-10">
             Member pricing vs drop-in. No contracts required.
@@ -682,10 +702,10 @@ export default function HomeContent() {
           <div className="mt-4 md:mt-8 flex justify-center">
             <Link
               href="/locations/denver-larimer/book"
-              className="group relative bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
+              className="group relative bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition shadow-sm"
             >
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
-                <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
+                <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
               </span>
               Schedule Now
             </Link>
@@ -758,7 +778,10 @@ export default function HomeContent() {
       {/* ======================================================
           9. FAQ
           ====================================================== */}
-      <section className="snap-section h-screen flex items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6">
+      <section
+        className="snap-section h-screen flex items-center justify-center text-[#113D33] px-6"
+        style={{ backgroundColor: SAND }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -868,7 +891,10 @@ export default function HomeContent() {
           11. Signature Signoff — closing brand moment.
               The Sway curve, the brand line, the place.
           ====================================================== */}
-      <section className="snap-section h-screen flex flex-col items-center justify-center bg-[#F7F4E9] text-[#113D33] px-6 relative">
+      <section
+        className="snap-section h-screen flex flex-col items-center justify-center text-[#113D33] px-6 relative"
+        style={{ backgroundColor: SAND }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -119,7 +119,7 @@ export default function HomePage() {
         name: "Do you offer memberships?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Memberships start at $99/month and include massages and facials from $99 (regularly from $139) across three tiers — Essential, Premier, and Ultimate. Members also get 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
+          text: "Yes. Memberships start at $99/month and include massages and facials from $99 (regularly from $139) across three tiers: Essential, Premier, and Ultimate. Members also get 50% off all boosts and Remedy Room sessions, plus private lounge access and rollover credits.",
         },
       },
       {
