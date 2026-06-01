@@ -13,13 +13,13 @@ export default function LarimerOffersPage() {
     {
       label: "Massage or Facial",
       title: "First Visit",
-      price: "$40 OFF",
-      priceSuffix: "",
+      price: "$99",
+      priceSuffix: " / 50 min",
       description:
-        "Your first massage or facial at member pricing. Choose any tier: Essential, Premier, or Ultimate.",
+        "Your first Essential Signature Massage or Facial. Or upgrade for $40 off Premier ($129) or Ultimate ($159).",
       cta: "Book Massage or Facial",
       href: "/locations/denver-larimer/book",
-      footnote: "Code FTVO40. Mon-Fri. First-time guests only.",
+      footnote: "Code FTVO40. Mon-Fri. First-time guests. Regularly $139.",
       image: "/assets/homepage-massage.jpg",
       imageAlt: "Massage therapy at Sway Wellness Spa",
       highlight: false,

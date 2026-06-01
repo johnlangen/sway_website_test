@@ -285,12 +285,11 @@ export default function SwayLarimerPage() {
                   For Our Denver Neighbors
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold">
-                  $40 Off Your First Visit
+                  $99 First Visit Massage or Facial
                 </h2>
                 <p className="mt-2 text-white/80 text-sm sm:text-base max-w-lg">
-                  Your first massage, facial, or 60-minute Aescape robot massage
-                  at member pricing. Any tier. Code FTVO40, Mon-Fri. First-time
-                  guests only.
+                  Regularly $139. Or $40 off Premier ($129) and Ultimate
+                  ($159). Code FTVO40, Mon-Fri. First-time guests only.
                 </p>
               </div>
               <div className="shrink-0">
