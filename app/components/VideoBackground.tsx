@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import BookingPeek from "./BookingPeek";
 
 export default function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -97,7 +96,6 @@ export default function VideoBackground() {
         <p className="text-sm md:text-lg mt-2 font-vance text-white opacity-80">
           Discover the future of spa.
         </p>
-        <BookingPeek />
       </div>
     </div>
   );

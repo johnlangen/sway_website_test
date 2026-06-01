@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
+import BookingPeek from "@/app/components/BookingPeek";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -234,6 +235,10 @@ export default function SwayLarimerPage() {
               >
                 Join the Club — $99/mo
               </Link>
+            </div>
+
+            <div className="mt-4">
+              <BookingPeek />
             </div>
 
             {/* ADDRESS */}

@@ -27,11 +27,11 @@ export default function BookingPeek() {
   return (
     <Link
       href="/locations/denver-larimer/book?category=massage"
-      className="inline-flex items-center gap-2.5 mt-4 text-xs md:text-sm text-white/90 hover:text-white transition group"
+      className="inline-flex items-center gap-2.5 text-xs md:text-sm text-[#113D33]/85 hover:text-[#113D33] transition group"
     >
       <span className="relative flex h-2 w-2" aria-hidden="true">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-[#9ABFB3] opacity-75 animate-ping" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9ABFB3]" />
+        <span className="absolute inline-flex h-full w-full rounded-full bg-[#4A776D] opacity-75 animate-ping" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4A776D]" />
       </span>
       <span className="font-vance">
         Next available: {data.day} {data.nextTime}
