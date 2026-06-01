@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import BookingPeek from "@/app/components/BookingPeek";
+import { SwayCurve } from "@/app/components/SwayCurve";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -165,8 +166,14 @@ export default function SwayLarimerPage() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           {/* LEFT */}
           <div>
+            <SwayCurve
+              width={120}
+              strokeWidth={2.2}
+              animate
+              className="text-[#4A776D]/85 block mb-5"
+            />
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
-              Massage, Facials & Recovery — Larimer Square, Denver
+              Massage, Facials & Recovery · Larimer Square, Denver
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
@@ -179,7 +186,7 @@ export default function SwayLarimerPage() {
               massage types across 3 tiers (from $99 member, $139 drop-in),
               13 facial treatments across 3 tiers using Eminence Organics and
               Dr. Dennis Gross (from $99 member, $139 drop-in), the Remedy Room
-              40-minute recovery circuit with 4 modalities — sauna,
+              40-minute recovery circuit with 4 modalities: sauna,
               cold plunge, compression therapy, and LED light therapy (from
               $25), and AI-powered Aescape robot massage (from $49, 15, 30, 45,
               or 60 min). 7 boost add-ons across services. Open Mon–Fri 10
@@ -205,7 +212,7 @@ export default function SwayLarimerPage() {
               rel="noopener noreferrer"
               className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
             >
-              Voted #4 Best Day Spa in America — USA Today 10Best
+              Voted #4 Best Day Spa in America · USA Today 10Best
             </a>
 
             <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
@@ -233,7 +240,7 @@ export default function SwayLarimerPage() {
                 href="/locations/denver-larimer/membership"
                 className="border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
               >
-                Join the Club — $99/mo
+                Join the Club · $99/mo
               </Link>
             </div>
 

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../components/SwayCurve";
 
 export default function GroupEventsPage() {
   return (
@@ -17,11 +18,17 @@ export default function GroupEventsPage() {
         />
         <div className="absolute inset-0 bg-black/50 z-10" />
         <div className="relative z-20 text-center text-white px-6">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          <SwayCurve
+            width={140}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-5"
+          />
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
             Group Events &amp; Spa Parties
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Bachelorettes, birthdays, team outings, and celebrations —
+            Bachelorettes, birthdays, team outings, and celebrations,
             on Larimer Square.
           </p>
           <div className="mt-8">
@@ -89,7 +96,7 @@ export default function GroupEventsPage() {
               <p className="text-sm text-gray-700">
                 Team outings, offsite wellness days, and employee appreciation
                 events. Sway offers massage, facials, recovery tech, and a
-                modern space on Larimer Square — pair with a team dinner nearby.
+                modern space on Larimer Square, pair with a team dinner nearby.
               </p>
             </div>
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
@@ -103,7 +110,7 @@ export default function GroupEventsPage() {
                 >
                   Remedy Room
                 </Link>{" "}
-                is great for groups — sauna, cold plunge, and recovery tech at
+                is great for groups, sauna, cold plunge, and recovery tech at
                 just $25/person for members.
               </p>
             </div>
@@ -203,7 +210,7 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  Add LED, microcurrent, oxygen infusion, scalp massage — members
+                  Add LED, microcurrent, oxygen infusion, scalp massage, members
                   save 50%
                 </p>
               </div>
@@ -260,7 +267,7 @@ export default function GroupEventsPage() {
             >
               Larimer Square
             </Link>{" "}
-            — Denver&apos;s best block for dining and nightlife. Walk out the
+           , Denver&apos;s best block for dining and nightlife. Walk out the
             front door and your group is steps from Rioja, Tamayo, Corridor 44,
             and more. No rideshare coordination needed.
           </p>

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 
 export default function LarimerSaunaPage() {
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function LarimerSaunaPage() {
             Denver – Larimer Square
           </p>
 
+          <SwayCurve width={130} strokeWidth={2.2} animate className="text-[#4A776D]/85 block mx-auto md:mx-0 mb-3" />
           <h1 className="text-4xl md:text-6xl font-vance-bold text-[#113D33] mt-2">
             Sauna in Denver
           </h1>
@@ -56,7 +58,7 @@ export default function LarimerSaunaPage() {
           <div className="mt-6 flex gap-4 justify-center md:justify-start">
             <Link
               href="/locations/denver-larimer/book-remedy-room"
-              className="bg-[#113D33] text-white px-6 py-3 font-bold rounded-md shadow-lg hover:bg-[#0a2b23]"
+              className="bg-[#113D33] text-white px-6 py-3 font-bold rounded-full shadow-lg hover:bg-[#0a2b23]"
             >
               Book Remedy Room
             </Link>

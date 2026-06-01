@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../components/SwayCurve";
 import { useEffect } from "react";
 
 export default function ColdPlungePage() {
@@ -86,6 +87,13 @@ export default function ColdPlungePage() {
             Short, Controlled Exposure
           </p>
 
+          <SwayCurve
+            width={130}
+            strokeWidth={2.2}
+            animate
+            className="text-[#4A776D]/85 block mx-auto md:mx-0 mt-4"
+          />
+
           <h1 className="text-4xl md:text-6xl font-vance-bold text-[#113D33] mt-2">
             Cold Plunge
           </h1>
@@ -103,7 +111,7 @@ export default function ColdPlungePage() {
 
           <Link
             href="/book"
-            className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 font-bold rounded-md shadow-lg hover:bg-[#0a2b23]"
+            className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 font-bold rounded-full shadow-lg hover:bg-[#0a2b23]"
           >
             Book Cold Plunge
           </Link>
@@ -169,7 +177,7 @@ export default function ColdPlungePage() {
             className="block rounded-2xl border border-[#113D33]/15 bg-white p-6 hover:shadow-lg hover:border-[#113D33]/30 transition-all group"
           >
             <p className="text-lg font-vance-bold text-[#113D33]">Sway Larimer</p>
-            <p className="text-sm text-gray-600 mt-1">Denver, CO — Larimer Square</p>
+            <p className="text-sm text-gray-600 mt-1">Denver, CO · Larimer Square</p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
               Book Now →
             </span>

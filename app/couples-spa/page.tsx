@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../components/SwayCurve";
 
 export default function CouplesSpaPage() {
   return (
@@ -17,11 +18,17 @@ export default function CouplesSpaPage() {
         />
         <div className="absolute inset-0 bg-black/50 z-10" />
         <div className="relative z-20 text-center text-white px-6">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          <SwayCurve
+            width={140}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-5"
+          />
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
             Couples Spa in Denver
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Side-by-side massage, facials, and recovery — on Larimer Square.
+            Side-by-side massage, facials, and recovery, on Larimer Square.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
@@ -81,7 +88,7 @@ export default function CouplesSpaPage() {
                 massage
               </Link>{" "}
               treatments at the same time for a side-by-side couples experience.
-              You don&apos;t have to pick the same type — one of you can get a
+              You don&apos;t have to pick the same type, one of you can get a
               Deep Tissue while the other gets a Salt Stone.
             </p>
             <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
@@ -129,10 +136,10 @@ export default function CouplesSpaPage() {
               Ultimate tiers also available.
             </p>
             <ul className="list-disc pl-6 space-y-1 text-sm">
-              <li>Forever Young — anti-aging</li>
-              <li>Glow Getter — brightening</li>
-              <li>Pore Perfection — deep cleansing</li>
-              <li>Sensitive Silk — calming</li>
+              <li>Forever Young, anti-aging</li>
+              <li>Glow Getter, brightening</li>
+              <li>Pore Perfection, deep cleansing</li>
+              <li>Sensitive Silk, calming</li>
               <li>And more across Premier and Ultimate tiers</li>
             </ul>
           </div>
@@ -147,7 +154,7 @@ export default function CouplesSpaPage() {
               >
                 Remedy Room
               </Link>{" "}
-              recovery circuit together — 40 minutes through{" "}
+              recovery circuit together, 40 minutes through{" "}
               <Link
                 href="/sauna"
                 className="underline text-[#113D33] font-semibold"

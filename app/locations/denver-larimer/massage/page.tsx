@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 
 const TREATMENTS = [
   {
@@ -69,27 +70,33 @@ export default function LarimerMassagePage() {
       {/* ── HERO ── */}
       <section className="relative h-[55vh] min-h-[340px] max-h-[520px]">
         <Image
-          src="/assets/massage2.jpg"
+          src="/assets/homepage-massage.jpg"
           alt="Massage therapy at Sway Wellness Spa, Larimer Square Denver"
           fill
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#113D33]/55 via-[#113D33]/50 to-[#113D33]/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/60" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-white/70 text-xs uppercase tracking-widest mb-3"
+            className="text-white/75 text-xs uppercase tracking-[0.35em] mb-3"
           >
-            Denver – Larimer Square
+            Denver &middot; Larimer Square
           </motion.p>
+          <SwayCurve
+            width={140}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-5"
+          />
           <motion.h1
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-white text-4xl md:text-6xl font-light tracking-tight"
+            className="text-white text-4xl md:text-6xl font-semibold tracking-tight leading-[1.02]"
           >
             Massage in Denver
           </motion.h1>
@@ -144,7 +151,7 @@ export default function LarimerMassagePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-[0_18px_45px_-22px_rgba(17,61,51,0.28)] overflow-hidden">
               <div className="bg-[#F7F4E9] px-6 py-5 border-b border-[#113D33]/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
                   <h2 className="text-[#113D33] text-xl font-semibold">Massage menu</h2>
@@ -152,7 +159,7 @@ export default function LarimerMassagePage() {
                 </div>
                 <Link
                   href="/locations/denver-larimer/book/?category=massage"
-                  className="inline-flex items-center justify-center bg-[#113D33] text-white px-5 py-2.5 text-sm font-bold rounded-xl hover:bg-[#0a2b23] transition shrink-0"
+                  className="inline-flex items-center justify-center bg-[#113D33] text-white px-5 py-2.5 text-sm font-bold rounded-full hover:bg-[#0a2b23] transition shrink-0"
                 >
                   Book Now
                 </Link>
@@ -217,9 +224,15 @@ export default function LarimerMassagePage() {
       {/* ── BENEFITS ── */}
       <section className="bg-[#D1E0D5] px-6 py-14 md:py-20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-4xl font-vance-bold text-[#113D33] text-center mb-8">
+          <h2 className="text-2xl md:text-4xl font-vance-bold text-[#113D33] text-center mb-4">
             Why Choose Massage at Sway
           </h2>
+          <SwayCurve
+            width={140}
+            strokeWidth={2.4}
+            animate
+            className="text-[#4A776D]/85 mx-auto block mb-8"
+          />
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {BENEFITS.map((b, i) => (
               <motion.div
@@ -255,9 +268,15 @@ export default function LarimerMassagePage() {
       {/* ── BOOSTS CALLOUT ── */}
       <section className="bg-[#113D33] px-6 py-12 text-center">
         <p className="text-sm uppercase tracking-widest text-[#9ABFB3] mb-2">Members save 50%</p>
-        <h2 className="text-white text-2xl md:text-3xl font-light">Add a Boost to Your Massage</h2>
+        <h2 className="text-white text-2xl md:text-3xl font-semibold">Add a Boost to Your Massage</h2>
+        <SwayCurve
+          width={140}
+          strokeWidth={2.4}
+          animate
+          className="text-[#A9D2C5] mx-auto block mt-4"
+        />
         <p className="text-white/60 mt-2 max-w-lg mx-auto text-sm">
-          CBD, cupping, or PEMF recovery — science-backed add-ons that deepen your results. Members save 50% on every boost.
+          CBD, cupping, or PEMF recovery. Science-backed add-ons that deepen your results. Members save 50% on every boost.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
           {["CBD", "Cupping", "PEMF"].map((b) => (

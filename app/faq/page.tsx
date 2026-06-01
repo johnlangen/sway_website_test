@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { SwayCurve } from "../components/SwayCurve";
 
 export default function FAQIndexPage() {
   return (
@@ -13,10 +14,17 @@ export default function FAQIndexPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl md:text-5xl font-bold text-center"
+          className="text-3xl md:text-5xl font-semibold tracking-tight text-center"
         >
-          The Sway Way – FAQ
+          The Sway Way · FAQ
         </motion.h1>
+
+        <SwayCurve
+          width={150}
+          strokeWidth={2.4}
+          animate
+          className="text-[#4A776D]/85 mx-auto block -mt-6"
+        />
 
         <p className="text-lg text-center opacity-80">
           Choose your location below to view FAQs about booking, parking, and wellness policies.

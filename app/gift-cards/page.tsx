@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
+import { SwayCurve } from "../components/SwayCurve";
 
 type SelectedLocation = {
   slug: string;
@@ -80,6 +81,14 @@ export default function GiftCardsHubPage() {
         <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
           Sway Wellness Spa
         </p>
+
+        <SwayCurve
+          width={150}
+          strokeWidth={2.2}
+          animate
+          className="text-[#A9D2C5] mx-auto block mb-6"
+        />
+
         <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
           Gift Cards
         </h1>

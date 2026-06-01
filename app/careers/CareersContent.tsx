@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SwayCurve } from "../components/SwayCurve";
 
 export default function CareersContent() {
   const applyUrl =
@@ -9,9 +10,15 @@ export default function CareersContent() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance flex flex-col items-center min-h-screen">
       {/* Top Banner */}
-      <div className="w-full bg-[#113D33] text-white py-24 flex justify-center items-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-center">
-          Massage Therapist Job – Denver, CO
+      <div className="w-full bg-[#113D33] text-white py-24 flex flex-col justify-center items-center px-6">
+        <SwayCurve
+          width={150}
+          strokeWidth={2.2}
+          animate
+          className="text-white/85 mx-auto block mb-5"
+        />
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-center">
+          Massage Therapist Job · Denver, CO
         </h1>
       </div>
 
@@ -85,7 +92,7 @@ export default function CareersContent() {
         </h3>
         <ul className="list-disc list-inside space-y-2 mb-10">
           <li>
-            Gratuities are higher — guests love a real spa experience (member lounge,
+            Gratuities are higher, guests love a real spa experience (member lounge,
             showers, lockers, robes, spa sandals, and more)
           </li>
           <li>Family culture with compassion, integrity, and team approach</li>
@@ -94,11 +101,11 @@ export default function CareersContent() {
             Membership creates relationships and provides rewarding guest experiences
           </li>
           <li>
-            Advancement opportunities with a growing spa — multiple avenues for bonus
+            Advancement opportunities with a growing spa, multiple avenues for bonus
             potential
           </li>
           <li>
-            Guests and members love us — the atmosphere and affordability bring them
+            Guests and members love us, the atmosphere and affordability bring them
             back again and again
           </li>
         </ul>

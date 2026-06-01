@@ -5,10 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
+import { SwayCurve } from "../../../components/SwayCurve";
 
 export default function LarimerOffersPage() {
   // Three first-visit offers, service-specific. Membership pitched as a
-  // separate banner below — it's the upsell anchor, not an intro offer.
+  // separate banner below. It is the upsell anchor, not an intro offer.
   // Code + redemption surfaced prominently so customers know to mention
   // at check-in (booking flow doesn't yet support promo code entry).
   const offers = [
@@ -73,8 +74,15 @@ export default function LarimerOffersPage() {
           transition={{ duration: 0.4 }}
           className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
         >
-          Sway Larimer — Denver, CO
+          Sway Larimer &middot; Denver, CO
         </motion.p>
+
+        <SwayCurve
+          width={150}
+          strokeWidth={2.2}
+          animate
+          className="text-[#A9D2C5] mx-auto block mb-6"
+        />
 
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
@@ -108,12 +116,12 @@ export default function LarimerOffersPage() {
 
         <p className="sr-only">
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer
-          (code FTVO40) — $40 off your first massage, facial, or 60-minute
+          (code FTVO40): $40 off your first massage, facial, or 60-minute
           Aescape robot massage at any tier (Essential, Premier, or Ultimate),
           valid Monday through Friday for first-time guests. First Remedy Room
-          Visit (code FTVORR) — $25 for your first 40-minute recovery circuit
+          Visit (code FTVORR): $25 for your first 40-minute recovery circuit
           combining sauna, cold plunge, compression therapy, and LED light
-          therapy (regularly $49), any day, first-time guests. Membership —
+          therapy (regularly $49), any day, first-time guests. Membership:
           $99/month for unlimited massages and facials at member pricing, 50%
           off all boost add-ons, $25 Remedy Room sessions (normally $49), and
           private member lounge access. Sway Wellness Spa is located at 1428
@@ -123,7 +131,7 @@ export default function LarimerOffersPage() {
         </p>
       </section>
 
-      {/* HOW IT WORKS — single-line explainer above the cards.
+      {/* HOW IT WORKS: single-line explainer above the cards.
           Online booking doesn't yet capture promo codes; this sets
           the expectation that the code is mentioned at check-in. */}
       <section className="px-6 pt-2 pb-2">
@@ -221,7 +229,7 @@ export default function LarimerOffersPage() {
         </div>
       </section>
 
-      {/* MEMBERSHIP BANNER — upsell anchor below FTV offers */}
+      {/* MEMBERSHIP BANNER: upsell anchor below FTV offers */}
       <section className="px-4 sm:px-6 pb-16">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -284,6 +292,12 @@ export default function LarimerOffersPage() {
           >
             A Different Kind of Spa
           </motion.h2>
+          <SwayCurve
+            width={150}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-5"
+          />
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -291,8 +305,8 @@ export default function LarimerOffersPage() {
             transition={{ duration: 0.4, delay: 0.15 }}
             className="max-w-2xl text-base md:text-lg text-gray-200"
           >
-            Modern recovery technology, thoughtful design, and personalized care
-            — all on Larimer Square in downtown Denver.
+            Modern recovery technology, thoughtful design, and personalized care,
+            all on Larimer Square in downtown Denver.
           </motion.p>
         </div>
       </section>

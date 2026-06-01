@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MapPin, ArrowRight } from "lucide-react";
 import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
+import { SwayCurve } from "../components/SwayCurve";
 
 type SelectedLocation = {
   slug: string;
@@ -80,6 +81,14 @@ export default function MembershipHubPage() {
         <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
           Sway Wellness Club
         </p>
+
+        <SwayCurve
+          width={150}
+          strokeWidth={2.2}
+          animate
+          className="text-[#A9D2C5] mx-auto block mb-6"
+        />
+
         <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
           Join the Club
         </h1>
@@ -97,12 +106,12 @@ export default function MembershipHubPage() {
 
         <p className="sr-only">
           Sway Wellness Club memberships starting at $99/month. Three tiers:
-          Essential ($99/month) — signature 50-minute facials and massages.
-          Premier ($129/month) — enhanced products, techniques, and 70-minute
-          sessions. Ultimate ($159/month) — tech-enhanced treatments with LED,
+          Essential ($99/month): signature 50-minute facials and massages.
+          Premier ($129/month): enhanced products, techniques, and 70-minute
+          sessions. Ultimate ($159/month): tech-enhanced treatments with LED,
           microcurrent, and oxygen infusion. Additional memberships: Aescape
-          Premier ($99/month) — AI-powered robot massage sessions. Remedy Room
-          ($99/month) — 4 monthly recovery circuit visits with traditional sauna,
+          Premier ($99/month): AI-powered robot massage sessions. Remedy Room
+          ($99/month): 4 monthly recovery circuit visits with traditional sauna,
           cold plunge, compression therapy, and LED light therapy. All members
           enjoy 50% off boosts, private lounge access, and rollover credits.
           Available at Denver Larimer (now open), Dallas TX and Georgetown DC

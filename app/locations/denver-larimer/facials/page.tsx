@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 
 export default function LarimerFacialsPage() {
   useEffect(() => {
@@ -63,6 +64,7 @@ export default function LarimerFacialsPage() {
             Denver – Larimer Square
           </p>
 
+          <SwayCurve width={130} strokeWidth={2.2} animate className="text-[#4A776D]/85 block mx-auto md:mx-0 mb-3" />
           <h1 className="text-4xl md:text-6xl font-vance-bold text-[#113D33] mt-2">
             Facials in Denver
           </h1>
@@ -85,7 +87,7 @@ export default function LarimerFacialsPage() {
           <div className="mt-8 flex flex-col items-center md:items-start gap-3">
             <Link
               href="/locations/denver-larimer/book/?category=facial"
-              className="bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-md hover:bg-[#0a2b23] transition-all shadow-lg text-center w-full sm:w-auto"
+              className="bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-full hover:bg-[#0a2b23] transition-all shadow-lg text-center w-full sm:w-auto"
             >
               Book a Facial at Larimer Square
             </Link>

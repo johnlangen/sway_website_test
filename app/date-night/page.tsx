@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "../components/SwayCurve";
 
 export default function DateNightPage() {
   return (
@@ -10,14 +11,20 @@ export default function DateNightPage() {
       <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
         <Image
           src="/assets/homepage_photo_outside.jpg"
-          alt="Sway Wellness Spa on Larimer Square — date night in Denver"
+          alt="Sway Wellness Spa on Larimer Square, date night in Denver"
           fill
           priority
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/50 z-10" />
         <div className="relative z-20 text-center text-white px-6">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          <SwayCurve
+            width={140}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-5"
+          />
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
             Date Night in Denver
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
@@ -49,7 +56,7 @@ export default function DateNightPage() {
             The Easiest Date Night in Denver
           </h2>
           <p>
-            Sway Wellness Spa is on Larimer Square — Denver&apos;s most iconic
+            Sway Wellness Spa is on Larimer Square, Denver&apos;s most iconic
             block. Book a couples{" "}
             <Link
               href="/massages"
@@ -163,7 +170,7 @@ export default function DateNightPage() {
             >
               boost
             </Link>{" "}
-            to any treatment — LED light therapy, microcurrent, oxygen infusion,
+            to any treatment, LED light therapy, microcurrent, oxygen infusion,
             scalp massage, and more. Members save 50% on all boosts.
           </p>
         </section>
@@ -179,7 +186,7 @@ export default function DateNightPage() {
             </p>
             <ol className="list-decimal list-inside space-y-2">
               <li>
-                5:30 PM — Couples massage at{" "}
+                5:30 PM, Couples massage at{" "}
                 <Link
                   href="/locations/denver-larimer/book"
                   className="underline text-[#113D33] font-semibold"
@@ -187,8 +194,8 @@ export default function DateNightPage() {
                   Sway
                 </Link>
               </li>
-              <li>6:30 PM — Walk to dinner on Larimer Square (Rioja, Tamayo, or Corridor 44)</li>
-              <li>8:30 PM — Cocktails at The Cooper Lounge at Union Station</li>
+              <li>6:30 PM, Walk to dinner on Larimer Square (Rioja, Tamayo, or Corridor 44)</li>
+              <li>8:30 PM, Cocktails at The Cooper Lounge at Union Station</li>
             </ol>
           </div>
           <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
@@ -197,7 +204,7 @@ export default function DateNightPage() {
             </p>
             <ol className="list-decimal list-inside space-y-2">
               <li>
-                10:00 AM —{" "}
+                10:00 AM ·{" "}
                 <Link
                   href="/locations/denver-larimer/book-remedy-room"
                   className="underline text-[#113D33] font-semibold"
@@ -206,8 +213,8 @@ export default function DateNightPage() {
                 </Link>{" "}
                 recovery circuit (sauna + cold plunge)
               </li>
-              <li>11:00 AM — Brunch at Rioja or The Dairy Block</li>
-              <li>1:00 PM — Explore Larimer Square shops</li>
+              <li>11:00 AM, Brunch at Rioja or The Dairy Block</li>
+              <li>1:00 PM, Explore Larimer Square shops</li>
             </ol>
           </div>
           <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
@@ -223,7 +230,7 @@ export default function DateNightPage() {
                 >
                   Aescape robot massage
                 </Link>{" "}
-                — unique, memorable, zero awkward small talk
+               , unique, memorable, zero awkward small talk
               </li>
               <li>Walk to Dairy Block for dinner and drinks</li>
             </ol>
@@ -241,7 +248,7 @@ export default function DateNightPage() {
               Sway gift cards
             </Link>{" "}
             are available in any amount and never expire. Give the gift of a date
-            night they&apos;ll actually want — no guessing on size, color, or
+            night they&apos;ll actually want, no guessing on size, color, or
             taste.
           </p>
         </section>
@@ -293,7 +300,7 @@ export default function DateNightPage() {
         <section className="space-y-4">
           <h2 className="text-2xl font-bold">First Time?</h2>
           <p>
-            Denver-area locals get $40 off their first massage or facial — just
+            Denver-area locals get $40 off their first massage or facial, just
             $99 for a 50-minute treatment. Check out our{" "}
             <Link
               href="/locations/denver-larimer/offers"
