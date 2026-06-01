@@ -101,7 +101,7 @@ const RemedyRoomPage = () => {
             />
           </picture>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/80 via-[#113D33]/70 to-[#0b1f1a]/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
         <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}

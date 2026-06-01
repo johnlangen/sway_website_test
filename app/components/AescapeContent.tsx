@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SwayCurve } from "./SwayCurve";
 
 const BOOK_URL = "/locations/denver-larimer/book-aescape/";
 
@@ -178,7 +179,7 @@ export default function AescapeContent() {
   );
 
   return (
-    <div className="bg-[#F4F4F2] text-black font-vance overflow-x-hidden md:h-[100svh] md:overflow-y-scroll md:snap-y md:snap-mandatory md:scroll-pb-24">
+    <div className="bg-[#F7F4E9] text-black font-vance overflow-x-hidden md:h-[100svh] md:overflow-y-scroll md:snap-y md:snap-mandatory md:scroll-pb-24">
       {/* ======================================================
           HERO (snap on desktop)
           Fix: push content down so it clears the nav on desktop + mobile
@@ -221,7 +222,14 @@ export default function AescapeContent() {
                   </span>
                 </div>
 
-                <h1 className="mt-6 text-white font-light leading-[1.02] text-4xl md:text-6xl">
+                <SwayCurve
+                  width={140}
+                  strokeWidth={2.2}
+                  animate
+                  className="text-white/85 block mt-7"
+                />
+
+                <h1 className="mt-3 text-white font-semibold tracking-tight leading-[1.02] text-4xl md:text-6xl">
                   Aescape Robot Massage
                   <br />
                   in Denver
@@ -302,6 +310,12 @@ export default function AescapeContent() {
               <p className="mt-2 text-xs tracking-[0.25em] uppercase text-[#113D33] font-semibold">
                 A Smarter Reset
               </p>
+              <SwayCurve
+                width={130}
+                strokeWidth={2.2}
+                animate
+                className="text-[#4A776D]/85 block mt-4"
+              />
 
               <p className="mt-6 text-base lg:text-lg leading-relaxed text-[#2b2b2b]">
                 Aescape uses AI body mapping and dual robotic arms to deliver a
@@ -341,7 +355,7 @@ export default function AescapeContent() {
             </motion.div>
 
             <motion.div {...fadeSide("right")} className="relative">
-              <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
+              <div className="relative w-full aspect-[16/10] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
                   src="/assets/aescapeblog2.jpg"
                   alt="Aescape robotic massage experience"
@@ -386,7 +400,7 @@ export default function AescapeContent() {
         <div className="w-full max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
             <motion.div {...fadeSide("left")} className="relative md:order-2">
-              <div className="relative w-full aspect-[16/12] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
+              <div className="relative w-full aspect-[16/10] md:aspect-[16/13] overflow-hidden rounded-2xl shadow-2xl bg-white">
                 <Image
                   src="/assets/aescapeblog4.jpg"
                   alt="Aescape session flow and setup"
@@ -404,6 +418,12 @@ export default function AescapeContent() {
               <p className="mt-2 text-xs tracking-[0.25em] uppercase text-[#113D33] font-semibold">
                 Your Session
               </p>
+              <SwayCurve
+                width={130}
+                strokeWidth={2.2}
+                animate
+                className="text-[#4A776D]/85 block mt-4"
+              />
 
               <p className="mt-6 text-base lg:text-lg leading-relaxed text-[#2b2b2b]">
                 The experience is designed to feel simple, calm, and on your
@@ -454,6 +474,12 @@ export default function AescapeContent() {
             <p className="mt-2 text-xs tracking-[0.25em] uppercase text-[#113D33] font-semibold">
               Quick Answers
             </p>
+            <SwayCurve
+              width={130}
+              strokeWidth={2.2}
+              animate
+              className="text-[#4A776D]/85 block mt-4"
+            />
           </motion.div>
 
           <div className="mt-10 rounded-3xl border border-[#d7e2dc] bg-white/85 shadow-2xl overflow-hidden">
@@ -565,6 +591,12 @@ export default function AescapeContent() {
               Aescape is one part of Sway&apos;s modern wellness club. Pair it with
               expert-led treatments and recovery.
             </p>
+            <SwayCurve
+              width={140}
+              strokeWidth={2.4}
+              animate
+              className="text-[#4A776D]/85 mx-auto block mt-4"
+            />
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
@@ -613,6 +645,12 @@ export default function AescapeContent() {
             <p className="mt-3 text-white/80 text-sm md:text-base">
               Independent coverage on Aescape and the future of massage.
             </p>
+            <SwayCurve
+              width={140}
+              strokeWidth={2.4}
+              animate
+              className="text-[#A9D2C5] mx-auto block mt-4"
+            />
           </motion.div>
 
           <div className="mt-12 grid md:grid-cols-2 gap-6">
