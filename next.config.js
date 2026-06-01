@@ -25,6 +25,11 @@ const nextConfig = {
         destination: "/facials/",
         permanent: true,
       },
+      {
+        source: "/blog/fathers-day-gift-guide/om",
+        destination: "/blog/fathers-day-gift-guide/",
+        permanent: true,
+      },
     ];
   },
 };
