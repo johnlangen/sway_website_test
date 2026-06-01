@@ -7,42 +7,50 @@ import { motion } from "framer-motion";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
 
 export default function LarimerOffersPage() {
+  // Three first-visit offers, service-specific. Membership pitched as a
+  // separate banner below — it's the upsell anchor, not an intro offer.
   const offers = [
     {
-      label: "First Remedy Room visit",
-      title: "Remedy Room",
-      price: "$25",
-      priceSuffix: " first visit",
-      description:
-        "Sauna, cold plunge, red light therapy, and compression therapy. A 40-minute recovery circuit at member pricing for your first visit.",
-      cta: "Book First Remedy Visit",
-      href: "/locations/denver-larimer/book-remedy-room",
-      footnote: "Code FTVORR. Any day. First-time guests. Regularly $49.",
-      highlight: false,
-    },
-    {
-      label: "",
-      title: "First Visit Offer",
+      label: "Massage or Facial",
+      title: "First Visit",
       price: "$40 OFF",
       priceSuffix: "",
       description:
-        "Your first massage, facial, or 60-minute Aescape robot massage at member pricing. Choose any tier: Essential, Premier, or Ultimate.",
-      cta: "Book Your First Visit",
+        "Your first massage or facial at member pricing. Choose any tier: Essential, Premier, or Ultimate.",
+      cta: "Book Massage or Facial",
       href: "/locations/denver-larimer/book",
       footnote: "Code FTVO40. Mon-Fri. First-time guests only.",
+      image: "/assets/homepage-massage.jpg",
+      imageAlt: "Massage therapy at Sway Wellness Spa",
+      highlight: false,
+    },
+    {
+      label: "Aescape Robot Massage",
+      title: "First Visit",
+      price: "$99",
+      priceSuffix: " / 60 min",
+      description:
+        "Your first 60-minute Aescape robot massage at member pricing. AI-powered, fully personalized full-body massage.",
+      cta: "Book Aescape",
+      href: "/locations/denver-larimer/book-aescape",
+      footnote: "Code FTVO40. Mon-Fri. First-time guests. Regularly $139.",
+      image: "/assets/aescapeblog7.jpg",
+      imageAlt: "Aescape robot massage at Sway Wellness Spa",
       highlight: true,
       badge: "MOST POPULAR",
     },
     {
-      label: "Best ongoing value",
-      title: "Membership",
-      price: "$99",
-      priceSuffix: "/ month",
+      label: "Remedy Room",
+      title: "First Visit",
+      price: "$25",
+      priceSuffix: " / 40 min",
       description:
-        "Unlimited massages & facials at member pricing, 50% off boosts & Remedy Room, private lounge, and more.",
-      cta: "View Memberships",
-      href: "/locations/denver-larimer/membership",
-      footnote: "Membership required",
+        "Sauna, cold plunge, red light therapy, and compression therapy. A 40-minute recovery circuit at member pricing for your first visit.",
+      cta: "Book Remedy",
+      href: "/locations/denver-larimer/book-remedy-room",
+      footnote: "Code FTVORR. Any day. First-time guests. Regularly $49.",
+      image: "/assets/homepage-remedy.jpg",
+      imageAlt: "Remedy Room recovery circuit at Sway Wellness Spa",
       highlight: false,
     },
   ];
@@ -108,59 +116,112 @@ export default function LarimerOffersPage() {
       </section>
 
       {/* OFFER CARDS */}
-      <section className="px-4 sm:px-6 pt-10 pb-16">
+      <section className="px-4 sm:px-6 pt-10 pb-10">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch">
           {offers.map((o, i) => (
             <motion.div
-              key={o.title}
+              key={o.label}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative bg-white text-[#113D33] rounded-2xl p-6 md:p-7 shadow-xl flex flex-col text-center border ${
+              className={`relative bg-white text-[#113D33] rounded-2xl shadow-xl flex flex-col text-center overflow-hidden border ${
                 o.highlight
                   ? "ring-2 ring-[#4A776D] border-[#4A776D]/20"
                   : "border-[#113D33]/8"
               }`}
             >
               {o.badge && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap">
+                <span className="absolute top-3 left-1/2 -translate-x-1/2 z-10 text-xs bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap shadow-md">
                   {o.badge}
                 </span>
               )}
 
-              <div className="mb-5">
-                {o.label && (
-                  <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
-                    {o.label}
-                  </p>
-                )}
-                <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
-                  {o.title}
-                </h2>
+              {/* Image */}
+              <div className="relative w-full h-44 md:h-48 bg-[#113D33]/5">
+                <Image
+                  src={o.image}
+                  alt={o.imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
               </div>
 
-              <div className="mb-5">
-                <span className="text-5xl font-bold text-[#113D33]">{o.price}</span>
-                {o.priceSuffix && (
-                  <span className="text-sm text-gray-500 ml-1">{o.priceSuffix}</span>
-                )}
+              {/* Content */}
+              <div className="p-6 md:p-7 flex flex-col flex-grow">
+                <div className="mb-4">
+                  {o.label && (
+                    <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-1">
+                      {o.label}
+                    </p>
+                  )}
+                  <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wide text-[#113D33]">
+                    {o.title}
+                  </h2>
+                </div>
+
+                <div className="mb-4">
+                  <span className="text-5xl font-bold text-[#113D33]">{o.price}</span>
+                  {o.priceSuffix && (
+                    <span className="text-sm text-gray-500 ml-1">{o.priceSuffix}</span>
+                  )}
+                </div>
+
+                <p className="text-sm text-gray-600 mb-6 leading-relaxed flex-grow">
+                  {o.description}
+                </p>
+
+                <Link
+                  href={o.href}
+                  className="block w-full rounded-full font-semibold py-3 px-6 transition mb-3 bg-[#113D33] hover:bg-[#0a2b23] text-white"
+                >
+                  {o.cta}
+                </Link>
+
+                <p className="text-xs text-gray-400">{o.footnote}</p>
               </div>
-
-              <p className="text-sm text-gray-600 mb-6 leading-relaxed flex-grow">
-                {o.description}
-              </p>
-
-              <Link
-                href={o.href}
-                className="block w-full rounded-full font-semibold py-3 px-6 transition mb-4 bg-[#113D33] hover:bg-[#0a2b23] text-white"
-              >
-                {o.cta}
-              </Link>
-
-              <p className="text-xs text-gray-400">{o.footnote}</p>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* MEMBERSHIP BANNER — upsell anchor below FTV offers */}
+      <section className="px-4 sm:px-6 pb-16">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="bg-white text-[#113D33] rounded-2xl shadow-xl p-6 md:p-8 flex flex-col md:flex-row items-center md:justify-between gap-5 md:gap-8 border border-[#113D33]/8"
+          >
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D] mb-2">
+                Love your first visit? Keep the price.
+              </p>
+              <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                Sway Club Membership
+              </h3>
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-xl">
+                From $99/month. Unlimited massages and facials at member pricing,
+                50% off boosts and Remedy Room ($25/session), private member
+                lounge, and more.
+              </p>
+            </div>
+            <div className="flex flex-col items-center md:items-end gap-2">
+              <div>
+                <span className="text-4xl md:text-5xl font-bold">$99</span>
+                <span className="text-sm text-gray-500 ml-1">/ month</span>
+              </div>
+              <Link
+                href="/locations/denver-larimer/membership"
+                className="inline-block rounded-full font-semibold py-3 px-7 bg-[#113D33] hover:bg-[#0a2b23] text-white transition whitespace-nowrap"
+              >
+                View Memberships
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
