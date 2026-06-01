@@ -19,7 +19,7 @@ const KEY_DATES = {
 // DAILY_STATUS — top-of-dashboard daily update. Edit this every working day.
 const DAILY_STATUS = {
   date: "Monday June 1 2026",
-  headline: "APA closes today. 159 members rolling in (net +27 since announcement). MT bridge confirmed through ~June 30. Brand + system unified launch shifted to July 1.",
+  headline: "APA closes today. 159 members rolling in (net +27 since announcement). Mindbody data team engaged via Katie. MT bridge through ~June 30. Bottleneck: Heather's MT rep sending the test migration file. Heather pushing parallel Sway Stripe backend hookup. GBP access being set up today.",
   framing: [
     "🟢 TODAY (June 1) = APA closes. Legal-only transition. Building still says Upswell. Members book through MT as always.",
     "🔄 June 1-30 = Bridge month. MT runs the business. Behind-scenes: Stripe migration, vendor takeover, Mindbody buildout, brand prep.",
@@ -29,14 +29,14 @@ const DAILY_STATUS = {
   ],
   pending: [
     {
-      label: "Mindbody (Michael Calderon): Stripe migration method?",
-      detail: "PGP file vs destination account ID. Onboarding status at RiNo + CP in payments.mindbody.io. Original email sent 12:19 PM May 27. Heather's MT rep is on hold.",
-      owner: "Awaiting Mindbody",
+      label: "MT migration test file from Heather's rep",
+      detail: "Heather 'hounding MarianaTek' for the migration files — they've been working on it since last week. This is the actual bottleneck. Once the test file lands, Mindbody data team (already engaged via Katie) can validate the import path.",
+      owner: "Awaiting Mariana Tek (via Heather)",
     },
     {
-      label: "Heather's Stripe contact: method + timeline confirmation",
-      detail: "MT rep already engaged. Heather forwarded the original message. Daily check until reply.",
-      owner: "Awaiting Stripe (via Heather)",
+      label: "Parallel: Sway Stripe backend hookup (Heather pursuing)",
+      detail: "In parallel with full PAN migration, Heather asked MT if they can hook up Sway's own Stripe Connect account on the backend now. If yes, this redirects new transactions to Sway directly without waiting on the full member card migration. Cleaner than the 'Heather collects then wires' bridge model.",
+      owner: "Heather (pursuing with MT)",
     },
     {
       label: "Heather: send MT booking widget embed code for both locations",
@@ -50,8 +50,8 @@ const DAILY_STATUS = {
     },
     {
       label: "Heather: GBP owner invites to John (both listings)",
-      detail: "Owner level required for July 1 name change. Step-by-step instructions drafted. 5 min each, 10 min total.",
-      owner: "Heather",
+      detail: "Heather confirmed she's setting this up today. John just needs to accept the invites in his Google account when they arrive.",
+      owner: "Heather (in motion today)",
     },
     {
       label: "Emily: confirm signage date(s) for each location",
@@ -82,7 +82,7 @@ const DAILY_STATUS = {
     "🔗 Upswell.com 'Book' button → repoints to Sway location pages (Heather updates). Builds muscle-memory shift before July 1.",
     "✏️ Booking-experience tease copy locked: 'Massage and facial treatments are coming, along with an updated booking experience. For now, book your recovery session below.' No date, no 'faster' claim.",
     "📋 Website coding brief delivered to separate chat — location pages + /book sub-routes + MT embed (tenant: upswellstudio, RiNo=48717, CP=48718, schedule=48541).",
-    "💳 Stripe migration: PGP key 9C78B7620C1E99AD if PGP path. Mindbody method still TBC. MT bridges through end of June minimum.",
+    "💳 Stripe migration in motion: Mindbody data team engaged via Katie. MT rep working on migration files (started last week, Heather hounding). Heather pursuing parallel Sway Stripe backend hookup as faster alternative. MT bridges through end of June minimum.",
     "🏢 GBP timing: name change submission ~T-5 business days before signage install (target ~July 1). Today: only update URL + phone + transition post.",
   ],
   whatsNext: [
@@ -230,29 +230,29 @@ const TERMINATED_ANNUALS = [
 // Stripe Data Migration Request was never initiated; with 6 days to June 1 it's not viable.
 // Path forward: front-desk re-add at first Sway visit, bridged by MT extension.
 const PAYMENT_MIGRATION_PLAN = {
-  status: "June 1 — APA closed. MT bridge live through ~end of June. Stripe migration awaiting Mindbody method. July 1 = unified Mindbody cutover + brand launch. Members never re-add cards.",
+  status: "June 1 — APA closed. Mindbody data team engaged via Katie. Awaiting MT migration test file from Heather's rep. Parallel: Heather pursuing Sway Stripe backend hookup. MT bridge through ~end of June. July 1 = unified Mindbody cutover + brand launch. Members never re-add cards.",
   whyChanged:
     "Researched May 27: Mindbody Payments is built on Stripe Connect (confirmed via Stripe's published customer story). Mariana Tek is also Stripe Connect. Both ends are Stripe — making cross-platform customer + payment-method migration technically straightforward via Stripe's documented PAN Import process (PGP-encrypted file OR direct destination account ID transfer). Heather's MT rep confirmed they can execute it. Revised path: MT keeps running as POS through June 15, Stripe migration runs in parallel (~2-3 weeks), then clean cutover with member cards already in Mindbody. June 1 becomes brand-only flip (signage, website, comms). Worst case: extend MT bridge through July if Stripe slips.",
   thePath: [
     {
       step: "1",
-      label: "John → Michael Calderon at Mindbody: confirm migration method + onboarding",
-      detail: "Email sent 12:19 PM May 27. Ask: (a) PGP file or destination account ID? (b) Are RiNo + CP fully onboarded in payments.mindbody.io? (c) If destination-ID path: provide acct_XXXXXXXXXX IDs for both locations.",
+      label: "✅ Mindbody data team engaged (Katie at Mindbody routed it forward)",
+      detail: "Mindbody Payments team is ready to accept the migration. No longer waiting on Michael Calderon — Katie connected the right team.",
     },
     {
       step: "2",
-      label: "Heather → MT (via Stripe contact): pass Mindbody's answer to kick off transfer",
-      detail: "Once Mindbody confirms, Heather forwards method + destination to her MT/Stripe contact. MT begins encrypted export.",
+      label: "🔥 AWAITING: Heather's MT rep delivers migration test file",
+      detail: "MT has been working on it since last week. Heather is 'hounding' them. This is the current bottleneck — once the test file lands, Mindbody data team validates it and the full migration proceeds.",
     },
     {
       step: "3",
-      label: "Heather: try Stripe bank redirect. If not self-serve, submit MT support request.",
-      detail: "If she has direct Stripe dashboard access: change payout bank to Sway. If MT-managed (Custom Connect): submit support request — processing typically 24-72 hours. Won't happen by midnight May 31.",
+      label: "🔄 Parallel: Sway Stripe backend hookup (Heather pursuing with MT)",
+      detail: "Independent of the card migration, Heather asked MT if they can hook up Sway's own Stripe Connect account on the backend. If yes, new transactions route to Sway directly — cleaner than the 'Heather collects, wires later' bridge model. Best case: this lands first and simplifies everything.",
     },
     {
       step: "4",
-      label: "Bridge arrangement: Heather receives June Stripe revenue, wires to Sway at end of bridge",
-      detail: "Documented via email. Heather pays MT extension fee directly (her card on file). Sway reimburses MT extension. Heather wires net of (June Stripe collected - MT extension cost - any other Sway-cost vendor charges she covered). Reconciliation backed by Stripe transactions report.",
+      label: "Reconciliation arrangement (fallback if Sway Stripe hookup is slow)",
+      detail: "Heather pays MT extension fee (her card on file). Sway reimburses. If MT can't route to Sway's Stripe directly, Heather receives June Stripe revenue and wires net to Sway at end of bridge. Reconciliation backed by Stripe transactions report.",
     },
     {
       step: "5",
@@ -759,10 +759,10 @@ const WEEK_PLAN = [
 ];
 
 const BLOCKERS_P0 = [
-  "🔥 AWAITING: Michael Calderon @ Mindbody — Stripe migration method (PGP file vs destination account ID) + RiNo/CP onboarding status in payments.mindbody.io. Daily follow-up.",
-  "🔥 AWAITING: Heather's MT/Stripe rep on confirmation of method + timeline. Heather forwarded original message.",
+  "🔥 AWAITING: MT migration test file (Heather's rep — started last week, Heather hounding them). Mindbody data team already engaged via Katie, ready to receive.",
+  "🔥 IN PARALLEL: Heather asked MT to hook up Sway Stripe Connect on backend (faster path if approved). Awaiting MT response.",
+  "✅ IN MOTION TODAY: GBP admin access — Heather setting up. John accepts when invites arrive.",
   "🔥 Heather: send MT booking widget embed code for both locations. John embeds on Sway location pages.",
-  "🔥 Heather: GBP owner invites to John (both listings) — required for July 1 name change.",
   "🔥 Heather: update Upswell.com 'Book' button → Sway location pages.",
   "🔥 Emily: confirm signage date (~July 1 ± a week) → drives GBP rename submission timing.",
   "🔥 Heather: list of recurring vendor charges on her card → vendor takeover audit kickoff.",
