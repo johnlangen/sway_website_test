@@ -208,12 +208,12 @@ const NavBar = () => {
             )}
 
             {bookIsInternal ? (
-              <Link
+              <a
                 href={bookHref}
                 className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
               >
                 Book Now
-              </Link>
+              </a>
             ) : (
               <a
                 href={bookHref}
@@ -305,13 +305,12 @@ const NavBar = () => {
           <div className="w-12 border-t border-white/20" />
 
           {bookIsInternal ? (
-            <Link
+            <a
               href={bookHref}
-              onClick={() => setMobileMenuOpen(false)}
               className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
             >
               Book Now
-            </Link>
+            </a>
           ) : (
             <a
               href={bookHref}

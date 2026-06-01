@@ -111,12 +111,12 @@ export default function SwayCentralParkPage() {
 
             {/* CTAs */}
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Link
+              <a
                 href={loc.bookHref}
                 className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
               >
                 Book Your Experience
-              </Link>
+              </a>
 
               <Link
                 href="/membership"
@@ -184,12 +184,12 @@ export default function SwayCentralParkPage() {
                 <p className="text-sm sm:text-base font-medium mb-6">
                   Massage and facial treatments coming this summer.
                 </p>
-                <Link
+                <a
                   href={loc.bookHref}
                   className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition"
                 >
                   Book Your Experience
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -232,12 +232,12 @@ export default function SwayCentralParkPage() {
               <p className="text-xs opacity-60 mt-3">
                 Regular and extended hours coming this summer.
               </p>
-              <Link
+              <a
                 href={loc.bookHref}
                 className="inline-block mt-4 text-sm font-medium underline underline-offset-4"
               >
                 See available times
-              </Link>
+              </a>
             </div>
 
             {/* Location */}
@@ -332,12 +332,12 @@ export default function SwayCentralParkPage() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
+            <a
               href={loc.bookHref}
               className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
             >
               Book Your Experience
-            </Link>
+            </a>
             <Link
               href="/gift-cards"
               className="border-2 border-white/40 text-white px-6 py-3 rounded-full text-sm font-semibold hover:border-white transition"
