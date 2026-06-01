@@ -34,7 +34,7 @@ const SERVICES = [
     price: "From $139",
     memberPrice: "From $99",
     image: "/assets/facialExperiences.jpg",
-    mobileImage: null,
+    mobileImage: "/assets/facialExperiencesMobile.jpg",
     bookHref: "/locations/denver-larimer/book?category=facial",
     learnHref: "/facials",
   },
