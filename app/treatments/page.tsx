@@ -24,7 +24,7 @@ const treatments: Treatment[] = [
     tagline: "3 tiers · 18 treatments",
     description:
       "Signature, Deep Tissue, Sports, Salt Stone, Lymphatic Drainage, Maternity and more. 50 to 90 minutes across Essential, Premier, and Ultimate tiers.",
-    image: "/assets/treatment3.jpg",
+    image: "/assets/homepage-massage.jpg",
     mobileImage: null,
     learnHref: "/massages",
   },
@@ -42,8 +42,8 @@ const treatments: Treatment[] = [
     tagline: "4-modality recovery circuit",
     description:
       "Sauna, cold plunge, compression therapy, and LED light therapy. 40 minutes.",
-    image: "/assets/treatment2.jpg",
-    mobileImage: null,
+    image: "/assets/homepage-remedy.jpg",
+    mobileImage: "/assets/remedyRoomMobile.jpg",
     learnHref: "/remedy-tech",
   },
   {
@@ -51,7 +51,7 @@ const treatments: Treatment[] = [
     tagline: "AI-powered robot massage",
     description:
       "Real-time 3D body mapping with personalized pressure zones. 15, 30, 45, or 60 minutes.",
-    image: "/assets/aescape-treatment.jpg",
+    image: "/assets/aescapeblog6.jpg",
     mobileImage: "/assets/aescapeMobile.jpg",
     learnHref: "/aescape",
     badge: "Select Locations",
@@ -176,7 +176,9 @@ export default function TreatmentsPage() {
           2-5. Treatment frames (full-bleed, snap)
           ====================================================== */}
       {treatments.map((t, i) => {
-        const captionTop = i % 2 === 1;
+        // Alternate caption anchor, but keep badged frames bottom-anchored so
+        // the stacked pill + badge at top-left never collides with the caption.
+        const captionTop = i % 2 === 1 && !t.badge;
         return (
           <section
             key={t.name}
@@ -205,23 +207,19 @@ export default function TreatmentsPage() {
               }`}
             />
 
-            {/* Chapter eyebrow pill */}
-            <div className="absolute top-20 md:top-24 left-6 md:left-12 z-10">
+            {/* Chapter eyebrow pill + optional badge, stacked top-left */}
+            <div className="absolute top-20 md:top-24 left-6 md:left-12 z-10 flex flex-col items-start gap-2">
               <div className="inline-flex items-center gap-3 text-white/95 text-[10px] uppercase tracking-[0.25em] bg-black/45 border border-white/15 px-3.5 py-2 rounded-full">
                 <span className="font-semibold">0{i + 1} / 04</span>
                 <span className="opacity-40">|</span>
                 <span>{t.tagline}</span>
               </div>
-            </div>
-
-            {/* Badge (Aescape) */}
-            {t.badge && (
-              <div className="absolute top-20 md:top-24 right-6 md:right-12 z-10">
+              {t.badge && (
                 <span className="bg-white/90 text-[#113D33] text-[10px] px-3 py-1.5 rounded-full font-semibold tracking-wide backdrop-blur-sm uppercase">
                   {t.badge}
                 </span>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Caption (alternates top / bottom, always left) */}
             <div
