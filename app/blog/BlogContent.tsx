@@ -15,7 +15,8 @@ const blogs = [
     summary:
       "He has enough ties. Cold plunge, sauna, sports massage, Aescape AI, and a full Sway-anchored Father's Day itinerary on Larimer Square.",
     tag: "Holiday",
-    image: "/assets/cold_plunge.jpg",
+    image: "/assets/fathers-day-gift-guide.jpg",
+    featured: true,
   },
   {
     slug: "sway-membership-tiers",
@@ -64,7 +65,6 @@ const blogs = [
       "USA Today 10Best voted Sway #4 Best Day Spa in America. A look back at year one on Larimer Square and what's inside Denver's modern wellness club.",
     tag: "Award",
     image: "/assets/homepage_photo_outside.jpg",
-    featured: true,
   },
   {
     slug: "holiday-wellness-guide",
