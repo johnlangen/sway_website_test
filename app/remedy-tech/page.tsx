@@ -5,6 +5,7 @@ import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { resolveLocationHref } from "../components/LocationAwareHref";
+import { SwayCurve } from "../components/SwayCurve";
 
 const RemedyRoomPage = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -84,9 +85,24 @@ const RemedyRoomPage = () => {
 
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
-      {/* HERO */}
-      <section className="bg-[#113D33]">
-        <div className="mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
+      {/* HERO: art-directed background (homepage remedy photos) */}
+      <section className="relative overflow-hidden text-white">
+        <div className="absolute inset-0">
+          <picture className="block w-full h-full">
+            <source
+              media="(max-width: 767px)"
+              srcSet="/assets/remedyRoomMobile.jpg"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/homepage-remedy.jpg"
+              alt="The Remedy Room at Sway Wellness Spa"
+              className="w-full h-full object-cover"
+            />
+          </picture>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/80 via-[#113D33]/70 to-[#0b1f1a]/85" />
+        <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-14 md:pt-48 md:pb-20 text-center">
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
@@ -96,11 +112,18 @@ const RemedyRoomPage = () => {
             Sauna · Cold Plunge · Compression · LED
           </motion.p>
 
+          <SwayCurve
+            width={150}
+            strokeWidth={2.2}
+            animate
+            className="text-[#A9D2C5] mx-auto block mb-6"
+          />
+
           <motion.h1
             initial={prefersReducedMotion ? false : { opacity: 0, y: -14 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="text-white text-5xl md:text-7xl font-light tracking-tight"
+            className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]"
           >
             The Remedy Room
           </motion.h1>
@@ -135,7 +158,7 @@ const RemedyRoomPage = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/50 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
           >
-            Voted #4 Best Day Spa in America — USA Today 10Best
+            Voted #4 Best Day Spa in America &middot; USA Today 10Best
           </motion.a>
 
           <motion.div
@@ -146,8 +169,11 @@ const RemedyRoomPage = () => {
           >
             <a
               href="/locations/denver-larimer/book-remedy-room"
-              className="inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-white/90 transition-all shadow-lg"
+              className="group relative inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-semibold rounded-full hover:bg-gray-100 transition shadow-sm"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+              </span>
               Book Remedy Room
             </a>
           </motion.div>
@@ -175,7 +201,7 @@ const RemedyRoomPage = () => {
         </div>
       </section>
 
-      {/* THE CIRCUIT — visual flow section */}
+      {/* THE CIRCUIT: visual flow section */}
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-24">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -190,7 +216,7 @@ const RemedyRoomPage = () => {
             </h2>
             <p className="mt-3 text-base md:text-lg text-[#113D33]/70 max-w-2xl mx-auto">
               Four evidence-based modalities in one guided session. No experience
-              needed — just show up and follow the circuit.
+              needed. Just show up and follow the circuit.
             </p>
           </motion.div>
 
@@ -219,7 +245,7 @@ const RemedyRoomPage = () => {
         </div>
       </section>
 
-      {/* TECHNOLOGIES — dark section with glass cards */}
+      {/* TECHNOLOGIES: dark section with glass cards */}
       <section
         ref={servicesRef}
         className="bg-[#113D33] px-6 py-20 md:py-28"
@@ -413,7 +439,7 @@ const RemedyRoomPage = () => {
               >
                 <Link
                   href={s.href}
-                  className="block rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-6 hover:shadow-md hover:border-[#113D33]/25 hover:scale-[1.02] transition-all duration-300 group h-full"
+                  className="block rounded-2xl bg-[#F7F4E9] p-6 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] hover:scale-[1.02] transition-all duration-300 group h-full"
                 >
                   <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
                   <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">{s.desc}</p>
@@ -435,10 +461,10 @@ const RemedyRoomPage = () => {
           </h2>
           <Link
             href="/locations/denver-larimer/book-remedy-room/"
-            className="block rounded-2xl border border-[#113D33]/15 bg-white p-6 hover:shadow-lg hover:border-[#113D33]/30 hover:scale-[1.01] transition-all duration-300 group"
+            className="block rounded-2xl bg-white p-6 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] hover:scale-[1.01] transition-all duration-300 group"
           >
             <p className="text-lg font-semibold text-[#113D33]">Sway Larimer</p>
-            <p className="text-sm text-gray-600 mt-1">Denver, CO — Larimer Square</p>
+            <p className="text-sm text-gray-600 mt-1">Denver, CO &middot; Larimer Square</p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
               Book Now →
             </span>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { SwayCurve } from "../components/SwayCurve";
 import Link from "next/link";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
@@ -167,25 +167,43 @@ const FacialsPage = () => {
 
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
-      {/* HERO — background image */}
-      <section className="relative h-[45vh] min-h-[280px] md:h-[60vh] md:min-h-[400px] max-h-[600px]">
-        <Image
-          src="/assets/facialExperiences.jpg"
-          alt="Facial Experiences at Sway Wellness Spa"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="relative h-full flex items-center justify-center px-6 text-center">
-          <motion.h1
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+      {/* HERO: art-directed background (homepage facial photos) */}
+      <section className="relative h-[55vh] min-h-[340px] md:h-[70vh] md:min-h-[460px] max-h-[680px] text-white">
+        <div className="absolute inset-0">
+          <picture className="block w-full h-full">
+            <source
+              media="(max-width: 767px)"
+              srcSet="/assets/facialExperiencesMobile.jpg"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/facialExperiences.jpg"
+              alt="Facial Experiences at Sway Wellness Spa"
+              className="w-full h-full object-cover"
+            />
+          </picture>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
+        <div className="relative h-full flex flex-col items-center justify-center px-6 text-center">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-white text-5xl md:text-7xl font-light tracking-tight"
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center"
           >
-            Facial Experiences
-          </motion.h1>
+            <div className="text-xs uppercase tracking-[0.35em] text-white/75 mb-4">
+              Skincare
+            </div>
+            <SwayCurve
+              width={160}
+              strokeWidth={2.2}
+              animate
+              className="text-white/85 mx-auto block mb-6"
+            />
+            <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
+              Facial Experiences
+            </h1>
+          </motion.div>
         </div>
       </section>
 
@@ -200,7 +218,7 @@ const FacialsPage = () => {
             className="text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-[#113D33]/80"
           >
             Personalized, result-driven facials designed to support healthy,
-            radiant skin — customized by your esthetician.
+            radiant skin, customized by your esthetician.
           </motion.p>
 
           <motion.a
@@ -213,7 +231,7 @@ const FacialsPage = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/40 border border-[#113D33]/15 rounded-full px-4 py-1.5 hover:border-[#113D33]/30 transition"
           >
-            Voted #4 Best Day Spa in America — USA Today 10Best
+            Voted #4 Best Day Spa in America &middot; USA Today 10Best
           </motion.a>
 
           <motion.div
@@ -225,8 +243,11 @@ const FacialsPage = () => {
           >
             <Link
               href={bookHref}
-              className="inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-4 text-[15px] font-bold rounded-xl hover:bg-[#0a2b23] transition-all shadow-lg"
+              className="group relative inline-flex items-center justify-center bg-[#113D33] text-white px-8 py-3.5 text-sm font-semibold rounded-full hover:bg-[#0c2a23] transition shadow-sm"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
+              </span>
               Continue to Booking
             </Link>
           </motion.div>
@@ -240,14 +261,14 @@ const FacialsPage = () => {
           Infusion, Sculpt &amp; Lift Microcurrent, Hydraderm, Dr. Dennis Gross
           Vitamin C with LED). All facials use Eminence Organics and Dr. Dennis
           Gross skincare. Enhance any facial with boosts: Dermaflash, LED, Oxygen,
-          and Sculpt &amp; Lift Microcurrent — members save 50%. Open Mon–Fri
+          and Sculpt &amp; Lift Microcurrent. Members save 50%. Open Mon–Fri
           10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
           swaywellnessspa.com or call (303) 476-6150.
         </p>
       </section>
 
       {/* ============================================================
-          FACIAL MENU — Tier toggle + treatment list
+          FACIAL MENU: Tier toggle + treatment list
       ============================================================ */}
       <section className="bg-[#F7F4E9] px-4 sm:px-6 pb-10">
         <div className="max-w-4xl mx-auto">
@@ -257,7 +278,7 @@ const FacialsPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-[0_18px_45px_-22px_rgba(17,61,51,0.28)] overflow-hidden">
               {/* Header bar */}
               <div className="bg-[#F7F4E9] px-6 py-5 border-b border-[#113D33]/10">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -345,7 +366,7 @@ const FacialsPage = () => {
       </section>
 
       {/* ============================================================
-          BOOSTS — 3 columns (Boost / Boost Plus / Boost Pro)
+          BOOSTS: 3 columns (Boost / Boost Plus / Boost Pro)
       ============================================================ */}
       <section className="bg-[#113D33] overflow-hidden">
         <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
@@ -356,15 +377,21 @@ const FacialsPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-10"
           >
-            <p className="text-sm uppercase tracking-[0.2em] text-[#9ABFB3] mb-3">
-              Wellness Boosts : Save 50% on Any Boost
+            <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+              Wellness Boosts &middot; Save 50%
             </p>
-            <h2 className="text-white text-3xl md:text-4xl font-light tracking-tight">
+            <h2 className="text-white text-3xl md:text-4xl font-semibold tracking-tight">
               High-Tech Boosts
             </h2>
-            <p className="mt-3 text-white/55 max-w-2xl mx-auto">
-              Enhance any facial with targeted technology. Add during checkout —
-              members save 50% on every boost.
+            <SwayCurve
+              width={150}
+              strokeWidth={2.4}
+              animate
+              className="text-[#A9D2C5] mx-auto block mt-4"
+            />
+            <p className="mt-4 text-white/55 max-w-2xl mx-auto">
+              Enhance any facial with targeted technology. Add during checkout.
+              Members save 50% on every boost.
             </p>
           </motion.div>
 
@@ -404,8 +431,11 @@ const FacialsPage = () => {
           <div className="mt-12 flex justify-center">
             <Link
               href={bookHref}
-              className="inline-flex items-center justify-center bg-white text-[#113D33] px-10 py-4 text-[15px] font-bold rounded-2xl hover:bg-white/90 transition-all shadow-lg"
+              className="group relative inline-flex items-center justify-center bg-white text-[#113D33] px-9 py-3.5 text-sm font-semibold rounded-full hover:bg-gray-100 transition shadow-sm"
             >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+                <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+              </span>
               Continue to Booking
             </Link>
           </div>
@@ -439,7 +469,7 @@ const FacialsPage = () => {
               }
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-8"
+              className="rounded-2xl bg-[#F7F4E9] p-8 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)]"
             >
               <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] font-semibold">
                 Organic &middot; Farm-Fresh
@@ -461,7 +491,7 @@ const FacialsPage = () => {
               }
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-8"
+              className="rounded-2xl bg-[#F7F4E9] p-8 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)]"
             >
               <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] font-semibold">
                 Clinical-Grade &middot; Dermatologist-Developed
@@ -577,7 +607,7 @@ const FacialsPage = () => {
               <Link
                 key={s.name}
                 href={s.href}
-                className="block rounded-2xl border border-[#113D33]/10 bg-[#F7F4E9] p-6 hover:shadow-md hover:border-[#113D33]/25 transition-all group"
+                className="block rounded-2xl bg-[#F7F4E9] p-6 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] transition-shadow duration-300 group"
               >
                 <h3 className="text-lg font-semibold text-[#113D33]">
                   {s.name}
@@ -602,13 +632,13 @@ const FacialsPage = () => {
           </h2>
           <Link
             href="/locations/denver-larimer/facials/"
-            className="block rounded-2xl border border-[#113D33]/15 bg-white p-6 hover:shadow-lg hover:border-[#113D33]/30 transition-all group"
+            className="block rounded-2xl bg-white p-6 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] transition-shadow duration-300 group"
           >
             <p className="text-lg font-vance-bold text-[#113D33]">
               Sway Larimer
             </p>
             <p className="text-sm text-gray-600 mt-1">
-              Denver, CO — Larimer Square
+              Denver, CO &middot; Larimer Square
             </p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
               Book Now &rarr;
