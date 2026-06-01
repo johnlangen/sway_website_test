@@ -85,10 +85,10 @@ const FACIAL_TREATMENTS: Treatment[] = [
 const MASSAGE_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
   { id: 88, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage tailored to your needs.", tier: "essential", image: "/assets/massage7.jpg", concerns: ["relaxation", "pain-relief"] },
-  { id: 116, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers.", tier: "essential", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
+  { id: 116, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers. Recommended after the first trimester.", tier: "essential", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
   // Premier — $129 member / $169 drop-in. Value add: +20 min for swedish, or advanced techniques
   { id: 98, name: "Premier Signature Massage", duration: "70 min", durationMinutes: 70, description: "Extended full-body massage for a deeply relaxing experience.", tier: "premier", image: "/assets/massage7.jpg", concerns: ["relaxation"] },
-  { id: 99, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
+  { id: 99, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief. Recommended after the first trimester.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
   { id: 100, name: "Premier Deep Tissue Massage", duration: "50 min", durationMinutes: 50, description: "Corrective massage to release deep muscle tension and restore balance.", tier: "premier", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
   { id: 101, name: "Premier Salt Stone Massage", duration: "50 min", durationMinutes: 50, description: "Warm Himalayan salt stones melt tension and promote deep relaxation.", tier: "premier", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
   { id: 102, name: "Premier Sports Massage", duration: "50 min", durationMinutes: 50, description: "Supports recovery, range of motion, and reduces fatigue.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
