@@ -10,6 +10,14 @@ import { SwayCurve } from "../components/SwayCurve";
 
 const blogs = [
   {
+    slug: "fathers-day-gift-guide",
+    title: "A Father's Day in Denver Your Dad Will Actually Remember",
+    summary:
+      "He has enough ties. Cold plunge, sauna, sports massage, Aescape AI, and a full Sway-anchored Father's Day itinerary on Larimer Square.",
+    tag: "Holiday",
+    image: "/assets/cold_plunge.jpg",
+  },
+  {
     slug: "sway-membership-tiers",
     title: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
     summary:
@@ -137,14 +145,6 @@ const blogs = [
       "Discover the ultimate retreat for your body and mind with exclusive $99/month memberships, tailored treatments, and science-backed benefits.",
     tag: "Wellness",
     image: "/assets/blog17.jpg",
-  },
-  {
-    slug: "fathers-day-gift-guide",
-    title: "A Father's Day in Denver Your Dad Will Actually Remember",
-    summary:
-      "He has enough ties. Cold plunge, sauna, sports massage, Aescape AI, and a full Sway-anchored Father's Day itinerary on Larimer Square.",
-    tag: "Holiday",
-    image: "/assets/cold_plunge.jpg",
   },
   {
     slug: "mothers-day-gift-guide",
