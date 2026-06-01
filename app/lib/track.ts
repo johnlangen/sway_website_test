@@ -31,15 +31,32 @@ declare global {
  * @param valueHint  Optional dollar amount the user appears to be selecting
  *                   (e.g. if you have preset GC amounts on the page)
  */
+// Google Ads "Gift Card Intent" conversion action.
+// Created via API on 2026-06-01 (ConversionActionService → id 7632175659).
+// Default value $100 (rough avg GC amount). value param overrides if provided.
+const GIFT_CARD_INTENT_SEND_TO = "AW-17421817568/vUdvCKuEp7ccEOCtr_NA";
+
 export function trackGiftCardIntent(source: string, valueHint?: number) {
   if (typeof window === "undefined") return;
   try {
+    // 1) Push to dataLayer for GTM → GA4 / Meta / TikTok / future tags
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: "gift_card_intent",
       gift_card_source: source,
       ...(valueHint ? { value: valueHint, currency: "USD" } : {}),
     });
+
+    // 2) Fire Google Ads conversion directly (no GTM config required).
+    // Global gtag config for AW-17421817568 is loaded in app/layout.tsx.
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "conversion", {
+        send_to: GIFT_CARD_INTENT_SEND_TO,
+        value: valueHint || 100,
+        currency: "USD",
+        transaction_id: "", // optional, dedupe if you have one
+      });
+    }
   } catch {
     // Swallow — tracking failure must never break the user flow.
   }
