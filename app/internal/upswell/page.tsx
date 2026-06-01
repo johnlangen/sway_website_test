@@ -12,20 +12,22 @@ const KEY_DATES = {
   today: "2026-06-01",
   announce: "2026-05-15",
   launch: "2026-06-01",
-  brandLaunch: "2026-07-01",
+  systemCutover: "2026-06-15",
+  brandDay: "2026-07-01",
   treatmentsLaunch: "2026-07-15",
 };
 
 // DAILY_STATUS — top-of-dashboard daily update. Edit this every working day.
 const DAILY_STATUS = {
   date: "Monday June 1 2026",
-  headline: "APA closes today. 159 members rolling in (net +27 since announcement). Mindbody data team engaged via Katie. MT bridge through ~June 30. Bottleneck: Heather's MT rep sending the test migration file. Heather pushing parallel Sway Stripe backend hookup. GBP access being set up today.",
+  headline: "APA closes today. 159 members rolling in (+27 net). Mindbody data team engaged via Katie. Mindbody cutover target June 15 (gated by Stripe migration). MT extends through end of June as backstop. Signage + brand launch ~July 1 (decoupled from system cutover).",
   framing: [
-    "🟢 TODAY (June 1) = APA closes. Legal-only transition. Building still says Upswell. Members book through MT as always.",
-    "🔄 June 1-30 = Bridge month. MT runs the business. Behind-scenes: Stripe migration, vendor takeover, Mindbody buildout, brand prep.",
-    "🎯 ~July 1 (± a week) = UNIFIED BRAND DAY. Signage up. GBP rename live. Mindbody cutover. Sway booking widget on swaywellnessspa.com goes from MT-embed → native Mindbody.",
+    "🟢 TODAY (June 1) = APA closes. Legal-only. Building still says Upswell. Members book through MT as always.",
+    "🔄 June 1-14 = Stripe migration in motion. MT continues publicly. Mindbody being prepped behind scenes.",
+    "🎯 June 15 (target, Stripe-gated) = Mindbody system cutover. Sway booking widget on swaywellnessspa.com swaps from MT-embed → native Mindbody. MT stays alive as backstop.",
+    "🎯 ~July 1 (± a week) = Signage day + GBP rename + 8.5k list email + public brand moment. Decoupled from system cutover.",
     "🎯 Mid-to-late July = Massage + facial bookable. FTV campaigns + heavy acquisition begins.",
-    "🛟 MT bridge can extend further into July if Stripe migration slips.",
+    "🛟 MT extends through end of June regardless. Mindbody cutover slips if Stripe migration slips.",
   ],
   pending: [
     {
@@ -34,8 +36,8 @@ const DAILY_STATUS = {
       owner: "Awaiting Mariana Tek (via Heather)",
     },
     {
-      label: "Sway Stripe payout hookup for MT bridge period (Heather pursuing)",
-      detail: "Separate from the Mindbody migration: while Sway continues operating on MT through June, Heather asked MT to swap the connected Stripe account from hers to Sway's. If approved, all MT-collected revenue in June routes directly to Sway's Stripe — no Heather-collects-then-wires reconciliation needed. This is a payout-routing change for the bridge, not a card migration path.",
+      label: "Sway Stripe / bank hookup at MT for bridge revenue (Heather pursuing)",
+      detail: "Separate from the Mindbody card migration. While Sway continues on MT through end of June, Heather is trying to route MT-collected revenue to Sway directly. Exact mechanism unclear from her note — could be a Stripe Connect account swap, OR just a bank account change on her existing Stripe. Either way: goal is bridge revenue flows to Sway, not Heather, so no monthly reconciliation needed.",
       owner: "Heather (pursuing with MT)",
     },
     {
@@ -76,9 +78,9 @@ const DAILY_STATUS = {
   ],
   decisionsLockedToday: [
     "👥 Member count: 159 rolling into Sway (was 155). Net +27 in announcement period (41 new − 14 cancelled). $99 Founding rate is converting.",
-    "📅 Brand launch reframed: June 1 = legal-only. ~July 1 = unified brand + signage + GBP rename + Mindbody cutover. Mid-July = treatments + FTV campaigns.",
+    "📅 Timeline: June 1 = legal-only. June 15 (target, Stripe-gated) = Mindbody system cutover. ~July 1 = signage + GBP rename + 8.5k email + brand moment (decoupled from system cutover). Mid-July = treatments + FTV.",
     "💌 Email plan: Heather sends one more 'last chance' from her voice (MT maintenance context). 8.5k list email deferred to July 1 brand launch. Sway-voice sends start July 1.",
-    "🌐 Website strategy: GBP URL → Sway location pages → embedded MT widget (not Upswell.com). Builds Sway-domain SEO during June. July 1 the embed swaps from MT → native Mindbody.",
+    "🌐 Website strategy: GBP URL → Sway location pages → embedded MT widget (not Upswell.com). Builds Sway-domain SEO during June. June 15 (target) the embed swaps from MT → native Mindbody.",
     "🔗 Upswell.com 'Book' button → repoints to Sway location pages (Heather updates). Builds muscle-memory shift before July 1.",
     "✏️ Booking-experience tease copy locked: 'Massage and facial treatments are coming, along with an updated booking experience. For now, book your recovery session below.' No date, no 'faster' claim.",
     "📋 Website coding brief delivered to separate chat — location pages + /book sub-routes + MT embed (tenant: upswellstudio, RiNo=48717, CP=48718, schedule=48541).",
@@ -86,13 +88,14 @@ const DAILY_STATUS = {
     "🏢 GBP timing: name change submission ~T-5 business days before signage install (target ~July 1). Today: only update URL + phone + transition post.",
   ],
   whatsNext: [
-    "TODAY (June 1): Update GBP URL + phone + transition post. Accept GBP owner invites. Confirm insurance live. Confirm APA closed.",
+    "TODAY (June 1): Update GBP URL + phone + transition post. Accept GBP owner invites when they arrive. Confirm insurance live. Confirm APA closed.",
     "Tue Jun 2: Ops walkthrough with Mackenzie + Jocelyn. Begin embedding MT widget on Sway location pages (when widget code arrives from Heather).",
-    "Wed-Fri Jun 3-5: Heather sends 'last chance' email from her voice. Vendor audit kickoff. Stripe migration kicks off when Mindbody confirms method.",
-    "Jun 6-30: Stripe migration runs in parallel. Vendor takeovers one by one. Mindbody session types configured. Weekly Heather/John reconciliation.",
-    "Mid-to-late June: Signage produced, install scheduled. Submit GBP rename 5 business days before install. Mindbody quiet-cutover internally.",
-    "~Jul 1 (± a week): UNIFIED BRAND DAY. Signage up. GBP rename live. MT widget swaps to native Mindbody booking on swaywellnessspa.com. 8.5k list email goes out.",
-    "Mid-to-late July: Massage + facial bookable. FTV campaigns fire. Press push. Heavy acquisition begins.",
+    "Wed-Fri Jun 3-5: Heather sends 'last chance' email. Vendor audit kickoff. MT test file lands → Stripe migration begins.",
+    "Jun 6-14: Stripe migration completes. Mindbody session types finalized. Test charges verify cards. Front desk training.",
+    "Jun 15 (target): Mindbody system cutover. Sway booking widget swaps from MT → native Mindbody on swaywellnessspa.com. MT stays alive as backstop through June 30.",
+    "Jun 15-30: Mindbody primary. Smooth out any edge cases. Signage produced. Submit GBP rename T-5 business days before install.",
+    "~Jul 1 (± a week): Signage day + GBP rename + 8.5k list email + brand moment.",
+    "Mid-to-late July: Massage + facial bookable. FTV campaigns fire. Press push.",
   ],
 };
 
@@ -230,7 +233,7 @@ const TERMINATED_ANNUALS = [
 // Stripe Data Migration Request was never initiated; with 6 days to June 1 it's not viable.
 // Path forward: front-desk re-add at first Sway visit, bridged by MT extension.
 const PAYMENT_MIGRATION_PLAN = {
-  status: "June 1 — APA closed. Two parallel Stripe workstreams: (A) Card migration to Mindbody — Mindbody data team engaged via Katie, awaiting MT test file from Heather's rep. (B) Sway Stripe payout hookup at MT — Heather pursuing so June bridge revenue routes to Sway directly. MT bridge through end of June. July 1 = unified Mindbody cutover + brand launch.",
+  status: "June 1 — APA closed. Two parallel Stripe workstreams: (A) Card migration to Mindbody — data team engaged via Katie, awaiting MT test file. (B) Sway Stripe/bank hookup at MT — Heather pursuing so June bridge revenue routes to Sway directly (mechanism TBD). Mindbody cutover target June 15 (Stripe-gated). MT extends through end of June as backstop. Signage/brand day ~July 1 (decoupled).",
   whyChanged:
     "Researched May 27: Mindbody Payments is built on Stripe Connect (confirmed via Stripe's published customer story). Mariana Tek is also Stripe Connect. Both ends are Stripe — making cross-platform customer + payment-method migration technically straightforward via Stripe's documented PAN Import process (PGP-encrypted file OR direct destination account ID transfer). Heather's MT rep confirmed they can execute it. Revised path: MT keeps running as POS through June 15, Stripe migration runs in parallel (~2-3 weeks), then clean cutover with member cards already in Mindbody. June 1 becomes brand-only flip (signage, website, comms). Worst case: extend MT bridge through July if Stripe slips.",
   thePath: [
@@ -271,25 +274,31 @@ const PAYMENT_MIGRATION_PLAN = {
     },
     {
       step: "8",
-      label: "~July 1 (± a week): UNIFIED BRAND DAY",
-      detail: "Signage up. GBP rename live. MT widget on swaywellnessspa.com swaps to native Mindbody booking. 8.5k list email goes out. Sway becomes the public-facing brand everywhere. Members keep cards on file (no re-add).",
+      label: "Jun 15 (target, Stripe-gated): Mindbody system cutover",
+      detail: "MT widget on swaywellnessspa.com swaps to native Mindbody booking. Sway Remedy Lounge bookable in Mindbody. Cards already migrated — members keep cards on file. MT stays alive as backstop through June 30. (Slips week-by-week if Stripe migration isn't ready.)",
     },
     {
       step: "9",
-      label: "July 1-15: Mindbody primary, MT bridge ends, reconciliation completes",
-      detail: "MT shuts down (with extension as backstop if needed). Heather sends final wire to Sway covering June Stripe revenue minus reimbursable costs (MT extension fee + vendor costs she covered).",
+      label: "Jun 15-30: Mindbody primary, MT bridge running as safety net",
+      detail: "Mindbody handles bookings + payments. MT alive but secondary. Smooth out edge cases. Reconciliation wire from Heather (or revenue routes directly if Sway Stripe-hookup-at-MT landed).",
     },
     {
       step: "10",
+      label: "~July 1 (± a week): Signage + brand day (decoupled from system cutover)",
+      detail: "Signage installed. GBP rename live. 8.5k list 'Sway is here' email. Social + press push. The PHYSICAL brand moment. Mindbody has already been the POS for 2 weeks at this point — this is the public-facing brand announcement.",
+    },
+    {
+      step: "11",
       label: "Mid-to-late July: Massage + facial open. FTV campaigns + heavy acquisition.",
       detail: "Treatment booking live in Mindbody. Phase 2 hours (Tue-Thu close 9pm). Press push. New-visitor offers active. Real acquisition begins.",
     },
   ],
   revenueImpact: [
-    { window: "June 1 → June 30", expectedPctOfMonthly: 100, note: "MT continues collecting. Stripe routes to Heather's bank during bank redirect processing. Heather wires Sway at end of bridge." },
-    { window: "July 1 unified cutover", expectedPctOfMonthly: 100, note: "Mindbody takes over with cards already migrated. Brand goes live publicly. No re-add gauntlet, no double-bill." },
-    { window: "July 1-15", expectedPctOfMonthly: 100, note: "Mindbody primary, MT bridge ends. Reconciliation wire completes." },
-    { window: "July 15+", expectedPctOfMonthly: "100+ (growth)", note: "Treatments launch. FTV campaigns drive net-new acquisition. Revenue grows." },
+    { window: "June 1 → June 14", expectedPctOfMonthly: 100, note: "MT collecting. Revenue routes to Sway directly if Heather's MT-Stripe-bank hookup landed, otherwise to Heather (wires to Sway at end of bridge)." },
+    { window: "June 15 (target)", expectedPctOfMonthly: 100, note: "Mindbody system cutover. Cards already migrated. No re-add. No double-bill." },
+    { window: "June 15-30", expectedPctOfMonthly: 100, note: "Mindbody primary. MT alive as safety net. Reconciliation completes." },
+    { window: "~July 1", expectedPctOfMonthly: 100, note: "Signage + brand day. No payment impact — system already cut over." },
+    { window: "Mid-to-late July+", expectedPctOfMonthly: "100+ (growth)", note: "Treatments launch. FTV campaigns drive net-new acquisition." },
   ],
   risks: [
     "🟡 Stripe migration timeline slip: push cutover later. MT extension is on the table per Heather.",
@@ -541,42 +550,51 @@ const LOUNGE_FINAL = {
   // Phase plan
   phases: [
     {
-      phase: "Phase 0 (June 1 → June 30)",
-      label: "Legal transition month. MT continues as public POS. Sway prep behind scenes.",
+      phase: "Phase 0 (June 1 → June 14)",
+      label: "Bridge period. MT continues as public POS. Stripe migration in progress.",
       items: [
         "Sway owns the locations (June 1 APA close)",
         "Members book + pay through Mariana Tek as always",
         "Sway website location pages live with embedded MT widget under 'formerly Upswell' framing",
-        "Upswell.com 'Book' button redirects to Sway location pages (muscle-memory shift)",
+        "Upswell.com 'Book' button redirects to Sway location pages",
         "GBP URL points to Sway pages (name stays Upswell)",
         "Stripe migration runs in parallel — cards transfer silently",
         "Mindbody session types configured behind scenes",
-        "Vendor takeover audit + transfers progressing",
-        "No signage swap yet, no GBP rename yet, no member-facing brand messaging",
+        "Building still says Upswell",
       ],
     },
     {
-      phase: "Phase 1 (~July 1) — UNIFIED BRAND DAY",
-      label: "Signage + GBP rename + Mindbody cutover all on the same day.",
+      phase: "Phase 1 (Jun 15 target, Stripe-gated) — MINDBODY SYSTEM CUTOVER",
+      label: "System change. Quiet on the brand side, big on operations.",
       items: [
-        "Signage up at both locations",
-        "GBP rename live (Upswell → Sway Wellness Spa)",
+        "Sway Remedy Lounge bookable in Mindbody at both locations",
         "MT widget on swaywellnessspa.com swaps to native Mindbody booking",
-        "Sway Remedy Lounge bookable in Mindbody",
         "Membership + drop-in pricing live ($99 Founding through Aug 31 / $129 Standard / $49 drop-in)",
         "Hours: Mon closed, Tue-Fri 7-8pm, Sat-Sun 8-6pm",
-        "Send 8.5k list 'Sway is here' email",
-        "Press push + social push",
         "Cards already migrated via Stripe — members keep cards on file",
-        "MT bridge ends (or extends 1-2 weeks as backstop)",
+        "MT stays alive as backstop through end of June",
+        "Building still says Upswell. GBP name still Upswell. Brand moment happens later (~July 1).",
+        "If Stripe migration slips: cutover pushes week-by-week",
       ],
     },
     {
-      phase: "Phase 2 (mid-to-late July)",
+      phase: "Phase 2 (~July 1, ± a week) — SIGNAGE + BRAND DAY",
+      label: "Decoupled from system cutover. The visible Sway moment.",
+      items: [
+        "Signage installed at both locations",
+        "GBP rename live (Upswell → Sway Wellness Spa)",
+        "Send 8.5k list 'Sway is here' email",
+        "Press push + social push",
+        "Building, GBP, and website all aligned on Sway brand",
+        "MT shutdown finalized",
+      ],
+    },
+    {
+      phase: "Phase 3 (mid-to-late July)",
       label: "Treatments launch + FTV acquisition.",
       items: [
         "Massage + facial bookable in Mindbody",
-        "Phase 2 hours: Mon 12-8, Tue-Thu 7-9pm, Fri 7-8pm",
+        "Phase 2 hours expand: Mon 12-8, Tue-Thu 7-9pm, Fri 7-8pm",
         "Member discount applies (15% off treatments)",
         "FTV campaigns fire (first-visit offers)",
         "Treatment launch email + social push",
@@ -584,7 +602,7 @@ const LOUNGE_FINAL = {
       ],
     },
     {
-      phase: "Phase 3 (TBD)",
+      phase: "Phase 4 (TBD)",
       label: "Aescape evaluation.",
       items: [
         "Wait for 4-6 weeks of member behavior data",
@@ -702,47 +720,50 @@ const WEEK_PLAN = [
     ],
   },
   {
-    day: "Mid-June (Jun 8-15)",
+    day: "Mid-June (Jun 8-12)",
     items: [
-      "Stripe migration in progress — typical 10 business days from MT export",
-      "Mindbody session types configured (Sway Remedy Lounge, 85-min backend, cap 15/18, infrared + sauna resources × 3 rotations)",
-      "Sway Unlimited Founding ($99) + Standard ($129) contracts set up in Mindbody",
+      "Stripe migration completing — 10 business days from MT export",
+      "Mindbody session types finalized (Sway Remedy Lounge, 85-min backend, cap 15/18, infrared + sauna resources × 3 rotations)",
+      "Sway Unlimited Founding ($99) + Standard ($129) contracts active in Mindbody",
       "Drop-in ($49 / 75 min) + first-time intro ($25) products configured",
-      "Vendor takeovers progressing one by one (transfer/reimburse/cancel each)",
-      "Get signage install date confirmed from Emily → schedule GBP rename submission (T-5 business days)",
-    ],
-  },
-  {
-    day: "Late June (Jun 22-30)",
-    items: [
-      "Verify Stripe migration complete in Mindbody Payments portal",
-      "Run test charges against real member cards (small + refunded) to verify tokens",
-      "Submit GBP rename request (T-5 business days before July 1 install)",
-      "Mindbody internally cutover for staff training; MT still public-facing",
+      "Run test charges against migrated member cards to verify tokens",
       "Front desk training (Jocelyn / Mackenzie) on full Mindbody flow",
-      "Send pre-cutover heads-up email: 'New booking experience live soon, your card stays on file'",
+      "Pre-cutover heads-up email: 'New booking experience live this week, your card is already on file'",
     ],
   },
   {
-    day: "~Tue Jul 1 (± a week) — UNIFIED BRAND DAY",
+    day: "Mon Jun 15 (target) — MINDBODY SYSTEM CUTOVER",
     items: [
-      "🔥 Signage up at both locations",
-      "🔥 GBP rename live (Upswell → Sway Wellness Spa)",
-      "🔥 MT widget on swaywellnessspa.com → swaps to native Mindbody booking",
-      "🔥 Mindbody becomes the public-facing POS",
-      "Send launch email to 8.5k list: 'Sway is here. Book your 75-min Remedy Lounge slot.'",
-      "Social push, press push, brand moment",
-      "MT bridge ends (or extends 1-2 weeks as backstop if needed)",
+      "🔥 Mindbody becomes the public-facing POS for both new locations",
+      "🔥 MT widget on swaywellnessspa.com swaps to native Mindbody booking",
+      "🔥 Sway Remedy Lounge bookable in Mindbody (75-min slot, cap 15/18)",
+      "Cards already migrated via Stripe — members keep cards on file",
+      "MT stays alive as backstop through June 30",
+      "Building still says Upswell, GBP name still Upswell — signage + GBP rename happen ~July 1",
+      "(SLIPS if Stripe migration isn't ready — pushed week by week)",
     ],
   },
   {
-    day: "Jul 1-14",
+    day: "Jun 15-30",
     items: [
-      "Mindbody primary at both locations",
-      "Heather sends final reconciliation wire to Sway (June Stripe revenue minus reimbursable costs)",
+      "Mindbody primary. Smooth out edge cases. MT bridge runs as safety net.",
+      "Heather sends reconciliation wire to Sway (or revenue routes directly if Heather's Stripe-hookup-at-MT landed)",
+      "Vendor takeovers continuing — transfer/reimburse/cancel each",
+      "Signage produced and install scheduled",
+      "Submit GBP rename request T-5 business days before signage install",
       "Load massage + facial schedules into Mindbody",
       "Open pre-bookings for treatments",
-      "Marketing builds toward mid-July treatments launch",
+    ],
+  },
+  {
+    day: "~Jul 1 (± a week) — SIGNAGE + BRAND DAY",
+    items: [
+      "Signage up at both locations (the visible Sway moment)",
+      "GBP rename live (Upswell → Sway Wellness Spa)",
+      "Send 8.5k list 'Sway is here' email",
+      "Social push, press push, brand moment",
+      "Building, GBP, and website all aligned on Sway brand",
+      "MT shutdown finalized (unless extension still active)",
     ],
   },
   {
