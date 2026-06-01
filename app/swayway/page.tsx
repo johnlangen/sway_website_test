@@ -40,7 +40,7 @@ export default function SwayWayPage() {
           ====================================================== */}
       <section className="snap-section h-screen flex items-center justify-center relative text-white">
         <Image
-          src="/assets/OG/og-sway-way2.jpg"
+          src="/assets/OG/og-home.jpg"
           alt="The Sway Way"
           fill
           priority
@@ -315,7 +315,15 @@ export default function SwayWayPage() {
             </Link>
           </div>
 
-          <div className="mt-10 text-xs uppercase tracking-[0.35em] text-[#4A776D]">
+          <Link
+            href="/own"
+            className="mt-7 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-[#113D33]/55 hover:text-[#113D33] transition"
+          >
+            Bring Sway to your city · Own a Sway
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+
+          <div className="mt-9 text-xs uppercase tracking-[0.35em] text-[#4A776D]">
             Sway &nbsp;·&nbsp; Est. 2025
           </div>
         </motion.div>
