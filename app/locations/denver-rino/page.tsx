@@ -24,17 +24,6 @@ const loc = {
   mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",
 };
 
-/* Phase 1 hours */
-const HOURS = [
-  ["Monday", "Closed"],
-  ["Tuesday", "7am – 8pm"],
-  ["Wednesday", "7am – 8pm"],
-  ["Thursday", "7am – 8pm"],
-  ["Friday", "7am – 8pm"],
-  ["Saturday", "8am – 6pm"],
-  ["Sunday", "8am – 6pm"],
-] as const;
-
 const FAQS = [
   {
     q: "Is this the old Upswell?",
@@ -234,23 +223,19 @@ export default function SwayRinoPage() {
             {/* Hours */}
             <div className="border border-black/10 rounded-2xl p-6">
               <h3 className="text-lg font-semibold mb-4">Hours</h3>
-              <dl className="space-y-1.5 text-sm">
-                {HOURS.map(([day, hrs]) => (
-                  <div key={day} className="flex justify-between gap-4">
-                    <dt className="opacity-70">{day}</dt>
-                    <dd
-                      className={
-                        hrs === "Closed" ? "opacity-50" : "font-medium"
-                      }
-                    >
-                      {hrs}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="text-xs opacity-60 mt-4">
-                Extended hours coming this summer.
+              <p className="text-sm opacity-80 leading-relaxed">
+                Open daily for Sway Remedy Lounge sessions. Book online to see
+                the times available this week.
               </p>
+              <p className="text-xs opacity-60 mt-3">
+                Regular and extended hours coming this summer.
+              </p>
+              <Link
+                href={loc.bookHref}
+                className="inline-block mt-4 text-sm font-medium underline underline-offset-4"
+              >
+                See available times
+              </Link>
             </div>
 
             {/* Location */}

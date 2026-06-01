@@ -61,20 +61,6 @@ const localBusinessJsonLd = {
     latitude: 39.7665,
     longitude: -104.9839,
   },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "07:00",
-      closes: "20:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Saturday", "Sunday"],
-      opens: "08:00",
-      closes: "18:00",
-    },
-  ],
   makesOffer: [
     {
       "@type": "Offer",
