@@ -196,13 +196,13 @@ export default function MembershipPage() {
             heroes. Overlay fades to the page's base green so it blends into the
             Spa Memberships section below. */}
         <Image
-          src="/assets/membership_background.jpg"
+          src="/assets/OG/og-home.jpg"
           alt=""
           fill
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/85 via-[#113D33]/80 to-[#0b1f1a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/75 via-[#113D33]/55 to-[#0b1f1a]" />
 
         <div className="relative px-6 pt-28 md:pt-36 pb-8 text-center max-w-5xl mx-auto">
         <motion.p
