@@ -167,7 +167,10 @@ export default function FathersDayGiftCardsPage() {
             What Dad Can Use It For
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          {/* Flex-wrap with centering so the partial last row (5 tiles
+              in a 3-up layout = 3+2) auto-centers instead of left-aligning.
+              Fixed widths matched to old grid-cols-2/grid-cols-3 sizing. */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             {[
               { href: "/aescape", label: "Aescape Robot Massage", src: "/assets/aescapeblog7.jpg" },
               { href: "/remedy-tech", label: "Remedy Room", src: "/assets/homepage-remedy.jpg" },
@@ -178,7 +181,8 @@ export default function FathersDayGiftCardsPage() {
               <Link
                 key={tile.href}
                 href={tile.href}
-                className="group relative block aspect-[4/5] overflow-hidden rounded-xl"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-xl
+                           w-[calc(50%-0.375rem)] md:w-[calc(33.333%-0.667rem)]"
               >
                 <Image
                   src={tile.src}
