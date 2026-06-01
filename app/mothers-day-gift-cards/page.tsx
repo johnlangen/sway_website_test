@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { trackGiftCardIntent } from "../lib/track";
 
 export default function MothersDayGiftCardsPage() {
   const MINDBODY_GC_URL =
@@ -109,6 +110,7 @@ export default function MothersDayGiftCardsPage() {
               >
                 <Link
                   href={MINDBODY_GC_URL}
+                  onClick={() => trackGiftCardIntent("mothers_day_hero")}
                   className="inline-block bg-white text-[#113D33] px-7 py-2.5 md:px-9 md:py-3 rounded-xl text-sm md:text-base font-medium"
                 >
                   Buy Mom a Gift Card
@@ -326,6 +328,7 @@ export default function MothersDayGiftCardsPage() {
             </p>
             <Link
               href={MINDBODY_GC_URL}
+              onClick={() => trackGiftCardIntent("mothers_day_bottom_cta")}
               className="inline-block bg-white text-[#113D33] px-8 py-3 rounded-xl text-sm md:text-base font-medium"
             >
               Buy Mom a Gift Card

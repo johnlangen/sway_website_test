@@ -4,6 +4,7 @@ import { randomBytes, randomUUID } from "crypto";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { trackGiftCardIntent } from "../lib/track";
 
 export default function HolidayGiftCardsPage() {
   const MINDBODY_GC_URL =
@@ -70,6 +71,7 @@ export default function HolidayGiftCardsPage() {
               >
                 <Link
                   href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42"
+                  onClick={() => trackGiftCardIntent("holiday_gc_hero")}
                   className="inline-block bg-white text-[#113D33] px-7 py-2.5 md:px-9 md:py-3 rounded-xl text-sm md:text-base font-medium"
                 >
                   Buy Spa Gift Cards
@@ -264,6 +266,7 @@ export default function HolidayGiftCardsPage() {
             </p>
             <Link
               href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42"
+              onClick={() => trackGiftCardIntent("holiday_gc_bottom_cta")}
               className="inline-block bg-white text-[#113D33] px-8 py-3 rounded-xl text-sm md:text-base font-medium"
             >
               Buy Spa Gift Cards

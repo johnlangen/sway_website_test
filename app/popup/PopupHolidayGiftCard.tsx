@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { trackGiftCardIntent } from "../lib/track";
 
 export default function HolidayGiftCardPopup() {
   const [show, setShow] = useState(false);
@@ -72,6 +73,7 @@ export default function HolidayGiftCardPopup() {
             href={MINDBODY_GC_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackGiftCardIntent("popup_holiday_gc", 150)}
             className="w-full inline-block bg-[#113D33] text-white text-sm sm:text-base font-semibold py-3 px-4 rounded-lg hover:bg-[#0b2d25] transition"
           >
             Purchase A Gift Card

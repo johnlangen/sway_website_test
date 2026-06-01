@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
+import { trackGiftCardIntent } from "../../../lib/track";
 
 export default function LarimerGiftCardsPage() {
   const giftCardUrl =
@@ -159,6 +160,7 @@ export default function LarimerGiftCardsPage() {
               href={giftCardUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackGiftCardIntent("larimer_gc_hero")}
               className="inline-block w-full max-w-sm px-8 py-4 bg-white text-[#113D33] font-bold rounded-full text-lg hover:bg-gray-100 transition shadow-lg"
             >
               Purchase a Gift Card
@@ -242,6 +244,7 @@ export default function LarimerGiftCardsPage() {
             href={giftCardUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackGiftCardIntent("larimer_gc_bottom_cta")}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
