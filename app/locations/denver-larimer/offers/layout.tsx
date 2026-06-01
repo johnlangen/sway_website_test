@@ -111,7 +111,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "Remedy Room Recovery Circuit",
         description:
-          "A guided 40-minute recovery session combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. $49 drop-in, $25 for members.",
+          "A guided 40-minute recovery session combining sauna, cold plunge, compression therapy, and LED light therapy. $49 drop-in, $25 for members.",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

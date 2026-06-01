@@ -64,7 +64,7 @@ const TREATMENTS = [
     title: "Aescape Robot Massage",
     tagline: "AI-powered precision recovery",
     description:
-      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 30 or 60 minute sessions.",
+      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 15, 30, 45, or 60 minute sessions.",
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",

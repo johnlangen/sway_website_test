@@ -1,32 +1,32 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Normatec Compression Therapy in Denver | Sway Wellness Spa",
+  title: "Compression Therapy in Denver | Sway Wellness Spa",
   description:
-    "Normatec compression therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, cold plunge, and LED light therapy. Member $25, Drop-In $49.",
+    "Compression therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, cold plunge, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
     canonical: "https://swaywellnessspa.com/compression-therapy/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/compression-therapy/",
-    title: "Normatec Compression Therapy in Denver | Sway Wellness Spa",
+    title: "Compression Therapy in Denver | Sway Wellness Spa",
     description:
-      "Normatec compression therapy as part of the Remedy Room at Sway, a modern wellness club on Larimer Square in Denver.",
+      "Compression therapy as part of the Remedy Room at Sway, a modern wellness club on Larimer Square in Denver.",
     images: [
       {
         url: "/assets/OG/og-compression.jpg",
         width: 1200,
         height: 630,
-        alt: "Compression therapy session with Normatec boots at Sway Wellness Spa",
+        alt: "Compression therapy session at Sway Wellness Spa",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Normatec Compression Therapy in Denver | Sway Wellness Spa",
+    title: "Compression Therapy in Denver | Sway Wellness Spa",
     description:
-      "Normatec compression for recovery, circulation, and lymphatic drainage at Sway, a modern wellness club in Denver.",
+      "Compression therapy for recovery, circulation, and lymphatic drainage at Sway, a modern wellness club in Denver.",
     images: ["/assets/OG/og-compression.jpg"],
   },
   robots: { index: true, follow: true },
@@ -45,7 +45,7 @@ const breadcrumbJsonLd = {
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
-  serviceType: "Normatec Compression Therapy",
+  serviceType: "Compression Therapy",
   provider: {
     "@type": "LocalBusiness",
     name: "Sway Wellness Spa",
@@ -64,7 +64,7 @@ const serviceJsonLd = {
     name: "Denver",
   },
   description:
-    "Normatec compression therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, Normatec compression, and LED light therapy.",
+    "Compression therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy.",
 };
 
 const faqJsonLd = {
@@ -73,10 +73,10 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What is Normatec compression therapy?",
+      name: "What is compression therapy?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Normatec uses dynamic air compression to massage your legs, hips, and lower body. Sequential pulse technology mimics natural muscle contractions to improve circulation, reduce soreness, and speed recovery.",
+        text: "Compression therapy uses dynamic air compression to massage your legs, hips, and lower body. Sequential pulse technology mimics natural muscle contractions to improve circulation, reduce soreness, and speed recovery.",
       },
     },
     {
@@ -89,10 +89,10 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "How do I book Normatec at Sway?",
+      name: "How do I book compression therapy at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Normatec compression is part of the Remedy Room, a guided 40-minute circuit that also includes sauna, cold plunge, and LED light therapy. Book the Remedy Room at swaywellnessspa.com. $49 drop-in, $25 for members.",
+        text: "Compression therapy is part of the Remedy Room, a guided 40-minute circuit that also includes sauna, cold plunge, and LED light therapy. Book the Remedy Room at swaywellnessspa.com. $49 drop-in, $25 for members.",
       },
     },
   ],

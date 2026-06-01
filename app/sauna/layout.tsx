@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sauna Therapy in Denver | Remedy Room at Sway Wellness Spa",
   description:
-    "Sauna therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with cold plunge, Normatec compression, and LED light therapy. Member $25, Drop-In $49.",
+    "Sauna therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with cold plunge, compression therapy, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
     canonical: "https://swaywellnessspa.com/sauna/",
   },
@@ -71,7 +71,7 @@ const serviceJsonLd = {
     },
   },
   description:
-    "Sauna therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, Normatec compression, and LED light therapy.",
+    "Sauna therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy.",
 };
 
 const faqJsonLd = {
@@ -91,7 +91,7 @@ const faqJsonLd = {
       name: "How long is the sauna session at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The sauna is part of a guided 40-minute Remedy Room circuit: 15 minutes of Normatec compression with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge.",
+        text: "The sauna is part of a guided 40-minute Remedy Room circuit: 15 minutes of compression therapy with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge.",
       },
     },
     {

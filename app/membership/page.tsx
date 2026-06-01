@@ -103,7 +103,7 @@ export default function MembershipHubPage() {
           microcurrent, and oxygen infusion. Additional memberships: Aescape
           Premier ($99/month) — AI-powered robot massage sessions. Remedy Room
           ($99/month) — 4 monthly recovery circuit visits with traditional sauna,
-          cold plunge, Normatec compression, and LED light therapy. All members
+          cold plunge, compression therapy, and LED light therapy. All members
           enjoy 50% off boosts, private lounge access, and rollover credits.
           Available at Denver Larimer (now open), Dallas TX and Georgetown DC
           (coming soon). Voted #4 Best Day Spa in America by USA Today 10Best.

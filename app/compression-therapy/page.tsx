@@ -49,7 +49,7 @@ export default function CompressionTherapyPage() {
         >
           <Image
             src="/assets/compression_therapy.jpg"
-            alt="Compression therapy with Normatec boots at Sway Wellness Spa"
+            alt="Compression therapy at Sway Wellness Spa"
             width={600}
             height={400}
             className="rounded-lg shadow-lg w-full h-auto object-cover max-h-[300px] md:max-h-[450px] md:w-auto"
@@ -66,14 +66,14 @@ export default function CompressionTherapyPage() {
             Recommended 15 Min
           </p>
           <h1 className="text-4xl md:text-6xl font-vance-bold text-[#113D33] mt-2">
-            Normatec Compression Therapy
+            Compression Therapy
           </h1>
           <p className="text-lg md:text-2xl font-vance-bold text-[#113D33] mt-2">
             Drop-In $49 | Member $25
           </p>
           <p className="text-md md:text-lg text-gray-700 mt-4 leading-relaxed font-vance-text">
-            Normatec compression boots boost circulation, support lymphatic
-            drainage, and reduce muscle soreness. At Sway, Normatec is part
+            Compression boots boost circulation, support lymphatic
+            drainage, and reduce muscle soreness. At Sway, compression therapy is part
             of the Remedy Room, a guided 40-minute recovery circuit that
             also includes sauna, cold plunge, and LED light therapy.
           </p>

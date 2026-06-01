@@ -83,6 +83,8 @@ export default function TreatmentsLayout({
                 name: "Sway Wellness Spa",
               },
             },
+            price: "139.00",
+            priceCurrency: "USD",
             priceSpecification: [
               {
                 "@type": "UnitPriceSpecification",
@@ -118,6 +120,8 @@ export default function TreatmentsLayout({
                 name: "Sway Wellness Spa",
               },
             },
+            price: "139.00",
+            priceCurrency: "USD",
             priceSpecification: [
               {
                 "@type": "UnitPriceSpecification",
@@ -139,7 +143,7 @@ export default function TreatmentsLayout({
         "@type": "Offer",
         name: "Remedy Room Recovery Circuit",
         description:
-          "A guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+          "A guided 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy.",
         url: "https://swaywellnessspa.com/remedy-tech/",
         itemOffered: {
           "@type": "Service",
@@ -149,6 +153,8 @@ export default function TreatmentsLayout({
             name: "Sway Wellness Spa",
           },
         },
+        price: "49.00",
+        priceCurrency: "USD",
         priceSpecification: [
           {
             "@type": "UnitPriceSpecification",
@@ -168,7 +174,7 @@ export default function TreatmentsLayout({
         "@type": "Offer",
         name: "Aescape AI Robot Massage",
         description:
-          "AI-powered autonomous robot massage with real-time 3D body mapping and personalized pressure zones. 30 or 60 minutes.",
+          "AI-powered autonomous robot massage with real-time 3D body mapping and personalized pressure zones. 15, 30, 45, or 60 minutes.",
         url: "https://swaywellnessspa.com/aescape/",
         itemOffered: {
           "@type": "Service",
@@ -193,7 +199,7 @@ export default function TreatmentsLayout({
         name: "What treatments does Sway Wellness Spa offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway offers four treatment categories: 18 massage types across 3 tiers (Essential, Premier, Ultimate), 13 facial treatments across 3 tiers, the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Plus boost add-ons.",
+          text: "Sway offers four treatment categories: 18 massage types across 3 tiers (Essential, Premier, Ultimate), 13 facial treatments across 3 tiers, the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape AI-powered robot massage. Plus boost add-ons.",
         },
       },
       {
@@ -201,7 +207,7 @@ export default function TreatmentsLayout({
         name: "How long are treatments at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Massages range from 50 to 90 minutes depending on the tier. Facials range from 30 to 60 minutes. The Remedy Room is a guided 40-minute circuit. Aescape robot massage sessions run 30 or 60 minutes.",
+          text: "Massages range from 50 to 90 minutes depending on the tier. Facials range from 30 to 60 minutes. The Remedy Room is a guided 40-minute circuit. Aescape robot massage sessions run 15, 30, 45, or 60 minutes.",
         },
       },
       {

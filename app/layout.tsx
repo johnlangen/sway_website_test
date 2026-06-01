@@ -86,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               url: "https://swaywellnessspa.com",
               logo: "https://swaywellnessspa.com/assets/swaylogo3.png",
               description:
-                "Sway Wellness Spa is a modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, Normatec compression, LED light therapy, and AI-powered Aescape robot massage. Voted #4 Best Day Spa in America by USA Today 10Best.",
+                "Sway Wellness Spa is a modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, compression therapy, LED light therapy, and AI-powered Aescape robot massage. Voted #4 Best Day Spa in America by USA Today 10Best.",
               foundingDate: "2024",
               sameAs: [
                 "https://www.instagram.com/swaywellnessclub/",
@@ -130,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 "facial treatments",
                 "sauna",
                 "cold plunge therapy",
-                "Normatec compression therapy",
+                "compression therapy",
                 "LED light therapy",
                 "AI-powered robot massage",
                 "wellness recovery",

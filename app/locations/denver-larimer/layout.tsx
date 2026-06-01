@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver",
   description:
-    "Visit Sway on Larimer Square in downtown Denver. A modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Book online today.",
+    "Visit Sway on Larimer Square in downtown Denver. A modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, compression therapy, and AI-powered Aescape robot massage. Book online today.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-larimer/",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-larimer/",
     title: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver",
     description:
-      "Massage, facials, sauna, cold plunge, Normatec compression, and Aescape robot massage at Sway on Larimer Square in downtown Denver.",
+      "Massage, facials, sauna, cold plunge, compression therapy, and Aescape robot massage at Sway on Larimer Square in downtown Denver.",
     images: [
       {
         url: "/assets/homepage_photo_outside.jpg",
@@ -41,7 +41,7 @@ const localBusinessJsonLd = {
   "@type": "DaySpa",
   name: "Sway Wellness Spa – Larimer Square",
   description:
-    "A modern wellness club on Larimer Square in Denver offering massage therapy, advanced facials, sauna, cold plunge, Normatec compression, LED light therapy, and AI-powered Aescape robot massage.",
+    "A modern wellness club on Larimer Square in Denver offering massage therapy, advanced facials, sauna, cold plunge, compression therapy, LED light therapy, and AI-powered Aescape robot massage.",
   image: "https://swaywellnessspa.com/assets/homepage_photo_outside.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-larimer/",
   url: "https://swaywellnessspa.com/locations/denver-larimer/",
@@ -327,7 +327,7 @@ const localBusinessJsonLd = {
           "@type": "Service",
           name: "Remedy Room Recovery Circuit",
           description:
-            "A guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+            "A guided 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy.",
         },
         price: "49.00",
         priceCurrency: "USD",
@@ -387,7 +387,7 @@ const faqJsonLd = {
       name: "What makes Sway different from a traditional spa?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
+        text: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: sauna, cold plunge, compression therapy, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
       },
     },
     {
@@ -411,7 +411,7 @@ const faqJsonLd = {
       name: "What is the Remedy Room at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
+        text: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
       },
     },
     {
@@ -518,7 +518,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 4,
       name: "Enjoy Your Treatment",
-      text: "Your therapist or esthetician will guide your session. Massages range from 50 to 90 minutes and facials from 30 to 60 minutes depending on the tier. The Remedy Room is a guided 40-minute recovery circuit through sauna, cold plunge, Normatec compression, and LED light therapy. Aescape robot massage sessions are 30 or 60 minutes.",
+      text: "Your therapist or esthetician will guide your session. Massages range from 50 to 90 minutes and facials from 30 to 60 minutes depending on the tier. The Remedy Room is a guided 40-minute recovery circuit through sauna, cold plunge, compression therapy, and LED light therapy. Aescape robot massage sessions are 15, 30, 45, or 60 minutes.",
     },
     {
       "@type": "HowToStep",

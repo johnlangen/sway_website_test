@@ -166,7 +166,7 @@ export default function CouplesSpaPage() {
                 href="/compression-therapy"
                 className="underline text-[#113D33] font-semibold"
               >
-                Normatec compression
+                compression therapy
               </Link>
               , and{" "}
               <Link

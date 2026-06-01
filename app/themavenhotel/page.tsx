@@ -1027,7 +1027,7 @@ export default function MavenHotelPage() {
             </h1>
 
             <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto mb-8">
-              Book a 30 or 60-minute AI-powered Aescape massage at Sway
+              Book a 15, 30, 45, or 60-minute AI-powered Aescape massage at Sway
               Wellness Spa — just 0.6 miles from The Maven Hotel. Walk,
               scooter, or drive over in minutes.
             </p>

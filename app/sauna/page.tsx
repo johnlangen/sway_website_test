@@ -98,7 +98,7 @@ export default function SaunaPage() {
             Sauna therapy uses dry heat to support circulation, recovery, and
             deep relaxation. At Sway, sauna is part of the Remedy Room, a
             guided 40-minute recovery circuit that also includes cold plunge,
-            Normatec compression, and LED light therapy.
+            compression therapy, and LED light therapy.
           </p>
 
           <Link

@@ -135,7 +135,7 @@ export default function MembershipLayout({
         "@type": "Offer",
         name: "Remedy Room Membership",
         description:
-          "4 monthly recovery circuit visits — sauna, cold plunge, Normatec compression, LED light therapy at $99/month.",
+          "4 monthly recovery circuit visits — sauna, cold plunge, compression therapy, LED light therapy at $99/month.",
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

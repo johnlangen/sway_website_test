@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Cold Plunge Therapy in Denver | Remedy Room at Sway Wellness Spa",
   description:
-    "Cold plunge therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, Normatec compression, and LED light therapy. Member $25, Drop-In $49.",
+    "Cold plunge therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, compression therapy, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {
     canonical: "https://swaywellnessspa.com/cold-plunge/",
   },
@@ -64,7 +64,7 @@ const serviceJsonLd = {
     name: "Denver",
   },
   description:
-    "Cold plunge therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, Normatec compression, and LED light therapy.",
+    "Cold plunge therapy at Sway Wellness Spa in Denver. Part of the Remedy Room, a 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy.",
 };
 
 const faqJsonLd = {
@@ -100,7 +100,7 @@ const faqJsonLd = {
       name: "Do I need to book the cold plunge separately?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. The cold plunge is part of the Remedy Room, a guided 40-minute circuit that also includes sauna, Normatec compression, and LED light therapy. Book the Remedy Room to access all four modalities. $49 drop-in, $25 for members.",
+        text: "No. The cold plunge is part of the Remedy Room, a guided 40-minute circuit that also includes sauna, compression therapy, and LED light therapy. Book the Remedy Room to access all four modalities. $49 drop-in, $25 for members.",
       },
     },
   ],

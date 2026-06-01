@@ -123,7 +123,7 @@ export default function DateNightPage() {
               <h3 className="text-lg font-bold">Remedy Room</h3>
               <p className="text-sm text-gray-700">
                 40-minute guided recovery circuit together: sauna, cold
-                plunge, Normatec compression, LED light therapy.
+                plunge, compression therapy, LED light therapy.
               </p>
               <p className="text-sm font-semibold">
                 $25/person member · $49/person drop-in
@@ -138,7 +138,7 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Aescape Robot Massage</h3>
               <p className="text-sm text-gray-700">
-                AI-powered autonomous massage — 30 or 60 minutes. No
+                AI-powered autonomous massage. 15, 30, 45, or 60 minutes. No
                 conversation required (if that&apos;s your vibe).
               </p>
               <p className="text-sm font-semibold">Starting at $49</p>

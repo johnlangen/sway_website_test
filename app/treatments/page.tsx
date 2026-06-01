@@ -30,7 +30,7 @@ const treatments = [
     name: "Remedy Room",
     tagline: "4-modality recovery circuit",
     description:
-      "Sauna, cold plunge, Normatec compression & LED light therapy. 40 minutes.",
+      "Sauna, cold plunge, compression therapy & LED light therapy. 40 minutes.",
     image: "/assets/treatment2.jpg",
     learnHref: "/remedy-tech",
   },
@@ -38,7 +38,7 @@ const treatments = [
     name: "Aescape",
     tagline: "AI-powered robot massage",
     description:
-      "Real-time 3D body mapping with personalized pressure zones. 30 or 60 minutes.",
+      "Real-time 3D body mapping with personalized pressure zones. 15, 30, 45, or 60 minutes.",
     image: "/assets/aescape-treatment.jpg",
     learnHref: "/aescape",
     badge: "Select Locations",
@@ -88,7 +88,7 @@ export default function TreatmentsPage() {
             Hydration, Sensitive Silk, Dr. Dennis Gross Vitamin C, Illuminate
             LED, Oxygen Infusion, Sculpt &amp; Lift Microcurrent, and Hydraderm
             (30–60 minutes). 4 recovery technologies in the Remedy Room (sauna,
-            cold plunge, Normatec compression, LED light therapy — 40 minutes).
+            cold plunge, compression therapy, LED light therapy — 40 minutes).
             Aescape AI-powered robot massage at select locations (30 or
             60-minute sessions). 7 boost add-ons: Dermaflash, LED light
             therapy, microcurrent, PEMF mat, oxygen infusion, cupping,

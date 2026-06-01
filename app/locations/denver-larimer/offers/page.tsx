@@ -14,7 +14,7 @@ export default function LarimerOffersPage() {
       price: "$49",
       priceSuffix: "/ session",
       description:
-        "Sauna, cold plunge, red light therapy, and Normatec compression — all in one 40-minute session.",
+        "Sauna, cold plunge, red light therapy, and compression therapy — all in one 40-minute session.",
       cta: "Book Remedy Room",
       href: "/locations/denver-larimer/book-remedy-room",
       footnote: "Members pay just $25/session",
@@ -99,7 +99,7 @@ export default function LarimerOffersPage() {
           boost add-ons, $25 Remedy Room sessions (normally $49), and private
           member lounge access. Remedy Room — $49 per session ($25 for members),
           a guided 40-minute recovery circuit combining sauna, cold
-          plunge, Normatec compression therapy, and LED light therapy. Sway
+          plunge, compression therapy, and LED light therapy. Sway
           Wellness Spa is located at 1428 Larimer St. on Larimer Square in
           Denver, CO 80202. Voted #4 Best Day Spa in America by USA Today
           10Best. Book at swaywellnessspa.com or call (303) 476-6150.

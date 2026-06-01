@@ -67,7 +67,7 @@ const RemedyRoomPage = () => {
       name: "Compression Therapy",
       time: "15 min",
       description:
-        "Normatec compression boosts circulation, supports lymphatic drainage, and reduces muscle soreness.",
+        "Compression therapy boosts circulation, supports lymphatic drainage, and reduces muscle soreness.",
       img: "/assets/compression_therapy.jpg",
       link: "/compression-therapy",
     },
@@ -108,7 +108,7 @@ const RemedyRoomPage = () => {
           <p className="sr-only">
             The Remedy Room at Sway Wellness Spa is a guided 40-minute recovery
             circuit combining 4 evidence-based modalities: 20 minutes of
-            sauna, 5 minutes of cold plunge, 15 minutes of Normatec compression
+            sauna, 5 minutes of cold plunge, 15 minutes of compression
             therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer
             Square in Denver. $25 for members, $49 drop-in. Pair with any of
             Sway&apos;s 18 massage types or 13 facial treatments. Open Mon–Fri 10 AM–8
@@ -196,7 +196,7 @@ const RemedyRoomPage = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { step: "01", label: "Compression + LED", time: "15 min", desc: "Start with Normatec compression sleeves and LED light therapy working simultaneously." },
+              { step: "01", label: "Compression + LED", time: "15 min", desc: "Start with compression sleeves and LED light therapy working simultaneously." },
               { step: "02", label: "Sauna", time: "20 min", desc: "Move into the sauna for deep heat therapy supporting recovery and circulation." },
               { step: "03", label: "Cold Plunge", time: "5 min", desc: "Finish with cold water immersion to elevate energy and reduce inflammation." },
               { step: "04", label: "Recover", time: "∞", desc: "Relax in the lounge. Pair with a massage or facial for a complete visit." },
@@ -318,7 +318,7 @@ const RemedyRoomPage = () => {
           {[
             {
               q: "What is the Remedy Room?",
-              a: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's designed to restore your body and reset your nervous system in a single session.",
+              a: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: sauna, cold plunge, compression therapy, and LED light therapy. It's designed to restore your body and reset your nervous system in a single session.",
             },
             {
               q: "Who is the Remedy Room for?",
@@ -326,7 +326,7 @@ const RemedyRoomPage = () => {
             },
             {
               q: "What's included in a Remedy Room session?",
-              a: "Every session follows a guided circuit: 15 minutes of Normatec compression therapy with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge. Total session time is 40 minutes.",
+              a: "Every session follows a guided circuit: 15 minutes of compression therapy with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge. Total session time is 40 minutes.",
             },
             {
               q: "Can I combine the Remedy Room with a massage or facial?",

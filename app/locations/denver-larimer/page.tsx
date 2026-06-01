@@ -53,7 +53,7 @@ const TREATMENTS = [
     title: "Remedy Room",
     tagline: "Sauna + cold plunge recovery",
     description:
-      "Sauna, cold plunge, Normatec compression, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
+      "Sauna, cold plunge, compression therapy, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
     price: "$49",
     memberPrice: "$25",
     image: "/assets/remedy-room.jpg",
@@ -64,7 +64,7 @@ const TREATMENTS = [
     title: "Aescape Robot Massage",
     tagline: "AI-powered precision recovery",
     description:
-      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 30 or 60 minute sessions.",
+      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 15, 30, 45, or 60 minute sessions.",
     price: "From $49",
     memberPrice: null,
     image: "/assets/aescapeblog6.jpg",
@@ -179,9 +179,9 @@ export default function SwayLarimerPage() {
               13 facial treatments across 3 tiers using Eminence Organics and
               Dr. Dennis Gross (from $99 member, $139 drop-in), the Remedy Room
               40-minute recovery circuit with 4 modalities — sauna,
-              cold plunge, Normatec compression, and LED light therapy (from
-              $25), and AI-powered Aescape robot massage (from $49, 30 or 60
-              min). 7 boost add-ons across services. Open Mon–Fri 10
+              cold plunge, compression therapy, and LED light therapy (from
+              $25), and AI-powered Aescape robot massage (from $49, 15, 30, 45,
+              or 60 min). 7 boost add-ons across services. Open Mon–Fri 10
               AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from
               $99/month. 1st hour parking validated at Larimer Square Garage.
               Book at swaywellnessspa.com or call (303) 476-6150.
@@ -573,7 +573,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What makes Sway different from a traditional spa?",
-              a: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: sauna, cold plunge, Normatec compression, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
+              a: "Sway is a modern wellness club that combines expert-led massage and advanced facials with recovery technology: sauna, cold plunge, compression therapy, and AI-powered Aescape robot massage. Everything is under one roof and designed for consistent care, not one-off visits.",
             },
             {
               q: "How do I book a massage or facial?",
@@ -585,7 +585,7 @@ export default function SwayLarimerPage() {
             },
             {
               q: "What is the Remedy Room?",
-              a: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, Normatec compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
+              a: "The Remedy Room is a guided 40-minute recovery circuit combining sauna, cold plunge, compression therapy, and LED light therapy. It's $49 per session ($25 for members).",
             },
             {
               q: "Is Sway Larimer walkable from Union Station?",

@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "What makes Sway's massages different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, Normatec compression) and results-driven facials with Eminence Organics are all available under one roof.",
+        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, compression therapy) and results-driven facials with Eminence Organics are all available under one roof.",
       },
     },
     {
@@ -123,6 +123,8 @@ const serviceJsonLd = {
           name: "Essential Signature Massage",
           description: "A 50-minute relaxation massage focusing on full-body tension relief.",
         },
+        price: "139.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
@@ -136,6 +138,8 @@ const serviceJsonLd = {
           name: "Deep Tissue Massage",
           description: "A 50-minute deep tissue massage targeting chronic tension and muscle knots.",
         },
+        price: "169.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
@@ -148,6 +152,8 @@ const serviceJsonLd = {
           name: "Salt Stone Massage",
           description: "A 50-minute Himalayan salt stone massage for deep relaxation and mineral-rich detox.",
         },
+        price: "169.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
@@ -160,6 +166,8 @@ const serviceJsonLd = {
           name: "Sports Massage",
           description: "A 50-minute sports massage designed for active recovery and athletic performance.",
         },
+        price: "169.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
@@ -172,6 +180,8 @@ const serviceJsonLd = {
           name: "Lymphatic Drainage Massage",
           description: "A 50-minute lymphatic drainage massage to reduce swelling and support detoxification.",
         },
+        price: "169.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
@@ -185,6 +195,8 @@ const serviceJsonLd = {
           name: "Signature 90-Minute Massage",
           description: "A 90-minute extended signature massage for full-body relaxation and recovery.",
         },
+        price: "199.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
@@ -197,6 +209,8 @@ const serviceJsonLd = {
           name: "Deep Tissue 70-Minute Massage",
           description: "A 70-minute deep tissue massage for extended chronic tension and muscle recovery.",
         },
+        price: "199.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
@@ -209,6 +223,8 @@ const serviceJsonLd = {
           name: "Salt Stone 70-Minute Massage",
           description: "A 70-minute Himalayan salt stone massage for deeper relaxation and mineral-rich detox.",
         },
+        price: "199.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
@@ -221,6 +237,8 @@ const serviceJsonLd = {
           name: "Sports 70-Minute Massage",
           description: "A 70-minute sports massage for extended active recovery and athletic performance.",
         },
+        price: "199.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
@@ -233,6 +251,8 @@ const serviceJsonLd = {
           name: "Lymphatic Drainage 70-Minute Massage",
           description: "A 70-minute lymphatic drainage massage for extended detoxification and recovery.",
         },
+        price: "199.00",
+        priceCurrency: "USD",
         priceSpecification: [
           { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
           { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },

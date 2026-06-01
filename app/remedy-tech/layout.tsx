@@ -51,7 +51,7 @@ const faqJsonLd = {
       name: "What is the Remedy Room?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: sauna, cold plunge, Normatec compression therapy, and LED light therapy.",
+        text: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: sauna, cold plunge, compression therapy, and LED light therapy.",
       },
     },
     {
@@ -67,7 +67,7 @@ const faqJsonLd = {
       name: "What's included in a Remedy Room session?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Every session follows a guided circuit: 15 minutes of Normatec compression therapy with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge. Total time is 40 minutes.",
+        text: "Every session follows a guided circuit: 15 minutes of compression therapy with LED light therapy, 20 minutes of sauna, and 5 minutes of cold plunge. Total time is 40 minutes.",
       },
     },
     {
@@ -94,7 +94,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How the Remedy Room Recovery Circuit Works",
   description:
-    "A step-by-step guide to the Remedy Room at Sway Wellness Spa — a guided 40-minute recovery circuit combining 4 modalities: Normatec compression, LED light therapy, sauna, and cold plunge.",
+    "A step-by-step guide to the Remedy Room at Sway Wellness Spa — a guided 40-minute recovery circuit combining 4 modalities: compression therapy, LED light therapy, sauna, and cold plunge.",
   totalTime: "PT40M",
   estimatedCost: {
     "@type": "MonetaryAmount",
@@ -111,14 +111,14 @@ const howToJsonLd = {
     {
       "@type": "HowToStep",
       position: 2,
-      name: "Normatec Compression Therapy (15 Minutes)",
-      text: "Start with 15 minutes of Normatec compression therapy. Pneumatic leg sleeves use sequential pulse technology to boost circulation, reduce muscle soreness, and support lymphatic drainage.",
+      name: "Compression Therapy (15 Minutes)",
+      text: "Start with 15 minutes of compression therapy. Pneumatic leg sleeves use sequential pulse technology to boost circulation, reduce muscle soreness, and support lymphatic drainage.",
     },
     {
       "@type": "HowToStep",
       position: 3,
       name: "LED Light Therapy (During Compression)",
-      text: "While in the Normatec compression sleeves, you also receive LED light therapy. Medical-grade LED panels emit red and near-infrared wavelengths to support skin health, cellular repair, and recovery.",
+      text: "While in the compression sleeves, you also receive LED light therapy. Medical-grade LED panels emit red and near-infrared wavelengths to support skin health, cellular repair, and recovery.",
     },
     {
       "@type": "HowToStep",
@@ -140,7 +140,7 @@ const howToJsonLd = {
     },
   ],
   tool: [
-    { "@type": "HowToTool", name: "Normatec Compression Boots" },
+    { "@type": "HowToTool", name: "Compression Boots" },
     { "@type": "HowToTool", name: "Medical-Grade LED Light Panels" },
     { "@type": "HowToTool", name: "Sauna" },
     { "@type": "HowToTool", name: "Cold Plunge Pool" },
@@ -152,7 +152,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Remedy Room Recovery Circuit at Sway Wellness Spa",
   description:
-    "A guided 40-minute recovery circuit combining 4 evidence-based modalities: sauna (20 min), cold plunge (5 min), Normatec compression therapy (15 min), and LED light therapy. Available at Sway Wellness Spa in Denver.",
+    "A guided 40-minute recovery circuit combining 4 evidence-based modalities: sauna (20 min), cold plunge (5 min), compression therapy (15 min), and LED light therapy. Available at Sway Wellness Spa in Denver.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",
@@ -166,7 +166,7 @@ const serviceJsonLd = {
       "@type": "Service",
       name: "Remedy Room Recovery Circuit",
       description:
-        "40-minute guided circuit: 15 min Normatec compression + LED light therapy, 20 min sauna, 5 min cold plunge.",
+        "40-minute guided circuit: 15 min compression therapy + LED light therapy, 20 min sauna, 5 min cold plunge.",
     },
     price: "49.00",
     priceCurrency: "USD",

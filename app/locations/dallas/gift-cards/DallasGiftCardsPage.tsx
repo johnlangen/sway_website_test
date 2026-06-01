@@ -22,12 +22,6 @@ export default function DallasGiftCardsPage() {
         description: "Wellness gift cards for Sway Dallas. Redeemable for massage, facials, and Remedy Room sessions once the Dallas location opens.",
         image: "/assets/OG/og-gift-cards.jpg",
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
-        offers: {
-          "@type": "Offer",
-          url: "https://swaywellnessspa.com/locations/dallas/gift-cards/",
-          availability: "https://schema.org/PreOrder",
-          priceCurrency: "USD",
-        },
       },
     ],
   };

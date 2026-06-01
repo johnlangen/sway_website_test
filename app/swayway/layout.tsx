@@ -72,7 +72,7 @@ export default function SwayWayLayout({
                 name: "What is Sway Wellness Spa?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway is a modern wellness club in Denver, Colorado, offering massage therapy, advanced facials, the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Voted #4 Best Day Spa in America by USA Today 10Best.",
+                  text: "Sway is a modern wellness club in Denver, Colorado, offering massage therapy, advanced facials, the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape AI-powered robot massage. Voted #4 Best Day Spa in America by USA Today 10Best.",
                 },
               },
               {
@@ -88,7 +88,7 @@ export default function SwayWayLayout({
                 name: "What makes Sway different from a traditional spa?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway combines hands-on expertise with science-backed technology under one roof. Beyond traditional massage and facials, Sway offers recovery tech (sauna, cold plunge, Normatec, LED) and AI-powered Aescape robot massage. It's designed as a wellness club for regular use, not just occasional pampering.",
+                  text: "Sway combines hands-on expertise with science-backed technology under one roof. Beyond traditional massage and facials, Sway offers recovery tech (sauna, cold plunge, compression, LED) and AI-powered Aescape robot massage. It's designed as a wellness club for regular use, not just occasional pampering.",
                 },
               },
               {

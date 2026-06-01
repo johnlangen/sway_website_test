@@ -167,7 +167,7 @@ export default function GroupEventsPage() {
                 </p>
                 <p className="text-sm text-gray-700">
                   40 min circuit · $25 member / $49 drop-in · Sauna, cold
-                  plunge, Normatec, LED
+                  plunge, compression, LED
                 </p>
               </div>
             </li>
@@ -185,7 +185,7 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  30 or 60 min · Starting at $49 · AI-powered autonomous massage
+                  15, 30, 45, or 60 min · Starting at $49 · AI-powered autonomous massage
                 </p>
               </div>
             </li>

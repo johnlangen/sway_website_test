@@ -206,7 +206,7 @@ export default function OwnASwayPage() {
             {[
               {
                 title: "Recovery Technology",
-                text: "Sauna, cold plunge, Normatec compression, and LED light therapy in a guided Remedy Room circuit.",
+                text: "Sauna, cold plunge, compression therapy, and LED light therapy in a guided Remedy Room circuit.",
               },
               {
                 title: "AI-Powered Aescape Massage",

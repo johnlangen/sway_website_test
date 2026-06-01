@@ -52,7 +52,7 @@ const faqJsonLd = {
       name: "Does Sway offer bachelorette spa packages in Denver?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway is ideal for bachelorette spa days in Denver. Groups can book massage, facials, and the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy). Located on Larimer Square, it's easy to continue the celebration at nearby restaurants and bars. Book online or contact the team for group coordination.",
+        text: "Yes. Sway is ideal for bachelorette spa days in Denver. Groups can book massage, facials, and the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy). Located on Larimer Square, it's easy to continue the celebration at nearby restaurants and bars. Book online or contact the team for group coordination.",
       },
     },
     {
