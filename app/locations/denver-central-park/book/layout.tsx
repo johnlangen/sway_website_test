@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     "Book a Sway Remedy Lounge session at Central Park | Sway Wellness Spa",
   description:
-    "Book a recovery session at Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. Sauna, cold plunge, infrared, and compression therapy in 75-minute Sway Remedy Lounge sessions.",
+    "Book a recovery session at Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. Sauna, cold plunge, infrared, and compression therapy at the Sway Remedy Lounge.",
   alternates: {
     canonical:
       "https://swaywellnessspa.com/locations/denver-central-park/book/",

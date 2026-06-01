@@ -68,7 +68,7 @@ const localBusinessJsonLd = {
         "@type": "Service",
         name: "Sway Remedy Lounge",
         description:
-          "A 75-minute recovery session with sauna, cold plunge, infrared, compression therapy, and lounge access.",
+          "A recovery session with sauna, cold plunge, infrared, compression therapy, and lounge access.",
       },
     },
   ],
@@ -97,7 +97,7 @@ const faqJsonLd = {
       name: "What's included in the Sway Remedy Lounge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "A 75-minute session with access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
+        text: "Access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
       },
     },
     {

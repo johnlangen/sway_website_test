@@ -31,7 +31,7 @@ const FAQS = [
   },
   {
     q: "What's included in the Sway Remedy Lounge?",
-    a: "A 75-minute session with access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
+    a: "Access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
   },
   {
     q: "Do I need a membership?",
@@ -89,8 +89,8 @@ export default function SwayCentralParkPage() {
               2271 Clinton St. in Aurora, CO 80010, on the edge of Denver&apos;s
               Central Park neighborhood, formerly Upswell Studio. The Sway
               Remedy Lounge is open daily with sauna, cold plunge, infrared,
-              compression therapy, and lounge access in 75-minute sessions.
-              Massage and facial treatments are coming this summer. Memberships
+              compression therapy, and lounge access. Massage and facial
+              treatments are coming this summer. Memberships
               are available at $99/month (Founding rate) for unlimited Sway
               Remedy Lounge access. Existing Upswell members were carried over
               automatically.
@@ -179,7 +179,7 @@ export default function SwayCentralParkPage() {
                 </h2>
                 <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-5 max-w-md">
                   Sauna, cold plunge, infrared, compression therapy, and lounge
-                  access in a 75-minute session.
+                  access.
                 </p>
                 <p className="text-sm sm:text-base font-medium mb-6">
                   Massage and facial treatments coming this summer.
@@ -327,7 +327,7 @@ export default function SwayCentralParkPage() {
             Recover at Sway Central Park.
           </h3>
           <p className="text-white/75 max-w-lg mx-auto mb-7">
-            Book a 75-minute Sway Remedy Lounge session. Sauna, cold plunge,
+            Book a Sway Remedy Lounge recovery session. Sauna, cold plunge,
             infrared, and compression therapy.
           </p>
 

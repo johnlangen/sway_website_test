@@ -31,7 +31,7 @@ const FAQS = [
   },
   {
     q: "What's included in the Sway Remedy Lounge?",
-    a: "A 75-minute session with access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
+    a: "Access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
   },
   {
     q: "Do I need a membership?",
@@ -88,9 +88,9 @@ export default function SwayRinoPage() {
               Sway Wellness Spa RiNo is a recovery-led wellness club at 3636
               Blake St. in Denver&apos;s RiNo Art District, CO 80205, formerly
               Upswell Studio. The Sway Remedy Lounge is open daily with sauna,
-              cold plunge, infrared, compression therapy, and lounge access in
-              75-minute sessions. Massage and facial treatments are coming this
-              summer. Memberships are available at $99/month (Founding rate) for
+              cold plunge, infrared, compression therapy, and lounge access.
+              Massage and facial treatments are coming this summer. Memberships
+              are available at $99/month (Founding rate) for
               unlimited Sway Remedy Lounge access. Existing Upswell members were
               carried over automatically.
             </p>
@@ -177,7 +177,7 @@ export default function SwayRinoPage() {
                 </h2>
                 <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-5 max-w-md">
                   Sauna, cold plunge, infrared, compression therapy, and lounge
-                  access in a 75-minute session.
+                  access.
                 </p>
                 <p className="text-sm sm:text-base font-medium mb-6">
                   Massage and facial treatments coming this summer.
@@ -325,7 +325,7 @@ export default function SwayRinoPage() {
             Recover at Sway RiNo.
           </h3>
           <p className="text-white/75 max-w-lg mx-auto mb-7">
-            Book a 75-minute Sway Remedy Lounge session. Sauna, cold plunge,
+            Book a Sway Remedy Lounge recovery session. Sauna, cold plunge,
             infrared, and compression therapy.
           </p>
 
