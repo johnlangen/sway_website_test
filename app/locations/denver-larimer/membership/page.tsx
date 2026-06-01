@@ -8,9 +8,10 @@ import GoogleReviews, {
   ReviewBadge,
   ClassPassBadge,
 } from "../../../components/GoogleReviews";
+import { SwayCurve } from "../../../components/SwayCurve";
 
 /* ------------------------------------------------------------------
-   TIER DATA — all treatments now have durations
+   TIER DATA: all treatments now have durations
 ------------------------------------------------------------------ */
 
 type TreatmentItem = { name: string; duration: string };
@@ -35,7 +36,7 @@ const tiers: MembershipTier[] = [
     dropInPrice: "$139",
     tagline: "50-minute signature treatments",
     description:
-      "Signature facials and massages — the perfect entry to Sway.",
+      "Signature facials and massages, the perfect entry to Sway.",
     facials: [{ name: "Essential Signature Facial", duration: "50 min" }],
     massages: [
       { name: "Essential Signature Massage", duration: "50 min" },
@@ -74,7 +75,7 @@ const tiers: MembershipTier[] = [
     dropInPrice: "$199",
     tagline: "Tech-enhanced + longer treatments",
     description:
-      "LED, microcurrent, oxygen infusion — maximum duration and results.",
+      "LED, microcurrent, oxygen infusion. Maximum duration and results.",
     facials: [
       { name: "Illuminate LED Facial", duration: "60 min" },
       { name: "Oxygen Infusion Facial", duration: "60 min" },
@@ -115,7 +116,7 @@ const recoveryMemberships = [
     name: "Remedy Room",
     price: "$99",
     description:
-      "Our full recovery circuit — everything you need to reset and recover.",
+      "Our full recovery circuit. Everything you need to reset and recover.",
     details: "4 visits per month",
     highlights: [
       "Traditional sauna",
@@ -195,8 +196,15 @@ export default function MembershipPage() {
           transition={{ duration: 0.4 }}
           className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
         >
-          Sway Larimer — Denver, CO
+          Sway Larimer &middot; Denver, CO
         </motion.p>
+
+        <SwayCurve
+          width={150}
+          strokeWidth={2.2}
+          animate
+          className="text-[#A9D2C5] mx-auto block mb-6"
+        />
 
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
@@ -213,7 +221,7 @@ export default function MembershipPage() {
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-6"
         >
-          Three tiers of wellness — from signature treatments to tech-enhanced
+          Three tiers of wellness, from signature treatments to tech-enhanced
           experiences. Find the membership that fits your lifestyle.
         </motion.p>
 
@@ -244,8 +252,8 @@ export default function MembershipPage() {
         </motion.div>
 
         <p className="sr-only">
-          Sway Wellness Spa Larimer memberships: three tiers — Essential
-          ($99/month), Premier ($129/month), Ultimate ($159/month) — plus
+          Sway Wellness Spa Larimer memberships: three tiers. Essential
+          ($99/month), Premier ($129/month), Ultimate ($159/month), plus
           Aescape robot massage ($99/month), Remedy Room recovery circuit
           ($99/month), and Ultimate Tech Recovery package ($99/month). All
           members get 50% off boosts, private lounge access, bring a friend at
@@ -257,16 +265,25 @@ export default function MembershipPage() {
       </section>
 
       {/* ============================================================
-          SPA MEMBERSHIPS — 3 COMPACT CARDS + TREATMENT DETAIL PANEL
+          SPA MEMBERSHIPS: 3 COMPACT CARDS + TREATMENT DETAIL PANEL
       ============================================================ */}
       <section className="px-4 sm:px-6 pt-10 pb-4">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+            Choose Your Tier
+          </p>
+          <h2 className="text-2xl md:text-3xl font-semibold">
             Spa Memberships
           </h2>
+          <SwayCurve
+            width={140}
+            strokeWidth={2.4}
+            animate
+            className="text-[#A9D2C5] mx-auto block mt-4"
+          />
         </div>
 
-        {/* Tier cards — compact, equal height, clickable */}
+        {/* Tier cards: compact, equal height, clickable */}
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
           {tiers.map((tier, i) => {
             const isSelected = selectedTier === tier.key;
@@ -320,7 +337,7 @@ export default function MembershipPage() {
                     onClick={(e) => e.stopPropagation()}
                     className="block w-full py-2.5 rounded-full bg-[#113D33] text-white text-sm font-semibold hover:bg-[#0e3029] transition text-center"
                   >
-                    Join — {tier.price}/mo
+                    Join &middot; {tier.price}/mo
                   </a>
                 </div>
               </motion.button>
@@ -329,7 +346,7 @@ export default function MembershipPage() {
         </div>
       </section>
 
-      {/* Treatment detail panel — shows selected tier's treatments */}
+      {/* Treatment detail panel: shows selected tier's treatments */}
       <section ref={treatmentRef} className="px-4 sm:px-6 pb-6 scroll-mt-4">
         <div className="max-w-5xl mx-auto">
           <div className="bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 p-5 md:p-8">
@@ -414,7 +431,7 @@ export default function MembershipPage() {
         </div>
       </section>
 
-      {/* ALL-MEMBER PERKS — always visible */}
+      {/* ALL-MEMBER PERKS: always visible */}
       <section className="px-4 sm:px-6 py-4">
         <div className="max-w-5xl mx-auto">
           <p className="text-center text-xs uppercase tracking-wider text-gray-500 mb-3">
@@ -442,9 +459,18 @@ export default function MembershipPage() {
       ============================================================ */}
       <section className="px-4 sm:px-6 pt-10 pb-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold">
-            Recovery & Tech
+          <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+            Beyond the Basics
+          </p>
+          <h2 className="text-2xl md:text-3xl font-semibold">
+            Recovery &amp; Tech
           </h2>
+          <SwayCurve
+            width={140}
+            strokeWidth={2.4}
+            animate
+            className="text-[#A9D2C5] mx-auto block mt-4"
+          />
         </div>
 
         <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -485,7 +511,7 @@ export default function MembershipPage() {
       </section>
 
       {/* ============================================================
-          BOOSTS — COLLAPSED
+          BOOSTS: COLLAPSED
       ============================================================ */}
       <section className="px-4 sm:px-6 py-6">
         <div className="max-w-5xl mx-auto">
@@ -494,7 +520,7 @@ export default function MembershipPage() {
             className="w-full flex items-center justify-center gap-2 text-sm md:text-base text-[#9ABFB3] hover:text-white transition py-3"
           >
             <span className="font-semibold">
-              Boosts — Members Save 50%
+              Boosts &middot; Members Save 50%
             </span>
             <motion.span
               animate={{ rotate: boostsOpen ? 180 : 0 }}
@@ -608,10 +634,16 @@ export default function MembershipPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+          <SwayCurve
+            width={160}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mb-6"
+          />
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             The Sway Way
           </h2>
-          <p className="max-w-2xl text-base md:text-lg mb-6 text-gray-200">
+          <p className="max-w-2xl text-base md:text-lg mb-7 text-gray-200">
             An inclusive club built around recovery, longevity, and feeling
             good in your body.
           </p>
@@ -619,8 +651,11 @@ export default function MembershipPage() {
             href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
+            className="group relative px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
           >
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+              <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
+            </span>
             Join the Club
           </a>
         </div>
