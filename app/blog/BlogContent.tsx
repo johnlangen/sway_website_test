@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { SwayCurve } from "../components/SwayCurve";
 
 /* ---------- DATA ---------- */
 
@@ -28,7 +29,7 @@ const blogs = [
     slug: "maven-hotel-denver-spa",
     title: "Maven Hotel + Sway: AI-Powered Massage Near Dairy Block Denver",
     summary:
-      "Staying at The Maven Hotel in Denver? Book a 60-minute Aescape robot massage at Sway Wellness Spa on Larimer Square — just 0.6 miles from Dairy Block.",
+      "Staying at The Maven Hotel in Denver? Book a 60-minute Aescape robot massage at Sway Wellness Spa on Larimer Square, just 0.6 miles from Dairy Block.",
     tag: "Partnership",
     image: "/assets/maven-hotel.jpg",
   },
@@ -44,7 +45,7 @@ const blogs = [
     slug: "things-to-do-in-denver-at-night",
     title: "Best Things to Do in Denver at Night",
     summary:
-      "14 of the best things to do in Denver at night — from Larimer Square dining and Red Rocks concerts to rooftop bars, Meow Wolf, and evening spa treatments.",
+      "14 of the best things to do in Denver at night, from Larimer Square dining and Red Rocks concerts to rooftop bars, Meow Wolf, and evening spa treatments.",
     tag: "Denver",
     image: "/assets/background.png",
   },
@@ -61,7 +62,7 @@ const blogs = [
     slug: "holiday-wellness-guide",
     title: "Your Wellness Guide Is Here",
     summary:
-      "A modern holiday wellness gift guide curated by Sway — featuring restorative spa experiences, glow-enhancing facials, elevated self-care rituals, and beautifully designed moments.",
+      "A modern holiday wellness gift guide curated by Sway, featuring restorative spa experiences, glow-enhancing facials, elevated self-care rituals, and beautifully designed moments.",
     tag: "Holiday",
     image: "/assets/blog38.jpg",
   },
@@ -77,7 +78,7 @@ const blogs = [
     slug: "post-summer-skin-recovery",
     title: "Repair & Refresh: Post-Summer Skin Recovery Starts Now",
     summary:
-      "Restore your glow after summer with SWAY's hydrating facials, LED therapy, and expert skincare — designed to repair sun damage and rejuvenate your skin.",
+      "Restore your glow after summer with SWAY's hydrating facials, LED therapy, and expert skincare, designed to repair sun damage and rejuvenate your skin.",
     tag: "Skincare",
     image: "/assets/blog23.jpg",
   },
@@ -85,7 +86,7 @@ const blogs = [
     slug: "aescape",
     title: "AI Meets Recovery: Reset with Aescape",
     summary:
-      "Meet Aescape: the world's first fully autonomous robot massage — only at Sway Wellness Spa in downtown Denver.",
+      "Meet Aescape: the world's first fully autonomous robot massage, only at Sway Wellness Spa in downtown Denver.",
     tag: "Technology",
     image: "/assets/blog22.jpg",
   },
@@ -93,7 +94,7 @@ const blogs = [
     slug: "glow-up-before-you-show-up",
     title: "Glow Up Before You Show Up: Spa for Students",
     summary:
-      "College life is stressful. Discover Sway's spa treatments designed for students — from facials to massages — that help you recharge, refocus, and feel your best.",
+      "College life is stressful. Discover Sway's spa treatments designed for students, from facials to massages, that help you recharge, refocus, and feel your best.",
     tag: "Wellness",
     image: "/assets/blog21.jpg",
   },
@@ -221,7 +222,7 @@ const blogs = [
     slug: "spring-reset",
     title: "Spring Reset: Detox Your Skin & Body with Sway",
     summary:
-      "Spring is all about renewal — detox with Sway's Salt Stone Massage, Pore Perfection Facial, and Remedy Room experience to refresh and rejuvenate.",
+      "Spring is all about renewal. Detox with Sway's Salt Stone Massage, Pore Perfection Facial, and Remedy Room experience to refresh and rejuvenate.",
     tag: "Skincare",
     image: "/assets/blog9.jpg",
   },
@@ -282,6 +283,9 @@ const ALL_TAGS = Array.from(new Set(blogs.map((b) => b.tag))).sort();
 const featured = blogs.find((b) => b.featured) ?? blogs[0];
 const remaining = blogs.filter((b) => b !== featured);
 
+// Secondary background tone, matching the homepage rhythm.
+const SAND = "#EBE4D1";
+
 /* ---------- COMPONENT ---------- */
 
 export default function BlogContent() {
@@ -294,16 +298,25 @@ export default function BlogContent() {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance text-[#113D33]">
       {/* ---------- HERO ---------- */}
-      <section className="bg-[#113D33] text-white px-6 pt-28 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-4xl md:text-6xl font-light tracking-tight"
-          >
+      <section className="bg-[#113D33] text-white px-6 pt-32 pb-20 md:pt-44 md:pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <div className="text-xs uppercase tracking-[0.35em] text-[#A9D2C5] mb-4">
+            The Wellness Journal
+          </div>
+          <SwayCurve
+            width={170}
+            strokeWidth={2.2}
+            animate
+            className="text-white/85 mx-auto block mb-7"
+          />
+          <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
             The Sway Edit
-          </motion.h1>
+          </h1>
 
           <p className="sr-only">
             The Sway Edit is the wellness blog by Sway Wellness Spa, located at
@@ -316,74 +329,100 @@ export default function BlogContent() {
             Today 10Best. Book at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-4 text-base md:text-lg opacity-80 max-w-2xl mx-auto"
-          >
+          <p className="mt-5 text-base md:text-lg text-white/80 max-w-2xl mx-auto">
             Expert wellness advice, skincare science, recovery tips, and Denver
-            lifestyle — from the team at Sway Wellness Spa.
-          </motion.p>
+            lifestyle, from the team at Sway Wellness Spa.
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-3 text-sm opacity-50"
-          >
-            {blogs.length} articles
-          </motion.p>
-        </div>
+          <p className="mt-3 text-sm text-white/50">{blogs.length} articles</p>
+        </motion.div>
       </section>
 
       {/* ---------- FEATURED POST ---------- */}
-      <section className="px-6 py-12 md:py-16">
+      <section
+        className="px-6 py-14 md:py-20"
+        style={{ backgroundColor: SAND }}
+      >
         <div className="max-w-6xl mx-auto">
-          <Link
-            href={`/blog/${featured.slug}`}
-            className="group block rounded-2xl overflow-hidden bg-white border border-[#113D33]/10 hover:border-[#113D33]/25 hover:shadow-xl transition-all"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative h-[240px] md:h-[360px]">
-                <Image
-                  src={featured.image}
-                  alt={featured.title}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <span className="absolute top-4 left-4 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wide">
-                  Featured
-                </span>
-              </div>
-
-              <div className="p-8 md:p-10 flex flex-col justify-center">
-                <span className="text-xs uppercase tracking-[0.15em] text-[#113D33]/45 font-semibold">
-                  {featured.tag}
-                </span>
-                <h2 className="mt-2 text-2xl md:text-3xl font-semibold leading-snug group-hover:underline underline-offset-4">
-                  {featured.title}
-                </h2>
-                <p className="mt-3 text-sm md:text-base opacity-70 leading-relaxed">
-                  {featured.summary}
-                </p>
-                <span className="mt-5 inline-block text-sm font-bold text-[#113D33]">
-                  Read article →
-                </span>
-              </div>
+          <div className="text-center mb-8 md:mb-10">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D]">
+              Editor&apos;s Pick
             </div>
-          </Link>
+            <SwayCurve
+              width={140}
+              strokeWidth={2.4}
+              animate
+              className="text-[#4A776D]/85 mx-auto block mt-3"
+            />
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <Link
+              href={`/blog/${featured.slug}`}
+              className="group block rounded-3xl overflow-hidden bg-white shadow-[0_18px_45px_-20px_rgba(17,61,51,0.3)] hover:shadow-[0_30px_60px_-20px_rgba(17,61,51,0.4)] transition-shadow duration-300"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="relative h-[240px] md:h-[380px]">
+                  <Image
+                    src={featured.image}
+                    alt={featured.title}
+                    fill
+                    priority
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <span className="absolute top-4 left-4 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wide">
+                    Featured
+                  </span>
+                </div>
+
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <span className="text-xs uppercase tracking-[0.18em] text-[#4A776D] font-semibold">
+                    {featured.tag}
+                  </span>
+                  <h2 className="mt-2 text-2xl md:text-3xl font-semibold leading-snug group-hover:underline underline-offset-4">
+                    {featured.title}
+                  </h2>
+                  <p className="mt-3 text-sm md:text-base opacity-70 leading-relaxed">
+                    {featured.summary}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#113D33]">
+                    Read article
+                    <span aria-hidden="true">&rarr;</span>
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* ---------- CATEGORY FILTERS ---------- */}
-      <section className="px-6">
+      {/* ---------- LATEST + FILTERS ---------- */}
+      <section className="px-6 pt-16 md:pt-24">
         <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8 md:mb-10">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+              Browse by Topic
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+              The Latest
+            </h2>
+            <SwayCurve
+              width={150}
+              strokeWidth={2.4}
+              animate
+              className="text-[#4A776D]/85 mx-auto block mt-4"
+            />
+          </div>
+
           <div className="flex flex-wrap gap-2 justify-center">
             <button
               onClick={() => setActiveTag(null)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                 activeTag === null
                   ? "bg-[#113D33] text-white"
                   : "bg-[#113D33]/8 text-[#113D33]/70 hover:bg-[#113D33]/15"
@@ -395,7 +434,7 @@ export default function BlogContent() {
               <button
                 key={tag}
                 onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                   activeTag === tag
                     ? "bg-[#113D33] text-white"
                     : "bg-[#113D33]/8 text-[#113D33]/70 hover:bg-[#113D33]/15"
@@ -418,13 +457,13 @@ export default function BlogContent() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3"
             >
               {filtered.map((blog) => (
                 <Link
                   key={blog.slug}
                   href={`/blog/${blog.slug}`}
-                  className="group block bg-white rounded-2xl border border-[#113D33]/8 overflow-hidden hover:border-[#113D33]/20 hover:shadow-lg transition-all"
+                  className="group block bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] transition-shadow duration-300"
                 >
                   <div className="relative h-[180px]">
                     <Image
@@ -439,14 +478,15 @@ export default function BlogContent() {
                   </div>
 
                   <div className="p-5">
-                    <h2 className="text-lg font-semibold leading-snug group-hover:underline underline-offset-4 line-clamp-2">
+                    <h3 className="text-lg font-semibold leading-snug group-hover:underline underline-offset-4 line-clamp-2">
                       {blog.title}
-                    </h2>
+                    </h3>
                     <p className="mt-2 text-sm opacity-65 leading-relaxed line-clamp-2">
                       {blog.summary}
                     </p>
-                    <span className="mt-3 inline-block text-sm font-bold text-[#113D33]">
-                      Read →
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#113D33]">
+                      Read
+                      <span aria-hidden="true">&rarr;</span>
                     </span>
                   </div>
                 </Link>
@@ -463,19 +503,28 @@ export default function BlogContent() {
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section className="bg-[#113D33] text-white px-6 py-16 md:py-20">
+      <section className="bg-[#113D33] text-white px-6 py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
             Ready to Experience Sway?
           </h2>
-          <p className="mt-4 text-base opacity-80">
+          <SwayCurve
+            width={150}
+            strokeWidth={2.4}
+            animate
+            className="text-[#A9D2C5] mx-auto block mt-4 mb-5"
+          />
+          <p className="text-base text-white/80 max-w-lg mx-auto">
             Book a massage, facial, or recovery session at Denver&apos;s
             award-winning wellness club.
           </p>
           <Link
             href="/locations/denver-larimer"
-            className="mt-6 inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-bold rounded-xl hover:bg-white/90 transition-all"
+            className="group relative mt-8 inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-semibold rounded-full hover:bg-gray-100 transition shadow-sm"
           >
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
+              <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+            </span>
             Book Now
           </Link>
         </div>
