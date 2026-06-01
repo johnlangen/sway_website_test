@@ -9,6 +9,8 @@ import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/
 export default function LarimerOffersPage() {
   // Three first-visit offers, service-specific. Membership pitched as a
   // separate banner below — it's the upsell anchor, not an intro offer.
+  // Code + redemption surfaced prominently so customers know to mention
+  // at check-in (booking flow doesn't yet support promo code entry).
   const offers = [
     {
       label: "Massage or Facial",
@@ -19,7 +21,9 @@ export default function LarimerOffersPage() {
         "Your first Essential Signature Massage or Facial. Or upgrade for $40 off Premier ($129) or Ultimate ($159).",
       cta: "Book Massage or Facial",
       href: "/locations/denver-larimer/book",
-      footnote: "Code FTVO40. Mon-Fri. First-time guests. Regularly $139.",
+      code: "FTVO40",
+      constraints: "Mon-Fri · First-time guests only",
+      regularPrice: "Regularly $139",
       image: "/assets/homepage-massage.jpg",
       imageAlt: "Massage therapy at Sway Wellness Spa",
       highlight: false,
@@ -33,7 +37,9 @@ export default function LarimerOffersPage() {
         "Your first 60-minute Aescape robot massage at member pricing. AI-powered, fully personalized full-body massage.",
       cta: "Book Aescape",
       href: "/locations/denver-larimer/book-aescape",
-      footnote: "Code FTVO40. Mon-Fri. First-time guests. Regularly $139.",
+      code: "FTVO40",
+      constraints: "Mon-Fri · First-time guests only",
+      regularPrice: "Regularly $139",
       image: "/assets/aescapeblog7.jpg",
       imageAlt: "Aescape robot massage at Sway Wellness Spa",
       highlight: true,
@@ -48,7 +54,9 @@ export default function LarimerOffersPage() {
         "Sauna, cold plunge, red light therapy, and compression therapy. A 40-minute recovery circuit at member pricing for your first visit.",
       cta: "Book Remedy",
       href: "/locations/denver-larimer/book-remedy-room",
-      footnote: "Code FTVORR. Any day. First-time guests. Regularly $49.",
+      code: "FTVORR",
+      constraints: "Any day · First-time guests only",
+      regularPrice: "Regularly $49",
       image: "/assets/homepage-remedy.jpg",
       imageAlt: "Remedy Room recovery circuit at Sway Wellness Spa",
       highlight: false,
@@ -115,8 +123,18 @@ export default function LarimerOffersPage() {
         </p>
       </section>
 
+      {/* HOW IT WORKS — single-line explainer above the cards.
+          Online booking doesn't yet capture promo codes; this sets
+          the expectation that the code is mentioned at check-in. */}
+      <section className="px-6 pt-2 pb-2">
+        <p className="max-w-3xl mx-auto text-center text-sm md:text-base text-gray-300">
+          Book online · Mention your code at check-in · We apply your
+          first-visit pricing at checkout.
+        </p>
+      </section>
+
       {/* OFFER CARDS */}
-      <section className="px-4 sm:px-6 pt-10 pb-10">
+      <section className="px-4 sm:px-6 pt-8 pb-10">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch">
           {offers.map((o, i) => (
             <motion.div
@@ -174,12 +192,29 @@ export default function LarimerOffersPage() {
 
                 <Link
                   href={o.href}
-                  className="block w-full rounded-full font-semibold py-3 px-6 transition mb-3 bg-[#113D33] hover:bg-[#0a2b23] text-white"
+                  className="block w-full rounded-full font-semibold py-3 px-6 transition mb-4 bg-[#113D33] hover:bg-[#0a2b23] text-white"
                 >
                   {o.cta}
                 </Link>
 
-                <p className="text-xs text-gray-400">{o.footnote}</p>
+                {/* Redemption block: code is the anchor, instruction is
+                    the action, constraints are secondary. */}
+                <div className="mt-1 pt-4 border-t border-[#113D33]/10 text-left">
+                  <div className="flex items-baseline justify-between gap-3 mb-1">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#4A776D] font-semibold">
+                      Use code
+                    </span>
+                    <span className="font-mono text-base font-bold tracking-wider text-[#113D33] bg-[#9ABFB3]/15 px-2.5 py-0.5 rounded">
+                      {o.code}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-600 mb-1.5">
+                    Mention at the front desk
+                  </p>
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    {o.constraints} · {o.regularPrice}
+                  </p>
+                </div>
               </div>
             </motion.div>
           ))}
