@@ -157,7 +157,11 @@ export default function FathersDayGiftCardsPage() {
           </p>
         </section>
 
-        {/* ONE GIFT CARD, EVERY EXPERIENCE — Aescape + Remedy lead */}
+        {/* WHAT DAD CAN USE IT FOR — 5 dad-friendly services.
+            Facial intentionally omitted: Atlas data shows facials are
+            83% female, median age 33 — not the Father's Day audience.
+            Gift card is still redeemable on any service; this section's
+            job is to signal "this is for dad" to the buyer. */}
         <section className="mt-16 md:mt-20">
           <h2 className="text-2xl md:text-3xl font-light text-center mb-8">
             What Dad Can Use It For
@@ -166,11 +170,10 @@ export default function FathersDayGiftCardsPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
               { href: "/aescape", label: "Aescape Robot Massage", src: "/assets/aescapeblog7.jpg" },
-              { href: "/remedy-tech", label: "Remedy Room", src: "/assets/remedy-room.jpg" },
-              { href: "/massages", label: "Massage", src: "/assets/massage7.jpg" },
+              { href: "/remedy-tech", label: "Remedy Room", src: "/assets/homepage-remedy.jpg" },
+              { href: "/massages", label: "Massage", src: "/assets/homepage-massage.jpg" },
               { href: "/sauna", label: "Sauna", src: "/assets/sauna.jpg" },
               { href: "/cold-plunge", label: "Cold Plunge", src: "/assets/cold_plunge.jpg" },
-              { href: "/facials", label: "Facial", src: "/assets/facial.jpg" },
             ].map((tile) => (
               <Link
                 key={tile.href}
