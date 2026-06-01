@@ -68,17 +68,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   /* ------------------------------------------------------------------
-     Denver RiNo location (opening June 2026)
+     Denver RiNo location (open — Sway Remedy Lounge)
+     /book is the Mariana Tek bridge page and is intentionally noindex.
      ------------------------------------------------------------------ */
   const rinoPages = [
-    { url: `${base}/locations/denver-rino/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/denver-rino/`, changeFrequency: "weekly" as const, priority: 0.9 },
   ];
 
   /* ------------------------------------------------------------------
-     Denver Central Park location (opening June 2026)
+     Denver Central Park location (open — Sway Remedy Lounge)
+     /book is the Mariana Tek bridge page and is intentionally noindex.
      ------------------------------------------------------------------ */
   const centralParkPages = [
-    { url: `${base}/locations/denver-central-park/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/denver-central-park/`, changeFrequency: "weekly" as const, priority: 0.9 },
   ];
 
   /* ------------------------------------------------------------------

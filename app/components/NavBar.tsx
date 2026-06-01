@@ -13,6 +13,15 @@ const NavBar = () => {
   const [eggOpen, setEggOpen] = useState(false);
   const pathname = usePathname();
 
+  // Location-aware "Book Now": on the new (MT-bridge) location pages, route to
+  // that location's in-site /book page; everywhere else keep the global /book.
+  const bookHref = pathname?.startsWith("/locations/denver-rino")
+    ? "/locations/denver-rino/book"
+    : pathname?.startsWith("/locations/denver-central-park")
+    ? "/locations/denver-central-park/book"
+    : "/book";
+  const bookIsInternal = bookHref !== "/book";
+
   // Load saved location
   useEffect(() => {
     try {
@@ -198,14 +207,23 @@ const NavBar = () => {
               </Link>
             )}
 
-            <a
-              href="/book"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
-            >
-              Book Now
-            </a>
+            {bookIsInternal ? (
+              <Link
+                href={bookHref}
+                className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
+              >
+                Book Now
+              </Link>
+            ) : (
+              <a
+                href={bookHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
+              >
+                Book Now
+              </a>
+            )}
 
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
@@ -286,14 +304,24 @@ const NavBar = () => {
 
           <div className="w-12 border-t border-white/20" />
 
-          <a
-            href="/book"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
-          >
-            Book Now
-          </a>
+          {bookIsInternal ? (
+            <Link
+              href={bookHref}
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
+            >
+              Book Now
+            </Link>
+          ) : (
+            <a
+              href={bookHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
+            >
+              Book Now
+            </a>
+          )}
         </div>
       )}
 

@@ -10,68 +10,53 @@ import Image from "next/image";
 
 const loc = {
   slug: "denver-rino",
-  name: "Sway RiNo",
+  name: "Sway Wellness Spa · RiNo",
+  shortName: "Sway RiNo",
   street: "3636 Blake St",
   city: "Denver",
   state: "CO",
   zip: "80205",
   neighborhood: "RiNo Art District",
+  phone: "(303) 476-6150",
+  phoneHref: "tel:+13034766150",
   heroImage: "/assets/SWAY.jpg",
+  bookHref: "/locations/denver-rino/book",
   mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",
-  waitlistMailto:
-    "mailto:contact@swaywellnessspa.com?subject=Sway%20RiNo%20Waitlist&body=Please%20add%20me%20to%20the%20waitlist%20for%20Sway%20RiNo.",
 };
 
-/* ---------------------------------------------
-   TREATMENTS — Phase 1 (June launch) / Phase 2 (later 2026)
---------------------------------------------- */
-
-const TREATMENTS = [
-  {
-    title: "Massage",
-    tagline: "Deep Tissue, Sports, Salt Stone & more",
-    description:
-      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50–90 minutes, fully customized.",
-    price: "From $139",
-    memberPrice: "From $99",
-    image: "/assets/massage3.jpg",
-    learnHref: "/massages",
-    phase: "June 2026",
-  },
-  {
-    title: "Remedy Room",
-    tagline: "An expanded recovery suite",
-    description:
-      "Traditional sauna, infrared sauna, cold plunge, compression therapy, red light therapy, and PEMF. More recovery square footage than any other Sway location.",
-    price: "From $49",
-    memberPrice: "From $25",
-    image: "/assets/remedy-room.jpg",
-    learnHref: "/remedy-tech",
-    phase: "June 2026",
-  },
-  {
-    title: "Facials",
-    tagline: "Forever Young, Glow Getter & more",
-    description:
-      "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
-    price: "From $139",
-    memberPrice: "From $99",
-    image: "/assets/facialExperiences.jpg",
-    learnHref: "/facials",
-    phase: "Coming late 2026",
-  },
-  {
-    title: "Aescape Robot Massage",
-    tagline: "AI-powered precision recovery",
-    description:
-      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 15, 30, 45, or 60 minute sessions.",
-    price: "From $49",
-    memberPrice: null,
-    image: "/assets/aescapeblog6.jpg",
-    learnHref: "/aescape",
-    phase: "Coming late 2026",
-  },
+/* Phase 1 hours */
+const HOURS = [
+  ["Monday", "Closed"],
+  ["Tuesday", "7am – 8pm"],
+  ["Wednesday", "7am – 8pm"],
+  ["Thursday", "7am – 8pm"],
+  ["Friday", "7am – 8pm"],
+  ["Saturday", "8am – 6pm"],
+  ["Sunday", "8am – 6pm"],
 ] as const;
+
+const FAQS = [
+  {
+    q: "Is this the old Upswell?",
+    a: "Yes. We recently took over both Upswell locations and are now operating them as Sway Wellness Spa. Same recovery space, with new treatments and experiences coming this summer.",
+  },
+  {
+    q: "What's included in the Sway Remedy Lounge?",
+    a: "A 75-minute session with access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
+  },
+  {
+    q: "Do I need a membership?",
+    a: "No. Drop-ins are welcome. Memberships are available at $99/mo (Founding rate, limited time) for unlimited Sway Remedy Lounge access.",
+  },
+  {
+    q: "When can I book a massage?",
+    a: "Massage and facial treatments are coming this summer. Join our email list to be the first to know when booking opens.",
+  },
+  {
+    q: "What about my Upswell membership?",
+    a: "Existing Upswell members were carried over automatically, so no action is needed. Current members roll into Sway at the Founding rate.",
+  },
+];
 
 /* ---------------------------------------------
    PAGE
@@ -83,7 +68,7 @@ export default function SwayRinoPage() {
       "sway_selected_location",
       JSON.stringify({
         slug: loc.slug,
-        name: loc.name,
+        name: loc.shortName,
         city: loc.city,
         state: loc.state,
       })
@@ -99,53 +84,54 @@ export default function SwayRinoPage() {
           {/* LEFT */}
           <div>
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
-              Massage & Recovery — RiNo, Denver
+              Massage &amp; Recovery · RiNo, Denver
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
               {loc.name}
             </h1>
-            <p className="sr-only">
-              Sway RiNo is a modern wellness club opening at 3636 Blake St. in
-              Denver&apos;s RiNo Art District, CO 80205. At launch in June 2026,
-              Sway RiNo offers expert massage therapy and an expansive recovery
-              suite including traditional sauna, infrared sauna, cold plunge,
-              compression therapy, red light therapy, and PEMF. Advanced facials
-              and AI-powered Aescape robot massage launch later in 2026. Sway
-              memberships start at $99/month, with a location-specific Sway
-              Unlimited tier at $189/month for unlimited Remedy Room and
-              recovery access. Existing Upswell RiNo members have their
-              memberships honored under their current terms. Join the waitlist
-              at contact@swaywellnessspa.com.
+
+            <p className="mt-3 text-lg sm:text-xl font-medium">
+              Formerly Upswell Studio. New ownership, same recovery space.
             </p>
 
-            {/* Opening badge */}
+            <p className="sr-only">
+              Sway Wellness Spa RiNo is a recovery-led wellness club at 3636
+              Blake St. in Denver&apos;s RiNo Art District, CO 80205, formerly
+              Upswell Studio. The Sway Remedy Lounge is open daily with sauna,
+              cold plunge, infrared, compression therapy, and lounge access in
+              75-minute sessions. Massage and facial treatments are coming this
+              summer. Memberships are available at $99/month (Founding rate) for
+              unlimited Sway Remedy Lounge access. Existing Upswell members were
+              carried over automatically.
+            </p>
+
+            {/* Open badge */}
             <div className="mt-4 flex items-center gap-2 text-sm">
-              <span className="inline-block h-2 w-2 rounded-full bg-amber-500" />
-              <span>Opening June 2026 · Now accepting waitlist signups</span>
+              <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
+              <span>Sway Remedy Lounge open daily · Drop-ins welcome</span>
             </div>
 
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
-              A modern wellness club in the heart of RiNo — expert massage
-              paired with an expanded recovery suite of sauna, cold plunge,
-              compression, and red light therapy. Facials and Aescape robot
-              massage coming later this year.
+              A recovery-led wellness club in the heart of RiNo. Sauna, cold
+              plunge, infrared, and compression therapy in the Sway Remedy
+              Lounge. Massage and facial treatments coming this summer.
             </p>
 
             {/* CTAs */}
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <a
-                href={loc.waitlistMailto}
+              <Link
+                href={loc.bookHref}
                 className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
               >
-                Join the Waitlist
-              </a>
+                Book Your Experience
+              </Link>
 
               <Link
                 href="/membership"
                 className="border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
               >
-                Learn About Memberships
+                Membership
               </Link>
             </div>
 
@@ -168,7 +154,7 @@ export default function SwayRinoPage() {
           <div className="relative">
             <Image
               src={loc.heroImage}
-              alt="Sway RiNo wellness club in Denver's RiNo Art District"
+              alt="Sway Wellness Spa RiNo recovery lounge in Denver's RiNo Art District"
               width={720}
               height={520}
               priority
@@ -178,195 +164,92 @@ export default function SwayRinoPage() {
         </div>
       </section>
 
-      {/* ========================= UPSWELL TRANSITION NOTICE ========================= */}
-      <section className="px-6 pb-16 md:pb-20">
+      {/* ========================= WHAT YOU CAN BOOK ========================= */}
+      <section className="px-6 pb-16 md:pb-24">
         <div className="max-w-6xl mx-auto">
-          <div className="rounded-2xl bg-[#113D33] text-white p-6 sm:p-8 md:p-10">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
-                  Current Upswell Members
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold">
-                  Your membership is honored.
-                </h2>
-                <p className="mt-2 text-white/80 text-sm sm:text-base max-w-2xl">
-                  Sway is taking over the former Upswell RiNo Station and
-                  bringing in massage, facials, and Aescape over the coming
-                  months. Your existing membership stays at the same rate. We&apos;ll
-                  reach out with details directly — no action needed.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================= TREATMENTS ========================= */}
-      <section className="px-6 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
-            What&apos;s Coming
-          </h2>
-          <p className="opacity-75 max-w-xl mb-10 md:mb-14">
-            Massage and recovery at launch in June 2026, with facials and
-            Aescape robot massage joining later in the year.
-          </p>
-
-          <div className="space-y-8 md:space-y-10">
-            {TREATMENTS.map((t, i) => (
-              <div
-                key={t.title}
-                className={`group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center ${
-                  i % 2 !== 0 ? "md:[direction:rtl]" : ""
-                }`}
-              >
-                {/* IMAGE */}
-                <div className={i % 2 !== 0 ? "md:[direction:ltr]" : ""}>
-                  <Link href={t.learnHref}>
-                    <div className="relative overflow-hidden rounded-2xl">
-                      <Image
-                        src={t.image}
-                        alt={t.title}
-                        width={640}
-                        height={420}
-                        className="w-full h-[240px] sm:h-[280px] md:h-[340px] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      />
-                      {/* Phase badge */}
-                      <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1.5 rounded-full">
-                        {t.phase}
-                      </div>
-                      {/* Price badge */}
-                      <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1.5 rounded-full">
-                        {t.price}
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* TEXT */}
-                <div className={i % 2 !== 0 ? "md:[direction:ltr]" : ""}>
-                  <div className="text-xs uppercase tracking-wider opacity-50 mb-2">
-                    {t.tagline}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-3">
-                    {t.title}
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-4 max-w-md">
-                    {t.description}
-                  </p>
-
-                  {/* Pricing line */}
-                  <div className="flex items-baseline gap-3 mb-5 text-sm">
-                    <span className="font-semibold">{t.price}</span>
-                    {t.memberPrice && (
-                      <>
-                        <span className="opacity-40">|</span>
-                        <span className="text-[#4A776D] font-semibold">
-                          {t.memberPrice} for members
-                        </span>
-                      </>
-                    )}
-                  </div>
-
-                  {/* CTAs */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Link
-                      href={t.learnHref}
-                      className="text-sm font-medium underline underline-offset-4 opacity-70 hover:opacity-100 transition"
-                    >
-                      Learn more
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ======================== MEMBERSHIP TEASER ======================== */}
-      <section className="px-6 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-3xl bg-[#113D33] text-white overflow-hidden">
-            <div className="grid md:grid-cols-2 items-center">
-              {/* IMAGE */}
-              <div className="relative h-[240px] md:h-full md:min-h-[380px]">
+          <div className="rounded-3xl border border-black/10 bg-white/50 p-7 sm:p-10 md:p-12">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="relative overflow-hidden rounded-2xl">
                 <Image
-                  src="/assets/membership_background_logo.jpg"
-                  alt="Sway Wellness Club membership"
-                  fill
-                  className="object-cover"
+                  src="/assets/remedy-room.jpg"
+                  alt="Sway Remedy Lounge with sauna, cold plunge, infrared, and compression therapy"
+                  width={640}
+                  height={420}
+                  className="w-full h-[240px] sm:h-[300px] md:h-[340px] object-cover"
                 />
               </div>
 
-              {/* CONTENT */}
-              <div className="p-8 sm:p-10 md:p-12">
-                <div className="text-xs uppercase tracking-wider text-white/50 mb-2">
-                  Two Ways to Join
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-50 mb-2">
+                  Open Daily
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3">
-                  Choose your Sway.
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
+                  Sway Remedy Lounge
                 </h2>
-                <ul className="space-y-3 text-sm text-white/80 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#9ABFB3]">✓</span>
-                    <div>
-                      <span className="font-semibold text-white">
-                        Sway Membership · $99/mo
-                      </span>{" "}
-                      — Massages & facials at $99 across 3 tiers, 50% off
-                      recovery and boosts
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#9ABFB3]">✓</span>
-                    <div>
-                      <span className="font-semibold text-white">
-                        Sway Unlimited · $189/mo
-                      </span>{" "}
-                      — Unlimited Remedy Room and recovery sessions (RiNo &
-                      Central Park only)
-                    </div>
-                  </li>
-                </ul>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/membership"
-                    className="bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
-                  >
-                    View Memberships
-                  </Link>
-                  <a
-                    href={loc.waitlistMailto}
-                    className="text-sm font-medium underline underline-offset-4 text-white/70 hover:text-white transition"
-                  >
-                    Join the Waitlist
-                  </a>
-                </div>
+                <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-5 max-w-md">
+                  Sauna, cold plunge, infrared, compression therapy, and lounge
+                  access in a 75-minute session.
+                </p>
+                <p className="text-sm sm:text-base font-medium mb-6">
+                  Massage and facial treatments coming this summer.
+                </p>
+                <Link
+                  href={loc.bookHref}
+                  className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition"
+                >
+                  Book Your Experience
+                </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== UPSWELL MEMBER REASSURANCE ===================== */}
+      <section className="px-6 pb-16 md:pb-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="rounded-2xl bg-[#113D33] text-white p-6 sm:p-8 md:p-10">
+            <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
+              Current Upswell Members
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold">
+              You&apos;re already in.
+            </h2>
+            <p className="mt-2 text-white/80 text-sm sm:text-base max-w-2xl">
+              Existing Upswell members were carried over to Sway automatically,
+              so there&apos;s no action needed. Current members roll into Sway at
+              the Founding rate of $99/mo for unlimited Sway Remedy Lounge
+              access.
+            </p>
           </div>
         </div>
       </section>
 
       {/* ======================= HOURS + LOCATION ========================= */}
-      <section className="px-6 pb-20 md:pb-28">
+      <section className="px-6 pb-16 md:pb-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8">
-            Visit Us
-          </h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-8">Visit Us</h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {/* Hours */}
             <div className="border border-black/10 rounded-2xl p-6">
               <h3 className="text-lg font-semibold mb-4">Hours</h3>
-              <p className="text-sm opacity-80 leading-relaxed">
-                Opening June 2026.
-              </p>
-              <p className="text-sm opacity-60 mt-2">
-                Full hours announced closer to launch.
+              <dl className="space-y-1.5 text-sm">
+                {HOURS.map(([day, hrs]) => (
+                  <div key={day} className="flex justify-between gap-4">
+                    <dt className="opacity-70">{day}</dt>
+                    <dd
+                      className={
+                        hrs === "Closed" ? "opacity-50" : "font-medium"
+                      }
+                    >
+                      {hrs}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="text-xs opacity-60 mt-4">
+                Extended hours coming this summer.
               </p>
             </div>
 
@@ -378,7 +261,10 @@ export default function SwayRinoPage() {
                 <br />
                 {loc.city}, {loc.state} {loc.zip}
               </p>
-              <p className="text-sm opacity-60 mb-4">{loc.neighborhood}</p>
+              <p className="text-sm opacity-60 mb-4">
+                {loc.neighborhood}. Walkable from the 38th &amp; Blake light
+                rail station.
+              </p>
               <a
                 href={loc.mapUrl}
                 target="_blank"
@@ -391,29 +277,22 @@ export default function SwayRinoPage() {
 
             {/* Contact */}
             <div className="border border-black/10 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4">Stay in the Loop</h3>
+              <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
               <p className="text-sm opacity-80 mb-3">
-                Be first to book when we open.
+                Questions about your visit or membership?
               </p>
-              <div className="space-y-2">
+              <div className="space-y-2 text-sm">
                 <a
-                  href={loc.waitlistMailto}
-                  className="flex items-center gap-2 text-sm font-medium hover:underline"
+                  href={loc.phoneHref}
+                  className="block font-medium hover:underline"
                 >
-                  <svg
-                    className="w-4 h-4 opacity-60"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Join the Waitlist
+                  {loc.phone}
+                </a>
+                <a
+                  href="mailto:contact@swaywellnessspa.com"
+                  className="block font-medium hover:underline"
+                >
+                  contact@swaywellnessspa.com
                 </a>
               </div>
             </div>
@@ -428,44 +307,8 @@ export default function SwayRinoPage() {
             Frequently Asked Questions
           </h2>
 
-          {[
-            {
-              q: "When does Sway RiNo open?",
-              a: "Sway RiNo is opening in June 2026 at 3636 Blake St. Massage and the Remedy Room recovery circuit are available at launch. Facials and Aescape robot massage will follow later in 2026.",
-            },
-            {
-              q: "Where is Sway RiNo located?",
-              a: "Sway RiNo is at 3636 Blake Street in Denver, CO 80205, in the heart of the RiNo Art District. It's a short walk from the 38th & Blake light rail station.",
-            },
-            {
-              q: "What services will Sway RiNo offer at launch?",
-              a: "Massage therapy and an expanded recovery suite — traditional sauna, infrared sauna, cold plunge, compression therapy, red light therapy, and PEMF. Advanced facials and AI-powered Aescape robot massage are coming later in 2026.",
-            },
-            {
-              q: "I'm a current Upswell RiNo member — what happens to my membership?",
-              a: "Your membership stays at your current rate. Sway is taking over the location, but existing Upswell memberships are honored. We'll reach out directly with all the details — no action is needed on your part.",
-            },
-            {
-              q: "What memberships will be available at Sway RiNo?",
-              a: "Two options: standard Sway Membership at $99/month (massages and facials at $99 each, 50% off recovery and boosts), or Sway Unlimited at $189/month (unlimited Remedy Room and recovery access — available only at Sway RiNo and Sway Central Park).",
-            },
-            {
-              q: "How is Sway RiNo different from Sway Larimer?",
-              a: "Sway Larimer is treatment-focused, with massage and facial rooms front and center. Sway RiNo is recovery-led — more sauna, cold plunge, and compression space — with massage rooms added in. Both offer the same Sway Membership, plus a Sway Unlimited tier exclusive to RiNo and Central Park.",
-            },
-            {
-              q: "Will Sway RiNo offer yoga?",
-              a: "No. Sway RiNo focuses on massage, facials, recovery, and Aescape robot massage. We're not continuing the yoga or Pilates classes Upswell offered.",
-            },
-            {
-              q: "Can I gift Sway RiNo gift cards?",
-              a: "Yes. Sway gift cards are redeemable at all Sway locations. Purchase at swaywellnessspa.com/gift-cards.",
-            },
-          ].map((item) => (
-            <details
-              key={item.q}
-              className="border-b border-black/10 py-4 group"
-            >
+          {FAQS.map((item) => (
+            <details key={item.q} className="border-b border-black/10 py-4 group">
               <summary className="cursor-pointer font-medium flex items-center justify-between gap-4">
                 <span>{item.q}</span>
                 <svg
@@ -494,20 +337,20 @@ export default function SwayRinoPage() {
       <section className="px-6 pb-24 md:pb-32">
         <div className="max-w-6xl mx-auto rounded-3xl bg-[#113D33] text-white p-10 sm:p-14 text-center">
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
-            Be among the first to feel Sway RiNo.
+            Recover at Sway RiNo.
           </h3>
           <p className="text-white/75 max-w-lg mx-auto mb-7">
-            Join the waitlist for opening day priority booking at our RiNo
-            location.
+            Book a 75-minute Sway Remedy Lounge session. Sauna, cold plunge,
+            infrared, and compression therapy.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={loc.waitlistMailto}
+            <Link
+              href={loc.bookHref}
               className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
             >
-              Join the Waitlist
-            </a>
+              Book Your Experience
+            </Link>
             <Link
               href="/gift-cards"
               className="border-2 border-white/40 text-white px-6 py-3 rounded-full text-sm font-semibold hover:border-white transition"

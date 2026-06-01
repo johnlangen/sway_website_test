@@ -1,33 +1,34 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sway RiNo | Modern Wellness Club in Denver's RiNo District — Opening 2026",
+  title:
+    "Sway Wellness Spa · RiNo (formerly Upswell Studio) | Denver Recovery",
   description:
-    "Sway RiNo is opening in Denver's RiNo Art District at 3636 Blake St. Massage therapy, sauna, cold plunge, infrared sauna, compression therapy, and a recovery-focused wellness club. Join the waitlist.",
+    "Sway Wellness Spa RiNo (formerly Upswell Studio) at 3636 Blake St, Denver. The Sway Remedy Lounge is open daily: sauna, cold plunge, infrared, and compression therapy. Massage and facial treatments coming this summer.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-rino/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/denver-rino/",
-    title: "Sway RiNo | Modern Wellness Club in Denver's RiNo District",
+    title: "Sway Wellness Spa · RiNo (formerly Upswell Studio)",
     description:
-      "Massage, sauna, cold plunge, compression, and red light recovery in Denver's RiNo Art District. Opening 2026 — join the waitlist.",
+      "Sauna, cold plunge, infrared, and compression therapy in the Sway Remedy Lounge. Open daily in Denver's RiNo Art District. Massage and facials coming this summer.",
     images: [
       {
         url: "/assets/SWAY.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway RiNo wellness club in Denver's RiNo Art District",
+        alt: "Sway Wellness Spa RiNo recovery lounge in Denver's RiNo Art District",
       },
     ],
     siteName: "Sway Wellness Spa",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sway RiNo | Modern Wellness Club in Denver's RiNo District",
+    title: "Sway Wellness Spa · RiNo (formerly Upswell Studio)",
     description:
-      "Massage, sauna, cold plunge, compression, and red light recovery in RiNo. Opening 2026.",
+      "Sauna, cold plunge, infrared, and compression therapy in the Sway Remedy Lounge. Open daily in RiNo. Massage and facials coming this summer.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: {
@@ -39,12 +40,14 @@ export const metadata: Metadata = {
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "DaySpa",
-  name: "Sway Wellness Spa – RiNo",
+  name: "Sway Wellness Spa · RiNo",
+  alternateName: "Upswell Studio",
   description:
-    "A modern wellness club opening in Denver's RiNo Art District. Sway RiNo offers massage therapy and an expansive recovery suite — traditional sauna, infrared sauna, cold plunge, compression therapy, and red light therapy — with advanced facials and Aescape robot massage planned for later in 2026.",
+    "A recovery-led wellness club in Denver's RiNo Art District, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy. Massage and facial treatments are coming this summer.",
   image: "https://swaywellnessspa.com/assets/SWAY.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-rino/",
   url: "https://swaywellnessspa.com/locations/denver-rino/",
+  telephone: "+1-303-476-6150",
   address: {
     "@type": "PostalAddress",
     streetAddress: "3636 Blake St",
@@ -58,6 +61,31 @@ const localBusinessJsonLd = {
     latitude: 39.7665,
     longitude: -104.9839,
   },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "07:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday", "Sunday"],
+      opens: "08:00",
+      closes: "18:00",
+    },
+  ],
+  makesOffer: [
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Sway Remedy Lounge",
+        description:
+          "A 75-minute recovery session with sauna, cold plunge, infrared, compression therapy, and lounge access.",
+      },
+    },
+  ],
   priceRange: "$$",
   sameAs: [
     "https://www.instagram.com/swaywellnessclub/",
@@ -72,42 +100,42 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "When does Sway RiNo open?",
+      name: "Is this the old Upswell?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway RiNo is opening in June 2026 at 3636 Blake St in Denver's RiNo Art District. Phase 1 services — massage and the Remedy Room recovery circuit — are available at launch. Facials and Aescape robot massage will follow later in 2026.",
+        text: "Yes. We recently took over both Upswell locations and are now operating them as Sway Wellness Spa. Same recovery space, with new treatments and experiences coming this summer.",
       },
     },
     {
       "@type": "Question",
-      name: "Where is Sway RiNo located?",
+      name: "What's included in the Sway Remedy Lounge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway RiNo is located at 3636 Blake Street in Denver, CO 80205, in the heart of the RiNo Art District — walkable from the 38th & Blake light rail station.",
+        text: "A 75-minute session with access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
       },
     },
     {
       "@type": "Question",
-      name: "What services will Sway RiNo offer?",
+      name: "Do I need a membership?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway RiNo will offer expert massage therapy and a full recovery suite including traditional sauna, infrared sauna, cold plunge, compression therapy, and red light therapy. Advanced facials and AI-powered Aescape robot massage will be added later in 2026.",
+        text: "No. Drop-ins are welcome. Memberships are available at $99/mo (Founding rate, limited time) for unlimited Sway Remedy Lounge access.",
       },
     },
     {
       "@type": "Question",
-      name: "What memberships will be available at Sway RiNo?",
+      name: "When can I book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Two memberships will be offered at Sway RiNo: standard Sway membership at $99/month (unlimited massages and facials at $99 each, 50% off recovery), and Sway Unlimited at $189/month (unlimited Remedy Room and recovery sessions, available only at Sway RiNo and Sway Central Park).",
+        text: "Massage and facial treatments are coming this summer. Join our email list to be the first to know when booking opens.",
       },
     },
     {
       "@type": "Question",
-      name: "Is Sway taking over Upswell at this location?",
+      name: "What about my Upswell membership?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway is converting the former Upswell RiNo Station into Sway RiNo. Existing Upswell members will have their memberships honored under their current terms. Details will be communicated directly to all current Upswell members.",
+        text: "Existing Upswell members were carried over automatically, so no action is needed. Current members roll into Sway at the Founding rate.",
       },
     },
   ],

@@ -59,9 +59,15 @@ const LOCATIONS: Location[] = [
     name: "Sway RiNo",
     city: "Denver",
     state: "CO",
-    status: "coming-soon",
+    status: "open",
     coords: [39.7665, -104.9839],
     address: "3636 Blake St, Denver, CO 80205",
+    phone: "+1 303-476-6150",
+    hours: [
+      "Mon: Closed",
+      "Tue–Fri: 7:00 AM – 8:00 PM",
+      "Sat–Sun: 8:00 AM – 6:00 PM",
+    ],
     imageUrl: "/assets/SWAY.jpg",
   },
   {
@@ -69,9 +75,15 @@ const LOCATIONS: Location[] = [
     name: "Sway Central Park",
     city: "Aurora",
     state: "CO",
-    status: "coming-soon",
+    status: "open",
     coords: [39.7494, -104.8688],
     address: "2271 Clinton St, Aurora, CO 80010",
+    phone: "+1 303-476-6150",
+    hours: [
+      "Mon: Closed",
+      "Tue–Fri: 7:00 AM – 8:00 PM",
+      "Sat–Sun: 8:00 AM – 6:00 PM",
+    ],
     imageUrl: "/assets/SWAY.jpg",
   },
   {
