@@ -155,7 +155,7 @@ export default function FathersDayGiftGuideLayout() {
                 The dad who tells you not to get him anything every single
                 year and means it. Give him a{" "}
                 <Link
-                  href="/gift-cards"
+                  href="/fathers-day-gift-cards"
                   className="font-semibold text-[#113D33] underline underline-offset-2"
                 >
                   Sway gift card
@@ -544,7 +544,7 @@ export default function FathersDayGiftGuideLayout() {
               Schedule a Treatment
             </Link>
             <Link
-              href="/gift-cards"
+              href="/fathers-day-gift-cards"
               className="border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white/10 transition"
             >
               Send a Gift Card
