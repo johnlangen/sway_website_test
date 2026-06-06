@@ -498,7 +498,7 @@ const howToJsonLd = {
     {
       "@type": "HowToStep",
       position: 1,
-      name: "Book Your Appointment",
+      name: "Book Your Experience",
       text: "Book online at swaywellnessspa.com, by phone at (303) 476-6150, or walk in. Choose from massage, facials, Aescape robot massage, or the Remedy Room recovery circuit. Walk-ins are welcome, but booking ahead is recommended during evenings and weekends.",
       url: "https://swaywellnessspa.com/locations/denver-larimer/book/",
     },

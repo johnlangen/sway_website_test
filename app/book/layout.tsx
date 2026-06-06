@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book Your Appointment | Sway Wellness Spa",
+  title: "Book Your Experience | Sway Wellness Spa",
   description:
-    "Book your appointment at Sway Wellness Spa. Choose your location, then reserve facials, massages, Aescape robot massage, or Remedy Room recovery sessions.",
+    "Book your experience at Sway Wellness Spa. Choose your location, then reserve facials, massages, Aescape robot massage, or Remedy Room recovery sessions.",
   alternates: {
     canonical: "https://swaywellnessspa.com/book/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/book/",
-    title: "Book Your Appointment | Sway Wellness Spa",
+    title: "Book Your Experience | Sway Wellness Spa",
     description:
       "Reserve your Sway Wellness Spa experience. Select your location to book facials, massages, Aescape, or Remedy Room sessions.",
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Book Your Appointment | Sway Wellness Spa",
+    title: "Book Your Experience | Sway Wellness Spa",
     description:
       "Reserve your Sway Wellness Spa appointment — facials, massages, Aescape robot massage, or Remedy Room recovery.",
     images: ["/assets/OG/og-book-now.jpg"],

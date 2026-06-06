@@ -95,7 +95,7 @@ export default function BookHubPage() {
               Sway Wellness Spa
             </p>
             <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-              Book Your Appointment
+              Book Your Experience
             </h1>
             <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
               Select your Sway location to start booking. We&apos;ll remember your choice for next time.

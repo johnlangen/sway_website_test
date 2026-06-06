@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book Your Appointment | Sway Dallas (Coming Soon)",
+  title: "Book Your Experience | Sway Dallas (Coming Soon)",
   description:
     "Sway Dallas booking is not open yet. Explore treatments and learn more about our upcoming Dallas location.",
   alternates: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/dallas/book/",
-    title: "Book Your Appointment | Sway Dallas (Coming Soon)",
+    title: "Book Your Experience | Sway Dallas (Coming Soon)",
     description:
       "Sway Dallas booking is not open yet. Explore treatments and learn more about our upcoming Dallas location.",
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Book Your Appointment | Sway Dallas (Coming Soon)",
+    title: "Book Your Experience | Sway Dallas (Coming Soon)",
     description:
       "Sway Dallas booking is not open yet. Explore treatments and learn more about our upcoming Dallas location.",
     images: ["/assets/OG/og-book-now.jpg"],
