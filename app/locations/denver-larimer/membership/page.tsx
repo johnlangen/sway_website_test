@@ -266,6 +266,24 @@ export default function MembershipPage() {
           <ClassPassBadge />
         </motion.div>
 
+        {/* Jump chips: surface all three membership families up top */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="mt-7 flex flex-wrap items-center justify-center gap-2"
+        >
+          <a href="#spa-memberships" className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/90 hover:bg-white/10 transition">
+            Massage &amp; Facial
+          </a>
+          <a href="#aescape" className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/90 hover:bg-white/10 transition">
+            Aescape
+          </a>
+          <a href="#remedy" className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/90 hover:bg-white/10 transition">
+            Remedy Room
+          </a>
+        </motion.div>
+
         <p className="sr-only">
           Sway Wellness Spa Larimer memberships: three tiers. Essential
           ($99/month), Premier ($129/month), Ultimate ($159/month), plus
@@ -283,7 +301,7 @@ export default function MembershipPage() {
       {/* ============================================================
           SPA MEMBERSHIPS: 3 COMPACT CARDS + TREATMENT DETAIL PANEL
       ============================================================ */}
-      <section className="px-4 sm:px-6 pt-10 pb-4">
+      <section id="spa-memberships" className="scroll-mt-28 px-4 sm:px-6 pt-10 pb-4">
         <div className="text-center mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
             Choose Your Tier
@@ -498,11 +516,12 @@ export default function MembershipPage() {
           {recoveryMemberships.map((m, i) => (
             <motion.div
               key={m.key}
+              id={m.key}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden"
+              className="scroll-mt-28 bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden"
             >
               <div className="relative h-44 w-full">
                 <Image
