@@ -40,6 +40,9 @@ export async function POST(req: Request) {
   const requestFirstName = typeof rawBody.firstName === "string" ? rawBody.firstName.trim() : "";
   const requestLastName = typeof rawBody.lastName === "string" ? rawBody.lastName.trim() : "";
 
+  // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
+  const siteId = (typeof rawBody.siteId === "string" && rawBody.siteId) || process.env.MINDBODY_SITE_ID!;
+
   if (
     !clientId ||
     !cardNumber ||
@@ -58,7 +61,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const token = await getMindbodyStaffToken();
+    const token = await getMindbodyStaffToken(siteId);
     const cardType = detectCardType(cardNumber);
 
     // Resolve names: prefer request payload, fall back to a GetClient lookup.
@@ -100,7 +103,7 @@ export async function POST(req: Request) {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Api-Key": process.env.MINDBODY_API_KEY!,
-          SiteId: process.env.MINDBODY_SITE_ID!,
+          SiteId: siteId,
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({

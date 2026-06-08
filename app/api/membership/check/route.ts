@@ -98,7 +98,9 @@ export async function GET(req: Request) {
 
   const email = rawEmail.trim().toLowerCase();
   const apiKey = process.env.MINDBODY_API_KEY;
-  const siteId = process.env.MINDBODY_SITE_ID;
+  // Optional siteId override so the Sway Wellness Club locations (RiNo / Central
+  // Park) can look up clients on their own Mindbody site. Defaults to Larimer.
+  const siteId = searchParams.get("siteId") || process.env.MINDBODY_SITE_ID;
 
   if (!apiKey || !siteId) {
     return NextResponse.json(
@@ -122,7 +124,7 @@ export async function GET(req: Request) {
   };
 
   try {
-    const token = await getMindbodyStaffToken();
+    const token = await getMindbodyStaffToken(siteId);
     const mbHeaders = {
       Accept: "application/json",
       "Api-Key": apiKey,

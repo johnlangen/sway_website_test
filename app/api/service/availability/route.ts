@@ -213,7 +213,9 @@ export async function GET(req: Request) {
   }
 
   const apiKey = process.env.MINDBODY_API_KEY;
-  const siteId = process.env.MINDBODY_SITE_ID;
+  // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
+  const siteIdParam = searchParams.get("siteId");
+  const siteId = (siteIdParam && siteIdParam.trim()) || process.env.MINDBODY_SITE_ID;
 
   if (!apiKey || !siteId) {
     return NextResponse.json(

@@ -12,7 +12,9 @@ export const runtime = "nodejs";
  * so appointments never land in Mindbody with a blank name.
  */
 export async function POST(req: Request) {
-  const { clientId, firstName, lastName, mobilePhone } = await req.json();
+  const { clientId, firstName, lastName, mobilePhone, siteId: siteIdRaw } = await req.json();
+  // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
+  const siteId = (typeof siteIdRaw === "string" && siteIdRaw) || process.env.MINDBODY_SITE_ID!;
 
   if (!clientId || !firstName || !lastName) {
     return NextResponse.json(
@@ -32,7 +34,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const token = await getMindbodyStaffToken();
+    const token = await getMindbodyStaffToken(siteId);
 
     const clientPayload: Record<string, unknown> = {
       Id: clientId,
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Api-Key": process.env.MINDBODY_API_KEY!,
-          SiteId: process.env.MINDBODY_SITE_ID!,
+          SiteId: siteId,
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({

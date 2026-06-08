@@ -108,7 +108,12 @@ export async function POST(req: Request) {
       locationId = 1,
       addOnIds = [],
       notes,
+      siteId: siteIdRaw,
     } = await req.json();
+
+    // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
+    const siteId =
+      (typeof siteIdRaw === "string" && siteIdRaw) || process.env.MINDBODY_SITE_ID!;
 
     console.log("[SERVICE BOOK] Incoming", {
       clientId,
@@ -172,13 +177,13 @@ export async function POST(req: Request) {
 
     /* ── Book main appointment ───────────────── */
 
-    const token = await getMindbodyStaffToken();
+    const token = await getMindbodyStaffToken(siteId);
 
     const mbHeaders = {
       Accept: "application/json",
       "Content-Type": "application/json",
       "Api-Key": process.env.MINDBODY_API_KEY!,
-      SiteId: process.env.MINDBODY_SITE_ID!,
+      SiteId: siteId,
       Authorization: `Bearer ${token}`,
     };
 

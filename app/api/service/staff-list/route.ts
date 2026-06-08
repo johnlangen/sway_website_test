@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 
 export const runtime = "nodejs";
 export const revalidate = 3600; // Cache staff list for 1 hour
@@ -47,31 +48,11 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   ...MASSAGE_SESSION_TYPE_IDS,
 ]);
 
-async function getStaffToken(): Promise<string | null> {
-  const apiKey = process.env.MINDBODY_API_KEY;
-  const siteId = process.env.MINDBODY_SITE_ID;
-  const username = process.env.MINDBODY_STAFF_USER;
-  const password = process.env.MINDBODY_STAFF_PASS;
-
-  if (!apiKey || !siteId || !username || !password) return null;
-
+async function getStaffToken(siteId?: string): Promise<string | null> {
+  // Delegate to the shared, per-site token helper so club sites (RiNo /
+  // Central Park) resolve their own staff login. Defaults to Larimer.
   try {
-    const res = await fetch(
-      "https://api.mindbodyonline.com/public/v6/usertoken/issue",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Api-Key": apiKey,
-          SiteId: siteId,
-        },
-        body: JSON.stringify({ Username: username, Password: password }),
-        cache: "no-store",
-      }
-    );
-    const data = await res.json();
-    return data?.AccessToken ?? null;
+    return await getMindbodyStaffToken(siteId);
   } catch {
     return null;
   }
@@ -101,7 +82,9 @@ export async function GET(req: Request) {
   }
 
   const apiKey = process.env.MINDBODY_API_KEY;
-  const siteId = process.env.MINDBODY_SITE_ID;
+  // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
+  const siteIdParam = searchParams.get("siteId");
+  const siteId = (siteIdParam && siteIdParam.trim()) || process.env.MINDBODY_SITE_ID;
 
   if (!apiKey || !siteId) {
     return NextResponse.json(
@@ -110,7 +93,7 @@ export async function GET(req: Request) {
     );
   }
 
-  const token = await getStaffToken();
+  const token = await getStaffToken(siteId);
   if (!token) {
     return NextResponse.json(
       { error: "Failed to authenticate with Mindbody" },

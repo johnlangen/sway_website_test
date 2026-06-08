@@ -42,6 +42,9 @@ export async function POST(req: Request) {
   const lastName = typeof rawBody.lastName === "string" ? rawBody.lastName.trim() : "";
   const mobilePhone = typeof rawBody.mobilePhone === "string" ? rawBody.mobilePhone.trim() : "";
 
+  // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
+  const siteId = (typeof rawBody.siteId === "string" && rawBody.siteId) || process.env.MINDBODY_SITE_ID!;
+
   if (
     !firstName ||
     !lastName ||
@@ -63,7 +66,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const token = await getMindbodyStaffToken();
+    const token = await getMindbodyStaffToken(siteId);
 
     const res = await fetch(
       "https://api.mindbodyonline.com/public/v6/client/addclient",
@@ -73,7 +76,7 @@ export async function POST(req: Request) {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Api-Key": process.env.MINDBODY_API_KEY!,
-          SiteId: process.env.MINDBODY_SITE_ID!,
+          SiteId: siteId,
           // ⚠️ IMPORTANT: NO "Bearer"
           authorization: token,
         },
