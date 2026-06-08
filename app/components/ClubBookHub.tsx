@@ -33,7 +33,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
       href: `${basePath}/book-service-test?category=massage`,
       title: "Massage",
       blurb: "Expert therapists, personalized pressure, total relaxation.",
-      price: "From $89",
+      price: "From $139",
       icon: (
         <path
           strokeLinecap="round"
@@ -46,7 +46,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
       href: `${basePath}/book-service-test?category=facial`,
       title: "Facial",
       blurb: "Clinical-grade skincare tailored to your skin.",
-      price: "From $89",
+      price: "From $139",
       icon: (
         <path
           strokeLinecap="round"
