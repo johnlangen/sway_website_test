@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Check, ChevronDown, Phone } from "lucide-react";
@@ -171,22 +171,8 @@ const memberPerks = [
 export default function MembershipPage() {
   const [selectedTier, setSelectedTier] = useState("premier");
   const [boostsOpen, setBoostsOpen] = useState(false);
-  const treatmentRef = useRef<HTMLDivElement>(null);
 
   const activeTier = tiers.find((t) => t.key === selectedTier)!;
-
-  const handleTierSelect = (key: string) => {
-    setSelectedTier(key);
-    // On mobile, scroll to treatment details after selecting a card
-    if (window.innerWidth < 768 && treatmentRef.current) {
-      setTimeout(() => {
-        treatmentRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 100);
-    }
-  };
 
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
@@ -317,98 +303,52 @@ export default function MembershipPage() {
           />
         </div>
 
-        {/* Tier cards: compact, equal height, clickable */}
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
-          {tiers.map((tier, i) => {
-            const isSelected = selectedTier === tier.key;
-            return (
-              <motion.div
-                key={tier.key}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="h-full [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
-                style={{ willChange: "transform, opacity" }}
-              >
-              <button
-                onClick={() => handleTierSelect(tier.key)}
-                className={`relative w-full h-full bg-white text-[#113D33] rounded-2xl p-5 md:p-6 text-center text-left transition-[box-shadow,transform] duration-200 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] ${
-                  isSelected
-                    ? "ring-2 ring-[#9ABFB3] shadow-2xl scale-[1.02]"
-                    : "shadow-lg hover:shadow-xl"
-                }`}
-              >
-                {tier.mostPopular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] bg-[#113D33] text-white px-4 py-1 rounded-full font-semibold tracking-wide whitespace-nowrap uppercase">
-                    Most Popular
-                  </span>
-                )}
-
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#4A776D] mb-1 text-center">
-                  {tier.tagline}
-                </p>
-                <h3 className="text-xl font-bold uppercase tracking-wide text-center">
-                  {tier.name}
-                </h3>
-
-                <div className="mt-3 mb-2 text-center">
-                  <span className="text-3xl md:text-4xl font-bold">
-                    {tier.price}
-                  </span>
-                  <span className="text-sm text-gray-500 ml-1">/ month</span>
-                </div>
-                <p className="text-xs text-gray-400 text-center">
-                  <span className="line-through">{tier.dropInPrice}</span>{" "}
-                  drop-in
-                </p>
-
-                <p className="text-xs text-gray-500 mt-3 leading-relaxed text-center">
-                  1 facial or massage/month
-                </p>
-
-                <div className="mt-4 pt-3 border-t border-[#113D33]/10">
-                  <a
-                    href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="block w-full py-2.5 rounded-full bg-[#113D33] text-white text-sm font-semibold hover:bg-[#0e3029] transition text-center"
-                  >
-                    Join &middot; {tier.price}/mo
-                  </a>
-                </div>
-              </button>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Treatment detail panel: shows selected tier's treatments */}
-      <section ref={treatmentRef} className="px-4 sm:px-6 pb-6 scroll-mt-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 p-5 md:p-8">
-            {/* Tier switcher pills */}
-            <div className="flex justify-center mb-6">
-              <div className="inline-flex bg-white/10 rounded-full p-1 gap-0.5">
-                {tiers.map((tier) => (
+        {/* One combined tabbed card: switch tier -> see price, treatments, CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="max-w-2xl mx-auto [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+          style={{ willChange: "transform, opacity" }}
+        >
+          <div className="bg-white text-[#113D33] rounded-2xl shadow-2xl p-5 md:p-7">
+            {/* Tier switcher with prices (comparison) */}
+            <div className="grid grid-cols-3 gap-1.5 rounded-2xl bg-[#113D33]/8 p-1.5">
+              {tiers.map((tier) => {
+                const isSel = selectedTier === tier.key;
+                return (
                   <button
                     key={tier.key}
                     onClick={() => setSelectedTier(tier.key)}
-                    className={`px-4 md:px-5 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-200 ${
-                      selectedTier === tier.key
-                        ? "bg-white text-[#113D33] shadow-sm"
-                        : "text-gray-400 hover:text-white"
+                    className={`relative rounded-xl py-2.5 px-1 text-center transition-colors duration-200 ${
+                      isSel
+                        ? "bg-[#113D33] text-white shadow-sm"
+                        : "text-[#113D33]/60 hover:text-[#113D33]"
                     }`}
                   >
-                    {tier.name}
+                    {tier.mostPopular && (
+                      <span
+                        className={`absolute -top-2 left-1/2 -translate-x-1/2 rounded-full px-2 py-0.5 text-[8px] font-semibold uppercase tracking-wide whitespace-nowrap ${
+                          isSel ? "bg-[#9ABFB3] text-[#113D33]" : "bg-[#113D33] text-white"
+                        }`}
+                      >
+                        Popular
+                      </span>
+                    )}
+                    <span className="block text-sm font-bold">{tier.name}</span>
+                    <span
+                      className={`block text-[11px] ${
+                        isSel ? "text-white/70" : "text-[#113D33]/45"
+                      }`}
+                    >
+                      {tier.price}/mo
+                    </span>
                   </button>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
-            {/* Treatment lists */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedTier}
@@ -417,46 +357,53 @@ export default function MembershipPage() {
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                  {/* Facials */}
+                {/* Price + what you get */}
+                <div className="mt-6 text-center">
+                  <p className="text-[11px] uppercase tracking-[0.15em] text-[#4A776D]">
+                    {activeTier.tagline}
+                  </p>
+                  <div className="mt-1">
+                    <span className="text-4xl font-bold">{activeTier.price}</span>
+                    <span className="text-sm text-gray-500 ml-1">/ month</span>
+                  </div>
+                  <p className="mt-1 text-xs text-gray-400">
+                    <span className="line-through">{activeTier.dropInPrice}</span> drop-in
+                    <span className="mx-1.5">·</span>1 facial or massage per month
+                  </p>
+                </div>
+
+                {/* Treatments */}
+                <div className="mt-6 grid gap-6 border-t border-[#113D33]/10 pt-6 sm:grid-cols-2">
                   <div>
-                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
                       Facials ({activeTier.facials.length})
                     </h4>
                     <ul className="space-y-2.5">
                       {activeTier.facials.map((t, idx) => (
-                        <li
-                          key={idx}
-                          className="flex items-center justify-between text-sm"
-                        >
-                          <span className="flex items-center gap-2 text-gray-200">
+                        <li key={idx} className="flex items-center justify-between text-sm">
+                          <span className="flex items-center gap-2 text-[#113D33]/80">
                             <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
                             {t.name}
                           </span>
-                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#9ABFB3]/15 px-2.5 py-0.5 text-xs font-semibold text-[#9ABFB3]">
+                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#4A776D]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4A776D]">
                             {t.duration}
                           </span>
                         </li>
                       ))}
                     </ul>
                   </div>
-
-                  {/* Massages */}
                   <div>
-                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
                       Massages ({activeTier.massages.length})
                     </h4>
                     <ul className="space-y-2.5">
                       {activeTier.massages.map((t, idx) => (
-                        <li
-                          key={idx}
-                          className="flex items-center justify-between text-sm"
-                        >
-                          <span className="flex items-center gap-2 text-gray-200">
+                        <li key={idx} className="flex items-center justify-between text-sm">
+                          <span className="flex items-center gap-2 text-[#113D33]/80">
                             <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
                             {t.name}
                           </span>
-                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#9ABFB3]/15 px-2.5 py-0.5 text-xs font-semibold text-[#9ABFB3]">
+                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#4A776D]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4A776D]">
                             {t.duration}
                           </span>
                         </li>
@@ -464,10 +411,20 @@ export default function MembershipPage() {
                     </ul>
                   </div>
                 </div>
+
+                {/* CTA */}
+                <a
+                  href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
+                >
+                  Join {activeTier.name} &middot; {activeTier.price}/mo
+                </a>
               </motion.div>
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ALL-MEMBER PERKS: always visible */}
