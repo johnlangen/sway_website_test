@@ -165,6 +165,18 @@ const memberPerks = [
 ];
 
 /* ------------------------------------------------------------------
+   DURATION PILL COLOR — graduates by length so longer = more premium
+------------------------------------------------------------------ */
+
+function durationClass(duration: string) {
+  const mins = parseInt(duration, 10);
+  if (mins >= 90) return "bg-[#113D33] text-white";
+  if (mins >= 70) return "bg-[#4A776D] text-white";
+  if (mins >= 60) return "bg-[#9ABFB3]/40 text-[#113D33]";
+  return "bg-[#4A776D]/10 text-[#4A776D]";
+}
+
+/* ------------------------------------------------------------------
    COMPONENT
 ------------------------------------------------------------------ */
 
@@ -385,7 +397,7 @@ export default function MembershipPage() {
                             <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
                             {t.name}
                           </span>
-                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#4A776D]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4A776D]">
+                          <span className={`ml-2 shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${durationClass(t.duration)}`}>
                             {t.duration}
                           </span>
                         </li>
@@ -403,7 +415,7 @@ export default function MembershipPage() {
                             <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
                             {t.name}
                           </span>
-                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#4A776D]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4A776D]">
+                          <span className={`ml-2 shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${durationClass(t.duration)}`}>
                             {t.duration}
                           </span>
                         </li>
@@ -512,6 +524,12 @@ export default function MembershipPage() {
                 <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider">
                   {m.details}
                 </p>
+                <a
+                  href="tel:+13034766150"
+                  className="mt-4 block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
+                >
+                  Become a Member &middot; {m.price}/mo
+                </a>
               </div>
             </motion.div>
           ))}
