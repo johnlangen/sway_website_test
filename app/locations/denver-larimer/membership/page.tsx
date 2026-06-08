@@ -415,7 +415,7 @@ export default function MembershipPage() {
                             <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
                             {t.name}
                           </span>
-                          <span className="text-xs text-gray-500 ml-2 shrink-0">
+                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#9ABFB3]/15 px-2.5 py-0.5 text-xs font-semibold text-[#9ABFB3]">
                             {t.duration}
                           </span>
                         </li>
@@ -438,7 +438,7 @@ export default function MembershipPage() {
                             <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
                             {t.name}
                           </span>
-                          <span className="text-xs text-gray-500 ml-2 shrink-0">
+                          <span className="ml-2 shrink-0 inline-flex items-center rounded-full bg-[#9ABFB3]/15 px-2.5 py-0.5 text-xs font-semibold text-[#9ABFB3]">
                             {t.duration}
                           </span>
                         </li>
