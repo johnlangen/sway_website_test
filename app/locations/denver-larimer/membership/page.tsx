@@ -304,14 +304,18 @@ export default function MembershipPage() {
           {tiers.map((tier, i) => {
             const isSelected = selectedTier === tier.key;
             return (
-              <motion.button
+              <motion.div
                 key={tier.key}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="h-full [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+                style={{ willChange: "transform, opacity" }}
+              >
+              <button
                 onClick={() => handleTierSelect(tier.key)}
-                className={`relative bg-white text-[#113D33] rounded-2xl p-5 md:p-6 text-center text-left transition-all duration-200 ${
+                className={`relative w-full h-full bg-white text-[#113D33] rounded-2xl p-5 md:p-6 text-center text-left transition-[box-shadow,transform] duration-200 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] ${
                   isSelected
                     ? "ring-2 ring-[#9ABFB3] shadow-2xl scale-[1.02]"
                     : "shadow-lg hover:shadow-xl"
@@ -356,7 +360,8 @@ export default function MembershipPage() {
                     Join &middot; {tier.price}/mo
                   </a>
                 </div>
-              </motion.button>
+              </button>
+              </motion.div>
             );
           })}
         </div>
