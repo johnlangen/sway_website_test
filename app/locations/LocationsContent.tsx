@@ -63,7 +63,7 @@ const LOCATIONS: Location[] = [
     coords: [39.7665, -104.9839],
     address: "3636 Blake St, Denver, CO 80205",
     phone: "+1 303-476-6150",
-    imageUrl: "/assets/SWAY.jpg",
+    imageUrl: "/assets/rino-card.jpg",
   },
   {
     slug: "denver-central-park",
@@ -74,7 +74,7 @@ const LOCATIONS: Location[] = [
     coords: [39.7494, -104.8688],
     address: "2271 Clinton St, Aurora, CO 80010",
     phone: "+1 303-476-6150",
-    imageUrl: "/assets/SWAY.jpg",
+    imageUrl: "/assets/centralpark-card.jpg",
   },
   {
     slug: "dallas",

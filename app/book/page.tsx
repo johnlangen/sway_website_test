@@ -27,7 +27,7 @@ const locations = [
     state: "CO",
     address: "3636 Blake St",
     status: "open" as const,
-    image: "/assets/SWAY.jpg",
+    image: "/assets/rino-card.jpg",
     href: "/locations/denver-rino/book",
   },
   {
@@ -37,7 +37,7 @@ const locations = [
     state: "CO",
     address: "2271 Clinton St",
     status: "open" as const,
-    image: "/assets/SWAY.jpg",
+    image: "/assets/centralpark-card.jpg",
     href: "/locations/denver-central-park/book",
   },
   {
