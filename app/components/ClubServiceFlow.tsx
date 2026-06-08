@@ -1216,12 +1216,12 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* Remedy Lounge — link to the club recovery booking flow */}
             <div className="grid grid-cols-1 gap-5 mt-5 mb-12">
               {([
-                { label: "Remedy Lounge", img: club.loungeImages[0] ?? "/assets/remedy-room.jpg", sub: "Sauna, cold plunge, infrared & compression therapy", price: "Members $25 · Drop-In $49", dur: "75 min", href: remedyPath },
+                { label: "Remedy Lounge", img: "/assets/cold_plunge.jpg", sub: "Sauna, cold plunge, infrared & compression therapy", price: "Members $25 · Drop-In $49", dur: "75 min", href: remedyPath },
               ]).map((item) => (
                 <Link key={item.label} href={item.href}
                   className="group relative overflow-hidden rounded-2xl bg-white/70 border border-[#113D33]/10 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-left">
                   <div className="relative h-36 md:h-44 w-full overflow-hidden">
-                    <Image src={item.img} alt={item.label} fill className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, 50vw" />
+                    <Image src={item.img} alt={item.label} fill className="object-cover object-center transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, 50vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                     <div className="absolute bottom-3 right-3">
                       <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
