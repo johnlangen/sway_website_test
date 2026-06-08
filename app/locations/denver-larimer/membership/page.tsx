@@ -711,6 +711,29 @@ export default function MembershipPage() {
           </a>
         </div>
       </section>
+
+      {/* Sticky mobile Join bar — keeps the join action reachable through the
+          long scroll. Hidden on desktop. Right padding clears the chat widget. */}
+      <div className="h-24 md:hidden" aria-hidden="true" />
+      <a
+        href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-white/10 bg-[#0b1f1a]/95 backdrop-blur pl-4 pr-20 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+      >
+        <span className="leading-tight min-w-0">
+          <span className="block text-[10px] uppercase tracking-[0.15em] text-[#9ABFB3]">
+            {activeTier.name} Membership
+          </span>
+          <span className="block text-white font-semibold text-sm">
+            {activeTier.price}
+            <span className="text-gray-400 font-normal"> / month</span>
+          </span>
+        </span>
+        <span className="shrink-0 rounded-full bg-white text-[#113D33] px-7 py-2.5 text-sm font-semibold">
+          Join
+        </span>
+      </a>
     </div>
   );
 }
