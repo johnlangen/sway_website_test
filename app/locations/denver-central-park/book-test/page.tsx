@@ -1,5 +1,5 @@
-import ClubBookHub from "@/app/components/ClubBookHub";
+import ClubServiceFlow from "@/app/components/ClubServiceFlow";
 
 export default function Page() {
-  return <ClubBookHub clubKey="denver-central-park" />;
+  return <ClubServiceFlow clubKey="denver-central-park" />;
 }
