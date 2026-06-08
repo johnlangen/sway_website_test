@@ -1103,7 +1103,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <div className="p-6 space-y-3">
                     <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center space-y-1.5">
                       <p className="text-sm text-amber-800">We didn&apos;t find a membership with this email.</p>
-                      <p className="text-xs text-amber-700/90">If you&apos;re a member at Spavia or another Sway location, you&apos;ll set up your account here on your first visit. Continue as a guest and we&apos;ll get you started.</p>
+                      <p className="text-xs text-amber-700/90">If you&apos;re a member at Spavia or another Sway location, continue as a guest to set up your account here. Your membership pricing will still apply at checkout.</p>
                     </div>
                     <div className="flex gap-2">
                       <button onClick={() => { setWelcomeResult(null); setEmail(""); }}
@@ -1131,8 +1131,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                       className="w-full py-3 bg-[#113D33] text-white rounded-xl text-sm font-semibold disabled:opacity-30 transition-opacity">
                       {loading ? "Checking..." : "Continue"}
                     </button>
-                    <p className="text-xs text-[#113D33]/55 text-center leading-relaxed">
-                      First time at Sway {club.label}? Even if you&apos;re a member at Spavia or another Sway location, you&apos;ll create your account here to get started.
+                    <p className="text-xs text-[#113D33]/80 text-center leading-relaxed font-medium">
+                      First time at Sway {club.label}? Continue as a guest to get started. If you&apos;re a member at Spavia or another Sway location, your membership pricing will still apply at checkout.
                     </p>
                   </div>
                 )}
