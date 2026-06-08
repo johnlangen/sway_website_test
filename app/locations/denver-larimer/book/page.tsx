@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
@@ -102,23 +103,23 @@ const MASSAGE_TREATMENTS: Treatment[] = [
 ];
 
 const FACIAL_BOOSTS: Boost[] = [
-  { id: 74, name: "LED Boost", type: "boost", family: "led", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Red light therapy.", fullDescription: "This non-invasive treatment uses targeted light wavelengths to recharge your skin at the cellular level, reduce inflammation, and stimulate collagen and elastin production. LED Light Therapy activates ATP — your cells' energy source — to support faster healing, ease muscle tension, and leave your skin visibly firmer, calmer, and more radiant.", resourceId: 6 },
+  { id: 74, name: "LED Boost", type: "boost", family: "led", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Red light therapy.", fullDescription: "This non-invasive treatment uses targeted light wavelengths to recharge your skin at the cellular level, reduce inflammation, and stimulate collagen and elastin production. LED Light Therapy activates ATP, your cells' energy source, to support faster healing, ease muscle tension, and leave your skin visibly firmer, calmer, and more radiant.", resourceId: 6 },
   { id: 86, name: "Oxygen Boost", type: "boost", family: "oxygen", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Cooling oxygen infusion.", fullDescription: "A pressurized stream of oxygen delivers hydrating serums deep into the skin, plumping fine lines and restoring a dewy, refreshed glow. Ideal for dull or dehydrated skin that needs an instant pick-me-up.", resourceId: 4 },
   { id: 115, name: "Dermaflash Boost", type: "boost", family: "dermaflash", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Exfoliates and removes peach fuzz.", fullDescription: "A gentle exfoliating treatment that removes dead skin cells and fine vellus hair (peach fuzz) to reveal a smoother, brighter complexion. Allows skincare products to penetrate more effectively and creates a flawless canvas for makeup.", resourceId: 5 },
   { id: 73, name: "LED Boost Plus", type: "boost_plus", family: "led", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended LED therapy.", fullDescription: "An extended session of targeted LED light therapy for deeper cellular activation. The additional time allows for greater collagen stimulation, enhanced healing, and more pronounced anti-inflammatory benefits.", resourceId: 6 },
   { id: 87, name: "Oxygen Boost Plus", type: "boost_plus", family: "oxygen", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended oxygen infusion.", fullDescription: "An extended oxygen infusion session for deeper serum penetration and more intensive hydration. The additional time targets multiple areas for a more comprehensive, luminous result.", resourceId: 4 },
   { id: 109, name: "Dermaflash Boost Plus", type: "boost_plus", family: "dermaflash", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended dermaflash.", fullDescription: "An extended dermaflash session with more thorough exfoliation across the full face and neck. The additional time allows your esthetician to address more areas for an even smoother, more radiant complexion.", resourceId: 5 },
-  { id: 117, name: "Sculpt & Lift Microcurrent Pro", type: "boost_pro", family: "microcurrent", addsMinutes: 20, memberPrice: "$25", dropInPrice: "$50", description: "Full-face microcurrent sculpting.", fullDescription: "Low-level electrical currents stimulate facial muscles to lift, tone, and contour. This non-invasive treatment mimics the body's natural bioelectrical currents to re-educate muscles, boost collagen production, and deliver a visible lifting effect — often called a 'non-surgical facelift.'", resourceId: 7 },
+  { id: 117, name: "Sculpt & Lift Microcurrent Pro", type: "boost_pro", family: "microcurrent", addsMinutes: 20, memberPrice: "$25", dropInPrice: "$50", description: "Full-face microcurrent sculpting.", fullDescription: "Low-level electrical currents stimulate facial muscles to lift, tone, and contour. This non-invasive treatment mimics the body's natural bioelectrical currents to re-educate muscles, boost collagen production, and deliver a visible lifting effect, often called a 'non-surgical facelift.'", resourceId: 7 },
 ];
 
 const MASSAGE_BOOSTS: Boost[] = [
   // Boost — $10 member / $20 drop-in, no time added
   { id: 111, name: "CBD Boost", type: "boost", family: "causemedic", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Soothing CBD muscle cream for deep relaxation and recovery.", fullDescription: "A CBD-infused muscle cream applied to targeted tension areas during your massage. The active ingredients work synergistically with massage techniques to reduce inflammation, soothe sore muscles, and promote deeper relaxation and recovery." },
-  { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery — especially effective for the back, shoulders, and neck." },
+  { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery, especially effective for the back, shoulders, and neck." },
   { id: 91, name: "PEMF Boost", type: "boost", family: "pemf", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Electromagnetic field therapy for recovery.", fullDescription: "Pulsed Electromagnetic Field therapy uses low-frequency electromagnetic waves to stimulate cellular repair, reduce inflammation, and accelerate recovery. Applied during your massage, PEMF enhances circulation and helps your body heal at a deeper level." },
   // Boost Plus — $20 member / $40 drop-in, +10 min
   { id: 112, name: "CBD Boost Plus", type: "boost_plus", family: "causemedic", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended CBD muscle cream treatment for deeper recovery.", fullDescription: "An extended CBD muscle cream session with additional time for your therapist to work the active ingredients into multiple areas. The extra duration allows for more thorough application across back, legs, and shoulders for comprehensive relief." },
-  { id: 114, name: "Cupping Boost Plus", type: "boost_plus", family: "cupping", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended cupping therapy for full-body tension release.", fullDescription: "An extended cupping session covering more areas of the body. The additional time allows your therapist to address the full back, shoulders, and legs — ideal for athletes or anyone carrying significant tension across multiple muscle groups." },
+  { id: 114, name: "Cupping Boost Plus", type: "boost_plus", family: "cupping", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended cupping therapy for full-body tension release.", fullDescription: "An extended cupping session covering more areas of the body. The additional time allows your therapist to address the full back, shoulders, and legs, ideal for athletes or anyone carrying significant tension across multiple muscle groups." },
 ];
 
 /* ----------------------------------------------------------------
@@ -1017,7 +1018,8 @@ export default function NewBookingFlow() {
         {step === "welcome" && !loading && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-center pt-8 md:pt-12">
             <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">Sway Wellness Spa</p>
-            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-3 leading-tight">Book Your Experience</h1>
+            <SwayCurve width={150} strokeWidth={2.2} animate className="text-[#4A776D]/85 mx-auto block mb-5" />
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-3 leading-tight">Book Your Experience</h1>
             <p className="text-base md:text-lg text-[#113D33]/60 max-w-md mx-auto mb-10">How would you like to get started?</p>
 
             <div className={`grid gap-4 max-w-lg mx-auto ${welcomeShowEmail ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
@@ -1042,7 +1044,7 @@ export default function NewBookingFlow() {
                   </div>
                 ) : welcomeResult === "multiple" ? (
                   <div className="p-6 space-y-3">
-                    <p className="text-sm font-bold text-[#113D33]">We found multiple accounts — which one are you?</p>
+                    <p className="text-sm font-bold text-[#113D33]">We found multiple accounts. Which one are you?</p>
                     <div className="flex flex-col gap-2">
                       {welcomeMultipleClients.map((c) => (
                         <button key={c.clientId} onClick={() => handleWelcomeClientSelect(c.clientId)}
@@ -1236,7 +1238,7 @@ export default function NewBookingFlow() {
                   <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4">
                     {category === "massage"
                       ? "Expert therapists, personalized pressure, total relaxation."
-                      : "Personalized, result-driven facials designed to support healthy, radiant skin — customized by your esthetician."}
+                      : "Personalized, result-driven facials designed to support healthy, radiant skin, customized by your esthetician."}
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-2">
                     <ReviewBadge />
@@ -1323,8 +1325,8 @@ export default function NewBookingFlow() {
                       </p>
                       <p className="text-xs text-[#113D33]/60 mt-1 max-w-lg mx-auto">
                         {category === "facial" ? (
-                          treatmentTierFilter === "premier" ? "50 min — targeted products for your skin concern + dermapore technology" :
-                          "50–60 min — tech enhancements + scalp/hand treatment"
+                          treatmentTierFilter === "premier" ? "50 min, targeted products for your skin concern + dermapore technology" :
+                          "50–60 min, tech enhancements + scalp/hand treatment"
                         ) : (
                           treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
                           "+20 min duration added to advanced technique massages"
@@ -1337,8 +1339,8 @@ export default function NewBookingFlow() {
                       <p className="text-xs text-[#113D33]/60 mt-1.5 max-w-lg mx-auto">
                         {category === "facial" ? (
                           treatmentTierFilter === "essential" ? "50-minute customized facial" :
-                          treatmentTierFilter === "premier" ? "50 min — targeted products for your skin concern + dermapore technology" :
-                          "50–60 min — tech enhancements + scalp/hand treatment"
+                          treatmentTierFilter === "premier" ? "50 min, targeted products for your skin concern + dermapore technology" :
+                          "50–60 min, tech enhancements + scalp/hand treatment"
                         ) : (
                           treatmentTierFilter === "essential" ? "50-minute customized massage" :
                           treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
@@ -1455,7 +1457,7 @@ export default function NewBookingFlow() {
               <h2 className="text-2xl font-bold text-[#113D33]">Customize your experience</h2>
               <p className="mt-1 text-sm text-[#113D33]/60">
                 Add science-backed enhancements to your {category}.
-                {selectedTreatment?.tier !== "ultimate" && <span className="block mt-1 text-[#4A776D] font-medium">One per type — mix and match across categories.</span>}
+                {selectedTreatment?.tier !== "ultimate" && <span className="block mt-1 text-[#4A776D] font-medium">One per type. Mix and match across categories.</span>}
               </p>
             </div>
 
@@ -1548,7 +1550,7 @@ export default function NewBookingFlow() {
               </div>
             ))}
 
-            <button onClick={handleBoostsContinue} className={primaryBtn}>{selectedBoosts.length > 0 ? `Continue with ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}` : "Skip — no boosts"}</button>
+            <button onClick={handleBoostsContinue} className={primaryBtn}>{selectedBoosts.length > 0 ? `Continue with ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}` : "Skip, no boosts"}</button>
           </motion.div>
           );
         })()}
@@ -1645,7 +1647,7 @@ export default function NewBookingFlow() {
                 href="/locations/denver-larimer/book-aescape"
                 className="mt-2 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
               >
-                <span>Try <span className="text-[#4A776D]">Aescape AI Massage</span> — often same-day availability</span>
+                <span>Try <span className="text-[#4A776D]">Aescape AI Massage</span> , often same-day availability</span>
                 <span className="text-[#4A776D]">&rarr;</span>
               </Link>
             )}
@@ -1655,7 +1657,7 @@ export default function NewBookingFlow() {
               <p>No availability on this date.</p>
               <p className="text-xs mt-1">Try another date or therapist.</p>
               <p className="mt-4 text-xs text-[#113D33]/40">
-                <Link href="/locations/denver-larimer/book-remedy-room" className="underline hover:text-[#4A776D] transition">Explore The Remedy Room</Link> — sauna, cold plunge & more
+                <Link href="/locations/denver-larimer/book-remedy-room" className="underline hover:text-[#4A776D] transition">Explore The Remedy Room</Link>. Sauna, cold plunge & more
               </p>
             </div>
             : (
@@ -1933,7 +1935,7 @@ export default function NewBookingFlow() {
                   <div className="grid grid-cols-2 gap-3"><input type="text" value={guestFirstName} onChange={(e) => setGuestFirstName(e.target.value)} placeholder="Their first name *" className={inputClass} /><input type="text" value={guestLastName} onChange={(e) => setGuestLastName(e.target.value)} placeholder="Last name" className={inputClass} /></div>
                   <input type="tel" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value)} placeholder="Their phone *" className={inputClass} />
                   <input type="email" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} placeholder="Their email (optional)" className={inputClass} />
-                  <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={isSurprise} onChange={(e) => setIsSurprise(e.target.checked)} className="rounded border-gray-300" /><span className="text-xs text-[#113D33]/60">This is a surprise — don&apos;t contact them</span></label>
+                  <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={isSurprise} onChange={(e) => setIsSurprise(e.target.checked)} className="rounded border-gray-300" /><span className="text-xs text-[#113D33]/60">This is a surprise. Don&apos;t contact them</span></label>
                 </div>
               )}
             </div>

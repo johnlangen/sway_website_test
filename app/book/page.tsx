@@ -5,6 +5,7 @@ import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
+import { SwayCurve } from "../components/SwayCurve";
 
 type SelectedLocation = { slug: string; name: string };
 
@@ -18,6 +19,26 @@ const locations = [
     status: "open" as const,
     image: "/assets/homepage_photo_outside.jpg",
     href: "/locations/denver-larimer/book",
+  },
+  {
+    slug: "denver-rino",
+    name: "Sway RiNo",
+    city: "Denver",
+    state: "CO",
+    address: "3636 Blake St",
+    status: "open" as const,
+    image: "/assets/SWAY.jpg",
+    href: "/locations/denver-rino/book",
+  },
+  {
+    slug: "denver-central-park",
+    name: "Sway Central Park",
+    city: "Aurora",
+    state: "CO",
+    address: "2271 Clinton St",
+    status: "open" as const,
+    image: "/assets/SWAY.jpg",
+    href: "/locations/denver-central-park/book",
   },
   {
     slug: "dallas",
@@ -44,6 +65,54 @@ function saveLocation(slug: string, name: string) {
     localStorage.setItem("sway_selected_location", JSON.stringify({ slug, name }));
     document.cookie = `sway_loc=${slug}; path=/; max-age=${60 * 60 * 24 * 365}`;
   } catch {}
+}
+
+function LocationCard({
+  loc,
+  isSelected,
+}: {
+  loc: (typeof locations)[number];
+  isSelected: boolean;
+}) {
+  const isOpen = loc.status === "open";
+  return (
+    <Link
+      href={loc.href}
+      onClick={() => saveLocation(loc.slug, loc.name)}
+      className={`group relative ${isOpen ? "bg-white" : "bg-white/80"} text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
+        isSelected ? "ring-2 ring-[#9ABFB3]" : ""
+      }`}
+    >
+      <div className="relative h-40 w-full">
+        <Image src={loc.image} alt={loc.name} fill className="object-cover" />
+        <div className="absolute top-3 left-3">
+          <span
+            className={`inline-block text-xs px-3 py-1 rounded-full font-semibold shadow-sm ${
+              isOpen ? "bg-emerald-100 text-emerald-800" : "bg-gray-200 text-gray-600"
+            }`}
+          >
+            {isOpen ? "Now Open" : "Coming Soon"}
+          </span>
+        </div>
+      </div>
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
+        <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
+          <MapPin className="w-3.5 h-3.5" />
+          {loc.city}, {loc.state}
+        </p>
+        {loc.address && <p className="text-xs text-gray-400 mb-4">{loc.address}</p>}
+        <div
+          className={`mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 text-white font-semibold text-sm transition ${
+            isOpen ? "bg-[#113D33] group-hover:bg-[#0a2b23]" : "bg-[#113D33]/80 group-hover:bg-[#113D33]"
+          }`}
+        >
+          {isOpen ? "Book Now" : "Learn More"}
+          <ArrowRight className="w-4 h-4" />
+        </div>
+      </div>
+    </Link>
+  );
 }
 
 export default function BookHubPage() {
@@ -94,7 +163,13 @@ export default function BookHubPage() {
             <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
               Sway Wellness Spa
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+            <SwayCurve
+              width={150}
+              strokeWidth={2.2}
+              animate
+              className="text-[#A9D2C5] mx-auto block mb-6"
+            />
+            <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight">
               Book Your Experience
             </h1>
             <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
@@ -102,65 +177,38 @@ export default function BookHubPage() {
             </p>
           </section>
 
-          {/* Location Cards */}
-          <section className="px-4 sm:px-6 pt-10 pb-16">
+          {/* Location Cards — grouped by status */}
+          <section className="px-4 sm:px-6 pt-10 pb-16 max-w-5xl mx-auto">
+            {/* Open Now */}
             <p className="text-center text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-6">
-              Select your location
+              Open Now
             </p>
-            <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
-              {locations.map((loc) => {
-                const isOpen = loc.status === "open";
-                const isSelected = selectedLocation?.slug === loc.slug;
-
-                return (
-                  <Link
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {locations
+                .filter((l) => l.status === "open")
+                .map((loc) => (
+                  <LocationCard
                     key={loc.slug}
-                    href={loc.href}
-                    onClick={() => saveLocation(loc.slug, loc.name)}
-                    className={`group relative ${isOpen ? "bg-white" : "bg-white/80"} text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
-                      isSelected ? "ring-2 ring-[#9ABFB3]" : ""
-                    }`}
-                  >
-                    <div className="relative h-40 w-full">
-                      <Image
-                        src={loc.image}
-                        alt={loc.name}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <span className={`inline-block text-xs px-3 py-1 rounded-full font-semibold shadow-sm ${
-                          isOpen
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-gray-200 text-gray-600"
-                        }`}>
-                          {isOpen ? "Now Open" : "Coming Soon"}
-                        </span>
-                      </div>
-                    </div>
+                    loc={loc}
+                    isSelected={selectedLocation?.slug === loc.slug}
+                  />
+                ))}
+            </div>
 
-                    <div className="p-5 flex flex-col flex-grow">
-                      <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
-                      <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
-                        <MapPin className="w-3.5 h-3.5" />
-                        {loc.city}, {loc.state}
-                      </p>
-                      {loc.address && (
-                        <p className="text-xs text-gray-400 mb-4">{loc.address}</p>
-                      )}
-
-                      <div className={`mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 text-white font-semibold text-sm transition ${
-                        isOpen
-                          ? "bg-[#113D33] group-hover:bg-[#0a2b23]"
-                          : "bg-[#113D33]/80 group-hover:bg-[#113D33]"
-                      }`}>
-                        {isOpen ? "Book Now" : "Learn More"}
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+            {/* Coming Soon */}
+            <p className="text-center text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mt-14 mb-6">
+              Coming Soon
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
+              {locations
+                .filter((l) => l.status === "coming-soon")
+                .map((loc) => (
+                  <LocationCard
+                    key={loc.slug}
+                    loc={loc}
+                    isSelected={selectedLocation?.slug === loc.slug}
+                  />
+                ))}
             </div>
           </section>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
@@ -1356,11 +1357,17 @@ export default function BookRemedyRoomPage() {
                 <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
                   Sway Wellness Spa
                 </p>
-                <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                <SwayCurve
+                  width={150}
+                  strokeWidth={2.2}
+                  animate
+                  className="text-[#A9D2C5] mx-auto block mb-5"
+                />
+                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4 leading-tight">
                   The Remedy Room
                 </h1>
                 <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
-                  Science-backed recovery in a shared sanctuary. Cold plunge, sauna, LED therapy, and lymphatic compression — all in one 40-minute session.
+                  Science-backed recovery in a shared sanctuary. Cold plunge, sauna, LED therapy, and lymphatic compression, all in one 40-minute session.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 text-white">
                   <ReviewBadge />
@@ -1586,11 +1593,11 @@ export default function BookRemedyRoomPage() {
                       href="/locations/denver-larimer/book"
                       className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-4 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-white/20"
                     >
-                      <span>Try <span className="text-white/90">Massage & Facials</span> — with a licensed therapist</span>
+                      <span>Try <span className="text-white/90">Massage & Facials</span> , with a licensed therapist</span>
                       <span className="text-white/70">&rarr;</span>
                     </Link>
                     <p className="mt-3 text-xs text-white/30">
-                      <Link href="/locations/denver-larimer/book-aescape" className="underline hover:text-white/60 transition">Try Aescape AI Massage</Link> — often same-day availability
+                      <Link href="/locations/denver-larimer/book-aescape" className="underline hover:text-white/60 transition">Try Aescape AI Massage</Link>, often same-day availability
                     </p>
                   </div>
                 )}
@@ -1756,7 +1763,7 @@ export default function BookRemedyRoomPage() {
                     <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                     <div>
                       <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                        No charge today — your card is only used to{" "}
+                        No charge today. Your card is only used to{" "}
                         <span className="font-semibold">hold the reservation</span> for late cancellation or no-show protection.
                       </p>
                       <div className="mt-3">
@@ -1901,7 +1908,7 @@ export default function BookRemedyRoomPage() {
                 <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
                   <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
                     <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                    <span>We don’t charge today — this only reserves your slot.</span>
+                    <span>We don’t charge today. This only reserves your slot.</span>
                   </div>
                 </div>
 
@@ -2004,7 +2011,7 @@ export default function BookRemedyRoomPage() {
 
                 <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
                   We’ll reserve this appointment under{" "}
-                  <span className="font-semibold">{emailNormalized}</span>. No charge today — your
+                  <span className="font-semibold">{emailNormalized}</span>. No charge today. Your
                   card is stored in Mindbody for no-show / late cancellation protection.
                 </p>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -154,7 +155,7 @@ const FACIALS: Service[] = [
     dropInPrice: 129,
     image: "/assets/facial1.jpg",
     description:
-      "A classic facial customized to your skin type — cleanse, exfoliate, extract, and hydrate.",
+      "A classic facial customized to your skin type. Cleanse, exfoliate, extract, and hydrate.",
   },
   {
     id: 5,
@@ -277,7 +278,7 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $50 | Drop-In $100",
     memberPrice: 50,
     dropInPrice: 100,
-    description: "A workout for your face — non-invasive lift and sculpt.",
+    description: "A workout for your face. Non-invasive lift and sculpt.",
     detail: "While traditional facials target improving the skin, microcurrent goes deeper, targeting the facial muscles beneath your skin for a non-invasive lift. Microcurrent technology works at the cellular level to actively re-educate muscles, smooth fine lines, boost collagen, reduce puffiness, and restore your skin\u2019s natural energy for real, visible results.",
   },
   {
@@ -290,7 +291,7 @@ const FACIAL_BOOSTS: Boost[] = [
     price: "Member $30 | Drop-In $60",
     memberPrice: 30,
     dropInPrice: 60,
-    description: "Target one area — eyes, jawline, or forehead.",
+    description: "Target one area: eyes, jawline, or forehead.",
     detail: "This boost targets one area specifically to tone and lift. Choose from eye area, jawline, or forehead for focused microcurrent results.",
   },
   {
@@ -1635,7 +1636,13 @@ function BookServicePage() {
             <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
               Sway Wellness Spa
             </p>
-            <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4 leading-tight">
+            <SwayCurve
+              width={150}
+              strokeWidth={2.2}
+              animate
+              className="text-[#4A776D]/85 mx-auto block mb-5"
+            />
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-4 leading-tight">
               {category === "massage"
                 ? "Massage"
                 : category === "facial"

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SwayCurve } from "../../../components/SwayCurve";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
@@ -1309,7 +1310,13 @@ export default function BookAescapePage() {
                 <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4 animate-fade-in">
                   Sway Wellness Spa
                 </p>
-                <h1 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4 leading-tight animate-fade-in-up">
+                <SwayCurve
+                  width={150}
+                  strokeWidth={2.2}
+                  animate
+                  className="text-[#4A776D]/85 mx-auto block mb-5 animate-fade-in"
+                />
+                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-4 leading-tight animate-fade-in-up">
                   Aescape Robot Massage
                 </h1>
                 <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
@@ -1589,11 +1596,11 @@ export default function BookAescapePage() {
                       href="/locations/denver-larimer/book"
                       className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
                     >
-                      <span>Try <span className="text-[#4A776D]">Massage & Facials</span> — with a licensed therapist</span>
+                      <span>Try <span className="text-[#4A776D]">Massage & Facials</span> , with a licensed therapist</span>
                       <span className="text-[#4A776D]">&rarr;</span>
                     </Link>
                     <p className="mt-3 text-xs text-[#113D33]/40">
-                      <Link href="/locations/denver-larimer/book-remedy-room" className="underline hover:text-[#4A776D] transition">Explore The Remedy Room</Link> — sauna, cold plunge & more
+                      <Link href="/locations/denver-larimer/book-remedy-room" className="underline hover:text-[#4A776D] transition">Explore The Remedy Room</Link>. Sauna, cold plunge & more
                     </p>
                   </div>
                 )}
@@ -1771,7 +1778,7 @@ export default function BookAescapePage() {
                     <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                     <div>
                       <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                        No charge today — your card is only used to{" "}
+                        No charge today. Your card is only used to{" "}
                         <span className="font-semibold">
                           hold the appointment
                         </span>{" "}
@@ -1923,7 +1930,7 @@ export default function BookAescapePage() {
                 <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
                   <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
                     <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
-                    <span>We don’t charge today — this only reserves your slot.</span>
+                    <span>We don’t charge today. This only reserves your slot.</span>
                   </div>
                 </div>
 
