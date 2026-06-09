@@ -72,8 +72,8 @@ export default function RecoveryDenverBlogLayout() {
 
         <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
           <Image
-            src="/assets/recover_room.jpg"
-            alt="The Remedy Room at Sway Wellness Spa in Denver"
+            src="/assets/remedy-room2.jpg"
+            alt="The Remedy Room recovery space at Sway Wellness Spa in Denver"
             width={900}
             height={400}
             className="w-full h-64 object-cover"
@@ -237,15 +237,6 @@ export default function RecoveryDenverBlogLayout() {
             </div>
           </div>
         </div>
-
-        {/* Visual break */}
-        <Image
-          src="/assets/remedy-room2.jpg"
-          alt="Recovery space at Sway Wellness Spa in Denver"
-          width={900}
-          height={300}
-          className="rounded-xl w-full object-cover max-h-[280px]"
-        />
 
         {/* ============== Section 5: Aescape ============== */}
         <h2 id="aescape" className="text-2xl font-bold scroll-mt-24">

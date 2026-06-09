@@ -24,7 +24,7 @@ const blogs = [
     summary:
       "Your complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, LED, and Aescape AI robot massage, all in Sway's Remedy Room.",
     tag: "Recovery",
-    image: "/assets/recover_room.jpg",
+    image: "/assets/remedy-room.jpg",
   },
   {
     slug: "sway-membership-tiers",
