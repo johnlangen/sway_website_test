@@ -33,7 +33,7 @@ export default function GroupEventsPage() {
           </p>
           <div className="mt-8">
             <a
-              href="mailto:contact@swaywellnessspa.com?subject=Group Event Inquiry"
+              href="#plan"
               className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
             >
               Inquire About Group Events
@@ -219,25 +219,17 @@ export default function GroupEventsPage() {
         </section>
 
         {/* CTA */}
-        <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
+        <div id="plan" className="scroll-mt-24 bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
           <p className="text-xl font-bold">Plan Your Group Event</p>
           <p className="text-sm opacity-90">
             Contact us to coordinate group bookings, timing, and treatment
             selection. We&apos;ll handle the logistics.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="mailto:contact@swaywellnessspa.com?subject=Group Event Inquiry"
-              className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
-            >
-              Email Us
-            </a>
-            <a
-              href="tel:+13034766150"
-              className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white/10 transition"
-            >
-              Call (303) 476-6150
-            </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 text-lg">
+            <span>Call</span>
+            <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
+            <span className="text-white/70">or email</span>
+            <span className="font-bold">contact@swaywellnessspa.com</span>
           </div>
         </div>
 
