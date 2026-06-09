@@ -21,24 +21,25 @@ export default function InfraredPemfMatBlogLayout() {
           <span className="text-gray-500">Updated June 2026 · By Sway Wellness Team</span>
         </div>
 
-        {/* Hero image */}
-        <div className="rounded-xl overflow-hidden border border-[#d7e2dc]">
-          <Image
-            src="/assets/pemf.jpg"
-            alt="Infrared PEMF mat at Sway Wellness Spa in Denver"
-            width={1200}
-            height={700}
-            className="w-full h-72 md:h-96 object-cover"
-          />
+        {/* Hero: image + intro, two columns so the real mat photo renders sharp */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="rounded-xl overflow-hidden border border-[#d7e2dc] bg-white">
+            <Image
+              src="/assets/pemf.jpg"
+              alt="Infrared PEMF mat at Sway Wellness Spa in Denver"
+              width={525}
+              height={800}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+          <p>
+            A PEMF mat pairs pulsed electromagnetic field therapy with deep
+            infrared heat, and the combination has become one of the most asked
+            about recovery tools in wellness. Below we break down what a PEMF mat
+            actually does, how it works, the benefits backed by research, and how
+            you can try one as a massage boost at Sway in Denver.
+          </p>
         </div>
-
-        <p>
-          A PEMF mat pairs pulsed electromagnetic field therapy with deep
-          infrared heat, and the combination has become one of the most asked
-          about recovery tools in wellness. Below we break down what a PEMF mat
-          actually does, how it works, the benefits backed by research, and how
-          you can try one as a massage boost at Sway in Denver.
-        </p>
 
         {/* TOC */}
         <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">

@@ -248,7 +248,7 @@ const blogs = [
     summary:
       "Planning a Denver bachelorette? Build a private group spa package with massages, facials, sauna, and cold plunge for the whole bridal party.",
     tag: "Bridal",
-    image: "/assets/homepage_photo_b.jpg",
+    image: "/assets/facial.jpg",
   },
 ];
 

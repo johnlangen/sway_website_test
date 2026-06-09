@@ -24,10 +24,10 @@ export default function BacheloretteSpaDayBlogLayout() {
         {/* Hero image */}
         <div className="rounded-xl overflow-hidden border border-[#d7e2dc]">
           <Image
-            src="/assets/homepage_photo_b.jpg"
-            alt="Side-by-side treatment beds in a group spa room at Sway Wellness Spa on Larimer Square in Denver"
-            width={1200}
-            height={700}
+            src="/assets/facial.jpg"
+            alt="Facial treatment at Sway Wellness Spa on Larimer Square in Denver"
+            width={1920}
+            height={1477}
             className="w-full h-72 md:h-96 object-cover"
           />
         </div>
