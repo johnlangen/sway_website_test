@@ -19,6 +19,14 @@ const blogs = [
     featured: true,
   },
   {
+    slug: "recovery-denver",
+    title: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage",
+    summary:
+      "Your complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, LED, and Aescape AI robot massage, all in Sway's Remedy Room.",
+    tag: "Recovery",
+    image: "/assets/recover_room.jpg",
+  },
+  {
     slug: "sway-membership-tiers",
     title: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
     summary:
@@ -105,14 +113,6 @@ const blogs = [
       "College life is stressful. Discover Sway's spa treatments designed for students, from facials to massages, that help you recharge, refocus, and feel your best.",
     tag: "Wellness",
     image: "/assets/blog21.jpg",
-  },
-  {
-    slug: "recovery-denver",
-    title: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage",
-    summary:
-      "Your complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, LED, and Aescape AI robot massage, all in Sway's Remedy Room.",
-    tag: "Recovery",
-    image: "/assets/blog20.jpg",
   },
   {
     slug: "give-wellness-get-wellness",
