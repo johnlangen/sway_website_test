@@ -81,12 +81,14 @@ export default function BacheloretteSpaDayBlogLayout() {
                 wants a deep-tissue massage. Larger groups book best with a
                 little lead time, so reach out early.
               </p>
-              <Link
-                href="mailto:contact@swaywellnessspa.com?subject=Bachelorette%20Spa%20Package"
-                className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0e322b] transition"
-              >
-                Plan Your Group Package
-              </Link>
+              <div className="bg-[#F7F4E9] rounded-lg p-4 text-[#113D33]">
+                <p className="font-semibold">To plan your group package:</p>
+                <p className="mt-1">
+                  Call{" "}
+                  <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-[#0e322b]">(303) 476-6150</a>{" "}
+                  or email <span className="font-bold">contact@swaywellnessspa.com</span>
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -153,9 +155,14 @@ export default function BacheloretteSpaDayBlogLayout() {
             perfect package on Larimer Square, steps from downtown dining and
             nightlife.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <Link href="mailto:contact@swaywellnessspa.com?subject=Bachelorette%20Spa%20Package" className="bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-[#f0ede2] transition">Email to Plan</Link>
-            <Link href="/locations/denver-larimer/book-service" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book a Treatment</Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 pt-2 text-lg">
+            <span>Call</span>
+            <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
+            <span className="text-white/70">or email</span>
+            <span className="font-bold">contact@swaywellnessspa.com</span>
+          </div>
+          <div className="pt-2">
+            <Link href="/locations/denver-larimer/book-service" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book a Treatment</Link>
           </div>
         </div>
 
@@ -219,9 +226,14 @@ export default function BacheloretteSpaDayBlogLayout() {
             Reach out and we will help you put together a bachelorette spa
             package your whole bridal party will remember.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <Link href="mailto:contact@swaywellnessspa.com?subject=Bachelorette%20Spa%20Package" className="bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-[#f0ede2] transition">Start Planning</Link>
-            <Link href="/locations/denver-larimer/book-service" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book Online</Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 pt-2 text-lg">
+            <span>Call</span>
+            <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
+            <span className="text-white/70">or email</span>
+            <span className="font-bold">contact@swaywellnessspa.com</span>
+          </div>
+          <div className="pt-2">
+            <Link href="/locations/denver-larimer/book-service" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book Online</Link>
           </div>
           <p className="text-xs text-white/70 pt-2">Pro tip: book early to secure your date and tailor every detail.</p>
         </div>
