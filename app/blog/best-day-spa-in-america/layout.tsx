@@ -150,8 +150,8 @@ export default function BestDaySpaLayout() {
           <Link href="/remedy-tech" className="underline text-[#113D33] font-semibold">
             Remedy Room
           </Link>{" "}
-          gave Denver a proper recovery circuit: sauna, cold plunge, Normatec
-          compression, and LED light therapy in a guided 40-minute session.
+          gave Denver a proper recovery circuit: sauna, cold plunge,
+          compression therapy, and LED light therapy in a guided 40-minute session.
         </p>
         <p>
           We built a membership community around the idea that consistent
@@ -221,7 +221,7 @@ export default function BestDaySpaLayout() {
         </h3>
         <p>
           A 40-minute guided recovery circuit combining four modalities: sauna,
-          cold plunge, Normatec compression boots, and LED light therapy. Built
+          cold plunge, compression boots, and LED light therapy. Built
           for athletes, professionals, and anyone who takes recovery seriously.
           $49 drop-in, $25 for members.
         </p>
@@ -306,7 +306,7 @@ export default function BestDaySpaLayout() {
             <div className="pb-5 text-gray-700">
               Sway is a modern wellness club on Larimer Square in downtown
               Denver, Colorado. It offers massage, facials, a recovery circuit
-              called the Remedy Room (sauna, cold plunge, Normatec compression,
+              called the Remedy Room (sauna, cold plunge, compression therapy,
               LED light therapy), and Aescape AI-powered robot massage. Sway was
               voted #4 Best Day Spa in America by USA Today 10Best.
             </div>
@@ -339,7 +339,7 @@ export default function BestDaySpaLayout() {
               Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic,
               Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and
               Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit
-              (sauna, cold plunge, Normatec compression, LED light therapy), and
+              (sauna, cold plunge, compression therapy, LED light therapy), and
               Aescape autonomous AI-powered robot massage.
             </div>
           </details>
@@ -388,13 +388,13 @@ export default function BestDaySpaLayout() {
           <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
-              href="/blog/denver-wellness-club"
+              href="/blog/recovery-denver"
               className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition"
             >
               <div className="h-36 overflow-hidden">
                 <Image
-                  src="/assets/homepage_photo_outside.jpg"
-                  alt="Denver's Most Anticipated Wellness Club"
+                  src="/assets/blog20.jpg"
+                  alt="Recovery in Denver at Sway"
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -402,7 +402,7 @@ export default function BestDaySpaLayout() {
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">
-                  Denver&apos;s Most Anticipated Wellness Club
+                  Recovery in Denver: Sauna, Cold Plunge &amp; Robot Massage
                 </p>
               </div>
             </Link>
@@ -428,13 +428,13 @@ export default function BestDaySpaLayout() {
             </Link>
 
             <Link
-              href="/blog/train-like-an-athlete"
+              href="/blog/80-minute-massage"
               className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition"
             >
               <div className="h-36 overflow-hidden">
                 <Image
-                  src="/assets/blog20.jpg"
-                  alt="Train Like an Athlete, Recover Like an Athlete"
+                  src="/assets/blog25.jpg"
+                  alt="Why an 80-Minute Massage Is the Ultimate Reset"
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -442,7 +442,7 @@ export default function BestDaySpaLayout() {
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">
-                  Train Like an Athlete, Recover Like an Athlete
+                  Why an 80-Minute Massage Is the Ultimate Reset
                 </p>
               </div>
             </Link>
@@ -462,7 +462,7 @@ export default function BestDaySpaLayout() {
                   name: "What is Sway Wellness Spa?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway is a modern wellness club on Larimer Square in downtown Denver, Colorado. It offers massage, facials, a recovery circuit called the Remedy Room (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Sway was voted #4 Best Day Spa in America by USA Today 10Best.",
+                    text: "Sway is a modern wellness club on Larimer Square in downtown Denver, Colorado. It offers massage, facials, a recovery circuit called the Remedy Room (sauna, cold plunge, compression therapy, LED light therapy), and Aescape AI-powered robot massage. Sway was voted #4 Best Day Spa in America by USA Today 10Best.",
                   },
                 },
                 {
@@ -478,7 +478,7 @@ export default function BestDaySpaLayout() {
                   name: "What treatments does Sway offer?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape autonomous AI-powered robot massage.",
+                    text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape autonomous AI-powered robot massage.",
                   },
                 },
                 {

@@ -107,10 +107,10 @@ const blogs = [
     image: "/assets/blog21.jpg",
   },
   {
-    slug: "train-like-an-athlete",
-    title: "Train Like an Athlete, Recover Like an Athlete",
+    slug: "recovery-denver",
+    title: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage",
     summary:
-      "Discover how strategic recovery methods like sports massage and advanced therapies help you maximize performance, prevent injury, and feel your best.",
+      "Your complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, LED, and Aescape AI robot massage, all in Sway's Remedy Room.",
     tag: "Recovery",
     image: "/assets/blog20.jpg",
   },
@@ -155,14 +155,6 @@ const blogs = [
     image: "/assets/blog16.jpg",
   },
   {
-    slug: "denver-wellness-club",
-    title: "Denver's Most Anticipated Wellness Club",
-    summary:
-      "Discover Sway, Denver's most anticipated wellness club, blending science-backed facials, massages, sauna, cold plunge, and more.",
-    tag: "Wellness",
-    image: "/assets/homepage_photo_outside.jpg",
-  },
-  {
     slug: "sway-spa-membership",
     title: "Sway Spa Membership: Your 2025 Wellness Transformation",
     summary:
@@ -201,22 +193,6 @@ const blogs = [
       "Reimagine Valentine's Day as a celebration of connection, self-care, and wellness. Explore date ideas, Galentine's spa days, and self-love rituals at Sway.",
     tag: "Holiday",
     image: "/assets/blog6.jpg",
-  },
-  {
-    slug: "cold-plunge",
-    title: "Cold Outside? Cold Plunge: Why Cold Plunges Are a Hot Trend in Wellness",
-    summary:
-      "Explore the rising wellness trend of cold plunges and learn how this invigorating therapy can reduce inflammation, boost mood, and improve sleep.",
-    tag: "Recovery",
-    image: "/assets/blog7.jpg",
-  },
-  {
-    slug: "infrared-vs-traditional-sauna",
-    title: "Infrared Sauna vs. Traditional Sauna: The Boom of Saunas in the U.S.",
-    summary:
-      "Discover the key differences and benefits between infrared and traditional saunas, and why the sauna trend is booming across the U.S.",
-    tag: "Wellness",
-    image: "/assets/blog8.jpg",
   },
   {
     slug: "spring-reset",

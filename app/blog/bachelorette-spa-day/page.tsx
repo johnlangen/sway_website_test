@@ -2,14 +2,14 @@ import { Metadata } from "next";
 import BacheloretteSpaDayBlogLayout from "./layout";
 
 export const metadata: Metadata = {
-  title: "The Ultimate Bachelorette Spa Day in Denver | Sway Wellness Spa",
+  title: "Denver Bachelorette Spa Day: Private Group Bookings | Sway",
   description:
-    "Plan a luxurious bachelorette spa day at Sway Wellness Spa. Enjoy massages, facials, cold plunge, sauna & private bookings for your bridal crew.",
+    "Planning a Denver bachelorette? Book a private spa day at Sway with massages, facials, sauna, and cold plunge for your whole bridal crew.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/bachelorette-spa-day/",
   },
   openGraph: {
-    title: "The Ultimate Bachelorette Spa Day in Denver | Sway Wellness Spa",
+    title: "Denver Bachelorette Spa Day: Private Group Bookings | Sway",
     description:
       "Celebrate your bridal crew with a private spa day at Sway Wellness Spa. Custom treatments, sauna, cold plunge & unforgettable memories for brides-to-be.",
     url: "https://swaywellnessspa.com/blog/bachelorette-spa-day/",

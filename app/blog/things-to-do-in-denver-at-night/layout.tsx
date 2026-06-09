@@ -532,13 +532,13 @@ export default function ThingsToDoAtNightLayout() {
               </div>
             </Link>
             <Link
-              href="/blog/denver-wellness-club"
+              href="/blog/recovery-denver"
               className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition"
             >
               <div className="h-36 overflow-hidden">
                 <Image
-                  src="/assets/homepage_photo_outside.jpg"
-                  alt="Sway Denver wellness club"
+                  src="/assets/blog20.jpg"
+                  alt="Recovery in Denver at Sway"
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -546,7 +546,7 @@ export default function ThingsToDoAtNightLayout() {
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">
-                  Denver&apos;s Most Anticipated Wellness Club
+                  Recovery in Denver: Sauna, Cold Plunge &amp; Robot Massage
                 </p>
               </div>
             </Link>

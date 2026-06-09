@@ -3,7 +3,7 @@ import DateNightDenverLayout from "./layout";
 
 export const metadata: Metadata = {
   title:
-    "Best Date Night Ideas in Denver | Sway Wellness Spa",
+    "Best Date Night Ideas in Denver: Spa, Dining & Bars | Sway",
   description:
     "The best date night ideas in Denver: spa treatments at Sway on Larimer Square, romantic restaurants, rooftop bars, live jazz, Meow Wolf, and more.",
   alternates: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         url: "https://swaywellnessspa.com/assets/blog40.jpg",
         width: 1200,
         height: 630,
-        alt: "Best date night ideas in Denver — Sway Wellness Spa on Larimer Square",
+        alt: "Best date night ideas in Denver, Sway Wellness Spa on Larimer Square",
       },
     ],
     locale: "en_US",

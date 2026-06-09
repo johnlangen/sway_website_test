@@ -75,7 +75,7 @@ export default function SpringResetBlogLayout() {
           <li>Traditional Sauna to promote sweating and eliminate toxins</li>
           <li>Cold Plunge to boost circulation and reduce inflammation</li>
           <li>
-            NormaTec Lymphatic Drainage Boots to help with recovery and
+            Lymphatic Drainage Compression Boots to help with recovery and
             detoxification
           </li>
           <li>LED Light Therapy for age reversal and skin rejuvenation</li>
@@ -169,9 +169,9 @@ export default function SpringResetBlogLayout() {
               <div className="h-36 overflow-hidden"><Image src="/assets/blog15.jpg" alt="Summer Prep Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Summer Prep Guide</p></div>
             </Link>
-            <Link href="/blog/cold-plunge" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog7.jpg" alt="Cold Plunge" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
-              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Cold Plunge</p></div>
+            <Link href="/blog/recovery-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog20.jpg" alt="Recovery in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver</p></div>
             </Link>
           </div>
         </div>

@@ -2,16 +2,16 @@ import { Metadata } from "next";
 import InfraredPemfMatBlogLayout from "./layout";
 
 export const metadata: Metadata = {
-  title: "Infrared PEMF Mat Benefits | Massage Recovery at Sway Spa",
+  title: "PEMF Mat Benefits: How Infrared Heat Speeds Recovery | Sway",
   description:
-    "Discover how the Infrared PEMF Mat enhances massage therapy. Reduce inflammation, relieve pain, and elevate your recovery at Sway Wellness Spa.",
+    "What does a PEMF mat do? See how infrared heat and pulsed electromagnetic fields ease pain, calm inflammation, and speed muscle recovery, paired with massage at Sway in Denver.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/infrared-pemf-mat/",
   },
   openGraph: {
-    title: "Infrared PEMF Mat Benefits | Massage Recovery at Sway Spa",
+    title: "PEMF Mat Benefits: How Infrared Heat Speeds Recovery | Sway",
     description:
-      "Supercharge your massage with the Infrared PEMF Mat at Sway Spa. Reduce pain, improve circulation, and accelerate recovery naturally.",
+      "What does a PEMF mat do? Infrared heat and PEMF ease pain, improve circulation, and speed recovery, paired with massage at Sway Wellness Spa in Denver.",
     url: "https://swaywellnessspa.com/blog/infrared-pemf-mat/",
     siteName: "Sway Wellness Spa",
     images: [

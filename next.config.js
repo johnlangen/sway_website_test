@@ -30,6 +30,27 @@ const nextConfig = {
         destination: "/blog/fathers-day-gift-guide/",
         permanent: true,
       },
+      // Consolidated recovery posts → recovery-denver hub (2026-06)
+      {
+        source: "/blog/cold-plunge",
+        destination: "/blog/recovery-denver/",
+        permanent: true,
+      },
+      {
+        source: "/blog/infrared-vs-traditional-sauna",
+        destination: "/blog/recovery-denver/",
+        permanent: true,
+      },
+      {
+        source: "/blog/train-like-an-athlete",
+        destination: "/blog/recovery-denver/",
+        permanent: true,
+      },
+      {
+        source: "/blog/denver-wellness-club",
+        destination: "/blog/recovery-denver/",
+        permanent: true,
+      },
     ];
   },
 };

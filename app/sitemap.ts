@@ -106,6 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Blog posts
      ------------------------------------------------------------------ */
   const blogSlugs = [
+    "recovery-denver",
     "sway-membership-tiers",
     "best-date-night-ideas-denver",
     "maven-hotel-denver-spa",
@@ -117,7 +118,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "himalayan-salt-stone-massage",
     "bachelorette-spa-day",
     "vitamin-c-facial",
-    "infrared-vs-traditional-sauna",
     "infrared-pemf-mat",
     "holiday-wellness-guide",
     "allergy-season-skincare",
@@ -128,14 +128,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "mothers-day-gift-guide",
     "fathers-day-gift-guide",
     "sway-shop-finds",
-    "cold-plunge",
     "aescape",
-    "train-like-an-athlete",
     "80-minute-massage",
     "tech-and-wellness",
     "valentines-day-wellness",
     "sway-spa-membership",
-    "denver-wellness-club",
     "may-memberships",
     "give-wellness-get-wellness",
     "science-of-relaxation",

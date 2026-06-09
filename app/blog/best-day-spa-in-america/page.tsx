@@ -76,7 +76,7 @@ export default function Page() {
             name: "What is Sway Wellness Spa?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sway is a modern wellness club on Larimer Square in downtown Denver, Colorado. It offers massage, facials, a recovery circuit called the Remedy Room (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape AI-powered robot massage. Sway was voted #4 Best Day Spa in America by USA Today 10Best.",
+              text: "Sway is a modern wellness club on Larimer Square in downtown Denver, Colorado. It offers massage, facials, a recovery circuit called the Remedy Room (sauna, cold plunge, compression therapy, LED light therapy), and Aescape AI-powered robot massage. Sway was voted #4 Best Day Spa in America by USA Today 10Best.",
             },
           },
           {
@@ -92,7 +92,7 @@ export default function Page() {
             name: "What treatments does Sway offer?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, Normatec compression, LED light therapy), and Aescape autonomous AI-powered robot massage.",
+              text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape autonomous AI-powered robot massage.",
             },
           },
           {

@@ -94,9 +94,9 @@ export default function BlogPage() {
       {
         "@type": "BlogPosting",
         headline:
-          "Cold Outside? Cold Plunge: Why Cold Plunges Are a Hot Trend in Wellness",
-        url: "https://swaywellnessspa.com/blog/cold-plunge/",
-        datePublished: "2025-01-01",
+          "Recovery in Denver: Sauna, Cold Plunge, Compression & Robot Massage",
+        url: "https://swaywellnessspa.com/blog/recovery-denver/",
+        datePublished: "2026-06-09",
         author: {
           "@type": "Organization",
           name: "Sway Wellness Team",

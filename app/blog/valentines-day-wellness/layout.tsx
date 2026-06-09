@@ -91,7 +91,7 @@ export default function ValentinesDayWellnessBlogLayout() {
         <ul className="list-disc pl-6 space-y-1">
           <li><strong>Dr. Dennis Vitamin C Facial:</strong> Restore your glow and radiance.</li>
           <li><strong>80 Minute Deep Tissue Massage:</strong> Detoxify and release muscle tension.</li>
-          <li><strong>Remedy Room Session:</strong> Cold plunge, sauna, Normatec compression boots, and LED light therapy for whole-body renewal.</li>
+          <li><strong>Remedy Room Session:</strong> Cold plunge, sauna, compression boots, and LED light therapy for whole-body renewal.</li>
         </ul>
 
         <p>

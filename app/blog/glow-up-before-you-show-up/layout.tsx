@@ -71,7 +71,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
           <li><strong>Cold Plunge Therapy</strong> — Reduces inflammation, boosts mood, and improves focus.</li>
           <li><strong>Sauna Experience</strong> — Eases sore muscles, improves circulation, and promotes detox.</li>
           <li><strong>LED Light Therapy</strong> — Stimulates skin repair and reduces inflammation.</li>
-          <li><strong>Normatec Compression Boots</strong> — Alleviates soreness and reduces swelling.</li>
+          <li><strong>Compression Boots</strong> — Alleviates soreness and reduces swelling.</li>
         </ul>
 
         <h3 className="text-xl font-bold">Customized Facials for Every Occasion</h3>
@@ -97,7 +97,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
           <li><strong>The Quick Reset (15 min):</strong> Robot massage...</li>
           <li><strong>The Glow Up (60 min):</strong> Customized facial + LED...</li>
           <li><strong>The Full Recharge (90 min):</strong> Therapeutic massage + sauna + cold plunge...</li>
-          <li><strong>The Study Break (40 min):</strong> Remedy Room + Normatec boots + LED therapy.</li>
+          <li><strong>The Study Break (40 min):</strong> Remedy Room + compression boots + LED therapy.</li>
         </ul>
 
         <h2 id="science" className="text-2xl font-bold scroll-mt-24">The Science Behind Spa Wellness</h2>
@@ -147,12 +147,12 @@ export default function GlowUpBeforeYouShowUpLayout() {
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Science of Relaxation: Spa Treatments &amp; Stress</p>
               </div>
             </Link>
-            <Link href="/blog/train-like-an-athlete" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+            <Link href="/blog/recovery-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog20.jpg" alt="Train Like an Athlete" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/blog20.jpg" alt="Recovery in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
-                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Train Like an Athlete, Recover Like an Athlete</p>
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver: Sauna, Cold Plunge &amp; Robot Massage</p>
               </div>
             </Link>
             <Link href="/blog/may-memberships" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">

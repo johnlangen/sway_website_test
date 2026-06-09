@@ -41,7 +41,7 @@ export default function AllergySeasonSkincareBlogLayout() {
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#sensitive-silk-facial" className="hover:underline">Sensitive Silk Facial</a></li>
             <li><a href="#led-light-therapy" className="hover:underline">LED Light Therapy by LightStim</a></li>
-            <li><a href="#remedy-room-normatec" className="hover:underline">Remedy Room Featuring Normatec Lymphatic Drainage Boots</a></li>
+            <li><a href="#remedy-room-compression" className="hover:underline">Remedy Room Featuring Lymphatic Drainage Compression Boots</a></li>
             <li><a href="#why-these-treatments-work" className="hover:underline">Why These Treatments Work During Allergy Season</a></li>
             <li><a href="#say-goodbye" className="hover:underline">Say Goodbye to Allergy Skin Woes</a></li>
           </ol>
@@ -88,12 +88,12 @@ export default function AllergySeasonSkincareBlogLayout() {
           Esthetician
         </p>
 
-        <h2 id="remedy-room-normatec" className="text-2xl font-bold scroll-mt-24">
-          Remedy Room Featuring Normatec Lymphatic Drainage Boots
+        <h2 id="remedy-room-compression" className="text-2xl font-bold scroll-mt-24">
+          Remedy Room Featuring Lymphatic Drainage Compression Boots
         </h2>
         <p>
           For full-body refreshment, the Remedy Room combines detoxifying
-          treatments with powerful relaxation. Normatec boots help flush toxins
+          treatments with powerful relaxation. Compression boots help flush toxins
           and reduce puffiness, while sauna therapy boosts circulation and skin
           clarity.
         </p>
@@ -187,7 +187,7 @@ export default function AllergySeasonSkincareBlogLayout() {
                 name: "Can lymphatic drainage help with allergy symptoms and skin puffiness?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes, lymphatic drainage can help reduce allergy-related skin puffiness and overall inflammation. Lymphatic drainage stimulates your body's natural detoxification system, flushing out toxins and reducing fluid retention that contributes to a swollen, puffy appearance. Normatec compression boots, available in the Remedy Room at Sway Wellness Spa, provide targeted lymphatic drainage that boosts circulation and helps your body process allergens more efficiently.",
+                  text: "Yes, lymphatic drainage can help reduce allergy-related skin puffiness and overall inflammation. Lymphatic drainage stimulates your body's natural detoxification system, flushing out toxins and reducing fluid retention that contributes to a swollen, puffy appearance. Compression boots, available in the Remedy Room at Sway Wellness Spa, provide targeted lymphatic drainage that boosts circulation and helps your body process allergens more efficiently.",
                 },
               },
             ],
