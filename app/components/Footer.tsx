@@ -20,6 +20,7 @@ export default function Footer() {
         <div className="flex flex-col">
           <FooterLink href="/membership" text="Memberships" />
           <FooterLink href="/treatments" text="Treatments" />
+          <FooterLink href="/group-events" text="Group Events" />
           <FooterLink href="/locations" text="Locations" />
           <FooterLink href="/press" text="Press" />
           <FooterLink href="/blog" text="Blog" />

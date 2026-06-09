@@ -139,6 +139,10 @@ export default function ValentinesDayWellnessBlogLayout() {
               <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="Give Wellness, Get Wellness: Referral Program" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Give Wellness, Get Wellness: Referral Program</p></div>
             </Link>
+            <Link href="/blog/bachelorette-spa-day" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/facial.jpg" alt="Bachelorette Spa Packages in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Bachelorette Spa Packages in Denver for Your Bridal Crew</p></div>
+            </Link>
           </div>
         </div>
 

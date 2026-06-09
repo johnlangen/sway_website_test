@@ -330,7 +330,14 @@ export default function SwayLarimerPage() {
           </h2>
           <p className="opacity-75 max-w-xl mb-10 md:mb-14">
             Massage, facials, and modern recovery, all under one roof in
-            downtown Denver.
+            downtown Denver. Planning a celebration? See our{" "}
+            <Link
+              href="/blog/bachelorette-spa-day"
+              className="underline underline-offset-4 hover:opacity-100"
+            >
+              bachelorette and group spa packages
+            </Link>
+            .
           </p>
 
           <div className="space-y-8 md:space-y-10">
