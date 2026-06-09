@@ -8,8 +8,8 @@ export default function BacheloretteSpaDayBlogLayout() {
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Banner */}
       <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-center">
-          The Ultimate Bachelorette Spa Day: Relax, Celebrate, Repeat!
+        <h1 className="text-3xl md:text-5xl font-bold text-center max-w-3xl">
+          Bachelorette Spa Packages in Denver: A Group Day for Your Bridal Crew
         </h1>
       </div>
 
@@ -18,113 +18,236 @@ export default function BacheloretteSpaDayBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Bridal</span>
-          <span className="text-gray-500">March 2025 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated June 2026 · By Sway Wellness Team</span>
+        </div>
+
+        {/* Hero image */}
+        <div className="rounded-xl overflow-hidden border border-[#d7e2dc]">
+          <Image
+            src="/assets/homepage_photo_b.jpg"
+            alt="Side-by-side treatment beds in a group spa room at Sway Wellness Spa on Larimer Square in Denver"
+            width={1200}
+            height={700}
+            className="w-full h-72 md:h-96 object-cover"
+          />
         </div>
 
         <p>
-          Planning the perfect bachelorette party? Go beyond the usual plans and
-          treat your bridal crew to something unforgettable. At Sway Wellness
-          Spa, we offer a luxurious, serene escape that&apos;s tailor-made for bridal
-          bliss. Think: soothing massages, radiant facials, glowing skin, and
-          quality time with your closest friends.
+          Planning a Denver bachelorette? Skip the usual itinerary and give your
+          bridal crew something you will all actually talk about afterward. At
+          Sway Wellness Spa on Larimer Square, you can build a private group spa
+          package around massages, facials, sauna, and cold plunge, so everyone
+          arrives relaxed, glowing, and ready to celebrate. Here is exactly how
+          to plan it.
         </p>
 
+        {/* TOC */}
         <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
-            <li><a href="#why-choose-sway" className="hover:underline">Why Choose Sway?</a></li>
-            <li><a href="#customizable-treatments" className="hover:underline">Customizable Treatments</a></li>
-            <li><a href="#group-booking-options" className="hover:underline">Group Booking Options</a></li>
-            <li><a href="#wellness-add-ons" className="hover:underline">Wellness Add-Ons</a></li>
-            <li><a href="#a-day-to-remember" className="hover:underline">A Day to Remember</a></li>
-            <li><a href="#plan-your-bachelorette" className="hover:underline">Plan Your Bachelorette Wellness Day</a></li>
-            <li><a href="#glow-into-your-big-day" className="hover:underline">Glow into Your Big Day</a></li>
+            <li><a href="#group-packages" className="hover:underline">Bachelorette Spa Packages for Your Group</a></li>
+            <li><a href="#treatments" className="hover:underline">Treatments to Build Into Your Package</a></li>
+            <li><a href="#wellness-add-ons" className="hover:underline">Wellness Add-Ons: Sauna & Cold Plunge</a></li>
+            <li><a href="#why-sway" className="hover:underline">Why Brides Pick Sway in Denver</a></li>
+            <li><a href="#how-to-plan" className="hover:underline">How to Plan Your Bachelorette Day</a></li>
+            <li><a href="#faq" className="hover:underline">Bachelorette Spa Day FAQ</a></li>
           </ol>
         </nav>
 
-        <h2 id="why-choose-sway" className="text-2xl font-bold scroll-mt-24">Why Choose Sway?</h2>
-        <p>
-          Sway is more than just a spa—it&apos;s a haven for brides-to-be and their
-          favorite people. With custom spa packages, wellness-focused add-ons,
-          and the option to book out the entire space, we&apos;re ready to turn your
-          celebration into a full-on retreat.
-        </p>
+        {/* Feature: Group packages */}
+        <section id="group-packages" className="scroll-mt-24 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold">Bachelorette Spa Packages for Your Group</h2>
+          <p>
+            The most popular way to celebrate is a group spa package: your whole
+            party books treatments in the same window so you move through the day
+            together. Each guest picks what they want, a massage, a facial, or
+            both, and you spend the in-between time unwinding side by side rather
+            than rushing between separate appointments.
+          </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
+            <Image
+              src="/assets/remedy-room2.jpg"
+              alt="Relaxation and recovery space at Sway Wellness Spa in Denver"
+              width={1200}
+              height={600}
+              className="w-full h-64 object-cover"
+            />
+            <div className="p-6 space-y-4">
+              <h3 className="text-xl font-bold text-[#113D33]">Group spa packages in Denver, built around your crew</h3>
+              <p>
+                Tell us your group size, your date, and the vibe you are after,
+                and we will help you put together a bachelorette package that
+                works for everyone, from the bride to the bridesmaid who just
+                wants a deep-tissue massage. Larger groups book best with a
+                little lead time, so reach out early.
+              </p>
+              <Link
+                href="mailto:contact@swaywellnessspa.com?subject=Bachelorette%20Spa%20Package"
+                className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0e322b] transition"
+              >
+                Plan Your Group Package
+              </Link>
+            </div>
+          </div>
+        </section>
 
-        <h2 id="customizable-treatments" className="text-2xl font-bold scroll-mt-24">Customizable Treatments</h2>
-        <p>
-          Every bachelorette party at Sway is unique. Whether you want
-          rejuvenating facials, muscle-melting massages, or a mix of both, our
-          treatments are fully customizable. Each guest can choose exactly what
-          they need to unwind, prep their skin, and feel radiant heading into
-          the big day.
-        </p>
+        {/* Treatments grid */}
+        <section id="treatments" className="scroll-mt-24 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold">Treatments to Build Into Your Package</h2>
+          <p>
+            Every bachelorette party at Sway is customizable. Mix and match these
+            so each guest gets exactly what they need to feel pampered and
+            wedding-ready.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
+              <Image src="/assets/facial3.jpg" alt="Radiant glowing skin after a facial at Sway" width={600} height={400} className="w-full h-52 object-cover" />
+              <div className="p-6 space-y-2">
+                <h3 className="text-lg font-bold text-[#113D33]">Glow-Getting Facials</h3>
+                <p className="text-[15px] text-gray-700">
+                  Group facials are a bachelorette favorite for a reason. A
+                  customized facial leaves the bride and her party with fresh,
+                  radiant skin for the photos ahead.
+                </p>
+              </div>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
+              <Image src="/assets/massage2.jpg" alt="Relaxing massage at Sway Wellness Spa in Denver" width={600} height={400} className="w-full h-52 object-cover" />
+              <div className="p-6 space-y-2">
+                <h3 className="text-lg font-bold text-[#113D33]">Tension-Melting Massages</h3>
+                <p className="text-[15px] text-gray-700">
+                  From a relaxing Swedish to a focused deep-tissue, massages give
+                  everyone a chance to truly switch off before the wedding-week
+                  chaos kicks in.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <h2 id="group-booking-options" className="text-2xl font-bold scroll-mt-24">Group Booking Options</h2>
-        <p>
-          Planning for a group is simple with Sway&apos;s seamless booking. Want
-          something extra special? Book the entire spa for a private event just
-          for your crew. You&apos;ll enjoy exclusive use of our space, personalized
-          services, and a relaxing, memorable environment tailored to your
-          celebration.
-        </p>
+        {/* Wellness add-ons */}
+        <section id="wellness-add-ons" className="scroll-mt-24 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold">Wellness Add-Ons: Sauna & Cold Plunge</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <Image src="/assets/insidesauna.jpg" alt="Traditional sauna at Sway Wellness Spa in Denver" width={600} height={400} className="rounded-xl w-full h-56 object-cover border border-[#d7e2dc]" />
+            <div className="space-y-3">
+              <p>
+                Turn your spa day into a full wellness reset. Add the traditional
+                sauna and cold plunge to your package for a hot-cold contrast
+                experience that wakes everyone up and leaves you buzzing.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Traditional sauna to relax muscles and unwind together</span></li>
+                <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Cold plunge for an energizing, photo-worthy group dare</span></li>
+                <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>A shared experience that beats another round of cocktails</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
 
-        <h2 id="wellness-add-ons" className="text-2xl font-bold scroll-mt-24">Wellness Add-Ons</h2>
-        <p>
-          Take your spa day to the next level with wellness experiences like
-          sauna sessions, cold plunge therapy, body scrubs, or hydrating
-          treatments. They&apos;re the perfect blend of pampering and detoxing—ideal
-          for brides and bridesmaids alike.
-        </p>
-
-        <h2 id="a-day-to-remember" className="text-2xl font-bold scroll-mt-24">A Day to Remember</h2>
-        <p>
-          Imagine arriving with your bridal crew to a calming ambiance, soft
-          robes, herbal tea, and a menu of indulgent treatments. You&apos;ll laugh,
-          relax, and enjoy quality time before the big day—without the pressure
-          of a packed party itinerary.
-        </p>
-
-        <p className="italic">
-          &ldquo;Our bachelorette spa day at Sway was the perfect mix of relaxation
-          and celebration! We left feeling refreshed and glowing.&rdquo; – Bride-to-Be
-        </p>
-
-        <h2 id="plan-your-bachelorette" className="text-2xl font-bold scroll-mt-24">Plan Your Bachelorette Wellness Day</h2>
-        <p>
-          Ready to make your bachelorette party unforgettable? Sway makes it
-          easy to plan a private, elevated spa celebration that your whole group
-          will love. Whether you&apos;re interested in a half-day of pampering or a
-          full spa takeover, we&apos;ve got you covered.
-        </p>
-
-        <p className="font-semibold">
-          Email us now at{" "}
-          <Link
-            href="mailto:contact@swaywellnessspa.com"
-            className="underline text-[#113D33] font-semibold"
-          >
-            contact@swaywellnessspa.com
-          </Link>{" "}
-          to start planning!
-        </p>
-        <p className="text-sm italic pt-2">
-          Pro tip: Book early to secure your date and ensure every detail is
-          tailored to your vision.
-        </p>
-
-        <h2 id="glow-into-your-big-day" className="text-2xl font-bold scroll-mt-24">Glow into Your Big Day</h2>
-        <p>
-          At Sway, we believe your bachelorette experience should be just as
-          special as the wedding itself. With luxury spa treatments,
-          unforgettable bonding time, and expert service, we&apos;ll help you and
-          your bridal crew feel pampered, confident, and connected.
-        </p>
-
-        <div className="pt-6">
-          <Link href="/book" className="underline text-[#113D33] font-semibold">
-            Book Your Spa Day
-          </Link>
+        {/* Mid CTA */}
+        <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
+          <h3 className="text-2xl font-bold">Ready to plan your Denver bachelorette?</h3>
+          <p className="text-white/90 max-w-xl mx-auto">
+            Tell us your date and group size and we will help you build the
+            perfect package on Larimer Square, steps from downtown dining and
+            nightlife.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 pt-2">
+            <Link href="mailto:contact@swaywellnessspa.com?subject=Bachelorette%20Spa%20Package" className="bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-[#f0ede2] transition">Email to Plan</Link>
+            <Link href="/locations/denver-larimer/book-service" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book a Treatment</Link>
+          </div>
         </div>
+
+        {/* Why Sway */}
+        <section id="why-sway" className="scroll-mt-24 space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Why Brides Pick Sway in Denver</h2>
+          <p>
+            Sway sits on Larimer Square in the heart of downtown Denver, so your
+            spa day folds neatly into a bigger bachelorette weekend of dinner,
+            rooftop bars, and exploring the city. Inside, you will find a calm,
+            modern space, soft robes, and a team that handles the details, so the
+            maid of honor can finally relax too.
+          </p>
+          <blockquote className="border-l-4 border-[#9CB7A9] pl-6 py-2">
+            <p className="text-xl text-[#113D33] italic">
+              &ldquo;Our bachelorette spa day at Sway was the perfect mix of
+              relaxation and celebration. We left feeling refreshed and
+              glowing.&rdquo;
+            </p>
+            <footer className="text-sm text-gray-500 mt-2">Bride-to-Be, Denver</footer>
+          </blockquote>
+        </section>
+
+        {/* How to plan: numbered steps */}
+        <section id="how-to-plan" className="scroll-mt-24 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold">How to Plan Your Bachelorette Day</h2>
+          <div className="space-y-4">
+            {[
+              {
+                t: "Pick your date and group size",
+                d: "Weekend slots for larger groups fill up fast, so lock in your date as early as you can.",
+              },
+              {
+                t: "Email us your wishlist",
+                d: "Send treatments, timing, and any extras to contact@swaywellnessspa.com and we will map out a package.",
+              },
+              {
+                t: "Customize each guest's treatments",
+                d: "Massages, facials, sauna, cold plunge. Everyone chooses what feels best to them.",
+              },
+              {
+                t: "Show up and celebrate",
+                d: "Arrive 15 minutes early, slip into a robe, and enjoy the day with your crew.",
+              },
+            ].map((step, i) => (
+              <div key={i} className="bg-white rounded-xl border border-[#d7e2dc] p-5 flex gap-4 items-start">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold shrink-0">{i + 1}</span>
+                <div>
+                  <h3 className="font-bold text-[#113D33]">{step.t}</h3>
+                  <p className="text-[15px] text-gray-700 mt-1">{step.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
+          <h3 className="text-2xl font-bold">Let&apos;s make the bride glow</h3>
+          <p className="text-white/90 max-w-xl mx-auto">
+            Reach out and we will help you put together a bachelorette spa
+            package your whole bridal party will remember.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 pt-2">
+            <Link href="mailto:contact@swaywellnessspa.com?subject=Bachelorette%20Spa%20Package" className="bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-[#f0ede2] transition">Start Planning</Link>
+            <Link href="/locations/denver-larimer/book-service" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book Online</Link>
+          </div>
+          <p className="text-xs text-white/70 pt-2">Pro tip: book early to secure your date and tailor every detail.</p>
+        </div>
+
+        {/* Visible FAQ */}
+        <section id="faq" className="scroll-mt-24 space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Bachelorette Spa Day FAQ</h2>
+          <div className="space-y-3">
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">Do you offer bachelorette spa packages for groups?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Yes. Sway puts together customizable group spa packages for bachelorette parties, combining massages, facials, sauna, and cold plunge so your whole bridal crew can be booked in the same window. Email contact@swaywellnessspa.com with your date and group size to plan.</p>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">What treatments are best for a bachelorette party?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Group facials for a pre-wedding glow and massages to unwind are the most popular picks, often paired with sauna and cold plunge as wellness add-ons. At Sway each guest can customize their own treatment selection.</p>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">Where is Sway located in Denver?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Sway Wellness Spa is at 1428 Larimer St., Denver, CO 80202, right on Larimer Square in downtown Denver, close to restaurants, rooftop bars, and hotels, ideal for a full bachelorette weekend.</p>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">How far in advance should we book?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Book as early as possible, especially for larger groups and weekend dates, to secure your preferred time and tailor the package to your vision. Reach out via contact@swaywellnessspa.com to begin planning.</p>
+            </div>
+          </div>
+        </section>
 
         {/* Related Articles */}
         <div className="pt-12 border-t border-[#d7e2dc]">
@@ -134,9 +257,9 @@ export default function BacheloretteSpaDayBlogLayout() {
               <div className="h-36 overflow-hidden"><Image src="/assets/blog3.jpg" alt="Bridal Skincare" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Bridal Skincare: Get Wedding-Ready Skin with Sway Facials</p></div>
             </Link>
-            <Link href="/blog/mothers-day-gift-guide" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog16.jpg" alt="Mother's Day Gift Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
-              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Moms Deserve Sway More: A Mother&apos;s Day Spa Day Gift Guide</p></div>
+            <Link href="/blog/best-date-night-ideas-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog40.jpg" alt="Best Date Night Ideas in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Best Date Night Ideas in Denver: Spa, Dining & Bars</p></div>
             </Link>
             <Link href="/blog/valentines-day-wellness" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden"><Image src="/assets/blog6.jpg" alt="Valentine's Day Wellness" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
@@ -161,10 +284,10 @@ export default function BacheloretteSpaDayBlogLayout() {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "Can you book a private spa day for a bachelorette party?",
+                name: "Do you offer bachelorette spa packages for groups in Denver?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes, Sway Wellness Spa offers private spa bookings for bachelorette parties. You can reserve the entire spa for an exclusive event just for your bridal crew. The experience includes customizable treatments like facials and massages, wellness add-ons such as sauna sessions and cold plunge therapy, and a relaxing environment tailored to your celebration. Contact Sway at contact@swaywellnessspa.com to plan your private bachelorette spa day.",
+                  text: "Yes. Sway Wellness Spa on Larimer Square in Denver puts together customizable group spa packages for bachelorette parties. You can combine massages, facials, sauna, and cold plunge so your whole bridal crew is booked in the same window. Email contact@swaywellnessspa.com with your date and group size to start planning.",
                 },
               },
               {
@@ -172,7 +295,15 @@ export default function BacheloretteSpaDayBlogLayout() {
                 name: "What spa treatments are best for a bachelorette party?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Popular bachelorette spa treatments include rejuvenating facials for a pre-wedding glow, muscle-melting massages for relaxation, and wellness add-ons like sauna sessions, cold plunge therapy, body scrubs, and hydrating treatments. At Sway Wellness Spa, each guest can customize their own treatment selection, so everyone in the bridal party gets exactly what they need to feel pampered and radiant.",
+                  text: "Group facials for a pre-wedding glow and massages for relaxation are the most popular bachelorette picks, often paired with wellness add-ons like traditional sauna and cold plunge. At Sway Wellness Spa, each guest can customize their own treatment selection so everyone in the bridal party gets exactly what they need.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is Sway Wellness Spa located in Denver?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sway Wellness Spa is located at 1428 Larimer St., Denver, CO 80202, on Larimer Square in downtown Denver. It is close to restaurants, rooftop bars, and hotels, making it an easy addition to a full bachelorette weekend.",
                 },
               },
               {
@@ -180,7 +311,7 @@ export default function BacheloretteSpaDayBlogLayout() {
                 name: "How far in advance should you book a bachelorette spa day?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "It is best to book your bachelorette spa day as early as possible to secure your preferred date and ensure every detail is tailored to your vision. This is especially important if you want to book a private spa experience for your group. Sway Wellness Spa recommends reaching out early via email at contact@swaywellnessspa.com to begin planning your customized bachelorette wellness celebration.",
+                  text: "Book as early as possible, especially for larger groups and weekend dates, to secure your preferred time and ensure every detail is tailored to your vision. Sway Wellness Spa recommends reaching out early via email at contact@swaywellnessspa.com to begin planning your customized bachelorette spa package.",
                 },
               },
             ],

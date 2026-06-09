@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "Sway Wellness Spa",
     images: [
       {
-        url: "https://swaywellnessspa.com/assets/blog12.jpg",
+        url: "https://swaywellnessspa.com/assets/pemf.jpg",
         width: 1200,
         height: 630,
         alt: "Infrared PEMF Mat at Sway Wellness Spa",
@@ -31,10 +31,10 @@ export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: "Supercharge Your Massage: The Benefits of Infrared PEMF Mats",
+    headline: "PEMF Mat Benefits: How Infrared Heat & Pulsed Energy Speed Recovery",
     description:
-      "At Sway Wellness Spa, the Infrared PEMF Mat enhances massage therapy by reducing inflammation, relieving pain, and accelerating recovery.",
-    image: "https://swaywellnessspa.com/assets/blog12.jpg",
+      "What does a PEMF mat do? How infrared heat and pulsed electromagnetic fields ease pain, calm inflammation, and speed muscle recovery, paired with massage at Sway in Denver.",
+    image: "https://swaywellnessspa.com/assets/pemf.jpg",
     author: {
       "@type": "Organization",
       name: "Sway Wellness Spa",

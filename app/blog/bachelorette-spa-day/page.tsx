@@ -32,7 +32,7 @@ export default function Page() {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline:
-      "The Ultimate Bachelorette Spa Day: Relax, Celebrate, Repeat!",
+      "Bachelorette Spa Packages in Denver: A Group Day for Your Bridal Crew",
     description:
       "Plan a luxurious bachelorette spa day at Sway Wellness Spa. Massages, facials, sauna, cold plunge, and private spa bookings for bridal groups in Denver.",
     image: "https://swaywellnessspa.com/assets/blog14.jpg",

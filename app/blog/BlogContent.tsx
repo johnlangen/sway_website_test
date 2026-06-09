@@ -228,11 +228,11 @@ const blogs = [
   },
   {
     slug: "infrared-pemf-mat",
-    title: "Supercharge Your Massage: The Benefits of Infrared PEMF Mats",
+    title: "PEMF Mat Benefits: How Infrared Heat Speeds Recovery",
     summary:
-      "Discover how combining massage with cutting-edge Infrared PEMF Mats at Sway enhances pain relief, circulation, and recovery.",
+      "What does a PEMF mat do? See how infrared heat and pulsed energy ease pain, calm inflammation, and speed muscle recovery, paired with massage at Sway.",
     tag: "Technology",
-    image: "/assets/blog12.jpg",
+    image: "/assets/pemf.jpg",
   },
   {
     slug: "sway-shop-finds",
@@ -244,11 +244,11 @@ const blogs = [
   },
   {
     slug: "bachelorette-spa-day",
-    title: "The Ultimate Bachelorette Spa Day: Relax, Celebrate, Repeat!",
+    title: "Bachelorette Spa Packages in Denver for Your Bridal Crew",
     summary:
-      "Planning a bachelorette party? Discover why Sway Wellness Spa is the ultimate place to celebrate with your bridal crew in style and serenity.",
+      "Planning a Denver bachelorette? Build a private group spa package with massages, facials, sauna, and cold plunge for the whole bridal party.",
     tag: "Bridal",
-    image: "/assets/blog14.jpg",
+    image: "/assets/homepage_photo_b.jpg",
   },
 ];
 
