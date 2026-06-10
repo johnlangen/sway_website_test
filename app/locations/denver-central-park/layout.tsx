@@ -44,7 +44,7 @@ const localBusinessJsonLd = {
   alternateName: "Upswell Studio",
   description:
     "A recovery-led wellness club near Denver's Central Park neighborhood, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy. Massage and facial treatments are coming this summer.",
-  image: "https://swaywellnessspa.com/assets/centralpark1.png",
+  image: "https://swaywellnessspa.com/assets/centralpark1.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-central-park/",
   url: "https://swaywellnessspa.com/locations/denver-central-park/",
   telephone: "+1-303-476-6150",

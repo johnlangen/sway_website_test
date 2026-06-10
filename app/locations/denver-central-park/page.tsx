@@ -19,7 +19,7 @@ const loc = {
   neighborhood: "Near Central Park, Denver",
   phone: "(303) 476-6150",
   phoneHref: "tel:+13034766150",
-  heroImage: "/assets/centralpark1.png",
+  heroImage: "/assets/centralpark1.jpg",
   bookHref: "/locations/denver-central-park/book",
   mapUrl: "https://www.google.com/maps?q=2271+Clinton+St,+Aurora,+CO+80010",
 };
@@ -162,7 +162,7 @@ export default function SwayCentralParkPage() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
               <div className="relative overflow-hidden rounded-2xl">
                 <Image
-                  src="/assets/centralpark2.png"
+                  src="/assets/centralpark2.jpg"
                   alt="Recovery suite at Sway Wellness Spa Central Park"
                   width={1086}
                   height={1448}

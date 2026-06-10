@@ -32,7 +32,7 @@ const clubs = [
     city: "Aurora",
     state: "CO",
     address: "2271 Clinton St",
-    image: "/assets/centralpark1.png",
+    image: "/assets/centralpark1.jpg",
     href: "/locations/denver-central-park/book/",
   },
 ];
