@@ -5,8 +5,20 @@ export const dynamic = "force-static";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      // Default: allow all crawlers
-      { userAgent: "*", allow: "/" },
+      // Default: allow all crawlers, except internal + active test/dev routes
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: [
+          "/internal/",
+          "/locations/denver-rino/book-test",
+          "/locations/denver-rino/book-service-test",
+          "/locations/denver-rino/book-remedy-lounge",
+          "/locations/denver-central-park/book-test",
+          "/locations/denver-central-park/book-service-test",
+          "/locations/denver-central-park/book-remedy-lounge",
+        ],
+      },
       // Explicitly allow AI search/retrieval bots
       { userAgent: "OAI-SearchBot", allow: "/" },
       { userAgent: "ChatGPT-User", allow: "/" },
