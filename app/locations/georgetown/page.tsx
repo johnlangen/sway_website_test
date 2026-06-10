@@ -124,7 +124,7 @@ export default function SwayGeorgetownComingSoonPage() {
           <motion.div {...fadeUp} className="bg-white rounded-2xl p-8 md:p-10 shadow text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Membership Tiers Coming Soon</h2>
             <p className="text-lg mb-2">
-              Four tiers — <strong>Essential</strong>, <strong>Premier</strong>, <strong>Ultimate</strong>, and <strong>The Remedy Room</strong>
+              Four tiers · <strong>Essential</strong>, <strong>Premier</strong>, <strong>Ultimate</strong>, and <strong>The Remedy Room</strong>
             </p>
             <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
               Founding members will receive exclusive pricing and priority booking before Sway Georgetown
@@ -134,7 +134,7 @@ export default function SwayGeorgetownComingSoonPage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-left max-w-3xl mx-auto">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Essential</h3>
-                <p className="text-xs opacity-70">Signature treatments — the perfect entry to Sway.</p>
+                <p className="text-xs opacity-70">Signature treatments · the perfect entry to Sway.</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Premier</h3>
@@ -146,7 +146,7 @@ export default function SwayGeorgetownComingSoonPage() {
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">The Remedy Room</h3>
-                <p className="text-xs opacity-70">Recovery circuit access — sauna, cold plunge, LED, and compression.</p>
+                <p className="text-xs opacity-70">Recovery circuit access · sauna, cold plunge, LED, and compression.</p>
               </div>
             </div>
 
@@ -219,7 +219,7 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "How much are Sway Georgetown memberships?",
-                a: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open — join the waitlist to be notified.",
+                a: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
               {
                 q: "Can I join the waitlist now?",

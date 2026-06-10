@@ -144,7 +144,7 @@ export default function MothersDayGiftCardsPage() {
             </div>
             <div>
               <p className="font-semibold text-[#113D33] mb-1">Instant Digital Delivery</p>
-              <p>Email it, print it, or forward it — yours in seconds.</p>
+              <p>Email it, print it, or forward it. Yours in seconds.</p>
             </div>
             <div>
               <p className="font-semibold text-[#113D33] mb-1">Redeem on Any Service</p>
@@ -216,7 +216,7 @@ export default function MothersDayGiftCardsPage() {
               </h2>
               <p className="text-sm md:text-base text-[#4A776D] leading-relaxed">
                 Pair Mom's gift card with brunch, dinner, or a stroll along Denver's flagship street.
-                Sway sits at 1428 Larimer St — between historic facades, twinkle lights, and the city's best restaurants.
+                Sway sits at 1428 Larimer St, between historic facades, twinkle lights, and the city's best restaurants.
               </p>
             </div>
           </div>
@@ -229,14 +229,14 @@ export default function MothersDayGiftCardsPage() {
           <div className="grid gap-6 md:grid-cols-3 text-sm md:text-base">
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
-                "I tried the Remedy Room and the Glow Getter facial — my skin felt incredibly smooth and firm. Ended up getting a membership!"
+                "I tried the Remedy Room and the Glow Getter facial. My skin felt incredibly smooth and firm. Ended up getting a membership!"
               </p>
               <p className="mt-3 text-[11px] text-[#7b9b92]">Whitney Gustafson</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
-                "Took my son's girlfriend to Sway for her first facial — she LOVED it. Highly recommend the Remedy Room too!"
+                "Took my son's girlfriend to Sway for her first facial. She LOVED it. Highly recommend the Remedy Room too!"
               </p>
               <p className="mt-3 text-[11px] text-[#7b9b92]">Laura Rolfe</p>
             </div>
@@ -281,7 +281,7 @@ export default function MothersDayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                No — Sway gift cards never expire.
+                No. Sway gift cards never expire.
               </p>
             </details>
 
@@ -301,7 +301,7 @@ export default function MothersDayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Any service at Sway Wellness Spa — massage, facials, Remedy Room, sauna, cold plunge, Aescape robot massage, and retail.
+                Any service at Sway Wellness Spa · massage, facials, Remedy Room, sauna, cold plunge, Aescape robot massage, and retail.
               </p>
             </details>
 
@@ -311,7 +311,7 @@ export default function MothersDayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                1428 Larimer St., Denver, CO 80202 — in the heart of downtown Denver.
+                1428 Larimer St., Denver, CO 80202, in the heart of downtown Denver.
               </p>
             </details>
           </div>
