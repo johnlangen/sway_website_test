@@ -295,6 +295,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const [saunaData, setSaunaData] = useState<
     Record<number, { capacity: number; appointments: ApptInterval[] }>
   >({});
+  // False when the availability route couldn't read live occupancy (degraded to
+  // ungated times). Drives a soft, non-blocking notice on the time picker.
+  const [occupancyKnown, setOccupancyKnown] = useState(true);
+  // Bumped to force an availability re-fetch (e.g. after a slot fills mid-booking).
+  const [availabilityNonce, setAvailabilityNonce] = useState(0);
 
   // Per sub-slot sauna choice: null | sauna key. Length === SUB_SLOTS.
   const [saunaChoices, setSaunaChoices] = useState<(SaunaKey | null)[]>(
@@ -505,12 +510,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setSaunaChoices(Array.from({ length: SUB_SLOTS }, () => null));
     setSlotMeta({});
     setSaunaData({});
+    setOccupancyKnown(true);
     setError(null);
     fetch(`/api/club/availability?siteId=${SITE_ID}&sessionTypeId=${LOUNGE_ST}&date=${selectedDate}`)
       .then((res) => res.json())
       .then((data) => {
         // Preferred path: occupancy-gated slots (rolling-occupancy model).
         if (Array.isArray(data.slots)) {
+          setOccupancyKnown(data.occupancyKnown !== false);
           const meta: Record<number, { booked: number; capacity: number }> = {};
           const available: Date[] = [];
           data.slots.forEach(
@@ -534,6 +541,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         }
         // Fallback: ungated windows (degraded — book route still guards capacity).
         if (Array.isArray(data.windows)) {
+          setOccupancyKnown(false);
           setTimes(generateTimesFromWindows(data.windows));
           return;
         }
@@ -545,7 +553,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         setError("Unable to load availability.");
       })
       .finally(() => setLoading(false));
-  }, [SITE_ID, LOUNGE_ST, SUB_SLOTS, selectedDate]);
+  }, [SITE_ID, LOUNGE_ST, SUB_SLOTS, selectedDate, availabilityNonce]);
 
   /* ── LOOKUP ── */
   async function lookupClientByEmail(emailToCheck: string) {
@@ -651,6 +659,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
     const bookData = await bookRes.json();
     if (!bookRes.ok) {
+      // The Lounge window filled between loading availability and booking. Send
+      // the guest back to time selection and refresh so the full slot drops out,
+      // rather than stranding them on the confirm step.
+      if (bookRes.status === 409 && bookData?.loungeFull) {
+        setSelectedTime(null);
+        setError(bookData?.error || "That time just filled up. Please pick another time.");
+        setAvailabilityNonce((n) => n + 1);
+        setStep("select");
+        return false;
+      }
       throw new Error(bookData?.error || `Booking failed. Please try again or call us at ${club!.phone}.`);
     }
     if (bookData?.partial && Array.isArray(bookData.failedSaunas) && bookData.failedSaunas.length) {
@@ -664,6 +682,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
     reportPurchaseConversion();
     setStep("done");
+    return true;
   }
 
   function reportPurchaseConversion() {
@@ -886,8 +905,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     if (bookingLock.current) return;
     bookingLock.current = true;
     try {
-      await bookWithConfirmClientId(clientId);
-      if (cardContext !== "create_account" && clientId) {
+      const booked = await bookWithConfirmClientId(clientId);
+      if (booked && cardContext !== "create_account" && clientId) {
         fetch("/api/mindbody/update-client-notifications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1086,6 +1105,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 <div className="mb-4">
                   <h2 className="text-lg font-semibold text-white/90 text-center">Choose a Time</h2>
                 </div>
+                {!loading && !error && !occupancyKnown && displayedTimes.length > 0 && (
+                  <p className="mb-4 text-center text-[11px] text-amber-300/80">
+                    Live availability is updating. These times may fill up. We&apos;ll confirm your spot at booking.
+                  </p>
+                )}
                 {loading && <p className="text-center text-white/50">Loading…</p>}
                 {error && <p className="text-center text-red-400">{error}</p>}
                 {!loading && !error && Object.entries(groupedTimes).map(([label, group]) =>
