@@ -78,7 +78,10 @@ export async function POST(req: Request) {
           headers: {
             Accept: "application/json",
             "Api-Key": process.env.MINDBODY_API_KEY!,
-            SiteId: process.env.MINDBODY_SITE_ID!,
+            // Must match the site the token was issued for (club override or
+            // Larimer default). A token is rejected on a mismatched site, so
+            // hardcoding the default broke this lookup for RiNo / Central Park.
+            SiteId: siteId,
             Authorization: `Bearer ${token}`,
           },
         });

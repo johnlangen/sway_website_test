@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { getClubBySiteId, type ClubLocation } from "@/lib/clubLocations";
+import {
+  fetchClubAppointments,
+  parseWall,
+  peakOverlap,
+  type ApptInterval,
+} from "@/lib/clubOccupancy";
 
 export const runtime = "nodejs";
 
@@ -151,6 +157,61 @@ export async function POST(req: Request) {
   try {
     const token = await getMindbodyStaffToken(siteId);
 
+    // 0) Occupancy guard. Mindbody only enforces capacity per exact start time,
+    //    so overlapping rolling-entry bookings can overfill the Lounge room (and
+    //    a sauna window) without this check. Best-effort: if the read fails we
+    //    log and proceed rather than block all bookings on a transient error.
+    const bookDate = startDateTime.slice(0, 10);
+    const loungeBlockMin =
+      club.remedyLounge.serviceMinutes + club.remedyLounge.bufferMinutes;
+    const saunaOccupancy = new Map<number, ApptInterval[]>();
+
+    try {
+      const saunaStaffIds = Array.from(
+        new Set(saunaBookings.map((b) => b.sauna))
+      );
+      const [loungeAppts, ...saunaApptLists] = await Promise.all([
+        fetchClubAppointments({
+          siteId,
+          token,
+          staffId: club.remedyLounge.resourceStaffId,
+          locationId: club.locationId,
+          date: bookDate,
+        }),
+        ...saunaStaffIds.map((s) =>
+          fetchClubAppointments({
+            siteId,
+            token,
+            staffId: s.resourceStaffId,
+            locationId: club.locationId,
+            date: bookDate,
+          })
+        ),
+      ]);
+      saunaStaffIds.forEach((s, i) =>
+        saunaOccupancy.set(s.sessionTypeId, saunaApptLists[i] ?? [])
+      );
+
+      const loungeStart = parseWall(startDateTime);
+      const loungeBooked = peakOverlap(
+        loungeAppts,
+        loungeStart,
+        loungeStart + loungeBlockMin * 60_000
+      );
+      if (loungeBooked >= club.remedyLounge.capacity) {
+        return NextResponse.json(
+          {
+            error:
+              "That Remedy Lounge time just filled up. Please pick another time.",
+            loungeFull: true,
+          },
+          { status: 409 }
+        );
+      }
+    } catch (e) {
+      console.warn("[club book] occupancy guard read failed:", e);
+    }
+
     // 1) Book the Lounge (the 75-min window). If this fails, abort — there's
     //    nothing to roll back yet.
     const lounge = await addAppointment({
@@ -187,6 +248,28 @@ export async function POST(req: Request) {
     }[] = [];
 
     for (const { sauna, startDateTime: saunaStart } of saunaBookings) {
+      // Concurrency guard for this 25-min sauna window. If it's already at seat
+      // capacity, skip the write and report it as a failed add-on (the Lounge
+      // still books) rather than letting Mindbody silently overfill the resource.
+      const saunaAppts = saunaOccupancy.get(sauna.sessionTypeId);
+      if (saunaAppts) {
+        const sStart = parseWall(saunaStart);
+        const sBooked = peakOverlap(
+          saunaAppts,
+          sStart,
+          sStart + sauna.minutes * 60_000
+        );
+        if (sBooked >= sauna.capacity) {
+          saunaResults.push({
+            key: sauna.key,
+            label: sauna.label,
+            success: false,
+            error: "That sauna window is full",
+          });
+          continue;
+        }
+      }
+
       const r = await addAppointment({
         token,
         siteId,

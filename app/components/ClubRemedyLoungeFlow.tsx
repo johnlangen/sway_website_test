@@ -11,6 +11,7 @@ import {
   type ClubLocationKey,
   type SaunaKey,
 } from "@/lib/clubLocations";
+import { parseWall, peakOverlap, type ApptInterval } from "@/lib/clubOccupancy";
 
 /* ---------------------------------------------
    Sway Wellness Club — Remedy Lounge booking flow
@@ -286,10 +287,23 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const [times, setTimes] = useState<Date[]>([]);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
+  // Lounge occupancy for display ("N left"), keyed by slot epoch ms.
+  const [slotMeta, setSlotMeta] = useState<
+    Record<number, { booked: number; capacity: number }>
+  >({});
+  // Per-sauna booked windows + seat capacity, for gating the 25-min add-ons.
+  const [saunaData, setSaunaData] = useState<
+    Record<number, { capacity: number; appointments: ApptInterval[] }>
+  >({});
+
   // Per sub-slot sauna choice: null | sauna key. Length === SUB_SLOTS.
   const [saunaChoices, setSaunaChoices] = useState<(SaunaKey | null)[]>(
     () => Array.from({ length: SUB_SLOTS }, () => null)
   );
+
+  // Sauna add-on labels the booking route reported as failed (Lounge still booked).
+  // Used to avoid claiming a sauna landed when it didn't.
+  const [failedSaunaLabels, setFailedSaunaLabels] = useState<string[]>([]);
 
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<Step>("select");
@@ -489,16 +503,42 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setLoading(true);
     setSelectedTime(null);
     setSaunaChoices(Array.from({ length: SUB_SLOTS }, () => null));
+    setSlotMeta({});
+    setSaunaData({});
     setError(null);
     fetch(`/api/club/availability?siteId=${SITE_ID}&sessionTypeId=${LOUNGE_ST}&date=${selectedDate}`)
       .then((res) => res.json())
       .then((data) => {
-        if (!Array.isArray(data.windows)) {
-          setTimes([]);
-          setError("No availability for this day.");
+        // Preferred path: occupancy-gated slots (rolling-occupancy model).
+        if (Array.isArray(data.slots)) {
+          const meta: Record<number, { booked: number; capacity: number }> = {};
+          const available: Date[] = [];
+          data.slots.forEach(
+            (s: { start: string; booked: number; capacity: number; available: boolean }) => {
+              const d = parseMindbodyDateTime(s.start);
+              meta[d.getTime()] = { booked: s.booked, capacity: s.capacity };
+              if (s.available) available.push(d);
+            }
+          );
+          setSlotMeta(meta);
+          setTimes(available);
+          // saunas: { [sessionTypeId]: { capacity, appointments } }
+          const sd: Record<number, { capacity: number; appointments: ApptInterval[] }> = {};
+          if (data.saunas && typeof data.saunas === "object") {
+            for (const [k, v] of Object.entries(data.saunas)) {
+              sd[Number(k)] = v as { capacity: number; appointments: ApptInterval[] };
+            }
+          }
+          setSaunaData(sd);
           return;
         }
-        setTimes(generateTimesFromWindows(data.windows));
+        // Fallback: ungated windows (degraded — book route still guards capacity).
+        if (Array.isArray(data.windows)) {
+          setTimes(generateTimesFromWindows(data.windows));
+          return;
+        }
+        setTimes([]);
+        setError("No availability for this day.");
       })
       .catch(() => {
         setTimes([]);
@@ -540,6 +580,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       hasCardOnFile: data.hasCardOnFile ?? false,
       missingName,
     };
+  }
+
+  /* ── SAUNA OCCUPANCY (per 25-min window) ── */
+  // Capacity comes from config (always available); booked count from the live
+  // appointments returned by the availability route. No data => treat as open.
+  function saunaBookedAt(sessionTypeId: number, windowStart: Date): number {
+    const appts = saunaData[sessionTypeId]?.appointments;
+    if (!appts || appts.length === 0) return 0;
+    const s = parseWall(formatLocalDateTime(windowStart));
+    return peakOverlap(appts, s, s + SUB_SLOT_MIN * 60_000);
   }
 
   /* ── BOOKING ── */
@@ -604,8 +654,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       throw new Error(bookData?.error || `Booking failed. Please try again or call us at ${club!.phone}.`);
     }
     if (bookData?.partial && Array.isArray(bookData.failedSaunas) && bookData.failedSaunas.length) {
-      // Lounge is booked; a sauna add-on didn't take. Don't block the booking.
+      // Lounge is booked; a sauna add-on didn't take. Don't block the booking,
+      // but record the failures so the success screen doesn't claim they landed.
       console.warn("[club-book] sauna add-on(s) failed:", bookData.failedSaunas);
+      setFailedSaunaLabels(bookData.failedSaunas.map((s: unknown) => String(s)));
+    } else {
+      setFailedSaunaLabels([]);
     }
 
     reportPurchaseConversion();
@@ -1041,6 +1095,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
                         {group.map((time) => {
                           const isSelected = selectedTime?.getTime() === time.getTime();
+                          const meta = slotMeta[time.getTime()];
+                          const left = meta ? meta.capacity - meta.booked : null;
+                          const lowLeft = left != null && left <= 4 ? left : null;
                           return (
                             <button
                               key={time.toISOString()}
@@ -1048,6 +1105,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                               className={`py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${isSelected ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10 scale-[1.02]" : "border-white/15 bg-white/5 hover:bg-white/10 text-white hover:-translate-y-0.5"}`}
                             >
                               <div className="font-semibold text-sm">{formatTime12h(time)}</div>
+                              {lowLeft != null && (
+                                <div className={`text-[10px] mt-0.5 ${isSelected ? "text-[#B4541B]" : "text-amber-300/80"}`}>
+                                  {lowLeft} left
+                                </div>
+                              )}
                             </button>
                           );
                         })}
@@ -1117,15 +1179,25 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         >
                           None
                         </button>
-                        {club.saunas.map((s) => (
-                          <button
-                            key={s.key}
-                            onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? s.key : c)))}
-                            className={`py-2.5 rounded-xl text-sm font-medium border transition ${choice === s.key ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
-                          >
-                            {s.key === "traditional" ? "Traditional" : "Infrared"}
-                          </button>
-                        ))}
+                        {club.saunas.map((s) => {
+                          const booked = slotStart ? saunaBookedAt(s.sessionTypeId, slotStart) : 0;
+                          const isChosen = choice === s.key;
+                          const full = booked >= s.capacity;
+                          const seatsLeft = Math.max(0, s.capacity - booked);
+                          return (
+                            <button
+                              key={s.key}
+                              disabled={full && !isChosen}
+                              onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? s.key : c)))}
+                              className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-white text-[#113D33] border-white" : full ? "border-white/10 bg-white/5 text-white/30 cursor-not-allowed" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
+                            >
+                              <div>{s.key === "traditional" ? "Traditional" : "Infrared"}</div>
+                              <div className="text-[10px] font-normal mt-0.5 opacity-70">
+                                {full ? "Full" : `${seatsLeft} left`}
+                              </div>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   );
@@ -1372,11 +1444,36 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 <>
                   <p className="text-[#113D33] font-semibold text-lg mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>Remedy Lounge · {club.label}</p>
                   <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>{formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, SERVICE_MIN)}</p>
-                  {selectedSaunaCount > 0 && (
-                    <p className="text-[#4A776D] text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "175ms" }}>
-                      {saunaChoices.filter(Boolean).map((c) => club.saunas.find((s) => s.key === c)?.label).join(" + ")}
-                    </p>
-                  )}
+                  {selectedSaunaCount > 0 && (() => {
+                    // Selected sauna labels in order. Remove any the route reported as
+                    // failed (one removal per failure, to preserve multiplicity when the
+                    // same sauna is picked for two slots), so we never claim a sauna
+                    // landed when it didn't.
+                    const selectedLabels = saunaChoices
+                      .filter(Boolean)
+                      .map((c) => club.saunas.find((s) => s.key === c)?.label)
+                      .filter((l): l is string => Boolean(l));
+                    const remaining = [...failedSaunaLabels];
+                    const confirmedLabels = selectedLabels.filter((label) => {
+                      const i = remaining.indexOf(label);
+                      if (i !== -1) { remaining.splice(i, 1); return false; }
+                      return true;
+                    });
+                    return (
+                      <>
+                        {confirmedLabels.length > 0 && (
+                          <p className="text-[#4A776D] text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "175ms" }}>
+                            {confirmedLabels.join(" + ")}
+                          </p>
+                        )}
+                        {failedSaunaLabels.length > 0 && (
+                          <p className="text-[#B4541B] text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "175ms" }}>
+                            We couldn&apos;t confirm your {failedSaunaLabels.join(" + ")} add-on. Your Remedy Lounge is booked. Call us at {club.phone} and we&apos;ll get the sauna added.
+                          </p>
+                        )}
+                      </>
+                    );
+                  })()}
                 </>
               )}
               <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>Please bring a swimsuit or athleisure. Check your email for confirmation details.</p>

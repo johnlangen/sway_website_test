@@ -1,12 +1,29 @@
 import { NextResponse } from "next/server";
 import { getClubBySiteId } from "@/lib/clubLocations";
+import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+import {
+  fetchClubAppointments,
+  generateSlotStarts,
+  parseWall,
+  peakOverlap,
+  type ApptInterval,
+} from "@/lib/clubOccupancy";
+
+/** Lounge entry grid. 5 min divides the 25-min sauna rotation cleanly. */
+const LOUNGE_STEP_MIN = 5;
 
 /**
  * Availability for the Sway Wellness Club locations (RiNo / Central Park).
  *
- * Token-free: Mindbody's bookableitems endpoint accepts Api-Key + SiteId, so this
- * works before the per-site staff login is provisioned. Only the Remedy Lounge and
- * its two sauna resources are queryable, validated against the per-site config.
+ * The Lounge runs as a rolling-occupancy room: members enter on a 5-min grid and
+ * the room is capped at concurrent occupancy (15 RiNo / 18 CP). Mindbody only
+ * enforces capacity per exact start time, so for a Lounge request we compute true
+ * concurrency ourselves and return gated slots (with booked counts) plus the raw
+ * sauna appointments so the client can gate the 25-min sauna windows too.
+ *
+ * The window lookup (bookableitems) stays token-free; the occupancy lookup needs
+ * the per-site staff token. If that token isn't available we degrade to ungated
+ * windows so the picker still renders (the book route is the real safety net).
  */
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -76,13 +93,83 @@ export async function GET(req: Request) {
       );
     }
 
-    const windows =
+    const windows: { start: string; bookableEnd: string }[] =
       data.Availabilities?.map((a: any) => ({
         start: a.StartDateTime,
         bookableEnd: a.BookableEndDateTime,
       })) || [];
 
-    return NextResponse.json({ windows });
+    // Sauna requests keep the original token-free window contract.
+    const isLounge = stId === club.remedyLounge.sessionTypeId;
+    if (!isLounge) {
+      return NextResponse.json({ windows });
+    }
+
+    // Lounge request: lay a 5-min entry grid and gate each candidate by true
+    // concurrent occupancy of the Lounge room over its full backend block
+    // (serviceMinutes + bufferMinutes = 85). Also return the saunas' booked
+    // intervals + capacities so the client can gate the 25-min windows.
+    const blockMin =
+      club.remedyLounge.serviceMinutes + club.remedyLounge.bufferMinutes;
+    const slotStarts = generateSlotStarts(windows, LOUNGE_STEP_MIN);
+
+    const saunas: Record<
+      string,
+      { capacity: number; appointments: ApptInterval[] }
+    > = {};
+
+    let loungeAppts: ApptInterval[] = [];
+    let occupancyKnown = false;
+
+    try {
+      const token = await getMindbodyStaffToken(siteId);
+
+      const [loungeRes, ...saunaRes] = await Promise.all([
+        fetchClubAppointments({
+          siteId,
+          token,
+          staffId: club.remedyLounge.resourceStaffId,
+          locationId: club.locationId,
+          date,
+        }),
+        ...club.saunas.map((s) =>
+          fetchClubAppointments({
+            siteId,
+            token,
+            staffId: s.resourceStaffId,
+            locationId: club.locationId,
+            date,
+          })
+        ),
+      ]);
+
+      loungeAppts = loungeRes;
+      club.saunas.forEach((s, i) => {
+        saunas[String(s.sessionTypeId)] = {
+          capacity: s.capacity,
+          appointments: saunaRes[i] ?? [],
+        };
+      });
+      occupancyKnown = true;
+    } catch (e) {
+      // Degrade: render slots ungated rather than blocking the picker. The book
+      // route re-checks occupancy server-side before writing.
+      console.warn("[club availability] occupancy lookup failed:", e);
+      club.saunas.forEach((s) => {
+        saunas[String(s.sessionTypeId)] = { capacity: s.capacity, appointments: [] };
+      });
+    }
+
+    const capacity = club.remedyLounge.capacity;
+    const slots = slotStarts.map((start) => {
+      const s = parseWall(start);
+      const booked = occupancyKnown
+        ? peakOverlap(loungeAppts, s, s + blockMin * 60_000)
+        : 0;
+      return { start, booked, capacity, available: booked < capacity };
+    });
+
+    return NextResponse.json({ windows, slots, saunas, occupancyKnown });
   } catch (err) {
     console.error("Club availability error:", err);
     return NextResponse.json(
