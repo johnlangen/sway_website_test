@@ -26,7 +26,7 @@ export default function Footer() {
           <FooterLink href="/locations" text="Locations" />
           <FooterLink href="/press" text="Press" />
           <FooterLink href="/blog" text="Blog" />
-          <FooterLink href="/faq" text="FAQ" />
+          <FooterLink href="/faq/larimer" text="FAQ" />
           <FooterLink href="/own" text="Own a Sway" />
         </div>
 

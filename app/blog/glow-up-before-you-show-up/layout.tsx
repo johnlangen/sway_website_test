@@ -63,20 +63,25 @@ export default function GlowUpBeforeYouShowUpLayout() {
         <h2 id="sway-difference" className="text-2xl font-bold scroll-mt-24">The Sway Difference: Wellness That Fits Your Life</h2>
         <h3 className="text-xl font-bold">Quick Relief Between Classes</h3>
         <p>
-          Our 15-minute robot massage is perfect for an on-the-go reset...
+          Our 15-minute{" "}
+          <Link href="/aescape" className="underline text-[#113D33] font-semibold">Aescape robot massage</Link>{" "}
+          is perfect for an on-the-go reset...
         </p>
 
-        <h3 className="text-xl font-bold">The Remedy Room Experience</h3>
+        <h3 className="text-xl font-bold">The{" "}
+          <Link href="/remedy-tech" className="underline text-[#113D33] font-semibold">Remedy Room</Link>{" "}Experience</h3>
         <ul className="list-disc list-inside">
-          <li><strong>Cold Plunge Therapy</strong> · Reduces inflammation, boosts mood, and improves focus.</li>
-          <li><strong>Sauna Experience</strong> · Eases sore muscles, improves circulation, and promotes detox.</li>
-          <li><strong>LED Light Therapy</strong> · Stimulates skin repair and reduces inflammation.</li>
-          <li><strong>Compression Boots</strong> · Alleviates soreness and reduces swelling.</li>
+          <li><strong><Link href="/cold-plunge" className="underline text-[#113D33]">Cold Plunge Therapy</Link></strong> · Reduces inflammation, boosts mood, and improves focus.</li>
+          <li><strong><Link href="/sauna" className="underline text-[#113D33]">Sauna Experience</Link></strong> · Eases sore muscles, improves circulation, and promotes detox.</li>
+          <li><strong><Link href="/led-light-therapy" className="underline text-[#113D33]">LED Light Therapy</Link></strong> · Stimulates skin repair and reduces inflammation.</li>
+          <li><strong>Compression Therapy</strong> · Alleviates soreness and reduces swelling.</li>
         </ul>
 
         <h3 className="text-xl font-bold">Customized Facials for Every Occasion</h3>
         <p>
-          Whether it’s before a big event or interview, our customized facials refresh your skin...
+          Whether it’s before a big event or interview, our customized{" "}
+          <Link href="/facials" className="underline text-[#113D33] font-semibold">facials</Link>{" "}
+          refresh your skin...
         </p>
 
         <blockquote className="italic border-l-4 border-[#113D33] pl-4 text-gray-700">
@@ -108,7 +113,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
         <h2 id="offers" className="text-2xl font-bold scroll-mt-24">Special Offers for Students</h2>
         <ul className="list-disc list-inside">
           <li><strong>Back-to-School Special:</strong> $40 off your first facial or massage with valid student ID...</li>
-          <li><strong>Membership Deal:</strong> Join by Aug 31 to get 3 free Remedy Room visits...</li>
+          <li><strong><Link href="/membership" className="underline text-[#113D33]">Membership Deal</Link>:</strong> Join to get exclusive member pricing on every visit...</li>
         </ul>
 
         <h2 id="academic-success" className="text-2xl font-bold scroll-mt-24">Making Wellness Part of Academic Success</h2>

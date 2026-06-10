@@ -50,7 +50,7 @@ export default function Page() {
       },
     },
     datePublished: "2025-03-20",
-    dateModified: "2025-03-20",
+    dateModified: "2026-06-09",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://swaywellnessspa.com/blog/bridal-skincare/",
