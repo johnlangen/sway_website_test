@@ -139,28 +139,12 @@ const blogs = [
     image: "/assets/blog15.jpg",
   },
   {
-    slug: "may-memberships",
-    title: "May Memberships at Sway Wellness Spa",
-    summary:
-      "Discover the ultimate retreat for your body and mind with exclusive $99/month memberships, tailored treatments, and science-backed benefits.",
-    tag: "Wellness",
-    image: "/assets/blog17.jpg",
-  },
-  {
     slug: "mothers-day-gift-guide",
     title: "Moms Deserve Sway More: A Mother's Day Spa Day Gift Guide",
     summary:
       "Celebrate the amazing mom in your life with spa treatments, gift cards, and memberships that help her relax, recharge, and feel truly appreciated.",
     tag: "Holiday",
     image: "/assets/blog16.jpg",
-  },
-  {
-    slug: "sway-spa-membership",
-    title: "Sway Spa Membership: Your 2025 Wellness Transformation",
-    summary:
-      "Invest in self-care with a Sway Spa membership! Enjoy monthly facials, massages, exclusive access & more.",
-    tag: "Membership",
-    image: "/assets/blog2.jpg",
   },
   {
     slug: "bridal-skincare",

@@ -68,10 +68,10 @@ export default function GlowUpBeforeYouShowUpLayout() {
 
         <h3 className="text-xl font-bold">The Remedy Room Experience</h3>
         <ul className="list-disc list-inside">
-          <li><strong>Cold Plunge Therapy</strong> — Reduces inflammation, boosts mood, and improves focus.</li>
-          <li><strong>Sauna Experience</strong> — Eases sore muscles, improves circulation, and promotes detox.</li>
-          <li><strong>LED Light Therapy</strong> — Stimulates skin repair and reduces inflammation.</li>
-          <li><strong>Compression Boots</strong> — Alleviates soreness and reduces swelling.</li>
+          <li><strong>Cold Plunge Therapy</strong> · Reduces inflammation, boosts mood, and improves focus.</li>
+          <li><strong>Sauna Experience</strong> · Eases sore muscles, improves circulation, and promotes detox.</li>
+          <li><strong>LED Light Therapy</strong> · Stimulates skin repair and reduces inflammation.</li>
+          <li><strong>Compression Boots</strong> · Alleviates soreness and reduces swelling.</li>
         </ul>
 
         <h3 className="text-xl font-bold">Customized Facials for Every Occasion</h3>
@@ -80,7 +80,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
         </p>
 
         <blockquote className="italic border-l-4 border-[#113D33] pl-4 text-gray-700">
-          "Sway is my go-to for skincare before interviews or big events..." — Jordan, DU Grad Student
+          "Sway is my go-to for skincare before interviews or big events..." · Jordan, DU Grad Student
         </blockquote>
 
         <h3 className="text-xl font-bold">Therapeutic Massages That Actually Work</h3>
@@ -89,7 +89,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
         </p>
 
         <blockquote className="italic border-l-4 border-[#113D33] pl-4 text-gray-700">
-          "I had no idea how much I needed this until I walked out feeling completely recharged." — Sam, DU Junior
+          "I had no idea how much I needed this until I walked out feeling completely recharged." · Sam, DU Junior
         </blockquote>
 
         <h2 id="wellness-ritual" className="text-2xl font-bold scroll-mt-24">Build Your Personal Wellness Ritual</h2>
@@ -102,7 +102,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
 
         <h2 id="science" className="text-2xl font-bold scroll-mt-24">The Science Behind Spa Wellness</h2>
         <p>
-          Science backs it up—spa treatments reduce stress, improve sleep, and enhance focus...
+          Science backs it up. Spa treatments reduce stress, improve sleep, and enhance focus...
         </p>
 
         <h2 id="offers" className="text-2xl font-bold scroll-mt-24">Special Offers for Students</h2>
@@ -113,7 +113,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
 
         <h2 id="academic-success" className="text-2xl font-bold scroll-mt-24">Making Wellness Part of Academic Success</h2>
         <p>
-          Self-care is a strategy—not a luxury. It boosts focus, confidence, and resilience...
+          Self-care is a strategy, not a luxury. It boosts focus, confidence, and resilience...
         </p>
 
         <h2 className="text-2xl font-bold scroll-mt-24">Tips for Students Incorporating Spa into Life</h2>
@@ -155,12 +155,12 @@ export default function GlowUpBeforeYouShowUpLayout() {
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver: Sauna, Cold Plunge &amp; Robot Massage</p>
               </div>
             </Link>
-            <Link href="/blog/may-memberships" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+            <Link href="/blog/sway-membership-tiers" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog17.jpg" alt="Sway Memberships" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/join2.jpg" alt="Sway Membership Tiers" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
-                <p className="font-bold text-sm group-hover:text-[#113D33] transition">May Memberships at Sway Wellness Spa</p>
+                <p className="font-bold text-sm group-hover:text-[#113D33] transition">Introducing Sway&apos;s New Membership Tiers: Essential, Premier &amp; Ultimate</p>
               </div>
             </Link>
           </div>

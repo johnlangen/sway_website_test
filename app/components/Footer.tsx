@@ -21,6 +21,8 @@ export default function Footer() {
           <FooterLink href="/membership" text="Memberships" />
           <FooterLink href="/treatments" text="Treatments" />
           <FooterLink href="/group-events" text="Group Events" />
+          <FooterLink href="/date-night" text="Date Night" />
+          <FooterLink href="/couples-spa" text="Couples Spa" />
           <FooterLink href="/locations" text="Locations" />
           <FooterLink href="/press" text="Press" />
           <FooterLink href="/blog" text="Blog" />

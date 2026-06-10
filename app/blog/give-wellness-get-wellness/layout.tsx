@@ -133,13 +133,13 @@ export default function GiveWellnessBlogLayout() {
         <div className="pt-6">
           <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link href="/blog/may-memberships" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog17.jpg" alt="May Memberships" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
-              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">May Memberships at Sway Wellness Spa</p></div>
+            <Link href="/blog/sway-membership-tiers" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/join2.jpg" alt="Sway Membership Tiers" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Introducing Sway&apos;s New Membership Tiers: Essential, Premier &amp; Ultimate</p></div>
             </Link>
-            <Link href="/blog/sway-spa-membership" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog2.jpg" alt="Sway Spa Membership" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
-              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Sway Spa Membership: Your Wellness Transformation</p></div>
+            <Link href="/blog/best-day-spa-in-america" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
+              <div className="h-36 overflow-hidden"><Image src="/assets/homepage_photo_outside.jpg" alt="Best Day Spa in America" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">#4 Best Day Spa in America: Sway&apos;s First Year</p></div>
             </Link>
             <Link href="/blog/recovery-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden"><Image src="/assets/blog20.jpg" alt="Recovery in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>

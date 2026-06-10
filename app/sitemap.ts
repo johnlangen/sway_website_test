@@ -132,8 +132,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "80-minute-massage",
     "tech-and-wellness",
     "valentines-day-wellness",
-    "sway-spa-membership",
-    "may-memberships",
     "give-wellness-get-wellness",
     "science-of-relaxation",
   ];

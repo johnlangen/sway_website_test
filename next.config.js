@@ -51,6 +51,17 @@ const nextConfig = {
         destination: "/blog/recovery-denver/",
         permanent: true,
       },
+      // Consolidated membership posts → sway-membership-tiers (2026-06)
+      {
+        source: "/blog/sway-spa-membership",
+        destination: "/blog/sway-membership-tiers/",
+        permanent: true,
+      },
+      {
+        source: "/blog/may-memberships",
+        destination: "/blog/sway-membership-tiers/",
+        permanent: true,
+      },
     ];
   },
 };
