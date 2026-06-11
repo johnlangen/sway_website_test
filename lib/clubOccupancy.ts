@@ -116,6 +116,34 @@ export function generateSlotStarts(
 }
 
 /**
+ * Fixed session waves: start times every `stepMin` minutes anchored at each
+ * availability window's own start (i.e. the day's open). With the 85-min
+ * Lounge block this yields waves like 10:00, 11:25, 12:50... so every guest
+ * in a wave shares the same start, and the +0/25/50 sauna rotation windows
+ * align across guests by construction. bookableEnd IS the last valid start
+ * (token-free consumer semantics, see generateSlotStarts note above).
+ */
+export function generateWaveStarts(
+  windows: { start: string; bookableEnd: string }[],
+  stepMin: number
+): string[] {
+  const step = stepMin * 60_000;
+  const out: number[] = [];
+  for (const w of windows) {
+    let cursor = parseWall(w.start);
+    const last = parseWall(w.bookableEnd);
+    if (!Number.isFinite(cursor) || !Number.isFinite(last)) continue;
+    while (cursor <= last) {
+      out.push(cursor);
+      cursor += step;
+    }
+  }
+  return Array.from(new Set(out))
+    .sort((a, b) => a - b)
+    .map(formatWall);
+}
+
+/**
  * Server-only: fetch a resource's booked appointments for a date, reduced to
  * {start, end} wall-clock intervals. Mirrors /api/service/staff-schedule.
  */

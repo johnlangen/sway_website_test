@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
+import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -1287,7 +1288,8 @@ export default function BookAescapePage() {
         </div>
       )}
 
-      <div className="px-4 pt-24 md:pt-28 pb-20">
+      {/* Extra bottom padding clears the sticky CTA bar on select/time steps. */}
+      <div className={`px-4 pt-24 md:pt-28 ${step === "select" || step === "time" ? "pb-36" : "pb-20"}`}>
         <div className="max-w-3xl mx-auto text-center">
           {/* Persistent identity banner — members + remembered guests */}
           {memberCheckDone && clientId && ["select", "time", "email", "name", "card", "confirm"].includes(step) && (
@@ -1431,7 +1433,10 @@ export default function BookAescapePage() {
                 </div>
               </section>
 
-              <div className="max-w-md mx-auto">
+              <StickyFlowCTA
+                show
+                hint={`${selectedOption.label} · ${selectedOption.minutes} min · ${selectedOption.price}`}
+              >
                 <button
                   onClick={() => {
                     setError(null);
@@ -1441,7 +1446,7 @@ export default function BookAescapePage() {
                 >
                   Continue
                 </button>
-              </div>
+              </StickyFlowCTA>
             </div>
           )}
 
@@ -1607,9 +1612,11 @@ export default function BookAescapePage() {
               </section>
 
               {/* Primary CTA */}
-              <div className="max-w-md mx-auto">
+              <StickyFlowCTA
+                show={!!selectedTime}
+                hint={selectedTime ? `${selectedOption.label} · ${formatDayLabel(new Date(selectedDate + "T00:00:00"))} · ${formatTime12h(selectedTime)}` : undefined}
+              >
                 <button
-                  disabled={!selectedTime}
                   onClick={() => {
                     setError(null);
                     // Returning user missing FirstName/LastName -> collect name
@@ -1632,12 +1639,14 @@ export default function BookAescapePage() {
                     }
                     setStep("email");
                   }}
-                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
                 >
                   Continue
                 </button>
+              </StickyFlowCTA>
 
-                <div className="mt-5 text-center text-xs text-[#113D33]/60">
+              <div className="max-w-md mx-auto">
+                <div className="text-center text-xs text-[#113D33]/60">
                   Prefer to book with staff?{" "}
                   <a
                     className="underline underline-offset-4 hover:text-[#113D33]/60 transition"

@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
+import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
 
 /* ---------------------------------------------
    REMEDY ROOM SESSION OPTIONS
@@ -1329,7 +1330,8 @@ export default function BookRemedyRoomPage() {
         </div>
       )}
 
-      <div className={`px-4 ${isDarkStep ? "pt-24 md:pt-28" : "pt-24 md:pt-28"} pb-20`}>
+      {/* Extra bottom padding clears the sticky CTA bar on the select step. */}
+      <div className={`px-4 pt-24 md:pt-28 ${isDarkStep ? "pb-36" : "pb-20"}`}>
         <div className="max-w-3xl mx-auto text-center">
           {/* Persistent identity banner — members + remembered guests */}
           {memberCheckDone && clientId && ["select", "email", "name", "card", "confirm"].includes(step) && (
@@ -1603,9 +1605,12 @@ export default function BookRemedyRoomPage() {
                 )}
               </section>
 
-              <div className="max-w-md mx-auto">
+              <StickyFlowCTA
+                show={!!selectedTime}
+                dark
+                hint={selectedTime ? `${formatDayLabel(new Date(selectedDate + "T00:00:00"))} · ${formatTime12h(selectedTime)}` : undefined}
+              >
                 <button
-                  disabled={!selectedTime}
                   onClick={() => {
                     setError(null);
                     // Returning user missing FirstName/LastName -> collect name
@@ -1628,12 +1633,14 @@ export default function BookRemedyRoomPage() {
                     }
                     setStep("email");
                   }}
-                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
+                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
                 >
                   Continue
                 </button>
+              </StickyFlowCTA>
 
-                <div className="mt-5 text-center text-xs text-white/40">
+              <div className="max-w-md mx-auto">
+                <div className="text-center text-xs text-white/40">
                   Prefer to book with staff?{" "}
                   <a className="underline underline-offset-4 hover:text-white/70 transition" href="tel:3034766150">
                     Call (303) 476-6150

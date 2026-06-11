@@ -3,23 +3,20 @@ import { getClubBySiteId } from "@/lib/clubLocations";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import {
   fetchClubAppointments,
-  generateSlotStarts,
+  generateWaveStarts,
   parseWall,
   peakOverlap,
   type ApptInterval,
 } from "@/lib/clubOccupancy";
 
-/** Lounge entry grid. 5 min divides the 25-min sauna rotation cleanly. */
-const LOUNGE_STEP_MIN = 5;
-
 /**
  * Availability for the Sway Wellness Club locations (RiNo / Central Park).
  *
- * The Lounge runs as a rolling-occupancy room: members enter on a 5-min grid and
- * the room is capped at concurrent occupancy (15 RiNo / 18 CP). Mindbody only
- * enforces capacity per exact start time, so for a Lounge request we compute true
- * concurrency ourselves and return gated slots (with booked counts) plus the raw
- * sauna appointments so the client can gate the 25-min sauna windows too.
+ * The Lounge runs in fixed 85-min session waves anchored at open (10:00, 11:25,
+ * 12:50, ...), each capped at concurrent occupancy (15 RiNo / 18 CP). Mindbody
+ * does not enforce that cap, so for a Lounge request we compute true concurrency
+ * ourselves and return gated waves (with booked counts) plus the raw sauna
+ * appointments so the client can gate the 25-min sauna rotation windows too.
  *
  * The window lookup (bookableitems) stays token-free; the occupancy lookup needs
  * the per-site staff token. If that token isn't available we degrade to ungated
@@ -105,13 +102,13 @@ export async function GET(req: Request) {
       return NextResponse.json({ windows });
     }
 
-    // Lounge request: lay a 5-min entry grid and gate each candidate by true
-    // concurrent occupancy of the Lounge room over its full backend block
-    // (serviceMinutes + bufferMinutes = 85). Also return the saunas' booked
+    // Lounge request: lay fixed session waves (one per full backend block of
+    // serviceMinutes + bufferMinutes = 85) and gate each wave by true
+    // concurrent occupancy of the Lounge room. Also return the saunas' booked
     // intervals + capacities so the client can gate the 25-min windows.
     const blockMin =
       club.remedyLounge.serviceMinutes + club.remedyLounge.bufferMinutes;
-    const slotStarts = generateSlotStarts(windows, LOUNGE_STEP_MIN);
+    const slotStarts = generateWaveStarts(windows, blockMin);
 
     const saunas: Record<
       string,

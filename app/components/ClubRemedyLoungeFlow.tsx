@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SwayCurve } from "./SwayCurve";
 import { ReviewBadge } from "./GoogleReviews";
+import { StickyFlowCTA } from "./StickyFlowCTA";
 import {
   getClubLocation,
   type ClubLocationKey,
@@ -73,46 +74,25 @@ function parseMindbodyDateTime(raw: string) {
   return new Date(y, (m || 1) - 1, d || 1, hh, mm, ss, 0);
 }
 
-function groupTimes(dates: Date[]) {
-  const groups = {
-    Morning: [] as Date[],
-    Midday: [] as Date[],
-    Afternoon: [] as Date[],
-    Evening: [] as Date[],
-  };
-  dates.forEach((d) => {
-    const h = d.getHours();
-    if (h < 12) groups.Morning.push(d);
-    else if (h < 14) groups.Midday.push(d);
-    else if (h < 17) groups.Afternoon.push(d);
-    else groups.Evening.push(d);
-  });
-  return groups;
-}
-
 /**
- * Build 15-min-interval Lounge start times from availability windows (degraded
- * fallback when the server couldn't gate by occupancy). bookableEnd IS the last
- * valid start: the windows come from a token-free bookableitems call, where
- * Mindbody already subtracts the service length (see lib/clubOccupancy.ts —
- * do not subtract the service block again).
+ * Build fixed session-wave start times from availability windows (degraded
+ * fallback when the server couldn't gate by occupancy): one wave per backend
+ * block, anchored at each window's start, mirroring generateWaveStarts on the
+ * server. bookableEnd IS the last valid start: the windows come from a
+ * token-free bookableitems call, where Mindbody already subtracts the service
+ * length (see lib/clubOccupancy.ts — do not subtract the service block again).
  */
 function generateTimesFromWindows(
-  windows: { start: string; bookableEnd: string }[]
+  windows: { start: string; bookableEnd: string }[],
+  stepMin: number
 ) {
   const results: Date[] = [];
   windows.forEach((w) => {
     const cursor = parseMindbodyDateTime(w.start);
     const lastStart = parseMindbodyDateTime(w.bookableEnd);
-
-    const minutes = cursor.getMinutes();
-    const remainder = minutes % 15;
-    if (remainder !== 0) cursor.setMinutes(minutes + (15 - remainder), 0, 0);
-    else cursor.setSeconds(0, 0);
-
     while (cursor <= lastStart) {
       results.push(new Date(cursor));
-      cursor.setMinutes(cursor.getMinutes() + 15);
+      cursor.setMinutes(cursor.getMinutes() + stepMin);
     }
   });
 
@@ -227,7 +207,7 @@ type Step = "select" | "sauna" | "email" | "name" | "card" | "confirm" | "bookin
 type CardContext = "create_account" | "add_card" | null;
 
 function ProgressBar({ step, dark = false }: { step: Step; dark?: boolean }) {
-  const displaySteps = ["Time", "Sauna", "Account", "Confirm"];
+  const displaySteps = ["Session", "Sauna", "Account", "Confirm"];
   const stepToIdx: Partial<Record<Step, number>> = {
     select: 0,
     sauna: 1,
@@ -304,14 +284,6 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   // False when the availability route couldn't read live occupancy (degraded to
   // ungated times). Drives a soft, non-blocking notice on the time picker.
   const [occupancyKnown, setOccupancyKnown] = useState(true);
-  // Schedule open (ms) for the selected day, from the availability windows.
-  // Anchors the FIXED 25-min sauna rotation grid shared by all guests: Mindbody
-  // rejects a sauna appointment whose window CROSSES the start of an existing
-  // one ("must start on an active time"), but stacks same-start appointments
-  // fine. Guest-relative windows collide as soon as two lounge starts differ,
-  // so all sauna windows snap to this shared grid instead (verified live
-  // 2026-06-10, appts 38/42/43).
-  const [dayStartMs, setDayStartMs] = useState<number | null>(null);
   // Bumped to force an availability re-fetch (e.g. after a slot fills mid-booking).
   const [availabilityNonce, setAvailabilityNonce] = useState(0);
 
@@ -398,8 +370,6 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     [weekStart]
   );
 
-  const displayedTimes = times;
-  const groupedTimes = useMemo(() => groupTimes(displayedTimes), [displayedTimes]);
 
   const mindbodyBookingUrl = useMemo(
     () => `https://clients.mindbodyonline.com/classic/ws?studioid=${SITE_ID}&stype=-9`,
@@ -411,32 +381,20 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     [saunaChoices]
   );
 
-  /* Sauna rotation windows offered for the selected lounge time: the fixed
-     25-min grid windows (anchored at the day's schedule open) that fit fully
-     inside the guest's 75. Yields 3 windows when the lounge start is on the
-     grid, otherwise 2. Falls back to guest-relative windows if the anchor is
-     unknown (degraded availability). */
+  /* Sauna rotation windows for the selected wave: +0 / +25 / +50 from the wave
+     start. Lounge sessions run in fixed 85-min waves shared by all guests, so
+     these windows are identical for everyone in the wave and windows from
+     different waves never overlap (10-min cleanup gap). That alignment matters:
+     Mindbody rejects a sauna appointment whose window CROSSES the start of an
+     existing one, but stacks same-start appointments fine (verified live
+     2026-06-10, appts 38/42/43). */
   const saunaWindows = useMemo(() => {
     if (!selectedTime) return [] as Date[];
-    const step = SUB_SLOT_MIN * 60_000;
-    const sessionEnd = selectedTime.getTime() + SERVICE_MIN * 60_000;
-    if (dayStartMs == null) {
-      return Array.from(
-        { length: SUB_SLOTS },
-        (_, i) => new Date(selectedTime.getTime() + i * step)
-      );
-    }
-    const out: Date[] = [];
-    let k = Math.ceil((selectedTime.getTime() - dayStartMs) / step);
-    if (k < 0) k = 0;
-    while (out.length < SUB_SLOTS) {
-      const start = dayStartMs + k * step;
-      if (start + step > sessionEnd) break;
-      if (start >= selectedTime.getTime()) out.push(new Date(start));
-      k++;
-    }
-    return out;
-  }, [selectedTime, dayStartMs, SERVICE_MIN, SUB_SLOTS, SUB_SLOT_MIN]);
+    return Array.from(
+      { length: SUB_SLOTS },
+      (_, i) => new Date(selectedTime.getTime() + i * SUB_SLOT_MIN * 60_000)
+    );
+  }, [selectedTime, SUB_SLOTS, SUB_SLOT_MIN]);
 
   /* Window times shift whenever the lounge time changes; stale picks must not
      carry over to different wall-clock windows. */
@@ -568,31 +526,24 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setSaunaData({});
     setOccupancyKnown(true);
     setError(null);
-    setDayStartMs(null);
     fetch(`/api/club/availability?siteId=${SITE_ID}&sessionTypeId=${LOUNGE_ST}&date=${selectedDate}`)
       .then((res) => res.json())
       .then((data) => {
-        // Day anchor for the shared sauna rotation grid (earliest window start).
-        if (Array.isArray(data.windows) && data.windows.length > 0) {
-          const starts = data.windows
-            .map((w: { start: string }) => parseMindbodyDateTime(w.start).getTime())
-            .filter((n: number) => Number.isFinite(n));
-          if (starts.length) setDayStartMs(Math.min(...starts));
-        }
-        // Preferred path: occupancy-gated slots (rolling-occupancy model).
+        // Preferred path: occupancy-gated session waves. Keep full waves in the
+        // list (rendered disabled) so the day's session times stay visible.
         if (Array.isArray(data.slots)) {
           setOccupancyKnown(data.occupancyKnown !== false);
           const meta: Record<number, { booked: number; capacity: number }> = {};
-          const available: Date[] = [];
+          const waves: Date[] = [];
           data.slots.forEach(
             (s: { start: string; booked: number; capacity: number; available: boolean }) => {
               const d = parseMindbodyDateTime(s.start);
               meta[d.getTime()] = { booked: s.booked, capacity: s.capacity };
-              if (s.available) available.push(d);
+              waves.push(d);
             }
           );
           setSlotMeta(meta);
-          setTimes(available);
+          setTimes(waves);
           // saunas: { [sessionTypeId]: { capacity, appointments } }
           const sd: Record<number, { capacity: number; appointments: ApptInterval[] }> = {};
           if (data.saunas && typeof data.saunas === "object") {
@@ -606,7 +557,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         // Fallback: ungated windows (degraded — book route still guards capacity).
         if (Array.isArray(data.windows)) {
           setOccupancyKnown(false);
-          setTimes(generateTimesFromWindows(data.windows));
+          setTimes(
+            generateTimesFromWindows(
+              data.windows,
+              SERVICE_MIN + club!.remedyLounge.bufferMinutes
+            )
+          );
           return;
         }
         setTimes([]);
@@ -1047,7 +1003,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         </div>
       )}
 
-      <div className="px-4 pt-24 md:pt-28 pb-20">
+      {/* Extra bottom padding clears the sticky CTA bar on select/sauna steps. */}
+      <div className={`px-4 pt-24 md:pt-28 ${isDarkStep ? "pb-36" : "pb-20"}`}>
         <div className="max-w-3xl mx-auto text-center">
           {/* Identity banner */}
           {memberCheckDone && clientId && ["select", "sauna", "email", "name", "card", "confirm"].includes(step) && (
@@ -1165,68 +1122,86 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 </div>
               </section>
 
-              {/* Times */}
+              {/* Session waves */}
               <section className="mb-8 md:mb-10 text-left">
-                <div className="mb-4">
-                  <h2 className="text-lg font-semibold text-white/90 text-center">Choose a Time</h2>
+                <div className="mb-1">
+                  <h2 className="text-lg font-semibold text-white/90 text-center">Choose a Session</h2>
                 </div>
-                {!loading && !error && !occupancyKnown && displayedTimes.length > 0 && (
+                <p className="text-sm text-white/40 text-center mb-5">
+                  Sessions run in {SERVICE_MIN}-minute blocks. Arrive at your start time.
+                </p>
+                {!loading && !error && !occupancyKnown && times.length > 0 && (
                   <p className="mb-4 text-center text-[11px] text-amber-300/80">
-                    Live availability is updating. These times may fill up. We&apos;ll confirm your spot at booking.
+                    Live availability is updating. These sessions may fill up. We&apos;ll confirm your spot at booking.
                   </p>
                 )}
                 {loading && <p className="text-center text-white/50">Loading…</p>}
                 {error && <p className="text-center text-red-400">{error}</p>}
-                {!loading && !error && Object.entries(groupedTimes).map(([label, group]) =>
-                  group.length > 0 ? (
-                    <div key={label} className="mb-6">
-                      <h3 className="text-xs uppercase tracking-wider text-white/40 font-semibold mb-2">{label}</h3>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
-                        {group.map((time) => {
-                          const isSelected = selectedTime?.getTime() === time.getTime();
-                          const meta = slotMeta[time.getTime()];
-                          const left = meta ? meta.capacity - meta.booked : null;
-                          const lowLeft = left != null && left <= 4 ? left : null;
-                          return (
-                            <button
-                              key={time.toISOString()}
-                              onClick={() => setSelectedTime(time)}
-                              className={`py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${isSelected ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10 scale-[1.02]" : "border-white/15 bg-white/5 hover:bg-white/10 text-white hover:-translate-y-0.5"}`}
-                            >
-                              <div className="font-semibold text-sm">{formatTime12h(time)}</div>
-                              {lowLeft != null && (
-                                <div className={`text-[10px] mt-0.5 ${isSelected ? "text-[#B4541B]" : "text-amber-300/80"}`}>
-                                  {lowLeft} left
-                                </div>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ) : null
+                {!loading && !error && (
+                  <div className="max-w-md mx-auto space-y-2.5">
+                    {times.map((time) => {
+                      const isSelected = selectedTime?.getTime() === time.getTime();
+                      const meta = slotMeta[time.getTime()];
+                      const left = meta ? meta.capacity - meta.booked : null;
+                      const full = left != null && left <= 0;
+                      return (
+                        <button
+                          key={time.toISOString()}
+                          disabled={full}
+                          onClick={() => setSelectedTime(time)}
+                          className={`w-full px-4 py-3.5 rounded-2xl border text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                            isSelected
+                              ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10"
+                              : full
+                              ? "border-white/10 bg-white/5 text-white/35 cursor-not-allowed"
+                              : "border-white/15 bg-white/5 hover:bg-white/10 text-white"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <div>
+                              <div className="font-semibold">{formatTimeRange(time, SERVICE_MIN)}</div>
+                              <div className={`text-xs mt-0.5 ${isSelected ? "text-[#113D33]/60" : "text-white/40"}`}>
+                                {SERVICE_MIN}-minute session
+                              </div>
+                            </div>
+                            {full ? (
+                              <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider">Full</span>
+                            ) : left != null && left <= 5 ? (
+                              <span className={`shrink-0 text-[11px] font-semibold ${isSelected ? "text-[#B4541B]" : "text-amber-300/80"}`}>
+                                {left} spot{left === 1 ? "" : "s"} left
+                              </span>
+                            ) : isSelected ? (
+                              <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            ) : null}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 )}
-                {!loading && !error && displayedTimes.length === 0 && (
+                {!loading && !error && times.length === 0 && (
                   <div className="text-center text-white/50">
-                    <p>No times available for this day.</p>
+                    <p>No sessions available for this day.</p>
                     <p className="mt-3 text-xs text-white/30">Try another day, or <a href={`tel:${phoneDigits}`} className="underline hover:text-white/60 transition">call {club.phone}</a>.</p>
                   </div>
                 )}
               </section>
 
-              <div className="max-w-md mx-auto">
+              <div className="max-w-md mx-auto text-center text-xs text-white/40">
+                Prefer to book with staff?{" "}
+                <a className="underline underline-offset-4 hover:text-white/70 transition" href={`tel:${phoneDigits}`}>Call {club.phone}</a>
+              </div>
+
+              <StickyFlowCTA show={!!selectedTime} dark hint={summaryText}>
                 <button
-                  disabled={!selectedTime}
                   onClick={() => { setError(null); setStep("sauna"); }}
-                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
+                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
                 >
                   Continue
                 </button>
-                <div className="mt-5 text-center text-xs text-white/40">
-                  Prefer to book with staff?{" "}
-                  <a className="underline underline-offset-4 hover:text-white/70 transition" href={`tel:${phoneDigits}`}>Call {club.phone}</a>
-                </div>
-              </div>
+              </StickyFlowCTA>
             </>
           )}
 
@@ -1296,17 +1271,18 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 })}
               </div>
 
-              <div className="max-w-md mx-auto">
+              <p className="text-center text-xs text-white/40">
+                Sauna availability is confirmed at booking. If a window is full, we&apos;ll keep your Lounge session and let you know.
+              </p>
+
+              <StickyFlowCTA show dark>
                 <button
                   onClick={advanceFromSauna}
                   className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
                 >
                   {selectedSaunaCount > 0 ? `Continue with ${selectedSaunaCount} sauna${selectedSaunaCount > 1 ? "s" : ""}` : "Skip, no sauna"}
                 </button>
-                <p className="mt-4 text-center text-xs text-white/40">
-                  Sauna availability is confirmed at booking. If a window is full, we&apos;ll keep your Lounge session and let you know.
-                </p>
-              </div>
+              </StickyFlowCTA>
             </div>
           )}
 
