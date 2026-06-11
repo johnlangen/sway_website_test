@@ -49,8 +49,7 @@ export default function ClubsBookPage() {
           Book Your Recovery Session
         </h1>
         <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
-          Choose your Denver club to get started. Sauna, cold plunge, infrared,
-          and compression therapy.
+          Choose your Denver club to get started. Traditional and infrared saunas, cold plunge, and compression therapy.
         </p>
       </section>
 

@@ -31,11 +31,11 @@ const FAQS = [
   },
   {
     q: "What's included in the Sway Remedy Lounge?",
-    a: "Access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
+    a: "Access to the traditional dry sauna, infrared sauna cabins, cold plunges, a warm soak, compression therapy, and lounge.",
   },
   {
     q: "Do I need a membership?",
-    a: "No. Drop-ins are welcome. Memberships are available at $99/mo (Founding rate, limited time) for unlimited Sway Remedy Lounge access.",
+    a: "No. Drop-ins are welcome. Unlimited Sway Remedy Lounge memberships are available at an exclusive member rate. Ask in club or call us for details.",
   },
   {
     q: "When can I book a massage?",
@@ -88,11 +88,8 @@ export default function SwayCentralParkPage() {
               Sway Wellness Spa Central Park is a recovery-led wellness club at
               2271 Clinton St. in Aurora, CO 80010, on the edge of Denver&apos;s
               Central Park neighborhood, formerly Upswell Studio. The Sway
-              Remedy Lounge is open daily with sauna, cold plunge, infrared,
-              compression therapy, and lounge access. Massage and facial
-              treatments are coming this summer. Memberships
-              are available at $99/month (Founding rate) for unlimited Sway
-              Remedy Lounge access. Existing Upswell members were carried over
+              Remedy Lounge is open daily with traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and lounge access. Massage and facial
+              treatments are coming this summer. Memberships are available for unlimited Sway Remedy Lounge access. Existing Upswell members were carried over
               automatically.
             </p>
 
@@ -104,8 +101,7 @@ export default function SwayCentralParkPage() {
 
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
               A recovery-led wellness club serving Central Park, Stapleton, and
-              northwest Aurora. Sauna, cold plunge, infrared, and compression
-              therapy in the Sway Remedy Lounge. Massage and facial treatments
+              northwest Aurora. Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Massage and facial treatments
               coming this summer.
             </p>
 
@@ -178,8 +174,7 @@ export default function SwayCentralParkPage() {
                   Sway Remedy Lounge
                 </h2>
                 <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-5 max-w-md">
-                  Sauna, cold plunge, infrared, compression therapy, and lounge
-                  access.
+                  Traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and lounge access.
                 </p>
                 <p className="text-sm sm:text-base font-medium mb-6">
                   Massage and facial treatments coming this summer.
@@ -209,8 +204,7 @@ export default function SwayCentralParkPage() {
             <p className="mt-2 text-white/80 text-sm sm:text-base max-w-2xl">
               Existing Upswell members were carried over to Sway automatically,
               so there&apos;s no action needed. Current members roll into Sway at
-              the Founding rate of $99/mo for unlimited Sway Remedy Lounge
-              access.
+              their exclusive member rate for unlimited Sway Remedy Lounge access.
             </p>
           </div>
         </div>
@@ -327,8 +321,7 @@ export default function SwayCentralParkPage() {
             Recover at Sway Central Park.
           </h3>
           <p className="text-white/75 max-w-lg mx-auto mb-7">
-            Book a Sway Remedy Lounge recovery session. Sauna, cold plunge,
-            infrared, and compression therapy.
+            Book a Sway Remedy Lounge recovery session. Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

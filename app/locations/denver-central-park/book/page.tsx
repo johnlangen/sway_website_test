@@ -13,7 +13,7 @@ export default function SwayCentralParkBookPage() {
             Book Your Sway Remedy Lounge Session
           </h1>
           <p className="mt-4 text-base sm:text-lg opacity-80">
-            Sauna, cold plunge, infrared, and compression therapy.
+            Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy.
           </p>
 
           {/* Bridge-period notice */}

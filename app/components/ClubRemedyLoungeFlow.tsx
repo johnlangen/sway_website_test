@@ -1042,7 +1042,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   The Remedy Lounge
                 </h1>
                 <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
-                  Your 75-minute recovery ritual. Cold plunge, recovery lounge, and optional 25-minute sauna sessions, all in one shared sanctuary.
+                  Your 75-minute Remedy Circuit. Cold plunge, compression therapy, recovery lounge, and optional 25-minute sauna windows, all in one shared sanctuary.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 md:mb-4 text-white">
                   <ReviewBadge />
@@ -1085,11 +1085,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 </div>
 
                 <p className="hidden sm:block mt-3 text-xs text-white/40">
-                  Want the space to yourself?{" "}
+                  Planning a birthday or corporate event?{" "}
                   <a href={`tel:${phoneDigits}`} className="underline underline-offset-4 hover:text-white/60 transition">
                     Call {club.phone}
                   </a>{" "}
-                  to ask about private sessions.
+                  to ask about private buyouts.
                 </p>
               </div>
 
@@ -1222,7 +1222,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-semibold text-white mb-2">Add a sauna to your 75</h2>
                 <p className="text-sm text-white/60">
-                  Saunas run <span className="text-white/90 font-semibold">during</span> your Remedy Lounge session in fixed 25-minute rotation windows. Pick any window during your visit, up to 2. This step is optional.
+                  Your 75 minutes, your way. Saunas run <span className="text-white/90 font-semibold">during</span> your session in fixed 25-minute windows. Reserve up to 2 to guarantee your seat, then move freely between the cold plunge and compression therapy. This step is optional.
                 </p>
                 {selectedTime && (
                   <p className="text-xs text-[#9ABFB3] mt-2">
@@ -1303,12 +1303,15 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in-up">
                 <h2 className="text-xl font-semibold mb-2 text-center">Enter your email to reserve</h2>
                 <p className="text-sm text-[#113D33]/75 mb-4 text-center">This helps us find (or create) your account.</p>
-                <div className="rounded-xl border border-[#113D33]/15 bg-white/70 p-4 mb-4">
+                <div className="rounded-xl border border-[#113D33]/15 bg-white/70 p-4 mb-3">
                   <div className="flex items-start gap-3">
                     <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                     <p className="text-sm text-[#113D33]/80 leading-relaxed">We only use your email for booking confirmation and account lookup.</p>
                   </div>
                 </div>
+                <p className="text-xs text-[#113D33]/60 mb-4">
+                  Spavia and Sway members: if this is your first visit to this location, continue as a guest. Your membership benefits will be applied at check-in.
+                </p>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} inputMode="email" autoComplete="email" aria-label="Email address" name="email" placeholder="you@email.com" className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                 {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
                 <button disabled={!selectedTime || !isValidEmail(email)} onClick={handleConfirmEmail} className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Continue</button>

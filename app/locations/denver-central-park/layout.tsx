@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     "Sway Wellness Spa · Central Park (formerly Upswell Studio) | Denver Recovery",
   description:
-    "Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. The Sway Remedy Lounge is open daily: sauna, cold plunge, infrared, and compression therapy. Massage and facial treatments coming this summer.",
+    "Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. The Sway Remedy Lounge is open daily: traditional and infrared saunas, cold plunges, a warm soak, and compression therapy. Massage and facial treatments coming this summer.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-central-park/",
   },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-central-park/",
     title: "Sway Wellness Spa · Central Park (formerly Upswell Studio)",
     description:
-      "Sauna, cold plunge, infrared, and compression therapy in the Sway Remedy Lounge. Open daily near Denver's Central Park. Massage and facials coming this summer.",
+      "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Open daily near Denver's Central Park. Massage and facials coming this summer.",
     images: [
       {
         url: "/assets/SWAY.jpg",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sway Wellness Spa · Central Park (formerly Upswell Studio)",
     description:
-      "Sauna, cold plunge, infrared, and compression therapy in the Sway Remedy Lounge. Open daily near Central Park. Massage and facials coming this summer.",
+      "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Open daily near Central Park. Massage and facials coming this summer.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: {
@@ -68,7 +68,7 @@ const localBusinessJsonLd = {
         "@type": "Service",
         name: "Sway Remedy Lounge",
         description:
-          "A recovery session with sauna, cold plunge, infrared, compression therapy, and lounge access.",
+          "A recovery session with traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and lounge access.",
       },
     },
   ],
@@ -97,7 +97,7 @@ const faqJsonLd = {
       name: "What's included in the Sway Remedy Lounge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Access to the sauna, cold plunge, infrared cabin, compression therapy, and lounge.",
+        text: "Access to the traditional dry sauna, infrared sauna cabins, cold plunges, a warm soak, compression therapy, and lounge.",
       },
     },
     {
@@ -105,7 +105,7 @@ const faqJsonLd = {
       name: "Do I need a membership?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Drop-ins are welcome. Memberships are available at $99/mo (Founding rate, limited time) for unlimited Sway Remedy Lounge access.",
+        text: "No. Drop-ins are welcome. Unlimited Sway Remedy Lounge memberships are available at an exclusive member rate. Ask in club or call us for details.",
       },
     },
     {
