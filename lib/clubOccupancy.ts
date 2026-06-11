@@ -74,6 +74,14 @@ export function peakOverlap(
 /**
  * Lay a fixed-minute grid of start times across availability windows, snapped to
  * the step boundary relative to midnight. Returns wall-clock strings.
+ *
+ * IMPORTANT: BookableEndDateTime here IS the last valid start time, because the
+ * availability route fetches bookableitems TOKEN-FREE (consumer view), where
+ * Mindbody already subtracts the service length from the schedule end. Do NOT
+ * "fix" this by subtracting the service block again. A STAFF-TOKEN bookableitems
+ * call returns schedule end minus the 5-min increment instead (e.g. 18:55 for a
+ * 19:00 close, regardless of service length) — verified against RiNo/CP on
+ * 2026-06-10, where addappointment requires appointments to END by schedule end.
  */
 export function generateSlotStarts(
   windows: { start: string; bookableEnd: string }[],

@@ -114,10 +114,12 @@ export async function POST(req: Request) {
 
   // Validate sauna selections against this club's config before any writes.
   // The saunas run as 25-min sub-sessions DURING the 75-min Lounge window. A
-  // guest can do multiple (e.g. Traditional in the first 25, Infrared in the
-  // last 25), so we dedup by start time (can't be in two saunas at once) rather
-  // than by modality. Cap at 3 (three 25-min sub-slots in a 75).
-  if (saunasRaw.length > 3) {
+  // guest can do two in any combination (e.g. Traditional then Infrared, or
+  // back-to-back Infrared), so we dedup by start time (can't be in two saunas
+  // at once) rather than by modality. Cap at 2 per the locked Lounge model: it
+  // keeps one guest from holding 3 of the scarce heat rotations while still
+  // allowing a 50-min double session.
+  if (saunasRaw.length > 2) {
     return NextResponse.json(
       { error: "Too many sauna selections" },
       { status: 400 }

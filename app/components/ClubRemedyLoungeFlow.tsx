@@ -17,9 +17,9 @@ import { parseWall, peakOverlap, type ApptInterval } from "@/lib/clubOccupancy";
    Sway Wellness Club — Remedy Lounge booking flow
    (RiNo + Central Park). Modeled on the Larimer
    Remedy Room flow, adapted for the 75-min Lounge
-   with optional 25-min sauna sub-sessions that run
-   DURING the 75. Every Mindbody call is scoped to
-   the club's own SiteId.
+   with optional 25-min sauna sub-sessions (max 2)
+   that run DURING the 75. Every Mindbody call is
+   scoped to the club's own SiteId.
 --------------------------------------------- */
 
 /* ── DATE HELPERS ── */
@@ -90,7 +90,13 @@ function groupTimes(dates: Date[]) {
   return groups;
 }
 
-/** Build 15-min-interval Lounge start times from availability windows. */
+/**
+ * Build 15-min-interval Lounge start times from availability windows (degraded
+ * fallback when the server couldn't gate by occupancy). bookableEnd IS the last
+ * valid start: the windows come from a token-free bookableitems call, where
+ * Mindbody already subtracts the service length (see lib/clubOccupancy.ts —
+ * do not subtract the service block again).
+ */
 function generateTimesFromWindows(
   windows: { start: string; bookableEnd: string }[]
 ) {
@@ -358,7 +364,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setStep("select");
   };
 
-  const memberPrice = isMember || hasRemedyMembership ? club.remedyLounge.memberPrice : club.remedyLounge.price;
+  // Pricing: club Unlimited members (Remedy membership on this site) have the
+  // Lounge included; spa-tier members (e.g. Larimer) pay the member rate;
+  // everyone else pays the drop-in rate.
+  const includedWithMembership = hasRemedyMembership;
+  const displayPrice = includedWithMembership
+    ? "Included"
+    : isMember
+    ? club.remedyLounge.memberPrice
+    : club.remedyLounge.price;
+  const bookingValue = includedWithMembership ? 0 : isMember ? 25 : 49;
 
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
@@ -687,7 +702,6 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   function reportPurchaseConversion() {
     if (typeof window === "undefined") return;
-    const bookingValue = isMember || hasRemedyMembership ? 25 : 49;
     const w = window as any;
     // No Google Ads conversion fired for club locations yet (no campaigns).
     // dataLayer only, with a club-specific flow + location for clean separation.
@@ -696,7 +710,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       event: "remedy_lounge_booking_complete",
       service_name: "Remedy Lounge",
       booking_location: club!.label,
-      price: memberPrice,
+      price: bookingValue,
       is_member: isMember || hasRemedyMembership,
       value: bookingValue,
       currency: "USD",
@@ -726,7 +740,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     };
     if (step === "done") {
       payload.service_name = "Remedy Lounge";
-      payload.total_price = isMember || hasRemedyMembership ? 25 : 49;
+      payload.total_price = bookingValue;
       payload.is_member = isMember || hasRemedyMembership;
     }
     w.dataLayer.push(payload);
@@ -1040,11 +1054,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         <div className="text-white/70 text-sm">{SERVICE_MIN} min • Shared session</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-white font-bold text-lg">{memberPrice}</div>
-                        {!(isMember || hasRemedyMembership) ? (
-                          <div className="text-white/60 text-xs">Members {club.remedyLounge.memberPrice}</div>
-                        ) : (
+                        <div className="text-white font-bold text-lg">{displayPrice}</div>
+                        {includedWithMembership ? (
+                          <div className="text-[#9ABFB3] text-xs font-semibold">With your membership</div>
+                        ) : isMember ? (
                           <div className="text-[#9ABFB3] text-xs font-semibold">Member price</div>
+                        ) : (
+                          <div className="text-white/60 text-xs">Included with membership</div>
                         )}
                       </div>
                     </div>
@@ -1171,7 +1187,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-semibold text-white mb-2">Add a sauna to your 75</h2>
                 <p className="text-sm text-white/60">
-                  Saunas run <span className="text-white/90 font-semibold">during</span> your Remedy Lounge session. Pick a 25-minute window for each sauna you want. This step is optional.
+                  Saunas run <span className="text-white/90 font-semibold">during</span> your Remedy Lounge session. Pick a 25-minute window for each sauna you want, up to 2 per visit. This step is optional.
                 </p>
                 {selectedTime && (
                   <p className="text-xs text-[#9ABFB3] mt-2">
@@ -1207,17 +1223,21 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           const booked = slotStart ? saunaBookedAt(s.sessionTypeId, slotStart) : 0;
                           const isChosen = choice === s.key;
                           const full = booked >= s.capacity;
+                          // Cap at 2 sauna sessions per visit (locked Lounge model).
+                          // Windows that already have a choice stay swappable.
+                          const capReached = selectedSaunaCount >= 2 && choice === null;
                           const seatsLeft = Math.max(0, s.capacity - booked);
+                          const blocked = (full || capReached) && !isChosen;
                           return (
                             <button
                               key={s.key}
-                              disabled={full && !isChosen}
+                              disabled={blocked}
                               onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? s.key : c)))}
-                              className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-white text-[#113D33] border-white" : full ? "border-white/10 bg-white/5 text-white/30 cursor-not-allowed" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
+                              className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-white text-[#113D33] border-white" : blocked ? "border-white/10 bg-white/5 text-white/30 cursor-not-allowed" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
                             >
                               <div>{s.key === "traditional" ? "Traditional" : "Infrared"}</div>
                               <div className="text-[10px] font-normal mt-0.5 opacity-70">
-                                {full ? "Full" : `${seatsLeft} left`}
+                                {full ? "Full" : capReached && !isChosen ? "Max 2 per visit" : `${seatsLeft} left`}
                               </div>
                             </button>
                           );
@@ -1390,11 +1410,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         )}
                       </div>
                       <div className="text-right text-[#113D33]">
-                        <div className="text-sm font-semibold">{memberPrice}</div>
-                        {(isMember || hasRemedyMembership) ? (
+                        <div className="text-sm font-semibold">{displayPrice}</div>
+                        {includedWithMembership ? (
+                          <div className="text-xs text-[#4A776D] font-semibold">With your membership</div>
+                        ) : isMember ? (
                           <div className="text-xs text-[#4A776D] font-semibold">Member price</div>
                         ) : (
-                          <div className="text-xs opacity-70">Members {club.remedyLounge.memberPrice}</div>
+                          <div className="text-xs opacity-70">Included with membership</div>
                         )}
                       </div>
                     </div>
