@@ -9,53 +9,6 @@ import GoogleReviews, {
   ClassPassBadge,
 } from "../../../components/GoogleReviews";
 import { SwayCurve } from "../../../components/SwayCurve";
-import MembershipJoinFlow, {
-  type MembershipPlan,
-} from "../../../components/MembershipJoinFlow";
-
-/* ------------------------------------------------------------------
-   NATIVE JOIN FLOW: Mindbody contract IDs (verified live 2026-06-10,
-   scripts/list-contracts.mjs). Purchase happens on-site via
-   /api/membership/purchase — no Mindbody-hosted page.
------------------------------------------------------------------- */
-
-const joinPlans: Record<string, MembershipPlan> = {
-  essential: {
-    key: "essential",
-    contractId: 122,
-    name: "Essential",
-    price: 99,
-    blurb: "1 signature facial or massage per month, plus all member perks.",
-  },
-  premier: {
-    key: "premier",
-    contractId: 123,
-    name: "Premier",
-    price: 129,
-    blurb: "1 targeted facial or massage per month, plus all member perks.",
-  },
-  ultimate: {
-    key: "ultimate",
-    contractId: 124,
-    name: "Ultimate",
-    price: 159,
-    blurb: "1 tech-enhanced facial or massage per month, plus all member perks.",
-  },
-  aescape: {
-    key: "aescape",
-    contractId: 111,
-    name: "Aescape",
-    price: 99,
-    blurb: "4x30 min or 2x60 min Aescape sessions per month.",
-  },
-  remedy: {
-    key: "remedy",
-    contractId: 102,
-    name: "Remedy Room",
-    price: 99,
-    blurb: "4 Remedy Room recovery circuit visits per month.",
-  },
-};
 
 /* ------------------------------------------------------------------
    TIER DATA: all treatments now have durations
@@ -230,11 +183,8 @@ function durationClass(duration: string) {
 export default function MembershipPage() {
   const [selectedTier, setSelectedTier] = useState("premier");
   const [boostsOpen, setBoostsOpen] = useState(false);
-  // Which membership the join modal is open for (null = closed).
-  const [joinKey, setJoinKey] = useState<string | null>(null);
 
   const activeTier = tiers.find((t) => t.key === selectedTier)!;
-  const joinPlan = joinKey ? joinPlans[joinKey] : null;
 
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
@@ -475,12 +425,14 @@ export default function MembershipPage() {
                 </div>
 
                 {/* CTA */}
-                <button
-                  onClick={() => setJoinKey(activeTier.key)}
+                <a
+                  href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                 >
                   Join {activeTier.name} &middot; {activeTier.price}/mo
-                </button>
+                </a>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -572,12 +524,12 @@ export default function MembershipPage() {
                 <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider">
                   {m.details}
                 </p>
-                <button
-                  onClick={() => setJoinKey(m.key)}
+                <a
+                  href="tel:+13034766150"
                   className="mt-4 block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
                 >
                   Become a Member &middot; {m.price}/mo
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}
@@ -721,24 +673,28 @@ export default function MembershipPage() {
             An inclusive club built around recovery, longevity, and feeling
             good in your body.
           </p>
-          <button
-            onClick={() => setJoinKey(selectedTier)}
+          <a
+            href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
           >
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
               <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
             </span>
             Join the Club
-          </button>
+          </a>
         </div>
       </section>
 
       {/* Sticky mobile Join bar — keeps the join action reachable through the
           long scroll. Hidden on desktop. Right padding clears the chat widget. */}
       <div className="h-24 md:hidden" aria-hidden="true" />
-      <button
-        onClick={() => setJoinKey(selectedTier)}
-        className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-white/10 bg-[#0b1f1a]/95 backdrop-blur pl-4 pr-20 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-left"
+      <a
+        href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-white/10 bg-[#0b1f1a]/95 backdrop-blur pl-4 pr-20 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
       >
         <span className="leading-tight min-w-0">
           <span className="block text-[10px] uppercase tracking-[0.15em] text-[#9ABFB3]">
@@ -752,17 +708,7 @@ export default function MembershipPage() {
         <span className="shrink-0 rounded-full bg-white text-[#113D33] px-7 py-2.5 text-sm font-semibold">
           Join
         </span>
-      </button>
-
-      {/* NATIVE JOIN FLOW MODAL */}
-      <AnimatePresence>
-        {joinPlan && (
-          <MembershipJoinFlow
-            plan={joinPlan}
-            onClose={() => setJoinKey(null)}
-          />
-        )}
-      </AnimatePresence>
+      </a>
     </div>
   );
 }
