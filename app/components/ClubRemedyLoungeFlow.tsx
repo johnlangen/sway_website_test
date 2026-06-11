@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { SwayCurve } from "./SwayCurve";
 import { ReviewBadge } from "./GoogleReviews";
 import { StickyFlowCTA } from "./StickyFlowCTA";
+import { HideFloatingWidgets } from "./HideFloatingWidgets";
 import {
   getClubLocation,
   type ClubLocationKey,
@@ -973,6 +974,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   return (
     <div className={`min-h-screen font-vance snap-none ${isDarkStep ? "bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" : "bg-[#F7F4E9]"}`}>
+      <HideFloatingWidgets />
       {showHeader && (
         <div
           data-booking-header="true"
@@ -1027,21 +1029,30 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
           {/* SELECT */}
           {step === "select" && (
             <>
-              <div className="mb-10 md:mb-12">
-                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
+              {/* Hero. On mobile this stays intentionally short (eyebrow,
+                  heading, reviews, price line) so the day/session picker is
+                  reachable without scrolling; the amenity pills, photo card,
+                  and private-session note are desktop-only. */}
+              <div className="mb-6 md:mb-12">
+                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-3 md:mb-4">
                   Sway Wellness Club · {club.label}
                 </p>
-                <SwayCurve width={150} strokeWidth={2.2} animate className="text-[#A9D2C5] mx-auto block mb-5" />
-                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4 leading-tight">
+                <SwayCurve width={150} strokeWidth={2.2} animate className="hidden sm:block text-[#A9D2C5] mx-auto mb-5" />
+                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-3 md:mb-4 leading-tight">
                   The Remedy Lounge
                 </h1>
-                <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
+                <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
                   Your 75-minute recovery ritual. Cold plunge, recovery lounge, and optional 25-minute sauna sessions, all in one shared sanctuary.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 text-white">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 md:mb-4 text-white">
                   <ReviewBadge />
                 </div>
-                <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
+                {/* Compact mobile price line (replaces the photo card below). */}
+                <p className="sm:hidden text-sm text-white/70 mb-1">
+                  {SERVICE_MIN} min · Shared session · <span className="font-semibold text-white">{displayPrice}</span>
+                  {!includedWithMembership && !isMember && <span className="text-white/50"> · Included with membership</span>}
+                </p>
+                <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6">
                   {["Cold Plunge", "Traditional Sauna", "Infrared Sauna", "Recovery Lounge"].map((tag) => (
                     <span key={tag} className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 text-xs text-white/80">
                       <IconSpark className="w-3 h-3 text-[#9ABFB3]" />
@@ -1050,7 +1061,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   ))}
                 </div>
 
-                <div className="max-w-lg mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
+                <div className="hidden sm:block max-w-lg mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
                   <div className="relative h-48 w-full">
                     <ImageCarousel images={club.loungeImages} alt={`Remedy Lounge ${club.label}`} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -1073,7 +1084,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   </div>
                 </div>
 
-                <p className="mt-3 text-xs text-white/40">
+                <p className="hidden sm:block mt-3 text-xs text-white/40">
                   Want the space to yourself?{" "}
                   <a href={`tel:${phoneDigits}`} className="underline underline-offset-4 hover:text-white/60 transition">
                     Call {club.phone}
@@ -1082,7 +1093,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 </p>
               </div>
 
-              <div className="mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
+              <div className="hidden sm:block mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
                 <div className="text-xs uppercase tracking-wider text-[#9ABFB3] mb-1">Your selection</div>
                 <div className="font-semibold text-white">{summaryText ?? "Select a day and time to continue."}</div>
               </div>

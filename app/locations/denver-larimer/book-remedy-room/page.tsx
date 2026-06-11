@@ -8,6 +8,7 @@ import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
+import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 /* ---------------------------------------------
    REMEDY ROOM SESSION OPTIONS
@@ -1290,6 +1291,7 @@ export default function BookRemedyRoomPage() {
 
   return (
     <div className={`min-h-screen font-vance snap-none ${isDarkStep ? "bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" : "bg-[#F7F4E9]"}`}>
+      <HideFloatingWidgets />
       {showHeader && (
         <div
           data-booking-header="true"
@@ -1354,30 +1356,38 @@ export default function BookRemedyRoomPage() {
           {/* Hero + session card + summary — only on select step */}
           {step === "select" && (
             <>
-              {/* Dark immersive hero */}
-              <div className="mb-10 md:mb-12">
-                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
+              {/* Dark immersive hero. On mobile this stays intentionally short
+                  (eyebrow, heading, reviews, price line) so the day/time picker
+                  is reachable without scrolling; the pills, photo card, and
+                  secondary links are desktop-only. */}
+              <div className="mb-6 md:mb-12">
+                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-3 md:mb-4">
                   Sway Wellness Spa
                 </p>
                 <SwayCurve
                   width={150}
                   strokeWidth={2.2}
                   animate
-                  className="text-[#A9D2C5] mx-auto block mb-5"
+                  className="hidden sm:block text-[#A9D2C5] mx-auto mb-5"
                 />
-                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4 leading-tight">
+                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-3 md:mb-4 leading-tight">
                   The Remedy Room
                 </h1>
-                <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
+                <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
                   Science-backed recovery in a shared sanctuary. Cold plunge, sauna, LED therapy, and lymphatic compression, all in one 40-minute session.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 text-white">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 md:mb-4 text-white">
                   <ReviewBadge />
                   <span className="hidden sm:block opacity-30">|</span>
-                  <ClassPassBadge />
+                  <span className="hidden sm:block"><ClassPassBadge /></span>
                 </div>
+                {/* Compact mobile price line (replaces the photo card below). */}
+                <p className="sm:hidden text-sm text-white/70 mb-1">
+                  {selectedOption.minutes} min · Shared session · <span className="font-semibold text-white">{memberPrice}</span>
+                  {!(isMember || hasRemedyMembership) && <span className="text-white/50"> · Members $25</span>}
+                </p>
 
-                <div className="flex items-center justify-center gap-2 flex-wrap mb-6">
+                <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6">
                   {["Cold Plunge", "Sauna", "LED Therapy", "Compression"].map((tag) => (
                     <span
                       key={tag}
@@ -1390,7 +1400,7 @@ export default function BookRemedyRoomPage() {
                 </div>
 
                 {/* Session image + pricing */}
-                <div className="max-w-lg mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
+                <div className="hidden sm:block max-w-lg mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
                   <div className="relative h-48 w-full">
                     <ImageCarousel
                       images={[
@@ -1418,7 +1428,7 @@ export default function BookRemedyRoomPage() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-center gap-4 text-sm">
+                <div className="hidden sm:flex mt-4 items-center justify-center gap-4 text-sm">
                   <Link
                     href="/remedy-tech"
                     className="text-gray-400 underline underline-offset-4 hover:text-white transition"
@@ -1433,7 +1443,7 @@ export default function BookRemedyRoomPage() {
                   </Link>
                 </div>
 
-                <p className="mt-3 text-xs text-white/40">
+                <p className="hidden sm:block mt-3 text-xs text-white/40">
                   Want the room to yourself?{" "}
                   <a href="tel:3034766150" className="underline underline-offset-4 hover:text-white/60 transition">
                     Call (303) 476-6150
@@ -1442,8 +1452,8 @@ export default function BookRemedyRoomPage() {
                 </p>
               </div>
 
-              {/* Selection summary */}
-              <div className="mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
+              {/* Selection summary (mobile gets the same info in the sticky bar) */}
+              <div className="hidden sm:block mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
                 <div className="text-xs uppercase tracking-wider text-[#9ABFB3] mb-1">
                   Your selection
                 </div>

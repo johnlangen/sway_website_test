@@ -8,6 +8,7 @@ import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
+import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -1255,6 +1256,7 @@ export default function BookAescapePage() {
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance snap-none">
+      <HideFloatingWidgets />
       {/* Sticky top flow header */}
       {showHeader && (
         <div
@@ -1308,30 +1310,33 @@ export default function BookAescapePage() {
           {/* Hero — only on select step */}
           {step === "select" && (
             <>
-              <div className="mb-10 md:mb-12">
-                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4 animate-fade-in">
+              {/* Hero. Kept intentionally short on mobile (eyebrow, heading,
+                  reviews) so the session cards are reachable without
+                  scrolling; the pills and secondary links are desktop-only. */}
+              <div className="mb-6 md:mb-12">
+                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-3 md:mb-4 animate-fade-in">
                   Sway Wellness Spa
                 </p>
                 <SwayCurve
                   width={150}
                   strokeWidth={2.2}
                   animate
-                  className="text-[#4A776D]/85 mx-auto block mb-5 animate-fade-in"
+                  className="hidden sm:block text-[#4A776D]/85 mx-auto mb-5 animate-fade-in"
                 />
-                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-4 leading-tight animate-fade-in-up">
+                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-3 md:mb-4 leading-tight animate-fade-in-up">
                   Aescape Robot Massage
                 </h1>
-                <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
+                <p className="hidden sm:block text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
                   AI-powered precision massage that adapts to your body in real time.
                   Choose your session and reserve in under a minute.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 animate-fade-in-up" style={{ animationDelay: "75ms" }}>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 md:mb-4 animate-fade-in-up" style={{ animationDelay: "75ms" }}>
                   <ReviewBadge />
                   <span className="hidden sm:block opacity-30">|</span>
-                  <ClassPassBadge />
+                  <span className="hidden sm:block"><ClassPassBadge /></span>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 flex-wrap mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+                <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
                   {["AI-Guided", "Personalized Pressure", "Zero Wait", "No Tipping"].map((tag) => (
                     <span
                       key={tag}
@@ -1343,7 +1348,7 @@ export default function BookAescapePage() {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-center gap-4 text-sm animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                <div className="hidden sm:flex items-center justify-center gap-4 text-sm animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   <Link
                     href="/aescape"
                     className="text-[#113D33]/65 underline underline-offset-4 hover:text-[#113D33] transition"
