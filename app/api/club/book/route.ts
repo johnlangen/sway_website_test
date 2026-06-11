@@ -152,6 +152,20 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    // Sauna windows must sit fully inside the guest's member-facing Lounge time.
+    const loungeStartMs = parseWall(startDateTime);
+    const saunaStartMs = parseWall(sel.startDateTime);
+    if (
+      !Number.isFinite(saunaStartMs) ||
+      saunaStartMs < loungeStartMs ||
+      saunaStartMs + sauna.minutes * 60_000 >
+        loungeStartMs + club.remedyLounge.serviceMinutes * 60_000
+    ) {
+      return NextResponse.json(
+        { error: "Sauna time is outside the Lounge session" },
+        { status: 400 }
+      );
+    }
     seenStart.add(sel.startDateTime);
     saunaBookings.push({ sauna, startDateTime: sel.startDateTime });
   }
@@ -229,6 +243,10 @@ export async function POST(req: Request) {
     });
 
     if (!lounge.ok) {
+      console.error(
+        `[club book] lounge booking failed (site ${siteId}, ${startDateTime}):`,
+        JSON.stringify(lounge.data?.Error ?? lounge.data).slice(0, 500)
+      );
       return NextResponse.json(
         { error: "Lounge booking failed", details: lounge.data },
         { status: lounge.status }
@@ -256,17 +274,36 @@ export async function POST(req: Request) {
       const saunaAppts = saunaOccupancy.get(sauna.sessionTypeId);
       if (saunaAppts) {
         const sStart = parseWall(saunaStart);
-        const sBooked = peakOverlap(
-          saunaAppts,
-          sStart,
-          sStart + sauna.minutes * 60_000
-        );
+        const sEnd = sStart + sauna.minutes * 60_000;
+        const sBooked = peakOverlap(saunaAppts, sStart, sEnd);
         if (sBooked >= sauna.capacity) {
           saunaResults.push({
             key: sauna.key,
             label: sauna.label,
             success: false,
             error: "That sauna window is full",
+          });
+          continue;
+        }
+        // Mindbody rejects an appointment whose window CROSSES the start of an
+        // existing one on the same resource ("must start on an active time"),
+        // while same-start stacking and starting inside an existing one are
+        // allowed (verified live 2026-06-10). The client snaps windows to a
+        // shared rotation grid so this should not happen, but skip gracefully
+        // (Lounge still books) instead of letting Mindbody 400.
+        const crossesStart = saunaAppts.some((a) => {
+          const aStart = parseWall(a.start);
+          return aStart > sStart && aStart < sEnd;
+        });
+        if (crossesStart) {
+          console.error(
+            `[club book] sauna window ${saunaStart} (${sauna.label}) crosses an existing appointment start; skipping`
+          );
+          saunaResults.push({
+            key: sauna.key,
+            label: sauna.label,
+            success: false,
+            error: "That sauna window is no longer available",
           });
           continue;
         }
@@ -282,6 +319,12 @@ export async function POST(req: Request) {
         startDateTime: saunaStart,
         sendEmail: false,
       });
+      if (!r.ok) {
+        console.error(
+          `[club book] sauna booking failed (site ${siteId}, ${sauna.label} @ ${saunaStart}):`,
+          JSON.stringify(r.data?.Error ?? r.data).slice(0, 500)
+        );
+      }
       saunaResults.push({
         key: sauna.key,
         label: sauna.label,

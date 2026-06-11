@@ -135,7 +135,8 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
       price: "$49",
       memberPrice: "$25",
     },
-    loungeImages: ["/assets/centralpark1.png", "/assets/centralpark2.png"],
+    // .jpg, not .png: the June audit re-encoded these (commit 4b86ec6).
+    loungeImages: ["/assets/centralpark1.jpg", "/assets/centralpark2.jpg"],
     // NOTE: Central Park has Infrared/Traditional SWAPPED vs RiNo.
     // CP: ST 133 = Infrared (staff 100000003), ST 134 = Traditional (staff 100000004).
     saunas: [

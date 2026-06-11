@@ -304,6 +304,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   // False when the availability route couldn't read live occupancy (degraded to
   // ungated times). Drives a soft, non-blocking notice on the time picker.
   const [occupancyKnown, setOccupancyKnown] = useState(true);
+  // Schedule open (ms) for the selected day, from the availability windows.
+  // Anchors the FIXED 25-min sauna rotation grid shared by all guests: Mindbody
+  // rejects a sauna appointment whose window CROSSES the start of an existing
+  // one ("must start on an active time"), but stacks same-start appointments
+  // fine. Guest-relative windows collide as soon as two lounge starts differ,
+  // so all sauna windows snap to this shared grid instead (verified live
+  // 2026-06-10, appts 38/42/43).
+  const [dayStartMs, setDayStartMs] = useState<number | null>(null);
   // Bumped to force an availability re-fetch (e.g. after a slot fills mid-booking).
   const [availabilityNonce, setAvailabilityNonce] = useState(0);
 
@@ -402,6 +410,39 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     () => saunaChoices.filter((c) => c !== null).length,
     [saunaChoices]
   );
+
+  /* Sauna rotation windows offered for the selected lounge time: the fixed
+     25-min grid windows (anchored at the day's schedule open) that fit fully
+     inside the guest's 75. Yields 3 windows when the lounge start is on the
+     grid, otherwise 2. Falls back to guest-relative windows if the anchor is
+     unknown (degraded availability). */
+  const saunaWindows = useMemo(() => {
+    if (!selectedTime) return [] as Date[];
+    const step = SUB_SLOT_MIN * 60_000;
+    const sessionEnd = selectedTime.getTime() + SERVICE_MIN * 60_000;
+    if (dayStartMs == null) {
+      return Array.from(
+        { length: SUB_SLOTS },
+        (_, i) => new Date(selectedTime.getTime() + i * step)
+      );
+    }
+    const out: Date[] = [];
+    let k = Math.ceil((selectedTime.getTime() - dayStartMs) / step);
+    if (k < 0) k = 0;
+    while (out.length < SUB_SLOTS) {
+      const start = dayStartMs + k * step;
+      if (start + step > sessionEnd) break;
+      if (start >= selectedTime.getTime()) out.push(new Date(start));
+      k++;
+    }
+    return out;
+  }, [selectedTime, dayStartMs, SERVICE_MIN, SUB_SLOTS, SUB_SLOT_MIN]);
+
+  /* Window times shift whenever the lounge time changes; stale picks must not
+     carry over to different wall-clock windows. */
+  useEffect(() => {
+    setSaunaChoices(Array.from({ length: SUB_SLOTS }, () => null));
+  }, [selectedTime, SUB_SLOTS]);
 
   const stepTitle = useMemo(() => {
     if (step === "select") return "Choose your time";
@@ -527,9 +568,17 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setSaunaData({});
     setOccupancyKnown(true);
     setError(null);
+    setDayStartMs(null);
     fetch(`/api/club/availability?siteId=${SITE_ID}&sessionTypeId=${LOUNGE_ST}&date=${selectedDate}`)
       .then((res) => res.json())
       .then((data) => {
+        // Day anchor for the shared sauna rotation grid (earliest window start).
+        if (Array.isArray(data.windows) && data.windows.length > 0) {
+          const starts = data.windows
+            .map((w: { start: string }) => parseMindbodyDateTime(w.start).getTime())
+            .filter((n: number) => Number.isFinite(n));
+          if (starts.length) setDayStartMs(Math.min(...starts));
+        }
         // Preferred path: occupancy-gated slots (rolling-occupancy model).
         if (Array.isArray(data.slots)) {
           setOccupancyKnown(data.occupancyKnown !== false);
@@ -619,12 +668,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   function buildSaunaPayload() {
     if (!selectedTime) return [];
     const out: { sessionTypeId: number; startDateTime: string }[] = [];
-    saunaChoices.forEach((choice, i) => {
+    saunaWindows.forEach((slotStart, i) => {
+      const choice = saunaChoices[i];
       if (!choice) return;
       const sauna = club!.saunas.find((s) => s.key === choice);
       if (!sauna) return;
-      const start = new Date(selectedTime.getTime() + i * SUB_SLOT_MIN * 60_000);
-      out.push({ sessionTypeId: sauna.sessionTypeId, startDateTime: formatLocalDateTime(start) });
+      out.push({ sessionTypeId: sauna.sessionTypeId, startDateTime: formatLocalDateTime(slotStart) });
     });
     return out;
   }
@@ -644,8 +693,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       timeZone: "America/Denver",
       month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true,
     });
-    const saunaLabels = saunaChoices
-      .map((c, i) => (c ? `${club!.saunas.find((s) => s.key === c)?.label} (slot ${i + 1})` : null))
+    const saunaLabels = saunaWindows
+      .map((w, i) => (saunaChoices[i] ? `${club!.saunas.find((s) => s.key === saunaChoices[i])?.label} (${formatTime12h(w)})` : null))
       .filter(Boolean)
       .join(", ");
     const noteParts: string[] = [
@@ -1187,7 +1236,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-semibold text-white mb-2">Add a sauna to your 75</h2>
                 <p className="text-sm text-white/60">
-                  Saunas run <span className="text-white/90 font-semibold">during</span> your Remedy Lounge session. Pick a 25-minute window for each sauna you want, up to 2 per visit. This step is optional.
+                  Saunas run <span className="text-white/90 font-semibold">during</span> your Remedy Lounge session in fixed 25-minute rotation windows. Pick any window during your visit, up to 2. This step is optional.
                 </p>
                 {selectedTime && (
                   <p className="text-xs text-[#9ABFB3] mt-2">
@@ -1197,8 +1246,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               </div>
 
               <div className="space-y-3 mb-8">
-                {Array.from({ length: SUB_SLOTS }, (_, i) => {
-                  const slotStart = selectedTime ? new Date(selectedTime.getTime() + i * SUB_SLOT_MIN * 60_000) : null;
+                {saunaWindows.map((slotStart, i) => {
                   const choice = saunaChoices[i];
                   return (
                     <div key={i} className="rounded-2xl border border-white/10 bg-white/5 p-4">
@@ -1400,10 +1448,10 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         <div className="text-sm text-[#113D33]/70 mt-1">{SERVICE_MIN} min</div>
                         {selectedSaunaCount > 0 && (
                           <ul className="mt-2 space-y-0.5">
-                            {saunaChoices.map((c, i) => c ? (
+                            {saunaWindows.map((slotStart, i) => saunaChoices[i] ? (
                               <li key={i} className="text-xs text-[#4A776D] font-medium">
-                                + {club.saunas.find((s) => s.key === c)?.label}
-                                {selectedTime && ` · ${formatTime12h(new Date(selectedTime.getTime() + i * SUB_SLOT_MIN * 60_000))}`}
+                                + {club.saunas.find((s) => s.key === saunaChoices[i])?.label}
+                                {` · ${formatTime12h(slotStart)}`}
                               </li>
                             ) : null)}
                           </ul>
