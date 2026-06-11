@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getClosingHour } from "@/lib/locationHours";
+import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 
@@ -854,7 +855,9 @@ function BookServicePage() {
       );
     }
 
-    if (!filteredTherapist) return base;
+    // No therapist filter: collapse same-time slots and rotate the assignee
+    // so ties don't always go to the lowest staff ID
+    if (!filteredTherapist) return rotateSameTimeSlots(base);
     return base.filter((s) => s.staffId === filteredTherapist);
   }, [slots, filteredSlots, filteredTherapist, totalExtMinutes, requiredResourceIds]);
 

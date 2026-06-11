@@ -8,6 +8,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 import { getClosingHour } from "@/lib/locationHours";
+import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import { getClubLocation, type ClubLocationKey } from "@/lib/clubLocations";
 
 /* ================================================================
@@ -647,6 +648,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
     const req = selectedBoosts.map((b) => b.resourceId).filter((r): r is number => r !== undefined);
     const hasResourceData = s.some((sl) => sl.availableResourceIds.length > 0);
     if (req.length > 0 && hasResourceData) s = s.filter((sl) => req.every((r) => sl.availableResourceIds.includes(r)));
+    // No therapist filter: collapse same-time slots and rotate the assignee
+    // so ties don't always go to the lowest staff ID
+    if (filteredTherapist === null) s = rotateSameTimeSlots(s);
     return s;
   })();
 
