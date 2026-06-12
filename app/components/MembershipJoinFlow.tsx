@@ -486,9 +486,11 @@ export default function MembershipJoinFlow({
       aria-modal="true"
       aria-label={`Join ${plan.name} membership`}
     >
-      {/* Backdrop */}
+      {/* Backdrop. Plain dim, no backdrop-blur: blurring the full viewport
+          (hero images + running framer animations underneath) forces
+          continuous GPU compositing and visibly slowed machines in testing. */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70"
         onClick={loading ? undefined : onClose}
       />
 
