@@ -18,7 +18,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Lock, X } from "lucide-react";
+import { Check, ChevronDown, Lock, X } from "lucide-react";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
 
 export type MembershipPlan = {
@@ -136,6 +136,7 @@ export default function MembershipJoinFlow({
   >(null);
 
   const [savedLastFour, setSavedLastFour] = useState<string | null>(null);
+  const [termsOpen, setTermsOpen] = useState(false);
   // Returning members with a card on file skip the details step; the
   // progress indicator collapses to match (steps must map 1:1 to reality).
   const [showDetailsStep, setShowDetailsStep] = useState(true);
@@ -851,14 +852,41 @@ export default function MembershipJoinFlow({
                     </div>
                   )}
 
+                  {/* Terms behind a disclosure, not a forced wall of legalese
+                      at the decision point (clickwrap pattern: terms one tap
+                      away before agreeing is enough — almost nobody reads
+                      them, but the block itself adds commitment anxiety). */}
                   {terms && (
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#4A776D] mb-1.5">
-                        Membership terms
-                      </p>
-                      <div className="max-h-36 overflow-y-auto rounded-xl border border-[#113D33]/10 p-3 text-[11px] leading-relaxed text-[#113D33]/70 whitespace-pre-wrap">
-                        {terms}
-                      </div>
+                    <div className="rounded-xl border border-[#113D33]/10">
+                      <button
+                        type="button"
+                        onClick={() => setTermsOpen(!termsOpen)}
+                        aria-expanded={termsOpen}
+                        className="w-full flex items-center justify-between gap-2 px-3 py-2.5 text-xs font-semibold text-[#4A776D]"
+                      >
+                        View membership terms
+                        <motion.span
+                          animate={{ rotate: termsOpen ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronDown className="w-3.5 h-3.5" />
+                        </motion.span>
+                      </button>
+                      <AnimatePresence>
+                        {termsOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="max-h-40 overflow-y-auto border-t border-[#113D33]/10 p-3 text-[11px] leading-relaxed text-[#113D33]/70 whitespace-pre-wrap">
+                              {terms}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   )}
 
