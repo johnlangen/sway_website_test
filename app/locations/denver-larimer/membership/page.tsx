@@ -304,7 +304,7 @@ export default function MembershipPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/75 via-[#113D33]/55 to-[#0b1f1a]" />
 
-        <div className="relative px-6 pt-28 md:pt-36 pb-8 text-center max-w-5xl mx-auto">
+        <div className="relative px-6 pt-28 md:pt-36 pb-10 md:pb-14 text-center max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -388,7 +388,7 @@ export default function MembershipPage() {
       {/* ============================================================
           SPA MEMBERSHIPS: 3 COMPACT CARDS + TREATMENT DETAIL PANEL
       ============================================================ */}
-      <section id="spa-memberships" className="scroll-mt-28 px-4 sm:px-6 pt-10 pb-4">
+      <section id="spa-memberships" className="scroll-mt-28 px-4 sm:px-6 pt-12 md:pt-16 pb-6">
         <div className="text-center mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
             Choose Your Tier
@@ -413,9 +413,9 @@ export default function MembershipPage() {
           className="max-w-2xl mx-auto [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
           style={{ willChange: "transform, opacity" }}
         >
-          <div className="bg-white text-[#113D33] rounded-2xl shadow-2xl p-5 md:p-7">
+          <div className="bg-white text-[#113D33] rounded-2xl shadow-2xl ring-1 ring-white/10 p-5 md:p-7">
             {/* Tier switcher with prices (comparison) */}
-            <div className="grid grid-cols-3 gap-1.5 rounded-2xl bg-[#113D33]/8 p-1.5">
+            <div className="grid grid-cols-3 gap-1.5 rounded-2xl bg-[#113D33]/10 p-1.5">
               {tiers.map((tier) => {
                 const isSel = selectedTier === tier.key;
                 return (
@@ -556,32 +556,32 @@ export default function MembershipPage() {
       </section>
 
       {/* ALL-MEMBER PERKS: always visible */}
-      <section className="px-4 sm:px-6 py-4">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-center text-xs uppercase tracking-wider text-gray-500 mb-3">
-            Every member gets
+      <section className="px-4 sm:px-6 py-8 md:py-10">
+        <div className="max-w-2xl mx-auto rounded-2xl bg-white/[0.06] border border-white/10 shadow-xl px-6 py-7 md:px-8">
+          <p className="text-center text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-5">
+            Every Member Gets
           </p>
-          <p className="text-center text-xs text-gray-400 mb-4">
-            Your membership works at all Sway and Spavia locations nationwide.
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
             {memberPerks.map((perk, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-white/90 bg-white/10 border border-white/10 rounded-full px-3.5 py-2"
+                className="flex items-center gap-2.5 text-sm text-white/90"
               >
-                <Check className="w-3.5 h-3.5 text-[#9ABFB3]" />
+                <Check className="w-4 h-4 text-[#9ABFB3] shrink-0" />
                 {perk}
               </span>
             ))}
           </div>
+          <p className="mt-5 pt-4 border-t border-white/10 text-center text-xs text-gray-400">
+            Your membership works at all Sway and Spavia locations nationwide.
+          </p>
         </div>
       </section>
 
       {/* ============================================================
           RECOVERY & TECH MEMBERSHIPS
       ============================================================ */}
-      <section className="px-4 sm:px-6 pt-10 pb-8">
+      <section className="px-4 sm:px-6 pt-12 md:pt-16 pb-10">
         <div className="text-center mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
             Beyond the Basics
@@ -606,7 +606,7 @@ export default function MembershipPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="scroll-mt-28 bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden"
+              className="scroll-mt-28 bg-white/[0.06] rounded-2xl border border-white/10 shadow-xl overflow-hidden"
             >
               <div className="relative h-44 w-full">
                 <Image
@@ -757,7 +757,7 @@ export default function MembershipPage() {
       {/* ============================================================
           MEMBERSHIP FAQ — objection handling, terms stated plainly
       ============================================================ */}
-      <section className="px-4 sm:px-6 pt-8 pb-4">
+      <section className="px-4 sm:px-6 pt-12 md:pt-16 pb-6">
         <div className="text-center mb-7">
           <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
             The Fine Print, Minus the Fine Print
@@ -819,7 +819,7 @@ export default function MembershipPage() {
       </section>
 
       {/* PHONE CTA BAR */}
-      <section className="px-4 sm:px-6 py-8">
+      <section className="px-4 sm:px-6 py-10 md:py-12">
         <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center border border-white/10">
           <p className="text-sm text-[#9ABFB3] uppercase tracking-widest mb-2">
             Have questions?
