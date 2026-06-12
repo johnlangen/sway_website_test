@@ -29,7 +29,7 @@ export type MembershipPlan = {
   blurb: string; // one-line inclusion summary shown in the flow
 };
 
-type Step = "email" | "details" | "confirm" | "done";
+type Step = "email" | "already" | "details" | "confirm" | "done";
 
 // Spa-tier member perks, shown on the review step as a final value reminder.
 // Spa tiers only — Aescape/Remedy perks differ.
@@ -137,6 +137,14 @@ export default function MembershipJoinFlow({
 
   const [savedLastFour, setSavedLastFour] = useState<string | null>(null);
   const [termsOpen, setTermsOpen] = useState(false);
+  // Set when the email already carries an equivalent active membership
+  // (local or cross-regional, e.g. a Spavia home spa). We warn before they
+  // buy a duplicate — memberships work at all Sway/Spavia locations.
+  const [existingMembership, setExistingMembership] = useState<{
+    label: string;
+    homeLocation: string | null;
+  } | null>(null);
+  const [stepAfterAlready, setStepAfterAlready] = useState<Step>("confirm");
   // Returning members with a card on file skip the details step; the
   // progress indicator collapses to match (steps must map 1:1 to reality).
   const [showDetailsStep, setShowDetailsStep] = useState(true);
@@ -210,11 +218,33 @@ export default function MembershipJoinFlow({
     }
     setLoading(true);
     try {
-      const res = await fetch(
-        `/api/mindbody/client-lookup?email=${encodeURIComponent(normalized)}`
-      );
+      // Account lookup + membership check in parallel. The membership check
+      // is cross-regional: it catches active memberships whose home spa is
+      // another Sway/Spavia location (memberships work everywhere), so we can
+      // warn before someone buys a duplicate. Best-effort — if it fails, the
+      // join proceeds normally.
+      const [res, checkData] = await Promise.all([
+        fetch(`/api/mindbody/client-lookup?email=${encodeURIComponent(normalized)}`),
+        fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}`)
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null),
+      ]);
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Lookup failed.");
+
+      // Plan-aware duplicate detection: only warn when the existing
+      // membership is the same family as what they're buying (a spa member
+      // buying an Aescape membership is a legitimate second purchase).
+      const duplicate =
+        (SPA_TIER_KEYS.includes(plan.key) && checkData?.isMember && checkData?.tier
+          ? `${String(checkData.tier).charAt(0).toUpperCase()}${String(checkData.tier).slice(1)} membership`
+          : null) ??
+        (plan.key === "aescape" && checkData?.hasAescapeMembership
+          ? "Aescape membership"
+          : null) ??
+        (plan.key === "remedy" && checkData?.hasRemedyMembership
+          ? "Remedy Room membership"
+          : null);
 
       if (data.found && data.client) {
         const existingFirst = (data.client.FirstName ?? "").trim();
@@ -233,15 +263,27 @@ export default function MembershipJoinFlow({
           client_type: "returning",
         });
 
-        if (!missingName && !missingCard) {
-          setShowDetailsStep(false);
-          setStep("confirm");
-          return;
-        }
+        const target: Step = !missingName && !missingCard ? "confirm" : "details";
+        if (target === "confirm") setShowDetailsStep(false);
         setShowNameFields(missingName);
         setShowCardFields(missingCard);
         setCardContext(missingCard ? "add_card" : null);
-        setStep("details");
+
+        if (duplicate) {
+          setExistingMembership({
+            label: duplicate,
+            homeLocation: checkData?.isLocalMember ? null : checkData?.homeLocation ?? null,
+          });
+          setStepAfterAlready(target);
+          trackMembership("membership_existing_member_detected", {
+            membership_tier: plan.key,
+            cross_regional: !checkData?.isLocalMember,
+          });
+          setStep("already");
+          return;
+        }
+
+        setStep(target);
         return;
       }
 
@@ -557,7 +599,7 @@ export default function MembershipJoinFlow({
 
         {/* Progress indicator: labeled steps, current highlighted, completed
             email step tappable to start over. Hidden on the success screen. */}
-        {step !== "done" && (
+        {step !== "done" && step !== "already" && (
           <div className="flex items-center justify-center gap-1.5 px-5 pt-4 text-[11px]">
             {(
               [
@@ -645,6 +687,35 @@ export default function MembershipJoinFlow({
                   </p>
                   <button onClick={handleEmailContinue} disabled={loading} className={primaryBtn}>
                     {loading ? "Checking…" : "Continue"}
+                  </button>
+                </div>
+              )}
+
+              {/* ── ALREADY A MEMBER ── */}
+              {step === "already" && existingMembership && (
+                <div className="text-center space-y-4 py-2">
+                  <div className="mx-auto w-14 h-14 rounded-full bg-[#9ABFB3]/30 flex items-center justify-center">
+                    <Check className="w-7 h-7 text-[#113D33]" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">
+                      {firstName ? `${firstName}, you're` : "You're"} already a
+                      member.
+                    </h3>
+                    <p className="mt-2 text-sm text-[#113D33]/70">
+                      {existingMembership.homeLocation
+                        ? `Your ${existingMembership.label} from ${existingMembership.homeLocation} already works at every Sway and Spavia location, including Sway Larimer. There's no need to buy a second one.`
+                        : `You already have an active ${existingMembership.label} here at Sway Larimer.`}
+                    </p>
+                  </div>
+                  <a href={firstVisitHref} className={`${primaryBtn} block text-center`}>
+                    Book with my membership
+                  </a>
+                  <button
+                    onClick={() => setStep(stepAfterAlready)}
+                    className="text-xs text-[#113D33]/55 underline hover:text-[#113D33] transition"
+                  >
+                    I want to purchase an additional membership anyway
                   </button>
                 </div>
               )}
