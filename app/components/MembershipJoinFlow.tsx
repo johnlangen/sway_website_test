@@ -74,6 +74,9 @@ function detectCardType(cardNumberDigits: string) {
 function trackMembership(event: string, extra: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
   try {
+    // Test mode (?memtest=1) is fully silent: no funnel events either, so
+    // test runs never pollute GA4 once GTM tags exist for membership_*.
+    if (new URLSearchParams(window.location.search).has("memtest")) return;
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event, ...extra });
   } catch {
