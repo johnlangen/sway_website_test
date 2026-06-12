@@ -905,7 +905,8 @@ export default function MembershipJoinFlow({
                       {firstName ? `${firstName}, your` : "Your"} first payment of $
                       {plan.price} is charged today to your card on file
                       {savedLastFour ? ` ending in ${savedLastFour}` : ""}, then monthly
-                      on this date.
+                      on this date. Your membership renews automatically until you
+                      cancel.
                     </p>
                   </div>
 
