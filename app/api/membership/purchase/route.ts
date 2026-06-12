@@ -151,15 +151,22 @@ export async function POST(req: Request) {
       const mbMessage: string = data?.Error?.Message ?? "";
       const lowerErr = mbMessage.toLowerCase();
 
+      // "card_failed" lets the join flow send the user back to the card step
+      // with their details intact (Baymard: specific decline message + an
+      // immediate try-another-card path recovers ~30% of declines).
+      let code: string | null = null;
       let userMessage =
         "We couldn't complete your membership purchase. Please try again or call (303) 476-6150.";
       if (lowerErr.includes("declined")) {
+        code = "card_failed";
         userMessage =
-          "Your card was declined. Please update your card and try again, or call (303) 476-6150.";
+          "Your card was declined by your bank. Try a different card, or call (303) 476-6150 and we'll help.";
       } else if (lowerErr.includes("expired")) {
+        code = "card_failed";
         userMessage =
-          "The card on file appears to be expired. Please update your card and try again.";
+          "The card on file appears to be expired. Please add a current card and try again.";
       } else if (lowerErr.includes("insufficient")) {
+        code = "card_failed";
         userMessage =
           "Your card was declined for insufficient funds. Please try a different card.";
       } else if (lowerErr.includes("contract")) {
@@ -168,7 +175,7 @@ export async function POST(req: Request) {
       }
 
       return NextResponse.json(
-        { error: userMessage, mbError: mbMessage || null },
+        { error: userMessage, code, mbError: mbMessage || null },
         { status: res.status }
       );
     }

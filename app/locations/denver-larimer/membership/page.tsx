@@ -157,6 +157,7 @@ const recoveryMemberships = [
     name: "Aescape",
     image: "/assets/aescapeMobile.jpg",
     price: "$99",
+    valueLine: "Under $25 per session",
     description:
       "AI-powered robot massage with real-time muscle mapping and personalized pressure zones.",
     details: "4×30 min or 2×60 min sessions per month",
@@ -171,6 +172,7 @@ const recoveryMemberships = [
     name: "Remedy Room",
     image: "/assets/remedyRoomMobile.jpg",
     price: "$99",
+    valueLine: "Under $25 per visit",
     description:
       "Our full recovery circuit. Everything you need to reset and recover.",
     details: "4 visits per month",
@@ -203,6 +205,43 @@ const massageBoosts = [
   { name: "Cupping", price: "$10" },
   { name: "Cupping Plus", price: "$20", note: "+10 min" },
   { name: "PEMF", price: "$10" },
+];
+
+/* ------------------------------------------------------------------
+   MEMBERSHIP FAQ — answers sourced from the actual Mindbody membership
+   agreement (rollover, Family Share, suspension, cancellation). Keep
+   claims in sync with the agreement terms if those ever change.
+------------------------------------------------------------------ */
+
+const membershipFaqs = [
+  {
+    q: "How does my monthly treatment work?",
+    a: "Every month your membership includes one facial or massage from your tier's menu. Book it like any appointment, online or by phone. Everything else you add that day gets member pricing, including 50% off boosts.",
+  },
+  {
+    q: "What if I miss a month?",
+    a: "You never lose what you don't use. Unused treatments roll over and stay good for 12 months while your membership is active, and you can redeem a rollover treatment alongside your regular monthly treatment.",
+  },
+  {
+    q: "Is there an enrollment fee?",
+    a: "No. Your monthly rate is all you pay. No enrollment fee, no annual fee, no hidden charges.",
+  },
+  {
+    q: "Can I share my membership?",
+    a: "Yes, two ways. Family Share lets you designate one family member or significant other who can redeem your treatments. And you can bring a friend anytime, they pay member pricing instead of drop-in rates.",
+  },
+  {
+    q: "Can I pause my membership?",
+    a: "Yes. Life happens, so you can suspend your membership for up to 3 months per calendar year.",
+  },
+  {
+    q: "How do I cancel?",
+    a: "A quick call or email to the spa takes care of it. Reach us at (303) 476-6150 or contact@swaywellnessspa.com.",
+  },
+  {
+    q: "Where can I use my membership?",
+    a: "At all Sway and Spavia locations nationwide. Your home spa is Sway Larimer, and your benefits travel with you.",
+  },
 ];
 
 /* ------------------------------------------------------------------
@@ -239,6 +278,7 @@ export default function MembershipPage() {
   const [boostsOpen, setBoostsOpen] = useState(false);
   // Which membership the join modal is open for (null = closed).
   const [joinKey, setJoinKey] = useState<string | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Native join flow is gated to the unlisted preview route while in testing.
   // The public membership page keeps the Mindbody-hosted links.
@@ -296,8 +336,8 @@ export default function MembershipPage() {
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-6"
         >
-          Three tiers of wellness, from signature treatments to tech-enhanced
-          experiences. Find the membership that fits your lifestyle.
+          One facial or massage every month from $99, plus member perks every
+          day in between. No enrollment fee, and unused treatments roll over.
         </motion.p>
 
         {/* Phone demoted out of the hero — it still lives in the "Have
@@ -480,13 +520,15 @@ export default function MembershipPage() {
                   </div>
                 </div>
 
-                {/* CTA */}
+                {/* CTA. Price lives on the card above; the button states the
+                    action (tested pattern: specific action copy, price out of
+                    the button). Reassurance bullets directly under the CTA. */}
                 {nativeJoin ? (
                   <button
                     onClick={() => setJoinKey(activeTier.key)}
                     className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                   >
-                    Join {activeTier.name} &middot; {activeTier.price}/mo
+                    Become a {activeTier.name} Member
                   </button>
                 ) : (
                   <a
@@ -495,11 +537,20 @@ export default function MembershipPage() {
                     rel="noopener noreferrer"
                     className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                   >
-                    Join {activeTier.name} &middot; {activeTier.price}/mo
+                    Become a {activeTier.name} Member
                   </a>
                 )}
+                <p className="mt-3 text-center text-[11px] text-gray-400">
+                  No enrollment fee &middot; Unused treatments roll over &middot;
+                  Pause up to 3 months a year
+                </p>
               </motion.div>
             </AnimatePresence>
+          </div>
+
+          {/* Social proof adjacent to the pricing decision */}
+          <div className="mt-5 flex justify-center">
+            <ReviewBadge />
           </div>
         </motion.div>
       </section>
@@ -571,6 +622,9 @@ export default function MembershipPage() {
                 <div className="mb-3">
                   <span className="text-2xl font-bold">{m.price}</span>
                   <span className="text-sm text-gray-400 ml-1">/ month</span>
+                  <span className="block text-xs font-semibold text-[#9ABFB3] mt-0.5">
+                    {m.valueLine}
+                  </span>
                 </div>
                 <p className="text-sm text-gray-300 leading-relaxed mb-3">
                   {m.description}
@@ -697,6 +751,70 @@ export default function MembershipPage() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </section>
+
+      {/* ============================================================
+          MEMBERSHIP FAQ — objection handling, terms stated plainly
+      ============================================================ */}
+      <section className="px-4 sm:px-6 pt-8 pb-4">
+        <div className="text-center mb-7">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+            The Fine Print, Minus the Fine Print
+          </p>
+          <h2 className="text-2xl md:text-3xl font-semibold">
+            Membership Questions
+          </h2>
+          <SwayCurve
+            width={140}
+            strokeWidth={2.4}
+            animate
+            className="text-[#A9D2C5] mx-auto block mt-4"
+          />
+        </div>
+
+        <div className="max-w-2xl mx-auto space-y-2.5">
+          {membershipFaqs.map((faq, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div
+                key={idx}
+                className="rounded-xl bg-white/[0.06] border border-white/10 overflow-hidden"
+              >
+                <button
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-sm font-semibold text-white/90">
+                    {faq.q}
+                  </span>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="shrink-0"
+                  >
+                    <ChevronDown className="w-4 h-4 text-[#9ABFB3]" />
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-4 pb-4 text-sm leading-relaxed text-gray-300">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </section>
 

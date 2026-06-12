@@ -136,6 +136,9 @@ export default function MembershipJoinFlow({
   >(null);
 
   const [savedLastFour, setSavedLastFour] = useState<string | null>(null);
+  // Returning members with a card on file skip the details step; the
+  // progress indicator collapses to match (steps must map 1:1 to reality).
+  const [showDetailsStep, setShowDetailsStep] = useState(true);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [terms, setTerms] = useState<string | null>(null);
   const [purchaseTotal, setPurchaseTotal] = useState<number | null>(null);
@@ -230,6 +233,7 @@ export default function MembershipJoinFlow({
         });
 
         if (!missingName && !missingCard) {
+          setShowDetailsStep(false);
           setStep("confirm");
           return;
         }
@@ -434,10 +438,12 @@ export default function MembershipJoinFlow({
       });
       const data = await res.json();
       if (!res.ok) {
-        // Card on file unusable: send them back to the card step.
-        if (data?.code === "no_card") {
+        // Card on file missing or declined: send them straight to the card
+        // step to try another card. Name/phone state is preserved.
+        if (data?.code === "no_card" || data?.code === "card_failed") {
           setShowCardFields(true);
           setCardContext("add_card");
+          setShowDetailsStep(true);
           setStep("details");
         }
         throw new Error(data?.error || "Purchase failed.");
@@ -548,6 +554,64 @@ export default function MembershipJoinFlow({
           </button>
         </div>
 
+        {/* Progress indicator: labeled steps, current highlighted, completed
+            email step tappable to start over. Hidden on the success screen. */}
+        {step !== "done" && (
+          <div className="flex items-center justify-center gap-1.5 px-5 pt-4 text-[11px]">
+            {(
+              [
+                { key: "email" as Step, label: "Account" },
+                ...(showDetailsStep
+                  ? [{ key: "details" as Step, label: "Details" }]
+                  : []),
+                { key: "confirm" as Step, label: "Review" },
+              ] as { key: Step; label: string }[]
+            ).map((s, i, steps) => {
+              const currentIdx = steps.findIndex((x) => x.key === step);
+              const isCurrent = s.key === step;
+              const isPast = i < currentIdx;
+              // Only the email step is safely revisitable (card inputs are
+              // intentionally not kept in state, so details can't re-render
+              // filled-in).
+              const canGoBack = isPast && s.key === "email";
+              return (
+                <div key={s.key} className="flex items-center gap-1.5">
+                  {i > 0 && <span className="h-px w-5 bg-[#113D33]/15" />}
+                  <button
+                    type="button"
+                    disabled={!canGoBack || loading}
+                    onClick={() => canGoBack && setStep("email")}
+                    className={`flex items-center gap-1.5 rounded-full px-2 py-1 transition ${
+                      canGoBack ? "hover:bg-[#113D33]/5 cursor-pointer" : "cursor-default"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-[18px] w-[18px] items-center justify-center rounded-full text-[9px] font-bold ${
+                        isCurrent
+                          ? "bg-[#113D33] text-white"
+                          : isPast
+                          ? "bg-[#4A776D] text-white"
+                          : "bg-[#113D33]/10 text-[#113D33]/50"
+                      }`}
+                    >
+                      {isPast ? <Check className="w-2.5 h-2.5" /> : i + 1}
+                    </span>
+                    <span
+                      className={
+                        isCurrent
+                          ? "font-semibold text-[#113D33]"
+                          : "text-[#113D33]/50"
+                      }
+                    >
+                      {s.label}
+                    </span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         <div className="px-5 py-5">
           <AnimatePresence mode="wait">
             <motion.div
@@ -575,7 +639,8 @@ export default function MembershipJoinFlow({
                     />
                   </div>
                   <p className="text-xs text-[#113D33]/55">
-                    We&apos;ll check if you already have a Sway account.
+                    We&apos;ll check if you already have a Sway account. Joining
+                    takes about 2 minutes.
                   </p>
                   <button onClick={handleEmailContinue} disabled={loading} className={primaryBtn}>
                     {loading ? "Checking…" : "Continue"}
@@ -624,98 +689,111 @@ export default function MembershipJoinFlow({
 
                   {showCardFields && (
                     <>
-                      <div>
-                        <label className="block text-xs text-[#113D33]/65 mb-1">Name on card</label>
-                        <input
-                          ref={cardHolderRef}
-                          className={inputClass}
-                          autoComplete="cc-name"
-                          data-lpignore="true"
-                          data-1p-ignore="true"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-[#113D33]/65 mb-1">Card number</label>
-                        <input
-                          ref={cardNumberRef}
-                          className={inputClass}
-                          autoComplete="cc-number"
-                          inputMode="numeric"
-                          data-lpignore="true"
-                          data-1p-ignore="true"
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-xs text-[#113D33]/65 mb-1">Month</label>
-                          <select ref={expMonthRef} className={inputClass} defaultValue="">
-                            <option value="">MM</option>
-                            {expMonthOptions.map((m) => (
-                              <option key={m} value={m}>
-                                {m}
-                              </option>
-                            ))}
-                          </select>
+                      {/* Card fields in a visually distinct secure panel,
+                          ordered like the physical card (number, expiry,
+                          name). Perceived-security pattern: encapsulated
+                          card section + padlock inside the panel. */}
+                      <div className="rounded-xl border border-[#113D33]/15 bg-[#113D33]/[0.03] p-3.5 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="flex items-center gap-1.5 text-sm font-medium text-[#113D33]">
+                            <Lock className="w-3.5 h-3.5 text-[#4A776D]" />
+                            Card details
+                          </span>
+                          <span className="text-[10px] text-[#113D33]/50">
+                            Secure, encrypted
+                          </span>
                         </div>
                         <div>
-                          <label className="block text-xs text-[#113D33]/65 mb-1">Year</label>
-                          <select ref={expYearRef} className={inputClass} defaultValue="">
-                            <option value="">YYYY</option>
-                            {expYearOptions.map((y) => (
-                              <option key={y} value={y}>
-                                {y}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-xs text-[#113D33]/65 mb-1">
-                          Billing street address
-                        </label>
-                        <input
-                          ref={billingAddressRef}
-                          className={inputClass}
-                          autoComplete="billing street-address"
-                          placeholder="123 Main St"
-                        />
-                      </div>
-                      <div className="grid grid-cols-4 gap-3">
-                        <div className="col-span-2">
-                          <label className="block text-xs text-[#113D33]/65 mb-1">City</label>
+                          <label className="block text-xs text-[#113D33]/65 mb-1">Card number</label>
                           <input
-                            ref={billingCityRef}
+                            ref={cardNumberRef}
                             className={inputClass}
-                            autoComplete="billing address-level2"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs text-[#113D33]/65 mb-1">State</label>
-                          <input
-                            ref={billingStateRef}
-                            className={inputClass}
-                            autoComplete="billing address-level1"
-                            maxLength={2}
-                            placeholder="CO"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs text-[#113D33]/65 mb-1">ZIP</label>
-                          <input
-                            ref={postalCodeRef}
-                            className={inputClass}
-                            autoComplete="billing postal-code"
+                            autoComplete="cc-number"
                             inputMode="numeric"
+                            data-lpignore="true"
+                            data-1p-ignore="true"
+                          />
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-xs text-[#113D33]/65 mb-1">Month</label>
+                            <select ref={expMonthRef} className={inputClass} defaultValue="">
+                              <option value="">MM</option>
+                              {expMonthOptions.map((m) => (
+                                <option key={m} value={m}>
+                                  {m}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <div>
+                            <label className="block text-xs text-[#113D33]/65 mb-1">Year</label>
+                            <select ref={expYearRef} className={inputClass} defaultValue="">
+                              <option value="">YYYY</option>
+                              {expYearOptions.map((y) => (
+                                <option key={y} value={y}>
+                                  {y}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-[#113D33]/65 mb-1">Name on card</label>
+                          <input
+                            ref={cardHolderRef}
+                            className={inputClass}
+                            autoComplete="cc-name"
+                            data-lpignore="true"
+                            data-1p-ignore="true"
                           />
                         </div>
                       </div>
-                      <div className="flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">
-                        <Lock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/60" />
-                        <span>
-                          Your card is stored securely in Mindbody. Nothing is charged
-                          until you review and confirm on the next step.
-                        </span>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-[#4A776D] mb-2">
+                          Billing address
+                        </p>
+                        <div className="space-y-3">
+                          <input
+                            ref={billingAddressRef}
+                            className={inputClass}
+                            autoComplete="billing street-address"
+                            placeholder="Street address"
+                            aria-label="Billing street address"
+                          />
+                          <div className="grid grid-cols-4 gap-3">
+                            <input
+                              ref={billingCityRef}
+                              className={`${inputClass} col-span-2`}
+                              autoComplete="billing address-level2"
+                              placeholder="City"
+                              aria-label="Billing city"
+                            />
+                            <input
+                              ref={billingStateRef}
+                              className={inputClass}
+                              autoComplete="billing address-level1"
+                              maxLength={2}
+                              placeholder="CO"
+                              aria-label="Billing state"
+                            />
+                            <input
+                              ref={postalCodeRef}
+                              className={inputClass}
+                              autoComplete="billing postal-code"
+                              inputMode="numeric"
+                              placeholder="ZIP"
+                              aria-label="Billing ZIP code"
+                            />
+                          </div>
+                        </div>
                       </div>
+
+                      <p className="text-xs text-[#113D33]/55">
+                        Nothing is charged yet. You&apos;ll review everything on
+                        the next step before your membership starts.
+                      </p>
                     </>
                   )}
 
@@ -808,9 +886,15 @@ export default function MembershipJoinFlow({
                         Starting your membership…
                       </span>
                     ) : (
-                      `Start membership · $${plan.price}/mo`
+                      `Start my membership · $${plan.price}/mo`
                     )}
                   </button>
+
+                  <p className="text-center text-[11px] text-[#113D33]/55">
+                    {SPA_TIER_KEYS.includes(plan.key)
+                      ? "No enrollment fee · Treatments roll over · Pause up to 3 months a year"
+                      : "No enrollment fee · Secure Mindbody checkout"}
+                  </p>
                 </div>
               )}
 
