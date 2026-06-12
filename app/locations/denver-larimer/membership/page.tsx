@@ -158,6 +158,7 @@ const recoveryMemberships = [
     image: "/assets/aescapeMobile.jpg",
     price: "$99",
     valueLine: "Under $25 per session",
+    cta: "Become an Aescape Member",
     description:
       "AI-powered robot massage with real-time muscle mapping and personalized pressure zones.",
     details: "4×30 min or 2×60 min sessions per month",
@@ -173,6 +174,7 @@ const recoveryMemberships = [
     image: "/assets/remedyRoomMobile.jpg",
     price: "$99",
     valueLine: "Under $25 per visit",
+    cta: "Become a Remedy Room Member",
     description:
       "Our full recovery circuit. Everything you need to reset and recover.",
     details: "4 visits per month",
@@ -606,7 +608,7 @@ export default function MembershipPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="scroll-mt-28 bg-white/[0.06] rounded-2xl border border-white/10 shadow-xl overflow-hidden"
+              className="scroll-mt-28 bg-white/[0.06] rounded-2xl border border-white/10 shadow-xl overflow-hidden flex flex-col"
             >
               <div className="relative h-44 w-full">
                 <Image
@@ -617,7 +619,7 @@ export default function MembershipPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0e2b24]/70 to-transparent" />
               </div>
-              <div className="p-5 md:p-6">
+              <div className="p-5 md:p-6 flex flex-col flex-1">
                 <h3 className="text-lg font-bold mb-1">{m.name}</h3>
                 <div className="mb-3">
                   <span className="text-2xl font-bold">{m.price}</span>
@@ -640,22 +642,24 @@ export default function MembershipPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider">
+                <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider mb-4">
                   {m.details}
                 </p>
+                {/* mt-auto bottom-aligns the CTAs across both cards; price
+                    stays on the card, the button states the action. */}
                 {nativeJoin ? (
                   <button
                     onClick={() => setJoinKey(m.key)}
-                    className="mt-4 block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
+                    className="mt-auto block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
                   >
-                    Become a Member &middot; {m.price}/mo
+                    {m.cta}
                   </button>
                 ) : (
                   <a
                     href="tel:+13034766150"
-                    className="mt-4 block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
+                    className="mt-auto block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
                   >
-                    Become a Member &middot; {m.price}/mo
+                    {m.cta}
                   </a>
                 )}
               </div>
@@ -667,7 +671,7 @@ export default function MembershipPage() {
       {/* ============================================================
           BOOSTS: COLLAPSED
       ============================================================ */}
-      <section className="px-4 sm:px-6 py-6">
+      <section className="px-4 sm:px-6 py-1">
         <div className="max-w-5xl mx-auto">
           <button
             onClick={() => setBoostsOpen(!boostsOpen)}
@@ -822,7 +826,7 @@ export default function MembershipPage() {
       <section className="px-4 sm:px-6 py-10 md:py-12">
         <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center border border-white/10">
           <p className="text-sm text-[#9ABFB3] uppercase tracking-widest mb-2">
-            Have questions?
+            Prefer to talk?
           </p>
           <a
             href="tel:+13034766150"
