@@ -14,6 +14,25 @@ export const runtime = "nodejs";
 
 const WEBSITE_CONTRACT_IDS = [122, 123, 124, 111, 102];
 
+// Mindbody returns AgreementTerms as HTML. The join flow renders terms as
+// plain text (whitespace-pre-wrap), so convert: block-level closes become
+// newlines, remaining tags are stripped, basic entities decoded.
+function termsToPlainText(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(div|p|li|h[1-6]|tr)>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "· ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   // Optional siteId override (future: clubs / Spavia). Defaults to Larimer.
@@ -57,7 +76,9 @@ export async function GET(req: Request) {
         id: c.Id,
         name: c.Name,
         agreementTerms:
-          typeof c.AgreementTerms === "string" ? c.AgreementTerms : null,
+          typeof c.AgreementTerms === "string"
+            ? termsToPlainText(c.AgreementTerms)
+            : null,
       }));
 
     return NextResponse.json({ contracts });
