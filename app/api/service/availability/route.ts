@@ -6,6 +6,7 @@ type Slot = {
   startDateTime: string;
   staffId: number | null;
   staffName: string | null;
+  staffType: string | null;
   availableResourceIds: number[];
 };
 
@@ -17,6 +18,17 @@ function cleanStaffName(raw: string | null | undefined): string | null {
   // Suffix pattern: "Holly M", "Holly M/E"
   cleaned = cleaned.replace(/\s+[ME](?:\/[ME])*$/i, "");
   return cleaned.trim() || null;
+}
+
+/** Extract the staff-type code ("E", "M", "M/E") that cleanStaffName strips.
+ *  Not every site uses these prefixes — null when absent. */
+function parseStaffType(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const prefix = raw.match(/^([ME](?:\/[ME])*)\s*[-–—]\s*/i);
+  if (prefix) return prefix[1].toUpperCase();
+  const suffix = raw.match(/\s+([ME](?:\/[ME])*)$/i);
+  if (suffix) return suffix[1].toUpperCase();
+  return null;
 }
 
 /* Allowed session-type IDs (massages + facials) */
@@ -164,6 +176,12 @@ function expandAvailabilityWindow(a: any): Slot[] {
           ? Number(a.Staff.Id)
           : null,
       staffName: cleanStaffName(
+        a?.Staff?.DisplayName ||
+          a?.Staff?.Name ||
+          `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||
+          null
+      ),
+      staffType: parseStaffType(
         a?.Staff?.DisplayName ||
           a?.Staff?.Name ||
           `${a?.Staff?.FirstName ?? ""} ${a?.Staff?.LastName ?? ""}`.trim() ||

@@ -49,6 +49,7 @@ type DisplaySlot = {
   startDateTime: string;
   staffId: number;
   staffName: string;
+  staffType?: string | null;
   availableResourceIds?: number[];
 };
 

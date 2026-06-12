@@ -213,7 +213,7 @@ function detectCardType(digits: string): string {
   if (/^5[1-5]/.test(digits)) return "MasterCard"; if (/^6(?:011|5)/.test(digits)) return "Discover"; return "Unknown";
 }
 
-type DisplaySlot = { startDateTime: string; staffId: number | null; staffName: string | null; availableResourceIds: number[] };
+type DisplaySlot = { startDateTime: string; staffId: number | null; staffName: string | null; staffType?: string | null; availableResourceIds: number[] };
 
 /* ----------------------------------------------------------------
    PROGRESS BAR — matches book-service exactly

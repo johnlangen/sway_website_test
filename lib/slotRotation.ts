@@ -4,15 +4,25 @@
  * Mindbody returns availability grouped by staff in ascending staff-ID
  * order, so when two therapists share an exact start time the lowest-ID
  * therapist's slot renders first and silently wins every unfiltered
- * booking. Collapse same-time slots to one and rotate the assignee by
- * (day of year + hour): stateless, splits ties ~50/50 over time, and the
- * same slot resolves to the same therapist on every render of that day.
+ * booking. Collapse same-time slots to one and pick the assignee:
  *
- * Depends only on staffId — never staff name prefixes like "M/E - ",
- * which don't exist at every location.
+ * 1. Capability preference: single-discipline staff (type "E" or "M")
+ *    beat multi-discipline staff (type "M/E") so the flexible therapist
+ *    stays open for the service only they can take. Requires the
+ *    staff-type naming prefix ("E - Name"); slots without one are
+ *    treated as single-discipline, so sites that don't use prefixes
+ *    fall through to plain rotation unchanged.
+ * 2. Rotation: among the remaining candidates, rotate by
+ *    (day of year + hour) — stateless, splits ties ~50/50 over time,
+ *    and the same slot resolves to the same therapist on every render
+ *    of that day.
  */
 
-type RotatableSlot = { startDateTime: string; staffId: number | null };
+type RotatableSlot = {
+  startDateTime: string;
+  staffId: number | null;
+  staffType?: string | null;
+};
 
 function dayOfYear(y: number, m: number, d: number) {
   const cumulative = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
@@ -42,9 +52,16 @@ export function rotateSameTimeSlots<T extends RotatableSlot>(slots: T[]): T[] {
     for (const s of group) {
       if (!byStaff.has(s.staffId)) byStaff.set(s.staffId, s);
     }
-    const candidates = [...byStaff.values()].sort(
+    let candidates = [...byStaff.values()].sort(
       (a, b) => (a.staffId ?? 0) - (b.staffId ?? 0)
     );
+
+    // Capability preference: drop multi-discipline staff ("M/E") from the
+    // tie when a single-discipline candidate is present
+    const single = candidates.filter((s) => !(s.staffType ?? "").includes("/"));
+    if (single.length > 0 && single.length < candidates.length) {
+      candidates = single;
+    }
     if (candidates.length === 1) {
       out.push(candidates[0]);
       continue;
