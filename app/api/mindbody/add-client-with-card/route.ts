@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
 
 export const runtime = "nodejs";
 
@@ -13,6 +14,12 @@ function detectCardType(cardNumber: string): string {
 }
 
 export async function POST(req: Request) {
+  // Card-testing protection: velocity-limit raw card submissions per IP
+  const rl = await checkCardRateLimit(req);
+  if (!rl.allowed) {
+    return NextResponse.json(RATE_LIMIT_RESPONSE, { status: 429 });
+  }
+
   const rawBody = await req.json();
   const {
     email,
