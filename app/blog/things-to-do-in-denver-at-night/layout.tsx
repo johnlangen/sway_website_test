@@ -359,7 +359,7 @@ export default function ThingsToDoAtNightLayout() {
                 href="/locations/denver-larimer/book"
                 className="underline text-[#113D33] font-semibold"
               >
-                side-by-side massages at Sway
+                couples massage at Sway
               </Link>
             </li>
             <li>Walk to dinner at Rioja or Tamayo (same block)</li>
@@ -582,7 +582,7 @@ export default function ThingsToDoAtNightLayout() {
                   name: "Is Denver good for date nights?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Denver is excellent for date nights. Larimer Square alone offers fine dining, cocktail bars, and Sway Wellness Spa for side-by-side massages — all on the same block. Red Rocks concerts, rooftop bars with mountain views, and RiNo galleries add even more options.",
+                    text: "Denver is excellent for date nights. Larimer Square alone offers fine dining, cocktail bars, and Sway Wellness Spa for couples massages — all on the same block. Red Rocks concerts, rooftop bars with mountain views, and RiNo galleries add even more options.",
                   },
                 },
                 {

@@ -97,8 +97,9 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Massage</h3>
               <p className="text-sm text-gray-700">
-                Side-by-side sessions from 50–90 minutes. Choose from 18 massage
-                types across Essential, Premier, and Ultimate tiers.
+                Sessions for two at the same time, 50–90 minutes, in private
+                rooms right next to each other. Choose from 18 massage types
+                across Essential, Premier, and Ultimate tiers.
               </p>
               <p className="text-sm font-semibold">
                 From $99/person member · $139/person drop-in

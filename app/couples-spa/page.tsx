@@ -28,7 +28,7 @@ export default function CouplesSpaPage() {
             Couples Spa in Denver
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Side-by-side massage, facials, and recovery, on Larimer Square.
+            Massages, facials, and recovery for two, on Larimer Square.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
@@ -87,8 +87,9 @@ export default function CouplesSpaPage() {
               >
                 massage
               </Link>{" "}
-              treatments at the same time for a side-by-side couples experience.
-              You don&apos;t have to pick the same type, one of you can get a
+              treatments at the same time. You&apos;ll each have your own
+              therapist in private rooms right next to each other, and you
+              don&apos;t have to pick the same type, one of you can get a
               Deep Tissue while the other gets a Salt Stone.
             </p>
             <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
@@ -124,14 +125,14 @@ export default function CouplesSpaPage() {
           <div className="space-y-4">
             <h3 className="text-xl font-bold">Facials for Two</h3>
             <p>
-              Side-by-side{" "}
+              Book{" "}
               <Link
                 href="/facials"
                 className="underline text-[#113D33] font-semibold"
               >
                 facials
               </Link>{" "}
-              for a shared glow-up. 13 facial treatments across 3 tiers, from
+              at the same time for a shared glow-up. 13 facial treatments across 3 tiers, from
               $99/person member · $139/person drop-in (Essential). Premier and
               Ultimate tiers also available.
             </p>
