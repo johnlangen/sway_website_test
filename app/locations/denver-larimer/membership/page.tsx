@@ -300,25 +300,12 @@ export default function MembershipPage() {
           experiences. Find the membership that fits your lifestyle.
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6"
-        >
-          <a
-            href="tel:+13034766150"
-            className="inline-flex items-center gap-2 text-[#9ABFB3] hover:text-white transition text-sm"
-          >
-            <Phone className="w-4 h-4" />
-            (303) 476-6150
-          </a>
-        </motion.div>
-
+        {/* Phone demoted out of the hero — it still lives in the "Have
+            questions?" CTA bar below and inside the join flow footer. */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4"
         >
           <ReviewBadge />
@@ -444,6 +431,13 @@ export default function MembershipPage() {
                     <span className="line-through">{activeTier.dropInPrice}</span> drop-in
                     <span className="mx-1.5">·</span>1 facial or massage per month
                   </p>
+                  <p className="mt-1.5 text-xs font-semibold text-[#4A776D]">
+                    Save $
+                    {(parseInt(activeTier.dropInPrice.slice(1), 10) -
+                      parseInt(activeTier.price.slice(1), 10)) *
+                      12}{" "}
+                    a year vs drop-in pricing
+                  </p>
                 </div>
 
                 {/* Treatments */}
@@ -523,9 +517,9 @@ export default function MembershipPage() {
             {memberPerks.map((perk, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1.5 text-xs text-gray-300 bg-white/5 rounded-full px-3 py-1.5"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-white/90 bg-white/10 border border-white/10 rounded-full px-3.5 py-2"
               >
-                <Check className="w-3 h-3 text-[#4A776D]" />
+                <Check className="w-3.5 h-3.5 text-[#9ABFB3]" />
                 {perk}
               </span>
             ))}

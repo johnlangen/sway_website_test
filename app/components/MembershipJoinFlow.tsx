@@ -19,6 +19,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Lock, X } from "lucide-react";
+import { HideFloatingWidgets } from "./HideFloatingWidgets";
 
 export type MembershipPlan = {
   key: "essential" | "premier" | "ultimate" | "aescape" | "remedy";
@@ -29,6 +30,19 @@ export type MembershipPlan = {
 };
 
 type Step = "email" | "details" | "confirm" | "done";
+
+// Spa-tier member perks, shown on the review step as a final value reminder.
+// Spa tiers only — Aescape/Remedy perks differ.
+const SPA_MEMBER_PERKS = [
+  "50% off all boosts",
+  "50% off Remedy Room",
+  "Private member lounge",
+  "Bring a friend at member pricing",
+  "10% off retail",
+  "Rollover credits",
+];
+
+const SPA_TIER_KEYS = ["essential", "premier", "ultimate"];
 
 /* ── helpers (same validation as the booking flows) ─────────────── */
 
@@ -87,7 +101,7 @@ function trackMembership(event: string, extra: Record<string, unknown> = {}) {
 /* ── styles (mirrors the booking flow) ──────────────────────────── */
 
 const inputClass =
-  "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
+  "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
 
 const primaryBtn =
   "w-full rounded-full bg-[#113D33] text-white py-3.5 text-base font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
@@ -489,6 +503,8 @@ export default function MembershipJoinFlow({
       aria-modal="true"
       aria-label={`Join ${plan.name} membership`}
     >
+      {/* Chat bubble + offer chip float above the modal otherwise. */}
+      <HideFloatingWidgets />
       {/* Backdrop. Plain dim, no backdrop-blur: blurring the full viewport
           (hero images + running framer animations underneath) forces
           continuous GPU compositing and visibly slowed machines in testing. */}
@@ -569,7 +585,7 @@ export default function MembershipJoinFlow({
 
               {/* ── DETAILS ── */}
               {step === "details" && (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {showNameFields && (
                     <>
                       <div className="grid grid-cols-2 gap-3">
@@ -664,7 +680,7 @@ export default function MembershipJoinFlow({
                           placeholder="123 Main St"
                         />
                       </div>
-                      <div className="grid grid-cols-3 gap-3">
+                      <div className="grid grid-cols-4 gap-3">
                         <div className="col-span-2">
                           <label className="block text-xs text-[#113D33]/65 mb-1">City</label>
                           <input
@@ -683,15 +699,15 @@ export default function MembershipJoinFlow({
                             placeholder="CO"
                           />
                         </div>
-                      </div>
-                      <div>
-                        <label className="block text-xs text-[#113D33]/65 mb-1">ZIP</label>
-                        <input
-                          ref={postalCodeRef}
-                          className={inputClass}
-                          autoComplete="billing postal-code"
-                          inputMode="numeric"
-                        />
+                        <div>
+                          <label className="block text-xs text-[#113D33]/65 mb-1">ZIP</label>
+                          <input
+                            ref={postalCodeRef}
+                            className={inputClass}
+                            autoComplete="billing postal-code"
+                            inputMode="numeric"
+                          />
+                        </div>
                       </div>
                       <div className="flex items-start gap-2.5 rounded-xl bg-[#113D33]/[0.03] p-3 text-xs text-[#113D33]/60">
                         <Lock className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/60" />
@@ -742,6 +758,20 @@ export default function MembershipJoinFlow({
                       on this date.
                     </p>
                   </div>
+
+                  {SPA_TIER_KEYS.includes(plan.key) && (
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                      {SPA_MEMBER_PERKS.map((perk) => (
+                        <span
+                          key={perk}
+                          className="flex items-center gap-1.5 text-[11px] text-[#113D33]/70"
+                        >
+                          <Check className="w-3 h-3 text-[#4A776D] shrink-0" />
+                          {perk}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {terms && (
                     <div>
