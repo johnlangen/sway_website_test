@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -61,6 +61,15 @@ const joinPlans: Record<string, MembershipPlan> = {
     name: "Remedy Room",
     price: 99,
     blurb: "4 Remedy Room recovery circuit visits per month.",
+  },
+  // TEMP: $1 live-charge test (contract 140, Larimer). Reachable only via
+  // ?testbuy=1 on the preview route. Remove with the whitelist entry after test.
+  test: {
+    key: "test",
+    contractId: 140,
+    name: "$1 Test",
+    price: 1,
+    blurb: "Internal $1 test contract to verify the live purchase path.",
   },
 };
 
@@ -286,6 +295,15 @@ export default function MembershipPage() {
   // The public membership page keeps the Mindbody-hosted links.
   const pathname = usePathname();
   const nativeJoin = pathname?.startsWith("/membership-join-preview") ?? false;
+
+  // TEMP: surface the $1 live-charge test button only on the preview route
+  // with ?testbuy=1. Remove with the rest of the test scaffolding.
+  const [showTestBuy, setShowTestBuy] = useState(false);
+  useEffect(() => {
+    setShowTestBuy(
+      nativeJoin && new URLSearchParams(window.location.search).has("testbuy")
+    );
+  }, [nativeJoin]);
 
   const activeTier = tiers.find((t) => t.key === selectedTier)!;
   const joinPlan = joinKey ? joinPlans[joinKey] : null;
@@ -932,6 +950,16 @@ export default function MembershipPage() {
           </a>
         );
       })()}
+
+      {/* TEMP: $1 live-charge test trigger (preview route + ?testbuy=1 only) */}
+      {showTestBuy && (
+        <button
+          onClick={() => setJoinKey("test")}
+          className="fixed bottom-4 left-4 z-50 rounded-full bg-amber-500 px-5 py-3 text-sm font-bold text-black shadow-xl hover:bg-amber-400"
+        >
+          Buy $1 Test Contract
+        </button>
+      )}
 
       {/* NATIVE JOIN FLOW MODAL */}
       <AnimatePresence>

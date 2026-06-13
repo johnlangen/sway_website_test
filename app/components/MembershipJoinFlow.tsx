@@ -22,7 +22,7 @@ import { Check, ChevronDown, Lock, X } from "lucide-react";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
 
 export type MembershipPlan = {
-  key: "essential" | "premier" | "ultimate" | "aescape" | "remedy";
+  key: "essential" | "premier" | "ultimate" | "aescape" | "remedy" | "test";
   contractId: number;
   name: string;
   price: number; // monthly USD
