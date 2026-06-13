@@ -296,6 +296,106 @@ export default function MembershipPage() {
   const goNextTier = () =>
     setSelectedTier(tiers[(tierIndex + 1) % tiers.length].key);
 
+  // Tallest tier (most treatment rows) — used as an invisible height spacer so
+  // the card locks to a consistent height and flipping never jumps.
+  const tallestTier = tiers.reduce((a, b) =>
+    Math.max(b.facials.length, b.massages.length) >
+    Math.max(a.facials.length, a.massages.length)
+      ? b
+      : a
+  );
+
+  // Card body for one tier (price + treatments + CTA). Rendered once for the
+  // active tier and once invisibly for the tallest tier (the height spacer).
+  const tierBody = (tier: MembershipTier) => (
+    <>
+      {/* Price + what you get */}
+      <div className="mt-6 text-center">
+        <p className="text-[11px] uppercase tracking-[0.15em] text-[#4A776D]">
+          {tier.tagline}
+        </p>
+        <div className="mt-1">
+          <span className="text-4xl font-bold">{tier.price}</span>
+          <span className="text-sm text-gray-500 ml-1">/ month</span>
+        </div>
+        <p className="mt-1 text-xs text-gray-400">
+          <span className="line-through">{tier.dropInPrice}</span> drop-in
+          <span className="mx-1.5">·</span>1 facial or massage per month
+        </p>
+        <p className="mt-1.5 text-xs font-semibold text-[#4A776D]">
+          Save $
+          {(parseInt(tier.dropInPrice.slice(1), 10) -
+            parseInt(tier.price.slice(1), 10)) *
+            12}{" "}
+          a year vs drop-in pricing
+        </p>
+      </div>
+
+      {/* Treatments */}
+      <div className="mt-5 grid gap-x-6 gap-y-5 border-t border-[#113D33]/10 pt-5 sm:grid-cols-2">
+        <div>
+          <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
+            Facials ({tier.facials.length})
+          </h4>
+          <ul className="space-y-2">
+            {tier.facials.map((t, idx) => (
+              <li key={idx} className="flex items-center justify-between gap-2 text-sm">
+                <span className="flex items-center gap-2 text-[#113D33]/80">
+                  <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
+                  {t.name}
+                </span>
+                <span className={`shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${durationClass(t.duration)}`}>
+                  {t.duration}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
+            Massages ({tier.massages.length})
+          </h4>
+          <ul className="space-y-2">
+            {tier.massages.map((t, idx) => (
+              <li key={idx} className="flex items-center justify-between gap-2 text-sm">
+                <span className="flex items-center gap-2 text-[#113D33]/80">
+                  <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
+                  {t.name}
+                </span>
+                <span className={`shrink-0 inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${durationClass(t.duration)}`}>
+                  {t.duration}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* CTA — price lives on the card; button states the action */}
+      {nativeJoin ? (
+        <button
+          onClick={() => setJoinKey(tier.key)}
+          className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
+        >
+          Become a {tier.name} Member
+        </button>
+      ) : (
+        <a
+          href={MINDBODY_JOIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
+        >
+          Become a {tier.name} Member
+        </a>
+      )}
+      <p className="mt-3 text-center text-[11px] text-gray-400">
+        No enrollment fee &middot; Unused treatments roll over &middot; Pause up
+        to 3 months a year
+      </p>
+    </>
+  );
+
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
       {/* HERO + LOCK-IN CTA */}
@@ -468,110 +568,36 @@ export default function MembershipPage() {
               })}
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedTier}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.18}
-                onDragEnd={(_, info) => {
-                  if (info.offset.x < -60) goNextTier();
-                  else if (info.offset.x > 60) goPrevTier();
-                }}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.25 }}
-                className="touch-pan-y"
+            {/* Height locked to the tallest tier on desktop (invisible spacer)
+                so flipping never jumps; natural height on mobile to avoid big
+                empty gaps under shorter tiers. */}
+            <div className="relative">
+              <div
+                aria-hidden
+                className="hidden sm:block invisible pointer-events-none"
               >
-                {/* Price + what you get */}
-                <div className="mt-6 text-center">
-                  <p className="text-[11px] uppercase tracking-[0.15em] text-[#4A776D]">
-                    {activeTier.tagline}
-                  </p>
-                  <div className="mt-1">
-                    <span className="text-4xl font-bold">{activeTier.price}</span>
-                    <span className="text-sm text-gray-500 ml-1">/ month</span>
-                  </div>
-                  <p className="mt-1 text-xs text-gray-400">
-                    <span className="line-through">{activeTier.dropInPrice}</span> drop-in
-                    <span className="mx-1.5">·</span>1 facial or massage per month
-                  </p>
-                  <p className="mt-1.5 text-xs font-semibold text-[#4A776D]">
-                    Save $
-                    {(parseInt(activeTier.dropInPrice.slice(1), 10) -
-                      parseInt(activeTier.price.slice(1), 10)) *
-                      12}{" "}
-                    a year vs drop-in pricing
-                  </p>
-                </div>
-
-                {/* Treatments */}
-                <div className="mt-6 grid gap-6 border-t border-[#113D33]/10 pt-6 sm:grid-cols-2">
-                  <div>
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
-                      Facials ({activeTier.facials.length})
-                    </h4>
-                    <ul className="space-y-2.5">
-                      {activeTier.facials.map((t, idx) => (
-                        <li key={idx} className="flex items-center justify-between text-sm">
-                          <span className="flex items-center gap-2 text-[#113D33]/80">
-                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
-                            {t.name}
-                          </span>
-                          <span className={`ml-2 shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${durationClass(t.duration)}`}>
-                            {t.duration}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
-                      Massages ({activeTier.massages.length})
-                    </h4>
-                    <ul className="space-y-2.5">
-                      {activeTier.massages.map((t, idx) => (
-                        <li key={idx} className="flex items-center justify-between text-sm">
-                          <span className="flex items-center gap-2 text-[#113D33]/80">
-                            <Check className="w-3.5 h-3.5 text-[#4A776D] shrink-0" />
-                            {t.name}
-                          </span>
-                          <span className={`ml-2 shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${durationClass(t.duration)}`}>
-                            {t.duration}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* CTA. Price lives on the card above; the button states the
-                    action (tested pattern: specific action copy, price out of
-                    the button). Reassurance bullets directly under the CTA. */}
-                {nativeJoin ? (
-                  <button
-                    onClick={() => setJoinKey(activeTier.key)}
-                    className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
-                  >
-                    Become a {activeTier.name} Member
-                  </button>
-                ) : (
-                  <a
-                    href={MINDBODY_JOIN_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
-                  >
-                    Become a {activeTier.name} Member
-                  </a>
-                )}
-                <p className="mt-3 text-center text-[11px] text-gray-400">
-                  No enrollment fee &middot; Unused treatments roll over &middot;
-                  Pause up to 3 months a year
-                </p>
-              </motion.div>
-            </AnimatePresence>
+                {tierBody(tallestTier)}
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedTier}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.18}
+                  onDragEnd={(_, info) => {
+                    if (info.offset.x < -60) goNextTier();
+                    else if (info.offset.x > 60) goPrevTier();
+                  }}
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.25 }}
+                  className="touch-pan-y sm:absolute sm:inset-0"
+                >
+                  {tierBody(activeTier)}
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
           <button
             type="button"
