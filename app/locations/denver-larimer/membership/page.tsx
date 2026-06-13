@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Check, ChevronDown, Phone } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import GoogleReviews, {
   ReviewBadge,
   ClassPassBadge,
@@ -289,6 +289,13 @@ export default function MembershipPage() {
   const activeTier = tiers.find((t) => t.key === selectedTier)!;
   const joinPlan = joinKey ? joinPlans[joinKey] : null;
 
+  // Tier carousel: arrows (desktop) + swipe (mobile) cycle through the tiers.
+  const tierIndex = tiers.findIndex((t) => t.key === selectedTier);
+  const goPrevTier = () =>
+    setSelectedTier(tiers[(tierIndex - 1 + tiers.length) % tiers.length].key);
+  const goNextTier = () =>
+    setSelectedTier(tiers[(tierIndex + 1) % tiers.length].key);
+
   return (
     <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
       {/* HERO + LOCK-IN CTA */}
@@ -411,10 +418,20 @@ export default function MembershipPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="max-w-2xl mx-auto [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+          className="max-w-3xl mx-auto [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
           style={{ willChange: "transform, opacity" }}
         >
-          <div className="bg-white text-[#113D33] rounded-2xl shadow-2xl ring-1 ring-white/10 p-5 md:p-7">
+          {/* Tier carousel: arrows flank the card on desktop, swipe on mobile */}
+          <div className="flex items-stretch gap-2 md:gap-3">
+          <button
+            type="button"
+            onClick={goPrevTier}
+            aria-label="Previous membership"
+            className="hidden sm:flex shrink-0 self-center h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15 transition"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <div className="flex-1 min-w-0 bg-white text-[#113D33] rounded-2xl shadow-2xl ring-1 ring-white/10 p-5 md:p-7">
             {/* Tier switcher with prices (comparison) */}
             <div className="grid grid-cols-3 gap-1.5 rounded-2xl bg-[#113D33]/10 p-1.5">
               {tiers.map((tier) => {
@@ -454,10 +471,18 @@ export default function MembershipPage() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedTier}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.2 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.18}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -60) goNextTier();
+                  else if (info.offset.x > 60) goPrevTier();
+                }}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.25 }}
+                className="touch-pan-y"
               >
                 {/* Price + what you get */}
                 <div className="mt-6 text-center">
@@ -548,6 +573,20 @@ export default function MembershipPage() {
               </motion.div>
             </AnimatePresence>
           </div>
+          <button
+            type="button"
+            onClick={goNextTier}
+            aria-label="Next membership"
+            className="hidden sm:flex shrink-0 self-center h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15 transition"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+          </div>
+
+          {/* Mobile swipe hint */}
+          <p className="sm:hidden mt-3 text-center text-[11px] text-white/50">
+            Swipe to compare memberships
+          </p>
 
           {/* Social proof adjacent to the pricing decision */}
           <div className="mt-5 flex justify-center">
@@ -607,14 +646,14 @@ export default function MembershipPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="scroll-mt-28 bg-white/[0.06] rounded-2xl border border-white/10 shadow-xl overflow-hidden flex flex-col"
+              className="group scroll-mt-28 bg-white/[0.06] rounded-2xl border border-white/10 shadow-xl overflow-hidden flex flex-col transition-all duration-300 hover:bg-white/[0.1] hover:border-white/20 hover:scale-[1.01]"
             >
-              <div className="relative h-44 w-full">
+              <div className="relative h-44 w-full overflow-hidden">
                 <Image
                   src={m.image}
                   alt={m.name}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0e2b24]/70 to-transparent" />
               </div>
