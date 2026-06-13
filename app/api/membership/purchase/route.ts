@@ -29,10 +29,6 @@ const SELLABLE_CONTRACTS: Record<
   124: { key: "ultimate", name: "Ultimate Membership", monthly: 159 },
   111: { key: "aescape", name: "Aescape Membership", monthly: 99 },
   102: { key: "remedy", name: "Remedy Room Membership", monthly: 99 },
-  // TEMP: $1 live-charge test contract (Larimer). Remove after the
-  // real-charge test is verified. Not sold online; reachable only via the
-  // ?testbuy=1 button on /membership-join-preview.
-  140: { key: "test", name: "$1 Test Membership", monthly: 1 },
 };
 
 // All Sway serverless functions run in UTC on Vercel. Anchor "today" to
