@@ -162,28 +162,20 @@ export async function POST(req: Request) {
       const mbMessage: string = data?.Error?.Message ?? "";
       const lowerErr = mbMessage.toLowerCase();
 
-      // "card_failed" lets the join flow send the user back to the card step
-      // with their details intact (Baymard: specific decline message + an
-      // immediate try-another-card path recovers ~30% of declines).
-      let code: string | null = null;
-      let userMessage =
-        "We couldn't complete your membership purchase. Please try again or call (303) 476-6150.";
-      if (lowerErr.includes("declined")) {
-        code = "card_failed";
-        userMessage =
-          "Your card was declined by your bank. Try a different card, or call (303) 476-6150 and we'll help.";
-      } else if (lowerErr.includes("expired")) {
-        code = "card_failed";
-        userMessage =
-          "The card on file appears to be expired. Please add a current card and try again.";
-      } else if (lowerErr.includes("insufficient")) {
-        code = "card_failed";
-        userMessage =
-          "Your card was declined for insufficient funds. Please try a different card.";
-      } else if (lowerErr.includes("contract")) {
-        userMessage =
-          "This membership isn't available for online signup right now. Please call (303) 476-6150 and we'll set you up.";
-      }
+      // Structural errors (the contract itself, not the customer's card) — don't
+      // bounce to the card step, it won't help.
+      const isContractIssue =
+        lowerErr.includes("contract") || lowerErr.includes("not available");
+
+      // Everything else at the charge step is payment-related, so route the user
+      // back to the card step to try another card (Baymard: the retry PATH
+      // recovers ~30% of declines). We deliberately do NOT leak the specific
+      // decline reason (declined / expired / insufficient) — that gives
+      // card-testers an oracle. The per-IP rate limiter is the real defense.
+      const code = isContractIssue ? null : "card_failed";
+      const userMessage = isContractIssue
+        ? "This membership isn't available for online signup right now. Please call (303) 476-6150 and we'll set you up."
+        : "We couldn't process that card. Please double-check the details or try a different card. Call (303) 476-6150 if it keeps happening.";
 
       return NextResponse.json(
         { error: userMessage, code, mbError: mbMessage || null },
@@ -205,7 +197,8 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           error:
-            "Your payment needs additional verification. Please call (303) 476-6150 to finish signing up.",
+            "We couldn't process that card. Please try a different card, or call (303) 476-6150 and we'll help.",
+          code: "card_failed",
         },
         { status: 402 }
       );
