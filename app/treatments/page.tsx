@@ -298,7 +298,7 @@ export default function TreatmentsPage() {
             ))}
           </div>
 
-          <p className="mt-7 text-sm opacity-50">
+          <p className="mt-7 text-sm opacity-75">
             Members save 50% on all boosts and super boosts.
           </p>
         </motion.div>

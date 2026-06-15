@@ -288,7 +288,7 @@ export default function InfraredPemfMatBlogLayout() {
         />
 
         {/* Permalink */}
-        <div className="text-sm text-gray-400 pt-4">
+        <div className="text-sm text-gray-600 pt-4">
           Permalink: <Link href="/blog/infrared-pemf-mat" className="underline hover:text-[#113D33]">/blog/infrared-pemf-mat</Link>
         </div>
       </div>

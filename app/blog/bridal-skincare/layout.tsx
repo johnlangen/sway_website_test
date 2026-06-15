@@ -210,7 +210,7 @@ export default function BridalSkincareBlogLayout() {
           </div>
         </div>
 
-        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/bridal-skincare</p>
+        <p className="text-xs text-gray-600 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/bridal-skincare</p>
       </div>
 
       {/* FAQ JSON-LD */}

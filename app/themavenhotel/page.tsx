@@ -1845,7 +1845,7 @@ export default function MavenHotelPage() {
                           {confirmDetails?.dateLabel} ·{" "}
                           {confirmDetails?.timeLabel}
                         </div>
-                        <div className="text-sm text-[#113D33]/60 mt-1">
+                        <div className="text-sm text-[#113D33]/75 mt-1">
                           {confirmDetails?.minutes} min
                         </div>
                       </div>
@@ -1872,7 +1872,7 @@ export default function MavenHotelPage() {
                     className="block text-sm font-semibold text-[#113D33] mb-1.5"
                   >
                     Maven Bundle Code{" "}
-                    <span className="font-normal text-[#113D33]/50">
+                    <span className="font-normal text-[#113D33]/75">
                       (optional)
                     </span>
                   </label>
@@ -1886,7 +1886,7 @@ export default function MavenHotelPage() {
                     autoCorrect="off"
                     autoCapitalize="off"
                     spellCheck={false}
-                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-[#113D33] placeholder:text-[#113D33]/40 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-[#113D33] placeholder:text-[#113D33]/75 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
 
                   {promoValid && (
@@ -1913,14 +1913,14 @@ export default function MavenHotelPage() {
                   )}
 
                   {!promoValid && promoCodeTrimmed.length > 0 && (
-                    <p className="mt-2 text-xs text-[#113D33]/60">
+                    <p className="mt-2 text-xs text-[#113D33]/75">
                       We don&apos;t recognize this code. You can leave it
                       blank or double-check your Maven Hotel confirmation
                       email.
                     </p>
                   )}
 
-                  <p className="mt-2 text-xs text-[#113D33]/55 leading-relaxed">
+                  <p className="mt-2 text-xs text-[#113D33]/75 leading-relaxed">
                     If you prepaid your massage as part of your Maven Hotel
                     bundle, enter the code from your hotel confirmation.
                     Otherwise leave blank.
@@ -1961,7 +1961,7 @@ export default function MavenHotelPage() {
             <h2 className="text-2xl font-bold text-[#113D33] mb-2">
               Reserving your appointment...
             </h2>
-            <p className="text-[#113D33]/60">
+            <p className="text-[#113D33]/75">
               This usually takes just a few seconds.
             </p>
           </div>
@@ -1997,14 +1997,14 @@ export default function MavenHotelPage() {
             <p className="text-[#113D33]/70 mb-2">
               Your Aescape massage has been booked.
             </p>
-            <p className="text-sm text-[#113D33]/50 mb-8">
+            <p className="text-sm text-[#113D33]/75 mb-8">
               A confirmation email has been sent to{" "}
               <span className="font-semibold">{emailNormalized}</span>.
             </p>
 
             {confirmDetails && (
               <div className="bg-white/70 border border-[#113D33]/10 rounded-2xl p-5 mb-8 text-left">
-                <div className="text-sm uppercase tracking-wide text-[#113D33]/50 mb-2">
+                <div className="text-sm uppercase tracking-wide text-[#113D33]/75 mb-2">
                   Booking Details
                 </div>
                 <div className="font-semibold text-[#113D33] mb-1">
@@ -2013,7 +2013,7 @@ export default function MavenHotelPage() {
                 <div className="text-sm text-[#113D33]/70">
                   {confirmDetails.dateLabel} · {confirmDetails.timeLabel}
                 </div>
-                <div className="text-sm text-[#113D33]/50 mt-1">
+                <div className="text-sm text-[#113D33]/75 mt-1">
                   Sway Wellness Spa · 1428 Larimer Street
                 </div>
               </div>
@@ -2074,7 +2074,7 @@ export default function MavenHotelPage() {
           <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-3">
             More Wellness at Sway
           </h2>
-          <p className="text-[#113D33]/60 mb-10 max-w-xl mx-auto">
+          <p className="text-[#113D33]/75 mb-10 max-w-xl mx-auto">
             Looking for something beyond robot massage? Sway offers a full menu
             of spa treatments at our Larimer Square location.
           </p>
@@ -2110,12 +2110,12 @@ export default function MavenHotelPage() {
                 <h3 className="font-semibold text-[#113D33] mb-1 group-hover:text-[#4A776D] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-sm text-[#113D33]/60">{item.desc}</p>
+                <p className="text-sm text-[#113D33]/75">{item.desc}</p>
               </Link>
             ))}
           </div>
 
-          <p className="text-sm text-[#113D33]/50 mt-8">
+          <p className="text-sm text-[#113D33]/75 mt-8">
             <Link
               href="/locations/denver-larimer/book"
               className="text-[#4A776D] font-medium hover:text-[#113D33] transition underline underline-offset-2"

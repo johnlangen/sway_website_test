@@ -157,7 +157,7 @@ export default function GiftCardsHubPage() {
                     {loc.city}, {loc.state}
                   </p>
                   {loc.address && (
-                    <p className="text-xs text-gray-400 mb-4">{loc.address}</p>
+                    <p className="text-xs text-gray-600 mb-4">{loc.address}</p>
                   )}
 
                   <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33] text-white font-semibold text-sm group-hover:bg-[#0a2b23] transition">

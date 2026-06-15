@@ -1050,7 +1050,7 @@ export default function HolidayWellnessGuideLayout() {
       </Link>
     </div>
   </div>
-  <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/holiday-wellness-guide</p>
+  <p className="text-xs text-gray-600 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/holiday-wellness-guide</p>
 </section>
 
       {/* FAQ JSON-LD */}

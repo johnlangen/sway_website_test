@@ -281,7 +281,7 @@ export default function BacheloretteSpaDayBlogLayout() {
         </div>
 
         {/* Permalink */}
-        <div className="text-sm text-gray-400 pt-4">
+        <div className="text-sm text-gray-600 pt-4">
           Permalink: <Link href="/blog/bachelorette-spa-day" className="underline hover:text-[#113D33]">/blog/bachelorette-spa-day</Link>
         </div>
       </div>

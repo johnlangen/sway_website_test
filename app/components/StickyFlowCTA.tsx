@@ -34,7 +34,7 @@ export function StickyFlowCTA({
           {hint && (
             <div
               className={`mb-2 text-center text-xs ${
-                dark ? "text-white/60" : "text-[#113D33]/60"
+                dark ? "text-white/60" : "text-[#113D33]/75"
               }`}
             >
               {hint}

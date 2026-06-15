@@ -13,7 +13,7 @@ export default function Footer() {
         {/* Logo */}
         <div className="flex flex-col">
           <Image src="/assets/swaylogo.png" width={75} height={25} alt="Sway Logo" />
-          <span className="text-xs text-white/40 mt-1">Part of the Spavia family</span>
+          <span className="text-xs text-white/60 mt-1">Part of the Spavia family</span>
         </div>
 
         {/* Links */}
@@ -60,7 +60,7 @@ export default function Footer() {
       </div>
 
       {/* Award */}
-      <div className="mt-10 text-center text-xs text-white/40">
+      <div className="mt-10 text-center text-xs text-white/60">
         Voted #4 Best Day Spa in America — USA Today 10Best
       </div>
 

@@ -102,7 +102,7 @@ function trackMembership(event: string, extra: Record<string, unknown> = {}) {
 /* ── styles (mirrors the booking flow) ──────────────────────────── */
 
 const inputClass =
-  "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
+  "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
 
 const primaryBtn =
   "w-full rounded-full bg-[#113D33] text-white py-3.5 text-base font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";

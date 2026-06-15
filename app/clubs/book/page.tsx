@@ -88,7 +88,7 @@ export default function ClubsBookPage() {
                   <MapPin className="w-3.5 h-3.5" />
                   {club.city}, {club.state}
                 </p>
-                <p className="text-xs text-gray-400 mb-4">{club.address}</p>
+                <p className="text-xs text-gray-600 mb-4">{club.address}</p>
 
                 <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 text-white font-semibold text-sm transition bg-[#113D33] group-hover:bg-[#0a2b23]">
                   Book Now

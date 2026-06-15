@@ -179,7 +179,7 @@ export default function TechAndWellnessBlogLayout() {
           }}
         />
 
-        <div className="text-sm text-gray-400 pt-6">
+        <div className="text-sm text-gray-600 pt-6">
           <Link href="/blog/tech-and-wellness" className="hover:underline">swaywellnessspa.com/blog/tech-and-wellness</Link>
         </div>
       </div>

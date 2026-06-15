@@ -294,7 +294,7 @@ export default function BlogContent() {
             lifestyle, from the team at Sway Wellness Spa.
           </p>
 
-          <p className="mt-3 text-sm text-white/50">{blogs.length} articles</p>
+          <p className="mt-3 text-sm text-white/65">{blogs.length} articles</p>
         </motion.div>
       </section>
 

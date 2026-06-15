@@ -134,7 +134,7 @@ export default function SwayShopFindsBlogLayout() {
           </div>
         </div>
 
-        <div className="text-sm text-gray-400 pt-6">
+        <div className="text-sm text-gray-600 pt-6">
           <Link href="/blog/sway-shop-finds" className="hover:underline">swaywellnessspa.com/blog/sway-shop-finds</Link>
         </div>
       </div>

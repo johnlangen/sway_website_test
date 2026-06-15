@@ -151,7 +151,7 @@ export default function Massage80MinBlogLayout() {
           </div>
         </div>
 
-        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">
+        <p className="text-xs text-gray-600 pt-4 border-t border-[#d7e2dc]">
           Permalink: swaywellnessspa.com/blog/80-minute-massage
         </p>
       </div>

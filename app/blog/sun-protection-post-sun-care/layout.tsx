@@ -170,7 +170,7 @@ export default function SunProtectionBlogLayout() {
           </div>
         </div>
 
-        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/sun-protection-post-sun-care</p>
+        <p className="text-xs text-gray-600 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/sun-protection-post-sun-care</p>
       </div>
 
       {/* FAQ JSON-LD */}

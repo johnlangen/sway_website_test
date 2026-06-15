@@ -503,7 +503,7 @@ export default function BestDaySpaLayout() {
         />
 
         {/* Permalink */}
-        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">
+        <p className="text-xs text-gray-600 pt-4 border-t border-[#d7e2dc]">
           Permalink: swaywellnessspa.com/blog/best-day-spa-in-america
         </p>
       </div>

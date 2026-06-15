@@ -1752,7 +1752,7 @@ export default function BookAescapePage() {
                   <input
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
                     autoComplete="given-name"
                     aria-label="First name"
                     autoFocus
@@ -1767,7 +1767,7 @@ export default function BookAescapePage() {
                   <input
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
                     autoComplete="family-name"
                     aria-label="Last name"
                   />
@@ -1781,7 +1781,7 @@ export default function BookAescapePage() {
                   <input
                     value={mobilePhone}
                     onChange={(e) => setMobilePhone(e.target.value)}
-                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
                     autoComplete="tel"
                     type="tel"
                     inputMode="tel"
@@ -2137,7 +2137,7 @@ export default function BookAescapePage() {
                           value={guestFirstName}
                           onChange={(e) => setGuestFirstName(e.target.value)}
                           aria-label="Guest first name"
-                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
                           type="text"
@@ -2145,7 +2145,7 @@ export default function BookAescapePage() {
                           value={guestLastName}
                           onChange={(e) => setGuestLastName(e.target.value)}
                           aria-label="Guest last name"
-                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                       </div>
                       <input
@@ -2154,7 +2154,7 @@ export default function BookAescapePage() {
                         value={guestPhone}
                         onChange={(e) => setGuestPhone(e.target.value)}
                         aria-label="Guest phone"
-                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <input
                         type="email"
@@ -2162,7 +2162,7 @@ export default function BookAescapePage() {
                         value={guestEmail}
                         onChange={(e) => setGuestEmail(e.target.value)}
                         aria-label="Guest email"
-                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input

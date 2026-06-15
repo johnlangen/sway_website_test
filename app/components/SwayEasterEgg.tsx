@@ -45,6 +45,7 @@ export default function SwayEasterEgg({ open, onClose }: Props) {
   return (
     <div
       role="dialog"
+      aria-modal="true"
       aria-label="A note from Sway"
       onClick={onClose}
       className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#113D33]/95 backdrop-blur-sm cursor-pointer animate-egg-fade"

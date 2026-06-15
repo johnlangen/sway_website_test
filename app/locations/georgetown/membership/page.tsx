@@ -189,7 +189,7 @@ export default function GeorgetownMembershipPage() {
                             <span>
                               {t.name}
                               {t.duration && (
-                                <span className="text-gray-400 ml-1">({t.duration})</span>
+                                <span className="text-gray-500 ml-1">({t.duration})</span>
                               )}
                             </span>
                           </li>
@@ -232,7 +232,7 @@ export default function GeorgetownMembershipPage() {
                             <span>
                               {t.name}
                               {t.duration && (
-                                <span className="text-gray-400 ml-1">({t.duration})</span>
+                                <span className="text-gray-500 ml-1">({t.duration})</span>
                               )}
                             </span>
                           </li>

@@ -138,7 +138,7 @@ export default function VitaminCFacialBlogLayout() {
           </div>
         </div>
 
-        <p className="text-xs text-gray-400 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/vitamin-c-facial</p>
+        <p className="text-xs text-gray-600 pt-4 border-t border-[#d7e2dc]">Permalink: swaywellnessspa.com/blog/vitamin-c-facial</p>
       </div>
 
       {/* FAQ JSON-LD */}

@@ -206,7 +206,7 @@ export default function ScienceOfRelaxationBlogLayout() {
           }}
         />
 
-        <div className="text-sm text-gray-400 pt-6">
+        <div className="text-sm text-gray-600 pt-6">
           <Link href="/blog/science-of-relaxation" className="hover:underline">swaywellnessspa.com/blog/science-of-relaxation</Link>
         </div>
       </div>

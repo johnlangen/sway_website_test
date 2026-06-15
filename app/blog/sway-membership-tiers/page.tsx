@@ -188,8 +188,8 @@ export default function Page() {
             </div>
             <div className="text-right">
               <span className="text-3xl font-bold text-[#113D33]">$99</span>
-              <span className="text-gray-400 text-sm">/mo</span>
-              <p className="text-gray-400 text-xs">$139 drop-in</p>
+              <span className="text-gray-600 text-sm">/mo</span>
+              <p className="text-gray-600 text-xs">$139 drop-in</p>
             </div>
           </div>
           <div className="px-6 py-6 space-y-5">
@@ -205,7 +205,7 @@ export default function Page() {
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-start gap-2">
                     <span className="text-[#9CB7A9] mt-0.5">✦</span>
-                    <span>Essential Signature Facial <span className="text-gray-400">· 50 min</span></span>
+                    <span>Essential Signature Facial <span className="text-gray-600">· 50 min</span></span>
                   </li>
                 </ul>
               </div>
@@ -214,11 +214,11 @@ export default function Page() {
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-start gap-2">
                     <span className="text-[#9CB7A9] mt-0.5">✦</span>
-                    <span>Essential Signature Massage <span className="text-gray-400">· 50 min</span></span>
+                    <span>Essential Signature Massage <span className="text-gray-600">· 50 min</span></span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-[#9CB7A9] mt-0.5">✦</span>
-                    <span>Essential Maternity Massage <span className="text-gray-400">· 50 min</span></span>
+                    <span>Essential Maternity Massage <span className="text-gray-600">· 50 min</span></span>
                   </li>
                 </ul>
               </div>
@@ -239,8 +239,8 @@ export default function Page() {
               </div>
               <div className="text-right">
                 <span className="text-3xl font-bold text-[#113D33]">$129</span>
-                <span className="text-gray-400 text-sm">/mo</span>
-                <p className="text-gray-400 text-xs">$169 drop-in</p>
+                <span className="text-gray-600 text-sm">/mo</span>
+                <p className="text-gray-600 text-xs">$169 drop-in</p>
               </div>
             </div>
             <p className="text-gray-600 mt-1 text-sm">50–70 min treatments · 1 visit/month</p>
@@ -255,7 +255,7 @@ export default function Page() {
             <div className="grid md:grid-cols-2 gap-5 pt-2">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <p className="font-semibold text-[#113D33] text-sm mb-3 uppercase tracking-wide">Facials</p>
-                <p className="text-gray-400 text-xs mb-2">50 min</p>
+                <p className="text-gray-600 text-xs mb-2">50 min</p>
                 <ul className="space-y-2 text-sm text-gray-700">
                   {[
                     "Premier Forever Young Anti-Aging Facial",
@@ -284,7 +284,7 @@ export default function Page() {
                   ].map(([name, dur]) => (
                     <li key={name} className="flex items-start gap-2">
                       <span className="text-[#113D33] mt-0.5">✦</span>
-                      <span>{name} <span className="text-gray-400">· {dur}</span></span>
+                      <span>{name} <span className="text-gray-600">· {dur}</span></span>
                     </li>
                   ))}
                 </ul>
@@ -307,7 +307,7 @@ export default function Page() {
               <div className="text-right">
                 <span className="text-3xl font-bold text-white">$159</span>
                 <span className="text-white/60 text-sm">/mo</span>
-                <p className="text-white/50 text-xs">$199 drop-in</p>
+                <p className="text-white/65 text-xs">$199 drop-in</p>
               </div>
             </div>
           </div>
@@ -321,7 +321,7 @@ export default function Page() {
             <div className="grid md:grid-cols-2 gap-5 pt-2">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <p className="font-semibold text-[#113D33] text-sm mb-3 uppercase tracking-wide">Facials</p>
-                <p className="text-gray-400 text-xs mb-2">60 min · exceptions noted</p>
+                <p className="text-gray-600 text-xs mb-2">60 min · exceptions noted</p>
                 <ul className="space-y-2 text-sm text-gray-700">
                   {[
                     ["Ultimate Illuminate LED Facial", "60 min"],
@@ -332,7 +332,7 @@ export default function Page() {
                   ].map(([name, dur]) => (
                     <li key={name} className="flex items-start gap-2">
                       <span className="text-[#9CB7A9] mt-0.5">✦</span>
-                      <span>{name} <span className="text-gray-400">· {dur}</span></span>
+                      <span>{name} <span className="text-gray-600">· {dur}</span></span>
                     </li>
                   ))}
                 </ul>
@@ -349,7 +349,7 @@ export default function Page() {
                   ].map(([name, dur]) => (
                     <li key={name} className="flex items-start gap-2">
                       <span className="text-[#9CB7A9] mt-0.5">✦</span>
-                      <span>{name} <span className="text-gray-400">· {dur}</span></span>
+                      <span>{name} <span className="text-gray-600">· {dur}</span></span>
                     </li>
                   ))}
                 </ul>
@@ -381,7 +381,7 @@ export default function Page() {
                   <Image src={img} alt={label} fill className="object-contain" />
                 </div>
                 <p className="text-xs font-semibold text-[#113D33]">{label}</p>
-                <p className="text-[10px] text-gray-400 uppercase tracking-wide">50% off</p>
+                <p className="text-[10px] text-gray-600 uppercase tracking-wide">50% off</p>
               </div>
             ))}
           </div>
@@ -406,9 +406,9 @@ export default function Page() {
                     <span className="font-medium">{name}</span>
                     <span className="text-right whitespace-nowrap">
                       <span className="text-[#113D33] font-semibold">{mem}</span>
-                      <span className="text-gray-300 mx-1">·</span>
-                      <span className="text-gray-400 line-through text-xs">{drop}</span>
-                      <span className="text-gray-400 text-xs ml-1">{time}</span>
+                      <span className="text-gray-500 mx-1">·</span>
+                      <span className="text-gray-600 line-through text-xs">{drop}</span>
+                      <span className="text-gray-600 text-xs ml-1">{time}</span>
                     </span>
                   </li>
                 ))}
@@ -431,9 +431,9 @@ export default function Page() {
                     <span className="font-medium">{name}</span>
                     <span className="text-right whitespace-nowrap">
                       <span className="text-[#113D33] font-semibold">{mem}</span>
-                      <span className="text-gray-300 mx-1">·</span>
-                      <span className="text-gray-400 line-through text-xs">{drop}</span>
-                      <span className="text-gray-400 text-xs ml-1">{time}</span>
+                      <span className="text-gray-500 mx-1">·</span>
+                      <span className="text-gray-600 line-through text-xs">{drop}</span>
+                      <span className="text-gray-600 text-xs ml-1">{time}</span>
                     </span>
                   </li>
                 ))}
@@ -520,7 +520,7 @@ export default function Page() {
 
         {/* ─── CTA ─── */}
         <div className="relative overflow-hidden bg-[#113D33] text-white rounded-2xl p-8 text-center space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-widest text-white/50">Sway Wellness Spa · Larimer Square</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-white/65">Sway Wellness Spa · Larimer Square</p>
           <p className="text-3xl font-bold">Join the Club</p>
           <p className="text-white/75 max-w-md mx-auto">
             Monthly massage or facial. 50% off boosts. Works at 60+ locations nationwide.
@@ -539,7 +539,7 @@ export default function Page() {
               Book a Treatment
             </Link>
           </div>
-          <p className="text-white/40 text-xs pt-2">
+          <p className="text-white/65 text-xs pt-2">
             1428 Larimer St., Denver, CO 80202 · <a href="tel:3034766150" className="underline">(303) 476-6150</a>
           </p>
         </div>

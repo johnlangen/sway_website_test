@@ -408,7 +408,7 @@ const MassagesPage = () => {
                 <h3 className="text-white text-xl font-bold uppercase tracking-wide">
                   {col.memberPrice} {col.tier}
                 </h3>
-                <p className="text-sm text-white/40 mt-1">{col.dropInPrice}</p>
+                <p className="text-sm text-white/60 mt-1">{col.dropInPrice}</p>
                 <p className="text-sm text-[#9ABFB3] mt-3 font-semibold">
                   {col.timeNote}
                 </p>

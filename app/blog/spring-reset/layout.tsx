@@ -176,7 +176,7 @@ export default function SpringResetBlogLayout() {
           </div>
         </div>
 
-        <div className="text-sm text-gray-400 pt-6">
+        <div className="text-sm text-gray-600 pt-6">
           <Link href="/blog/spring-reset" className="hover:underline">swaywellnessspa.com/blog/spring-reset</Link>
         </div>
       </div>

@@ -530,7 +530,7 @@ export default function GeorgetownFoundingMembershipPage() {
               <p className="text-xs sm:text-sm text-gray-500 mt-1 group-hover:text-[#113D33] transition-colors">
                 Best Day Spa in the U.S.
               </p>
-              <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5">
+              <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5">
                 USA Today 10Best
               </p>
             </a>
@@ -644,7 +644,7 @@ export default function GeorgetownFoundingMembershipPage() {
                     <>
                       <div className="flex items-baseline justify-center gap-2">
                         {m.regularPrice && (
-                          <span className="text-lg line-through text-gray-400">
+                          <span className="text-lg line-through text-gray-600">
                             {m.regularPrice}
                           </span>
                         )}
@@ -711,7 +711,7 @@ export default function GeorgetownFoundingMembershipPage() {
                     >
                       <div className="pt-4 border-t border-gray-100 mt-4 text-left">
                         {/* Benefits */}
-                        <p className="text-xs uppercase tracking-[0.1em] text-gray-400 mb-2">
+                        <p className="text-xs uppercase tracking-[0.1em] text-gray-600 mb-2">
                           Included
                         </p>
                         <ul className="space-y-1.5 mb-4">
@@ -761,7 +761,7 @@ export default function GeorgetownFoundingMembershipPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-10"
+            className="text-sm uppercase tracking-[0.2em] text-gray-600 mb-10"
           >
             As Seen In
           </motion.p>
@@ -812,7 +812,7 @@ export default function GeorgetownFoundingMembershipPage() {
           <p className="text-2xl md:text-3xl font-bold text-[#113D33] mb-1">
             111 Reviews &middot; 5.0 Average
           </p>
-          <p className="text-gray-400 text-sm">from our Denver location</p>
+          <p className="text-gray-600 text-sm">from our Denver location</p>
         </motion.div>
 
         {/* Testimonials */}
@@ -1158,7 +1158,7 @@ export default function GeorgetownFoundingMembershipPage() {
                             >
                               {option.label}
                             </p>
-                            <p className="text-xs text-gray-400 mt-0.5">
+                            <p className="text-xs text-gray-600 mt-0.5">
                               {option.desc}
                             </p>
                           </div>
@@ -1189,7 +1189,7 @@ export default function GeorgetownFoundingMembershipPage() {
           )}
 
           {/* Trust signals */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-600">
             <span className="flex items-center gap-1.5">
               <Clock className="w-4 h-4" /> No commitment required
             </span>

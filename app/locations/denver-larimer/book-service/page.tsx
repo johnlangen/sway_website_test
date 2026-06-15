@@ -1575,7 +1575,7 @@ function BookServicePage() {
   ───────────────────────────────────────────── */
 
   const inputClass =
-    "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
+    "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
 
   const primaryBtn =
     "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
@@ -2771,7 +2771,7 @@ function BookServicePage() {
                             value={guestFirstName}
                             onChange={(e) => setGuestFirstName(e.target.value)}
                             aria-label="Guest first name"
-                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                           />
                           <input
                             type="text"
@@ -2779,7 +2779,7 @@ function BookServicePage() {
                             value={guestLastName}
                             onChange={(e) => setGuestLastName(e.target.value)}
                             aria-label="Guest last name"
-                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                            className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                           />
                         </div>
                         <input
@@ -2788,7 +2788,7 @@ function BookServicePage() {
                           value={guestPhone}
                           onChange={(e) => setGuestPhone(e.target.value)}
                           aria-label="Guest phone"
-                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
                           type="email"
@@ -2796,7 +2796,7 @@ function BookServicePage() {
                           value={guestEmail}
                           onChange={(e) => setGuestEmail(e.target.value)}
                           aria-label="Guest email"
-                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                          className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <label className="flex items-center gap-2 cursor-pointer">
                           <input

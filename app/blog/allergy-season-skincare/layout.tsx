@@ -153,7 +153,7 @@ export default function AllergySeasonSkincareBlogLayout() {
         </div>
 
         {/* Permalink */}
-        <div className="text-sm text-gray-400 pt-4">
+        <div className="text-sm text-gray-600 pt-4">
           Permalink: <Link href="/blog/allergy-season-skincare" className="underline hover:text-[#113D33]">/blog/allergy-season-skincare</Link>
         </div>
       </div>
