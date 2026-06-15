@@ -65,8 +65,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom Links */}
-      <div className="mt-4 flex justify-between text-sm text-gray-400">
-        <FooterLink href="/terms-and-conditions" text="Terms and Conditions" />
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 justify-between text-sm text-gray-400">
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          <FooterLink href="/terms-and-conditions" text="Terms and Conditions" />
+          <FooterLink href="/accessibility" text="Accessibility" />
+        </div>
         <span>© 2026 Sway Wellness Club</span>
       </div>
     </footer>

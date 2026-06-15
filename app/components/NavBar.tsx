@@ -55,12 +55,22 @@ const NavBar = () => {
       }
     };
 
+    // Escape closes any open dropdown (keyboard accessibility — WCAG 2.1.2)
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setTreatmentsOpen(false);
+        setSwayWayOpen(false);
+      }
+    };
+
     if (treatmentsOpen || swayWayOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("keydown", handleKeyDown);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [treatmentsOpen, swayWayOpen]);
 
@@ -101,13 +111,21 @@ const NavBar = () => {
                   setTreatmentsOpen((v) => !v);
                   setSwayWayOpen(false);
                 }}
+                aria-haspopup="true"
+                aria-expanded={treatmentsOpen}
+                aria-controls="treatments-menu"
                 className="text-white hover:text-gray-300 font-vance"
               >
-                Treatments ▾
+                Treatments <span aria-hidden="true">▾</span>
               </button>
 
               {treatmentsOpen && (
-                <div className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg">
+                <div
+                  id="treatments-menu"
+                  role="menu"
+                  aria-label="Treatments"
+                  className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg"
+                >
                   {[
                     ["All Treatments", "/treatments"],
                     ["Facials", "/facials"],
@@ -118,8 +136,9 @@ const NavBar = () => {
                     <Link
                       key={href}
                       href={href}
+                      role="menuitem"
                       onClick={closeAll}
-                      className="block px-4 py-3 text-white hover:bg-gray-800"
+                      className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                     >
                       {label}
                     </Link>
@@ -143,38 +162,50 @@ const NavBar = () => {
                   setSwayWayOpen((v) => !v);
                   setTreatmentsOpen(false);
                 }}
+                aria-haspopup="true"
+                aria-expanded={swayWayOpen}
+                aria-controls="swayway-menu"
                 className="text-white hover:text-gray-300 font-vance"
               >
-                The Sway Way ▾
+                The Sway Way <span aria-hidden="true">▾</span>
               </button>
 
               {swayWayOpen && (
-                <div className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg">
+                <div
+                  id="swayway-menu"
+                  role="menu"
+                  aria-label="The Sway Way"
+                  className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg"
+                >
                   <Link
                     href="/swayway"
+                    role="menuitem"
                     onClick={closeAll}
-                    className="block px-4 py-3 text-white hover:bg-gray-800"
+                    className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
                     Our Philosophy
                   </Link>
                   <Link
                     href="/press"
+                    role="menuitem"
                     onClick={closeAll}
-                    className="block px-4 py-3 text-white hover:bg-gray-800"
+                    className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
                     Press
                   </Link>
                   <Link
                     href="/blog"
+                    role="menuitem"
                     onClick={closeAll}
-                    className="block px-4 py-3 text-white hover:bg-gray-800"
+                    className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
                     Blog
                   </Link>
                   <Link
                     href="/own"
+                    role="menuitem"
                     onClick={closeAll}
-                    className="block px-4 py-3 text-white hover:bg-gray-800"
+                    className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
                     Own a Sway
                   </Link>
@@ -227,9 +258,12 @@ const NavBar = () => {
 
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
               className="md:hidden text-white text-2xl"
             >
-              ☰
+              <span aria-hidden="true">☰</span>
             </button>
           </div>
         </div>
@@ -237,7 +271,7 @@ const NavBar = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
+        <div id="mobile-menu" className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
           {/* Location selector */}
           {savedLocation ? (
             <div className="flex items-center gap-2 text-white text-sm">

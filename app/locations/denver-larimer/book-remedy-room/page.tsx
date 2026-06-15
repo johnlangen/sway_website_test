@@ -1509,6 +1509,7 @@ export default function BookRemedyRoomPage() {
                         <button
                           key={iso}
                           disabled={isPast}
+                          aria-pressed={selected}
                           onClick={() => setSelectedDate(iso)}
                           className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
                             selected
@@ -1568,6 +1569,8 @@ export default function BookRemedyRoomPage() {
                               return (
                                 <button
                                   key={time.toISOString()}
+                                  aria-pressed={isSelected}
+                                  aria-label={formatTime12h(time)}
                                   onClick={() => setSelectedTime(time)}
                                   className={`py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
                                     isSelected

@@ -1644,22 +1644,22 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* Week navigator */}
             <div className="bg-white/60 rounded-2xl p-3 border border-[#113D33]/5">
               <div className="flex items-center justify-center gap-1">
-                <button onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={formatISO(weekStart) <= formatISO(today)} className="p-2 rounded-full hover:bg-[#113D33]/5 disabled:opacity-20 transition">
-                  <svg className="w-4 h-4 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                <button aria-label="Previous week" onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={formatISO(weekStart) <= formatISO(today)} className="p-2 rounded-full hover:bg-[#113D33]/5 disabled:opacity-20 transition">
+                  <svg aria-hidden="true" className="w-4 h-4 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
                 </button>
                 <div className="flex gap-1.5 overflow-x-auto scrollbar-hide px-1">
                   {Array.from({ length: 7 }).map((_, i) => {
                     const d = addDays(weekStart, i); const iso = formatISO(d); const isSel = iso === selectedDate; const isToday = iso === formatISO(today);
-                    return (<button key={iso} onClick={() => { setSelectedDate(iso); setSelectedSlot(null); }}
-                      className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
+                    return (<button key={iso} aria-pressed={isSel} aria-label={d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} onClick={() => { setSelectedDate(iso); setSelectedSlot(null); }}
+                      className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
                       <span className="text-[10px] font-semibold tracking-wider uppercase">{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
                       <span className="text-lg font-bold leading-tight">{d.getDate()}</span>
                       {isToday && <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSel ? "bg-white" : "bg-[#4A776D]"}`} />}
                     </button>);
                   })}
                 </div>
-                <button onClick={() => setWeekStart(addDays(weekStart, 7))} className="p-2 rounded-full hover:bg-[#113D33]/5 transition">
-                  <svg className="w-4 h-4 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                <button aria-label="Next week" onClick={() => setWeekStart(addDays(weekStart, 7))} className="p-2 rounded-full hover:bg-[#113D33]/5 transition">
+                  <svg aria-hidden="true" className="w-4 h-4 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </button>
               </div>
             </div>
@@ -1711,8 +1711,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                       {ps.map((s, i) => {
                         const isSel = selectedSlot?.startDateTime === s.startDateTime && selectedSlot?.staffId === s.staffId;
-                        return (<button key={`${s.startDateTime}-${s.staffId}-${i}`} onClick={() => setSelectedSlot(s)}
-                          className={`rounded-xl py-3 px-2 text-center transition-all duration-200 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20 scale-[1.02]" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
+                        return (<button key={`${s.startDateTime}-${s.staffId}-${i}`} aria-pressed={isSel} aria-label={`${formatTime12h(s.startDateTime)}${filteredTherapist !== null && s.staffName ? ` with ${s.staffName}` : ""}`} onClick={() => setSelectedSlot(s)}
+                          className={`rounded-xl py-3 px-2 text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20 scale-[1.02]" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
                           <span className="font-semibold text-sm">{formatTime12h(s.startDateTime)}</span>
                           {filteredTherapist !== null && s.staffName && <span className={`block text-xs mt-0.5 ${isSel ? "text-white/70" : "text-[#113D33]/60"}`}>{s.staffName}</span>}
                         </button>);

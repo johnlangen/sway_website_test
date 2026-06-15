@@ -1511,6 +1511,7 @@ export default function BookAescapePage() {
                         <button
                           key={iso}
                           disabled={isPast}
+                          aria-pressed={selected}
                           onClick={() => setSelectedDate(iso)}
                           className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                             selected
@@ -1580,6 +1581,8 @@ export default function BookAescapePage() {
                               return (
                                 <button
                                   key={time.toISOString()}
+                                  aria-pressed={isSelected}
+                                  aria-label={formatTime12h(time)}
                                   onClick={() => setSelectedTime(time)}
                                   className={`py-2.5 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-sm ${
                                     isSelected

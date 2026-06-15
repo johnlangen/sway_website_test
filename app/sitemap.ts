@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/group-events/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/careers/`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${base}/terms-and-conditions/`, changeFrequency: "yearly" as const, priority: 0.3 },
+    { url: `${base}/accessibility/`, changeFrequency: "yearly" as const, priority: 0.3 },
     { url: `${base}/themavenhotel/`, changeFrequency: "monthly" as const, priority: 0.6 },
   ];
 

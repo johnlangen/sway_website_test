@@ -1997,8 +1997,9 @@ function BookServicePage() {
                         <button
                           key={iso}
                           disabled={isPast}
+                          aria-pressed={isSelected}
                           onClick={() => setSelectedDate(iso)}
-                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 ${
+                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${
                             isSelected
                               ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20"
                               : isPast
@@ -2211,6 +2212,8 @@ function BookServicePage() {
                             return (
                               <button
                                 key={`${slot.startDateTime}-${slot.staffId}-${idx}`}
+                                aria-pressed={isSelected}
+                                aria-label={formatTime12h(slot.startDateTime)}
                                 onClick={() => setSelectedSlot(slot)}
                                 className={`rounded-xl py-3 px-2 text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                                   isSelected
