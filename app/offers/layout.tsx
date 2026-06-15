@@ -76,7 +76,7 @@ export default function OffersLayout({
             name: "Does Sway have a first-time visitor offer?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. New guests at Sway Denver can use code FTVO40 for $40 off a first massage, facial, or 60-minute Aescape robot massage at any tier (Mon-Fri). Or use code FTVORR for a $25 first Remedy Room visit (any day, regularly $49). No membership required.",
+              text: "Yes. New local guests at Sway Denver can use code FTVO40 for $40 off a first massage, facial, or 60-minute Aescape robot massage at any tier (Mon-Fri, locals only). Or use code FTVORR for a $25 first Remedy Room visit (any day, locals only, regularly $49). No membership required.",
             },
           },
           {

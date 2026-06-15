@@ -107,10 +107,11 @@ export default function OffersPage() {
         <p className="sr-only">
           Sway Wellness Spa offers and pricing across 3 locations: Denver
           Larimer (now open), Dallas TX (coming soon), and Georgetown Washington
-          DC (coming soon). Denver first-visit offers: code FTVO40 for $40 off
-          your first massage, facial, or 60-minute Aescape robot massage at any
-          tier (Monday through Friday); code FTVORR for $25 first Remedy Room
-          visit (any day, regularly $49). Membership starts at $99/month for
+          DC (coming soon). Denver first-visit offers (locals only): code FTVO40
+          for $40 off your first massage, facial, or 60-minute Aescape robot
+          massage at any tier (Monday through Friday, locals only); code FTVORR
+          for $25 first Remedy Room visit (any day, locals only, regularly $49).
+          Membership starts at $99/month for
           unlimited massages and facials at member pricing, 50% off boosts, and
           $25 Remedy Room sessions. Sway was voted #4 Best Day Spa in America by
           USA Today 10Best. Book at swaywellnessspa.com or call (303) 476-6150.

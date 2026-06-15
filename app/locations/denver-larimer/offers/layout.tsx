@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
   description:
-    "First-visit offer FTVO40: $40 off your first massage, facial, or 60-min Aescape (Mon-Fri). First Remedy Room visit $25 (FTVORR, any day). Membership from $99/mo. Sway on Larimer Square, Denver.",
+    "First-visit offer FTVO40: $40 off your first massage, facial, or 60-min Aescape (Mon-Fri, locals only). First Remedy Room visit $25 (FTVORR, any day, locals only). Membership from $99/mo. Sway on Larimer Square, Denver.",
   alternates: {
     canonical: "/locations/denver-larimer/offers/",
   },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-larimer/offers/",
     title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
     description:
-      "$40 off any first visit (Mon-Fri), $25 first Remedy Room visit, memberships from $99/mo. Sway on Larimer Square.",
+      "$40 off any first visit (Mon-Fri, locals only), $25 first Remedy Room visit (locals only), memberships from $99/mo. Sway on Larimer Square.",
     images: [
       {
         url: "/assets/OG/og-offers.jpg",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Denver Spa Offers & Deals | Sway Wellness Spa Larimer",
     description:
-      "$40 off first visit (Mon-Fri), $25 first Remedy Room visit, memberships from $99/mo. Sway on Larimer Square.",
+      "$40 off first visit (Mon-Fri, locals only), $25 first Remedy Room visit (locals only), memberships from $99/mo. Sway on Larimer Square.",
     images: ["/assets/OG/og-offers.jpg"],
   },
   robots: {
@@ -79,7 +79,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "First Visit Offer (FTVO40)",
         description:
-          "$40 off your first massage, facial, or 60-minute Aescape robot massage at any tier (Essential, Premier, or Ultimate). Brings first-time guests to member pricing. Valid Monday through Friday. Use code FTVO40 at booking.",
+          "$40 off your first massage, facial, or 60-minute Aescape robot massage at any tier (Essential, Premier, or Ultimate). Brings first-time guests to member pricing. Locals only. Valid Monday through Friday. Use code FTVO40 at booking.",
         price: "99.00",
         priceCurrency: "USD",
         eligibleCustomerType: "http://schema.org/NewCustomer",
@@ -95,7 +95,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "First Remedy Room Visit (FTVORR)",
         description:
-          "$25 for your first 40-minute Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy). Regularly $49. Valid any day for first-time guests. Use code FTVORR at booking.",
+          "$25 for your first 40-minute Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy). Regularly $49. Locals only. Valid any day for first-time guests. Use code FTVORR at booking.",
         price: "25.00",
         priceCurrency: "USD",
         eligibleCustomerType: "http://schema.org/NewCustomer",
@@ -127,7 +127,7 @@ export default function LarimerOffersLayout({
         "@type": "Offer",
         name: "Remedy Room Recovery Circuit",
         description:
-          "A guided 40-minute recovery session combining sauna, cold plunge, compression therapy, and LED light therapy. $49 drop-in, $25 for members or first-time guests (code FTVORR).",
+          "A guided 40-minute recovery session combining sauna, cold plunge, compression therapy, and LED light therapy. $49 drop-in, $25 for members or local first-time guests (code FTVORR, locals only).",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

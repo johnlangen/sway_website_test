@@ -56,7 +56,7 @@ const faqJsonLd = {
       name: "What is the Aescape robot massage at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Aescape is an AI-powered, fully personalized full-body robot massage. The guest lies face-down, the machine scans their back, and delivers consistent pressure for 30 to 60 minutes. Sway has the first Aescape in Colorado. The 60-minute session is $99 first visit (Mon-Fri, code FTVO40).",
+        text: "Aescape is an AI-powered, fully personalized full-body robot massage. The guest lies face-down, the machine scans their back, and delivers consistent pressure for 30 to 60 minutes. Sway has the first Aescape in Colorado. The 60-minute session is $99 first visit (Mon-Fri, locals only, code FTVO40).",
       },
     },
     {

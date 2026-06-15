@@ -118,10 +118,11 @@ export default function LarimerOffersPage() {
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer
           (code FTVO40): $40 off your first massage, facial, or 60-minute
           Aescape robot massage at any tier (Essential, Premier, or Ultimate),
-          valid Monday through Friday for first-time guests. First Remedy Room
-          Visit (code FTVORR): $25 for your first 40-minute recovery circuit
-          combining sauna, cold plunge, compression therapy, and LED light
-          therapy (regularly $49), any day, first-time guests. Membership:
+          valid Monday through Friday for local first-time guests (locals only).
+          First Remedy Room Visit (code FTVORR): $25 for your first 40-minute
+          recovery circuit combining sauna, cold plunge, compression therapy,
+          and LED light therapy (regularly $49), any day, local first-time
+          guests (locals only). Membership:
           $99/month for unlimited massages and facials at member pricing, 50%
           off all boost add-ons, $25 Remedy Room sessions (normally $49), and
           private member lounge access. Sway Wellness Spa is located at 1428
