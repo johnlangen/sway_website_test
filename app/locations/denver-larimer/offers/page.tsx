@@ -219,7 +219,10 @@ export default function LarimerOffersPage() {
                   <p className="text-xs text-gray-600 mb-1.5">
                     Mention at the front desk
                   </p>
-                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                  <p className="text-sm font-bold uppercase tracking-wide text-[#113D33] mb-1">
+                    Locals only
+                  </p>
+                  <p className="text-xs text-gray-500 leading-relaxed">
                     {o.constraints} · {o.regularPrice}
                   </p>
                 </div>
