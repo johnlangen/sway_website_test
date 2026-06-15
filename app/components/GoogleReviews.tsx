@@ -242,7 +242,7 @@ export default function GoogleReviews() {
       <div className="flex items-center gap-3 md:gap-4">
         <ArrowButton direction="left" onClick={prev} />
 
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-hidden" aria-live="polite" aria-atomic="false">
           <AnimatePresence mode="wait">
             <motion.div
               key={page}
@@ -302,6 +302,7 @@ export default function GoogleReviews() {
                 : "bg-[#113D33]/20 hover:bg-[#113D33]/40"
             }`}
             aria-label={`Page ${i + 1}`}
+            aria-current={i === page ? "true" : undefined}
           />
         ))}
       </div>

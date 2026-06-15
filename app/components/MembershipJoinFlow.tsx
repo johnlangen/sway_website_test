@@ -20,6 +20,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Lock, X } from "lucide-react";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
+import { useDialogA11y } from "@/lib/useDialogA11y";
 
 export type MembershipPlan = {
   key: "essential" | "premier" | "ultimate" | "aescape" | "remedy";
@@ -115,9 +116,18 @@ export default function MembershipJoinFlow({
   plan: MembershipPlan;
   onClose: () => void;
 }) {
+  // Modal a11y: trap focus, move focus in on open, Escape to close, restore
+  // focus to trigger on close (WCAG 2.4.3 / 2.1.2). Don't allow close mid-charge.
+  const loadingRef = useRef(false);
+  const dialogRef = useDialogA11y<HTMLDivElement>(true, () => {
+    if (!loadingRef.current) onClose();
+  });
   const [step, setStep] = useState<Step>("email");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    loadingRef.current = loading;
+  }, [loading]);
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -547,7 +557,9 @@ export default function MembershipJoinFlow({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center font-vance"
+      ref={dialogRef}
+      tabIndex={-1}
+      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center font-vance focus:outline-none"
       role="dialog"
       aria-modal="true"
       aria-label={`Join ${plan.name} membership`}
@@ -679,6 +691,7 @@ export default function MembershipJoinFlow({
                       className={inputClass}
                       placeholder="you@example.com"
                       autoComplete="email"
+                      aria-label="Email"
                       autoFocus
                     />
                   </div>
@@ -734,6 +747,7 @@ export default function MembershipJoinFlow({
                             onChange={(e) => setFirstName(e.target.value)}
                             className={inputClass}
                             autoComplete="given-name"
+                            aria-label="First name"
                           />
                         </div>
                         <div>
@@ -743,6 +757,7 @@ export default function MembershipJoinFlow({
                             onChange={(e) => setLastName(e.target.value)}
                             className={inputClass}
                             autoComplete="family-name"
+                            aria-label="Last name"
                           />
                         </div>
                       </div>
@@ -754,6 +769,7 @@ export default function MembershipJoinFlow({
                           className={inputClass}
                           autoComplete="tel"
                           type="tel"
+                          aria-label="Mobile phone"
                         />
                       </div>
                       {showCardFields && <hr className="border-[#113D33]/10" />}
@@ -783,6 +799,7 @@ export default function MembershipJoinFlow({
                             className={inputClass}
                             autoComplete="cc-number"
                             inputMode="numeric"
+                            aria-label="Card number"
                             data-lpignore="true"
                             data-1p-ignore="true"
                           />
@@ -790,7 +807,7 @@ export default function MembershipJoinFlow({
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <label className="block text-xs text-[#113D33]/65 mb-1">Month</label>
-                            <select ref={expMonthRef} className={inputClass} defaultValue="">
+                            <select ref={expMonthRef} className={inputClass} defaultValue="" aria-label="Expiration month">
                               <option value="">MM</option>
                               {expMonthOptions.map((m) => (
                                 <option key={m} value={m}>
@@ -801,7 +818,7 @@ export default function MembershipJoinFlow({
                           </div>
                           <div>
                             <label className="block text-xs text-[#113D33]/65 mb-1">Year</label>
-                            <select ref={expYearRef} className={inputClass} defaultValue="">
+                            <select ref={expYearRef} className={inputClass} defaultValue="" aria-label="Expiration year">
                               <option value="">YYYY</option>
                               {expYearOptions.map((y) => (
                                 <option key={y} value={y}>
@@ -817,6 +834,7 @@ export default function MembershipJoinFlow({
                             ref={cardHolderRef}
                             className={inputClass}
                             autoComplete="cc-name"
+                            aria-label="Name on card"
                             data-lpignore="true"
                             data-1p-ignore="true"
                           />

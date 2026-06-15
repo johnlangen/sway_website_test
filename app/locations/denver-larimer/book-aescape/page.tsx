@@ -1754,6 +1754,7 @@ export default function BookAescapePage() {
                     onChange={(e) => setFirstName(e.target.value)}
                     className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
                     autoComplete="given-name"
+                    aria-label="First name"
                     autoFocus
                   />
                 </div>
@@ -1768,6 +1769,7 @@ export default function BookAescapePage() {
                     onChange={(e) => setLastName(e.target.value)}
                     className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
                     autoComplete="family-name"
+                    aria-label="Last name"
                   />
                 </div>
                 )}
@@ -1784,6 +1786,7 @@ export default function BookAescapePage() {
                     type="tel"
                     inputMode="tel"
                     placeholder="(303) 555-1234"
+                    aria-label="Mobile phone"
                     autoFocus={!needsNameUpdate}
                   />
                 </div>
@@ -1849,6 +1852,7 @@ export default function BookAescapePage() {
                       autoComplete="given-name"
                       name="firstName"
                       placeholder="First name"
+                      aria-label="First name"
                       className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     />
                     <input
@@ -1857,6 +1861,7 @@ export default function BookAescapePage() {
                       autoComplete="family-name"
                       name="lastName"
                       placeholder="Last name"
+                      aria-label="Last name"
                       className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     />
                     <input
@@ -1866,6 +1871,7 @@ export default function BookAescapePage() {
                       autoComplete="tel"
                       name="mobilePhone"
                       placeholder="Mobile phone"
+                      aria-label="Mobile phone"
                       className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     />
                   </div>
@@ -1880,6 +1886,7 @@ export default function BookAescapePage() {
                     data-lpignore="true"
                     data-1p-ignore
                     placeholder="Name on card"
+                    aria-label="Name on card"
                     className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
 
@@ -1891,6 +1898,7 @@ export default function BookAescapePage() {
                     data-1p-ignore
                     inputMode="numeric"
                     placeholder="Card number"
+                    aria-label="Card number"
                     className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
 
@@ -1942,6 +1950,7 @@ export default function BookAescapePage() {
                     data-lpignore="true"
                     data-1p-ignore
                     placeholder="Billing street address"
+                    aria-label="Billing street address"
                     className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
 
@@ -1952,6 +1961,7 @@ export default function BookAescapePage() {
                       data-lpignore="true"
                       data-1p-ignore
                       placeholder="City"
+                      aria-label="Billing city"
                       className="col-span-2 w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     />
                     <input
@@ -1961,6 +1971,7 @@ export default function BookAescapePage() {
                       data-1p-ignore
                       placeholder="State"
                       maxLength={2}
+                      aria-label="Billing state"
                       className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     />
                   </div>
@@ -1972,6 +1983,7 @@ export default function BookAescapePage() {
                     data-lpignore="true"
                     data-1p-ignore
                     placeholder="ZIP"
+                    aria-label="Billing ZIP code"
                     className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   />
                 </div>
@@ -2124,6 +2136,7 @@ export default function BookAescapePage() {
                           placeholder="Guest first name *"
                           value={guestFirstName}
                           onChange={(e) => setGuestFirstName(e.target.value)}
+                          aria-label="Guest first name"
                           className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
@@ -2131,6 +2144,7 @@ export default function BookAescapePage() {
                           placeholder="Guest last name"
                           value={guestLastName}
                           onChange={(e) => setGuestLastName(e.target.value)}
+                          aria-label="Guest last name"
                           className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                       </div>
@@ -2139,6 +2153,7 @@ export default function BookAescapePage() {
                         placeholder="Guest phone *"
                         value={guestPhone}
                         onChange={(e) => setGuestPhone(e.target.value)}
+                        aria-label="Guest phone"
                         className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <input
@@ -2146,6 +2161,7 @@ export default function BookAescapePage() {
                         placeholder="Guest email (optional)"
                         value={guestEmail}
                         onChange={(e) => setGuestEmail(e.target.value)}
+                        aria-label="Guest email"
                         className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                       />
                       <label className="flex items-center gap-2 cursor-pointer">

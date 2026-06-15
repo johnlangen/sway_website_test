@@ -2294,6 +2294,7 @@ function BookServicePage() {
                   placeholder="you@email.com"
                   className={inputClass}
                   autoComplete="email"
+                  aria-label="Email"
                   autoFocus
                 />
 
@@ -2347,6 +2348,7 @@ function BookServicePage() {
                     onChange={(e) => setFirstName(e.target.value)}
                     className={inputClass}
                     autoComplete="given-name"
+                    aria-label="First name"
                     autoFocus
                   />
                 </div>
@@ -2359,6 +2361,7 @@ function BookServicePage() {
                     onChange={(e) => setLastName(e.target.value)}
                     className={inputClass}
                     autoComplete="family-name"
+                    aria-label="Last name"
                   />
                 </div>
                 {needsPhoneUpdate && (
@@ -2373,6 +2376,7 @@ function BookServicePage() {
                       autoComplete="tel"
                       type="tel"
                       inputMode="tel"
+                      aria-label="Mobile phone"
                     />
                   </div>
                 )}
@@ -2421,6 +2425,7 @@ function BookServicePage() {
                         onChange={(e) => setFirstName(e.target.value)}
                         className={inputClass}
                         autoComplete="given-name"
+                        aria-label="First name"
                       />
                     </div>
                     <div>
@@ -2432,6 +2437,7 @@ function BookServicePage() {
                         onChange={(e) => setLastName(e.target.value)}
                         className={inputClass}
                         autoComplete="family-name"
+                        aria-label="Last name"
                       />
                     </div>
                     <div>
@@ -2444,6 +2450,7 @@ function BookServicePage() {
                         className={inputClass}
                         autoComplete="tel"
                         type="tel"
+                        aria-label="Mobile phone"
                       />
                     </div>
                     <hr className="border-[#113D33]/10" />
@@ -2465,6 +2472,7 @@ function BookServicePage() {
                     ref={cardHolderRef}
                     className={inputClass}
                     autoComplete="cc-name"
+                    aria-label="Name on card"
                     data-lpignore="true"
                     data-1p-ignore="true"
                   />
@@ -2479,6 +2487,7 @@ function BookServicePage() {
                     className={inputClass}
                     autoComplete="cc-number"
                     inputMode="numeric"
+                    aria-label="Card number"
                     data-lpignore="true"
                     data-1p-ignore="true"
                   />
@@ -2489,7 +2498,7 @@ function BookServicePage() {
                     <label className="block text-xs text-[#113D33]/65 mb-1">
                       Month
                     </label>
-                    <select ref={expMonthRef} className={inputClass}>
+                    <select ref={expMonthRef} className={inputClass} aria-label="Expiration month">
                       <option value="">MM</option>
                       {expMonthOptions.map((m) => (
                         <option key={m} value={m}>
@@ -2502,7 +2511,7 @@ function BookServicePage() {
                     <label className="block text-xs text-[#113D33]/65 mb-1">
                       Year
                     </label>
-                    <select ref={expYearRef} className={inputClass}>
+                    <select ref={expYearRef} className={inputClass} aria-label="Expiration year">
                       <option value="">YYYY</option>
                       {expYearOptions.map((y) => (
                         <option key={y} value={y}>
@@ -2522,6 +2531,7 @@ function BookServicePage() {
                     className={inputClass}
                     autoComplete="billing street-address"
                     placeholder="123 Main St"
+                    aria-label="Billing street address"
                   />
                 </div>
 
@@ -2534,6 +2544,7 @@ function BookServicePage() {
                       ref={billingCityRef}
                       className={inputClass}
                       autoComplete="billing address-level2"
+                      aria-label="Billing city"
                     />
                   </div>
                   <div>
@@ -2546,6 +2557,7 @@ function BookServicePage() {
                       autoComplete="billing address-level1"
                       maxLength={2}
                       placeholder="CO"
+                      aria-label="Billing state"
                     />
                   </div>
                 </div>
@@ -2559,6 +2571,7 @@ function BookServicePage() {
                     className={inputClass}
                     autoComplete="billing postal-code"
                     inputMode="numeric"
+                    aria-label="Billing ZIP code"
                   />
                 </div>
 
@@ -2757,6 +2770,7 @@ function BookServicePage() {
                             placeholder="Guest first name *"
                             value={guestFirstName}
                             onChange={(e) => setGuestFirstName(e.target.value)}
+                            aria-label="Guest first name"
                             className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                           />
                           <input
@@ -2764,6 +2778,7 @@ function BookServicePage() {
                             placeholder="Guest last name"
                             value={guestLastName}
                             onChange={(e) => setGuestLastName(e.target.value)}
+                            aria-label="Guest last name"
                             className="rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                           />
                         </div>
@@ -2772,6 +2787,7 @@ function BookServicePage() {
                           placeholder="Guest phone *"
                           value={guestPhone}
                           onChange={(e) => setGuestPhone(e.target.value)}
+                          aria-label="Guest phone"
                           className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <input
@@ -2779,6 +2795,7 @@ function BookServicePage() {
                           placeholder="Guest email (optional)"
                           value={guestEmail}
                           onChange={(e) => setGuestEmail(e.target.value)}
+                          aria-label="Guest email"
                           className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                         />
                         <label className="flex items-center gap-2 cursor-pointer">

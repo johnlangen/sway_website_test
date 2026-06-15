@@ -1128,12 +1128,12 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <div className="p-6 space-y-3">
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm font-bold text-[#113D33]">Enter your email</h3>
-                      <button onClick={() => { setWelcomeShowEmail(false); setError(null); setWelcomeResult(null); }} className="text-xs text-[#113D33]/60 hover:text-[#113D33]">✕</button>
+                      <button type="button" aria-label="Close" onClick={() => { setWelcomeShowEmail(false); setError(null); setWelcomeResult(null); }} className="text-xs text-[#113D33]/60 hover:text-[#113D33]">✕</button>
                     </div>
                     <input
                       type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handleWelcomeMemberCheck()}
-                      placeholder="you@example.com" className={inputClass} autoFocus
+                      placeholder="you@example.com" className={inputClass} aria-label="Email" autoFocus
                     />
                     <button onClick={handleWelcomeMemberCheck} disabled={loading || !email.trim()}
                       className="w-full py-3 bg-[#113D33] text-white rounded-xl text-sm font-semibold disabled:opacity-30 transition-opacity">
@@ -1752,17 +1752,17 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-[#113D33] mb-1">First name</label>
-                  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} autoComplete="given-name" autoFocus />
+                  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} autoComplete="given-name" aria-label="First name" autoFocus />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-[#113D33] mb-1">Last name</label>
-                  <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} autoComplete="family-name" />
+                  <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} autoComplete="family-name" aria-label="Last name" />
                 </div>
               </div>
               {needsPhoneUpdate && (
                 <div>
                   <label className="block text-xs font-medium text-[#113D33] mb-1">Mobile phone</label>
-                  <input type="tel" inputMode="tel" value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} placeholder="(303) 555-1234" className={inputClass} autoComplete="tel" />
+                  <input type="tel" inputMode="tel" value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} placeholder="(303) 555-1234" className={inputClass} autoComplete="tel" aria-label="Mobile phone" />
                 </div>
               )}
               <button
@@ -1804,7 +1804,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
 
                 <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
                   <label className="block text-sm font-medium text-[#113D33]">Email address</label>
-                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleAccountEmailSubmit()} placeholder="you@example.com" className={inputClass} autoFocus />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleAccountEmailSubmit()} placeholder="you@example.com" className={inputClass} aria-label="Email" autoFocus />
                   <p className="text-xs text-gray-400 flex items-center gap-1.5">
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                     We use your email to find or create your Mindbody account. You won&apos;t be charged today.
@@ -1832,26 +1832,26 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   {cardContext === "create_account" && (
                     <>
                       <div className="grid grid-cols-2 gap-3">
-                        <div><label className="block text-xs font-medium text-[#113D33] mb-1">First name</label><input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} autoFocus /></div>
-                        <div><label className="block text-xs font-medium text-[#113D33] mb-1">Last name</label><input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} /></div>
+                        <div><label className="block text-xs font-medium text-[#113D33] mb-1">First name</label><input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} aria-label="First name" autoFocus /></div>
+                        <div><label className="block text-xs font-medium text-[#113D33] mb-1">Last name</label><input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} aria-label="Last name" /></div>
                       </div>
-                      <div><label className="block text-xs font-medium text-[#113D33] mb-1">Mobile phone</label><input type="tel" value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} placeholder="(303) 555-1234" className={inputClass} /></div>
+                      <div><label className="block text-xs font-medium text-[#113D33] mb-1">Mobile phone</label><input type="tel" value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} placeholder="(303) 555-1234" className={inputClass} aria-label="Mobile phone" /></div>
                       <label className="flex items-center gap-2 text-sm text-[#113D33]/70 cursor-pointer"><input type="checkbox" checked={marketingOptIn} onChange={(e) => setMarketingOptIn(e.target.checked)} className="rounded border-gray-300" />Send me wellness tips and offers</label>
                       <hr className="border-gray-100" />
                     </>
                   )}
-                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Name on card</label><input ref={cardHolderRef} type="text" className={inputClass} data-lpignore="true" data-1p-ignore="true" /></div>
-                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Card number</label><input ref={cardNumberRef} type="text" inputMode="numeric" className={inputClass} placeholder="•••• •••• •••• ••••" data-lpignore="true" data-1p-ignore="true" /></div>
+                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Name on card</label><input ref={cardHolderRef} type="text" className={inputClass} aria-label="Name on card" data-lpignore="true" data-1p-ignore="true" /></div>
+                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Card number</label><input ref={cardNumberRef} type="text" inputMode="numeric" className={inputClass} placeholder="•••• •••• •••• ••••" aria-label="Card number" data-lpignore="true" data-1p-ignore="true" /></div>
                   <div className="grid grid-cols-2 gap-3">
-                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">Month</label><select ref={expMonthRef} className={inputClass}><option value="">MM</option>{Array.from({ length: 12 }, (_, i) => { const m = String(i + 1).padStart(2, "0"); return <option key={m} value={m}>{m}</option>; })}</select></div>
-                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">Year</label><select ref={expYearRef} className={inputClass}><option value="">YYYY</option>{Array.from({ length: 12 }, (_, i) => { const y = String(new Date().getFullYear() + i); return <option key={y} value={y}>{y}</option>; })}</select></div>
+                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">Month</label><select ref={expMonthRef} className={inputClass} aria-label="Expiration month"><option value="">MM</option>{Array.from({ length: 12 }, (_, i) => { const m = String(i + 1).padStart(2, "0"); return <option key={m} value={m}>{m}</option>; })}</select></div>
+                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">Year</label><select ref={expYearRef} className={inputClass} aria-label="Expiration year"><option value="">YYYY</option>{Array.from({ length: 12 }, (_, i) => { const y = String(new Date().getFullYear() + i); return <option key={y} value={y}>{y}</option>; })}</select></div>
                   </div>
-                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Billing street address</label><input ref={billingAddressRef} type="text" className={inputClass} autoComplete="billing street-address" placeholder="123 Main St" data-lpignore="true" data-1p-ignore="true" /></div>
+                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Billing street address</label><input ref={billingAddressRef} type="text" className={inputClass} autoComplete="billing street-address" placeholder="123 Main St" aria-label="Billing street address" data-lpignore="true" data-1p-ignore="true" /></div>
                   <div className="grid grid-cols-3 gap-3">
-                    <div className="col-span-2"><label className="block text-xs font-medium text-[#113D33] mb-1">City</label><input ref={billingCityRef} type="text" className={inputClass} autoComplete="billing address-level2" data-lpignore="true" data-1p-ignore="true" /></div>
-                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">State</label><input ref={billingStateRef} type="text" maxLength={2} className={inputClass} autoComplete="billing address-level1" placeholder="CO" data-lpignore="true" data-1p-ignore="true" /></div>
+                    <div className="col-span-2"><label className="block text-xs font-medium text-[#113D33] mb-1">City</label><input ref={billingCityRef} type="text" className={inputClass} autoComplete="billing address-level2" aria-label="Billing city" data-lpignore="true" data-1p-ignore="true" /></div>
+                    <div><label className="block text-xs font-medium text-[#113D33] mb-1">State</label><input ref={billingStateRef} type="text" maxLength={2} className={inputClass} autoComplete="billing address-level1" placeholder="CO" aria-label="Billing state" data-lpignore="true" data-1p-ignore="true" /></div>
                   </div>
-                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Zip code</label><input ref={postalCodeRef} type="text" className={inputClass} autoComplete="billing postal-code" data-lpignore="true" data-1p-ignore="true" /></div>
+                  <div><label className="block text-xs font-medium text-[#113D33] mb-1">Zip code</label><input ref={postalCodeRef} type="text" className={inputClass} autoComplete="billing postal-code" aria-label="Billing ZIP code" data-lpignore="true" data-1p-ignore="true" /></div>
                   <button onClick={handleSaveCardAndContinue} disabled={cardSaving} className={primaryBtn}>{cardSaving ? "Saving..." : "Save & continue"}</button>
                 </div>
 

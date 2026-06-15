@@ -1344,19 +1344,19 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 {needsNameUpdate && (
                 <div>
                   <label className="block text-sm font-medium text-[#113D33] mb-1">First name</label>
-                  <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base" autoComplete="given-name" autoFocus />
+                  <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base" autoComplete="given-name" aria-label="First name" autoFocus />
                 </div>
                 )}
                 {needsNameUpdate && (
                 <div>
                   <label className="block text-sm font-medium text-[#113D33] mb-1">Last name</label>
-                  <input value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base" autoComplete="family-name" />
+                  <input value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base" autoComplete="family-name" aria-label="Last name" />
                 </div>
                 )}
                 {needsPhoneUpdate && (
                 <div>
                   <label className="block text-sm font-medium text-[#113D33] mb-1">Mobile phone</label>
-                  <input value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base" autoComplete="tel" type="tel" inputMode="tel" placeholder="(303) 555-1234" autoFocus={!needsNameUpdate} />
+                  <input value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base" autoComplete="tel" type="tel" inputMode="tel" placeholder="(303) 555-1234" aria-label="Mobile phone" autoFocus={!needsNameUpdate} />
                 </div>
                 )}
                 {error && <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">{error}</div>}
@@ -1388,14 +1388,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 </div>
                 {cardContext === "create_account" && (
                   <div className="grid grid-cols-1 gap-3 mb-4">
-                    <input value={firstName} onChange={(e) => setFirstName(e.target.value)} autoComplete="given-name" name="firstName" placeholder="First name" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
-                    <input value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="family-name" name="lastName" placeholder="Last name" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
-                    <input value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} inputMode="tel" autoComplete="tel" name="mobilePhone" placeholder="Mobile phone" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                    <input value={firstName} onChange={(e) => setFirstName(e.target.value)} autoComplete="given-name" name="firstName" placeholder="First name" aria-label="First name" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                    <input value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="family-name" name="lastName" placeholder="Last name" aria-label="Last name" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                    <input value={mobilePhone} onChange={(e) => setMobilePhone(e.target.value)} inputMode="tel" autoComplete="tel" name="mobilePhone" placeholder="Mobile phone" aria-label="Mobile phone" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                   </div>
                 )}
                 <div className="grid grid-cols-1 gap-3 mb-4">
-                  <input ref={cardHolderRef} autoComplete="off" name="cc-name" data-lpignore="true" data-1p-ignore placeholder="Name on card" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
-                  <input ref={cardNumberRef} autoComplete="off" name="cc-number" data-lpignore="true" data-1p-ignore inputMode="numeric" placeholder="Card number" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                  <input ref={cardHolderRef} autoComplete="off" name="cc-name" data-lpignore="true" data-1p-ignore placeholder="Name on card" aria-label="Name on card" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                  <input ref={cardNumberRef} autoComplete="off" name="cc-number" data-lpignore="true" data-1p-ignore inputMode="numeric" placeholder="Card number" aria-label="Card number" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                   <div className="grid grid-cols-2 gap-3">
                     <select ref={expMonthRef} name="cc-exp-month" autoComplete="off" data-lpignore="true" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" defaultValue="" aria-label="Expiration month">
                       <option value="" disabled>MM</option>
@@ -1406,12 +1406,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       {expYearOptions.map((y) => <option key={y} value={y}>{y}</option>)}
                     </select>
                   </div>
-                  <input ref={billingAddressRef} autoComplete="billing street-address" data-lpignore="true" data-1p-ignore placeholder="Billing street address" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                  <input ref={billingAddressRef} autoComplete="billing street-address" data-lpignore="true" data-1p-ignore placeholder="Billing street address" aria-label="Billing street address" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                   <div className="grid grid-cols-3 gap-3">
-                    <input ref={billingCityRef} autoComplete="billing address-level2" data-lpignore="true" data-1p-ignore placeholder="City" className="col-span-2 w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
-                    <input ref={billingStateRef} autoComplete="billing address-level1" data-lpignore="true" data-1p-ignore placeholder="State" maxLength={2} className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                    <input ref={billingCityRef} autoComplete="billing address-level2" data-lpignore="true" data-1p-ignore placeholder="City" aria-label="Billing city" className="col-span-2 w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                    <input ref={billingStateRef} autoComplete="billing address-level1" data-lpignore="true" data-1p-ignore placeholder="State" maxLength={2} aria-label="Billing state" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                   </div>
-                  <input ref={postalCodeRef} autoComplete="billing postal-code" name="postalCode" data-lpignore="true" data-1p-ignore placeholder="ZIP" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                  <input ref={postalCodeRef} autoComplete="billing postal-code" name="postalCode" data-lpignore="true" data-1p-ignore placeholder="ZIP" aria-label="Billing ZIP code" className="w-full px-4 py-3 border rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                 </div>
                 <div className="rounded-xl border border-[#113D33]/10 bg-white/60 p-4 mb-4">
                   <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
