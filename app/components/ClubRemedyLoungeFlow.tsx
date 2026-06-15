@@ -1127,6 +1127,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       const dayName = day.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
                       return (
                         <button
+                          aria-pressed={selected}
                           key={iso}
                           disabled={isPast}
                           onClick={() => setSelectedDate(iso)}
@@ -1168,6 +1169,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       const full = left != null && left <= 0;
                       return (
                         <button
+                          aria-pressed={isSelected}
                           key={time.toISOString()}
                           disabled={full}
                           onClick={() => setSelectedTime(time)}
@@ -1259,6 +1261,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       </div>
                       <div className="grid grid-cols-3 gap-2">
                         <button
+                          aria-pressed={choice === null}
                           onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? null : c)))}
                           className={`py-2.5 rounded-xl text-sm font-medium border transition ${choice === null ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
                         >
@@ -1275,6 +1278,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           const blocked = (full || capReached) && !isChosen;
                           return (
                             <button
+                              aria-pressed={isChosen}
                               key={s.key}
                               disabled={blocked}
                               onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? s.key : c)))}

@@ -1245,6 +1245,7 @@ export default function DallasFoundingMembershipPage() {
                 className="border-b border-gray-100"
               >
                 <button
+                  aria-expanded={openFaq === i}
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full text-left py-5 flex items-center justify-between gap-4"
                 >

@@ -1304,7 +1304,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   const isActive = treatmentTierFilter === tier;
                   const isMyTier = isMember && memberTier === tier;
                   return (
-                    <button key={tier} onClick={() => { setTreatmentTierFilter(tier); setExpandedTreatmentId(null); setActiveConcern(null); }}
+                    <button aria-pressed={isActive} key={tier} onClick={() => { setTreatmentTierFilter(tier); setExpandedTreatmentId(null); setActiveConcern(null); }}
                       className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${isActive ? "bg-[#113D33] text-white shadow-sm" : "text-[#113D33]/60 hover:text-[#113D33]"} ${isMyTier && !isActive ? "ring-1 ring-[#9ABFB3]" : ""}`}>
                       {tier.charAt(0).toUpperCase() + tier.slice(1)}
                       {isMyTier && <span className="ml-1 text-xs">{isActive ? " ✓" : ""}</span>}
@@ -1332,6 +1332,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                       if (matchCount === 0) return null;
                       return (
                         <button
+                          aria-pressed={isActive}
                           key={c.id}
                           onClick={() => { setActiveConcern(isActive ? null : c.id); setExpandedTreatmentId(null); }}
                           className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
@@ -1422,6 +1423,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                       } ${isExpanded ? "shadow-md" : "hover:shadow-sm"}`}>
                       {/* Collapsed row — always visible */}
                       <button
+                        aria-expanded={isExpanded}
                         onClick={() => setExpandedTreatmentId(isExpanded ? null : t.id)}
                         className="w-full text-left px-5 py-4 flex items-center justify-between gap-4">
                         <div className="min-w-0 flex-1">
@@ -1547,7 +1549,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                     const showInfo = boostInfoId === b.id;
                     return (
                       <div key={b.id} className="relative">
-                        <button onClick={() => !disabled && handleBoostToggle(b)} disabled={disabled}
+                        <button aria-pressed={sel} onClick={() => !disabled && handleBoostToggle(b)} disabled={disabled}
                           className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:border-[#113D33]/40" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
                           <div className="flex items-center justify-between gap-2">
                             <div className="min-w-0 flex-1">
@@ -1669,8 +1671,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               <div className="text-center">
                 <p className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/60 mb-2">Therapist</p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  <button onClick={() => setFilteredTherapist(null)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === null ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>All therapists</button>
-                  {allTherapists.map((t) => (<button key={t.id} onClick={() => setFilteredTherapist(t.id)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === t.id ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>{t.name}</button>))}
+                  <button aria-pressed={filteredTherapist === null} onClick={() => setFilteredTherapist(null)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === null ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>All therapists</button>
+                  {allTherapists.map((t) => (<button aria-pressed={filteredTherapist === t.id} key={t.id} onClick={() => setFilteredTherapist(t.id)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === t.id ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>{t.name}</button>))}
                 </div>
               </div>
             )}

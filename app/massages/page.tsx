@@ -471,6 +471,7 @@ const MassagesPage = () => {
           ].map((item, i) => (
             <div key={i} className="border-b border-black/10">
               <button
+                aria-expanded={openFaq === i}
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 className="w-full py-5 flex items-center justify-between gap-4 text-left"
               >

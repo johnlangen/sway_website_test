@@ -1701,6 +1701,7 @@ function BookServicePage() {
                   const selected = selectedService?.id === svc.id;
                   return (
                     <button
+                      aria-pressed={selected}
                       key={svc.id}
                       onClick={() => handleSelectService(svc)}
                       className={`group relative overflow-hidden rounded-2xl border text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 animate-fade-in-up ${
@@ -1812,6 +1813,7 @@ function BookServicePage() {
 
                   return (
                     <button
+                      aria-pressed={selected}
                       key={boost.id}
                       onClick={() => handleToggleBoost(boost)}
                       className={`rounded-2xl border p-4 text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 animate-fade-in-up ${
@@ -2040,6 +2042,7 @@ function BookServicePage() {
                   </div>
                   <div className="flex flex-wrap gap-2 justify-center">
                     <button
+                      aria-pressed={filteredTherapist === null}
                       onClick={() => setFilteredTherapist(null)}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                         filteredTherapist === null
@@ -2051,6 +2054,7 @@ function BookServicePage() {
                     </button>
                     {allTherapists.map((t) => (
                       <button
+                        aria-pressed={filteredTherapist === t.id}
                         key={t.id}
                         onClick={() =>
                           setFilteredTherapist(

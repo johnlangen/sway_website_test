@@ -1389,6 +1389,7 @@ export default function BookAescapePage() {
 
                     return (
                       <button
+                        aria-pressed={selected}
                         key={opt.id}
                         onClick={() => setSessionTypeId(opt.id)}
                         className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${

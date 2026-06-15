@@ -538,6 +538,7 @@ export default function MembershipPage() {
                 const isSel = selectedTier === tier.key;
                 return (
                   <button
+                    aria-pressed={isSel}
                     key={tier.key}
                     onClick={() => setSelectedTier(tier.key)}
                     className={`relative rounded-xl py-2.5 px-1 text-center transition-colors duration-200 ${
@@ -738,6 +739,7 @@ export default function MembershipPage() {
       <section className="px-4 sm:px-6 py-1">
         <div className="max-w-5xl mx-auto">
           <button
+            aria-expanded={boostsOpen}
             onClick={() => setBoostsOpen(!boostsOpen)}
             className="w-full flex items-center justify-center gap-2 text-sm md:text-base text-[#9ABFB3] hover:text-white transition py-3"
           >

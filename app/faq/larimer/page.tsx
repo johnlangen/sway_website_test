@@ -18,6 +18,7 @@ function Accordion({ title, items }: { title: string; items: FAQItem[] }) {
         {items.map((item, idx) => (
           <div key={idx} className="border rounded-lg overflow-hidden shadow-sm">
             <button
+              aria-expanded={openIndex === idx}
               onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
               className="w-full text-left px-4 py-3 font-semibold flex justify-between items-center bg-[#113D33] text-white hover:bg-[#0d2f28]"
             >

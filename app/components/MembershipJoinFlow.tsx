@@ -621,6 +621,7 @@ export default function MembershipJoinFlow({
                 <div key={s.key} className="flex items-center gap-1.5">
                   {i > 0 && <span className="h-px w-5 bg-[#113D33]/15" />}
                   <button
+                    aria-current={isCurrent ? "step" : undefined}
                     type="button"
                     disabled={!canGoBack || loading}
                     onClick={() => canGoBack && setStep("email")}
