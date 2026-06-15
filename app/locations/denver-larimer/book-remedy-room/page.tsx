@@ -505,6 +505,7 @@ export default function BookRemedyRoomPage() {
   // record from ClassPass/ResortPass/etc). Force a name-collection step and
   // PATCH the Mindbody record before booking so the appointment isn't nameless.
   const [needsNameUpdate, setNeedsNameUpdate] = useState(false);
+  const [needsPhoneUpdate, setNeedsPhoneUpdate] = useState(false);
   const [nameSaving, setNameSaving] = useState(false);
 
   const bookingLock = useRef(false);
@@ -646,10 +647,13 @@ export default function BookRemedyRoomPage() {
         // booking — see handleConfirmBooking for the manual-entry path.
         const lookedUpFirst = (data.firstName ?? "").trim();
         const lookedUpLast = (data.lastName ?? "").trim();
-        if (!lookedUpFirst || !lookedUpLast) {
+        const missingName = !lookedUpFirst || !lookedUpLast;
+        const missingPhone = !!data.clientId && data.hasPhone === false;
+        if (missingName || missingPhone) {
           setFirstName(lookedUpFirst);
           setLastName(lookedUpLast);
-          setNeedsNameUpdate(true);
+          if (missingName) setNeedsNameUpdate(true);
+          if (missingPhone) setNeedsPhoneUpdate(true);
         }
       })
       .catch(() => { clearSavedEmail(); setEmail(""); })
@@ -807,6 +811,7 @@ export default function BookRemedyRoomPage() {
     if (!res.ok) throw new Error(data?.error || "Client lookup failed.");
     // Populate membership state from response
     let missingName = false;
+    let missingPhone = false;
     if (data.found) {
       setIsMember(data.isMember ?? false);
       setMemberTier(data.tier ?? null);
@@ -819,19 +824,19 @@ export default function BookRemedyRoomPage() {
       const lookedUpFirst = (data.firstName ?? "").trim();
       const lookedUpLast = (data.lastName ?? "").trim();
       missingName = !lookedUpFirst || !lookedUpLast;
-      if (missingName) {
-        setFirstName(lookedUpFirst);
-        setLastName(lookedUpLast);
-        setNeedsNameUpdate(true);
-      } else {
-        setNeedsNameUpdate(false);
-      }
+      missingPhone = !!data.clientId && data.hasPhone === false;
+      // Prefill name so the name/phone step can save even if only phone is missing
+      setFirstName(lookedUpFirst);
+      setLastName(lookedUpLast);
+      setNeedsNameUpdate(missingName);
+      setNeedsPhoneUpdate(missingPhone);
     }
     return {
       found: data.found ?? false,
       client: data.clientId ? { Id: data.clientId } : null,
       hasCardOnFile: data.hasCardOnFile ?? false,
       missingName,
+      missingPhone,
     };
   }
 
@@ -1010,7 +1015,7 @@ export default function BookRemedyRoomPage() {
 
       // Returning client whose Mindbody record is missing first or last name
       // (stub from ClassPass/ResortPass/etc) — collect + PATCH name before booking
-      if (lookup.missingName) {
+      if (lookup.missingName || lookup.missingPhone) {
         if (!lookup.hasCardOnFile) setCardContext("add_card");
         setStep("name");
         return;
@@ -1040,9 +1045,14 @@ export default function BookRemedyRoomPage() {
 
     const trimmedFirst = firstName.trim();
     const trimmedLast = lastName.trim();
+    const trimmedPhone = mobilePhone.trim();
 
     if (!trimmedFirst || !trimmedLast) {
       setError("Please enter your first and last name.");
+      return;
+    }
+    if (needsPhoneUpdate && trimmedPhone.replace(/\D/g, "").length < 10) {
+      setError("Please enter a valid mobile phone number.");
       return;
     }
 
@@ -1055,6 +1065,7 @@ export default function BookRemedyRoomPage() {
           clientId,
           firstName: trimmedFirst,
           lastName: trimmedLast,
+          ...(needsPhoneUpdate ? { mobilePhone: trimmedPhone } : {}),
         }),
       });
 
@@ -1065,6 +1076,7 @@ export default function BookRemedyRoomPage() {
 
       setMemberFirstName(trimmedFirst);
       setNeedsNameUpdate(false);
+      setNeedsPhoneUpdate(false);
 
       if (hasCardOnFile) {
         setStep("confirm");
@@ -1625,7 +1637,7 @@ export default function BookRemedyRoomPage() {
                     setError(null);
                     // Returning user missing FirstName/LastName -> collect name
                     // before booking (PATCH lands at handleSaveNameAndContinue)
-                    if (memberCheckDone && clientId && needsNameUpdate) {
+                    if (memberCheckDone && clientId && (needsNameUpdate || needsPhoneUpdate)) {
                       if (!hasCardOnFile) setCardContext("add_card");
                       setStep("name");
                       return;
@@ -1716,11 +1728,11 @@ export default function BookRemedyRoomPage() {
           {step === "name" && (
             <div className="min-h-[calc(100vh-320px)] flex items-start justify-center">
               <div className="w-full max-w-md mx-auto bg-white/70 border border-[#113D33]/15 rounded-2xl p-6 text-left animate-fade-in-up space-y-4">
-                <h2 className="text-xl font-semibold text-center">Confirm your name</h2>
+                <h2 className="text-xl font-semibold text-center">{needsNameUpdate ? "Confirm your name" : "One quick thing"}</h2>
                 <p className="text-sm text-[#113D33]/70">
-                  We found your account but we&apos;re missing your name. Please add
-                  it so your appointment is on file correctly.
+                  We found your account but we&apos;re missing {needsNameUpdate && needsPhoneUpdate ? "your name and phone number" : needsNameUpdate ? "your name" : "a phone number"}. Please add it so we can confirm your appointment.
                 </p>
+                {needsNameUpdate && (
                 <div>
                   <label className="block text-sm font-medium text-[#113D33] mb-1">
                     First name
@@ -1733,6 +1745,8 @@ export default function BookRemedyRoomPage() {
                     autoFocus
                   />
                 </div>
+                )}
+                {needsNameUpdate && (
                 <div>
                   <label className="block text-sm font-medium text-[#113D33] mb-1">
                     Last name
@@ -1744,13 +1758,31 @@ export default function BookRemedyRoomPage() {
                     autoComplete="family-name"
                   />
                 </div>
+                )}
+                {needsPhoneUpdate && (
+                <div>
+                  <label className="block text-sm font-medium text-[#113D33] mb-1">
+                    Mobile phone
+                  </label>
+                  <input
+                    value={mobilePhone}
+                    onChange={(e) => setMobilePhone(e.target.value)}
+                    className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/60 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base"
+                    autoComplete="tel"
+                    type="tel"
+                    inputMode="tel"
+                    placeholder="(303) 555-1234"
+                    autoFocus={!needsNameUpdate}
+                  />
+                </div>
+                )}
                 {error && (
                   <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
                     {error}
                   </div>
                 )}
                 <button
-                  disabled={nameSaving || !firstName.trim() || !lastName.trim()}
+                  disabled={nameSaving || (needsNameUpdate && (!firstName.trim() || !lastName.trim())) || (needsPhoneUpdate && mobilePhone.replace(/\D/g, "").length < 10)}
                   onClick={handleSaveNameAndContinue}
                   className="w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg"
                 >
