@@ -151,7 +151,7 @@ export default function GiftCardsHubPage() {
 
                 {/* Info */}
                 <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
+                  <h2 className="text-xl font-bold mb-1">{loc.name}</h2>
                   <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
                     <MapPin className="w-3.5 h-3.5" />
                     {loc.city}, {loc.state}
@@ -192,14 +192,14 @@ export default function GiftCardsHubPage() {
 
                 {/* Info */}
                 <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
+                  <h2 className="text-xl font-bold mb-1">{loc.name}</h2>
                   <p className="text-sm text-gray-500 flex items-center gap-1 mb-4">
                     <MapPin className="w-3.5 h-3.5" />
                     {loc.city}, {loc.state}
                   </p>
 
                   <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33]/80 text-white font-semibold text-sm group-hover:bg-[#113D33] transition">
-                    Learn More
+                    Learn More<span className="sr-only"> about {loc.name}</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>

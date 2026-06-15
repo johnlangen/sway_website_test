@@ -55,7 +55,7 @@ export default function HolidayWellnessGuideLayout() {
                 href="#as-seen-in"
                 className="inline-block bg-[#CFE6D8] text-[#113D33] text-xs font-semibold tracking-wide px-4 py-2 rounded-full hover:opacity-90 transition"
                 >
-                Learn More
+                Learn More<span className="sr-only"> in the As Seen In section</span>
                 </a>
             </div>
 

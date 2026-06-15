@@ -239,9 +239,10 @@ export default function PressContent() {
                   </p>
 
                   <span className="mt-5 inline-flex items-center text-sm font-semibold text-[#113D33] group-hover:underline underline-offset-4">
-                    Read more
+                    Read more<span className="sr-only"> about {award.title}</span>
                     <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                   </span>
+                  <span className="sr-only">(opens in new tab)</span>
                 </div>
               </motion.a>
             ))}
@@ -319,6 +320,7 @@ export default function PressContent() {
                     {item.description}
                   </p>
                 </div>
+                <span className="sr-only">(opens in new tab)</span>
               </motion.a>
             ))}
           </div>

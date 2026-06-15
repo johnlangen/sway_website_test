@@ -204,7 +204,7 @@ export default function MembershipHubPage() {
                   </p>
 
                   <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33]/80 text-white font-semibold text-sm group-hover:bg-[#113D33] transition">
-                    Learn More
+                    Learn More<span className="sr-only"> about {loc.name}</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>

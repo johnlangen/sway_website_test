@@ -217,7 +217,7 @@ export default function AescapeBlogLayout() {
                     rel="noopener noreferrer"
                     className="underline underline-offset-2"
                   >
-                    WIRED
+                    WIRED <span className="sr-only">(opens in new tab)</span>
                   </a>{" "}
                   and{" "}
                   <a
@@ -226,7 +226,7 @@ export default function AescapeBlogLayout() {
                     rel="noopener noreferrer"
                     className="underline underline-offset-2"
                   >
-                    Yoga + Life® Magazine
+                    Yoga + Life® Magazine <span className="sr-only">(opens in new tab)</span>
                   </a>
                   .
                 </p>

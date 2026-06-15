@@ -158,7 +158,7 @@ const RemedyRoomPage = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/50 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
           >
-            Voted #4 Best Day Spa in America &middot; USA Today 10Best
+            Voted #4 Best Day Spa in America &middot; USA Today 10Best <span className="sr-only">(opens in new tab)</span>
           </motion.a>
 
           <motion.div
@@ -301,7 +301,7 @@ const RemedyRoomPage = () => {
                   href={remedy.link}
                   className="mt-5 inline-flex items-center gap-2 w-fit text-sm font-bold text-white border border-white/20 rounded-lg px-5 py-2.5 hover:bg-white/10 hover:border-white/40 transition-all"
                 >
-                  Learn More
+                  Learn More<span className="sr-only"> about {remedy.name}</span>
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
@@ -445,7 +445,7 @@ const RemedyRoomPage = () => {
                   <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
                   <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">{s.desc}</p>
                   <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-                    Learn More →
+                    Learn More<span className="sr-only"> about {s.name}</span> →
                   </span>
                 </Link>
               </motion.div>

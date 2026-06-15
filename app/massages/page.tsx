@@ -242,7 +242,7 @@ const MassagesPage = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/40 border border-[#113D33]/15 rounded-full px-4 py-1.5 hover:border-[#113D33]/30 transition"
           >
-            Voted #4 Best Day Spa in America &middot; USA Today 10Best
+            Voted #4 Best Day Spa in America &middot; USA Today 10Best <span className="sr-only">(opens in new tab)</span>
           </motion.a>
 
           <motion.div
@@ -556,7 +556,7 @@ const MassagesPage = () => {
                   {s.desc}
                 </p>
                 <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-                  Learn More &rarr;
+                  Learn More<span className="sr-only"> about {s.name}</span> &rarr;
                 </span>
               </Link>
             ))}

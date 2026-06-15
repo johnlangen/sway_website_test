@@ -252,7 +252,7 @@ const NavBar = () => {
                 rel="noopener noreferrer"
                 className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
               >
-                Book Now
+                Book Now <span className="sr-only">(opens in new tab)</span>
               </a>
             )}
 
@@ -352,7 +352,7 @@ const NavBar = () => {
               rel="noopener noreferrer"
               className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
             >
-              Book Now
+              Book Now <span className="sr-only">(opens in new tab)</span>
             </a>
           )}
         </div>

@@ -212,7 +212,7 @@ export default function SwayLarimerPage() {
               rel="noopener noreferrer"
               className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
             >
-              Voted #4 Best Day Spa in America · USA Today 10Best
+              Voted #4 Best Day Spa in America · USA Today 10Best <span className="sr-only">(opens in new tab)</span>
             </a>
 
             <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
@@ -256,7 +256,7 @@ export default function SwayLarimerPage() {
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                {loc.street}, {loc.city}, {loc.state} {loc.zip}
+                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
               </a>
               <span className="mx-2">·</span>
               <a href={`tel:${loc.phoneDigits}`} className="hover:underline">
@@ -404,7 +404,7 @@ export default function SwayLarimerPage() {
                       href={t.learnHref}
                       className="text-sm font-medium underline underline-offset-4 opacity-70 hover:opacity-100 transition"
                     >
-                      Learn more
+                      Learn more<span className="sr-only"> about {t.title}</span>
                     </Link>
                   </div>
                 </div>
@@ -470,7 +470,7 @@ export default function SwayLarimerPage() {
                     rel="noopener noreferrer"
                     className="text-sm font-medium underline underline-offset-4 text-white/70 hover:text-white transition"
                   >
-                    Join Now
+                    Join Now <span className="sr-only">(opens in new tab)</span>
                   </a>
                 </div>
               </div>
@@ -523,7 +523,7 @@ export default function SwayLarimerPage() {
                 rel="noopener noreferrer"
                 className="text-sm font-medium underline underline-offset-4"
               >
-                Get Directions
+                Get Directions <span className="sr-only">(opens in new tab)</span>
               </a>
             </div>
 

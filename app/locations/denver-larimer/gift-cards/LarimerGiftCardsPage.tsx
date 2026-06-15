@@ -174,7 +174,7 @@ export default function LarimerGiftCardsPage() {
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
                 <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
               </span>
-              Purchase a Gift Card
+              Purchase a Gift Card <span className="sr-only">(opens in new tab)</span>
             </a>
             <p className="text-sm text-white/50 mt-3">
               Delivered instantly via email
@@ -277,7 +277,7 @@ export default function LarimerGiftCardsPage() {
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
               <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
             </span>
-            Buy a Gift Card
+            Buy a Gift Card <span className="sr-only">(opens in new tab)</span>
           </motion.a>
         </div>
       </section>

@@ -39,7 +39,7 @@ export default function ScienceOfRelaxationBlogLayout() {
             rel="noopener noreferrer"
             className="underline text-[#113D33] font-semibold"
           >
-            MDPI
+            MDPI <span className="sr-only">(opens in new tab)</span>
           </Link>{" "}
           confirms spa therapy’s effect on mental health and sleep quality. And{" "}
           <Link
@@ -48,7 +48,7 @@ export default function ScienceOfRelaxationBlogLayout() {
             rel="noopener noreferrer"
             className="underline text-[#113D33] font-semibold"
           >
-            The Times
+            The Times <span className="sr-only">(opens in new tab)</span>
           </Link>{" "}
           explores how cold water immersion can disrupt anxiety patterns and
           foster emotional resilience.

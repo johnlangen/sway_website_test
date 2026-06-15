@@ -1514,7 +1514,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
                 <button onClick={handleFinalConfirmAndBook} className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" disabled={bookingLock.current || (forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim()))}>Confirm & book</button>
                 <button onClick={() => { setError(null); setStep(memberCheckDone && hasCardOnFile && clientId ? "sauna" : "email"); }} className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Back</button>
-                <a href={mindbodyBookingUrl} target="_blank" rel="noopener noreferrer" className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Manage or book in Mindbody</a>
+                <a href={mindbodyBookingUrl} target="_blank" rel="noopener noreferrer" className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Manage or book in Mindbody <span className="sr-only">(opens in new tab)</span></a>
               </div>
             </div>
           )}

@@ -92,6 +92,7 @@ export default function LarimerColdPlungePage() {
               <h3 className="text-lg font-vance-bold text-[#113D33] mt-2">
                 Benefits & risks of cold plunges
               </h3>
+              <span className="sr-only">(opens in new tab)</span>
             </a>
 
             <a
@@ -106,6 +107,7 @@ export default function LarimerColdPlungePage() {
               <h3 className="text-lg font-vance-bold text-[#113D33] mt-2">
                 Science behind ice baths
               </h3>
+              <span className="sr-only">(opens in new tab)</span>
             </a>
 
             <a
@@ -120,6 +122,7 @@ export default function LarimerColdPlungePage() {
               <h3 className="text-lg font-vance-bold text-[#113D33] mt-2">
                 Cold-water immersion overview
               </h3>
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </div>
 

@@ -76,7 +76,7 @@ export default function HolidayGiftCardPopup() {
             onClick={() => trackGiftCardIntent("popup_holiday_gc", 150)}
             className="w-full inline-block bg-[#113D33] text-white text-sm sm:text-base font-semibold py-3 px-4 rounded-lg hover:bg-[#0b2d25] transition"
           >
-            Purchase A Gift Card
+            Purchase A Gift Card <span className="sr-only">(opens in new tab)</span>
           </a>
         </div>
       </div>

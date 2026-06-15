@@ -554,6 +554,7 @@ export default function DallasFoundingMembershipPage() {
               <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5">
                 USA Today 10Best
               </p>
+              <span className="sr-only">(opens in new tab)</span>
             </a>
 
             {/* Founding spots */}
@@ -804,6 +805,7 @@ export default function DallasFoundingMembershipPage() {
                   height={56}
                   className="h-10 md:h-14 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 />
+                <span className="sr-only">(opens in new tab)</span>
               </motion.a>
             ))}
           </motion.div>

@@ -1212,7 +1212,7 @@ export default function MavenHotelPage() {
                       rel="noopener noreferrer"
                       className="text-sm text-[#4A776D] font-medium hover:text-[#113D33] transition"
                     >
-                      themavenhotel.com &rarr;
+                      themavenhotel.com &rarr; <span className="sr-only">(opens in new tab)</span>
                     </a>
                   </div>
                 </div>
@@ -1263,7 +1263,7 @@ export default function MavenHotelPage() {
                   rel="noopener noreferrer"
                   className="text-[#9ABFB3] hover:text-white transition underline underline-offset-4"
                 >
-                  The Maven Hotel at Dairy Block
+                  The Maven Hotel at Dairy Block <span className="sr-only">(opens in new tab)</span>
                 </a>{" "}
                 — a boutique hotel in Denver&apos;s LoDo neighborhood.
               </p>
@@ -1477,7 +1477,7 @@ export default function MavenHotelPage() {
                   Loading availability...
                 </div>
               )}
-              {error && <p className="text-center text-red-700">{error}</p>}
+              {error && <p role="alert" className="text-center text-red-700">{error}</p>}
 
               {!loading &&
                 !error &&
@@ -1581,7 +1581,7 @@ export default function MavenHotelPage() {
                   className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 />
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p role="alert" className="text-red-700 text-sm mb-3">{error}</p>}
 
                 <button
                   disabled={!selectedTime || !isValidEmail(email)}
@@ -1764,7 +1764,7 @@ export default function MavenHotelPage() {
                   </label>
                 )}
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p role="alert" className="text-red-700 text-sm mb-3">{error}</p>}
 
                 <button
                   onClick={handleSaveCardAndContinue}
@@ -1927,7 +1927,7 @@ export default function MavenHotelPage() {
                   </p>
                 </div>
 
-                {error && <p className="text-red-700 text-sm mb-3">{error}</p>}
+                {error && <p role="alert" className="text-red-700 text-sm mb-3">{error}</p>}
 
                 <button
                   onClick={handleFinalConfirmAndBook}
@@ -2059,7 +2059,7 @@ export default function MavenHotelPage() {
                 rel="noopener noreferrer"
                 className="flex-1 py-3 rounded-full bg-[#113D33]/5 border border-[#113D33]/15 text-[#113D33] font-medium hover:bg-[#113D33]/10 transition text-center"
               >
-                Back to Maven Hotel
+                Back to Maven Hotel <span className="sr-only">(opens in new tab)</span>
               </a>
             </div>
           </div>

@@ -95,7 +95,7 @@ export default function MavenHotelBlogLayout() {
             rel="noopener noreferrer"
             className="text-[#113D33] font-semibold hover:underline"
           >
-            The Maven Hotel
+            The Maven Hotel <span className="sr-only">(opens in new tab)</span>
           </a>{" "}
           at Dairy Block — one of LoDo&apos;s most distinctive boutique hotels —
           has partnered with{" "}
@@ -419,7 +419,7 @@ export default function MavenHotelBlogLayout() {
               rel="noopener noreferrer"
               className="text-[#113D33] font-semibold hover:underline"
             >
-              Visit themavenhotel.com
+              Visit themavenhotel.com <span className="sr-only">(opens in new tab)</span>
             </a>
           </p>
         </div>

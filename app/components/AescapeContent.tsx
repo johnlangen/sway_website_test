@@ -94,7 +94,7 @@ const faqs = [
             rel="noopener noreferrer"
             className="underline underline-offset-4 text-[#113D33] hover:opacity-80 transition"
           >
-            full list of contraindications
+            full list of contraindications <span className="sr-only">(opens in new tab)</span>
           </a>{" "}
           before booking.
         </p>
@@ -264,7 +264,7 @@ export default function AescapeContent() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black text-sm md:text-base font-semibold tracking-wide hover:opacity-90 transition"
                   >
-                    Book Now
+                    Book Now <span className="sr-only">(opens in new tab)</span>
                   </Link>
 
                   <a
@@ -280,7 +280,7 @@ export default function AescapeContent() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/35 bg-black/10 text-white text-sm md:text-base font-semibold tracking-wide hover:bg-black/25 transition"
                   >
-                    Aescape Tech
+                    Aescape Tech <span className="sr-only">(opens in new tab)</span>
                   </a>
                 </div>
 
@@ -343,7 +343,7 @@ export default function AescapeContent() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#113D33] text-white text-xs md:text-sm font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition"
                 >
-                  Book Aescape
+                  Book Aescape <span className="sr-only">(opens in new tab)</span>
                 </Link>
                 <a
                   href="#flow"
@@ -537,7 +537,7 @@ export default function AescapeContent() {
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#113D33] text-white text-xs md:text-sm font-semibold tracking-[0.14em] uppercase hover:opacity-90 transition"
                           >
-                            Book Now
+                            Book Now <span className="sr-only">(opens in new tab)</span>
                           </Link>
                           <a
                             href="https://www.aescape.com/technology"
@@ -545,7 +545,7 @@ export default function AescapeContent() {
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-[#113D33]/25 bg-white text-[#113D33] text-xs md:text-sm font-semibold tracking-[0.14em] uppercase hover:bg-white/70 transition"
                           >
-                            Learn More
+                            Learn More<span className="sr-only"> about Aescape technology</span> <span className="sr-only">(opens in new tab)</span>
                           </a>
                         </div>
                       </div>
@@ -571,7 +571,7 @@ export default function AescapeContent() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#CFE6D8] text-[#113D33] text-xs md:text-sm font-semibold tracking-[0.18em] uppercase hover:opacity-90 transition"
               >
-                Reserve Your Session
+                Reserve Your Session <span className="sr-only">(opens in new tab)</span>
               </Link>
             </div>
           </motion.div>
@@ -624,7 +624,7 @@ export default function AescapeContent() {
                 <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
                 <p className="mt-2 text-sm text-[#5a5a5a] leading-relaxed">{s.desc}</p>
                 <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-                  Learn More →
+                  Learn More<span className="sr-only"> about {s.name}</span> →
                 </span>
               </Link>
             ))}
@@ -670,6 +670,7 @@ export default function AescapeContent() {
                   {article.title}
                 </h3>
                 <p className="mt-4 text-sm text-white/75">Open article →</p>
+                <span className="sr-only">(opens in new tab)</span>
               </motion.a>
             ))}
           </div>
@@ -681,7 +682,7 @@ export default function AescapeContent() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-white text-[#113D33] text-xs md:text-sm font-semibold tracking-[0.18em] uppercase hover:opacity-90 transition"
             >
-              Book Aescape
+              Book Aescape <span className="sr-only">(opens in new tab)</span>
             </Link>
           </div>
 

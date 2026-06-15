@@ -104,5 +104,6 @@ const FooterSocial = ({
     className={`hover:underline ${hoverState ? "text-green-400" : "text-white"}`}
   >
     {text}
+    <span className="sr-only">(opens in new tab)</span>
   </a>
 );

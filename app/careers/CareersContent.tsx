@@ -32,9 +32,10 @@ export default function CareersContent() {
           <Link
             href={applyUrl}
             target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#113D33] text-white px-6 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition"
           >
-            APPLY NOW
+            APPLY NOW <span className="sr-only">(opens in new tab)</span>
           </Link>
         </div>
 
@@ -127,9 +128,10 @@ export default function CareersContent() {
           <Link
             href={applyUrl}
             target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#113D33] text-white px-6 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition"
           >
-            APPLY NOW
+            APPLY NOW <span className="sr-only">(opens in new tab)</span>
           </Link>
         </div>
 

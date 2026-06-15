@@ -120,6 +120,7 @@ export default function EnterToWinForm({
             >
               <Instagram className="w-4 h-4" />
               Follow on Instagram
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </div>
         )}
@@ -140,6 +141,7 @@ export default function EnterToWinForm({
             >
               <Instagram className="w-4 h-4" />
               @swaywellnessclub
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </div>
         )}
@@ -248,7 +250,7 @@ export default function EnterToWinForm({
                 rel="noopener noreferrer"
                 className="underline underline-offset-2 hover:text-[#113D33]"
               >
-                Follow @swaywellnessclub
+                Follow @swaywellnessclub <span className="sr-only">(opens in new tab)</span>
               </a>{" "}
               first if you haven&apos;t.
             </span>

@@ -1337,9 +1337,9 @@ export default function AnniversaryEventPage() {
                   className="underline underline-offset-4"
                   href={mindbodyBookingUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
-                  Book in Mindbody
+                  Book in Mindbody <span className="sr-only">(opens in new tab)</span>
                 </a>
               </>
             )}

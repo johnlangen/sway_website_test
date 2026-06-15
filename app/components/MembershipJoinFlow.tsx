@@ -1050,7 +1050,7 @@ export default function MembershipJoinFlow({
           </AnimatePresence>
 
           {error && (
-            <p className="mt-3 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+            <p role="alert" className="mt-3 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
               {error}
             </p>
           )}

@@ -39,7 +39,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
             rel="noopener noreferrer"
             className="underline text-blue-600"
           >
-            American Academy of Dermatology
+            American Academy of Dermatology <span className="sr-only">(opens in new tab)</span>
           </a>
           , sun damage builds up over time, contributing to dryness, uneven
           texture, discoloration, and even premature aging. Chlorine and sweat

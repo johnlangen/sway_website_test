@@ -87,9 +87,10 @@ export default function LedLightTherapyPage() {
           <Link
             href="/book"
             target="_blank"
+            rel="noopener noreferrer"
             className="mt-6 inline-block bg-[#113D33] text-white px-6 py-3 text-md font-bold rounded-md hover:bg-[#0a2b23] transition-all shadow-lg"
           >
-            Book LED Light Therapy
+            Book LED Light Therapy <span className="sr-only">(opens in new tab)</span>
           </Link>
         </motion.div>
       </section>

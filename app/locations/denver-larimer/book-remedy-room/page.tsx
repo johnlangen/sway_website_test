@@ -2180,7 +2180,7 @@ export default function BookRemedyRoomPage() {
                     rel="noopener noreferrer"
                     className="block w-full text-center mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                   >
-                    Manage or book in Mindbody
+                    Manage or book in Mindbody <span className="sr-only">(opens in new tab)</span>
                   </a>
                 )}
               </div>

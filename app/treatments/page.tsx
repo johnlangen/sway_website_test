@@ -244,7 +244,7 @@ export default function TreatmentsPage() {
                     href={t.learnHref}
                     className="bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-white/90 transition shadow-lg"
                   >
-                    Learn More
+                    Learn More<span className="sr-only"> about {t.name}</span>
                   </Link>
                   <Link
                     href={bookHref}

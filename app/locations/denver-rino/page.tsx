@@ -128,7 +128,7 @@ export default function SwayRinoPage() {
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                {loc.street}, {loc.city}, {loc.state} {loc.zip}
+                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
               </a>
               <span className="mx-2">·</span>
               <span>{loc.neighborhood}</span>
@@ -250,7 +250,7 @@ export default function SwayRinoPage() {
                 rel="noopener noreferrer"
                 className="text-sm font-medium underline underline-offset-4"
               >
-                Get Directions
+                Get Directions <span className="sr-only">(opens in new tab)</span>
               </a>
             </div>
 

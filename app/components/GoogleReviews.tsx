@@ -235,6 +235,7 @@ export default function GoogleReviews() {
             ({totalReviews} reviews on Google)
           </span>
           <GoogleLogo className="w-4 h-4 ml-1" />
+          <span className="sr-only">(opens in new tab)</span>
         </a>
       </div>
 
@@ -320,6 +321,7 @@ export default function GoogleReviews() {
           className="text-[#4A776D] font-medium hover:underline"
         >
           View all {totalReviews} reviews &rarr;
+          <span className="sr-only">(opens in new tab)</span>
         </a>
       </div>
     </motion.div>
@@ -352,6 +354,7 @@ export function ReviewBadge() {
       <span className="font-semibold">{formatRating(rating)}</span>
       <span className="opacity-60">({totalReviews} reviews)</span>
       <GoogleLogo className="w-3.5 h-3.5 ml-0.5" />
+      <span className="sr-only">(opens in new tab)</span>
     </a>
   );
 }
@@ -377,6 +380,7 @@ export function ClassPassBadge() {
       <span className="font-semibold">4.8</span>
       <span className="opacity-60">(694 ratings)</span>
       <span className="font-semibold ml-0.5">ClassPass</span>
+      <span className="sr-only">(opens in new tab)</span>
     </a>
   );
 }

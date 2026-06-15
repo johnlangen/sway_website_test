@@ -49,9 +49,10 @@ export default function SwayShopFindsBlogLayout() {
             <Link
               href="https://eminenceorganics.com/us/blog/eminence-organics-award-wins"
               target="_blank"
+              rel="noopener noreferrer"
               className="underline text-[#113D33] font-semibold"
             >
-              Learn more
+              Learn more<span className="sr-only"> about Eminence Organics award wins</span> <span className="sr-only">(opens in new tab)</span>
             </Link>
             .
           </li>

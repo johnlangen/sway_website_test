@@ -74,6 +74,7 @@ export default function InstagramCallout({
           >
             <Instagram className="w-4 h-4" />
             Follow @swaywellnessclub
+            <span className="sr-only">(opens in new tab)</span>
           </a>
         </motion.div>
       </div>

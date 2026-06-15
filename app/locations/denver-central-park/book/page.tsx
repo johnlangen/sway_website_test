@@ -37,7 +37,7 @@ export default function SwayCentralParkBookPage() {
                 rel="noopener noreferrer"
                 className="underline underline-offset-4 hover:opacity-100"
               >
-                Book directly on our previous site
+                Book directly on our previous site <span className="sr-only">(opens in new tab)</span>
               </a>
               .
             </p>

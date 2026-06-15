@@ -324,7 +324,7 @@ export default function FathersDayGiftGuideLayout() {
                       rel="noopener noreferrer"
                       className="underline underline-offset-2 hover:text-[#0e3029]"
                     >
-                      NADC Burger
+                      NADC Burger <span className="sr-only">(opens in new tab)</span>
                     </a>{" "}
                     &middot; the move
                   </p>

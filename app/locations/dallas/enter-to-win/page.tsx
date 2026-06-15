@@ -188,7 +188,7 @@ export default function DallasEnterToWinPage() {
                 rel="noopener noreferrer"
                 className="font-bold underline underline-offset-4 hover:text-[#9CB7A9]"
               >
-                @swaywellnessclub
+                @swaywellnessclub <span className="sr-only">(opens in new tab)</span>
               </a>{" "}
               on Instagram and check the bonus-entry box on your form for a
               second entry in the drawing.
@@ -201,6 +201,7 @@ export default function DallasEnterToWinPage() {
             >
               <Instagram className="w-4 h-4" />
               Follow @swaywellnessclub
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </motion.div>
         </div>

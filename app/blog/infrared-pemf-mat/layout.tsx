@@ -146,8 +146,8 @@ export default function InfraredPemfMatBlogLayout() {
           <p>
             PEMF is not new. It has been studied for decades and is even used in
             clinical settings. According to{" "}
-            <Link href="https://www.pemfadvisor.com/research/" target="_blank" className="underline text-[#113D33] font-semibold">
-              PEMF Advisor
+            <Link href="https://www.pemfadvisor.com/research/" target="_blank" rel="noopener noreferrer" className="underline text-[#113D33] font-semibold">
+              PEMF Advisor <span className="sr-only">(opens in new tab)</span>
             </Link>
             , research suggests PEMF therapy can help relieve joint and muscle
             pain, reduce inflammation, and improve sleep quality. As a fun aside,

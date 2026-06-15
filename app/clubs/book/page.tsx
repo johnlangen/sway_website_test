@@ -83,7 +83,7 @@ export default function ClubsBookPage() {
               </div>
 
               <div className="p-5 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold mb-1">{club.name}</h3>
+                <h2 className="text-xl font-bold mb-1">{club.name}</h2>
                 <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
                   <MapPin className="w-3.5 h-3.5" />
                   {club.city}, {club.state}

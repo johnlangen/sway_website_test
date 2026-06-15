@@ -386,7 +386,7 @@ export default function MembershipPage() {
           rel="noopener noreferrer"
           className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
         >
-          Become a {tier.name} Member
+          Become a {tier.name} Member <span className="sr-only">(opens in new tab)</span>
         </a>
       )}
       <p className="mt-3 text-center text-[11px] text-gray-400">
@@ -955,7 +955,7 @@ export default function MembershipPage() {
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
                 <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
               </span>
-              Join the Club
+              Join the Club <span className="sr-only">(opens in new tab)</span>
             </a>
           )}
         </div>
@@ -995,6 +995,7 @@ export default function MembershipPage() {
             className={stickyClass}
           >
             {stickyInner}
+            <span className="sr-only">(opens in new tab)</span>
           </a>
         );
       })()}

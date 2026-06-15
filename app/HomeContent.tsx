@@ -324,7 +324,7 @@ export default function HomeContent() {
             rel="noopener noreferrer"
             className="inline-block text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 mb-8 hover:border-[#113D33]/40 transition"
           >
-            Voted Best U.S. Day Spa &middot; TZR Readers&apos; Choice
+            Voted Best U.S. Day Spa &middot; TZR Readers&apos; Choice <span className="sr-only">(opens in new tab)</span>
           </a>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
@@ -395,6 +395,7 @@ export default function HomeContent() {
                   height={48}
                   className="h-7 md:h-10 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 />
+                <span className="sr-only">(opens in new tab)</span>
               </a>
             ))}
           </div>
@@ -510,7 +511,7 @@ export default function HomeContent() {
                     href={service.learnHref}
                     className="text-sm font-medium text-white/80 underline underline-offset-4 decoration-white/30 hover:text-white hover:decoration-white transition"
                   >
-                    Learn more
+                    Learn more<span className="sr-only"> about {service.title}</span>
                   </Link>
                 </div>
               </motion.div>
@@ -763,6 +764,7 @@ export default function HomeContent() {
                   rel="noopener noreferrer"
                 >
                   {inner}
+                  <span className="sr-only">(opens in new tab)</span>
                 </a>
               ) : (
                 <Link key={item.label} href={item.href}>
@@ -874,7 +876,7 @@ export default function HomeContent() {
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
                 <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
               </span>
-              Become a Member
+              Become a Member <span className="sr-only">(opens in new tab)</span>
             </a>
             <Link
               href="/gift-cards"

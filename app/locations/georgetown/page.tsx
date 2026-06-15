@@ -105,7 +105,7 @@ export default function SwayGeorgetownComingSoonPage() {
                     href={svc.href}
                     className="text-sm text-[#4A776D] font-semibold hover:underline"
                   >
-                    Learn more &rarr;
+                    Learn more<span className="sr-only"> about {svc.title}</span> &rarr;
                   </Link>
                 </div>
               </motion.div>

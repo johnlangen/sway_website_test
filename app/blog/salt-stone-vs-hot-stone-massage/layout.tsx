@@ -293,7 +293,7 @@ export default function SaltStoneVsHotStoneLayout() {
             rel="noopener noreferrer"
             className="underline"
           >
-            Google
+            Google <span className="sr-only">(opens in new tab)</span>
           </a>
           .
         </p>

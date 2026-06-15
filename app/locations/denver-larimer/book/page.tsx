@@ -1831,7 +1831,7 @@ export default function NewBookingFlow() {
                   <div className="bg-[#113D33]/[0.04] border border-[#113D33]/10 rounded-2xl p-4 text-center">
                     <p className="text-sm text-[#113D33]">
                       <span className="font-bold">Save ${TIER_PRICING[selectedTreatment.tier].dropIn - TIER_PRICING[selectedTreatment.tier].member}/visit</span> with a {selectedTreatment.tier} membership.{" "}
-                      <Link href="/locations/denver-larimer/membership" target="_blank" className="underline underline-offset-2 font-semibold text-[#4A776D]">Learn more &rarr;</Link>
+                      <Link href="/locations/denver-larimer/membership" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 font-semibold text-[#4A776D]">Learn more<span className="sr-only"> about membership</span> &rarr; <span className="sr-only">(opens in new tab)</span></Link>
                     </p>
                   </div>
                 )}

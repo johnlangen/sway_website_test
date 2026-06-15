@@ -121,7 +121,7 @@ export default function OwnASwayPage() {
                 rel="noopener noreferrer"
                 className="underline underline-offset-4 hover:opacity-80"
               >
-                Spavia Day Spa
+                Spavia Day Spa <span className="sr-only">(opens in new tab)</span>
               </a>
               , a premium design concept built on 20+ years of franchise success
               and 63 locations nationwide.
@@ -139,12 +139,13 @@ export default function OwnASwayPage() {
                 </span>
                 Explore Franchise Ownership
                 <ExternalLink className="ml-2 h-4 w-4" />
+                <span className="sr-only">(opens in new tab)</span>
               </a>
               <a
                 href="#about"
                 className="text-sm font-semibold text-white/85 underline underline-offset-4 decoration-white/30 hover:text-white hover:decoration-white transition"
               >
-                Learn more
+                Learn more<span className="sr-only"> about Sway and Spavia</span>
               </a>
             </div>
           </motion.div>
@@ -282,6 +283,7 @@ export default function OwnASwayPage() {
               </span>
               View Full Franchise Details
               <ExternalLink className="ml-2 h-4 w-4" />
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </div>
         </div>
@@ -363,6 +365,7 @@ export default function OwnASwayPage() {
               </span>
               Start Exploring Ownership
               <ExternalLink className="ml-2 h-4 w-4" />
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </div>
         </div>

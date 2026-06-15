@@ -92,6 +92,7 @@ export default function LarimerSaunaPage() {
               <h3 className="text-lg font-vance-bold text-[#113D33] mt-2">
                 Benefits & safety considerations of sauna use
               </h3>
+              <span className="sr-only">(opens in new tab)</span>
             </a>
 
             <a
@@ -106,6 +107,7 @@ export default function LarimerSaunaPage() {
               <h3 className="text-lg font-vance-bold text-[#113D33] mt-2">
                 Sauna use & cardiovascular health
               </h3>
+              <span className="sr-only">(opens in new tab)</span>
             </a>
           </div>
 

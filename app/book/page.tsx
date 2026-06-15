@@ -107,7 +107,7 @@ function LocationCard({
             isOpen ? "bg-[#113D33] group-hover:bg-[#0a2b23]" : "bg-[#113D33]/80 group-hover:bg-[#113D33]"
           }`}
         >
-          {isOpen ? "Book Now" : "Learn More"}
+          {isOpen ? "Book Now" : "Learn More"}<span className="sr-only"> {loc.name}</span>
           <ArrowRight className="w-4 h-4" />
         </div>
       </div>
