@@ -707,8 +707,12 @@ export default function NewBookingFlow() {
         if (existingFirst) setFirstName(existingFirst);
         if (existingLast) setLastName(existingLast);
         const stubMissingName = !!data.clientId && (!existingFirst || !existingLast);
-        if (stubMissingName) {
-          setNeedsNameUpdate(true);
+        // Returning client with no phone on file: prompt for it (SMS reminders +
+        // front-desk contact). New clients already give a phone at the card step.
+        const missingPhone = !!data.clientId && data.hasPhone === false;
+        if (stubMissingName || missingPhone) {
+          if (stubMissingName) setNeedsNameUpdate(true);
+          if (missingPhone) setNeedsPhoneUpdate(true);
           // If they have a card on file, "name" step will route to "confirm"
           // afterward. Otherwise, route to account/add_card to collect a card.
           if (data.hasCardOnFile) {
@@ -1711,7 +1715,7 @@ export default function NewBookingFlow() {
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
             <div className="text-center pt-4">
               <h2 className="text-2xl font-bold text-[#113D33]">One quick thing</h2>
-              <p className="mt-2 text-sm text-[#113D33]/60">We found your account, but we&apos;re missing your name. Add it so your appointment is on file correctly.</p>
+              <p className="mt-2 text-sm text-[#113D33]/60">We found your account, but we&apos;re missing {needsNameUpdate && needsPhoneUpdate ? "your name and phone number" : needsNameUpdate ? "your name" : "a phone number"}. Add it so we can confirm your appointment.</p>
             </div>
             <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
               <div className="grid grid-cols-2 gap-3">

@@ -193,6 +193,9 @@ export async function GET(req: Request) {
         client.ClientCreditCard?.CardNumber &&
         client.ClientCreditCard.CardNumber !== ""
       );
+      const hasPhone = !!(
+        (client.MobilePhone || client.HomePhone || client.WorkPhone || "").trim()
+      );
 
       let tier: MembershipTier = null;
       let hasAescapeMembership = false;
@@ -278,7 +281,7 @@ export async function GET(req: Request) {
       if (isMember || hasAescapeMembership || hasRemedyMembership) {
         return NextResponse.json({
           found: true, isMember, tier, firstName, lastName, clientId, hasCardOnFile,
-          homeLocation, isLocalMember,
+          hasPhone, homeLocation, isLocalMember,
           hasAescapeMembership, hasRemedyMembership,
         });
       }
@@ -294,6 +297,7 @@ export async function GET(req: Request) {
       lastName: fallbackClient.LastName ?? null,
       clientId: String(fallbackClient.Id ?? fallbackClient.UniqueId),
       hasCardOnFile: !!(fallbackClient.ClientCreditCard?.CardNumber && fallbackClient.ClientCreditCard.CardNumber !== ""),
+      hasPhone: !!((fallbackClient.MobilePhone || fallbackClient.HomePhone || fallbackClient.WorkPhone || "").trim()),
       homeLocation: null,
       isLocalMember: false,
       hasAescapeMembership: false,

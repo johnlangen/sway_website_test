@@ -1204,16 +1204,19 @@ function BookServicePage() {
         const existingLast = (lookup.client!.LastName ?? "").trim();
         const existingPhone = (lookup.client!.MobilePhone ?? "").trim();
         const missingName = !existingFirst || !existingLast;
+        // Also catch a returning client who has a name but NO phone on file —
+        // hoisted out of the missingName branch so they're prompted too.
+        const missingPhone = !existingPhone;
 
         setClientId(String(lookup.client!.Id));
 
-        if (missingName) {
+        if (missingName || missingPhone) {
           // Pre-fill whatever Mindbody has so the user only fixes what's blank
           setFirstName(existingFirst);
           setLastName(existingLast);
           setMobilePhone(existingPhone);
-          setNeedsNameUpdate(true);
-          setNeedsPhoneUpdate(!existingPhone);
+          if (missingName) setNeedsNameUpdate(true);
+          setNeedsPhoneUpdate(missingPhone);
           if (!lookup.hasCardOnFile) setCardContext("add_card");
 
           // If next step after "name" is "confirm" (has card on file), the
@@ -2320,8 +2323,13 @@ function BookServicePage() {
             <div className="max-w-md mx-auto animate-fade-in-up">
               <div className="bg-white border border-[#113D33]/10 rounded-2xl p-6 text-left space-y-4 shadow-sm">
                 <p className="text-sm text-[#113D33]/70">
-                  We found your account but we&apos;re missing your name. Please add
-                  it so your appointment is on file correctly.
+                  We found your account but we&apos;re missing{" "}
+                  {needsNameUpdate && needsPhoneUpdate
+                    ? "your name and phone number"
+                    : needsNameUpdate
+                      ? "your name"
+                      : "a phone number"}
+                  . Please add it so we can confirm your appointment.
                 </p>
                 <div>
                   <label className="block text-sm font-medium text-[#113D33] mb-1">
