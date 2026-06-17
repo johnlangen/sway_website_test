@@ -20,7 +20,6 @@ const NavBar = () => {
     : pathname?.startsWith("/locations/denver-central-park")
     ? "/locations/denver-central-park/book"
     : "/book";
-  const bookIsInternal = bookHref !== "/book";
 
   // Load saved location
   useEffect(() => {
@@ -238,23 +237,12 @@ const NavBar = () => {
               </Link>
             )}
 
-            {bookIsInternal ? (
-              <a
-                href={bookHref}
-                className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
-              >
-                Book Now
-              </a>
-            ) : (
-              <a
-                href={bookHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
-              >
-                Book Now <span className="sr-only">(opens in new tab)</span>
-              </a>
-            )}
+            <a
+              href={bookHref}
+              className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
+            >
+              Book Now
+            </a>
 
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
@@ -338,23 +326,12 @@ const NavBar = () => {
 
           <div className="w-12 border-t border-white/20" />
 
-          {bookIsInternal ? (
-            <a
-              href={bookHref}
-              className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
-            >
-              Book Now
-            </a>
-          ) : (
-            <a
-              href={bookHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
-            >
-              Book Now <span className="sr-only">(opens in new tab)</span>
-            </a>
-          )}
+          <a
+            href={bookHref}
+            className="bg-white text-[#113D33] px-6 py-2.5 rounded-full font-vance font-semibold"
+          >
+            Book Now
+          </a>
         </div>
       )}
 
