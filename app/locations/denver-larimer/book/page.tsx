@@ -1312,6 +1312,32 @@ export default function NewBookingFlow() {
               )}
             </div>
 
+            {/* Category switch — change massage/facial without going back a step */}
+            <div className="flex justify-center">
+              <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
+                {(["massage", "facial"] as const).map((cat) => {
+                  const isActive = category === cat;
+                  return (
+                    <button
+                      aria-pressed={isActive}
+                      key={cat}
+                      onClick={() => {
+                        if (cat === category) return;
+                        setCategory(cat);
+                        setSelectedTreatment(null);
+                        setSelectedBoosts([]);
+                        setActiveConcern(null);
+                        setExpandedTreatmentId(null);
+                      }}
+                      className={`relative px-7 py-2.5 rounded-full text-sm font-semibold transition-colors duration-200 ${isActive ? "bg-[#113D33] text-white shadow-sm" : "text-[#113D33]/60 hover:text-[#113D33]"}`}
+                    >
+                      {cat === "massage" ? "Massage" : "Facial"}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Tier toggle */}
             <div className="flex justify-center">
               <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
