@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+
+function track(event: string, extra: Record<string, unknown> = {}) {
+  window.dataLayer?.push({ event, a2hs_placement: "booking_done", ...extra });
+}
+function platform(): string {
+  return isIOS() ? "ios" : "android";
+}
 
 /**
  * Add-to-Home-Screen nudge. Two placements:
@@ -47,6 +54,7 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
   const [show, setShow] = useState(false);
   const [ios, setIos] = useState(false);
   const [deferred, setDeferred] = useState<BIPEvent | null>(null);
+  const shownRef = useRef(false);
 
   useEffect(() => {
     // ?a2hs=1 forces the prompt to show on any device, bypassing the
@@ -63,6 +71,10 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
       setDeferred(e as BIPEvent);
     };
     window.addEventListener("beforeinstallprompt", onBIP);
+
+    // Real install conversion (Android/desktop fire this; iOS never does)
+    const onInstalled = () => track("a2hs_installed", { a2hs_platform: platform() });
+    window.addEventListener("appinstalled", onInstalled);
 
     if (force || variant === "card") {
       setShow(true);
@@ -81,8 +93,19 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
         /* storage blocked — skip the banner */
       }
     }
-    return () => window.removeEventListener("beforeinstallprompt", onBIP);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onBIP);
+      window.removeEventListener("appinstalled", onInstalled);
+    };
   }, [variant]);
+
+  // Fire one impression event when the prompt actually becomes visible
+  useEffect(() => {
+    if (show && !shownRef.current) {
+      shownRef.current = true;
+      track("a2hs_prompt_shown", { a2hs_platform: platform() });
+    }
+  }, [show]);
 
   // Never show the banner over the booking flow's sticky CTA
   if (variant === "banner" && pathname?.includes("/book")) return null;
@@ -90,8 +113,10 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
 
   const androidInstall = async () => {
     if (!deferred) return;
+    track("a2hs_clicked", { a2hs_platform: "android" });
     await deferred.prompt();
-    await deferred.userChoice;
+    const choice = await deferred.userChoice;
+    track("a2hs_outcome", { a2hs_platform: "android", a2hs_result: choice.outcome });
     setDeferred(null);
     setShow(false);
   };
