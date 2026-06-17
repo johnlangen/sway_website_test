@@ -1415,7 +1415,7 @@ export default function NewBookingFlow() {
                       transition={{ duration: 0.2, delay: i * 0.04 }}
                       className={`rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md ${
                         isUltimate
-                          ? "bg-[#113D33]/[0.04] border-[#113D33]/15"
+                          ? "bg-white border-l-[3px] border-l-[#B0883C] border-[#B0883C]/30"
                           : isPremier
                           ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
                           : "bg-white border-[#113D33]/8"
@@ -1432,10 +1432,10 @@ export default function NewBookingFlow() {
                         </span>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            {isUltimate && <span className="text-[#4A776D] text-xs">✦</span>}
+                            {isUltimate && <span className="text-[#B0883C] text-xs">✦</span>}
                             <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
                             {t.badge && (
-                              <span className="text-[10px] font-semibold tracking-wide text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5">{t.badge}</span>
+                              <span className={`text-[10px] font-semibold tracking-wide rounded-full px-2 py-0.5 ${isUltimate ? "text-[#8A6A2E] bg-[#B0883C]/10" : "text-[#4A776D] bg-[#4A776D]/10"}`}>{t.badge}</span>
                             )}
                           </div>
                           <p className="text-[13px] text-[#113D33]/60 mt-0.5 leading-snug">
@@ -1445,11 +1445,11 @@ export default function NewBookingFlow() {
                         <div className="flex items-center gap-2 shrink-0 self-center">
                           <div className="text-right">
                             {tierIncluded ? (
-                              <span className="text-sm font-bold text-[#4A776D]">Included</span>
+                              <span className={`text-sm font-bold ${isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}`}>Included</span>
                             ) : isUpgrade ? (
-                              <span className="text-sm font-bold text-[#4A776D]">+${upgradeCost}</span>
+                              <span className={`text-sm font-bold ${isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}`}>+${upgradeCost}</span>
                             ) : (
-                              <span className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</span>
+                              <span className={`text-sm font-bold ${isUltimate ? "text-[#B0883C]" : "text-[#113D33]"}`}>${TIER_PRICING[t.tier].dropIn}</span>
                             )}
                           </div>
                           <svg className="w-4 h-4 text-[#113D33]/25 group-hover:text-[#113D33]/50 group-hover:translate-x-0.5 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
