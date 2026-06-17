@@ -198,6 +198,20 @@ function getConcernVisual(concerns?: string[]) {
   return (key && CONCERN_VISUAL[key]) || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
 }
 
+// Boost families → icon + intent color, same visual language as the treatment list.
+const BOOST_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
+  cupping: { color: "#B4663A", icon: "refresh" },
+  causemedic: { color: "#4A776D", icon: "sparkle" },
+  pemf: { color: "#3E6F8E", icon: "bolt" },
+  led: { color: "#C29A3B", icon: "sun" },
+  oxygen: { color: "#4E8FA6", icon: "droplet" },
+  dermaflash: { color: "#9A7AA0", icon: "sparkle" },
+  microcurrent: { color: "#B06A86", icon: "bolt" },
+};
+function getBoostVisual(family: string) {
+  return BOOST_VISUAL[family] || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
+}
+
 function getTreatmentPrice(tier: "essential" | "premier" | "ultimate", isMember: boolean, memberTier: MembershipTier): number {
   if (isMember && memberTier) {
     if (TIER_RANK[memberTier] >= TIER_RANK[tier]) return 0; // included in membership
@@ -1414,17 +1428,21 @@ export default function NewBookingFlow() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: matchesConcern ? 1 : 0.35, y: 0, scale: matchesConcern ? 1 : 0.98 }}
                       transition={{ duration: 0.2, delay: i * 0.04 }}
-                      className={`rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md ${
-                        isUltimate
-                          ? "bg-white border-l-[3px] border-l-[#B0883C] border-[#B0883C]/30"
-                          : isPremier
-                          ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
-                          : "bg-white border-[#113D33]/8"
-                      }`}>
+                      className="[backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+                      style={{ willChange: "transform, opacity" }}>
+                      {/* Visual styling lives on the button (not the animated wrapper) with a
+                          specific transition — combining transition-all + box-shadow + framer
+                          entry animation causes an end-of-animation flash on mobile. */}
                       <button
                         aria-label={`Select ${t.name}`}
                         onClick={() => handleTreatmentSelect(t)}
-                        className="group w-full text-left px-4 py-4 flex items-center gap-3.5">
+                        className={`group w-full text-left rounded-xl border overflow-hidden px-4 py-4 flex items-center gap-3.5 transition-[box-shadow,border-color] duration-200 hover:shadow-md [backface-visibility:hidden] [-webkit-backface-visibility:hidden] ${
+                          isUltimate
+                            ? "bg-white border-l-[3px] border-l-[#B0883C] border-[#B0883C]/30"
+                            : isPremier
+                            ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
+                            : "bg-white border-[#113D33]/8"
+                        }`}>
                         {/* Concern icon tile — color carries the visual differentiation */}
                         <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={isUltimate ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${vis.color}1A` }} aria-hidden="true">
                           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={isUltimate ? "#B0883C" : vis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -1439,21 +1457,23 @@ export default function NewBookingFlow() {
                               <span className={`text-[10px] font-semibold tracking-wide rounded-full px-2 py-0.5 ${isUltimate ? "text-[#8A6A2E] bg-[#B0883C]/10" : "text-[#4A776D] bg-[#4A776D]/10"}`}>{t.badge}</span>
                             )}
                           </div>
-                          <p className="text-[13px] text-[#113D33]/60 mt-0.5 leading-snug">
-                            <span className="text-[#113D33]/45 font-medium">{t.duration}</span> · {t.description}
-                          </p>
+                          <p className="text-[13px] text-[#113D33]/60 mt-0.5 leading-snug">{t.description}</p>
                         </div>
-                        <div className="flex items-center gap-2 shrink-0 self-center">
+                        <div className="flex items-center gap-2.5 shrink-0 self-center">
                           <div className="text-right">
-                            {tierIncluded ? (
-                              <span className={`text-sm font-bold ${isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}`}>Included</span>
-                            ) : isUpgrade ? (
-                              <span className={`text-sm font-bold ${isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}`}>+${upgradeCost}</span>
-                            ) : (
-                              <span className={`text-sm font-bold ${isUltimate ? "text-[#B0883C]" : "text-[#113D33]"}`}>${TIER_PRICING[t.tier].dropIn}</span>
-                            )}
+                            {/* Duration is the headline differentiator across tiers (50 / 70 / 90 min) */}
+                            <div className="text-base font-bold text-[#113D33] leading-none">{t.duration}</div>
+                            <div className="mt-1 text-xs font-semibold">
+                              {tierIncluded ? (
+                                <span className={isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}>Included</span>
+                              ) : isUpgrade ? (
+                                <span className={isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}>+${upgradeCost}</span>
+                              ) : (
+                                <span className={isUltimate ? "text-[#B0883C]" : "text-[#113D33]/70"}>${TIER_PRICING[t.tier].dropIn}</span>
+                              )}
+                            </div>
                           </div>
-                          <svg className="w-4 h-4 text-[#113D33]/25 group-hover:text-[#113D33]/50 group-hover:translate-x-0.5 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                          <svg className="w-4 h-4 text-[#113D33]/25 group-hover:text-[#113D33]/50 group-hover:translate-x-0.5 transition-[transform,color] duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
@@ -1484,19 +1504,23 @@ export default function NewBookingFlow() {
 
           return (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            {/* Service recap card */}
-            {selectedTreatment && (
-              <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
-                <div className="relative h-32 w-full">
-                  <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
-                    <p className="text-white/70 text-xs mt-0.5">{selectedTreatment.duration} · {selectedPrice === 0 ? "Included" : `$${selectedPrice}`}</p>
-                  </div>
+            {/* Service recap — photo-less, matches the treatment-card visual language */}
+            {selectedTreatment && (() => {
+              const rUlt = selectedTreatment.tier === "ultimate";
+              const rVis = getConcernVisual(selectedTreatment.concerns);
+              return (
+              <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm px-4 py-3.5 flex items-center gap-3.5">
+                <span className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center" style={rUlt ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${rVis.color}1A` }} aria-hidden="true">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={rUlt ? "#B0883C" : rVis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d={ICON_D[rVis.icon]} /></svg>
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-[15px] text-[#113D33] leading-tight">{selectedTreatment.name}</p>
+                  <p className="text-xs text-[#113D33]/55 mt-0.5">{selectedTreatment.duration} · {selectedPrice === 0 ? "Included" : `$${selectedPrice}`}</p>
                 </div>
+                <svg className="w-5 h-5 text-[#4A776D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               </div>
-            )}
+              );
+            })()}
 
             <div className="text-center">
               <h2 className="text-2xl font-bold text-[#113D33]">Customize your experience</h2>
@@ -1539,40 +1563,43 @@ export default function NewBookingFlow() {
                     </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="space-y-2.5">
                   {[...group.items].sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0)).map((b) => {
                     const sel = selectedBoosts.some((sb) => sb.id === b.id);
                     const familyConflict = !sel && selectedBoosts.some((sb) => sb.family === b.family);
                     const atLimit = !sel && !familyConflict && selectedBoosts.length >= boostLimit;
                     const disabled = atLimit;
                     const showInfo = boostInfoId === b.id;
+                    const bv = getBoostVisual(b.family);
                     return (
                       <div key={b.id} className="relative">
                         <button aria-pressed={sel} onClick={() => !disabled && handleBoostToggle(b)} disabled={disabled}
-                          className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:border-[#113D33]/40" : b.recommended ? "bg-[#4A776D]/[0.06] border-[#4A776D] hover:border-[#4A776D]" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5">
-                                <h4 className={`font-semibold text-sm leading-tight ${sel ? "text-white" : "text-[#113D33]"}`}>{b.name.replace(/ Boost$| Boost Plus$| Boost Pro$/, "")}</h4>
-                                {b.recommended && !sel && (
-                                  <span className="text-[10px] font-semibold text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5 whitespace-nowrap">Most popular</span>
-                                )}
-                                {b.fullDescription && (
-                                  <button
-                                    type="button"
-                                    onClick={(e) => { e.stopPropagation(); setBoostInfoId(showInfo ? null : b.id); }}
-                                    className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${sel ? "border-white/50 hover:border-white" : "border-[#113D33]/20 hover:border-[#113D33]/40"}`}
-                                  >
-                                    <span className={`text-[10px] font-bold leading-none ${sel ? "text-white/70" : "text-[#113D33]/60"}`}>i</span>
-                                  </button>
-                                )}
-                              </div>
-                              <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/65"}`}>{b.description}</p>
+                          className={`group w-full text-left rounded-xl border px-4 py-3.5 flex items-center gap-3.5 transition-[box-shadow,border-color] duration-200 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] ${sel ? "bg-[#113D33] border-[#113D33]" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:shadow-md" : b.recommended ? "bg-[#4A776D]/[0.06] border-[#4A776D] hover:shadow-md" : "bg-white border-[#113D33]/10 hover:shadow-md"}`}>
+                          {/* Boost icon tile — same visual language as the treatment list */}
+                          <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={sel ? { backgroundColor: "rgba(255,255,255,0.15)" } : { backgroundColor: `${bv.color}1F` }} aria-hidden="true">
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={sel ? "#ffffff" : bv.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d={ICON_D[bv.icon]} /></svg>
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h4 className={`font-semibold text-sm leading-tight ${sel ? "text-white" : "text-[#113D33]"}`}>{b.name.replace(/ Boost$| Boost Plus$| Boost Pro$/, "")}</h4>
+                              {b.recommended && !sel && (
+                                <span className="text-[10px] font-semibold text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5 whitespace-nowrap">Most popular</span>
+                              )}
+                              {b.fullDescription && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); setBoostInfoId(showInfo ? null : b.id); }}
+                                  className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${sel ? "border-white/50 hover:border-white" : "border-[#113D33]/20 hover:border-[#113D33]/40"}`}
+                                >
+                                  <span className={`text-[10px] font-bold leading-none ${sel ? "text-white/70" : "text-[#113D33]/60"}`}>i</span>
+                                </button>
+                              )}
                             </div>
-                            <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition ${sel ? "bg-white border-white" : familyConflict ? "border-[#113D33]/30" : "border-[#113D33]/20"}`}>
-                              {sel && <svg className="w-3 h-3 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
-                              {familyConflict && <svg className="w-3 h-3 text-[#113D33]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
-                            </div>
+                            <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/65"}`}>{b.description}</p>
+                          </div>
+                          <div className={`w-5 h-5 rounded-full border-2 shrink-0 self-center flex items-center justify-center ${sel ? "bg-white border-white" : familyConflict ? "border-[#113D33]/30" : "border-[#113D33]/20"}`}>
+                            {sel && <svg className="w-3 h-3 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+                            {familyConflict && <svg className="w-3 h-3 text-[#113D33]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
                           </div>
                         </button>
                         {/* Info tooltip — shown on tap (mobile) or hover via i icon */}
