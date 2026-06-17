@@ -1637,24 +1637,25 @@ export default function NewBookingFlow() {
         {/* ===== TIME ===== */}
         {step === "time" && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            {/* Treatment recap card */}
-            {selectedTreatment && (
+            {/* Treatment recap — photo-less, matches the treatment-card visual language */}
+            {selectedTreatment && (() => {
+              const rUlt = selectedTreatment.tier === "ultimate";
+              const rVis = getConcernVisual(selectedTreatment.concerns);
+              const rIncluded = isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[selectedTreatment.tier];
+              return (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
-                <div className="relative h-28 w-full">
-                  <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-                    <div>
-                      <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
-                      <p className="text-white/70 text-xs mt-0.5">
-                        {selectedTreatment.duration}
-                        {selectedBoosts.length > 0 && ` + ${selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0)} min boosts`}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-white font-bold text-sm">{isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[selectedTreatment.tier] ? "Included" : `$${selectedPrice}`}</p>
-                    </div>
+                <div className="px-4 py-3.5 flex items-center gap-3.5">
+                  <span className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center" style={rUlt ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${rVis.color}1A` }} aria-hidden="true">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={rUlt ? "#B0883C" : rVis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d={ICON_D[rVis.icon]} /></svg>
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-[15px] text-[#113D33] leading-tight">{selectedTreatment.name}</p>
+                    <p className="text-xs text-[#113D33]/55 mt-0.5">
+                      {selectedTreatment.duration}
+                      {selectedBoosts.length > 0 && ` + ${selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0)} min boosts`}
+                    </p>
                   </div>
+                  <p className={`text-sm font-bold shrink-0 ${rIncluded ? (rUlt ? "text-[#B0883C]" : "text-[#4A776D]") : "text-[#113D33]"}`}>{rIncluded ? "Included" : `$${selectedPrice}`}</p>
                 </div>
                 {selectedBoosts.length > 0 && (
                   <div className="px-4 py-2 border-t border-[#113D33]/5 flex flex-wrap gap-2">
@@ -1664,7 +1665,8 @@ export default function NewBookingFlow() {
                   </div>
                 )}
               </div>
-            )}
+              );
+            })()}
             {/* "Choose a Day" header with month */}
             <div className="text-center pt-4">
               <h2 className="text-2xl font-bold text-[#113D33]">Choose a Day</h2>
