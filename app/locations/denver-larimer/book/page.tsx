@@ -7,6 +7,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
+import { AddToHomeScreen } from "@/app/components/AddToHomeScreen";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
@@ -2064,6 +2065,9 @@ export default function NewBookingFlow() {
               <p className="text-[#113D33]/65 text-sm mt-4">A confirmation has been sent to {email}.</p>
               <p className="text-[#113D33]/65 text-sm">Please arrive 15 minutes early.</p>
             </div>
+
+            {/* Highest-intent moment to pitch the home-screen install */}
+            <AddToHomeScreen variant="card" />
 
             {boostWarning && <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900 leading-relaxed">{boostWarning}</div>}
 
