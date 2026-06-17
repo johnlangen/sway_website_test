@@ -67,6 +67,7 @@ type Boost = {
   description: string;
   fullDescription?: string; // longer description shown on hover/tap
   resourceId?: number;
+  recommended?: boolean; // data-driven "most added" spotlight (no extra therapist time)
 };
 
 const FACIAL_TREATMENTS: Treatment[] = [
@@ -108,7 +109,7 @@ const MASSAGE_TREATMENTS: Treatment[] = [
 const FACIAL_BOOSTS: Boost[] = [
   { id: 74, name: "LED Boost", type: "boost", family: "led", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Red light therapy.", fullDescription: "This non-invasive treatment uses targeted light wavelengths to recharge your skin at the cellular level, reduce inflammation, and stimulate collagen and elastin production. LED Light Therapy activates ATP, your cells' energy source, to support faster healing, ease muscle tension, and leave your skin visibly firmer, calmer, and more radiant.", resourceId: 6 },
   { id: 86, name: "Oxygen Boost", type: "boost", family: "oxygen", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Cooling oxygen infusion.", fullDescription: "A pressurized stream of oxygen delivers hydrating serums deep into the skin, plumping fine lines and restoring a dewy, refreshed glow. Ideal for dull or dehydrated skin that needs an instant pick-me-up.", resourceId: 4 },
-  { id: 115, name: "Dermaflash Boost", type: "boost", family: "dermaflash", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Exfoliates and removes peach fuzz.", fullDescription: "A gentle exfoliating treatment that removes dead skin cells and fine vellus hair (peach fuzz) to reveal a smoother, brighter complexion. Allows skincare products to penetrate more effectively and creates a flawless canvas for makeup.", resourceId: 5 },
+  { id: 115, name: "Dermaflash Boost", type: "boost", family: "dermaflash", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Exfoliates and removes peach fuzz.", recommended: true, fullDescription: "A gentle exfoliating treatment that removes dead skin cells and fine vellus hair (peach fuzz) to reveal a smoother, brighter complexion. Allows skincare products to penetrate more effectively and creates a flawless canvas for makeup.", resourceId: 5 },
   { id: 73, name: "LED Boost Plus", type: "boost_plus", family: "led", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended LED therapy.", fullDescription: "An extended session of targeted LED light therapy for deeper cellular activation. The additional time allows for greater collagen stimulation, enhanced healing, and more pronounced anti-inflammatory benefits.", resourceId: 6 },
   { id: 87, name: "Oxygen Boost Plus", type: "boost_plus", family: "oxygen", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended oxygen infusion.", fullDescription: "An extended oxygen infusion session for deeper serum penetration and more intensive hydration. The additional time targets multiple areas for a more comprehensive, luminous result.", resourceId: 4 },
   { id: 109, name: "Dermaflash Boost Plus", type: "boost_plus", family: "dermaflash", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended dermaflash.", fullDescription: "An extended dermaflash session with more thorough exfoliation across the full face and neck. The additional time allows your esthetician to address more areas for an even smoother, more radiant complexion.", resourceId: 5 },
@@ -118,7 +119,7 @@ const FACIAL_BOOSTS: Boost[] = [
 const MASSAGE_BOOSTS: Boost[] = [
   // Boost — $10 member / $20 drop-in, no time added
   { id: 111, name: "CBD Boost", type: "boost", family: "causemedic", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Soothing CBD muscle cream for deep relaxation and recovery.", fullDescription: "A CBD-infused muscle cream applied to targeted tension areas during your massage. The active ingredients work synergistically with massage techniques to reduce inflammation, soothe sore muscles, and promote deeper relaxation and recovery." },
-  { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery, especially effective for the back, shoulders, and neck." },
+  { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", recommended: true, fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery, especially effective for the back, shoulders, and neck." },
   { id: 91, name: "PEMF Boost", type: "boost", family: "pemf", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Electromagnetic field therapy for recovery.", fullDescription: "Pulsed Electromagnetic Field therapy uses low-frequency electromagnetic waves to stimulate cellular repair, reduce inflammation, and accelerate recovery. Applied during your massage, PEMF enhances circulation and helps your body heal at a deeper level." },
   // Boost Plus — $20 member / $40 drop-in, +10 min
   { id: 112, name: "CBD Boost Plus", type: "boost_plus", family: "causemedic", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended CBD muscle cream treatment for deeper recovery.", fullDescription: "An extended CBD muscle cream session with additional time for your therapist to work the active ingredients into multiple areas. The extra duration allows for more thorough application across back, legs, and shoulders for comprehensive relief." },
@@ -1491,7 +1492,7 @@ export default function NewBookingFlow() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4">
                     <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
-                    <p className="text-white/70 text-xs mt-0.5">{selectedTreatment.duration} · ${selectedPrice}</p>
+                    <p className="text-white/70 text-xs mt-0.5">{selectedTreatment.duration} · {selectedPrice === 0 ? "Included" : `$${selectedPrice}`}</p>
                   </div>
                 </div>
               </div>
@@ -1500,7 +1501,11 @@ export default function NewBookingFlow() {
             <div className="text-center">
               <h2 className="text-2xl font-bold text-[#113D33]">Customize your experience</h2>
               <p className="mt-1 text-sm text-[#113D33]/60">
-                Add science-backed enhancements to your {category}.
+                {isMember && selectedPrice === 0 ? (
+                  <>Your {category} is included. Make it even better from <span className="font-semibold text-[#113D33]">$10</span>.</>
+                ) : (
+                  <>Add science-backed enhancements to your {category}.</>
+                )}
                 {selectedTreatment?.tier !== "ultimate" && <span className="block mt-1 text-[#4A776D] font-medium">One per type. Mix and match across categories.</span>}
               </p>
             </div>
@@ -1535,7 +1540,7 @@ export default function NewBookingFlow() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {group.items.map((b) => {
+                  {[...group.items].sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0)).map((b) => {
                     const sel = selectedBoosts.some((sb) => sb.id === b.id);
                     const familyConflict = !sel && selectedBoosts.some((sb) => sb.family === b.family);
                     const atLimit = !sel && !familyConflict && selectedBoosts.length >= boostLimit;
@@ -1544,11 +1549,14 @@ export default function NewBookingFlow() {
                     return (
                       <div key={b.id} className="relative">
                         <button aria-pressed={sel} onClick={() => !disabled && handleBoostToggle(b)} disabled={disabled}
-                          className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:border-[#113D33]/40" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
+                          className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:border-[#113D33]/40" : b.recommended ? "bg-[#4A776D]/[0.06] border-[#4A776D] hover:border-[#4A776D]" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
                           <div className="flex items-center justify-between gap-2">
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5">
                                 <h4 className={`font-semibold text-sm leading-tight ${sel ? "text-white" : "text-[#113D33]"}`}>{b.name.replace(/ Boost$| Boost Plus$| Boost Pro$/, "")}</h4>
+                                {b.recommended && !sel && (
+                                  <span className="text-[10px] font-semibold text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5 whitespace-nowrap">Most popular</span>
+                                )}
                                 {b.fullDescription && (
                                   <button
                                     type="button"
@@ -1594,7 +1602,7 @@ export default function NewBookingFlow() {
               </div>
             ))}
 
-            <button onClick={handleBoostsContinue} className={primaryBtn}>{selectedBoosts.length > 0 ? `Continue with ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}` : "Skip, no boosts"}</button>
+            <button onClick={handleBoostsContinue} className={primaryBtn}>{selectedBoosts.length > 0 ? `Continue with ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}` : "Continue"}</button>
           </motion.div>
           );
         })()}
