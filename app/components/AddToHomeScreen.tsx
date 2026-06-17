@@ -136,7 +136,7 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
 
   // banner
   return (
-    <div className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-md rounded-2xl border border-[#113D33]/12 bg-white shadow-lg px-4 py-3 flex items-center gap-3">
+    <div className="fixed inset-x-3 z-[60] mx-auto max-w-md rounded-2xl border border-[#113D33]/12 bg-white shadow-lg px-4 py-3 flex items-center gap-3" style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}>
       <div className="min-w-0 flex-1">
         <p className="font-semibold text-[#113D33] text-sm leading-tight">Add Sway to your home screen</p>
         <p className="text-xs text-[#113D33]/60 mt-0.5">
