@@ -6,6 +6,7 @@ import { SwayCurve } from "../../../components/SwayCurve";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
+import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
@@ -52,6 +53,7 @@ type Treatment = {
   tier: "essential" | "premier" | "ultimate";
   image: string;
   concerns?: string[];
+  badge?: string; // curated merchandising tag, e.g. "Therapist favorite"
 };
 
 type Boost = {
@@ -71,10 +73,10 @@ const FACIAL_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
   { id: 75, name: "Essential Signature Facial", duration: "50 min", durationMinutes: 50, description: "A classic facial customized to your skin type: cleanse, exfoliate, extract, and hydrate.", tier: "essential", image: "/assets/facial1.jpg", concerns: ["hydration", "sensitive", "brightening", "acne", "anti-aging"] },
   // Premier — 50 min, $129 member / $169 drop-in. Value add: targeted products + dermapore technology
-  { id: 78, name: "Premier Forever Young Anti-Aging Facial", duration: "50 min", durationMinutes: 50, description: "Hydrates, brightens, and tightens the skin while supporting collagen production.", tier: "premier", image: "/assets/facial2.jpg", concerns: ["anti-aging", "hydration"] },
+  { id: 78, name: "Premier Forever Young Anti-Aging Facial", duration: "50 min", durationMinutes: 50, description: "Hydrates, brightens, and tightens the skin while supporting collagen production.", tier: "premier", image: "/assets/facial2.jpg", concerns: ["anti-aging", "hydration"], badge: "Guest favorite" },
   { id: 80, name: "Premier Pore Perfection Acne Facial", duration: "50 min", durationMinutes: 50, description: "Targets congestion, bacteria, and inflammation for clearer, healthier skin.", tier: "premier", image: "/assets/facial4.jpg", concerns: ["acne", "texture"] },
   { id: 81, name: "Premier Sensitive Silk Facial", duration: "50 min", durationMinutes: 50, description: "Calms redness, strengthens the skin barrier, and supports sensitive skin types.", tier: "premier", image: "/assets/facial5.jpg", concerns: ["sensitive"] },
-  { id: 79, name: "Premier Glow Getter Hydration Facial", duration: "50 min", durationMinutes: 50, description: "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.", tier: "premier", image: "/assets/facial3.jpg", concerns: ["hydration", "anti-aging", "brightening"] },
+  { id: 79, name: "Premier Glow Getter Hydration Facial", duration: "50 min", durationMinutes: 50, description: "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.", tier: "premier", image: "/assets/facial3.jpg", concerns: ["hydration", "anti-aging", "brightening"], badge: "Guest favorite" },
   { id: 77, name: "Premier Dr. Dennis Gross Vitamin C Facial", duration: "50 min", durationMinutes: 50, description: "A brightening facial powered by Vitamin C to improve tone, clarity, and radiance.", tier: "premier", image: "/assets/facial6.jpg", concerns: ["brightening", "anti-aging"] },
   // Ultimate — 50–60 min, $159 member / $199 drop-in. Value add: +10 min, tech + scalp/hand
   { id: 85, name: "Ultimate Illuminate LED Facial", duration: "60 min", durationMinutes: 60, description: "An advanced facial infused with LED light therapy to brighten, even skin tone, and support collagen.", tier: "ultimate", image: "/assets/facial2.jpg", concerns: ["brightening", "anti-aging"] },
@@ -86,17 +88,17 @@ const FACIAL_TREATMENTS: Treatment[] = [
 
 const MASSAGE_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
-  { id: 88, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage tailored to your needs.", tier: "essential", image: "/assets/massage7.jpg", concerns: ["relaxation", "pain-relief"] },
+  { id: 88, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage tailored to your needs.", tier: "essential", image: "/assets/massage7.jpg", concerns: ["relaxation", "pain-relief"], badge: "Therapist favorite" },
   { id: 116, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers. Recommended after the first trimester.", tier: "essential", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
   // Premier — $129 member / $169 drop-in. Value add: +20 min for swedish, or advanced techniques
-  { id: 98, name: "Premier Signature Massage", duration: "70 min", durationMinutes: 70, description: "Extended full-body massage for a deeply relaxing experience.", tier: "premier", image: "/assets/massage7.jpg", concerns: ["relaxation"] },
+  { id: 98, name: "Premier Signature Massage", duration: "70 min", durationMinutes: 70, description: "Extended full-body massage for a deeply relaxing experience.", tier: "premier", image: "/assets/massage7.jpg", concerns: ["relaxation"], badge: "Therapist favorite" },
   { id: 99, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief. Recommended after the first trimester.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
   { id: 100, name: "Premier Deep Tissue Massage", duration: "50 min", durationMinutes: 50, description: "Corrective massage to release deep muscle tension and restore balance.", tier: "premier", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
   { id: 101, name: "Premier Salt Stone Massage", duration: "50 min", durationMinutes: 50, description: "Warm Himalayan salt stones melt tension and promote deep relaxation.", tier: "premier", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
   { id: 102, name: "Premier Sports Massage", duration: "50 min", durationMinutes: 50, description: "Supports recovery, range of motion, and reduces fatigue.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
   { id: 89, name: "Premier Lymphatic Drainage Massage", duration: "50 min", durationMinutes: 50, description: "Gentle techniques to stimulate lymph flow and support detoxification.", tier: "premier", image: "/assets/massage6.jpg", concerns: ["detox", "recovery"] },
   // Ultimate — $159 member / $199 drop-in. Value add: +20 min to advanced techniques
-  { id: 105, name: "Ultimate Signature Massage", duration: "90 min", durationMinutes: 90, description: "Our longest full-body massage for complete relaxation and restoration.", tier: "ultimate", image: "/assets/massage7.jpg", concerns: ["relaxation"] },
+  { id: 105, name: "Ultimate Signature Massage", duration: "90 min", durationMinutes: 90, description: "Our longest full-body massage for complete relaxation and restoration.", tier: "ultimate", image: "/assets/massage7.jpg", concerns: ["relaxation"], badge: "Therapist favorite" },
   { id: 106, name: "Ultimate Deep Tissue Massage", duration: "70 min", durationMinutes: 70, description: "Extended deep tissue for full recovery and rebalancing.", tier: "ultimate", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
   { id: 107, name: "Ultimate Salt Stone Massage", duration: "70 min", durationMinutes: 70, description: "Extended salt stone therapy for deep penetration and release.", tier: "ultimate", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
   { id: 108, name: "Ultimate Sports Massage", duration: "70 min", durationMinutes: 70, description: "Extended sports therapy with stretching and deep kneading.", tier: "ultimate", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
@@ -161,6 +163,38 @@ const MASSAGE_CONCERNS = [
   { id: "recovery", label: "Recovery" },
   { id: "detox", label: "Detox" },
 ];
+
+/* ----------------------------------------------------------------
+   CONCERN VISUALS — a small icon + intent color per treatment so the
+   list reads at a glance instead of as a wall of identical rows.
+   Differentiation is carried by COLOR (the icon set is intentionally
+   tiny). Keyed off a treatment's primary (first) concern.
+---------------------------------------------------------------- */
+const ICON_D: Record<string, string> = {
+  sparkle: "M12 3l1.6 4.9L18.5 9l-4.9 1.6L12 15l-1.6-4.4L5.5 9l4.9-1.1L12 3z",
+  droplet: "M12 3s5.5 5.8 5.5 9.5a5.5 5.5 0 11-11 0C6.5 8.8 12 3 12 3z",
+  sun: "M12 7a5 5 0 100 10 5 5 0 000-10zM12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.42 1.42M6.34 17.66l-1.41 1.41m12.73 0l-1.41-1.41M6.34 6.34L4.93 4.93",
+  bolt: "M13 2L4.5 13.5H11l-1 8.5L19.5 10.5H13l0-8.5z",
+  heart: "M12 21s-7-4.5-9.5-9C1 9 2.7 5.5 6 5.5c2 0 3.2 1.2 4 2.5.8-1.3 2-2.5 4-2.5 3.3 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21z",
+  shield: "M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z",
+};
+const CONCERN_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
+  relaxation: { color: "#4A776D", icon: "sparkle" },
+  "pain-relief": { color: "#B4663A", icon: "bolt" },
+  prenatal: { color: "#B06A86", icon: "heart" },
+  recovery: { color: "#3E6F8E", icon: "heart" },
+  detox: { color: "#5B8A72", icon: "droplet" },
+  acne: { color: "#6E8BA3", icon: "droplet" },
+  "anti-aging": { color: "#A6803A", icon: "sparkle" },
+  hydration: { color: "#4E8FA6", icon: "droplet" },
+  sensitive: { color: "#9A7AA0", icon: "shield" },
+  brightening: { color: "#C29A3B", icon: "sun" },
+  texture: { color: "#7A8C5A", icon: "sparkle" },
+};
+function getConcernVisual(concerns?: string[]) {
+  const key = concerns?.find((c) => CONCERN_VISUAL[c]);
+  return (key && CONCERN_VISUAL[key]) || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
+}
 
 function getTreatmentPrice(tier: "essential" | "premier" | "ultimate", isMember: boolean, memberTier: MembershipTier): number {
   if (isMember && memberTier) {
@@ -946,6 +980,10 @@ export default function NewBookingFlow() {
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance">
+      {/* Hide Attentive's "$40 Off" chip + Bowtie chat while booking: they cover
+          the sticky CTA on mobile and the first-visit offer is irrelevant (and
+          locals/first-visit-only) once a guest is in the funnel. Restored on unmount. */}
+      <HideFloatingWidgets />
       {/* Sticky header — matches book-service: top-[56px] to sit below nav */}
       {step !== "welcome" && step !== "done" && (
         <div
@@ -1360,13 +1398,13 @@ export default function NewBookingFlow() {
                   )}
                 </div>
 
-                {/* Treatment cards — expandable, tier-distinct */}
+                {/* Treatment cards — one tap to select, tier-distinct, icon-anchored */}
                 <div className="space-y-2.5">
                   {filteredTreatments.map((t, i) => {
                     const isUltimate = t.tier === "ultimate";
                     const isPremier = t.tier === "premier";
-                    const isExpanded = expandedTreatmentId === t.id;
                     const matchesConcern = !activeConcern || (t.concerns?.includes(activeConcern) ?? false);
+                    const vis = getConcernVisual(t.concerns);
                     return (
                     <motion.div
                       key={t.id}
@@ -1374,26 +1412,35 @@ export default function NewBookingFlow() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: matchesConcern ? 1 : 0.35, y: 0, scale: matchesConcern ? 1 : 0.98 }}
                       transition={{ duration: 0.2, delay: i * 0.04 }}
-                      className={`rounded-xl border overflow-hidden transition-all duration-200 ${
+                      className={`rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md ${
                         isUltimate
                           ? "bg-[#113D33]/[0.04] border-[#113D33]/15"
                           : isPremier
                           ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
                           : "bg-white border-[#113D33]/8"
-                      } ${isExpanded ? "shadow-md" : "hover:shadow-sm"}`}>
-                      {/* Collapsed row — always visible */}
+                      }`}>
                       <button
-                        aria-expanded={isExpanded}
-                        onClick={() => setExpandedTreatmentId(isExpanded ? null : t.id)}
-                        className="w-full text-left px-5 py-4 flex items-center justify-between gap-4">
+                        aria-label={`Select ${t.name}`}
+                        onClick={() => handleTreatmentSelect(t)}
+                        className="group w-full text-left px-4 py-4 flex items-center gap-3.5">
+                        {/* Concern icon tile — color carries the visual differentiation */}
+                        <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${vis.color}1A` }} aria-hidden="true">
+                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={vis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                            <path d={ICON_D[vis.icon]} />
+                          </svg>
+                        </span>
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex items-center gap-1.5 flex-wrap">
                             {isUltimate && <span className="text-[#4A776D] text-xs">✦</span>}
                             <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
+                            {t.badge && (
+                              <span className="text-[10px] font-semibold uppercase tracking-wide text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5">{t.badge}</span>
+                            )}
                           </div>
-                          <p className="text-[13px] text-[#113D33]/60 mt-0.5">{t.duration}</p>
+                          <p className="text-[13px] text-[#113D33]/60 mt-0.5 leading-snug">{t.description}</p>
+                          <p className="text-[12px] text-[#113D33]/45 mt-1">{t.duration}</p>
                         </div>
-                        <div className="flex items-center gap-3 shrink-0">
+                        <div className="flex items-center gap-2 shrink-0 self-center">
                           <div className="text-right">
                             {tierIncluded ? (
                               <span className="text-sm font-bold text-[#4A776D]">Included</span>
@@ -1403,36 +1450,21 @@ export default function NewBookingFlow() {
                               <span className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</span>
                             )}
                           </div>
-                          <svg className={`w-4 h-4 text-[#113D33]/30 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          <svg className="w-4 h-4 text-[#113D33]/25 group-hover:text-[#113D33]/50 group-hover:translate-x-0.5 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
                       </button>
-                      {/* Expanded details */}
-                      <AnimatePresence initial={false}>
-                        {isExpanded && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2, ease: "easeInOut" }}
-                            className="overflow-hidden">
-                            <div className="px-5 pb-4 pt-0">
-                              <p className="text-sm text-[#113D33]/60 leading-relaxed mb-4">{t.description}</p>
-                              <button
-                                onClick={() => handleTreatmentSelect(t)}
-                                className="w-full bg-[#113D33] text-white font-semibold text-sm py-3 rounded-lg hover:bg-[#0a2b23] transition-colors">
-                                Select {t.name.replace(/^(Essential |Premier |Ultimate )/, "")}
-                              </button>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
                     </motion.div>
                     );
                   })}
                 </div>
+                {/* Boost seed — primes the enhancement decision before the next step */}
+                {treatmentTierFilter !== "ultimate" && (
+                  <p className="text-center text-xs text-[#113D33]/55 mt-4">
+                    <span className="text-[#4A776D]">✦</span> Add a boost to elevate your results. You&rsquo;ll choose right after.
+                  </p>
+                )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
