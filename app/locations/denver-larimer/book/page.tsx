@@ -175,14 +175,15 @@ const ICON_D: Record<string, string> = {
   droplet: "M12 3s5.5 5.8 5.5 9.5a5.5 5.5 0 11-11 0C6.5 8.8 12 3 12 3z",
   sun: "M12 7a5 5 0 100 10 5 5 0 000-10zM12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.42 1.42M6.34 17.66l-1.41 1.41m12.73 0l-1.41-1.41M6.34 6.34L4.93 4.93",
   bolt: "M13 2L4.5 13.5H11l-1 8.5L19.5 10.5H13l0-8.5z",
-  heart: "M12 21s-7-4.5-9.5-9C1 9 2.7 5.5 6 5.5c2 0 3.2 1.2 4 2.5.8-1.3 2-2.5 4-2.5 3.3 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21z",
+  heart: "M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733C11.285 4.876 9.623 3.75 7.688 3.75 5.099 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z",
+  refresh: "M16.023 9.348h4.992V4.356m0 4.992l-3.181-3.183a8.25 8.25 0 00-11.667 0L2.985 9.348m0 0H7.977m-4.992 0V4.356m0 4.992l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183",
   shield: "M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z",
 };
 const CONCERN_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
   relaxation: { color: "#4A776D", icon: "sparkle" },
   "pain-relief": { color: "#B4663A", icon: "bolt" },
   prenatal: { color: "#B06A86", icon: "heart" },
-  recovery: { color: "#3E6F8E", icon: "heart" },
+  recovery: { color: "#3E6F8E", icon: "refresh" },
   detox: { color: "#5B8A72", icon: "droplet" },
   acne: { color: "#6E8BA3", icon: "droplet" },
   "anti-aging": { color: "#A6803A", icon: "sparkle" },
@@ -1434,11 +1435,12 @@ export default function NewBookingFlow() {
                             {isUltimate && <span className="text-[#4A776D] text-xs">✦</span>}
                             <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
                             {t.badge && (
-                              <span className="text-[10px] font-semibold uppercase tracking-wide text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5">{t.badge}</span>
+                              <span className="text-[10px] font-semibold tracking-wide text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5">{t.badge}</span>
                             )}
                           </div>
-                          <p className="text-[13px] text-[#113D33]/60 mt-0.5 leading-snug">{t.description}</p>
-                          <p className="text-[12px] text-[#113D33]/45 mt-1">{t.duration}</p>
+                          <p className="text-[13px] text-[#113D33]/60 mt-0.5 leading-snug">
+                            <span className="text-[#113D33]/45 font-medium">{t.duration}</span> · {t.description}
+                          </p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0 self-center">
                           <div className="text-right">
