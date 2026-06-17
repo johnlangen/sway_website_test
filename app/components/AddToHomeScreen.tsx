@@ -49,7 +49,13 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
   const [deferred, setDeferred] = useState<BIPEvent | null>(null);
 
   useEffect(() => {
-    if (isStandalone() || !isMobile()) return; // already installed, or desktop
+    // ?a2hs=1 forces the prompt to show on any device, bypassing the
+    // mobile / installed / visit-count gates — for testing/previewing only.
+    const force =
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("a2hs") === "1";
+
+    if (!force && (isStandalone() || !isMobile())) return; // already installed, or desktop
     setIos(isIOS());
 
     const onBIP = (e: Event) => {
@@ -58,7 +64,7 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
     };
     window.addEventListener("beforeinstallprompt", onBIP);
 
-    if (variant === "card") {
+    if (force || variant === "card") {
       setShow(true);
     } else {
       // banner: count this visit once per session, gate on 2+ visits
