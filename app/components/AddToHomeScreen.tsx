@@ -49,12 +49,16 @@ interface BIPEvent extends Event {
   userChoice: Promise<{ outcome: string }>;
 }
 
-export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
+export function AddToHomeScreen({ variant, previewOnly = false }: { variant: "card" | "banner"; previewOnly?: boolean }) {
   const pathname = usePathname();
   const [show, setShow] = useState(false);
   const [ios, setIos] = useState(false);
   const [deferred, setDeferred] = useState<BIPEvent | null>(null);
   const shownRef = useRef(false);
+  // Preview instances never emit analytics events
+  const fire = (event: string, extra: Record<string, unknown> = {}) => {
+    if (!previewOnly) track(event, extra);
+  };
 
   useEffect(() => {
     // ?a2hs=1 forces the prompt to show on any device, bypassing the
@@ -63,6 +67,7 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
       typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("a2hs") === "1";
 
+    if (previewOnly && !force) return; // preview instance only renders with ?a2hs=1
     if (!force && (isStandalone() || !isMobile())) return; // already installed, or desktop
     setIos(isIOS());
 
@@ -73,7 +78,7 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
     window.addEventListener("beforeinstallprompt", onBIP);
 
     // Real install conversion (Android/desktop fire this; iOS never does)
-    const onInstalled = () => track("a2hs_installed", { a2hs_platform: platform() });
+    const onInstalled = () => fire("a2hs_installed", { a2hs_platform: platform() });
     window.addEventListener("appinstalled", onInstalled);
 
     if (force || variant === "card") {
@@ -97,26 +102,28 @@ export function AddToHomeScreen({ variant }: { variant: "card" | "banner" }) {
       window.removeEventListener("beforeinstallprompt", onBIP);
       window.removeEventListener("appinstalled", onInstalled);
     };
-  }, [variant]);
+  }, [variant, previewOnly]);
 
   // Fire one impression event when the prompt actually becomes visible
   useEffect(() => {
     if (show && !shownRef.current) {
       shownRef.current = true;
-      track("a2hs_prompt_shown", { a2hs_platform: platform() });
+      fire("a2hs_prompt_shown", { a2hs_platform: platform() });
     }
   }, [show]);
 
   // Never show the banner over the booking flow's sticky CTA
   if (variant === "banner" && pathname?.includes("/book")) return null;
+  // The preview instance defers to the real done-step card on booking pages
+  if (previewOnly && pathname?.includes("/book")) return null;
   if (!show) return null;
 
   const androidInstall = async () => {
     if (!deferred) return;
-    track("a2hs_clicked", { a2hs_platform: "android" });
+    fire("a2hs_clicked", { a2hs_platform: "android" });
     await deferred.prompt();
     const choice = await deferred.userChoice;
-    track("a2hs_outcome", { a2hs_platform: "android", a2hs_result: choice.outcome });
+    fire("a2hs_outcome", { a2hs_platform: "android", a2hs_result: choice.outcome });
     setDeferred(null);
     setShow(false);
   };

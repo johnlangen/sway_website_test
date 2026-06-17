@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import CountdownBanner from "./components/CountdownBanner";
+import { AddToHomeScreen } from "./components/AddToHomeScreen";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -225,6 +226,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CountdownBanner />
         <main id="main-content" className="relative z-10">{children}</main>
         <Footer />
+        {/* Preview-only: shows the install card on any page with ?a2hs=1 (testing).
+            Real traffic never sees this — the live prompt is the booking-done card. */}
+        <AddToHomeScreen variant="card" previewOnly />
       </body>
     </html>
   );
