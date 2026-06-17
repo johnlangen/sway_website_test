@@ -1425,8 +1425,8 @@ export default function NewBookingFlow() {
                         onClick={() => handleTreatmentSelect(t)}
                         className="group w-full text-left px-4 py-4 flex items-center gap-3.5">
                         {/* Concern icon tile — color carries the visual differentiation */}
-                        <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${vis.color}1A` }} aria-hidden="true">
-                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={vis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                        <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={isUltimate ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${vis.color}1A` }} aria-hidden="true">
+                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={isUltimate ? "#B0883C" : vis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                             <path d={ICON_D[vis.icon]} />
                           </svg>
                         </span>
