@@ -50,7 +50,7 @@ const faqJsonLd = {
       name: "What makes Sway's facials different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway pairs clean, organic Eminence Organics skincare with clinical-grade Dr. Dennis Gross protocols, then layers on science-backed boosts like LED light therapy for acne, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician.",
+        text: "Most of Sway's facials are powered by clean, organic Eminence Organics skincare, while our Vitamin C facials use clinical-grade Dr. Dennis Gross. Either way, you can layer on science-backed boosts like LED light therapy for acne, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician.",
       },
     },
     {

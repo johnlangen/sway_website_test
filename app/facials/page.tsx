@@ -259,8 +259,8 @@ const FacialsPage = () => {
           (Forever Young, Pore Perfection, Sensitive Silk, Glow Getter, Dr.
           Dennis Gross Vitamin C), and Ultimate (Illuminate LED, Oxygen
           Infusion, Sculpt &amp; Lift Microcurrent, Hydraderm, Dr. Dennis Gross
-          Vitamin C with LED). All facials use Eminence Organics and Dr. Dennis
-          Gross skincare. Enhance any facial with boosts: Dermaflash, LED, Oxygen,
+          Vitamin C with LED). Most facials are powered by Eminence Organics skincare;
+          the Dr. Dennis Gross facials are our dedicated Vitamin C tier. Enhance any facial with boosts: Dermaflash, LED, Oxygen,
           and Sculpt &amp; Lift Microcurrent. Members save 50%. Open Mon–Fri
           10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
           swaywellnessspa.com or call (303) 476-6150.
@@ -519,7 +519,7 @@ const FacialsPage = () => {
           {[
             {
               q: "What makes Sway\u2019s facials different?",
-              a: "Sway pairs clean, organic Eminence Organics skincare with clinical-grade Dr. Dennis Gross protocols, then layers on science-backed boosts like LED light therapy, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician.",
+              a: "Most of Sway's facials are powered by clean, organic Eminence Organics skincare, while our Vitamin C facials use clinical-grade Dr. Dennis Gross. Either way, you can layer on science-backed boosts like LED light therapy, microcurrent for lifting and toning, and oxygen infusion for deep hydration. Every session is customized by your esthetician.",
             },
             {
               q: "What are the facial membership tiers?",

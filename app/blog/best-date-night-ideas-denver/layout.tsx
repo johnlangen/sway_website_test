@@ -447,7 +447,7 @@ export default function DateNightDenverLayout() {
             </p>
           </div>
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
-            <p className="font-bold">Can you book side-by-side massages in Denver?</p>
+            <p className="font-bold">Can couples book massages at the same time in Denver?</p>
             <p className="text-gray-700 mt-2 text-[15px]">
               Yes. Sway Wellness Spa on Larimer Square books massages for two at
               the same time, in private rooms right next to each other, with 50
@@ -556,7 +556,7 @@ export default function DateNightDenverLayout() {
                 },
                 {
                   "@type": "Question",
-                  name: "Can you book side-by-side massages in Denver?",
+                  name: "Can couples book massages at the same time in Denver?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Yes. Sway Wellness Spa on Larimer Square books massages for two at the same time in private rooms right next to each other, with 50 to 90 minute sessions, plus facials, the Remedy Room recovery circuit, and Aescape AI-powered robot massage. Open weekdays until 8 PM, making it perfect before dinner.",

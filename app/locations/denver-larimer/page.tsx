@@ -44,7 +44,7 @@ const TREATMENTS = [
     title: "Facials",
     tagline: "Forever Young, Glow Getter & more",
     description:
-      "Clean, organic Eminence Organics skincare paired with clinical-grade Dr. Dennis Gross protocols. Add LED, microcurrent, or oxygen infusion boosts.",
+      "Clean, organic Eminence Organics skincare, plus dedicated Dr. Dennis Gross Vitamin C facials. Add LED, microcurrent, or oxygen infusion boosts.",
     price: "From $139",
     memberPrice: "From $99",
     image: "/assets/facialExperiences.jpg",
