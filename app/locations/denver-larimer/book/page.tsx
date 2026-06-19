@@ -199,6 +199,18 @@ function getConcernVisual(concerns?: string[]) {
   return (key && CONCERN_VISUAL[key]) || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
 }
 
+// Mood/texture photo per massage treatment type (returns null for facials — no mood shots yet).
+function treatmentImage(name: string): string | null {
+  const n = name.toLowerCase();
+  if (n.includes("signature")) return "/assets/treatments/signature.jpg";
+  if (n.includes("maternity")) return "/assets/treatments/maternity.jpg";
+  if (n.includes("deep tissue")) return "/assets/treatments/deep-tissue.jpg";
+  if (n.includes("salt stone")) return "/assets/treatments/salt-stone.jpg";
+  if (n.includes("sports")) return "/assets/treatments/sports.jpg";
+  if (n.includes("lymphatic")) return "/assets/treatments/lymphatic.jpg";
+  return null;
+}
+
 // Boost families → icon + intent color, same visual language as the treatment list.
 const BOOST_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
   cupping: { color: "#B4663A", icon: "refresh" },
@@ -1447,6 +1459,7 @@ export default function NewBookingFlow() {
                     const isUltimate = t.tier === "ultimate";
                     const isPremier = t.tier === "premier";
                     const matchesConcern = !activeConcern || (t.concerns?.includes(activeConcern) ?? false);
+                    const img = treatmentImage(t.name);
                     return (
                     <motion.div
                       key={t.id}
@@ -1469,6 +1482,11 @@ export default function NewBookingFlow() {
                             ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
                             : "bg-white border-[#113D33]/8"
                         }`}>
+                        {img && (
+                          <span className="shrink-0 w-16 h-16 rounded-lg overflow-hidden relative bg-[#113D33]/5">
+                            <Image src={img} alt="" fill sizes="64px" className="object-cover" />
+                          </span>
+                        )}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5 flex-wrap">
                             {isUltimate && <span className="text-[#B0883C] text-xs">✦</span>}
