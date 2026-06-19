@@ -1447,7 +1447,6 @@ export default function NewBookingFlow() {
                     const isUltimate = t.tier === "ultimate";
                     const isPremier = t.tier === "premier";
                     const matchesConcern = !activeConcern || (t.concerns?.includes(activeConcern) ?? false);
-                    const vis = getConcernVisual(t.concerns);
                     return (
                     <motion.div
                       key={t.id}
@@ -1470,12 +1469,6 @@ export default function NewBookingFlow() {
                             ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
                             : "bg-white border-[#113D33]/8"
                         }`}>
-                        {/* Concern icon tile — color carries the visual differentiation */}
-                        <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={isUltimate ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${vis.color}1A` }} aria-hidden="true">
-                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={isUltimate ? "#B0883C" : vis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-                            <path d={ICON_D[vis.icon]} />
-                          </svg>
-                        </span>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5 flex-wrap">
                             {isUltimate && <span className="text-[#B0883C] text-xs">✦</span>}
