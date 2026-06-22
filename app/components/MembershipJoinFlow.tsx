@@ -578,7 +578,7 @@ export default function MembershipJoinFlow({
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
-        className="relative w-full sm:max-w-md max-h-[92dvh] overflow-y-auto bg-white text-[#113D33] rounded-t-2xl sm:rounded-2xl shadow-2xl"
+        className="relative w-full sm:max-w-md max-h-[92dvh] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto bg-white text-[#113D33] rounded-t-2xl sm:rounded-2xl shadow-2xl"
       >
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white border-b border-[#113D33]/10 px-5 py-4 flex items-center justify-between">
