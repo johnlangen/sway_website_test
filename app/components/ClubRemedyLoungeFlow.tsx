@@ -1410,16 +1410,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                             <span className="text-white/40 normal-case tracking-normal"> · confirmed at check-in</span>
                           </div>
                           <div className="flex flex-wrap gap-2">
-                            {infraredCabins.map((cabin) => {
-                              const cabinSelected = saunaCabins[i] === cabin;
+                            {infraredCabins.map((cab) => {
+                              const cabinSelected = saunaCabins[i] === cab.label;
                               return (
                                 <button
-                                  key={cabin}
+                                  key={cab.label}
                                   aria-pressed={cabinSelected}
-                                  onClick={() => setWindowCabin(i, cabin)}
+                                  onClick={() => setWindowCabin(i, cab.label)}
                                   className={`px-3 py-1.5 rounded-full text-xs font-medium border transition focus:outline-none focus:ring-2 focus:ring-white/25 ${cabinSelected ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
                                 >
-                                  {cabin}
+                                  {cab.label}
                                 </button>
                               );
                             })}

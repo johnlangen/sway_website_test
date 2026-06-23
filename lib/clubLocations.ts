@@ -34,14 +34,16 @@ export interface SaunaModality {
   /** Concurrent guests this sauna can hold in one 25-min window. PLACEHOLDER. */
   capacity: number;
   /**
-   * Individual cabin labels for a multi-cabin sauna (infrared only — the
-   * traditional sauna is one shared room). Length matches `capacity`. These are
-   * a guest-facing PREFERENCE: the booking is still gated by the pooled count
-   * above (we don't reserve a specific cabin in Mindbody), and the chosen cabin
-   * is written to the appointment notes so the front desk / whiteboard can honor
-   * it on arrival. Omit for single-room saunas.
+   * Individual cabins for a multi-cabin sauna (infrared only — the traditional
+   * sauna is one shared room). Each cabin is its OWN Mindbody provider (a
+   * dedicated "staff" resource), so a booking is routed to a specific cabin and
+   * Mindbody/our occupancy gating enforces one guest per cabin at a time — a
+   * real reservation, not just a note. `resourceStaffId` is that provider's
+   * Mindbody staff id. Omit `cabins` entirely for single-room saunas; a cabin
+   * without a `resourceStaffId` falls back to the pooled `resourceStaffId` above
+   * (soft preference, label-only). Count should match `capacity`.
    */
-  cabins?: string[];
+  cabins?: { label: string; resourceStaffId?: number }[];
 }
 
 export interface ClubLocation {
@@ -118,8 +120,13 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
         resourceStaffId: 100000006,
         minutes: 25,
         capacity: 3,
-        // RiNo's 3 infrared cabins are physically labeled "Glow 1-3".
-        cabins: ["Glow 1", "Glow 2", "Glow 3"],
+        // RiNo's 3 infrared cabins are physically labeled "Glow 1-3". Each is
+        // its own Mindbody provider (created 2026-06-23).
+        cabins: [
+          { label: "Glow 1", resourceStaffId: 100000015 },
+          { label: "Glow 2", resourceStaffId: 100000016 },
+          { label: "Glow 3", resourceStaffId: 100000017 },
+        ],
       },
     ],
     // "Esty" — fake test provider configured for massage + facial dry-runs.
@@ -166,9 +173,14 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
         resourceStaffId: 100000003,
         minutes: 25,
         capacity: 4,
-        // CP's 4 infrared cabins are unlabeled (whiteboard-managed on the floor),
-        // so we surface generic "Cabin 1-4" as the preference label.
-        cabins: ["Cabin 1", "Cabin 2", "Cabin 3", "Cabin 4"],
+        // CP's 4 infrared cabins, each its own Mindbody provider (Glow 1-4,
+        // created 2026-06-23). NOTE: CP staff ids differ from RiNo's.
+        cabins: [
+          { label: "Glow 1", resourceStaffId: 100000016 },
+          { label: "Glow 2", resourceStaffId: 100000017 },
+          { label: "Glow 3", resourceStaffId: 100000018 },
+          { label: "Glow 4", resourceStaffId: 100000019 },
+        ],
       },
     ],
     // "Esty" — fake test provider configured for massage + facial dry-runs.

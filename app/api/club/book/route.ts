@@ -4,7 +4,6 @@ import { getClubBySiteId, type ClubLocation } from "@/lib/clubLocations";
 import {
   fetchClubAppointments,
   parseWall,
-  formatWall,
   peakOverlap,
   type ApptInterval,
 } from "@/lib/clubOccupancy";
@@ -178,57 +177,28 @@ export async function POST(req: Request) {
     // junk value never lands in the appointment notes. Silently dropped if it
     // doesn't match (it's a soft preference, not worth failing the booking over).
     let cabin: string | undefined;
-    if (typeof sel?.cabin === "string" && sauna.cabins?.includes(sel.cabin)) {
+    if (
+      typeof sel?.cabin === "string" &&
+      sauna.cabins?.some((c) => c.label === sel.cabin)
+    ) {
       cabin = sel.cabin;
     }
     seenStart.add(sel.startDateTime);
     saunaBookings.push({ sauna, startDateTime: sel.startDateTime, cabin });
   }
 
-  // Merge two ADJACENT same-modality sauna windows into one longer appointment.
-  // Mindbody rejects an appointment that starts exactly when another ends on the
-  // same resource ("must start on an active time"), so two back-to-back 25-min
-  // saunas on one resource collide and the second fails. One combined
-  // appointment (e.g. a single 50-min infrared) avoids the boundary and is
-  // accepted (verified live 2026-06-23). Different modalities run on different
-  // resources, so they never collide and stay separate.
-  type SaunaOp = {
-    sauna: NonNullable<ReturnType<typeof resolveSauna>>;
-    startDateTime: string;
-    windowMinutes: number;
-    endDateTime?: string;
-    cabin?: string;
-    count: number; // original windows this op covers (for failure reporting)
-  };
-  const saunaOps: SaunaOp[] = [];
-  for (const b of [...saunaBookings].sort(
-    (a, z) => parseWall(a.startDateTime) - parseWall(z.startDateTime)
-  )) {
-    const prev = saunaOps[saunaOps.length - 1];
-    const prevEnd = prev
-      ? parseWall(prev.startDateTime) + prev.windowMinutes * 60_000
-      : null;
-    if (
-      prev &&
-      prev.sauna.sessionTypeId === b.sauna.sessionTypeId &&
-      prevEnd === parseWall(b.startDateTime)
-    ) {
-      prev.windowMinutes += b.sauna.minutes;
-      prev.endDateTime = formatWall(
-        parseWall(prev.startDateTime) + prev.windowMinutes * 60_000
-      );
-      prev.cabin = prev.cabin ?? b.cabin;
-      prev.count += 1;
-    } else {
-      saunaOps.push({
-        sauna: b.sauna,
-        startDateTime: b.startDateTime,
-        windowMinutes: b.sauna.minutes,
-        cabin: b.cabin,
-        count: 1,
-      });
-    }
-  }
+  // Each infrared cabin (Glow 1/2/3...) is its own Mindbody provider, so two
+  // windows route to two DIFFERENT cabins and never collide. We pick a concrete
+  // cabin per infrared window at booking time (the guest's choice, else a free
+  // one). Traditional, and any sauna with no cabins configured, use the pooled
+  // resource. No merge and no time-shifting: each 25-min window books on its own
+  // against the site's active-times grid.
+  const infraredCabins = (
+    club.saunas.find((s) => s.key === "infrared")?.cabins ?? []
+  ).filter(
+    (c): c is { label: string; resourceStaffId: number } =>
+      c.resourceStaffId != null
+  );
 
   try {
     const token = await getMindbodyStaffToken(siteId);
@@ -240,35 +210,34 @@ export async function POST(req: Request) {
     const bookDate = startDateTime.slice(0, 10);
     const loungeBlockMin =
       club.remedyLounge.serviceMinutes + club.remedyLounge.bufferMinutes;
-    const saunaOccupancy = new Map<number, ApptInterval[]>();
+    // Live occupancy keyed by provider (staff) id: the Lounge, every infrared
+    // cabin, and any pooled sauna resource we might book against.
+    const occByStaff = new Map<number, ApptInterval[]>();
+    const fetchStaffIds = Array.from(
+      new Set<number>([
+        club.remedyLounge.resourceStaffId,
+        ...infraredCabins.map((c) => c.resourceStaffId),
+        ...saunaBookings.map((b) => b.sauna.resourceStaffId),
+      ])
+    );
 
     try {
-      const saunaStaffIds = Array.from(
-        new Set(saunaBookings.map((b) => b.sauna))
-      );
-      const [loungeAppts, ...saunaApptLists] = await Promise.all([
-        fetchClubAppointments({
-          siteId,
-          token,
-          staffId: club.remedyLounge.resourceStaffId,
-          locationId: club.locationId,
-          date: bookDate,
-        }),
-        ...saunaStaffIds.map((s) =>
+      const lists = await Promise.all(
+        fetchStaffIds.map((id) =>
           fetchClubAppointments({
             siteId,
             token,
-            staffId: s.resourceStaffId,
+            staffId: id,
             locationId: club.locationId,
             date: bookDate,
           })
-        ),
-      ]);
-      saunaStaffIds.forEach((s, i) =>
-        saunaOccupancy.set(s.sessionTypeId, saunaApptLists[i] ?? [])
+        )
       );
+      fetchStaffIds.forEach((id, i) => occByStaff.set(id, lists[i] ?? []));
 
       const loungeStart = parseWall(startDateTime);
+      const loungeAppts =
+        occByStaff.get(club.remedyLounge.resourceStaffId) ?? [];
       const loungeBooked = peakOverlap(
         loungeAppts,
         loungeStart,
@@ -323,108 +292,78 @@ export async function POST(req: Request) {
       key: string;
       label: string;
       success: boolean;
-      count: number;
+      cabin?: string;
       appointment?: any;
       error?: string;
     }[] = [];
 
-    // Latest instant a sauna may end: the Lounge service plus its cleaning
-    // buffer. Used to bound the auto-shift below so a nudged sauna never runs
-    // past the guest's block.
-    const loungeBlockEnd = parseWall(startDateTime) + loungeBlockMin * 60_000;
+    // Cabins already assigned within THIS booking, so a guest's two windows go to
+    // two different cabins (never the same resource back-to-back).
+    const usedCabinStaff = new Set<number>();
 
-    for (const op of saunaOps) {
-      const { sauna, startDateTime: saunaStart, endDateTime, windowMinutes, cabin, count } = op;
-      // Concurrency guard for this sauna window (the full merged span, if merged).
-      // If it's already at seat capacity, skip the write and report it as a failed
-      // add-on (the Lounge still books) rather than overfilling the resource.
-      const saunaAppts = saunaOccupancy.get(sauna.sessionTypeId);
-      if (saunaAppts) {
-        const sStart = parseWall(saunaStart);
-        const sEnd = sStart + windowMinutes * 60_000;
-        const sBooked = peakOverlap(saunaAppts, sStart, sEnd);
-        if (sBooked >= sauna.capacity) {
+    for (const { sauna, startDateTime: saunaStart, cabin } of saunaBookings) {
+      const sStart = parseWall(saunaStart);
+      const sEnd = sStart + sauna.minutes * 60_000;
+
+      // Resolve which provider this window books against.
+      let targetStaffId = sauna.resourceStaffId;
+      let cabinLabel: string | undefined;
+
+      if (sauna.key === "infrared" && infraredCabins.length) {
+        // A cabin is free if it's not already used by an earlier window in this
+        // booking and has no overlapping appointment (cap 1 per cabin).
+        const isFree = (c: { resourceStaffId: number }) =>
+          !usedCabinStaff.has(c.resourceStaffId) &&
+          peakOverlap(occByStaff.get(c.resourceStaffId) ?? [], sStart, sEnd) < 1;
+        // Honor the guest's pick if it's free, otherwise assign the first open
+        // cabin so they still get infrared.
+        const pick =
+          infraredCabins.find((c) => c.label === cabin && isFree(c)) ??
+          infraredCabins.find(isFree);
+        if (!pick) {
           saunaResults.push({
             key: sauna.key,
             label: sauna.label,
             success: false,
-            count,
+            error: "All infrared cabins are full for that window",
+          });
+          continue;
+        }
+        targetStaffId = pick.resourceStaffId;
+        cabinLabel = pick.label;
+        usedCabinStaff.add(targetStaffId);
+      } else {
+        // Traditional / pooled sauna: gate by the pooled seat capacity.
+        const booked = peakOverlap(
+          occByStaff.get(targetStaffId) ?? [],
+          sStart,
+          sEnd
+        );
+        if (booked >= sauna.capacity) {
+          saunaResults.push({
+            key: sauna.key,
+            label: sauna.label,
+            success: false,
             error: "That sauna window is full",
           });
           continue;
         }
-        // Mindbody rejects an appointment whose window CROSSES the start of an
-        // existing one on the same resource ("must start on an active time"),
-        // while same-start stacking and starting inside an existing one are
-        // allowed (verified live 2026-06-10). Skip gracefully (Lounge still
-        // books) instead of letting Mindbody 400.
-        const crossesStart = saunaAppts.some((a) => {
-          const aStart = parseWall(a.start);
-          return aStart > sStart && aStart < sEnd;
-        });
-        if (crossesStart) {
-          console.error(
-            `[club book] sauna window ${saunaStart} (${sauna.label}) crosses an existing appointment start; skipping`
-          );
-          saunaResults.push({
-            key: sauna.key,
-            label: sauna.label,
-            success: false,
-            count,
-            error: "That sauna window is no longer available",
-          });
-          continue;
-        }
       }
 
-      // Book the sauna, auto-shifting the start forward in 5-min steps if
-      // Mindbody rejects it as "not an active time". The infrared service has a
-      // scheduling-grid quirk where some starts (notably :55) aren't bookable,
-      // and our fixed sub-window grid can land on them. Nudging a few minutes
-      // keeps the sauna inside the Lounge block and books cleanly (verified live
-      // 2026-06-23: a :55 start rejects, the next 5-min slot accepts).
-      let attemptStart = saunaStart;
-      let attemptEnd = endDateTime;
-      let r = await addAppointment({
+      const r = await addAppointment({
         token,
         siteId,
         clientId,
         sessionTypeId: sauna.sessionTypeId,
-        staffId: sauna.resourceStaffId,
+        staffId: targetStaffId,
         locationId: club.locationId,
-        startDateTime: attemptStart,
-        ...(attemptEnd ? { endDateTime: attemptEnd } : {}),
+        startDateTime: saunaStart,
         sendEmail: false,
-        ...(cabin ? { notes: `Preferred cabin: ${cabin}` } : {}),
+        ...(cabinLabel ? { notes: `Cabin: ${cabinLabel}` } : {}),
       });
-      let shifts = 0;
-      while (
-        !r.ok &&
-        r.data?.Error?.Code === "InvalidBookingTime" &&
-        shifts < 3
-      ) {
-        shifts++;
-        const nextStart = parseWall(attemptStart) + 5 * 60_000;
-        const nextEnd = nextStart + windowMinutes * 60_000;
-        if (nextEnd > loungeBlockEnd) break; // don't run past the block
-        attemptStart = formatWall(nextStart);
-        attemptEnd = endDateTime ? formatWall(nextEnd) : undefined;
-        r = await addAppointment({
-          token,
-          siteId,
-          clientId,
-          sessionTypeId: sauna.sessionTypeId,
-          staffId: sauna.resourceStaffId,
-          locationId: club.locationId,
-          startDateTime: attemptStart,
-          ...(attemptEnd ? { endDateTime: attemptEnd } : {}),
-          sendEmail: false,
-          ...(cabin ? { notes: `Preferred cabin: ${cabin}` } : {}),
-        });
-      }
       if (!r.ok) {
         console.error(
-          `[club book] sauna booking failed (site ${siteId}, ${sauna.label} @ ${attemptStart}):`,
+          `[club book] sauna booking failed (site ${siteId}, ${sauna.label}${cabinLabel ? ` ${cabinLabel}` : ""} @ ${saunaStart}):`,
           JSON.stringify(r.data?.Error ?? r.data).slice(0, 500)
         );
       }
@@ -432,7 +371,7 @@ export async function POST(req: Request) {
         key: sauna.key,
         label: sauna.label,
         success: r.ok,
-        count,
+        ...(cabinLabel ? { cabin: cabinLabel } : {}),
         ...(r.ok
           ? { appointment: r.data?.Appointment ?? r.data }
           : { error: r.data?.Error?.Message || `Mindbody error ${r.status}` }),
@@ -445,16 +384,10 @@ export async function POST(req: Request) {
       success: true,
       loungeAppointment,
       saunas: saunaResults,
-      // Surface partial failures so the frontend can tell the guest a sauna add-on
-      // didn't take, while keeping the Lounge confirmed. Expand a merged op back
-      // to one label per original window so the success screen marks both.
+      // Surface partial failures so the frontend can tell the guest a sauna
+      // add-on didn't take, while keeping the Lounge confirmed.
       ...(failedSaunas.length > 0
-        ? {
-            partial: true,
-            failedSaunas: failedSaunas.flatMap((s) =>
-              Array(s.count).fill(s.label)
-            ),
-          }
+        ? { partial: true, failedSaunas: failedSaunas.map((s) => s.label) }
         : {}),
     });
   } catch (err: any) {
