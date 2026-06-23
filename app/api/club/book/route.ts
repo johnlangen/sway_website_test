@@ -302,10 +302,6 @@ export async function POST(req: Request) {
       error?: string;
     }[] = [];
 
-    // Cabins already assigned within THIS booking, so a guest's two windows go to
-    // two different cabins (never the same resource back-to-back).
-    const usedCabinStaff = new Set<number>();
-
     for (const { sauna, startDateTime: saunaStart, cabin } of saunaBookings) {
       const sStart = parseWall(saunaStart);
       const sEnd = sStart + sauna.minutes * 60_000;
@@ -315,10 +311,11 @@ export async function POST(req: Request) {
       let cabinLabel: string | undefined;
 
       if (sauna.key === "infrared" && infraredCabins.length) {
-        // A cabin is free if it's not already used by an earlier window in this
-        // booking and has no overlapping appointment (cap 1 per cabin).
+        // A cabin is free for this window if it has no overlapping appointment
+        // (cap 1 per cabin). Two windows MAY share a cabin — back-to-back 25-min
+        // sessions on one cabin book fine (verified live 2026-06-23), so a guest
+        // who wants the same cabin for both windows keeps it.
         const isFree = (c: { resourceStaffId: number }) =>
-          !usedCabinStaff.has(c.resourceStaffId) &&
           peakOverlap(occByStaff.get(c.resourceStaffId) ?? [], sStart, sEnd) < 1;
         // Honor the guest's pick if it's free, otherwise assign the first open
         // cabin so they still get infrared.
@@ -336,7 +333,6 @@ export async function POST(req: Request) {
         }
         targetStaffId = pick.resourceStaffId;
         cabinLabel = pick.label;
-        usedCabinStaff.add(targetStaffId);
       } else {
         // Traditional / pooled sauna: gate by the pooled seat capacity.
         const booked = peakOverlap(
