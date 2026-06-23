@@ -217,7 +217,12 @@ export async function POST(req: Request) {
       new Set<number>([
         club.remedyLounge.resourceStaffId,
         ...infraredCabins.map((c) => c.resourceStaffId),
-        ...saunaBookings.map((b) => b.sauna.resourceStaffId),
+        // Pooled resource only for saunas that don't route to cabins (e.g.
+        // traditional). Infrared with cabins is gated per cabin above, so the
+        // old pooled infrared provider is never read.
+        ...saunaBookings
+          .filter((b) => !(b.sauna.key === "infrared" && infraredCabins.length))
+          .map((b) => b.sauna.resourceStaffId),
       ])
     );
 

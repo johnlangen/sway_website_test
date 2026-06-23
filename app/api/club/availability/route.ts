@@ -118,33 +118,46 @@ export async function GET(req: Request) {
     let loungeAppts: ApptInterval[] = [];
     let occupancyKnown = false;
 
+    // Per-sauna occupancy comes from its cabin providers when it has them
+    // (infrared: concatenate the cabins so peakOverlap reports how many cabins
+    // are in use, vs capacity = cabin count), else the pooled resource
+    // (traditional). This is why the old pooled infrared provider is no longer
+    // read here — it can be deactivated in Mindbody.
+    const saunaStaffSets = club.saunas.map((s) => {
+      const cabinIds = (s.cabins ?? [])
+        .map((c) => c.resourceStaffId)
+        .filter((id): id is number => id != null);
+      return cabinIds.length ? cabinIds : [s.resourceStaffId];
+    });
+
     try {
       const token = await getMindbodyStaffToken(siteId);
 
-      const [loungeRes, ...saunaRes] = await Promise.all([
-        fetchClubAppointments({
-          siteId,
-          token,
-          staffId: club.remedyLounge.resourceStaffId,
-          locationId: club.locationId,
-          date,
-        }),
-        ...club.saunas.map((s) =>
+      const allStaffIds = Array.from(
+        new Set<number>([
+          club.remedyLounge.resourceStaffId,
+          ...saunaStaffSets.flat(),
+        ])
+      );
+      const lists = await Promise.all(
+        allStaffIds.map((id) =>
           fetchClubAppointments({
             siteId,
             token,
-            staffId: s.resourceStaffId,
+            staffId: id,
             locationId: club.locationId,
             date,
           })
-        ),
-      ]);
+        )
+      );
+      const byStaff = new Map<number, ApptInterval[]>();
+      allStaffIds.forEach((id, i) => byStaff.set(id, lists[i] ?? []));
 
-      loungeAppts = loungeRes;
+      loungeAppts = byStaff.get(club.remedyLounge.resourceStaffId) ?? [];
       club.saunas.forEach((s, i) => {
         saunas[String(s.sessionTypeId)] = {
           capacity: s.capacity,
-          appointments: saunaRes[i] ?? [],
+          appointments: saunaStaffSets[i].flatMap((id) => byStaff.get(id) ?? []),
         };
       });
       occupancyKnown = true;
