@@ -342,6 +342,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const [homeLocation, setHomeLocation] = useState<string | null>(null);
   const [memberCheckDone, setMemberCheckDone] = useState(false);
   const [autoCheckDone, setAutoCheckDone] = useState(false);
+  // When an email matches >1 Mindbody client on this site, the membership check
+  // returns the list so we can ask "which one are you?" instead of crashing.
+  const [multipleClients, setMultipleClients] = useState<
+    { firstName: string; lastName: string; clientId: string }[] | null
+  >(null);
 
   const saveEmail = (e: string) => { try { localStorage.setItem(SAVED_EMAIL_KEY, e); } catch {} };
   const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); } catch {} };
@@ -350,6 +355,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setEmail(""); setClientId(null); setIsMember(false); setMemberTier(null);
     setMemberFirstName(null); setHasRemedyMembership(false); setHasCardOnFile(false);
     setHomeLocation(null); setMemberCheckDone(false); setCardContext(null);
+    setMultipleClients(null);
     setStep("select");
   };
 
@@ -611,12 +617,32 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   }, [SITE_ID, LOUNGE_ST, SUB_SLOTS, selectedDate, availabilityNonce]);
 
   /* ── LOOKUP ── */
-  async function lookupClientByEmail(emailToCheck: string) {
+  // Returns either { multiple: [...] } when an email maps to several clients on
+  // this site (and no specific one was requested), or the resolved lookup shape.
+  async function lookupClientByEmail(
+    emailToCheck: string,
+    specificClientId?: string
+  ): Promise<
+    | { multiple: { firstName: string; lastName: string; clientId: string }[] }
+    | {
+        found: boolean;
+        client: { Id: string } | null;
+        hasCardOnFile: boolean;
+        missingName: boolean;
+        missingPhone: boolean;
+      }
+  > {
+    const qs = specificClientId
+      ? `&clientId=${encodeURIComponent(specificClientId)}`
+      : "";
     const res = await fetch(
-      `/api/membership/check?email=${encodeURIComponent(emailToCheck)}&siteId=${SITE_ID}`
+      `/api/membership/check?email=${encodeURIComponent(emailToCheck)}&siteId=${SITE_ID}${qs}`
     );
     const data = await res.json();
     if (!res.ok) throw new Error(data?.error || "Client lookup failed.");
+    if (!specificClientId && data?.multipleClients?.length > 1) {
+      return { multiple: data.multipleClients as { firstName: string; lastName: string; clientId: string }[] };
+    }
     let missingName = false;
     let missingPhone = false;
     if (data.found) {
@@ -815,8 +841,37 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setStep("email");
   }
 
+  // Branch to the right next step once we have a single resolved lookup.
+  function proceedAfterLookup(lookup: {
+    found: boolean;
+    client: { Id: string } | null;
+    hasCardOnFile: boolean;
+    missingName: boolean;
+    missingPhone: boolean;
+  }) {
+    if (!lookup.found || !lookup.client) {
+      setCardContext("create_account");
+      setClientId(null);
+      setStep("card");
+      return;
+    }
+    setClientId(String(lookup.client.Id));
+    if (lookup.missingName || lookup.missingPhone) {
+      if (!lookup.hasCardOnFile) setCardContext("add_card");
+      setStep("name");
+      return;
+    }
+    if (!lookup.hasCardOnFile) {
+      setCardContext("add_card");
+      setStep("card");
+      return;
+    }
+    setStep("confirm");
+  }
+
   async function handleConfirmEmail() {
     setError(null);
+    setMultipleClients(null);
     if (!selectedTime) {
       setError("Please select a time first.");
       setStep("select");
@@ -830,27 +885,36 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     saveEmail(normalized);
     try {
       const lookup = await lookupClientByEmail(normalized);
-      if (!lookup.found) {
+      if ("multiple" in lookup) {
+        // Email maps to several accounts on this site — ask which one.
+        setMultipleClients(lookup.multiple);
+        return;
+      }
+      proceedAfterLookup(lookup);
+    } catch (err: any) {
+      setError(err.message || "Something went wrong.");
+      setStep("email");
+    }
+  }
+
+  // Guest picked which account is theirs from the multi-match list.
+  async function handleSelectClient(selectedClientId: string) {
+    setError(null);
+    setLoading(true);
+    try {
+      const lookup = await lookupClientByEmail(normalizeEmail(email), selectedClientId);
+      setMultipleClients(null);
+      if ("multiple" in lookup) {
         setCardContext("create_account");
         setClientId(null);
         setStep("card");
         return;
       }
-      setClientId(String(lookup.client!.Id));
-      if (lookup.missingName || lookup.missingPhone) {
-        if (!lookup.hasCardOnFile) setCardContext("add_card");
-        setStep("name");
-        return;
-      }
-      if (!lookup.hasCardOnFile) {
-        setCardContext("add_card");
-        setStep("card");
-        return;
-      }
-      setStep("confirm");
+      proceedAfterLookup(lookup);
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
-      setStep("email");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -1398,8 +1462,28 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   Spavia and Sway members: if this is your first visit to this location, continue as a guest. Your membership benefits will be applied at check-in.
                 </p>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} inputMode="email" autoComplete="email" aria-label="Email address" name="email" placeholder="you@email.com" className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
+                {multipleClients && (
+                  <div className="mb-3 animate-fade-in">
+                    <p className="text-sm font-semibold text-[#113D33] mb-2">We found multiple accounts. Which one are you?</p>
+                    <div className="space-y-2">
+                      {multipleClients.map((c) => (
+                        <button
+                          key={c.clientId}
+                          onClick={() => handleSelectClient(c.clientId)}
+                          disabled={loading}
+                          className="w-full text-left px-4 py-3 rounded-xl border border-[#113D33]/20 bg-white/80 hover:bg-white transition disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+                        >
+                          <span className="font-semibold text-[#113D33]">{`${c.firstName} ${c.lastName}`.trim() || "Guest"}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <button onClick={() => { setMultipleClients(null); setError(null); }} className="w-full mt-2 text-xs text-[#113D33]/60 underline underline-offset-2 hover:text-[#113D33]">Use a different email</button>
+                  </div>
+                )}
                 {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
-                <button disabled={!selectedTime || !isValidEmail(email)} onClick={handleConfirmEmail} className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Continue</button>
+                {!multipleClients && (
+                  <button disabled={!selectedTime || !isValidEmail(email)} onClick={handleConfirmEmail} className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Continue</button>
+                )}
                 <button onClick={() => { setError(null); setStep("sauna"); }} className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Back</button>
               </div>
             </div>
