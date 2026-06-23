@@ -328,6 +328,11 @@ export async function POST(req: Request) {
       error?: string;
     }[] = [];
 
+    // Latest instant a sauna may end: the Lounge service plus its cleaning
+    // buffer. Used to bound the auto-shift below so a nudged sauna never runs
+    // past the guest's block.
+    const loungeBlockEnd = parseWall(startDateTime) + loungeBlockMin * 60_000;
+
     for (const op of saunaOps) {
       const { sauna, startDateTime: saunaStart, endDateTime, windowMinutes, cabin, count } = op;
       // Concurrency guard for this sauna window (the full merged span, if merged).
@@ -372,21 +377,54 @@ export async function POST(req: Request) {
         }
       }
 
-      const r = await addAppointment({
+      // Book the sauna, auto-shifting the start forward in 5-min steps if
+      // Mindbody rejects it as "not an active time". The infrared service has a
+      // scheduling-grid quirk where some starts (notably :55) aren't bookable,
+      // and our fixed sub-window grid can land on them. Nudging a few minutes
+      // keeps the sauna inside the Lounge block and books cleanly (verified live
+      // 2026-06-23: a :55 start rejects, the next 5-min slot accepts).
+      let attemptStart = saunaStart;
+      let attemptEnd = endDateTime;
+      let r = await addAppointment({
         token,
         siteId,
         clientId,
         sessionTypeId: sauna.sessionTypeId,
         staffId: sauna.resourceStaffId,
         locationId: club.locationId,
-        startDateTime: saunaStart,
-        ...(endDateTime ? { endDateTime } : {}),
+        startDateTime: attemptStart,
+        ...(attemptEnd ? { endDateTime: attemptEnd } : {}),
         sendEmail: false,
         ...(cabin ? { notes: `Preferred cabin: ${cabin}` } : {}),
       });
+      let shifts = 0;
+      while (
+        !r.ok &&
+        r.data?.Error?.Code === "InvalidBookingTime" &&
+        shifts < 3
+      ) {
+        shifts++;
+        const nextStart = parseWall(attemptStart) + 5 * 60_000;
+        const nextEnd = nextStart + windowMinutes * 60_000;
+        if (nextEnd > loungeBlockEnd) break; // don't run past the block
+        attemptStart = formatWall(nextStart);
+        attemptEnd = endDateTime ? formatWall(nextEnd) : undefined;
+        r = await addAppointment({
+          token,
+          siteId,
+          clientId,
+          sessionTypeId: sauna.sessionTypeId,
+          staffId: sauna.resourceStaffId,
+          locationId: club.locationId,
+          startDateTime: attemptStart,
+          ...(attemptEnd ? { endDateTime: attemptEnd } : {}),
+          sendEmail: false,
+          ...(cabin ? { notes: `Preferred cabin: ${cabin}` } : {}),
+        });
+      }
       if (!r.ok) {
         console.error(
-          `[club book] sauna booking failed (site ${siteId}, ${sauna.label} @ ${saunaStart}):`,
+          `[club book] sauna booking failed (site ${siteId}, ${sauna.label} @ ${attemptStart}):`,
           JSON.stringify(r.data?.Error ?? r.data).slice(0, 500)
         );
       }
