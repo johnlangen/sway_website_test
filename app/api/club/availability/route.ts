@@ -112,7 +112,13 @@ export async function GET(req: Request) {
 
     const saunas: Record<
       string,
-      { capacity: number; appointments: ApptInterval[] }
+      {
+        capacity: number;
+        appointments: ApptInterval[];
+        // Per-cabin booked intervals (infrared), keyed by cabin label, so the
+        // client can gray out a specific taken cabin per window.
+        cabins?: Record<string, ApptInterval[]>;
+      }
     > = {};
 
     let loungeAppts: ApptInterval[] = [];
@@ -155,9 +161,20 @@ export async function GET(req: Request) {
 
       loungeAppts = byStaff.get(club.remedyLounge.resourceStaffId) ?? [];
       club.saunas.forEach((s, i) => {
+        const cabinDefs = (s.cabins ?? []).filter(
+          (c): c is { label: string; resourceStaffId: number } =>
+            c.resourceStaffId != null
+        );
         saunas[String(s.sessionTypeId)] = {
           capacity: s.capacity,
           appointments: saunaStaffSets[i].flatMap((id) => byStaff.get(id) ?? []),
+          ...(cabinDefs.length
+            ? {
+                cabins: Object.fromEntries(
+                  cabinDefs.map((c) => [c.label, byStaff.get(c.resourceStaffId) ?? []])
+                ),
+              }
+            : {}),
         };
       });
       occupancyKnown = true;

@@ -280,7 +280,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   >({});
   // Per-sauna booked windows + seat capacity, for gating the 25-min add-ons.
   const [saunaData, setSaunaData] = useState<
-    Record<number, { capacity: number; appointments: ApptInterval[] }>
+    Record<
+      number,
+      {
+        capacity: number;
+        appointments: ApptInterval[];
+        cabins?: Record<string, ApptInterval[]>;
+      }
+    >
   >({});
   // False when the availability route couldn't read live occupancy (degraded to
   // ungated times). Drives a soft, non-blocking notice on the time picker.
@@ -400,6 +407,10 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   // site has no per-cabin labels configured (then the cabin picker is hidden).
   const infraredCabins = useMemo(
     () => club!.saunas.find((s) => s.key === "infrared")?.cabins ?? [],
+    [club]
+  );
+  const infraredSessionTypeId = useMemo(
+    () => club!.saunas.find((s) => s.key === "infrared")?.sessionTypeId ?? null,
     [club]
   );
 
@@ -585,11 +596,18 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
           );
           setSlotMeta(meta);
           setTimes(waves);
-          // saunas: { [sessionTypeId]: { capacity, appointments } }
-          const sd: Record<number, { capacity: number; appointments: ApptInterval[] }> = {};
+          // saunas: { [sessionTypeId]: { capacity, appointments, cabins? } }
+          const sd: Record<
+            number,
+            {
+              capacity: number;
+              appointments: ApptInterval[];
+              cabins?: Record<string, ApptInterval[]>;
+            }
+          > = {};
           if (data.saunas && typeof data.saunas === "object") {
             for (const [k, v] of Object.entries(data.saunas)) {
-              sd[Number(k)] = v as { capacity: number; appointments: ApptInterval[] };
+              sd[Number(k)] = v as (typeof sd)[number];
             }
           }
           setSaunaData(sd);
@@ -680,6 +698,18 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     if (!appts || appts.length === 0) return 0;
     const s = parseWall(formatLocalDateTime(windowStart));
     return peakOverlap(appts, s, s + SUB_SLOT_MIN * 60_000);
+  }
+
+  // Is a SPECIFIC infrared cabin already booked in this 25-min window? (cap 1
+  // per cabin). No per-cabin data (degraded) => treat as open.
+  function cabinTakenAt(cabinLabel: string, windowStart: Date): boolean {
+    const appts =
+      infraredSessionTypeId != null
+        ? saunaData[infraredSessionTypeId]?.cabins?.[cabinLabel]
+        : undefined;
+    if (!appts || appts.length === 0) return false;
+    const s = parseWall(formatLocalDateTime(windowStart));
+    return peakOverlap(appts, s, s + SUB_SLOT_MIN * 60_000) >= 1;
   }
 
   /* ── BOOKING ── */
@@ -1412,12 +1442,21 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           <div className="flex flex-wrap gap-2">
                             {infraredCabins.map((cab) => {
                               const cabinSelected = saunaCabins[i] === cab.label;
+                              const taken =
+                                !!slotStart && cabinTakenAt(cab.label, slotStart);
                               return (
                                 <button
                                   key={cab.label}
                                   aria-pressed={cabinSelected}
+                                  disabled={taken && !cabinSelected}
                                   onClick={() => setWindowCabin(i, cab.label)}
-                                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition focus:outline-none focus:ring-2 focus:ring-white/25 ${cabinSelected ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
+                                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition focus:outline-none focus:ring-2 focus:ring-white/25 ${
+                                    cabinSelected
+                                      ? "bg-white text-[#113D33] border-white"
+                                      : taken
+                                      ? "border-white/10 bg-white/5 text-white/30 line-through cursor-not-allowed"
+                                      : "border-white/15 bg-white/5 text-white hover:bg-white/10"
+                                  }`}
                                 >
                                   {cab.label}
                                 </button>
