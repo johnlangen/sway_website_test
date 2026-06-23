@@ -37,6 +37,9 @@ export const runtime = "nodejs";
 interface SaunaSelection {
   sessionTypeId: number;
   startDateTime: string;
+  /** Preferred infrared cabin label (e.g. "Glow 2"). Soft preference — not a
+   *  Mindbody-enforced resource; written to the appointment notes only. */
+  cabin?: string;
 }
 
 async function addAppointment(opts: {
@@ -129,6 +132,7 @@ export async function POST(req: Request) {
   const saunaBookings: {
     sauna: NonNullable<ReturnType<typeof resolveSauna>>;
     startDateTime: string;
+    cabin?: string;
   }[] = [];
   const seenStart = new Set<string>();
   for (const sel of saunasRaw) {
@@ -166,8 +170,15 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    // Preferred cabin: accept only a label this sauna actually advertises, so a
+    // junk value never lands in the appointment notes. Silently dropped if it
+    // doesn't match (it's a soft preference, not worth failing the booking over).
+    let cabin: string | undefined;
+    if (typeof sel?.cabin === "string" && sauna.cabins?.includes(sel.cabin)) {
+      cabin = sel.cabin;
+    }
     seenStart.add(sel.startDateTime);
-    saunaBookings.push({ sauna, startDateTime: sel.startDateTime });
+    saunaBookings.push({ sauna, startDateTime: sel.startDateTime, cabin });
   }
 
   try {
@@ -267,7 +278,7 @@ export async function POST(req: Request) {
       error?: string;
     }[] = [];
 
-    for (const { sauna, startDateTime: saunaStart } of saunaBookings) {
+    for (const { sauna, startDateTime: saunaStart, cabin } of saunaBookings) {
       // Concurrency guard for this 25-min sauna window. If it's already at seat
       // capacity, skip the write and report it as a failed add-on (the Lounge
       // still books) rather than letting Mindbody silently overfill the resource.
@@ -318,6 +329,7 @@ export async function POST(req: Request) {
         locationId: club.locationId,
         startDateTime: saunaStart,
         sendEmail: false,
+        ...(cabin ? { notes: `Preferred cabin: ${cabin}` } : {}),
       });
       if (!r.ok) {
         console.error(

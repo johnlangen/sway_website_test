@@ -292,6 +292,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const [saunaChoices, setSaunaChoices] = useState<(SaunaKey | null)[]>(
     () => Array.from({ length: SUB_SLOTS }, () => null)
   );
+  // Per sub-slot preferred infrared cabin label (e.g. "Glow 2"), or null. Only
+  // meaningful where the window's choice is "infrared". Length === SUB_SLOTS.
+  // Soft preference: capacity is still gated by the pooled infrared count; this
+  // just rides along to the booking notes for the front desk / whiteboard.
+  const [saunaCabins, setSaunaCabins] = useState<(string | null)[]>(
+    () => Array.from({ length: SUB_SLOTS }, () => null)
+  );
 
   // Sauna add-on labels the booking route reported as failed (Lounge still booked).
   // Used to avoid claiming a sauna landed when it didn't.
@@ -383,6 +390,27 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     [saunaChoices]
   );
 
+  // Infrared cabin labels (e.g. Glow 1-3 at RiNo, Cabin 1-4 at CP). Empty if the
+  // site has no per-cabin labels configured (then the cabin picker is hidden).
+  const infraredCabins = useMemo(
+    () => club!.saunas.find((s) => s.key === "infrared")?.cabins ?? [],
+    [club]
+  );
+
+  // Set a window's sauna modality, clearing any cabin preference for that window
+  // (a cabin only makes sense for the infrared modality, and a fresh pick should
+  // not inherit a stale cabin from a previous choice).
+  function setWindowModality(i: number, key: SaunaKey | null) {
+    setSaunaChoices((prev) => prev.map((c, j) => (j === i ? key : c)));
+    setSaunaCabins((prev) => prev.map((c, j) => (j === i ? null : c)));
+  }
+  // Toggle the preferred cabin for a window (tap again to clear).
+  function setWindowCabin(i: number, cabin: string) {
+    setSaunaCabins((prev) =>
+      prev.map((c, j) => (j === i ? (c === cabin ? null : cabin) : c))
+    );
+  }
+
   /* Sauna rotation windows for the selected wave: +0 / +25 / +50 from the wave
      start. Lounge sessions run in fixed 85-min waves shared by all guests, so
      these windows are identical for everyone in the wave and windows from
@@ -402,6 +430,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
      carry over to different wall-clock windows. */
   useEffect(() => {
     setSaunaChoices(Array.from({ length: SUB_SLOTS }, () => null));
+    setSaunaCabins(Array.from({ length: SUB_SLOTS }, () => null));
   }, [selectedTime, SUB_SLOTS]);
 
   const stepTitle = useMemo(() => {
@@ -527,6 +556,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     setLoading(true);
     setSelectedTime(null);
     setSaunaChoices(Array.from({ length: SUB_SLOTS }, () => null));
+    setSaunaCabins(Array.from({ length: SUB_SLOTS }, () => null));
     setSlotMeta({});
     setSaunaData({});
     setOccupancyKnown(true);
@@ -629,13 +659,18 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   /* ── BOOKING ── */
   function buildSaunaPayload() {
     if (!selectedTime) return [];
-    const out: { sessionTypeId: number; startDateTime: string }[] = [];
+    const out: { sessionTypeId: number; startDateTime: string; cabin?: string }[] = [];
     saunaWindows.forEach((slotStart, i) => {
       const choice = saunaChoices[i];
       if (!choice) return;
       const sauna = club!.saunas.find((s) => s.key === choice);
       if (!sauna) return;
-      out.push({ sessionTypeId: sauna.sessionTypeId, startDateTime: formatLocalDateTime(slotStart) });
+      const cabin = choice === "infrared" ? saunaCabins[i] : null;
+      out.push({
+        sessionTypeId: sauna.sessionTypeId,
+        startDateTime: formatLocalDateTime(slotStart),
+        ...(cabin ? { cabin } : {}),
+      });
     });
     return out;
   }
@@ -656,7 +691,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true,
     });
     const saunaLabels = saunaWindows
-      .map((w, i) => (saunaChoices[i] ? `${club!.saunas.find((s) => s.key === saunaChoices[i])?.label} (${formatTime12h(w)})` : null))
+      .map((w, i) => {
+        const choice = saunaChoices[i];
+        if (!choice) return null;
+        const label = club!.saunas.find((s) => s.key === choice)?.label;
+        const cabin = choice === "infrared" ? saunaCabins[i] : null;
+        return `${label}${cabin ? ` · ${cabin}` : ""} (${formatTime12h(w)})`;
+      })
       .filter(Boolean)
       .join(", ");
     const noteParts: string[] = [
@@ -1235,7 +1276,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-semibold text-white mb-2">Add a sauna to your 75</h2>
                 <p className="text-sm text-white/60">
-                  Your 75 minutes, your way. Saunas run <span className="text-white/90 font-semibold">during</span> your session in fixed 25-minute windows. Reserve up to 2 to guarantee your seat, then move freely between the cold plunge and compression therapy. This step is optional.
+                  Your 75 minutes, your way. Saunas run <span className="text-white/90 font-semibold">during</span> your session in fixed 25-minute windows. Reserve up to 2, pick your infrared cabin, then move freely between the cold plunge and compression therapy. This step is optional.
                 </p>
                 {selectedTime && (
                   <p className="text-xs text-[#9ABFB3] mt-2">
@@ -1262,7 +1303,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       <div className="grid grid-cols-3 gap-2">
                         <button
                           aria-pressed={choice === null}
-                          onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? null : c)))}
+                          onClick={() => setWindowModality(i, null)}
                           className={`py-2.5 rounded-xl text-sm font-medium border transition ${choice === null ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
                         >
                           None
@@ -1281,7 +1322,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                               aria-pressed={isChosen}
                               key={s.key}
                               disabled={blocked}
-                              onClick={() => setSaunaChoices((prev) => prev.map((c, j) => (j === i ? s.key : c)))}
+                              onClick={() => setWindowModality(i, s.key)}
                               className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-white text-[#113D33] border-white" : blocked ? "border-white/10 bg-white/5 text-white/30 cursor-not-allowed" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
                             >
                               <div>{s.key === "traditional" ? "Traditional" : "Infrared"}</div>
@@ -1292,6 +1333,35 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           );
                         })}
                       </div>
+
+                      {/* Preferred infrared cabin (soft pick). Capacity is already
+                          gated above by the pooled infrared count; this just lets
+                          the guest claim "their" cabin, which rides to the booking
+                          notes / front-desk whiteboard. Hidden for Traditional
+                          (one shared room) and where no cabins are configured. */}
+                      {choice === "infrared" && infraredCabins.length > 0 && (
+                        <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 animate-fade-in">
+                          <div className="text-[11px] uppercase tracking-wider text-[#9ABFB3] mb-2">
+                            Preferred cabin
+                            <span className="text-white/40 normal-case tracking-normal"> · confirmed at check-in</span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {infraredCabins.map((cabin) => {
+                              const cabinSelected = saunaCabins[i] === cabin;
+                              return (
+                                <button
+                                  key={cabin}
+                                  aria-pressed={cabinSelected}
+                                  onClick={() => setWindowCabin(i, cabin)}
+                                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition focus:outline-none focus:ring-2 focus:ring-white/25 ${cabinSelected ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
+                                >
+                                  {cabin}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -1466,6 +1536,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                             {saunaWindows.map((slotStart, i) => saunaChoices[i] ? (
                               <li key={i} className="text-xs text-[#4A776D] font-medium">
                                 + {club.saunas.find((s) => s.key === saunaChoices[i])?.label}
+                                {saunaChoices[i] === "infrared" && saunaCabins[i] ? ` · ${saunaCabins[i]}` : ""}
                                 {` · ${formatTime12h(slotStart)}`}
                               </li>
                             ) : null)}
