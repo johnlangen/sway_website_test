@@ -1097,6 +1097,23 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     if (step === "confirm") { setStep(memberCheckDone && hasCardOnFile && clientId ? "sauna" : "email"); return; }
   }
 
+  // "Book another session" from the done screen: reset the selection back to the
+  // time picker (refreshing availability) but keep the guest's resolved account
+  // so they don't re-enter their email/card.
+  function handleBookAnother() {
+    setError(null);
+    setSelectedTime(null);
+    setSaunaChoices(Array.from({ length: SUB_SLOTS }, () => null));
+    setSaunaCabins(Array.from({ length: SUB_SLOTS }, () => null));
+    setFailedSaunaLabels([]);
+    setForSomeoneElse(false);
+    setGuestFirstName(""); setGuestLastName(""); setGuestEmail(""); setGuestPhone("");
+    setIsSurprise(false);
+    bookingLock.current = false;
+    setAvailabilityNonce((n) => n + 1);
+    setStep("select");
+  }
+
   const summaryText = useMemo(() => {
     if (!selectedTime) return null;
     const saunaBit = selectedSaunaCount ? ` • ${selectedSaunaCount} sauna add-on${selectedSaunaCount > 1 ? "s" : ""}` : "";
@@ -1780,6 +1797,28 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 </>
               )}
               <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>Please bring a swimsuit or athleisure. Check your email for confirmation details.</p>
+
+              {/* Cross-sell: keep the visit going. */}
+              <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
+                  Complete your visit
+                </p>
+                <button
+                  onClick={handleBookAnother}
+                  className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
+                >
+                  Book another session
+                </button>
+                {!hasRemedyMembership && (
+                  <Link
+                    href="/membership"
+                    className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
+                  >
+                    Join the Club · Lounge included
+                  </Link>
+                )}
+              </div>
+
               <Link href={basePath} className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors">Done. Back to Sway {club.label}</Link>
               <div className="mt-6">
                 <a href={`tel:${phoneDigits}`} className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors">Questions? {club.phone}</a>
