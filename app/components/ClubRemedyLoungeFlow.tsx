@@ -177,6 +177,44 @@ function CardBrandPills() {
   );
 }
 
+// Passive modalities included with every 75-min Remedy Lounge session (shown as
+// a value band on the sauna step). The saunas are NOT here — they're the one
+// thing the guest actively reserves.
+const REMEDY_INCLUDED = [
+  {
+    label: "Cold Plunge",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7} aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3s-6 6.4-6 10.4a6 6 0 0012 0C18 9.4 12 3 12 3z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Compression Therapy",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7} aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h4l2.5-7 4 14 2.5-7H21" />
+      </svg>
+    ),
+  },
+  {
+    label: "PEMF Recovery",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7} aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 3L5 13h6l-1 8 8-11h-6l1-7z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Recovery Lounge",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7} aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 11V8.5A2.5 2.5 0 017.5 6h9A2.5 2.5 0 0119 8.5V11m1 0a2 2 0 012 2v3H2v-3a2 2 0 012-2m1 0h14M6 17v1.5m12-1.5v1.5" />
+      </svg>
+    ),
+  },
+];
+
 function ImageCarousel({ images, alt }: { images: string[]; alt: string }) {
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -1385,9 +1423,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
           {step === "sauna" && (
             <div className="max-w-lg mx-auto text-left">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-semibold text-white mb-2">Add a sauna to your 75</h2>
+                <h2 className="text-2xl font-semibold text-white mb-2">Your 75 minutes, your way</h2>
                 <p className="text-sm text-white/60">
-                  Your 75 minutes, your way. Saunas run <span className="text-white/90 font-semibold">during</span> your session in fixed 25-minute windows. Reserve up to 2, pick your infrared cabin, then move freely between the cold plunge and compression therapy. This step is optional.
+                  Everything below is yours for the whole session. Add an optional sauna if you like.
                 </p>
                 {selectedTime && (
                   <p className="text-xs text-[#9ABFB3] mt-2">
@@ -1396,6 +1434,32 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 )}
               </div>
 
+              {/* What's included — passive modalities, no action. Sets the value
+                  of the circuit before the one interactive choice (sauna). */}
+              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-white/45">
+                Included with your session
+              </div>
+              <div className="space-y-2 mb-8">
+                {REMEDY_INCLUDED.map((item) => (
+                  <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-[#9ABFB3]/10 flex items-center justify-center shrink-0 text-[#9ABFB3]">
+                      {item.icon}
+                    </div>
+                    <div className="flex-1 text-sm font-medium text-white">{item.label}</div>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-[#9ABFB3] bg-[#9ABFB3]/15 rounded-full px-2.5 py-1">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Included
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* The one interactive choice: reserve a sauna window. */}
+              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-white/45">
+                Add a sauna · optional
+              </div>
               <div className="space-y-3 mb-8">
                 {saunaWindows.map((slotStart, i) => {
                   const choice = saunaChoices[i];
