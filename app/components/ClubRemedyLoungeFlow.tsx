@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SwayCurve } from "./SwayCurve";
-import { ReviewBadge, useRating } from "./GoogleReviews";
 import { groupByPartOfDay, PartOfDayHeading } from "./sessionGroups";
 import { StickyFlowCTA } from "./StickyFlowCTA";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
@@ -206,14 +205,6 @@ const REMEDY_INCLUDED = [
       </svg>
     ),
   },
-  {
-    label: "Recovery Lounge",
-    icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.7} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 11V8.5A2.5 2.5 0 017.5 6h9A2.5 2.5 0 0119 8.5V11m1 0a2 2 0 012 2v3H2v-3a2 2 0 012-2m1 0h14M6 17v1.5m12-1.5v1.5" />
-      </svg>
-    ),
-  },
 ];
 
 function ImageCarousel({ images, alt }: { images: string[]; alt: string }) {
@@ -287,8 +278,6 @@ function ProgressBar({ step, dark = false }: { step: Step; dark?: boolean }) {
 
 export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocationKey }) {
   const router = useRouter();
-  const ratingData = useRating();
-  const reviewRating = (ratingData?.rating ?? 5).toFixed(1);
   const club = getClubLocation(clubKey);
 
   // Config should always resolve for a valid club key; guard anyway.
@@ -306,7 +295,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const SUB_SLOT_MIN = 25;
   const SUB_SLOTS = Math.floor(SERVICE_MIN / SUB_SLOT_MIN); // 3
   const basePath = `/locations/${club.key}`;
-  const phoneDigits = club.phone.replace(/[^\d]/g, "");
+  const contactEmail = club.contactEmail;
 
   const today = useMemo(() => new Date(), []);
 
@@ -493,7 +482,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   const stepTitle = useMemo(() => {
     if (step === "select") return "Choose your time";
-    if (step === "sauna") return "Add sauna (optional)";
+    if (step === "sauna") return "Reserve a sauna";
     if (step === "email") return "Enter your email";
     if (step === "name") return "Confirm your name";
     if (step === "card") return cardContext === "create_account" ? "Create your account" : "Payment details";
@@ -833,7 +822,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         setStep("select");
         return false;
       }
-      throw new Error(bookData?.error || `Booking failed. Please try again or call us at ${club!.phone}.`);
+      throw new Error(bookData?.error || `Booking failed. Please try again or email us at ${club!.contactEmail}.`);
     }
     if (bookData?.partial && Array.isArray(bookData.failedSaunas) && bookData.failedSaunas.length) {
       // Lounge is booked; a sauna add-on didn't take. Don't block the booking,
@@ -1121,7 +1110,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         }).catch(() => console.error("Failed to update notification preferences"));
       }
     } catch (err: any) {
-      setError(err.message || `Booking failed. Please try again or call us at ${club!.phone}.`);
+      setError(err.message || `Booking failed. Please try again or email us at ${club!.contactEmail}.`);
       setStep("confirm");
     } finally {
       bookingLock.current = false;
@@ -1246,27 +1235,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   The Remedy Lounge
                 </h1>
                 <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
-                  Your 75-minute Remedy Circuit. Cold plunge, compression therapy, recovery lounge, and optional 25-minute sauna windows, all in one shared sanctuary.
+                  Your 75-minute Remedy Circuit. Cold plunge, lymphatic compression, and PEMF recovery in one shared wellness lounge. Add a traditional or infrared sauna session if you&apos;d like.
                 </p>
-                {/* Desktop: full live reviews badge. Mobile uses the compact
-                    rating · duration · price meta line below to cut clutter. */}
-                <div className="hidden sm:flex items-center justify-center gap-4 mb-3 md:mb-4 text-white">
-                  <ReviewBadge />
-                </div>
+                {/* Mobile: compact duration · price meta line to cut clutter. */}
                 <div className="sm:hidden flex items-center justify-center flex-wrap gap-x-2 gap-y-0.5 text-sm text-white/70 mb-1">
-                  <span className="inline-flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5 text-[#E8C36B]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.3 5.8 20.8l1.6-6.8L2.2 8.9l6.9-.6z" />
-                    </svg>
-                    <span className="text-white font-medium">{reviewRating}</span>
-                  </span>
-                  <span className="text-white/30">·</span>
                   <span>{SERVICE_MIN} min</span>
                   <span className="text-white/30">·</span>
                   <span className="font-semibold text-white">{displayPrice}</span>
                 </div>
-                <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6">
-                  {["Cold Plunge", "Traditional Sauna", "Infrared Sauna", "Recovery Lounge"].map((tag) => (
+                <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6 mt-2">
+                  {["Cold Plunge", "Traditional Sauna", "Infrared Sauna", "Compression Therapy"].map((tag) => (
                     <span key={tag} className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 text-xs text-white/80">
                       <IconSpark className="w-3 h-3 text-[#9ABFB3]" />
                       {tag}
@@ -1299,8 +1277,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
                 <p className="hidden sm:block mt-3 text-xs text-white/40">
                   Planning a birthday or corporate event?{" "}
-                  <a href={`tel:${phoneDigits}`} className="underline underline-offset-4 hover:text-white/60 transition">
-                    Call {club.phone}
+                  <a href={`mailto:${contactEmail}`} className="underline underline-offset-4 hover:text-white/60 transition">
+                    Email {contactEmail}
                   </a>{" "}
                   to ask about private buyouts.
                 </p>
@@ -1418,14 +1396,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 {!loading && !error && times.length === 0 && (
                   <div className="text-center text-white/50">
                     <p>No sessions available for this day.</p>
-                    <p className="mt-3 text-xs text-white/30">Try another day, or <a href={`tel:${phoneDigits}`} className="underline hover:text-white/60 transition">call {club.phone}</a>.</p>
+                    <p className="mt-3 text-xs text-white/30">Try another day, or <a href={`mailto:${contactEmail}`} className="underline hover:text-white/60 transition">email {contactEmail}</a>.</p>
                   </div>
                 )}
               </section>
 
               <div className="max-w-md mx-auto text-center text-xs text-white/40">
                 Prefer to book with staff?{" "}
-                <a className="underline underline-offset-4 hover:text-white/70 transition" href={`tel:${phoneDigits}`}>Call {club.phone}</a>
+                <a className="underline underline-offset-4 hover:text-white/70 transition" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
               </div>
 
               <StickyFlowCTA show={!!selectedTime} dark hint={summaryText}>
@@ -1445,7 +1423,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-semibold text-white mb-2">Your 75 minutes, your way</h2>
                 <p className="text-sm text-white/60">
-                  Everything below is yours for the whole session. Add an optional sauna if you like.
+                  Everything below is yours for the whole session. If you&apos;d like to use the sauna, reserve your time and sauna type below.
                 </p>
                 {selectedTime && (
                   <p className="text-xs text-[#9ABFB3] mt-2">
@@ -1478,7 +1456,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
               {/* The one interactive choice: reserve a sauna window. */}
               <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-white/45">
-                Add a sauna · optional
+                Reserve a sauna
               </div>
               <div className="space-y-3 mb-8">
                 {saunaWindows.map((slotStart, i) => {
@@ -1722,7 +1700,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
                 <button onClick={handleSaveCardAndContinue} disabled={cardSaving} className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">{cardSaving ? "Saving…" : "Save & continue"}</button>
                 <button onClick={() => { setError(null); clearCardRefs(); setStep(memberCheckDone && clientId ? "sauna" : "email"); }} className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Back</button>
-                <a href={`tel:${phoneDigits}`} className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Call to book: {club.phone}</a>
+                <a href={`mailto:${contactEmail}`} className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Need help? Email {contactEmail}</a>
                 <p className="text-xs opacity-60 mt-4 text-center">Using: <span className="font-semibold">{emailNormalized}</span></p>
               </div>
             </div>
@@ -1872,7 +1850,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         )}
                         {failedSaunaLabels.length > 0 && (
                           <p className="text-[#B4541B] text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "175ms" }}>
-                            We couldn&apos;t confirm your {failedSaunaLabels.join(" + ")} add-on. Your Remedy Lounge is booked. Call us at {club.phone} and we&apos;ll get the sauna added.
+                            We couldn&apos;t confirm your {failedSaunaLabels.join(" + ")} add-on. Your Remedy Lounge is booked. Email us at {contactEmail} and we&apos;ll get the sauna added.
                           </p>
                         )}
                       </>
@@ -1905,7 +1883,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
               <Link href={basePath} className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors">Done. Back to Sway {club.label}</Link>
               <div className="mt-6">
-                <a href={`tel:${phoneDigits}`} className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors">Questions? {club.phone}</a>
+                <a href={`mailto:${contactEmail}`} className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors">Questions? {contactEmail}</a>
               </div>
             </div>
           )}
