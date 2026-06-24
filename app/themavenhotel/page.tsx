@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 
 /* ---------------------------------------------
    MAVEN HOTEL × SWAY — AESCAPE OPTIONS
@@ -149,24 +150,6 @@ function generateTimesFromWindows(
    GROUP TIMES BY PERIOD
 --------------------------------------------- */
 
-function groupTimes(dates: Date[]) {
-  const groups = {
-    Morning: [] as Date[],
-    Midday: [] as Date[],
-    Afternoon: [] as Date[],
-    Evening: [] as Date[],
-  };
-
-  dates.forEach((d) => {
-    const h = d.getHours();
-    if (h < 12) groups.Morning.push(d);
-    else if (h < 14) groups.Midday.push(d);
-    else if (h < 17) groups.Afternoon.push(d);
-    else groups.Evening.push(d);
-  });
-
-  return groups;
-}
 
 function filterPreferredTimes(all: Date[]) {
   const primary = all.filter((t) => {
@@ -429,7 +412,7 @@ export default function MavenHotelPage() {
   }, [showAllTimes, times, selectedTime]);
 
   const groupedTimes = useMemo(
-    () => groupTimes(displayedTimes),
+    () => groupByPartOfDay(displayedTimes, (d) => d.getHours()),
     [displayedTimes]
   );
 
@@ -1481,16 +1464,13 @@ export default function MavenHotelPage() {
 
               {!loading &&
                 !error &&
-                Object.entries(groupedTimes).map(
-                  ([label, group]) =>
-                    group.length > 0 && (
-                      <div key={label} className="mb-6">
-                        <h3 className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/40 mb-2.5">
-                          {label}
-                        </h3>
+                groupedTimes.map(
+                  (g) => (
+                      <div key={g.key} className="mb-6">
+                        <PartOfDayHeading part={g} className="mb-2.5" />
 
                         <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
-                          {group.map((time) => {
+                          {g.items.map((time) => {
                             const isSelected =
                               selectedTime?.getTime() === time.getTime();
                             return (

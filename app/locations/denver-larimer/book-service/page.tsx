@@ -9,6 +9,7 @@ import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
+import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -445,25 +446,6 @@ declare global {
    GROUP SLOTS BY TIME OF DAY
 ───────────────────────────────────────────── */
 
-function groupSlots(slots: DisplaySlot[]) {
-  const groups: Record<string, DisplaySlot[]> = {
-    Morning: [],
-    Midday: [],
-    Afternoon: [],
-    Evening: [],
-  };
-
-  slots.forEach((s) => {
-    const h = parseMindbodyDateTime(s.startDateTime).getHours();
-    if (h < 12) groups.Morning.push(s);
-    else if (h < 14) groups.Midday.push(s);
-    else if (h < 17) groups.Afternoon.push(s);
-    else groups.Evening.push(s);
-  });
-
-  return groups;
-}
-
 /* ─────────────────────────────────────────────
    EMAIL HELPERS
 ───────────────────────────────────────────── */
@@ -862,7 +844,10 @@ function BookServicePage() {
     return base.filter((s) => s.staffId === filteredTherapist);
   }, [slots, filteredSlots, filteredTherapist, totalExtMinutes, requiredResourceIds]);
 
-  const groupedSlots = useMemo(() => groupSlots(displayedSlots), [displayedSlots]);
+  const groupedSlots = useMemo(
+    () => groupByPartOfDay(displayedSlots, (s) => parseMindbodyDateTime(s.startDateTime).getHours()),
+    [displayedSlots]
+  );
 
   const totalMinutes = useMemo(() => {
     if (!selectedService) return 0;
@@ -2179,35 +2164,12 @@ function BookServicePage() {
 
                 {!loading && !schedulesLoading &&
                   displayedSlots.length > 0 &&
-                  Object.entries(groupedSlots).map(([period, periodSlots]) => {
-                    if (periodSlots.length === 0) return null;
+                  groupedSlots.map((g) => {
                     return (
-                      <div key={period} className="mb-5 animate-fade-in">
-                        <div className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/60 mb-2 text-left flex items-center gap-1.5">
-                          {period === "Morning" && (
-                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 18v4M17.24 17.24l2.83 2.83M18 12h4M17.24 6.76l2.83-2.83" /><circle cx="12" cy="12" r="4" />
-                            </svg>
-                          )}
-                          {period === "Midday" && (
-                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                              <circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                            </svg>
-                          )}
-                          {period === "Afternoon" && (
-                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M12 10V2M18.4 6.6L12 10M5.6 6.6L12 10" /><circle cx="12" cy="10" r="4" /><path d="M2 18h20" />
-                            </svg>
-                          )}
-                          {period === "Evening" && (
-                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                            </svg>
-                          )}
-                          {period}
-                        </div>
+                      <div key={g.key} className="mb-5 animate-fade-in">
+                        <PartOfDayHeading part={g} className="mb-2" />
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                          {periodSlots.map((slot, idx) => {
+                          {g.items.map((slot, idx) => {
                             const isSelected =
                               selectedSlot?.startDateTime ===
                                 slot.startDateTime &&

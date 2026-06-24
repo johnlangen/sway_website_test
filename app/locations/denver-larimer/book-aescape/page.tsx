@@ -9,6 +9,7 @@ import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
+import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -129,24 +130,6 @@ function parseMindbodyDateTime(raw: string) {
    GROUP TIMES
 --------------------------------------------- */
 
-function groupTimes(dates: Date[]) {
-  const groups = {
-    Morning: [] as Date[],
-    Midday: [] as Date[],
-    Afternoon: [] as Date[],
-    Evening: [] as Date[],
-  };
-
-  dates.forEach((d) => {
-    const h = d.getHours();
-    if (h < 12) groups.Morning.push(d);
-    else if (h < 14) groups.Midday.push(d);
-    else if (h < 17) groups.Afternoon.push(d);
-    else groups.Evening.push(d);
-  });
-
-  return groups;
-}
 
 /* ---------------------------------------------
    GENERATE TIMES
@@ -556,7 +539,7 @@ export default function BookAescapePage() {
   }, [showAllTimes, times, selectedTime]);
 
   const groupedTimes = useMemo(
-    () => groupTimes(displayedTimes),
+    () => groupByPartOfDay(displayedTimes, (d) => d.getHours()),
     [displayedTimes]
   );
 
@@ -1568,16 +1551,13 @@ export default function BookAescapePage() {
 
                 {!loading &&
                   !error &&
-                  Object.entries(groupedTimes).map(
-                    ([label, group]) =>
-                      group.length > 0 && (
-                        <div key={label} className="mb-6">
-                          <h3 className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/60 mb-2.5">
-                            {label}
-                          </h3>
+                  groupedTimes.map(
+                    (g) => (
+                        <div key={g.key} className="mb-6">
+                          <PartOfDayHeading part={g} className="mb-2.5" />
 
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
-                            {group.map((time) => {
+                            {g.items.map((time) => {
                               const isSelected = selectedTime?.getTime() === time.getTime();
                               return (
                                 <button

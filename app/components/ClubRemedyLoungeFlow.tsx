@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SwayCurve } from "./SwayCurve";
 import { ReviewBadge, useRating } from "./GoogleReviews";
+import { groupByPartOfDay, PartOfDayHeading } from "./sessionGroups";
 import { StickyFlowCTA } from "./StickyFlowCTA";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
 import {
@@ -1365,16 +1366,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   // Group the session waves by part of day so the list is
                   // scannable and the clubs' split (morning / afternoon) hours
                   // read as intentional rather than a gap.
-                  const groups = [
-                    { label: "Morning", items: times.filter((t) => t.getHours() < 12) },
-                    { label: "Afternoon", items: times.filter((t) => t.getHours() >= 12 && t.getHours() < 17) },
-                    { label: "Evening", items: times.filter((t) => t.getHours() >= 17) },
-                  ].filter((g) => g.items.length > 0);
+                  const groups = groupByPartOfDay(times, (t) => t.getHours());
                   return (
                     <div className="max-w-md mx-auto text-left">
                       {groups.map((g) => (
-                        <div key={g.label} className="mb-6 last:mb-0">
-                          <div className="mb-2.5 text-[11px] uppercase tracking-[0.12em] text-[#9ABFB3]">{g.label}</div>
+                        <div key={g.key} className="mb-6 last:mb-0">
+                          <PartOfDayHeading part={g} dark className="mb-2.5" />
                           <div className="space-y-2.5">
                             {g.items.map((time) => {
                               const isSelected = selectedTime?.getTime() === time.getTime();

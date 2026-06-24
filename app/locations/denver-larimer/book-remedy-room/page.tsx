@@ -9,6 +9,7 @@ import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
+import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 
 /* ---------------------------------------------
    REMEDY ROOM SESSION OPTIONS
@@ -101,25 +102,6 @@ function parseMindbodyDateTime(raw: string) {
 /* ---------------------------------------------
    GROUP TIMES
 --------------------------------------------- */
-
-function groupTimes(dates: Date[]) {
-  const groups = {
-    Morning: [] as Date[],
-    Midday: [] as Date[],
-    Afternoon: [] as Date[],
-    Evening: [] as Date[],
-  };
-
-  dates.forEach((d) => {
-    const h = d.getHours();
-    if (h < 12) groups.Morning.push(d);
-    else if (h < 14) groups.Midday.push(d);
-    else if (h < 17) groups.Afternoon.push(d);
-    else groups.Evening.push(d);
-  });
-
-  return groups;
-}
 
 /* ---------------------------------------------
    GENERATE TIMES (from windows)
@@ -583,7 +565,10 @@ export default function BookRemedyRoomPage() {
     return filterAvailableSlots(times, existingAppointments, REMEDY_MAX_CAPACITY);
   }, [times, existingAppointments]);
 
-  const groupedTimes = useMemo(() => groupTimes(displayedTimes), [displayedTimes]);
+  const groupedTimes = useMemo(
+    () => groupByPartOfDay(displayedTimes, (d) => d.getHours()),
+    [displayedTimes]
+  );
 
   const mindbodyBookingUrl = useMemo(() => {
     const siteId = process.env.NEXT_PUBLIC_MINDBODY_SITE_ID;
@@ -1551,16 +1536,13 @@ export default function BookRemedyRoomPage() {
 
                 {!loading &&
                   !error &&
-                  Object.entries(groupedTimes).map(
-                    ([label, group]) =>
-                      group.length > 0 && (
-                        <div key={label} className="mb-6">
-                          <h3 className="text-xs uppercase tracking-wider text-white/40 font-semibold mb-2">
-                            {label}
-                          </h3>
+                  groupedTimes.map(
+                    (g) => (
+                        <div key={g.key} className="mb-6">
+                          <PartOfDayHeading part={g} dark className="mb-2" />
 
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
-                            {group.map((time) => {
+                            {g.items.map((time) => {
                               const isSelected = selectedTime?.getTime() === time.getTime();
                               const timeKey = `${String(time.getHours()).padStart(2, "0")}:${String(time.getMinutes()).padStart(2, "0")}`;
                               const booked = slotOccupancy[timeKey] || 0;

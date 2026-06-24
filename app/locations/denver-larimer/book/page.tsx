@@ -6,6 +6,7 @@ import { SwayCurve } from "../../../components/SwayCurve";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
+import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 import { AddToHomeScreen } from "@/app/components/AddToHomeScreen";
 import NextAvailableBanner from "../NextAvailableBanner";
@@ -676,14 +677,10 @@ export default function NewBookingFlow() {
     return s;
   })();
 
-  const grouped = (() => {
-    const g: Record<string, DisplaySlot[]> = { morning: [], midday: [], afternoon: [], evening: [] };
-    for (const s of displayedSlots) {
-      const h = parseMindbodyDateTime(s.startDateTime).getHours();
-      if (h < 12) g.morning.push(s); else if (h < 14) g.midday.push(s); else if (h < 17) g.afternoon.push(s); else g.evening.push(s);
-    }
-    return g;
-  })();
+  const grouped = groupByPartOfDay(
+    displayedSlots,
+    (s) => parseMindbodyDateTime(s.startDateTime).getHours()
+  );
 
   /* ----------------------------------------------------------------
      HANDLERS
@@ -1781,17 +1778,11 @@ export default function NewBookingFlow() {
             </div>
             : (
               <div className="space-y-5">
-                {Object.entries(grouped).map(([period, ps]) => ps.length > 0 && (
-                  <div key={period}>
-                    <p className="text-xs uppercase tracking-wider font-semibold text-[#113D33]/60 mb-2 flex items-center gap-1.5">
-                      {period === "morning" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" /></svg>}
-                      {period === "midday" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="12" r="5" /><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" /></svg>}
-                      {period === "afternoon" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="10" r="4" /><path d="M12 2v2m0 12v2M4.93 2.93l1.41 1.41m11.32 11.32l1.41 1.41M2 10h2m16 0h2M4.93 17.07l1.41-1.41m11.32-11.32l1.41-1.41M3 18h18" /></svg>}
-                      {period === "evening" && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>}
-                      {period}
-                    </p>
+                {grouped.map((grp) => (
+                  <div key={grp.key}>
+                    <PartOfDayHeading part={grp} className="mb-2" />
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                      {ps.map((s, i) => {
+                      {grp.items.map((s, i) => {
                         const isSel = selectedSlot?.startDateTime === s.startDateTime && selectedSlot?.staffId === s.staffId;
                         return (<button key={`${s.startDateTime}-${s.staffId}-${i}`} aria-pressed={isSel} aria-label={`${formatTime12h(s.startDateTime)}${filteredTherapist !== null && s.staffName ? ` with ${s.staffName}` : ""}`} onClick={() => setSelectedSlot(s)}
                           className={`rounded-xl py-3 px-2 text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20 scale-[1.02]" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
