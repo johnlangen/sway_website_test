@@ -1350,51 +1350,63 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 )}
                 {loading && <p className="text-center text-white/50">Loading…</p>}
                 {error && <p className="text-center text-red-400">{error}</p>}
-                {!loading && !error && (
-                  <div className="max-w-md mx-auto space-y-2.5">
-                    {times.map((time) => {
-                      const isSelected = selectedTime?.getTime() === time.getTime();
-                      const meta = slotMeta[time.getTime()];
-                      const left = meta ? meta.capacity - meta.booked : null;
-                      const full = left != null && left <= 0;
-                      return (
-                        <button
-                          aria-pressed={isSelected}
-                          key={time.toISOString()}
-                          disabled={full}
-                          onClick={() => setSelectedTime(time)}
-                          className={`w-full px-4 py-3.5 rounded-2xl border text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
-                            isSelected
-                              ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10"
-                              : full
-                              ? "border-white/10 bg-white/5 text-white/35 cursor-not-allowed"
-                              : "border-white/15 bg-white/5 hover:bg-white/10 text-white"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <div>
-                              <div className="font-semibold">{formatTimeRange(time, SERVICE_MIN)}</div>
-                              <div className={`text-xs mt-0.5 ${isSelected ? "text-[#113D33]/60" : "text-white/40"}`}>
-                                {SERVICE_MIN}-minute session
-                              </div>
-                            </div>
-                            {full ? (
-                              <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider">Full</span>
-                            ) : left != null && left <= 5 ? (
-                              <span className={`shrink-0 text-[11px] font-semibold ${isSelected ? "text-[#B4541B]" : "text-amber-300/80"}`}>
-                                {left} spot{left === 1 ? "" : "s"} left
-                              </span>
-                            ) : isSelected ? (
-                              <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                              </svg>
-                            ) : null}
+                {!loading && !error && times.length > 0 && (() => {
+                  // Group the session waves by part of day so the list is
+                  // scannable and the clubs' split (morning / afternoon) hours
+                  // read as intentional rather than a gap.
+                  const groups = [
+                    { label: "Morning", items: times.filter((t) => t.getHours() < 12) },
+                    { label: "Afternoon", items: times.filter((t) => t.getHours() >= 12 && t.getHours() < 17) },
+                    { label: "Evening", items: times.filter((t) => t.getHours() >= 17) },
+                  ].filter((g) => g.items.length > 0);
+                  return (
+                    <div className="max-w-md mx-auto text-left">
+                      {groups.map((g) => (
+                        <div key={g.label} className="mb-6 last:mb-0">
+                          <div className="mb-2.5 text-[11px] uppercase tracking-[0.12em] text-[#9ABFB3]">{g.label}</div>
+                          <div className="space-y-2.5">
+                            {g.items.map((time) => {
+                              const isSelected = selectedTime?.getTime() === time.getTime();
+                              const meta = slotMeta[time.getTime()];
+                              const left = meta ? meta.capacity - meta.booked : null;
+                              const full = left != null && left <= 0;
+                              return (
+                                <button
+                                  aria-pressed={isSelected}
+                                  key={time.toISOString()}
+                                  disabled={full}
+                                  onClick={() => setSelectedTime(time)}
+                                  className={`w-full px-4 py-3.5 rounded-2xl border text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                                    isSelected
+                                      ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10"
+                                      : full
+                                      ? "border-white/10 bg-white/5 text-white/35 cursor-not-allowed"
+                                      : "border-white/15 bg-white/5 hover:bg-white/10 text-white"
+                                  }`}
+                                >
+                                  <div className="flex items-center justify-between gap-3">
+                                    <span className="font-semibold">{formatTimeRange(time, SERVICE_MIN)}</span>
+                                    {full ? (
+                                      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider">Full</span>
+                                    ) : isSelected ? (
+                                      <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                      </svg>
+                                    ) : left != null && left <= 5 ? (
+                                      <span className="shrink-0 text-[11px] font-semibold text-amber-300/80">{left} left</span>
+                                    ) : left != null ? (
+                                      <span className="shrink-0 text-[11px] text-white/40">{left} open</span>
+                                    ) : null}
+                                  </div>
+                                </button>
+                              );
+                            })}
                           </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
                 {!loading && !error && times.length === 0 && (
                   <div className="text-center text-white/50">
                     <p>No sessions available for this day.</p>
