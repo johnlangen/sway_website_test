@@ -174,7 +174,7 @@ function formatRating(rating: number) {
    Shared data-fetching hook (live rating + count only)
    ------------------------------------------------------------------ */
 
-function useRating() {
+export function useRating() {
   const [data, setData] = useState<RatingData | null>(null);
 
   useEffect(() => {

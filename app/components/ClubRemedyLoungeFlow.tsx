@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SwayCurve } from "./SwayCurve";
-import { ReviewBadge } from "./GoogleReviews";
+import { ReviewBadge, useRating } from "./GoogleReviews";
 import { StickyFlowCTA } from "./StickyFlowCTA";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
 import {
@@ -286,6 +286,8 @@ function ProgressBar({ step, dark = false }: { step: Step; dark?: boolean }) {
 
 export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocationKey }) {
   const router = useRouter();
+  const ratingData = useRating();
+  const reviewRating = (ratingData?.rating ?? 5).toFixed(1);
   const club = getClubLocation(clubKey);
 
   // Config should always resolve for a valid club key; guard anyway.
@@ -1245,14 +1247,23 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
                   Your 75-minute Remedy Circuit. Cold plunge, compression therapy, recovery lounge, and optional 25-minute sauna windows, all in one shared sanctuary.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 md:mb-4 text-white">
+                {/* Desktop: full live reviews badge. Mobile uses the compact
+                    rating · duration · price meta line below to cut clutter. */}
+                <div className="hidden sm:flex items-center justify-center gap-4 mb-3 md:mb-4 text-white">
                   <ReviewBadge />
                 </div>
-                {/* Compact mobile price line (replaces the photo card below). */}
-                <p className="sm:hidden text-sm text-white/70 mb-1">
-                  {SERVICE_MIN} min · Shared session · <span className="font-semibold text-white">{displayPrice}</span>
-                  {!includedWithMembership && !isMember && <span className="text-white/50"> · Included with membership</span>}
-                </p>
+                <div className="sm:hidden flex items-center justify-center flex-wrap gap-x-2 gap-y-0.5 text-sm text-white/70 mb-1">
+                  <span className="inline-flex items-center gap-1">
+                    <svg className="w-3.5 h-3.5 text-[#E8C36B]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.3 5.8 20.8l1.6-6.8L2.2 8.9l6.9-.6z" />
+                    </svg>
+                    <span className="text-white font-medium">{reviewRating}</span>
+                  </span>
+                  <span className="text-white/30">·</span>
+                  <span>{SERVICE_MIN} min</span>
+                  <span className="text-white/30">·</span>
+                  <span className="font-semibold text-white">{displayPrice}</span>
+                </div>
                 <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6">
                   {["Cold Plunge", "Traditional Sauna", "Infrared Sauna", "Recovery Lounge"].map((tag) => (
                     <span key={tag} className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 text-xs text-white/80">
