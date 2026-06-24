@@ -1089,7 +1089,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   function handleHeaderBack() {
     setError(null);
-    if (step === "select") { router.push(basePath); return; }
+    if (step === "select") { router.push(`${basePath}/book-test?view=services`); return; }
     if (step === "sauna") { setStep("select"); return; }
     if (step === "email") { setStep("sauna"); return; }
     if (step === "name") { setStep(memberCheckDone && clientId ? "sauna" : "email"); return; }

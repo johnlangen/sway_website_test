@@ -269,6 +269,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   const remedyPath = `${basePath}/book-remedy-lounge`;
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category");
+  // ?view=services lands directly on the 3-service chooser (used by the Remedy
+  // Lounge "back" so it returns to the treatment selection, not welcome).
+  const initialView = searchParams.get("view");
 
   // Per-club localStorage keys so a remembered Larimer email/account never
   // bleeds into a club site (and vice versa).
@@ -287,9 +290,11 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       setSelectedBoosts([]);
       setActiveConcern(null);
       setStep("treatment");
+    } else if (initialView === "services") {
+      setStep("category");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialCategory]);
+  }, [initialCategory, initialView]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [category, setCategory] = useState<Category>("massage");
@@ -1186,72 +1191,56 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               Choose your treatment to get started.
             </p>
 
-            {/* Main category cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10">
-              {([
-                { cat: "massage" as Category, label: "Massage", img: "/assets/massage2.jpg", sub: "Deep Tissue, Sports, Salt Stone & more", price: "From $139", dur: "50 min" },
-                { cat: "facial" as Category, label: "Facial", img: "/assets/facialExperiences.jpg", sub: "Forever Young, LED, Microcurrent & more", price: "From $139", dur: "50 min" },
-              ]).map((item) => (
-                <button key={item.cat} onClick={() => handleCategorySelect(item.cat)}
-                  className="group relative overflow-hidden rounded-2xl bg-white/70 border border-[#113D33]/10 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-left">
-                  <div className="relative h-44 md:h-52 w-full overflow-hidden">
-                    <Image src={item.img} alt={item.label} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, 50vw" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                    <div className="absolute bottom-3 right-3">
-                      <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
-                        <div className="text-sm font-bold text-[#113D33]">{item.price}</div>
-                        <div className="text-[10px] text-[#113D33]/65">{item.dur}</div>
-                      </div>
+            {/* Remedy Lounge — the live bookable experience, on top */}
+            <div className="grid grid-cols-1 gap-5 mt-10 max-w-xl mx-auto">
+              <Link href={remedyPath}
+                className="group relative overflow-hidden rounded-2xl bg-white/70 border border-[#113D33]/10 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-left">
+                <div className="relative h-44 md:h-52 w-full overflow-hidden">
+                  <Image src="/assets/cold_plunge.jpg" alt="Remedy Lounge" fill className="object-cover object-center transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, 50vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+                  <div className="absolute bottom-3 right-3">
+                    <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
+                      <div className="text-sm font-bold text-[#113D33]">$49</div>
+                      <div className="text-[10px] text-[#113D33]/65">75 min</div>
                     </div>
                   </div>
-                  <div className="p-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <h2 className="text-base font-semibold leading-tight text-[#113D33]">{item.label}</h2>
-                        <p className="text-sm text-[#113D33]/65 mt-0.5">{item.sub}</p>
-                      </div>
-                      <div className="shrink-0 w-8 h-8 rounded-full bg-[#113D33]/5 flex items-center justify-center group-hover:bg-[#113D33]/10 transition-colors">
-                        <svg className="w-4 h-4 text-[#113D33] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h2 className="text-base font-semibold leading-tight text-[#113D33]">Remedy Lounge</h2>
+                      <p className="text-sm text-[#113D33]/65 mt-0.5">Sauna, cold plunge, infrared &amp; compression therapy</p>
+                    </div>
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-[#113D33]/5 flex items-center justify-center group-hover:bg-[#113D33]/10 transition-colors">
+                      <svg className="w-4 h-4 text-[#113D33] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
                     </div>
                   </div>
-                </button>
-              ))}
+                </div>
+              </Link>
             </div>
 
-            {/* Remedy Lounge — link to the club recovery booking flow */}
-            <div className="grid grid-cols-1 gap-5 mt-5 mb-12">
+            {/* Massage & Facial — coming soon (not yet bookable at the clubs) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 mb-12 max-w-xl mx-auto">
               {([
-                { label: "Remedy Lounge", img: "/assets/cold_plunge.jpg", sub: "Sauna, cold plunge, infrared & compression therapy", price: "Members $25 · Drop-In $49", dur: "75 min", href: remedyPath },
+                { label: "Massage", img: "/assets/massage2.jpg", sub: "Deep Tissue, Sports, Salt Stone & more" },
+                { label: "Facial", img: "/assets/facialExperiences.jpg", sub: "Forever Young, LED, Microcurrent & more" },
               ]).map((item) => (
-                <Link key={item.label} href={item.href}
-                  className="group relative overflow-hidden rounded-2xl bg-white/70 border border-[#113D33]/10 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-left">
-                  <div className="relative h-36 md:h-44 w-full overflow-hidden">
-                    <Image src={item.img} alt={item.label} fill className="object-cover object-center transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, 50vw" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                    <div className="absolute bottom-3 right-3">
-                      <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
-                        <div className="text-sm font-bold text-[#113D33]">{item.price}</div>
-                        <div className="text-[10px] text-[#113D33]/65">{item.dur}</div>
-                      </div>
+                <div key={item.label} aria-disabled="true"
+                  className="relative overflow-hidden rounded-2xl bg-white/50 border border-[#113D33]/10 text-left cursor-not-allowed select-none">
+                  <div className="relative h-44 md:h-52 w-full overflow-hidden">
+                    <Image src={item.img} alt={item.label} fill className="object-cover grayscale opacity-60" sizes="(max-width: 640px) 100vw, 50vw" />
+                    <div className="absolute inset-0 bg-black/30" />
+                    <div className="absolute top-3 left-3">
+                      <span className="bg-white/95 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#113D33]/70">Coming soon</span>
                     </div>
                   </div>
                   <div className="p-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <h2 className="text-base font-semibold leading-tight text-[#113D33]">{item.label}</h2>
-                        <p className="text-sm text-[#113D33]/65 mt-0.5">{item.sub}</p>
-                      </div>
-                      <div className="shrink-0 w-8 h-8 rounded-full bg-[#113D33]/5 flex items-center justify-center group-hover:bg-[#113D33]/10 transition-colors">
-                        <svg className="w-4 h-4 text-[#113D33] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
+                    <h2 className="text-base font-semibold leading-tight text-[#113D33]/60">{item.label}</h2>
+                    <p className="text-sm text-[#113D33]/45 mt-0.5">{item.sub}</p>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
 
