@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 export const metadata: Metadata = {
   title:
@@ -171,6 +172,9 @@ export default function DenverCentralParkLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {/* The global Bowtie chat + Attentive offer are Larimer-specific. Hide
+          them on all Central Park pages until the clubs get their own widgets. */}
+      <HideFloatingWidgets />
       {children}
     </>
   );
