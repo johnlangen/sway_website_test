@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import CountdownBanner from "./components/CountdownBanner";
 import { AddToHomeScreen } from "./components/AddToHomeScreen";
+import { LarimerOnlyChat } from "./components/LarimerOnlyChat";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -222,6 +223,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to main content
         </a>
+        <LarimerOnlyChat />
         <NavBar />
         <CountdownBanner />
         <main id="main-content" className="relative z-10">{children}</main>
