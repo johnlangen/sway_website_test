@@ -298,9 +298,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const contactEmail = club.contactEmail;
 
   const today = useMemo(() => new Date(), []);
+  // Mindbody booking opens July 1, 2026 — the clubs run on Mariana Tek through
+  // June 30, so floor the picker at July 1 until then to keep June bookings off
+  // the new system. (month index 6 = July.) After July 1 the floor is just today.
+  const bookFloor = useMemo(() => {
+    const july1 = new Date(2026, 6, 1);
+    return today > july1 ? today : july1;
+  }, [today]);
 
-  const [weekStart, setWeekStart] = useState(today);
-  const [selectedDate, setSelectedDate] = useState(formatISO(today));
+  const [weekStart, setWeekStart] = useState(bookFloor);
+  const [selectedDate, setSelectedDate] = useState(formatISO(bookFloor));
   const [times, setTimes] = useState<Date[]>([]);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
@@ -1304,13 +1311,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </p>
                 <div className="flex items-center justify-center gap-1">
-                  <button onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={weekStart <= today} className="p-2 rounded-full hover:bg-white/10 disabled:opacity-20 transition-all duration-150" aria-label="Previous week">
+                  <button onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={weekStart <= bookFloor} className="p-2 rounded-full hover:bg-white/10 disabled:opacity-20 transition-all duration-150" aria-label="Previous week">
                     <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
                   </button>
                   <div className="flex gap-1.5 overflow-x-auto scrollbar-hide px-1">
                     {weekDays.map((day) => {
                       const iso = formatISO(day);
-                      const isPast = day < today && iso !== formatISO(today);
+                      const isPast = day < bookFloor && iso !== formatISO(bookFloor);
                       const selected = iso === selectedDate;
                       const dayName = day.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
                       return (
