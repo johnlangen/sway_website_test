@@ -237,6 +237,16 @@ export async function GET(req: Request) {
         isLocalMember = true;
       }
 
+      // Sway Wellness Club sites (RiNo / Central Park): their $99 Unlimited
+      // membership (migrated from Mariana Tek as "Founding Membership", and any
+      // future club membership) INCLUDES the Remedy Lounge. That contract name
+      // has no "remedy" keyword, so flag inclusion explicitly for any local club
+      // member. Scoped to club site IDs — Larimer pricing is unaffected.
+      const CLUB_SITE_IDS = ["5754020", "5754021"]; // see lib/clubLocations.ts
+      if (CLUB_SITE_IDS.includes(String(siteId)) && isLocalMember) {
+        hasRemedyMembership = true;
+      }
+
       // Step 3: cross-regional memberships (only if no local spa tier found)
       if (!tier) {
         const membershipUrl = new URL(
