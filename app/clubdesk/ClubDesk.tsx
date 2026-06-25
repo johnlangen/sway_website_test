@@ -9,12 +9,13 @@ import { useEffect, useMemo, useState } from "react";
  */
 
 type Done = Record<string, { done: boolean; by?: string; at?: string; note?: string }>;
-type Tab = "giftcards" | "credits" | "cards";
+type Tab = "giftcards" | "credits" | "cards" | "attention";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "giftcards", label: "Gift Cards" },
   { key: "credits", label: "Credits" },
   { key: "cards", label: "Cards to Collect" },
+  { key: "attention", label: "Needs Attention" },
 ];
 
 export function ClubDesk() {
@@ -22,8 +23,8 @@ export function ClubDesk() {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; done: Done }>({
-    giftcards: [], credits: [], cards: [], done: {},
+  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; attention: any[]; done: Done }>({
+    giftcards: [], credits: [], cards: [], attention: [], done: {},
   });
   const [tab, setTab] = useState<Tab>("giftcards");
   const [q, setQ] = useState("");
@@ -42,7 +43,7 @@ export function ClubDesk() {
       if (r.status === 401) { setErr("Wrong secret."); setAuthed(false); return; }
       if (!r.ok) { setErr(`Error ${r.status}`); return; }
       const d = await r.json();
-      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], done: d.done || {} });
+      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], attention: d.attention || [], done: d.done || {} });
       setAuthed(true);
     } catch (e: any) { setErr(e.message || "Failed to load"); }
     finally { setLoading(false); }
@@ -75,7 +76,7 @@ export function ClubDesk() {
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
-      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 },
+      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, attention: { total: 0, left: 0 },
     };
     for (const t of TABS) {
       const list = (data[t.key] as any[]) || [];
@@ -184,6 +185,20 @@ function Row({ tab, r }: { tab: Tab; r: any }) {
           <span className="font-bold shrink-0">{r.remaining} left</span>
         </div>
         <div className="text-xs opacity-70 mt-0.5">{r.package}{r.email ? ` · ${r.email}` : ""}{r.expires ? ` · exp ${r.expires}` : ""}{r.location ? ` · ${r.location}` : ""}</div>
+      </>
+    );
+  }
+  if (tab === "attention") {
+    const isFailure = String(r.status || "").toLowerCase().includes("fail");
+    return (
+      <>
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold truncate">{r.name || "(no name)"}</span>
+          <span className={`text-xs font-semibold shrink-0 ${isFailure ? "text-[#B4541B]" : "text-[#113D33]/60"}`}>
+            {isFailure ? "Payment failure" : "Frozen"}{r.amountOwed && Number(r.amountOwed) > 0 ? ` · $${r.amountOwed} owed` : ""}
+          </span>
+        </div>
+        <div className="text-xs opacity-70 mt-0.5">{r.email}{r.location ? ` · ${r.location}` : ""}</div>
       </>
     );
   }
