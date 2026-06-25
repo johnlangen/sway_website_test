@@ -1201,8 +1201,12 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                   <div className="absolute bottom-3 right-3">
                     <div className="bg-white/95 rounded-lg px-3 py-1.5 text-right">
-                      <div className="text-sm font-bold text-[#113D33]">$49</div>
-                      <div className="text-[10px] text-[#113D33]/65">75 min</div>
+                      <div className="text-sm font-bold text-[#113D33]">
+                        {hasRemedyMembership ? "Included" : isMember ? club.remedyLounge.memberPrice : club.remedyLounge.price}
+                      </div>
+                      <div className="text-[10px] text-[#113D33]/65">
+                        {hasRemedyMembership ? "with membership" : isMember ? "member price · 75 min" : "75 min"}
+                      </div>
                     </div>
                   </div>
                 </div>
