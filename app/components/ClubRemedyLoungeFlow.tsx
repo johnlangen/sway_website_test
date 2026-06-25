@@ -370,7 +370,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   const [marketingOptIn, setMarketingOptIn] = useState(true);
 
-  const SAVED_EMAIL_KEY = `sway_club_${club.key}_email`;
+  // MUST match the keys ClubServiceFlow (the /book-test hub) writes, so the
+  // member picked at the hub carries into this flow. (They previously differed,
+  // which let a stale saved email silently override the hub's selection.)
+  const SAVED_EMAIL_KEY = `sway_club_booking_email_${club.key}`;
+  const SAVED_CLIENT_KEY = `sway_club_booking_client_id_${club.key}`;
   const [isMember, setIsMember] = useState(false);
   const [memberTier, setMemberTier] = useState<string | null>(null);
   const [memberFirstName, setMemberFirstName] = useState<string | null>(null);
@@ -386,7 +390,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   >(null);
 
   const saveEmail = (e: string) => { try { localStorage.setItem(SAVED_EMAIL_KEY, e); } catch {} };
-  const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); } catch {} };
+  const saveClientId = (id: string) => { try { localStorage.setItem(SAVED_CLIENT_KEY, id); } catch {} };
+  const clearSavedEmail = () => { try { localStorage.removeItem(SAVED_EMAIL_KEY); localStorage.removeItem(SAVED_CLIENT_KEY); } catch {} };
   const handleSwitchAccount = () => {
     clearSavedEmail();
     setEmail(""); setClientId(null); setIsMember(false); setMemberTier(null);
@@ -509,15 +514,17 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   useEffect(() => {
     const saved = typeof window !== "undefined" ? localStorage.getItem(SAVED_EMAIL_KEY) : null;
     if (!saved || autoCheckDone) return;
+    const savedClientId = typeof window !== "undefined" ? localStorage.getItem(SAVED_CLIENT_KEY) : null;
     setAutoCheckDone(true);
     setEmail(saved);
     setLoading(true);
-    const url = `/api/membership/check?email=${encodeURIComponent(saved)}&siteId=${SITE_ID}`;
+    const url = `/api/membership/check?email=${encodeURIComponent(saved)}&siteId=${SITE_ID}${savedClientId ? `&clientId=${encodeURIComponent(savedClientId)}` : ""}`;
     fetch(url)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (data?.multipleClients || !data || !data.found) { clearSavedEmail(); setEmail(""); setLoading(false); return; }
         setClientId(data.clientId ?? null);
+        if (data.clientId) saveClientId(String(data.clientId));
         setIsMember(data.isMember ?? false);
         setMemberTier(data.tier ?? null);
         setMemberFirstName(data.firstName ?? null);
@@ -916,6 +923,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       return;
     }
     setClientId(String(lookup.client.Id));
+    saveClientId(String(lookup.client.Id));
     if (lookup.missingName || lookup.missingPhone) {
       if (!lookup.hasCardOnFile) setCardContext("add_card");
       setStep("name");
