@@ -108,13 +108,19 @@ export function ClubDesk() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-4 sm:px-6 py-8">
+    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-4 sm:px-6 pt-24 sm:pt-28 pb-12">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-1">
           <h1 className="text-2xl font-semibold">Club Desk</h1>
           <button onClick={() => load(secret)} className="text-sm underline underline-offset-4 opacity-70 hover:opacity-100">Refresh</button>
         </div>
-        <p className="text-sm opacity-70 mb-5">Look it up, handle it in Mindbody, then check it off.</p>
+        <p className="text-sm opacity-70 mb-4">Look it up, handle it in Mindbody, then check it off.</p>
+
+        <div className="rounded-2xl border border-red-300 bg-red-50 text-red-800 px-4 py-3 mb-5 text-sm leading-relaxed">
+          <span className="font-bold uppercase tracking-wide">Do not check off until it&apos;s resolved in Mindbody.</span>{" "}
+          The checkbox only marks it handled for the team — it does <span className="font-semibold">not</span> apply anything
+          in Mindbody. Look the person up here, add their gift card / credit / card in Mindbody first, then tick the box.
+        </div>
 
         {/* tabs */}
         <div className="flex gap-1.5 mb-4 flex-wrap">
