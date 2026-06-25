@@ -101,6 +101,8 @@ export async function GET(req: Request) {
   // Optional siteId override so the Sway Wellness Club locations (RiNo / Central
   // Park) can look up clients on their own Mindbody site. Defaults to Larimer.
   const siteId = searchParams.get("siteId") || process.env.MINDBODY_SITE_ID;
+  // Sway Wellness Club Mindbody sites (RiNo / Central Park). See lib/clubLocations.ts.
+  const CLUB_SITE_IDS = ["5754020", "5754021"];
 
   if (!apiKey || !siteId) {
     return NextResponse.json(
@@ -242,7 +244,6 @@ export async function GET(req: Request) {
       // future club membership) INCLUDES the Remedy Lounge. That contract name
       // has no "remedy" keyword, so flag inclusion explicitly for any local club
       // member. Scoped to club site IDs — Larimer pricing is unaffected.
-      const CLUB_SITE_IDS = ["5754020", "5754021"]; // see lib/clubLocations.ts
       if (CLUB_SITE_IDS.includes(String(siteId)) && isLocalMember) {
         hasRemedyMembership = true;
       }
@@ -294,6 +295,70 @@ export async function GET(req: Request) {
           hasPhone, homeLocation, isLocalMember,
           hasAescapeMembership, hasRemedyMembership,
         });
+      }
+    }
+
+    // Cross-club recognition: a Sway Wellness Club membership ($99) is valid at
+    // BOTH clubs (RiNo + Central Park), but the contract lives only at the
+    // member's purchase-location site. If we're on a club site and found no
+    // local membership above, check the OTHER club for an active club membership
+    // and recognize them here (the Lounge is $0/included for them either way).
+    // Returns the LOCAL client id so booking still happens at this site.
+    if (CLUB_SITE_IDS.includes(String(siteId))) {
+      const local = matchingClients[0];
+      for (const otherSite of CLUB_SITE_IDS.filter((s) => s !== String(siteId))) {
+        try {
+          const otherToken = await getMindbodyStaffToken(otherSite);
+          const oh = {
+            Accept: "application/json",
+            "Api-Key": apiKey,
+            SiteId: otherSite,
+            Authorization: `Bearer ${otherToken}`,
+          };
+          const cu = new URL("https://api.mindbodyonline.com/public/v6/client/clients");
+          cu.searchParams.set("request.searchText", email);
+          cu.searchParams.set("request.limit", "10");
+          const cr = await fetch(cu.toString(), { headers: oh });
+          if (!cr.ok) continue;
+          const oclients = ((await cr.json())?.Clients ?? []).filter(
+            (c: any) => (c.Email ?? "").trim().toLowerCase() === email
+          );
+          let clubMember = false;
+          for (const oc of oclients) {
+            const ccu = new URL("https://api.mindbodyonline.com/public/v6/client/clientcontracts");
+            ccu.searchParams.set("request.clientId", String(oc.Id ?? oc.UniqueId));
+            const ccr = await fetch(ccu.toString(), { headers: oh });
+            if (!ccr.ok) continue;
+            const ocontracts = (await ccr.json())?.Contracts ?? [];
+            clubMember = ocontracts.some((c: any) => {
+              const termDate = c.TerminationDate ?? "";
+              const terminated =
+                termDate && !termDate.startsWith("0001-01-01") && new Date(termDate) < new Date();
+              if (c.IsActive === false || terminated) return false;
+              const nm = c.ContractName ?? c.Name ?? "";
+              return !!detectTierFromName(nm) || /remedy|founding|unlimited|membership/i.test(nm);
+            });
+            if (clubMember) break;
+          }
+          if (clubMember) {
+            return NextResponse.json({
+              found: true,
+              isMember: true,
+              tier: "premier",
+              firstName: local.FirstName ?? null,
+              lastName: local.LastName ?? null,
+              clientId: String(local.Id ?? local.UniqueId),
+              hasCardOnFile: !!(local.ClientCreditCard?.CardNumber && local.ClientCreditCard.CardNumber !== ""),
+              hasPhone: !!((local.MobilePhone || local.HomePhone || local.WorkPhone || "").trim()),
+              homeLocation: null,
+              isLocalMember: false,
+              hasAescapeMembership: false,
+              hasRemedyMembership: true,
+            });
+          }
+        } catch {
+          /* other-club lookup is best-effort; fall through to non-member */
+        }
       }
     }
 

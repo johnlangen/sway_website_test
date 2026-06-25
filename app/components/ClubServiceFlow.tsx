@@ -1051,9 +1051,13 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {(isMember || hasAescapeMembership || hasRemedyMembership) && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
             <p className="text-sm">
               <span className="font-bold">{memberFirstName ?? email}</span>
-              {isMember && memberTier && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-              {hasAescapeMembership && !isMember && <> · <span className="font-semibold">Aescape Member</span></>}
-              {hasRemedyMembership && !isMember && <> · <span className="font-semibold">Remedy Room Member</span></>}
+              {hasRemedyMembership ? (
+                <> · <span className="font-semibold">Remedy Lounge Member</span></>
+              ) : isMember && memberTier ? (
+                <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>
+              ) : hasAescapeMembership ? (
+                <> · <span className="font-semibold">Aescape Member</span></>
+              ) : null}
               {homeLocation && <span className={(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
             </p>
             <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>

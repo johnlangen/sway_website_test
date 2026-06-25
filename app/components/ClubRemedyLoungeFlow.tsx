@@ -1211,7 +1211,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               {(isMember || hasRemedyMembership) && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
               <p className="text-sm">
                 <span className="font-bold">{memberFirstName ?? email}</span>
-                {hasRemedyMembership && <> · <span className="font-semibold">Remedy Member</span></>}
+                {hasRemedyMembership && <> · <span className="font-semibold">Remedy Lounge Member</span></>}
                 {isMember && !hasRemedyMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
                 {homeLocation && <span className={isDarkStep ? "text-white/50 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
               </p>
