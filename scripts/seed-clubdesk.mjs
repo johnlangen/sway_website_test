@@ -69,6 +69,8 @@ const attention = dict(join(HOME, "sway-mindbody-migration", "needs-attention.cs
     email: r["Email"],
     status: r["Status"],
     amountOwed: r["AmountOwed"],
+    since: r["Since"],
+    membership: r["Membership"],
     location: r["Location"],
   }));
 

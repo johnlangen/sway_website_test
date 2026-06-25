@@ -18,6 +18,26 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "attention", label: "Needs Attention" },
 ];
 
+// Plain-English explainer shown at the top of each tab.
+const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
+  giftcards: {
+    what: "Gift cards people bought in the old system (Mariana Tek) that have NOT been used yet.",
+    todo: "When a guest wants to use one, find it by their name or the card number, see the dollar amount, then add that amount as a gift card on their account in Mindbody. Tick the box once it's added.",
+  },
+  credits: {
+    what: "Members who pre-paid for recovery or modality sessions in the old system. These didn't carry over automatically.",
+    todo: "When they come in to use a session, find them here, see how many they have left, then apply the session for them in Mindbody (no charge). Tick the box once it's applied.",
+  },
+  cards: {
+    what: "Members who are set up but have NO credit card on file — their membership payment will fail on the date shown if we don't get a card.",
+    todo: "When they come in (or call them), collect a card and add it to their account in Mindbody. Start with the earliest dates. Tick the box once the card is on file.",
+  },
+  attention: {
+    what: "Members who need follow-up. FROZEN = they paused their membership (not being charged right now). PAYMENT FAILURE = their card was declined and they may owe a balance.",
+    todo: "Payment failure: ask for a new card and settle the amount owed in Mindbody. Frozen: no action unless they want to un-pause. Tick the box once handled.",
+  },
+};
+
 export function ClubDesk() {
   const [secret, setSecret] = useState("");
   const [authed, setAuthed] = useState(false);
@@ -133,6 +153,12 @@ export function ClubDesk() {
           ))}
         </div>
 
+        {/* what this tab is + what to do */}
+        <div className="rounded-2xl bg-white border border-[#113D33]/12 px-4 py-3 mb-3 text-sm">
+          <p className="text-[#113D33]">{TAB_HELP[tab].what}</p>
+          <p className="mt-1.5 text-[#113D33]/75"><span className="font-semibold">What to do:</span> {TAB_HELP[tab].todo}</p>
+        </div>
+
         <div className="flex items-center gap-3 mb-3">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, code…"
             className="flex-1 rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
@@ -198,7 +224,10 @@ function Row({ tab, r }: { tab: Tab; r: any }) {
             {isFailure ? "Payment failure" : "Frozen"}{r.amountOwed && Number(r.amountOwed) > 0 ? ` · $${r.amountOwed} owed` : ""}
           </span>
         </div>
-        <div className="text-xs opacity-70 mt-0.5">{r.email}{r.location ? ` · ${r.location}` : ""}</div>
+        <div className="text-xs opacity-70 mt-0.5">
+          {r.email}{r.location ? ` · ${r.location}` : ""}{r.since ? ` · since ${r.since}` : ""}
+        </div>
+        {r.membership && <div className="text-xs opacity-50 mt-0.5">{r.membership}</div>}
       </>
     );
   }
