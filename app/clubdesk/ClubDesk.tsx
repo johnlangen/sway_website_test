@@ -25,7 +25,7 @@ const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
     todo: "When a guest wants to use one, find it by their name or the card number, see the dollar amount, then add that amount as a gift card on their account in Mindbody. Tick the box once it's added.",
   },
   credits: {
-    what: "Members who pre-paid for recovery or modality sessions in the old system. These didn't carry over automatically.",
+    what: "Drop-in customers who pre-paid for recovery or modality sessions in the old system (session packs, not memberships). These didn't carry over automatically.",
     todo: "When they come in to use a session, find them here, see how many they have left, then apply the session for them in Mindbody (no charge). Tick the box once it's applied.",
   },
   cards: {
