@@ -48,7 +48,6 @@ const localBusinessJsonLd = {
   image: "https://swaywellnessspa.com/assets/rino1.jpeg",
   "@id": "https://swaywellnessspa.com/locations/denver-rino/",
   url: "https://swaywellnessspa.com/locations/denver-rino/",
-  telephone: "+1-303-476-6150",
   address: {
     "@type": "PostalAddress",
     streetAddress: "3636 Blake St",

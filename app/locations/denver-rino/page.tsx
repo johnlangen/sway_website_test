@@ -17,8 +17,7 @@ const loc = {
   state: "CO",
   zip: "80205",
   neighborhood: "RiNo Art District",
-  phone: "(303) 476-6150",
-  phoneHref: "tel:+13034766150",
+  email: "contact@swayrino.com",
   heroImage: "/assets/rino1.jpeg",
   bookHref: "/locations/denver-rino/book",
   mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",
@@ -262,17 +261,12 @@ export default function SwayRinoPage() {
               </p>
               <div className="space-y-2 text-sm">
                 <a
-                  href={loc.phoneHref}
+                  href={`mailto:${loc.email}`}
                   className="block font-medium hover:underline"
                 >
-                  {loc.phone}
+                  {loc.email}
                 </a>
-                <a
-                  href="mailto:contact@swaywellnessspa.com"
-                  className="block font-medium hover:underline"
-                >
-                  contact@swaywellnessspa.com
-                </a>
+                <p className="text-xs opacity-60">A dedicated phone line is coming soon.</p>
               </div>
             </div>
           </div>

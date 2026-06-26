@@ -48,7 +48,6 @@ const localBusinessJsonLd = {
   image: "https://swaywellnessspa.com/assets/centralpark1.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-central-park/",
   url: "https://swaywellnessspa.com/locations/denver-central-park/",
-  telephone: "+1-303-476-6150",
   address: {
     "@type": "PostalAddress",
     streetAddress: "2271 Clinton St",

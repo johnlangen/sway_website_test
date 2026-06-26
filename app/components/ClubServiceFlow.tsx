@@ -595,7 +595,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
           setSchedulesLoaded(true);
         }
       })
-      .catch(() => { if (!cancelled) setError("Failed to load availability. Please try again or call (303) 476-6150."); })
+      .catch(() => { if (!cancelled) setError(`Failed to load availability. Please try again or email ${club.contactEmail}.`); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -864,7 +864,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       clearCardRefs();
       window.dataLayer?.push({ event: "booking_card_entered", booking_flow: category });
       setStep("confirm");
-    } catch (e: any) { setError(e?.message ?? "Failed to save card. Call (303) 476-6150 for help."); }
+    } catch (e: any) { setError(e?.message ?? `Failed to save card. Email ${club.contactEmail} for help.`); }
     finally { setCardSaving(false); }
   };
 
@@ -936,7 +936,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
         body: JSON.stringify({ siteId: SITE_ID, locationId: club.locationId, clientId, sessionTypeId: selectedTreatment!.id, startDateTime: selectedSlot!.startDateTime, staffId: selectedSlot!.staffId, staffRequested: filteredTherapist !== null, addOnIds: selectedBoosts.map((b) => b.id), notes: noteParts.join(" | ") }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Booking failed");
-      if (data.addOns?.some((a: any) => !a.success)) setBoostWarning("Some boosts couldn\u2019t be added automatically. Call (303) 476-6150 to add them.");
+      if (data.addOns?.some((a: any) => !a.success)) setBoostWarning(`Some boosts couldn\u2019t be added automatically. Email ${club.contactEmail} to add them.`);
       // Compute booking value (drop-in equivalent — represents business value of booking,
       // independent of whether customer paid via membership or per-visit)
       const bookingValueTreatment = selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn : 0;
@@ -951,7 +951,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       }
       window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD" });
       setStep("done");
-    } catch (e: any) { setError(e?.message ? `${e.message} Call (303) 476-6150 to complete your booking.` : "Booking failed. Call (303) 476-6150 to complete your booking."); setStep("confirm"); }
+    } catch (e: any) { setError(e?.message ? `${e.message} Email ${club.contactEmail} to complete your booking.` : `Booking failed. Email ${club.contactEmail} to complete your booking.`); setStep("confirm"); }
     finally { bookingLock.current = false; }
   };
 
@@ -1039,7 +1039,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
           {error && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
               role="alert" className="mb-4 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-700 text-sm flex items-start justify-between gap-2">
-              <span dangerouslySetInnerHTML={{ __html: error.replace(/\(303\) 476-6150/g, '<a href="tel:+13034766150" class="underline font-semibold">(303) 476-6150</a>') }} />
+              <span dangerouslySetInnerHTML={{ __html: error.split(club.contactEmail).join(`<a href="mailto:${club.contactEmail}" class="underline font-semibold">${club.contactEmail}</a>`) }} />
               <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 shrink-0">&times;</button>
             </motion.div>
           )}
@@ -1163,9 +1163,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               </button>
             </div>
 
-            {/* Phone CTA */}
+            {/* Contact CTA */}
             <p className="mt-8 text-sm text-[#113D33]/60">
-              Prefer to call? <a href="tel:+13034766150" className="text-[#4A776D] underline underline-offset-2 font-medium">(303) 476-6150</a>
+              Questions? <a href={`mailto:${club.contactEmail}`} className="text-[#4A776D] underline underline-offset-2 font-medium">{club.contactEmail}</a>
             </p>
           </motion.div>
         )}
@@ -1249,10 +1249,10 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               ))}
             </div>
 
-            {/* Phone CTA */}
+            {/* Contact CTA */}
             <div className="bg-[#113D33] rounded-2xl p-6 md:p-8 text-center text-white">
               <p className="text-base md:text-lg mb-2">Prefer to book with our team?</p>
-              <a href="tel:3034766150" className="text-2xl md:text-3xl font-bold hover:opacity-80 transition">(303) 476-6150</a>
+              <a href={`mailto:${club.contactEmail}`} className="text-xl md:text-2xl font-bold hover:opacity-80 transition break-all">{club.contactEmail}</a>
             </div>
           </motion.div>
         )}
@@ -2022,7 +2022,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
 
             <div className="pt-4 space-y-2">
               <Link href={basePath} className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4">&larr; Back to Sway {club.label}</Link>
-              <a href={`tel:${club.phone.replace(/[^\d+]/g, "")}`} className="block text-sm text-[#113D33]/60 hover:text-[#113D33]">{club.phone}</a>
+              <a href={`mailto:${club.contactEmail}`} className="block text-sm text-[#113D33]/60 hover:text-[#113D33]">{club.contactEmail}</a>
             </div>
           </motion.div>
         )}

@@ -100,18 +100,6 @@ export default function ClubsBookPage() {
         </div>
       </section>
 
-      {/* Phone CTA */}
-      <section className="pb-16 px-6 text-center">
-        <p className="text-sm text-gray-300">
-          Prefer to book by phone?{" "}
-          <a
-            href="tel:+13034766150"
-            className="underline underline-offset-4 hover:text-white transition"
-          >
-            Call (303) 476-6150
-          </a>
-        </p>
-      </section>
     </main>
   );
 }
