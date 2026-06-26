@@ -1,21 +1,22 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { MarianaBookingWidget } from "./MarianaBookingWidget";
 
 /**
  * Bridge-period booking fork for the Sway Wellness Club locations.
  *
  * The clubs run on Mariana Tek through June 30, 2026 and on Mindbody (our flow)
  * from July 1. Until July 1 we ask the guest WHEN they're visiting:
- *   - June (through the 30th) -> the Mariana Tek widget (current system)
- *   - July 1 or later         -> our new Mindbody flow at {basePath}/book-test
+ *   - June (through the 30th) -> {basePath}/book/june  (the Mariana Tek widget,
+ *     on its own page via a FULL page load — the MT loader fails to render on a
+ *     client-side mount, so this MUST be a hard navigation, not a router push)
+ *   - July 1 or later         -> {basePath}/book-test  (our new Mindbody flow)
  *
- * On/after July 1 (Denver time) the fork collapses: it sends everyone to the new
- * flow. Date is anchored to America/Denver so a non-Denver browser can't flip it
- * early/late.
+ * On/after July 1 (Denver time) the fork collapses and sends everyone to the
+ * new flow. Date is anchored to America/Denver so a non-Denver browser can't
+ * flip it early/late.
  */
 function denverDateISO(): string {
   try {
@@ -27,17 +28,16 @@ function denverDateISO(): string {
 
 export function ClubBookingFork({
   basePath,
-  mtLocationId,
   clubLabel,
 }: {
   basePath: string;
-  mtLocationId: number;
+  mtLocationId?: number; // no longer used here; kept for call-site compatibility
   clubLabel: string;
 }) {
   const router = useRouter();
   const newFlow = `${basePath}/book-test`;
+  const juneFlow = `${basePath}/book/june`;
   const cutoverPassed = useMemo(() => denverDateISO() >= "2026-07-01", []);
-  const [showJune, setShowJune] = useState(false);
 
   // After July 1: skip the fork entirely, the new flow is the only system.
   useEffect(() => {
@@ -66,59 +66,41 @@ export function ClubBookingFork({
             When are you planning to come in?
           </p>
 
-          {!showJune ? (
-            <div className="mt-10 grid gap-4">
-              {/* July 1+ : new Mindbody flow */}
-              <button
-                onClick={() => router.push(newFlow)}
-                className="text-left rounded-2xl bg-[#113D33] text-white p-6 hover:bg-[#0d2e26] transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/40"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-lg font-semibold">July 1 or later</div>
-                    <div className="text-sm text-white/70 mt-1">
-                      Reserve your Remedy Lounge session in our new booking experience.
-                    </div>
+          <div className="mt-10 grid gap-4">
+            {/* July 1+ : new Mindbody flow (our own flow — client nav is fine) */}
+            <button
+              onClick={() => router.push(newFlow)}
+              className="text-left rounded-2xl bg-[#113D33] text-white p-6 hover:bg-[#0d2e26] transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/40"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-lg font-semibold">July 1 or later</div>
+                  <div className="text-sm text-white/70 mt-1">
+                    Reserve your Remedy Lounge session in our new booking experience.
                   </div>
-                  <svg className="w-6 h-6 shrink-0 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
                 </div>
-              </button>
-
-              {/* June : Mariana Tek */}
-              <button
-                onClick={() => setShowJune(true)}
-                className="text-left rounded-2xl bg-white border border-[#113D33]/10 p-6 hover:border-[#113D33]/30 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-lg font-semibold">In June (through the 30th)</div>
-                    <div className="text-sm opacity-70 mt-1">
-                      Book through our current system.
-                    </div>
-                  </div>
-                  <svg className="w-6 h-6 shrink-0 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          ) : (
-            <div className="mt-10">
-              <button
-                onClick={() => setShowJune(false)}
-                className="text-sm underline underline-offset-4 opacity-70 hover:opacity-100 mb-4"
-              >
-                ← Back
-              </button>
-              <div className="rounded-2xl bg-[#113D33] text-white p-5 sm:p-6 text-sm sm:text-base leading-relaxed mb-6">
-                Booking a June visit. From July 1, use the new experience for July
-                dates and beyond.
+                <svg className="w-6 h-6 shrink-0 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
               </div>
-              <MarianaBookingWidget locationId={mtLocationId} />
-            </div>
-          )}
+            </button>
+
+            {/* June : Mariana Tek — plain <a> for a FULL page load so the widget renders */}
+            <a
+              href={juneFlow}
+              className="text-left rounded-2xl bg-white border border-[#113D33]/10 p-6 hover:border-[#113D33]/30 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 block"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-lg font-semibold">In June (through the 30th)</div>
+                  <div className="text-sm opacity-70 mt-1">Book through our current system.</div>
+                </div>
+                <svg className="w-6 h-6 shrink-0 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
 
           <div className="mt-10 border-t border-black/10 pt-6 text-center text-sm opacity-75">
             <Link href={basePath} className="underline underline-offset-4">
