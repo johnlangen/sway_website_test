@@ -11,8 +11,9 @@ function getDaysUntilApril1(): number {
   return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
 }
 
-/** Pages where the banner should not appear (booking flows, landing pages) */
-const HIDDEN_PATHS = ["/book-aescape", "/book-service", "/book-remedy-room", "/book", "/themavenhotel"];
+/** Pages where the banner should not appear (booking flows, landing pages, and
+ *  the club locations — it's a Larimer membership promo). */
+const HIDDEN_PATHS = ["/book-aescape", "/book-service", "/book-remedy-room", "/book", "/themavenhotel", "/locations/denver-rino", "/locations/denver-central-park"];
 
 export default function CountdownBanner() {
   const [daysLeft, setDaysLeft] = useState<number | null>(null);
