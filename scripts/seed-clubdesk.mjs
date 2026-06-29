@@ -74,12 +74,23 @@ const attention = dict(join(HOME, "sway-mindbody-migration", "needs-attention.cs
     location: r["Location"],
   }));
 
+// --- day passes: unredeemed All Access Visit Passes (paid + comp) ---
+const daypasses = dict(join(HOME, "sway-mindbody-migration", "day-passes-to-honor.csv"))
+  .map((r) => ({
+    id: `${r["Email"] || r["Name"]}|${r["Type"]}`,
+    name: r["Name"],
+    email: r["Email"],
+    passes: r["Passes"],
+    type: r["Type"], // "paid" | "comp"
+    location: r["Location"],
+  }));
+
 console.log(`Seeding -> ${PROD}`);
-console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length}`);
+console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length}`);
 
 const res = await fetch(`${PROD}/api/clubdesk?action=seed&secret=${encodeURIComponent(SECRET)}`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ giftcards, credits, cards, attention }),
+  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses }),
 });
 console.log(`HTTP ${res.status}:`, await res.text());

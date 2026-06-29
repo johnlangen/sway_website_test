@@ -9,11 +9,12 @@ import { useEffect, useMemo, useState } from "react";
  */
 
 type Done = Record<string, { done: boolean; by?: string; at?: string; note?: string }>;
-type Tab = "giftcards" | "credits" | "cards" | "attention";
+type Tab = "giftcards" | "credits" | "cards" | "daypasses" | "attention";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "giftcards", label: "Gift Cards" },
   { key: "credits", label: "Credits" },
+  { key: "daypasses", label: "Day Passes" },
   { key: "cards", label: "Cards to Collect" },
   { key: "attention", label: "Needs Attention" },
 ];
@@ -27,6 +28,10 @@ const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
   credits: {
     what: "Drop-in customers who pre-paid for recovery or modality sessions in the old system (session packs, not memberships). These didn't carry over automatically.",
     todo: "When they come in to use a session, find them here, see how many they have left, then apply the session for them in Mindbody (no charge). Tick the box once it's applied.",
+  },
+  daypasses: {
+    what: "Customers with unused All Access day passes from the old system. Each pass = one full day of access (sauna, cold plunge, etc.) + guests. PAID = they bought it. COMP = it was given free.",
+    todo: "When they come in to use a day, find them here, confirm how many passes they have left, then apply a day's visit in Mindbody. Use the Paid/Comp filter — we honor Paid; Comp is optional. Tick the box once redeemed.",
   },
   cards: {
     what: "Members who are set up but have NO credit card on file — their membership payment will fail on the date shown if we don't get a card.",
@@ -43,12 +48,13 @@ export function ClubDesk() {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; attention: any[]; done: Done }>({
-    giftcards: [], credits: [], cards: [], attention: [], done: {},
+  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; done: Done }>({
+    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], done: {},
   });
   const [tab, setTab] = useState<Tab>("giftcards");
   const [q, setQ] = useState("");
   const [hideDone, setHideDone] = useState(false);
+  const [passFilter, setPassFilter] = useState<"all" | "paid" | "comp">("all");
 
   // pull secret from URL once
   useEffect(() => {
@@ -63,7 +69,7 @@ export function ClubDesk() {
       if (r.status === 401) { setErr("Wrong secret."); setAuthed(false); return; }
       if (!r.ok) { setErr(`Error ${r.status}`); return; }
       const d = await r.json();
-      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], attention: d.attention || [], done: d.done || {} });
+      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], done: d.done || {} });
       setAuthed(true);
     } catch (e: any) { setErr(e.message || "Failed to load"); }
     finally { setLoading(false); }
@@ -90,13 +96,14 @@ export function ClubDesk() {
       const hay = Object.values(r).join(" ").toLowerCase();
       if (needle && !hay.includes(needle)) return false;
       if (hideDone && data.done[`${tab}:${r.id}`]?.done) return false;
+      if (tab === "daypasses" && passFilter !== "all" && r.type !== passFilter) return false;
       return true;
     });
-  }, [data, tab, q, hideDone]);
+  }, [data, tab, q, hideDone, passFilter]);
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
-      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, attention: { total: 0, left: 0 },
+      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 },
     };
     for (const t of TABS) {
       const list = (data[t.key] as any[]) || [];
@@ -167,6 +174,21 @@ export function ClubDesk() {
           </label>
         </div>
 
+        {tab === "daypasses" && (
+          <div className="flex items-center gap-1.5 mb-3">
+            {([
+              { key: "all", label: "All" },
+              { key: "paid", label: "Paid" },
+              { key: "comp", label: "Comp" },
+            ] as const).map((f) => (
+              <button key={f.key} onClick={() => setPassFilter(f.key)}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${passFilter === f.key ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/15 hover:border-[#113D33]/40"}`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="text-xs opacity-60 mb-2">{rows.length} shown · {counts[tab].left} of {counts[tab].total} left</div>
 
         <div className="space-y-2">
@@ -211,6 +233,23 @@ function Row({ tab, r }: { tab: Tab; r: any }) {
           <span className="font-bold shrink-0">{r.remaining} left</span>
         </div>
         <div className="text-xs opacity-70 mt-0.5">{r.package}{r.email ? ` · ${r.email}` : ""}{r.expires ? ` · exp ${r.expires}` : ""}{r.location ? ` · ${r.location}` : ""}</div>
+      </>
+    );
+  }
+  if (tab === "daypasses") {
+    const isComp = String(r.type) === "comp";
+    return (
+      <>
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold truncate">{r.name || "(no name)"}</span>
+          <span className="font-bold shrink-0">{r.passes} {Number(r.passes) === 1 ? "pass" : "passes"}</span>
+        </div>
+        <div className="text-xs opacity-70 mt-0.5 flex items-center gap-1.5">
+          <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold ${isComp ? "bg-[#B4541B]/15 text-[#B4541B]" : "bg-[#113D33]/10 text-[#113D33]"}`}>
+            {isComp ? "COMP" : "PAID"}
+          </span>
+          <span>{r.email}{r.location ? ` · ${r.location}` : ""}</span>
+        </div>
       </>
     );
   }
