@@ -35,6 +35,7 @@ const K = {
   cards: "clubdesk:cards",
   attention: "clubdesk:attention",
   daypasses: "clubdesk:daypasses",
+  arrangements: "clubdesk:arrangements",
   done: "clubdesk:done",
 };
 
@@ -50,12 +51,13 @@ export async function GET(req: Request) {
   const redis = getRedis();
   if (!redis) return NextResponse.json({ error: "Redis not configured" }, { status: 500 });
 
-  const [giftcards, credits, cards, attention, daypasses, done] = await Promise.all([
+  const [giftcards, credits, cards, attention, daypasses, arrangements, done] = await Promise.all([
     redis.get(K.giftcards),
     redis.get(K.credits),
     redis.get(K.cards),
     redis.get(K.attention),
     redis.get(K.daypasses),
+    redis.get(K.arrangements),
     redis.hgetall(K.done),
   ]);
 
@@ -71,6 +73,7 @@ export async function GET(req: Request) {
     cards: parseList(cards),
     attention: parseList(attention),
     daypasses: parseList(daypasses),
+    arrangements: parseList(arrangements),
     done: doneOut,
   });
 }
@@ -90,6 +93,7 @@ export async function POST(req: Request) {
       redis.set(K.cards, JSON.stringify(body.cards || [])),
       redis.set(K.attention, JSON.stringify(body.attention || [])),
       redis.set(K.daypasses, JSON.stringify(body.daypasses || [])),
+      redis.set(K.arrangements, JSON.stringify(body.arrangements || [])),
     ]);
     return NextResponse.json({
       ok: true,
@@ -99,6 +103,7 @@ export async function POST(req: Request) {
         cards: (body.cards || []).length,
         attention: (body.attention || []).length,
         daypasses: (body.daypasses || []).length,
+        arrangements: (body.arrangements || []).length,
       },
     });
   }

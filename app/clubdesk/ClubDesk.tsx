@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from "react";
  */
 
 type Done = Record<string, { done: boolean; by?: string; at?: string; note?: string }>;
-type Tab = "giftcards" | "credits" | "cards" | "daypasses" | "attention";
+type Tab = "giftcards" | "credits" | "cards" | "daypasses" | "attention" | "arrangements";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "giftcards", label: "Gift Cards" },
@@ -17,6 +17,7 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "daypasses", label: "Day Passes" },
   { key: "cards", label: "Cards to Collect" },
   { key: "attention", label: "Needs Attention" },
+  { key: "arrangements", label: "Special Setups" },
 ];
 
 // Plain-English explainer shown at the top of each tab.
@@ -41,6 +42,10 @@ const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
     what: "Members who need follow-up. FROZEN = they paused their membership (not being charged right now). PAYMENT FAILURE = their card was declined and they may owe a balance.",
     todo: "Payment failure: ask for a new card and settle the amount owed in Mindbody. Frozen: no action unless they want to un-pause. Tick the box once handled.",
   },
+  arrangements: {
+    what: "Members whose billing was set up differently on purpose during the move to Sway. A special rate they keep, a year they already paid for, or a start date that is delayed on purpose. This is a reference so you know the story. There is nothing to redeem.",
+    todo: "If one of these people asks why their rate or their charge looks different, check here first. It is intentional. Do NOT change their price to $99. Tick the box once you have confirmed their setup is correct in Mindbody.",
+  },
 };
 
 export function ClubDesk() {
@@ -48,8 +53,8 @@ export function ClubDesk() {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; done: Done }>({
-    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], done: {},
+  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; arrangements: any[]; done: Done }>({
+    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], arrangements: [], done: {},
   });
   const [tab, setTab] = useState<Tab>("giftcards");
   const [q, setQ] = useState("");
@@ -69,7 +74,7 @@ export function ClubDesk() {
       if (r.status === 401) { setErr("Wrong secret."); setAuthed(false); return; }
       if (!r.ok) { setErr(`Error ${r.status}`); return; }
       const d = await r.json();
-      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], done: d.done || {} });
+      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], arrangements: d.arrangements || [], done: d.done || {} });
       setAuthed(true);
     } catch (e: any) { setErr(e.message || "Failed to load"); }
     finally { setLoading(false); }
@@ -103,7 +108,7 @@ export function ClubDesk() {
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
-      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 },
+      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 }, arrangements: { total: 0, left: 0 },
     };
     for (const t of TABS) {
       const list = (data[t.key] as any[]) || [];
@@ -267,6 +272,22 @@ function Row({ tab, r }: { tab: Tab; r: any }) {
           {r.email}{r.location ? ` · ${r.location}` : ""}{r.since ? ` · since ${r.since}` : ""}
         </div>
         {r.membership && <div className="text-xs opacity-50 mt-0.5">{r.membership}</div>}
+      </>
+    );
+  }
+  if (tab === "arrangements") {
+    const kind = String(r.kind || "");
+    return (
+      <>
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold truncate">{r.name || "(no name)"}</span>
+          <span className="text-xs font-semibold shrink-0 text-[#113D33]/70">{r.detail}</span>
+        </div>
+        <div className="text-xs opacity-70 mt-0.5 flex items-center gap-1.5">
+          {kind && <span className="inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold bg-[#113D33]/10 text-[#113D33]">{kind.toUpperCase()}</span>}
+          <span className="truncate">{r.email}{r.location ? ` · ${r.location}` : ""}</span>
+        </div>
+        {r.note && <div className="text-xs opacity-70 mt-1 leading-relaxed">{r.note}</div>}
       </>
     );
   }

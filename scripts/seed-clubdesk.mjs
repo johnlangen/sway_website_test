@@ -85,12 +85,25 @@ const daypasses = dict(join(HOME, "sway-mindbody-migration", "day-passes-to-hono
     location: r["Location"],
   }));
 
+// --- special arrangements: members set up differently on purpose (grandfathered
+//     rate, prepaid year, deferred start) — front-desk reference, nothing to redeem ---
+const arrangements = dict(join(HOME, "sway-mindbody-migration", "special-arrangements.csv"))
+  .map((r) => ({
+    id: r["Email"] || r["Name"],
+    name: r["Name"],
+    email: r["Email"],
+    location: r["Location"],
+    kind: r["Type"],     // "Rate" | "Prepaid" | "Deferred"
+    detail: r["Detail"],
+    note: r["Note"],
+  }));
+
 console.log(`Seeding -> ${PROD}`);
-console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length}`);
+console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length} | arrangements: ${arrangements.length}`);
 
 const res = await fetch(`${PROD}/api/clubdesk?action=seed&secret=${encodeURIComponent(SECRET)}`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses }),
+  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses, arrangements }),
 });
 console.log(`HTTP ${res.status}:`, await res.text());
