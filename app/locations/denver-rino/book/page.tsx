@@ -1,7 +1,5 @@
-import { ClubBookingFork } from "@/app/components/ClubBookingFork";
+import ClubServiceFlow from "@/app/components/ClubServiceFlow";
 
 export default function SwayRinoBookPage() {
-  return (
-    <ClubBookingFork basePath="/locations/denver-rino" mtLocationId={48717} clubLabel="RiNo" />
-  );
+  return <ClubServiceFlow clubKey="denver-rino" />;
 }

@@ -12,10 +12,8 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/internal/",
           "/membership-join-preview",
-          "/locations/denver-rino/book-test",
           "/locations/denver-rino/book-service-test",
           "/locations/denver-rino/book-remedy-lounge",
-          "/locations/denver-central-park/book-test",
           "/locations/denver-central-park/book-service-test",
           "/locations/denver-central-park/book-remedy-lounge",
         ],

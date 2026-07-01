@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://swaywellnessspa.com/clubs/book/",
   },
-  // Bridge-period club chooser (routes to the Mariana Tek widget pages).
-  // Kept out of the index until the Mindbody booking experience replaces it
-  // this summer. Mirrors the per-location /book layouts.
+  // Thin location-agnostic club chooser (routes to the two per-location /book
+  // pages). Kept out of the index so it doesn't compete with those canonical
+  // booking pages; the per-location /book pages carry the SEO.
   robots: { index: false, follow: true },
 };
 

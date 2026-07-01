@@ -70,18 +70,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   /* ------------------------------------------------------------------
      Denver RiNo location (open — Sway Remedy Lounge)
-     /book is the Mariana Tek bridge page and is intentionally noindex.
      ------------------------------------------------------------------ */
   const rinoPages = [
     { url: `${base}/locations/denver-rino/`, changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${base}/locations/denver-rino/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------
      Denver Central Park location (open — Sway Remedy Lounge)
-     /book is the Mariana Tek bridge page and is intentionally noindex.
      ------------------------------------------------------------------ */
   const centralParkPages = [
     { url: `${base}/locations/denver-central-park/`, changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${base}/locations/denver-central-park/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------

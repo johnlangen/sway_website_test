@@ -9,9 +9,7 @@ export const metadata: Metadata = {
     canonical:
       "https://swaywellnessspa.com/locations/denver-central-park/book/",
   },
-  // Bridge-period booking page (Mariana Tek widget). Kept out of the index
-  // until the Mindbody booking experience replaces it this summer.
-  robots: { index: false, follow: true },
+  robots: { index: true, follow: true },
 };
 
 export default function CentralParkBookLayout({

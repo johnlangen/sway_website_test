@@ -298,13 +298,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
   const contactEmail = club.contactEmail;
 
   const today = useMemo(() => new Date(), []);
-  // Mindbody booking opens July 1, 2026 — the clubs run on Mariana Tek through
-  // June 30, so floor the picker at July 1 until then to keep June bookings off
-  // the new system. (month index 6 = July.) After July 1 the floor is just today.
-  const bookFloor = useMemo(() => {
-    const july1 = new Date(2026, 6, 1);
-    return today > july1 ? today : july1;
-  }, [today]);
+  // Booking floor is today (the clubs are fully on Mindbody as of July 1, 2026).
+  const bookFloor = today;
 
   const [weekStart, setWeekStart] = useState(bookFloor);
   const [selectedDate, setSelectedDate] = useState(formatISO(bookFloor));
@@ -377,7 +372,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   const [marketingOptIn, setMarketingOptIn] = useState(true);
 
-  // MUST match the keys ClubServiceFlow (the /book-test hub) writes, so the
+  // MUST match the keys ClubServiceFlow (the /book hub) writes, so the
   // member picked at the hub carries into this flow. (They previously differed,
   // which let a stale saved email silently override the hub's selection.)
   const SAVED_EMAIL_KEY = `sway_club_booking_email_${club.key}`;
@@ -1134,7 +1129,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   function handleHeaderBack() {
     setError(null);
-    if (step === "select") { router.push(`${basePath}/book-test?view=services`); return; }
+    if (step === "select") { router.push(`${basePath}/book?view=services`); return; }
     if (step === "sauna") { setStep("select"); return; }
     if (step === "email") { setStep("sauna"); return; }
     if (step === "name") { setStep(memberCheckDone && clientId ? "sauna" : "email"); return; }

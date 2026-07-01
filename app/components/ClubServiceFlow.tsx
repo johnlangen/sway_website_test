@@ -266,7 +266,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   const club = getClubLocation(clubKey)!;
   const SITE_ID = club.siteId;
   const basePath = `/locations/${club.key}`;
-  const hubPath = `${basePath}/book-test`;
+  const hubPath = `${basePath}/book`;
   const remedyPath = `${basePath}/book-remedy-lounge`;
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category");

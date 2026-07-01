@@ -6,9 +6,6 @@ import { getClubLocation, type ClubLocationKey } from "@/lib/clubLocations";
  * Central "Book Your Experience" hub for the Sway Wellness Club locations
  * (RiNo + Central Park). Mirrors the Larimer /book welcome screen, but offers
  * only the treatments these club sites run: Remedy Lounge, Massage, Facial.
- *
- * TEMPORARY route: lives at /locations/<club>/book-test so it does not override
- * the existing Mariana Tek /book page during the bridge period.
  */
 export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
   const club = getClubLocation(clubKey)!;

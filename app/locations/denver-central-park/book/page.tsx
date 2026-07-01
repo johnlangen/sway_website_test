@@ -1,7 +1,5 @@
-import { ClubBookingFork } from "@/app/components/ClubBookingFork";
+import ClubServiceFlow from "@/app/components/ClubServiceFlow";
 
 export default function SwayCentralParkBookPage() {
-  return (
-    <ClubBookingFork basePath="/locations/denver-central-park" mtLocationId={48718} clubLabel="Central Park" />
-  );
+  return <ClubServiceFlow clubKey="denver-central-park" />;
 }
