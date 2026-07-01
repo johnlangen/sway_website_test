@@ -1117,7 +1117,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <div className="p-6 space-y-3">
                     <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center space-y-1.5">
                       <p className="text-sm text-amber-800">We don&apos;t see your account at this location yet.</p>
-                      <p className="text-xs text-amber-700/90">If you&apos;re a member at Spavia or another Sway location, this is your first visit here, so continue as a guest to set up your profile at this location. Your membership pricing still applies at checkout.</p>
+                      <p className="text-xs text-amber-700/90">That&apos;s normal if your membership is at our other club (RiNo or Central Park), or at Spavia or another Sway location. Each location keeps its own accounts, so this is just your first visit to this one. Continue as a guest to set up your profile here, and your member pricing still applies at checkout. You&apos;ll be recognized at this location next time.</p>
                     </div>
                     <div className="flex gap-2">
                       <button onClick={() => { setWelcomeResult(null); setEmail(""); }}
