@@ -19,21 +19,36 @@ const KEY_DATES = {
 
 // DAILY_STATUS — top-of-dashboard daily update. Edit this every working day.
 const DAILY_STATUS = {
-  date: "Monday June 1 2026",
-  headline: "APA closes today. 159 members rolling in (+27 net). Mindbody data team engaged via Katie. Mindbody cutover target June 15 (gated by Stripe migration). MT extends through end of June as backstop. Signage + brand launch ~July 1 (decoupled from system cutover).",
+  date: "Friday June 12 2026",
+  headline: "💳 CARD DATA MIGRATED — Mindbody confirmed they can access the Stripe card file. Gap: MT only migrated cards; client profiles + memberships were never in their scope. John pulled all three datasets from MT reporting same-day and uploaded to Mindbody's BOX link. Ball is with Mindbody Data Services (profile import + contract setup). Cutover slips past June 15; MT bridge holds through end of June.",
   framing: [
-    "🟢 TODAY (June 1) = APA closes. Legal-only. Building still says Upswell. Members book through MT as always.",
-    "🔄 June 1-14 = Stripe migration in motion. MT continues publicly. Mindbody being prepped behind scenes.",
-    "🎯 June 15 (target, Stripe-gated) = Mindbody system cutover. Sway booking widget on swaywellnessspa.com swaps from MT-embed → native Mindbody. MT stays alive as backstop.",
-    "🎯 ~July 1 (± a week) = Signage day + GBP rename + 8.5k list email + public brand moment. Decoupled from system cutover.",
-    "🎯 Mid-to-late July = Massage + facial bookable. FTV campaigns + heavy acquisition begins.",
-    "🛟 MT extends through end of June regardless. Mindbody cutover slips if Stripe migration slips.",
+    "✅ Card migration DONE (June 12). MT's Stripe export (PGP/SFTP, sent June 8) confirmed readable by Mindbody Data Services. The piece we feared most is the piece that's finished.",
+    "🔄 Scope clarification (June 12): MT 'migration' = cards ONLY. Profiles, memberships, credits were never included — they come from MT reporting exports, which we control. No more waiting on MT for anything.",
+    "📦 Uploaded to Mindbody BOX (June 12): sway-client-profiles-20260612.csv (~9.4k profiles), sway-membership-details-20260612.csv (~3.2k records, 199 active), sway-outstanding-credits-20260612.csv (61 packages / 53 customers / 77 credits). All share Customer ID + email keys.",
+    "🎯 Next gate: Mindbody Data Services imports profiles, links migrated cards, sells contracts to the 199 active members. We asked them to handle contract-selling (not manual on our side).",
+    "🛟 MT bridge holds through end of June. June 15 cutover target is officially soft — slips week-by-week with Data Services turnaround.",
+    "🃏 Fallback if Data Services drags: API import of profiles ourselves (AddClient verified pattern), manual back-office contract sales (199 = one long day), desk sheet for credits. Not hostage to their timeline.",
   ],
   pending: [
     {
-      label: "MT migration test file from Heather's rep",
-      detail: "Heather 'hounding MarianaTek' for the migration files — they've been working on it since last week. This is the actual bottleneck. Once the test file lands, Mindbody data team (already engaged via Katie) can validate the import path.",
-      owner: "Awaiting Mariana Tek (via Heather)",
+      label: "Mindbody Data Services: import profiles + sell contracts + credits answer",
+      detail: "Three files uploaded to BOX June 12, email sent to Michael Calderon same day. Need from them: (1) profile import w/ card linkage, (2) contracts sold to 199 active members at grandfathered rates — requires our pricing options in both site IDs first, (3) recommendation on outstanding credits: session packages vs account credit balances vs we handle manually. Sent Friday evening — chase Monday if quiet.",
+      owner: "Mindbody (Michael Calderon) — John chases",
+    },
+    {
+      label: "Pricing options built in both new site IDs before contract import",
+      detail: "Data Services selling contracts to 199 actives presupposes matching pricing options exist in RiNo + CP site IDs ($99 Founding, $0 comp/partner tiers, legacy $129/$159/etc holdouts, 1× $1,599 annual). Verify built BEFORE Data Services starts or we burn a round-trip.",
+      owner: "John + Emily",
+    },
+    {
+      label: "Frozen (6) + payment-failure (23) accounts — manual handling post-import",
+      detail: "Decision June 12: these do NOT go through Data Services contract import. Handle manually after profiles land — frozen stay frozen, payment-failure get card-verification outreach before any billing.",
+      owner: "John / front desk",
+    },
+    {
+      label: "Yoga + event credits — resolve directly with customers, no import",
+      detail: "From outstanding-credits pull: 13 Movement Only (yoga) + 14 Events packages have no Sway service to redeem against. Resolve per yoga-offboarding plan (extension / refund / convert to recovery credit). The ~34 recovery/modality packages are the only import candidates.",
+      owner: "John + Heather",
     },
     {
       label: "Sway Stripe / bank hookup at MT for bridge revenue (Heather pursuing)",
@@ -72,6 +87,11 @@ const DAILY_STATUS = {
     },
   ],
   decisionsLockedToday: [
+    "✅ DECIDED (June 12): We pull all migration data ourselves from MT reporting — no more waiting on MT or Heather for exports. Customers-Details + Membership-Details + Outstanding-Credits pulled and uploaded to BOX same day.",
+    "✅ DECIDED (June 12): Data Services handles contract-selling for the 199 actives. Frozen (6) + payment-failure (23) handled manually by us post-import. Historical records (~2,980) = profiles only, no contracts.",
+    "✅ DECIDED (June 12): Yoga (13) + event (14) credits NOT imported — resolved directly with customers. Only ~34 recovery/modality packages are import candidates; format (session package vs account credit) left to Mindbody's recommendation.",
+    "📊 DATA (June 12 membership pull): 199 active. Rates confirm $99 drop executed: 107 @ $99, 77 @ $0 comp/partner/team, 7 @ $129, small legacy tail ($59-$159), 1 @ $1,599 annual.",
+    "— Older locked decisions (June 1) below —",
     "👥 Member count: 159 rolling into Sway (was 155). Net +27 in announcement period (41 new − 14 cancelled). $99 Founding rate is converting.",
     "📅 Timeline: June 1 = legal-only. June 15 (target, Stripe-gated) = Mindbody system cutover. ~July 1 = signage + GBP rename + 8.5k email + brand moment (decoupled from system cutover). Mid-July = treatments + FTV.",
     "💌 Email plan: Heather sends one more 'last chance' from her voice (MT maintenance context). 8.5k list email deferred to July 1 brand launch. Sway-voice sends start July 1.",
@@ -86,14 +106,14 @@ const DAILY_STATUS = {
     "🏢 GBP timing: name change submission ~T-5 business days before signage install (target ~July 1). Today: only update URL + phone + transition post.",
   ],
   whatsNext: [
-    "TODAY (June 1): ✅ Accepted GBP owner (both) + updated Website link, description, category. REMAINING: publish transition post on both, add Emily as Manager, confirm phone number, restore CP name qualifier. Confirm insurance live + APA closed.",
-    "Tue Jun 2: Ops walkthrough with Mackenzie + Jocelyn. Begin embedding MT widget on Sway location pages (when widget code arrives from Heather).",
-    "Wed-Fri Jun 3-5: Heather sends 'last chance' email. Vendor audit kickoff. MT test file lands → Stripe migration begins.",
-    "Jun 6-14: Stripe migration completes. Mindbody session types finalized. Test charges verify cards. Front desk training.",
-    "Jun 15 (target): Mindbody system cutover. Sway booking widget swaps from MT → native Mindbody on swaywellnessspa.com. MT stays alive as backstop through June 30.",
-    "Jun 15-30: Mindbody primary. Smooth out any edge cases. Signage produced. Submit GBP rename T-5 business days before install.",
+    "Mon Jun 15: Chase Michael if no Data Services response over the weekend. Verify pricing options exist in both new site IDs (blocks contract import).",
+    "Week of Jun 15: Data Services imports profiles + links migrated cards + sells contracts to 199 actives. Get their answer on credits import format. Watch the 30-day clock on MT's card file (expires ~Jul 8).",
+    "After profile import lands: manually handle frozen (6) + payment-failure (23). Card-verification outreach before any billing on the 23.",
+    "Cutover (was Jun 15, now floats): MT widget on swaywellnessspa.com swaps to native Mindbody once contracts + booking are verified. MT stays alive as backstop through June 30 — extend if needed.",
+    "Before MT shutdown: final snapshot pull (all reports, see mariana-tek-data-exports-log.md Snapshot 2) to capture June deltas.",
     "~Jul 1 (± a week): Signage day + GBP rename + 8.5k list email + brand moment.",
     "Mid-to-late July: Massage + facial bookable. FTV campaigns fire. Press push.",
+    "FALLBACK if Data Services drags: API profile import ourselves (AddClient verified), manual back-office contract sales, desk sheet for credits.",
   ],
 };
 
@@ -1488,6 +1508,29 @@ export default function UpswellDashboard() {
   const [tab, setTab] = useState<"overview" | "lounge" | "calendar" | "mylist" | "emails" | "content" | "campaigns" | "segments" | "pricing" | "blockers" | "docs">("overview");
   const [today, setToday] = useState<string>(KEY_DATES.today);
 
+  // Same staff gate as Club Desk: secret verified against /api/clubdesk
+  // (WAITLIST_ADMIN_SECRET). Supports the ?secret= bookmark pattern.
+  const [secret, setSecret] = useState("");
+  const [authed, setAuthed] = useState(false);
+  const [checking, setChecking] = useState(false);
+  const [authErr, setAuthErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    const s = new URLSearchParams(window.location.search).get("secret");
+    if (s) { setSecret(s); verify(s); }
+  }, []);
+
+  async function verify(s: string) {
+    setChecking(true); setAuthErr(null);
+    try {
+      const r = await fetch(`/api/clubdesk?secret=${encodeURIComponent(s)}`);
+      if (r.status === 401) { setAuthErr("Wrong secret."); setAuthed(false); return; }
+      if (!r.ok) { setAuthErr(`Error ${r.status}`); return; }
+      setAuthed(true);
+    } catch (e: any) { setAuthErr(e?.message || "Failed to verify"); }
+    finally { setChecking(false); }
+  }
+
   useEffect(() => {
     // Use real today if available
     const d = new Date().toISOString().slice(0, 10);
@@ -1496,6 +1539,28 @@ export default function UpswellDashboard() {
 
   const daysToAnnounce = daysBetween(today, KEY_DATES.announce);
   const daysToLaunch = daysBetween(today, KEY_DATES.launch);
+
+  if (!authed) {
+    return (
+      <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] flex items-center justify-center px-6">
+        <div className="w-full max-w-sm">
+          <h1 className="text-2xl font-semibold mb-1">Upswell Dashboard</h1>
+          <p className="text-sm opacity-70 mb-4">Staff access</p>
+          <input
+            type="password" value={secret} onChange={(e) => setSecret(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && verify(secret)}
+            placeholder="Secret" autoFocus
+            className="w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
+          />
+          <button onClick={() => verify(secret)} disabled={checking || !secret}
+            className="w-full py-3 rounded-xl bg-[#113D33] text-white font-semibold disabled:opacity-50">
+            {checking ? "Checking…" : "Enter"}
+          </button>
+          {authErr && <p className="text-red-700 text-sm mt-3">{authErr}</p>}
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance pt-20 sm:pt-24 md:pt-28">
