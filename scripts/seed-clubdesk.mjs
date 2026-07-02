@@ -117,6 +117,14 @@ const members = dict(join(HOME, "sway-mindbody-migration", "front-desk-MEMBER-re
 // --- comps: active $0 comp/partner/team members from the MT June-12 snapshot,
 //     annotated with usage (comp-members-usage.csv). Intentionally NOT enrolled
 //     in Mindbody contracts; honor access while the policy review runs. ---
+const compGroup = (m) => {
+  const s = (m || "").toLowerCase();
+  if (s.includes("team")) return "staff";
+  if (s.includes("gravity")) return "gravity";
+  if (s.includes("affiliate")) return "affiliate";
+  if (s.includes("creator")) return "creator";
+  return "individual"; // F&F, LT Buddy, $0 Foundings, misc — the conversion-review pile
+};
 const comps = dict(join(HOME, "sway-mindbody-migration", "comp-members-usage.csv"))
   .map((r) => ({
     id: r["Email"],
@@ -125,6 +133,7 @@ const comps = dict(join(HOME, "sway-mindbody-migration", "comp-members-usage.csv
     phone: r["Phone"],
     location: r["Location"],
     membership: r["Membership"],
+    group: compGroup(r["Membership"]),
     since: r["Since"],
     bucket: r["Bucket"],          // heavy | regular | occasional | none-2026
     perMonth: r["PerMonth"],      // avg visit-days/mo Jan-Jun 2026

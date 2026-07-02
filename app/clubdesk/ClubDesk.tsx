@@ -71,6 +71,7 @@ export function ClubDesk() {
   const [hideDone, setHideDone] = useState(false);
   const [passFilter, setPassFilter] = useState<"all" | "paid" | "comp">("all");
   const [bucketFilter, setBucketFilter] = useState<"all" | "heavy" | "regular" | "occasional" | "none-2026">("all");
+  const [groupFilter, setGroupFilter] = useState<"all" | "staff" | "gravity" | "affiliate" | "creator" | "individual">("all");
 
   // pull secret from URL once
   useEffect(() => {
@@ -114,9 +115,10 @@ export function ClubDesk() {
       if (hideDone && data.done[`${tab}:${r.id}`]?.done) return false;
       if (tab === "daypasses" && passFilter !== "all" && r.type !== passFilter) return false;
       if (tab === "comps" && bucketFilter !== "all" && r.bucket !== bucketFilter) return false;
+      if (tab === "comps" && groupFilter !== "all" && r.group !== groupFilter) return false;
       return true;
     });
-  }, [data, tab, q, hideDone, passFilter, bucketFilter]);
+  }, [data, tab, q, hideDone, passFilter, bucketFilter, groupFilter]);
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
@@ -207,20 +209,37 @@ export function ClubDesk() {
         )}
 
         {tab === "comps" && (
-          <div className="flex items-center gap-1.5 mb-3 flex-wrap">
-            {([
-              { key: "all", label: "All" },
-              { key: "heavy", label: "Heavy (4+/mo)" },
-              { key: "regular", label: "Regular (1-3/mo)" },
-              { key: "occasional", label: "Occasional" },
-              { key: "none-2026", label: "No 2026 visits" },
-            ] as const).map((f) => (
-              <button key={f.key} onClick={() => setBucketFilter(f.key)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${bucketFilter === f.key ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/15 hover:border-[#113D33]/40"}`}>
-                {f.label}
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="flex items-center gap-1.5 mb-2 flex-wrap">
+              {([
+                { key: "all", label: "All" },
+                { key: "heavy", label: "Heavy (4+/mo)" },
+                { key: "regular", label: "Regular (1-3/mo)" },
+                { key: "occasional", label: "Occasional" },
+                { key: "none-2026", label: "No 2026 visits" },
+              ] as const).map((f) => (
+                <button key={f.key} onClick={() => setBucketFilter(f.key)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${bucketFilter === f.key ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/15 hover:border-[#113D33]/40"}`}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+              {([
+                { key: "all", label: "All types" },
+                { key: "staff", label: "Staff" },
+                { key: "gravity", label: "Gravity Haus" },
+                { key: "affiliate", label: "Affiliate" },
+                { key: "creator", label: "Creator" },
+                { key: "individual", label: "Individual / Other" },
+              ] as const).map((f) => (
+                <button key={f.key} onClick={() => setGroupFilter(f.key)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${groupFilter === f.key ? "bg-[#B4541B] text-white" : "bg-white border border-[#B4541B]/25 text-[#B4541B] hover:border-[#B4541B]/50"}`}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </>
         )}
 
         <div className="text-xs opacity-60 mb-2">{rows.length} shown · {counts[tab].left} of {counts[tab].total} left</div>
