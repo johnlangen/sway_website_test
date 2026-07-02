@@ -116,12 +116,12 @@ export function generateSlotStarts(
 }
 
 /**
- * Fixed session waves: start times every `stepMin` minutes anchored at each
- * availability window's own start (i.e. the day's open). With the 85-min
- * Lounge block this yields waves like 10:00, 11:25, 12:50... so every guest
- * in a wave shares the same start, and the +0/25/50 sauna rotation windows
- * align across guests by construction. bookableEnd IS the last valid start
- * (token-free consumer semantics, see generateSlotStarts note above).
+ * Start times every `stepMin` minutes anchored at each availability window's
+ * own start (i.e. the day's open). The Lounge uses stepMin=25 (rolling entry,
+ * matching the sauna sub-slot cadence so every guest's +0/25/50 rotation
+ * windows share one lattice); before 2026-07-01 it used stepMin=85 (fixed
+ * shared waves). bookableEnd IS the last valid start (token-free consumer
+ * semantics, see generateSlotStarts note above).
  */
 export function generateWaveStarts(
   windows: { start: string; bookableEnd: string }[],

@@ -12,11 +12,15 @@ import {
 /**
  * Availability for the Sway Wellness Club locations (RiNo / Central Park).
  *
- * The Lounge runs in fixed 85-min session waves anchored at open (10:00, 11:25,
- * 12:50, ...), each capped at concurrent occupancy (15 RiNo / 18 CP). Mindbody
- * does not enforce that cap, so for a Lounge request we compute true concurrency
- * ourselves and return gated waves (with booked counts) plus the raw sauna
- * appointments so the client can gate the 25-min sauna rotation windows too.
+ * The Lounge offers rolling entry: start times every 25 minutes anchored at open
+ * (10:00, 10:25, 10:50, ...), with the room capped at concurrent occupancy
+ * (15 RiNo / 18 CP). Each entry still occupies a full 85-min block (75 service +
+ * 10 buffer). Mindbody does not enforce that cap, so for a Lounge request we
+ * compute true concurrency ourselves and return gated entry slots (with booked
+ * counts) plus the raw sauna appointments so the client can gate the 25-min
+ * sauna rotation windows too. (Was fixed 85-min waves until 2026-07-01 —
+ * switched to the 25-min grid at ops' request; peakOverlap gating is
+ * start-pattern-agnostic so capacity enforcement is unchanged.)
  *
  * The window lookup (bookableitems) stays token-free; the occupancy lookup needs
  * the per-site staff token. If that token isn't available we degrade to ungated
@@ -102,13 +106,19 @@ export async function GET(req: Request) {
       return NextResponse.json({ windows });
     }
 
-    // Lounge request: lay fixed session waves (one per full backend block of
-    // serviceMinutes + bufferMinutes = 85) and gate each wave by true
-    // concurrent occupancy of the Lounge room. Also return the saunas' booked
-    // intervals + capacities so the client can gate the 25-min windows.
+    // Lounge request: lay rolling entry times every 25 min anchored at open,
+    // and gate each entry by true concurrent occupancy of the Lounge room over
+    // its full 85-min block (serviceMinutes + bufferMinutes). Also return the
+    // saunas' booked intervals + capacities so the client can gate the 25-min
+    // windows. ENTRY_STEP_MIN must equal the sauna sub-slot length (25): that
+    // keeps every guest's +0/25/50 sauna windows on one shared lattice, so
+    // windows either coincide exactly (Mindbody stacks same-start appts) or are
+    // disjoint — never crossing an existing window's start, which Mindbody
+    // rejects (verified live 2026-06-10).
+    const ENTRY_STEP_MIN = 25;
     const blockMin =
       club.remedyLounge.serviceMinutes + club.remedyLounge.bufferMinutes;
-    const slotStarts = generateWaveStarts(windows, blockMin);
+    const slotStarts = generateWaveStarts(windows, ENTRY_STEP_MIN);
 
     const saunas: Record<
       string,

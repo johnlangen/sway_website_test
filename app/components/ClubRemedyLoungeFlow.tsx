@@ -76,12 +76,12 @@ function parseMindbodyDateTime(raw: string) {
 }
 
 /**
- * Build fixed session-wave start times from availability windows (degraded
- * fallback when the server couldn't gate by occupancy): one wave per backend
- * block, anchored at each window's start, mirroring generateWaveStarts on the
- * server. bookableEnd IS the last valid start: the windows come from a
- * token-free bookableitems call, where Mindbody already subtracts the service
- * length (see lib/clubOccupancy.ts — do not subtract the service block again).
+ * Build rolling entry start times from availability windows (degraded fallback
+ * when the server couldn't gate by occupancy): starts every stepMin (25),
+ * anchored at each window's start, mirroring generateWaveStarts on the server.
+ * bookableEnd IS the last valid start: the windows come from a token-free
+ * bookableitems call, where Mindbody already subtracts the service length (see
+ * lib/clubOccupancy.ts — do not subtract the service block again).
  */
 function generateTimesFromWindows(
   windows: { start: string; bookableEnd: string }[],
@@ -465,13 +465,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     );
   }
 
-  /* Sauna rotation windows for the selected wave: +0 / +25 / +50 from the wave
-     start. Lounge sessions run in fixed 85-min waves shared by all guests, so
-     these windows are identical for everyone in the wave and windows from
-     different waves never overlap (10-min cleanup gap). That alignment matters:
-     Mindbody rejects a sauna appointment whose window CROSSES the start of an
-     existing one, but stacks same-start appointments fine (verified live
-     2026-06-10, appts 38/42/43). */
+  /* Sauna rotation windows for the selected session: +0 / +25 / +50 from the
+     Lounge start. Entry times are laid on a 25-min grid (same cadence as the
+     sub-slots), so every guest's windows land on one shared lattice: windows
+     from different sessions either coincide exactly or are disjoint. That
+     alignment matters: Mindbody rejects a sauna appointment whose window
+     CROSSES the start of an existing one, but stacks same-start appointments
+     fine (verified live 2026-06-10, appts 38/42/43). */
   const saunaWindows = useMemo(() => {
     if (!selectedTime) return [] as Date[];
     return Array.from(
@@ -620,7 +620,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     fetch(`/api/club/availability?siteId=${SITE_ID}&sessionTypeId=${LOUNGE_ST}&date=${selectedDate}`)
       .then((res) => res.json())
       .then((data) => {
-        // Preferred path: occupancy-gated session waves. Keep full waves in the
+        // Preferred path: occupancy-gated entry times. Keep full slots in the
         // list (rendered disabled) so the day's session times stay visible.
         if (Array.isArray(data.slots)) {
           setOccupancyKnown(data.occupancyKnown !== false);
@@ -653,14 +653,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
           return;
         }
         // Fallback: ungated windows (degraded — book route still guards capacity).
+        // Same 25-min entry grid as the server (must match SUB_SLOT_MIN so
+        // sauna windows stay lattice-aligned across guests).
         if (Array.isArray(data.windows)) {
           setOccupancyKnown(false);
-          setTimes(
-            generateTimesFromWindows(
-              data.windows,
-              SERVICE_MIN + club!.remedyLounge.bufferMinutes
-            )
-          );
+          setTimes(generateTimesFromWindows(data.windows, SUB_SLOT_MIN));
           return;
         }
         setTimes([]);
