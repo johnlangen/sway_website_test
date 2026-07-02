@@ -63,7 +63,7 @@ Always assume this site is live and revenue-impacting.
 
 - **Address**: Sway Wellness Spa is at **1428 Larimer St., Denver, CO 80202** (NOT 1509 Larimer)
 - **Arrival time**: Guests should arrive **15 minutes early** (NOT 5 minutes)
-- **Sauna**: Traditional sauna — do NOT say "infrared sauna"
+- **Sauna**: At **Sway Larimer** it is a **traditional sauna** — do NOT say "infrared sauna" for Larimer. EXCEPTION: the **RiNo** and **Central Park** clubs genuinely have **infrared** cabins (the "Glow" rooms), so "infrared sauna" is correct and allowed on those two club pages. Scope the term to the location.
 - **Remedy Room compression**: Do NOT say "Normatec" — use "compression therapy" (brand-neutral)
 - **Aescape sessions**: 15, 30, 45, or 60 minutes — do NOT say "30 or 60" (stale)
 - **Facials brand split**: Eminence Organics powers most of the menu (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk). Dr. Dennis Gross is its OWN dedicated Vitamin C facial (Premier + Ultimate tiers). They are NOT a combined per-treatment protocol — do NOT say "Eminence paired with Dr. Dennis Gross" or any phrasing implying every facial uses both.
@@ -104,12 +104,14 @@ All three booking flows push the same shared funnel events to `dataLayer`, with 
 - Aescape: `aescape_booking_complete` + Google Ads conversion
 - Service (Massage/Facial): `service_booking_complete` + Google Ads conversion
 - Remedy Room: `remedy_room_booking_complete` + Google Ads conversion
+- Club Remedy Lounge (RiNo/CP): `remedy_lounge_booking_complete` — GA4 only, NO Google Ads conversion yet (no club campaigns; intentional). GTM tag added in container version 24 (2026-07-01) with params booking_location / value / currency / is_member.
 
 ### `booking_flow` Values
 - `"aescape"` — book-aescape/page.tsx
 - `"massage"` — book-service/page.tsx (category=massage)
 - `"facial"` — book-service/page.tsx (category=facial)
 - `"remedy_room"` — book-remedy-room/page.tsx
+- `"remedy_lounge"` — ClubRemedyLoungeFlow.tsx (RiNo + Central Park clubs)
 
 ### Flow-Specific Events (no GTM tags, kept for future use)
 - Aescape: `booking_session_selected`
