@@ -98,12 +98,47 @@ const arrangements = dict(join(HOME, "sway-mindbody-migration", "special-arrange
     note: r["Note"],
   }));
 
+// --- members: the enrolled PAYING roster (front-desk-MEMBER-reference.csv) ---
+//     Mindbody shows these as Non-Member until their first charge date; they
+//     are active members NOW.
+const members = dict(join(HOME, "sway-mindbody-migration", "front-desk-MEMBER-reference.csv"))
+  .map((r) => ({
+    id: r["Email"],
+    name: r["Name"],
+    email: r["Email"],
+    phone: r["Phone"],
+    location: r["Site"],
+    kind: "paid",
+    startDate: r["MemberFrom(charges)"],
+    note: r["Note"],
+  }))
+  .sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+
+// --- comps: active $0 comp/partner/team members from the MT June-12 snapshot,
+//     annotated with usage (comp-members-usage.csv). Intentionally NOT enrolled
+//     in Mindbody contracts; honor access while the policy review runs. ---
+const comps = dict(join(HOME, "sway-mindbody-migration", "comp-members-usage.csv"))
+  .map((r) => ({
+    id: r["Email"],
+    name: r["Name"],
+    email: r["Email"],
+    phone: r["Phone"],
+    location: r["Location"],
+    membership: r["Membership"],
+    since: r["Since"],
+    bucket: r["Bucket"],          // heavy | regular | occasional | none-2026
+    perMonth: r["PerMonth"],      // avg visit-days/mo Jan-Jun 2026
+    visitDays2026: r["VisitDays2026"],
+    lastVisit: r["LastVisit"],
+  }))
+  .sort((a, b) => Number(b.visitDays2026) - Number(a.visitDays2026));
+
 console.log(`Seeding -> ${PROD}`);
-console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length} | arrangements: ${arrangements.length}`);
+console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length} | arrangements: ${arrangements.length} | members: ${members.length} | comps: ${comps.length}`);
 
 const res = await fetch(`${PROD}/api/clubdesk?action=seed&secret=${encodeURIComponent(SECRET)}`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses, arrangements }),
+  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses, arrangements, members, comps }),
 });
 console.log(`HTTP ${res.status}:`, await res.text());

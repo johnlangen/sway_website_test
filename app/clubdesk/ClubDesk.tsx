@@ -9,9 +9,11 @@ import { useEffect, useMemo, useState } from "react";
  */
 
 type Done = Record<string, { done: boolean; by?: string; at?: string; note?: string }>;
-type Tab = "giftcards" | "credits" | "cards" | "daypasses" | "attention" | "arrangements";
+type Tab = "members" | "comps" | "giftcards" | "credits" | "cards" | "daypasses" | "attention" | "arrangements";
 
 const TABS: { key: Tab; label: string }[] = [
+  { key: "members", label: "Members" },
+  { key: "comps", label: "Comps" },
   { key: "giftcards", label: "Gift Cards" },
   { key: "credits", label: "Credits" },
   { key: "daypasses", label: "Day Passes" },
@@ -22,6 +24,14 @@ const TABS: { key: Tab; label: string }[] = [
 
 // Plain-English explainer shown at the top of each tab.
 const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
+  members: {
+    what: "The enrolled PAYING members we carried over from the old system. Mindbody may show them as \"Non-Member\" until their first charge date (shown on the card) — they ARE active members; that label is just how future start dates look in Mindbody.",
+    todo: "If someone says they're a member but Mindbody shows nothing under their account, look them up HERE first. Found = treat as an active member and honor access. Not here? Check the Comps tab. Not there either and not in Mindbody = ask a manager. This tab is reference only — nothing to check off.",
+  },
+  comps: {
+    what: "People who had a FREE ($0) membership in the old system — team, partners (Gravity Haus, Affiliates, Creators), friends & family, and a few individual comps. They have NO membership in Mindbody on purpose. The tag shows how often they actually visited Jan-June: HEAVY 4+/mo, REGULAR 1-3/mo, OCCASIONAL under 1/mo, NO 2026 VISITS. Policy review is underway with ownership.",
+    todo: "Honor their access for now and do NOT discuss membership changes or ask them to pay — ownership is deciding each person's setup and will reach out first. If one asks about their status, say their access continues as normal and a note about the new system is coming. Tick the box only when a manager says that person's situation is settled.",
+  },
   giftcards: {
     what: "Gift cards people bought in the old system (Mariana Tek) that have NOT been used yet.",
     todo: "When a guest wants to use one, find it by their name or the card number, see the dollar amount, then add that amount as a gift card on their account in Mindbody. Tick the box once it's added.",
@@ -53,13 +63,14 @@ export function ClubDesk() {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; arrangements: any[]; done: Done }>({
-    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], arrangements: [], done: {},
+  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; arrangements: any[]; members: any[]; comps: any[]; done: Done }>({
+    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], arrangements: [], members: [], comps: [], done: {},
   });
-  const [tab, setTab] = useState<Tab>("giftcards");
+  const [tab, setTab] = useState<Tab>("members");
   const [q, setQ] = useState("");
   const [hideDone, setHideDone] = useState(false);
   const [passFilter, setPassFilter] = useState<"all" | "paid" | "comp">("all");
+  const [bucketFilter, setBucketFilter] = useState<"all" | "heavy" | "regular" | "occasional" | "none-2026">("all");
 
   // pull secret from URL once
   useEffect(() => {
@@ -74,7 +85,7 @@ export function ClubDesk() {
       if (r.status === 401) { setErr("Wrong secret."); setAuthed(false); return; }
       if (!r.ok) { setErr(`Error ${r.status}`); return; }
       const d = await r.json();
-      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], arrangements: d.arrangements || [], done: d.done || {} });
+      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], arrangements: d.arrangements || [], members: d.members || [], comps: d.comps || [], done: d.done || {} });
       setAuthed(true);
     } catch (e: any) { setErr(e.message || "Failed to load"); }
     finally { setLoading(false); }
@@ -102,13 +113,14 @@ export function ClubDesk() {
       if (needle && !hay.includes(needle)) return false;
       if (hideDone && data.done[`${tab}:${r.id}`]?.done) return false;
       if (tab === "daypasses" && passFilter !== "all" && r.type !== passFilter) return false;
+      if (tab === "comps" && bucketFilter !== "all" && r.bucket !== bucketFilter) return false;
       return true;
     });
-  }, [data, tab, q, hideDone, passFilter]);
+  }, [data, tab, q, hideDone, passFilter, bucketFilter]);
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
-      giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 }, arrangements: { total: 0, left: 0 },
+      members: { total: 0, left: 0 }, comps: { total: 0, left: 0 }, giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 }, arrangements: { total: 0, left: 0 },
     };
     for (const t of TABS) {
       const list = (data[t.key] as any[]) || [];
@@ -194,6 +206,23 @@ export function ClubDesk() {
           </div>
         )}
 
+        {tab === "comps" && (
+          <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+            {([
+              { key: "all", label: "All" },
+              { key: "heavy", label: "Heavy (4+/mo)" },
+              { key: "regular", label: "Regular (1-3/mo)" },
+              { key: "occasional", label: "Occasional" },
+              { key: "none-2026", label: "No 2026 visits" },
+            ] as const).map((f) => (
+              <button key={f.key} onClick={() => setBucketFilter(f.key)}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${bucketFilter === f.key ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/15 hover:border-[#113D33]/40"}`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="text-xs opacity-60 mb-2">{rows.length} shown · {counts[tab].left} of {counts[tab].total} left</div>
 
         <div className="space-y-2">
@@ -202,7 +231,9 @@ export function ClubDesk() {
             const isDone = !!data.done[field]?.done;
             return (
               <div key={field} className={`rounded-2xl border p-3.5 flex items-start gap-3 transition ${isDone ? "bg-[#113D33]/5 border-[#113D33]/10 opacity-60" : "bg-white border-[#113D33]/12"}`}>
-                <input type="checkbox" checked={isDone} onChange={(e) => toggle(field, e.target.checked)} className="mt-1 w-5 h-5 shrink-0 accent-[#113D33]" />
+                {tab !== "members" && (
+                  <input type="checkbox" checked={isDone} onChange={(e) => toggle(field, e.target.checked)} className="mt-1 w-5 h-5 shrink-0 accent-[#113D33]" />
+                )}
                 <div className="flex-1 min-w-0">
                   <Row tab={tab} r={r} />
                 </div>
@@ -217,6 +248,45 @@ export function ClubDesk() {
 }
 
 function Row({ tab, r }: { tab: Tab; r: any }) {
+  if (tab === "members") {
+    return (
+      <>
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold truncate">{r.name || "(no name)"}</span>
+          {r.startDate && <span className="text-xs font-semibold shrink-0 text-[#113D33]/70">first charge {r.startDate}</span>}
+        </div>
+        <div className="text-xs opacity-70 mt-0.5">
+          {r.phone ? `${r.phone} · ` : ""}{r.email}{r.location ? ` · ${r.location}` : ""}
+        </div>
+        {r.note && <div className="text-xs opacity-70 mt-1 leading-relaxed">{r.note}</div>}
+      </>
+    );
+  }
+  if (tab === "comps") {
+    const b = String(r.bucket || "");
+    const badge =
+      b === "heavy" ? "bg-[#B4541B]/15 text-[#B4541B]" :
+      b === "regular" ? "bg-[#113D33]/10 text-[#113D33]" :
+      b === "occasional" ? "bg-[#113D33]/5 text-[#113D33]/70" :
+      "bg-black/5 text-black/50";
+    const label =
+      b === "heavy" ? "HEAVY" : b === "regular" ? "REGULAR" : b === "occasional" ? "OCCASIONAL" : "NO 2026 VISITS";
+    return (
+      <>
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold truncate">{r.name || "(no name)"}</span>
+          <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold shrink-0 ${badge}`}>{label}</span>
+        </div>
+        <div className="text-xs opacity-70 mt-0.5">
+          {b !== "none-2026" ? `≈${r.perMonth}/mo this year · ` : ""}
+          {r.lastVisit ? `last visit ${r.lastVisit}` : "no visit on record"}
+          {r.location ? ` · ${r.location}` : ""}
+        </div>
+        <div className="text-xs opacity-70 mt-0.5">{r.phone ? `${r.phone} · ` : ""}{r.email}</div>
+        {r.membership && <div className="text-xs opacity-50 mt-0.5">{r.membership}{r.since ? ` · since ${r.since}` : ""}</div>}
+      </>
+    );
+  }
   if (tab === "giftcards") {
     return (
       <>
