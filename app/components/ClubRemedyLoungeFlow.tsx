@@ -1170,7 +1170,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   const showHeader = step !== "done";
   const showHeaderBack = ["select", "sauna", "email", "name", "card", "confirm"].includes(step);
-  const isDarkStep = step === "select" || step === "sauna";
+  // Two-tone redesign (2026-07-01): the page chrome is cream on every step and
+  // the dark green lives only in the select-step hero panel, so the functional
+  // pickers read on high contrast. isDarkStep stays wired (set to a step check
+  // to bring the immersive dark chrome back) but is now always false.
+  const isDarkStep = false;
+  const hasStickyCta = step === "select" || step === "sauna";
 
   return (
     <div className={`min-h-screen font-vance snap-none ${isDarkStep ? "bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" : "bg-[#F7F4E9]"}`}>
@@ -1206,7 +1211,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       )}
 
       {/* Extra bottom padding clears the sticky CTA bar on select/sauna steps. */}
-      <div className={`px-4 pt-24 md:pt-28 ${isDarkStep ? "pb-36" : "pb-20"}`}>
+      <div className={`px-4 pt-24 md:pt-28 ${hasStickyCta ? "pb-36" : "pb-20"}`}>
         <div className="max-w-3xl mx-auto text-center">
           {/* Identity banner */}
           {memberCheckDone && clientId && ["select", "sauna", "email", "name", "card", "confirm"].includes(step) && (
@@ -1229,11 +1234,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
           {/* SELECT */}
           {step === "select" && (
             <>
-              {/* Hero. On mobile this stays intentionally short (eyebrow,
-                  heading, reviews, price line) so the day/session picker is
-                  reachable without scrolling; the amenity pills, photo card,
-                  and private-session note are desktop-only. */}
-              <div className="mb-6 md:mb-12">
+              {/* Hero. Dark green panel — the brand moment on the cream page
+                  (two-tone redesign 2026-07-01). On mobile this stays
+                  intentionally short (eyebrow, heading, price line) so the
+                  day/session picker is reachable without scrolling; the
+                  amenity pills, photo card, and private-session note are
+                  desktop-only. */}
+              <div className="mb-8 md:mb-12 rounded-3xl bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] shadow-xl px-5 py-7 md:px-10 md:py-10">
                 <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-3 md:mb-4">
                   Sway Wellness Club · {club.label}
                 </p>
@@ -1289,22 +1296,22 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   </a>{" "}
                   to ask about private buyouts.
                 </p>
-              </div>
 
-              <div className="hidden sm:block mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
-                <div className="text-xs uppercase tracking-wider text-[#9ABFB3] mb-1">Your selection</div>
-                <div className="font-semibold text-white">{summaryText ?? "Select a day and time to continue."}</div>
+                <div className="hidden sm:block mt-8 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
+                  <div className="text-xs uppercase tracking-wider text-[#9ABFB3] mb-1">Your selection</div>
+                  <div className="font-semibold text-white">{summaryText ?? "Select a day and time to continue."}</div>
+                </div>
               </div>
 
               {/* Day picker */}
               <section className="mb-10 md:mb-12">
-                <h2 className="text-lg font-semibold text-white/90 mb-1">Choose a Day</h2>
-                <p className="text-sm text-white/40 mb-4">
+                <h2 className="text-lg font-semibold text-[#113D33] mb-1">Choose a Day</h2>
+                <p className="text-sm text-[#113D33]/50 mb-4">
                   {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </p>
                 <div className="flex items-center justify-center gap-1">
-                  <button onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={weekStart <= bookFloor} className="p-2 rounded-full hover:bg-white/10 disabled:opacity-20 transition-all duration-150" aria-label="Previous week">
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                  <button onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={weekStart <= bookFloor} className="p-2 rounded-full hover:bg-[#113D33]/5 disabled:opacity-20 transition-all duration-150" aria-label="Previous week">
+                    <svg className="w-5 h-5 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
                   </button>
                   <div className="flex gap-1.5 overflow-x-auto scrollbar-hide px-1">
                     {weekDays.map((day) => {
@@ -1318,7 +1325,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           key={iso}
                           disabled={isPast}
                           onClick={() => setSelectedDate(iso)}
-                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${selected ? "bg-white text-[#113D33] shadow-lg" : isPast ? "opacity-25 cursor-not-allowed" : "bg-white/5 text-white hover:bg-white/10 hover:-translate-y-0.5"}`}
+                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/25 ${selected ? "bg-[#113D33] text-white shadow-lg" : isPast ? "opacity-25 cursor-not-allowed text-[#113D33]" : "bg-white text-[#113D33] border border-[#113D33]/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{day.getDate()}</span>
@@ -1326,8 +1333,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       );
                     })}
                   </div>
-                  <button onClick={() => setWeekStart(addDays(weekStart, 7))} className="p-2 rounded-full hover:bg-white/10 transition-all duration-150" aria-label="Next week">
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                  <button onClick={() => setWeekStart(addDays(weekStart, 7))} className="p-2 rounded-full hover:bg-[#113D33]/5 transition-all duration-150" aria-label="Next week">
+                    <svg className="w-5 h-5 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                   </button>
                 </div>
               </section>
@@ -1335,29 +1342,31 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               {/* Session waves */}
               <section className="mb-8 md:mb-10 text-left">
                 <div className="mb-1">
-                  <h2 className="text-lg font-semibold text-white/90 text-center">Choose a Session</h2>
+                  <h2 className="text-lg font-semibold text-[#113D33] text-center">Choose a Session</h2>
                 </div>
-                <p className="text-sm text-white/40 text-center mb-5">
+                <p className="text-sm text-[#113D33]/50 text-center mb-5">
                   Sessions run in {SERVICE_MIN}-minute blocks. Arrive at your start time.
                 </p>
                 {!loading && !error && !occupancyKnown && times.length > 0 && (
-                  <p className="mb-4 text-center text-[11px] text-amber-300/80">
+                  <p className="mb-4 text-center text-[11px] text-amber-700">
                     Live availability is updating. These sessions may fill up. We&apos;ll confirm your spot at booking.
                   </p>
                 )}
-                {loading && <p className="text-center text-white/50">Loading…</p>}
-                {error && <p className="text-center text-red-400">{error}</p>}
+                {loading && <p className="text-center text-[#113D33]/50">Loading…</p>}
+                {error && <p className="text-center text-red-600">{error}</p>}
                 {!loading && !error && times.length > 0 && (() => {
                   // Group the session waves by part of day so the list is
                   // scannable and the clubs' split (morning / afternoon) hours
                   // read as intentional rather than a gap.
                   const groups = groupByPartOfDay(times, (t) => t.getHours());
                   return (
-                    <div className="max-w-md mx-auto text-left">
+                    // Mobile keeps the stacked list; desktop lays each group as
+                    // a 2/3-col grid so the 25-min entry times fit one screen.
+                    <div className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto text-left">
                       {groups.map((g) => (
                         <div key={g.key} className="mb-6 last:mb-0">
-                          <PartOfDayHeading part={g} dark className="mb-2.5" />
-                          <div className="space-y-2.5">
+                          <PartOfDayHeading part={g} className="mb-2.5" />
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                             {g.items.map((time) => {
                               const isSelected = selectedTime?.getTime() === time.getTime();
                               const meta = slotMeta[time.getTime()];
@@ -1369,16 +1378,16 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                                   key={time.toISOString()}
                                   disabled={full}
                                   onClick={() => setSelectedTime(time)}
-                                  className={`w-full px-4 py-3.5 rounded-2xl border text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                                  className={`w-full px-4 py-3.5 rounded-2xl border text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/25 ${
                                     isSelected
-                                      ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10"
+                                      ? "bg-[#113D33] text-white border-[#113D33] shadow-lg"
                                       : full
-                                      ? "border-white/10 bg-white/5 text-white/35 cursor-not-allowed"
-                                      : "border-white/15 bg-white/5 hover:bg-white/10 text-white"
+                                      ? "border-[#113D33]/10 bg-white/50 text-[#113D33]/35 cursor-not-allowed"
+                                      : "border-[#113D33]/10 bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"
                                   }`}
                                 >
                                   <div className="flex items-center justify-between gap-3">
-                                    <span className="font-semibold">{formatTimeRange(time, SERVICE_MIN)}</span>
+                                    <span className="font-semibold text-[15px] whitespace-nowrap">{formatTimeRange(time, SERVICE_MIN)}</span>
                                     {full ? (
                                       <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider">Full</span>
                                     ) : isSelected ? (
@@ -1386,9 +1395,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                       </svg>
                                     ) : left != null && left <= 5 ? (
-                                      <span className="shrink-0 text-[11px] font-semibold text-amber-300/80">{left} left</span>
+                                      <span className="shrink-0 text-[11px] font-semibold text-amber-700">{left} left</span>
                                     ) : left != null ? (
-                                      <span className="shrink-0 text-[11px] text-white/40">{left} open</span>
+                                      <span className="shrink-0 text-[11px] text-[#113D33]/45">{left} open</span>
                                     ) : null}
                                   </div>
                                 </button>
@@ -1401,22 +1410,22 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   );
                 })()}
                 {!loading && !error && times.length === 0 && (
-                  <div className="text-center text-white/50">
+                  <div className="text-center text-[#113D33]/60">
                     <p>No sessions available for this day.</p>
-                    <p className="mt-3 text-xs text-white/30">Try another day, or <a href={`mailto:${contactEmail}`} className="underline hover:text-white/60 transition">email {contactEmail}</a>.</p>
+                    <p className="mt-3 text-xs text-[#113D33]/40">Try another day, or <a href={`mailto:${contactEmail}`} className="underline hover:text-[#113D33]/70 transition">email {contactEmail}</a>.</p>
                   </div>
                 )}
               </section>
 
-              <div className="max-w-md mx-auto text-center text-xs text-white/40">
+              <div className="max-w-md mx-auto text-center text-xs text-[#113D33]/50">
                 Prefer to book with staff?{" "}
-                <a className="underline underline-offset-4 hover:text-white/70 transition" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
+                <a className="underline underline-offset-4 hover:text-[#113D33]/80 transition" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
               </div>
 
-              <StickyFlowCTA show={!!selectedTime} dark hint={summaryText}>
+              <StickyFlowCTA show={!!selectedTime} hint={summaryText}>
                 <button
                   onClick={() => { setError(null); setStep("sauna"); }}
-                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold hover:bg-[#0e332b] transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
                 >
                   Continue
                 </button>
@@ -1428,12 +1437,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
           {step === "sauna" && (
             <div className="max-w-lg mx-auto text-left">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-semibold text-white mb-2">Your 75 minutes, your way</h2>
-                <p className="text-sm text-white/60">
+                <h2 className="text-2xl font-semibold text-[#113D33] mb-2">Your 75 minutes, your way</h2>
+                <p className="text-sm text-[#113D33]/60">
                   Everything below is yours for the whole session. If you&apos;d like to use the sauna, reserve your time and sauna type below.
                 </p>
                 {selectedTime && (
-                  <p className="text-xs text-[#9ABFB3] mt-2">
+                  <p className="text-xs font-semibold text-[#113D33]/70 mt-2">
                     Your session: {formatTimeRange(selectedTime, SERVICE_MIN)}
                   </p>
                 )}
@@ -1441,17 +1450,17 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
               {/* What's included — passive modalities, no action. Sets the value
                   of the circuit before the one interactive choice (sauna). */}
-              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-white/45">
+              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-[#113D33]/50">
                 Included with your session
               </div>
               <div className="space-y-2 mb-8">
                 {REMEDY_INCLUDED.map((item) => (
-                  <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-[#9ABFB3]/10 flex items-center justify-center shrink-0 text-[#9ABFB3]">
+                  <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-[#113D33]/10 bg-white shadow-sm px-3 py-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-[#113D33]/5 flex items-center justify-center shrink-0 text-[#113D33]/70">
                       {item.icon}
                     </div>
-                    <div className="flex-1 text-sm font-medium text-white">{item.label}</div>
-                    <span className="inline-flex items-center gap-1 text-[11px] text-[#9ABFB3] bg-[#9ABFB3]/15 rounded-full px-2.5 py-1">
+                    <div className="flex-1 text-sm font-medium text-[#113D33]">{item.label}</div>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#113D33]/70 bg-[#113D33]/8 rounded-full px-2.5 py-1">
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
@@ -1462,19 +1471,19 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               </div>
 
               {/* The one interactive choice: reserve a sauna window. */}
-              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-white/45">
+              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-[#113D33]/50">
                 Reserve a sauna
               </div>
               <div className="space-y-3 mb-8">
                 {saunaWindows.map((slotStart, i) => {
                   const choice = saunaChoices[i];
                   return (
-                    <div key={i} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div key={i} className="rounded-2xl border border-[#113D33]/10 bg-white shadow-sm p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-semibold text-white">
+                        <span className="text-sm font-semibold text-[#113D33]">
                           Window {i + 1}
                           {slotStart && (
-                            <span className="text-white/50 font-normal ml-2">
+                            <span className="text-[#113D33]/50 font-normal ml-2">
                               {formatTimeRange(slotStart, SUB_SLOT_MIN)}
                             </span>
                           )}
@@ -1484,7 +1493,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         <button
                           aria-pressed={choice === null}
                           onClick={() => setWindowModality(i, null)}
-                          className={`py-2.5 rounded-xl text-sm font-medium border transition ${choice === null ? "bg-white text-[#113D33] border-white" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
+                          className={`py-2.5 rounded-xl text-sm font-medium border transition ${choice === null ? "bg-[#113D33] text-white border-[#113D33]" : "border-[#113D33]/15 bg-white text-[#113D33] hover:bg-[#113D33]/5"}`}
                         >
                           None
                         </button>
@@ -1503,7 +1512,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                               key={s.key}
                               disabled={blocked}
                               onClick={() => setWindowModality(i, s.key)}
-                              className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-white text-[#113D33] border-white" : blocked ? "border-white/10 bg-white/5 text-white/30 cursor-not-allowed" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
+                              className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-[#113D33] text-white border-[#113D33]" : blocked ? "border-[#113D33]/10 bg-[#113D33]/5 text-[#113D33]/35 cursor-not-allowed" : "border-[#113D33]/15 bg-white text-[#113D33] hover:bg-[#113D33]/5"}`}
                             >
                               <div>{s.key === "traditional" ? "Traditional" : "Infrared"}</div>
                               <div className="text-[10px] font-normal mt-0.5 opacity-70">
@@ -1520,10 +1529,10 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           notes / front-desk whiteboard. Hidden for Traditional
                           (one shared room) and where no cabins are configured. */}
                       {choice === "infrared" && infraredCabins.length > 0 && (
-                        <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 animate-fade-in">
-                          <div className="text-[11px] uppercase tracking-wider text-[#9ABFB3] mb-2">
+                        <div className="mt-3 rounded-xl border border-[#113D33]/10 bg-[#113D33]/[0.03] p-3 animate-fade-in">
+                          <div className="text-[11px] uppercase tracking-wider text-[#113D33]/60 mb-2">
                             Preferred cabin
-                            <span className="text-white/40 normal-case tracking-normal"> · confirmed at check-in</span>
+                            <span className="text-[#113D33]/40 normal-case tracking-normal"> · confirmed at check-in</span>
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {infraredCabins.map((cab) => {
@@ -1536,12 +1545,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                                   aria-pressed={cabinSelected}
                                   disabled={taken && !cabinSelected}
                                   onClick={() => setWindowCabin(i, cab.label)}
-                                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition focus:outline-none focus:ring-2 focus:ring-white/25 ${
+                                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/25 ${
                                     cabinSelected
-                                      ? "bg-white text-[#113D33] border-white"
+                                      ? "bg-[#113D33] text-white border-[#113D33]"
                                       : taken
-                                      ? "border-white/10 bg-white/5 text-white/30 line-through cursor-not-allowed"
-                                      : "border-white/15 bg-white/5 text-white hover:bg-white/10"
+                                      ? "border-[#113D33]/10 bg-[#113D33]/5 text-[#113D33]/35 line-through cursor-not-allowed"
+                                      : "border-[#113D33]/15 bg-white text-[#113D33] hover:bg-[#113D33]/5"
                                   }`}
                                 >
                                   {cab.label}
@@ -1556,14 +1565,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 })}
               </div>
 
-              <p className="text-center text-xs text-white/40">
+              <p className="text-center text-xs text-[#113D33]/50">
                 Sauna availability is confirmed at booking. If a window is full, we&apos;ll keep your Lounge session and let you know.
               </p>
 
-              <StickyFlowCTA show dark>
+              <StickyFlowCTA show>
                 <button
                   onClick={advanceFromSauna}
-                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold hover:bg-[#0e332b] transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
                 >
                   {selectedSaunaCount > 0 ? `Continue with ${selectedSaunaCount} sauna${selectedSaunaCount > 1 ? "s" : ""}` : "Skip, no sauna"}
                 </button>
