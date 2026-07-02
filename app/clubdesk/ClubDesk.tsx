@@ -29,8 +29,8 @@ const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
     todo: "If someone says they're a member but Mindbody shows nothing under their account, look them up HERE first. Found = treat as an active member and honor access. Not here? Check the Comps tab. Not there either and not in Mindbody = ask a manager. This tab is reference only — nothing to check off.",
   },
   comps: {
-    what: "People who had a FREE ($0) membership in the old system — team, partners (Gravity Haus, Affiliates, Creators), friends & family, and a few individual comps. They have NO membership in Mindbody on purpose. The tag shows how often they actually visited Jan-June: HEAVY 4+/mo, REGULAR 1-3/mo, OCCASIONAL under 1/mo, NO 2026 VISITS. Policy review is underway with ownership.",
-    todo: "Honor their access for now and do NOT discuss membership changes or ask them to pay — ownership is deciding each person's setup and will reach out first. If one asks about their status, say their access continues as normal and a note about the new system is coming. Tick the box only when a manager says that person's situation is settled.",
+    what: "People who had a FREE ($0) membership in the old system — team, partners (Gravity Haus, Affiliates, Creators), friends & family, and a few individual comps. They have NO membership in Mindbody on purpose. The tag shows how often they actually visited Jan-June: HEAVY 4+/mo, REGULAR 1-3/mo, OCCASIONAL under 1/mo, NO 2026 VISITS. Use the type filter to work a group (Staff → employee program; Gravity Haus / Affiliate / Creator → partnership decisions; Individual / Other → conversion or sunset).",
+    todo: "Jocelyn + Emily decide each person's setup and have the conversations. Front desk: honor access, and route any membership questions to a manager rather than answering at the counter. Tick the box once that person's situation is settled (converted to paid, mapped to the employee program, kept as partner, or sunset).",
   },
   giftcards: {
     what: "Gift cards people bought in the old system (Mariana Tek) that have NOT been used yet.",
