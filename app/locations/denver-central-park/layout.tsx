@@ -105,7 +105,7 @@ const faqJsonLd = {
       name: "Do I need a membership?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Drop-ins are welcome. Unlimited Sway Remedy Lounge memberships are available at an exclusive member rate. Ask in club or call us for details.",
+        text: "No. Drop-ins are welcome. For unlimited access, the Remedy Lounge Membership is $129/month and you can join online in about 2 minutes.",
       },
     },
     {

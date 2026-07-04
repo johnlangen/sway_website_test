@@ -34,7 +34,7 @@ const FAQS = [
   },
   {
     q: "Do I need a membership?",
-    a: "No. Drop-ins are welcome. Unlimited Sway Remedy Lounge memberships are available at an exclusive member rate. Ask in club or call us for details.",
+    a: "No. Drop-ins are welcome. For unlimited access, the Remedy Lounge Membership is $129/month and you can join online in about 2 minutes.",
   },
   {
     q: "When can I book a massage?",
@@ -114,7 +114,7 @@ export default function SwayCentralParkPage() {
               </a>
 
               <Link
-                href="/membership"
+                href="/locations/denver-central-park/membership"
                 className="border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
               >
                 Membership

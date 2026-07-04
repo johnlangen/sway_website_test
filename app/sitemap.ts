@@ -74,6 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const rinoPages = [
     { url: `${base}/locations/denver-rino/`, changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${base}/locations/denver-rino/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${base}/locations/denver-rino/membership/`, changeFrequency: "monthly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------
@@ -82,6 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const centralParkPages = [
     { url: `${base}/locations/denver-central-park/`, changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${base}/locations/denver-central-park/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${base}/locations/denver-central-park/membership/`, changeFrequency: "monthly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------

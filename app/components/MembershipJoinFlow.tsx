@@ -23,11 +23,26 @@ import { HideFloatingWidgets } from "./HideFloatingWidgets";
 import { useDialogA11y } from "@/lib/useDialogA11y";
 
 export type MembershipPlan = {
-  key: "essential" | "premier" | "ultimate" | "aescape" | "remedy";
+  key: "essential" | "premier" | "ultimate" | "aescape" | "remedy" | "club_lounge";
   contractId: number;
   name: string;
   price: number; // monthly USD
   blurb: string; // one-line inclusion summary shown in the flow
+  /** Optional perk grid on the review step (spa tiers default to SPA_MEMBER_PERKS). */
+  perks?: string[];
+};
+
+/**
+ * Optional site override for the Sway Wellness Club locations (RiNo /
+ * Central Park). Each club is its own Mindbody site, so every API call in
+ * the flow must carry its siteId. Omitted = Larimer (default site),
+ * preserving the flow's original behavior exactly.
+ */
+export type MembershipSite = {
+  siteId: string; // Mindbody SiteId (see lib/clubLocations.ts)
+  locationLabel: string; // e.g. "Sway RiNo" — used in member-facing copy
+  analyticsKey: string; // membership_location event param, e.g. "rino"
+  bookHref: string; // where "Book your first visit" points
 };
 
 type Step = "email" | "already" | "details" | "confirm" | "done";
@@ -111,11 +126,26 @@ const primaryBtn =
 
 export default function MembershipJoinFlow({
   plan,
+  site,
   onClose,
 }: {
   plan: MembershipPlan;
+  site?: MembershipSite;
   onClose: () => void;
 }) {
+  // Query-string / body fragments that scope every API call to the right
+  // Mindbody site. Empty for Larimer (routes default to MINDBODY_SITE_ID).
+  const siteQuery = site ? `&siteId=${encodeURIComponent(site.siteId)}` : "";
+  const siteBody = site ? { siteId: site.siteId } : {};
+  const locationLabel = site?.locationLabel ?? "Sway Larimer";
+
+  // All funnel events carry membership_location so GA4 can split the club
+  // flows from Larimer (same pattern as booking_location on booking events).
+  const track = (event: string, extra: Record<string, unknown> = {}) =>
+    trackMembership(event, {
+      membership_location: site?.analyticsKey ?? "larimer",
+      ...extra,
+    });
   // Modal a11y: trap focus, move focus in on open, Escape to close, restore
   // focus to trigger on close (WCAG 2.4.3 / 2.1.2). Don't allow close mid-charge.
   const loadingRef = useRef(false);
@@ -199,11 +229,11 @@ export default function MembershipJoinFlow({
 
   // Funnel start + live agreement terms for the review step.
   useEffect(() => {
-    trackMembership("membership_start", {
+    track("membership_start", {
       membership_tier: plan.key,
       membership_price: plan.price,
     });
-    fetch("/api/membership/contracts")
+    fetch(`/api/membership/contracts${site ? `?siteId=${encodeURIComponent(site.siteId)}` : ""}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         const match = data?.contracts?.find(
@@ -234,8 +264,8 @@ export default function MembershipJoinFlow({
       // warn before someone buys a duplicate. Best-effort — if it fails, the
       // join proceeds normally.
       const [res, checkData] = await Promise.all([
-        fetch(`/api/mindbody/client-lookup?email=${encodeURIComponent(normalized)}`),
-        fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}`)
+        fetch(`/api/mindbody/client-lookup?email=${encodeURIComponent(normalized)}${siteQuery}`),
+        fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}${siteQuery}`)
           .then((r) => (r.ok ? r.json() : null))
           .catch(() => null),
       ]);
@@ -254,6 +284,14 @@ export default function MembershipJoinFlow({
           : null) ??
         (plan.key === "remedy" && checkData?.hasRemedyMembership
           ? "Remedy Room membership"
+          : null) ??
+        // Club unlimited-lounge plan: ANY active club membership already
+        // includes the Remedy Lounge — migrated Founding/Legacy members
+        // (flagged hasRemedyMembership or tier via the check route) and
+        // members of the other club (cross-club recognition) alike.
+        (plan.key === "club_lounge" &&
+        (checkData?.hasRemedyMembership || checkData?.isMember)
+          ? "Remedy Lounge membership"
           : null);
 
       if (data.found && data.client) {
@@ -268,7 +306,7 @@ export default function MembershipJoinFlow({
         setLastName(existingLast);
         setMobilePhone(existingPhone);
 
-        trackMembership("membership_email_entered", {
+        track("membership_email_entered", {
           membership_tier: plan.key,
           client_type: "returning",
         });
@@ -285,7 +323,7 @@ export default function MembershipJoinFlow({
             homeLocation: checkData?.isLocalMember ? null : checkData?.homeLocation ?? null,
           });
           setStepAfterAlready(target);
-          trackMembership("membership_existing_member_detected", {
+          track("membership_existing_member_detected", {
             membership_tier: plan.key,
             cross_regional: !checkData?.isLocalMember,
           });
@@ -298,7 +336,7 @@ export default function MembershipJoinFlow({
       }
 
       // New client: collect name, phone, and card.
-      trackMembership("membership_email_entered", {
+      track("membership_email_entered", {
         membership_tier: plan.key,
         client_type: "new",
       });
@@ -403,6 +441,7 @@ export default function MembershipJoinFlow({
             ...card,
             sendPromotionalEmails: marketingOptIn,
             sendPromotionalTexts: marketingOptIn,
+            ...siteBody,
           }),
         });
         const data = await res.json();
@@ -431,6 +470,7 @@ export default function MembershipJoinFlow({
             // Mindbody's whole-object validation.
             firstName: firstName.trim(),
             lastName: lastName.trim(),
+            ...siteBody,
           }),
         });
         const data = await res.json();
@@ -446,6 +486,7 @@ export default function MembershipJoinFlow({
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             mobilePhone: mobilePhone.trim() || undefined,
+            ...siteBody,
           }),
         });
         const data = await res.json();
@@ -453,7 +494,7 @@ export default function MembershipJoinFlow({
       }
 
       if (showCardFields) {
-        trackMembership("membership_card_entered", {
+        track("membership_card_entered", {
           membership_tier: plan.key,
           client_type: cardContext === "create_account" ? "new" : "returning",
         });
@@ -487,6 +528,7 @@ export default function MembershipJoinFlow({
           clientId,
           contractId: plan.contractId,
           test: isTest,
+          ...siteBody,
         }),
       });
       const data = await res.json();
@@ -507,7 +549,7 @@ export default function MembershipJoinFlow({
       );
 
       if (!isTest) {
-        trackMembership("membership_purchase_complete", {
+        track("membership_purchase_complete", {
           membership_tier: plan.key,
           membership_price: plan.price,
           value: plan.price,
@@ -516,8 +558,11 @@ export default function MembershipJoinFlow({
         // Google Ads main "All Purchases" conversion (same primary action the
         // booking flows fire). No membership-specific secondary label exists
         // yet — create one in Google Ads, then add it here.
+        // Larimer only: the clubs run no Google Ads campaigns, so club
+        // membership purchases are GA4-only (same intentional gap as
+        // remedy_lounge_booking_complete — see CLAUDE.md).
         const gtag = (window as any).gtag;
-        if (typeof gtag === "function") {
+        if (typeof gtag === "function" && !site) {
           gtag("event", "conversion", {
             send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
             value: plan.price,
@@ -535,12 +580,13 @@ export default function MembershipJoinFlow({
 
   /* ── render ───────────────────────────────────────────────────── */
 
-  const firstVisitHref =
-    plan.key === "aescape"
-      ? "/locations/denver-larimer/book-aescape"
-      : plan.key === "remedy"
-      ? "/locations/denver-larimer/book-remedy-room"
-      : "/locations/denver-larimer/book";
+  const firstVisitHref = site
+    ? site.bookHref
+    : plan.key === "aescape"
+    ? "/locations/denver-larimer/book-aescape"
+    : plan.key === "remedy"
+    ? "/locations/denver-larimer/book-remedy-room"
+    : "/locations/denver-larimer/book";
 
   const stepTitle =
     step === "email"
@@ -718,8 +764,8 @@ export default function MembershipJoinFlow({
                     </h3>
                     <p className="mt-2 text-sm text-[#113D33]/70">
                       {existingMembership.homeLocation
-                        ? `Your ${existingMembership.label} from ${existingMembership.homeLocation} already works at every Sway and Spavia location, including Sway Larimer. There's no need to buy a second one.`
-                        : `You already have an active ${existingMembership.label} here at Sway Larimer.`}
+                        ? `Your ${existingMembership.label} from ${existingMembership.homeLocation} already works at every Sway and Spavia location, including ${locationLabel}. There's no need to buy a second one.`
+                        : `You already have an active ${existingMembership.label} that covers you here at ${locationLabel}. There's no need to buy a second one.`}
                     </p>
                   </div>
                   <a href={firstVisitHref} className={`${primaryBtn} block text-center`}>
@@ -929,9 +975,12 @@ export default function MembershipJoinFlow({
                     </p>
                   </div>
 
-                  {SPA_TIER_KEYS.includes(plan.key) && (
+                  {(plan.perks ??
+                    (SPA_TIER_KEYS.includes(plan.key)
+                      ? SPA_MEMBER_PERKS
+                      : null)) && (
                     <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                      {SPA_MEMBER_PERKS.map((perk) => (
+                      {(plan.perks ?? SPA_MEMBER_PERKS).map((perk) => (
                         <span
                           key={perk}
                           className="flex items-center gap-1.5 text-[11px] text-[#113D33]/70"
@@ -1012,6 +1061,8 @@ export default function MembershipJoinFlow({
                   <p className="text-center text-[11px] text-[#113D33]/55">
                     {SPA_TIER_KEYS.includes(plan.key)
                       ? "No enrollment fee · Treatments roll over · Pause up to 3 months a year"
+                      : plan.key === "club_lounge"
+                      ? "No enrollment fee · Month-to-month · Freeze up to 3 months a year"
                       : "No enrollment fee · Secure Mindbody checkout"}
                   </p>
                 </div>

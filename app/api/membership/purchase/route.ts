@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
+import { isClubSiteId } from "@/lib/clubLocations";
 
 export const runtime = "nodejs";
 
@@ -15,21 +16,46 @@ export const runtime = "nodejs";
  * Body: { clientId, contractId, test?, siteId? }
  * - test: true runs Mindbody's documented dry-run (validates everything,
  *   commits nothing, charges nothing). Verified live 2026-06-10.
+ * - siteId: optional Mindbody site override for the Sway Wellness Club
+ *   locations (RiNo 5754020 / Central Park 5754021). Defaults to Larimer.
  *
- * Contract IDs are whitelisted server-side so this route can only sell the
- * memberships we actually offer on the website.
+ * Contract IDs are whitelisted server-side PER SITE so this route can only
+ * sell the memberships we actually offer on the website. Contract ids
+ * collide across sites (the club sites were cloned from Larimer, so e.g.
+ * id 122 means different agreements on each) — never share one whitelist.
  */
 
-const SELLABLE_CONTRACTS: Record<
-  number,
-  { key: string; name: string; monthly: number }
-> = {
+type SellableContract = { key: string; name: string; monthly: number };
+
+const LARIMER_CONTRACTS: Record<number, SellableContract> = {
   122: { key: "essential", name: "Essential Membership", monthly: 99 },
   123: { key: "premier", name: "Premier Membership", monthly: 129 },
   124: { key: "ultimate", name: "Ultimate Membership", monthly: 159 },
   111: { key: "aescape", name: "Aescape Membership", monthly: 99 },
   102: { key: "remedy", name: "Remedy Room Membership", monthly: 99 },
 };
+
+// Both club sites sell exactly one membership online: unlimited Remedy
+// Lounge (contract 143 on each site, verified live 2026-07-04 via
+// scripts/probe-club-membership-contract.mjs). SoldOnline=false in Mindbody
+// is intentional — it keeps the contract out of the Mindbody consumer store;
+// the purchasecontract API sells it regardless (proven by the July 1
+// enrollment run on contract 100).
+const CLUB_CONTRACTS: Record<number, SellableContract> = {
+  143: {
+    key: "club_lounge",
+    name: "Premier Remedy Lounge Membership",
+    monthly: 129,
+  },
+};
+
+function sellableContractsForSite(
+  siteId: string
+): Record<number, SellableContract> | null {
+  if (siteId === process.env.MINDBODY_SITE_ID) return LARIMER_CONTRACTS;
+  if (isClubSiteId(siteId)) return CLUB_CONTRACTS;
+  return null; // unknown site: refuse rather than guess
+}
 
 // All Sway serverless functions run in UTC on Vercel. Anchor "today" to
 // Denver so an evening signup doesn't get a StartDate of tomorrow.
@@ -56,12 +82,13 @@ export async function POST(req: Request) {
       : "";
   const contractId = Number(rawBody.contractId);
   const isTest = rawBody.test === true;
-  // Optional siteId override (future: clubs / Spavia). Defaults to Larimer.
+  // Optional siteId override (clubs; future: Spavia). Defaults to Larimer.
   const siteId =
     (typeof rawBody.siteId === "string" && rawBody.siteId) ||
     process.env.MINDBODY_SITE_ID!;
 
-  const contract = SELLABLE_CONTRACTS[contractId];
+  const sellable = sellableContractsForSite(siteId);
+  const contract = sellable?.[contractId];
   if (!clientId || !contract) {
     return NextResponse.json(
       { error: "Invalid membership selection." },
