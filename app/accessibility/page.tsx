@@ -41,6 +41,38 @@ export default function AccessibilityPage() {
           time.
         </p>
 
+        <h2 className="text-xl font-semibold mt-8 mb-3">Third-party content</h2>
+        <p className="mb-4 leading-relaxed">
+          Some features of our website, including online booking and certain
+          embedded tools, rely on third-party services that we do not fully
+          control. If you reach a barrier in any of these, please contact us
+          using the details below and we will help you get the information or
+          appointment you need by another means.
+        </p>
+
+        <h2 className="text-xl font-semibold mt-8 mb-3">
+          Need help, or want to book by phone?
+        </h2>
+        <p className="mb-4 leading-relaxed">
+          If you have difficulty using any part of this website, we are glad to
+          assist you directly, including helping you explore our services and
+          book an appointment by phone at{" "}
+          <a
+            href="tel:+13034766150"
+            className="underline font-semibold focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 rounded"
+          >
+            (303) 476-6150
+          </a>
+          . You can also{" "}
+          <a
+            href="/locations"
+            className="underline font-semibold focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 rounded"
+          >
+            find your nearest Sway location here
+          </a>
+          .
+        </p>
+
         <h2 className="text-xl font-semibold mt-8 mb-3">
           Reporting an accessibility issue
         </h2>
@@ -73,6 +105,10 @@ export default function AccessibilityPage() {
         <p className="leading-relaxed">
           We aim to respond to accessibility feedback within a reasonable
           timeframe and welcome your suggestions on how we can improve.
+        </p>
+
+        <p className="mt-8 text-xs text-[#113D33]/70">
+          This statement was last reviewed on July 7, 2026.
         </p>
       </div>
     </div>
