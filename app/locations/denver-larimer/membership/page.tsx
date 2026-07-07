@@ -158,6 +158,9 @@ const recoveryMemberships = [
     price: "$99",
     valueLine: "Under $25 per session",
     cta: "Become an Aescape Member",
+    // No joinUrl yet: Aescape contracts (111/119/120) are SoldOnline:false in
+    // Mindbody, so the online store can't sell them. Falls back to phone.
+    joinUrl: undefined as string | undefined,
     description:
       "AI-powered robot massage with real-time muscle mapping and personalized pressure zones.",
     details: "4×30 min or 2×60 min sessions per month",
@@ -174,6 +177,9 @@ const recoveryMemberships = [
     price: "$99",
     valueLine: "Under $25 per visit",
     cta: "Become a Remedy Room Member",
+    // Mindbody contract 102 (Remedy Room Membership | 4 Sessions, SoldOnline)
+    joinUrl:
+      "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=102",
     description:
       "Our full recovery circuit. Everything you need to reset and recover.",
     details: "4 visits per month",
@@ -721,7 +727,7 @@ export default function MembershipPage() {
                   </button>
                 ) : (
                   <a
-                    href="tel:+13034766150"
+                    href={m.joinUrl ?? "tel:+13034766150"}
                     className="mt-auto block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
                   >
                     {m.cta}
