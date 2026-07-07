@@ -25,7 +25,7 @@ export default function SunProtectionBlogLayout() {
           Protecting your skin from the sun is one of the most important steps
           you can take to maintain its health and appearance. Beyond sunburns,
           sun damage accelerates aging, causes discoloration, and breaks down
-          skin elasticity. UV rays can leave your skin looking tired—even after
+          skin elasticity. UV rays can leave your skin looking tired, even after
           a short time outdoors. The best defense? A daily SPF that suits your
           skin type, plus a nourishing post-sun routine.
         </p>
@@ -61,30 +61,30 @@ export default function SunProtectionBlogLayout() {
         <p>
           Sunscreen shields against UVA/UVB rays that cause burns, premature
           aging, and skin cancer. The American Academy of Dermatology recommends
-          a broad-spectrum SPF 30 or higher every day—rain or shine.
+          a broad-spectrum SPF 30 or higher every day, rain or shine.
         </p>
 
         <h3 className="text-xl font-bold">Chemical vs. Mineral Sunscreen</h3>
         <p>
           Chemical sunscreens absorb UV rays and convert them to heat. They’re
-          lightweight, invisible, and blend easily—great for daily wear.
+          lightweight, invisible, and blend easily. Great for daily wear.
           <br />
           Mineral sunscreens block UV rays on the skin’s surface using zinc
           oxide or titanium dioxide, making them ideal for sensitive skin.
           <br />
-          Both are effective—it’s about personal preference.
+          Both are effective. It’s about personal preference.
         </p>
 
         <h2 id="picks" className="text-2xl font-bold scroll-mt-24">Our Esthetician-Approved SPF Picks</h2>
 
         <h3 className="text-xl font-bold">Supergoop Unseen Sunscreen SPF 50</h3>
         <p>
-          Invisible, weightless, and packed with skincare benefits—this
+          Invisible, weightless, and packed with skincare benefits. This
           cult-favorite delivers all-day protection with no white cast.
         </p>
         <p className="italic">
           “Supergoop’s Unseen Sunscreen is my go-to. Lightweight, invisible, and
-          no white cast—I use it every morning.”
+          no white cast. I use it every morning.”
         </p>
 
         <h3 className="text-xl font-bold">Eminence Organics Mineral SPF</h3>
@@ -94,7 +94,7 @@ export default function SunProtectionBlogLayout() {
         </p>
         <p className="italic">
           “Eminence’s mineral SPF is our top seller. It’s tinted for beautiful
-          coverage.” — Jocelyn, Spa Director at Sway
+          coverage.” · Jocelyn, Spa Director at Sway
         </p>
 
         <h2 id="after-sun" className="text-2xl font-bold scroll-mt-24">After-Sun Skin Care</h2>
@@ -102,7 +102,7 @@ export default function SunProtectionBlogLayout() {
         <h3 className="text-xl font-bold">1. Soothe and Hydrate</h3>
         <p>
           Calm post-sun skin with hydrating products like Eminence’s Facial
-          Recovery Oil—loaded with antioxidants and botanicals.
+          Recovery Oil, loaded with antioxidants and botanicals.
         </p>
 
         <h3 className="text-xl font-bold">2. Treat Dark Spots & Photoaging</h3>
@@ -125,14 +125,14 @@ export default function SunProtectionBlogLayout() {
 
         <h2 id="daily" className="text-2xl font-bold scroll-mt-24">Why Sunscreen Is a Daily Must</h2>
         <p>
-          UV rays can damage your skin year-round—even on cloudy days. Daily
+          UV rays can damage your skin year-round, even on cloudy days. Daily
           sunscreen is your first defense against aging, dark spots, and skin
           cancer.
         </p>
 
         <h2 id="recap" className="text-2xl font-bold scroll-mt-24">Quick Recap for Healthy Skin:</h2>
         <ul className="list-disc list-inside space-y-2">
-          <li>Use SPF daily—mineral or chemical—based on your skin type.</li>
+          <li>Use SPF daily, mineral or chemical, based on your skin type.</li>
           <li>
             Hydrate, treat, and repair post-sun skin with nourishing products.
           </li>

@@ -32,11 +32,11 @@ export default function TechAndWellnessBlogLayout() {
         <p>
           Imagine massage robots that mimic the precision of human hands, infrared saunas 
           that optimize detoxification, or virtual reality experiences that transport 
-          you to a serene escape—all designed to make relaxation more effective and accessible.
+          you to a serene escape, all designed to make relaxation more effective and accessible.
         </p>
         <p>
           Whether you're a spa owner, wellness professional, or just a curious tech lover, 
-          the future of self-care is here—and it’s powered by innovation.
+          the future of self-care is here, and it’s powered by innovation.
         </p>
 
         <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
@@ -50,11 +50,11 @@ export default function TechAndWellnessBlogLayout() {
 
         <h2 id="tech-forward-experiences" className="text-2xl font-bold scroll-mt-24">Tech-Forward Spa Experiences You Need to Know</h2>
 
-        <h3 className="text-xl font-semibold">1. Aescape Robotic Massage—An AI-Powered Hands-Free Experience</h3>
+        <h3 className="text-xl font-semibold">1. Aescape Robotic Massage: An AI-Powered Hands-Free Experience</h3>
         <p>
           Gone are the days of relying solely on human hands. Enter the Aescape Robotic Massage: 
           a fully automated, AI-powered system with dual robotic arms that deliver precision 
-          and consistency. It remembers your preferences—from pressure to music—and gives 
+          and consistency. It remembers your preferences, from pressure to music, and gives
           you an on-demand massage experience like no other.
         </p>
         <p>
@@ -80,25 +80,25 @@ export default function TechAndWellnessBlogLayout() {
           to join.
         </p>
 
-        <h3 className="text-xl font-semibold pt-4">2. Microcurrent Therapy by 7E Wellness—Non-Invasive Facial Rejuvenation</h3>
+        <h3 className="text-xl font-semibold pt-4">2. Microcurrent Therapy by 7E Wellness: Non-Invasive Facial Rejuvenation</h3>
         <p>
           This technology uses low-level electrical currents to lift facial contours, 
-          stimulate collagen, and improve skin tone—all without needles or downtime. 
+          stimulate collagen, and improve skin tone, all without needles or downtime. 
           It re-educates facial muscles and boosts circulation for visible, long-lasting results.
         </p>
         <p>
-          According to the NCBI, microcurrent therapy also stimulates ATP production—fueling 
+          According to the NCBI, microcurrent therapy also stimulates ATP production, fueling
           cellular energy and collagen formation. The result? Firmer, smoother, more radiant skin.
         </p>
 
-        <h3 className="text-xl font-semibold pt-4">3. LED Light Therapy by LightStim—Glow from the Inside Out</h3>
+        <h3 className="text-xl font-semibold pt-4">3. LED Light Therapy by LightStim: Glow from the Inside Out</h3>
         <p>
           Using multi-wavelength light, this non-invasive treatment stimulates skin regeneration, 
           reduces inflammation, and boosts collagen. It's safe, soothing, and ideal for concerns 
           like acne, redness, and dullness.
         </p>
         <p>
-          LightStim sessions help you achieve radiant, healthy skin over time—with no pain 
+          LightStim sessions help you achieve radiant, healthy skin over time, with no pain
           or downtime required.
         </p>
 

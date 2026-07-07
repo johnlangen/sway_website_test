@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Sway's New Membership Tiers: Essential, Premier & Ultimate | Sway Wellness Spa Denver",
   description:
-    "Sway Wellness Spa just launched three membership tiers — Essential ($99), Premier ($129), and Ultimate ($159) — with monthly massages, facials, 50% off boosts, and cross-regional access at 60+ Spavia locations nationwide.",
+    "Sway Wellness Spa just launched three membership tiers, Essential ($99), Premier ($129), and Ultimate ($159), with monthly massages, facials, 50% off boosts, and cross-regional access at 60+ Spavia locations nationwide.",
   keywords: [
     "Sway membership tiers",
     "Denver spa membership",
@@ -46,7 +46,7 @@ export default function Page() {
     "@type": "BlogPosting",
     headline: "Sway's New Membership Tiers: Essential, Premier & Ultimate",
     description:
-      "Sway Wellness Spa just launched three membership tiers — Essential ($99), Premier ($129), and Ultimate ($159) — with monthly massages, facials, 50% off boosts, and cross-regional access at 60+ Spavia locations nationwide.",
+      "Sway Wellness Spa just launched three membership tiers, Essential ($99), Premier ($129), and Ultimate ($159), with monthly massages, facials, 50% off boosts, and cross-regional access at 60+ Spavia locations nationwide.",
     image: "https://swaywellnessspa.com/assets/join2.jpg",
     author: {
       "@type": "Organization",
@@ -127,11 +127,11 @@ export default function Page() {
         </div>
 
         <p className="text-xl leading-relaxed font-medium text-[#113D33]">
-          We simplified everything. Starting now, Sway Wellness Spa offers three distinct membership tiers — each designed to match a different level of commitment to your wellness routine. Whether you want the fundamentals done beautifully or you&apos;re ready for the most advanced treatments we offer, there&apos;s a tier for you.
+          We simplified everything. Starting now, Sway Wellness Spa offers three distinct membership tiers, each designed to match a different level of commitment to your wellness routine. Whether you want the fundamentals done beautifully or you&apos;re ready for the most advanced treatments we offer, there&apos;s a tier for you.
         </p>
 
         <p className="text-gray-700">
-          Every tier includes one monthly massage or facial, 50% off all boosts, and full access to the Sway Member Lounge. What changes is the depth, duration, and technology of your treatments — and the price.
+          Every tier includes one monthly massage or facial, 50% off all boosts, and full access to the Sway Member Lounge. What changes is the depth, duration, and technology of your treatments, and the price.
         </p>
 
         {/* Table of Contents */}
@@ -139,9 +139,9 @@ export default function Page() {
           <p className="font-bold text-[#113D33] text-base mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-1.5 text-[#113D33] text-[15px]">
             <li><a href="#why-tiers" className="hover:underline">Why Three Tiers?</a></li>
-            <li><a href="#essential" className="hover:underline">Essential — $99/mo · $139 drop-in</a></li>
-            <li><a href="#premier" className="hover:underline">Premier — $129/mo · $169 drop-in</a></li>
-            <li><a href="#ultimate" className="hover:underline">Ultimate — $159/mo · $199 drop-in</a></li>
+            <li><a href="#essential" className="hover:underline">Essential · $99/mo · $139 drop-in</a></li>
+            <li><a href="#premier" className="hover:underline">Premier · $129/mo · $169 drop-in</a></li>
+            <li><a href="#ultimate" className="hover:underline">Ultimate · $159/mo · $199 drop-in</a></li>
             <li><a href="#boosts" className="hover:underline">Boosts: 50% Off for Every Member</a></li>
             <li><a href="#existing" className="hover:underline">Note for Existing Members</a></li>
             <li><a href="#cross-regional" className="hover:underline">Works at 60+ Sway & Spavia Locations</a></li>
@@ -153,10 +153,10 @@ export default function Page() {
         <div id="why-tiers" className="scroll-mt-24">
           <h2 className="text-2xl font-bold mb-4">Why Three Tiers?</h2>
           <p className="text-gray-700 mb-4">
-            Spa memberships in Denver have traditionally worked one way: one price, one treatment, one option. That model works — but it doesn&apos;t account for the fact that a first-timer and a weekly wellness enthusiast have completely different needs.
+            Spa memberships in Denver have traditionally worked one way: one price, one treatment, one option. That model works, but it doesn&apos;t account for the fact that a first-timer and a weekly wellness enthusiast have completely different needs.
           </p>
           <p className="text-gray-700">
-            We designed these three tiers to grow with you. Start with Essential, move to Premier when you&apos;re ready for more, or go straight to Ultimate if you already know what you want. And if you ever want to try a higher tier on a one-time basis, you can — for a small per-visit upcharge.
+            We designed these three tiers to grow with you. Start with Essential, move to Premier when you&apos;re ready for more, or go straight to Ultimate if you already know what you want. And if you ever want to try a higher tier on a one-time basis, you can, for a small per-visit upcharge.
           </p>
         </div>
 
@@ -194,7 +194,7 @@ export default function Page() {
           </div>
           <div className="px-6 py-6 space-y-5">
             <p className="text-gray-700">
-              The Essential tier is the entry point to consistent, professional wellness in Denver. One monthly 50-minute treatment — your choice of massage or facial — for $99. No frills, no fuss. Just expert care, every month.
+              The Essential tier is the entry point to consistent, professional wellness in Denver. One monthly 50-minute treatment, your choice of massage or facial, for $99. No frills, no fuss. Just expert care, every month.
             </p>
             <p className="text-gray-700">
               The Essential Signature Massage is a classic therapeutic Swedish massage customized to your pressure preference. The Essential Signature Facial is tailored to your skin type: cleanse, exfoliate, extract, and hydrate. If you&apos;re pregnant, the Essential Maternity Massage provides safe, restorative care for expecting mothers.
@@ -224,7 +224,7 @@ export default function Page() {
               </div>
             </div>
             <div className="bg-[#F0F4F0] rounded-xl px-4 py-3 text-sm text-[#113D33] font-medium">
-              💡 Save $40 every visit compared to drop-in pricing — that&apos;s $480 per year.
+              💡 Save $40 every visit compared to drop-in pricing. That&apos;s $480 per year.
             </div>
           </div>
         </div>
@@ -247,10 +247,10 @@ export default function Page() {
           </div>
           <div className="px-6 py-6 space-y-5">
             <p className="text-gray-700">
-              Premier is our most popular Denver spa membership — and it&apos;s easy to see why. For $30 more per month than Essential, you unlock a dramatically wider menu: five distinct facials with targeted products and dermapore technology, plus six massage modalities including deep tissue, Himalayan salt stone, sports massage, and lymphatic drainage.
+              Premier is our most popular Denver spa membership, and it&apos;s easy to see why. For $30 more per month than Essential, you unlock a dramatically wider menu: five distinct facials with targeted products and dermapore technology, plus six massage modalities including deep tissue, Himalayan salt stone, sports massage, and lymphatic drainage.
             </p>
             <p className="text-gray-700">
-              Premier massages run 70 minutes on Signature and Maternity — or apply advanced techniques for targeted results on 50-minute options. Premier facials include targeted skincare matched to your specific concern — anti-aging, acne, hydration, sensitivity — plus dermapore technology for deeper product absorption.
+              Premier massages run 70 minutes on Signature and Maternity, or apply advanced techniques for targeted results on 50-minute options. Premier facials include targeted skincare matched to your specific concern (anti-aging, acne, hydration, sensitivity), plus dermapore technology for deeper product absorption.
             </p>
             <div className="grid md:grid-cols-2 gap-5 pt-2">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
@@ -291,7 +291,7 @@ export default function Page() {
               </div>
             </div>
             <div className="bg-[#F0F4F0] rounded-xl px-4 py-3 text-sm text-[#113D33] font-medium">
-              💡 11 treatment options across massage &amp; facial — the most versatile membership we offer.
+              💡 11 treatment options across massage &amp; facial. The most versatile membership we offer.
             </div>
           </div>
         </div>
@@ -313,7 +313,7 @@ export default function Page() {
           </div>
           <div className="px-6 py-6 space-y-5">
             <p className="text-gray-700">
-              The Ultimate membership is Sway at its fullest. Every treatment includes the most advanced techniques and built-in technology enhancements that most spas charge as expensive add-ons. For facials, that means LED light therapy, microcurrent sculpting, oxygen infusion, and scalp and hand treatments — included in your base treatment.
+              The Ultimate membership is Sway at its fullest. Every treatment includes the most advanced techniques and built-in technology enhancements that most spas charge as expensive add-ons. For facials, that means LED light therapy, microcurrent sculpting, oxygen infusion, and scalp and hand treatments, included in your base treatment.
             </p>
             <p className="text-gray-700">
               Ultimate massages are our longest sessions: the Signature clocks in at 90 minutes, while advanced technique modalities run 70 minutes. If you want the very best Sway has to offer, month after month, this is it.
@@ -356,7 +356,7 @@ export default function Page() {
               </div>
             </div>
             <div className="bg-[#F0F4F0] rounded-xl px-4 py-3 text-sm text-[#113D33] font-medium">
-              💡 LED, microcurrent, and oxygen tech included — no upcharges, no surprises.
+              💡 LED, microcurrent, and oxygen tech included. No upcharges, no surprises.
             </div>
           </div>
         </div>
@@ -365,16 +365,16 @@ export default function Page() {
         <div id="boosts" className="scroll-mt-24">
           <h2 className="text-2xl font-bold mb-2">Boosts: Every Member Saves 50%</h2>
           <p className="text-gray-700 mb-6">
-            One of the most underrated parts of a Sway membership: 50% off every boost, every visit, on every tier. Boosts are science-backed enhancements you add to your treatment — and at half price, they become genuinely accessible.
+            One of the most underrated parts of a Sway membership: 50% off every boost, every visit, on every tier. Boosts are science-backed enhancements you add to your treatment, and at half price, they become genuinely accessible.
           </p>
 
           {/* Boost icon grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {[
-              { img: "/assets/boost-led.png", label: "LED Light" },
-              { img: "/assets/boost-oxygen.png", label: "Oxygen Infusion" },
-              { img: "/assets/boost-dermaflash.png", label: "Dermaflash" },
-              { img: "/assets/boost-microcurrent.png", label: "Microcurrent" },
+              { img: "/assets/boost-led.jpg", label: "LED Light" },
+              { img: "/assets/boost-oxygen.jpg", label: "Oxygen Infusion" },
+              { img: "/assets/boost-dermaflash.jpg", label: "Dermaflash" },
+              { img: "/assets/boost-microcurrent.jpg", label: "Microcurrent" },
             ].map(({ img, label }) => (
               <div key={label} className="bg-white rounded-2xl p-4 flex flex-col items-center gap-2 text-center shadow-sm">
                 <div className="relative w-14 h-14">
@@ -458,10 +458,10 @@ export default function Page() {
           <h2 className="text-2xl font-bold mb-4">Works at 60+ Sway & Spavia Locations Nationwide</h2>
           <div className="bg-[#113D33] rounded-2xl p-6 text-white space-y-4">
             <p className="text-white/90">
-              Here&apos;s something genuinely new. Sway is part of the Spavia family — a network of 60+ wellness spas across the country. Your Sway membership now works at every Spavia location. If you&apos;re traveling for work or vacation, you can walk into a Spavia in Chicago, Atlanta, or anywhere in the network and access your member pricing automatically.
+              Here&apos;s something genuinely new. Sway is part of the Spavia family, a network of 60+ wellness spas across the country. Your Sway membership now works at every Spavia location. If you&apos;re traveling for work or vacation, you can walk into a Spavia in Chicago, Atlanta, or anywhere in the network and access your member pricing automatically.
             </p>
             <p className="text-white/90">
-              It works the other way too. Already have a Spavia membership from Park Meadows, Boulder, or another city? Your membership is recognized at Sway Larimer on Larimer Square, Denver. Just enter your email when booking and we&apos;ll pull up your tier instantly — no card, no login, no friction.
+              It works the other way too. Already have a Spavia membership from Park Meadows, Boulder, or another city? Your membership is recognized at Sway Larimer on Larimer Square, Denver. Just enter your email when booking and we&apos;ll pull up your tier instantly. No card, no login, no friction.
             </p>
             <div className="grid grid-cols-3 gap-3 pt-2">
               {["Denver", "Chicago", "Atlanta", "Dallas", "Boulder", "60+ More"].map((city) => (
@@ -488,7 +488,7 @@ export default function Page() {
               {
                 emoji: "⭐",
                 tier: "Choose Premier if...",
-                desc: "You want more options, longer sessions, and targeted results. Premier is where most people land — it's the sweet spot between value and experience. Five facials, six massages, dermapore technology, and 70-minute sessions.",
+                desc: "You want more options, longer sessions, and targeted results. Premier is where most people land. It's the sweet spot between value and experience. Five facials, six massages, dermapore technology, and 70-minute sessions.",
                 price: "$129/mo",
                 bg: "bg-[#F0F4F0]",
                 accent: true,
@@ -514,7 +514,7 @@ export default function Page() {
             ))}
           </div>
           <p className="text-gray-600 mt-5 text-sm">
-            You can also try any higher tier&apos;s treatments on a one-time basis. Premier members can access Ultimate treatments for a $55 per-visit upcharge. Essential members can access Premier or Ultimate the same way — so even if you start small, the door is always open.
+            You can also try any higher tier&apos;s treatments on a one-time basis. Premier members can access Ultimate treatments for a $55 per-visit upcharge. Essential members can access Premier or Ultimate the same way, so even if you start small, the door is always open.
           </p>
         </div>
 

@@ -97,7 +97,7 @@ export default function MavenHotelBlogLayout() {
           >
             The Maven Hotel <span className="sr-only">(opens in new tab)</span>
           </a>{" "}
-          at Dairy Block — one of LoDo&apos;s most distinctive boutique hotels —
+          at Dairy Block, one of LoDo&apos;s most distinctive boutique hotels,
           has partnered with{" "}
           <Link
             href="/"
@@ -140,8 +140,8 @@ export default function MavenHotelBlogLayout() {
             Aescape
           </Link>{" "}
           is a fully autonomous, AI-powered massage system. Two heated robotic
-          arms use 3D body-mapping technology — capturing over a million data
-          points — to build a personalized massage profile for your body. It
+          arms use 3D body-mapping technology, capturing over a million data
+          points, to build a personalized massage profile for your body. It
           adjusts pressure in real time, learns your preferences, and delivers a
           precision full-body massage that rivals the best human therapists.
         </p>
@@ -149,7 +149,7 @@ export default function MavenHotelBlogLayout() {
         <p>
           Sway is one of the only spas in the country to offer Aescape. The
           60-minute session available through the Maven Hotel partnership is our
-          most popular — enough time for a full-body reset without rushing.
+          most popular, with enough time for a full-body reset without rushing.
         </p>
 
         <div className="bg-white border border-[#d7e2dc] rounded-xl p-6">
@@ -164,7 +164,7 @@ export default function MavenHotelBlogLayout() {
               <strong>Duration:</strong> 60 minutes
             </li>
             <li>
-              <strong>What to bring:</strong> Just yourself — compression apparel
+              <strong>What to bring:</strong> Just yourself. Compression apparel
               is provided
             </li>
             <li>
@@ -183,7 +183,7 @@ export default function MavenHotelBlogLayout() {
 
         <p>
           The Maven Hotel sits at 1850 Wazee Street in the heart of Dairy Block.
-          Sway Wellness Spa is at 1428 Larimer Street — just 0.6 miles away on
+          Sway Wellness Spa is at 1428 Larimer Street, just 0.6 miles away on
           Larimer Square. You have a few ways to get there:
         </p>
 
@@ -197,12 +197,12 @@ export default function MavenHotelBlogLayout() {
             {
               emoji: "🛴",
               method: "Scooter",
-              detail: "Grab a Lime or Bird — 3-4 minutes",
+              detail: "Grab a Lime or Bird · 3-4 minutes",
             },
             {
               emoji: "🚗",
               method: "Drive / Rideshare",
-              detail: "~5 minutes — street parking and nearby garages",
+              detail: "~5 minutes · street parking and nearby garages",
             },
           ].map((item) => (
             <div
@@ -217,7 +217,7 @@ export default function MavenHotelBlogLayout() {
         </div>
 
         <p>
-          The walk itself is a highlight — Larimer Street is one of Denver&apos;s
+          The walk itself is a highlight. Larimer Street is one of Denver&apos;s
           most vibrant corridors, lined with restaurants, galleries, and
           independent shops. If you haven&apos;t explored{" "}
           <Link
@@ -245,7 +245,7 @@ export default function MavenHotelBlogLayout() {
           >
             #4 Best Day Spa in America
           </Link>{" "}
-          by USA Today 10Best — and the experience starts the moment you walk in.
+          by USA Today 10Best, and the experience starts the moment you walk in.
           Here&apos;s how your Aescape visit works:
         </p>
 
@@ -259,7 +259,7 @@ export default function MavenHotelBlogLayout() {
             {
               step: "2",
               title: "Change into compression apparel",
-              desc: "We provide everything you need — no need to bring workout clothes or change beforehand.",
+              desc: "We provide everything you need. No need to bring workout clothes or change beforehand.",
             },
             {
               step: "3",
@@ -274,7 +274,7 @@ export default function MavenHotelBlogLayout() {
             {
               step: "5",
               title: "Walk out reset",
-              desc: "Head back to the Maven feeling refreshed — no recovery time needed.",
+              desc: "Head back to the Maven feeling refreshed, no recovery time needed.",
             },
           ].map((item) => (
             <div
@@ -325,7 +325,7 @@ export default function MavenHotelBlogLayout() {
             },
             {
               title: "Remedy Room",
-              desc: "Full recovery circuit — sauna, cold plunge, compression boots, and LED therapy",
+              desc: "Full recovery circuit: sauna, cold plunge, compression boots, and LED therapy",
               href: "/remedy-tech",
             },
           ].map((item) => (
@@ -363,7 +363,7 @@ export default function MavenHotelBlogLayout() {
         </h2>
 
         <p>
-          Booking your 60-minute Aescape massage is simple — pick a date and
+          Booking your 60-minute Aescape massage is simple: pick a date and
           time, enter your details, and you&apos;re confirmed in under a minute.
           No account or app needed.
         </p>
@@ -408,7 +408,7 @@ export default function MavenHotelBlogLayout() {
             About The Maven Hotel
           </h3>
           <p className="text-sm text-gray-700 leading-relaxed">
-            The Maven Hotel is a boutique hotel in the heart of Dairy Block — a
+            The Maven Hotel is a boutique hotel in the heart of Dairy Block, a
             curated mixed-use destination at 1850 Wazee Street in Denver&apos;s
             LoDo neighborhood. With a walkable location near Coors Field,
             Larimer Square, and Union Station, The Maven is a favorite for both
@@ -501,7 +501,7 @@ export default function MavenHotelBlogLayout() {
                   name: "Is there a spa near The Maven Hotel in Denver?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes — Sway Wellness Spa is just 0.6 miles from The Maven Hotel at Dairy Block. Located at 1428 Larimer Street on Larimer Square, Sway offers AI-powered Aescape robot massage, traditional massage therapy, facials, sauna, cold plunge, and more. The Maven Hotel has partnered with Sway to offer guests easy access to a 60-minute Aescape session for $139.",
+                    text: "Yes. Sway Wellness Spa is just 0.6 miles from The Maven Hotel at Dairy Block. Located at 1428 Larimer Street on Larimer Square, Sway offers AI-powered Aescape robot massage, traditional massage therapy, facials, sauna, cold plunge, and more. The Maven Hotel has partnered with Sway to offer guests easy access to a 60-minute Aescape session for $139.",
                   },
                 },
                 {
@@ -509,7 +509,7 @@ export default function MavenHotelBlogLayout() {
                   name: "How do I get from The Maven Hotel to Sway Wellness Spa?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway is a 10-minute walk, 5-minute drive, or quick scooter ride from The Maven Hotel. Head south on Larimer Street from Dairy Block — Sway is at 1428 Larimer Street, right on Larimer Square.",
+                    text: "Sway is a 10-minute walk, 5-minute drive, or quick scooter ride from The Maven Hotel. Head south on Larimer Street from Dairy Block. Sway is at 1428 Larimer Street, right on Larimer Square.",
                   },
                 },
                 {
@@ -525,7 +525,7 @@ export default function MavenHotelBlogLayout() {
                   name: "Do I need to be a Maven Hotel guest to book at Sway?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "No — Sway Wellness Spa is open to everyone. The Maven Hotel partnership makes it easy for hotel guests to discover and book, but all of Sway's treatments are available to anyone visiting Denver.",
+                    text: "No. Sway Wellness Spa is open to everyone. The Maven Hotel partnership makes it easy for hotel guests to discover and book, but all of Sway's treatments are available to anyone visiting Denver.",
                   },
                 },
                 {
