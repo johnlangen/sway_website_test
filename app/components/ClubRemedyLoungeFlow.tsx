@@ -868,8 +868,12 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
     w.dataLayer = w.dataLayer || [];
     const eventMap: Record<string, string> = {
       select: "booking_start",
-      sauna: "booking_addons_selected",
-      email: "booking_time_selected",
+      // Arriving at a step means the previous step's action just completed.
+      // time_selected fires on sauna arrival because EVERY path passes through
+      // it; recognized members skip the email/card steps entirely, so hanging
+      // time_selected on email arrival undercounted the member path.
+      sauna: "booking_time_selected",
+      email: "booking_addons_selected",
       card: "booking_email_entered",
       confirm: "booking_card_entered",
       booking: "booking_confirmed",

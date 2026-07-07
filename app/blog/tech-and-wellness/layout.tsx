@@ -163,7 +163,7 @@ export default function TechAndWellnessBlogLayout() {
                   name: "What is Aescape robotic massage at Sway?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Aescape is a fully automated, AI-powered robotic massage system with dual robotic arms that deliver precision pressure and remember your preferences from session to session. It offers on-demand massage experiences with customizable pressure, music, and focus areas. Sway Wellness Spa in Denver is the first location in Colorado to offer Aescape, with sessions starting at $69 for 30 minutes.",
+                    text: "Aescape is a fully automated, AI-powered robotic massage system with dual robotic arms that deliver precision pressure and remember your preferences from session to session. It offers on-demand massage experiences with customizable pressure, music, and focus areas. Sway Wellness Spa in Denver is the first location in Colorado to offer Aescape, with sessions starting at $49 for 15 minutes.",
                   },
                 },
                 {

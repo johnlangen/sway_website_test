@@ -658,7 +658,7 @@ export default function FathersDayGiftGuideLayout() {
                 name: "How much does a Father's Day spa gift cost at Sway?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway has options at every price point. Aescape AI massage starts at $49 for a 15-minute express session. The Remedy Room is $49 for a 40-minute contrast circuit, or $25 for members. A 50-minute massage starts at $129 drop-in, or $89 with an Essential membership. Sway gift cards are available in any amount and never expire.",
+                  text: "Sway has options at every price point. Aescape AI massage starts at $49 for a 15-minute express session. The Remedy Room is $49 for a 40-minute contrast circuit, or $25 for members. A 50-minute massage starts at $139 drop-in, or $99 with an Essential membership. Sway gift cards are available in any amount and never expire.",
                 },
               },
               {

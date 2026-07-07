@@ -1245,8 +1245,8 @@ export default function NewBookingFlow() {
             {/* Aescape & Remedy Room — link to their booking flows */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 mb-12">
               {([
-                { label: "Aescape Robot Massage", img: "/assets/aescape-treatment.jpg", sub: "AI-powered precision massage", price: "From $139", dur: "30 min", href: "/locations/denver-larimer/book-aescape/" },
-                { label: "Remedy Room", img: "/assets/remedy-room.jpg", sub: "Sauna, cold plunge, compression & LED", price: "$99", dur: "40 min", href: "/locations/denver-larimer/book-remedy-room/" },
+                { label: "Aescape Robot Massage", img: "/assets/aescape-treatment.jpg", sub: "AI-powered precision massage", price: "From $49", dur: "15–60 min", href: "/locations/denver-larimer/book-aescape/" },
+                { label: "Remedy Room", img: "/assets/remedy-room.jpg", sub: "Sauna, cold plunge, compression & LED", price: "$49", dur: "40 min", href: "/locations/denver-larimer/book-remedy-room/" },
               ]).map((item) => (
                 <Link key={item.label} href={item.href}
                   className="group relative overflow-hidden rounded-2xl bg-white/70 border border-[#113D33]/10 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-left">

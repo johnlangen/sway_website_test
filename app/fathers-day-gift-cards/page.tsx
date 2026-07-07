@@ -296,7 +296,7 @@ export default function FathersDayGiftCardsPage() {
               </summary>
               <p className="mt-2">
                 AI-powered, fully personalized full-body massage. Dad lies face-down, the robot scans
-                his back, and delivers consistent pressure for 30-60 minutes. The first one in
+                his back, and delivers consistent pressure for 15-60 minutes. The first one in
                 Colorado. Most guests are skeptical, then immediately book a second.
               </p>
             </details>
