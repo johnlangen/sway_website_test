@@ -319,6 +319,18 @@ export default function NewBookingFlow() {
   const [step, setStep] = useState<Step>("welcome");
   // Scroll to top on step change
   useEffect(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, [step]);
+  // Move keyboard/screen-reader focus to the new step's content on step
+  // change — otherwise focus is lost when the previous step's button
+  // unmounts (WCAG 2.4.3 Focus Order). preventScroll keeps the smooth
+  // scroll-to-top above as the only scroller.
+  const stepContentRef = useRef<HTMLDivElement>(null);
+  const prevStepRef = useRef<Step | null>(null);
+  useEffect(() => {
+    if (prevStepRef.current !== null && prevStepRef.current !== step) {
+      stepContentRef.current?.focus({ preventScroll: true });
+    }
+    prevStepRef.current = step;
+  }, [step]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [category, setCategory] = useState<Category>("massage");
@@ -1033,7 +1045,7 @@ export default function NewBookingFlow() {
               ) : (
                 <span className="w-16" />
               )}
-              <div className="text-sm font-semibold text-[#113D33]">
+              <div className="text-sm font-semibold text-[#113D33]" aria-live="polite">
                 {step === "category" ? "" :
                  step === "treatment" ? "" :
                  step === "boosts" ? "Customize with boosts" :
@@ -1053,7 +1065,7 @@ export default function NewBookingFlow() {
       )}
 
       <div className={`px-4 pb-20 ${step === "welcome" ? "pt-16 md:pt-20" : "pt-24 md:pt-28"}`}>
-        <div className={`mx-auto ${step === "welcome" || step === "category" || step === "treatment" ? "max-w-3xl" : "max-w-xl"}`}>
+        <div ref={stepContentRef} tabIndex={-1} className={`focus:outline-none mx-auto ${step === "welcome" || step === "category" || step === "treatment" ? "max-w-3xl" : "max-w-xl"}`}>
         {/* Error banner */}
         <AnimatePresence>
           {error && (
@@ -1768,8 +1780,8 @@ export default function NewBookingFlow() {
               </Link>
             )}
             {/* Slots */}
-            {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div className="text-center py-12 text-[#113D33]/65">Loading availability...</div>
-            : displayedSlots.length === 0 ? <div className="text-center py-12 text-[#113D33]/65">
+            {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div role="status" className="text-center py-12 text-[#113D33]/65">Loading availability...</div>
+            : displayedSlots.length === 0 ? <div role="status" className="text-center py-12 text-[#113D33]/65">
               <p>No availability on this date.</p>
               <p className="text-xs mt-1">Try another date or therapist.</p>
               <p className="mt-4 text-xs text-[#113D33]/40">

@@ -549,6 +549,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       .finally(() => setLoading(false));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const stepContentRef = useRef<HTMLDivElement>(null);
+
   /* Scroll to top when step changes */
   useEffect(() => {
     if (!didMountRef.current) {
@@ -556,6 +558,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // Move keyboard/screen-reader focus to the new step's content —
+    // otherwise focus is lost when the previous step's button unmounts
+    // (WCAG 2.4.3 Focus Order). preventScroll keeps the smooth
+    // scroll-to-top above as the only scroller.
+    stepContentRef.current?.focus({ preventScroll: true });
   }, [step]);
 
   function clearCardRefs() {
@@ -1206,7 +1213,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               ) : (
                 <span className="w-16" />
               )}
-              <div className={`text-sm font-semibold ${isDarkStep ? "text-white" : "text-[#113D33]"}`}>{stepTitle}</div>
+              <div className={`text-sm font-semibold ${isDarkStep ? "text-white" : "text-[#113D33]"}`} aria-live="polite">{stepTitle}</div>
               <span className="w-16" />
             </div>
             <ProgressBar step={step} dark={isDarkStep} />
@@ -1216,7 +1223,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
       {/* Extra bottom padding clears the sticky CTA bar on select/sauna steps. */}
       <div className={`px-4 pt-24 md:pt-28 ${hasStickyCta ? "pb-36" : "pb-20"}`}>
-        <div className="max-w-3xl mx-auto text-center">
+        <div ref={stepContentRef} tabIndex={-1} className="focus:outline-none max-w-3xl mx-auto text-center">
           {/* Identity banner */}
           {memberCheckDone && clientId && ["select", "sauna", "email", "name", "card", "confirm"].includes(step) && (
             <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${
@@ -1356,8 +1363,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                     Live availability is updating. These sessions may fill up. We&apos;ll confirm your spot at booking.
                   </p>
                 )}
-                {loading && <p className="text-center text-[#113D33]/50">Loading…</p>}
-                {error && <p className="text-center text-red-600">{error}</p>}
+                {loading && <p role="status" className="text-center text-[#113D33]/50">Loading…</p>}
+                {error && <p role="alert" className="text-center text-red-600">{error}</p>}
                 {!loading && !error && times.length > 0 && (() => {
                   // Group the session waves by part of day so the list is
                   // scannable and the clubs' split (morning / afternoon) hours
@@ -1414,7 +1421,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   );
                 })()}
                 {!loading && !error && times.length === 0 && (
-                  <div className="text-center text-[#113D33]/60">
+                  <div role="status" className="text-center text-[#113D33]/60">
                     <p>No sessions available for this day.</p>
                     <p className="mt-3 text-xs text-[#113D33]/40">Try another day, or <a href={`mailto:${contactEmail}`} className="underline hover:text-[#113D33]/70 transition">email {contactEmail}</a>.</p>
                   </div>

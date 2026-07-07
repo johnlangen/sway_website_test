@@ -632,6 +632,8 @@ export default function BookAescapePage() {
      MOBILE STEP SCROLL (UI ONLY)
   --------------------------------------------- */
 
+  const stepContentRef = useRef<HTMLDivElement>(null);
+
   /* Scroll to top when step changes (keeps UI centered like massage/facial flow) */
   useEffect(() => {
     if (!didMountRef.current) {
@@ -639,6 +641,10 @@ export default function BookAescapePage() {
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // Move keyboard/screen-reader focus to the new step's content —
+    // otherwise focus is lost when the previous step's button unmounts
+    // (WCAG 2.4.3 Focus Order).
+    stepContentRef.current?.focus({ preventScroll: true });
   }, [step]);
 
   /* ---------------------------------------------
@@ -1275,7 +1281,7 @@ export default function BookAescapePage() {
               ) : (
                 <span className="w-16" />
               )}
-              <div className="text-sm font-semibold text-[#113D33]">
+              <div className="text-sm font-semibold text-[#113D33]" aria-live="polite">
                 {stepTitle}
               </div>
               <span className="w-16" />
@@ -1287,7 +1293,7 @@ export default function BookAescapePage() {
 
       {/* Extra bottom padding clears the sticky CTA bar on select/time steps. */}
       <div className={`px-4 pt-24 md:pt-28 ${step === "select" || step === "time" ? "pb-36" : "pb-20"}`}>
-        <div className="max-w-3xl mx-auto text-center">
+        <div ref={stepContentRef} tabIndex={-1} className="focus:outline-none max-w-3xl mx-auto text-center">
           {/* Persistent identity banner — members + remembered guests */}
           {memberCheckDone && clientId && ["select", "time", "email", "name", "card", "confirm"].includes(step) && (
             <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${isMember || hasAescapeMembership ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
@@ -1542,12 +1548,12 @@ export default function BookAescapePage() {
                 </div>
 
                 {loading && (
-                  <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/65 animate-pulse">
-                    <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/15 border-t-[#113D33]/40 animate-spin" />
+                  <div role="status" className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/65 animate-pulse">
+                    <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/15 border-t-[#113D33]/40 animate-spin" aria-hidden="true" />
                     Loading availability…
                   </div>
                 )}
-                {error && <p className="text-center text-red-700">{error}</p>}
+                {error && <p role="alert" className="text-center text-red-700">{error}</p>}
 
                 {!loading &&
                   !error &&

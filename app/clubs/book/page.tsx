@@ -39,7 +39,7 @@ const clubs = [
 
 export default function ClubsBookPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
+    <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
       {/* Hero */}
       <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
         <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
@@ -100,6 +100,6 @@ export default function ClubsBookPage() {
         </div>
       </section>
 
-    </main>
+    </div>
   );
 }

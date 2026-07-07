@@ -134,7 +134,7 @@ export function ClubDesk() {
 
   if (!authed) {
     return (
-      <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] flex items-center justify-center px-6">
+      <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] flex items-center justify-center px-6">
         <div className="w-full max-w-sm">
           <h1 className="text-2xl font-semibold mb-1">Club Desk</h1>
           <p className="text-sm opacity-70 mb-4">Staff access</p>
@@ -150,12 +150,12 @@ export function ClubDesk() {
           </button>
           {err && <p className="text-red-700 text-sm mt-3">{err}</p>}
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-4 sm:px-6 pt-24 sm:pt-28 pb-12">
+    <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-4 sm:px-6 pt-24 sm:pt-28 pb-12">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-1">
           <h1 className="text-2xl font-semibold">Club Desk</h1>
@@ -262,7 +262,7 @@ export function ClubDesk() {
           {rows.length === 0 && <p className="text-sm opacity-60 py-8 text-center">Nothing here.</p>}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 

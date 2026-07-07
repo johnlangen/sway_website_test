@@ -195,6 +195,16 @@ html, body {
   transition: opacity 0.4s ease-out;
 }
 
+/* Visible keyboard focus indicator (WCAG 2.4.7 Focus Visible).
+   :focus-visible only fires for keyboard/AT focus, so mouse clicks
+   are unaffected. Components with their own focus:ring keep it —
+   the outline simply layers on top for interactive elements that
+   never defined one. */
+:focus-visible {
+  outline: 2px solid #4A776D;
+  outline-offset: 2px;
+}
+
 /* Respect user preference for reduced motion (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

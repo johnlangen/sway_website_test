@@ -6,7 +6,7 @@ import { SwayCurve } from "../components/SwayCurve";
 
 export default function FAQIndexPage() {
   return (
-    <main className="bg-white text-[#113D33] min-h-screen font-vance px-6 pt-32 md:pt-40 pb-20">
+    <div className="bg-white text-[#113D33] min-h-screen font-vance px-6 pt-32 md:pt-40 pb-20">
 
       <div className="max-w-3xl mx-auto space-y-12">
         {/* Page Title */}
@@ -45,6 +45,6 @@ export default function FAQIndexPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

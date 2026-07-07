@@ -65,7 +65,7 @@ export default function LarimerOffersPage() {
   ];
 
   return (
-    <main className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
+    <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
       {/* HERO */}
       <section className="px-6 pt-28 md:pt-36 pb-8 text-center max-w-5xl mx-auto">
         <motion.p
@@ -344,6 +344,6 @@ export default function LarimerOffersPage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

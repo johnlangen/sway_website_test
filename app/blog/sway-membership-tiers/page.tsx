@@ -70,7 +70,7 @@ export default function Page() {
   };
 
   return (
-    <main className="bg-[#F7F4E9]">
+    <div className="bg-[#F7F4E9]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -545,6 +545,6 @@ export default function Page() {
         </div>
 
       </div>
-    </main>
+    </div>
   );
 }

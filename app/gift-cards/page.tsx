@@ -72,10 +72,10 @@ export default function GiftCardsHubPage() {
     setShowPage(true);
   }, []);
 
-  if (!showPage) return <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
+  if (!showPage) return <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
+    <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
       {/* Hero */}
       <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
         <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
@@ -226,6 +226,6 @@ export default function GiftCardsHubPage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

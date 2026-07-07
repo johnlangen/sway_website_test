@@ -142,7 +142,7 @@ export default function HomePage() {
   };
 
   return (
-    <main>
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -152,6 +152,6 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <HomeContent />
-    </main>
+    </div>
   );
 }

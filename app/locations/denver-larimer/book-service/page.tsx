@@ -918,12 +918,17 @@ function BookServicePage() {
 
   // Gentle scroll to top on step change
   const isFirstRender = useRef(true);
+  const stepContentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // Move keyboard/screen-reader focus to the new step's content —
+    // otherwise focus is lost when the previous step's button unmounts
+    // (WCAG 2.4.3 Focus Order).
+    stepContentRef.current?.focus({ preventScroll: true });
   }, [step]);
 
   // Clear card refs when leaving card step
@@ -1611,7 +1616,7 @@ function BookServicePage() {
               ) : (
                 <span className="w-16" />
               )}
-              <div className="text-sm font-semibold text-[#113D33]">
+              <div className="text-sm font-semibold text-[#113D33]" aria-live="polite">
                 {stepTitle}
               </div>
               <span className="w-16" />
@@ -1622,7 +1627,7 @@ function BookServicePage() {
       )}
 
       <div className="px-4 pt-24 md:pt-28 pb-20">
-        <div className="max-w-3xl mx-auto text-center">
+        <div ref={stepContentRef} tabIndex={-1} className="focus:outline-none max-w-3xl mx-auto text-center">
           {/* Hero */}
           <div className="mb-10 md:mb-12 animate-fade-in">
             <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
@@ -2133,7 +2138,7 @@ function BookServicePage() {
                       </>
                     ) : (
                       <>
-                        <p className="text-[#113D33]/65">
+                        <p role="status" className="text-[#113D33]/65">
                           {filteredTherapist
                             ? `No availability for ${allTherapists.find((t) => t.id === filteredTherapist)?.name ?? "this therapist"} on this day.`
                             : "No availability for this day."}

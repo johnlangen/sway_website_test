@@ -140,7 +140,7 @@ export default function BookHubPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
+    <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
       {/* Pre-redirect before paint */}
       <Script id="book-pre-redirect" strategy="beforeInteractive">
         {`
@@ -226,6 +226,6 @@ export default function BookHubPage() {
           </section>
         </>
       )}
-    </main>
+    </div>
   );
 }

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main>
+    <div>
       <AescapeContent />
 
       {/* Breadcrumb JSON-LD */}
@@ -137,6 +137,6 @@ export default function Page() {
           }),
         }}
       />
-    </main>
+    </div>
   );
 }

@@ -156,7 +156,7 @@ export default function ClubMembershipPage({
   ];
 
   return (
-    <main className="bg-[#F7F4E9] text-[#113D33] font-vance">
+    <div className="bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* ================================ HERO ================================ */}
       <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-12 md:pb-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
@@ -482,6 +482,6 @@ export default function ClubMembershipPage({
           />
         )}
       </AnimatePresence>
-    </main>
+    </div>
   );
 }

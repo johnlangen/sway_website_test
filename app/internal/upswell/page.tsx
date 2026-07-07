@@ -1542,7 +1542,7 @@ export default function UpswellDashboard() {
 
   if (!authed) {
     return (
-      <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] flex items-center justify-center px-6">
+      <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] flex items-center justify-center px-6">
         <div className="w-full max-w-sm">
           <h1 className="text-2xl font-semibold mb-1">Upswell Dashboard</h1>
           <p className="text-sm opacity-70 mb-4">Staff access</p>
@@ -1558,12 +1558,12 @@ export default function UpswellDashboard() {
           </button>
           {authErr && <p className="text-red-700 text-sm mt-3">{authErr}</p>}
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance pt-20 sm:pt-24 md:pt-28">
+    <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance pt-20 sm:pt-24 md:pt-28">
       {/* HEADER */}
       <header className="border-b border-[#113D33]/10 bg-white">
         <div className="max-w-7xl mx-auto px-6 py-6">
@@ -1620,7 +1620,7 @@ export default function UpswellDashboard() {
           Internal dashboard · noindex · Last updated May 27 2026 · Source: <code className="bg-black/5 px-1.5 py-0.5 rounded">docs/upswell-conversion/</code>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
 

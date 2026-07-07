@@ -68,12 +68,12 @@ export default function Page() {
   };
 
   return (
-    <main>
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <DateNightDenverLayout />
-    </main>
+    </div>
   );
 }

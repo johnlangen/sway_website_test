@@ -16,7 +16,7 @@ const fadeUp = {
 
 export default function SwayDallasComingSoonPage() {
   return (
-    <main className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
+    <div className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
       {/* ====== ENTER TO WIN BANNER ====== */}
       <Link
         href="/locations/dallas/enter-to-win"
@@ -313,6 +313,6 @@ export default function SwayDallasComingSoonPage() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import SwayEasterEgg from "./SwayEasterEgg";
@@ -12,6 +12,10 @@ const NavBar = () => {
   const [savedLocation, setSavedLocation] = useState<any>(null);
   const [eggOpen, setEggOpen] = useState(false);
   const pathname = usePathname();
+  const treatmentsBtnRef = useRef<HTMLButtonElement>(null);
+  const swayWayBtnRef = useRef<HTMLButtonElement>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Location-aware "Book Now": on the new (MT-bridge) location pages, route to
   // that location's in-site /book page; everywhere else keep the global /book.
@@ -54,9 +58,12 @@ const NavBar = () => {
       }
     };
 
-    // Escape closes any open dropdown (keyboard accessibility — WCAG 2.1.2)
+    // Escape closes any open dropdown and returns focus to its trigger
+    // button (keyboard accessibility — WCAG 2.1.2 / menu pattern)
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        if (treatmentsOpen) treatmentsBtnRef.current?.focus();
+        if (swayWayOpen) swayWayBtnRef.current?.focus();
         setTreatmentsOpen(false);
         setSwayWayOpen(false);
       }
@@ -77,6 +84,65 @@ const NavBar = () => {
     setTreatmentsOpen(false);
     setSwayWayOpen(false);
   };
+
+  // Focus management for the mobile menu (WCAG keyboard nav):
+  // move focus into the panel on open, trap Tab within it, close on
+  // Escape, and restore focus to the hamburger button on close.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const panel = mobileMenuRef.current;
+    if (!panel) return;
+
+    const getFocusable = () =>
+      Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null);
+
+    // Move focus to the first link in the panel.
+    getFocusable()[0]?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setMobileMenuOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeEl = document.activeElement;
+
+      if (e.shiftKey) {
+        if (activeEl === first || !panel.contains(activeEl)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (activeEl === last || !panel.contains(activeEl)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
+
+  // Restore focus to the hamburger button whenever the menu closes.
+  const prevMobileOpenRef = useRef(false);
+  useEffect(() => {
+    if (prevMobileOpenRef.current && !mobileMenuOpen) {
+      mobileToggleRef.current?.focus();
+    }
+    prevMobileOpenRef.current = mobileMenuOpen;
+  }, [mobileMenuOpen]);
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#113D33]">
@@ -106,6 +172,7 @@ const NavBar = () => {
             {/* Treatments */}
             <div className="relative treatments-dropdown">
               <button
+                ref={treatmentsBtnRef}
                 onClick={() => {
                   setTreatmentsOpen((v) => !v);
                   setSwayWayOpen(false);
@@ -157,6 +224,7 @@ const NavBar = () => {
             {/* The Sway Way */}
             <div className="relative swayway-dropdown">
               <button
+                ref={swayWayBtnRef}
                 onClick={() => {
                   setSwayWayOpen((v) => !v);
                   setTreatmentsOpen(false);
@@ -245,6 +313,7 @@ const NavBar = () => {
             </a>
 
             <button
+              ref={mobileToggleRef}
               onClick={() => setMobileMenuOpen((v) => !v)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
@@ -259,7 +328,7 @@ const NavBar = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div id="mobile-menu" className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
+        <div ref={mobileMenuRef} id="mobile-menu" className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
           {/* Location selector */}
           {savedLocation ? (
             <div className="flex items-center gap-2 text-white text-sm">

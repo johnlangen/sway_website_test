@@ -15,7 +15,7 @@ const fadeUp = {
 
 export default function SwayGeorgetownComingSoonPage() {
   return (
-    <main className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
+    <div className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
       {/* ====== HERO ====== */}
       <section className="px-6 pt-28 md:pt-36 pb-12">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
@@ -287,6 +287,6 @@ export default function SwayGeorgetownComingSoonPage() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -56,7 +56,7 @@ export default function DallasEnterToWinPage() {
   };
 
   return (
-    <main className="bg-[#F7F4E9] text-[#113D33] font-vance">
+    <div className="bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* =========================================================
           SECTION 1 — HERO with video
       ========================================================= */}
@@ -256,6 +256,6 @@ export default function DallasEnterToWinPage() {
           </details>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

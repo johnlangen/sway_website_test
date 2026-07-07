@@ -645,6 +645,8 @@ export default function BookRemedyRoomPage() {
       .finally(() => setLoading(false));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const stepContentRef = useRef<HTMLDivElement>(null);
+
   /* Scroll to top when step changes (keeps UI centered like massage/facial flow) */
   useEffect(() => {
     if (!didMountRef.current) {
@@ -652,6 +654,10 @@ export default function BookRemedyRoomPage() {
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+    // Move keyboard/screen-reader focus to the new step's content —
+    // otherwise focus is lost when the previous step's button unmounts
+    // (WCAG 2.4.3 Focus Order).
+    stepContentRef.current?.focus({ preventScroll: true });
   }, [step]);
 
   function clearCardRefs() {
@@ -1319,7 +1325,7 @@ export default function BookRemedyRoomPage() {
               ) : (
                 <span className="w-16" />
               )}
-              <div className={`text-sm font-semibold ${isDarkStep ? "text-white" : "text-[#113D33]"}`}>
+              <div className={`text-sm font-semibold ${isDarkStep ? "text-white" : "text-[#113D33]"}`} aria-live="polite">
                 {stepTitle}
               </div>
               <span className="w-16" />
@@ -1331,7 +1337,7 @@ export default function BookRemedyRoomPage() {
 
       {/* Extra bottom padding clears the sticky CTA bar on the select step. */}
       <div className={`px-4 pt-24 md:pt-28 ${isDarkStep ? "pb-36" : "pb-20"}`}>
-        <div className="max-w-3xl mx-auto text-center">
+        <div ref={stepContentRef} tabIndex={-1} className="focus:outline-none max-w-3xl mx-auto text-center">
           {/* Persistent identity banner — members + remembered guests */}
           {memberCheckDone && clientId && ["select", "email", "name", "card", "confirm"].includes(step) && (
             <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${
@@ -1531,8 +1537,8 @@ export default function BookRemedyRoomPage() {
                   </h2>
                 </div>
 
-                {loading && <p className="text-center text-white/50">Loading…</p>}
-                {error && <p className="text-center text-red-400">{error}</p>}
+                {loading && <p role="status" className="text-center text-white/50">Loading…</p>}
+                {error && <p role="alert" className="text-center text-red-400">{error}</p>}
 
                 {!loading &&
                   !error &&

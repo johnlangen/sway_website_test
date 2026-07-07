@@ -49,12 +49,12 @@ export default function TermsPage() {
   };
 
   return (
-    <main>
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <TermsContent />
-    </main>
+    </div>
   );
 }

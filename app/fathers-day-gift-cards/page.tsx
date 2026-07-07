@@ -30,7 +30,7 @@ export default function FathersDayGiftCardsPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#f4f4f1] pt-24 md:pt-28 pb-20 font-vance text-[#113D33]">
+    <div className="min-h-screen bg-[#f4f4f1] pt-24 md:pt-28 pb-20 font-vance text-[#113D33]">
       <div className="max-w-5xl mx-auto px-4">
         {/* HERO BANNER */}
         <section className="relative rounded-2xl overflow-hidden">
@@ -370,6 +370,6 @@ export default function FathersDayGiftCardsPage() {
           Gift card purchases are non-refundable. Gift cards never expire.
         </p>
       </div>
-    </main>
+    </div>
   );
 }

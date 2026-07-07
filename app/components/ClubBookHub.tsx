@@ -55,7 +55,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
   ];
 
   return (
-    <main className="bg-[#F7F4E9] text-[#113D33] font-vance min-h-screen">
+    <div className="bg-[#F7F4E9] text-[#113D33] font-vance min-h-screen">
       <section className="px-4 pt-24 md:pt-28 pb-20">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
@@ -126,6 +126,6 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
           </p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
