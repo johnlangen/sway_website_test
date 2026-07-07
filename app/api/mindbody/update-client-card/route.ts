@@ -70,6 +70,42 @@ export async function POST(req: Request) {
   try {
     const token = await getMindbodyStaffToken(siteId);
     const cardType = detectCardType(cardNumber);
+    const submittedLastFour = String(cardNumber).slice(-4);
+
+    // Read-after-write verification: returns the stored LastFour when the card
+    // Mindbody has on file matches THIS submission, else null. The club sites
+    // intermittently return 500 "Something went wrong / Code: Unknown" AFTER
+    // persisting the card (cross-regional propagation flake, July 2026 —
+    // Kimberly Bringas incident), and PaymentAlreadyExists just means the card
+    // is already stored. The response status can lie; the client record can't.
+    async function cardActuallyOnFile(): Promise<string | null> {
+      try {
+        const verifyUrl = new URL(
+          "https://api.mindbodyonline.com/public/v6/client/clients"
+        );
+        verifyUrl.searchParams.set("request.clientIds", String(clientId));
+        verifyUrl.searchParams.set("request.limit", "1");
+        const verifyRes = await fetch(verifyUrl.toString(), {
+          headers: {
+            Accept: "application/json",
+            "Api-Key": process.env.MINDBODY_API_KEY!,
+            SiteId: siteId,
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!verifyRes.ok) return null;
+        const verifyData = await verifyRes.json();
+        const stored = verifyData?.Clients?.[0]?.ClientCreditCard;
+        if (!stored?.LastFour) return null;
+        const sameCard =
+          String(stored.LastFour) === submittedLastFour &&
+          parseInt(String(stored.ExpMonth), 10) === parseInt(String(expMonth), 10) &&
+          parseInt(String(stored.ExpYear), 10) === parseInt(String(expYear), 10);
+        return sameCard ? String(stored.LastFour) : null;
+      } catch {
+        return null;
+      }
+    }
 
     // Resolve names: prefer request payload, fall back to a GetClient lookup.
     let resolvedFirst = requestFirstName;
@@ -138,6 +174,11 @@ export async function POST(req: Request) {
               State: state,
             },
           },
+          // A stored card is per-site merchant data — propagating the update
+          // across the cross-regional network (Larimer + clubs + Spavia) buys
+          // nothing and is the suspected source of the intermittent
+          // "Something went wrong / Code: Unknown" partial-write failures.
+          CrossRegionalUpdate: false,
           Test: false,
         }),
       }
@@ -146,7 +187,25 @@ export async function POST(req: Request) {
     const data = await res.json();
 
     if (!res.ok) {
-      console.error("Mindbody UpdateClient error:", data);
+      // Before surfacing the failure, check whether the card landed anyway —
+      // Mindbody can error after persisting the write.
+      const recoveredLastFour = await cardActuallyOnFile();
+      if (recoveredLastFour) {
+        console.log("[update-client-card] MB errored but card verified on file:", {
+          httpStatus: res.status,
+          clientId,
+          siteId,
+          lastFour: recoveredLastFour,
+          mbError: data?.Error ?? data?.Errors ?? null,
+        });
+        return NextResponse.json({
+          success: true,
+          clientId,
+          lastFour: recoveredLastFour,
+          recovered: true,
+        });
+      }
+      console.error("Mindbody UpdateClient error:", { clientId, siteId }, data);
       return NextResponse.json(
         { error: "Failed to update client", details: data },
         { status: res.status }
@@ -174,6 +233,25 @@ export async function POST(req: Request) {
     });
 
     if (!cardSaved) {
+      // Same partial-write defense as the !res.ok path: PartialSuccess or a
+      // response missing the card does not prove the card isn't stored.
+      const recoveredLastFour = await cardActuallyOnFile();
+      if (recoveredLastFour) {
+        console.log("[update-client-card] PartialSuccess but card verified on file:", {
+          clientId,
+          siteId,
+          lastFour: recoveredLastFour,
+          mbStatus: data?.Status,
+          errors: data?.Errors ?? null,
+        });
+        return NextResponse.json({
+          success: true,
+          clientId,
+          lastFour: recoveredLastFour,
+          recovered: true,
+        });
+      }
+
       const firstError = Array.isArray(data?.Errors) ? data.Errors[0] : null;
       const mbErrMsg: string = firstError?.Message ?? "";
 

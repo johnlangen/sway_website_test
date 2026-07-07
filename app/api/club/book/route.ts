@@ -278,7 +278,7 @@ export async function POST(req: Request) {
 
     if (!lounge.ok) {
       console.error(
-        `[club book] lounge booking failed (site ${siteId}, ${startDateTime}):`,
+        `[club book] lounge booking failed (site ${siteId}, client ${clientId}, ${startDateTime}):`,
         JSON.stringify(lounge.data?.Error ?? lounge.data).slice(0, 500)
       );
       return NextResponse.json(
@@ -364,7 +364,7 @@ export async function POST(req: Request) {
       });
       if (!r.ok) {
         console.error(
-          `[club book] sauna booking failed (site ${siteId}, ${sauna.label}${cabinLabel ? ` ${cabinLabel}` : ""} @ ${saunaStart}):`,
+          `[club book] sauna booking failed (site ${siteId}, client ${clientId}, ${sauna.label}${cabinLabel ? ` ${cabinLabel}` : ""} @ ${saunaStart}):`,
           JSON.stringify(r.data?.Error ?? r.data).slice(0, 500)
         );
       }
