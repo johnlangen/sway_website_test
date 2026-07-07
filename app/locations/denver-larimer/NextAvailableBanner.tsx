@@ -87,7 +87,7 @@ export default function NextAvailableBanner({
       className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
     >
       <span>
-        {staffName ? `${staffName} — next` : "Next"} available:{" "}
+        {staffName ? `${staffName} · next` : "Next"} available:{" "}
         <span className="text-[#4A776D]">{label}</span>
       </span>
       <span className="text-[#4A776D]">&rarr;</span>

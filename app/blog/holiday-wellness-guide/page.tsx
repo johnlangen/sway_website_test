@@ -4,7 +4,7 @@ import HolidayWellnessGuideLayout from "./layout";
 export const metadata: Metadata = {
   title: "Holiday Wellness Gift Guide | Sway Wellness Spa",
   description:
-    "Discover Sway’s Holiday Wellness Gift Guide—thoughtful spa experiences, modern self-care, and restorative gifts designed to elevate the season.",
+    "Discover Sway’s Holiday Wellness Gift Guide: thoughtful spa experiences, modern self-care, and restorative gifts designed to elevate the season.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/holiday-wellness-guide/",
   },

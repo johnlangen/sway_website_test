@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",
     description:
-      "Discover why an 80-minute massage at Sway Wellness Spa provides the ultimate reset — extra time, personalized techniques, and deeper rejuvenation.",
+      "Discover why an 80-minute massage at Sway Wellness Spa provides the ultimate reset: extra time, personalized techniques, and deeper rejuvenation.",
     url: "https://swaywellnessspa.com/blog/80-minute-massage/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -33,7 +33,7 @@ export default function Page() {
     "@type": "BlogPosting",
     headline: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",
     description:
-      "Discover why upgrading to an 80-minute massage at Sway Wellness Spa is the ultimate reset — with specialty techniques and deeper rejuvenation.",
+      "Discover why upgrading to an 80-minute massage at Sway Wellness Spa is the ultimate reset, with specialty techniques and deeper rejuvenation.",
     image: "https://swaywellnessspa.com/assets/blog25.jpg",
     author: {
       "@type": "Organization",

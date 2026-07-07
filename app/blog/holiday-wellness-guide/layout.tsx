@@ -89,7 +89,7 @@ export default function HolidayWellnessGuideLayout() {
               </p>
               <p className="mt-4 text-sm leading-relaxed text-[#2b2b2b]">
                 A targeted massage experience using CBD to calm the nervous
-                system and release stubborn tension—perfect for post-workout
+                system and release stubborn tension, perfect for post-workout
                 soreness or chronic tightness.
               </p>
             </motion.div>
@@ -172,7 +172,7 @@ export default function HolidayWellnessGuideLayout() {
             >
               <p className="text-[12.5px] leading-relaxed text-[#113D33]">
                 Our award-winning CBD cream delivers immediate cooling comfort
-                and helps you feel lighter, calmer, and more mobile—fast.
+                and helps you feel lighter, calmer, and more mobile, fast.
               </p>
             </motion.div>
           </div>
@@ -202,7 +202,7 @@ export default function HolidayWellnessGuideLayout() {
 
                 <p className="mt-5 lg:mt-6 text-sm lg:text-base leading-relaxed text-[#2b2b2b] max-w-[520px]">
                   This targeted massage experience uses CBD to help calm the
-                  nervous system and release stubborn tension—perfect for
+                  nervous system and release stubborn tension, perfect for
                   post-workout soreness or chronic tightness.
                 </p>
 
@@ -295,7 +295,7 @@ export default function HolidayWellnessGuideLayout() {
                   <p className="text-xs lg:text-sm leading-relaxed text-[#113D33] font-medium">
                     Our award-winning relief cream provides immediate cooling
                     comfort with a revitalizing blend designed to help you feel
-                    lighter, calmer, and more mobile—fast.
+                    lighter, calmer, and more mobile, fast.
                   </p>
                 </div>
               </motion.div>
@@ -331,7 +331,7 @@ export default function HolidayWellnessGuideLayout() {
           This signature facial delivers a dewy, luminous complexion using
           antioxidant-rich botanicals and advanced hydration. Designed to revive
           tired, dull skin, the Glow Getter gently exfoliates and restores
-          balance, leaving you fresh-faced and radiant — the ultimate reset for
+          balance, leaving you fresh-faced and radiant, the ultimate reset for
           skin that craves renewal.
         </p>
 
@@ -434,7 +434,7 @@ export default function HolidayWellnessGuideLayout() {
             This signature facial delivers a dewy, luminous complexion using
             antioxidant-rich botanicals and advanced hydration. Designed to
             revive tired, dull skin, the Glow Getter gently exfoliates and
-            restores balance, leaving you fresh-faced and radiant — the ultimate
+            restores balance, leaving you fresh-faced and radiant, the ultimate
             reset for skin that craves renewal.
           </p>
 
@@ -548,11 +548,11 @@ export default function HolidayWellnessGuideLayout() {
 
         <p className="mt-4 text-sm leading-relaxed text-[#2b2b2b]">
           Where wellness meets design. The Sway Shop curates products that
-          inspire daily rituals — from luxurious skincare and SPF essentials to
+          inspire daily rituals, from luxurious skincare and SPF essentials to
           home scents and statement coffee-table books. Discover the art of
           feeling good through every sense: the glow of Supergoop!, the scent of
           Paddywax, and the wanderlust pages of Assouline. Each piece is chosen
-          to bring balance, beauty, and modern calm into your everyday routine —
+          to bring balance, beauty, and modern calm into your everyday routine,
           because self-care should look as good as it feels.
         </p>
       </motion.div>
@@ -622,7 +622,7 @@ export default function HolidayWellnessGuideLayout() {
           Supergoop! Lightweight, invisible, and effortlessly wearable
           sunscreen. A scent for every mood with Paddywax candles. A lifestyle
           in print with Assouline books capture the art of travel, culture, and
-          design — the perfect statement piece for your coffee table or your
+          design, the perfect statement piece for your coffee table or your
           next escape.
         </p>
       </motion.div>
@@ -649,7 +649,7 @@ export default function HolidayWellnessGuideLayout() {
 
           <p className="mt-6 text-base leading-relaxed text-[#2b2b2b] max-w-md">
             Where wellness meets design. The Sway Shop curates products that
-            inspire daily rituals — from luxurious skincare and SPF essentials
+            inspire daily rituals, from luxurious skincare and SPF essentials
             to home scents and statement coffee-table books.
           </p>
 
@@ -657,7 +657,7 @@ export default function HolidayWellnessGuideLayout() {
             Discover the art of feeling good through every sense: the glow of
             Supergoop!, the scent of Paddywax, and the wanderlust pages of
             Assouline. Each piece is chosen to bring balance, beauty, and modern
-            calm into your everyday routine — because self-care should look as
+            calm into your everyday routine, because self-care should look as
             good as it feels.
           </p>
         </motion.div>
@@ -731,7 +731,7 @@ export default function HolidayWellnessGuideLayout() {
               Supergoop! Lightweight, invisible, and effortlessly wearable
               sunscreen. A scent for every mood with Paddywax candles. A
               lifestyle in print with Assouline books capture the art of travel,
-              culture, and design — the perfect statement piece for your coffee
+              culture, and design, the perfect statement piece for your coffee
               table or your next escape.
             </p>
           </div>
@@ -767,7 +767,7 @@ export default function HolidayWellnessGuideLayout() {
 
         <p className="mt-4 text-sm leading-relaxed text-[#2b2b2b]">
           When wellness is the wish, a Sway Gift Card is always the right
-          choice. Give the experience of relaxation — from facials and massages
+          choice. Give the experience of relaxation, from facials and massages
           to sauna sessions and cold plunge dips. A gift of balance, beauty, and
           time to recharge. Let them choose their own moment to breathe.
         </p>
@@ -842,7 +842,7 @@ export default function HolidayWellnessGuideLayout() {
         <p className="text-[12.5px] leading-relaxed text-[#113D33] text-center">
           Wellness looks good on everyone.
           <br />
-          The Sway Gift Card — the gift that always fits.
+          The Sway Gift Card. The gift that always fits.
         </p>
       </motion.div>
     </div>
@@ -868,7 +868,7 @@ export default function HolidayWellnessGuideLayout() {
 
           <p className="mt-6 text-base leading-relaxed text-[#2b2b2b] max-w-md">
             When wellness is the wish, a Sway Gift Card is always the right
-            choice. Give the experience of relaxation — from facials and
+            choice. Give the experience of relaxation, from facials and
             massages to sauna sessions and cold plunge dips. A gift of balance,
             beauty, and time to recharge. Let them choose their own moment to
             breathe.
@@ -948,7 +948,7 @@ export default function HolidayWellnessGuideLayout() {
             <p className="text-sm leading-relaxed text-[#113D33]">
               Wellness looks good on everyone.
               <br />
-              The Sway Gift Card — the gift that always fits.
+              The Sway Gift Card. The gift that always fits.
             </p>
           </div>
         </motion.div>

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Treatments | Massage, Facials, Recovery & Aescape at Sway",
   description:
-    "18 massages, 13 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage — plus boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
+    "18 massages, 13 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage, plus boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
   alternates: {
     canonical: "https://swaywellnessspa.com/treatments/",
   },
@@ -69,7 +69,7 @@ export default function TreatmentsLayout({
         "@type": "OfferCatalog",
         name: "Massage Therapy",
         description:
-          "18 massage types across 3 tiers — Essential, Premier, and Ultimate. 50–90 minutes.",
+          "18 massage types across 3 tiers: Essential, Premier, and Ultimate. 50–90 minutes.",
         url: "https://swaywellnessspa.com/massages/",
         numberOfItems: 18,
         itemListElement: [
@@ -106,7 +106,7 @@ export default function TreatmentsLayout({
         "@type": "OfferCatalog",
         name: "Facial Treatments",
         description:
-          "13 facial treatments across 3 tiers — Essential, Premier, and Ultimate. 30–60 minutes. Powered by Eminence Organics and Dr. Dennis Gross.",
+          "13 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 30–60 minutes. Powered by Eminence Organics and Dr. Dennis Gross.",
         url: "https://swaywellnessspa.com/facials/",
         numberOfItems: 13,
         itemListElement: [
@@ -215,7 +215,7 @@ export default function TreatmentsLayout({
         name: "How much do treatments cost at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Members pay from $99 for massages and facials (regularly from $139) across three tiers — Essential ($99/$139), Premier ($129/$169), and Ultimate ($159/$199). The Remedy Room is $25 member ($49 drop-in), and Aescape starts at $49. Memberships are $99/month and include 50% off boosts and recovery sessions.",
+          text: "Members pay from $99 for massages and facials (regularly from $139) across three tiers: Essential ($99/$139), Premier ($129/$169), and Ultimate ($159/$199). The Remedy Room is $25 member ($49 drop-in), and Aescape starts at $49. Memberships are $99/month and include 50% off boosts and recovery sessions.",
         },
       },
       {

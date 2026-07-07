@@ -1164,7 +1164,7 @@ export default function AnniversaryEventPage() {
                 <p className="text-sm text-[#113D33]/80 leading-relaxed mb-4">
                   We&apos;ll reserve this appointment under{" "}
                   <span className="font-semibold">{normalizeEmail(email)}</span>.
-                  No charge today — your card is stored in Mindbody for no-show /
+                  No charge today. Your card is stored in Mindbody for no-show /
                   late cancellation protection.
                 </p>
 
@@ -1230,7 +1230,7 @@ export default function AnniversaryEventPage() {
                           className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
                         />
                         <span className="text-xs text-[#113D33]/70">
-                          This is a surprise — don&apos;t notify them
+                          This is a surprise · don&apos;t notify them
                         </span>
                       </label>
                     </div>

@@ -38,7 +38,7 @@ export default function CountdownBanner() {
           href="/locations/denver-larimer/membership"
           className="text-xs md:text-sm font-semibold text-white hover:text-[#9ABFB3] transition"
         >
-          New memberships launching April 1 —{" "}
+          New memberships launching April 1 ·{" "}
           <span className="text-[#9ABFB3]">
             {daysLeft} {daysLeft === 1 ? "day" : "days"} left
           </span>{" "}

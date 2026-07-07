@@ -53,7 +53,7 @@ export default function AescapeBlogLayout() {
               </h1>
 
               <p className="text-sm md:text-base max-w-sm opacity-95">
-                The world’s first AI-powered, fully autonomous robot massage —
+                The world’s first AI-powered, fully autonomous robot massage,
                 exclusively at Sway Wellness Spa in downtown Denver.
               </p>
 
@@ -105,7 +105,7 @@ export default function AescapeBlogLayout() {
               <div className="mt-6 rounded-2xl border border-[#d7e2dc] bg-white/85 shadow-lg px-5 py-4">
                 <p className="text-sm leading-relaxed text-[#113D33]">
                   <span className="font-semibold">Exclusively at Sway Wellness Spa</span>{" "}
-                  in downtown Denver — designed for people who move fast and want
+                  in downtown Denver, designed for people who move fast and want
                   recovery that keeps up.
                 </p>
               </div>
@@ -156,7 +156,7 @@ export default function AescapeBlogLayout() {
               <p className="mt-6 text-base lg:text-lg leading-relaxed text-[#2b2b2b]">
                 Long hours, constant focus, and screen-heavy work strain the body
                 in quiet ways. Aescape was designed for people who optimize
-                performance — and understand recovery is part of the equation.
+                performance, and understand recovery is part of the equation.
               </p>
 
               <div className="mt-6 grid gap-3">
@@ -329,7 +329,7 @@ export default function AescapeBlogLayout() {
 
               <div className="mt-6 rounded-2xl border border-[#d7e2dc] bg-white/85 shadow-lg px-5 py-4">
                 <p className="text-sm leading-relaxed text-[#113D33]">
-                  You stay in control the entire time — adjust pressure, skip
+                  You stay in control the entire time. Adjust pressure, skip
                   segments, or pause whenever you want.
                 </p>
               </div>
@@ -451,7 +451,7 @@ export default function AescapeBlogLayout() {
                 {[
                   {
                     t: "Stay clothed",
-                    d: "Perfect for midday sessions — compression apparel is provided.",
+                    d: "Perfect for midday sessions. Compression apparel is provided.",
                   },
                   {
                     t: "Fully private",
@@ -509,11 +509,11 @@ export default function AescapeBlogLayout() {
               },
               {
                 q: "Does it replace human therapists?",
-                a: "No — it complements them. Aescape is ideal for repeatable, time-efficient recovery and targeted tension work.",
+                a: "No. It complements them. Aescape is ideal for repeatable, time-efficient recovery and targeted tension work.",
               },
               {
                 q: "What should I wear?",
-                a: "We provide compression apparel at check-in — just bring socks.",
+                a: "We provide compression apparel at check-in. Just bring socks.",
               },
             ].map((item) => (
               <motion.div
@@ -536,7 +536,7 @@ export default function AescapeBlogLayout() {
             className="mt-10 rounded-2xl border border-[#d7e2dc] bg-white/85 shadow-lg px-6 py-5"
           >
             <p className="text-sm md:text-base text-[#113D33] leading-relaxed">
-              Ready to trade bugs for back relief? Reserve your spot — sessions
+              Ready to trade bugs for back relief? Reserve your spot. Sessions
               can fill quickly during busy downtown weeks.
             </p>
             <div className="mt-4">
@@ -656,7 +656,7 @@ export default function AescapeBlogLayout() {
                   name: "What should I wear for an Aescape session?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway provides compression apparel at check-in for your Aescape session. The breathable fabric allows precision contact with the robotic arms. Just bring socks — everything else is provided.",
+                    text: "Sway provides compression apparel at check-in for your Aescape session. The breathable fabric allows precision contact with the robotic arms. Just bring socks. Everything else is provided.",
                   },
                 },
               ],

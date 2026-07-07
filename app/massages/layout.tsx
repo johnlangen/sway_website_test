@@ -68,7 +68,7 @@ const faqJsonLd = {
       name: "What types of massage does Sway offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway offers massages across three tiers: Essential (Signature Massage, 50 min), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage — 50–70 min), and Ultimate (Signature 90 min, Deep Tissue 70 min, Salt Stone 70 min, Sports 70 min, Lymphatic Drainage 70 min). All fully customized by your therapist.",
+        text: "Sway offers massages across three tiers: Essential (Signature Massage, 50 min), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage, 50–70 min), and Ultimate (Signature 90 min, Deep Tissue 70 min, Salt Stone 70 min, Sports 70 min, Lymphatic Drainage 70 min). All fully customized by your therapist.",
       },
     },
     {
@@ -103,7 +103,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Massage Therapy at Sway Wellness Spa",
   description:
-    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min) — fully customized by your therapist. Add boosts like CBD, cupping, and PEMF.",
+    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min), fully customized by your therapist. Add boosts like CBD, cupping, and PEMF.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",

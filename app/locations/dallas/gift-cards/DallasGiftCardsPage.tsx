@@ -41,7 +41,7 @@ export default function DallasGiftCardsPage() {
         transition={{ duration: 0.6 }}
         className="text-3xl md:text-5xl font-vance font-bold text-center mb-8"
       >
-        GIFT CARDS — COMING SOON
+        GIFT CARDS · COMING SOON
       </motion.h1>
 
       {/* Coming Soon Card */}

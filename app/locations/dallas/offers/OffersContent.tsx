@@ -68,7 +68,7 @@ export default function OffersContent() {
         transition={{ duration: 0.6 }}
         className="text-3xl md:text-5xl font-vance font-bold text-center mb-8"
       >
-        OFFERS — COMING SOON
+        OFFERS · COMING SOON
       </motion.h1>
 
       {/* Coming Soon Card */}

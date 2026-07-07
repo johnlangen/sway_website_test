@@ -33,7 +33,7 @@ export default function Page() {
     "@type": "BlogPosting",
     headline: "Science of Relaxation: How Spa Treatments Ease Stress & Anxiety",
     description:
-      "Stress relief backed by science — massage, cold plunge, sauna, and mindful facials proven to reduce cortisol, improve sleep, and restore balance.",
+      "Stress relief backed by science: massage, cold plunge, sauna, and mindful facials proven to reduce cortisol, improve sleep, and restore balance.",
     image: "https://swaywellnessspa.com/assets/blog11.jpg",
     author: {
       "@type": "Organization",

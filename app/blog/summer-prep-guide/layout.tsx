@@ -27,7 +27,7 @@ export default function SummerPrepGuideBlogLayout() {
           all the fun, adventure, and relaxation we’ve been waiting for. But
           before you slip into your favorite bikini, stock up on sunscreen, and
           plan your summer getaways, there’s one key thing to focus on
-          first—your skin!
+          first: your skin!
         </p>
 
         <p>
@@ -81,7 +81,7 @@ export default function SummerPrepGuideBlogLayout() {
         <h3 className="text-xl font-bold">2. The Microcurrent Super-Boost</h3>
         <p>
           Want a summer-worthy glow? Our microcurrent facial uses low-level
-          currents to lift, tone, and smooth facial muscles—like a workout for
+          currents to lift, tone, and smooth facial muscles, like a workout for
           your face. Backed by research and beloved by guests, this treatment
           delivers visible, no-downtime results in one session.
         </p>
@@ -96,7 +96,7 @@ export default function SummerPrepGuideBlogLayout() {
         <h3 className="text-xl font-bold">4. Regular Massage for Total Relaxation</h3>
         <p>
           Reset your body and mind with our expert massage experiences. We
-          recommend the Salt Stone Massage—warm Himalayan stones melt tension
+          recommend the Salt Stone Massage: warm Himalayan stones melt tension
           while 84 trace minerals nourish your skin.
         </p>
 
@@ -104,7 +104,7 @@ export default function SummerPrepGuideBlogLayout() {
         <p>
           Summer may be about spontaneity, but prepping your skin now means
           confidence that lasts. Radiant skin, a refreshed appearance, and a
-          sense of care—that’s the Sway difference.
+          sense of care. That’s the Sway difference.
         </p>
 
         <p>

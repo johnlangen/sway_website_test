@@ -459,7 +459,7 @@ export default function DallasFoundingMembershipPage() {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/25 bg-white/10 text-white/90 text-xs uppercase tracking-[0.25em] backdrop-blur-md mb-8"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            Founding Member — Limited Spots
+            Founding Member · Limited Spots
           </motion.span>
 
           <motion.p
@@ -468,7 +468,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm md:text-base uppercase tracking-[0.2em] text-white/70 mb-5"
           >
-            Knox/Henderson — Dallas, TX
+            Knox/Henderson · Dallas, TX
           </motion.p>
 
           <motion.h1
@@ -623,7 +623,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-[#4A776D] text-sm uppercase tracking-[0.15em]"
           >
-            Founding Member Pricing — Limited Availability
+            Founding Member Pricing · Limited Availability
           </motion.p>
         </div>
 
@@ -898,7 +898,7 @@ export default function DallasFoundingMembershipPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-white/60 max-w-2xl mx-auto"
           >
-            Everything we&apos;ve perfected in Denver — every treatment,
+            Everything we&apos;ve perfected in Denver, every treatment,
             every detail.
           </motion.p>
         </div>
@@ -1012,7 +1012,7 @@ export default function DallasFoundingMembershipPage() {
               Pricing and perks shown above are not yet final.
             </p>
             <p className="text-sm text-[#4A776D] mb-10">
-              No commitment — we&apos;ll notify you when we&apos;re ready
+              No commitment. We&apos;ll notify you when we&apos;re ready
             </p>
           </motion.div>
 

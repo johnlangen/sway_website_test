@@ -25,14 +25,14 @@ export default function MothersDayGiftGuideLayout() {
           Motherhood is a full-time commitment, filled with endless
           responsibilities and love, and no one deserves relaxation and wellness
           more than the moms in our lives. That’s where Sway Wellness Spa comes
-          in—the perfect way to remind her how deeply she’s appreciated.
+          in, the perfect way to remind her how deeply she’s appreciated.
         </p>
 
         <p>
           This Mother’s Day, give her the gift of wellness and self-care. From
           calming massages and revitalizing facials to soothing aromatherapy,
           Sway offers a range of treatments designed to help her relax and
-          recharge. Because moms do so much for everyone else—they deserve
+          recharge. Because moms do so much for everyone else. They deserve
           (S)way more.
         </p>
 
@@ -59,14 +59,14 @@ export default function MothersDayGiftGuideLayout() {
         <h2 id="why-self-care-matters-for-moms" className="text-2xl font-bold scroll-mt-24">Why Self-Care Matters for Moms</h2>
         <p>
           Juggling endless responsibilities often leaves moms little time for
-          themselves. But self-care is essential—according to the Mayo Clinic,
+          themselves. But self-care is essential. According to the Mayo Clinic,
           it helps reduce stress, prevent burnout, and improve emotional
           well-being. Giving mom the space to relax means giving her the ability
           to show up fully.
         </p>
 
         <p>
-          A Sway spa experience is more than a moment of peace—it’s a chance to
+          A Sway spa experience is more than a moment of peace, it’s a chance to
           recharge mentally and physically.
         </p>
 
@@ -88,14 +88,14 @@ export default function MothersDayGiftGuideLayout() {
         <p>
           <strong>Give a Membership for Only $99</strong>
           <br />
-          She’ll receive monthly wellness rituals—from facials to massages—that
+          She’ll receive monthly wellness rituals, from facials to massages, that
           nourish her all year long. It’s a gift that reminds her to prioritize
           herself.
         </p>
 
         <h2 id="customer-love" className="text-2xl font-bold scroll-mt-24">Customer Love</h2>
         <blockquote className="border-l-4 border-[#113D33] pl-4 italic text-gray-700">
-          "I'm so, so happy you opened in Denver—I've had the robot massage in
+          "I'm so, so happy you opened in Denver. I've had the robot massage in
           NYC (we moved to CO in August), and I couldn't believe how effective
           it is! I'm asking for a monthly membership for Mother's Day."
           <br />– Kadie D., Denverite
@@ -117,7 +117,7 @@ export default function MothersDayGiftGuideLayout() {
 
         <h2 id="celebrate-all-that-she-does" className="text-2xl font-bold scroll-mt-24">Celebrate All That She Does</h2>
         <p>
-          This Mother’s Day, go beyond chocolates and flowers. Give her *time*—
+          This Mother’s Day, go beyond chocolates and flowers. Give her *time*,
           to rest, reset, and feel seen. Whether it’s a spa day, massage, or
           thoughtful membership, she deserves the best.
         </p>

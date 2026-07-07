@@ -238,7 +238,7 @@ export default function SwayLarimerFAQPage() {
               answer: (
                 <p>
                   During the Aescape treatment, compression apparel is provided
-                  at check-in — a form-fitting outfit that allows the Aescape
+                  at check-in, a form-fitting outfit that allows the Aescape
                   technology to perform at its best. Please ensure your Aescape
                   profile is updated with your smallest fit size.
                 </p>

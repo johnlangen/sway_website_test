@@ -24,7 +24,7 @@ export default function ScienceOfRelaxationBlogLayout() {
         <p>
           Stress and anxiety can weigh heavily on our minds and bodies,
           impacting clarity, relationships, and health. At Sway, we use
-          science-backed therapies to provide real relief—not just pampering,
+          science-backed therapies to provide real relief, not just pampering,
           but powerful tools for nervous system regulation and long-term
           wellness.
         </p>
@@ -86,7 +86,7 @@ export default function ScienceOfRelaxationBlogLayout() {
         <h3 className="text-xl font-semibold">Sauna Experience</h3>
         <p>
           Heat therapy enhances circulation, flushes toxins, and eases sore
-          muscles. When paired with cold plunge, it creates contrast therapy—a
+          muscles. When paired with cold plunge, it creates contrast therapy, a
           dynamic combination for full-body restoration and emotional reset.
         </p>
 
@@ -119,7 +119,7 @@ export default function ScienceOfRelaxationBlogLayout() {
         <h3 className="text-xl font-semibold">Improved Circulation & Recovery</h3>
         <p>
           Cold plunges, massage, and hydrotherapy enhance blood flow, helping
-          your body detox and recover faster—physically and emotionally.
+          your body detox and recover faster, physically and emotionally.
         </p>
 
         <h3 className="text-xl font-semibold">Enhanced Sleep Quality</h3>
@@ -141,7 +141,7 @@ export default function ScienceOfRelaxationBlogLayout() {
         <p>
           At Sway, self-care is a lifestyle. Our expert team and state-of-the-art
           services are designed to help you reset, recharge, and feel your
-          absolute best—every single visit.
+          absolute best, every single visit.
         </p>
 
         <div className="pt-4">

@@ -4,7 +4,7 @@ import PressContent from "./PressContent";
 export const metadata: Metadata = {
   title: "Press | Sway Wellness Spa in the Media",
   description:
-    "Voted #4 Best Day Spa in America by USA Today 10Best. See what the press is saying about Sway — featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
+    "Voted #4 Best Day Spa in America by USA Today 10Best. See what the press is saying about Sway, featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
   alternates: {
     canonical: "https://swaywellnessspa.com/press/",
   },
@@ -48,7 +48,7 @@ export default function Page() {
       {
         "@type": "NewsArticle",
         headline:
-          "#4 Best Day Spa in the U.S. — USA Today 10Best Readers' Choice Awards",
+          "#4 Best Day Spa in the U.S. · USA Today 10Best Readers' Choice Awards",
         url: "https://10best.usatoday.com/awards/sway-denver-colorado/",
         datePublished: "2025-01-01",
         publisher: {
@@ -116,7 +116,7 @@ export default function Page() {
       {
         "@type": "NewsArticle",
         headline:
-          "A Demographic-Built Wellness Spa — Salon Today",
+          "A Demographic-Built Wellness Spa · Salon Today",
         url: "https://www.bluetoad.com/publication/?i=854210&p=8&view=issueViewer",
         datePublished: "2025-09-01",
         publisher: {

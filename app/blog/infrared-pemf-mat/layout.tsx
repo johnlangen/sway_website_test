@@ -9,7 +9,7 @@ export default function InfraredPemfMatBlogLayout() {
       {/* Banner */}
       <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center max-w-3xl">
-          PEMF Mat Benefits: How Infrared Heat & Pulsed Energy Speed Recovery
+          Infrared PEMF Mat Benefits: How Heat & Pulsed Energy Speed Recovery
         </h1>
       </div>
 

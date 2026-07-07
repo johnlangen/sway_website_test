@@ -4,7 +4,7 @@ import BlogContent from "./BlogContent";
 export const metadata: Metadata = {
   title: "The Sway Edit | Denver Wellness Blog by Sway Spa",
   description:
-    "Explore The Sway Edit — 28 articles on massage therapy, skincare science, recovery tech, and Denver lifestyle from Sway Wellness Spa, voted #4 Best Day Spa in America.",
+    "Explore The Sway Edit: 28 articles on massage therapy, skincare science, recovery tech, and Denver lifestyle from Sway Wellness Spa, voted #4 Best Day Spa in America.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/",
   },
@@ -52,7 +52,7 @@ export default function BlogPage() {
     "@type": "Blog",
     name: "The Sway Edit",
     description:
-      "Expert wellness advice, skincare science, recovery tips, and Denver lifestyle from the team at Sway Wellness Spa — voted #4 Best Day Spa in America by USA Today 10Best.",
+      "Expert wellness advice, skincare science, recovery tips, and Denver lifestyle from the team at Sway Wellness Spa, voted #4 Best Day Spa in America by USA Today 10Best.",
     url: "https://swaywellnessspa.com/blog/",
     publisher: {
       "@type": "Organization",
@@ -135,7 +135,7 @@ export default function BlogPage() {
         name: "What is The Sway Edit?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The Sway Edit is the wellness blog by Sway Wellness Spa in Denver, CO. It features expert articles on massage therapy, skincare science, recovery technology, seasonal self-care, and Denver lifestyle — written by the Sway Wellness Team.",
+          text: "The Sway Edit is the wellness blog by Sway Wellness Spa in Denver, CO. It features expert articles on massage therapy, skincare science, recovery technology, seasonal self-care, and Denver lifestyle, written by the Sway Wellness Team.",
         },
       },
       {
@@ -151,7 +151,7 @@ export default function BlogPage() {
         name: "Who writes The Sway Edit blog?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "All articles on The Sway Edit are written by the Sway Wellness Team — the spa professionals, licensed estheticians, and massage therapists at Sway Wellness Spa on Larimer Square in Denver, CO.",
+          text: "All articles on The Sway Edit are written by the Sway Wellness Team: the spa professionals, licensed estheticians, and massage therapists at Sway Wellness Spa on Larimer Square in Denver, CO.",
         },
       },
       {

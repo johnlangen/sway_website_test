@@ -34,7 +34,7 @@ const faqJsonLd = {
       name: "What's unique about Sway Wellness Spa?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Drawing from cultural hubs like Barcelona and NYC, Sway blends innovative technology with traditional treatments to offer a fresh, modern wellness club. We believe in total body health for long-term optimization — a luxurious yet accessible wellness club you can rejuvenate amid the city hustle.",
+        text: "Drawing from cultural hubs like Barcelona and NYC, Sway blends innovative technology with traditional treatments to offer a fresh, modern wellness club. We believe in total body health for long-term optimization: a luxurious yet accessible wellness club you can rejuvenate amid the city hustle.",
       },
     },
     {

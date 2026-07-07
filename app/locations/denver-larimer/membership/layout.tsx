@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
     title: "Memberships from $99/month | Sway Larimer (Denver, CO)",
     description:
-      "Three membership tiers — Essential, Premier, and Ultimate — plus Aescape and Remedy Room. Larimer Square, Denver.",
+      "Three membership tiers, Essential, Premier, and Ultimate, plus Aescape and Remedy Room. Larimer Square, Denver.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
@@ -120,7 +120,7 @@ export default function MembershipLayout({
         "@type": "Offer",
         name: "Aescape Premier Membership",
         description:
-          "AI-powered robot massage membership — choose 4×30 min or 2×60 min sessions per month at $99/month.",
+          "AI-powered robot massage membership. Choose 4×30 min or 2×60 min sessions per month at $99/month.",
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
@@ -135,7 +135,7 @@ export default function MembershipLayout({
         "@type": "Offer",
         name: "Remedy Room Membership",
         description:
-          "4 monthly recovery circuit visits — sauna, cold plunge, compression therapy, LED light therapy at $99/month.",
+          "4 monthly recovery circuit visits: sauna, cold plunge, compression therapy, LED light therapy at $99/month.",
         price: "99.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

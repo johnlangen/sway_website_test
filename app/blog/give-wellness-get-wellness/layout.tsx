@@ -23,7 +23,7 @@ export default function GiveWellnessBlogLayout() {
 
         <p>
           At Sway Wellness Spa, we believe wellness isn’t just a personal
-          journey—it’s something meant to be shared. That’s why we’re thrilled
+          journey, it’s something meant to be shared. That’s why we’re thrilled
           to introduce our Refer-a-Friend Program, designed to help you spread
           the love of self-care with those who matter most.
         </p>
@@ -64,7 +64,7 @@ export default function GiveWellnessBlogLayout() {
         <h2 id="boosts" className="text-2xl font-bold scroll-mt-24">What&apos;s a Boost, Anyway?</h2>
         <p>
           A Boost is a specialized enhancement that elevates your treatment
-          experience—whether you want to rejuvenate your skin or release
+          experience, whether you want to rejuvenate your skin or release
           tension.
         </p>
 
@@ -91,14 +91,14 @@ export default function GiveWellnessBlogLayout() {
         <ol className="list-decimal list-inside space-y-2">
           <li>
             <strong>Join Automatically:</strong> Get your invite after your
-            visit—one click and you’re in.
+            visit. One click and you’re in.
           </li>
           <li>
             <strong>Share Your Link:</strong> Send it via text, email, or social
             media.
           </li>
           <li>
-            <strong>Reap the Rewards:</strong> Your friend visits—and you both
+            <strong>Reap the Rewards:</strong> Your friend visits, and you both
             earn a free Boost. Simple as that.
           </li>
         </ol>
@@ -106,7 +106,7 @@ export default function GiveWellnessBlogLayout() {
         <h2 id="love" className="text-2xl font-bold scroll-mt-24">Real Guests, Real Love</h2>
         <p className="italic">
           “I love how easy the referral program is. I sent my link to two
-          friends and got two free Boosts—no questions asked!” – Jordan R., Sway
+          friends and got two free Boosts, no questions asked!” – Jordan R., Sway
           Guest
         </p>
 
@@ -120,7 +120,7 @@ export default function GiveWellnessBlogLayout() {
         <p>
           Refer your friends, earn free Boosts, and share the wellness
           experience that makes life better. Whether it’s a relaxing massage,
-          refreshing facial, or a transformative Boost—you deserve to enjoy
+          refreshing facial, or a transformative Boost, you deserve to enjoy
           every moment with the people you love.
         </p>
 

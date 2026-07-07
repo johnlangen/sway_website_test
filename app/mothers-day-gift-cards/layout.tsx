@@ -39,7 +39,7 @@ const faqJsonLd = {
       name: "How fast is Sway's Mother's Day gift card delivery?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway gift cards are delivered instantly by email. You can purchase right up to Mother's Day morning and your gift will arrive in seconds — no shipping required.",
+        text: "Sway gift cards are delivered instantly by email. You can purchase right up to Mother's Day morning and your gift will arrive in seconds, no shipping required.",
       },
     },
     {

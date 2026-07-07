@@ -23,7 +23,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
         </div>
 
         <p>
-          Summer was amazing—beach days, outdoor adventures, and endless
+          Summer was amazing: beach days, outdoor adventures, and endless
           sunshine. But now that fall is here, your skin might be telling a
           different story. After months of sun exposure, chlorine, sweat, and
           even saltwater, it’s time to focus on giving your skin the recovery it
@@ -105,7 +105,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
 
         <h2 id="at-home" className="text-2xl font-bold scroll-mt-24">At-Home Care Essentials</h2>
         <p>
-          Professional facials are just the start—daily care keeps results
+          Professional facials are just the start. Daily care keeps results
           going. Our estheticians recommend barrier-repair cleansers, nourishing
           night creams, and SPF 30+ year-round.
         </p>

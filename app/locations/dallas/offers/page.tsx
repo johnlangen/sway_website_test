@@ -4,7 +4,7 @@ import OffersContent from "./OffersContent";
 export const metadata: Metadata = {
   title: "Dallas Spa Offers & Founding Member Deals | Sway Wellness Spa",
   description:
-    "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here — check back soon!",
+    "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here. Check back soon!",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/dallas/offers/",
   },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/dallas/offers/",
     title: "Dallas Spa Offers & Founding Member Deals | Sway Wellness Spa",
     description:
-      "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here — check back soon!",
+      "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here. Check back soon!",
     images: [
       {
         url: "/assets/OG/og-offers.jpg",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dallas Spa Offers & Founding Member Deals | Sway Wellness Spa",
     description:
-      "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here — check back soon!",
+      "Sway Dallas is coming soon. Founding Member offers and launch specials will be announced here. Check back soon!",
     images: ["/assets/OG/og-offers.jpg"],
   },
   robots: { index: false, follow: true },

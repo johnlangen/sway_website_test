@@ -35,7 +35,7 @@ export default function BookingDallasPage() {
         <p className="mt-3">
           More about Dallas:{" "}
           <Link href="/locations/dallas" className="underline">
-            Sway Dallas — Coming Soon
+            Sway Dallas · Coming Soon
           </Link>
         </p>
       </div>

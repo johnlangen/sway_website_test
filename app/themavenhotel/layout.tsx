@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     "The Maven Hotel × Sway | 60-Min Aescape Robot Massage in Denver",
   description:
-    "Book a 60-minute AI-powered Aescape robot massage at Sway Wellness Spa on Larimer Square — a short trip from The Maven Hotel at Dairy Block in Denver.",
+    "Book a 60-minute AI-powered Aescape robot massage at Sway Wellness Spa on Larimer Square, a short trip from The Maven Hotel at Dairy Block in Denver.",
   keywords: [
     "Maven Hotel spa",
     "Maven Hotel Denver massage",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Maven Hotel × Sway Wellness Spa | 60-Min Aescape Massage",
     description:
-      "Book a 60-minute AI-powered Aescape massage at Sway on Larimer Square — minutes from The Maven Hotel in Denver.",
+      "Book a 60-minute AI-powered Aescape massage at Sway on Larimer Square, minutes from The Maven Hotel in Denver.",
     url: "https://swaywellnessspa.com/themavenhotel/",
     siteName: "Sway Wellness Spa",
     type: "website",
@@ -44,7 +44,7 @@ export default function MavenHotelLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "60-Minute Aescape Robot Massage — The Maven Hotel × Sway",
+    name: "60-Minute Aescape Robot Massage · The Maven Hotel × Sway",
     description:
       "60-minute AI-powered Aescape robot massage at Sway Wellness Spa on Larimer Square, minutes from The Maven Hotel at Dairy Block, Denver.",
     provider: {
@@ -83,7 +83,7 @@ export default function MavenHotelLayout({
         name: "How far is Sway from The Maven Hotel?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway Wellness Spa is 0.6 miles from The Maven Hotel at Dairy Block — about a 10-minute walk, a 5-minute drive, or a quick scooter ride down Larimer Street. Our address is 1428 Larimer Street, Denver, CO 80202.",
+          text: "Sway Wellness Spa is 0.6 miles from The Maven Hotel at Dairy Block, about a 10-minute walk, a 5-minute drive, or a quick scooter ride down Larimer Street. Our address is 1428 Larimer Street, Denver, CO 80202.",
         },
       },
       {
@@ -91,7 +91,7 @@ export default function MavenHotelLayout({
         name: "What is an Aescape robot massage?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Aescape is an AI-powered robotic massage system that delivers a precision full-body massage using 3D body-mapping technology. It adjusts pressure in real time based on your body, so every session is personalized. No human therapist needed — just lie down, pick your preferences, and relax for 60 minutes.",
+          text: "Aescape is an AI-powered robotic massage system that delivers a precision full-body massage using 3D body-mapping technology. It adjusts pressure in real time based on your body, so every session is personalized. No human therapist needed. Just lie down, pick your preferences, and relax for 60 minutes.",
         },
       },
       {
@@ -99,7 +99,7 @@ export default function MavenHotelLayout({
         name: "How do I book from The Maven Hotel?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "You can book directly on this page — just pick a date and time, enter your details, and you're confirmed. The whole process takes under a minute. You'll receive a confirmation email right away.",
+          text: "You can book directly on this page. Just pick a date and time, enter your details, and you're confirmed. The whole process takes under a minute. You'll receive a confirmation email right away.",
         },
       },
       {
@@ -107,7 +107,7 @@ export default function MavenHotelLayout({
         name: "Do I need to be a Maven Hotel guest to book?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Nope! This page is available to anyone. The Maven Hotel is a proud partner of Sway, and we welcome all guests — whether you're staying at the Maven, visiting Dairy Block, or exploring Larimer Square.",
+          text: "Nope! This page is available to anyone. The Maven Hotel is a proud partner of Sway, and we welcome all guests, whether you're staying at the Maven, visiting Dairy Block, or exploring Larimer Square.",
         },
       },
       {
@@ -115,7 +115,7 @@ export default function MavenHotelLayout({
         name: "What should I wear? How do I prepare?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Just show up in comfortable clothing. Compression apparel is provided at check-in — no need to change or prep beforehand. Arrive about 15 minutes early to get settled, and the Aescape system takes care of the rest.",
+          text: "Just show up in comfortable clothing. Compression apparel is provided at check-in, no need to change or prep beforehand. Arrive about 15 minutes early to get settled, and the Aescape system takes care of the rest.",
         },
       },
       {

@@ -35,7 +35,7 @@ export default function BookingGeorgetownPage() {
         <p className="mt-3">
           More about Georgetown:{" "}
           <Link href="/locations/georgetown" className="underline">
-            Sway Georgetown — Coming Soon
+            Sway Georgetown · Coming Soon
           </Link>
         </p>
       </div>

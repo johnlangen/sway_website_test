@@ -33,7 +33,7 @@ export default function Massage80MinBlogLayout() {
         </p>
 
         <p>
-          This isn’t just any massage—it’s a transformative experience designed
+          This isn’t just any massage, it’s a transformative experience designed
           to reset both your body and mind. With extended treatments,
           customizable techniques tailored to your unique needs, and expert
           therapists who know exactly how to work on problem areas, these 80
@@ -46,7 +46,7 @@ export default function Massage80MinBlogLayout() {
           Why settle for a quick fix when you can gift yourself an extended
           reset? With extra time, your therapist can focus on stubborn knots,
           target multiple areas of concern, and ensure every muscle gets the
-          care it deserves. It’s not just a massage—it’s an investment in your
+          care it deserves. It’s not just a massage, it’s an investment in your
           well-being. Make the choice to upgrade to an 80-minute massage and
           give yourself the attention and care you truly deserve. You’ll leave
           feeling lighter, calmer, and ready to take on whatever comes your way.
@@ -94,8 +94,8 @@ export default function Massage80MinBlogLayout() {
 
         <h3 className="text-xl font-semibold">2. Specialty Techniques, No Extra Charges</h3>
         <p>
-          At Sway, specialty techniques are included—Deep Tissue, CBD Massage,
-          Sports Recovery, and Salt Stone Therapy—no upcharges.
+          At Sway, specialty techniques are included: Deep Tissue, CBD Massage,
+          Sports Recovery, and Salt Stone Therapy, no upcharges.
         </p>
 
         <h3 className="text-xl font-semibold">3. Unparalleled Mind-Body Reconnection</h3>
@@ -107,14 +107,14 @@ export default function Massage80MinBlogLayout() {
 
         <h2 id="why-sway" className="text-2xl font-bold scroll-mt-24">Why Choose Sway?</h2>
         <p>
-          At Sway Wellness Spa, self-care isn’t a luxury—it’s a necessity. From
+          At Sway Wellness Spa, self-care isn’t a luxury, it’s a necessity. From
           transparent pricing to expert therapists and holistic services, we
           make sure your wellness journey is simple and restorative.
         </p>
 
         <h2 id="how-to-book" className="text-2xl font-bold scroll-mt-24">How to Book</h2>
         <p>
-          Booking is quick and easy—{" "}
+          Booking is quick and easy:{" "}
           <Link href="/book" className="underline text-[#113D33] font-semibold">
             Book Now &rarr;
           </Link>

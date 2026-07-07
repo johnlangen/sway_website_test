@@ -22,7 +22,7 @@ export default function SpringResetBlogLayout() {
         </div>
 
         <p>
-          Spring is a season of renewal—a time when nature comes alive, and we
+          Spring is a season of renewal, a time when nature comes alive, and we
           feel inspired to refresh our routines. It's the perfect opportunity to
           give your body and skin the detox they deserve. At Sway Wellness Spa,
           we're here to help you hit your reset button with treatments designed
@@ -47,7 +47,7 @@ export default function SpringResetBlogLayout() {
           Winter can leave our bodies sluggish and our skin dull due to colder
           weather, heavier foods, and reduced hydration. Spring is a natural
           time to shift gears and focus on self-care. A detox is not about
-          drastic measures—it’s about supporting your body and skin in feeling
+          drastic measures, it’s about supporting your body and skin in feeling
           their absolute best.
         </p>
 
@@ -82,7 +82,7 @@ export default function SpringResetBlogLayout() {
         </ul>
         <p>
           <strong>Exclusive Offer:</strong> Get 50% off this experience for only
-          $25 per visit—exclusive for members!
+          $25 per visit, exclusive for members!
         </p>
 
         <h3 className="text-xl font-semibold pt-4">2. Salt Stone Massage</h3>
@@ -140,7 +140,7 @@ export default function SpringResetBlogLayout() {
 
         <h3 className="text-xl font-semibold pt-2">4. Get Quality Sleep</h3>
         <p>
-          Your body detoxes and repairs while you sleep—aim for 7–8 hours each
+          Your body detoxes and repairs while you sleep. Aim for 7–8 hours each
           night.
         </p>
 

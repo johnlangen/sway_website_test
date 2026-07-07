@@ -2128,7 +2128,7 @@ export default function BookRemedyRoomPage() {
                           className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
                         />
                         <span className="text-xs text-[#113D33]/60">
-                          This is a surprise — don&apos;t contact the guest
+                          This is a surprise · don&apos;t contact the guest
                         </span>
                       </label>
                     </div>
@@ -2250,7 +2250,7 @@ export default function BookRemedyRoomPage() {
                 href="/locations/denver-larimer"
                 className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
               >
-                Done — back to Sway Larimer
+                Done · back to Sway Larimer
               </Link>
 
               <div className="mt-6">

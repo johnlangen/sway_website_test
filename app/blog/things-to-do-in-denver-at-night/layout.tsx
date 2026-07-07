@@ -32,7 +32,7 @@ export default function ThingsToDoAtNightLayout() {
         {/* Hero Image */}
         <Image
           src="/assets/background.png"
-          alt="Denver at night — Larimer Square lights and downtown skyline"
+          alt="Denver at night · Larimer Square lights and downtown skyline"
           width={900}
           height={500}
           className="rounded-xl w-full object-cover"
@@ -98,7 +98,7 @@ export default function ThingsToDoAtNightLayout() {
         </h2>
 
         <h3 className="text-xl font-bold">
-          1. Sway Wellness Spa — Larimer Square
+          1. Sway Wellness Spa · Larimer Square
         </h3>
         <p>
           If your idea of the perfect evening is walking out feeling better than
@@ -139,7 +139,7 @@ export default function ThingsToDoAtNightLayout() {
             Aescape AI-powered robot massage
           </Link>
           . Open until 8 PM on weekdays (Saturday 9 AM–6 PM, Sunday 11 AM–6 PM), it&apos;s the
-          perfect first stop before dinner on Larimer Square — book an
+          perfect first stop before dinner on Larimer Square. Book an
           after-work treatment, then walk next door to eat. Voted{" "}
           <Link
             href="/blog/best-day-spa-in-america"
@@ -159,7 +159,7 @@ export default function ThingsToDoAtNightLayout() {
         </div>
 
         <h3 className="text-xl font-bold">
-          2. Halcyon Hotel Spa — Cherry Creek
+          2. Halcyon Hotel Spa · Cherry Creek
         </h3>
         <p>
           A boutique hotel spa in Cherry Creek North with late-evening availability.
@@ -168,7 +168,7 @@ export default function ThingsToDoAtNightLayout() {
         </p>
 
         <h3 className="text-xl font-bold">
-          3. SunWater Spa — Manitou Springs (Day Trip)
+          3. SunWater Spa · Manitou Springs (Day Trip)
         </h3>
         <p>
           About an hour south of Denver, SunWater offers outdoor soaking pools fed
@@ -183,7 +183,7 @@ export default function ThingsToDoAtNightLayout() {
         </h2>
 
         <h3 className="text-xl font-bold">
-          4. Larimer Square — LoDo
+          4. Larimer Square · LoDo
         </h3>
         <p>
           Denver&apos;s original block of fine dining, cocktail bars, and string
@@ -195,27 +195,27 @@ export default function ThingsToDoAtNightLayout() {
           >
             Sway on Larimer Square
           </Link>
-          , you&apos;re already there — a treatment followed by dinner is the
+          , you&apos;re already there. A treatment followed by dinner is the
           easiest date night in Denver.
         </p>
 
         <h3 className="text-xl font-bold">
-          5. Dairy Block — LoDo
+          5. Dairy Block · LoDo
         </h3>
         <p>
           A pedestrian alleyway packed with restaurants, bars, and shops. The Dairy
-          Block is great for spontaneous evenings — walk in, find something that
+          Block is great for spontaneous evenings. Walk in, find something that
           looks good, and stay as long as you want. Kachina Cantina, Blanchard
           Family Wines, and Deviation Distilling are standouts.
         </p>
 
         <h3 className="text-xl font-bold">
-          6. Williams &amp; Graham — LoHi
+          6. Williams &amp; Graham · LoHi
         </h3>
         <p>
           A speakeasy hidden behind a bookshelf in a storefront on Platte Street.
           The cocktails are consistently excellent and it&apos;s been on national
-          best-bar lists for years. No reservations — just show up and wait for a
+          best-bar lists for years. No reservations. Just show up and wait for a
           table. Worth it.
         </p>
 
@@ -239,7 +239,7 @@ export default function ThingsToDoAtNightLayout() {
             >
               facial
             </Link>{" "}
-            at Sway, then walk to dinner — walk-ins welcome, booking recommended.
+            at Sway, then walk to dinner. Walk-ins welcome, booking recommended.
           </p>
           <Link
             href="/locations/denver-larimer/book"
@@ -255,7 +255,7 @@ export default function ThingsToDoAtNightLayout() {
         </h2>
 
         <h3 className="text-xl font-bold">
-          7. Meow Wolf Denver — Sun Valley
+          7. Meow Wolf Denver · Sun Valley
         </h3>
         <p>
           &ldquo;Convergence Station&rdquo; is a four-story immersive art
@@ -264,16 +264,16 @@ export default function ThingsToDoAtNightLayout() {
         </p>
 
         <h3 className="text-xl font-bold">
-          8. Denver Center for the Performing Arts — Downtown
+          8. Denver Center for the Performing Arts · Downtown
         </h3>
         <p>
           The largest performing arts complex under one roof in the country. Broadway
           tours, local theater, comedy, and concerts rotate through constantly.
-          Check the calendar — there&apos;s almost always something playing.
+          Check the calendar. There&apos;s almost always something playing.
         </p>
 
         <h3 className="text-xl font-bold">
-          9. First Friday Art Walk — RiNo Arts District
+          9. First Friday Art Walk · RiNo Arts District
         </h3>
         <p>
           On the first Friday of every month, galleries in the River North Art
@@ -288,7 +288,7 @@ export default function ThingsToDoAtNightLayout() {
         </h2>
 
         <h3 className="text-xl font-bold">
-          10. Red Rocks Amphitheatre — Morrison
+          10. Red Rocks Amphitheatre · Morrison
         </h3>
         <p>
           No list of things to do in Denver at night is complete without Red Rocks.
@@ -305,7 +305,7 @@ export default function ThingsToDoAtNightLayout() {
         </p>
 
         <h3 className="text-xl font-bold">
-          11. Comedy Works — Downtown &amp; South
+          11. Comedy Works · Downtown &amp; South
         </h3>
         <p>
           One of the top comedy clubs in the country with two Denver locations.
@@ -314,7 +314,7 @@ export default function ThingsToDoAtNightLayout() {
         </p>
 
         <h3 className="text-xl font-bold">
-          12. Punch Bowl Social — various locations
+          12. Punch Bowl Social · various locations
         </h3>
         <p>
           Denver-born &ldquo;eatertainment&rdquo; with bowling, karaoke, arcade
@@ -328,16 +328,16 @@ export default function ThingsToDoAtNightLayout() {
         </h2>
 
         <h3 className="text-xl font-bold">
-          13. 54thirty — Downtown
+          13. 54thirty · Downtown
         </h3>
         <p>
           The highest rooftop bar in Denver, on top of the Le Méridien hotel. The
-          mountain views at sunset are unmatched. Seasonal — open roughly April
+          mountain views at sunset are unmatched. Seasonal, open roughly April
           through October.
         </p>
 
         <h3 className="text-xl font-bold">
-          14. Union Station — LoDo
+          14. Union Station · LoDo
         </h3>
         <p>
           Denver&apos;s beautifully restored train station has become a nightlife
@@ -466,7 +466,7 @@ export default function ThingsToDoAtNightLayout() {
             <p className="text-gray-700 mt-1">
               Downtown Denver has Larimer Square restaurants, Union Station cocktail
               bars, the Denver Center for the Performing Arts, Comedy Works, Dairy
-              Block, and Sway Wellness Spa — all walkable from each other in LoDo.
+              Block, and Sway Wellness Spa, all walkable from each other in LoDo.
             </p>
           </div>
           <div>
@@ -474,7 +474,7 @@ export default function ThingsToDoAtNightLayout() {
             <p className="text-gray-700 mt-1">
               Denver is excellent for date nights. Larimer Square alone offers
               fine dining, cocktail bars, and Sway Wellness Spa for a couples
-              massage — all on the same block. Red Rocks concerts, rooftop bars,
+              massage, all on the same block. Red Rocks concerts, rooftop bars,
               and RiNo galleries add even more options.
             </p>
           </div>
@@ -574,7 +574,7 @@ export default function ThingsToDoAtNightLayout() {
                   name: "What is there to do in downtown Denver at night?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Downtown Denver offers Larimer Square restaurants, Union Station cocktail bars, the Denver Center for the Performing Arts, Comedy Works, Dairy Block food hall and bars, and Sway Wellness Spa for after-work massage, facials, and recovery treatments (open weekdays until 8 PM) — all walkable from each other in LoDo.",
+                    text: "Downtown Denver offers Larimer Square restaurants, Union Station cocktail bars, the Denver Center for the Performing Arts, Comedy Works, Dairy Block food hall and bars, and Sway Wellness Spa for after-work massage, facials, and recovery treatments (open weekdays until 8 PM), all walkable from each other in LoDo.",
                   },
                 },
                 {
@@ -582,7 +582,7 @@ export default function ThingsToDoAtNightLayout() {
                   name: "Is Denver good for date nights?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Denver is excellent for date nights. Larimer Square alone offers fine dining, cocktail bars, and Sway Wellness Spa for couples massages — all on the same block. Red Rocks concerts, rooftop bars with mountain views, and RiNo galleries add even more options.",
+                    text: "Denver is excellent for date nights. Larimer Square alone offers fine dining, cocktail bars, and Sway Wellness Spa for couples massages, all on the same block. Red Rocks concerts, rooftop bars with mountain views, and RiNo galleries add even more options.",
                   },
                 },
                 {

@@ -1011,7 +1011,7 @@ export default function MavenHotelPage() {
 
             <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto mb-8">
               Book a 15, 30, 45, or 60-minute AI-powered Aescape massage at Sway
-              Wellness Spa — just 0.6 miles from The Maven Hotel. Walk,
+              Wellness Spa, just 0.6 miles from The Maven Hotel. Walk,
               scooter, or drive over in minutes.
             </p>
 
@@ -1064,8 +1064,8 @@ export default function MavenHotelPage() {
                   <p className="text-[#113D33]/70 leading-relaxed mb-6">
                     Aescape uses real-time body mapping and AI to deliver a
                     personalized massage tailored to your tension points.
-                    Zero-gravity positioning, warm touch, and adaptive pressure
-                    — all without the need for a human therapist.
+                    Zero-gravity positioning, warm touch, and adaptive pressure,
+                    all without the need for a human therapist.
                   </p>
 
                   <div className="space-y-3 mb-8">
@@ -1133,7 +1133,7 @@ export default function MavenHotelPage() {
                     {
                       step: "1",
                       title: "Book Online",
-                      desc: "Pick your time below — reserve in under a minute",
+                      desc: "Pick your time below · reserve in under a minute",
                     },
                     {
                       step: "2",
@@ -1143,7 +1143,7 @@ export default function MavenHotelPage() {
                     {
                       step: "3",
                       title: "Relax",
-                      desc: "60 minutes of AI-powered recovery — no prep needed",
+                      desc: "60 minutes of AI-powered recovery · no prep needed",
                     },
                   ].map((item) => (
                     <div key={item.step} className="text-center">
@@ -1164,13 +1164,13 @@ export default function MavenHotelPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="font-semibold text-[#113D33] mb-2">
-                      Sway Wellness Spa — Larimer Square
+                      Sway Wellness Spa · Larimer Square
                     </h3>
                     <p className="text-sm text-[#113D33]/70 mb-1">
                       1428 Larimer Street, Denver, CO 80202
                     </p>
                     <p className="text-sm text-[#113D33]/70 mb-4">
-                      0.6 miles from The Maven Hotel — 10-min walk, 5-min drive, or grab a scooter
+                      0.6 miles from The Maven Hotel · 10-min walk, 5-min drive, or grab a scooter
                     </p>
                     <a
                       href="tel:3034766150"
@@ -1248,7 +1248,7 @@ export default function MavenHotelPage() {
                 >
                   The Maven Hotel at Dairy Block <span className="sr-only">(opens in new tab)</span>
                 </a>{" "}
-                — a boutique hotel in Denver&apos;s LoDo neighborhood.
+                , a boutique hotel in Denver&apos;s LoDo neighborhood.
               </p>
             </div>
           </section>
@@ -1266,7 +1266,7 @@ export default function MavenHotelPage() {
               Choose Your Session
             </h2>
             <p className="text-sm text-[#113D33]/60 mb-8">
-              AI-powered robot massage — pick your duration
+              AI-powered robot massage · pick your duration
             </p>
 
             <div className="space-y-4">
@@ -1605,7 +1605,7 @@ export default function MavenHotelPage() {
                     <IconLock className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                     <div>
                       <p className="text-sm text-[#113D33]/80 leading-relaxed">
-                        No charge today — your card is only used to{" "}
+                        No charge today. Your card is only used to{" "}
                         <span className="font-semibold">
                           hold the appointment
                         </span>{" "}
@@ -1725,7 +1725,7 @@ export default function MavenHotelPage() {
                   <div className="flex items-start gap-3 text-sm text-[#113D33]/80">
                     <IconSpark className="w-5 h-5 text-[#113D33]/70 mt-0.5" />
                     <span>
-                      We don&apos;t charge today — this only reserves your slot.
+                      We don&apos;t charge today. This only reserves your slot.
                     </span>
                   </div>
                 </div>
@@ -2009,7 +2009,7 @@ export default function MavenHotelPage() {
                   <strong>1428 Larimer Street</strong> (10-min walk or 5-min
                   drive from The Maven)
                 </li>
-                <li>Check in at the front desk — no prep or changing needed</li>
+                <li>Check in at the front desk, no prep or changing needed</li>
                 <li>
                   Wear comfortable clothing (compression apparel provided at
                   check-in)
@@ -2116,23 +2116,23 @@ export default function MavenHotelPage() {
           {[
             {
               q: "How far is Sway from The Maven Hotel?",
-              a: "Sway Wellness Spa is 0.6 miles from The Maven Hotel at Dairy Block — about a 10-minute walk, a 5-minute drive, or a quick scooter ride down Larimer Street. Our address is 1428 Larimer Street, Denver, CO 80202.",
+              a: "Sway Wellness Spa is 0.6 miles from The Maven Hotel at Dairy Block, about a 10-minute walk, a 5-minute drive, or a quick scooter ride down Larimer Street. Our address is 1428 Larimer Street, Denver, CO 80202.",
             },
             {
               q: "What is an Aescape robot massage?",
-              a: "Aescape is an AI-powered robotic massage system that delivers a precision full-body massage using 3D body-mapping technology. It adjusts pressure in real time based on your body, so every session is personalized. No human therapist needed — just lie down, pick your preferences, and relax for 60 minutes.",
+              a: "Aescape is an AI-powered robotic massage system that delivers a precision full-body massage using 3D body-mapping technology. It adjusts pressure in real time based on your body, so every session is personalized. No human therapist needed. Just lie down, pick your preferences, and relax for 60 minutes.",
             },
             {
               q: "How do I book from The Maven Hotel?",
-              a: "You can book directly on this page — just scroll up, pick a date and time, enter your details, and you're confirmed. The whole process takes under a minute. You'll receive a confirmation email right away.",
+              a: "You can book directly on this page. Just scroll up, pick a date and time, enter your details, and you're confirmed. The whole process takes under a minute. You'll receive a confirmation email right away.",
             },
             {
               q: "Do I need to be a Maven Hotel guest to book?",
-              a: "Nope! This page is available to anyone. The Maven Hotel is a proud partner of Sway, and we welcome all guests — whether you're staying at the Maven, visiting Dairy Block, or exploring Larimer Square.",
+              a: "Nope! This page is available to anyone. The Maven Hotel is a proud partner of Sway, and we welcome all guests, whether you're staying at the Maven, visiting Dairy Block, or exploring Larimer Square.",
             },
             {
               q: "What should I wear? How do I prepare?",
-              a: "Just show up in comfortable clothing. Compression apparel is provided at check-in — no need to change or prep beforehand. Arrive about 15 minutes early to get settled, and the Aescape system takes care of the rest.",
+              a: "Just show up in comfortable clothing. Compression apparel is provided at check-in, no need to change or prep beforehand. Arrive about 15 minutes early to get settled, and the Aescape system takes care of the rest.",
             },
             {
               q: "Does Sway offer other treatments besides robot massage?",

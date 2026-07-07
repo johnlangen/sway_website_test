@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/georgetown/membership/",
     title: "Spa Memberships Georgetown DC | Sway Wellness Club",
     description:
-      "Three membership tiers — Essential, Premier, and Ultimate — at Sway Georgetown in Washington, DC. Join the waitlist for founding member pricing.",
+      "Three membership tiers, Essential, Premier, and Ultimate, at Sway Georgetown in Washington, DC. Join the waitlist for founding member pricing.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",

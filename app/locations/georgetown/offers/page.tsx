@@ -4,7 +4,7 @@ import OffersContent from "./OffersContent";
 export const metadata: Metadata = {
   title: "Georgetown Spa Offers & Founding Member Deals | Sway Wellness Spa",
   description:
-    "Sway Georgetown is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here — check back soon!",
+    "Sway Georgetown is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here. Check back soon!",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/georgetown/offers/",
   },

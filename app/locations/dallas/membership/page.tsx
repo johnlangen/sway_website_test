@@ -28,7 +28,7 @@ const tiers: {
     key: "essential",
     name: "Essential",
     tagline: "50-minute treatments",
-    description: "Signature facials and massages — your entry to Sway.",
+    description: "Signature facials and massages, your entry to Sway.",
     facials: [{ name: "Essential Signature Facial" }],
     massages: [
       { name: "Essential Signature Massage" },
@@ -63,7 +63,7 @@ const tiers: {
     name: "Ultimate",
     tagline: "Tech-enhanced premium",
     description:
-      "LED, microcurrent, oxygen infusion — maximum duration and results.",
+      "LED, microcurrent, oxygen infusion, maximum duration and results.",
     facials: [
       { name: "Illuminate LED Facial" },
       { name: "Oxygen Infusion Facial" },
@@ -116,7 +116,7 @@ export default function DallasMembershipPage() {
             Sway Dallas Memberships
           </h1>
           <p className="text-xl md:text-2xl font-semibold mb-3">
-            Three membership tiers — pricing announced at launch
+            Three membership tiers · pricing announced at launch
           </p>
           <div className="flex justify-center mb-4">
             <ReviewBadge />

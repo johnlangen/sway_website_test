@@ -87,7 +87,7 @@ export default function HolidayGiftCardsPage() {
                 transition={{ delay: 0.45, duration: 0.5 }}
               >
                 <a href="#bonus-terms" className="underline">
-                  Bonus card terms apply — see details below.
+                  Bonus card terms apply. See details below.
                 </a>
               </motion.p>
 
@@ -158,14 +158,14 @@ export default function HolidayGiftCardsPage() {
           <div className="grid gap-6 md:grid-cols-3 text-sm md:text-base">
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
-                “I tried the Remedy Room and the Glow Getter facial — my skin felt incredibly smooth and firm. Ended up getting a membership!”
+                “I tried the Remedy Room and the Glow Getter facial. My skin felt incredibly smooth and firm. Ended up getting a membership!”
               </p>
               <p className="mt-3 text-[11px] text-[#7b9b92]">Whitney Gustafson</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
-                “Took my son's girlfriend to Sway for her first facial — she LOVED it. Highly recommend the Remedy Room too!”
+                “Took my son's girlfriend to Sway for her first facial. She LOVED it. Highly recommend the Remedy Room too!”
               </p>
               <p className="mt-3 text-[11px] text-[#7b9b92]">Laura Rolfe</p>
             </div>
@@ -213,7 +213,7 @@ export default function HolidayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Yes — gift cards are delivered instantly by email.
+                Yes. Gift cards are delivered instantly by email.
               </p>
             </details>
 
@@ -223,7 +223,7 @@ export default function HolidayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Yes — gift cards are valid for all Sway services including the Aescape robot massage.
+                Yes. Gift cards are valid for all Sway services including the Aescape robot massage.
               </p>
             </details>
 

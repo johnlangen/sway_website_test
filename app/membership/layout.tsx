@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Wellness Club Memberships | Sway from $99/month",
   description:
-    "Join Sway Wellness Club. Three membership tiers — Essential ($99), Premier ($129), Ultimate ($159) — with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Georgetown DC (coming soon).",
+    "Join Sway Wellness Club. Three membership tiers, Essential ($99), Premier ($129), Ultimate ($159), with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Georgetown DC (coming soon).",
   alternates: {
     canonical: "https://swaywellnessspa.com/membership/",
   },
@@ -69,7 +69,7 @@ export default function MembershipLayout({
           name: "Sway Wellness Spa",
         },
         description:
-          "Sway Wellness Club memberships from $99/month. Three tiers — Essential, Premier, and Ultimate — with massages, facials, 50% off boosts, Remedy Room access, private lounge, and rollover credits.",
+          "Sway Wellness Club memberships from $99/month. Three tiers, Essential, Premier, and Ultimate, with massages, facials, 50% off boosts, Remedy Room access, private lounge, and rollover credits.",
       },
       {
         "@type": "FAQPage",

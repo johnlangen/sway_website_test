@@ -125,7 +125,7 @@ const faqJsonLd = {
       name: "Does Sway Dallas have a sauna and cold plunge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway Dallas will feature the Remedy Room — our signature recovery circuit with sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. Remedy Room sessions can be booked individually or included with a membership.",
+        text: "Yes. Sway Dallas will feature the Remedy Room, our signature recovery circuit with sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. Remedy Room sessions can be booked individually or included with a membership.",
       },
     },
     {
@@ -133,7 +133,7 @@ const faqJsonLd = {
       name: "How much are Sway Dallas memberships?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open — join the waitlist to be notified.",
+        text: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
       },
     },
     {

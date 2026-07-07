@@ -73,7 +73,7 @@ export default function SwayEasterEgg({ open, onClose }: Props) {
 
       {/* Sway signoff */}
       <p className="egg-quote-sub mt-8 text-[10px] uppercase tracking-[0.4em] text-[#EBE4D1]/70">
-        — Sway
+        · Sway
       </p>
 
       {/* Dismiss hint */}

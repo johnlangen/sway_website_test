@@ -117,7 +117,7 @@ export default function Footer() {
 
       {/* Award */}
       <div className="mt-10 text-center text-xs text-white/60">
-        Voted #4 Best Day Spa in America — USA Today 10Best
+        Voted #4 Best Day Spa in America · USA Today 10Best
       </div>
 
       {/* Bottom Links */}

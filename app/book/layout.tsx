@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Book Your Experience | Sway Wellness Spa",
     description:
-      "Reserve your Sway Wellness Spa appointment — facials, massages, Aescape robot massage, or Remedy Room recovery.",
+      "Reserve your Sway Wellness Spa appointment: facials, massages, Aescape robot massage, or Remedy Room recovery.",
     images: ["/assets/OG/og-book-now.jpg"],
   },
   robots: { index: false, follow: false }, // Hub itself is noindex

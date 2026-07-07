@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI-Powered Aescape Massage in Denver | Sway Wellness Spa",
     description:
-      "Discover Aescape at Sway Wellness Spa — the world’s first AI-powered robot massage, exclusive to Denver. Perfect for coders, engineers, and designers.",
+      "Discover Aescape at Sway Wellness Spa, the world’s first AI-powered robot massage, exclusive to Denver. Perfect for coders, engineers, and designers.",
     url: "https://swaywellnessspa.com/blog/aescape/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -33,7 +33,7 @@ export default function Page() {
     "@type": "BlogPosting",
     headline: "AI Meets Recovery: Reset with Aescape",
     description:
-      "Explore Aescape at Sway Wellness Spa — the world’s first AI-powered robot massage, designed to help tech professionals recover smarter.",
+      "Explore Aescape at Sway Wellness Spa, the world’s first AI-powered robot massage, designed to help tech professionals recover smarter.",
     image: "https://swaywellnessspa.com/assets/blog22.jpg",
     author: {
       "@type": "Organization",

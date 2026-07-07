@@ -4,14 +4,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Sway Way | Modern Wellness Redefined in Denver",
   description:
-    "Discover The Sway Way — a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
+    "Discover The Sway Way, a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
   alternates: {
     canonical: "https://swaywellnessspa.com/swayway/",
   },
   openGraph: {
     title: "The Sway Way | Modern Wellness Redefined in Denver",
     description:
-      "Discover The Sway Way — a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
+      "Discover The Sway Way, a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
     url: "https://swaywellnessspa.com/swayway/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -54,7 +54,7 @@ export default function SwayWayLayout({
             },
             headline: "The Sway Way",
             description:
-              "Discover The Sway Way — a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia.",
+              "Discover The Sway Way, a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia.",
             image: "https://swaywellnessspa.com/assets/OG/og-sway-way.jpg",
           }),
         }}

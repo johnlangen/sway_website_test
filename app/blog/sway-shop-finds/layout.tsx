@@ -79,7 +79,7 @@ export default function SwayShopFindsBlogLayout() {
         </p>
 
         <p className="italic">
-          “I always leave Sway with a new skincare obsession—whether it’s an
+          “I always leave Sway with a new skincare obsession, whether it’s an
           Eminence serum or a Dr. Dennis Gross treatment, they have the best
           selection!” – Sway Member
         </p>

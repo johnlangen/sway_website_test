@@ -439,7 +439,7 @@ export default function GeorgetownFoundingMembershipPage() {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/25 bg-white/10 text-white/90 text-xs uppercase tracking-[0.25em] backdrop-blur-md mb-8"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            Founding Member — Limited Spots
+            Founding Member · Limited Spots
           </motion.span>
 
           <motion.p
@@ -448,7 +448,7 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm md:text-base uppercase tracking-[0.2em] text-white/70 mb-5"
           >
-            Georgetown — Washington, DC
+            Georgetown · Washington, DC
           </motion.p>
 
           <motion.h1
@@ -467,7 +467,7 @@ export default function GeorgetownFoundingMembershipPage() {
             className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
             Founding members get{" "}
-            <strong className="text-white">exclusive pricing</strong> — with
+            <strong className="text-white">exclusive pricing</strong>, with
             priority booking, VIP events, and perks that disappear after launch.
           </motion.p>
 
@@ -602,7 +602,7 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-[#4A776D] text-sm uppercase tracking-[0.15em]"
           >
-            Founding Member Pricing — Limited Availability
+            Founding Member Pricing · Limited Availability
           </motion.p>
         </div>
 
@@ -882,7 +882,7 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-white/60 max-w-2xl mx-auto"
           >
-            Everything we&apos;ve perfected in Denver — every treatment,
+            Everything we&apos;ve perfected in Denver, every treatment,
             every detail.
           </motion.p>
         </div>
@@ -993,7 +993,7 @@ export default function GeorgetownFoundingMembershipPage() {
               Pricing and perks shown above are not yet final.
             </p>
             <p className="text-sm text-[#4A776D] mb-10">
-              No commitment — we&apos;ll notify you when we&apos;re ready
+              No commitment. We&apos;ll notify you when we&apos;re ready
             </p>
           </motion.div>
 

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         url: "/assets/OG/og-home.jpg",
         width: 1200,
         height: 630,
-        alt: "Own a Sway Wellness Spa — Franchise Opportunity",
+        alt: "Own a Sway Wellness Spa · Franchise Opportunity",
       },
     ],
   },

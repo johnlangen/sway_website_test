@@ -487,7 +487,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How to Visit Sway Wellness Spa on Larimer Square",
   description:
-    "A step-by-step guide to your visit at Sway Wellness Spa in downtown Denver — from booking to parking to your treatment and beyond.",
+    "A step-by-step guide to your visit at Sway Wellness Spa in downtown Denver, from booking to parking to your treatment and beyond.",
   totalTime: "PT90M",
   estimatedCost: {
     "@type": "MonetaryAmount",
@@ -524,13 +524,13 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 5,
       name: "Add a Boost (Optional)",
-      text: "Enhance your treatment with a boost add-on — options include LED light therapy, microcurrent, oxygen infusion, scalp massage, and more. Members save 50% on all boosts.",
+      text: "Enhance your treatment with a boost add-on. Options include LED light therapy, microcurrent, oxygen infusion, scalp massage, and more. Members save 50% on all boosts.",
     },
     {
       "@type": "HowToStep",
       position: 6,
       name: "Wrap Up and Explore Larimer Square",
-      text: "After your treatment, browse the Sway Shop for curated skincare and wellness products. Then step outside onto Larimer Square — Denver's best dining and cocktails are steps away. Book your next visit on the way out or online anytime.",
+      text: "After your treatment, browse the Sway Shop for curated skincare and wellness products. Then step outside onto Larimer Square, Denver's best dining and cocktails are steps away. Book your next visit on the way out or online anytime.",
     },
   ],
 };

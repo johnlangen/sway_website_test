@@ -94,7 +94,7 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How the Remedy Room Recovery Circuit Works",
   description:
-    "A step-by-step guide to the Remedy Room at Sway Wellness Spa — a guided 40-minute recovery circuit combining 4 modalities: compression therapy, LED light therapy, sauna, and cold plunge.",
+    "A step-by-step guide to the Remedy Room at Sway Wellness Spa, a guided 40-minute recovery circuit combining 4 modalities: compression therapy, LED light therapy, sauna, and cold plunge.",
   totalTime: "PT40M",
   estimatedCost: {
     "@type": "MonetaryAmount",

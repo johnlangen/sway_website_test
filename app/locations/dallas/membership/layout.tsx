@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/dallas/membership/",
     title: "Spa Memberships Dallas | Sway Wellness Club Knox/Henderson",
     description:
-      "Three membership tiers — Essential, Premier, and Ultimate — at Sway Dallas in Knox/Henderson. Join the waitlist for founding member pricing.",
+      "Three membership tiers, Essential, Premier, and Ultimate, at Sway Dallas in Knox/Henderson. Join the waitlist for founding member pricing.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",

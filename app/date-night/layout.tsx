@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Date Night in Denver | Couples Massage at Sway",
   description:
-    "Plan the perfect Denver date night — start with a couples massage or facial at Sway Wellness Spa on Larimer Square, then walk to dinner. Open Mon–Fri until 8 PM.",
+    "Plan the perfect Denver date night: start with a couples massage or facial at Sway Wellness Spa on Larimer Square, then walk to dinner. Open Mon–Fri until 8 PM.",
   alternates: {
     canonical: "https://swaywellnessspa.com/date-night/",
   },
   openGraph: {
     title: "Date Night in Denver | Sway Wellness Spa",
     description:
-      "Plan the perfect Denver date night — couples massage or facial at Sway on Larimer Square, then dinner steps away.",
+      "Plan the perfect Denver date night: couples massage or facial at Sway on Larimer Square, then dinner steps away.",
     url: "https://swaywellnessspa.com/date-night/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -51,7 +51,7 @@ const faqJsonLd = {
       name: "Does Sway offer couples massage in Denver?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway Wellness Spa on Larimer Square offers couples massage at the same time in private treatment rooms right next to each other. Choose from 18 massage types across 3 tiers — Essential (from $99 member / $139 drop-in), Premier ($129 / $169), and Ultimate ($159 / $199). Book online at swaywellnessspa.com.",
+        text: "Yes. Sway Wellness Spa on Larimer Square offers couples massage at the same time in private treatment rooms right next to each other. Choose from 18 massage types across 3 tiers: Essential (from $99 member / $139 drop-in), Premier ($129 / $169), and Ultimate ($159 / $199). Book online at swaywellnessspa.com.",
       },
     },
     {

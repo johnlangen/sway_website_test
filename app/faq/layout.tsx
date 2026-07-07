@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/faq/",
     title: "FAQ | Sway Wellness Spa",
     description:
-      "Find answers to common questions about Sway Wellness Spa — booking, cancellations, membership, parking, and more.",
+      "Find answers to common questions about Sway Wellness Spa: booking, cancellations, membership, parking, and more.",
     images: [
       {
         url: "/assets/OG/og-treatments.jpg",

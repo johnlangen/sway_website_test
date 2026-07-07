@@ -24,7 +24,7 @@ export default function AllergySeasonSkincareBlogLayout() {
         <p>
           Spring is here, bringing blooming flowers, sunny afternoons… and the
           dreaded allergy season. For many, seasonal allergies don&apos;t just mean
-          sneezing and watery eyes—they can wreak havoc on your skin, too. If
+          sneezing and watery eyes. They can wreak havoc on your skin, too. If
           you&apos;re dealing with redness, irritation, dryness, or flare-ups, Sway
           Wellness Spa is here to help.
         </p>
@@ -32,7 +32,7 @@ export default function AllergySeasonSkincareBlogLayout() {
         <p>
           Sensitive, allergy-prone skin needs special care. That&apos;s why we offer
           tailored treatments that calm irritation, reduce inflammation, and
-          restore balance—helping you maintain a radiant, healthy complexion all
+          restore balance, helping you maintain a radiant, healthy complexion all
           season long.
         </p>
 
@@ -109,7 +109,7 @@ export default function AllergySeasonSkincareBlogLayout() {
         </ul>
         <p>
           These treatments work together to help you feel refreshed, recharged,
-          and glowing—from the inside out.
+          and glowing, from the inside out.
         </p>
 
         <h2 id="why-these-treatments-work" className="text-2xl font-bold scroll-mt-24">Why These Treatments Work During Allergy Season</h2>
