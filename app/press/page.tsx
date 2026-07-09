@@ -4,7 +4,7 @@ import PressContent from "./PressContent";
 export const metadata: Metadata = {
   title: "Press | Sway Wellness Spa in the Media",
   description:
-    "Voted #4 Best Day Spa in America by USA Today 10Best. See what the press is saying about Sway, featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
+    "Voted #4 Best Day Spa in America by USA Today 10Best two years running. See what the press is saying about Sway, featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
   alternates: {
     canonical: "https://swaywellnessspa.com/press/",
   },
@@ -45,6 +45,23 @@ export default function Page() {
     description:
       "Press features, awards, and media articles covering Sway Wellness Spa, voted #4 Best Day Spa in America.",
     mainEntity: [
+      {
+        "@type": "NewsArticle",
+        headline:
+          "Sway Voted Fourth Best Day Spa in USA Today 10Best Readers' Choice Awards 2026",
+        url: "https://www.businesswire.com/news/home/20260708260179/en/Sway-Voted-Fourth-Best-Day-Spa-in-USA-Today-10Best-Readers%E2%80%99-Choice-Awards-2026",
+        datePublished: "2026-07-08",
+        publisher: {
+          "@type": "Organization",
+          name: "Business Wire",
+          url: "https://www.businesswire.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
+      },
       {
         "@type": "NewsArticle",
         headline:
@@ -243,7 +260,7 @@ export default function Page() {
         name: "What awards has Sway Wellness Spa won?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway was voted #4 Best Day Spa in America by USA Today 10Best Readers' Choice Awards (2025). Sway was also named Best U.S. Day Spa by The Zoe Report Readers' Choice Awards (2026).",
+          text: "Sway was voted #4 Best Day Spa in America by the USA Today 10Best Readers' Choice Awards two years running (2025 and 2026). Sway was also named Best U.S. Day Spa by The Zoe Report Readers' Choice Awards (2026).",
         },
       },
       {
@@ -259,7 +276,7 @@ export default function Page() {
         name: "Is Sway one of the best spas in Denver?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best in just its first year. It's located on Larimer Square in downtown Denver and offers 18 massage types, 13 facial treatments across 3 tiers, the Remedy Room recovery circuit, and AI-powered Aescape robot massage.",
+          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best two years in a row (2025 and 2026). It's located on Larimer Square in downtown Denver and offers 18 massage types, 13 facial treatments across 3 tiers, the Remedy Room recovery circuit, and AI-powered Aescape robot massage.",
         },
       },
       {

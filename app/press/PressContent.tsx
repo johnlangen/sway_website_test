@@ -11,6 +11,15 @@ const AWARDS = [
   {
     title: "#4 Best Day Spa in America",
     publication: "USA Today 10Best",
+    year: "2026",
+    description:
+      "Voted #4 Best Day Spa in the United States in USA Today's 2026 10Best Readers' Choice Awards, our second year running in the national top five.",
+    image: "/assets/usa_today.png",
+    link: "https://www.businesswire.com/news/home/20260708260179/en/Sway-Voted-Fourth-Best-Day-Spa-in-USA-Today-10Best-Readers%E2%80%99-Choice-Awards-2026",
+  },
+  {
+    title: "#4 Best Day Spa in America",
+    publication: "USA Today 10Best",
     year: "2025",
     description:
       "Voted #4 Best Day Spa in the United States in USA Today's 10Best Readers' Choice Awards, recognized alongside the nation's top spas in just our first year.",
@@ -160,25 +169,25 @@ export default function PressContent() {
             Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life,
             Salon Today, Denver Business Journal, Mile High CRE, Colorado Public
             Radio, and Denverite. Awards include #4 Best Day Spa in America
-            (USA Today 10Best 2025) and Best U.S. Day Spa (TZR Readers&apos;
-            Choice 2026). Located at 1428 Larimer St. on Larimer Square in
+            (USA Today 10Best 2025 and 2026, back-to-back) and Best U.S. Day
+            Spa (TZR Readers&apos; Choice 2026). Located at 1428 Larimer St. on Larimer Square in
             Denver, CO. Book at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
           <p className="mt-5 text-base md:text-lg text-white/80 max-w-2xl mx-auto">
-            Featured in 11 major publications. Two national awards in our first
-            year.
+            Featured in 11 major publications. Three national awards, including
+            back-to-back top-five finishes in USA Today&apos;s 10Best.
           </p>
 
           {/* Award proof badges */}
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             {AWARDS.map((a) => (
               <span
-                key={a.title}
+                key={`${a.title}-${a.year}`}
                 className="inline-flex items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.12em] text-white/90 border border-white/20 rounded-full px-4 py-1.5"
               >
                 <span className="text-[#A9D2C5]">&#9733;</span>
-                {a.title} &middot; {a.publication}
+                {a.title} &middot; {a.publication} {a.year}
               </span>
             ))}
           </div>
@@ -203,10 +212,10 @@ export default function PressContent() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {AWARDS.map((award, i) => (
               <motion.a
-                key={award.title}
+                key={`${award.title}-${award.year}`}
                 href={award.link}
                 target="_blank"
                 rel="noopener noreferrer"
