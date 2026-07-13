@@ -1394,8 +1394,8 @@ export default function NewBookingFlow() {
                 <p className="text-sm text-[#113D33]/85">
                   <span className="font-semibold text-[#113D33]">
                     Facials are safe and wonderful at every stage of pregnancy
-                  </span>{" "}
-                  — that&apos;s why we brought you here. Once you&apos;re past
+                  </span>
+                  . That&apos;s why we brought you here. Once you&apos;re past
                   your first trimester, we&apos;d love to welcome you back for
                   your maternity massage.
                 </p>
