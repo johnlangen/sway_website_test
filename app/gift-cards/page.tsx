@@ -25,6 +25,26 @@ const locations = [
     href: "/locations/denver-larimer/gift-cards",
   },
   {
+    slug: "denver-rino",
+    name: "Sway RiNo",
+    city: "Denver",
+    state: "CO",
+    address: "3636 Blake St",
+    status: "open" as const,
+    image: "/assets/rino-card.jpg",
+    href: "/locations/denver-rino/gift-cards",
+  },
+  {
+    slug: "denver-central-park",
+    name: "Sway Central Park",
+    city: "Aurora",
+    state: "CO",
+    address: "2271 Clinton St",
+    status: "open" as const,
+    image: "/assets/centralpark-card.jpg",
+    href: "/locations/denver-central-park/gift-cards",
+  },
+  {
     slug: "dallas",
     name: "Sway Dallas",
     city: "Dallas",
@@ -108,10 +128,11 @@ export default function GiftCardsHubPage() {
           instant digital delivery via email. Redeemable for all services:
           massages, facials, Remedy Room recovery circuit, Aescape AI robot
           massage, boost add-ons, and retail products. Gift cards never expire
-          and have no dormancy fees. Available at 3 locations: Denver Larimer
-          (now open), Dallas TX (coming soon), and Georgetown Washington DC
-          (coming soon). Sway was voted #4 Best Day Spa in America by USA Today
-          10Best. Purchase online at swaywellnessspa.com/gift-cards.
+          and have no dormancy fees. Available at 5 locations: Denver Larimer,
+          Denver RiNo, and Central Park Aurora CO (all now open), plus Dallas
+          TX and Georgetown Washington DC (coming soon). Sway was voted #4 Best
+          Day Spa in America by USA Today 10Best. Purchase online at
+          swaywellnessspa.com/gift-cards.
         </p>
       </section>
 
