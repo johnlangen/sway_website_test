@@ -165,7 +165,7 @@ export default function ClubMembershipPage({
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
               {cfg.areaLine}{" "}
               &middot;{" "}
-              <Link href="/locations" className="underline underline-offset-4 hover:opacity-100 normal-case tracking-normal">
+              <Link href="/membership?choose=1" className="underline underline-offset-4 hover:opacity-100 normal-case tracking-normal">
                 Change location
               </Link>
             </div>

@@ -120,15 +120,17 @@ export default function BookHubPage() {
   const [selectedLocation, setSelectedLocation] = useState<SelectedLocation | null>(null);
 
   useEffect(() => {
+    const choosing = new URLSearchParams(window.location.search).has("choose");
     const ls = localStorage.getItem("sway_selected_location");
     if (ls) {
       try {
         const loc = JSON.parse(ls);
         if (loc?.slug) {
           document.cookie = `sway_loc=${loc.slug}; path=/; max-age=${60 * 60 * 24 * 365}`;
-          // Auto-redirect to their saved location's booking page
+          // Auto-redirect to their saved location's booking page — unless the
+          // visitor explicitly asked to pick a location (?choose).
           const match = locations.find((l) => l.slug === loc.slug && l.status === "open");
-          if (match) {
+          if (match && !choosing) {
             window.location.replace(match.href);
             return;
           }
@@ -148,7 +150,8 @@ export default function BookHubPage() {
             try {
               var m = document.cookie.match(/(?:^|;\\s*)sway_loc=([^;]+)/);
               var slug = m && m[1];
-              if (slug === 'denver-larimer') {
+              var choosing = window.location.search.indexOf('choose') !== -1;
+              if (slug === 'denver-larimer' && !choosing) {
                 window.location.replace('/locations/denver-larimer/book');
               }
             } catch (e) {}

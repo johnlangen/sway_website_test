@@ -78,12 +78,15 @@ export default function MembershipHubPage() {
 
   useEffect(() => {
     try {
+      // ?choose (from the in-page "Change location" links) shows the picker
+      // instead of bouncing straight back to the saved location.
+      const choosing = new URLSearchParams(window.location.search).has("choose");
       const ls = localStorage.getItem("sway_selected_location");
       if (ls) {
         const loc = JSON.parse(ls);
         setSelectedLocation(loc);
         const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
-        if (match) {
+        if (match && !choosing) {
           window.location.replace(match.href);
           return;
         }
@@ -92,13 +95,13 @@ export default function MembershipHubPage() {
     setShowPage(true);
   }, []);
 
-  if (!showPage) return <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
+  if (!showPage) return <div className="min-h-screen bg-[#F7F4E9]" />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
+    <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* Hero */}
       <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
-        <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
+        <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
           Sway Wellness Club
         </p>
 
@@ -106,13 +109,13 @@ export default function MembershipHubPage() {
           width={150}
           strokeWidth={2.2}
           animate
-          className="text-[#A9D2C5] mx-auto block mb-6"
+          className="text-[#4A776D] mx-auto block mb-6"
         />
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight">
           Join the Club
         </h1>
-        <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
+        <p className="text-base md:text-lg text-[#113D33]/70 max-w-xl mx-auto">
           Massages and facials at member pricing, 50% off boosts and
           Remedy Room sessions, private lounge access, and rollover
           credits. Select your location to view plans.
@@ -142,7 +145,7 @@ export default function MembershipHubPage() {
 
       {/* Location Cards */}
       <section className="px-4 sm:px-6 pt-10 pb-16">
-        <p className="text-center text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-6">
+        <p className="text-center text-sm uppercase tracking-[0.15em] text-[#4A776D] mb-6">
           Select your location
         </p>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -239,19 +242,19 @@ export default function MembershipHubPage() {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/massages"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             Explore Massages
           </Link>
           <Link
             href="/facials"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             Explore Facials
           </Link>
           <Link
             href="/book"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             Book Now
           </Link>

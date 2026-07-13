@@ -78,12 +78,15 @@ export default function GiftCardsHubPage() {
 
   useEffect(() => {
     try {
+      // ?choose (from the in-page "Change location" links) shows the picker
+      // instead of bouncing straight back to the saved location.
+      const choosing = new URLSearchParams(window.location.search).has("choose");
       const ls = localStorage.getItem("sway_selected_location");
       if (ls) {
         const loc = JSON.parse(ls);
         setSelectedLocation(loc);
         const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
-        if (match) {
+        if (match && !choosing) {
           window.location.replace(match.href);
           return;
         }

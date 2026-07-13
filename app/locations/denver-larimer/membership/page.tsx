@@ -417,7 +417,7 @@ export default function MembershipPage() {
         >
           Sway Larimer &middot; Denver, CO{" "}
           &middot;{" "}
-          <Link href="/locations" className="underline underline-offset-4 hover:text-[#113D33] transition normal-case tracking-normal">
+          <Link href="/membership?choose=1" className="underline underline-offset-4 hover:text-[#113D33] transition normal-case tracking-normal">
             Change location
           </Link>
         </motion.p>

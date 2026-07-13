@@ -1205,7 +1205,7 @@ export default function NewBookingFlow() {
               </svg>
               <span className="text-sm font-semibold text-[#113D33]">Sway Larimer</span>
               <span className="text-[#113D33]/30">|</span>
-              <Link href="/locations" className="text-sm text-[#4A776D] hover:text-[#113D33] transition-colors font-medium">
+              <Link href="/book?choose=1" className="text-sm text-[#4A776D] hover:text-[#113D33] transition-colors font-medium">
                 Switch location
               </Link>
             </div>
