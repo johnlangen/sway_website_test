@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Check, ChevronDown, ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import GoogleReviews, {
   ReviewBadge,
@@ -425,7 +426,11 @@ export default function MembershipPage() {
           transition={{ duration: 0.4 }}
           className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
         >
-          Sway Larimer &middot; Denver, CO
+          Sway Larimer &middot; Denver, CO{" "}
+          &middot;{" "}
+          <Link href="/locations" className="underline underline-offset-4 hover:text-white transition normal-case tracking-normal">
+            Change location
+          </Link>
         </motion.p>
 
         <SwayCurve

@@ -95,7 +95,11 @@ export default function ClubGiftCardsPage({ club }: { club: ClubGiftCardsConfig 
           transition={{ duration: 0.4 }}
           className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
         >
-          {club.name} &middot; {club.cityState}
+          {club.name} &middot; {club.cityState}{" "}
+          &middot;{" "}
+          <Link href="/locations" className="underline underline-offset-4 hover:text-white transition normal-case tracking-normal">
+            Change location
+          </Link>
         </motion.p>
 
         <SwayCurve

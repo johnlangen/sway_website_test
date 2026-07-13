@@ -14,6 +14,7 @@
  * rounded-3xl cards), not the dark Larimer membership page.
  */
 
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
@@ -162,7 +163,11 @@ export default function ClubMembershipPage({
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div>
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
-              {cfg.areaLine}
+              {cfg.areaLine}{" "}
+              &middot;{" "}
+              <Link href="/locations" className="underline underline-offset-4 hover:opacity-100 normal-case tracking-normal">
+                Change location
+              </Link>
             </div>
 
             <SwayCurve
