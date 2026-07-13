@@ -129,21 +129,24 @@ export default function DallasLaunchBoard() {
       ? Math.round((withUA.filter((l) => l.viaInstagram).length / withUA.length) * 100)
       : 0;
 
-    // All-time weekly buckets, from the first lead's week through now
+    // All-time CALENDAR weeks (Sunday start), first lead's week → this week.
+    // Each bar is labeled by the week's start date: "Wk of 5/18".
+    const weekStartOf = (t: number) => {
+      const d = new Date(t);
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() - d.getDay());
+      return d.getTime();
+    };
     const dated = filtered
       .filter((l) => l.createdAt)
-      .map((l) => new Date(l.createdAt as string).getTime());
-    const firstT = dated.length ? Math.min(...dated) : now;
-    const numWeeks = Math.max(1, Math.ceil((now - firstT) / weekMs));
+      .map((l) => weekStartOf(new Date(l.createdAt as string).getTime()));
+    const firstWeek = dated.length ? Math.min(...dated) : weekStartOf(now);
     const weeks: { label: string; count: number }[] = [];
-    for (let i = numWeeks - 1; i >= 0; i--) {
-      const start = now - (i + 1) * weekMs;
-      const end = now - i * weekMs;
-      const count = dated.filter((t) => t >= start && t < end).length;
-      const d = new Date(end);
+    for (let w = new Date(firstWeek); w.getTime() <= weekStartOf(now); w.setDate(w.getDate() + 7)) {
+      const t = w.getTime();
       weeks.push({
-        label: d.toLocaleDateString("en-US", { month: "numeric", day: "numeric" }),
-        count,
+        label: `Wk of ${w.toLocaleDateString("en-US", { month: "numeric", day: "numeric" })}`,
+        count: dated.filter((d) => d === t).length,
       });
     }
     const maxWeek = Math.max(1, ...weeks.map((w) => w.count));
@@ -184,11 +187,11 @@ export default function DallasLaunchBoard() {
   const mrrOpening = OPENING_TARGET * FOUNDING_PRICE;
   const filterLabel = SOURCE_FILTERS.find((f) => f.key === filter)?.label ?? "All sources";
 
-  const bigStats = [
+  const bigStats: { label: string; value: number; href?: string }[] = [
     { label: "Total leads", value: total },
-    { label: "Founding page", value: bySource.founding },
-    { label: "Location page", value: bySource.locationPage },
-    { label: "Contest", value: bySource.contest },
+    { label: "Founding page", value: bySource.founding, href: "/locations/dallas/founding-membership" },
+    { label: "Location page", value: bySource.locationPage, href: "/locations/dallas" },
+    { label: "Contest", value: bySource.contest, href: "/locations/dallas/enter-to-win" },
   ];
   const miniStats = [
     { label: "New this week", value: String(thisWeek.length) },
@@ -232,6 +235,16 @@ export default function DallasLaunchBoard() {
             >
               <div className="text-3xl font-bold">{s.value}</div>
               <div className="text-xs uppercase tracking-wide text-[#4A776D] mt-1">{s.label}</div>
+              {s.href && (
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1.5 inline-block text-[11px] text-[#113D33]/50 underline underline-offset-2 hover:text-[#113D33] transition"
+                >
+                  view page<span aria-hidden> ↗</span>
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
@@ -339,11 +352,15 @@ export default function DallasLaunchBoard() {
         {/* MOMENTUM (filtered, all time) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
           <h2 className="text-lg font-semibold mb-4">
-            Momentum · since launch
+            Momentum · by week
             {filter !== "all" && (
               <span className="text-sm font-normal text-[#113D33]/55"> · {filterLabel}</span>
             )}
           </h2>
+          <p className="text-xs text-[#113D33]/50 -mt-3 mb-4">
+            Each bar is one calendar week (Sunday to Saturday), labeled by its
+            start date.
+          </p>
           <div className="flex items-end gap-1.5 h-28 overflow-x-auto">
             {weeks.map((w, i) => (
               <div key={i} className="flex-1 min-w-[26px] flex flex-col items-center gap-1">
