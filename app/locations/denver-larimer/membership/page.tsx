@@ -472,7 +472,7 @@ export default function MembershipPage() {
   return (
     <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
       {/* HERO — club-style: text left, clean photo right (no overlay fade) */}
-      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-10 md:pb-14">
+      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-7 md:pb-14">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
         <div>
         <motion.p
@@ -541,14 +541,16 @@ export default function MembershipPage() {
         </p>
         </div>
 
-        <div className="relative">
+        {/* Desktop only: on mobile the selector cards below carry the
+            photography, and hiding this puts the family selector above
+            the fold. */}
+        <div className="relative hidden md:block">
           <Image
             src="/assets/OG/og-home.jpg"
             alt="Inside Sway Wellness Spa on Larimer Square"
             width={1200}
             height={630}
-            priority
-            className="rounded-3xl shadow-lg w-full h-[280px] sm:h-[340px] md:h-[440px] object-cover"
+            className="rounded-3xl shadow-lg w-full h-[440px] object-cover"
           />
         </div>
         </div>
@@ -578,11 +580,12 @@ export default function MembershipPage() {
                 }`}
                 style={active ? { boxShadow: `0 28px 55px -15px ${f.accent}66, inset 0 0 0 3px ${f.accent}` } : undefined}
               >
-                <div className="relative h-28 sm:h-40 md:h-48 w-full">
+                <div className="relative h-32 sm:h-40 md:h-48 w-full">
                   <Image
                     src={f.image}
                     alt={f.label}
                     fill
+                    priority
                     sizes="(max-width: 1024px) 33vw, 340px"
                     className={`object-cover transition-transform duration-500 ${active ? "scale-105" : "group-hover:scale-105"}`}
                   />
