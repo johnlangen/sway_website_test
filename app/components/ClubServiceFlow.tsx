@@ -11,6 +11,11 @@ import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGrou
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import { getClubLocation, type ClubLocationKey } from "@/lib/clubLocations";
+// BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md): once the
+// club layouts switch to <HideFloatingWidgets attentiveOnly />, this flow must
+// hide the chat bubble itself (like ClubRemedyLoungeFlow does) so it doesn't
+// cover the sticky CTA on mobile. Uncomment the import + the mount below.
+// import { HideFloatingWidgets } from "./HideFloatingWidgets";
 
 /* ================================================================
    CLUB TIER-AWARE BOOKING FLOW (RiNo / Central Park)
@@ -1002,6 +1007,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance">
+      {/* ACTIVATION: uncomment (see import note at top of file).
+      <HideFloatingWidgets /> */}
       {/* Sticky header — matches book-service: top-[56px] to sit below nav */}
       {step !== "welcome" && step !== "done" && (
         <div

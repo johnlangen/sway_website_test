@@ -6,6 +6,11 @@ import Footer from "./components/Footer";
 import CountdownBanner from "./components/CountdownBanner";
 import { AddToHomeScreen } from "./components/AddToHomeScreen";
 import { LarimerOnlyChat } from "./components/LarimerOnlyChat";
+// BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md):
+// swap the import above for the line below, delete the inline "Bowtie AI
+// Chat" script block further down, and replace <LarimerOnlyChat /> with
+// <BowtieChat /> in the body.
+// import { BowtieChat } from "./components/BowtieChat";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -164,7 +169,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }}
             />
 
-            {/* Bowtie AI Chat */}
+            {/* Bowtie AI Chat (Larimer only, token sway_larimer_square).
+                ACTIVATION: delete this whole script block when switching to
+                the route-aware <BowtieChat /> component — it takes over
+                loading for Larimer + RiNo + Central Park. */}
             <script
               dangerouslySetInnerHTML={{
                 __html: `
@@ -223,6 +231,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to main content
         </a>
+        {/* ACTIVATION: replace with <BowtieChat /> (and delete
+            LarimerOnlyChat.tsx — BowtieChat subsumes its hide logic). */}
         <LarimerOnlyChat />
         <NavBar />
         <CountdownBanner />

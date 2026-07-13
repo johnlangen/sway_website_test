@@ -172,7 +172,10 @@ export default function DenverCentralParkLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* The global Bowtie chat + Attentive offer are Larimer-specific. Hide
-          them on all Central Park pages until the clubs get their own widgets. */}
+          them on all Central Park pages until the clubs get their own widgets.
+          ACTIVATION (docs/bowtie-club-chat-activation.md): change to
+          <HideFloatingWidgets attentiveOnly /> so Central Park's own Bowtie
+          chat (token sway_central_park) shows while Attentive stays hidden. */}
       <HideFloatingWidgets />
       {children}
     </>

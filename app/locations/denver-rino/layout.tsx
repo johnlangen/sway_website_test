@@ -172,7 +172,10 @@ export default function DenverRinoLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* The global Bowtie chat + Attentive offer are Larimer-specific. Hide
-          them on all RiNo pages until the clubs get their own widgets. */}
+          them on all RiNo pages until the clubs get their own widgets.
+          ACTIVATION (docs/bowtie-club-chat-activation.md): change to
+          <HideFloatingWidgets attentiveOnly /> so RiNo's own Bowtie chat
+          (token sway_rino) shows while Attentive stays hidden. */}
       <HideFloatingWidgets />
       {children}
     </>
