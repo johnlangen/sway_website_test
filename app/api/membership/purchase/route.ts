@@ -31,7 +31,11 @@ const LARIMER_CONTRACTS: Record<number, SellableContract> = {
   122: { key: "essential", name: "Essential Membership", monthly: 99 },
   123: { key: "premier", name: "Premier Membership", monthly: 129 },
   124: { key: "ultimate", name: "Ultimate Membership", monthly: 159 },
-  111: { key: "aescape", name: "Aescape Membership", monthly: 99 },
+  // Aescape sells as TWO new-menu contracts (guest picks a format). The old
+  // generic 111 "Aescape Robot Membership" is deliberately NOT sellable —
+  // pre-menu-switch product (Jocelyn incident, July 2026).
+  119: { key: "aescape30", name: "Aescape 4x30 Membership", monthly: 99 },
+  120: { key: "aescape60", name: "Aescape 2x60 Membership", monthly: 99 },
   102: { key: "remedy", name: "Remedy Room Membership", monthly: 99 },
 };
 

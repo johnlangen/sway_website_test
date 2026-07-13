@@ -23,7 +23,7 @@ import { HideFloatingWidgets } from "./HideFloatingWidgets";
 import { useDialogA11y } from "@/lib/useDialogA11y";
 
 export type MembershipPlan = {
-  key: "essential" | "premier" | "ultimate" | "aescape" | "remedy" | "club_lounge";
+  key: "essential" | "premier" | "ultimate" | "aescape30" | "aescape60" | "remedy" | "club_lounge";
   contractId: number;
   name: string;
   price: number; // monthly USD
@@ -279,7 +279,8 @@ export default function MembershipJoinFlow({
         (SPA_TIER_KEYS.includes(plan.key) && checkData?.isMember && checkData?.tier
           ? `${String(checkData.tier).charAt(0).toUpperCase()}${String(checkData.tier).slice(1)} membership`
           : null) ??
-        (plan.key === "aescape" && checkData?.hasAescapeMembership
+        ((plan.key === "aescape30" || plan.key === "aescape60") &&
+        checkData?.hasAescapeMembership
           ? "Aescape membership"
           : null) ??
         (plan.key === "remedy" && checkData?.hasRemedyMembership
@@ -582,7 +583,7 @@ export default function MembershipJoinFlow({
 
   const firstVisitHref = site
     ? site.bookHref
-    : plan.key === "aescape"
+    : plan.key === "aescape30" || plan.key === "aescape60"
     ? "/locations/denver-larimer/book-aescape"
     : plan.key === "remedy"
     ? "/locations/denver-larimer/book-remedy-room"

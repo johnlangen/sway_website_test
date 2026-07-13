@@ -48,12 +48,21 @@ const joinPlans: Record<string, MembershipPlan> = {
     price: 159,
     blurb: "1 tech-enhanced facial or massage per month, plus all member perks.",
   },
-  aescape: {
-    key: "aescape",
-    contractId: 111,
-    name: "Aescape",
+  // Aescape = two new-menu contracts at the same price; the card shows a
+  // two-button chooser. Old generic 111 (pre-menu-switch) must never sell.
+  aescape30: {
+    key: "aescape30",
+    contractId: 119,
+    name: "Aescape 4×30",
     price: 99,
-    blurb: "4x30 min or 2x60 min Aescape sessions per month.",
+    blurb: "Four 30-minute Aescape robot massage sessions every month.",
+  },
+  aescape60: {
+    key: "aescape60",
+    contractId: 120,
+    name: "Aescape 2×60",
+    price: 99,
+    blurb: "Two 60-minute Aescape robot massage sessions every month.",
   },
   remedy: {
     key: "remedy",
@@ -724,12 +733,31 @@ export default function MembershipPage() {
                 {/* mt-auto bottom-aligns the CTAs across both cards; price
                     stays on the card, the button states the action. */}
                 {nativeJoin ? (
+                  m.key === "aescape" ? (
+                    /* Two contracts at the same price — the guest picks the
+                       session format up front. */
+                    <div className="mt-auto space-y-2">
+                      <button
+                        onClick={() => setJoinKey("aescape30")}
+                        className="block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
+                      >
+                        Join · 4×30 min sessions
+                      </button>
+                      <button
+                        onClick={() => setJoinKey("aescape60")}
+                        className="block w-full rounded-full border-2 border-[#113D33] py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-[#113D33] hover:text-white"
+                      >
+                        Join · 2×60 min sessions
+                      </button>
+                    </div>
+                  ) : (
                   <button
                     onClick={() => setJoinKey(m.key)}
                     className="mt-auto block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                   >
                     {m.cta}
                   </button>
+                  )
                 ) : (
                   <a
                     href={m.joinUrl ?? "tel:+13034766150"}
