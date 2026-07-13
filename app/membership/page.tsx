@@ -51,7 +51,7 @@ const locations = [
     state: "TX",
     status: "coming-soon" as const,
     image: "/assets/SWAY.jpg",
-    href: "/locations/dallas",
+    href: "/locations/dallas/founding-membership",
   },
   {
     slug: "georgetown",

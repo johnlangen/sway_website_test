@@ -60,6 +60,10 @@ export default function Footer() {
           <FooterLink href="/date-night" text="Date Night" />
           <FooterLink href="/couples-spa" text="Couples Spa" />
           <FooterLink href="/locations" text="Locations" />
+          <FooterLink
+            href="/locations/dallas/founding-membership"
+            text="Knox/Henderson Founding Membership"
+          />
           <FooterLink href="/press" text="Press" />
           <FooterLink href="/blog" text="Blog" />
           <FooterLink href="/faq/larimer" text="FAQ" />
