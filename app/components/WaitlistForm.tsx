@@ -1,6 +1,10 @@
 "use client";
 
 import { getAttribution } from "../../lib/attribution";
+import {
+  WAITLIST_CONSENT_VERSION,
+  waitlistConsentText,
+} from "../../lib/waitlistConsent";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -25,6 +29,10 @@ export default function WaitlistForm({
   >("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
+  // The exact disclosure rendered below the submit button — stored on the
+  // lead verbatim so every entry carries its consent audit trail.
+  const consentText = waitlistConsentText(location);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
@@ -42,6 +50,8 @@ export default function WaitlistForm({
           phone: phone.trim() || undefined,
           location,
           source,
+          consentVersion: WAITLIST_CONSENT_VERSION,
+          consentText,
         }),
       });
 
@@ -147,8 +157,7 @@ export default function WaitlistForm({
         </form>
 
         <p className="text-[11px] opacity-60 mt-3 leading-relaxed">
-          By signing up you agree to receive updates about Sway Wellness.
-          We&apos;ll never share your info.
+          {consentText}
         </p>
       </div>
     );
@@ -227,9 +236,7 @@ export default function WaitlistForm({
       </form>
 
       <p className="text-[11px] opacity-60 mt-3 text-center leading-relaxed">
-        By signing up you agree to receive updates about Sway Wellness.
-        We&apos;ll never share your info. Membership pricing and perks are
-        not yet final.
+        {consentText} Membership pricing and perks are not yet final.
       </p>
     </div>
   );

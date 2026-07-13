@@ -2,6 +2,10 @@
 
 import { useRating } from "../../../components/GoogleReviews";
 import { getAttribution } from "../../../../lib/attribution";
+import {
+  WAITLIST_CONSENT_VERSION,
+  waitlistConsentText,
+} from "../../../../lib/waitlistConsent";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
@@ -376,6 +380,8 @@ export default function DallasFoundingMembershipPage() {
           ...formData,
           location: "dallas",
           source: "founding-membership",
+          consentVersion: WAITLIST_CONSENT_VERSION,
+          consentText: waitlistConsentText("dallas"),
         }),
       });
 
@@ -1212,6 +1218,12 @@ export default function DallasFoundingMembershipPage() {
                   ? "Joining..."
                   : "Join the Waitlist"}
               </button>
+
+              {/* Consent disclosure — must match the text stored on the lead */}
+              <p className="text-[11px] text-gray-400 leading-relaxed text-center">
+                {waitlistConsentText("dallas")} Membership pricing and perks
+                are not yet final.
+              </p>
             </motion.form>
           )}
 
