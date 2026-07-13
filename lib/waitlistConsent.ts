@@ -10,12 +10,15 @@
  * captured under that copy have consentVersion=null and must NOT be texted.
  *
  * If this copy changes, bump the version and keep the old text in git.
+ *
+ * v3: Dallas brand renamed "Sway Dallas" -> "Sway Knox/Henderson" (same
+ * entity, same scope of consent).
  */
 
-export const WAITLIST_CONSENT_VERSION = "v2-2026-07-13";
+export const WAITLIST_CONSENT_VERSION = "v3-2026-07-13";
 
 export function waitlistConsentText(location: "dallas" | "georgetown"): string {
-  const brand = location === "dallas" ? "Sway Dallas" : "Sway Georgetown";
+  const brand = location === "dallas" ? "Sway Knox/Henderson" : "Sway Georgetown";
   return (
     `By signing up, you agree to receive recurring automated marketing emails and ` +
     `text messages from ${brand} at the email and number you provide. Consent is ` +

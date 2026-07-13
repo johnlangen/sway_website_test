@@ -206,7 +206,7 @@ const treatments = [
 
 const faqs = [
   {
-    question: "When does Sway Dallas open?",
+    question: "When does Sway Knox/Henderson open?",
     answer:
       "We're opening at 2323 Henderson Ave in the Knox/Henderson neighborhood. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
   },
@@ -265,9 +265,9 @@ const schema = {
     },
     {
       "@type": "Product",
-      name: "Sway Dallas Founding Membership",
+      name: "Sway Knox/Henderson Founding Membership",
       description:
-        "Founding member membership for Sway Dallas wellness spa in Knox/Henderson with exclusive pricing.",
+        "Founding member membership for Sway Knox/Henderson wellness spa in Dallas with exclusive pricing.",
       image: "/assets/OG/og-join-the-club.jpg",
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       offers: {
@@ -423,7 +423,7 @@ export default function DallasFoundingMembershipPage() {
             <span>✦</span> Giveaway
           </span>
           <span className="text-sm md:text-base font-semibold">
-            Win a year of wellness at Sway Dallas
+            Win a year of wellness at Sway Knox/Henderson
           </span>
           <span className="text-xs md:text-sm opacity-80 underline underline-offset-2">
             Enter free &rarr;
@@ -1307,7 +1307,7 @@ export default function DallasFoundingMembershipPage() {
       ======================================================== */}
       <InstagramCallout
         title="Stay in the know."
-        subtitle="Follow @swaywellnessclub on Instagram for Sway Dallas opening news, Knox/Henderson build updates, and founding member moments."
+        subtitle="Follow @swaywellnessclub on Instagram for Sway Knox/Henderson opening news, build updates, and founding member moments."
       />
 
       {/* ========================================================

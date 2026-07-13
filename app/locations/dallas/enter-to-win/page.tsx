@@ -9,11 +9,11 @@ import EnterToWinForm from "@/app/components/EnterToWinForm";
    PLACEHOLDER CONTEST DETAILS — replace with sister's final answers
 ------------------------------------------------------------------ */
 const CONTEST = {
-  prizeTitle: "A Year of Wellness at Sway Dallas",
+  prizeTitle: "A Year of Wellness at Sway Knox/Henderson",
   prizeSummary:
-    "Receive a monthly massage or facial for 12 months at Sway Dallas in Knox/Henderson.",
+    "Receive a monthly massage or facial for 12 months at Sway Knox/Henderson in Dallas.",
   prizeValue: "$1,700",
-  endDate: "Sway Dallas Opening Day", // sister to confirm specific date
+  endDate: "Sway Knox/Henderson Opening Day", // sister to confirm specific date
   drawDate: "Announced before opening day",
   eligibility: "18+ U.S. residents",
 };
@@ -241,7 +241,7 @@ export default function DallasEnterToWinPage() {
               </p>
               <p>
                 <strong>Prize.</strong> One (1) winner will receive one (1)
-                monthly facial or massage for 12 months at Sway Dallas,
+                monthly facial or massage for 12 months at Sway Knox/Henderson,
                 beginning on the location&apos;s opening day. Estimated retail
                 value: {CONTEST.prizeValue}. Prize is non-transferable and has
                 no cash value.

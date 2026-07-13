@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sway Dallas | Spa & Wellness Club in Knox/Henderson | Coming Soon",
+  title: "Sway Knox/Henderson | Dallas Spa & Wellness Club | Coming Soon",
   description:
     "Sway Wellness Spa is coming to Knox/Henderson in Dallas, TX. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/dallas/",
-    title: "Sway Dallas | Spa & Wellness Club in Knox/Henderson | Coming Soon",
+    title: "Sway Knox/Henderson | Dallas Spa & Wellness Club | Coming Soon",
     description:
       "Targeted facials, deeply effective massage, sauna, cold plunge, and the Remedy Room recovery circuit. Sway Wellness Spa opening soon in Dallas, TX.",
     images: [
@@ -18,13 +18,13 @@ export const metadata: Metadata = {
         url: "/assets/SWAY.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Dallas Coming Soon – Wellness Spa in Knox/Henderson",
+        alt: "Sway Knox/Henderson Coming Soon · Wellness Spa in Dallas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sway Dallas | Spa & Wellness Club in Knox/Henderson | Coming Soon",
+    title: "Sway Knox/Henderson | Dallas Spa & Wellness Club | Coming Soon",
     description:
       "Massage, facials, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Dallas. Join the waitlist for founding member pricing.",
     images: ["/assets/SWAY.jpg"],
@@ -35,7 +35,8 @@ export const metadata: Metadata = {
 const daySpaJsonLd = {
   "@context": "https://schema.org",
   "@type": "DaySpa",
-  name: "Sway Dallas",
+  name: "Sway Knox/Henderson",
+  alternateName: "Sway Dallas",
   url: "https://swaywellnessspa.com/locations/dallas/",
   image: ["https://swaywellnessspa.com/assets/SWAY.jpg"],
   priceRange: "$$",
@@ -90,26 +91,26 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "When is Sway Dallas opening?",
+      name: "When is Sway Knox/Henderson opening?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Dallas is coming soon to Knox/Henderson at 2323 Henderson Ave. Sign up as a Founding Member at swaywellnessspa.com/locations/dallas/founding-membership to get early access, exclusive pricing, and opening-day perks.",
+        text: "Sway Knox/Henderson is coming soon to 2323 Henderson Ave in Dallas. Sign up as a Founding Member at swaywellnessspa.com/locations/dallas/founding-membership to get early access, exclusive pricing, and opening-day perks.",
       },
     },
     {
       "@type": "Question",
-      name: "What services will Sway Dallas offer?",
+      name: "What services will Sway Knox/Henderson offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Dallas will offer expert-led massage therapy (deep tissue, sports recovery, CBD, salt stone), advanced facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit featuring sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots.",
+        text: "Sway Knox/Henderson will offer expert-led massage therapy (deep tissue, sports recovery, CBD, salt stone), advanced facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit featuring sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots.",
       },
     },
     {
       "@type": "Question",
-      name: "What is a Founding Member at Sway Dallas?",
+      name: "What is a Founding Member at Sway Knox/Henderson?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Founding Members receive exclusive pricing and priority booking before Sway Dallas opens. Benefits include VIP opening-day perks and guaranteed rates. Sign up at swaywellnessspa.com/locations/dallas/founding-membership.",
+        text: "Founding Members receive exclusive pricing and priority booking before Sway Knox/Henderson opens. Benefits include VIP opening-day perks and guaranteed rates. Sign up at swaywellnessspa.com/locations/dallas/founding-membership.",
       },
     },
     {
@@ -117,20 +118,20 @@ const faqJsonLd = {
       name: "Where in Dallas will Sway be located?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Dallas will be located at 2323 Henderson Ave in the Knox/Henderson neighborhood, one of Dallas's most vibrant dining and lifestyle districts. The spa will be easily accessible from Highland Park, Uptown, Lower Greenville, and Lakewood.",
+        text: "Sway will be located at 2323 Henderson Ave in the Knox/Henderson neighborhood, one of Dallas's most vibrant dining and lifestyle districts. The spa will be easily accessible from Highland Park, Uptown, Lower Greenville, and Lakewood.",
       },
     },
     {
       "@type": "Question",
-      name: "Does Sway Dallas have a sauna and cold plunge?",
+      name: "Does Sway Knox/Henderson have a sauna and cold plunge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway Dallas will feature the Remedy Room, our signature recovery circuit with sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. Remedy Room sessions can be booked individually or included with a membership.",
+        text: "Yes. Sway Knox/Henderson will feature the Remedy Room, our signature recovery circuit with sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. Remedy Room sessions can be booked individually or included with a membership.",
       },
     },
     {
       "@type": "Question",
-      name: "How much are Sway Dallas memberships?",
+      name: "How much are Sway Knox/Henderson memberships?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
@@ -141,7 +142,7 @@ const faqJsonLd = {
       name: "Can I use Sway gift cards at the Dallas location?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Dallas once the Knox/Henderson location opens. Purchase gift cards at swaywellnessspa.com/gift-cards.",
+        text: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Knox/Henderson once the Dallas location opens. Purchase gift cards at swaywellnessspa.com/gift-cards.",
       },
     },
   ],

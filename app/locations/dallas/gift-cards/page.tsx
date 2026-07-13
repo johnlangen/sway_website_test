@@ -4,7 +4,7 @@ import DallasGiftCardsPage from "./DallasGiftCardsPage";
 export const metadata: Metadata = {
   title: "Spa Gift Cards Dallas | Coming Soon at Sway Wellness Spa",
   description:
-    "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
+    "Sway Knox/Henderson is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Dallas.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/dallas/gift-cards/",
   },
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/dallas/gift-cards/",
     title: "Spa Gift Cards Dallas | Coming Soon at Sway Wellness Spa",
     description:
-      "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
+      "Sway Knox/Henderson is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Dallas.",
     images: [
       {
         url: "/assets/OG/og-gift-cards.jpg",
         width: 1200,
         height: 630,
-        alt: "Sway Dallas Gift Cards Coming Soon",
+        alt: "Sway Knox/Henderson Gift Cards Coming Soon",
       },
     ],
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Spa Gift Cards Dallas | Coming Soon at Sway Wellness Spa",
     description:
-      "Sway Dallas is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Knox/Henderson.",
+      "Sway Knox/Henderson is opening soon. Spa gift cards for facials, massage, and Remedy Room recovery will be redeemable once we open in Dallas.",
     images: ["/assets/OG/og-gift-cards.jpg"],
   },
   robots: { index: false, follow: true },

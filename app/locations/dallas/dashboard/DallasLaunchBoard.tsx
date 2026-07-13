@@ -215,14 +215,14 @@ export default function DallasLaunchBoard() {
       {/* HEADER */}
       <section className="px-6 pt-24 md:pt-32 pb-8 text-center max-w-4xl mx-auto">
         <p className="text-xs md:text-sm uppercase tracking-[0.2em] text-[#4A776D] mb-3">
-          Sway Dallas &middot; Founding Team
+          Sway Knox/Henderson &middot; Founding Team
         </p>
         <SwayCurve width={140} strokeWidth={2.2} animate className="text-[#4A776D] mx-auto block mb-5" />
         <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-3">
           Dallas Launch Board
         </h1>
         <p className="text-sm md:text-base text-[#113D33]/70 max-w-md mx-auto">
-          Every person below raised their hand for Sway Dallas. Live from the
+          Every person below raised their hand for Sway Knox/Henderson. Live from the
           website — refresh anytime.
         </p>
       </section>

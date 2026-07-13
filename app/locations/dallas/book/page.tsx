@@ -10,7 +10,7 @@ export default function BookingDallasPage() {
       </h1>
 
       <p className="mb-8 max-w-2xl text-[#113D33]/80 text-base leading-relaxed">
-        We’re preparing <strong>Sway Dallas</strong> to open its doors soon. Online
+        We’re preparing <strong>Sway Knox/Henderson</strong> to open its doors soon. Online
         booking isn’t available yet, but you can explore our treatments and learn
         more about what’s coming.
       </p>
@@ -35,7 +35,7 @@ export default function BookingDallasPage() {
         <p className="mt-3">
           More about Dallas:{" "}
           <Link href="/locations/dallas" className="underline">
-            Sway Dallas · Coming Soon
+            Sway Knox/Henderson · Coming Soon
           </Link>
         </p>
       </div>

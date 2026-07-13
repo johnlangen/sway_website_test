@@ -157,7 +157,7 @@ export async function POST(req: Request) {
           ? "Dallas location page"
           : source;
       await resend.emails.send({
-        from: "Sway Dallas Leads <contact@swaywellnessspa.com>",
+        from: "Sway Knox/Henderson Leads <contact@swaywellnessspa.com>",
         to: process.env.DALLAS_LEAD_NOTIFY_EMAIL,
         subject: `New Dallas lead: ${firstName} ${lastName}`.trim(),
         text: [

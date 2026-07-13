@@ -113,7 +113,7 @@ export default function DallasMembershipPage() {
         {/* Header */}
         <motion.div className="text-center mb-12" {...fadeUp}>
           <h1 className="text-3xl md:text-5xl font-bold tracking-widest mb-4 uppercase">
-            Sway Dallas Memberships
+            Sway Knox/Henderson Memberships
           </h1>
           <p className="text-xl md:text-2xl font-semibold mb-3">
             Three membership tiers · pricing announced at launch
@@ -256,7 +256,7 @@ export default function DallasMembershipPage() {
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                Sway Dallas will offer three tiers: Essential (signature 50-minute treatments), Premier (enhanced products and extended durations), and Ultimate (tech-enhanced premium treatments with LED, microcurrent, and more). Additional Remedy Room and Aescape robot massage memberships will also be available.
+                Sway Knox/Henderson will offer three tiers: Essential (signature 50-minute treatments), Premier (enhanced products and extended durations), and Ultimate (tech-enhanced premium treatments with LED, microcurrent, and more). Additional Remedy Room and Aescape robot massage memberships will also be available.
               </p>
             </details>
             <details className="bg-white rounded-xl p-4 group">
@@ -265,12 +265,12 @@ export default function DallasMembershipPage() {
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                Yes. Founding members will receive exclusive pricing before Sway Dallas opens. Join the waitlist to be notified when founding memberships become available.
+                Yes. Founding members will receive exclusive pricing before Sway Knox/Henderson opens. Join the waitlist to be notified when founding memberships become available.
               </p>
             </details>
             <details className="bg-white rounded-xl p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                When does Sway Dallas open?
+                When does Sway Knox/Henderson open?
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">

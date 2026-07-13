@@ -26,10 +26,10 @@ export default function OffersContent() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "When will Sway Dallas open?",
+            name: "When will Sway Knox/Henderson open?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sway Dallas is preparing to open soon. Founding Member offers and launch specials will be announced prior to the grand opening.",
+              text: "Sway Knox/Henderson is preparing to open soon. Founding Member offers and launch specials will be announced prior to the grand opening.",
             },
           },
           {
@@ -42,7 +42,7 @@ export default function OffersContent() {
           },
           {
             "@type": "Question",
-            name: "How can I stay updated about Sway Dallas offers?",
+            name: "How can I stay updated about Sway Knox/Henderson offers?",
             acceptedAnswer: {
               "@type": "Answer",
               text: "Check back here regularly and follow Sway Wellness Spa on social media for updates about Dallas offers and opening events.",

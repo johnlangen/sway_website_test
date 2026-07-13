@@ -42,7 +42,7 @@ const locations = [
   },
   {
     slug: "dallas",
-    name: "Sway Dallas",
+    name: "Sway Knox/Henderson",
     city: "Dallas",
     state: "TX",
     status: "coming-soon" as const,

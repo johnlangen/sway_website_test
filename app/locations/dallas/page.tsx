@@ -27,7 +27,7 @@ export default function SwayDallasComingSoonPage() {
             <span>✦</span> Giveaway
           </span>
           <span className="text-sm md:text-base font-semibold">
-            Win a year of wellness at Sway Dallas
+            Win a year of wellness at Sway Knox/Henderson
           </span>
           <span className="text-xs md:text-sm opacity-80 underline underline-offset-2">
             Enter free &rarr;
@@ -39,7 +39,7 @@ export default function SwayDallasComingSoonPage() {
       <section className="px-6 pt-10 md:pt-14 pb-12">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <motion.div {...fadeUp}>
-            <h1 className="text-3xl md:text-5xl font-bold">Sway Dallas</h1>
+            <h1 className="text-3xl md:text-5xl font-bold">Sway Knox/Henderson</h1>
             <div className="mt-3 text-lg">
               <div>2323 Henderson Ave, Dallas, TX 75206</div>
               <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -53,7 +53,7 @@ export default function SwayDallasComingSoonPage() {
               </div>
 
               <p className="mt-4 max-w-xl leading-relaxed">
-                <strong>Sway Dallas</strong> is bringing our award-winning wellness experience to
+                <strong>Sway Knox/Henderson</strong> is bringing our award-winning wellness experience to
                 the Knox/Henderson neighborhood. Expect targeted facials, deeply effective massage,
                 and the <strong>Remedy Room</strong> recovery circuit with sauna, cold
                 plunge, LED light therapy, and lymphatic drainage compression boots.
@@ -91,7 +91,7 @@ export default function SwayDallasComingSoonPage() {
       <section className="px-6 py-16 bg-white">
         <div className="max-w-6xl mx-auto">
           <motion.h2 {...fadeUp} className="text-2xl md:text-3xl font-bold text-center mb-10">
-            What&apos;s Coming to Sway Dallas
+            What&apos;s Coming to Sway Knox/Henderson
           </motion.h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -146,7 +146,7 @@ export default function SwayDallasComingSoonPage() {
               Four tiers · <strong>Essential</strong>, <strong>Premier</strong>, <strong>Ultimate</strong>, and <strong>The Remedy Room</strong>
             </p>
             <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
-              Founding members will receive exclusive pricing and priority booking before Sway Dallas
+              Founding members will receive exclusive pricing and priority booking before Sway Knox/Henderson
               opens. Join the waitlist to be notified when founding memberships go live.
             </p>
 
@@ -195,7 +195,7 @@ export default function SwayDallasComingSoonPage() {
           <motion.div {...fadeUp}>
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Knox/Henderson: The Perfect Fit</h2>
             <p className="leading-relaxed mb-4">
-              Sway Dallas will be located at 2323 Henderson Ave in the heart of Knox/Henderson, one
+              Sway will be located at 2323 Henderson Ave in the heart of Knox/Henderson, one
               of Dallas&apos;s most walkable dining and lifestyle districts. Nestled between Highland
               Park, Uptown, and Lower Greenville, the neighborhood is known for its boutique
               shopping, locally owned restaurants, and fitness studios. Whether you&apos;re
@@ -205,7 +205,7 @@ export default function SwayDallasComingSoonPage() {
             <p className="leading-relaxed">
               We chose Knox/Henderson because it reflects what Sway is all about: a community that
               values wellness, quality, and taking time to recharge. Easily accessible from Lakewood,
-              Oak Lawn, Deep Ellum, and the Park Cities, Sway Dallas will be the neighborhood spa
+              Oak Lawn, Deep Ellum, and the Park Cities, Sway will be the neighborhood spa
               that Knox/Henderson deserves.
             </p>
           </motion.div>
@@ -222,23 +222,23 @@ export default function SwayDallasComingSoonPage() {
           <div className="space-y-3">
             {[
               {
-                q: "When is Sway Dallas opening?",
+                q: "When is Sway Knox/Henderson opening?",
                 a: "We're coming soon to Knox/Henderson at 2323 Henderson Ave, Dallas, TX. The exact opening date will be announced here. Sign up as a Founding Member to get notified first and receive exclusive opening-day perks.",
               },
               {
                 q: "Where in Dallas will Sway be located?",
-                a: "Sway Dallas will be at 2323 Henderson Ave in the Knox/Henderson neighborhood, easily accessible from Highland Park, Uptown, Lower Greenville, Lakewood, and the Park Cities.",
+                a: "Sway Knox/Henderson will be at 2323 Henderson Ave in Dallas, easily accessible from Highland Park, Uptown, Lower Greenville, Lakewood, and the Park Cities.",
               },
               {
-                q: "What treatments will Sway Dallas offer?",
-                a: "Sway Dallas will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
+                q: "What treatments will Sway Knox/Henderson offer?",
+                a: "Sway Knox/Henderson will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
               },
               {
-                q: "Does Sway Dallas have a sauna and cold plunge?",
-                a: "Yes. The Remedy Room at Sway Dallas will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+                q: "Does Sway Knox/Henderson have a sauna and cold plunge?",
+                a: "Yes. The Remedy Room at Sway Knox/Henderson will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or get unlimited access through a Remedy Room membership.",
               },
               {
-                q: "How much are Sway Dallas memberships?",
+                q: "How much are Sway Knox/Henderson memberships?",
                 a: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
               {
@@ -247,7 +247,7 @@ export default function SwayDallasComingSoonPage() {
               },
               {
                 q: "Are Sway gift cards valid at the Dallas location?",
-                a: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Dallas once we open.",
+                a: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Knox/Henderson once we open.",
               },
             ].map((faq, i) => (
               <motion.details
@@ -269,7 +269,7 @@ export default function SwayDallasComingSoonPage() {
       {/* ====== INSTAGRAM CALLOUT ====== */}
       <InstagramCallout
         title="Stay in the know."
-        subtitle="Follow @swaywellnessclub on Instagram for Sway Dallas opening news, Knox/Henderson build updates, and behind-the-scenes from the team."
+        subtitle="Follow @swaywellnessclub on Instagram for Sway Knox/Henderson opening news, build updates, and behind-the-scenes from the team."
       />
 
       {/* ====== CROSS LINKS ====== */}
@@ -300,7 +300,7 @@ export default function SwayDallasComingSoonPage() {
             Be First in Dallas
           </motion.h2>
           <motion.p {...fadeUp} className="mb-6 opacity-80">
-            Join the waitlist for exclusive founding member pricing and VIP access when Sway Dallas
+            Join the waitlist for exclusive founding member pricing and VIP access when Sway Knox/Henderson
             opens in Knox/Henderson.
           </motion.p>
           <motion.div {...fadeUp}>

@@ -19,10 +19,13 @@ const INSTAGRAM_URL = "https://www.instagram.com/swaywellnessclub/";
  * Bumping the version string changes the audit-trail tag saved with each
  * entry. If the disclosure copy changes, bump CONSENT_VERSION and update
  * CONSENT_TEXT so we have a clean record of what each entrant agreed to.
+ *
+ * v1 named the sender "Sway Dallas"; v2 renames it to "Sway Knox/Henderson"
+ * (same entity, same scope of consent).
  */
-const CONSENT_VERSION = "v1-2026-05-20";
+const CONSENT_VERSION = "v2-2026-07-13";
 const CONSENT_TEXT =
-  "By clicking Enter to Win, you agree to receive recurring automated marketing emails and text messages from Sway Dallas at the email and number you provide. Consent is not a condition of entry. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. See our Terms and Privacy Policy.";
+  "By clicking Enter to Win, you agree to receive recurring automated marketing emails and text messages from Sway Knox/Henderson at the email and number you provide. Consent is not a condition of entry. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. See our Terms and Privacy Policy.";
 
 export default function EnterToWinForm({
   location = "dallas",
@@ -103,7 +106,7 @@ export default function EnterToWinForm({
           You&apos;re entered!
         </h3>
         <p className="text-base text-[#113D33]/70 mb-6 max-w-md mx-auto">
-          We&apos;ll email the winner after Sway Dallas opens. Good luck.
+          We&apos;ll email the winner after Sway Knox/Henderson opens. Good luck.
         </p>
 
         {!igBonus && (
@@ -133,7 +136,7 @@ export default function EnterToWinForm({
               Bonus entry locked in.
             </p>
             <p className="text-sm text-[#113D33]/70 mb-4">
-              Thanks for following @swaywellnessclub. See you at Sway Dallas.
+              Thanks for following @swaywellnessclub. See you at Sway Knox/Henderson.
             </p>
             <a
               href={INSTAGRAM_URL}
