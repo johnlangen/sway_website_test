@@ -1,3 +1,4 @@
+import { getGoogleRating } from "@/lib/googleRating";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -80,13 +81,8 @@ const localBusinessJsonLd = {
     },
   ],
   priceRange: "$$",
-  // Update reviewCount periodically — check Google Places API or Google Maps
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "120",
-    bestRating: "5",
-  },
+  // aggregateRating is injected at render with live Google data —
+  // see DenverLarimerLayout below + lib/googleRating.ts.
   review: [
     {
       "@type": "Review",
@@ -535,16 +531,26 @@ const howToJsonLd = {
   ],
 };
 
-export default function DenverLarimerLayout({
+export default async function DenverLarimerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const googleRating = await getGoogleRating();
+  const localBusinessWithRating = {
+    ...localBusinessJsonLd,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: googleRating.rating.toFixed(1),
+      reviewCount: String(googleRating.totalReviews),
+      bestRating: "5",
+    },
+  };
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessWithRating) }}
       />
       <script
         type="application/ld+json"

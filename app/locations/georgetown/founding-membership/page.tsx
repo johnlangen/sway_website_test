@@ -1,5 +1,6 @@
 "use client";
 
+import { useRating } from "../../../components/GoogleReviews";
 import { getAttribution } from "../../../../lib/attribution";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -354,7 +355,10 @@ export default function GeorgetownFoundingMembershipPage() {
 
   const rankCounter = useAnimatedCounter(4, 1200);
   const spotsCounter = useAnimatedCounter(100);
-  const reviewCounter = useAnimatedCounter(111);
+  const googleRating = useRating();
+  const liveReviewTotal = googleRating?.totalReviews ?? 156;
+  const liveReviewAvg = (googleRating?.rating ?? 4.9).toFixed(1);
+  const reviewCounter = useAnimatedCounter(liveReviewTotal);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -814,7 +818,7 @@ export default function GeorgetownFoundingMembershipPage() {
             ))}
           </div>
           <p className="text-2xl md:text-3xl font-bold text-[#113D33] mb-1">
-            111 Reviews &middot; 5.0 Average
+            {liveReviewTotal} Reviews &middot; {liveReviewAvg} Average
           </p>
           <p className="text-gray-600 text-sm">from our Denver location</p>
         </motion.div>

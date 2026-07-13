@@ -201,8 +201,8 @@ export default function GoogleReviews() {
   const next = () => setPage((p) => (p + 1) % PAGES.length);
 
   // Fallback rating while API loads
-  const rating = ratingData?.rating ?? 5;
-  const totalReviews = ratingData?.totalReviews ?? 120;
+  const rating = ratingData?.rating ?? 4.9;
+  const totalReviews = ratingData?.totalReviews ?? 156;
 
   return (
     <motion.div
@@ -336,8 +336,8 @@ export default function GoogleReviews() {
 export function ReviewBadge() {
   const ratingData = useRating();
 
-  const rating = ratingData?.rating ?? 5;
-  const totalReviews = ratingData?.totalReviews ?? 120;
+  const rating = ratingData?.rating ?? 4.9;
+  const totalReviews = ratingData?.totalReviews ?? 156;
 
   return (
     <a

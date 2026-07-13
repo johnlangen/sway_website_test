@@ -29,7 +29,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+import { getGoogleRating } from "@/lib/googleRating";
+
+export default async function HomePage() {
+  const googleRating = await getGoogleRating();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
@@ -80,11 +83,11 @@ export default function HomePage() {
 
     termsOfService: "https://swaywellnessspa.com/terms-and-conditions",
 
-    // Update reviewCount periodically — check Google Places API or Google Maps
+    // Live from Google Places (24h ISR) — see lib/googleRating.ts
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: "120",
+      ratingValue: googleRating.rating.toFixed(1),
+      reviewCount: String(googleRating.totalReviews),
       bestRating: "5",
     },
 

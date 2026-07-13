@@ -145,11 +145,12 @@ Steps: booking_start → booking_time_selected → booking_email_entered → boo
 
 - **API route**: `app/api/reviews/route.ts` — fetches live rating + totalReviews from Google Places API (24hr ISR cache)
 - **Place ID**: `ChIJtRQkUu55bIcR91jycB7Jcns` (Sway Wellness Spa Larimer)
-- **API key**: `GOOGLE_PLACES_API_KEY` env var (on Vercel + `.env.local`)
+- **API key**: `GOOGLE_PLACES_API_KEY` env var (on Vercel + `.env.local`; re-added 2026-07-13 after going missing — /api/reviews was 500ing for weeks)
+- **JSON-LD aggregateRating** (homepage + Larimer layout) is now LIVE via `lib/googleRating.ts` (server fetch, 24h ISR) — no more manual reviewCount bumps
 - **Reviews component**: `app/components/GoogleReviews.tsx`
   - 9 curated 5-star reviews, hardcoded in `CURATED_REVIEWS` array (3 pages of 3)
   - Arrow carousel with `AnimatePresence` animations + page dots
-  - Live rating/count from API; fallback values (5.0 / 120) while loading
+  - Live rating/count from API; fallback values (4.9 / 156, updated 2026-07-13) while loading
   - Exports `GoogleReviews` (full section) and `ReviewBadge` (inline badge)
 - **Where used**: Homepage (snap section), Larimer location page, booking pages (ReviewBadge only)
 - **To update reviews**: Edit the `CURATED_REVIEWS` array in GoogleReviews.tsx. Pick 9 recent 5-star reviews.
