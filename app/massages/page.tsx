@@ -32,7 +32,7 @@ const massageTiers: MassageTier[] = [
         name: "Signature Massage",
         duration: "50 min",
         description:
-          "A foundational full-body massage tailored to your needs. Ideal for relaxation, tension relief, and overall wellness.",
+          "A foundational full-body massage with light to medium pressure. Ideal for relaxation, tension relief, and overall wellness.",
       },
       {
         name: "Maternity Massage",

@@ -197,7 +197,7 @@ export default function Page() {
               The Essential tier is the entry point to consistent, professional wellness in Denver. One monthly 50-minute treatment, your choice of massage or facial, for $99. No frills, no fuss. Just expert care, every month.
             </p>
             <p className="text-gray-700">
-              The Essential Signature Massage is a classic therapeutic Swedish massage customized to your pressure preference. The Essential Signature Facial is tailored to your skin type: cleanse, exfoliate, extract, and hydrate. If you&apos;re pregnant, the Essential Maternity Massage provides safe, restorative care for expecting mothers.
+              The Essential Signature Massage is a classic therapeutic Swedish massage with light to medium pressure. The Essential Signature Facial is tailored to your skin type: cleanse, exfoliate, extract, and hydrate. If you&apos;re pregnant, the Essential Maternity Massage provides safe, restorative care for expecting mothers.
             </p>
             <div className="grid md:grid-cols-2 gap-5 pt-2">
               <div className="bg-[#F7F4E9] rounded-xl p-4">

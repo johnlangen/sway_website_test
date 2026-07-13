@@ -175,7 +175,7 @@ const localBusinessJsonLd = {
               "@type": "Service",
               name: "Essential Signature Massage",
               description:
-                "A 50-minute therapeutic Swedish massage customized to your pressure preference.",
+                "A 50-minute therapeutic Swedish massage with light to medium pressure.",
             },
             price: "139.00",
             priceCurrency: "USD",

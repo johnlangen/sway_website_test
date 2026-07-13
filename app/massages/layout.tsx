@@ -121,7 +121,7 @@ const serviceJsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Essential Signature Massage",
-          description: "A 50-minute relaxation massage focusing on full-body tension relief.",
+          description: "A 50-minute light-to-medium-pressure relaxation massage focusing on full-body tension relief.",
         },
         price: "139.00",
         priceCurrency: "USD",
