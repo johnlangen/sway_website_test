@@ -5,14 +5,21 @@ import { createHash } from "crypto";
 export const runtime = "nodejs";
 
 /**
- * GET /api/launch-leads?location=dallas&key=ATLAS_LEADS_SECRET
+ * GET /api/launch-leads?location=dallas&key=ATLAS_LEADS_SECRET[&include=contact]
  *
  * Server-to-server feed of pre-opening waitlist leads for Spavia Atlas
  * (per-location, sanitized — same shape as /api/dallas-dashboard, which
  * remains the secret behind Staci's standalone launch board link).
  *
- * No PII by design: outreach runs through the central campaign. Atlas
- * shows counts and names, never addresses/phones.
+ * Default response has no contact PII: outreach runs through the central
+ * campaign, and franchisee-facing Atlas views show counts and names only.
+ * `include=contact` (same key) adds email/phone/consent for Atlas's
+ * admin-only view + CSV export — Atlas enforces who sees it.
+ *
+ * smsConsent is always included: only the contest form collects express
+ * written consent for SMS (versioned TCPA disclosure). Founding/location
+ * page signups agreed to email updates only — a phone number on those
+ * forms is NOT texting consent.
  */
 
 const ALLOWED_LOCATIONS = new Set(["dallas", "georgetown"]);
@@ -34,6 +41,7 @@ export async function GET(req: Request) {
   }
 
   const location = searchParams.get("location") ?? "";
+  const includeContact = searchParams.get("include") === "contact";
   if (!ALLOWED_LOCATIONS.has(location)) {
     return NextResponse.json(
       { error: `Unknown location. Allowed: ${[...ALLOWED_LOCATIONS].join(", ")}` },
@@ -65,6 +73,9 @@ export async function GET(req: Request) {
             ? createHash("sha256").update(e.email.toLowerCase()).digest("hex").slice(0, 12)
             : null,
         hasPhone: !!e.phone,
+        // Express written email+SMS consent exists only where the versioned
+        // disclosure was shown and stored (contest form).
+        smsConsent: !!e.consentText,
         source: e.source ?? "unknown",
         createdAt: e.createdAt ?? null,
         viaInstagram:
@@ -73,6 +84,13 @@ export async function GET(req: Request) {
         utmCampaign: e.utmCampaign ?? null,
         utmSource: e.utmSource ?? null,
         referrerHost: e.referrerHost ?? null,
+        ...(includeContact
+          ? {
+              email: e.email ?? null,
+              phone: e.phone ?? null,
+              consentVersion: e.consentVersion ?? null,
+            }
+          : {}),
       }));
 
     return NextResponse.json({ location, total: entries.length, entries });
