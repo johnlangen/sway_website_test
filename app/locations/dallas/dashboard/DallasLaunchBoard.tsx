@@ -22,8 +22,13 @@ import { SwayCurve } from "../../../components/SwayCurve";
 
 const FOUNDING_PRICE = 99;
 const REALISTIC_RATE = 0.3;
-const OPENING_TARGET = 50;
-const DEFAULT_GOAL = 50;
+// Only 100 founding spots will ever exist — the campaign runs on scarcity
+// and urgency. Bump FOUNDING_MEMBERS_CLAIMED as real sales land (manual
+// until Dallas is on Mindbody).
+const FOUNDING_SPOTS = 100;
+const FOUNDING_MEMBERS_CLAIMED = 0;
+const OPENING_TARGET = 100;
+const DEFAULT_GOAL = 100;
 
 const MILESTONES = [
   { at: 10, label: "First 10", emoji: "🌱" },
@@ -278,6 +283,26 @@ export default function DallasLaunchBoard() {
               className="h-full rounded-full bg-[#4A776D]"
             />
           </div>
+          {/* Founding spots claimed — the scarcity counter */}
+          <div className="mt-5 pt-4 border-t border-[#113D33]/10">
+            <div className="flex items-baseline justify-between mb-1">
+              <span className="text-sm font-semibold">Founding spots claimed</span>
+              <span className="text-sm text-[#113D33]/60">
+                {FOUNDING_MEMBERS_CLAIMED} of {FOUNDING_SPOTS}
+              </span>
+            </div>
+            <div className="h-2.5 rounded-full bg-[#113D33]/10 overflow-hidden">
+              <div
+                className="h-full rounded-full bg-[#A9825A]"
+                style={{ width: `${Math.min(100, (FOUNDING_MEMBERS_CLAIMED / FOUNDING_SPOTS) * 100)}%` }}
+              />
+            </div>
+            <p className="mt-1.5 text-xs text-[#113D33]/55">
+              Only {FOUNDING_SPOTS} founding spots will ever exist. Membership
+              sales open closer to launch — every lead above is a head start.
+            </p>
+          </div>
+
           <div className="mt-4 flex flex-wrap gap-2">
             {MILESTONES.map((m) => {
               const hit = total >= m.at;
@@ -322,7 +347,7 @@ export default function DallasLaunchBoard() {
             <div className="rounded-xl bg-white/[0.07] p-3 -m-3 sm:m-0 sm:p-3">
               <div className="text-2xl font-bold text-[#A9D2C5]">{money(mrrOpening)}<span className="text-sm font-normal text-white/60">/mo</span></div>
               <div className="text-xs text-white/70 mt-1">
-                Open with {OPENING_TARGET} founding members
+                Sell out all {OPENING_TARGET} founding spots
               </div>
               <div className="text-[11px] text-white/50">
                 {money(mrrOpening * 12)}/year before a single walk-in
