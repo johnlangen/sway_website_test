@@ -395,6 +395,10 @@ export default function NewBookingFlow() {
     maternityConfirmFor !== null,
     () => setMaternityConfirmFor(null)
   );
+  // Set when a guest pivots from maternity massage to facials, so the facial
+  // list opens with a note explaining WHY they're here (the dialog that told
+  // them is gone by then). Cleared on any later category change.
+  const [firstTrimesterPivot, setFirstTrimesterPivot] = useState(false);
   const [treatmentTierFilter, setTreatmentTierFilter] = useState<"essential" | "premier" | "ultimate">("premier");
   const [expandedTreatmentId, setExpandedTreatmentId] = useState<number | null>(null);
   const [boostInfoId, setBoostInfoId] = useState<number | null>(null);
@@ -1364,6 +1368,7 @@ export default function NewBookingFlow() {
                       onClick={() => {
                         if (cat === category) return;
                         setCategory(cat);
+                        setFirstTrimesterPivot(false);
                         setSelectedTreatment(null);
                         setSelectedBoosts([]);
                         setActiveConcern(null);
@@ -1377,6 +1382,31 @@ export default function NewBookingFlow() {
                 })}
               </div>
             </div>
+
+            {/* First-trimester pivot note: keeps the "why" visible after the
+                maternity dialog closes and the guest lands on facials. */}
+            {firstTrimesterPivot && category === "facial" && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="max-w-xl mx-auto rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] px-5 py-4 text-center"
+              >
+                <p className="text-sm text-[#113D33]/85">
+                  <span className="font-semibold text-[#113D33]">
+                    Facials are safe and wonderful at every stage of pregnancy
+                  </span>{" "}
+                  — that&apos;s why we brought you here. Once you&apos;re past
+                  your first trimester, we&apos;d love to welcome you back for
+                  your maternity massage.
+                </p>
+                <button
+                  onClick={() => setFirstTrimesterPivot(false)}
+                  className="mt-2 text-xs text-[#4A776D] underline underline-offset-2 hover:text-[#113D33] transition"
+                >
+                  Got it
+                </button>
+              </motion.div>
+            )}
 
             {/* Tier toggle */}
             <div className="flex justify-center">
@@ -2203,6 +2233,7 @@ export default function NewBookingFlow() {
                   onClick={() => {
                     setMaternityConfirmFor(null);
                     window.dataLayer?.push({ event: "maternity_confirm_to_facials", booking_flow: category });
+                    setFirstTrimesterPivot(true);
                     setCategory("facial");
                     setSelectedTreatment(null);
                     setSelectedBoosts([]);
