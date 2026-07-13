@@ -127,5 +127,38 @@ export async function POST(req: Request) {
     );
   }
 
+  // Notify the Dallas team of new local leads. Best-effort: a mail failure
+  // must never break the signup, so everything is caught and logged.
+  if (location === "dallas" && process.env.DALLAS_LEAD_NOTIFY_EMAIL) {
+    try {
+      const { resend } = await import("@/lib/resend");
+      const sourceLabel =
+        source === "founding-membership"
+          ? "Founding membership page"
+          : source === "location-page"
+          ? "Dallas location page"
+          : source;
+      await resend.emails.send({
+        from: "Sway Dallas Leads <contact@swaywellnessspa.com>",
+        to: process.env.DALLAS_LEAD_NOTIFY_EMAIL,
+        subject: `New Dallas lead: ${firstName} ${lastName}`.trim(),
+        text: [
+          `${firstName} ${lastName}`.trim(),
+          `Email: ${email}`,
+          phone ? `Phone: ${phone}` : null,
+          `Source: ${sourceLabel}`,
+          userAgent?.includes("Instagram") ? "Came in via Instagram" : null,
+          "",
+          "See the full board: https://swaywellnessspa.com/locations/dallas/dashboard (use your access link)",
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      });
+      console.log("[founding-member] Dallas lead notification sent");
+    } catch (err) {
+      console.error("[founding-member] Dallas lead notification failed:", err);
+    }
+  }
+
   return NextResponse.json({ success: true });
 }

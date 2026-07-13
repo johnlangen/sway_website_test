@@ -11,6 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: [
           "/internal/",
+          "/locations/dallas/dashboard",
           "/membership-join-preview",
           "/locations/denver-rino/book-service-test",
           "/locations/denver-rino/book-remedy-lounge",
