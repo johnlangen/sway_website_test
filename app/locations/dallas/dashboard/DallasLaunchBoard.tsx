@@ -11,13 +11,18 @@ import { SwayCurve } from "../../../components/SwayCurve";
    campaign, not ad-hoc from here. The API sends a hashed email key for
    dedup only.
 
+   The source filter at the top drives EVERYTHING below it — stats, goal,
+   projections, momentum, feed.
+
    Assumptions surfaced in the UI so projections read as projections:
    - FOUNDING_PRICE: assumed founding rate (Dallas pricing not announced)
-   - REALISTIC_RATE: lead-to-member conversion used for the middle number
-   - default goal 50 founding leads; override with &goal=100              */
+   - REALISTIC_RATE: lead-to-member conversion for the "realistic" number
+   - OPENING_TARGET: the aspirational founding-member count at opening
+   - default lead goal 50; override with &goal=100                        */
 
 const FOUNDING_PRICE = 99;
 const REALISTIC_RATE = 0.3;
+const OPENING_TARGET = 50;
 const DEFAULT_GOAL = 50;
 
 const MILESTONES = [
@@ -101,31 +106,33 @@ export default function DallasLaunchBoard() {
       seen.add(k);
       return true;
     });
-    const founding = unique.filter((l) => l.source === "founding-membership");
+
+    // The filter drives everything below the chips
+    const filtered = unique.filter((l) => matchesFilter(l, filter));
+
     const now = Date.now();
     const weekMs = 7 * 24 * 3600 * 1000;
-    const thisWeek = unique.filter(
+    const thisWeek = filtered.filter(
       (l) => l.createdAt && now - new Date(l.createdAt).getTime() < weekMs
     );
-    const withUA = leads.filter(
+    const withUA = filtered.filter(
       (l) => l.createdAt && new Date(l.createdAt) >= new Date("2026-05-20")
     );
     const igShare = withUA.length
       ? Math.round((withUA.filter((l) => l.viaInstagram).length / withUA.length) * 100)
       : 0;
 
-    const filtered = unique.filter((l) => matchesFilter(l, filter));
-
-    // Weekly buckets over the FILTERED list, last 8 weeks (oldest → newest)
+    // All-time weekly buckets, from the first lead's week through now
+    const dated = filtered
+      .filter((l) => l.createdAt)
+      .map((l) => new Date(l.createdAt as string).getTime());
+    const firstT = dated.length ? Math.min(...dated) : now;
+    const numWeeks = Math.max(1, Math.ceil((now - firstT) / weekMs));
     const weeks: { label: string; count: number }[] = [];
-    for (let i = 7; i >= 0; i--) {
+    for (let i = numWeeks - 1; i >= 0; i--) {
       const start = now - (i + 1) * weekMs;
       const end = now - i * weekMs;
-      const count = filtered.filter((l) => {
-        if (!l.createdAt) return false;
-        const t = new Date(l.createdAt).getTime();
-        return t >= start && t < end;
-      }).length;
+      const count = dated.filter((t) => t >= start && t < end).length;
       const d = new Date(end);
       weeks.push({
         label: d.toLocaleDateString("en-US", { month: "numeric", day: "numeric" }),
@@ -135,11 +142,11 @@ export default function DallasLaunchBoard() {
     const maxWeek = Math.max(1, ...weeks.map((w) => w.count));
 
     const campaigns: Record<string, number> = {};
-    for (const l of unique) {
+    for (const l of filtered) {
       if (l.utmCampaign) campaigns[l.utmCampaign] = (campaigns[l.utmCampaign] || 0) + 1;
     }
 
-    return { unique, founding, thisWeek, igShare, filtered, weeks, maxWeek, campaigns };
+    return { unique, filtered, thisWeek, igShare, weeks, maxWeek, campaigns };
   }, [leads, filter]);
 
   /* ---------- locked / loading states ---------- */
@@ -162,18 +169,19 @@ export default function DallasLaunchBoard() {
     return <div className="min-h-screen bg-[#F7F4E9]" />;
   }
 
-  const { unique, founding, thisWeek, igShare, filtered, weeks, maxWeek, campaigns } = stats;
-  const foundingCount = founding.length;
-  const pct = Math.min(100, Math.round((foundingCount / goal) * 100));
-  const mrrAll = foundingCount * FOUNDING_PRICE;
-  const mrrRealistic = Math.round(foundingCount * REALISTIC_RATE) * FOUNDING_PRICE;
-  const mrrGoal = Math.round(goal * REALISTIC_RATE) * FOUNDING_PRICE;
+  const { filtered, thisWeek, igShare, weeks, maxWeek, campaigns } = stats;
+  const count = filtered.length;
+  const pct = Math.min(100, Math.round((count / goal) * 100));
+  const mrrRealistic = Math.round(count * REALISTIC_RATE) * FOUNDING_PRICE;
+  const mrrAll = count * FOUNDING_PRICE;
+  const mrrOpening = OPENING_TARGET * FOUNDING_PRICE;
+  const filterLabel = SOURCE_FILTERS.find((f) => f.key === filter)?.label ?? "All sources";
 
   const bigStats = [
-    { label: "Total leads", value: unique.length },
-    { label: "Founding interest", value: foundingCount },
+    { label: filter === "all" ? "Total leads" : `${filterLabel} leads`, value: count },
     { label: "New this week", value: thisWeek.length },
     { label: "Via Instagram", value: `${igShare}%`, sub: "since May 20" },
+    { label: "On the text list", value: filtered.filter((l) => l.hasPhone).length },
   ];
 
   const utmLink = campaignName.trim()
@@ -200,97 +208,8 @@ export default function DallasLaunchBoard() {
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
-        {/* BIG STATS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {bigStats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: i * 0.07 }}
-              className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-5 text-center"
-            >
-              <div className="text-3xl font-bold">{s.value}</div>
-              <div className="text-xs uppercase tracking-wide text-[#4A776D] mt-1">{s.label}</div>
-              {s.sub && <div className="text-[10px] text-[#113D33]/45 mt-0.5">{s.sub}</div>}
-            </motion.div>
-          ))}
-        </div>
-
-        {/* GOAL PROGRESS — interest list, not memberships */}
-        <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
-          <div className="flex items-baseline justify-between mb-1">
-            <h2 className="text-lg font-semibold">Founding interest list</h2>
-            <span className="text-sm text-[#113D33]/60">
-              {foundingCount} of {goal} leads
-            </span>
-          </div>
-          <p className="text-xs text-[#113D33]/55 mb-3">
-            People who raised their hand on the founding page — not paying
-            members yet. Memberships get sold closer to opening.
-          </p>
-          <div className="h-4 rounded-full bg-[#113D33]/10 overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${pct}%` }}
-              transition={{ duration: 0.9, ease: "easeOut" }}
-              className="h-full rounded-full bg-[#4A776D]"
-            />
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {MILESTONES.map((m) => {
-              const hit = foundingCount >= m.at;
-              return (
-                <span
-                  key={m.at}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${
-                    hit
-                      ? "bg-[#113D33] text-white"
-                      : "bg-[#113D33]/[0.06] text-[#113D33]/45"
-                  }`}
-                >
-                  <span>{m.emoji}</span>
-                  {m.label}
-                  {!hit && <span className="font-normal">· {m.at - foundingCount} to go</span>}
-                </span>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* REVENUE PROJECTIONS */}
-        <div className="rounded-2xl bg-[#113D33] text-white p-6">
-          <h2 className="text-lg font-semibold mb-1">What this list could be worth</h2>
-          <p className="text-xs text-white/60 mb-5">
-            Projections, not bookings — assumes a {money(FOUNDING_PRICE)}/mo founding
-            rate (Dallas pricing TBD) and that {Math.round(REALISTIC_RATE * 100)}% of
-            interest converts when doors open.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <div className="text-2xl font-bold">{money(mrrRealistic)}<span className="text-sm font-normal text-white/60">/mo</span></div>
-              <div className="text-xs text-white/70 mt-1">
-                Today&apos;s list, realistic ({Math.round(REALISTIC_RATE * 100)}% join)
-              </div>
-              <div className="text-[11px] text-white/50">{money(mrrRealistic * 12)}/year</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">{money(mrrAll)}<span className="text-sm font-normal text-white/60">/mo</span></div>
-              <div className="text-xs text-white/70 mt-1">Today&apos;s list, best case (all join)</div>
-              <div className="text-[11px] text-white/50">{money(mrrAll * 12)}/year</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">{money(mrrGoal)}<span className="text-sm font-normal text-white/60">/mo</span></div>
-              <div className="text-xs text-white/70 mt-1">
-                At {goal} leads, realistic ({Math.round(REALISTIC_RATE * 100)}% join)
-              </div>
-              <div className="text-[11px] text-white/50">{money(mrrGoal * 12)}/year</div>
-            </div>
-          </div>
-        </div>
-
-        {/* SOURCE FILTER — drives the chart + feed below */}
-        <div className="flex flex-wrap gap-2">
+        {/* SOURCE FILTER — drives everything below */}
+        <div className="flex flex-wrap justify-center gap-2">
           {SOURCE_FILTERS.map((f) => (
             <button
               key={f.key}
@@ -307,19 +226,109 @@ export default function DallasLaunchBoard() {
           ))}
         </div>
 
-        {/* MOMENTUM (filtered) */}
+        {/* BIG STATS (filtered) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {bigStats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: i * 0.07 }}
+              className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-5 text-center"
+            >
+              <div className="text-3xl font-bold">{s.value}</div>
+              <div className="text-xs uppercase tracking-wide text-[#4A776D] mt-1">{s.label}</div>
+              {s.sub && <div className="text-[10px] text-[#113D33]/45 mt-0.5">{s.sub}</div>}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* GOAL PROGRESS (filtered) */}
+        <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
+          <div className="flex items-baseline justify-between mb-1">
+            <h2 className="text-lg font-semibold">
+              Lead goal{filter !== "all" ? ` · ${filterLabel}` : ""}
+            </h2>
+            <span className="text-sm text-[#113D33]/60">
+              {count} of {goal} leads
+            </span>
+          </div>
+          <p className="text-xs text-[#113D33]/55 mb-3">
+            People who raised their hand — not paying members yet. Memberships
+            get sold closer to opening.
+          </p>
+          <div className="h-4 rounded-full bg-[#113D33]/10 overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${pct}%` }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              className="h-full rounded-full bg-[#4A776D]"
+            />
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {MILESTONES.map((m) => {
+              const hit = count >= m.at;
+              return (
+                <span
+                  key={m.at}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${
+                    hit
+                      ? "bg-[#113D33] text-white"
+                      : "bg-[#113D33]/[0.06] text-[#113D33]/45"
+                  }`}
+                >
+                  <span>{m.emoji}</span>
+                  {m.label}
+                  {!hit && <span className="font-normal">· {m.at - count} to go</span>}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* REVENUE PROJECTIONS (filtered list + opening-day vision) */}
+        <div className="rounded-2xl bg-[#113D33] text-white p-6">
+          <h2 className="text-lg font-semibold mb-1">What this list could be worth</h2>
+          <p className="text-xs text-white/60 mb-5">
+            Projections, not bookings — assumes a {money(FOUNDING_PRICE)}/mo founding
+            rate (Dallas pricing TBD).
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <div className="text-2xl font-bold">{money(mrrRealistic)}<span className="text-sm font-normal text-white/60">/mo</span></div>
+              <div className="text-xs text-white/70 mt-1">
+                Today&apos;s list, realistic ({Math.round(REALISTIC_RATE * 100)}% join)
+              </div>
+              <div className="text-[11px] text-white/50">{money(mrrRealistic * 12)}/year</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">{money(mrrAll)}<span className="text-sm font-normal text-white/60">/mo</span></div>
+              <div className="text-xs text-white/70 mt-1">Today&apos;s list, best case (all join)</div>
+              <div className="text-[11px] text-white/50">{money(mrrAll * 12)}/year</div>
+            </div>
+            <div className="rounded-xl bg-white/[0.07] p-3 -m-3 sm:m-0 sm:p-3">
+              <div className="text-2xl font-bold text-[#A9D2C5]">{money(mrrOpening)}<span className="text-sm font-normal text-white/60">/mo</span></div>
+              <div className="text-xs text-white/70 mt-1">
+                Open with {OPENING_TARGET} founding members
+              </div>
+              <div className="text-[11px] text-white/50">
+                {money(mrrOpening * 12)}/year before a single walk-in
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* MOMENTUM (filtered, all time) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
           <h2 className="text-lg font-semibold mb-4">
-            Momentum · last 8 weeks
+            Momentum · since launch
             {filter !== "all" && (
-              <span className="text-sm font-normal text-[#113D33]/55">
-                {" "}· {SOURCE_FILTERS.find((f) => f.key === filter)?.label}
-              </span>
+              <span className="text-sm font-normal text-[#113D33]/55"> · {filterLabel}</span>
             )}
           </h2>
-          <div className="flex items-end gap-2 h-28">
+          <div className="flex items-end gap-1.5 h-28 overflow-x-auto">
             {weeks.map((w, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-1">
+              <div key={i} className="flex-1 min-w-[26px] flex flex-col items-center gap-1">
                 <span className="text-[11px] font-semibold text-[#113D33]/70">
                   {w.count > 0 ? w.count : ""}
                 </span>
@@ -327,7 +336,7 @@ export default function DallasLaunchBoard() {
                   className="w-full rounded-t-md bg-[#4A776D]/80"
                   style={{ height: `${Math.max(4, (w.count / maxWeek) * 80)}px` }}
                 />
-                <span className="text-[9px] text-[#113D33]/45">{w.label}</span>
+                <span className="text-[9px] text-[#113D33]/45 whitespace-nowrap">{w.label}</span>
               </div>
             ))}
           </div>
@@ -346,7 +355,7 @@ export default function DallasLaunchBoard() {
 
         {/* LEAD FEED (filtered, no contact info) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
-          <h2 className="text-lg font-semibold mb-2">The people ({filtered.length})</h2>
+          <h2 className="text-lg font-semibold mb-2">The people ({count})</h2>
           <div className="rounded-xl bg-[#4A776D]/[0.08] px-4 py-3 mb-4 text-xs leading-relaxed text-[#113D33]/75">
             <span className="font-semibold text-[#113D33]">What happens with this list:</span>{" "}
             everyone here is queued for the Dallas pre-opening campaign — opening
