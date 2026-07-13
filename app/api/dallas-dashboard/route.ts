@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
+import { createHash } from "crypto";
 
 export const runtime = "nodejs";
 
@@ -48,15 +49,25 @@ export async function GET(req: Request) {
       })
       .filter((e: any) => e && e.location === "dallas")
       .map((e: any) => ({
+        // No contact info on purpose: outreach runs through the campaign,
+        // not ad-hoc from the dashboard. John's master waitlist link keeps
+        // the full records.
         firstName: e.firstName ?? "",
         lastName: e.lastName ?? "",
-        email: e.email ?? null,
-        phone: e.phone ?? null,
+        // dedup key for repeat submitters without exposing the address
+        emailKey:
+          typeof e.email === "string"
+            ? createHash("sha256").update(e.email.toLowerCase()).digest("hex").slice(0, 12)
+            : null,
+        hasPhone: !!e.phone,
         source: e.source ?? "unknown",
         createdAt: e.createdAt ?? null,
         viaInstagram:
           typeof e.consentUserAgent === "string" &&
           e.consentUserAgent.includes("Instagram"),
+        utmCampaign: e.utmCampaign ?? null,
+        utmSource: e.utmSource ?? null,
+        referrerHost: e.referrerHost ?? null,
       }));
 
     return NextResponse.json({ total: entries.length, entries });

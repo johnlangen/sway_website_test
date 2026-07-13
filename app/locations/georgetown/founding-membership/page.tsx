@@ -1,5 +1,6 @@
 "use client";
 
+import { getAttribution } from "../../../../lib/attribution";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
@@ -365,6 +366,7 @@ export default function GeorgetownFoundingMembershipPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          ...getAttribution(),
           ...formData,
           location: "georgetown",
           source: "founding-membership",

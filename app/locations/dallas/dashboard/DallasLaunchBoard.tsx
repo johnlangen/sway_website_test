@@ -7,10 +7,14 @@ import { SwayCurve } from "../../../components/SwayCurve";
 /* Dallas Launch Board — owner-facing lead dashboard, secret-link access
    (?key=DALLAS_DASHBOARD_SECRET). Reads /api/dallas-dashboard.
 
-   Assumptions surfaced in the UI so nobody mistakes projections for fact:
+   Deliberately shows NO contact info: outreach runs through the pre-opening
+   campaign, not ad-hoc from here. The API sends a hashed email key for
+   dedup only.
+
+   Assumptions surfaced in the UI so projections read as projections:
    - FOUNDING_PRICE: assumed founding rate (Dallas pricing not announced)
-   - REALISTIC_RATE: waitlist-to-member conversion used for the middle bar
-   - default goal 50 founding members; override with &goal=100            */
+   - REALISTIC_RATE: lead-to-member conversion used for the middle number
+   - default goal 50 founding leads; override with &goal=100              */
 
 const FOUNDING_PRICE = 99;
 const REALISTIC_RATE = 0.3;
@@ -26,12 +30,22 @@ const MILESTONES = [
 type Lead = {
   firstName: string;
   lastName: string;
-  email: string | null;
-  phone: string | null;
+  emailKey: string | null;
+  hasPhone: boolean;
   source: string;
   createdAt: string | null;
   viaInstagram: boolean;
+  utmCampaign: string | null;
+  utmSource: string | null;
+  referrerHost: string | null;
 };
+
+const SOURCE_FILTERS = [
+  { key: "all", label: "All sources" },
+  { key: "founding-membership", label: "Founding page" },
+  { key: "location-page", label: "Location page" },
+  { key: "contest", label: "Contest" },
+] as const;
 
 const SOURCE_LABELS: Record<string, string> = {
   "founding-membership": "Founding page",
@@ -39,6 +53,12 @@ const SOURCE_LABELS: Record<string, string> = {
   "enter-to-win": "Contest",
   "enter-to-win+ig": "Contest +IG",
 };
+
+function matchesFilter(l: Lead, filter: string) {
+  if (filter === "all") return true;
+  if (filter === "contest") return l.source.startsWith("enter-to-win");
+  return l.source === filter;
+}
 
 function money(n: number) {
   return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
@@ -48,6 +68,9 @@ export default function DallasLaunchBoard() {
   const [leads, setLeads] = useState<Lead[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [goal, setGoal] = useState(DEFAULT_GOAL);
+  const [filter, setFilter] = useState<string>("all");
+  const [campaignName, setCampaignName] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -70,10 +93,10 @@ export default function DallasLaunchBoard() {
 
   const stats = useMemo(() => {
     if (!leads) return null;
-    // Dedup by email so repeat submitters count once
+    // Dedup by hashed email so repeat submitters count once
     const seen = new Set<string>();
     const unique = leads.filter((l) => {
-      const k = (l.email || `${l.firstName}-${l.lastName}`).toLowerCase();
+      const k = (l.emailKey || `${l.firstName}-${l.lastName}`).toLowerCase();
       if (seen.has(k)) return false;
       seen.add(k);
       return true;
@@ -84,17 +107,21 @@ export default function DallasLaunchBoard() {
     const thisWeek = unique.filter(
       (l) => l.createdAt && now - new Date(l.createdAt).getTime() < weekMs
     );
-    const withUA = leads.filter((l) => l.createdAt && new Date(l.createdAt) >= new Date("2026-05-20"));
+    const withUA = leads.filter(
+      (l) => l.createdAt && new Date(l.createdAt) >= new Date("2026-05-20")
+    );
     const igShare = withUA.length
       ? Math.round((withUA.filter((l) => l.viaInstagram).length / withUA.length) * 100)
       : 0;
 
-    // Weekly buckets, last 8 weeks (oldest → newest)
+    const filtered = unique.filter((l) => matchesFilter(l, filter));
+
+    // Weekly buckets over the FILTERED list, last 8 weeks (oldest → newest)
     const weeks: { label: string; count: number }[] = [];
     for (let i = 7; i >= 0; i--) {
       const start = now - (i + 1) * weekMs;
       const end = now - i * weekMs;
-      const count = unique.filter((l) => {
+      const count = filtered.filter((l) => {
         if (!l.createdAt) return false;
         const t = new Date(l.createdAt).getTime();
         return t >= start && t < end;
@@ -107,11 +134,13 @@ export default function DallasLaunchBoard() {
     }
     const maxWeek = Math.max(1, ...weeks.map((w) => w.count));
 
-    const sources: Record<string, number> = {};
-    for (const l of unique) sources[l.source] = (sources[l.source] || 0) + 1;
+    const campaigns: Record<string, number> = {};
+    for (const l of unique) {
+      if (l.utmCampaign) campaigns[l.utmCampaign] = (campaigns[l.utmCampaign] || 0) + 1;
+    }
 
-    return { unique, founding, thisWeek, igShare, weeks, maxWeek, sources };
-  }, [leads]);
+    return { unique, founding, thisWeek, igShare, filtered, weeks, maxWeek, campaigns };
+  }, [leads, filter]);
 
   /* ---------- locked / loading states ---------- */
   if (error) {
@@ -133,12 +162,12 @@ export default function DallasLaunchBoard() {
     return <div className="min-h-screen bg-[#F7F4E9]" />;
   }
 
-  const { unique, founding, thisWeek, igShare, weeks, maxWeek, sources } = stats;
+  const { unique, founding, thisWeek, igShare, filtered, weeks, maxWeek, campaigns } = stats;
   const foundingCount = founding.length;
   const pct = Math.min(100, Math.round((foundingCount / goal) * 100));
   const mrrAll = foundingCount * FOUNDING_PRICE;
   const mrrRealistic = Math.round(foundingCount * REALISTIC_RATE) * FOUNDING_PRICE;
-  const mrrGoal = goal * FOUNDING_PRICE;
+  const mrrGoal = Math.round(goal * REALISTIC_RATE) * FOUNDING_PRICE;
 
   const bigStats = [
     { label: "Total leads", value: unique.length },
@@ -146,6 +175,12 @@ export default function DallasLaunchBoard() {
     { label: "New this week", value: thisWeek.length },
     { label: "Via Instagram", value: `${igShare}%`, sub: "since May 20" },
   ];
+
+  const utmLink = campaignName.trim()
+    ? `https://swaywellnessspa.com/locations/dallas/founding-membership?utm_source=staci&utm_medium=qr&utm_campaign=${encodeURIComponent(
+        campaignName.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+      )}`
+    : "";
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance pb-20">
@@ -182,14 +217,18 @@ export default function DallasLaunchBoard() {
           ))}
         </div>
 
-        {/* GOAL PROGRESS */}
+        {/* GOAL PROGRESS — interest list, not memberships */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
-          <div className="flex items-baseline justify-between mb-3">
-            <h2 className="text-lg font-semibold">Founding member goal</h2>
+          <div className="flex items-baseline justify-between mb-1">
+            <h2 className="text-lg font-semibold">Founding interest list</h2>
             <span className="text-sm text-[#113D33]/60">
-              {foundingCount} of {goal}
+              {foundingCount} of {goal} leads
             </span>
           </div>
+          <p className="text-xs text-[#113D33]/55 mb-3">
+            People who raised their hand on the founding page — not paying
+            members yet. Memberships get sold closer to opening.
+          </p>
           <div className="h-4 rounded-full bg-[#113D33]/10 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
@@ -221,34 +260,63 @@ export default function DallasLaunchBoard() {
 
         {/* REVENUE PROJECTIONS */}
         <div className="rounded-2xl bg-[#113D33] text-white p-6">
-          <h2 className="text-lg font-semibold mb-1">What this list is worth</h2>
+          <h2 className="text-lg font-semibold mb-1">What this list could be worth</h2>
           <p className="text-xs text-white/60 mb-5">
-            Assumes {money(FOUNDING_PRICE)}/mo founding rate (Dallas pricing TBD).
+            Projections, not bookings — assumes a {money(FOUNDING_PRICE)}/mo founding
+            rate (Dallas pricing TBD) and that {Math.round(REALISTIC_RATE * 100)}% of
+            interest converts when doors open.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <div className="text-2xl font-bold">{money(mrrRealistic)}<span className="text-sm font-normal text-white/60">/mo</span></div>
               <div className="text-xs text-white/70 mt-1">
-                Realistic today · {Math.round(REALISTIC_RATE * 100)}% of founding leads join
+                Today&apos;s list, realistic ({Math.round(REALISTIC_RATE * 100)}% join)
               </div>
               <div className="text-[11px] text-white/50">{money(mrrRealistic * 12)}/year</div>
             </div>
             <div>
               <div className="text-2xl font-bold">{money(mrrAll)}<span className="text-sm font-normal text-white/60">/mo</span></div>
-              <div className="text-xs text-white/70 mt-1">If every founding lead joins</div>
+              <div className="text-xs text-white/70 mt-1">Today&apos;s list, best case (all join)</div>
               <div className="text-[11px] text-white/50">{money(mrrAll * 12)}/year</div>
             </div>
             <div>
               <div className="text-2xl font-bold">{money(mrrGoal)}<span className="text-sm font-normal text-white/60">/mo</span></div>
-              <div className="text-xs text-white/70 mt-1">At the {goal}-member goal</div>
+              <div className="text-xs text-white/70 mt-1">
+                At {goal} leads, realistic ({Math.round(REALISTIC_RATE * 100)}% join)
+              </div>
               <div className="text-[11px] text-white/50">{money(mrrGoal * 12)}/year</div>
             </div>
           </div>
         </div>
 
-        {/* MOMENTUM */}
+        {/* SOURCE FILTER — drives the chart + feed below */}
+        <div className="flex flex-wrap gap-2">
+          {SOURCE_FILTERS.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              aria-pressed={filter === f.key}
+              className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                filter === f.key
+                  ? "bg-[#113D33] text-white shadow-sm"
+                  : "bg-white text-[#113D33]/70 shadow-sm hover:text-[#113D33]"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        {/* MOMENTUM (filtered) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
-          <h2 className="text-lg font-semibold mb-4">Momentum · last 8 weeks</h2>
+          <h2 className="text-lg font-semibold mb-4">
+            Momentum · last 8 weeks
+            {filter !== "all" && (
+              <span className="text-sm font-normal text-[#113D33]/55">
+                {" "}· {SOURCE_FILTERS.find((f) => f.key === filter)?.label}
+              </span>
+            )}
+          </h2>
           <div className="flex items-end gap-2 h-28">
             {weeks.map((w, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -263,22 +331,31 @@ export default function DallasLaunchBoard() {
               </div>
             ))}
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {Object.entries(sources)
-              .sort((a, b) => b[1] - a[1])
-              .map(([src, n]) => (
-                <span key={src} className="rounded-full bg-[#113D33]/[0.06] px-3 py-1.5 text-xs text-[#113D33]/75">
-                  {SOURCE_LABELS[src] ?? src}: <span className="font-semibold">{n}</span>
-                </span>
-              ))}
-          </div>
+          {Object.keys(campaigns).length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {Object.entries(campaigns)
+                .sort((a, b) => b[1] - a[1])
+                .map(([c, n]) => (
+                  <span key={c} className="rounded-full bg-[#4A776D]/10 px-3 py-1.5 text-xs text-[#113D33]/75">
+                    📣 {c}: <span className="font-semibold">{n}</span>
+                  </span>
+                ))}
+            </div>
+          )}
         </div>
 
-        {/* LEAD FEED */}
+        {/* LEAD FEED (filtered, no contact info) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
-          <h2 className="text-lg font-semibold mb-4">The people ({unique.length})</h2>
+          <h2 className="text-lg font-semibold mb-2">The people ({filtered.length})</h2>
+          <div className="rounded-xl bg-[#4A776D]/[0.08] px-4 py-3 mb-4 text-xs leading-relaxed text-[#113D33]/75">
+            <span className="font-semibold text-[#113D33]">What happens with this list:</span>{" "}
+            everyone here is queued for the Dallas pre-opening campaign — opening
+            updates and the founding offer go out by email and text before doors
+            open. No need to reach out one-by-one. Want a VIP added or a copy of
+            the full list? Email contact@swaywellnessspa.com.
+          </div>
           <div className="divide-y divide-[#113D33]/[0.07]">
-            {unique.map((l, i) => (
+            {filtered.map((l, i) => (
               <div key={i} className="py-3 flex flex-wrap items-center gap-x-3 gap-y-1">
                 <span className="font-semibold text-sm min-w-[140px]">
                   {l.firstName} {l.lastName}
@@ -291,6 +368,14 @@ export default function DallasLaunchBoard() {
                     via Instagram
                   </span>
                 )}
+                {l.utmCampaign && (
+                  <span className="rounded-full bg-[#4A776D]/10 px-2.5 py-0.5 text-[11px] font-semibold text-[#4A776D]">
+                    📣 {l.utmCampaign}
+                  </span>
+                )}
+                {l.hasPhone && (
+                  <span className="text-[11px] text-[#113D33]/45">📱 on the text list</span>
+                )}
                 <span className="text-xs text-[#113D33]/50 ml-auto">
                   {l.createdAt
                     ? new Date(l.createdAt).toLocaleDateString("en-US", {
@@ -299,13 +384,49 @@ export default function DallasLaunchBoard() {
                       })
                     : ""}
                 </span>
-                <span className="w-full text-xs text-[#113D33]/60">
-                  {l.email}
-                  {l.phone ? ` · ${l.phone}` : ""}
-                </span>
               </div>
             ))}
+            {filtered.length === 0 && (
+              <p className="py-6 text-center text-sm text-[#113D33]/50">
+                No leads from this source yet — that&apos;s the next milestone.
+              </p>
+            )}
           </div>
+        </div>
+
+        {/* PROMOTE & TRACK — self-serve UTM links for events / QR codes */}
+        <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
+          <h2 className="text-lg font-semibold mb-1">Promote &amp; track</h2>
+          <p className="text-xs text-[#113D33]/60 mb-4 leading-relaxed">
+            Doing a market, event, or flyer? Name it below, copy the link, and
+            paste it into any QR code generator. Everyone who scans and signs up
+            shows up on this board tagged with your event name — so you can see
+            exactly what each event produced.
+          </p>
+          <input
+            value={campaignName}
+            onChange={(e) => {
+              setCampaignName(e.target.value);
+              setCopied(false);
+            }}
+            placeholder="Event name — e.g. Klyde Warren Park July"
+            className="w-full rounded-xl border border-[#113D33]/15 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/25"
+          />
+          {utmLink && (
+            <div className="mt-3">
+              <div className="rounded-xl bg-[#113D33]/[0.05] px-4 py-3 text-xs break-all text-[#113D33]/80">
+                {utmLink}
+              </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard?.writeText(utmLink).then(() => setCopied(true));
+                }}
+                className="mt-3 rounded-full bg-[#113D33] text-white px-6 py-2.5 text-sm font-semibold hover:bg-[#0c2a23] transition"
+              >
+                {copied ? "Copied ✓" : "Copy link"}
+              </button>
+            </div>
+          )}
         </div>
 
         <p className="text-center text-[11px] text-[#113D33]/45">

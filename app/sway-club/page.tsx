@@ -1,5 +1,6 @@
 "use client";
 
+import { getAttribution } from "../../lib/attribution";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Check, Sparkles, Trophy, ArrowRight, ArrowDown } from "lucide-react";
@@ -48,6 +49,7 @@ export default function SwayClubPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          ...getAttribution(),
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,

@@ -1,5 +1,6 @@
 "use client";
 
+import { getAttribution } from "../../lib/attribution";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -34,6 +35,7 @@ export default function WaitlistForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          ...getAttribution(),
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           email: email.trim(),

@@ -44,6 +44,11 @@ export async function POST(req: Request) {
     // that use a bundled consent pattern (e.g. EnterToWinForm).
     consentVersion?: string;
     consentText?: string;
+    // First-touch attribution from lib/attribution.ts
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    referrerHost?: string;
   };
 
   try {
@@ -87,6 +92,15 @@ export async function POST(req: Request) {
   const consentVersion = body.consentVersion?.trim() || null;
   const consentText = body.consentText?.trim() || null;
 
+  const cleanAttr = (v?: string) => {
+    const t = typeof v === "string" ? v.trim().slice(0, 120) : "";
+    return t || null;
+  };
+  const utmSource = cleanAttr(body.utmSource);
+  const utmMedium = cleanAttr(body.utmMedium);
+  const utmCampaign = cleanAttr(body.utmCampaign);
+  const referrerHost = cleanAttr(body.referrerHost);
+
   // Capture IP + user agent as part of the TCPA/CAN-SPAM audit trail.
   // These are stored alongside the consent text so we can prove what
   // was shown and how it was submitted if challenged.
@@ -104,6 +118,10 @@ export async function POST(req: Request) {
     createdAt: new Date().toISOString(),
     ...(consentVersion ? { consentVersion } : {}),
     ...(consentText ? { consentText } : {}),
+    ...(utmSource ? { utmSource } : {}),
+    ...(utmMedium ? { utmMedium } : {}),
+    ...(utmCampaign ? { utmCampaign } : {}),
+    ...(referrerHost ? { referrerHost } : {}),
     ...(ip ? { consentIp: ip } : {}),
     ...(userAgent ? { consentUserAgent: userAgent } : {}),
   };
