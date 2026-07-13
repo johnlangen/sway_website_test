@@ -12,6 +12,7 @@ import { AddToHomeScreen } from "@/app/components/AddToHomeScreen";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
+import { useDialogA11y } from "@/lib/useDialogA11y";
 
 /* ================================================================
    NEW TIER-AWARE BOOKING FLOW
@@ -388,6 +389,12 @@ export default function NewBookingFlow() {
 
   // Treatment
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
+  // Maternity trimester confirmation dialog (null = closed).
+  const [maternityConfirmFor, setMaternityConfirmFor] = useState<Treatment | null>(null);
+  const maternityDialogRef = useDialogA11y<HTMLDivElement>(
+    maternityConfirmFor !== null,
+    () => setMaternityConfirmFor(null)
+  );
   const [treatmentTierFilter, setTreatmentTierFilter] = useState<"essential" | "premier" | "ultimate">("premier");
   const [expandedTreatmentId, setExpandedTreatmentId] = useState<number | null>(null);
   const [boostInfoId, setBoostInfoId] = useState<number | null>(null);
@@ -701,7 +708,19 @@ export default function NewBookingFlow() {
   const handleCategorySelect = (cat: Category) => { setCategory(cat); setSelectedTreatment(null); setSelectedBoosts([]); setActiveConcern(null); setStep("treatment"); window.dataLayer?.push({ event: "booking_start", booking_flow: cat }); };
 
 
-  const handleTreatmentSelect = (t: Treatment) => { setSelectedTreatment(t); setSelectedBoosts([]); window.dataLayer?.push({ event: "booking_service_selected", booking_flow: category, service_name: t.name, service_tier: t.tier }); setStep(BOOST_LIMITS[t.tier] === 0 ? "time" : "boosts"); };
+  const proceedWithTreatment = (t: Treatment) => { setSelectedTreatment(t); setSelectedBoosts([]); window.dataLayer?.push({ event: "booking_service_selected", booking_flow: category, service_name: t.name, service_tier: t.tier }); setStep(BOOST_LIMITS[t.tier] === 0 ? "time" : "boosts"); };
+  // Maternity massage is contraindicated in the first trimester — staff asked
+  // for an explicit confirmation at booking (two first-trimester bookings
+  // slipped through in one week, July 2026). Guests who aren't past week 13
+  // get a one-tap pivot to facials, which are first-trimester friendly.
+  const handleTreatmentSelect = (t: Treatment) => {
+    if (/maternity/i.test(t.name)) {
+      setMaternityConfirmFor(t);
+      window.dataLayer?.push({ event: "maternity_confirm_shown", booking_flow: category });
+      return;
+    }
+    proceedWithTreatment(t);
+  };
   const boostLimit = selectedTreatment ? BOOST_LIMITS[selectedTreatment.tier] ?? 2 : 2;
   const handleBoostToggle = (boost: Boost) => {
     setSelectedBoosts((prev) => {
@@ -2063,6 +2082,12 @@ export default function NewBookingFlow() {
             </div>
             <button onClick={handleFinalConfirmAndBook} disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())} className={primaryBtn}>Confirm & book</button>
             <p className="text-xs text-center text-[#113D33]/60">Your card will not be charged today. It is held to secure your appointment.</p>
+                {category === "massage" && !/maternity/i.test(selectedTreatment?.name ?? "") && (
+                  <p className="mt-2 text-xs text-[#113D33]/55">
+                    Expecting? Massage is for after the first trimester —
+                    facials are a lovely first-trimester option.
+                  </p>
+                )}
           </motion.div>
         )}
 
@@ -2127,6 +2152,78 @@ export default function NewBookingFlow() {
         )}
         </div>
       </div>
+
+      {/* MATERNITY TRIMESTER CONFIRMATION */}
+      <AnimatePresence>
+        {maternityConfirmFor && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/45 p-4"
+            onClick={() => setMaternityConfirmFor(null)}
+          >
+            <motion.div
+              ref={maternityDialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Maternity massage timing check"
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D] mb-2">
+                One quick check
+              </p>
+              <h2 className="text-xl font-semibold text-[#113D33] mb-3">
+                Will you be past your first trimester?
+              </h2>
+              <p className="text-sm text-[#113D33]/75 leading-relaxed mb-5">
+                Maternity massage is designed for after the first trimester
+                (13+ weeks) — it&apos;s the safest, most comfortable way to
+                enjoy it. Please confirm you&apos;ll be past week 13 at the
+                time of your appointment.
+              </p>
+              <div className="space-y-2.5">
+                <button
+                  onClick={() => {
+                    const t = maternityConfirmFor;
+                    setMaternityConfirmFor(null);
+                    window.dataLayer?.push({ event: "maternity_confirm_continue", booking_flow: category });
+                    if (t) proceedWithTreatment(t);
+                  }}
+                  className="block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
+                >
+                  Yes, I&apos;ll be 13+ weeks — continue
+                </button>
+                <button
+                  onClick={() => {
+                    setMaternityConfirmFor(null);
+                    window.dataLayer?.push({ event: "maternity_confirm_to_facials", booking_flow: category });
+                    setCategory("facial");
+                    setSelectedTreatment(null);
+                    setSelectedBoosts([]);
+                    setActiveConcern(null);
+                    setExpandedTreatmentId(null);
+                  }}
+                  className="block w-full rounded-full border-2 border-[#113D33] py-3 text-center text-sm font-semibold text-[#113D33] transition hover:bg-[#113D33] hover:text-white"
+                >
+                  Not yet — show me facials instead
+                </button>
+              </div>
+              <p className="mt-4 text-center text-xs text-[#113D33]/55">
+                Facials are a wonderful first-trimester option. Questions?{" "}
+                <a href="tel:+13034766150" className="underline">
+                  (303) 476-6150
+                </a>
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
