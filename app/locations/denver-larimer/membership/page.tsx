@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,6 +70,45 @@ const joinPlans: Record<string, MembershipPlan> = {
     name: "Remedy Room",
     price: 99,
     blurb: "4 Remedy Room recovery circuit visits per month.",
+  },
+};
+
+/* ------------------------------------------------------------------
+   MEMBERSHIP FAMILIES — the top-of-page selector. Each family gets an
+   accent color that tints the content zone below (sage = spa heritage,
+   slate = Aescape's tech photography, amber = the Remedy Room's warm
+   light). Cream stays the base everywhere.
+------------------------------------------------------------------ */
+
+type FamilyKey = "spa" | "aescape" | "remedy";
+
+const FAMILIES: Record<
+  FamilyKey,
+  { label: string; sub: string; price: string; image: string; accent: string; hash: string }
+> = {
+  spa: {
+    label: "Massage & Facial",
+    sub: "One treatment monthly, three tiers",
+    price: "From $99/mo",
+    image: "/assets/massage2.jpg",
+    accent: "#4A776D",
+    hash: "spa-memberships",
+  },
+  aescape: {
+    label: "Aescape",
+    sub: "AI robot massage, on your schedule",
+    price: "$99/mo",
+    image: "/assets/aescape-treatment.jpg",
+    accent: "#44576D",
+    hash: "aescape",
+  },
+  remedy: {
+    label: "Remedy Room",
+    sub: "Sauna, plunge, compression & LED",
+    price: "$99/mo",
+    image: "/assets/remedy-room.jpg",
+    accent: "#B0713F",
+    hash: "remedy",
   },
 };
 
@@ -305,6 +344,24 @@ export default function MembershipPage() {
   const activeTier = tiers.find((t) => t.key === selectedTier)!;
   const joinPlan = joinKey ? joinPlans[joinKey] : null;
 
+  // Which membership family the page is showing. Deep links from ads/blog
+  // (#aescape, #remedy) pre-select; switching updates the hash in place so
+  // shares/backtracks land on the same view.
+  const [family, setFamily] = useState<FamilyKey>("spa");
+  useEffect(() => {
+    const h = window.location.hash;
+    if (h === "#aescape") setFamily("aescape");
+    else if (h === "#remedy") setFamily("remedy");
+  }, []);
+  const selectFamily = (k: FamilyKey) => {
+    setFamily(k);
+    try {
+      history.replaceState(null, "", `#${FAMILIES[k].hash}`);
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "membership_family_selected", membership_family: k });
+    } catch {}
+  };
+
   // Tier carousel: arrows (desktop) + swipe (mobile) cycle through the tiers.
   const tierIndex = tiers.findIndex((t) => t.key === selectedTier);
   const goPrevTier = () =>
@@ -453,8 +510,9 @@ export default function MembershipPage() {
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-base md:text-lg text-[#113D33]/75 max-w-lg mb-6"
         >
-          One facial or massage every month from $99, plus member perks every
-          day in between. No enrollment fee, and unused treatments roll over.
+          A membership for how you recover: monthly massage &amp; facial,
+          Aescape robot massage, or the Remedy Room. From $99 a month, no
+          enrollment fee.
         </motion.p>
 
         {/* Phone demoted out of the hero — it still lives in the "Have
@@ -468,24 +526,6 @@ export default function MembershipPage() {
           <ReviewBadge />
           <span className="hidden sm:block opacity-30">|</span>
           <ClassPassBadge />
-        </motion.div>
-
-        {/* Jump chips: surface all three membership families up top */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="mt-7 flex flex-wrap items-center gap-2"
-        >
-          <a href="#spa-memberships" className="rounded-full bg-white px-4 py-2 text-xs uppercase tracking-wide text-[#113D33]/80 shadow-sm hover:bg-[#113D33] hover:text-white transition">
-            Massage &amp; Facial
-          </a>
-          <a href="#aescape" className="rounded-full bg-white px-4 py-2 text-xs uppercase tracking-wide text-[#113D33]/80 shadow-sm hover:bg-[#113D33] hover:text-white transition">
-            Aescape
-          </a>
-          <a href="#remedy" className="rounded-full bg-white px-4 py-2 text-xs uppercase tracking-wide text-[#113D33]/80 shadow-sm hover:bg-[#113D33] hover:text-white transition">
-            Remedy Room
-          </a>
         </motion.div>
 
         <p className="sr-only">
@@ -515,8 +555,85 @@ export default function MembershipPage() {
       </section>
 
       {/* ============================================================
-          SPA MEMBERSHIPS: 3 COMPACT CARDS + TREATMENT DETAIL PANEL
+          FAMILY SELECTOR — the page's main navigation. Three photo cards;
+          the content zone below crossfades to the selected family.
       ============================================================ */}
+      <section className="px-4 sm:px-6 pb-2 -mt-2">
+        <p className="text-center text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-5">
+          Choose Your Membership
+        </p>
+        <div className="max-w-5xl mx-auto grid grid-cols-3 gap-2.5 sm:gap-4">
+          {(Object.keys(FAMILIES) as FamilyKey[]).map((k) => {
+            const f = FAMILIES[k];
+            const active = family === k;
+            return (
+              <button
+                key={k}
+                onClick={() => selectFamily(k)}
+                aria-pressed={active}
+                className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl text-left transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#113D33]/30 ${
+                  active
+                    ? "shadow-[0_28px_55px_-15px_rgba(17,61,51,0.42)] scale-[1.02]"
+                    : "shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] opacity-75 hover:opacity-100 hover:scale-[1.01]"
+                }`}
+                style={active ? { boxShadow: `0 28px 55px -15px ${f.accent}66, inset 0 0 0 3px ${f.accent}` } : undefined}
+              >
+                <div className="relative h-28 sm:h-40 md:h-48 w-full">
+                  <Image
+                    src={f.image}
+                    alt={f.label}
+                    fill
+                    sizes="(max-width: 1024px) 33vw, 340px"
+                    className={`object-cover transition-transform duration-500 ${active ? "scale-105" : "group-hover:scale-105"}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+                  <div className="absolute bottom-0 inset-x-0 p-2.5 sm:p-4 text-white">
+                    <p className="text-xs sm:text-base md:text-lg font-semibold leading-tight">{f.label}</p>
+                    <p className="hidden sm:block text-[11px] md:text-xs text-white/75 mt-0.5">{f.sub}</p>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-white/90 mt-0.5 sm:mt-1">{f.price}</p>
+                  </div>
+                  {active && (
+                    <span
+                      className="absolute top-2 right-2 sm:top-3 sm:right-3 w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shadow-md"
+                      style={{ backgroundColor: f.accent }}
+                    >
+                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
+                    </span>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ============================================================
+          FAMILY CONTENT ZONE — accent tint crossfades behind the panel
+      ============================================================ */}
+      <div className="relative">
+        {(Object.keys(FAMILIES) as FamilyKey[]).map((k) => (
+          <motion.div
+            key={k}
+            aria-hidden
+            initial={false}
+            animate={{ opacity: family === k ? 1 : 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: `radial-gradient(90% 55% at 50% 0%, ${FAMILIES[k].accent}24 0%, transparent 72%)`,
+            }}
+          />
+        ))}
+        <AnimatePresence mode="wait">
+        <motion.div
+          key={family}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="relative"
+        >
+        {family === "spa" && (
       <section id="spa-memberships" className="scroll-mt-28 px-4 sm:px-6 pt-12 md:pt-16 pb-6">
         <div className="text-center mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
@@ -642,6 +759,166 @@ export default function MembershipPage() {
           </div>
         </motion.div>
       </section>
+        )}
+
+        {family === "aescape" && (
+      <section id="aescape" className="scroll-mt-28 px-4 sm:px-6 pt-12 md:pt-16 pb-10">
+        <div className="text-center mb-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#44576D] mb-3">
+            Recovery &amp; Tech
+          </p>
+          <h2 className="text-2xl md:text-3xl font-semibold">The Aescape Membership</h2>
+          <SwayCurve width={140} strokeWidth={2.4} animate className="text-[#44576D] mx-auto block mt-4" />
+        </div>
+
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Photo collage */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 h-48 sm:h-64 rounded-3xl overflow-hidden shadow-lg">
+              <Image src="/assets/aescapeblog7.jpg" alt="Aescape robot massage session at Sway" fill sizes="(max-width: 768px) 100vw, 480px" className="object-cover" />
+            </div>
+            <div className="relative h-32 sm:h-44 rounded-2xl overflow-hidden shadow-md">
+              <Image src="/assets/aescape-treatment.jpg" alt="Aescape precision robotic arms" fill sizes="240px" className="object-cover" />
+            </div>
+            <div className="relative h-32 sm:h-44 rounded-2xl overflow-hidden shadow-md">
+              <Image src="/assets/aescapeMobile.jpg" alt="Aescape session room at Sway Larimer" fill sizes="240px" className="object-cover" />
+            </div>
+          </div>
+
+          {/* Details + join */}
+          <div>
+            <div className="mb-4">
+              <span className="text-4xl font-bold">$99</span>
+              <span className="text-sm text-[#113D33]/50 ml-1">/ month</span>
+              <span className="block text-sm font-semibold text-[#44576D] mt-1">
+                Under $25 per session
+              </span>
+            </div>
+            <p className="text-base text-[#113D33]/75 leading-relaxed mb-4 max-w-md">
+              AI-powered robot massage with real-time muscle mapping and
+              personalized pressure zones. Book on your schedule — early,
+              late, or between meetings.
+            </p>
+            <ul className="space-y-2 mb-5">
+              {[
+                "Real-time muscle mapping",
+                "Personalized pressure, saved between visits",
+                "Zero-gravity positioning",
+                "All member perks: 50% off boosts, lounge access & more",
+              ].map((h) => (
+                <li key={h} className="flex items-center gap-2.5 text-sm text-[#113D33]/75">
+                  <Check className="w-4 h-4 shrink-0 text-[#44576D]" />
+                  {h}
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] uppercase tracking-wider text-[#44576D] mb-3">
+              Pick your monthly format · same price
+            </p>
+            <div className="space-y-2 max-w-sm">
+              <button
+                onClick={() => setJoinKey("aescape30")}
+                className="block w-full rounded-full bg-[#44576D] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#36465a]"
+              >
+                Join · 4×30 min sessions
+              </button>
+              <button
+                onClick={() => setJoinKey("aescape60")}
+                className="block w-full rounded-full border-2 border-[#44576D] py-3 text-center text-sm font-semibold text-[#44576D] transition hover:bg-[#44576D] hover:text-white"
+              >
+                Join · 2×60 min sessions
+              </button>
+            </div>
+            <p className="mt-3 text-xs text-[#113D33]/55">
+              No enrollment fee &middot; Unused sessions roll over &middot;
+              Pause up to 3 months a year
+            </p>
+            <Link
+              href="/locations/denver-larimer/book-aescape"
+              className="mt-3 inline-block text-sm font-semibold text-[#44576D] underline underline-offset-4 hover:text-[#113D33] transition"
+            >
+              Not ready? Book a one-time session from $49
+            </Link>
+          </div>
+        </div>
+      </section>
+        )}
+
+        {family === "remedy" && (
+      <section id="remedy" className="scroll-mt-28 px-4 sm:px-6 pt-12 md:pt-16 pb-10">
+        <div className="text-center mb-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#B0713F] mb-3">
+            Recovery &amp; Tech
+          </p>
+          <h2 className="text-2xl md:text-3xl font-semibold">The Remedy Room Membership</h2>
+          <SwayCurve width={140} strokeWidth={2.4} animate className="text-[#B0713F] mx-auto block mt-4" />
+        </div>
+
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Details + join (left on desktop so the two panels feel distinct) */}
+          <div className="order-2 md:order-1">
+            <div className="mb-4">
+              <span className="text-4xl font-bold">$99</span>
+              <span className="text-sm text-[#113D33]/50 ml-1">/ month</span>
+              <span className="block text-sm font-semibold text-[#B0713F] mt-1">
+                Under $25 per visit &middot; 4 visits per month
+              </span>
+            </div>
+            <p className="text-base text-[#113D33]/75 leading-relaxed mb-4 max-w-md">
+              Our full recovery circuit, four times a month. Forty guided
+              minutes through heat, cold, compression, and light.
+            </p>
+            <ul className="space-y-2 mb-5">
+              {[
+                "Traditional sauna",
+                "Cold plunge",
+                "Lymphatic compression boots",
+                "LED light therapy",
+              ].map((h) => (
+                <li key={h} className="flex items-center gap-2.5 text-sm text-[#113D33]/75">
+                  <Check className="w-4 h-4 shrink-0 text-[#B0713F]" />
+                  {h}
+                </li>
+              ))}
+            </ul>
+            <div className="max-w-sm">
+              <button
+                onClick={() => setJoinKey("remedy")}
+                className="block w-full rounded-full bg-[#B0713F] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#955e33]"
+              >
+                Become a Remedy Room Member
+              </button>
+            </div>
+            <p className="mt-3 text-xs text-[#113D33]/55">
+              No enrollment fee &middot; Unused visits roll over &middot;
+              Pause up to 3 months a year
+            </p>
+            <Link
+              href="/locations/denver-larimer/book-remedy-room"
+              className="mt-3 inline-block text-sm font-semibold text-[#B0713F] underline underline-offset-4 hover:text-[#113D33] transition"
+            >
+              Not ready? Drop in for $49
+            </Link>
+          </div>
+
+          {/* Photo collage */}
+          <div className="order-1 md:order-2 grid grid-cols-2 gap-3">
+            <div className="relative col-span-2 h-48 sm:h-64 rounded-3xl overflow-hidden shadow-lg">
+              <Image src="/assets/remedy-room2.jpg" alt="The Remedy Room recovery circuit at Sway" fill sizes="(max-width: 768px) 100vw, 480px" className="object-cover" />
+            </div>
+            <div className="relative h-32 sm:h-44 rounded-2xl overflow-hidden shadow-md">
+              <Image src="/assets/remedy-room.jpg" alt="Cold plunge in the Remedy Room" fill sizes="240px" className="object-cover" />
+            </div>
+            <div className="relative h-32 sm:h-44 rounded-2xl overflow-hidden shadow-md">
+              <Image src="/assets/remedy-room3.jpg" alt="LED light therapy in the Remedy Room" fill sizes="240px" className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+        )}
+        </motion.div>
+        </AnimatePresence>
+      </div>
 
       {/* ALL-MEMBER PERKS: always visible */}
       <section className="px-4 sm:px-6 py-8 md:py-10">
@@ -663,112 +940,6 @@ export default function MembershipPage() {
           <p className="mt-5 pt-4 border-t border-[#113D33]/10 text-center text-xs text-[#113D33]/60">
             Your membership works at all Sway and Spavia locations nationwide.
           </p>
-        </div>
-      </section>
-
-      {/* ============================================================
-          RECOVERY & TECH MEMBERSHIPS
-      ============================================================ */}
-      <section className="px-4 sm:px-6 pt-12 md:pt-16 pb-10">
-        <div className="text-center mb-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
-            Beyond the Basics
-          </p>
-          <h2 className="text-2xl md:text-3xl font-semibold">
-            Recovery &amp; Tech
-          </h2>
-          <SwayCurve
-            width={140}
-            strokeWidth={2.4}
-            animate
-            className="text-[#4A776D] mx-auto block mt-4"
-          />
-        </div>
-
-        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-          {recoveryMemberships.map((m, i) => (
-            <motion.div
-              key={m.key}
-              id={m.key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group scroll-mt-28 bg-white rounded-2xl shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] overflow-hidden flex flex-col transition-all duration-300 hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] hover:scale-[1.01]"
-            >
-              <div className="relative h-44 w-full overflow-hidden">
-                <Image
-                  src={m.image}
-                  alt={m.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                              </div>
-              <div className="p-5 md:p-6 flex flex-col flex-1">
-                <h3 className="text-lg font-bold mb-1">{m.name}</h3>
-                <div className="mb-3">
-                  <span className="text-2xl font-bold">{m.price}</span>
-                  <span className="text-sm text-[#113D33]/50 ml-1">/ month</span>
-                  <span className="block text-xs font-semibold text-[#4A776D] mt-0.5">
-                    {m.valueLine}
-                  </span>
-                </div>
-                <p className="text-sm text-[#113D33]/75 leading-relaxed mb-3">
-                  {m.description}
-                </p>
-                <ul className="space-y-1.5 mb-3">
-                  {m.highlights.map((h, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center gap-2 text-xs text-[#113D33]/65"
-                    >
-                      <Check className="w-3 h-3 text-[#4A776D] shrink-0" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-[10px] text-[#4A776D] uppercase tracking-wider mb-4">
-                  {m.details}
-                </p>
-                {/* mt-auto bottom-aligns the CTAs across both cards; price
-                    stays on the card, the button states the action. */}
-                {nativeJoin ? (
-                  m.key === "aescape" ? (
-                    /* Two contracts at the same price — the guest picks the
-                       session format up front. */
-                    <div className="mt-auto space-y-2">
-                      <button
-                        onClick={() => setJoinKey("aescape30")}
-                        className="block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
-                      >
-                        Join · 4×30 min sessions
-                      </button>
-                      <button
-                        onClick={() => setJoinKey("aescape60")}
-                        className="block w-full rounded-full border-2 border-[#113D33] py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-[#113D33] hover:text-white"
-                      >
-                        Join · 2×60 min sessions
-                      </button>
-                    </div>
-                  ) : (
-                  <button
-                    onClick={() => setJoinKey(m.key)}
-                    className="mt-auto block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
-                  >
-                    {m.cta}
-                  </button>
-                  )
-                ) : (
-                  <a
-                    href={m.joinUrl ?? "tel:+13034766150"}
-                    className="mt-auto block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
-                  >
-                    {m.cta}
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          ))}
         </div>
       </section>
 
@@ -1004,6 +1175,56 @@ export default function MembershipPage() {
           long scroll. Hidden on desktop. Right padding clears the chat widget. */}
       <div className="h-24 md:hidden" aria-hidden="true" />
       {(() => {
+        const barBase =
+          "md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-white/10 bg-[#0b1f1a]/95 backdrop-blur pl-4 pr-20 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]";
+        if (family === "aescape") {
+          return (
+            <div className={`${barBase} flex items-center justify-between gap-2`}>
+              <span className="leading-tight min-w-0">
+                <span className="block text-[10px] uppercase tracking-[0.15em] text-[#9ABFB3]">
+                  Aescape Membership
+                </span>
+                <span className="block text-white font-semibold text-sm">
+                  $99<span className="text-gray-400 font-normal"> / month</span>
+                </span>
+              </span>
+              <span className="flex gap-1.5 shrink-0">
+                <button
+                  onClick={() => setJoinKey("aescape30")}
+                  className="rounded-full bg-white text-[#113D33] px-3.5 py-2.5 text-xs font-semibold"
+                >
+                  4×30
+                </button>
+                <button
+                  onClick={() => setJoinKey("aescape60")}
+                  className="rounded-full border border-white/40 text-white px-3.5 py-2.5 text-xs font-semibold"
+                >
+                  2×60
+                </button>
+              </span>
+            </div>
+          );
+        }
+        if (family === "remedy") {
+          return (
+            <button
+              onClick={() => setJoinKey("remedy")}
+              className={`${barBase} flex items-center justify-between gap-3 text-left w-full`}
+            >
+              <span className="leading-tight min-w-0">
+                <span className="block text-[10px] uppercase tracking-[0.15em] text-[#9ABFB3]">
+                  Remedy Room Membership
+                </span>
+                <span className="block text-white font-semibold text-sm">
+                  $99<span className="text-gray-400 font-normal"> / month</span>
+                </span>
+              </span>
+              <span className="shrink-0 rounded-full bg-white text-[#113D33] px-7 py-2.5 text-sm font-semibold">
+                Join
+              </span>
+            </button>
+          );
+        }
         const stickyInner = (
           <>
             <span className="leading-tight min-w-0">
