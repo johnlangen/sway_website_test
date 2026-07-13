@@ -53,6 +53,12 @@ html, body {
 
 /* globals.css or a relevant CSS file */
 
+/* Smooth anchor scrolling site-wide (jump chips, TOCs, FAQ links).
+   The prefers-reduced-motion block below resets this to auto. */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Scroll Snap Container */
 .snap-container {
   height: 100vh;

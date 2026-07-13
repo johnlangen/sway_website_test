@@ -939,7 +939,7 @@ export default function MembershipPage() {
             animate
             className="text-white/85 mb-6"
           />
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
             The Sway Way
           </h2>
           <p className="max-w-2xl text-base md:text-lg mb-7 text-gray-200">
