@@ -11,8 +11,8 @@ import { SwayCurve } from "../../../components/SwayCurve";
    campaign, not ad-hoc from here. The API sends a hashed email key for
    dedup only.
 
-   The source filter at the top drives EVERYTHING below it — stats, goal,
-   projections, momentum, feed.
+   Top stats, lead goal, and projections are always aggregate; the source
+   filter (above the momentum chart) drives the chart + lead feed only.
 
    Assumptions surfaced in the UI so projections read as projections:
    - FOUNDING_PRICE: assumed founding rate (Dallas pricing not announced)
@@ -107,15 +107,22 @@ export default function DallasLaunchBoard() {
       return true;
     });
 
-    // The filter drives everything below the chips
+    // The filter drives the momentum chart + lead feed only; stats, goal,
+    // and projections always show the aggregate.
     const filtered = unique.filter((l) => matchesFilter(l, filter));
+
+    const bySource = {
+      founding: unique.filter((l) => l.source === "founding-membership").length,
+      locationPage: unique.filter((l) => l.source === "location-page").length,
+      contest: unique.filter((l) => l.source.startsWith("enter-to-win")).length,
+    };
 
     const now = Date.now();
     const weekMs = 7 * 24 * 3600 * 1000;
-    const thisWeek = filtered.filter(
+    const thisWeek = unique.filter(
       (l) => l.createdAt && now - new Date(l.createdAt).getTime() < weekMs
     );
-    const withUA = filtered.filter(
+    const withUA = unique.filter(
       (l) => l.createdAt && new Date(l.createdAt) >= new Date("2026-05-20")
     );
     const igShare = withUA.length
@@ -146,7 +153,7 @@ export default function DallasLaunchBoard() {
       if (l.utmCampaign) campaigns[l.utmCampaign] = (campaigns[l.utmCampaign] || 0) + 1;
     }
 
-    return { unique, filtered, thisWeek, igShare, weeks, maxWeek, campaigns };
+    return { unique, filtered, bySource, thisWeek, igShare, weeks, maxWeek, campaigns };
   }, [leads, filter]);
 
   /* ---------- locked / loading states ---------- */
@@ -169,19 +176,24 @@ export default function DallasLaunchBoard() {
     return <div className="min-h-screen bg-[#F7F4E9]" />;
   }
 
-  const { filtered, thisWeek, igShare, weeks, maxWeek, campaigns } = stats;
-  const count = filtered.length;
-  const pct = Math.min(100, Math.round((count / goal) * 100));
-  const mrrRealistic = Math.round(count * REALISTIC_RATE) * FOUNDING_PRICE;
-  const mrrAll = count * FOUNDING_PRICE;
+  const { unique, filtered, bySource, thisWeek, igShare, weeks, maxWeek, campaigns } = stats;
+  const total = unique.length;
+  const pct = Math.min(100, Math.round((total / goal) * 100));
+  const mrrRealistic = Math.round(total * REALISTIC_RATE) * FOUNDING_PRICE;
+  const mrrAll = total * FOUNDING_PRICE;
   const mrrOpening = OPENING_TARGET * FOUNDING_PRICE;
   const filterLabel = SOURCE_FILTERS.find((f) => f.key === filter)?.label ?? "All sources";
 
   const bigStats = [
-    { label: filter === "all" ? "Total leads" : `${filterLabel} leads`, value: count },
-    { label: "New this week", value: thisWeek.length },
-    { label: "Via Instagram", value: `${igShare}%`, sub: "since May 20" },
-    { label: "On the text list", value: filtered.filter((l) => l.hasPhone).length },
+    { label: "Total leads", value: total },
+    { label: "Founding page", value: bySource.founding },
+    { label: "Location page", value: bySource.locationPage },
+    { label: "Contest", value: bySource.contest },
+  ];
+  const miniStats = [
+    { label: "New this week", value: String(thisWeek.length) },
+    { label: "Via Instagram (since May 20)", value: `${igShare}%` },
+    { label: "On the text list", value: String(unique.filter((l) => l.hasPhone).length) },
   ];
 
   const utmLink = campaignName.trim()
@@ -208,25 +220,7 @@ export default function DallasLaunchBoard() {
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
-        {/* SOURCE FILTER — drives everything below */}
-        <div className="flex flex-wrap justify-center gap-2">
-          {SOURCE_FILTERS.map((f) => (
-            <button
-              key={f.key}
-              onClick={() => setFilter(f.key)}
-              aria-pressed={filter === f.key}
-              className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
-                filter === f.key
-                  ? "bg-[#113D33] text-white shadow-sm"
-                  : "bg-white text-[#113D33]/70 shadow-sm hover:text-[#113D33]"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        {/* BIG STATS (filtered) */}
+        {/* BIG STATS — total + per-source breakdown (always aggregate) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {bigStats.map((s, i) => (
             <motion.div
@@ -238,19 +232,25 @@ export default function DallasLaunchBoard() {
             >
               <div className="text-3xl font-bold">{s.value}</div>
               <div className="text-xs uppercase tracking-wide text-[#4A776D] mt-1">{s.label}</div>
-              {s.sub && <div className="text-[10px] text-[#113D33]/45 mt-0.5">{s.sub}</div>}
             </motion.div>
           ))}
         </div>
 
-        {/* GOAL PROGRESS (filtered) */}
+        {/* Secondary aggregate stats */}
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-[#113D33]/60">
+          {miniStats.map((m) => (
+            <span key={m.label}>
+              <span className="font-semibold text-[#113D33]">{m.value}</span> {m.label}
+            </span>
+          ))}
+        </div>
+
+        {/* GOAL PROGRESS (aggregate) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
           <div className="flex items-baseline justify-between mb-1">
-            <h2 className="text-lg font-semibold">
-              Lead goal{filter !== "all" ? ` · ${filterLabel}` : ""}
-            </h2>
+            <h2 className="text-lg font-semibold">Lead goal</h2>
             <span className="text-sm text-[#113D33]/60">
-              {count} of {goal} leads
+              {total} of {goal} leads
             </span>
           </div>
           <p className="text-xs text-[#113D33]/55 mb-3">
@@ -267,7 +267,7 @@ export default function DallasLaunchBoard() {
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {MILESTONES.map((m) => {
-              const hit = count >= m.at;
+              const hit = total >= m.at;
               return (
                 <span
                   key={m.at}
@@ -279,7 +279,7 @@ export default function DallasLaunchBoard() {
                 >
                   <span>{m.emoji}</span>
                   {m.label}
-                  {!hit && <span className="font-normal">· {m.at - count} to go</span>}
+                  {!hit && <span className="font-normal">· {m.at - total} to go</span>}
                 </span>
               );
             })}
@@ -316,6 +316,24 @@ export default function DallasLaunchBoard() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* SOURCE FILTER — drives the chart + feed below */}
+        <div className="flex flex-wrap gap-2">
+          {SOURCE_FILTERS.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              aria-pressed={filter === f.key}
+              className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                filter === f.key
+                  ? "bg-[#113D33] text-white shadow-sm"
+                  : "bg-white text-[#113D33]/70 shadow-sm hover:text-[#113D33]"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
 
         {/* MOMENTUM (filtered, all time) */}
@@ -355,7 +373,7 @@ export default function DallasLaunchBoard() {
 
         {/* LEAD FEED (filtered, no contact info) */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
-          <h2 className="text-lg font-semibold mb-2">The people ({count})</h2>
+          <h2 className="text-lg font-semibold mb-2">The people ({filtered.length})</h2>
           <div className="rounded-xl bg-[#4A776D]/[0.08] px-4 py-3 mb-4 text-xs leading-relaxed text-[#113D33]/75">
             <span className="font-semibold text-[#113D33]">What happens with this list:</span>{" "}
             everyone here is queued for the Dallas pre-opening campaign — opening
