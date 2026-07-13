@@ -404,47 +404,36 @@ export default function MembershipPage() {
   );
 
   return (
-    <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
-      {/* HERO + LOCK-IN CTA */}
-      <section className="relative overflow-hidden">
-        {/* Background image under a dark-green overlay, matching the other page
-            heroes. Overlay fades to the page's base green so it blends into the
-            Spa Memberships section below. */}
-        <Image
-          src="/assets/OG/og-home.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1f1a]/75 via-[#113D33]/55 to-[#0b1f1a]" />
-
-        <div className="relative px-6 pt-28 md:pt-36 pb-10 md:pb-14 text-center max-w-5xl mx-auto">
+    <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
+      {/* HERO — club-style: text left, clean photo right (no overlay fade) */}
+      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-10 md:pb-14">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+        <div>
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
+          className="text-xs md:text-sm uppercase tracking-[0.2em] text-[#4A776D] mb-3"
         >
           Sway Larimer &middot; Denver, CO{" "}
           &middot;{" "}
-          <Link href="/locations" className="underline underline-offset-4 hover:text-white transition normal-case tracking-normal">
+          <Link href="/locations" className="underline underline-offset-4 hover:text-[#113D33] transition normal-case tracking-normal">
             Change location
           </Link>
         </motion.p>
 
         <SwayCurve
-          width={150}
+          width={130}
           strokeWidth={2.2}
           animate
-          className="text-[#A9D2C5] mx-auto block mb-6"
+          className="text-[#4A776D] block mb-5"
         />
 
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
+          className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-[1.1]"
         >
           The Sway Membership
         </motion.h1>
@@ -453,7 +442,7 @@ export default function MembershipPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-6"
+          className="text-base md:text-lg text-[#113D33]/75 max-w-lg mb-6"
         >
           One facial or massage every month from $99, plus member perks every
           day in between. No enrollment fee, and unused treatments roll over.
@@ -465,7 +454,7 @@ export default function MembershipPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4"
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4"
         >
           <ReviewBadge />
           <span className="hidden sm:block opacity-30">|</span>
@@ -477,15 +466,15 @@ export default function MembershipPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.5 }}
-          className="mt-7 flex flex-wrap items-center justify-center gap-2"
+          className="mt-7 flex flex-wrap items-center gap-2"
         >
-          <a href="#spa-memberships" className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/90 hover:bg-white/10 transition">
+          <a href="#spa-memberships" className="rounded-full bg-white px-4 py-2 text-xs uppercase tracking-wide text-[#113D33]/80 shadow-sm hover:bg-[#113D33] hover:text-white transition">
             Massage &amp; Facial
           </a>
-          <a href="#aescape" className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/90 hover:bg-white/10 transition">
+          <a href="#aescape" className="rounded-full bg-white px-4 py-2 text-xs uppercase tracking-wide text-[#113D33]/80 shadow-sm hover:bg-[#113D33] hover:text-white transition">
             Aescape
           </a>
-          <a href="#remedy" className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/90 hover:bg-white/10 transition">
+          <a href="#remedy" className="rounded-full bg-white px-4 py-2 text-xs uppercase tracking-wide text-[#113D33]/80 shadow-sm hover:bg-[#113D33] hover:text-white transition">
             Remedy Room
           </a>
         </motion.div>
@@ -502,6 +491,18 @@ export default function MembershipPage() {
           swaywellnessspa.com.
         </p>
         </div>
+
+        <div className="relative">
+          <Image
+            src="/assets/OG/og-home.jpg"
+            alt="Inside Sway Wellness Spa on Larimer Square"
+            width={1200}
+            height={630}
+            priority
+            className="rounded-3xl shadow-lg w-full h-[280px] sm:h-[340px] md:h-[440px] object-cover"
+          />
+        </div>
+        </div>
       </section>
 
       {/* ============================================================
@@ -509,7 +510,7 @@ export default function MembershipPage() {
       ============================================================ */}
       <section id="spa-memberships" className="scroll-mt-28 px-4 sm:px-6 pt-12 md:pt-16 pb-6">
         <div className="text-center mb-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
             Choose Your Tier
           </p>
           <h2 className="text-2xl md:text-3xl font-semibold">
@@ -519,7 +520,7 @@ export default function MembershipPage() {
             width={140}
             strokeWidth={2.4}
             animate
-            className="text-[#A9D2C5] mx-auto block mt-4"
+            className="text-[#4A776D] mx-auto block mt-4"
           />
         </div>
 
@@ -538,11 +539,11 @@ export default function MembershipPage() {
             type="button"
             onClick={goPrevTier}
             aria-label="Previous membership"
-            className="hidden sm:flex shrink-0 self-center h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15 transition"
+            className="hidden sm:flex shrink-0 self-center h-11 w-11 items-center justify-center rounded-full bg-white text-[#113D33] shadow-sm hover:bg-[#113D33] hover:text-white transition"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <div className="flex-1 min-w-0 bg-white text-[#113D33] rounded-2xl shadow-2xl ring-1 ring-white/10 p-5 md:p-7">
+          <div className="flex-1 min-w-0 bg-white text-[#113D33] rounded-2xl shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-5 md:p-7">
             {/* Tier switcher with prices (comparison) */}
             <div className="grid grid-cols-3 gap-1.5 rounded-2xl bg-[#113D33]/10 p-1.5">
               {tiers.map((tier) => {
@@ -615,14 +616,14 @@ export default function MembershipPage() {
             type="button"
             onClick={goNextTier}
             aria-label="Next membership"
-            className="hidden sm:flex shrink-0 self-center h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15 transition"
+            className="hidden sm:flex shrink-0 self-center h-11 w-11 items-center justify-center rounded-full bg-white text-[#113D33] shadow-sm hover:bg-[#113D33] hover:text-white transition"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
           </div>
 
           {/* Mobile swipe hint */}
-          <p className="sm:hidden mt-3 text-center text-[11px] text-white/50">
+          <p className="sm:hidden mt-3 text-center text-[11px] text-[#113D33]/50">
             Swipe to compare memberships
           </p>
 
@@ -635,22 +636,22 @@ export default function MembershipPage() {
 
       {/* ALL-MEMBER PERKS: always visible */}
       <section className="px-4 sm:px-6 py-8 md:py-10">
-        <div className="max-w-2xl mx-auto rounded-2xl bg-white/[0.06] border border-white/10 shadow-xl px-6 py-7 md:px-8">
-          <p className="text-center text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-5">
+        <div className="max-w-2xl mx-auto rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] px-6 py-7 md:px-8">
+          <p className="text-center text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-5">
             Every Member Gets
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
             {memberPerks.map((perk, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-2.5 text-sm text-white/90"
+                className="flex items-center gap-2.5 text-sm text-[#113D33]/90"
               >
-                <Check className="w-4 h-4 text-[#9ABFB3] shrink-0" />
+                <Check className="w-4 h-4 text-[#4A776D] shrink-0" />
                 {perk}
               </span>
             ))}
           </div>
-          <p className="mt-5 pt-4 border-t border-white/10 text-center text-xs text-gray-400">
+          <p className="mt-5 pt-4 border-t border-[#113D33]/10 text-center text-xs text-[#113D33]/60">
             Your membership works at all Sway and Spavia locations nationwide.
           </p>
         </div>
@@ -661,7 +662,7 @@ export default function MembershipPage() {
       ============================================================ */}
       <section className="px-4 sm:px-6 pt-12 md:pt-16 pb-10">
         <div className="text-center mb-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
             Beyond the Basics
           </p>
           <h2 className="text-2xl md:text-3xl font-semibold">
@@ -671,7 +672,7 @@ export default function MembershipPage() {
             width={140}
             strokeWidth={2.4}
             animate
-            className="text-[#A9D2C5] mx-auto block mt-4"
+            className="text-[#4A776D] mx-auto block mt-4"
           />
         </div>
 
@@ -684,7 +685,7 @@ export default function MembershipPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group scroll-mt-28 bg-white/[0.06] rounded-2xl border border-white/10 shadow-xl overflow-hidden flex flex-col transition-all duration-300 hover:bg-white/[0.1] hover:border-white/20 hover:scale-[1.01]"
+              className="group scroll-mt-28 bg-white rounded-2xl shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] overflow-hidden flex flex-col transition-all duration-300 hover:shadow-[0_28px_55px_-15px_rgba(17,61,51,0.32)] hover:scale-[1.01]"
             >
               <div className="relative h-44 w-full overflow-hidden">
                 <Image
@@ -693,32 +694,31 @@ export default function MembershipPage() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0e2b24]/70 to-transparent" />
-              </div>
+                              </div>
               <div className="p-5 md:p-6 flex flex-col flex-1">
                 <h3 className="text-lg font-bold mb-1">{m.name}</h3>
                 <div className="mb-3">
                   <span className="text-2xl font-bold">{m.price}</span>
-                  <span className="text-sm text-gray-400 ml-1">/ month</span>
-                  <span className="block text-xs font-semibold text-[#9ABFB3] mt-0.5">
+                  <span className="text-sm text-[#113D33]/50 ml-1">/ month</span>
+                  <span className="block text-xs font-semibold text-[#4A776D] mt-0.5">
                     {m.valueLine}
                   </span>
                 </div>
-                <p className="text-sm text-gray-300 leading-relaxed mb-3">
+                <p className="text-sm text-[#113D33]/75 leading-relaxed mb-3">
                   {m.description}
                 </p>
                 <ul className="space-y-1.5 mb-3">
                   {m.highlights.map((h, idx) => (
                     <li
                       key={idx}
-                      className="flex items-center gap-2 text-xs text-gray-400"
+                      className="flex items-center gap-2 text-xs text-[#113D33]/65"
                     >
                       <Check className="w-3 h-3 text-[#4A776D] shrink-0" />
                       {h}
                     </li>
                   ))}
                 </ul>
-                <p className="text-[10px] text-[#9ABFB3] uppercase tracking-wider mb-4">
+                <p className="text-[10px] text-[#4A776D] uppercase tracking-wider mb-4">
                   {m.details}
                 </p>
                 {/* mt-auto bottom-aligns the CTAs across both cards; price
@@ -726,14 +726,14 @@ export default function MembershipPage() {
                 {nativeJoin ? (
                   <button
                     onClick={() => setJoinKey(m.key)}
-                    className="mt-auto block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
+                    className="mt-auto block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                   >
                     {m.cta}
                   </button>
                 ) : (
                   <a
                     href={m.joinUrl ?? "tel:+13034766150"}
-                    className="mt-auto block w-full rounded-full bg-white py-2.5 text-center text-sm font-semibold text-[#113D33] transition hover:bg-gray-100"
+                    className="mt-auto block w-full rounded-full bg-[#113D33] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                   >
                     {m.cta}
                   </a>
@@ -752,7 +752,7 @@ export default function MembershipPage() {
           <button
             aria-expanded={boostsOpen}
             onClick={() => setBoostsOpen(!boostsOpen)}
-            className="w-full flex items-center justify-center gap-2 text-sm md:text-base text-[#9ABFB3] hover:text-white transition py-3"
+            className="w-full flex items-center justify-center gap-2 text-sm md:text-base text-[#4A776D] hover:text-[#113D33] transition py-3"
           >
             <span className="font-semibold">
               Boosts &middot; Members Save 50%
@@ -774,8 +774,8 @@ export default function MembershipPage() {
                 className="overflow-hidden"
               >
                 <div className="grid md:grid-cols-2 gap-4 pt-4 pb-2">
-                  <div className="bg-white/5 rounded-xl p-4">
-                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                  <div className="bg-white rounded-xl shadow-sm p-4">
+                    <h4 className="text-xs font-semibold text-[#4A776D] uppercase tracking-wider mb-3">
                       Facial Boosts
                     </h4>
                     <ul className="space-y-2">
@@ -784,15 +784,15 @@ export default function MembershipPage() {
                           key={idx}
                           className="flex items-center justify-between text-sm"
                         >
-                          <span className="text-gray-300">
+                          <span className="text-[#113D33]/80">
                             {b.name}
                             {b.note && (
-                              <span className="text-gray-500 ml-1 text-xs">
+                              <span className="text-[#113D33]/50 ml-1 text-xs">
                                 {b.note}
                               </span>
                             )}
                           </span>
-                          <span className="font-semibold text-white">
+                          <span className="font-semibold text-[#113D33]">
                             {b.price}
                           </span>
                         </li>
@@ -800,8 +800,8 @@ export default function MembershipPage() {
                     </ul>
                   </div>
 
-                  <div className="bg-white/5 rounded-xl p-4">
-                    <h4 className="text-xs font-semibold text-[#9ABFB3] uppercase tracking-wider mb-3">
+                  <div className="bg-white rounded-xl shadow-sm p-4">
+                    <h4 className="text-xs font-semibold text-[#4A776D] uppercase tracking-wider mb-3">
                       Massage Boosts
                     </h4>
                     <ul className="space-y-2">
@@ -810,15 +810,15 @@ export default function MembershipPage() {
                           key={idx}
                           className="flex items-center justify-between text-sm"
                         >
-                          <span className="text-gray-300">
+                          <span className="text-[#113D33]/80">
                             {b.name}
                             {b.note && (
-                              <span className="text-gray-500 ml-1 text-xs">
+                              <span className="text-[#113D33]/50 ml-1 text-xs">
                                 {b.note}
                               </span>
                             )}
                           </span>
-                          <span className="font-semibold text-white">
+                          <span className="font-semibold text-[#113D33]">
                             {b.price}
                           </span>
                         </li>
@@ -826,7 +826,7 @@ export default function MembershipPage() {
                     </ul>
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 text-center pb-2">
+                <p className="text-xs text-[#113D33]/55 text-center pb-2">
                   Member prices shown. Drop-in rates are 2× listed price.
                 </p>
               </motion.div>
@@ -840,7 +840,7 @@ export default function MembershipPage() {
       ============================================================ */}
       <section className="px-4 sm:px-6 pt-12 md:pt-16 pb-6">
         <div className="text-center mb-7">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#9ABFB3] mb-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
             The Fine Print, Minus the Fine Print
           </p>
           <h2 className="text-2xl md:text-3xl font-semibold">
@@ -850,7 +850,7 @@ export default function MembershipPage() {
             width={140}
             strokeWidth={2.4}
             animate
-            className="text-[#A9D2C5] mx-auto block mt-4"
+            className="text-[#4A776D] mx-auto block mt-4"
           />
         </div>
 
@@ -860,14 +860,14 @@ export default function MembershipPage() {
             return (
               <div
                 key={idx}
-                className="rounded-xl bg-white/[0.06] border border-white/10 overflow-hidden"
+                className="rounded-xl bg-white shadow-sm overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
                   className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-sm font-semibold text-white/90">
+                  <span className="text-sm font-semibold text-[#113D33]/90">
                     {faq.q}
                   </span>
                   <motion.span
@@ -875,7 +875,7 @@ export default function MembershipPage() {
                     transition={{ duration: 0.2 }}
                     className="shrink-0"
                   >
-                    <ChevronDown className="w-4 h-4 text-[#9ABFB3]" />
+                    <ChevronDown className="w-4 h-4 text-[#4A776D]" />
                   </motion.span>
                 </button>
                 <AnimatePresence>
@@ -887,7 +887,7 @@ export default function MembershipPage() {
                       transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="px-4 pb-4 text-sm leading-relaxed text-gray-300">
+                      <p className="px-4 pb-4 text-sm leading-relaxed text-[#113D33]/75">
                         {faq.a}
                       </p>
                     </motion.div>
@@ -901,25 +901,25 @@ export default function MembershipPage() {
 
       {/* PHONE CTA BAR */}
       <section className="px-4 sm:px-6 py-10 md:py-12">
-        <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center border border-white/10">
-          <p className="text-sm text-[#9ABFB3] uppercase tracking-widest mb-2">
+        <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6 md:p-8 text-center">
+          <p className="text-sm text-[#4A776D] uppercase tracking-widest mb-2">
             Prefer to talk?
           </p>
           <a
             href="tel:+13034766150"
-            className="text-2xl md:text-3xl font-bold text-white hover:text-[#9ABFB3] transition inline-flex items-center gap-3"
+            className="text-2xl md:text-3xl font-bold text-[#113D33] hover:text-[#4A776D] transition inline-flex items-center gap-3"
           >
             <Phone className="w-6 h-6" />
             (303) 476-6150
           </a>
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="text-sm text-[#113D33]/60 mt-2">
             Call to learn more or sign up over the phone
           </p>
         </div>
       </section>
 
       {/* REVIEWS */}
-      <section className="bg-[#F7F4E9] px-6 py-16 md:py-20 text-[#113D33]">
+      <section className="bg-[#EBE4D1] px-6 py-16 md:py-20 text-[#113D33]">
         <GoogleReviews />
       </section>
 

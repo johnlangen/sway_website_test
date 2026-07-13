@@ -76,7 +76,7 @@ export default function LarimerGiftCardsPage() {
   ];
 
   return (
-    <div className="min-h-screen font-vance bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white">
+    <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
       {/* JSON-LD schema */}
       <script
         type="application/ld+json"
@@ -89,11 +89,11 @@ export default function LarimerGiftCardsPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
+          className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4"
         >
           Sway Larimer &middot; Denver, CO{" "}
           &middot;{" "}
-          <Link href="/locations" className="underline underline-offset-4 hover:text-white transition normal-case tracking-normal">
+          <Link href="/locations" className="underline underline-offset-4 hover:text-[#113D33] transition normal-case tracking-normal">
             Change location
           </Link>
         </motion.p>
@@ -102,14 +102,14 @@ export default function LarimerGiftCardsPage() {
           width={150}
           strokeWidth={2.2}
           animate
-          className="text-[#A9D2C5] mx-auto block mb-6"
+          className="text-[#4A776D] mx-auto block mb-6"
         />
 
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
+          className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight"
         >
           Give the Gift of Wellness
         </motion.h1>
@@ -118,7 +118,7 @@ export default function LarimerGiftCardsPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="text-base md:text-lg text-gray-300 max-w-xl mx-auto"
+          className="text-base md:text-lg text-[#113D33]/70 max-w-xl mx-auto"
         >
           Treat someone special to the Sway experience. Redeemable for massages,
           facials, and Remedy Room recovery right in Larimer Square.
@@ -157,7 +157,7 @@ export default function LarimerGiftCardsPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="max-w-lg mx-auto"
         >
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/30 border border-white/10">
+          <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-[#113D33]/15">
             <Image
               src="/assets/giftcard.jpg"
               alt="Sway Wellness Spa Gift Card"
@@ -173,14 +173,14 @@ export default function LarimerGiftCardsPage() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackGiftCardIntent("larimer_gc_hero")}
-              className="group relative inline-block w-full max-w-sm px-8 py-4 bg-white text-[#113D33] font-bold rounded-full text-lg hover:bg-gray-100 transition shadow-lg"
+              className="group relative inline-block w-full max-w-sm px-8 py-4 bg-[#113D33] text-white font-bold rounded-full text-lg hover:bg-[#0c2a23] transition shadow-lg"
             >
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
-                <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
+                <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
               </span>
               Purchase a Gift Card <span className="sr-only">(opens in new tab)</span>
             </a>
-            <p className="text-sm text-white/50 mt-3">
+            <p className="text-sm text-[#113D33]/60 mt-3">
               Delivered instantly via email
             </p>
           </div>
@@ -203,7 +203,7 @@ export default function LarimerGiftCardsPage() {
             width={140}
             strokeWidth={2.4}
             animate
-            className="text-[#A9D2C5] mx-auto block mb-10"
+            className="text-[#4A776D] mx-auto block mb-10"
           />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -214,13 +214,13 @@ export default function LarimerGiftCardsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.08 }}
-                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 text-center"
+                className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-5 text-center"
               >
-                <div className="flex justify-center mb-3 text-[#9ABFB3]">
+                <div className="flex justify-center mb-3 text-[#4A776D]">
                   {r.icon}
                 </div>
                 <h3 className="font-semibold text-sm mb-1">{r.title}</h3>
-                <p className="text-xs text-white/50">{r.description}</p>
+                <p className="text-xs text-[#113D33]/60">{r.description}</p>
               </motion.div>
             ))}
           </div>
@@ -228,7 +228,7 @@ export default function LarimerGiftCardsPage() {
       </section>
 
       {/* REVIEWS */}
-      <section className="bg-[#F7F4E9] px-6 py-16 md:py-20 text-[#113D33]">
+      <section className="bg-[#EBE4D1] px-6 py-16 md:py-20 text-[#113D33]">
         <GoogleReviews />
       </section>
 
@@ -288,34 +288,34 @@ export default function LarimerGiftCardsPage() {
 
       {/* BOTTOM CTA */}
       <section className="py-16 px-6 text-center">
-        <p className="text-gray-400 mb-6">
+        <p className="text-[#113D33]/70 mb-6">
           Questions? Call us at{" "}
-          <a href="tel:13034766150" className="underline text-white">
+          <a href="tel:13034766150" className="underline text-[#113D33] font-semibold">
             (303) 476-6150
           </a>
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-10">
           <Link
             href="/locations/denver-larimer"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             View Location
           </Link>
           <Link
             href="/locations/denver-larimer/book"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             Book Now
           </Link>
           <Link
             href="/locations/denver-larimer/offers"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             View Offers
           </Link>
         </div>
 
-        <p className="text-[9px] text-white/20 leading-relaxed max-w-xl mx-auto">
+        <p className="text-[9px] text-[#113D33]/35 leading-relaxed max-w-xl mx-auto">
           {disclaimer}
         </p>
       </section>

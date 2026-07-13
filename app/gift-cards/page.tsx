@@ -92,13 +92,13 @@ export default function GiftCardsHubPage() {
     setShowPage(true);
   }, []);
 
-  if (!showPage) return <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
+  if (!showPage) return <div className="min-h-screen bg-[#F7F4E9]" />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
+    <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* Hero */}
       <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
-        <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4">
+        <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
           Sway Wellness Spa
         </p>
 
@@ -106,13 +106,13 @@ export default function GiftCardsHubPage() {
           width={150}
           strokeWidth={2.2}
           animate
-          className="text-[#A9D2C5] mx-auto block mb-6"
+          className="text-[#4A776D] mx-auto block mb-6"
         />
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight">
           Gift Cards
         </h1>
-        <p className="text-base md:text-lg text-gray-300 max-w-xl mx-auto">
+        <p className="text-base md:text-lg text-[#113D33]/70 max-w-xl mx-auto">
           Give the ultimate wellness gift. Select your location to purchase a
           Sway gift card online.
         </p>
@@ -138,7 +138,7 @@ export default function GiftCardsHubPage() {
 
       {/* Location Cards */}
       <section className="px-4 sm:px-6 pt-10 pb-16">
-        <p className="text-center text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-6">
+        <p className="text-center text-sm uppercase tracking-[0.15em] text-[#4A776D] mb-6">
           Select your location
         </p>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -235,13 +235,13 @@ export default function GiftCardsHubPage() {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/membership"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             Explore Membership
           </Link>
           <Link
             href="/book"
-            className="text-sm underline underline-offset-4 text-gray-300 hover:text-white transition"
+            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
           >
             Book Now
           </Link>
