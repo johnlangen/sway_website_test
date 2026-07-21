@@ -109,9 +109,14 @@ export function ClubDesk() {
   const rows = useMemo(() => {
     const list = (data[tab] as any[]) || [];
     const needle = q.trim().toLowerCase();
+    // Loopz/Square gift card codes are 16 digits, but the last digit in the
+    // imported list is unreliable (Excel keeps 15 significant digits), so a
+    // 16-digit numeric search also matches on its first 15 digits.
+    const digits = needle.replace(/\D/g, "");
+    const gcNeedle = digits.length === 16 && digits === needle ? digits.slice(0, 15) : null;
     return list.filter((r) => {
       const hay = Object.values(r).join(" ").toLowerCase();
-      if (needle && !hay.includes(needle)) return false;
+      if (needle && !hay.includes(needle) && !(gcNeedle && hay.includes(gcNeedle))) return false;
       if (hideDone && data.done[`${tab}:${r.id}`]?.done) return false;
       if (tab === "daypasses" && passFilter !== "all" && r.type !== passFilter) return false;
       if (tab === "comps" && bucketFilter !== "all" && r.bucket !== bucketFilter) return false;
