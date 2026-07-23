@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 
 // Per-location footer contact info. The site is multi-location now, so the
 // footer must not show Larimer's address/phone/hours on every page. Larimer
-// info shows only on Larimer pages; the clubs show their own address + contact
-// email (no phone yet, hours TBD); brand-level pages (homepage, general
+// info shows only on Larimer pages; the clubs show their own address, phone +
+// contact email (hours TBD); brand-level pages (homepage, general
 // services) show a neutral "find a location" block.
 const FOOTER_LOCATIONS = {
   larimer: {
@@ -20,11 +20,13 @@ const FOOTER_LOCATIONS = {
   rino: {
     name: "Sway RiNo",
     address: ["3636 Blake St.", "Denver, CO 80205"],
+    phone: "+1 303-225-0480",
     email: "contact@swayrino.com",
   },
   "central-park": {
     name: "Sway Central Park",
     address: ["2271 Clinton St.", "Aurora, CO 80010"],
+    phone: "+1 303-293-5501",
     email: "contact@swaycentralpark.com",
   },
 } as const;

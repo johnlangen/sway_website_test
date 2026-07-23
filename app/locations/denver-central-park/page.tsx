@@ -18,6 +18,8 @@ const loc = {
   zip: "80010",
   neighborhood: "Near Central Park, Denver",
   email: "contact@swaycentralpark.com",
+  phone: "(303) 293-5501",
+  phoneDigits: "13032935501",
   heroImage: "/assets/centralpark1.jpg",
   bookHref: "/locations/denver-central-park/book",
   mapUrl: "https://www.google.com/maps?q=2271+Clinton+St,+Aurora,+CO+80010",
@@ -268,7 +270,12 @@ export default function SwayCentralParkPage() {
                 >
                   {loc.email}
                 </a>
-                <p className="text-xs opacity-60">A dedicated phone line is coming soon.</p>
+                <a
+                  href={`tel:+${loc.phoneDigits}`}
+                  className="block font-medium hover:underline"
+                >
+                  {loc.phone}
+                </a>
               </div>
             </div>
           </div>
