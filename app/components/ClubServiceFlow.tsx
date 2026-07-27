@@ -11,6 +11,7 @@ import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGrou
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import { getClubLocation, type ClubLocationKey } from "@/lib/clubLocations";
+import { myAccountUrl } from "@/lib/myAccount";
 // BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md): once the
 // club layouts switch to <HideFloatingWidgets attentiveOnly />, this flow must
 // hide the chat bubble itself (like ClubRemedyLoungeFlow does) so it doesn't
@@ -2037,6 +2038,24 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">Add another service</p>
               <Link href={remedyPath} className={secondaryBtn + " inline-flex items-center justify-center"}>Book the Remedy Lounge</Link>
               <button onClick={() => { setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
+            </div>
+
+            {/* Need to change this booking? Until now the only exit was a
+                generic "Questions?" mailto, so guests went hunting for a
+                reschedule button that doesn't exist on this site. Point them
+                at their Mindbody account, which has Reschedule and Cancel. */}
+            <div className="pt-6 border-t border-[#113D33]/10">
+              <p className="text-sm text-[#113D33]/65 leading-relaxed">
+                Need to change your time?{" "}
+                <a
+                  href={myAccountUrl(club.siteId)}
+                  className="text-[#4A776D] underline underline-offset-2 font-medium"
+                >
+                  Manage your reservation
+                </a>{" "}
+                in your Sway {club.label} account, or email us and we&apos;ll
+                move it for you.
+              </p>
             </div>
 
             <div className="pt-4 space-y-2">

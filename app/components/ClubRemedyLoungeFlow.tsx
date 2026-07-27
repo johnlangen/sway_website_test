@@ -14,6 +14,7 @@ import {
   type SaunaKey,
 } from "@/lib/clubLocations";
 import { parseWall, peakOverlap, type ApptInterval } from "@/lib/clubOccupancy";
+import { myAccountUrl } from "@/lib/myAccount";
 
 /* ---------------------------------------------
    Sway Wellness Club — Remedy Lounge booking flow
@@ -1905,6 +1906,38 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   >
                     Join the Club · Lounge included
                   </Link>
+                )}
+              </div>
+
+              {/* Manage-your-booking exit. The sauna caveat is not optional:
+                  a Lounge booking with saunas is up to THREE separate Mindbody
+                  appointments (Lounge + each sauna window), and cancelling the
+                  Lounge does NOT cancel the saunas. A guest who cancels one row
+                  in My Schedule and walks away leaves ghost sauna holds that
+                  block seats — the same cleanup the front desk is trained to do
+                  manually (docs/upswell-conversion/front-desk-lounge-script.md).
+                  Only shown when they actually booked a sauna. */}
+              <div className="mb-6 mx-auto max-w-md rounded-xl bg-[#113D33]/[0.04] border border-[#113D33]/10 p-4 text-left animate-fade-in-up" style={{ animationDelay: "350ms" }}>
+                <p className="text-sm text-[#113D33]/75 leading-relaxed">
+                  Need to change your time?{" "}
+                  <a
+                    href={myAccountUrl(club.siteId)}
+                    className="text-[#4A776D] underline underline-offset-2 font-semibold"
+                  >
+                    Manage your reservation
+                  </a>{" "}
+                  in your Sway {club.label} account.
+                </p>
+                {saunaChoices.some(Boolean) && (
+                  <p className="mt-2 text-sm text-[#113D33]/60 leading-relaxed">
+                    Heads up: your sauna time is booked as its own separate
+                    reservation, so please change or cancel both. If that gets
+                    fiddly, email us at{" "}
+                    <a href={`mailto:${contactEmail}`} className="underline underline-offset-2">
+                      {contactEmail}
+                    </a>{" "}
+                    and we&apos;ll sort it out.
+                  </p>
                 )}
               </div>
 

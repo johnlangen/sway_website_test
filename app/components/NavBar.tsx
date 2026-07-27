@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import SwayEasterEgg from "./SwayEasterEgg";
+import { myAccountHrefForPath } from "@/lib/myAccount";
 
 const NavBar = () => {
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
@@ -24,6 +25,13 @@ const NavBar = () => {
     : pathname?.startsWith("/locations/denver-central-park")
     ? "/locations/denver-central-park/book"
     : "/book";
+
+  // Location-aware "My Account". Each Sway is its own Mindbody site with its
+  // own logins, so on a location page we go straight to that studio's portal
+  // and everywhere else we hand off to the /my-account picker. Deliberately
+  // resolved from the pathname only, never from savedLocation — a stale
+  // localStorage value would silently sign a guest in at the wrong Sway.
+  const myAccountHref = myAccountHrefForPath(pathname);
 
   // Load saved location
   useEffect(() => {
@@ -306,6 +314,13 @@ const NavBar = () => {
             )}
 
             <a
+              href={myAccountHref}
+              className="hidden lg:inline-block text-white/85 hover:text-white text-sm font-vance whitespace-nowrap"
+            >
+              My Account
+            </a>
+
+            <a
               href={bookHref}
               className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
             >
@@ -394,6 +409,14 @@ const NavBar = () => {
           ))}
 
           <div className="w-12 border-t border-white/20" />
+
+          <a
+            href={myAccountHref}
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-white text-lg"
+          >
+            My Account
+          </a>
 
           <a
             href={bookHref}

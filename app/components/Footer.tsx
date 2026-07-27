@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { myAccountHrefForPath } from "@/lib/myAccount";
 
 // Per-location footer contact info. The site is multi-location now, so the
 // footer must not show Larimer's address/phone/hours on every page. Larimer
@@ -62,6 +63,11 @@ export default function Footer() {
           <FooterLink href="/date-night" text="Date Night" />
           <FooterLink href="/couples-spa" text="Couples Spa" />
           <FooterLink href="/locations" text="Locations" />
+          {/* Plain <a>: on a location page this resolves to that studio's
+              Mindbody portal (external), not an in-site route. */}
+          <a href={myAccountHrefForPath(pathname)} className="hover:underline">
+            My Account
+          </a>
           <FooterLink
             href="/locations/dallas/founding-membership"
             text="Knox/Henderson Founding Membership"
