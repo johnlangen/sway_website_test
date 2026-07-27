@@ -375,7 +375,7 @@ const faqJsonLd = {
       name: "Where should I park when visiting Sway Larimer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Larimer is located on Larimer Square in downtown Denver. We validate parking for the 1st hour at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). After the first hour, the rate is $2 every 10 minutes.",
+        text: "Sway Larimer is located on Larimer Square in downtown Denver. We validate parking for the 1st hour on weekdays at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). After the first hour, the rate is $2 every 10 minutes.",
       },
     },
     {

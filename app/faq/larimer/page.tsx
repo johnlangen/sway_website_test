@@ -121,8 +121,9 @@ export default function SwayLarimerFAQPage() {
                   Sway is located in <strong>Larimer Square</strong>, Denver’s most
                   historic block and a pedestrian-only street with no cars. We
                   validate parking for the 1st hour at the Larimer Square Parking
-                  Garage. After the first hour, you are responsible for parking. The
-                  rate after the first hour will be $2 every 10 minutes. <br />
+                  Garage <strong>on weekdays</strong>. After the first hour, you are
+                  responsible for parking. The rate after the first hour will be $2
+                  every 10 minutes. <br />
                   <strong>Parking Address:</strong> 1422 Market Street, Denver CO
                   80202
                 </p>
