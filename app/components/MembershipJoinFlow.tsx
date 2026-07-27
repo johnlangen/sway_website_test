@@ -557,8 +557,10 @@ export default function MembershipJoinFlow({
           currency: "USD",
         });
         // Google Ads main "All Purchases" conversion (same primary action the
-        // booking flows fire). No membership-specific secondary label exists
-        // yet — create one in Google Ads, then add it here.
+        // booking flows fire), plus the "Membership Signup" secondary action
+        // (created 2026-07-27, SUBSCRIBE_PAID, reporting only). Only ALL
+        // Purchases is primary, so bidding is unaffected and nothing is
+        // double-counted.
         // Larimer only: the clubs run no Google Ads campaigns, so club
         // membership purchases are GA4-only (same intentional gap as
         // remedy_lounge_booking_complete — see CLAUDE.md).
@@ -566,6 +568,11 @@ export default function MembershipJoinFlow({
         if (typeof gtag === "function" && !site) {
           gtag("event", "conversion", {
             send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA",
+            value: plan.price,
+            currency: "USD",
+          });
+          gtag("event", "conversion", {
+            send_to: "AW-17421817568/zgrgCKjdvtccEOCtr_NA",
             value: plan.price,
             currency: "USD",
           });
