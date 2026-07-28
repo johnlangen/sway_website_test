@@ -12,7 +12,7 @@ export const runtime = "nodejs";
  *   "lastName": "Doe",
  *   "email": "jane@example.com",
  *   "phone": "+15551234567",   // optional
- *   "location": "dallas",       // "dallas" | "georgetown"
+ *   "location": "knox-henderson",  // "knox-henderson" | "union-market"
  *   "source": "location-page"   // "location-page" | "founding-membership"
  * }
  *
@@ -167,7 +167,7 @@ export async function POST(req: Request) {
           `Source: ${sourceLabel}`,
           userAgent?.includes("Instagram") ? "Came in via Instagram" : null,
           "",
-          "See the full board: https://swaywellnessspa.com/locations/dallas/dashboard (use your access link)",
+          "See the full board: https://swaywellnessspa.com/locations/knox-henderson/dashboard (use your access link)",
         ]
           .filter(Boolean)
           .join("\n"),

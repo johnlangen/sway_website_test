@@ -69,7 +69,7 @@ export default function Footer() {
             My Account
           </a>
           <FooterLink
-            href="/locations/dallas/founding-membership"
+            href="/locations/knox-henderson/founding-membership"
             text="Knox/Henderson Founding Membership"
           />
           <FooterLink href="/press" text="Press" />

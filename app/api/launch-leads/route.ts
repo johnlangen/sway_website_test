@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { locationKeysFor } from "@/lib/locationNames";
 import { Redis } from "@upstash/redis";
 import { createHash } from "crypto";
 
@@ -22,7 +23,7 @@ export const runtime = "nodejs";
  * forms is NOT texting consent.
  */
 
-const ALLOWED_LOCATIONS = new Set(["dallas", "georgetown"]);
+const ALLOWED_LOCATIONS = new Set(["knox-henderson", "union-market"]);
 
 function getRedis(): Redis | null {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -64,7 +65,7 @@ export async function GET(req: Request) {
           return null;
         }
       })
-      .filter((e: any) => e && e.location === location)
+      .filter((e: any) => e && locationKeysFor(location).includes(e.location))
       .map((e: any) => ({
         firstName: e.firstName ?? "",
         lastName: e.lastName ?? "",

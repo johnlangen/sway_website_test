@@ -2,7 +2,7 @@ import Link from "next/link";
 import { LOCATION_NAMES } from "@/lib/locationNames";
 
 type GiveawayBannerProps = {
-  location: "dallas" | "georgetown";
+  location: "knox-henderson" | "union-market";
   /** Set on pages that already clear the fixed nav themselves. */
   offsetNav?: boolean;
 };

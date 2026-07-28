@@ -1,0 +1,38 @@
+import { Metadata } from "next";
+import OffersContent from "./OffersContent";
+
+export const metadata: Metadata = {
+  title: "Dallas Spa Offers & Founding Member Deals | Sway Wellness Spa",
+  description:
+    "Sway Knox/Henderson is coming soon. Founding Member offers and launch specials will be announced here. Check back soon!",
+  alternates: {
+    canonical: "https://swaywellnessspa.com/locations/knox-henderson/offers/",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://swaywellnessspa.com/locations/knox-henderson/offers/",
+    title: "Dallas Spa Offers & Founding Member Deals | Sway Wellness Spa",
+    description:
+      "Sway Knox/Henderson is coming soon. Founding Member offers and launch specials will be announced here. Check back soon!",
+    images: [
+      {
+        url: "/assets/OG/og-offers.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Dallas Spa Offers - Sway Wellness Spa",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dallas Spa Offers & Founding Member Deals | Sway Wellness Spa",
+    description:
+      "Sway Knox/Henderson is coming soon. Founding Member offers and launch specials will be announced here. Check back soon!",
+    images: ["/assets/OG/og-offers.jpg"],
+  },
+  robots: { index: false, follow: true },
+};
+
+export default function Page() {
+  return <OffersContent />;
+}

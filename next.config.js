@@ -15,6 +15,22 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // Location slug renames (2026-07-28). Dallas -> Knox/Henderson and the
+      // DC site relocating from Georgetown to Union Market. Wildcards cover
+      // every child route (membership, founding-membership, enter-to-win,
+      // offers, gift-cards, book, dashboard). Keep these permanently: the
+      // old /locations/georgetown/ URL held ~1,565 impressions/90d and
+      // shared links are already in circulation.
+      {
+        source: "/locations/dallas/:path*",
+        destination: "/locations/knox-henderson/:path*",
+        permanent: true,
+      },
+      {
+        source: "/locations/georgetown/:path*",
+        destination: "/locations/union-market/:path*",
+        permanent: true,
+      },
       {
         source: "/memberships",
         destination: "/membership/",

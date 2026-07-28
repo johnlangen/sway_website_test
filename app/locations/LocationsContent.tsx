@@ -78,8 +78,8 @@ const LOCATIONS: Location[] = [
     imageUrl: "/assets/centralpark-card.jpg",
   },
   {
-    slug: "dallas",
-    name: LOCATION_NAMES.dallas,
+    slug: "knox-henderson",
+    name: LOCATION_NAMES["knox-henderson"],
     city: "Dallas",
     state: "TX",
     status: "coming-soon",
@@ -88,8 +88,8 @@ const LOCATIONS: Location[] = [
     imageUrl: "/assets/SWAY.jpg",
   },
   {
-    slug: "georgetown",
-    name: LOCATION_NAMES.georgetown,
+    slug: "union-market",
+    name: LOCATION_NAMES["union-market"],
     city: "Washington",
     state: "DC",
     status: "coming-soon",

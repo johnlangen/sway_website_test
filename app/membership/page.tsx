@@ -45,22 +45,22 @@ const locations = [
     href: "/locations/denver-central-park/membership",
   },
   {
-    slug: "dallas",
+    slug: "knox-henderson",
     name: "Sway Knox/Henderson",
     city: "Dallas",
     state: "TX",
     status: "coming-soon" as const,
     image: "/assets/SWAY.jpg",
-    href: "/locations/dallas/founding-membership",
+    href: "/locations/knox-henderson/founding-membership",
   },
   {
-    slug: "georgetown",
+    slug: "union-market",
     name: "Sway Union Market",
     city: "Washington",
     state: "DC",
     status: "coming-soon" as const,
     image: "/assets/SWAY.jpg",
-    href: "/locations/georgetown",
+    href: "/locations/union-market",
   },
 ];
 

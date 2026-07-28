@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { locationKeysFor } from "@/lib/locationNames";
 import { Redis } from "@upstash/redis";
 
 export const runtime = "nodejs";
@@ -56,7 +57,7 @@ export async function GET(req: Request) {
     // Filter by location if specified
     if (locationFilter) {
       entries = entries.filter(
-        (e: any) => e.location === locationFilter
+        (e: any) => locationKeysFor(locationFilter).includes(e.location)
       );
     }
 

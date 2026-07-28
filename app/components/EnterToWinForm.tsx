@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Instagram, Sparkles } from "lucide-react";
 
 type EnterToWinFormProps = {
-  location?: "dallas" | "georgetown";
+  location?: "knox-henderson" | "union-market";
   /** Used so we can filter contest entries in Upstash */
   source?: string;
 };
@@ -32,8 +32,8 @@ const INSTAGRAM_URL = "https://www.instagram.com/swaywellnessclub/";
 const CONSENT_VERSION = "v3-2026-07-27";
 
 const BRAND_BY_LOCATION: Record<NonNullable<EnterToWinFormProps["location"]>, string> = {
-  dallas: "Sway Knox/Henderson",
-  georgetown: "Sway Union Market",
+  "knox-henderson": "Sway Knox/Henderson",
+  "union-market": "Sway Union Market",
 };
 
 function consentText(brand: string): string {
@@ -41,7 +41,7 @@ function consentText(brand: string): string {
 }
 
 export default function EnterToWinForm({
-  location = "dallas",
+  location = "knox-henderson",
   source = "enter-to-win",
 }: EnterToWinFormProps) {
   const brand = BRAND_BY_LOCATION[location];

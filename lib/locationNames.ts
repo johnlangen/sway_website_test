@@ -14,18 +14,37 @@
  * Resolving the name from the slug at render time makes any future rename
  * self-healing: change it here and stale caches correct themselves.
  *
- * NOTE: slugs are routes and lead-data keys. Renaming a SLUG is a breaking
- * change (see gotcha: DC is branded Union Market but its slug stays
- * "georgetown" on purpose). Renaming a NAME here is always safe.
+ * NOTE: slugs are routes AND lead-data keys, so renaming one is a breaking
+ * change. Renaming a NAME here is always safe.
  */
 
 export const LOCATION_NAMES: Record<string, string> = {
   "denver-larimer": "Sway Larimer",
   "denver-rino": "Sway RiNo",
   "denver-central-park": "Sway Central Park",
-  dallas: "Sway Knox/Henderson",
-  georgetown: "Sway Union Market",
+  "knox-henderson": "Sway Knox/Henderson",
+  "union-market": "Sway Union Market",
 };
+
+/**
+ * Slugs were renamed on 2026-07-28 (dallas -> knox-henderson, georgetown ->
+ * union-market). Lead records already in Upstash carry the OLD value in their
+ * `location` field, and those rows are deliberately NOT rewritten: mutating
+ * production lead data in place risks losing entries for no real gain.
+ *
+ * Read paths must therefore match a location against every key it has ever
+ * had. New submissions write the current slug, so this map only ever needs
+ * to grow if a slug changes again.
+ */
+export const LOCATION_KEY_ALIASES: Record<string, string[]> = {
+  "knox-henderson": ["knox-henderson", "dallas"],
+  "union-market": ["union-market", "georgetown"],
+};
+
+/** Every `location` value that should count as this location. */
+export function locationKeysFor(slug: string): string[] {
+  return LOCATION_KEY_ALIASES[slug] ?? [slug];
+}
 
 /**
  * Display name for a slug. Falls back to the passed-in name (e.g. a cached

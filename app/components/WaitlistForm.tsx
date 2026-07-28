@@ -9,7 +9,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 type WaitlistFormProps = {
-  location: "dallas" | "georgetown";
+  location: "knox-henderson" | "union-market";
   source?: "location-page" | "founding-membership";
   /** Compact = inline on location page hero, full = founding membership page */
   variant?: "compact" | "full";
@@ -87,7 +87,7 @@ export default function WaitlistForm({
         <h3 className="text-xl font-bold mb-2">You&apos;re on the list!</h3>
         <p className={variant === "compact" ? "text-sm opacity-80" : "text-sm opacity-70"}>
           We&apos;ll notify you when founding memberships are ready.
-          {location === "dallas"
+          {location === "knox-henderson"
             ? " See you in Knox/Henderson."
             : " See you in Union Market."}
         </p>

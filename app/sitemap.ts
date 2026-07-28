@@ -92,20 +92,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Union Market location
      ------------------------------------------------------------------ */
   const georgetownPages = [
-    { url: `${base}/locations/georgetown/`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/georgetown/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/georgetown/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/georgetown/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${base}/locations/union-market/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/union-market/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
+    { url: `${base}/locations/union-market/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/union-market/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------
      Dallas location
      ------------------------------------------------------------------ */
   const dallasPages = [
-    { url: `${base}/locations/dallas/`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/dallas/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/dallas/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/dallas/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${base}/locations/knox-henderson/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/knox-henderson/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
+    { url: `${base}/locations/knox-henderson/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/knox-henderson/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------

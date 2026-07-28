@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { locationKeysFor } from "@/lib/locationNames";
 import { Redis } from "@upstash/redis";
 import { createHash } from "crypto";
 
@@ -8,7 +9,7 @@ export const runtime = "nodejs";
  * GET /api/dallas-dashboard?key=DALLAS_DASHBOARD_SECRET
  *
  * Dallas-only lead feed for the owner dashboard at
- * /locations/dallas/dashboard. Deliberately scoped:
+ * /locations/knox-henderson/dashboard. Deliberately scoped:
  *  - its own secret (NOT the master WAITLIST_ADMIN_SECRET, which
  *    exposes every location)
  *  - Dallas entries only
@@ -47,7 +48,7 @@ export async function GET(req: Request) {
           return null;
         }
       })
-      .filter((e: any) => e && e.location === "dallas")
+      .filter((e: any) => e && locationKeysFor("knox-henderson").includes(e.location))
       .map((e: any) => ({
         // No contact info on purpose: outreach runs through the campaign,
         // not ad-hoc from the dashboard. John's master waitlist link keeps

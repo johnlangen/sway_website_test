@@ -22,8 +22,8 @@
 
 export const WAITLIST_CONSENT_VERSION = "v4-2026-07-27";
 
-export function waitlistConsentText(location: "dallas" | "georgetown"): string {
-  const brand = location === "dallas" ? "Sway Knox/Henderson" : "Sway Union Market";
+export function waitlistConsentText(location: "knox-henderson" | "union-market"): string {
+  const brand = location === "knox-henderson" ? "Sway Knox/Henderson" : "Sway Union Market";
   return (
     `By signing up, you agree to receive recurring automated marketing emails and ` +
     `text messages from ${brand} at the email and number you provide. Consent is ` +
