@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import InstagramCallout from "@/app/components/InstagramCallout";
+import GiveawayBanner from "@/app/components/GiveawayBanner";
 import {
   Check,
   ChevronDown,
@@ -414,22 +415,7 @@ export default function DallasFoundingMembershipPage() {
       />
 
       {/* ====== ENTER TO WIN BANNER (sticky-feel above hero) ====== */}
-      <a
-        href="/locations/dallas/enter-to-win"
-        className="block w-full bg-[#113D33] text-white hover:opacity-95 transition pt-20 md:pt-24"
-      >
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-center gap-3 text-center flex-wrap">
-          <span className="inline-flex items-center gap-1.5 text-[10px] md:text-xs uppercase tracking-[0.2em] bg-white/10 border border-white/20 rounded-full px-2.5 py-1">
-            <span>✦</span> Giveaway
-          </span>
-          <span className="text-sm md:text-base font-semibold">
-            Win a year of wellness at Sway Knox/Henderson
-          </span>
-          <span className="text-xs md:text-sm opacity-80 underline underline-offset-2">
-            Enter free &rarr;
-          </span>
-        </div>
-      </a>
+      <GiveawayBanner location="dallas" />
 
       {/* ========================================================
           SECTION 1 — HERO

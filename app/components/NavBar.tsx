@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import SwayEasterEgg from "./SwayEasterEgg";
 import { myAccountHrefForPath } from "@/lib/myAccount";
+import { locationDisplayName } from "@/lib/locationNames";
 
 const NavBar = () => {
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
@@ -301,7 +302,10 @@ const NavBar = () => {
             {savedLocation ? (
               <div className="hidden md:flex items-center gap-2 text-white font-vance text-sm max-w-[160px] lg:max-w-[200px]">
                 <Link href={`/locations/${savedLocation.slug}`} className="truncate">
-                  {savedLocation.name}
+                  {/* Resolve from slug, not the cached name — a guest who
+                      saved this location before a rebrand would otherwise
+                      keep seeing the old name forever. */}
+                  {locationDisplayName(savedLocation.slug, savedLocation.name)}
                 </Link>
                 <Link href="/locations" className="underline text-xs opacity-80 shrink-0">
                   Change
@@ -352,7 +356,7 @@ const NavBar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-semibold"
               >
-                📍 {savedLocation.name}
+                📍 {locationDisplayName(savedLocation.slug, savedLocation.name)}
               </Link>
               <Link
                 href="/locations"

@@ -22,15 +22,30 @@ const INSTAGRAM_URL = "https://www.instagram.com/swaywellnessclub/";
  *
  * v1 named the sender "Sway Dallas"; v2 renames it to "Sway Knox/Henderson"
  * (same entity, same scope of consent).
+ *
+ * v3: the sender name is now derived from `location`. Before v3 the string
+ * was a module-level constant hardcoded to "Sway Knox/Henderson", so DC
+ * entrants were consenting to messages from the Dallas entity. Any entry
+ * with consentVersion v1/v2 and location=georgetown carries the wrong
+ * sender name and should be re-consented before being texted.
  */
-const CONSENT_VERSION = "v2-2026-07-13";
-const CONSENT_TEXT =
-  "By clicking Enter to Win, you agree to receive recurring automated marketing emails and text messages from Sway Knox/Henderson at the email and number you provide. Consent is not a condition of entry. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. See our Terms and Privacy Policy.";
+const CONSENT_VERSION = "v3-2026-07-27";
+
+const BRAND_BY_LOCATION: Record<NonNullable<EnterToWinFormProps["location"]>, string> = {
+  dallas: "Sway Knox/Henderson",
+  georgetown: "Sway Union Market",
+};
+
+function consentText(brand: string): string {
+  return `By clicking Enter to Win, you agree to receive recurring automated marketing emails and text messages from ${brand} at the email and number you provide. Consent is not a condition of entry. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. See our Terms and Privacy Policy.`;
+}
 
 export default function EnterToWinForm({
   location = "dallas",
   source = "enter-to-win",
 }: EnterToWinFormProps) {
+  const brand = BRAND_BY_LOCATION[location];
+  const CONSENT_TEXT = consentText(brand);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -106,7 +121,7 @@ export default function EnterToWinForm({
           You&apos;re entered!
         </h3>
         <p className="text-base text-[#113D33]/70 mb-6 max-w-md mx-auto">
-          We&apos;ll email the winner after Sway Knox/Henderson opens. Good luck.
+          We&apos;ll email the winner after {brand} opens. Good luck.
         </p>
 
         {!igBonus && (
@@ -136,7 +151,7 @@ export default function EnterToWinForm({
               Bonus entry locked in.
             </p>
             <p className="text-sm text-[#113D33]/70 mb-4">
-              Thanks for following @swaywellnessclub. See you at Sway Knox/Henderson.
+              Thanks for following @swaywellnessclub. See you at {brand}.
             </p>
             <a
               href={INSTAGRAM_URL}
@@ -271,12 +286,17 @@ export default function EnterToWinForm({
 
       {/* TCPA + CAN-SPAM bundled consent disclosure — sits directly above
           the submit button so the button click is the express consent. */}
+      {/* Rendered FROM the same CONSENT_TEXT that gets stored on the entry,
+          so the disclosure shown can never drift from the audit trail. It
+          did drift once: after the v2 Dallas rename the stored text said
+          "Sway Knox/Henderson" while this paragraph still hardcoded "Sway
+          Dallas". Do not re-hardcode this copy. */}
       <p className="text-[11px] text-[#113D33]/65 leading-relaxed">
-        By clicking <strong>Enter to Win</strong>, you agree to receive
-        recurring automated marketing emails and text messages from Sway
-        Dallas at the email and number you provide. Consent is not a
-        condition of entry. Reply HELP for help and STOP to cancel. Msg
-        frequency varies. Msg and data rates may apply. See our{" "}
+        By clicking <strong>Enter to Win</strong>
+        {CONSENT_TEXT.slice("By clicking Enter to Win".length).replace(
+          " See our Terms and Privacy Policy.",
+          " See our "
+        )}
         <a
           href="/terms-and-conditions"
           className="underline underline-offset-2 hover:text-[#113D33]"

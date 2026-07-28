@@ -6,6 +6,7 @@ import { ReviewBadge } from "@/app/components/GoogleReviews";
 import GoogleReviews from "@/app/components/GoogleReviews";
 import WaitlistForm from "@/app/components/WaitlistForm";
 import InstagramCallout from "@/app/components/InstagramCallout";
+import GiveawayBanner from "@/app/components/GiveawayBanner";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -18,22 +19,7 @@ export default function SwayDallasComingSoonPage() {
   return (
     <div className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
       {/* ====== ENTER TO WIN BANNER ====== */}
-      <Link
-        href="/locations/dallas/enter-to-win"
-        className="block w-full bg-[#113D33] text-white hover:opacity-95 transition pt-20 md:pt-24"
-      >
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-center gap-3 text-center flex-wrap">
-          <span className="inline-flex items-center gap-1.5 text-[10px] md:text-xs uppercase tracking-[0.2em] bg-white/10 border border-white/20 rounded-full px-2.5 py-1">
-            <span>✦</span> Giveaway
-          </span>
-          <span className="text-sm md:text-base font-semibold">
-            Win a year of wellness at Sway Knox/Henderson
-          </span>
-          <span className="text-xs md:text-sm opacity-80 underline underline-offset-2">
-            Enter free &rarr;
-          </span>
-        </div>
-      </Link>
+      <GiveawayBanner location="dallas" />
 
       {/* ====== HERO ====== */}
       <section className="px-6 pt-10 md:pt-14 pb-12">

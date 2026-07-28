@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { LOCATION_NAMES } from "@/lib/locationNames";
 
 // --- Dynamic imports for react-leaflet (client-only) ---
 const MapContainer: any = dynamic(
@@ -39,7 +40,7 @@ export type Location = {
 const LOCATIONS: Location[] = [
   {
     slug: "denver-larimer",
-    name: "Sway Larimer",
+    name: LOCATION_NAMES["denver-larimer"],
     city: "Denver",
     state: "CO",
     status: "open",
@@ -56,7 +57,7 @@ const LOCATIONS: Location[] = [
   },
   {
     slug: "denver-rino",
-    name: "Sway RiNo",
+    name: LOCATION_NAMES["denver-rino"],
     city: "Denver",
     state: "CO",
     status: "open",
@@ -67,7 +68,7 @@ const LOCATIONS: Location[] = [
   },
   {
     slug: "denver-central-park",
-    name: "Sway Central Park",
+    name: LOCATION_NAMES["denver-central-park"],
     city: "Aurora",
     state: "CO",
     status: "open",
@@ -78,7 +79,7 @@ const LOCATIONS: Location[] = [
   },
   {
     slug: "dallas",
-    name: "Sway Knox/Henderson",
+    name: LOCATION_NAMES.dallas,
     city: "Dallas",
     state: "TX",
     status: "coming-soon",
@@ -88,7 +89,7 @@ const LOCATIONS: Location[] = [
   },
   {
     slug: "georgetown",
-    name: "Sway Union Market",
+    name: LOCATION_NAMES.georgetown,
     city: "Washington",
     state: "DC",
     status: "coming-soon",

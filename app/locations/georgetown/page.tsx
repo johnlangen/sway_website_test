@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 import GoogleReviews from "@/app/components/GoogleReviews";
 import WaitlistForm from "@/app/components/WaitlistForm";
+import GiveawayBanner from "@/app/components/GiveawayBanner";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -16,8 +17,12 @@ const fadeUp = {
 export default function SwayGeorgetownComingSoonPage() {
   return (
     <div className="bg-[#F7F4E9] text-[#113D33] min-h-screen font-vance">
+      {/* ====== ENTER TO WIN BANNER ====== */}
+      <GiveawayBanner location="georgetown" />
+
       {/* ====== HERO ====== */}
-      <section className="px-6 pt-28 md:pt-36 pb-12">
+      {/* Reduced top padding: the banner above now clears the fixed nav. */}
+      <section className="px-6 pt-10 md:pt-14 pb-12">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <motion.div {...fadeUp}>
             <h1 className="text-3xl md:text-5xl font-bold">Sway Union Market</h1>

@@ -19,6 +19,7 @@ import {
   ArrowDown,
   Trophy,
 } from "lucide-react";
+import GiveawayBanner from "@/app/components/GiveawayBanner";
 
 /* ------------------------------------------------------------------
    ANIMATED COUNTER HOOK
@@ -410,6 +411,9 @@ export default function GeorgetownFoundingMembershipPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+
+      {/* ====== ENTER TO WIN BANNER (sticky-feel above hero) ====== */}
+      <GiveawayBanner location="georgetown" />
 
       {/* ========================================================
           SECTION 1 — HERO
