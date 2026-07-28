@@ -55,7 +55,7 @@ const locations = [
   },
   {
     slug: "georgetown",
-    name: "Sway Georgetown",
+    name: "Sway Union Market",
     city: "Washington",
     state: "DC",
     status: "coming-soon" as const,
@@ -137,7 +137,7 @@ export default function MembershipHubPage() {
           ($99/month): 4 monthly recovery circuit visits with traditional sauna,
           cold plunge, compression therapy, and LED light therapy. All members
           enjoy 50% off boosts, private lounge access, and rollover credits.
-          Available at Denver Larimer (now open), Dallas TX and Georgetown DC
+          Available at Denver Larimer (now open), Dallas TX and Union Market DC
           (coming soon). Voted #4 Best Day Spa in America by USA Today 10Best.
           Join at swaywellnessspa.com/membership.
         </p>

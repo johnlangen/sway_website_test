@@ -51,7 +51,7 @@ const locations = [
   },
   {
     slug: "georgetown",
-    name: "Sway Georgetown",
+    name: "Sway Union Market",
     city: "Washington",
     state: "DC",
     status: "coming-soon" as const,

@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 },
                 {
                   "@type": "City",
-                  name: "Georgetown",
+                  name: "Union Market",
                   containedInPlace: {
                     "@type": "State",
                     name: "Washington, D.C.",

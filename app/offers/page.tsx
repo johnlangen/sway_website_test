@@ -35,7 +35,7 @@ const locations = [
   },
   {
     slug: "georgetown",
-    name: "Sway Georgetown",
+    name: "Sway Union Market",
     city: "Washington",
     state: "DC",
     status: "coming-soon" as const,
@@ -106,7 +106,7 @@ export default function OffersPage() {
 
         <p className="sr-only">
           Sway Wellness Spa offers and pricing across 3 locations: Denver
-          Larimer (now open), Dallas TX (coming soon), and Georgetown Washington
+          Larimer (now open), Dallas TX (coming soon), and Union Market Washington
           DC (coming soon). Denver first-visit offers (locals only): code FTVO40
           for $40 off your first massage, facial, or 60-minute Aescape robot
           massage at any tier (Monday through Friday, locals only); code FTVORR

@@ -287,7 +287,7 @@ export default function SwayDallasComingSoonPage() {
               href="/locations/georgetown"
               className="text-sm text-[#4A776D] font-semibold hover:underline"
             >
-              Georgetown, DC (Coming Soon) &rarr;
+              Union Market, DC (Coming Soon) &rarr;
             </Link>
           </div>
         </div>

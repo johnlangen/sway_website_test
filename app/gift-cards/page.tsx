@@ -55,7 +55,7 @@ const locations = [
   },
   {
     slug: "georgetown",
-    name: "Sway Georgetown",
+    name: "Sway Union Market",
     city: "Washington",
     state: "DC",
     status: "coming-soon" as const,
@@ -133,7 +133,7 @@ export default function GiftCardsHubPage() {
           massage, boost add-ons, and retail products. Gift cards never expire
           and have no dormancy fees. Available at 5 locations: Denver Larimer,
           Denver RiNo, and Central Park Aurora CO (all now open), plus Dallas
-          TX and Georgetown Washington DC (coming soon). Sway was voted #4 Best
+          TX and Union Market Washington DC (coming soon). Sway was voted #4 Best
           Day Spa in America by USA Today 10Best. Purchase online at
           swaywellnessspa.com/gift-cards.
         </p>

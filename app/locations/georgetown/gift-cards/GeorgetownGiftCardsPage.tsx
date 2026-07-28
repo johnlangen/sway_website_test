@@ -12,15 +12,15 @@ export default function GeorgetownGiftCardsPage() {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
           { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations/" },
-          { "@type": "ListItem", position: 3, name: "Georgetown", item: "https://swaywellnessspa.com/locations/georgetown/" },
+          { "@type": "ListItem", position: 3, name: "Union Market", item: "https://swaywellnessspa.com/locations/georgetown/" },
           { "@type": "ListItem", position: 4, name: "Gift Cards", item: "https://swaywellnessspa.com/locations/georgetown/gift-cards/" },
         ],
       },
       {
         "@type": "Product",
-        name: "Sway Georgetown Spa Gift Cards",
+        name: "Sway Union Market Spa Gift Cards",
         description:
-          "Wellness gift cards for Sway Georgetown. Redeemable for massage, facials, and Remedy Room sessions once the Washington, DC location opens.",
+          "Wellness gift cards for Sway Union Market. Redeemable for massage, facials, and Remedy Room sessions once the Washington, DC location opens.",
         image: "/assets/OG/og-gift-cards.jpg",
         brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       },
@@ -53,10 +53,10 @@ export default function GeorgetownGiftCardsPage() {
         className="bg-white rounded-2xl shadow-md p-8 md:p-12 max-w-xl w-full text-center"
       >
         <h2 className="text-lg md:text-xl font-vance font-bold mb-3 text-[#113D33]">
-          Wellness Gifts for Georgetown
+          Wellness Gifts for Union Market
         </h2>
         <p className="text-sm md:text-base font-vance text-gray-800 mb-6">
-          Our <strong>Georgetown, DC</strong> location is preparing to open. Sway
+          Our <strong>Union Market, DC</strong> location is preparing to open. Sway
           gift cards for massage, facials, and Remedy Room sessions will be
           redeemable here once doors open. Perfect for spa days in the heart of Washington, DC.
         </p>

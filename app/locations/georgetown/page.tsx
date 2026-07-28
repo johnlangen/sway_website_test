@@ -20,7 +20,7 @@ export default function SwayGeorgetownComingSoonPage() {
       <section className="px-6 pt-28 md:pt-36 pb-12">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <motion.div {...fadeUp}>
-            <h1 className="text-3xl md:text-5xl font-bold">Sway Georgetown</h1>
+            <h1 className="text-3xl md:text-5xl font-bold">Sway Union Market</h1>
             <div className="mt-3 text-lg">
               <div>Washington, DC</div>
               <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -34,7 +34,7 @@ export default function SwayGeorgetownComingSoonPage() {
               </div>
 
               <p className="mt-4 max-w-xl leading-relaxed">
-                <strong>Sway Georgetown</strong> is bringing our award-winning wellness experience to
+                <strong>Sway Union Market</strong> is bringing our award-winning wellness experience to
                 Washington, DC. Expect targeted facials, deeply effective massage, and the{" "}
                 <strong>Remedy Room</strong> recovery circuit with sauna, cold plunge,
                 LED light therapy, and lymphatic drainage compression boots.
@@ -72,7 +72,7 @@ export default function SwayGeorgetownComingSoonPage() {
       <section className="px-6 py-16 bg-white">
         <div className="max-w-6xl mx-auto">
           <motion.h2 {...fadeUp} className="text-2xl md:text-3xl font-bold text-center mb-10">
-            What&apos;s Coming to Sway Georgetown
+            What&apos;s Coming to Sway Union Market
           </motion.h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -127,7 +127,7 @@ export default function SwayGeorgetownComingSoonPage() {
               Four tiers · <strong>Essential</strong>, <strong>Premier</strong>, <strong>Ultimate</strong>, and <strong>The Remedy Room</strong>
             </p>
             <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
-              Founding members will receive exclusive pricing and priority booking before Sway Georgetown
+              Founding members will receive exclusive pricing and priority booking before Sway Union Market
               opens. Join the waitlist to be notified when founding memberships go live.
             </p>
 
@@ -174,18 +174,18 @@ export default function SwayGeorgetownComingSoonPage() {
       <section className="px-6 py-16">
         <div className="max-w-4xl mx-auto">
           <motion.div {...fadeUp}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Georgetown: DC&apos;s Wellness Destination</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Union Market: DC&apos;s Wellness Destination</h2>
             <p className="leading-relaxed mb-4">
-              Sway Georgetown will call one of Washington, DC&apos;s most iconic neighborhoods home.
-              Known for its cobblestone streets, waterfront dining, and vibrant mix of boutiques and
-              fitness studios, Georgetown is the ideal setting for a modern wellness club. Whether
-              you live in Georgetown, Dupont Circle, Foggy Bottom, or the greater DC metro area,
+              Sway Union Market will call one of Washington, DC&apos;s fastest-growing neighborhoods home.
+              Known for its food halls, converted warehouses, and a vibrant mix of makers, restaurants,
+              and fitness studios, Union Market is the ideal setting for a modern wellness club. Whether
+              you live in Union Market, NoMa, Ivy City, Capitol Hill, or the greater DC metro area,
               Sway will be a short trip from wherever you are.
             </p>
             <p className="leading-relaxed">
-              We chose Georgetown because it mirrors the Sway philosophy: a neighborhood that values
+              We chose Union Market because it mirrors the Sway philosophy: a neighborhood that values
               quality experiences, community, and balance. From post-workout recovery sessions to
-              monthly facial memberships, Sway Georgetown will be the wellness ritual the nation&apos;s
+              monthly facial memberships, Sway Union Market will be the wellness ritual the nation&apos;s
               capital has been waiting for.
             </p>
           </motion.div>
@@ -202,23 +202,23 @@ export default function SwayGeorgetownComingSoonPage() {
           <div className="space-y-3">
             {[
               {
-                q: "When is Sway Georgetown opening?",
-                a: "Sway Georgetown is coming soon to Washington, DC. The exact opening date will be announced here. Sign up as a Founding Member to get notified first and receive exclusive opening-day perks.",
+                q: "When is Sway Union Market opening?",
+                a: "Sway Union Market is coming soon to Washington, DC. The exact opening date will be announced here. Sign up as a Founding Member to get notified first and receive exclusive opening-day perks.",
               },
               {
-                q: "Where in DC will Sway Georgetown be located?",
-                a: "Sway Georgetown will be located in the Georgetown neighborhood of Washington, DC. The exact address will be announced closer to opening. The location will be easily accessible from Dupont Circle, Foggy Bottom, and the broader DC metro area.",
+                q: "Where in DC will Sway Union Market be located?",
+                a: "Sway Union Market will be located in the Union Market district of Washington, DC. The exact address will be announced closer to opening. The location will be easily accessible from NoMa, Ivy City, Capitol Hill, and the broader DC metro area.",
               },
               {
-                q: "What treatments will Sway Georgetown offer?",
-                a: "Sway Georgetown will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
+                q: "What treatments will Sway Union Market offer?",
+                a: "Sway Union Market will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
               },
               {
-                q: "Does Sway Georgetown have a sauna and cold plunge?",
-                a: "Yes. The Remedy Room at Sway Georgetown will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+                q: "Does Sway Union Market have a sauna and cold plunge?",
+                a: "Yes. The Remedy Room at Sway Union Market will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or get unlimited access through a Remedy Room membership.",
               },
               {
-                q: "How much are Sway Georgetown memberships?",
+                q: "How much are Sway Union Market memberships?",
                 a: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
               {
@@ -226,8 +226,8 @@ export default function SwayGeorgetownComingSoonPage() {
                 a: "Yes. Visit our Founding Membership page to join the waitlist. You'll be the first to know when founding memberships go live and will get priority booking and VIP perks on opening day.",
               },
               {
-                q: "Are Sway gift cards valid at the Georgetown location?",
-                a: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Georgetown once we open in DC.",
+                q: "Are Sway gift cards valid at the Union Market location?",
+                a: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Union Market once we open in DC.",
               },
             ].map((faq, i) => (
               <motion.details
@@ -275,7 +275,7 @@ export default function SwayGeorgetownComingSoonPage() {
           </motion.h2>
           <motion.p {...fadeUp} className="mb-6 opacity-80">
             Join the waitlist for exclusive founding member pricing and VIP access when Sway
-            Georgetown opens in Washington, DC.
+            Union Market opens in Washington, DC.
           </motion.p>
           <motion.div {...fadeUp}>
             <Link

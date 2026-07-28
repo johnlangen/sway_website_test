@@ -10,7 +10,7 @@ export default function BookingGeorgetownPage() {
       </h1>
 
       <p className="mb-8 max-w-2xl text-[#113D33]/80 text-base leading-relaxed">
-        We’re preparing <strong>Sway Georgetown</strong> to open soon. Online booking
+        We’re preparing <strong>Sway Union Market</strong> to open soon. Online booking
         isn’t available yet, but you can explore our treatments and learn more
         about what’s on the way to Washington, DC.
       </p>
@@ -33,9 +33,9 @@ export default function BookingGeorgetownPage() {
           .
         </p>
         <p className="mt-3">
-          More about Georgetown:{" "}
+          More about Union Market:{" "}
           <Link href="/locations/georgetown" className="underline">
-            Sway Georgetown · Coming Soon
+            Sway Union Market · Coming Soon
           </Link>
         </p>
       </div>

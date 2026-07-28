@@ -191,7 +191,7 @@ export default function OwnASwayPage() {
             <p className="mt-4 text-base md:text-lg leading-relaxed opacity-80 max-w-3xl mx-auto">
               Sway operates three locations in Denver, on Larimer Square, in
               RiNo, and in Central Park, with new locations coming soon to
-              Georgetown (Washington, D.C.) and Dallas, TX.
+              Union Market (Washington, D.C.) and Dallas, TX.
             </p>
           </motion.div>
         </div>

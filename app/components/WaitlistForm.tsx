@@ -89,7 +89,7 @@ export default function WaitlistForm({
           We&apos;ll notify you when founding memberships are ready.
           {location === "dallas"
             ? " See you in Knox/Henderson."
-            : " See you in Georgetown."}
+            : " See you in Union Market."}
         </p>
       </motion.div>
     );

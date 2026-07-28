@@ -9,26 +9,26 @@ export default function OffersContent() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "When will Sway Georgetown open?",
+        "name": "When will Sway Union Market open?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sway Georgetown is preparing to open soon. Founding Member offers and launch specials will be announced prior to the grand opening."
+          "text": "Sway Union Market is preparing to open soon. Founding Member offers and launch specials will be announced prior to the grand opening."
         }
       },
       {
         "@type": "Question",
-        "name": "Will there be Founding Member offers in Georgetown?",
+        "name": "Will there be Founding Member offers in Union Market?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! Our Georgetown location will feature exclusive Founding Member perks and opening offers. Details will be shared on this page."
+          "text": "Yes! Our Union Market location will feature exclusive Founding Member perks and opening offers. Details will be shared on this page."
         }
       },
       {
         "@type": "Question",
-        "name": "How can I stay updated about Sway Georgetown offers?",
+        "name": "How can I stay updated about Sway Union Market offers?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Check back here regularly and follow Sway Wellness Spa on social media for updates about Georgetown offers and opening events."
+          "text": "Check back here regularly and follow Sway Wellness Spa on social media for updates about Union Market offers and opening events."
         }
       }
     ]
@@ -63,7 +63,7 @@ export default function OffersContent() {
           Founding Member Offers Coming Soon
         </h2>
         <p className="text-sm md:text-base font-vance text-gray-800 mb-6">
-          Our <strong>Georgetown, DC</strong> location is preparing to open. 
+          Our <strong>Union Market, DC</strong> location is preparing to open. 
           Exclusive <strong>Founding Member perks</strong> and launch specials 
           will be posted here as we get closer to welcoming our first guests.
         </p>

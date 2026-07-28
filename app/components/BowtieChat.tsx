@@ -21,7 +21,7 @@ import { usePathname } from "next/navigation";
    route doesn't match that location. Cross-location navigation in one
    session is rare; a hard reload on the new location page picks up
    the right widget. Pages outside any location (homepage, service
-   pages, Georgetown, Dallas) never load or show chat — same rule as
+   pages, Union Market, Dallas) never load or show chat — same rule as
    today, and a small perf win (no Bowtie JS on the homepage).
 ================================================================ */
 

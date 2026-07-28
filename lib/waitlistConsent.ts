@@ -13,12 +13,17 @@
  *
  * v3: Dallas brand renamed "Sway Dallas" -> "Sway Knox/Henderson" (same
  * entity, same scope of consent).
+ *
+ * v4: DC brand renamed "Sway Georgetown" -> "Sway Union Market" (same entity,
+ * same scope of consent). The `location` key stays "georgetown" so the 6
+ * leads captured under the old brand stay queryable under one filter; only
+ * the customer-facing brand name changed.
  */
 
-export const WAITLIST_CONSENT_VERSION = "v3-2026-07-13";
+export const WAITLIST_CONSENT_VERSION = "v4-2026-07-27";
 
 export function waitlistConsentText(location: "dallas" | "georgetown"): string {
-  const brand = location === "dallas" ? "Sway Knox/Henderson" : "Sway Georgetown";
+  const brand = location === "dallas" ? "Sway Knox/Henderson" : "Sway Union Market";
   return (
     `By signing up, you agree to receive recurring automated marketing emails and ` +
     `text messages from ${brand} at the email and number you provide. Consent is ` +

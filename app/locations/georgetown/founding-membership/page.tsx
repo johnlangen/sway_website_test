@@ -205,9 +205,9 @@ const treatments = [
 
 const faqs = [
   {
-    question: "When does Sway Georgetown open?",
+    question: "When does Sway Union Market open?",
     answer:
-      "We're opening in the Georgetown neighborhood of Washington, DC. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
+      "We're opening in the Union Market neighborhood of Washington, DC. Founding members will be the first to know the exact date and will get priority access to book before we open to the public.",
   },
   {
     question: "Do I get charged before you open?",
@@ -251,7 +251,7 @@ const schema = {
         {
           "@type": "ListItem",
           position: 3,
-          name: "Georgetown",
+          name: "Union Market",
           item: "https://swaywellnessspa.com/locations/georgetown/",
         },
         {
@@ -264,9 +264,9 @@ const schema = {
     },
     {
       "@type": "Product",
-      name: "Sway Georgetown Founding Membership",
+      name: "Sway Union Market Founding Membership",
       description:
-        "Founding member membership for Sway Georgetown wellness spa in Washington, DC with exclusive pricing.",
+        "Founding member membership for Sway Union Market wellness spa in Washington, DC with exclusive pricing.",
       image: "/assets/OG/og-join-the-club.jpg",
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
       offers: {
@@ -460,7 +460,7 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm md:text-base uppercase tracking-[0.2em] text-white/70 mb-5"
           >
-            Georgetown · Washington, DC
+            Union Market · Washington, DC
           </motion.p>
 
           <motion.h1
@@ -876,7 +876,7 @@ export default function GeorgetownFoundingMembershipPage() {
             viewport={{ once: true }}
             className="text-sm uppercase tracking-[0.2em] text-white/50 mb-4"
           >
-            Coming to Georgetown
+            Coming to Union Market
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}

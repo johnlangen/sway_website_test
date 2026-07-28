@@ -41,7 +41,7 @@ export default function FAQIndexPage() {
             Dallas (Coming Soon)
           </div>
           <div className="rounded-2xl bg-gray-200 text-gray-500 py-10 px-6 text-center shadow opacity-70">
-            Georgetown (Coming Soon)
+            Union Market (Coming Soon)
           </div>
         </div>
       </div>

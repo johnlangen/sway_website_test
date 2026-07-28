@@ -2,32 +2,32 @@ import { Metadata } from "next";
 import OffersContent from "./OffersContent";
 
 export const metadata: Metadata = {
-  title: "Georgetown Spa Offers & Founding Member Deals | Sway Wellness Spa",
+  title: "Union Market Spa Offers & Founding Member Deals | Sway Wellness Spa",
   description:
-    "Sway Georgetown is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here. Check back soon!",
+    "Sway Union Market is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here. Check back soon!",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/georgetown/offers/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/georgetown/offers/",
-    title: "Georgetown Spa Offers & Founding Member Deals | Sway Wellness Spa",
+    title: "Union Market Spa Offers & Founding Member Deals | Sway Wellness Spa",
     description:
-      "Sway Georgetown will feature exclusive Founding Member perks and launch specials. Stay tuned for our opening!",
+      "Sway Union Market will feature exclusive Founding Member perks and launch specials. Stay tuned for our opening!",
     images: [
       {
         url: "/assets/OG/og-offers.jpg",
         width: 1200,
         height: 630,
-        alt: "Georgetown Spa Offers - Sway Wellness Spa",
+        alt: "Union Market Spa Offers - Sway Wellness Spa",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Georgetown Spa Offers & Founding Member Deals | Sway Wellness Spa",
+    title: "Union Market Spa Offers & Founding Member Deals | Sway Wellness Spa",
     description:
-      "Discover exclusive Founding Member perks and launch specials at Sway Georgetown, opening soon.",
+      "Discover exclusive Founding Member perks and launch specials at Sway Union Market, opening soon.",
     images: ["/assets/OG/og-offers.jpg"],
   },
   robots: { index: false, follow: true },

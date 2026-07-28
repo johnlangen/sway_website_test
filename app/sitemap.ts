@@ -89,12 +89,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   /* ------------------------------------------------------------------
-     Georgetown location
+     Union Market location
      ------------------------------------------------------------------ */
   const georgetownPages = [
     { url: `${base}/locations/georgetown/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/georgetown/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/locations/georgetown/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/georgetown/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
   ];
 
   /* ------------------------------------------------------------------

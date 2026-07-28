@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Wellness Club Memberships | Sway from $99/month",
   description:
-    "Join Sway Wellness Club. Three membership tiers, Essential ($99), Premier ($129), Ultimate ($159), with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Georgetown DC (coming soon).",
+    "Join Sway Wellness Club. Three membership tiers, Essential ($99), Premier ($129), Ultimate ($159), with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Union Market DC (coming soon).",
   alternates: {
     canonical: "https://swaywellnessspa.com/membership/",
   },
@@ -103,7 +103,7 @@ export default function MembershipLayout({
             name: "Can I use my Sway membership at any location?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. Sway memberships work across all open Sway locations. Currently Sway is open on Larimer Square in Denver, with Georgetown (DC) and Dallas coming soon.",
+              text: "Yes. Sway memberships work across all open Sway locations. Currently Sway is open on Larimer Square in Denver, with Union Market (DC) and Dallas coming soon.",
             },
           },
           {

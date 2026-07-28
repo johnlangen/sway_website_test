@@ -96,7 +96,7 @@ export default function SwayWayLayout({
                 name: "Where is Sway located?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway's flagship location is on Larimer Square in downtown Denver, Colorado. New locations are coming soon to Georgetown (Washington, DC) and Dallas, Texas.",
+                  text: "Sway's flagship location is on Larimer Square in downtown Denver, Colorado. New locations are coming soon to Union Market (Washington, DC) and Dallas, Texas.",
                 },
               },
             ],
