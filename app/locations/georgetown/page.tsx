@@ -35,7 +35,7 @@ export default function SwayGeorgetownComingSoonPage() {
                 >
                   Coming Soon
                 </span>
-                <ReviewBadge />
+                <ReviewBadge attribution="Sway Larimer in Denver" />
               </div>
 
               <p className="mt-4 max-w-xl leading-relaxed">
@@ -171,7 +171,7 @@ export default function SwayGeorgetownComingSoonPage() {
           <motion.p {...fadeUp} className="text-center text-sm opacity-50 mb-2">
             From our Denver flagship
           </motion.p>
-          <GoogleReviews />
+          <GoogleReviews attribution="Sway Larimer in Denver" />
         </div>
       </section>
 

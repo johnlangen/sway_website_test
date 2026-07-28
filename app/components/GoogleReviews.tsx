@@ -193,7 +193,20 @@ export function useRating() {
    FULL REVIEWS SECTION — paginated carousel
    ================================================================== */
 
-export default function GoogleReviews() {
+/**
+ * `attribution` names the location these reviews actually belong to.
+ *
+ * REQUIRED on any page for a location that has not opened. The rating and
+ * review count come from Larimer's Google Places listing, and the curated
+ * quotes are from Denver guests (several name Denver or Denver staff). On a
+ * Dallas or DC coming-soon page, an unlabelled "What Our Guests Are Saying"
+ * next to a Google badge reads as reviews of THAT location, which is a
+ * misrepresentation the FTC's reviews-and-testimonials rule speaks to
+ * directly. Pass the attribution instead of removing the social proof.
+ */
+type GoogleReviewsProps = { attribution?: string };
+
+export default function GoogleReviews({ attribution }: GoogleReviewsProps) {
   const ratingData = useRating();
   const [page, setPage] = useState(0);
 
@@ -217,6 +230,12 @@ export default function GoogleReviews() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
           What Our Guests Are Saying
         </h2>
+        {attribution && (
+          <p className="text-sm opacity-70 mb-3">
+            Reviews from {attribution}. Our newest locations are still
+            preparing to open.
+          </p>
+        )}
         <a
           href={GOOGLE_MAPS_URL}
           target="_blank"
@@ -333,7 +352,8 @@ export default function GoogleReviews() {
    Used in booking flows and near CTAs.
    ================================================================== */
 
-export function ReviewBadge() {
+/** See GoogleReviewsProps: `attribution` is REQUIRED on unopened locations. */
+export function ReviewBadge({ attribution }: { attribution?: string }) {
   const ratingData = useRating();
 
   const rating = ratingData?.rating ?? 4.9;
@@ -352,7 +372,9 @@ export function ReviewBadge() {
         ))}
       </div>
       <span className="font-semibold">{formatRating(rating)}</span>
-      <span className="opacity-60">({totalReviews} reviews)</span>
+      <span className="opacity-60">
+        ({totalReviews} reviews{attribution ? ` at ${attribution}` : ""})
+      </span>
       <GoogleLogo className="w-3.5 h-3.5 ml-0.5" />
       <span className="sr-only">(opens in new tab)</span>
     </a>

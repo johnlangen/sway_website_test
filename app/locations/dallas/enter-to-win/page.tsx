@@ -247,10 +247,20 @@ export default function DallasEnterToWinPage() {
                 no cash value.
               </p>
               <p>
-                <strong>Winner selection &amp; notification.</strong> Winner
-                will be selected after our grand opening and announced via
+                <strong>Odds.</strong> Odds of winning depend on the total
+                number of eligible entries received.
+              </p>
+              <p>
+                <strong>Winner selection &amp; notification.</strong> One
+                winner will be selected <strong>at random</strong> from all
+                eligible entries after our grand opening, and announced via
                 email and Instagram. If the selected winner does not respond
-                within 7 days, an alternate winner may be drawn.
+                within 7 days, an alternate winner may be drawn at random.
+              </p>
+              <p>
+                <strong>Sponsor.</strong> Sway Wellness Spa, 1428 Larimer St.,
+                Denver, CO 80202. This promotion is not sponsored, endorsed,
+                administered by, or associated with Instagram or Meta.
               </p>
             </div>
           </details>

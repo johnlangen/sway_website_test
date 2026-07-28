@@ -119,7 +119,7 @@ export default function DallasMembershipPage() {
             Three membership tiers · pricing announced at launch
           </p>
           <div className="flex justify-center mb-4">
-            <ReviewBadge />
+            <ReviewBadge attribution="Sway Larimer in Denver" />
           </div>
           <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto">
             Essential, Premier, and Ultimate tiers will be available at our
