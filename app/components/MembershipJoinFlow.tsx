@@ -114,6 +114,46 @@ function trackMembership(event: string, extra: Record<string, unknown> = {}) {
   }
 }
 
+// GA4 measurement id, minus the "G-" prefix, as used in the _ga_<id> cookie
+// name. Matches the "Sway GA4 ID" constant in the GTM container.
+const GA4_STREAM_SUFFIX = "V4ZXNRGV84";
+
+/**
+ * GA4 client + session ids from the _ga cookies. Sent with the purchase so
+ * the server-side sale event lands on the same user and visit (preserving
+ * campaign attribution) instead of appearing as a brand new user.
+ *
+ * Returns nulls when GA is blocked or absent. That is expected and fine: the
+ * server still records the sale, just without session attribution.
+ */
+function gaIdsFromCookies(): {
+  gaClientId: string | null;
+  gaSessionId: string | null;
+} {
+  if (typeof document === "undefined") {
+    return { gaClientId: null, gaSessionId: null };
+  }
+  try {
+    const read = (name: string) =>
+      document.cookie
+        .split("; ")
+        .find((c) => c.startsWith(`${name}=`))
+        ?.split("=")[1] ?? null;
+
+    // _ga = GA1.1.<id1>.<id2>; the client id is the last two segments.
+    const ga = read("_ga");
+    const gaClientId = ga ? ga.split(".").slice(-2).join(".") : null;
+
+    // _ga_<STREAM> = GS1.1.<session_id>.<session_number>....
+    const stream = read(`_ga_${GA4_STREAM_SUFFIX}`);
+    const gaSessionId = stream ? stream.split(".")[2] ?? null : null;
+
+    return { gaClientId, gaSessionId };
+  } catch {
+    return { gaClientId: null, gaSessionId: null };
+  }
+}
+
 /* ── styles (mirrors the booking flow) ──────────────────────────── */
 
 const inputClass =
@@ -529,6 +569,9 @@ export default function MembershipJoinFlow({
           clientId,
           contractId: plan.contractId,
           test: isTest,
+          // Lets the ad-blocker-proof server-side sale event attach to this
+          // user's GA4 session instead of a phantom one.
+          ...gaIdsFromCookies(),
           ...siteBody,
         }),
       });

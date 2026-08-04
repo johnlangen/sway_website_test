@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
-import { isClubSiteId } from "@/lib/clubLocations";
+import { isClubSiteId, getClubBySiteId } from "@/lib/clubLocations";
+import { sendGa4ServerEvent } from "@/lib/ga4ServerEvent";
 
 export const runtime = "nodejs";
 
@@ -86,6 +87,13 @@ export async function POST(req: Request) {
       : "";
   const contractId = Number(rawBody.contractId);
   const isTest = rawBody.test === true;
+  // GA4 ids read from the browser's _ga cookies (see MembershipJoinFlow).
+  // Optional: when GA is ad-blocked these are absent and the server event
+  // still records the sale, just without session attribution.
+  const gaClientId =
+    typeof rawBody.gaClientId === "string" ? rawBody.gaClientId : null;
+  const gaSessionId =
+    typeof rawBody.gaSessionId === "string" ? rawBody.gaSessionId : null;
   // Optional siteId override (clubs; future: Spavia). Defaults to Larimer.
   const siteId =
     (typeof rawBody.siteId === "string" && rawBody.siteId) ||
@@ -229,6 +237,29 @@ export async function POST(req: Request) {
         },
         { status: 402 }
       );
+    }
+
+    // Ad-blocker-proof sale record. Deliberately a DIFFERENT event name from
+    // the browser's membership_purchase_complete so the two never double
+    // count: this one is the authoritative number, and the gap between them
+    // measures how much the browser tag is losing. Never blocks the response
+    // on failure (sendGa4ServerEvent swallows its own errors).
+    if (!isTest) {
+      await sendGa4ServerEvent({
+        name: "membership_purchase_server",
+        clientId: gaClientId,
+        sessionId: gaSessionId,
+        params: {
+          value: contract.monthly,
+          currency: "USD",
+          membership_tier: contract.key,
+          membership_name: contract.name,
+          location: getClubBySiteId(siteId)?.key ?? "denver-larimer",
+          // Mindbody's client-contract id: the dedupe/join key back to the
+          // sale record if these ever need reconciling by hand.
+          transaction_id: data?.ClientContractId ?? undefined,
+        },
+      });
     }
 
     return NextResponse.json({
