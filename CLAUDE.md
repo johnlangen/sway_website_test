@@ -133,6 +133,13 @@ All use Google Ads account `AW-17421817568`. Switch campaigns to "Maximize Conve
 ### GTM Tags (Version 17+)
 All funnel step tags include `booking_flow` as an event parameter via Data Layer Variable `DLV - booking_flow`.
 
+### Membership Funnel Tracking
+`membership_start` → `membership_email_entered` → `membership_card_entered` → `membership_purchase_complete`, plus `membership_existing_member_detected` when the duplicate-member guard stops someone. All five have GTM tags (container version 26). `?memtest=1` fires none of them.
+
+**`membership_purchase_server` is the authoritative sale count.** Browser tags are ad-blockable, so `lib/ga4ServerEvent.ts` also sends a server-side GA4 event from `app/api/membership/purchase/route.ts` after Mindbody confirms the charge. Deliberately a different event name so the two never double-count: the server one is the real number, and the gap between them measures the blocked rate (`client_id_source` param). Requires `GA4_API_SECRET` in Vercel. Validate any MP payload change against `https://www.google-analytics.com/debug/mp/collect` — GA4 accepts bad payloads with a 204 and silently drops params using reserved prefixes like `ga_`.
+
+**The GTM `location` variable is a hardcoded pathname matcher** that defaults to `denver-larimer`. Renaming or adding a location slug WITHOUT updating it silently mislabels that location's traffic as Larimer (this happened to Union Market + Knox-Henderson after commit 5482853). Update it in the same change as any slug work.
+
 ### TODO: GA4 Funnel Explorations
 Create funnel explorations in GA4 (Explore → Funnel Exploration) for each booking flow:
 - Aescape funnel (filter: booking_flow = aescape)
