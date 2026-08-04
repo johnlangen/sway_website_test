@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+import { recordBookingAttribution } from "@/lib/adAttribution";
 
 export const runtime = "nodejs";
 
@@ -109,6 +110,9 @@ export async function POST(req: Request) {
       addOnIds = [],
       notes,
       siteId: siteIdRaw,
+      // Google Ads click id captured at landing (lib/gclid.ts). Optional and
+      // purely for attribution — never affects booking behaviour.
+      gclid,
     } = await req.json();
 
     // Optional siteId override for the Sway Wellness Club locations. Defaults to Larimer.
@@ -277,6 +281,20 @@ export async function POST(req: Request) {
 
     const mainApptId = mainData.Appointment?.Id;
     const mainEndDateTime = mainData.Appointment?.EndDateTime;
+
+    // Attribution only: remember which ad click produced this appointment so
+    // a later job can upload an offline conversion once it's COMPLETED (real
+    // attendance, not a booking that no-shows). Fails open, never throws.
+    if (typeof gclid === "string" && gclid && mainApptId) {
+      await recordBookingAttribution({
+        gclid,
+        appointmentId: mainApptId,
+        clientId,
+        sessionTypeId,
+        startDateTime: mainData.Appointment?.StartDateTime ?? startDateTime,
+        siteId,
+      });
+    }
 
     const addOnResults: any[] = [];
 

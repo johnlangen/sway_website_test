@@ -13,6 +13,7 @@ import NextAvailableBanner from "../NextAvailableBanner";
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import { useDialogA11y } from "@/lib/useDialogA11y";
+import { readGclid } from "@/lib/gclid";
 
 /* ================================================================
    NEW TIER-AWARE BOOKING FLOW
@@ -984,7 +985,7 @@ export default function NewBookingFlow() {
         if (isSurprise) noteParts.push("\u26A0\uFE0F SURPRISE \u2014 do not contact guest");
       }
       const res = await fetch("/api/service/book", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clientId, sessionTypeId: selectedTreatment!.id, startDateTime: selectedSlot!.startDateTime, staffId: selectedSlot!.staffId, staffRequested: filteredTherapist !== null, addOnIds: selectedBoosts.map((b) => b.id), notes: noteParts.join(" | ") }) });
+        body: JSON.stringify({ clientId, sessionTypeId: selectedTreatment!.id, startDateTime: selectedSlot!.startDateTime, staffId: selectedSlot!.staffId, staffRequested: filteredTherapist !== null, addOnIds: selectedBoosts.map((b) => b.id), notes: noteParts.join(" | "), gclid: readGclid() }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Booking failed");
       if (data.addOns?.some((a: any) => !a.success)) setBoostWarning("Some boosts couldn\u2019t be added automatically. Call (303) 476-6150 to add them.");

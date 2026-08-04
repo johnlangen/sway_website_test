@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import CountdownBanner from "./components/CountdownBanner";
 import { AddToHomeScreen } from "./components/AddToHomeScreen";
+import AdAttribution from "./components/AdAttribution";
 import { LarimerOnlyChat } from "./components/LarimerOnlyChat";
 // BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md):
 // swap the import above for the line below, delete the inline "Bowtie AI
@@ -233,6 +234,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         {/* ACTIVATION: replace with <BowtieChat /> (and delete
             LarimerOnlyChat.tsx — BowtieChat subsumes its hide logic). */}
+        {/* Persists the Google Ads click id so bookings can be attributed to
+            the ad that produced them (offline conversion upload). Renders
+            nothing. */}
+        <AdAttribution />
         <LarimerOnlyChat />
         <NavBar />
         <CountdownBanner />
