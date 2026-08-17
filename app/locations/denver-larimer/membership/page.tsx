@@ -275,8 +275,10 @@ const membershipFaqs = [
     a: "Every month your membership includes one facial or massage from your tier's menu. Book it like any appointment, online or by phone. Everything else you add that day gets member pricing, including 50% off boosts.",
   },
   {
+    // Spa tiers only — Aescape and Remedy memberships do not roll over.
     q: "What if I miss a month?",
     a: "You never lose what you don't use. Unused treatments roll over and stay good for 12 months while your membership is active, and you can redeem a rollover treatment alongside your regular monthly treatment.",
+    spaOnly: true,
   },
   {
     q: "Is there an enrollment fee?",
@@ -304,13 +306,15 @@ const membershipFaqs = [
    MEMBER PERKS
 ------------------------------------------------------------------ */
 
+// Perks every membership family gets. Rollover is NOT universal — it is a
+// spa-tier benefit only (Aescape and Remedy memberships don't roll over), so
+// it is appended for family === "spa" at the render site instead of living here.
 const memberPerks = [
   "50% off all boosts",
   "50% off Remedy Room",
   "Private member lounge",
   "Bring a friend at member pricing",
   "10% off retail",
-  "Rollover credits",
 ];
 
 /* ------------------------------------------------------------------
@@ -334,7 +338,9 @@ export default function MembershipPage() {
   const [boostsOpen, setBoostsOpen] = useState(false);
   // Which membership the join modal is open for (null = closed).
   const [joinKey, setJoinKey] = useState<string | null>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // Keyed by question text, not index: the FAQ list is filtered per family, so
+  // an index would open the wrong question after switching tabs.
+  const [openFaq, setOpenFaq] = useState<string | null>(null);
 
   // LAUNCHED 2026-06-13: native join flow is live for all visitors (payment
   // path verified via $1 live-charge test). To roll back to the
@@ -534,7 +540,8 @@ export default function MembershipPage() {
           Aescape robot massage ($99/month), Remedy Room recovery circuit
           ($99/month), and Ultimate Tech Recovery package ($99/month). All
           members get 50% off boosts, private lounge access, bring a friend at
-          member pricing, 10% off retail, and rollover credits. Located at 1428
+          member pricing, and 10% off retail. The three spa tiers also include
+          rollover credits. Located at 1428
           Larimer St. on Larimer Square in Denver, CO 80202. Voted #4 Best Day
           Spa in America by USA Today 10Best. Call (303) 476-6150 or visit
           swaywellnessspa.com.
@@ -833,8 +840,7 @@ export default function MembershipPage() {
               </button>
             </div>
             <p className="mt-3 text-xs text-[#113D33]/55">
-              No enrollment fee &middot; Unused sessions roll over &middot;
-              Pause up to 3 months a year
+              No enrollment fee &middot; Pause up to 3 months a year
             </p>
             <Link
               href="/locations/denver-larimer/book-aescape"
@@ -893,8 +899,7 @@ export default function MembershipPage() {
               </button>
             </div>
             <p className="mt-3 text-xs text-[#113D33]/55">
-              No enrollment fee &middot; Unused visits roll over &middot;
-              Pause up to 3 months a year
+              No enrollment fee &middot; Pause up to 3 months a year
             </p>
             <Link
               href="/locations/denver-larimer/book-remedy-room"
@@ -930,7 +935,10 @@ export default function MembershipPage() {
             Every Member Gets
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-            {memberPerks.map((perk, idx) => (
+            {(family === "spa"
+              ? [...memberPerks, "Rollover credits"]
+              : memberPerks
+            ).map((perk, idx) => (
               <span
                 key={idx}
                 className="flex items-center gap-2.5 text-sm text-[#113D33]/90"
@@ -1057,15 +1065,17 @@ export default function MembershipPage() {
         </div>
 
         <div className="max-w-2xl mx-auto space-y-2.5">
-          {membershipFaqs.map((faq, idx) => {
-            const isOpen = openFaq === idx;
+          {membershipFaqs
+            .filter((faq) => family === "spa" || !faq.spaOnly)
+            .map((faq) => {
+            const isOpen = openFaq === faq.q;
             return (
               <div
-                key={idx}
+                key={faq.q}
                 className="rounded-xl bg-white shadow-sm overflow-hidden"
               >
                 <button
-                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  onClick={() => setOpenFaq(isOpen ? null : faq.q)}
                   className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left"
                   aria-expanded={isOpen}
                 >
