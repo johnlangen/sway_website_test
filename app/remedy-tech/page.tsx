@@ -4,8 +4,254 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { resolveLocationHref } from "../components/LocationAwareHref";
+import {
+  getSelectedLocation,
+  resolveLocationHref,
+} from "../components/LocationAwareHref";
 import { SwayCurve } from "../components/SwayCurve";
+
+/* ------------------------------------------------------------------
+   CLUB VARIANT — RiNo + Central Park have the Remedy LOUNGE, not the
+   Remedy Room: self-guided 75-min sessions (up to two 25-min sauna
+   windows booked in the flow), no LED — they have PEMF mats instead
+   (confirmed Aug 2026; the ClubRemedyLoungeFlow "included" band is the
+   source of truth). Infrared sauna language is ALLOWED for these two
+   locations (Glow cabins are genuinely infrared) — never for Larimer.
+   Session facts (75 min, 2×25 sauna, $49/$25/included) mirror
+   ClubRemedyLoungeFlow — keep in sync if pricing changes.
+------------------------------------------------------------------- */
+
+type ClubRemedy = {
+  id: number;
+  name: string;
+  time: string;
+  description: string;
+  img: string;
+};
+
+type ClubVariant = {
+  name: string;
+  kicker: string;
+  heroImg: string;
+  heroSub: string;
+  srBlurb: string;
+  bookHref: string;
+  stats: { value: string; label: string }[];
+  circuitSub: string;
+  steps: { step: string; label: string; time: string; desc: string }[];
+  remedies: ClubRemedy[];
+  faqs: { q: string; a: string }[];
+  cardTitle: string;
+  cardArea: string;
+};
+
+const CLUB_STEPS_BASE = [
+  {
+    step: "01",
+    label: "Your Session",
+    time: "75 min",
+    desc: "Check in and settle into the lounge. Your session gives you the full recovery floor.",
+  },
+  {
+    step: "02",
+    label: "Sauna Time",
+    time: "Up to 2 × 25 min",
+    desc: "Reserve traditional or infrared cabin windows when you book your session.",
+  },
+];
+
+const CLUB_VARIANTS: Record<string, ClubVariant> = {
+  "denver-rino": {
+    name: "The Remedy Lounge",
+    kicker: "Sauna · Cold Plunge · Compression · PEMF",
+    heroImg: "/assets/rino1.jpeg",
+    heroSub:
+      "A 75-minute self-guided recovery session. Reserve your sauna time, then move through cold plunge, compression, and PEMF at your own pace.",
+    srBlurb:
+      "The Remedy Lounge at Sway Wellness Club RiNo is a 75-minute self-guided recovery session combining traditional and infrared saunas, cold plunge, compression therapy, and PEMF mats. Located at 3636 Blake St in Denver's RiNo Arts District. $49 drop-in, $25 for members, unlimited with Remedy Lounge membership. Book at swaywellnessspa.com.",
+    bookHref: "/locations/denver-rino/book-remedy-lounge",
+    stats: [
+      { value: "5", label: "Recovery Modalities" },
+      { value: "75", label: "Minute Session" },
+      { value: "$25", label: "Member Pricing" },
+      { value: "$49", label: "Drop-In" },
+    ],
+    circuitSub:
+      "One 75-minute session, self-guided at your own pace. Reserve your sauna time; everything else is open throughout.",
+    steps: [
+      ...CLUB_STEPS_BASE,
+      {
+        step: "03",
+        label: "Cold Plunge",
+        time: "Open access",
+        desc: "Alternate sauna heat with cold immersion at whatever pace feels right.",
+      },
+      {
+        step: "04",
+        label: "Compression + PEMF",
+        time: "Included",
+        desc: "Compression boots and PEMF mats are open throughout your session.",
+      },
+    ],
+    remedies: [
+      {
+        id: 1,
+        name: "Traditional Sauna",
+        time: "Reserved window",
+        description:
+          "Deep dry heat therapy supporting recovery, circulation, stress relief, and overall wellness.",
+        img: "/assets/rino2.jpeg",
+      },
+      {
+        id: 2,
+        name: "Infrared Sauna",
+        time: "Reserved window",
+        description:
+          "Private infrared cabins with gentle radiant heat for a deeper, slower warm-up.",
+        img: "/assets/insidesauna.jpg",
+      },
+      {
+        id: 3,
+        name: "Cold Plunge",
+        time: "Open access",
+        description:
+          "Cold water therapy proven to elevate energy, improve mood, relieve soreness, and support immunity.",
+        img: "/assets/rino1.jpeg",
+      },
+      {
+        id: 4,
+        name: "Compression Therapy",
+        time: "Open access",
+        description:
+          "Compression therapy boosts circulation, supports lymphatic drainage, and reduces muscle soreness.",
+        img: "/assets/compression_therapy.jpg",
+      },
+      {
+        id: 5,
+        name: "PEMF Mats",
+        time: "Open access",
+        description:
+          "Pulsed electromagnetic field mats that support circulation and deep relaxation while you rest.",
+        img: "/assets/pemf.jpg",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the Remedy Lounge?",
+        a: "The Remedy Lounge at Sway RiNo is a 75-minute self-guided recovery session combining traditional and infrared saunas, cold plunge, compression therapy, and PEMF mats. Reserve your sauna time; everything else is open throughout your visit.",
+      },
+      {
+        q: "What's included in a session?",
+        a: "Every session includes up to two 25-minute sauna reservations in a traditional or infrared cabin, plus open access to the cold plunge, compression therapy, and PEMF mats for your full 75 minutes.",
+      },
+      {
+        q: "Do I need experience?",
+        a: "No. The lounge is self-guided, and our team will walk you through the space on your first visit. Alternate heat and cold at whatever pace feels right.",
+      },
+      {
+        q: "How much does the Remedy Lounge cost?",
+        a: "Sessions are $49 for drop-in guests and $25 for members. Remedy Lounge members enjoy unlimited sessions, and memberships are $129/month.",
+      },
+    ],
+    cardTitle: "Sway RiNo",
+    cardArea: "3636 Blake St · RiNo Arts District, Denver",
+  },
+  "denver-central-park": {
+    name: "The Remedy Lounge",
+    kicker: "Sauna · Cold Plunge · Warm Soak · Compression · PEMF",
+    heroImg: "/assets/centralpark1.jpg",
+    heroSub:
+      "A 75-minute self-guided recovery session. Reserve your sauna time, then move through cold plunges, the warm soak, compression, and PEMF at your own pace.",
+    srBlurb:
+      "The Remedy Lounge at Sway Wellness Club Central Park is a 75-minute self-guided recovery session combining traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and PEMF mats. Located at 2271 Clinton St in Aurora, minutes from Central Park. $49 drop-in, $25 for members, unlimited with Remedy Lounge membership. Book at swaywellnessspa.com.",
+    bookHref: "/locations/denver-central-park/book-remedy-lounge",
+    stats: [
+      { value: "6", label: "Recovery Modalities" },
+      { value: "75", label: "Minute Session" },
+      { value: "$25", label: "Member Pricing" },
+      { value: "$49", label: "Drop-In" },
+    ],
+    circuitSub:
+      "One 75-minute session, self-guided at your own pace. Reserve your sauna time; everything else is open throughout.",
+    steps: [
+      ...CLUB_STEPS_BASE,
+      {
+        step: "03",
+        label: "Cold & Warm Soak",
+        time: "Open access",
+        desc: "Alternate sauna heat with the cold plunges, or ease in with the warm soak.",
+      },
+      {
+        step: "04",
+        label: "Compression + PEMF",
+        time: "Included",
+        desc: "Compression boots and PEMF mats are open throughout your session.",
+      },
+    ],
+    remedies: [
+      {
+        id: 1,
+        name: "Traditional Sauna",
+        time: "Reserved window",
+        description:
+          "Deep dry heat therapy supporting recovery, circulation, stress relief, and overall wellness.",
+        img: "/assets/sauna.jpg",
+      },
+      {
+        id: 2,
+        name: "Infrared Sauna",
+        time: "Reserved window",
+        description:
+          "Private infrared cabins with gentle radiant heat for a deeper, slower warm-up.",
+        img: "/assets/insidesauna.jpg",
+      },
+      {
+        id: 3,
+        name: "Cold Plunges & Warm Soak",
+        time: "Open access",
+        description:
+          "Cold water therapy to elevate energy and reduce soreness, plus a warm soak to ease into contrast or unwind between rounds.",
+        img: "/assets/centralpark1.jpg",
+      },
+      {
+        id: 4,
+        name: "Compression Therapy",
+        time: "Open access",
+        description:
+          "Compression therapy boosts circulation, supports lymphatic drainage, and reduces muscle soreness.",
+        img: "/assets/compression_therapy.jpg",
+      },
+      {
+        id: 5,
+        name: "PEMF Mats",
+        time: "Open access",
+        description:
+          "Pulsed electromagnetic field mats that support circulation and deep relaxation while you rest.",
+        img: "/assets/pemf.jpg",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the Remedy Lounge?",
+        a: "The Remedy Lounge at Sway Central Park is a 75-minute self-guided recovery session combining traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and PEMF mats. Reserve your sauna time; everything else is open throughout your visit.",
+      },
+      {
+        q: "What's included in a session?",
+        a: "Every session includes up to two 25-minute sauna reservations in a traditional or infrared cabin, plus open access to the cold plunges, warm soak, compression therapy, and PEMF mats for your full 75 minutes.",
+      },
+      {
+        q: "Do I need experience?",
+        a: "No. The lounge is self-guided, and our team will walk you through the space on your first visit. Alternate heat and cold at whatever pace feels right.",
+      },
+      {
+        q: "How much does the Remedy Lounge cost?",
+        a: "Sessions are $49 for drop-in guests and $25 for members. Remedy Lounge members enjoy unlimited sessions, and memberships are $129/month.",
+      },
+    ],
+    cardTitle: "Sway Central Park",
+    cardArea: "2271 Clinton St · Aurora, near Central Park",
+  },
+};
 
 const RemedyRoomPage = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -14,6 +260,9 @@ const RemedyRoomPage = () => {
   const [saunaHref, setSaunaHref] = useState("/sauna");
   const [coldPlungeHref, setColdPlungeHref] = useState("/cold-plunge");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // Null = Larimer / default render (also what SEO and first paint see).
+  // Set after mount from the saved nav location, same pattern as the hrefs.
+  const [club, setClub] = useState<ClubVariant | null>(null);
 
   useEffect(() => {
     document.documentElement.style.backgroundColor = "#F7F4E9";
@@ -31,6 +280,11 @@ const RemedyRoomPage = () => {
 
     setSaunaHref(resolvedSauna);
     setColdPlungeHref(resolvedColdPlunge);
+
+    const loc = getSelectedLocation();
+    if (loc?.slug && CLUB_VARIANTS[loc.slug]) {
+      setClub(CLUB_VARIANTS[loc.slug]);
+    }
   }, []);
 
   const handleScroll = () => {
@@ -44,7 +298,7 @@ const RemedyRoomPage = () => {
     window.scrollTo({ top: yOffset, behavior: "smooth" });
   };
 
-  const remedies = [
+  const larimerRemedies = [
     {
       id: 1,
       name: "Sauna",
@@ -83,20 +337,36 @@ const RemedyRoomPage = () => {
     },
   ];
 
+  // Club cards deliberately all link to the club booking flow — the /sauna,
+  // /cold-plunge, /led-light-therapy detail pages describe Larimer's spa.
+  const remedies = club
+    ? club.remedies.map((r) => ({ ...r, link: club.bookHref }))
+    : larimerRemedies;
+
+  const bookHref = club
+    ? club.bookHref
+    : "/locations/denver-larimer/book-remedy-room";
+
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO: art-directed background (homepage remedy photos) */}
       <section className="relative overflow-hidden text-white">
         <div className="absolute inset-0">
           <picture className="block w-full h-full">
-            <source
-              media="(max-width: 767px)"
-              srcSet="/assets/remedyRoomMobile.jpg"
-            />
+            {!club && (
+              <source
+                media="(max-width: 767px)"
+                srcSet="/assets/remedyRoomMobile.jpg"
+              />
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/homepage-remedy.jpg"
-              alt="The Remedy Room at Sway Wellness Spa"
+              src={club ? club.heroImg : "/assets/homepage-remedy.jpg"}
+              alt={
+                club
+                  ? "The Remedy Lounge at Sway Wellness Club"
+                  : "The Remedy Room at Sway Wellness Spa"
+              }
               className="w-full h-full object-cover"
             />
           </picture>
@@ -109,7 +379,7 @@ const RemedyRoomPage = () => {
             transition={{ duration: 0.5 }}
             className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
           >
-            Sauna · Cold Plunge · Compression · LED
+            {club ? club.kicker : "Sauna · Cold Plunge · Compression · LED"}
           </motion.p>
 
           <SwayCurve
@@ -125,18 +395,13 @@ const RemedyRoomPage = () => {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]"
           >
-            The Remedy Room
+            {club ? club.name : "The Remedy Room"}
           </motion.h1>
 
           <p className="sr-only">
-            The Remedy Room at Sway Wellness Spa is a guided 40-minute recovery
-            circuit combining 4 evidence-based modalities: 20 minutes of
-            sauna, 5 minutes of cold plunge, 15 minutes of compression
-            therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer
-            Square in Denver. $25 for members, $49 drop-in. Pair with any of
-            Sway&apos;s 18 massage types or 13 facial treatments. Open Mon–Fri 10 AM–8
-            PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book at swaywellnessspa.com or
-            call (303) 476-6150.
+            {club
+              ? club.srBlurb
+              : "The Remedy Room at Sway Wellness Spa is a guided 40-minute recovery circuit combining 4 evidence-based modalities: 20 minutes of sauna, 5 minutes of cold plunge, 15 minutes of compression therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer Square in Denver. $25 for members, $49 drop-in. Pair with any of Sway's 18 massage types or 13 facial treatments. Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book at swaywellnessspa.com or call (303) 476-6150."}
           </p>
 
           <motion.p
@@ -145,8 +410,9 @@ const RemedyRoomPage = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="mt-5 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/85"
           >
-            A guided 40-minute recovery circuit designed to restore your body
-            and reset your nervous system.
+            {club
+              ? club.heroSub
+              : "A guided 40-minute recovery circuit designed to restore your body and reset your nervous system."}
           </motion.p>
 
           <motion.a
@@ -168,13 +434,13 @@ const RemedyRoomPage = () => {
             className="mt-9 flex items-center justify-center"
           >
             <a
-              href="/locations/denver-larimer/book-remedy-room"
+              href={bookHref}
               className="group relative inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-semibold rounded-full hover:bg-gray-100 transition shadow-sm"
             >
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
                 <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
               </span>
-              Book Remedy Room
+              {club ? "Book Remedy Lounge" : "Book Remedy Room"}
             </a>
           </motion.div>
         </div>
@@ -183,12 +449,15 @@ const RemedyRoomPage = () => {
       {/* STATS STRIP */}
       <section className="bg-white px-6 py-8 md:py-10 border-b border-[#113D33]/8">
         <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16">
-          {[
-            { value: "4", label: "Recovery Modalities" },
-            { value: "40", label: "Minute Circuit" },
-            { value: "$25", label: "Member Pricing" },
-            { value: "$49", label: "Drop-In" },
-          ].map((s) => (
+          {(club
+            ? club.stats
+            : [
+                { value: "4", label: "Recovery Modalities" },
+                { value: "40", label: "Minute Circuit" },
+                { value: "$25", label: "Member Pricing" },
+                { value: "$49", label: "Drop-In" },
+              ]
+          ).map((s) => (
             <div key={s.label} className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-[#113D33]">
                 {s.value}
@@ -215,18 +484,22 @@ const RemedyRoomPage = () => {
               How It Works
             </h2>
             <p className="mt-3 text-base md:text-lg text-[#113D33]/70 max-w-2xl mx-auto">
-              Four evidence-based modalities in one guided session. No experience
-              needed. Just show up and follow the circuit.
+              {club
+                ? club.circuitSub
+                : "Four evidence-based modalities in one guided session. No experience needed. Just show up and follow the circuit."}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { step: "01", label: "Compression + LED", time: "15 min", desc: "Start with compression sleeves and LED light therapy working simultaneously." },
-              { step: "02", label: "Sauna", time: "20 min", desc: "Move into the sauna for deep heat therapy supporting recovery and circulation." },
-              { step: "03", label: "Cold Plunge", time: "5 min", desc: "Finish with cold water immersion to elevate energy and reduce inflammation." },
-              { step: "04", label: "Recover", time: "∞", desc: "Relax in the lounge. Pair with a massage or facial for a complete visit." },
-            ].map((s, i) => (
+            {(club
+              ? club.steps
+              : [
+                  { step: "01", label: "Compression + LED", time: "15 min", desc: "Start with compression sleeves and LED light therapy working simultaneously." },
+                  { step: "02", label: "Sauna", time: "20 min", desc: "Move into the sauna for deep heat therapy supporting recovery and circulation." },
+                  { step: "03", label: "Cold Plunge", time: "5 min", desc: "Finish with cold water immersion to elevate energy and reduce inflammation." },
+                  { step: "04", label: "Recover", time: "∞", desc: "Relax in the lounge. Pair with a massage or facial for a complete visit." },
+                ]
+            ).map((s, i) => (
               <motion.div
                 key={s.step}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
@@ -261,8 +534,9 @@ const RemedyRoomPage = () => {
             Recovery Technologies
           </h2>
           <p className="mt-3 text-base md:text-lg text-white/60 max-w-2xl mx-auto">
-            Each modality is backed by science and chosen for its role in the
-            recovery circuit.
+            {club
+              ? "Each modality is backed by science and chosen for its role in your recovery session."
+              : "Each modality is backed by science and chosen for its role in the recovery circuit."}
           </p>
         </motion.div>
 
@@ -301,7 +575,8 @@ const RemedyRoomPage = () => {
                   href={remedy.link}
                   className="mt-5 inline-flex items-center gap-2 w-fit text-sm font-bold text-white border border-white/20 rounded-lg px-5 py-2.5 hover:bg-white/10 hover:border-white/40 transition-all"
                 >
-                  Learn More<span className="sr-only"> about {remedy.name}</span>
+                  {club ? "Book a Session" : "Learn More"}
+                  <span className="sr-only"> about {remedy.name}</span>
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
@@ -341,7 +616,7 @@ const RemedyRoomPage = () => {
             Frequently Asked Questions
           </h2>
 
-          {[
+          {(club ? club.faqs : [
             {
               q: "What is the Remedy Room?",
               a: "The Remedy Room is a guided 40-minute recovery circuit at Sway that combines four modalities: sauna, cold plunge, compression therapy, and LED light therapy. It's designed to restore your body and reset your nervous system in a single session.",
@@ -362,7 +637,7 @@ const RemedyRoomPage = () => {
               q: "How much does the Remedy Room cost?",
               a: "The Remedy Room is $49 per session for drop-in guests and just $25 for Sway members. Memberships start at $99/month and include savings on all treatments, boosts, and recovery sessions.",
             },
-          ].map((item, i) => (
+          ]).map((item, i) => (
             <div key={i} className="border-b border-black/10">
               <button
                 aria-expanded={openFaq === i}
@@ -407,7 +682,9 @@ const RemedyRoomPage = () => {
         </div>
       </section>
 
-      {/* EXPLORE MORE */}
+      {/* EXPLORE MORE — Larimer only: massage/facial pages describe the spa,
+          and treatments haven't launched at the clubs yet. */}
+      {!club && (
       <section className="bg-white px-6 py-16 md:py-24">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-10 text-center">
@@ -453,23 +730,39 @@ const RemedyRoomPage = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* LOCATIONS */}
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-semibold text-[#113D33] mb-8">
-            Book Remedy Room at a Location
+            {club ? "Book Remedy Lounge" : "Book Remedy Room at a Location"}
           </h2>
           <Link
-            href="/locations/denver-larimer/book-remedy-room/"
+            href={club ? club.bookHref : "/locations/denver-larimer/book-remedy-room/"}
             className="block rounded-2xl bg-white p-6 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] hover:scale-[1.01] transition-all duration-300 group"
           >
-            <p className="text-lg font-semibold text-[#113D33]">Sway Larimer</p>
-            <p className="text-sm text-gray-600 mt-1">Denver, CO &middot; Larimer Square</p>
+            <p className="text-lg font-semibold text-[#113D33]">
+              {club ? club.cardTitle : "Sway Larimer"}
+            </p>
+            <p className="text-sm text-gray-600 mt-1">
+              {club ? club.cardArea : "Denver, CO · Larimer Square"}
+            </p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
               Book Now →
             </span>
           </Link>
+          {club && (
+            <p className="mt-4 text-sm text-[#113D33]/60">
+              Visiting downtown?{" "}
+              <Link
+                href="/locations/denver-larimer/book-remedy-room/"
+                className="underline underline-offset-4 font-semibold hover:text-[#113D33]"
+              >
+                Explore the Remedy Room at Sway Larimer
+              </Link>
+            </p>
+          )}
         </div>
       </section>
     </div>
