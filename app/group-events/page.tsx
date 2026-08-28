@@ -4,6 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { SwayCurve } from "../components/SwayCurve";
 
+function trackGroupContact(method: "call" | "email") {
+  if (typeof window === "undefined") return;
+  const w = window as any;
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({
+    event: "group_contact_click",
+    contact_method: method,
+    contact_source: "group_events_page",
+  });
+}
+
 export default function GroupEventsPage() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
@@ -227,9 +238,9 @@ export default function GroupEventsPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 text-lg">
             <span>Call</span>
-            <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
+            <a href="tel:+13034766150" onClick={() => trackGroupContact("call")} className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
             <span className="text-white/70">or email</span>
-            <span className="font-bold">contact@swaywellnessspa.com</span>
+            <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
           </div>
         </div>
 

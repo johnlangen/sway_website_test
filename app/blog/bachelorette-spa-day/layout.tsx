@@ -3,6 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 
+function trackGroupContact(method: "call" | "email") {
+  if (typeof window === "undefined") return;
+  const w = window as any;
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({
+    event: "group_contact_click",
+    contact_method: method,
+    contact_source: "bachelorette_blog",
+  });
+}
+
 export default function BacheloretteSpaDayBlogLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
@@ -85,8 +96,8 @@ export default function BacheloretteSpaDayBlogLayout() {
                 <p className="font-semibold">To plan your group package:</p>
                 <p className="mt-1">
                   Call{" "}
-                  <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-[#0e322b]">(303) 476-6150</a>{" "}
-                  or email <span className="font-bold">contact@swaywellnessspa.com</span>
+                  <a href="tel:+13034766150" onClick={() => trackGroupContact("call")} className="font-bold underline underline-offset-4 hover:text-[#0e322b]">(303) 476-6150</a>{" "}
+                  or email <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-[#0e322b]">contact@swaywellnessspa.com</a>
                 </p>
               </div>
             </div>
@@ -157,9 +168,9 @@ export default function BacheloretteSpaDayBlogLayout() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 pt-2 text-lg">
             <span>Call</span>
-            <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
+            <a href="tel:+13034766150" onClick={() => trackGroupContact("call")} className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
             <span className="text-white/70">or email</span>
-            <span className="font-bold">contact@swaywellnessspa.com</span>
+            <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
           </div>
           <div className="pt-2">
             <Link href="/locations/denver-larimer/book-service" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book a Treatment</Link>
@@ -228,9 +239,9 @@ export default function BacheloretteSpaDayBlogLayout() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 pt-2 text-lg">
             <span>Call</span>
-            <a href="tel:+13034766150" className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
+            <a href="tel:+13034766150" onClick={() => trackGroupContact("call")} className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
             <span className="text-white/70">or email</span>
-            <span className="font-bold">contact@swaywellnessspa.com</span>
+            <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
           </div>
           <div className="pt-2">
             <Link href="/locations/denver-larimer/book-service" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book Online</Link>
