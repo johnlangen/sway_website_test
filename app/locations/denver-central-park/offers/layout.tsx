@@ -110,7 +110,7 @@ export default function CentralParkOffersLayout({
         "@type": "Offer",
         name: "Remedy Lounge Session",
         description:
-          "A 75-minute recovery session with traditional dry sauna, infrared sauna cabins, cold plunges, warm soak, and compression therapy. $49 drop-in, $25 for members or local first-time guests (code FTVORL, locals only).",
+          "A 75-minute recovery session with traditional dry sauna, infrared sauna cabins, cold plunges, warm soak, and compression therapy. $49 drop-in; $25 for local first-time guests (code FTVORL, locals only). Unlimited with the $129/mo Remedy Lounge Membership.",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

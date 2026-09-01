@@ -114,7 +114,8 @@ export default function ClubOffersPage({
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-base md:text-lg opacity-80 max-w-xl mx-auto"
         >
-          Your first Remedy Lounge visit at {cfg.shortName}, at member pricing.
+          Your first Remedy Lounge visit at {cfg.shortName} for $
+          {CLUB_OFFER_PRICE}. Regularly ${CLUB_LOUNGE_DROP_IN}.
         </motion.p>
 
         <p className="sr-only">
@@ -179,8 +180,8 @@ export default function ClubOffersPage({
               </div>
 
               <p className="text-sm text-gray-600 mb-6 leading-relaxed flex-grow">
-                {cfg.loungeLine} A full 75-minute recovery session at member
-                pricing for your first visit.
+                {cfg.loungeLine} A full 75-minute recovery session, half off
+                for your first visit.
               </p>
 
               <Link
@@ -229,7 +230,7 @@ export default function ClubOffersPage({
           >
             <div className="flex-1 text-center md:text-left">
               <p className="text-xs uppercase tracking-[0.2em] text-[#9ABFB3] mb-2">
-                Love your first visit? Keep the price.
+                Love your first visit? Make it every day.
               </p>
               <h3 className="text-2xl md:text-3xl font-bold mb-2">
                 Remedy Lounge Membership
