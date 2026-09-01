@@ -74,7 +74,11 @@ export default function LarimerOffersPage() {
           transition={{ duration: 0.4 }}
           className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-4"
         >
-          Sway Larimer &middot; Denver, CO
+          Sway Larimer &middot; Denver, CO{" "}
+          &middot;{" "}
+          <Link href="/offers?choose=1" className="underline underline-offset-4 hover:text-white transition normal-case tracking-normal">
+            Change location
+          </Link>
         </motion.p>
 
         <SwayCurve
@@ -113,21 +117,6 @@ export default function LarimerOffersPage() {
           <span className="hidden sm:block opacity-30">|</span>
           <ClassPassBadge />
         </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.35 }}
-          className="mt-4 text-sm text-gray-300"
-        >
-          Viewing Sway Larimer ·{" "}
-          <Link
-            href="/offers"
-            className="underline underline-offset-4 font-medium text-white hover:text-gray-100"
-          >
-            Change location
-          </Link>
-        </motion.p>
 
         <p className="sr-only">
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer

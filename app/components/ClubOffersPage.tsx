@@ -85,7 +85,11 @@ export default function ClubOffersPage({
           transition={{ duration: 0.4 }}
           className="text-xs md:text-sm uppercase tracking-[0.2em] text-[#4A776D] mb-4"
         >
-          {cfg.areaLine}
+          {cfg.areaLine}{" "}
+          &middot;{" "}
+          <Link href="/offers?choose=1" className="underline underline-offset-4 hover:text-[#113D33] transition normal-case tracking-normal">
+            Change location
+          </Link>
         </motion.p>
 
         <SwayCurve
@@ -111,21 +115,6 @@ export default function ClubOffersPage({
           className="text-base md:text-lg opacity-80 max-w-xl mx-auto"
         >
           Your first Remedy Lounge visit at {cfg.shortName}, at member pricing.
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-4 text-sm opacity-70"
-        >
-          Viewing {cfg.shortName} ·{" "}
-          <Link
-            href="/offers"
-            className="underline underline-offset-4 font-medium hover:opacity-100"
-          >
-            Change location
-          </Link>
         </motion.p>
 
         <p className="sr-only">

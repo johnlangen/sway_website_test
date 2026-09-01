@@ -72,18 +72,30 @@ function saveLocation(slug: string, name: string) {
 }
 
 export default function OffersPage() {
-  // No auto-redirect to the saved location: with three open locations this
-  // page IS the switcher, so a forced redirect would trap guests on
-  // whichever spa they picked first. The saved location just gets a ring.
   const [selectedLocation, setSelectedLocation] =
     useState<SelectedLocation | null>(null);
+  const [showPage, setShowPage] = useState(false);
 
   useEffect(() => {
     try {
+      // ?choose (from the in-page "Change location" links) shows the picker
+      // instead of bouncing straight back to the saved location.
+      const choosing = new URLSearchParams(window.location.search).has("choose");
       const ls = localStorage.getItem("sway_selected_location");
-      if (ls) setSelectedLocation(JSON.parse(ls));
+      if (ls) {
+        const loc = JSON.parse(ls);
+        setSelectedLocation(loc);
+        const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
+        if (match && !choosing) {
+          window.location.replace(match.href);
+          return;
+        }
+      }
     } catch {}
+    setShowPage(true);
   }, []);
+
+  if (!showPage) return <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
