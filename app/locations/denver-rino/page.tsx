@@ -35,6 +35,10 @@ const FAQS = [
     a: "Access to the traditional dry sauna, infrared sauna cabins, cold plunge, compression therapy, and lounge.",
   },
   {
+    q: "How much is my first visit?",
+    a: "Local first-time guests get their first 75-minute Remedy Lounge session for $25 (regularly $49). Book online, then mention code FTVORL at check-in. Locals only, any day.",
+  },
+  {
     q: "Do I need a membership?",
     a: "No. Drop-ins are welcome. For unlimited access, the Remedy Lounge Membership is $129/month and you can join online in about 2 minutes.",
   },
@@ -146,6 +150,31 @@ export default function SwayRinoPage() {
               priority
               className="rounded-3xl shadow-lg w-full h-[300px] sm:h-[360px] md:h-[460px] object-cover"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* ========================= FIRST VISIT OFFER ========================= */}
+      <section className="px-6 pb-10 md:pb-14">
+        <div className="max-w-6xl mx-auto">
+          <div className="rounded-2xl bg-[#113D33] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div className="text-center sm:text-left">
+              <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
+                First Visit Offer · Locals Only
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold">
+                Your first Remedy Lounge visit, $25.
+              </h2>
+              <p className="mt-1.5 text-white/80 text-sm">
+                Regularly $49 · Any day · Use code FTVORL at check-in
+              </p>
+            </div>
+            <Link
+              href="/locations/denver-rino/offers"
+              className="bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-100 transition whitespace-nowrap"
+            >
+              View Offer
+            </Link>
           </div>
         </div>
       </section>
