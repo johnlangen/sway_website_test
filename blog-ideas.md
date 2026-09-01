@@ -72,7 +72,7 @@ These build Sway's authority as a wellness expert and target informational queri
 | 18 | Best Spas in Denver (2026 Guide) | best-spas-denver | "best spas in denver", "denver spas", "spa near me denver" |
 | 19 | Best Massage in Denver | best-massage-denver | "best massage denver", "deep tissue massage denver" |
 | 20 | Best Facials in Denver | best-facials-denver | "best facial denver", "where to get a facial in denver" |
-| 21 | Cold Plunge in Denver: Where to Go | cold-plunge-denver-guide | "cold plunge denver", "where to cold plunge in denver" |
+| 21 | ~~Cold Plunge in Denver: Where to Go~~ | ~~cold-plunge-denver-guide~~ | **DONE** Sept 2026 |
 | 22 | Best Sauna Experiences in Denver | sauna-denver | "sauna denver", "infrared sauna denver" |
 | 23 | What to Expect at Your First Spa Visit | first-spa-visit-guide | "first time at a spa", "what to expect at a spa" |
 | 24 | Couples Massage in Denver: Complete Guide | couples-massage-denver | "couples massage denver", "couples spa denver" |

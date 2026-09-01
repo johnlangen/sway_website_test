@@ -62,6 +62,16 @@ export default function BlogPage() {
     blogPost: [
       {
         "@type": "BlogPosting",
+        headline: "Cold Plunge in Denver: Where to Go (2026 Guide)",
+        url: "https://swaywellnessspa.com/blog/cold-plunge-denver-guide/",
+        datePublished: "2026-09-01",
+        author: {
+          "@type": "Organization",
+          name: "Sway Wellness Team",
+        },
+      },
+      {
+        "@type": "BlogPosting",
         headline: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
         url: "https://swaywellnessspa.com/blog/sway-membership-tiers/",
         datePublished: "2026-04-07",

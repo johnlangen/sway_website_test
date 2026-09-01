@@ -10,13 +10,21 @@ import { SwayCurve } from "../components/SwayCurve";
 
 const blogs = [
   {
+    slug: "cold-plunge-denver-guide",
+    title: "Cold Plunge in Denver: Where to Go (2026 Guide)",
+    summary:
+      "Every great place to get cold in Denver: guided contrast circuits at Sway Larimer, the big plunge in RiNo, contrast cabins in Central Park, recovery studios around town, and natural mountain plunges.",
+    tag: "Recovery",
+    image: "/assets/coldplunge.jpg",
+    featured: true,
+  },
+  {
     slug: "fathers-day-gift-guide",
     title: "A Father's Day in Denver Your Dad Will Actually Remember",
     summary:
       "He has enough ties. Cold plunge, sauna, sports massage, Aescape AI, and a full Sway-anchored Father's Day itinerary on Larimer Square.",
     tag: "Holiday",
     image: "/assets/fathers-day-gift-guide.jpg",
-    featured: true,
   },
   {
     slug: "recovery-denver",

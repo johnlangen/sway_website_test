@@ -167,6 +167,14 @@ export default function RecoveryDenverBlogLayout() {
               <li className="flex gap-2"><span className="text-[#9CB7A9]">&#9679;</span><span><strong>Boosts alertness</strong> and mood through the cold-water response.</span></li>
               <li className="flex gap-2"><span className="text-[#9CB7A9]">&#9679;</span><span><strong>Pairs with sauna</strong> for a complete hot-cold contrast cycle.</span></li>
             </ul>
+            <p className="text-[15px]">
+              Want every place to get cold in the city, including the plunges
+              at Sway RiNo and Central Park? See our full{" "}
+              <Link href="/blog/cold-plunge-denver-guide" className="underline text-[#113D33] font-semibold">
+                guide to cold plunging in Denver
+              </Link>
+              .
+            </p>
           </div>
         </div>
 

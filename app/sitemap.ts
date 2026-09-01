@@ -112,6 +112,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Blog posts
      ------------------------------------------------------------------ */
   const blogSlugs = [
+    "cold-plunge-denver-guide",
     "recovery-denver",
     "sway-membership-tiers",
     "best-date-night-ideas-denver",
