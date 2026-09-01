@@ -13,8 +13,11 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     background_color: "#F7F4E9",
     theme_color: "#113D33",
+    // Real PNGs at the sizes Chrome's installability check requires
+    // (swaylogo3.png is actually JPEG data and was declared sizes:"any").
     icons: [
-      { src: "/assets/swaylogo3.png", sizes: "any", type: "image/png", purpose: "any" },
+      { src: "/assets/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/assets/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
   };
 }

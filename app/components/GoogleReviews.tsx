@@ -215,7 +215,7 @@ export default function GoogleReviews({ attribution }: GoogleReviewsProps) {
 
   // Fallback rating while API loads
   const rating = ratingData?.rating ?? 4.9;
-  const totalReviews = ratingData?.totalReviews ?? 156;
+  const totalReviews = ratingData?.totalReviews ?? 164;
 
   return (
     <motion.div
@@ -357,7 +357,7 @@ export function ReviewBadge({ attribution }: { attribution?: string }) {
   const ratingData = useRating();
 
   const rating = ratingData?.rating ?? 4.9;
-  const totalReviews = ratingData?.totalReviews ?? 156;
+  const totalReviews = ratingData?.totalReviews ?? 164;
 
   return (
     <a

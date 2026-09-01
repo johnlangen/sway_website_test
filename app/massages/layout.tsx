@@ -76,7 +76,7 @@ const faqJsonLd = {
       name: "Can I add anything to my massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway offers add-on boosts at three tiers: Boost ($20), Boost Plus ($40), and Boost Pro ($50). Options include CBD, Cupping, and PEMF. Members save 50% on all boosts.",
+        text: "Yes. Sway offers massage add-on boosts at two tiers: Boost ($20 drop-in) and Boost Plus ($40 drop-in). Options include CBD, Cupping, and PEMF. Members save 50% on all boosts.",
       },
     },
     {

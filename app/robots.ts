@@ -13,10 +13,6 @@ export default function robots(): MetadataRoute.Robots {
           "/internal/",
           "/locations/knox-henderson/dashboard",
           "/membership-join-preview",
-          "/locations/denver-rino/book-service-test",
-          "/locations/denver-rino/book-remedy-lounge",
-          "/locations/denver-central-park/book-service-test",
-          "/locations/denver-central-park/book-remedy-lounge",
         ],
       },
       // Explicitly allow AI search/retrieval bots

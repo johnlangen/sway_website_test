@@ -115,6 +115,10 @@ const serviceJsonLd = {
         },
         price: "139.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "99.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "139.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       // Premier tier
       {
@@ -126,6 +130,10 @@ const serviceJsonLd = {
         },
         price: "169.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -136,6 +144,10 @@ const serviceJsonLd = {
         },
         price: "169.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -146,6 +158,10 @@ const serviceJsonLd = {
         },
         price: "169.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -156,6 +172,10 @@ const serviceJsonLd = {
         },
         price: "169.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "129.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "169.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       // Ultimate tier
       {
@@ -167,6 +187,10 @@ const serviceJsonLd = {
         },
         price: "199.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -177,6 +201,10 @@ const serviceJsonLd = {
         },
         price: "199.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -187,6 +215,10 @@ const serviceJsonLd = {
         },
         price: "199.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -197,6 +229,10 @@ const serviceJsonLd = {
         },
         price: "199.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
       {
         "@type": "Offer",
@@ -207,6 +243,10 @@ const serviceJsonLd = {
         },
         price: "199.00",
         priceCurrency: "USD",
+        priceSpecification: [
+          { "@type": "UnitPriceSpecification", price: "159.00", priceCurrency: "USD", name: "Member" },
+          { "@type": "UnitPriceSpecification", price: "199.00", priceCurrency: "USD", name: "Drop-In" },
+        ],
       },
     ],
   },

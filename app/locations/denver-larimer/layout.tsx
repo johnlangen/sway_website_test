@@ -308,6 +308,17 @@ const localBusinessJsonLd = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
+              name: "Aescape 45-Minute Full Body",
+              description:
+                "A 45-minute AI-powered full-body robot massage with real-time muscle mapping.",
+            },
+            price: "99.00",
+            priceCurrency: "USD",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
               name: "Aescape 60-Minute Full Body",
               description:
                 "A 60-minute AI-powered full-body robot massage with personalized pressure zones.",

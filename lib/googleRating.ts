@@ -6,7 +6,7 @@
 
 const PLACE_ID = "ChIJtRQkUu55bIcR91jycB7Jcns"; // Sway Wellness Spa Larimer
 
-export const RATING_FALLBACK = { rating: 4.9, totalReviews: 156 }; // as of 2026-07-13
+export const RATING_FALLBACK = { rating: 4.9, totalReviews: 164 }; // as of 2026-09-01
 
 export async function getGoogleRating(): Promise<{ rating: number; totalReviews: number }> {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;

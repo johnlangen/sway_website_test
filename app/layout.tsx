@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/favicon.ico",
-    apple: "/assets/swaylogo3.png",
+    apple: "/assets/icon-192.png",
   },
 
   manifest: "/manifest.webmanifest",
@@ -84,11 +84,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="light">
       <head>
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        />
-
         {/* Organization schema (site-wide, non-location specific) */}
         <script
           type="application/ld+json"

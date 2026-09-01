@@ -361,7 +361,7 @@ export default function GeorgetownFoundingMembershipPage() {
   const rankCounter = useAnimatedCounter(4, 1200);
   const spotsCounter = useAnimatedCounter(100);
   const googleRating = useRating();
-  const liveReviewTotal = googleRating?.totalReviews ?? 156;
+  const liveReviewTotal = googleRating?.totalReviews ?? 164;
   const liveReviewAvg = (googleRating?.rating ?? 4.9).toFixed(1);
   const reviewCounter = useAnimatedCounter(liveReviewTotal);
 

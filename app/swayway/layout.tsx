@@ -48,7 +48,7 @@ export default function SwayWayLayout({
               logo: "https://swaywellnessspa.com/assets/OG/og-home.jpg",
               sameAs: [
                 "https://www.instagram.com/swaywellnessclub/",
-                "https://www.facebook.com/swaywellnessclub",
+                "https://www.facebook.com/swaywellnessspa",
                 "https://www.tiktok.com/@swaywellnessclub",
               ],
             },
