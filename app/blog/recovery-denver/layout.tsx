@@ -23,7 +23,7 @@ export default function RecoveryDenverBlogLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Recovery
           </span>
-          <span className="text-gray-500">June 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}

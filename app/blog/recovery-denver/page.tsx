@@ -51,7 +51,7 @@ export default function Page() {
       },
     },
     datePublished: "2026-06-09",
-    dateModified: "2026-06-09",
+    dateModified: "2026-09-01",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://swaywellnessspa.com/blog/recovery-denver/",

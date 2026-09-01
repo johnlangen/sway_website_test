@@ -532,9 +532,10 @@ export default function ColdPlungeDenverLayout() {
         <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
           <p className="text-xl font-bold">Get In. We&apos;ll Keep It Cold.</p>
           <p className="text-sm opacity-90">
-            Three plunges across Denver, all open daily.{" "}
-            <Link href="/membership" className="underline font-semibold">Members</Link>
-            {" "}plunge from $25 a session, and a{" "}
+            Three plunges across Denver, all open daily. Larimer{" "}
+            <Link href="/membership" className="underline font-semibold">members</Link>
+            {" "}plunge for $25 a session, club memberships include unlimited
+            Lounge time, and a{" "}
             <Link href="/gift-cards" className="underline font-semibold">gift card</Link>
             {" "}is the best way to trick a friend into the water.
           </p>
@@ -583,8 +584,9 @@ export default function ColdPlungeDenverLayout() {
             <p className="font-bold">Do I need a membership to cold plunge in Denver?</p>
             <p className="text-gray-700 mt-2 text-[15px]">
               No. The Remedy Room at Sway Larimer is $49 as a drop-in, and the
-              RiNo and Central Park clubs welcome drop-ins daily. Members pay
-              $25 per Remedy Room session, and Denver locals can try their
+              RiNo and Central Park clubs welcome drop-ins daily. Larimer
+              members pay $25 per Remedy Room session, club memberships
+              include unlimited Lounge access, and Denver locals can try their
               first session for $25 with the first-visit offer (locals only,
               first visit, select days).
             </p>
@@ -701,7 +703,7 @@ export default function ColdPlungeDenverLayout() {
                   name: "Do I need a membership to cold plunge in Denver?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "No. The Remedy Room at Sway Larimer is $49 as a drop-in, and the RiNo and Central Park clubs welcome drop-ins daily. Members pay $25 per Remedy Room session, and Denver locals can try their first session for $25 with the first-visit offer (locals only, first visit, select days).",
+                    text: "No. The Remedy Room at Sway Larimer is $49 as a drop-in, and the RiNo and Central Park clubs welcome drop-ins daily. Larimer members pay $25 per Remedy Room session, club memberships include unlimited Lounge access, and Denver locals can try their first session for $25 with the first-visit offer (locals only, first visit, select days).",
                   },
                 },
                 {

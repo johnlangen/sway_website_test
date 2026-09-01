@@ -50,7 +50,7 @@ export default function Page() {
       },
     },
     datePublished: "2025-03-05",
-    dateModified: "2026-06-01",
+    dateModified: "2026-09-01",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://swaywellnessspa.com/blog/infrared-pemf-mat/",

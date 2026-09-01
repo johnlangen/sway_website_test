@@ -29,7 +29,7 @@ export default function BacheloretteSpaDayBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Bridal</span>
-          <span className="text-gray-500">Updated June 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero image */}
@@ -90,7 +90,12 @@ export default function BacheloretteSpaDayBlogLayout() {
                 and we will help you put together a bachelorette package that
                 works for everyone, from the bride to the bridesmaid who just
                 wants a deep-tissue massage. Larger groups book best with a
-                little lead time, so reach out early.
+                little lead time, so reach out early. You can also see
+                everything we offer for groups on our{" "}
+                <Link href="/group-events" className="underline text-[#113D33] font-semibold">
+                  group events page
+                </Link>
+                .
               </p>
               <div className="bg-[#F7F4E9] rounded-lg p-4 text-[#113D33]">
                 <p className="font-semibold">To plan your group package:</p>

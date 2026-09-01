@@ -26,7 +26,7 @@ export default function DateNightDenverLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Denver
           </span>
-          <span className="text-gray-500">March 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}

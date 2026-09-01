@@ -59,7 +59,7 @@ export default function Page() {
       },
     },
     datePublished: "2025-06-01",
-    dateModified: "2025-06-01",
+    dateModified: "2026-09-01",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://swaywellnessspa.com/blog/sun-protection-post-sun-care/",
