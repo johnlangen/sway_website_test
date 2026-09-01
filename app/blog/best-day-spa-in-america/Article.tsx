@@ -156,7 +156,7 @@ export default function BestDaySpaLayout() {
         <p>
           We built a membership community around the idea that consistent
           wellness matters more than one-off treatments. We partnered with
-          Eminence Organics and Dr. Dennis Gross for results-driven skincare. And
+          Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial, for results-driven skincare. And
           we did it all in a design-forward space on one of Denver&apos;s most
           iconic blocks.
         </p>
@@ -207,7 +207,7 @@ export default function BestDaySpaLayout() {
           </Link>
         </h3>
         <p>
-          Six types built on Eminence Organics and Dr. Dennis Gross protocols:
+          Six types, powered by Eminence Organics plus a dedicated Dr. Dennis Gross Vitamin C facial:
           Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and
           Dr. Dennis Gross Vitamin C. Add high-tech boosts like LED light
           therapy, microcurrent, oxygen infusion, or dermaflash for

@@ -84,7 +84,7 @@ export default function SwayGeorgetownComingSoonPage() {
             {[
               {
                 title: "Massage Therapy",
-                desc: "Deep tissue, sports recovery, CBD, and Himalayan salt stone massage. 50, 70, or 90-minute treatments with customizable pressure and add-on boosts like hot stones and cupping.",
+                desc: "Deep tissue, sports recovery, CBD, and Himalayan salt stone massage. 50, 70, or 90-minute treatments, from light-to-medium Signature to firm Deep Tissue, with add-on boosts like hot stones and cupping.",
                 href: "/massages",
               },
               {

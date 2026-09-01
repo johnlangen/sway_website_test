@@ -93,7 +93,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Facial Treatments at Sway Wellness Spa",
   description:
-    "Advanced facial treatments at Sway Wellness Spa in Denver using Eminence Organics and Dr. Dennis Gross protocols. Choose from Essential (Signature Facial), Premier (Forever Young, Glow Getter, Pore Perfection, Sensitive Silk), and Ultimate (Illuminate LED, Oxygen Infusion, Sculpt & Lift Microcurrent, Hydraderm, Dr. Dennis Gross Vitamin C w/ LED) facials. Add boosts at three tiers.",
+    "Advanced facial treatments at Sway Wellness Spa in Denver featuring Eminence Organics across the menu, plus a dedicated Dr. Dennis Gross Vitamin C facial. Choose from Essential (Signature Facial), Premier (Forever Young, Glow Getter, Pore Perfection, Sensitive Silk), and Ultimate (Illuminate LED, Oxygen Infusion, Sculpt & Lift Microcurrent, Hydraderm, Dr. Dennis Gross Vitamin C w/ LED) facials. Add boosts at three tiers.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",

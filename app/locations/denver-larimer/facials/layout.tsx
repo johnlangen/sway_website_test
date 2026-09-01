@@ -85,7 +85,7 @@ const serviceJsonLd = {
     name: "Denver",
   },
   description:
-    "Advanced facial treatments at Sway Wellness Spa in Larimer Square, Denver. Six signature facials including anti-aging, hydration, acne, sensitive skin, and Vitamin C treatments by Eminence Organics and Dr. Dennis Gross.",
+    "Advanced facial treatments at Sway Wellness Spa in Larimer Square, Denver. Six signature facials including anti-aging, hydration, acne, and sensitive skin treatments by Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial.",
 };
 
 export default function LarimerFacialsLayout({ children }: { children: React.ReactNode }) {

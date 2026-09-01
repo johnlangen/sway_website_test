@@ -59,7 +59,7 @@ const SWAY_DIFFERENCE = [
   },
   {
     title: "Science-Backed Skincare",
-    text: "Eminence Organics and Dr. Dennis Gross protocols with high-tech boosts like microcurrent, LED, and oxygen infusion.",
+    text: "Eminence Organics protocols, a dedicated Dr. Dennis Gross Vitamin C facial, and high-tech boosts like microcurrent, LED, and oxygen infusion.",
   },
   {
     title: "Expert Massage Therapists",

@@ -68,7 +68,7 @@ const faqJsonLd = {
       name: "What types of massage does Sway offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway offers massages across three tiers: Essential (Signature Massage, 50 min), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage, 50–70 min), and Ultimate (Signature 90 min, Deep Tissue 70 min, Salt Stone 70 min, Sports 70 min, Lymphatic Drainage 70 min). All fully customized by your therapist.",
+        text: "Sway offers massages across three tiers: Essential (Signature Massage, 50 min), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage, 50–70 min), and Ultimate (Signature 90 min, Deep Tissue 70 min, Salt Stone 70 min, Sports 70 min, Lymphatic Drainage 70 min). Signature Massages are light to medium pressure; choose Deep Tissue or Sports for firm, targeted work.",
       },
     },
     {
@@ -103,7 +103,7 @@ const serviceJsonLd = {
   "@type": "Service",
   name: "Massage Therapy at Sway Wellness Spa",
   description:
-    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min), fully customized by your therapist. Add boosts like CBD, cupping, and PEMF.",
+    "Expert-led massage therapy at Sway Wellness Spa in Denver. Choose from Essential (Signature Massage), Premier (Deep Tissue, Salt Stone, Sports, Lymphatic Drainage), and Ultimate (extended sessions up to 90 min). Signature Massages are light to medium pressure; Deep Tissue and Sports deliver firm, targeted work. Add boosts like CBD, cupping, and PEMF.",
   provider: {
     "@type": "HealthAndBeautyBusiness",
     name: "Sway Wellness Spa",
@@ -193,7 +193,7 @@ const serviceJsonLd = {
         itemOffered: {
           "@type": "Service",
           name: "Signature 90-Minute Massage",
-          description: "A 90-minute extended signature massage for full-body relaxation and recovery.",
+          description: "A 90-minute extended light-to-medium pressure signature massage for full-body relaxation and recovery.",
         },
         price: "199.00",
         priceCurrency: "USD",

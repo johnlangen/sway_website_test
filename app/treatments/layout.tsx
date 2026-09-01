@@ -106,7 +106,7 @@ export default function TreatmentsLayout({
         "@type": "OfferCatalog",
         name: "Facial Treatments",
         description:
-          "13 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 30–60 minutes. Powered by Eminence Organics and Dr. Dennis Gross.",
+          "13 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 30–60 minutes. Powered by Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial.",
         url: "https://swaywellnessspa.com/facials/",
         numberOfItems: 13,
         itemListElement: [

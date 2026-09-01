@@ -47,7 +47,7 @@ const TREATMENTS = [
 ];
 
 const BENEFITS = [
-  { title: "Relieve Muscle Tension", description: "Target tight muscles and chronic tension with personalized massage techniques tailored to your body." },
+  { title: "Relieve Muscle Tension", description: "Target tight muscles and chronic tension with Deep Tissue and Sports massage techniques." },
   { title: "Reduce Stress", description: "Massage therapy helps calm the nervous system, reduce cortisol, and promote deep relaxation." },
   { title: "Improve Circulation", description: "Hands-on therapy supports blood flow and oxygen delivery throughout the body." },
   { title: "Support Recovery", description: "Ideal for athletes, active professionals, or anyone needing physical and mental reset." },

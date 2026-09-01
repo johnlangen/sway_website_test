@@ -169,7 +169,7 @@ export default function BlogPage() {
         name: "Does Sway Wellness Spa have a blog about skincare and massage?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The Sway Edit features 28 articles including expert guides on skincare, facials using Eminence Organics and Dr. Dennis Gross products, massage benefits, recovery technology, and wellness trends. New articles are published regularly.",
+          text: "Yes. The Sway Edit features 28 articles including expert guides on skincare, facials using Eminence Organics products plus the dedicated Dr. Dennis Gross Vitamin C facial, massage benefits, recovery technology, and wellness trends. New articles are published regularly.",
         },
       },
     ],

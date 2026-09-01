@@ -50,7 +50,7 @@ const massageTiers: MassageTier[] = [
         name: "Signature Massage",
         duration: "70 min",
         description:
-          "An extended full-body massage with your choice of aromatic massage lotion for a deeply relaxing, personalized experience.",
+          "An extended light-to-medium pressure full-body massage with your choice of aromatic massage lotion for a deeply relaxing experience.",
       },
       {
         name: "Maternity Massage",
@@ -92,7 +92,7 @@ const massageTiers: MassageTier[] = [
         name: "Signature Massage",
         duration: "90 min",
         description:
-          "Our longest full-body massage. Long fluid movements grace the body, gently stretching muscles and relieving tension for total relaxation.",
+          "Our longest full-body massage, at light to medium pressure. Long fluid movements grace the body, gently stretching muscles and relieving tension for total relaxation.",
       },
       {
         name: "Deep Tissue Massage",
@@ -530,7 +530,7 @@ const MassagesPage = () => {
             {[
               {
                 name: "Facials",
-                desc: "Result-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
+                desc: "Result-driven skincare with Eminence Organics, a dedicated Dr. Dennis Gross Vitamin C facial, and high-tech boosts.",
                 href: "/facials",
               },
               {

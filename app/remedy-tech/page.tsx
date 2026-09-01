@@ -699,7 +699,7 @@ const RemedyRoomPage = () => {
               },
               {
                 name: "Facials",
-                desc: "Results-driven skincare with Eminence Organics, Dr. Dennis Gross, and high-tech boosts.",
+                desc: "Results-driven skincare with Eminence Organics, a dedicated Dr. Dennis Gross Vitamin C facial, and high-tech boosts.",
                 href: "/facials",
               },
               {

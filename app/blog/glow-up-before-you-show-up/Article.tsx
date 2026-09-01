@@ -112,7 +112,7 @@ export default function GlowUpBeforeYouShowUpLayout() {
 
         <h2 id="offers" className="text-2xl font-bold scroll-mt-24">Special Offers for Students</h2>
         <ul className="list-disc list-inside">
-          <li><strong>Back-to-School Special:</strong> $40 off your first facial or massage with valid student ID...</li>
+          <li><strong>Back-to-School Special:</strong> $40 off your first facial or massage with valid student ID. Locals only...</li>
           <li><strong><Link href="/membership" className="underline text-[#113D33]">Membership Deal</Link>:</strong> Join to get exclusive member pricing on every visit...</li>
         </ul>
 
