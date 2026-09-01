@@ -114,6 +114,21 @@ export default function LarimerOffersPage() {
           <ClassPassBadge />
         </motion.div>
 
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.35 }}
+          className="mt-4 text-sm text-gray-300"
+        >
+          Viewing Sway Larimer ·{" "}
+          <Link
+            href="/offers"
+            className="underline underline-offset-4 font-medium text-white hover:text-gray-100"
+          >
+            Change location
+          </Link>
+        </motion.p>
+
         <p className="sr-only">
           Sway Wellness Spa Denver Larimer offers and pricing: First Visit Offer
           (code FTVO40): $40 off your first massage, facial, or 60-minute

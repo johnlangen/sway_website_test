@@ -113,6 +113,21 @@ export default function ClubOffersPage({
           Your first Remedy Lounge visit at {cfg.shortName}, at member pricing.
         </motion.p>
 
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="mt-4 text-sm opacity-70"
+        >
+          Viewing {cfg.shortName} ·{" "}
+          <Link
+            href="/offers"
+            className="underline underline-offset-4 font-medium hover:opacity-100"
+          >
+            Change location
+          </Link>
+        </motion.p>
+
         <p className="sr-only">
           {cfg.shortName} offers and pricing: First Remedy Lounge Visit (code
           FTVORL): ${CLUB_OFFER_PRICE} for your first 75-minute Remedy Lounge

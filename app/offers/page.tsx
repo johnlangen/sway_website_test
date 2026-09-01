@@ -72,28 +72,18 @@ function saveLocation(slug: string, name: string) {
 }
 
 export default function OffersPage() {
+  // No auto-redirect to the saved location: with three open locations this
+  // page IS the switcher, so a forced redirect would trap guests on
+  // whichever spa they picked first. The saved location just gets a ring.
   const [selectedLocation, setSelectedLocation] =
     useState<SelectedLocation | null>(null);
-  const [showPage, setShowPage] = useState(false);
 
   useEffect(() => {
     try {
       const ls = localStorage.getItem("sway_selected_location");
-      if (ls) {
-        const loc = JSON.parse(ls);
-        setSelectedLocation(loc);
-        // Auto-redirect to saved location's offers page
-        const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
-        if (match) {
-          window.location.replace(match.href);
-          return;
-        }
-      }
+      if (ls) setSelectedLocation(JSON.parse(ls));
     } catch {}
-    setShowPage(true);
   }, []);
-
-  if (!showPage) return <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" />;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a] text-white font-vance">
@@ -142,97 +132,90 @@ export default function OffersPage() {
         </p>
       </section>
 
-      {/* Location Cards */}
+      {/* Location Cards: open locations first, coming-soon de-emphasized below */}
       <section className="px-4 sm:px-6 pt-10 pb-16">
         <p className="text-center text-sm uppercase tracking-[0.15em] text-[#9ABFB3] mb-6">
           Select your location
         </p>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
-          {locations.map((loc) => {
-            const isOpen = loc.status === "open";
-            const isSelected = selectedLocation?.slug === loc.slug;
+          {locations
+            .filter((loc) => loc.status === "open")
+            .map((loc) => {
+              const isSelected = selectedLocation?.slug === loc.slug;
 
-            return isOpen ? (
-              <Link
-                key={loc.slug}
-                href={loc.href}
-                onClick={() => saveLocation(loc.slug, loc.name)}
-                className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
-                  isSelected ? "ring-2 ring-[#9ABFB3]" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="relative h-40 w-full">
-                  <Image
-                    src={loc.image}
-                    alt={loc.name}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold shadow-sm">
-                      Now Open
+              return (
+                <Link
+                  key={loc.slug}
+                  href={loc.href}
+                  onClick={() => saveLocation(loc.slug, loc.name)}
+                  className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
+                    isSelected ? "ring-2 ring-[#9ABFB3]" : ""
+                  }`}
+                >
+                  {/* Image */}
+                  <div className="relative h-40 w-full">
+                    <Image
+                      src={loc.image}
+                      alt={loc.name}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-block text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold shadow-sm">
+                        Now Open
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Info */}
+                  <div className="p-5 flex flex-col flex-grow">
+                    <h2 className="text-xl font-bold mb-1">{loc.name}</h2>
+                    <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {loc.city}, {loc.state}
+                    </p>
+                    {loc.address && (
+                      <p className="text-xs text-gray-600 mb-4">{loc.address}</p>
+                    )}
+
+                    <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33] text-white font-semibold text-sm group-hover:bg-[#0a2b23] transition">
+                      View Offers
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
+
+        {/* Coming soon: compact text rows, not full cards */}
+        <div className="max-w-4xl mx-auto mt-10">
+          <p className="text-center text-xs uppercase tracking-[0.15em] text-[#9ABFB3]/70 mb-4">
+            Coming soon
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
+            {locations
+              .filter((loc) => loc.status === "coming-soon")
+              .map((loc) => (
+                <Link
+                  key={loc.slug}
+                  href={loc.href}
+                  className="group flex items-center justify-between gap-4 bg-white/10 hover:bg-white/15 text-white rounded-2xl px-5 py-4 transition sm:min-w-[260px]"
+                >
+                  <div>
+                    <span className="block font-semibold text-sm">
+                      {loc.name}
+                    </span>
+                    <span className="text-xs text-white/60 flex items-center gap-1 mt-0.5">
+                      <MapPin className="w-3 h-3" />
+                      {loc.city}, {loc.state}
                     </span>
                   </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <h2 className="text-xl font-bold mb-1">{loc.name}</h2>
-                  <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {loc.city}, {loc.state}
-                  </p>
-                  {loc.address && (
-                    <p className="text-xs text-gray-600 mb-4">{loc.address}</p>
-                  )}
-
-                  <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33] text-white font-semibold text-sm group-hover:bg-[#0a2b23] transition">
-                    View Offers
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-            ) : (
-              <Link
-                key={loc.slug}
-                href={loc.href}
-                onClick={() => saveLocation(loc.slug, loc.name)}
-                className={`group relative bg-white/80 text-[#113D33] rounded-2xl overflow-hidden shadow-md transition hover:shadow-xl hover:scale-[1.02] flex flex-col ${
-                  isSelected ? "ring-2 ring-[#9ABFB3]" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="relative h-40 w-full">
-                  <Image
-                    src={loc.image}
-                    alt={loc.name}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-gray-200 text-gray-600 font-semibold shadow-sm">
-                      Coming Soon
-                    </span>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <h2 className="text-xl font-bold mb-1">{loc.name}</h2>
-                  <p className="text-sm text-gray-500 flex items-center gap-1 mb-4">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {loc.city}, {loc.state}
-                  </p>
-
-                  <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33]/80 text-white font-semibold text-sm group-hover:bg-[#113D33] transition">
-                    Learn More<span className="sr-only"> about {loc.name}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                  <ArrowRight className="w-4 h-4 opacity-60 group-hover:opacity-100 transition" />
+                  <span className="sr-only"> Learn more about {loc.name}</span>
+                </Link>
+              ))}
+          </div>
         </div>
       </section>
 
