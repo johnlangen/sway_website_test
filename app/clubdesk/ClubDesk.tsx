@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from "react";
  */
 
 type Done = Record<string, { done: boolean; by?: string; at?: string; note?: string }>;
-type Tab = "members" | "comps" | "giftcards" | "credits" | "cards" | "daypasses" | "attention" | "arrangements";
+type Tab = "members" | "comps" | "giftcards" | "credits" | "cards" | "daypasses" | "attention" | "arrangements" | "balances";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "members", label: "Members" },
@@ -20,6 +20,7 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "cards", label: "Cards to Collect" },
   { key: "attention", label: "Needs Attention" },
   { key: "arrangements", label: "Special Setups" },
+  { key: "balances", label: "Upswell Balances" },
 ];
 
 // Plain-English explainer shown at the top of each tab.
@@ -56,6 +57,10 @@ const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
     what: "Members whose billing was set up differently on purpose during the move to Sway. A special rate they keep, a year they already paid for, or a start date that is delayed on purpose. This is a reference so you know the story. There is nothing to redeem.",
     todo: "If one of these people asks why their rate or their charge looks different, check here first. It is intentional. Do NOT change their price to $99. Tick the box once you have confirmed their setup is correct in Mindbody.",
   },
+  balances: {
+    what: "People who had leftover dollar credit on their Upswell account when we moved to Mindbody — mostly goodwill credit the old team added (a refund given as credit, service recovery, a perk). This money did NOT carry into Mindbody, so their account there shows nothing.",
+    todo: "This is a lookup, not a promise. If a guest says they had credit with Upswell, find them here to confirm the story and the amount, then route it to Jocelyn or Emily to decide how we handle it. Do not apply anything at the counter. Tick the box once it has been decided and noted on their Mindbody profile.",
+  },
 };
 
 export function ClubDesk() {
@@ -63,10 +68,19 @@ export function ClubDesk() {
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; arrangements: any[]; members: any[]; comps: any[]; done: Done }>({
-    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], arrangements: [], members: [], comps: [], done: {},
+  const [data, setData] = useState<{ giftcards: any[]; credits: any[]; cards: any[]; daypasses: any[]; attention: any[]; arrangements: any[]; members: any[]; comps: any[]; balances: any[]; done: Done }>({
+    giftcards: [], credits: [], cards: [], daypasses: [], attention: [], arrangements: [], members: [], comps: [], balances: [], done: {},
   });
-  const [tab, setTab] = useState<Tab>("members");
+  // Atlas deep-links here from a Daily Prep card ("?tab=giftcards") so the desk
+  // lands on the list holding the item it was sent to check off. Without it the
+  // page always opened on "members" and they had to hunt, which is a good part
+  // of why gift cards sat at 1 of 83 checked off while cards-to-collect reached
+  // 21 of 22. Validated against TABS, so a junk param just falls back.
+  const [tab, setTab] = useState<Tab>(() => {
+    if (typeof window === "undefined") return "members";
+    const t = new URLSearchParams(window.location.search).get("tab");
+    return TABS.some((x) => x.key === t) ? (t as Tab) : "members";
+  });
   const [q, setQ] = useState("");
   const [hideDone, setHideDone] = useState(false);
   const [passFilter, setPassFilter] = useState<"all" | "paid" | "comp">("all");
@@ -86,7 +100,7 @@ export function ClubDesk() {
       if (r.status === 401) { setErr("Wrong secret."); setAuthed(false); return; }
       if (!r.ok) { setErr(`Error ${r.status}`); return; }
       const d = await r.json();
-      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], arrangements: d.arrangements || [], members: d.members || [], comps: d.comps || [], done: d.done || {} });
+      setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], arrangements: d.arrangements || [], members: d.members || [], comps: d.comps || [], balances: d.balances || [], done: d.done || {} });
       setAuthed(true);
     } catch (e: any) { setErr(e.message || "Failed to load"); }
     finally { setLoading(false); }
@@ -127,7 +141,7 @@ export function ClubDesk() {
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
-      members: { total: 0, left: 0 }, comps: { total: 0, left: 0 }, giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 }, arrangements: { total: 0, left: 0 },
+      members: { total: 0, left: 0 }, comps: { total: 0, left: 0 }, giftcards: { total: 0, left: 0 }, credits: { total: 0, left: 0 }, cards: { total: 0, left: 0 }, daypasses: { total: 0, left: 0 }, attention: { total: 0, left: 0 }, arrangements: { total: 0, left: 0 }, balances: { total: 0, left: 0 },
     };
     for (const t of TABS) {
       const list = (data[t.key] as any[]) || [];
@@ -366,6 +380,20 @@ function Row({ tab, r }: { tab: Tab; r: any }) {
           {r.email}{r.location ? ` · ${r.location}` : ""}{r.since ? ` · since ${r.since}` : ""}
         </div>
         {r.membership && <div className="text-xs opacity-50 mt-0.5">{r.membership}</div>}
+      </>
+    );
+  }
+  if (tab === "balances") {
+    return (
+      <>
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-semibold truncate">{r.name || "(no name)"}</span>
+          <span className="font-bold shrink-0">${r.remaining}</span>
+        </div>
+        <div className="text-xs opacity-70 mt-0.5">{r.email}</div>
+        <div className="text-xs opacity-50 mt-0.5">
+          issued {r.issued}{r.by ? ` by ${r.by}` : ""}{r.issuedAmount && Number(r.issuedAmount) > Number(r.remaining) ? ` · $${r.issuedAmount} originally` : ""}
+        </div>
       </>
     );
   }
