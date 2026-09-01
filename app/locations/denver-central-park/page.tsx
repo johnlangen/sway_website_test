@@ -28,7 +28,7 @@ const loc = {
 const FAQS = [
   {
     q: "Is this the old Upswell?",
-    a: "Yes. We recently took over both Upswell locations and are now operating them as Sway Wellness Spa. Same recovery space, with new treatments and experiences coming this summer.",
+    a: "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, with new treatments and experiences on the way.",
   },
   {
     q: "What's included in the Sway Remedy Lounge?",
@@ -44,7 +44,7 @@ const FAQS = [
   },
   {
     q: "When can I book a massage?",
-    a: "Massage and facial treatments are coming this summer. Join our email list to be the first to know when booking opens.",
+    a: "Massage and facial treatments are coming soon. Join our email list to be the first to know when booking opens.",
   },
   {
     q: "What about my Upswell membership?",
@@ -94,7 +94,7 @@ export default function SwayCentralParkPage() {
               2271 Clinton St. in Aurora, CO 80010, on the edge of Denver&apos;s
               Central Park neighborhood, formerly Upswell Studio. The Sway
               Remedy Lounge is open daily with traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and lounge access. Massage and facial
-              treatments are coming this summer. Memberships are available for unlimited Sway Remedy Lounge access. Existing Upswell members were carried over
+              treatments are coming soon. Memberships are available for unlimited Sway Remedy Lounge access. Existing Upswell members were carried over
               automatically.
             </p>
 
@@ -107,7 +107,7 @@ export default function SwayCentralParkPage() {
             <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
               A recovery-led wellness club serving Central Park, Stapleton, and
               northwest Aurora. Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Massage and facial treatments
-              coming this summer.
+              coming soon.
             </p>
 
             {/* CTAs */}
@@ -207,7 +207,7 @@ export default function SwayCentralParkPage() {
                   Traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and lounge access.
                 </p>
                 <p className="text-sm sm:text-base font-medium mb-6">
-                  Massage and facial treatments coming this summer.
+                  Massage and facial treatments coming soon.
                 </p>
                 <a
                   href={loc.bookHref}
@@ -254,7 +254,7 @@ export default function SwayCentralParkPage() {
                 the times available this week.
               </p>
               <p className="text-xs opacity-60 mt-3">
-                Regular and extended hours coming this summer.
+                Hours vary by day. Booking always shows live availability.
               </p>
               <a
                 href={loc.bookHref}

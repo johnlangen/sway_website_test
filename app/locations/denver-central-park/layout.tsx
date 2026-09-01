@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title:
     "Sway Wellness Spa · Central Park (formerly Upswell Studio) | Denver Recovery",
   description:
-    "Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. The Sway Remedy Lounge is open daily: traditional and infrared saunas, cold plunges, a warm soak, and compression therapy. Massage and facial treatments coming this summer.",
+    "Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. The Sway Remedy Lounge is open daily: traditional and infrared saunas, cold plunges, a warm soak, and compression therapy. Massage and facial treatments coming soon.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-central-park/",
   },
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-central-park/",
     title: "Sway Wellness Spa · Central Park (formerly Upswell Studio)",
     description:
-      "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Open daily near Denver's Central Park. Massage and facials coming this summer.",
+      "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Open daily near Denver's Central Park. Massage and facials coming soon.",
     images: [
       {
         url: "/assets/SWAY.jpg",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sway Wellness Spa · Central Park (formerly Upswell Studio)",
     description:
-      "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Open daily near Central Park. Massage and facials coming this summer.",
+      "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy in the Sway Remedy Lounge. Open daily near Central Park. Massage and facials coming soon.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: {
@@ -44,7 +44,7 @@ const localBusinessJsonLd = {
   name: "Sway Wellness Spa · Central Park",
   alternateName: "Upswell Studio",
   description:
-    "A recovery-led wellness club near Denver's Central Park neighborhood, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy. Massage and facial treatments are coming this summer.",
+    "A recovery-led wellness club near Denver's Central Park neighborhood, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy. Massage and facial treatments are coming soon.",
   image: "https://swaywellnessspa.com/assets/centralpark1.jpg",
   "@id": "https://swaywellnessspa.com/locations/denver-central-park/",
   telephone: "+1-303-293-5501",
@@ -90,7 +90,7 @@ const faqJsonLd = {
       name: "Is this the old Upswell?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. We recently took over both Upswell locations and are now operating them as Sway Wellness Spa. Same recovery space, with new treatments and experiences coming this summer.",
+        text: "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, with new treatments and experiences on the way.",
       },
     },
     {
@@ -114,7 +114,7 @@ const faqJsonLd = {
       name: "When can I book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Massage and facial treatments are coming this summer. Join our email list to be the first to know when booking opens.",
+        text: "Massage and facial treatments are coming soon. Join our email list to be the first to know when booking opens.",
       },
     },
     {
