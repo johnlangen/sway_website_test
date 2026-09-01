@@ -121,23 +121,41 @@ export function ClubDesk() {
   }
 
   const rows = useMemo(() => {
-    const list = (data[tab] as any[]) || [];
     const needle = q.trim().toLowerCase();
     // Loopz/Square gift card codes are 16 digits, but the last digit in the
     // imported list is unreliable (Excel keeps 15 significant digits), so a
     // 16-digit numeric search also matches on its first 15 digits.
     const digits = needle.replace(/\D/g, "");
     const gcNeedle = digits.length === 16 && digits === needle ? digits.slice(0, 15) : null;
-    return list.filter((r) => {
+    const match = (r: any) => {
       const hay = Object.values(r).join(" ").toLowerCase();
-      if (needle && !hay.includes(needle) && !(gcNeedle && hay.includes(gcNeedle))) return false;
-      if (hideDone && data.done[`${tab}:${r.id}`]?.done) return false;
-      if (tab === "daypasses" && passFilter !== "all" && r.type !== passFilter) return false;
-      if (tab === "comps" && bucketFilter !== "all" && r.bucket !== bucketFilter) return false;
-      if (tab === "comps" && groupFilter !== "all" && r.group !== groupFilter) return false;
-      return true;
-    });
+      return hay.includes(needle) || (gcNeedle ? hay.includes(gcNeedle) : false);
+    };
+    // With a search term, look across EVERY tab so the desk never has to know
+    // which list a name or code lives in. Empty search = the current tab.
+    if (needle) {
+      const out: { tab: Tab; r: any }[] = [];
+      for (const t of TABS) {
+        for (const r of (data[t.key] as any[]) || []) {
+          if (!match(r)) continue;
+          if (hideDone && data.done[`${t.key}:${r.id}`]?.done) continue;
+          out.push({ tab: t.key, r });
+        }
+      }
+      return out;
+    }
+    return ((data[tab] as any[]) || [])
+      .filter((r) => {
+        if (hideDone && data.done[`${tab}:${r.id}`]?.done) return false;
+        if (tab === "daypasses" && passFilter !== "all" && r.type !== passFilter) return false;
+        if (tab === "comps" && bucketFilter !== "all" && r.bucket !== bucketFilter) return false;
+        if (tab === "comps" && groupFilter !== "all" && r.group !== groupFilter) return false;
+        return true;
+      })
+      .map((r) => ({ tab, r }));
   }, [data, tab, q, hideDone, passFilter, bucketFilter, groupFilter]);
+
+  const searching = q.trim().length > 0;
 
   const counts = useMemo(() => {
     const c: Record<Tab, { total: number; left: number }> = {
@@ -198,21 +216,23 @@ export function ClubDesk() {
           ))}
         </div>
 
-        {/* what this tab is + what to do */}
-        <div className="rounded-2xl bg-white border border-[#113D33]/12 px-4 py-3 mb-3 text-sm">
-          <p className="text-[#113D33]">{TAB_HELP[tab].what}</p>
-          <p className="mt-1.5 text-[#113D33]/75"><span className="font-semibold">What to do:</span> {TAB_HELP[tab].todo}</p>
-        </div>
+        {/* what this tab is + what to do (hidden while a search spans all tabs) */}
+        {!searching && (
+          <div className="rounded-2xl bg-white border border-[#113D33]/12 px-4 py-3 mb-3 text-sm">
+            <p className="text-[#113D33]">{TAB_HELP[tab].what}</p>
+            <p className="mt-1.5 text-[#113D33]/75"><span className="font-semibold">What to do:</span> {TAB_HELP[tab].todo}</p>
+          </div>
+        )}
 
         <div className="flex items-center gap-3 mb-3">
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, code…"
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search all tabs: name, email, code…"
             className="flex-1 rounded-xl border border-[#113D33]/20 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
           <label className="flex items-center gap-1.5 text-sm opacity-80 shrink-0">
             <input type="checkbox" checked={hideDone} onChange={(e) => setHideDone(e.target.checked)} /> Hide done
           </label>
         </div>
 
-        {tab === "daypasses" && (
+        {tab === "daypasses" && !searching && (
           <div className="flex items-center gap-1.5 mb-3">
             {([
               { key: "all", label: "All" },
@@ -227,7 +247,7 @@ export function ClubDesk() {
           </div>
         )}
 
-        {tab === "comps" && (
+        {tab === "comps" && !searching && (
           <>
             <div className="flex items-center gap-1.5 mb-2 flex-wrap">
               {([
@@ -261,24 +281,35 @@ export function ClubDesk() {
           </>
         )}
 
-        <div className="text-xs opacity-60 mb-2">{rows.length} shown · {counts[tab].left} of {counts[tab].total} left</div>
+        <div className="text-xs opacity-60 mb-2">
+          {searching
+            ? `${rows.length} ${rows.length === 1 ? "match" : "matches"} across all tabs`
+            : `${rows.length} shown · ${counts[tab].left} of ${counts[tab].total} left`}
+        </div>
 
         <div className="space-y-2">
-          {rows.map((r) => {
-            const field = `${tab}:${r.id}`;
+          {rows.map(({ tab: rowTab, r }) => {
+            const field = `${rowTab}:${r.id}`;
             const isDone = !!data.done[field]?.done;
             return (
               <div key={field} className={`rounded-2xl border p-3.5 flex items-start gap-3 transition ${isDone ? "bg-[#113D33]/5 border-[#113D33]/10 opacity-60" : "bg-white border-[#113D33]/12"}`}>
-                {tab !== "members" && (
+                {rowTab !== "members" && (
                   <input type="checkbox" checked={isDone} onChange={(e) => toggle(field, e.target.checked)} className="mt-1 w-5 h-5 shrink-0 accent-[#113D33]" />
                 )}
                 <div className="flex-1 min-w-0">
-                  <Row tab={tab} r={r} />
+                  {searching && (
+                    <div className="mb-1">
+                      <span className="inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-[#113D33]/10 text-[#113D33]">
+                        {TABS.find((t) => t.key === rowTab)?.label}
+                      </span>
+                    </div>
+                  )}
+                  <Row tab={rowTab} r={r} />
                 </div>
               </div>
             );
           })}
-          {rows.length === 0 && <p className="text-sm opacity-60 py-8 text-center">Nothing here.</p>}
+          {rows.length === 0 && <p className="text-sm opacity-60 py-8 text-center">{searching ? "No matches in any tab." : "Nothing here."}</p>}
         </div>
       </div>
     </div>
