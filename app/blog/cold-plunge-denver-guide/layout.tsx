@@ -7,10 +7,13 @@ export default function ColdPlungeDenverLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
+      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex flex-col justify-center items-center px-4 gap-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center max-w-4xl">
           Cold Plunge in Denver: Where to Go
         </h1>
+        <p className="text-white/70 text-center max-w-2xl">
+          Every great way to get cold in the Mile High City
+        </p>
       </div>
 
       {/* Blog Content */}
@@ -31,54 +34,83 @@ export default function ColdPlungeDenverLayout() {
 
         {/* Hero Image */}
         <Image
-          src="/assets/coldplunge.jpg"
-          alt="Wood-clad cold plunge tubs at Sway Wellness in Denver"
-          width={900}
+          src="/assets/rino1.jpeg"
+          alt="The cold plunge pool at Sway Wellness Club RiNo in Denver"
+          width={957}
           height={500}
-          className="rounded-xl w-full object-cover object-[center_60%] max-h-[500px]"
+          className="rounded-xl w-full object-cover object-[center_72%] max-h-[460px]"
           priority
         />
 
         {/* Intro */}
         <p>
-          Denver might be the best cold plunge city in the country. We sit a mile
-          closer to the sun, we train hard, and half the city is already dunking
-          in a creek by June. Whether you want a guided contrast circuit, a
-          plunge pool big enough to share with friends, or a snowmelt river in
-          the foothills, this guide covers every great way to get cold in
-          Denver, starting with the{" "}
-          <Link href="/cold-plunge" className="underline text-[#113D33] font-semibold">
-            cold plunges
-          </Link>{" "}
-          at{" "}
-          <Link href="/locations/denver-larimer" className="underline text-[#113D33] font-semibold">
-            Sway Wellness Spa
-          </Link>{" "}
-          and the Sway Wellness Club locations in RiNo and Central Park.
+          Denver might be the best cold plunge city in the country. We train
+          hard, we live a mile closer to the sun, and half the city is already
+          dunking in a creek by June. Here is where to get in, whether you want
+          a guided first plunge, a pool big enough to share with friends, or
+          snowmelt in the foothills.
         </p>
 
-        {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
-          <p className="font-bold text-lg mb-3">In This Guide</p>
-          <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
-            <li><a href="#how-cold" className="hover:underline">How Cold Is Cold? A Field Guide to the Temperatures</a></li>
-            <li><a href="#sway" className="hover:underline">The Sway Plunges: Larimer, RiNo &amp; Central Park</a></li>
-            <li><a href="#studios" className="hover:underline">More Places to Plunge Around Denver</a></li>
-            <li><a href="#wild" className="hover:underline">Plunging in the Wild</a></li>
-            <li><a href="#protocol" className="hover:underline">Your First Plunge: A 5-Step Protocol</a></li>
-            <li><a href="#plans" className="hover:underline">Three Cold Days Worth Planning</a></li>
-          </ol>
-        </nav>
+        {/* The Short Version */}
+        <div className="bg-[#113D33] text-white rounded-xl p-8 space-y-4">
+          <p className="text-xl font-bold">The Short Version</p>
+          <ul className="space-y-3 text-[15px]">
+            <li className="flex gap-3">
+              <span className="text-[#9CB7A9] pt-0.5">&#9679;</span>
+              <span>
+                <strong>Best first plunge:</strong> the guided{" "}
+                <Link href="/locations/denver-larimer/book-remedy-room" className="underline font-semibold">
+                  Remedy Room circuit
+                </Link>{" "}
+                at Sway Larimer. $49 drop-in, $25 for members.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-[#9CB7A9] pt-0.5">&#9679;</span>
+              <span>
+                <strong>Best with friends:</strong> the big plunge pool at{" "}
+                <Link href="/locations/denver-rino" className="underline font-semibold">
+                  Sway RiNo
+                </Link>
+                . Open daily, drop-ins welcome.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-[#9CB7A9] pt-0.5">&#9679;</span>
+              <span>
+                <strong>Best contrast rounds:</strong> three cold cabins plus a
+                hot soak at{" "}
+                <Link href="/locations/denver-central-park" className="underline font-semibold">
+                  Sway Central Park
+                </Link>
+                .
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-[#9CB7A9] pt-0.5">&#9679;</span>
+              <span>
+                <strong>Best free option:</strong> Clear Creek in Golden,
+                snowmelt cold well into summer.
+              </span>
+            </li>
+          </ul>
+          <p className="text-sm text-white/70">
+            Denver locals: your first Remedy Room session is $25 with our{" "}
+            <Link href="/offers" className="underline font-semibold text-white">
+              first-visit offer
+            </Link>{" "}
+            (locals only, first visit, select days).
+          </p>
+        </div>
 
         {/* ============== Section 1: Temperature ladder ============== */}
         <h2 id="how-cold" className="text-2xl font-bold scroll-mt-24">
-          How Cold Is Cold? A Field Guide to the Temperatures
+          How Cold Is Cold?
         </h2>
 
         <p>
-          Every plunge conversation starts with the same question: what
-          temperature? Here is the honest map of the ranges, from a brisk
-          first dip to full polar territory.
+          Every plunge conversation starts with the same question. Here is the
+          honest map, from a brisk first dip to full polar territory.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -88,9 +120,8 @@ export default function ColdPlungeDenverLayout() {
               <span className="text-sm font-bold text-[#113D33]/50">60&ndash;65&deg;F</span>
             </div>
             <p className="text-[15px]">
-              Brisk but friendly. Cooler than any swimming pool, warm enough to
-              breathe through on your first try. A great place to learn what
-              your nervous system does when the water bites.
+              Brisk but friendly. Cold enough to feel it, warm enough to
+              breathe through on your first try.
             </p>
           </div>
 
@@ -100,12 +131,11 @@ export default function ColdPlungeDenverLayout() {
               <span className="text-sm font-bold text-[#113D33]/50">50&ndash;59&deg;F</span>
             </div>
             <p className="text-[15px]">
-              Where most of the research lives and where the{" "}
+              Where most of the research lives, and where the{" "}
               <Link href="/remedy-tech" className="underline text-[#113D33] font-semibold">
                 Remedy Room
               </Link>{" "}
-              plunge at Sway Larimer is held. Cold enough to trigger the full
-              response, sustainable enough to stay two or three minutes.
+              plunge at Sway Larimer is held.
             </p>
           </div>
 
@@ -115,9 +145,8 @@ export default function ColdPlungeDenverLayout() {
               <span className="text-sm font-bold text-[#113D33]/50">40&ndash;49&deg;F</span>
             </div>
             <p className="text-[15px]">
-              For experienced plungers chasing a bigger stimulus. Time in the
-              water drops fast down here. Nobody should start in the 40s, but
-              plenty of regulars end up loving them.
+              A bigger stimulus for experienced plungers. Nobody should start
+              here. Plenty of regulars end up loving it.
             </p>
           </div>
 
@@ -127,9 +156,8 @@ export default function ColdPlungeDenverLayout() {
               <span className="text-sm font-bold text-[#113D33]/50">Below 40&deg;F</span>
             </div>
             <p className="text-[15px]">
-              Mountain runoff in May, or the coldest tubs in town. Seconds, not
-              minutes. Bragging rights included, but earn your way down the
-              ladder first.
+              Mountain runoff in May. Seconds, not minutes. Earn your way down
+              the ladder first.
             </p>
           </div>
         </div>
@@ -139,50 +167,36 @@ export default function ColdPlungeDenverLayout() {
           The Sway Plunges: Larimer, RiNo &amp; Central Park
         </h2>
 
-        <p>
-          Sway runs three cold plunges across Denver, and each one is built
-          around a different kind of session. Pick by neighborhood or by mood.
-        </p>
-
         {/* Larimer feature card */}
-        <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
-          <Image
-            src="/assets/remedy-room.jpg"
-            alt="The Remedy Room contrast therapy circuit at Sway Wellness Spa on Larimer Square"
-            width={900}
-            height={400}
-            className="w-full h-64 object-cover"
-          />
-          <div className="p-6 space-y-4">
+        <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden md:flex">
+          <div className="md:w-2/5 h-56 md:h-auto overflow-hidden">
+            <Image
+              src="/assets/cold_plunge.jpg"
+              alt="Cold plunge water in the Remedy Room at Sway Wellness Spa on Larimer Square"
+              width={700}
+              height={700}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="p-6 space-y-3 md:w-3/5">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-bold">The Remedy Room at Sway Larimer</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Larimer Square</span>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Larimer Sq</span>
             </div>
-            <p>
-              The{" "}
-              <Link href="/remedy-tech" className="underline text-[#113D33] font-semibold">
-                Remedy Room
-              </Link>{" "}
-              is a guided 40-minute contrast therapy circuit: a{" "}
+            <p className="text-[15px]">
+              A guided 40-minute contrast circuit:{" "}
               <Link href="/sauna" className="underline text-[#113D33] font-semibold">
                 traditional sauna
               </Link>
-              , a cold plunge held in the 50s, plus{" "}
+              , cold plunge in the 50s, then{" "}
               <Link href="/compression-therapy" className="underline text-[#113D33] font-semibold">
-                compression therapy
+                compression
               </Link>{" "}
-              and LED light therapy to finish. You move through the full
-              hot-cold cycle in one visit, no guesswork, right on Larimer
-              Square. It is the easiest way in Denver to plunge properly on
-              your first try.
+              and LED to finish. The full hot-cold cycle in one visit, no
+              guesswork. The easiest first plunge in Denver.
             </p>
-            <p className="text-[15px] text-[#113D33]/60">
-              Drop-in is $49, members pay $25 per session. Denver locals can
-              try their first Remedy Room session for $25 with our{" "}
-              <Link href="/offers" className="underline font-semibold text-[#113D33]">
-                first-visit offer
-              </Link>{" "}
-              (locals only, first visit, select days).
+            <p className="text-[13px] text-[#113D33]/60">
+              $49 drop-in · $25 members · first visit $25 for locals
             </p>
             <Link
               href="/locations/denver-larimer/book-remedy-room"
@@ -195,68 +209,62 @@ export default function ColdPlungeDenverLayout() {
 
         {/* Club cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">Sway Wellness Club RiNo</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">RiNo</span>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-md transition">
+            <div className="h-52 overflow-hidden">
+              <Image
+                src="/assets/rino-card.jpg"
+                alt="Sway Wellness Club RiNo"
+                width={584}
+                height={400}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <p className="text-[15px]">
-              The Remedy Lounge in RiNo is a 75-minute recovery session built
-              around a big cold plunge pool, with a traditional sauna, infrared
-              cabins, and compression therapy. The plunge here is the social
-              one, the spot to bring a training partner and talk each other
-              into one more round. Open daily, drop-ins welcome.
-            </p>
-            <Link
-              href="/locations/denver-rino"
-              className="inline-block text-[#113D33] font-semibold underline"
-            >
-              Visit Sway RiNo &rarr;
-            </Link>
+            <div className="p-5 space-y-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold">Sway RiNo</h3>
+                <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">RiNo</span>
+              </div>
+              <p className="text-[15px]">
+                A 75-minute Remedy Lounge session built around the big plunge
+                pool, with traditional sauna, infrared cabins, and compression.
+                The social plunge. Bring a training partner.
+              </p>
+              <Link
+                href="/locations/denver-rino"
+                className="inline-block text-[#113D33] font-semibold underline text-[15px]"
+              >
+                Visit Sway RiNo &rarr;
+              </Link>
+            </div>
           </div>
 
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">Sway Wellness Club Central Park</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Central Park</span>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-md transition">
+            <div className="h-52 overflow-hidden">
+              <Image
+                src="/assets/centralpark1.jpg"
+                alt="Cold plunge cabins at Sway Wellness Club Central Park"
+                width={584}
+                height={400}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <p className="text-[15px]">
-              Central Park runs three cold plunge cabins plus a hot soak, which
-              means you can do true contrast rounds, hot water to cold water
-              and back, alongside the traditional sauna, infrared cabins, and
-              compression therapy. Morning sessions here are the local secret.
-              Open daily, drop-ins welcome.
-            </p>
-            <Link
-              href="/locations/denver-central-park"
-              className="inline-block text-[#113D33] font-semibold underline"
-            >
-              Visit Sway Central Park &rarr;
-            </Link>
-          </div>
-        </div>
-
-        {/* Mid CTA */}
-        <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
-          <p className="text-xl font-bold">Never Plunged Before?</p>
-          <p className="text-sm opacity-90">
-            The guided circuit at Sway Larimer is the friendliest first plunge
-            in Denver, and locals can try it for $25 (first visit, select
-            days). Members plunge for $25 every time.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/locations/denver-larimer/book-remedy-room"
-              className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
-            >
-              Book Your First Plunge
-            </Link>
-            <Link
-              href="/membership"
-              className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white/10 transition"
-            >
-              See Memberships
-            </Link>
+            <div className="p-5 space-y-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold">Sway Central Park</h3>
+                <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Central Park</span>
+              </div>
+              <p className="text-[15px]">
+                Three cold plunge cabins plus a hot soak, so you can run true
+                contrast rounds alongside the sauna, infrared cabins, and
+                compression. Mornings here are the local secret.
+              </p>
+              <Link
+                href="/locations/denver-central-park"
+                className="inline-block text-[#113D33] font-semibold underline text-[15px]"
+              >
+                Visit Sway Central Park &rarr;
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -266,98 +274,69 @@ export default function ColdPlungeDenverLayout() {
         </h2>
 
         <p>
-          Denver&apos;s cold water scene runs deep, and these spots are all
-          worth knowing about. Different vibes, same shiver.
+          Denver&apos;s cold water scene runs deep. Different vibes, same
+          shiver.
         </p>
 
-        <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">Denver Sports Recovery</h3>
+        <div className="bg-white rounded-xl border border-[#d7e2dc] divide-y divide-[#eef3f0]">
+          <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
+            <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
+              <h3 className="font-bold">Denver Sports Recovery</h3>
               <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">LoHi</span>
             </div>
-            <p className="text-[15px]">
-              A no-frills recovery gym popular with athletes, with cold tubs,
-              sauna, and a full menu of recovery tools. If you want your plunge
-              with a side of foam rollers and game-day energy, this is the one.
+            <p className="text-[15px] mt-1 sm:mt-0">
+              No-frills recovery gym with cold tubs, sauna, and game-day
+              energy. Your plunge with a side of foam rollers.
             </p>
           </div>
-
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">SweatHouz (SWTHZ)</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">South Broadway &amp; Tennyson</span>
+          <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
+            <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
+              <h3 className="font-bold">SweatHouz (SWTHZ)</h3>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">S Broadway · Tennyson</span>
             </div>
-            <p className="text-[15px]">
-              Private suites with an infrared sauna and a cold plunge in each
-              room. Good for people who want the contrast cycle completely to
-              themselves, on their own clock.
+            <p className="text-[15px] mt-1 sm:mt-0">
+              Private suites, each with an infrared sauna and its own plunge.
+              The contrast cycle entirely to yourself.
             </p>
           </div>
-
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">ROK SPAS</h3>
+          <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
+            <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
+              <h3 className="font-bold">ROK SPAS</h3>
               <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Union Station</span>
             </div>
-            <p className="text-[15px]">
-              Multiple plunges at stepped temperatures, running from the
-              approachable end all the way down toward polar territory. A fun
-              place to test where you actually sit on the temperature ladder.
+            <p className="text-[15px] mt-1 sm:mt-0">
+              Multiple plunges at stepped temperatures down toward polar
+              territory. Find out where you really sit on the ladder.
             </p>
           </div>
-
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">Perspire Sauna Studio</h3>
+          <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
+            <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
+              <h3 className="font-bold">Perspire Sauna Studio</h3>
               <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Cherry Hills</span>
             </div>
-            <p className="text-[15px]">
-              An infrared sauna studio that added contrast therapy, pairing
-              private infrared sessions with a cold plunge. South-side
+            <p className="text-[15px] mt-1 sm:mt-0">
+              Infrared sauna studio with contrast therapy. South-side
               convenience if downtown is not your orbit.
             </p>
           </div>
-        </div>
-
-        {/* Visual break */}
-        <Image
-          src="/assets/cold_plunge.jpg"
-          alt="Churning cold plunge water at Sway Wellness Spa"
-          width={900}
-          height={300}
-          className="rounded-xl w-full object-cover max-h-[280px]"
-        />
-
-        {/* ============== Section 4: Wild ============== */}
-        <h2 id="wild" className="text-2xl font-bold scroll-mt-24">
-          Plunging in the Wild
-        </h2>
-
-        <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">Clear Creek</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Golden · 25 min drive</span>
+          <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
+            <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
+              <h3 className="font-bold">Clear Creek</h3>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Golden · free</span>
             </div>
-            <p className="text-[15px]">
-              Snowmelt straight off the Front Range, running cold well into
-              summer. Find a calm eddy near the banks in Golden, skip the
-              current, and never plunge moving water alone. Free, beautiful,
-              and genuinely cold.
+            <p className="text-[15px] mt-1 sm:mt-0">
+              Snowmelt off the Front Range, cold well into summer. Calm eddies
+              only, and never plunge moving water alone.
             </p>
           </div>
-
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">Mountain Lakes</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Front Range · Summer</span>
+          <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
+            <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
+              <h3 className="font-bold">Mountain Lakes</h3>
+              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Front Range · summer</span>
             </div>
-            <p className="text-[15px]">
-              Alpine lakes above 10,000 feet stay in plunge territory all
-              summer. Earn it with a hike, dip at the top, and pack a warm
-              layer for after. The original cold plunge, no reservation
-              required.
+            <p className="text-[15px] mt-1 sm:mt-0">
+              Alpine water above 10,000 feet stays in plunge territory all
+              summer. Earn it with a hike. The original cold plunge.
             </p>
           </div>
         </div>
@@ -370,124 +349,109 @@ export default function ColdPlungeDenverLayout() {
           </p>
         </div>
 
-        {/* ============== Section 5: Protocol ============== */}
+        {/* ============== Section 4: Protocol ============== */}
         <h2 id="protocol" className="text-2xl font-bold scroll-mt-24">
           Your First Plunge: A 5-Step Protocol
         </h2>
 
-        <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-4">
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">1</span>
-            <p className="text-[15px] pt-1">
-              <strong>Warm up first.</strong> Ten to fifteen minutes of sauna
-              before the plunge makes the cold dramatically more approachable.
-              This is why contrast circuits work so well for beginners.
-            </p>
+        <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden md:flex md:flex-row-reverse">
+          <div className="md:w-2/5 h-56 md:h-auto overflow-hidden">
+            <Image
+              src="/assets/rino2.jpeg"
+              alt="The traditional sauna at Sway Wellness Club RiNo"
+              width={700}
+              height={900}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">2</span>
-            <p className="text-[15px] pt-1">
-              <strong>Exhale on the way in.</strong> The gasp reflex is real.
-              A long, slow exhale as you lower in keeps it from running the
-              show.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">3</span>
-            <p className="text-[15px] pt-1">
-              <strong>Breathe slower than you want to.</strong> In through the
-              nose, long exhale, shoulders down. The first 30 seconds are the
-              loudest. It gets quiet after that.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">4</span>
-            <p className="text-[15px] pt-1">
-              <strong>Start with 30 to 60 seconds.</strong> That is a real
-              plunge. Work toward two or three minutes over a few visits.
-              Shivering hard or losing feeling means you are done.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">5</span>
-            <p className="text-[15px] pt-1">
-              <strong>Warm up naturally.</strong> Let your body do the
-              rewarming, that after-drop buzz is the good part. Compression
-              boots and a robe beat sprinting back into the sauna.
-            </p>
+          <div className="p-6 space-y-4 md:w-3/5">
+            <div className="flex gap-3">
+              <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#113D33] text-white text-sm font-bold">1</span>
+              <p className="text-[15px] pt-0.5">
+                <strong>Warm up first.</strong> Ten minutes of sauna makes the
+                cold dramatically friendlier. This is why contrast circuits
+                work for beginners.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#113D33] text-white text-sm font-bold">2</span>
+              <p className="text-[15px] pt-0.5">
+                <strong>Exhale on the way in.</strong> A long, slow exhale
+                keeps the gasp reflex from running the show.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#113D33] text-white text-sm font-bold">3</span>
+              <p className="text-[15px] pt-0.5">
+                <strong>Breathe slower than you want to.</strong> The first 30
+                seconds are the loudest. It gets quiet after that.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#113D33] text-white text-sm font-bold">4</span>
+              <p className="text-[15px] pt-0.5">
+                <strong>Start with 30 to 60 seconds.</strong> That is a real
+                plunge. Build toward two or three minutes over a few visits.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#113D33] text-white text-sm font-bold">5</span>
+              <p className="text-[15px] pt-0.5">
+                <strong>Warm up naturally.</strong> The after-drop buzz is the
+                good part. A robe and compression boots beat sprinting back to
+                the heat.
+              </p>
+            </div>
           </div>
         </div>
 
         <p className="text-[15px] text-[#113D33]/60">
           One sensible caveat: cold water is a real stressor. If you are
-          pregnant or have a heart condition, check with your doctor before
-          plunging.
+          pregnant or have a heart condition, check with your doctor first.
         </p>
 
-        {/* ============== Section 6: Itineraries ============== */}
+        {/* ============== Section 5: Itineraries ============== */}
         <h2 id="plans" className="text-2xl font-bold scroll-mt-24">
           Three Cold Days Worth Planning
         </h2>
 
-        <div className="space-y-4">
-          <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">1</span>
-              <p className="font-bold text-lg">The Lunch-Break Reset</p>
-            </div>
-            <ol className="list-decimal list-inside space-y-2 pl-11">
-              <li>
-                Book a midday{" "}
-                <Link href="/locations/denver-larimer/book-remedy-room" className="underline text-[#113D33] font-semibold">
-                  Remedy Room session
-                </Link>{" "}
-                at Sway Larimer (40 minutes, guided)
-              </li>
-              <li>Sauna, plunge, compression, done</li>
-              <li>Back at your desk sharper than a third coffee could ever make you</li>
-            </ol>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-2">
+            <p className="font-bold">The Lunch-Break Reset</p>
+            <p className="text-[15px]">
+              Midday{" "}
+              <Link href="/locations/denver-larimer/book-remedy-room" className="underline text-[#113D33] font-semibold">
+                Remedy Room
+              </Link>{" "}
+              at Larimer. Sauna, plunge, compression, back at your desk sharper
+              than a third coffee could manage.
+            </p>
           </div>
-
-          <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">2</span>
-              <p className="font-bold text-lg">The Sunday Contrast Morning</p>
-            </div>
-            <ol className="list-decimal list-inside space-y-2 pl-11">
-              <li>
-                Morning Remedy Lounge session at{" "}
-                <Link href="/locations/denver-central-park" className="underline text-[#113D33] font-semibold">
-                  Sway Central Park
-                </Link>
-                , rotating hot soak and cold cabins
-              </li>
-              <li>Finish with compression therapy while everyone else is still in line for brunch</li>
-              <li>Then go be the calmest person at that brunch</li>
-            </ol>
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-2">
+            <p className="font-bold">The Sunday Contrast Morning</p>
+            <p className="text-[15px]">
+              Morning session at{" "}
+              <Link href="/locations/denver-central-park" className="underline text-[#113D33] font-semibold">
+                Sway Central Park
+              </Link>
+              , rotating hot soak and cold cabins. Then go be the calmest
+              person at brunch.
+            </p>
           </div>
-
-          <div className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">3</span>
-              <p className="font-bold text-lg">The Mountain Double</p>
-            </div>
-            <ol className="list-decimal list-inside space-y-2 pl-11">
-              <li>Morning hike out of Golden, quick Clear Creek dip if conditions are safe</li>
-              <li>
-                Evening session at{" "}
-                <Link href="/locations/denver-rino" className="underline text-[#113D33] font-semibold">
-                  Sway RiNo
-                </Link>
-                , sauna and the big plunge pool
-              </li>
-              <li>
-                Sore from the trail? Add a{" "}
-                <Link href="/massages" className="underline text-[#113D33] font-semibold">
-                  massage at Sway Larimer
-                </Link>{" "}
-                the next day
-              </li>
-            </ol>
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-2">
+            <p className="font-bold">The Mountain Double</p>
+            <p className="text-[15px]">
+              Hike out of Golden with a careful Clear Creek dip, then an
+              evening at{" "}
+              <Link href="/locations/denver-rino" className="underline text-[#113D33] font-semibold">
+                Sway RiNo
+              </Link>
+              . Sore tomorrow? Book a{" "}
+              <Link href="/massages" className="underline text-[#113D33] font-semibold">
+                massage
+              </Link>
+              .
+            </p>
           </div>
         </div>
 
@@ -495,8 +459,7 @@ export default function ColdPlungeDenverLayout() {
         <div className="bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
           <p className="text-xl font-bold">Get In. We&apos;ll Keep It Cold.</p>
           <p className="text-sm opacity-90">
-            Three plunges across Denver: guided contrast at Larimer, the big
-            pool in RiNo, and contrast cabins in Central Park. All open daily.{" "}
+            Three plunges across Denver, all open daily.{" "}
             <Link href="/membership" className="underline font-semibold">Members</Link>
             {" "}plunge from $25 a session, and a{" "}
             <Link href="/gift-cards" className="underline font-semibold">gift card</Link>
