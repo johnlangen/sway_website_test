@@ -265,7 +265,7 @@ export async function POST(req: Request) {
         );
       }
 
-      resourceWarning = "Equipment may not be available at this time — please call (303) 476-6150 to confirm.";
+      resourceWarning = "Equipment may not be available at this time. Please call (303) 476-6150 to confirm.";
       console.log("[SERVICE BOOK] Main appointment booked (without resources)", mainData);
     } else if (!mainRes.ok) {
       console.error("[SERVICE BOOK] Main appointment rejected", mainData);

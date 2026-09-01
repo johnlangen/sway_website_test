@@ -87,8 +87,8 @@ export default function LarimerOffersLayout({
         url: "https://swaywellnessspa.com/locations/denver-larimer/book/",
         seller: {
           "@type": "DaySpa",
+          "@id": "https://swaywellnessspa.com/locations/denver-larimer/",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -103,8 +103,8 @@ export default function LarimerOffersLayout({
         url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room/",
         seller: {
           "@type": "DaySpa",
+          "@id": "https://swaywellnessspa.com/locations/denver-larimer/",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -119,8 +119,8 @@ export default function LarimerOffersLayout({
         url: "https://swaywellnessspa.com/locations/denver-larimer/membership/",
         seller: {
           "@type": "DaySpa",
+          "@id": "https://swaywellnessspa.com/locations/denver-larimer/",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
       {
@@ -134,8 +134,8 @@ export default function LarimerOffersLayout({
         url: "https://swaywellnessspa.com/locations/denver-larimer/book-remedy-room/",
         seller: {
           "@type": "DaySpa",
+          "@id": "https://swaywellnessspa.com/locations/denver-larimer/",
           name: "Sway Wellness Spa – Larimer Square",
-          url: "https://swaywellnessspa.com/locations/denver-larimer/",
         },
       },
     ],

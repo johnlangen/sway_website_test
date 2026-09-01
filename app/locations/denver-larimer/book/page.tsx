@@ -2243,7 +2243,7 @@ export default function NewBookingFlow() {
                   }}
                   className="block w-full rounded-full border-2 border-[#113D33] py-3 text-center text-sm font-semibold text-[#113D33] transition hover:bg-[#113D33] hover:text-white"
                 >
-                  Not yet — show me facials instead
+                  Not yet · show me facials instead
                 </button>
               </div>
               <p className="mt-4 text-center text-xs text-[#113D33]/55">
