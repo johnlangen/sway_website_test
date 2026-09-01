@@ -92,7 +92,7 @@ export default async function HomePage() {
     },
 
     award: [
-      "USA Today 10Best: #4 Best Day Spa in the U.S. (2025)",
+      "USA Today 10Best: #4 Best Day Spa in the U.S. (2025 & 2026)",
       "TZR 2026 Readers' Choice Awards: Best U.S. Day Spa",
     ],
   };

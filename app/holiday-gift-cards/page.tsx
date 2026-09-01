@@ -249,9 +249,9 @@ export default function HolidayGiftCardsPage() {
             <p className="font-medium text-[#113D33] mb-2">Bonus Terms & Conditions</p>
 
             <p>
-                Valid Only On Purchases of $100 or More. Not Redeemable for Cash. May Not Be Combined With
+                Valid Only On Purchases of $150 or More. Not Redeemable for Cash. May Not Be Combined With
                 Membership or Any Other Offer. Gift card and bonus card purchases are non-refundable.
-                Terms & Conditions May Change At Any Time. Expires 2.28.2026.
+                Terms & Conditions May Change At Any Time. Bonus card expires 2.28.2027.
             </p>
         </section>
 

@@ -74,7 +74,7 @@ export default function AescapeBlogLayout() {
             </div>
 
             <div className="text-[10px] md:text-xs tracking-[0.22em] uppercase opacity-90">
-              30-minute sessions starting at $69
+              Sessions from $49 (15 to 60 minutes)
             </div>
           </div>
         </div>
@@ -459,7 +459,7 @@ export default function AescapeBlogLayout() {
                   },
                   {
                     t: "Transparent pricing",
-                    d: "Sessions start at $69 for 30 minutes.",
+                    d: "Sessions start at $49 for 15 minutes, up to $139 for 60 minutes.",
                   },
                 ].map((i) => (
                   <div
@@ -587,7 +587,7 @@ export default function AescapeBlogLayout() {
                 Aescape Session
               </h2>
               <p className="mt-3 text-sm md:text-base opacity-90">
-                30-minute sessions starting at $69
+                Sessions from $49 (15 to 60 minutes)
               </p>
             </div>
 
@@ -640,7 +640,7 @@ export default function AescapeBlogLayout() {
                   name: "What is Aescape robot massage?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Aescape is the world's first fully autonomous, AI-powered robot massage. It uses two heated robotic arms and a 3D body scan capturing 1.1 million data points to map your musculature and deliver a personalized massage. Aescape is available exclusively at Sway Wellness Spa in downtown Denver, with 30-minute sessions starting at $69.",
+                    text: "Aescape is the world's first fully autonomous, AI-powered robot massage. It uses two heated robotic arms and a 3D body scan capturing 1.1 million data points to map your musculature and deliver a personalized massage. Aescape is available exclusively at Sway Wellness Spa in downtown Denver, with sessions starting at $49 (15, 30, 45, or 60 minutes).",
                   },
                 },
                 {

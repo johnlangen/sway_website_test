@@ -153,7 +153,7 @@ export default function FathersDayGiftCardsPage() {
           </div>
 
           <p className="mt-8 text-center text-xs md:text-sm text-[#7b9b92]">
-            $100 covers a 60-min Aescape robot massage · $150 adds the Remedy Room recovery circuit · $250+ a half-day reset
+            $150 covers a 60-min Aescape robot massage · $200 adds the Remedy Room recovery circuit · $300+ a half-day reset
           </p>
         </section>
 
@@ -283,8 +283,8 @@ export default function FathersDayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Any amount. $100 covers a 60-minute Aescape robot massage. $150 adds the Remedy Room
-                recovery circuit (sauna, cold plunge, red light, compression). $250+ gives Dad a
+                Any amount. $150 covers a 60-minute Aescape robot massage. $200 adds the Remedy Room
+                recovery circuit (sauna, cold plunge, red light, compression). $300+ gives Dad a
                 full half-day.
               </p>
             </details>

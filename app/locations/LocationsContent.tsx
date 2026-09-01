@@ -341,8 +341,8 @@ export default function LocationsContent() {
           <div>
             <h1 className="text-2xl md:text-4xl font-bold">Find Your Sway</h1>
             <p className="mt-2 text-sm md:text-base opacity-80 max-w-xl">
-              Explore Sway Wellness Spa locations across the U.S., with our Denver
-              Larimer Square spa open now and more cities coming soon.
+              Explore Sway Wellness Spa locations across the U.S., with three Denver
+              locations open now in Larimer Square, RiNo, and Central Park, and more cities coming soon.
             </p>
           </div>
 

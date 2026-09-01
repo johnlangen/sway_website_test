@@ -36,6 +36,14 @@ const nextConfig = {
         destination: "/membership/",
         permanent: true,
       },
+      // Expired club pre-launch reservation page (June 2026, $99 lock-in).
+      // Old emails/social links still point here; send them to the live
+      // membership hub. Temporary so the page can come back if ever reused.
+      {
+        source: "/sway-club",
+        destination: "/membership/",
+        permanent: false,
+      },
       {
         source: "/blog/forever-young-facial",
         destination: "/facials/",

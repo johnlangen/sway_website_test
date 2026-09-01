@@ -409,8 +409,8 @@ export default function FathersDayGiftGuideLayout() {
               <div className="text-xs sm:text-sm opacity-70">Deep tissue, sports, or relaxation</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
-              <div>$129</div>
-              <div className="text-xs opacity-70 font-normal">$89 Essential</div>
+              <div>$139</div>
+              <div className="text-xs opacity-70 font-normal">$99 Essential</div>
             </div>
           </div>
 
