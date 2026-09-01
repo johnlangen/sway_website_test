@@ -142,12 +142,28 @@ const comps = dict(join(HOME, "sway-mindbody-migration", "comp-members-usage.csv
   }))
   .sort((a, b) => Number(b.visitDays2026) - Number(a.visitDays2026));
 
+// --- upswell balances: leftover $ account credit (mostly comped goodwill) that
+//     did NOT carry to Mindbody. Reference/lookup only; honor decisions are
+//     made case-by-case by Jocelyn/Emily. ---
+const balances = dict(join(HOME, "report-complimentary-account-balance.csv"))
+  .filter((r) => money(r["Amount Remaining"]) > 0)
+  .map((r) => ({
+    id: r["Transaction ID"],
+    name: r["Customer Full Name"],
+    email: r["Customer Email"],
+    remaining: money(r["Amount Remaining"]).toFixed(2).replace(/\.00$/, ""),
+    issuedAmount: money(r["Amount Issued"]).toFixed(2).replace(/\.00$/, ""),
+    issued: r["Date Issued"],
+    by: r["Broker Full Name"],
+  }))
+  .sort((a, b) => Number(b.remaining) - Number(a.remaining));
+
 console.log(`Seeding -> ${PROD}`);
-console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length} | arrangements: ${arrangements.length} | members: ${members.length} | comps: ${comps.length}`);
+console.log(`  giftcards: ${giftcards.length} | credits: ${credits.length} | cards: ${cards.length} | attention: ${attention.length} | daypasses: ${daypasses.length} | arrangements: ${arrangements.length} | members: ${members.length} | comps: ${comps.length} | balances: ${balances.length}`);
 
 const res = await fetch(`${PROD}/api/clubdesk?action=seed&secret=${encodeURIComponent(SECRET)}`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses, arrangements, members, comps }),
+  body: JSON.stringify({ giftcards, credits, cards, attention, daypasses, arrangements, members, comps, balances }),
 });
 console.log(`HTTP ${res.status}:`, await res.text());
