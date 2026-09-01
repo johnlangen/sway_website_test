@@ -93,7 +93,8 @@ export default function ReviewContent() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-5 py-12 sm:py-16">
+    // pt clears the fixed 56px NavBar (same pattern as /offers).
+    <main className="min-h-screen bg-[#F7F4E9] text-[#113D33] px-5 pt-28 pb-12 sm:pt-32 sm:pb-16">
       <div className="max-w-xl mx-auto">
         <div className="text-center">
           <Link href="/" className="inline-block">
