@@ -113,49 +113,69 @@ export default function ColdPlungeDenverLayout() {
           honest map, from a brisk first dip to full polar territory.
         </p>
 
+        {/* Thermometer scale */}
+        <div>
+          <div
+            className="h-3 rounded-full"
+            style={{
+              background:
+                "linear-gradient(to right, #D7EDF1, #8FC1CF, #3E7A94, #12293D)",
+            }}
+          />
+          <div className="flex justify-between text-xs font-bold text-[#113D33]/50 mt-2 px-1">
+            <span>65&deg;F · brisk</span>
+            <span className="hidden sm:inline">55&deg;F</span>
+            <span className="hidden sm:inline">45&deg;F</span>
+            <span>32&deg;F · polar</span>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-xl border border-[#d7e2dc] border-l-4 border-l-[#9CB7A9] p-5 space-y-1">
+          <div className="rounded-xl p-5 space-y-1 bg-[#EDF7F9] border border-[#C9E4EA]">
             <div className="flex items-baseline justify-between">
-              <h3 className="text-lg font-bold">The Gateway</h3>
-              <span className="text-sm font-bold text-[#113D33]/50">60&ndash;65&deg;F</span>
+              <h3 className="text-lg font-bold text-[#12293D]">The Gateway</h3>
+              <span className="text-sm font-bold text-[#3E7A94]">60&ndash;65&deg;F</span>
             </div>
-            <p className="text-[15px]">
+            <p className="text-[15px] text-[#12293D]/80">
               Brisk but friendly. Cold enough to feel it, warm enough to
               breathe through on your first try.
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border border-[#d7e2dc] border-l-4 border-l-[#5E8B7E] p-5 space-y-1">
+          <div className="rounded-xl p-5 space-y-2 bg-[#D8EBEF] border border-[#A9D0DA]">
             <div className="flex items-baseline justify-between">
-              <h3 className="text-lg font-bold">The Sweet Spot</h3>
-              <span className="text-sm font-bold text-[#113D33]/50">50&ndash;59&deg;F</span>
+              <h3 className="text-lg font-bold text-[#12293D]">The Sweet Spot</h3>
+              <span className="text-sm font-bold text-[#2F6478]">50&ndash;59&deg;F</span>
             </div>
-            <p className="text-[15px]">
-              Where most of the research lives, and where the{" "}
-              <Link href="/remedy-tech" className="underline text-[#113D33] font-semibold">
-                Remedy Room
-              </Link>{" "}
-              plunge at Sway Larimer is held.
+            <p className="text-[15px] text-[#12293D]/80">
+              Where most of the research lives. Full cold response,
+              sustainable for two to three minutes.
             </p>
+            <Link
+              href="/remedy-tech"
+              className="inline-block bg-[#113D33] text-white text-xs font-semibold px-3 py-1 rounded-full hover:bg-[#0e322b] transition"
+            >
+              Sway Larimer plunges here
+            </Link>
           </div>
 
-          <div className="bg-white rounded-xl border border-[#d7e2dc] border-l-4 border-l-[#2F6155] p-5 space-y-1">
+          <div className="rounded-xl p-5 space-y-1 bg-[#3E7A94] text-white">
             <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-bold">The Deep End</h3>
-              <span className="text-sm font-bold text-[#113D33]/50">40&ndash;49&deg;F</span>
+              <span className="text-sm font-bold text-white/70">40&ndash;49&deg;F</span>
             </div>
-            <p className="text-[15px]">
+            <p className="text-[15px] text-white/85">
               A bigger stimulus for experienced plungers. Nobody should start
               here. Plenty of regulars end up loving it.
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border border-[#d7e2dc] border-l-4 border-l-[#113D33] p-5 space-y-1">
+          <div className="rounded-xl p-5 space-y-1 bg-[#12293D] text-white">
             <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-bold">Polar Territory</h3>
-              <span className="text-sm font-bold text-[#113D33]/50">Below 40&deg;F</span>
+              <span className="text-sm font-bold text-white/70">Below 40&deg;F</span>
             </div>
-            <p className="text-[15px]">
+            <p className="text-[15px] text-white/85">
               Mountain runoff in May. Seconds, not minutes. Earn your way down
               the ladder first.
             </p>
@@ -167,34 +187,49 @@ export default function ColdPlungeDenverLayout() {
           The Sway Plunges: Larimer, RiNo &amp; Central Park
         </h2>
 
-        {/* Larimer feature card */}
-        <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden md:flex">
-          <div className="md:w-2/5 h-56 md:h-auto overflow-hidden">
-            <Image
-              src="/assets/cold_plunge.jpg"
-              alt="Cold plunge water in the Remedy Room at Sway Wellness Spa on Larimer Square"
-              width={700}
-              height={700}
-              className="w-full h-full object-cover"
-            />
+        {/* Larimer feature card: the circuit as a flow */}
+        <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-5">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold">The Remedy Room at Sway Larimer</h3>
+            <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Larimer Sq</span>
           </div>
-          <div className="p-6 space-y-3 md:w-3/5">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold">The Remedy Room at Sway Larimer</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Larimer Sq</span>
+          <p className="text-[15px]">
+            The easiest first plunge in Denver: one guided 40-minute circuit,
+            no guesswork. Here is the loop.
+          </p>
+
+          {/* Circuit flow */}
+          <div className="flex flex-col sm:flex-row items-stretch gap-2">
+            <div className="flex-1 rounded-lg bg-[#F7F4E9] border border-[#e5dfc9] p-4 text-center space-y-1">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#B85C38] text-white text-sm font-bold">1</span>
+              <p className="font-bold text-[15px]">Heat</p>
+              <p className="text-[13px] text-[#113D33]/60">
+                <Link href="/sauna" className="underline">Traditional sauna</Link>
+              </p>
             </div>
-            <p className="text-[15px]">
-              A guided 40-minute contrast circuit:{" "}
-              <Link href="/sauna" className="underline text-[#113D33] font-semibold">
-                traditional sauna
-              </Link>
-              , cold plunge in the 50s, then{" "}
-              <Link href="/compression-therapy" className="underline text-[#113D33] font-semibold">
-                compression
-              </Link>{" "}
-              and LED to finish. The full hot-cold cycle in one visit, no
-              guesswork. The easiest first plunge in Denver.
-            </p>
+            <div className="flex items-center justify-center text-[#113D33]/30 text-xl font-bold rotate-90 sm:rotate-0">&rarr;</div>
+            <div className="flex-1 rounded-lg bg-[#D8EBEF] border border-[#A9D0DA] p-4 text-center space-y-1">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#3E7A94] text-white text-sm font-bold">2</span>
+              <p className="font-bold text-[15px]">Cold</p>
+              <p className="text-[13px] text-[#12293D]/60">Plunge in the 50s</p>
+            </div>
+            <div className="flex items-center justify-center text-[#113D33]/30 text-xl font-bold rotate-90 sm:rotate-0">&rarr;</div>
+            <div className="flex-1 rounded-lg bg-[#F7F4E9] border border-[#e5dfc9] p-4 text-center space-y-1">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">3</span>
+              <p className="font-bold text-[15px]">Flush</p>
+              <p className="text-[13px] text-[#113D33]/60">
+                <Link href="/compression-therapy" className="underline">Compression therapy</Link>
+              </p>
+            </div>
+            <div className="flex items-center justify-center text-[#113D33]/30 text-xl font-bold rotate-90 sm:rotate-0">&rarr;</div>
+            <div className="flex-1 rounded-lg bg-[#F7F4E9] border border-[#e5dfc9] p-4 text-center space-y-1">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#9CB7A9] text-white text-sm font-bold">4</span>
+              <p className="font-bold text-[15px]">Glow</p>
+              <p className="text-[13px] text-[#113D33]/60">LED light therapy</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-[13px] text-[#113D33]/60">
               $49 drop-in · $25 members · first visit $25 for locals
             </p>
@@ -416,42 +451,80 @@ export default function ColdPlungeDenverLayout() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-2">
-            <p className="font-bold">The Lunch-Break Reset</p>
-            <p className="text-[15px]">
-              Midday{" "}
-              <Link href="/locations/denver-larimer/book-remedy-room" className="underline text-[#113D33] font-semibold">
-                Remedy Room
-              </Link>{" "}
-              at Larimer. Sauna, plunge, compression, back at your desk sharper
-              than a third coffee could manage.
-            </p>
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="font-bold">The Lunch-Break Reset</p>
+              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/60 px-2 py-1 rounded-full">Midday</span>
+            </div>
+            <ol className="relative border-l-2 border-[#d7e2dc] ml-1 space-y-4">
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#113D33]" />
+                Book a midday{" "}
+                <Link href="/locations/denver-larimer/book-remedy-room" className="underline text-[#113D33] font-semibold">
+                  Remedy Room
+                </Link>{" "}
+                at Larimer
+              </li>
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#3E7A94]" />
+                Sauna, plunge, compression. 40 minutes
+              </li>
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#9CB7A9]" />
+                Back at your desk sharper than a third coffee
+              </li>
+            </ol>
           </div>
-          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-2">
-            <p className="font-bold">The Sunday Contrast Morning</p>
-            <p className="text-[15px]">
-              Morning session at{" "}
-              <Link href="/locations/denver-central-park" className="underline text-[#113D33] font-semibold">
-                Sway Central Park
-              </Link>
-              , rotating hot soak and cold cabins. Then go be the calmest
-              person at brunch.
-            </p>
+
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="font-bold">The Sunday Contrast Morning</p>
+              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/60 px-2 py-1 rounded-full">Sun AM</span>
+            </div>
+            <ol className="relative border-l-2 border-[#d7e2dc] ml-1 space-y-4">
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#113D33]" />
+                Morning session at{" "}
+                <Link href="/locations/denver-central-park" className="underline text-[#113D33] font-semibold">
+                  Sway Central Park
+                </Link>
+              </li>
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#3E7A94]" />
+                Rotate the hot soak and cold cabins
+              </li>
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#9CB7A9]" />
+                Go be the calmest person at brunch
+              </li>
+            </ol>
           </div>
-          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-2">
-            <p className="font-bold">The Mountain Double</p>
-            <p className="text-[15px]">
-              Hike out of Golden with a careful Clear Creek dip, then an
-              evening at{" "}
-              <Link href="/locations/denver-rino" className="underline text-[#113D33] font-semibold">
-                Sway RiNo
-              </Link>
-              . Sore tomorrow? Book a{" "}
-              <Link href="/massages" className="underline text-[#113D33] font-semibold">
-                massage
-              </Link>
-              .
-            </p>
+
+          <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="font-bold">The Mountain Double</p>
+              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/60 px-2 py-1 rounded-full">All day</span>
+            </div>
+            <ol className="relative border-l-2 border-[#d7e2dc] ml-1 space-y-4">
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#113D33]" />
+                Hike out of Golden, careful Clear Creek dip
+              </li>
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#3E7A94]" />
+                Evening sauna and big plunge at{" "}
+                <Link href="/locations/denver-rino" className="underline text-[#113D33] font-semibold">
+                  Sway RiNo
+                </Link>
+              </li>
+              <li className="pl-4 relative text-[15px]">
+                <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#9CB7A9]" />
+                Sore tomorrow? Book a{" "}
+                <Link href="/massages" className="underline text-[#113D33] font-semibold">
+                  massage
+                </Link>
+              </li>
+            </ol>
           </div>
         </div>
 
