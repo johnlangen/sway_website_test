@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BacheloretteSpaDayBlogLayout from "./layout";
+import BacheloretteSpaDayBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Denver Bachelorette Spa Day: Private Group Bookings | Sway",

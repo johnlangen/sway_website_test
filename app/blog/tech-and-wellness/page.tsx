@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import TechAndWellnessBlogLayout from "./layout";
+import TechAndWellnessBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "How Technological Innovation is Transforming Spa Treatments | Sway Wellness",

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import VitaminCFacialBlogLayout from "./layout";
+import VitaminCFacialBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa",

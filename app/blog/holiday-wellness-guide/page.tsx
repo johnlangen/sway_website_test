@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import HolidayWellnessGuideLayout from "./layout";
+import HolidayWellnessGuideLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Holiday Wellness Gift Guide | Sway Wellness Spa",

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import RecoveryDenverBlogLayout from "./layout";
+import RecoveryDenverBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage | Sway",

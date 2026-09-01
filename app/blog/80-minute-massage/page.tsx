@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Massage80MinBlogLayout from "./layout";
+import Massage80MinBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import SwayShopFindsBlogLayout from "./layout";
+import SwayShopFindsBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Best Wellness Products at The Sway Shop in Larimer Square | Sway Wellness Spa",

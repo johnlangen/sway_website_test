@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import MavenHotelBlogLayout from "./layout";
+import MavenHotelBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title:

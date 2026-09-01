@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DateNightDenverLayout from "./layout";
+import DateNightDenverLayout from "./Article";
 
 export const metadata: Metadata = {
   title:

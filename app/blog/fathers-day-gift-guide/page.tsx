@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import FathersDayGiftGuideLayout from "./layout";
+import FathersDayGiftGuideLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Father's Day Spa Gift Guide | Sway Wellness Spa Denver",

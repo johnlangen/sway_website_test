@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import SunProtectionBlogLayout from "./layout";
+import SunProtectionBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "The Ultimate Guide to Sun Protection & Post-Sun Skin Care | Sway Wellness Spa",

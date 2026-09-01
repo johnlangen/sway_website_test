@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ValentinesDayWellnessBlogLayout from "./layout";
+import ValentinesDayWellnessBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Valentine's Day Wellness at Sway | Spa Dates, Self-Care & Galentines",

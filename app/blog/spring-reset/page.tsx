@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import SpringResetBlogLayout from "./layout";
+import SpringResetBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Spring Detox Treatments for Skin & Body | Sway Wellness Spa",

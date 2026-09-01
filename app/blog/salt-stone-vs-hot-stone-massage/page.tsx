@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import SaltStoneVsHotStoneLayout from "./layout";
+import SaltStoneVsHotStoneLayout from "./Article";
 
 export const metadata: Metadata = {
   title:

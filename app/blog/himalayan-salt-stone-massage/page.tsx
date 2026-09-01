@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import HimalayanSaltStoneMassageLayout from "./layout";
+import HimalayanSaltStoneMassageLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Himalayan Salt Stone Massage | Deep Relaxation at Sway Wellness Spa",

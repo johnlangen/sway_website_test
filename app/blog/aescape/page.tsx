@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AescapeBlogLayout from "./layout";
+import AescapeBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "AI-Powered Aescape Massage in Denver | Sway Wellness Spa",

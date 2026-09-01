@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import PostSummerSkinRecoveryBlogLayout from "./layout";
+import PostSummerSkinRecoveryBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Post-Summer Skin Recovery | Sway Wellness Spa",

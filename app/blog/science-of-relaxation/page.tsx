@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ScienceOfRelaxationBlogLayout from "./layout";
+import ScienceOfRelaxationBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "How Spa Treatments Reduce Stress & Anxiety | Sway Wellness Spa",

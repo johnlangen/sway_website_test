@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import InfraredPemfMatBlogLayout from "./layout";
+import InfraredPemfMatBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Infrared PEMF Mat Benefits: How It Speeds Recovery | Sway",

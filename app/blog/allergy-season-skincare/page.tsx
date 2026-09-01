@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AllergySeasonSkincareBlogLayout from "./layout";
+import AllergySeasonSkincareBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Allergy Season Skincare in Denver | Sway Wellness Spa",

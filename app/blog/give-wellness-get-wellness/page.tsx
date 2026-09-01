@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import GiveWellnessBlogLayout from "./layout";
+import GiveWellnessBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Give Wellness, Get Wellness: Sway Spa Referral Program",

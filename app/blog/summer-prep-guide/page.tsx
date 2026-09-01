@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import SummerPrepGuideBlogLayout from "./layout";
+import SummerPrepGuideBlogLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Pre-Summer Skin Prep: Massage, Facials & Glow Tips | Sway Wellness",

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import GlowUpBeforeYouShowUpLayout from "./layout";
+import GlowUpBeforeYouShowUpLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Glow Up Before You Show Up: Spa Treatments for Students",

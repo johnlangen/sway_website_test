@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ColdPlungeDenverLayout from "./layout";
+import ColdPlungeDenverLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "Cold Plunge in Denver: Where to Go (2026 Guide) | Sway",

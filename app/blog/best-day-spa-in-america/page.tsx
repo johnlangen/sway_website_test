@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BestDaySpaLayout from "./layout";
+import BestDaySpaLayout from "./Article";
 
 export const metadata: Metadata = {
   title: "#4 Best Day Spa in America: Sway's First Year | Sway Wellness Spa",
