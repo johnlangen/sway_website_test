@@ -7,7 +7,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "sitemap": "next-sitemap",
     "postexport": "echo '' > out/.nojekyll && echo 'swaywellnessspa.com' > out/CNAME",
     "deploy:gh": "npm run build && npm run postexport && gh-pages -d out --dotfiles --no-history",
     "deploy:vercel": "next build"
@@ -25,7 +24,6 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^0.542.0",
     "next": "^15.2.0",
-    "next-sitemap": "^4.2.3",
     "pdf-lib": "^1.17.1",
     "pdfkit": "^0.17.2",
     "pg": "^8.16.3",

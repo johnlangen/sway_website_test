@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import CountdownBanner from "./components/CountdownBanner";
 import { AddToHomeScreen } from "./components/AddToHomeScreen";
 import AdAttribution from "./components/AdAttribution";
 import { LarimerOnlyChat } from "./components/LarimerOnlyChat";
@@ -240,7 +239,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AdAttribution />
         <LarimerOnlyChat />
         <NavBar />
-        <CountdownBanner />
         <main id="main-content" className="relative z-10">{children}</main>
         <Footer />
         {/* Preview-only: shows the install card on any page with ?a2hs=1 (testing).
