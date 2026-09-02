@@ -37,6 +37,10 @@ type ClubOffersConfig = {
   offerImageAlt: string;
   /** Real modalities at this club only. */
   loungeLine: string;
+  /** FTVORL-CP-PAUSE: hides the first-visit offer while an amenity is
+      down (one-shot first impressions shouldn't land on a degraded
+      Lounge). Remove the flag to restore the offer. */
+  offerPaused?: boolean;
 };
 
 const CLUB_CONFIG: Record<"denver-rino" | "denver-central-park", ClubOffersConfig> = {
@@ -65,6 +69,8 @@ const CLUB_CONFIG: Record<"denver-rino" | "denver-central-park", ClubOffersConfi
     offerImageAlt: "Recovery pools at Sway Central Park",
     loungeLine:
       "Traditional dry sauna, infrared sauna cabins, cold plunges, a warm soak, and compression therapy.",
+    // FTVORL-CP-PAUSE (Sept 2026): cold plunge down for maintenance.
+    offerPaused: true,
   },
 };
 
@@ -114,15 +120,25 @@ export default function ClubOffersPage({
           transition={{ duration: 0.4, delay: 0.2 }}
           className="text-base md:text-lg opacity-80 max-w-xl mx-auto"
         >
-          Your first Remedy Lounge visit at {cfg.shortName} for $
-          {CLUB_OFFER_PRICE}. Regularly ${CLUB_LOUNGE_DROP_IN}.
+          {cfg.offerPaused ? (
+            <>
+              Remedy Lounge sessions at {cfg.shortName}: $
+              {CLUB_LOUNGE_DROP_IN} drop-in, unlimited with membership.
+            </>
+          ) : (
+            <>
+              Your first Remedy Lounge visit at {cfg.shortName} for $
+              {CLUB_OFFER_PRICE}. Regularly ${CLUB_LOUNGE_DROP_IN}.
+            </>
+          )}
         </motion.p>
 
         <p className="sr-only">
-          {cfg.shortName} offers and pricing: First Remedy Lounge Visit (code
-          FTVORL): ${CLUB_OFFER_PRICE} for your first 75-minute Remedy Lounge
-          session (regularly ${CLUB_LOUNGE_DROP_IN}), any day, local first-time
-          guests only (locals only). {cfg.loungeLine} Remedy Lounge Membership:
+          {cfg.shortName} offers and pricing:{" "}
+          {cfg.offerPaused
+            ? `Remedy Lounge sessions are $${CLUB_LOUNGE_DROP_IN} drop-in. The first-visit offer is temporarily paused while the cold plunge is under maintenance. `
+            : `First Remedy Lounge Visit (code FTVORL): $${CLUB_OFFER_PRICE} for your first 75-minute Remedy Lounge session (regularly $${CLUB_LOUNGE_DROP_IN}), any day, local first-time guests only (locals only). `}
+          {cfg.loungeLine} Remedy Lounge Membership:
           ${CLUB_MEMBERSHIP_PRICE}/month for unlimited Remedy Lounge access,
           one 75-minute session every day, month-to-month with no enrollment
           fee. Book at swaywellnessspa.com or call {cfg.phone}.
@@ -131,14 +147,46 @@ export default function ClubOffersPage({
 
       {/* HOW IT WORKS: the booking flow doesn't capture promo codes, so
           set the expectation that the code is mentioned at check-in. */}
-      <section className="px-6 pt-2 pb-2">
-        <p className="max-w-3xl mx-auto text-center text-sm md:text-base opacity-75">
-          Book online · Mention your code at check-in · We apply your
-          first-visit pricing at checkout.
-        </p>
-      </section>
+      {!cfg.offerPaused && (
+        <section className="px-6 pt-2 pb-2">
+          <p className="max-w-3xl mx-auto text-center text-sm md:text-base opacity-75">
+            Book online · Mention your code at check-in · We apply your
+            first-visit pricing at checkout.
+          </p>
+        </section>
+      )}
+
+      {/* FTVORL-CP-PAUSE: maintenance notice replaces the offer card */}
+      {cfg.offerPaused && (
+        <section className="px-4 sm:px-6 pt-8 pb-10">
+          <div className="max-w-xl mx-auto">
+            <div className="bg-white rounded-3xl shadow-xl border border-[#113D33]/8 p-6 md:p-8 text-center">
+              <p className="text-xs uppercase tracking-[0.15em] text-[#4A776D] mb-2">
+                A quick heads-up
+              </p>
+              <h2 className="text-xl md:text-2xl font-bold mb-3">
+                Cold plunge maintenance in progress
+              </h2>
+              <p className="text-sm text-gray-600 leading-relaxed mb-5">
+                Our cold plunge at {cfg.shortName} is temporarily down while
+                we get it back to its best. The $25 first-visit offer is
+                paused until it returns, so your first visit is everything it
+                should be. The sauna, warm soak, and compression therapy are
+                open as usual for ${CLUB_LOUNGE_DROP_IN} drop-in sessions.
+              </p>
+              <Link
+                href={cfg.bookHref}
+                className="inline-block rounded-full font-semibold py-3 px-7 bg-[#113D33] hover:bg-[#0c2a23] text-white transition"
+              >
+                Book Remedy Lounge
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* OFFER CARD */}
+      {!cfg.offerPaused && (
       <section className="px-4 sm:px-6 pt-8 pb-10">
         <div className="max-w-xl mx-auto">
           <motion.div
@@ -217,6 +265,7 @@ export default function ClubOffersPage({
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* MEMBERSHIP BANNER: upsell anchor below the first-visit offer */}
       <section className="px-4 sm:px-6 pb-16">

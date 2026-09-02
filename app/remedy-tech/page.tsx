@@ -162,13 +162,15 @@ const CLUB_VARIANTS: Record<string, ClubVariant> = {
     heroImg: "/assets/centralpark1.jpg",
     heroSub:
       "A 75-minute self-guided recovery session. Reserve your sauna time, then move through cold plunges, the warm soak, compression, and PEMF at your own pace.",
+    // FTVORL-CP-PAUSE (Sept 2026): $25 first-visit mentions removed while
+    // the CP cold plunge is under maintenance. Restore when back.
     srBlurb:
-      "The Remedy Lounge at Sway Wellness Club Central Park is a 75-minute self-guided recovery session combining traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and PEMF mats. Located at 2271 Clinton St in Aurora, minutes from Central Park. $49 drop-in, $25 first visit for locals (code FTVORL), unlimited with the $129/month Remedy Lounge membership. Book at swaywellnessspa.com.",
+      "The Remedy Lounge at Sway Wellness Club Central Park is a 75-minute self-guided recovery session combining traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and PEMF mats. Located at 2271 Clinton St in Aurora, minutes from Central Park. $49 drop-in, unlimited with the $129/month Remedy Lounge membership. Book at swaywellnessspa.com.",
     bookHref: "/locations/denver-central-park/book-remedy-lounge",
     stats: [
       { value: "6", label: "Recovery Modalities" },
       { value: "75", label: "Minute Session" },
-      { value: "$25", label: "First Visit \u00b7 Locals" },
+      { value: "$49", label: "Drop-In Session" },
       { value: "$49", label: "Drop-In" },
     ],
     circuitSub:
@@ -245,7 +247,7 @@ const CLUB_VARIANTS: Record<string, ClubVariant> = {
       },
       {
         q: "How much does the Remedy Lounge cost?",
-        a: "Sessions are $49 for drop-in guests. Local first-time guests get their first session for $25 with code FTVORL. Remedy Lounge members enjoy unlimited sessions, and memberships are $129/month.",
+        a: "Sessions are $49 for drop-in guests. Remedy Lounge members enjoy unlimited sessions, and memberships are $129/month.",
       },
     ],
     cardTitle: "Sway Central Park",

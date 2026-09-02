@@ -3,8 +3,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Central Park Sauna & Cold Plunge Offers | Sway Wellness Club",
+  // FTVORL-CP-PAUSE (Sept 2026): first-visit offer paused during cold
+  // plunge maintenance. Restore the $25/FTVORL descriptions when back.
   description:
-    "First Remedy Lounge visit $25 (code FTVORL, any day, locals only, regularly $49). Traditional and infrared saunas, cold plunges, warm soak, compression therapy. Membership $129/mo. Sway Central Park, 2271 Clinton St.",
+    "Remedy Lounge sessions $49 drop-in. Traditional and infrared saunas, warm soak, compression therapy. Membership $129/mo for unlimited access. Sway Central Park, 2271 Clinton St.",
   alternates: {
     canonical: "/locations/denver-central-park/offers/",
   },
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-central-park/offers/",
     title: "Central Park Sauna & Cold Plunge Offers | Sway Wellness Club",
     description:
-      "$25 first Remedy Lounge visit (locals only, regularly $49). Saunas, cold plunges, warm soak, and compression therapy near Central Park, Denver. Membership $129/mo.",
+      "Remedy Lounge sessions $49 drop-in. Saunas, warm soak, and compression therapy near Central Park, Denver. Membership $129/mo for unlimited access.",
     images: [
       {
         url: "/assets/centralpark1.jpg",
@@ -27,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Central Park Sauna & Cold Plunge Offers | Sway Wellness Club",
     description:
-      "$25 first Remedy Lounge visit (locals only, regularly $49). Saunas, cold plunges, and compression therapy near Central Park. Membership $129/mo.",
+      "Remedy Lounge sessions $49 drop-in. Saunas and compression therapy near Central Park. Membership $129/mo for unlimited access.",
     images: ["/assets/centralpark1.jpg"],
   },
   robots: {
@@ -73,24 +75,11 @@ export default function CentralParkOffersLayout({
     url: "https://swaywellnessspa.com/locations/denver-central-park/offers/",
     description:
       "Current offers, introductory pricing, and membership deals at Sway Wellness Club near Central Park in Denver.",
-    numberOfItems: 3,
+    // FTVORL-CP-PAUSE: the First Remedy Lounge Visit (FTVORL) Offer item
+    // ($25, NewCustomer, locals only) is removed while the offer is
+    // paused for cold plunge maintenance. Restore it as item 1 when back.
+    numberOfItems: 2,
     itemListElement: [
-      {
-        "@type": "Offer",
-        name: "First Remedy Lounge Visit (FTVORL)",
-        description:
-          "$25 for your first 75-minute Remedy Lounge session (traditional dry sauna, infrared sauna cabins, cold plunges, warm soak, compression therapy). Regularly $49. Locals only. Valid any day for first-time guests. Use code FTVORL at check-in.",
-        price: "25.00",
-        priceCurrency: "USD",
-        eligibleCustomerType: "http://schema.org/NewCustomer",
-        availability: "https://schema.org/InStock",
-        url: "https://swaywellnessspa.com/locations/denver-central-park/offers/",
-        seller: {
-          "@type": "DaySpa",
-          "@id": "https://swaywellnessspa.com/locations/denver-central-park/",
-          name: "Sway Wellness Spa · Central Park",
-        },
-      },
       {
         "@type": "Offer",
         name: "Remedy Lounge Membership",
@@ -110,7 +99,7 @@ export default function CentralParkOffersLayout({
         "@type": "Offer",
         name: "Remedy Lounge Session",
         description:
-          "A 75-minute recovery session with traditional dry sauna, infrared sauna cabins, cold plunges, warm soak, and compression therapy. $49 drop-in; $25 for local first-time guests (code FTVORL, locals only). Unlimited with the $129/mo Remedy Lounge Membership.",
+          "A 75-minute recovery session with traditional dry sauna, infrared sauna cabins, warm soak, and compression therapy. $49 drop-in. Unlimited with the $129/mo Remedy Lounge Membership.",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

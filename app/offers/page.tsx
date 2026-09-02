@@ -129,11 +129,12 @@ export default function OffersPage() {
         <p className="sr-only">
           Sway Wellness Spa offers and pricing across 5 locations: Denver
           Larimer, Denver RiNo, and Central Park (now open), plus Dallas TX and
-          Union Market Washington DC (coming soon). At Sway RiNo and Sway
-          Central Park, local first-time guests get their first 75-minute
-          Remedy Lounge session for $25 with code FTVORL (any day, locals only,
-          regularly $49), and the Remedy Lounge Membership is $129/month for
-          unlimited access. Denver Larimer first-visit offers (locals only): code FTVO40
+          Union Market Washington DC (coming soon). At Sway RiNo, local
+          first-time guests get their first 75-minute Remedy Lounge session
+          for $25 with code FTVORL (any day, locals only, regularly $49), and
+          the Remedy Lounge Membership is $129/month for unlimited access at
+          both clubs. The Central Park first-visit offer is temporarily
+          paused during cold plunge maintenance. Denver Larimer first-visit offers (locals only): code FTVO40
           for $40 off your first massage, facial, or 60-minute Aescape robot
           massage at any tier (Monday through Friday, locals only); code FTVORR
           for $25 first Remedy Room visit (any day, locals only, regularly $49).
