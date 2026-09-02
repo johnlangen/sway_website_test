@@ -178,7 +178,7 @@ export default function BacheloretteSpaDayBlogLayout() {
             <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
           </div>
           <div className="pt-2">
-            <Link href="/locations/denver-larimer/book-service" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book a Treatment</Link>
+            <Link href="/locations/denver-larimer/book" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book a Treatment</Link>
           </div>
         </div>
 
@@ -249,7 +249,7 @@ export default function BacheloretteSpaDayBlogLayout() {
             <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
           </div>
           <div className="pt-2">
-            <Link href="/locations/denver-larimer/book-service" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book Online</Link>
+            <Link href="/locations/denver-larimer/book" className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Book Online</Link>
           </div>
           <p className="text-xs text-white/70 pt-2">Pro tip: book early to secure your date and tailor every detail.</p>
         </div>

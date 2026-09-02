@@ -36,6 +36,15 @@ const nextConfig = {
         destination: "/membership/",
         permanent: true,
       },
+      // Legacy Larimer booking flow (flat catalog, pre-tier pricing with
+      // $89 Basic items). Superseded by /book; retired 2026-09-01 because
+      // it was still indexed + blog-linked while contradicting site-wide
+      // pricing. Temporary so it can come back if ever needed.
+      {
+        source: "/locations/denver-larimer/book-service",
+        destination: "/locations/denver-larimer/book/",
+        permanent: false,
+      },
       // Expired club pre-launch reservation page (June 2026, $99 lock-in).
       // Old emails/social links still point here; send them to the live
       // membership hub. Temporary so the page can come back if ever reused.

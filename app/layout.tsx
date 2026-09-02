@@ -96,7 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               logo: "https://swaywellnessspa.com/assets/swaylogo3.png",
               description:
                 "Sway Wellness Spa is a modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, compression therapy, LED light therapy, and AI-powered Aescape robot massage. Voted #4 Best Day Spa in America by USA Today 10Best.",
-              foundingDate: "2024",
+              foundingDate: "2025", // opened 2025 (2024 was construction)
               sameAs: [
                 "https://www.instagram.com/swaywellnessclub/",
                 "https://www.facebook.com/swaywellnessspa",

@@ -94,7 +94,7 @@ export default function FathersDayGiftGuideLayout() {
                 The dad with a desk job and a 9-year-old who wants to be
                 picked up nonstop. He needs a proper{" "}
                 <Link
-                  href="/locations/denver-larimer/book-service?category=massage"
+                  href="/locations/denver-larimer/book"
                   className="font-semibold text-[#113D33] underline underline-offset-2"
                 >
                   deep tissue or sports massage

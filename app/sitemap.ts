@@ -56,7 +56,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const larimerPages = [
     { url: `${base}/locations/denver-larimer/`, changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${base}/locations/denver-larimer/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
-    { url: `${base}/locations/denver-larimer/book-service/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-larimer/book-aescape/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-larimer/book-remedy-room/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-larimer/membership/`, changeFrequency: "monthly" as const, priority: 0.7 },

@@ -195,7 +195,7 @@ export default function InfraredPemfMatBlogLayout() {
             match your body. Members get 50% off all boosts.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <Link href="/locations/denver-larimer/book-service" className="bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-[#f0ede2] transition">Book a Massage</Link>
+            <Link href="/locations/denver-larimer/book" className="bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-[#f0ede2] transition">Book a Massage</Link>
             <Link href="/massages" className="border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#113D33] transition">Explore Massages</Link>
           </div>
         </div>
