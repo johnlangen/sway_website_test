@@ -170,11 +170,13 @@ export default function SwayCentralParkPage() {
                 A quick heads-up
               </div>
               <h2 className="text-xl sm:text-2xl font-bold">
-                Cold plunge maintenance in progress.
+                Plunge maintenance in progress.
               </h2>
               <p className="mt-1.5 text-white/80 text-sm">
-                Sauna, warm soak, and compression are open as usual. Our $25
-                first-visit offer is paused until the plunge is back.
+                A cold plunge and the warm soak are getting some care. The
+                saunas, remaining cold plunges, and compression are open as
+                usual. Our $25 first-visit offer is paused until everything
+                is back.
               </p>
             </div>
             <Link

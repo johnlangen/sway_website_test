@@ -165,14 +165,15 @@ export default function ClubOffersPage({
                 A quick heads-up
               </p>
               <h2 className="text-xl md:text-2xl font-bold mb-3">
-                Cold plunge maintenance in progress
+                Plunge maintenance in progress
               </h2>
               <p className="text-sm text-gray-600 leading-relaxed mb-5">
-                Our cold plunge at {cfg.shortName} is temporarily down while
-                we get it back to its best. The $25 first-visit offer is
-                paused until it returns, so your first visit is everything it
-                should be. The sauna, warm soak, and compression therapy are
-                open as usual for ${CLUB_LOUNGE_DROP_IN} drop-in sessions.
+                One of our cold plunges and the warm soak at {cfg.shortName}{" "}
+                are temporarily down while we get them back to their best. The
+                $25 first-visit offer is paused until everything returns, so
+                your first visit is everything it should be. The saunas, the
+                remaining cold plunges, and compression therapy are open as
+                usual for ${CLUB_LOUNGE_DROP_IN} drop-in sessions.
               </p>
               <Link
                 href={cfg.bookHref}

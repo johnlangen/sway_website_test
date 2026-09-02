@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   // FTVORL-CP-PAUSE (Sept 2026): first-visit offer paused during cold
   // plunge maintenance. Restore the $25/FTVORL descriptions when back.
   description:
-    "Remedy Lounge sessions $49 drop-in. Traditional and infrared saunas, warm soak, compression therapy. Membership $129/mo for unlimited access. Sway Central Park, 2271 Clinton St.",
+    "Remedy Lounge sessions $49 drop-in. Traditional and infrared saunas, cold plunges, compression therapy. Membership $129/mo for unlimited access. Sway Central Park, 2271 Clinton St.",
   alternates: {
     canonical: "/locations/denver-central-park/offers/",
   },
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-central-park/offers/",
     title: "Central Park Sauna & Cold Plunge Offers | Sway Wellness Club",
     description:
-      "Remedy Lounge sessions $49 drop-in. Saunas, warm soak, and compression therapy near Central Park, Denver. Membership $129/mo for unlimited access.",
+      "Remedy Lounge sessions $49 drop-in. Saunas, cold plunges, and compression therapy near Central Park, Denver. Membership $129/mo for unlimited access.",
     images: [
       {
         url: "/assets/centralpark1.jpg",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Central Park Sauna & Cold Plunge Offers | Sway Wellness Club",
     description:
-      "Remedy Lounge sessions $49 drop-in. Saunas and compression therapy near Central Park. Membership $129/mo for unlimited access.",
+      "Remedy Lounge sessions $49 drop-in. Saunas, cold plunges, and compression therapy near Central Park. Membership $129/mo for unlimited access.",
     images: ["/assets/centralpark1.jpg"],
   },
   robots: {
@@ -99,7 +99,7 @@ export default function CentralParkOffersLayout({
         "@type": "Offer",
         name: "Remedy Lounge Session",
         description:
-          "A 75-minute recovery session with traditional dry sauna, infrared sauna cabins, warm soak, and compression therapy. $49 drop-in. Unlimited with the $129/mo Remedy Lounge Membership.",
+          "A 75-minute recovery session with traditional dry sauna, infrared sauna cabins, cold plunges, and compression therapy. $49 drop-in. Unlimited with the $129/mo Remedy Lounge Membership.",
         price: "49.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
