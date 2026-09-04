@@ -19,7 +19,7 @@ export default function LarimerOffersPage() {
       price: "$99",
       priceSuffix: " / 50 min",
       description:
-        "Your first Essential Signature Massage or Facial. Or upgrade for $40 off Premier ($129) or Ultimate ($159).",
+        "$40 off your first massage or facial, any tier. Essential Signature $99 · Premier $129 · Ultimate $159.",
       cta: "Book Massage or Facial",
       href: "/locations/denver-larimer/book",
       code: "FTVO40",

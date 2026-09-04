@@ -295,8 +295,8 @@ export default function SwayLarimerPage() {
                   $99 First Visit Massage or Facial
                 </h2>
                 <p className="mt-2 text-white/80 text-sm sm:text-base max-w-lg">
-                  Regularly $139. Or $40 off Premier ($129) and Ultimate
-                  ($159). Code FTVO40, Mon-Fri. Locals only, first-time guests.
+                  Regularly $139. Same $40 off every tier: Premier $129,
+                  Ultimate $159. Code FTVO40, Mon-Fri. Locals only, first-time guests.
                 </p>
               </div>
               <div className="shrink-0">
