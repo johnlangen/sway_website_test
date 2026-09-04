@@ -39,11 +39,12 @@ const nextConfig = {
       // Legacy Larimer booking flow (flat catalog, pre-tier pricing with
       // $89 Basic items). Superseded by /book; retired 2026-09-01 because
       // it was still indexed + blog-linked while contradicting site-wide
-      // pricing. Temporary so it can come back if ever needed.
+      // pricing. Made permanent 2026-09-04: its session types (7, 13-16, 49)
+      // no longer exist in Mindbody, so the page can never book again.
       {
         source: "/locations/denver-larimer/book-service",
         destination: "/locations/denver-larimer/book/",
-        permanent: false,
+        permanent: true,
       },
       // Expired club pre-launch reservation page (June 2026, $99 lock-in).
       // Old emails/social links still point here; send them to the live
