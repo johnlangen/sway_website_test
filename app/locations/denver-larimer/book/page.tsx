@@ -26,7 +26,10 @@ import { readGclid } from "@/lib/gclid";
    - Silent membership check personalizes account + confirm steps
    - Card skipped entirely if member has card on file
    - Treatments organized by Essential / Premier / Ultimate with "All" default
-   - Uses new Mindbody session type IDs (75-108)
+   - Massage session type IDs are the post-standardization Larimer IDs
+     (Aug 2026 Mindbody standardization deactivated 88/99-108/116 and
+     recreated them as 2816-2833). Facials, boosts, 98 Premier Signature,
+     and 89/90 Lymphatic kept their original IDs. Clubs still use old IDs.
 ================================================================ */
 
 type Step =
@@ -93,20 +96,20 @@ const FACIAL_TREATMENTS: Treatment[] = [
 
 const MASSAGE_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
-  { id: 88, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage with light to medium pressure for relaxation and tension relief.", tier: "essential", image: "/assets/massage7.jpg", concerns: ["relaxation", "pain-relief"], badge: "Therapist favorite" },
-  { id: 116, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers. Recommended after the first trimester.", tier: "essential", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
+  { id: 2816, name: "Essential Signature Massage", duration: "50 min", durationMinutes: 50, description: "A foundational full-body massage with light to medium pressure for relaxation and tension relief.", tier: "essential", image: "/assets/massage7.jpg", concerns: ["relaxation", "pain-relief"], badge: "Therapist favorite" },
+  { id: 2817, name: "Essential Maternity Massage", duration: "50 min", durationMinutes: 50, description: "A gentle prenatal massage designed for expectant mothers. Recommended after the first trimester.", tier: "essential", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
   // Premier — $129 member / $169 drop-in. Value add: +20 min for swedish, or advanced techniques
   { id: 98, name: "Premier Signature Massage", duration: "70 min", durationMinutes: 70, description: "Extended full-body massage with light to medium pressure for a deeply relaxing experience.", tier: "premier", image: "/assets/massage7.jpg", concerns: ["relaxation"], badge: "Therapist favorite" },
-  { id: 99, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief. Recommended after the first trimester.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
-  { id: 100, name: "Premier Deep Tissue Massage", duration: "50 min", durationMinutes: 50, description: "Corrective massage to release deep muscle tension and restore balance.", tier: "premier", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
-  { id: 101, name: "Premier Salt Stone Massage", duration: "50 min", durationMinutes: 50, description: "Warm Himalayan salt stones melt tension and promote deep relaxation.", tier: "premier", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
-  { id: 102, name: "Premier Sports Massage", duration: "50 min", durationMinutes: 50, description: "Supports recovery, range of motion, and reduces fatigue.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
+  { id: 2824, name: "Premier Maternity Massage", duration: "70 min", durationMinutes: 70, description: "Extended prenatal massage with additional time for comfort and relief. Recommended after the first trimester.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["prenatal"] },
+  { id: 2821, name: "Premier Deep Tissue Massage", duration: "50 min", durationMinutes: 50, description: "Corrective massage to release deep muscle tension and restore balance.", tier: "premier", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
+  { id: 2822, name: "Premier Salt Stone Massage", duration: "50 min", durationMinutes: 50, description: "Warm Himalayan salt stones melt tension and promote deep relaxation.", tier: "premier", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
+  { id: 2823, name: "Premier Sports Massage", duration: "50 min", durationMinutes: 50, description: "Supports recovery, range of motion, and reduces fatigue.", tier: "premier", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
   { id: 89, name: "Premier Lymphatic Drainage Massage", duration: "50 min", durationMinutes: 50, description: "Gentle techniques to stimulate lymph flow and support detoxification.", tier: "premier", image: "/assets/massage6.jpg", concerns: ["detox", "recovery"] },
   // Ultimate — $159 member / $199 drop-in. Value add: +20 min to advanced techniques
-  { id: 105, name: "Ultimate Signature Massage", duration: "90 min", durationMinutes: 90, description: "Our longest full-body massage with light to medium pressure for complete relaxation and restoration.", tier: "ultimate", image: "/assets/massage7.jpg", concerns: ["relaxation"], badge: "Therapist favorite" },
-  { id: 106, name: "Ultimate Deep Tissue Massage", duration: "70 min", durationMinutes: 70, description: "Extended deep tissue for full recovery and rebalancing.", tier: "ultimate", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
-  { id: 107, name: "Ultimate Salt Stone Massage", duration: "70 min", durationMinutes: 70, description: "Extended salt stone therapy for deep penetration and release.", tier: "ultimate", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
-  { id: 108, name: "Ultimate Sports Massage", duration: "70 min", durationMinutes: 70, description: "Extended sports therapy with stretching and deep kneading.", tier: "ultimate", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
+  { id: 2830, name: "Ultimate Signature Massage", duration: "90 min", durationMinutes: 90, description: "Our longest full-body massage with light to medium pressure for complete relaxation and restoration.", tier: "ultimate", image: "/assets/massage7.jpg", concerns: ["relaxation"], badge: "Therapist favorite" },
+  { id: 2831, name: "Ultimate Deep Tissue Massage", duration: "70 min", durationMinutes: 70, description: "Extended deep tissue for full recovery and rebalancing.", tier: "ultimate", image: "/assets/massage2.jpg", concerns: ["pain-relief", "recovery"] },
+  { id: 2832, name: "Ultimate Salt Stone Massage", duration: "70 min", durationMinutes: 70, description: "Extended salt stone therapy for deep penetration and release.", tier: "ultimate", image: "/assets/massage4.jpg", concerns: ["relaxation", "pain-relief"] },
+  { id: 2833, name: "Ultimate Sports Massage", duration: "70 min", durationMinutes: 70, description: "Extended sports therapy with stretching and deep kneading.", tier: "ultimate", image: "/assets/massage5.jpg", concerns: ["recovery", "pain-relief"] },
   { id: 90, name: "Ultimate Lymphatic Drainage Massage", duration: "70 min", durationMinutes: 70, description: "Extended lymphatic therapy for deeper detoxification and recovery.", tier: "ultimate", image: "/assets/massage6.jpg", concerns: ["detox", "recovery"] },
 ];
 

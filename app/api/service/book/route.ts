@@ -22,6 +22,13 @@ const ALLOWED_SERVICE_IDS = new Set([
   82, 84, 85, 103, 104,
   // Ultimate massages
   90, 105, 106, 107, 108,
+
+  // Post-standardization Larimer massage IDs (Aug 2026 Mindbody
+  // standardization deactivated 88/99-108/116 on the Larimer site and
+  // recreated them under new IDs; clubs still use the old IDs above)
+  2816, 2817, // Essential Signature / Maternity (were 88 / 116)
+  2821, 2822, 2823, 2824, // Premier Deep Tissue / Salt Stone / Sports / Maternity (were 100-102, 99)
+  2830, 2831, 2832, 2833, // Ultimate Signature / Deep Tissue / Salt Stone / Sports (were 105-108)
 ]);
 
 /* Allowed add-on (boost) session-type IDs */

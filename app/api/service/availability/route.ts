@@ -82,6 +82,21 @@ const ALLOWED_SESSION_TYPE_IDS = new Set([
   106, // Ultimate Deep Tissue
   107, // Ultimate Salt Stone
   108, // Ultimate Sports
+
+  // Post-standardization Larimer massage IDs (Aug 2026 Mindbody
+  // standardization deactivated 88/99-108/116 on the Larimer site and
+  // recreated them under new IDs; RiNo + Central Park still use the old
+  // IDs above, so both sets stay allowed)
+  2816, // Essential Signature Massage (was 88)
+  2817, // Essential Maternity Massage (was 116)
+  2821, // Premier Deep Tissue (was 100)
+  2822, // Premier Salt Stone (was 101)
+  2823, // Premier Sports (was 102)
+  2824, // Premier Maternity Massage (was 99)
+  2830, // Ultimate Signature Massage (was 105)
+  2831, // Ultimate Deep Tissue (was 106)
+  2832, // Ultimate Salt Stone (was 107)
+  2833, // Ultimate Sports (was 108)
 ]);
 
 function isValidISODate(iso: string) {

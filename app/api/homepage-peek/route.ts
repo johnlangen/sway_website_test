@@ -23,9 +23,10 @@ export const revalidate = 600;
  * Intl.DateTimeFormat so the user sees real Denver-local results.
  */
 
-// Essential Basic Massage — broadest, most-booked service; mirrors what's in
-// app/api/service/availability/route.ts allowlist.
-const SESSION_TYPE_ID = 88;
+// Essential Signature Massage — broadest, most-booked service; mirrors what's
+// in app/api/service/availability/route.ts allowlist. 2816 is the
+// post-standardization Larimer ID (was 88 before Aug 2026).
+const SESSION_TYPE_ID = 2816;
 
 // Property timezone. All Mindbody dates are wall-clock in this zone.
 const TZ = "America/Denver";
