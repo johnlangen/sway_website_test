@@ -15,8 +15,9 @@ function cleanStaffName(raw: string | null | undefined): string | null {
   if (!raw) return null;
   // Prefix pattern: "M - Holly", "M/E - Holly", "E - Sarah"
   let cleaned = raw.replace(/^[ME](?:\/[ME])*\s*[-–—]\s*/i, "");
-  // Suffix pattern: "Holly M", "Holly M/E"
-  cleaned = cleaned.replace(/\s+[ME](?:\/[ME])*$/i, "");
+  // Suffix pattern: "Holly M", "Holly M/E", and the post-standardization
+  // "Rochel - M" (Aug 2026 renamed Larimer staff tags from prefix to suffix)
+  cleaned = cleaned.replace(/\s+[-–—]?\s*[ME](?:\/[ME])*$/i, "");
   return cleaned.trim() || null;
 }
 

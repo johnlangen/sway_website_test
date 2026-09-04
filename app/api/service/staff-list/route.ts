@@ -17,7 +17,10 @@ export const revalidate = 3600; // Cache staff list for 1 hour
 function cleanStaffName(raw: string | null | undefined): string | null {
   if (!raw) return null;
   let cleaned = raw.replace(/^[ME](?:\/[ME])*\s*[-–—]\s*/i, "");
-  cleaned = cleaned.replace(/\s+[ME](?:\/[ME])*$/i, "");
+  // Suffix form: "Holly M", "Holly M/E", and the post-standardization
+  // "Rochel - M" (Aug 2026 Mindbody standardization moved the discipline
+  // tag from prefix to suffix on Larimer staff names)
+  cleaned = cleaned.replace(/\s+[-–—]?\s*[ME](?:\/[ME])*$/i, "");
   return cleaned.trim() || null;
 }
 
@@ -155,10 +158,17 @@ export async function GET(req: Request) {
         s?.DisplayName || s?.Name || `${s?.FirstName ?? ""} ${s?.LastName ?? ""}`.trim();
       if (!displayName) continue;
 
-      // Check prefix matches the requested service category
-      const hasM = /^M\s*[-–—]/i.test(displayName);       // M - (massage only)
-      const hasE = /^E\s*[-–—]/i.test(displayName);       // E - (esthetics only)
-      const hasBoth = /^[ME]\/[ME]\s*[-–—]/i.test(displayName); // M/E - or E/M - (both)
+      // Check the discipline tag matches the requested service category.
+      // Tag can be a prefix ("M - Rochel", pre-Aug-2026 and still used on
+      // the club sites) or a suffix ("Rochel - M", the Aug 2026 Mindbody
+      // standardization renamed Larimer staff to this form).
+      const tagMatch =
+        displayName.match(/^([ME](?:\/[ME])*)\s*[-–—]/i) ||
+        displayName.match(/\s+[-–—]?\s*([ME](?:\/[ME])*)$/i);
+      const tag = tagMatch ? tagMatch[1].toUpperCase() : null;
+      const hasBoth = tag != null && tag.includes("M") && tag.includes("E"); // M/E or E/M (both)
+      const hasM = tag != null && !hasBoth && tag.includes("M"); // massage only
+      const hasE = tag != null && !hasBoth && tag.includes("E"); // esthetics only
 
       if (hasBoth) {
         // M/E or E/M staff can do both — always include
