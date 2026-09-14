@@ -23,53 +23,53 @@ interface CuratedReview {
    ------------------------------------------------------------------ */
 
 const CURATED_REVIEWS: CuratedReview[] = [
-  // Page 1 — Membership + loyalty stories
+  // Page 1 — Service breadth (Aescape, massage, facial)
   {
-    author: "Jazmine Olson",
-    text: "Got the hot stone massage with Steven and I left in a daze. I couldn\u2019t believe how much stress relief I got from one session. The space is very relaxing and Steven is superb. I immediately signed up for a membership and the member lounge has made destressing before my massage even better.",
-    date: "Mar 2026",
+    author: "Monique Tillmon",
+    text: "I am not sure what my husband ordered but I had the best experience of my life. Got massage by a robot which was amazing. The atmosphere was very soothing and everyone was welcoming and attentive. 10/10 will come again",
+    date: "Sep 2026",
   },
   {
-    author: "Reilly Moncrief",
-    text: "I cannot rave about this place enough! I\u2019ve been seeing Bri for facials for a few months now and cannot believe the results. I have always struggled with acne and wish I\u2019d taken photos at the start of my journey to show the progress.",
-    date: "Mar 2026",
+    author: "Russell Stokes",
+    text: "They were able to squeeze me in for a same-day appointment, and I received a Premier Signature Massage from Rochel. She was amazing! The staff was super friendly, and the service was great from start to finish. I would highly recommend Sway!",
+    date: "Sep 2026",
   },
   {
-    author: "Evan Marx",
-    text: "Wow. Wow. Wow. Am I happy I chose to make my first massage of my new path towards wellness at Sway. So much, in fact, that they turned a guy that never joins subscriptions into a monthly member. The value you get is unbelievable.",
-    date: "Jan 2026",
+    author: "Melanie Maslouski",
+    text: "Had an excellent facial with Bri. Friendly and relaxing spa!",
+    date: "Jul 2026",
   },
-  // Page 2 — Specific services + staff
+  // Page 2 — Specific staff
   {
-    author: "Bonner Gilmore",
-    text: "Holly is the best masseuse that I have had the pleasure to run across in the Denver Metro area. I have fused vertebrae and hardware in my back which requires specific work in my upper back and neck region and unfortunately the majority of the massages that I have received rub but do not work the area requested properly. Holly is the opposite, her knowledge and experience shined through as she worked the problem area thoroughly. I will definitely be back.",
-    date: "Apr 2026",
-  },
-  {
-    author: "Sabrina Kazmi",
-    text: "I had a \u201Cforever young\u201D facial with Bri and it was amazing! She was so sweet and informative and let me know exactly what she was doing and why. You can tell she is super passionate about what she does, I can\u2019t recommend her enough!! My skin also looks and feels phenomenal. Johnny at front reception was also amazing, he was super helpful and made me feel welcome as soon as I walked in. 10/10 I can\u2019t wait to come back!",
-    date: "Mar 2026",
+    author: "Holly Akers",
+    text: "Maki gave me the best massage I\u2019ve ever had. I had a headache when we start and it was gone by the end. She worked out my neck pain and I was pain free. Such a delightful feeling and experience.",
+    date: "Jul 2026",
   },
   {
-    author: "Amanda",
-    text: "I had a great experience at Sway this week. I decided to try the Aescape robotic massage (first time!) and it was great! There is a screen that has step-by-step instructions and you can adjust the pressure & specify a targeted area. There is also an option for you to listen to music and/or choose different backgrounds to watch. The massage itself was pretty relaxing. I thought this was fun to try & would recommend!",
-    date: "Apr 2026",
-  },
-  // Page 3 — Recent, broad appeal
-  {
-    author: "Jenna Star",
-    text: "I had not had a massage in years & chose Sway \u2014 it was an amazing experience! I felt welcomed as soon as I walked in the door, and the massage that I received addressed all of my aches and pains. As someone who has not gotten a massage in a very long time, I would absolutely recommend Sway, and will be going back!",
-    date: "Apr 2026",
+    author: "Katie Peterson",
+    text: "My experience at Sway with Massage Therapist Gavin was incredibly relaxing and rejuvenating! I would highly recommend him and the space is beautiful and welcoming!",
+    date: "Aug 2026",
   },
   {
-    author: "Allison Maisells",
-    text: "I came in today for pore perfection facial with dermaflash. Bri was so welcoming and knowledgeable. She made me feel super comfortable. The actual facial was amazing and so relaxing. You can tell how much goes into picking out scents and creating a calming experience.",
-    date: "Apr 2026",
+    author: "Kayla Grant",
+    text: "Stopped in while in town for a massage with Logan. I had one of the best massages I\u2019ve ever had! Also loved the entire vibe of Sway - super clean and relaxing.",
+    date: "Sep 2026",
+  },
+  // Page 3 — Remedy Room + broad appeal
+  {
+    author: "Margaret Ziedin",
+    text: "REMEDY ROOM:- my weekly calm contrast therapy. Convenient, restorative, energizing, healthy.",
+    date: "Jul 2026",
   },
   {
-    author: "Jessica Stout",
-    text: "Incredible deep tissue massage!! Pressure was perfect and I left feeling relaxed and reset. Stephen was amazing. The front desk help from Jonny was great \u2014 he was the gift of connection and hospitality. 10/10 experience.",
-    date: "Mar 2026",
+    author: "Lynn Rolnicki O\u2019Neil",
+    text: "Love the cold plunge\u2026your business is top shelf.",
+    date: "Aug 2026",
+  },
+  {
+    author: "Whitney Lunn",
+    text: "Wonderful experience at sway. Best massage I\u2019ve had in years. Very relaxing vibes too!",
+    date: "Aug 2026",
   },
 ];
 
