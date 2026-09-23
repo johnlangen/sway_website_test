@@ -63,6 +63,8 @@ const TAB_HELP: Record<Tab, { what: string; todo: string }> = {
   },
 };
 
+const SECRET_KEY = "clubdesk_secret";
+
 export function ClubDesk() {
   const [secret, setSecret] = useState("");
   const [authed, setAuthed] = useState(false);
@@ -87,9 +89,16 @@ export function ClubDesk() {
   const [bucketFilter, setBucketFilter] = useState<"all" | "heavy" | "regular" | "occasional" | "none-2026">("all");
   const [groupFilter, setGroupFilter] = useState<"all" | "staff" | "gravity" | "affiliate" | "creator" | "individual">("all");
 
-  // pull secret from URL once
+  // Secret from the URL, else the one this browser used last. The desk opens
+  // Club Desk from Atlas's "Open Club Desk" link many times a day, and that
+  // link carries no secret, so asking for it every time was friction
+  // (Central Park desk, 2026-09-22: "have secret stay if browser uses it
+  // once"). Kept in this browser only; a wrong secret clears it.
   useEffect(() => {
-    const s = new URLSearchParams(window.location.search).get("secret");
+    const fromUrl = new URLSearchParams(window.location.search).get("secret");
+    let saved: string | null = null;
+    try { saved = window.localStorage.getItem(SECRET_KEY); } catch { /* storage blocked */ }
+    const s = fromUrl || saved;
     if (s) { setSecret(s); load(s); }
   }, []);
 
@@ -97,11 +106,15 @@ export function ClubDesk() {
     setLoading(true); setErr(null);
     try {
       const r = await fetch(`/api/clubdesk?secret=${encodeURIComponent(s)}`);
-      if (r.status === 401) { setErr("Wrong secret."); setAuthed(false); return; }
+      if (r.status === 401) {
+        try { window.localStorage.removeItem(SECRET_KEY); } catch { /* storage blocked */ }
+        setErr("Wrong secret."); setAuthed(false); return;
+      }
       if (!r.ok) { setErr(`Error ${r.status}`); return; }
       const d = await r.json();
       setData({ giftcards: d.giftcards || [], credits: d.credits || [], cards: d.cards || [], daypasses: d.daypasses || [], attention: d.attention || [], arrangements: d.arrangements || [], members: d.members || [], comps: d.comps || [], balances: d.balances || [], done: d.done || {} });
       setAuthed(true);
+      try { window.localStorage.setItem(SECRET_KEY, s); } catch { /* storage blocked */ }
     } catch (e: any) { setErr(e.message || "Failed to load"); }
     finally { setLoading(false); }
   }
@@ -127,9 +140,12 @@ export function ClubDesk() {
     // 16-digit numeric search also matches on its first 15 digits.
     const digits = needle.replace(/\D/g, "");
     const gcNeedle = digits.length === 16 && digits === needle ? digits.slice(0, 15) : null;
+    // Match word by word so "Brooke Haskins" still finds "Brooke E Haskins"
+    // (middle initials / extra words in the old system's names).
+    const words = needle.split(/\s+/).filter(Boolean);
     const match = (r: any) => {
       const hay = Object.values(r).join(" ").toLowerCase();
-      return hay.includes(needle) || (gcNeedle ? hay.includes(gcNeedle) : false);
+      return words.every((w) => hay.includes(w)) || (gcNeedle ? hay.includes(gcNeedle) : false);
     };
     // With a search term, look across EVERY tab so the desk never has to know
     // which list a name or code lives in. Empty search = the current tab.
