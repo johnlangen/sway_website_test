@@ -126,7 +126,15 @@ export default function LarimerColdPlungePage() {
             </a>
           </div>
 
-          <p className="text-xs text-gray-500 mt-10 max-w-3xl mx-auto">
+          <p className="text-sm text-gray-700 mt-10">
+            Planning your first plunge? See our{" "}
+            <Link href="/blog/cold-plunge-denver-guide/" className="underline font-semibold text-[#113D33]">
+              guide to the best cold plunges in Denver
+            </Link>
+            .
+          </p>
+
+          <p className="text-xs text-gray-500 mt-6 max-w-3xl mx-auto">
             Cold plunge therapy is intended for generally healthy adults.
             Guests with cardiovascular conditions, pregnancy, or medical concerns
             should consult a healthcare professional before use.

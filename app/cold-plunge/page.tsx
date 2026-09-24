@@ -182,6 +182,13 @@ export default function ColdPlungePage() {
               Book Now →
             </span>
           </Link>
+          <p className="mt-6 text-sm text-gray-700">
+            Comparing options? Read our{" "}
+            <Link href="/blog/cold-plunge-denver-guide/" className="underline font-semibold text-[#113D33]">
+              guide to the best cold plunges in Denver
+            </Link>
+            .
+          </p>
         </div>
       </section>
     </div>

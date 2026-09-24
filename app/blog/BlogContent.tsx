@@ -11,7 +11,7 @@ import { SwayCurve } from "../components/SwayCurve";
 const blogs = [
   {
     slug: "cold-plunge-denver-guide",
-    title: "Cold Plunge in Denver: Where to Go (2026 Guide)",
+    title: "Best Cold Plunge in Denver: 9 Spots + Sauna Combos (2026)",
     summary:
       "Every great place to get cold in Denver: guided contrast circuits at Sway Larimer, the big plunge in RiNo, contrast cabins in Central Park, recovery studios around town, and natural mountain plunges.",
     tag: "Recovery",
@@ -220,9 +220,9 @@ const blogs = [
   },
   {
     slug: "infrared-pemf-mat",
-    title: "PEMF Mat Benefits: How Infrared Heat Speeds Recovery",
+    title: "PEMF Mat Benefits: What It Does and Whether It Works",
     summary:
-      "What does a PEMF mat do? See how infrared heat and pulsed energy ease pain, calm inflammation, and speed muscle recovery, paired with massage at Sway.",
+      "What a PEMF mat does, what the research actually shows, when to use one, and how to try it with a massage at Sway.",
     tag: "Technology",
     image: "/assets/pemf.jpg",
   },

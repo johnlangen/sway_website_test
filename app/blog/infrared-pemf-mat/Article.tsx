@@ -9,7 +9,7 @@ export default function InfraredPemfMatBlogLayout() {
       {/* Banner */}
       <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center max-w-3xl">
-          Infrared PEMF Mat Benefits: How Heat & Pulsed Energy Speed Recovery
+          PEMF Mat Benefits: What It Does, Whether It Works &amp; When to Use It
         </h1>
       </div>
 
@@ -49,6 +49,9 @@ export default function InfraredPemfMatBlogLayout() {
             <li><a href="#how-it-works" className="hover:underline">How Does a PEMF Mat Work?</a></li>
             <li><a href="#benefits" className="hover:underline">PEMF Mat Benefits</a></li>
             <li><a href="#does-it-work" className="hover:underline">Does a PEMF Mat Actually Work?</a></li>
+            <li><a href="#when-to-use" className="hover:underline">When to Use a PEMF Mat</a></li>
+            <li><a href="#vs-infrared" className="hover:underline">PEMF Mat vs. Infrared Mat</a></li>
+            <li><a href="#safety" className="hover:underline">Who Should Skip It</a></li>
             <li><a href="#with-massage" className="hover:underline">Why Combine PEMF with Massage</a></li>
             <li><a href="#try-it" className="hover:underline">Try It at Sway in Denver</a></li>
             <li><a href="#faq" className="hover:underline">PEMF Mat FAQ</a></li>
@@ -74,7 +77,7 @@ export default function InfraredPemfMatBlogLayout() {
             </div>
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2">
               <h3 className="font-bold text-[#113D33]">Healing Crystals</h3>
-              <p className="text-[15px] text-gray-700">Amethyst and tourmaline generate negative ions that act as natural antioxidants as the mat warms.</p>
+              <p className="text-[15px] text-gray-700">Many mats layer amethyst and tourmaline stones that hold the heat and spread it evenly. Bigger claims about the crystals are mostly marketing.</p>
             </div>
           </div>
         </section>
@@ -144,16 +147,52 @@ export default function InfraredPemfMatBlogLayout() {
         <section id="does-it-work" className="scroll-mt-24 space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold">Does a PEMF Mat Actually Work?</h2>
           <p>
-            PEMF is not new. It has been studied for decades and is even used in
-            clinical settings. According to{" "}
-            <Link href="https://www.pemfadvisor.com/research/" target="_blank" rel="noopener noreferrer" className="underline text-[#113D33] font-semibold">
-              PEMF Advisor <span className="sr-only">(opens in new tab)</span>
-            </Link>
-            , research suggests PEMF therapy can help relieve joint and muscle
-            pain, reduce inflammation, and improve sleep quality. As a fun aside,
-            astronauts use PEMF to counter the physical stress of low gravity, so
-            if it helps in space, it can certainly help with post-workout
-            soreness and everyday tension.
+            Honest answer: it depends on which benefit you mean. The heat side is
+            well understood. The PEMF side has real clinical uses, but the
+            evidence for everyday wellness claims is still thin. The{" "}
+            <Link href="https://my.clevelandclinic.org/health/treatments/pulsed-electromagnetic-field-pemf-therapy" target="_blank" rel="noopener noreferrer" className="underline text-[#113D33] font-semibold">
+              Cleveland Clinic <span className="sr-only">(opens in new tab)</span>
+            </Link>{" "}
+            puts it plainly: there is no definite proof yet, and some of the
+            effect may be placebo. Here is how the evidence stacks up.
+          </p>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] divide-y divide-[#e8eee9]">
+            {[
+              { level: 4, label: "Well supported", t: "Heat for tight, stiff muscles", d: "Warming tissue relaxes muscle and improves blood flow. This is the part of the mat you feel." },
+              { level: 3, label: "Clinical use", t: "Specific medical uses", d: "The FDA first cleared PEMF devices in 1979 for fractures that would not heal, and later for post-surgery pain and swelling. Those are prescription devices, not wellness mats." },
+              { level: 2, label: "Mixed", t: "Joint pain and arthritis", d: (
+                <>
+                  A{" "}
+                  <Link href="https://www.medicaljournals.se/jrm/content/html/10.2340/16501977-2613" target="_blank" rel="noopener noreferrer" className="underline">
+                    2020 review of knee osteoarthritis trials <span className="sr-only">(opens in new tab)</span>
+                  </Link>{" "}
+                  found better physical function, but no clear edge over placebo for pain or stiffness.
+                </>
+              ) },
+              { level: 1, label: "Early", t: "Soreness, sleep, and inflammation", d: "Mostly small studies and user reports. Promising, but not proven." },
+            ].map((row) => (
+              <div key={row.t} className="p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                <div className="sm:w-40 shrink-0 space-y-1.5">
+                  <div className="flex gap-1" aria-hidden="true">
+                    {[1, 2, 3, 4].map((n) => (
+                      <span key={n} className={`h-2 flex-1 rounded-full ${n <= row.level ? "bg-[#113D33]" : "bg-[#dfe7e2]"}`} />
+                    ))}
+                  </div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#113D33]">
+                    {row.label}<span className="sr-only">: evidence level {row.level} of 4</span>
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#113D33]">{row.t}</h3>
+                  <p className="text-[15px] text-gray-700 mt-1">{row.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p>
+            The takeaway: treat a PEMF mat as a feel-good recovery tool that
+            makes heat and massage more enjoyable, not as a treatment for a
+            medical condition.
           </p>
           <blockquote className="border-l-4 border-[#9CB7A9] pl-6 py-2">
             <p className="text-xl text-[#113D33] italic">
@@ -163,6 +202,82 @@ export default function InfraredPemfMatBlogLayout() {
             </p>
             <footer className="text-sm text-gray-500 mt-2">Alex P., Sway Guest</footer>
           </blockquote>
+        </section>
+
+        {/* When to use */}
+        <section id="when-to-use" className="scroll-mt-24 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold">When to Use a PEMF Mat</h2>
+          <p>
+            The best time is whenever your muscles feel tight and you have a
+            moment to lie still. These are the moments people reach for one most.
+          </p>
+          <ol className="relative border-l-2 border-dashed border-[#9CB7A9] ml-3 space-y-6">
+            {[
+              { chip: "After training", t: "Once you have cooled down", d: "Warmth helps tight, worked muscles let go after a hard session or a long day on your feet." },
+              { chip: "Rest days", t: "Recovery without the effort", d: "An easy way to stay loose between workouts when you do not want to do anything strenuous." },
+              { chip: "Evening", t: "Before bed", d: "The warmth is calming, which is why many people use a mat to wind down at night." },
+              { chip: "At Sway", t: "During a massage", d: "The mat warms tissue while your therapist works, so the massage meets less resistance." },
+            ].map((step) => (
+              <li key={step.chip} className="pl-6 relative">
+                <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-[#113D33] border-4 border-[#F7F4E9]" aria-hidden="true" />
+                <span className="inline-block bg-[#113D33] text-white text-xs font-semibold px-3 py-1 rounded-full">{step.chip}</span>
+                <h3 className="font-bold text-[#113D33] mt-2">{step.t}</h3>
+                <p className="text-[15px] text-gray-700 mt-1">{step.d}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="bg-white rounded-xl border-l-4 border-[#3E7A94] p-5">
+            <p className="text-[15px] text-gray-700">
+              <strong className="text-[#12293D]">When not to use it:</strong> on a
+              fresh injury that is still swollen. Heat can make swelling worse in
+              the first couple of days, so ice it first. Start short and low on
+              heat, then build up as you learn how your body responds.
+            </p>
+          </div>
+        </section>
+
+        {/* PEMF vs infrared */}
+        <section id="vs-infrared" className="scroll-mt-24 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold">PEMF Mat vs. Infrared Mat</h2>
+          <p>
+            The names get used interchangeably, but they are different things.
+            Most spa mats, including ours, combine both.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { t: "Infrared mat", what: "Heat only", feel: "Deep, even warmth", best: "Loosening tight muscles and relaxing" },
+              { t: "PEMF mat", what: "Pulsed electromagnetic fields", feel: "Usually little or nothing", best: "People curious about PEMF on its own" },
+              { t: "Infrared PEMF mat", what: "Both, in one surface", feel: "Warmth, with the pulses in the background", best: "Recovery sessions and massage", ours: true },
+            ].map((m) => (
+              <div key={m.t} className={`rounded-xl p-5 space-y-3 ${m.ours ? "bg-[#113D33] text-white" : "bg-white border border-[#d7e2dc]"}`}>
+                <h3 className="font-bold text-lg">{m.t}</h3>
+                {m.ours && <p className="text-xs font-semibold uppercase tracking-wide text-[#9CB7A9]">What Sway uses</p>}
+                <dl className="text-[15px] space-y-2">
+                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-500"}`}>What it uses</dt><dd>{m.what}</dd></div>
+                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-500"}`}>What you feel</dt><dd>{m.feel}</dd></div>
+                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-500"}`}>Best for</dt><dd>{m.best}</dd></div>
+                </dl>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Safety */}
+        <section id="safety" className="scroll-mt-24 space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Who Should Skip a PEMF Mat</h2>
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
+            <p>PEMF is safe for most people, but check with your doctor first if you:</p>
+            <ul className="space-y-2">
+              <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Are pregnant</span></li>
+              <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Have a pacemaker, insulin pump, or other implanted device</span></li>
+              <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Use medication patches on your skin</span></li>
+              <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Have epilepsy</span></li>
+            </ul>
+            <p className="text-[15px] text-gray-700">
+              At Sway, let your therapist know about any of these before your
+              session and we will skip the mat.
+            </p>
+          </div>
         </section>
 
         {/* With massage */}
@@ -215,6 +330,18 @@ export default function InfraredPemfMatBlogLayout() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
               <p className="font-bold text-[#113D33]">How does a PEMF mat work?</p>
               <p className="text-gray-700 mt-2 text-[15px]">A PEMF mat sends low-frequency electromagnetic pulses (commonly 3Hz to 23Hz) through the body to encourage cells to recharge and repair, while infrared heat warms tissue from within to improve circulation. Together they help relax muscles and speed recovery.</p>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">Do PEMF mats really work?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Partly. The infrared heat reliably relaxes tight muscles and boosts circulation. PEMF has FDA-cleared medical uses, like healing stubborn fractures, but evidence for wellness benefits such as better sleep or less soreness is still early and mixed. Think of a PEMF mat as a recovery comfort tool, not a medical treatment.</p>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">When should you use a PEMF mat?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Use it when muscles feel tight: after a workout once you have cooled down, on rest days, in the evening to wind down, or during a massage. Skip it on a fresh, swollen injury, since heat can make swelling worse in the first couple of days.</p>
+            </div>
+            <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
+              <p className="font-bold text-[#113D33]">Who should not use a PEMF mat?</p>
+              <p className="text-gray-700 mt-2 text-[15px]">Check with a doctor first if you are pregnant, have a pacemaker, insulin pump, or other implanted device, use medication patches on your skin, or have epilepsy.</p>
             </div>
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
               <p className="font-bold text-[#113D33]">How do I try the PEMF mat at Sway?</p>
@@ -272,6 +399,30 @@ export default function InfraredPemfMatBlogLayout() {
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "A PEMF mat sends low-frequency electromagnetic pulses, commonly in the 3Hz to 23Hz range, through the body to encourage cells to recharge and repair, while infrared heat warms tissue from within to improve circulation. Together they help relax muscles, calm inflammation, and speed recovery.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Do PEMF mats really work?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Partly. The infrared heat reliably relaxes tight muscles and boosts circulation. PEMF has FDA-cleared medical uses, like healing stubborn fractures, but evidence for wellness benefits such as better sleep or less soreness is still early and mixed. Think of a PEMF mat as a recovery comfort tool, not a medical treatment.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "When should you use a PEMF mat?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Use it when muscles feel tight: after a workout once you have cooled down, on rest days, in the evening to wind down, or during a massage. Skip it on a fresh, swollen injury, since heat can make swelling worse in the first couple of days.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Who should not use a PEMF mat?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Check with a doctor first if you are pregnant, have a pacemaker, insulin pump, or other implanted device, use medication patches on your skin, or have epilepsy.",
                   },
                 },
                 {

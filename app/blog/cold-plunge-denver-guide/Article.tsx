@@ -9,7 +9,7 @@ export default function ColdPlungeDenverLayout() {
       {/* Banner */}
       <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex flex-col justify-center items-center px-4 gap-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center max-w-4xl">
-          Cold Plunge in Denver: Where to Go
+          The Best Cold Plunges in Denver: 9 Places to Go
         </h1>
         <p className="text-white/70 text-center max-w-2xl">
           Every great way to get cold in the Mile High City
@@ -29,7 +29,7 @@ export default function ColdPlungeDenverLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Recovery
           </span>
-          <span className="text-gray-500">September 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}

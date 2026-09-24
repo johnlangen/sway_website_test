@@ -339,6 +339,14 @@ export default function SwayRinoPage() {
               </p>
             </details>
           ))}
+
+          <p className="mt-8 text-sm opacity-80">
+            New to cold plunging? Read our{" "}
+            <Link href="/blog/cold-plunge-denver-guide/" className="underline font-semibold">
+              guide to the best cold plunges in Denver
+            </Link>
+            , with temps, first-timer tips, and how to pair it with the sauna.
+          </p>
         </div>
       </section>
 

@@ -147,8 +147,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Posts touched in the Sept 2026 freshness pass carry lastModified so
   // crawlers see the update; matches each post's JSON-LD dateModified.
   const blogLastModified: Record<string, string> = {
-    "cold-plunge-denver-guide": "2026-09-01",
-    "infrared-pemf-mat": "2026-09-01",
+    "cold-plunge-denver-guide": "2026-09-24",
+    "infrared-pemf-mat": "2026-09-24",
     "bachelorette-spa-day": "2026-09-01",
     "best-date-night-ideas-denver": "2026-09-01",
     "sun-protection-post-sun-care": "2026-09-01",

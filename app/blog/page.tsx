@@ -62,7 +62,7 @@ export default function BlogPage() {
     blogPost: [
       {
         "@type": "BlogPosting",
-        headline: "Cold Plunge in Denver: Where to Go (2026 Guide)",
+        headline: "Best Cold Plunge in Denver: 9 Spots + Sauna Combos (2026)",
         url: "https://swaywellnessspa.com/blog/cold-plunge-denver-guide/",
         datePublished: "2026-09-01",
         author: {
