@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book a Sway Remedy Lounge session | Sway Wellness Club",
+  title: { absolute: "Book a Sway Remedy Lounge session | Sway Wellness Club" },
   description:
     "Choose your Denver Sway Wellness Club location (RiNo or Central Park, formerly Upswell Studio) to book a recovery session. Sauna, cold plunge, infrared, and compression therapy.",
   alternates: {

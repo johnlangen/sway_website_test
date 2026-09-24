@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import AescapeContent from "../components/AescapeContent";
 
 export const metadata: Metadata = {
-  title: "Aescape Robot Massage in Denver | AI-Powered Massage at Sway",
+  title: { absolute: "Aescape Robot Massage in Denver | AI-Powered Massage at Sway" },
   description:
     "Experience Aescape, the world's first AI-powered robot massage, available at Sway, a modern wellness club in Denver. AI body mapping, dual robotic arms, and personalized pressure. Book your session today.",
   alternates: { canonical: "https://swaywellnessspa.com/aescape/" },

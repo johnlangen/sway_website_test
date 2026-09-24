@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Massage Therapy in Denver | Sway Wellness Spa",
+  title: { absolute: "Massage Therapy in Denver | Sway Wellness Spa" },
   description:
     "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, Salt Stone, and Lymphatic Drainage across Essential, Premier, and Ultimate tiers, all customized by expert therapists.",
   alternates: {

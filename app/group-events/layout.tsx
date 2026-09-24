@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:
-    "Group Events & Spa Parties in Denver | Sway Wellness Spa",
+  title: { absolute: "Group Events & Spa Parties in Denver | Sway Wellness Spa" },
   description:
     "Host your bachelorette party, birthday celebration, corporate wellness event, or group spa day at Sway on Larimer Square in Denver. Massage, facials, and Remedy Room recovery for groups.",
   alternates: {

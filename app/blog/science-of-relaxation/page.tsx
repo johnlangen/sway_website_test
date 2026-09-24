@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ScienceOfRelaxationBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "How Spa Treatments Reduce Stress & Anxiety | Sway Wellness Spa",
+  title: { absolute: "How Spa Treatments Reduce Stress & Anxiety | Sway Wellness Spa" },
   description:
     "Explore the science of relaxation with Sway’s spa treatments. Learn how massage, cold plunge, and sauna reduce stress, anxiety, and improve sleep.",
   alternates: {

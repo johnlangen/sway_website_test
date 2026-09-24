@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import LocationsContent from "./LocationsContent";
 
 export const metadata: Metadata = {
-  title: "Sway Wellness Spa | Locations",
+  title: { absolute: "Sway Wellness Spa | Locations" },
   description:
     "Find a Sway Wellness Spa near you. Three Denver locations now open in Larimer Square, RiNo, and Central Park, with Dallas and Union Market coming soon.",
   alternates: {

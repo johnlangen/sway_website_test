@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Account | Sway Wellness",
+  title: { absolute: "My Account | Sway Wellness" },
   description:
     "Sign in to your Sway account to view upcoming visits, reschedule, or cancel a reservation at Sway Larimer Square, Sway RiNo, or Sway Central Park.",
   alternates: {

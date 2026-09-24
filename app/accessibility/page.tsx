@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Accessibility Statement | Sway Wellness Spa",
+  title: { absolute: "Accessibility Statement | Sway Wellness Spa" },
   description:
     "Sway Wellness Spa is committed to digital accessibility and to meeting WCAG 2.2 Level AA. Learn how to report an accessibility issue.",
   alternates: { canonical: "/accessibility/" },

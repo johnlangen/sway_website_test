@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Father's Day Spa Gift Cards | Sway Wellness Spa Denver",
+  title: { absolute: "Father's Day Spa Gift Cards | Sway Wellness Spa Denver" },
   description:
     "Last-minute Father's Day gift? Sway spa gift cards delivered instantly to Dad's inbox. Any amount. Redeemable on Aescape robot massage, Remedy Room recovery, massage, sauna, and more at Sway Wellness Spa Denver.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import PressContent from "./PressContent";
 
 export const metadata: Metadata = {
-  title: "Press | Sway Wellness Spa in the Media",
+  title: { absolute: "Press | Sway Wellness Spa in the Media" },
   description:
     "Voted #4 Best Day Spa in America by USA Today 10Best two years running. See what the press is saying about Sway, featured in USA Today, The Zoe Report, 5280, Denver Post, and more.",
   alternates: {

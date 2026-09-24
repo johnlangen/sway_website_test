@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import SpringResetBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Spring Detox Treatments for Skin & Body | Sway Wellness Spa",
+  title: { absolute: "Spring Detox Treatments for Skin & Body | Sway Wellness Spa" },
   description:
     "Refresh your skin and body this spring with detoxifying spa treatments from Sway. Featuring sauna, cold plunge, lymphatic massage, and more.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import TermsContent from "./TermsContent";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Sway Wellness Spa",
+  title: { absolute: "Terms & Conditions | Sway Wellness Spa" },
   description:
     "Review the Terms and Conditions for using Sway Wellness Spa’s website, services, memberships, and policies.",
   alternates: {

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sway Union Market | Spa & Wellness Club in Washington, DC | Coming Soon",
+  title: { absolute: "Sway Union Market | Spa & Wellness Club in Washington, DC | Coming Soon" },
   description:
     "Sway Wellness Spa is coming to Union Market in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import RecoveryDenverBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage | Sway",
+  title: { absolute: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage | Sway" },
   description:
     "A complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, LED, and Aescape AI robot massage, all in the Remedy Room at Sway Wellness Spa on Larimer Square.",
   alternates: {

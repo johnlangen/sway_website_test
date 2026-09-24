@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cold Plunge Therapy in Denver | Remedy Room at Sway Wellness Spa",
+  title: { absolute: "Cold Plunge Therapy in Denver | Remedy Room at Sway Wellness Spa" },
   description:
     "Cold plunge therapy at Sway, a modern wellness club in Denver. Part of the Remedy Room recovery circuit with sauna, compression therapy, and LED light therapy. Member $25, Drop-In $49.",
   alternates: {

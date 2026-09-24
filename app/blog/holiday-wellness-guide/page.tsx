@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import HolidayWellnessGuideLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Holiday Wellness Gift Guide | Sway Wellness Spa",
+  title: { absolute: "Holiday Wellness Gift Guide | Sway Wellness Spa" },
   description:
     "Discover Sway’s Holiday Wellness Gift Guide: thoughtful spa experiences, modern self-care, and restorative gifts designed to elevate the season.",
   alternates: {

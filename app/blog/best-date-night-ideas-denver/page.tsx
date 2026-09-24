@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import DateNightDenverLayout from "./Article";
 
 export const metadata: Metadata = {
-  title:
-    "Best Date Night Ideas in Denver: Spa, Dining & Bars | Sway",
+  title: { absolute: "Best Date Night Ideas in Denver: Spa, Dining & Bars | Sway" },
   description:
     "The best date night ideas in Denver: spa treatments at Sway on Larimer Square, romantic restaurants, rooftop bars, live jazz, Meow Wolf, and more.",
   alternates: {

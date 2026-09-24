@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import PostSummerSkinRecoveryBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Post-Summer Skin Recovery | Sway Wellness Spa",
+  title: { absolute: "Post-Summer Skin Recovery | Sway Wellness Spa" },
   description:
     "Repair sun damage with Sway's post-summer facial treatments. Hydrating facials, LED therapy, and expert skincare to restore your glow.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import CareersContent from "./CareersContent";
 
 export const metadata: Metadata = {
-  title: "Massage Therapist Job – Denver, CO | Sway Wellness Spa",
+  title: { absolute: "Massage Therapist Job – Denver, CO | Sway Wellness Spa" },
   description:
     "Apply for Massage Therapist positions at Sway Wellness Spa in Denver, CO. Join our modern, high-end wellness club with flexible schedules, competitive pay, and a supportive team culture.",
   alternates: {

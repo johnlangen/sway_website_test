@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Upswell → Sway Conversion Dashboard (Internal)",
+  title: { absolute: "Upswell → Sway Conversion Dashboard (Internal)" },
   description: "Internal project dashboard for the Upswell conversion.",
   robots: {
     index: false,

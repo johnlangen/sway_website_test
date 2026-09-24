@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import SaltStoneVsHotStoneLayout from "./Article";
 
 export const metadata: Metadata = {
-  title:
-    "Salt Stone vs Hot Stone Massage: Why Himalayan Salt Wins | Sway Spa Denver",
+  title: { absolute: "Salt Stone vs Hot Stone Massage: Why Himalayan Salt Wins | Sway Spa Denver" },
   description:
     "Salt stone massage and hot stone massage are not the same. Learn the key differences, benefits of Himalayan salt stones, and why Sway Wellness Spa in Denver chose salt stone.",
   alternates: {

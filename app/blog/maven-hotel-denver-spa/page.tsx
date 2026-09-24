@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import MavenHotelBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title:
-    "Maven Hotel + Sway: AI-Powered Massage Near Dairy Block Denver | Sway Blog",
+  title: { absolute: "Maven Hotel + Sway: AI-Powered Massage Near Dairy Block Denver | Sway Blog" },
   description:
     "Staying at The Maven Hotel in Denver? Book a 60-minute Aescape robot massage at Sway Wellness Spa on Larimer Square, just 0.6 miles from Dairy Block.",
   alternates: {

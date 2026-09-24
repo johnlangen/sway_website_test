@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:
-    "The Maven Hotel × Sway | 60-Min Aescape Robot Massage in Denver",
+  title: { absolute: "The Maven Hotel × Sway | 60-Min Aescape Robot Massage in Denver" },
   description:
     "Book a 60-minute AI-powered Aescape robot massage at Sway Wellness Spa on Larimer Square, a short trip from The Maven Hotel at Dairy Block in Denver.",
   keywords: [

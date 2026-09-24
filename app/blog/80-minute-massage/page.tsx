@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Massage80MinBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",
+  title: { absolute: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It" },
   description:
     "Relax fully with an 80-minute massage at Sway Wellness Spa in Denver. Extra time, specialty techniques, and total rejuvenation. Your body will thank you.",
   alternates: {

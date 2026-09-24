@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 export const metadata: Metadata = {
-  title:
-    "Sway Wellness Spa · Central Park (formerly Upswell Studio) | Denver Recovery",
+  title: { absolute: "Sway Wellness Spa · Central Park (formerly Upswell Studio) | Denver Recovery" },
   description:
     "Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. The Sway Remedy Lounge is open daily: traditional and infrared saunas, cold plunges, a warm soak, and compression therapy. Massage and facial treatments coming soon.",
   alternates: {

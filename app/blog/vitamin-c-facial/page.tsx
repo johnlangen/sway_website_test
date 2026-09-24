@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import VitaminCFacialBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa",
+  title: { absolute: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa" },
   description:
     "Combat winter dullness with Sway’s Dr. Dennis Vitamin C Facial in Denver. Brighten, hydrate, and protect your skin with expert-led, science-backed care.",
   keywords: [

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sway Knox/Henderson | Dallas Spa & Wellness Club | Coming Soon",
+  title: { absolute: "Sway Knox/Henderson | Dallas Spa & Wellness Club | Coming Soon" },
   description:
     "Sway Wellness Spa is coming to Knox/Henderson in Dallas, TX. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {

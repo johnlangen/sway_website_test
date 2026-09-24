@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import BacheloretteSpaDayBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Denver Bachelorette Spa Day: Private Group Bookings | Sway",
+  title: { absolute: "Denver Bachelorette Spa Day: Private Group Bookings | Sway" },
   description:
     "Planning a Denver bachelorette? Book a private spa day at Sway with massages, facials, sauna, and cold plunge for your whole bridal crew.",
   alternates: {

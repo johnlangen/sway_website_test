@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book Your Experience | Sway Wellness Spa",
+  title: { absolute: "Book Your Experience | Sway Wellness Spa" },
   description:
     "Book your experience at Sway Wellness Spa. Choose your location, then reserve facials, massages, Aescape robot massage, or Remedy Room recovery sessions.",
   alternates: {

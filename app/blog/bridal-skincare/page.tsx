@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import BridalSkincareBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Bridal Skincare: Wedding-Ready Facials at Sway Wellness Spa",
+  title: { absolute: "Bridal Skincare: Wedding-Ready Facials at Sway Wellness Spa" },
   description:
     "Get glowing, photo-ready skin for your big day with customized bridal facials at Sway. Explore treatments, timelines, and skincare tips for brides.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ValentinesDayWellnessBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Valentine's Day Wellness at Sway | Spa Dates, Self-Care & Galentines",
+  title: { absolute: "Valentine's Day Wellness at Sway | Spa Dates, Self-Care & Galentines" },
   description:
     "Celebrate Valentine's Day with self-love, spa dates, and Galentine’s at Sway. Explore facials, massages, and Remedy Room experiences in Denver.",
   keywords: [

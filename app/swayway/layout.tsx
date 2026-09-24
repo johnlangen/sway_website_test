@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Sway Way | Modern Wellness Redefined in Denver",
+  title: { absolute: "The Sway Way | Modern Wellness Redefined in Denver" },
   description:
     "Discover The Sway Way, a modern evolution of wellness. Where spa tradition meets innovation, built by the founders of Spavia. Explore our story.",
   alternates: {

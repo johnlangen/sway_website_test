@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import TechAndWellnessBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "How Technological Innovation is Transforming Spa Treatments | Sway Wellness",
+  title: { absolute: "How Technological Innovation is Transforming Spa Treatments | Sway Wellness" },
   description:
     "Explore how Aescape robot massage, microcurrent therapy, and LED light technology are revolutionizing wellness. Discover the future of spa treatments at Sway.",
   keywords: [

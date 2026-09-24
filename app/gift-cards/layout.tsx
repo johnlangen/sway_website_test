@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Spa Gift Cards | Buy Wellness Gifts Online at Sway Wellness Spa",
+  title: { absolute: "Spa Gift Cards | Buy Wellness Gifts Online at Sway Wellness Spa" },
   description:
     "Give the gift of wellness. Purchase a Sway Wellness Spa gift card online for massages, facials, and Remedy Room experiences.",
   alternates: {

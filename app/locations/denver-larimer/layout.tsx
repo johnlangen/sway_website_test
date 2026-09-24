@@ -2,7 +2,7 @@ import { getGoogleRating } from "@/lib/googleRating";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver",
+  title: { absolute: "Sway Larimer | Modern Wellness Club on Larimer Square, Denver" },
   description:
     "Visit Sway on Larimer Square in downtown Denver. A modern wellness club offering massage therapy, advanced facials, sauna, cold plunge, compression therapy, and AI-powered Aescape robot massage. Book online today.",
   alternates: {

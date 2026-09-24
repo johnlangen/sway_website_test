@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sway's New Membership Tiers: Essential, Premier & Ultimate | Sway Wellness Spa Denver",
+  title: { absolute: "Sway's New Membership Tiers: Essential, Premier & Ultimate | Sway Wellness Spa Denver" },
   description:
     "Sway Wellness Spa just launched three membership tiers, Essential ($99), Premier ($129), and Ultimate ($159), with monthly massages, facials, 50% off boosts, and cross-regional access at 60+ Spavia locations nationwide.",
   keywords: [

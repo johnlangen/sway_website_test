@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Own a Sway | Franchise Opportunity by Spavia",
+  title: { absolute: "Own a Sway | Franchise Opportunity by Spavia" },
   description:
     "Sway is the premium, next-generation wellness concept within the Spavia franchise system. 60+ locations, proven membership model, and 20+ years of franchise expertise. Explore ownership.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import SummerPrepGuideBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Pre-Summer Skin Prep: Massage, Facials & Glow Tips | Sway Wellness",
+  title: { absolute: "Pre-Summer Skin Prep: Massage, Facials & Glow Tips | Sway Wellness" },
   description:
     "Get summer-ready with lymphatic massage, microcurrent facials, and hydrating treatments from Sway Wellness Spa in Denver. Your glow-up starts here.",
   alternates: {

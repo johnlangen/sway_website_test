@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import SunProtectionBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "The Ultimate Guide to Sun Protection & Post-Sun Skin Care | Sway Wellness Spa",
+  title: { absolute: "The Ultimate Guide to Sun Protection & Post-Sun Skin Care | Sway Wellness Spa" },
   description:
     "Learn how to protect and restore your skin with SPF and post-sun care tips from Sway Wellness Spa. Featuring Supergoop and Eminence Organics.",
   keywords: [

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import BlogContent from "./BlogContent";
 
 export const metadata: Metadata = {
-  title: "The Sway Edit | Denver Wellness Blog by Sway Spa",
+  title: { absolute: "The Sway Edit | Denver Wellness Blog by Sway Spa" },
   description:
     "Explore The Sway Edit: 28 articles on massage therapy, skincare science, recovery tech, and Denver lifestyle from Sway Wellness Spa, voted #4 Best Day Spa in America.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import GiveWellnessBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Give Wellness, Get Wellness: Sway Spa Referral Program",
+  title: { absolute: "Give Wellness, Get Wellness: Sway Spa Referral Program" },
   description:
     "Refer your friends to Sway Wellness Spa and earn free Boosts. Enjoy LED therapy, PEMF mats, and more, because wellness is better when shared.",
   alternates: {

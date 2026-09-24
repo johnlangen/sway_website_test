@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import ThingsToDoAtNightLayout from "./Article";
 
 export const metadata: Metadata = {
-  title:
-    "Best Things to Do in Denver at Night | Sway Wellness Spa",
+  title: { absolute: "Best Things to Do in Denver at Night | Sway Wellness Spa" },
   description:
     "14 of the best things to do in Denver at night, from Larimer Square dining and Red Rocks concerts to rooftop bars, Meow Wolf, and evening spa treatments at Sway.",
   alternates: {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import AescapeBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "AI-Powered Aescape Massage in Denver | Sway Wellness Spa",
+  title: { absolute: "AI-Powered Aescape Massage in Denver | Sway Wellness Spa" },
   description:
     "Experience Colorado’s first AI-powered robot massage with Aescape at Sway Wellness Spa. Designed for coders, designers, and tech professionals needing recovery.",
   alternates: {

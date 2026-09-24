@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Facial Treatments in Denver | Sway Wellness Spa",
+  title: { absolute: "Facial Treatments in Denver | Sway Wellness Spa" },
   description:
     "Explore advanced facial treatments at Sway, a modern wellness club in Denver. Anti-aging, hydration, acne, and Vitamin C facials with high-tech boosts like LED and microcurrent.",
   alternates: {

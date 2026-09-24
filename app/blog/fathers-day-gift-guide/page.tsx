@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import FathersDayGiftGuideLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: "Father's Day Spa Gift Guide | Sway Wellness Spa Denver",
+  title: { absolute: "Father's Day Spa Gift Guide | Sway Wellness Spa Denver" },
   description:
     "Skip the tie. A real Father's Day gift guide for Denver dads: cold plunge, sauna, deep tissue, Aescape AI massage, and a full Sway-anchored itinerary on Larimer Square.",
   alternates: {
