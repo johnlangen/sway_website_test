@@ -382,7 +382,11 @@ export default function SwayRinoPage() {
             <Link href="/blog/infrared-pemf-mat/" className="underline font-semibold">
               what PEMF mats do
             </Link>
-            .
+            , and how our{" "}
+            <Link href="/infrared-sauna/" className="underline font-semibold">
+              infrared sauna cabins
+            </Link>{" "}
+            compare to the traditional sauna.
           </p>
         </div>
       </section>

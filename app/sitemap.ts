@@ -37,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/remedy-tech/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/sauna/`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/cold-plunge/`, changeFrequency: "monthly" as const, priority: 0.6 },
+    { url: `${base}/infrared-sauna/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/led-light-therapy/`, changeFrequency: "monthly" as const, priority: 0.5 },
     { url: `${base}/compression-therapy/`, changeFrequency: "monthly" as const, priority: 0.5 },
   ];
