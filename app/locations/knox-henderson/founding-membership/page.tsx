@@ -360,7 +360,7 @@ export default function DallasFoundingMembershipPage() {
   ];
 
   const rankCounter = useAnimatedCounter(4, 1200);
-  const spotsCounter = useAnimatedCounter(100);
+  const spotsCounter = useAnimatedCounter(150);
   const googleRating = useRating();
   const liveReviewTotal = googleRating?.totalReviews ?? 164;
   const liveReviewAvg = (googleRating?.rating ?? 4.9).toFixed(1);
@@ -1311,7 +1311,7 @@ export default function DallasFoundingMembershipPage() {
             Don&apos;t miss the founding rate.
           </h2>
           <p className="text-white/60 mb-8">
-            Limited to the first 100 members. Once they&apos;re gone,
+            Limited to the first 150 members. Once they&apos;re gone,
             they&apos;re gone.
           </p>
           <button

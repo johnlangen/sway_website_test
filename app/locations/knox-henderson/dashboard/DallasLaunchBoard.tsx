@@ -22,12 +22,13 @@ import { SwayCurve } from "../../../components/SwayCurve";
 
 const FOUNDING_PRICE = 99;
 const REALISTIC_RATE = 0.3;
-// Only 100 founding spots will ever exist — the campaign runs on scarcity
-// and urgency. Bump FOUNDING_MEMBERS_CLAIMED as real sales land (manual
-// until Dallas is on Mindbody).
-const FOUNDING_SPOTS = 100;
+// Only 150 founding spots will ever exist (raised from 100 on 2026-09-28,
+// matching the founding pages and the Atlas Launch Board). The campaign runs
+// on scarcity and urgency. Bump FOUNDING_MEMBERS_CLAIMED as real sales land
+// (manual until Dallas is on Mindbody).
+const FOUNDING_SPOTS = 150;
 const FOUNDING_MEMBERS_CLAIMED = 0;
-const OPENING_TARGET = 100;
+const OPENING_TARGET = 150;
 const DEFAULT_GOAL = 100;
 
 const MILESTONES = [
