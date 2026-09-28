@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 export const metadata: Metadata = {
-  title: { absolute: "Sway Wellness Spa · RiNo (formerly Upswell Studio) | Denver Recovery" },
+  title: { absolute: "Infrared Sauna & Cold Plunge in RiNo, Denver | Sway (formerly Upswell)" },
   description:
-    "Sway Wellness Spa RiNo (formerly Upswell Studio) at 3636 Blake St, Denver. The Sway Remedy Lounge is open daily: traditional and infrared saunas, cold plunge, and compression therapy. Massage and facial treatments coming soon.",
+    "Sway RiNo (formerly Upswell Studio) at 3636 Blake St, Denver. 75-minute Remedy Lounge sessions with infrared and traditional saunas, cold plunge, PEMF mats, and compression therapy. $49 drop-in, $25 first visit for locals. Massage and facials coming soon.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-rino/",
   },
@@ -72,6 +72,35 @@ const localBusinessJsonLd = {
       },
     },
   ],
+  // Mirrors the Google Business Profile hours (checked 2026-09-28) and the
+  // HOURS list on page.tsx. Change all three together.
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday"],
+      opens: "16:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "06:30",
+      closes: "10:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "16:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday", "Sunday"],
+      opens: "11:00",
+      closes: "17:00",
+    },
+  ],
+  hasMap: "https://www.google.com/maps/place/?q=place_id:ChIJSYpObGF5bIcRFVlb08RlL8I",
   priceRange: "$$",
   sameAs: [
     "https://www.instagram.com/swaywellnessclub/",
@@ -113,7 +142,7 @@ const faqJsonLd = {
       name: "When can I book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Massage and facial treatments are coming soon. Join our email list to be the first to know when booking opens.",
+        text: "Massage and facial treatments are coming soon. Use the Notify Me form on this page to get first access when booking opens.",
       },
     },
     {

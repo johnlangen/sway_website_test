@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 export const metadata: Metadata = {
-  title: { absolute: "Sway Wellness Spa · Central Park (formerly Upswell Studio) | Denver Recovery" },
+  title: { absolute: "Infrared Sauna & Cold Plunge near Central Park, Aurora | Sway (formerly Upswell)" },
   description:
-    "Sway Wellness Spa Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora. The Sway Remedy Lounge is open daily: traditional and infrared saunas, cold plunges, a warm soak, and compression therapy. Massage and facial treatments coming soon.",
+    "Sway Central Park (formerly Upswell Studio) at 2271 Clinton St, Aurora, next to Denver's Central Park neighborhood. 75-minute Remedy Lounge sessions with infrared and traditional saunas, cold plunges, PEMF mats, and compression therapy. $49 drop-in. Massage and facials coming soon.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-central-park/",
   },
@@ -72,6 +72,41 @@ const localBusinessJsonLd = {
       },
     },
   ],
+  // Mirrors the Google Business Profile hours (checked 2026-09-28) and the
+  // HOURS list on page.tsx. Change all three together.
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday"],
+      opens: "16:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday"],
+      opens: "08:00",
+      closes: "11:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday"],
+      opens: "16:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday", "Saturday"],
+      opens: "08:00",
+      closes: "14:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Sunday"],
+      opens: "08:00",
+      closes: "18:00",
+    },
+  ],
+  hasMap: "https://www.google.com/maps/place/?q=place_id:ChIJw3MZ6UZ9bIcRmE9mIeK__KU",
   priceRange: "$$",
   sameAs: [
     "https://www.instagram.com/swaywellnessclub/",
@@ -113,7 +148,7 @@ const faqJsonLd = {
       name: "When can I book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Massage and facial treatments are coming soon. Join our email list to be the first to know when booking opens.",
+        text: "Massage and facial treatments are coming soon. Use the Notify Me form on this page to get first access when booking opens.",
       },
     },
     {

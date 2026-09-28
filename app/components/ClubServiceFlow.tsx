@@ -1250,7 +1250,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 mb-12 max-w-xl mx-auto">
               {([
                 { label: "Massage", img: "/assets/massage2.jpg", sub: "Deep Tissue, Sports, Salt Stone & more" },
-                { label: "Facial", img: "/assets/facialExperiences.jpg", sub: "Forever Young, LED, Microcurrent & more" },
+                { label: "Facial", img: "/assets/facialExperiences.jpg", sub: "Forever Young, Glow Getter & more" },
               ]).map((item) => (
                 <div key={item.label} aria-disabled="true"
                   className="relative overflow-hidden rounded-2xl bg-white/50 border border-[#113D33]/10 text-left cursor-not-allowed select-none">

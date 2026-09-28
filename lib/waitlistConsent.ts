@@ -22,8 +22,23 @@
 
 export const WAITLIST_CONSENT_VERSION = "v4-2026-07-27";
 
-export function waitlistConsentText(location: "knox-henderson" | "union-market"): string {
-  const brand = location === "knox-henderson" ? "Sway Knox/Henderson" : "Sway Union Market";
+export type WaitlistLocation =
+  | "knox-henderson"
+  | "union-market"
+  | "denver-rino"
+  | "denver-central-park";
+
+const WAITLIST_BRANDS: Record<WaitlistLocation, string> = {
+  "knox-henderson": "Sway Knox/Henderson",
+  "union-market": "Sway Union Market",
+  // Open clubs: "notify me when massage/facials launch" list (added 2026-09-28).
+  // Same disclosure text, so the consent version is unchanged.
+  "denver-rino": "Sway RiNo",
+  "denver-central-park": "Sway Central Park",
+};
+
+export function waitlistConsentText(location: WaitlistLocation): string {
+  const brand = WAITLIST_BRANDS[location];
   return (
     `By signing up, you agree to receive recurring automated marketing emails and ` +
     `text messages from ${brand} at the email and number you provide. Consent is ` +

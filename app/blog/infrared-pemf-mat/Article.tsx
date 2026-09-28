@@ -315,6 +315,21 @@ export default function InfraredPemfMatBlogLayout() {
           </div>
         </div>
 
+        {/* Club CTA: PEMF mats are included in every Remedy Lounge session at
+            RiNo and Central Park (no massage needed). */}
+        <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 md:p-8 space-y-3">
+          <h3 className="text-xl font-bold">Prefer PEMF on its own?</h3>
+          <p>
+            PEMF mats are included in every 75-minute Remedy Lounge session at
+            our two Denver clubs, along with infrared and traditional saunas, cold
+            plunge, and compression therapy. $49 drop-in, no massage required.
+          </p>
+          <div className="flex flex-wrap gap-4 pt-1">
+            <Link href="/locations/denver-rino/" className="underline font-semibold text-[#113D33]">Sway RiNo</Link>
+            <Link href="/locations/denver-central-park/" className="underline font-semibold text-[#113D33]">Sway Central Park</Link>
+          </div>
+        </div>
+
         {/* Visible FAQ */}
         <section id="faq" className="scroll-mt-24 space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold">PEMF Mat FAQ</h2>

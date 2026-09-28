@@ -7,9 +7,18 @@ import {
 } from "../../lib/waitlistConsent";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import type { WaitlistLocation } from "../../lib/waitlistConsent";
+
+// Open clubs (RiNo, Central Park) use the same form as a "notify me when
+// massage and facials launch" list. Pre-opening locations keep the original
+// founding-member copy.
+const CLUB_COPY: Partial<Record<WaitlistLocation, { place: string }>> = {
+  "denver-rino": { place: "RiNo" },
+  "denver-central-park": { place: "Central Park" },
+};
 
 type WaitlistFormProps = {
-  location: "knox-henderson" | "union-market";
+  location: WaitlistLocation;
   source?: "location-page" | "founding-membership";
   /** Compact = inline on location page hero, full = founding membership page */
   variant?: "compact" | "full";
@@ -86,10 +95,14 @@ export default function WaitlistForm({
         <div className="text-3xl mb-3">✓</div>
         <h3 className="text-xl font-bold mb-2">You&apos;re on the list!</h3>
         <p className={variant === "compact" ? "text-sm opacity-80" : "text-sm opacity-70"}>
-          We&apos;ll notify you when founding memberships are ready.
-          {location === "knox-henderson"
-            ? " See you in Knox/Henderson."
-            : " See you in Union Market."}
+          {CLUB_COPY[location]
+            ? `We\u2019ll let you know as soon as massage and facial booking opens at Sway ${CLUB_COPY[location]!.place}.`
+            : <>
+                We&apos;ll notify you when founding memberships are ready.
+                {location === "knox-henderson"
+                  ? " See you in Knox/Henderson."
+                  : " See you in Union Market."}
+              </>}
         </p>
       </motion.div>
     );
@@ -99,10 +112,14 @@ export default function WaitlistForm({
     return (
       <div className="bg-[#113D33] text-white rounded-2xl p-6 md:p-8">
         <h3 className="text-lg md:text-xl font-bold mb-1">
-          Get Notified When We Open
+          {CLUB_COPY[location]
+            ? "Be First for Massage & Facials"
+            : "Get Notified When We Open"}
         </h3>
         <p className="text-sm opacity-80 mb-4">
-          Join the waitlist for exclusive founding member pricing before we open.
+          {CLUB_COPY[location]
+            ? `Massage and facial treatments are coming to Sway ${CLUB_COPY[location]!.place}. Get first access to booking and launch offers.`
+            : "Join the waitlist for exclusive founding member pricing before we open."}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -152,7 +169,7 @@ export default function WaitlistForm({
             disabled={status === "submitting"}
             className="w-full bg-white text-[#113D33] font-semibold rounded-full py-3 px-6 text-sm hover:opacity-90 transition disabled:opacity-60"
           >
-            {status === "submitting" ? "Joining..." : "Join the Waitlist"}
+            {status === "submitting" ? "Joining..." : CLUB_COPY[location] ? "Notify Me" : "Join the Waitlist"}
           </button>
         </form>
 

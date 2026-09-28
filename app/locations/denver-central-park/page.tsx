@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import WaitlistForm from "@/app/components/WaitlistForm";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -22,8 +23,21 @@ const loc = {
   phoneDigits: "13032935501",
   heroImage: "/assets/centralpark1.jpg",
   bookHref: "/locations/denver-central-park/book",
+  // Google Business Profile (place ID verified 2026-09-01). Reviews link
+  // goes straight to the listing so guests can read or leave one.
+  reviewsUrl: "https://www.google.com/maps/place/?q=place_id:ChIJw3MZ6UZ9bIcRmE9mIeK__KU",
   mapUrl: "https://www.google.com/maps?q=2271+Clinton+St,+Aurora,+CO+80010",
 };
+
+/* Mirrors the Google Business Profile hours (checked 2026-09-28). Online
+   booking shows the last bookable start, which is 75 minutes before close.
+   If hours change, update here, the JSON-LD in layout.tsx, and GBP together. */
+const HOURS = [
+  { days: "Monday", time: "4:00 to 8:00 PM" },
+  { days: "Tuesday to Thursday", time: "8:00 to 11:00 AM, 4:00 to 8:00 PM" },
+  { days: "Friday and Saturday", time: "8:00 AM to 2:00 PM" },
+  { days: "Sunday", time: "8:00 AM to 6:00 PM" },
+];
 
 const FAQS = [
   {
@@ -46,7 +60,7 @@ const FAQS = [
   },
   {
     q: "When can I book a massage?",
-    a: "Massage and facial treatments are coming soon. Join our email list to be the first to know when booking opens.",
+    a: "Massage and facial treatments are coming soon. Use the Notify Me form on this page to get first access when booking opens.",
   },
   {
     q: "What about my Upswell membership?",
@@ -80,7 +94,7 @@ export default function SwayCentralParkPage() {
           {/* LEFT */}
           <div>
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
-              Massage &amp; Recovery · Central Park, Denver
+              Sauna, Cold Plunge &amp; Recovery · Central Park, Denver
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
@@ -212,7 +226,7 @@ export default function SwayCentralParkPage() {
                   Sway Remedy Lounge
                 </h2>
                 <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-5 max-w-md">
-                  Traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and lounge access.
+                  A 75-minute self-guided session: traditional and infrared saunas, cold plunges, a warm soak, PEMF mats, compression therapy, and lounge access. $49 drop-in, or unlimited with membership.
                 </p>
                 <p className="text-sm sm:text-base font-medium mb-6">
                   Massage and facial treatments coming soon.
@@ -257,12 +271,16 @@ export default function SwayCentralParkPage() {
             {/* Hours */}
             <div className="border border-black/10 rounded-2xl p-6">
               <h3 className="text-lg font-semibold mb-4">Hours</h3>
-              <p className="text-sm opacity-80 leading-relaxed">
-                Open daily for Sway Remedy Lounge sessions. Book online to see
-                the times available this week.
-              </p>
+              <dl className="text-sm space-y-2">
+                {HOURS.map((h) => (
+                  <div key={h.days}>
+                    <dt className="font-medium">{h.days}</dt>
+                    <dd className="opacity-80">{h.time}</dd>
+                  </div>
+                ))}
+              </dl>
               <p className="text-xs opacity-60 mt-3">
-                Hours vary by day. Booking always shows live availability.
+                Last session starts 75 minutes before close. Booking always shows live availability.
               </p>
               <a
                 href={loc.bookHref}
@@ -313,9 +331,24 @@ export default function SwayCentralParkPage() {
                 >
                   {loc.phone}
                 </a>
+                <a
+                  href={loc.reviewsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block font-medium underline underline-offset-4 pt-2"
+                >
+                  Read our Google reviews <span className="sr-only">(opens in new tab)</span>
+                </a>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ================= MASSAGE + FACIAL NOTIFY LIST ================= */}
+      <section className="px-6 pb-16 md:pb-24">
+        <div className="max-w-xl mx-auto">
+          <WaitlistForm location="denver-central-park" source="location-page" />
         </div>
       </section>
 
@@ -356,6 +389,11 @@ export default function SwayCentralParkPage() {
               guide to the best cold plunges in Denver
             </Link>
             , with temps, first-timer tips, and how to pair it with the sauna.
+            Curious about the PEMF mats in every session? Here&apos;s{" "}
+            <Link href="/blog/infrared-pemf-mat/" className="underline font-semibold">
+              what PEMF mats do
+            </Link>
+            .
           </p>
         </div>
       </section>
