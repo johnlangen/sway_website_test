@@ -138,7 +138,7 @@ export default function Footer() {
           <FooterLink href="/terms-and-conditions" text="Terms and Conditions" />
           <FooterLink href="/accessibility" text="Accessibility" />
         </div>
-        <span>© 2026 Sway Wellness Club</span>
+        <span>© 2026 Sway Wellness Spa</span>
       </div>
     </footer>
   );

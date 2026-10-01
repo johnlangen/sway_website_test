@@ -74,7 +74,7 @@ const faqJsonLd = {
       name: "How long is a facial session?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Essential and Premier facials are 50 minutes. Ultimate facials are 60 minutes. Your esthetician customizes the treatment based on your skin type, concerns, and goals.",
+        text: "Essential and Premier facials are 50 minutes. Ultimate facials are 60 minutes, except the 50-minute Hydraderm. Your esthetician customizes the treatment based on your skin type, concerns, and goals.",
       },
     },
     {

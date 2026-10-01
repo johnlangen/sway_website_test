@@ -77,13 +77,13 @@ const memberships = [
   },
   {
     key: "spa" as const,
-    title: "Spa Club",
+    title: "Spa Membership",
     regularPrice: "",
     foundingPrice: "",
     visits: "1 facial or massage / month",
-    tagline: "Full spa access",
+    tagline: "Essential, Premier, or Ultimate",
     description:
-      "Unlimited facials and massages at founding member pricing, plus exclusive perks and the member lounge.",
+      "Choose from three tiers: Essential, Premier, or Ultimate. One facial or massage every month at a founding member rate, plus member pricing on additional treatments and the member lounge.",
     mostPopular: true,
     benefits: [
       "1 facial or massage included",
@@ -353,7 +353,7 @@ export default function GeorgetownFoundingMembershipPage() {
   }, []);
 
   const membershipOptions = [
-    { value: "spa-club", label: "Spa Club", desc: "Full spa access" },
+    { value: "spa-club", label: "Spa Membership", desc: "Essential, Premier, or Ultimate" },
     { value: "remedy-room", label: "Remedy Room", desc: "Recovery circuit" },
     { value: "not-sure", label: "Not sure yet", desc: "Tell me more" },
   ];

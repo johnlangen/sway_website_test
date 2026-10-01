@@ -129,7 +129,7 @@ export default function SwayGeorgetownComingSoonPage() {
           <motion.div {...fadeUp} className="bg-white rounded-2xl p-8 md:p-10 shadow text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Membership Tiers Coming Soon</h2>
             <p className="text-lg mb-2">
-              Four tiers · <strong>Essential</strong>, <strong>Premier</strong>, <strong>Ultimate</strong>, and <strong>The Remedy Room</strong>
+              Three tiers · <strong>Essential</strong>, <strong>Premier</strong>, and <strong>Ultimate</strong>, plus a <strong>Remedy Room</strong> membership
             </p>
             <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
               Founding members will receive exclusive pricing and priority booking before Sway Union Market
@@ -224,7 +224,7 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "How much are Sway Union Market memberships?",
-                a: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
+                a: "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
               {
                 q: "Can I join the waitlist now?",

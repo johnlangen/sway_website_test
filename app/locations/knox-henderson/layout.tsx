@@ -134,7 +134,7 @@ const faqJsonLd = {
       name: "How much are Sway Knox/Henderson memberships?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Four membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), Ultimate (technology-infused treatments and extended durations), and The Remedy Room (recovery circuit access). Founding member pricing will be announced before we open. Join the waitlist to be notified.",
+        text: "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
       },
     },
     {
