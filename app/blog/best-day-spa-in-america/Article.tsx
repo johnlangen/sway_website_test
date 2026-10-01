@@ -93,7 +93,7 @@ export default function BestDaySpaLayout() {
             <p className="text-4xl font-bold text-[#113D33]">#4</p>
             <p className="font-semibold mt-1">Best Day Spa in America</p>
             <p className="text-sm text-gray-600 mt-1">
-              USA Today 10Best 2025
+              USA Today 10Best 2025 &amp; 2026
             </p>
           </div>
           <div className="bg-[#CFE6D8] rounded-xl p-6 text-center">
@@ -120,8 +120,7 @@ export default function BestDaySpaLayout() {
         <p>
           USA Today 10Best is a nationally recognized travel and lifestyle awards
           program. A panel of experts nominates the top contenders in each
-          category, then readers across the country vote. For the 2025 Best Day
-          Spa category, Sway was ranked fourth in the entire United States.
+          category, then readers across the country vote. In the Best Day Spa category, Sway was ranked fourth in the entire United States in both 2025 and 2026.
         </p>
         <p>
           That puts Sway alongside destinations that have been operating for 10,
@@ -194,8 +193,7 @@ export default function BestDaySpaLayout() {
           </Link>
         </h3>
         <p>
-          Six types: Basic, Deep Tissue, Himalayan Salt Stone, CBD, Sports, and
-          Lymphatic. Every session is 50 minutes with the option to extend to 80.
+          13 massages across three tiers: Signature, Maternity, Deep Tissue, Salt Stone, Sports, and Lymphatic Drainage. Sessions run 50 to 90 minutes.
           Specialty techniques are included in the price. You can add boosts like
           PEMF mat, cupping, or CBD to customize your
           treatment.
@@ -207,9 +205,7 @@ export default function BestDaySpaLayout() {
           </Link>
         </h3>
         <p>
-          Six types, powered by Eminence Organics plus a dedicated Dr. Dennis Gross Vitamin C facial:
-          Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and
-          Dr. Dennis Gross Vitamin C. Add high-tech boosts like LED light
+          11 facials across three tiers, powered by Eminence Organics plus a dedicated Dr. Dennis Gross Vitamin C facial: Signature, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, Dr. Dennis Gross Vitamin C, and tech-enhanced Ultimate facials. Add high-tech boosts like LED light
           therapy, microcurrent, oxygen infusion, or dermaflash for
           targeted results.
         </p>
@@ -322,8 +318,7 @@ export default function BestDaySpaLayout() {
             <div className="pb-5 text-gray-700">
               USA Today 10Best is a nationally recognized travel and lifestyle
               awards program. A panel of experts nominates the top contenders,
-              then readers across the country vote. Sway was ranked #4 Best Day
-              Spa in the United States for 2025.
+              then readers across the country vote. Sway was ranked #4 Best Day Spa in the United States in 2025 and 2026, two years running.
             </div>
           </details>
 
@@ -335,10 +330,7 @@ export default function BestDaySpaLayout() {
               </span>
             </summary>
             <div className="pb-5 text-gray-700">
-              Sway offers four treatment categories: massage (Basic, Deep
-              Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic,
-              Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and
-              Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit
+              Sway offers four treatment categories: massage (Signature, Maternity, Deep Tissue, Salt Stone, Sports, and Lymphatic Drainage), facials (Signature, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, Dr. Dennis Gross Vitamin C, and tech-enhanced Ultimate facials), the Remedy Room recovery circuit
               (sauna, cold plunge, compression therapy, LED light therapy), and
               Aescape autonomous AI-powered robot massage.
             </div>
@@ -354,7 +346,7 @@ export default function BestDaySpaLayout() {
             <div className="pb-5 text-gray-700">
               Yes. Sway offers monthly memberships that include treatments,
               member pricing on boosts and add-ons, and Remedy Room access at a
-              reduced rate. No long-term contracts. Details at{" "}
+              reduced rate. No enrollment fee. Details at{" "}
               <Link
                 href="/membership"
                 className="underline text-[#113D33]"
@@ -470,7 +462,7 @@ export default function BestDaySpaLayout() {
                   name: "What does #4 Best Day Spa in America mean?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "USA Today 10Best is a nationally recognized travel and lifestyle awards program. A panel of experts nominates the top contenders, then readers across the country vote. Sway was ranked #4 Best Day Spa in the United States for 2025.",
+                    text: "USA Today 10Best is a nationally recognized travel and lifestyle awards program. A panel of experts nominates the top contenders, then readers across the country vote. Sway was ranked #4 Best Day Spa in the United States in 2025 and 2026, two years running.",
                   },
                 },
                 {
@@ -478,7 +470,7 @@ export default function BestDaySpaLayout() {
                   name: "What treatments does Sway offer?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape autonomous AI-powered robot massage.",
+                    text: "Sway offers four treatment categories: massage (Signature, Maternity, Deep Tissue, Salt Stone, Sports, and Lymphatic Drainage), facials (Signature, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, Dr. Dennis Gross Vitamin C, and tech-enhanced Ultimate facials), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape autonomous AI-powered robot massage.",
                   },
                 },
                 {

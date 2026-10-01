@@ -84,7 +84,7 @@ export default function Page() {
             name: "What does #4 Best Day Spa in America mean?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "USA Today 10Best is a nationally recognized travel and lifestyle awards program. A panel of experts nominates the top contenders, then readers across the country vote. Sway was ranked #4 Best Day Spa in the United States for 2025.",
+              text: "USA Today 10Best is a nationally recognized travel and lifestyle awards program. A panel of experts nominates the top contenders, then readers across the country vote. Sway was ranked #4 Best Day Spa in the United States in 2025 and 2026, two years running.",
             },
           },
           {
@@ -92,7 +92,7 @@ export default function Page() {
             name: "What treatments does Sway offer?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sway offers four treatment categories: massage (Basic, Deep Tissue, Salt Stone, CBD, Sports, and Lymphatic), facials (Basic, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, and Dr. Dennis Gross Vitamin C), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape autonomous AI-powered robot massage.",
+              text: "Sway offers four treatment categories: massage (Signature, Maternity, Deep Tissue, Salt Stone, Sports, and Lymphatic Drainage), facials (Signature, Forever Young, Glow Getter, Pore Perfection, Sensitive Silk, Dr. Dennis Gross Vitamin C, and tech-enhanced Ultimate facials), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape autonomous AI-powered robot massage.",
             },
           },
           {

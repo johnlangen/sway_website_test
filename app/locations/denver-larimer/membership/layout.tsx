@@ -90,7 +90,7 @@ export default function MembershipLayout({
         "@type": "Offer",
         name: "Premier Membership",
         description:
-          "Enhanced facials and massages with targeted products and extended durations at $129/month (drop-in $169). 7 facial and 6 massage options.",
+          "Enhanced facials and massages with targeted products and extended durations at $129/month (drop-in $169). 5 facial and 6 massage options.",
         price: "129.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",

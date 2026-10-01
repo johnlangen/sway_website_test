@@ -203,7 +203,7 @@ export default function HolidayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Gift cards never expire. Bonus cards expire February 28, 2026.
+                Gift cards never expire. Bonus cards expire February 28, 2027.
               </p>
             </details>
 

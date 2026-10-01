@@ -92,7 +92,7 @@ export default function OffersLayout({
             name: "Can I combine Sway offers with a membership?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Intro offers are designed for non-members. Once you join the Sway club ($99/month), you unlock ongoing member pricing: $99 massages and facials, 50% off boosts, and $25 Remedy Room sessions.",
+              text: "Intro offers are designed for non-members. Once you become a member ($99/month), you unlock ongoing member pricing: $99 massages and facials, 50% off boosts, and $25 Remedy Room sessions.",
             },
           },
         ],

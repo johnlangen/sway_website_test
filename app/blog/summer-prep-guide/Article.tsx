@@ -78,7 +78,7 @@ export default function SummerPrepGuideBlogLayout() {
           circulation, reduce swelling, and improve skin radiance.
         </p>
 
-        <h3 className="text-xl font-bold">2. The Microcurrent Super-Boost</h3>
+        <h3 className="text-xl font-bold">2. The Sculpt &amp; Lift Microcurrent Pro Boost</h3>
         <p>
           Want a summer-worthy glow? Our microcurrent facial uses low-level
           currents to lift, tone, and smooth facial muscles, like a workout for
@@ -167,7 +167,7 @@ export default function SummerPrepGuideBlogLayout() {
                 name: "What is a microcurrent facial and how does it help before summer?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "A microcurrent facial uses low-level electrical currents to stimulate and tone facial muscles, similar to a workout for your face. It lifts, firms, and smooths the skin with no downtime, delivering visible results in a single session. This treatment is ideal before summer because it enhances your natural contours and creates a healthy, radiant glow that looks great in natural light. Sway Wellness Spa offers the Microcurrent Super-Boost as part of their pre-summer prep menu.",
+                  text: "A microcurrent facial uses low-level electrical currents to stimulate and tone facial muscles, similar to a workout for your face. It lifts, firms, and smooths the skin with no downtime, delivering visible results in a single session. This treatment is ideal before summer because it enhances your natural contours and creates a healthy, radiant glow that looks great in natural light. Sway Wellness Spa offers the Sculpt &amp; Lift Microcurrent Pro Boost as part of their pre-summer prep menu.",
                 },
               },
               {

@@ -84,7 +84,7 @@ export default function SwayGeorgetownComingSoonPage() {
             {[
               {
                 title: "Massage Therapy",
-                desc: "Deep tissue, sports recovery, CBD, and Himalayan salt stone massage. 50, 70, or 90-minute treatments, from light-to-medium Signature to firm Deep Tissue, with add-on boosts like hot stones and cupping.",
+                desc: "Signature, Deep Tissue, Sports, Salt Stone, and Lymphatic Drainage massage. 50, 70, or 90-minute treatments, from light-to-medium Signature to firm Deep Tissue, with add-on boosts like CBD, cupping, and PEMF.",
                 href: "/massages",
               },
               {
@@ -216,7 +216,7 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "What treatments will Sway Union Market offer?",
-                a: "Sway Union Market will offer the full Sway experience: massage therapy (deep tissue, sports recovery, CBD, salt stone), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
+                a: "Sway Union Market will offer the full Sway experience: massage therapy (Signature, Deep Tissue, Sports, Salt Stone, Lymphatic Drainage), targeted facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit (sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots).",
               },
               {
                 q: "Does Sway Union Market have a sauna and cold plunge?",

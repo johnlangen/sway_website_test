@@ -252,7 +252,7 @@ export default function LarimerOffersPage() {
                 Love your first visit? Keep the price.
               </p>
               <h3 className="text-2xl md:text-3xl font-bold mb-2">
-                Sway Club Membership
+                Sway Membership
               </h3>
               <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-xl">
                 From $99/month. Unlimited massages and facials at member pricing,

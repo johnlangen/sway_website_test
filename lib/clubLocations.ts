@@ -89,7 +89,7 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
     label: "RiNo",
     siteId: "5754020",
     locationId: 1,
-    phone: "(303) 476-6150",
+    phone: "(303) 225-0480",
     contactEmail: "contact@swayrino.com",
     // Both club sites use John's shared Manager login (MINDBODY_STAFF_USER2/PASS2),
     // which has access to all three Sway sites. Larimer keeps Jocelyn's
@@ -142,7 +142,7 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
     label: "Central Park",
     siteId: "5754021",
     locationId: 1,
-    phone: "(303) 476-6150",
+    phone: "(303) 293-5501",
     contactEmail: "contact@swaycentralpark.com",
     // Shares John's Manager login (see RiNo note above).
     staffCreds: {

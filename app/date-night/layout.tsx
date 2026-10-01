@@ -67,7 +67,7 @@ const faqJsonLd = {
       name: "Where is Sway Wellness Spa located?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway is located at 1428 Larimer St. on Larimer Square in downtown Denver, CO 80202. It's walkable from Union Station, surrounded by restaurants, and validates parking for the first hour at the Larimer Square Parking Garage.",
+        text: "Sway is located at 1428 Larimer St. on Larimer Square in downtown Denver, CO 80202. It's walkable from Union Station, surrounded by restaurants, and validates parking for the first hour on weekdays at the Larimer Square Parking Garage.",
       },
     },
     {

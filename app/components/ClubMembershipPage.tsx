@@ -117,6 +117,7 @@ export default function ClubMembershipPage({
 
   const site: MembershipSite = {
     siteId: club.siteId,
+    phone: club.phone,
     locationLabel: cfg.shortName,
     analyticsKey: cfg.analyticsKey,
     bookHref: cfg.bookHref,

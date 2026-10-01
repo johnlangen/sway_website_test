@@ -1137,7 +1137,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <div className="p-6 space-y-3">
                     <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center space-y-1.5">
                       <p className="text-sm text-amber-800">We don&apos;t see your account at this location yet.</p>
-                      <p className="text-xs text-amber-700/90">That&apos;s normal if your membership is at our other club (RiNo or Central Park), or at Spavia or another Sway location. Each location keeps its own accounts, so this is just your first visit to this one. Continue as a guest to set up your profile here, and your member pricing still applies at checkout. You&apos;ll be recognized at this location next time.</p>
+                      <p className="text-xs text-amber-700/90">That&apos;s normal if your membership is at our other club (RiNo or Central Park), or at Spavia or another Sway location. Each location keeps its own accounts, so this is just your first visit to this one. Continue as a guest to set up your profile here, and your membership benefits will be applied at check-in. You&apos;ll be recognized at this location next time.</p>
                     </div>
                     <div className="flex gap-2">
                       <button onClick={() => { setWelcomeResult(null); setEmail(""); }}
@@ -1166,7 +1166,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                       {loading ? "Checking..." : "Continue"}
                     </button>
                     <p className="text-xs text-[#113D33]/80 text-center leading-relaxed font-medium">
-                      First time at Sway {club.label}? Continue as a guest to get started. If you&apos;re a member at Spavia or another Sway location, your membership pricing will still apply at checkout.
+                      First time at Sway {club.label}? Continue as a guest to get started. If you&apos;re a member at Spavia or another Sway location, your membership benefits will be applied at check-in.
                     </p>
                   </div>
                 )}
@@ -1391,7 +1391,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                           treatmentTierFilter === "premier" ? "50 min, targeted products for your skin concern + dermapore technology" :
                           "50–60 min, tech enhancements + scalp/hand treatment"
                         ) : (
-                          treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
+                          treatmentTierFilter === "premier" ? "+20 min for Signature, or advanced techniques for targeted results" :
                           "+20 min duration added to advanced technique massages"
                         )}
                       </p>
@@ -1406,7 +1406,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                           "50–60 min, tech enhancements + scalp/hand treatment"
                         ) : (
                           treatmentTierFilter === "essential" ? "50-minute customized massage" :
-                          treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
+                          treatmentTierFilter === "premier" ? "+20 min for Signature, or advanced techniques for targeted results" :
                           "+20 min duration added to advanced technique massages"
                         )}
                       </p>
@@ -1827,7 +1827,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 {isMember && memberFirstName && (
                   <div className="bg-[#113D33] text-white rounded-2xl p-5 text-center">
                     <p className="text-lg font-semibold">Welcome back, {memberFirstName}!</p>
-                    <p className="text-sm text-white/70 mt-1">Your <span className="font-bold capitalize">{memberTier}</span> membership pricing has been applied.</p>
+                    <p className="text-sm text-white/70 mt-1">Your <span className="font-bold capitalize">{memberTier}</span> membership has been applied.</p>
                     {homeLocation && <p className="text-xs text-white/50 mt-1">Member at {homeLocation}</p>}
                   </div>
                 )}

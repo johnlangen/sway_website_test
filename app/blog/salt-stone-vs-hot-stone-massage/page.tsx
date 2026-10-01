@@ -93,7 +93,7 @@ export default function Page() {
             name: "How much does a salt stone massage cost at Sway Wellness Spa?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The Salt Stone massage at Sway Wellness Spa is a 50-minute treatment priced at $99 for members and $139 for drop-in guests. Members can also add boosts like PEMF mat, cupping, or CBD. Sway is located on Larimer Square in downtown Denver, Colorado.",
+              text: "The Salt Stone massage at Sway Wellness Spa is available as a Premier treatment (50 minutes, $129 for members and $169 drop-in) or an Ultimate treatment (70 minutes, $159 for members and $199 drop-in). Members can also add boosts like PEMF mat, cupping, or CBD. Sway is located on Larimer Square in downtown Denver, Colorado.",
             },
           },
           {

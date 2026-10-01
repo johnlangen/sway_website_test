@@ -70,8 +70,8 @@ export default function DateNightPage() {
               className="underline text-[#113D33] font-semibold"
             >
               facial
-            </Link>
-            , walk out the front door, and you&apos;re surrounded by the best
+            </Link>,
+             walk out the front door, and you&apos;re surrounded by the best
             restaurants and cocktail bars in the city. No driving between stops.
             No planning headaches.
           </p>

@@ -99,7 +99,7 @@ const faqJsonLd = {
       name: "What services will Sway Union Market offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Union Market will offer expert-led massage therapy (deep tissue, sports recovery, CBD, salt stone), advanced facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit featuring sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots.",
+        text: "Sway Union Market will offer expert-led massage therapy (Signature, Deep Tissue, Sports, Salt Stone, Lymphatic Drainage), advanced facials (Pore Perfection, Forever Young, Glow Getter, Vitamin C), and the Remedy Room recovery circuit featuring sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots.",
       },
     },
     {

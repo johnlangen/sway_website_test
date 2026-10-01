@@ -68,7 +68,7 @@ const memberships = [
       "4 monthly Remedy Room visits",
       "Additional visits just $25 each",
       "Discounted facials & massages",
-      "50% off Boosts & Super Boosts",
+      "50% off all boosts",
     ],
     foundingPerks: [
       "Exclusive founding member rate",
@@ -90,7 +90,7 @@ const memberships = [
       "1 facial or massage included",
       "Unlimited treatments at member pricing",
       "50% off Remedy Room",
-      "50% off Boosts & Super Boosts",
+      "50% off all boosts",
       "Member lounge access",
       "Bring a friend at member pricing (once/month)",
       "10% off retail products",
@@ -176,8 +176,8 @@ const treatments = [
     tagline: "Deeply Effective",
     items: [
       { name: "Deep Tissue", time: "50 min" },
-      { name: "Sports Recovery", time: "50 min" },
-      { name: "CBD Recovery", time: "50 min" },
+      { name: "Sports Massage", time: "50 min" },
+      { name: "Lymphatic Drainage", time: "50 min" },
       { name: "Himalayan Salt Stone", time: "50 min" },
     ],
   },
@@ -188,8 +188,8 @@ const treatments = [
     items: [
       { name: "Forever Young Anti-Aging", time: "50 min" },
       { name: "Pore Perfection", time: "50 min" },
-      { name: "Vitamin C Glow", time: "50 min" },
-      { name: "Glow Getter Brightening", time: "50 min" },
+      { name: "Dr. Dennis Gross Vitamin C", time: "50 min" },
+      { name: "Glow Getter Hydration", time: "50 min" },
     ],
   },
   {
@@ -200,7 +200,7 @@ const treatments = [
       { name: "Sauna", time: "20 min" },
       { name: "Cold Plunge", time: "5 min" },
       { name: "Compression Therapy", time: "15 min" },
-      { name: "LED Light Therapy", time: "15 min" },
+      { name: "LED Light Therapy", time: "during compression" },
     ],
   },
 ];

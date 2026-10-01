@@ -403,7 +403,7 @@ const RemedyRoomPage = () => {
           <p className="sr-only">
             {club
               ? club.srBlurb
-              : "The Remedy Room at Sway Wellness Spa is a guided 40-minute recovery circuit combining 4 evidence-based modalities: 20 minutes of sauna, 5 minutes of cold plunge, 15 minutes of compression therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer Square in Denver. $25 for members, $49 drop-in. Pair with any of Sway's 18 massage types or 13 facial treatments. Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book at swaywellnessspa.com or call (303) 476-6150."}
+              : "The Remedy Room at Sway Wellness Spa is a guided 40-minute recovery circuit combining 4 evidence-based modalities: 20 minutes of sauna, 5 minutes of cold plunge, 15 minutes of compression therapy, and LED light therapy. Located at 1428 Larimer St. on Larimer Square in Denver. $25 for members, $49 drop-in. Pair with any of Sway's 13 massages or 11 facials. Open Mon–Fri 10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book at swaywellnessspa.com or call (303) 476-6150."}
           </p>
 
           <motion.p
@@ -499,7 +499,7 @@ const RemedyRoomPage = () => {
                   { step: "01", label: "Compression + LED", time: "15 min", desc: "Start with compression sleeves and LED light therapy working simultaneously." },
                   { step: "02", label: "Sauna", time: "20 min", desc: "Move into the sauna for deep heat therapy supporting recovery and circulation." },
                   { step: "03", label: "Cold Plunge", time: "5 min", desc: "Finish with cold water immersion to elevate energy and reduce inflammation." },
-                  { step: "04", label: "Recover", time: "∞", desc: "Relax in the lounge. Pair with a massage or facial for a complete visit." },
+                  { step: "04", label: "Recover", time: "∞", desc: "Relax and rehydrate. Pair with a massage or facial for a complete visit." },
                 ]
             ).map((s, i) => (
               <motion.div
@@ -625,7 +625,7 @@ const RemedyRoomPage = () => {
             },
             {
               q: "Who is the Remedy Room for?",
-              a: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. No experience needed, no special clothing required. Just show up and follow the guided circuit.",
+              a: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. No experience needed. Wear a swimsuit or athletic wear, then just show up and follow the guided circuit.",
             },
             {
               q: "What's included in a Remedy Room session?",

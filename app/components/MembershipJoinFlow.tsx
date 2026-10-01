@@ -45,6 +45,7 @@ export type MembershipSite = {
   locationLabel: string; // e.g. "Sway RiNo" — used in member-facing copy
   analyticsKey: string; // membership_location event param, e.g. "rino"
   bookHref: string; // where "Book your first visit" points
+  phone?: string; // location phone for help copy; defaults to Larimer
 };
 
 type Step = "email" | "code" | "already" | "details" | "confirm" | "done";
@@ -1395,8 +1396,8 @@ export default function MembershipJoinFlow({
           {step !== "done" && (
             <p className="mt-4 text-center text-[11px] text-[#113D33]/45">
               Questions? Call{" "}
-              <a href="tel:+13034766150" className="underline">
-                (303) 476-6150
+              <a href={`tel:+1${(site?.phone ?? "(303) 476-6150").replace(/\D/g, "")}`} className="underline">
+                {site?.phone ?? "(303) 476-6150"}
               </a>{" "}
               and we&apos;ll help you sign up.
             </p>

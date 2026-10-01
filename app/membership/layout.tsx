@@ -95,7 +95,7 @@ export default function MembershipLayout({
             name: "Do Sway membership credits roll over?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. Unused monthly credits roll over so you never lose a treatment. Use them whenever works best for your schedule.",
+              text: "Yes. Unused massage and facial treatments roll over and stay good for 12 months while your membership is active. Aescape and Remedy Room sessions don't roll over.",
             },
           },
           {
@@ -103,7 +103,7 @@ export default function MembershipLayout({
             name: "Can I use my Sway membership at any location?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. Sway memberships work across all open Sway locations. Currently Sway is open on Larimer Square in Denver, with Union Market (DC) and Dallas coming soon.",
+              text: "Yes. Sway memberships work across all open Sway locations. Currently Sway is open on Larimer Square in Denver and at Sway Wellness Club in RiNo and Central Park, with Union Market (DC) and Knox/Henderson (Dallas) coming soon.",
             },
           },
           {

@@ -171,7 +171,7 @@ const localBusinessJsonLd = {
               "@type": "Service",
               name: "Essential Signature Massage",
               description:
-                "A 50-minute therapeutic Swedish massage with light to medium pressure.",
+                "A 50-minute full-body Signature massage with light to medium pressure.",
             },
             price: "139.00",
             priceCurrency: "USD",
@@ -499,7 +499,7 @@ const howToJsonLd = {
   estimatedCost: {
     "@type": "MonetaryAmount",
     currency: "USD",
-    value: "89",
+    value: "99",
   },
   step: [
     {
@@ -513,13 +513,13 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 2,
       name: "Park at the Larimer Square Garage",
-      text: "Park at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). Sway validates your first hour of parking. The garage is open 24/7; on weekdays the daytime rate after that is $2 every 10 minutes.",
+      text: "Park at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). Sway validates your first hour of parking on weekdays. The garage is open 24/7; on weekdays the daytime rate after that is $2 every 10 minutes.",
     },
     {
       "@type": "HowToStep",
       position: 3,
       name: "Arrive 15 Minutes Early",
-      text: "Arrive about 15 minutes before your treatment to check in and settle in. Enjoy complimentary lemon water or our signature wellness tea in the lounge. Members have a dedicated lounge with lockers, spa robes, sandals, warm aromatherapy neck pillows, and snacks.",
+      text: "Arrive about 15 minutes before your treatment to check in and settle in. Enjoy complimentary lemon water or our signature wellness tea while you settle in. Members have a dedicated lounge with lockers, spa robes, sandals, warm aromatherapy neck pillows, and snacks.",
     },
     {
       "@type": "HowToStep",

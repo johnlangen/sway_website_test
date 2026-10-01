@@ -71,7 +71,7 @@ export default function TreatmentsLayout({
         description:
           "13 massage types across 3 tiers: Essential, Premier, and Ultimate. 50–90 minutes.",
         url: "https://swaywellnessspa.com/massages/",
-        numberOfItems: 18,
+        numberOfItems: 13,
         itemListElement: [
           {
             "@type": "Offer",

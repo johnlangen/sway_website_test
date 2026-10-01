@@ -166,7 +166,7 @@ const blogs = [
     slug: "vitamin-c-facial",
     title: "Winter Skincare: Brighten Your Skin with Sway's Vitamin C Facial",
     summary:
-      "Combat winter dullness with Sway's Dr. Dennis Vitamin C Facial. Brighten, hydrate, and protect your skin for a radiant glow.",
+      "Combat winter dullness with Sway's Dr. Dennis Gross Vitamin C Facial. Brighten, hydrate, and protect your skin for a radiant glow.",
     tag: "Skincare",
     image: "/assets/blog4.jpg",
   },

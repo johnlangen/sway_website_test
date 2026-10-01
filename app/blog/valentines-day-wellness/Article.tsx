@@ -89,7 +89,7 @@ export default function ValentinesDayWellnessBlogLayout() {
 
         <p>This Valentine&apos;s Day, choose one of our rejuvenating experiences:</p>
         <ul className="list-disc pl-6 space-y-1">
-          <li><strong>Dr. Dennis Vitamin C Facial:</strong> Restore your glow and radiance.</li>
+          <li><strong>Dr. Dennis Gross Vitamin C Facial:</strong> Restore your glow and radiance.</li>
           <li><strong>80 Minute Deep Tissue Massage:</strong> Detoxify and release muscle tension.</li>
           <li><strong>Remedy Room Session:</strong> Cold plunge, sauna, compression boots, and LED light therapy for whole-body renewal.</li>
         </ul>
@@ -110,7 +110,7 @@ export default function ValentinesDayWellnessBlogLayout() {
         <p>
           Whether you&apos;re spending Valentine&apos;s Day with a partner, friends, 
           or solo, Sway&apos;s curated treatments offer a meaningful way to celebrate. 
-          Book your Valentine&apos;s wellness experience today and make 2025 the year 
+          Book your Valentine&apos;s wellness experience today and make this the year 
           you truly fall in love with wellness.
         </p>
 

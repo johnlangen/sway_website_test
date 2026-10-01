@@ -84,15 +84,15 @@ export default function GroupEventsPage() {
                   className="underline text-[#113D33] font-semibold"
                 >
                   massage
-                </Link>
-                ,{" "}
+                </Link>,
+                {" "}
                 <Link
                   href="/facials"
                   className="underline text-[#113D33] font-semibold"
                 >
                   facials
-                </Link>
-                , and{" "}
+                </Link>,
+                 and{" "}
                 <Link
                   href="/aescape"
                   className="underline text-[#113D33] font-semibold"

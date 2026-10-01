@@ -310,7 +310,7 @@ export default function MavenHotelBlogLayout() {
           {[
             {
               title: "Massage Therapy",
-              desc: "Salt stone, deep tissue, Swedish, sports, lymphatic drainage, and more",
+              desc: "Signature, salt stone, deep tissue, sports, lymphatic drainage, and more",
               href: "/massages",
             },
             {
@@ -320,7 +320,7 @@ export default function MavenHotelBlogLayout() {
             },
             {
               title: "Sauna & Cold Plunge",
-              desc: "Private sauna suite and cold water therapy for deep recovery",
+              desc: "Traditional sauna and cold plunge in the Remedy Room",
               href: "/sauna",
             },
             {
@@ -533,7 +533,7 @@ export default function MavenHotelBlogLayout() {
                   name: "What other treatments does Sway offer besides Aescape?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Sway offers massage therapy (salt stone, deep tissue, Swedish, sports, lymphatic drainage), facials (anti-aging, hydration, vitamin C, acne), a private sauna suite, cold plunge, LED light therapy, compression therapy, and the Remedy Room recovery circuit. Members save 50% on boosts and add-ons.",
+                    text: "Sway offers massage therapy (Signature, salt stone, deep tissue, sports, lymphatic drainage), facials (anti-aging, hydration, vitamin C, acne), the Remedy Room recovery circuit (traditional sauna, cold plunge, compression therapy, and LED light therapy), and the Remedy Room recovery circuit. Members save 50% on boosts and add-ons.",
                   },
                 },
               ],

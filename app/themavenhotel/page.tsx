@@ -2063,7 +2063,7 @@ export default function MavenHotelPage() {
             {[
               {
                 title: "Massages",
-                desc: "Salt stone, deep tissue, Swedish & more",
+                desc: "Signature, deep tissue, salt stone & more",
                 href: "/locations/denver-larimer/massage",
               },
               {
@@ -2073,7 +2073,7 @@ export default function MavenHotelPage() {
               },
               {
                 title: "Sauna",
-                desc: "Private sauna suite for deep recovery",
+                desc: "Traditional sauna in the Remedy Room",
                 href: "/locations/denver-larimer/sauna",
               },
               {
@@ -2136,7 +2136,7 @@ export default function MavenHotelPage() {
             },
             {
               q: "Does Sway offer other treatments besides robot massage?",
-              a: "Yes! Sway is a full-service wellness spa. We offer massage therapy (salt stone, deep tissue, Swedish, and more), facials (anti-aging, hydration, vitamin C), a private sauna suite, cold plunge, LED light therapy, and compression therapy. You can explore the full menu and book at swaywellnessspa.com.",
+              a: "Yes! Sway is a full-service wellness spa. We offer massage therapy (Signature, deep tissue, salt stone, and more), facials (anti-aging, hydration, vitamin C), the Remedy Room recovery circuit (traditional sauna, cold plunge, compression therapy, and LED light therapy). You can explore the full menu and book at swaywellnessspa.com.",
             },
           ].map((item, i) => (
             <div key={i} className="border-b border-black/10">

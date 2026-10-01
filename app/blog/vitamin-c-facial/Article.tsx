@@ -26,7 +26,7 @@ export default function VitaminCFacialBlogLayout() {
           Winter&apos;s harsh conditions can wreak havoc on your skin, leaving it
           dry, dull, and lacking its natural radiance. But there&apos;s a solution
           to combat the winter blues and rediscover your inner glow: Sway&apos;s
-          featured Dr. Dennis Vitamin C Facial. This powerful treatment is designed
+          featured Dr. Dennis Gross Vitamin C Facial. This powerful treatment is designed
           to brighten, rejuvenate, and protect your skin, leaving you with a
           complexion that defies the season&apos;s harsh elements.
         </p>
@@ -45,7 +45,7 @@ export default function VitaminCFacialBlogLayout() {
             <li><a href="#c-the-radiance" className="hover:underline">&ldquo;C&rdquo; the Radiance: The Power of Vitamin C</a></li>
             <li><a href="#why-choose-dr-dennis-gross" className="hover:underline">Why Choose Dr. Dennis Gross Skincare at Sway?</a></li>
             <li><a href="#benefits-of-vitamin-c" className="hover:underline">The Benefits of Vitamin C for Your Skin</a></li>
-            <li><a href="#what-to-expect" className="hover:underline">What to Expect During Your Dr. Dennis Vitamin C Facial at Sway</a></li>
+            <li><a href="#what-to-expect" className="hover:underline">What to Expect During Your Dr. Dennis Gross Vitamin C Facial at Sway</a></li>
             <li><a href="#why-winter" className="hover:underline">Why Winter is the Perfect Time for a Vitamin C Facial</a></li>
             <li><a href="#science-behind-vitamin-c" className="hover:underline">The Science Behind Vitamin C</a></li>
           </ol>
@@ -85,7 +85,7 @@ export default function VitaminCFacialBlogLayout() {
           <li><strong>Hydrates:</strong> Strengthens the skin barrier and locks in moisture.</li>
         </ul>
 
-        <h2 id="what-to-expect" className="text-2xl font-bold scroll-mt-24">What to Expect During Your Dr. Dennis Vitamin C Facial at Sway</h2>
+        <h2 id="what-to-expect" className="text-2xl font-bold scroll-mt-24">What to Expect During Your Dr. Dennis Gross Vitamin C Facial at Sway</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li><strong>Cleansing:</strong> Vitamin C and Alpha Beta Cleansing</li>
           <li><strong>Exfoliation:</strong> Signature Alpha Beta® dual-acid exfoliation</li>

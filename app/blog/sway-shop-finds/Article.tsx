@@ -73,8 +73,7 @@ export default function SwayShopFindsBlogLayout() {
         <h2 id="exclusive-member-perks" className="text-2xl font-bold scroll-mt-24">Exclusive Member Perks</h2>
         <p>
           Members receive 10% off all retail (excluding Assouline, Gray Malin,
-          and food/beverage items) and enjoy gift-with-purchase perks on
-          Eminence throughout March and April. These perks make it easier to try
+          and food/beverage items) and enjoy seasonal gift-with-purchase perks on Eminence. These perks make it easier to try
           new favorites and elevate your skincare game.
         </p>
 

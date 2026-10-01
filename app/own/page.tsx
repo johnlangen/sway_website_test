@@ -63,7 +63,7 @@ const SWAY_DIFFERENCE = [
   },
   {
     title: "Expert Massage Specialists",
-    text: "Six customizable massage experiences from Deep Tissue to CBD, with add-ons like infrared PEMF mats and cupping.",
+    text: "Thirteen massages across three tiers, from Signature to Deep Tissue and Salt Stone, with add-ons like infrared PEMF mats and cupping.",
   },
   {
     title: "Award-Winning Results",

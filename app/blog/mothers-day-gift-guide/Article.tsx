@@ -79,8 +79,7 @@ export default function MothersDayGiftGuideLayout() {
 
         <h3 className="text-xl font-bold">Gift Card Specials</h3>
         <ul className="list-disc pl-6 space-y-1">
-          <li>Buy $150 → Get $25 Bonus</li>
-          <li>Buy $300 → Get $50 Bonus</li>
+          <li>Seasonal bonus-card specials run around Mother&apos;s Day. Check our gift cards page for current offers.</li>
         </ul>
         <p>Let her choose what speaks to her with a flexible, luxury gift card.</p>
 
@@ -117,7 +116,7 @@ export default function MothersDayGiftGuideLayout() {
 
         <h2 id="celebrate-all-that-she-does" className="text-2xl font-bold scroll-mt-24">Celebrate All That She Does</h2>
         <p>
-          This Mother’s Day, go beyond chocolates and flowers. Give her *time*,
+          This Mother’s Day, go beyond chocolates and flowers. Give her <em>time</em>,
           to rest, reset, and feel seen. Whether it’s a spa day, massage, or
           thoughtful membership, she deserves the best.
         </p>
@@ -167,7 +166,7 @@ export default function MothersDayGiftGuideLayout() {
                 name: "What is the best Mother's Day spa gift?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The best Mother's Day spa gifts combine relaxation with lasting value. Sway Wellness Spa offers gift cards with bonus specials (buy $150 get a $25 bonus, or buy $300 get a $50 bonus) that let mom choose her own treatments. For an ongoing gift, a Sway membership at $99 per month gives her monthly facials or massages, member lounge access, and shop discounts all year long.",
+                  text: "The best Mother's Day spa gifts combine relaxation with lasting value. Sway Wellness Spa offers gift cards (with seasonal bonus-card specials around Mother's Day) that let mom choose her own treatments. For an ongoing gift, a Sway membership at $99 per month gives her monthly facials or massages, member lounge access, and shop discounts all year long.",
                 },
               },
               {

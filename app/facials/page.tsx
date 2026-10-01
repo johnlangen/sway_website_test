@@ -456,8 +456,8 @@ const FacialsPage = () => {
               Powered by Two Leading Skincare Brands
             </h2>
             <p className="mt-3 text-[#113D33]/60 max-w-2xl mx-auto">
-              Every facial at Sway uses products and protocols from these
-              industry-leading skincare lines.
+              Most facials at Sway use Eminence Organics. Our Vitamin C
+              facials use Dr. Dennis Gross.
             </p>
           </motion.div>
 

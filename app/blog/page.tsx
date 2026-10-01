@@ -4,14 +4,14 @@ import BlogContent from "./BlogContent";
 export const metadata: Metadata = {
   title: { absolute: "The Sway Edit | Denver Wellness Blog by Sway Spa" },
   description:
-    "Explore The Sway Edit: 28 articles on massage therapy, skincare science, recovery tech, and Denver lifestyle from Sway Wellness Spa, voted #4 Best Day Spa in America.",
+    "Explore The Sway Edit: 29 articles on massage therapy, skincare science, recovery tech, and Denver lifestyle from Sway Wellness Spa, voted #4 Best Day Spa in America.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/",
   },
   openGraph: {
     title: "The Sway Edit | Denver Wellness Blog by Sway Spa",
     description:
-      "28 expert articles on massage, skincare, recovery, and wellness from Sway Wellness Spa in Denver. Tips from the team at the #4 Best Day Spa in America.",
+      "29 expert articles on massage, skincare, recovery, and wellness from Sway Wellness Spa in Denver. Tips from the team at the #4 Best Day Spa in America.",
     url: "https://swaywellnessspa.com/blog/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -169,7 +169,7 @@ export default function BlogPage() {
         name: "Does Sway Wellness Spa have a blog about skincare and massage?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The Sway Edit features 28 articles including expert guides on skincare, facials using Eminence Organics products plus the dedicated Dr. Dennis Gross Vitamin C facial, massage benefits, recovery technology, and wellness trends. New articles are published regularly.",
+          text: "Yes. The Sway Edit features 29 articles including expert guides on skincare, facials using Eminence Organics products plus the dedicated Dr. Dennis Gross Vitamin C facial, massage benefits, recovery technology, and wellness trends. New articles are published regularly.",
         },
       },
     ],

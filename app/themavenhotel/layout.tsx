@@ -122,7 +122,7 @@ export default function MavenHotelLayout({
         name: "Does Sway offer other treatments besides robot massage?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes! Sway is a full-service wellness spa. We offer massage therapy (salt stone, deep tissue, Swedish, and more), facials (anti-aging, hydration, vitamin C), a private sauna suite, cold plunge, LED light therapy, and compression therapy.",
+          text: "Yes! Sway is a full-service wellness spa. We offer massage therapy (Signature, deep tissue, salt stone, and more), facials (anti-aging, hydration, vitamin C), the Remedy Room recovery circuit (traditional sauna, cold plunge, compression therapy, and LED light therapy).",
         },
       },
     ],

@@ -128,7 +128,7 @@ export default function MothersDayGiftCardsPage() {
           <div className="rounded-xl border border-[#c5d2cd] bg-white/70 px-5 py-4 text-center text-sm md:text-base text-[#4A776D]">
             <p>
               <span className="font-semibold text-[#113D33]">
-                {timeLeft ? `Mother's Day in ${timeLeft}` : "Mother's Day this Sunday"}
+                {timeLeft ? `Mother's Day in ${timeLeft}` : "Mother's Day gift cards"}
               </span>
               {" · Gift cards arrive in seconds by email."}
             </p>
@@ -271,7 +271,7 @@ export default function MothersDayGiftCardsPage() {
                 <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Choose any amount. $150 covers a signature massage or facial. $250 covers a massage plus the Remedy Room recovery suite. $400+ gives Mom a full half-day.
+                Choose any amount. $150 covers a signature massage or facial. $250 covers a massage plus the Remedy Room recovery circuit. $400+ gives Mom a full half-day.
               </p>
             </details>
 

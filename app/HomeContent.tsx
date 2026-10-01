@@ -606,7 +606,7 @@ export default function HomeContent() {
             className="text-[#A9D2C5] mx-auto block mb-3"
           />
           <p className="text-center text-sm md:text-base opacity-60 mb-4 md:mb-10">
-            Member pricing vs drop-in. No contracts required.
+            Member pricing vs drop-in. No enrollment fee.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 [perspective:1200px]">

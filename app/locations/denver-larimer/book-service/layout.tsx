@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Book Massage or Facial | Sway Larimer (Denver, CO)",
   description:
-    "Book a massage or facial at Sway Larimer in Denver. Choose your treatment, add boosts, pick your therapist, and reserve instantly online.",
+    "Book a massage or facial at Sway Larimer in Denver. Choose your treatment, add boosts, pick your specialist, and reserve instantly online.",
   alternates: {
     canonical:
       "https://swaywellnessspa.com/locations/denver-larimer/book-service",

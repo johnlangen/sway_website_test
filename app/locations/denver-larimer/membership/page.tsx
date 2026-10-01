@@ -810,7 +810,7 @@ export default function MembershipPage() {
             </div>
             <p className="text-base text-[#113D33]/75 leading-relaxed mb-4 max-w-md">
               AI-powered robot massage with real-time muscle mapping and
-              personalized pressure zones. Book on your schedule — early,
+              personalized pressure zones. Book on your schedule: early,
               late, or between meetings.
             </p>
             <ul className="space-y-2 mb-5">

@@ -94,7 +94,7 @@ export default function CareersContent() {
         <ul className="list-disc list-inside space-y-2 mb-10">
           <li>
             Gratuities are higher, guests love a real spa experience (member lounge,
-            showers, lockers, robes, spa sandals, and more)
+            a shower, lockers, robes, spa sandals, and more)
           </li>
           <li>Family culture with compassion, integrity, and team approach</li>
           <li>Our teammates are fun and our biggest asset</li>

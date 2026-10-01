@@ -30,7 +30,7 @@ export default function FathersDayGiftGuideLayout() {
           drawer, the grilling tools you got him in 2019.
         </p>
         <p>
-          Father&apos;s Day is June 21 this year. You have about a month, and the
+          Father&apos;s Day is the third Sunday in June. You have a little time, and the
           good news is that the best gift for the dad in your life takes ten
           seconds to book and zero seconds to wrap. This is our actual,
           unfiltered guide to giving Dad a day he will text his friends
@@ -358,7 +358,7 @@ export default function FathersDayGiftGuideLayout() {
           The Receipt
         </h2>
         <p>
-          No surprise math. These are the actual prices, today, in May 2026.
+          No surprise math. These are the actual prices as of this writing.
         </p>
         <div className="bg-white rounded-2xl border border-[#d7e2dc] overflow-hidden divide-y divide-[#d7e2dc] shadow-sm">
           {/* Aescape */}
@@ -482,7 +482,7 @@ export default function FathersDayGiftGuideLayout() {
           <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
             <div className="text-3xl font-bold text-[#113D33]">$200</div>
             <p className="mt-2 text-[15px] text-gray-700">
-              A 50-minute massage plus a boost (cupping, hot stones, CBD),
+              A 50-minute massage plus a boost (cupping, CBD, PEMF),
               or a 60-minute Aescape session.
             </p>
           </div>
@@ -523,8 +523,7 @@ export default function FathersDayGiftGuideLayout() {
           <li className="flex gap-3">
             <span className="text-[#113D33] font-bold shrink-0">2.</span>
             <span>
-              <strong>Father&apos;s Day weekend books up.</strong> The Sunday
-              of June 21 will be packed. If you want a specific time, book
+              <strong>Father&apos;s Day weekend books up.</strong> Father&apos;s Day Sunday will be packed. If you want a specific time, book
               the week before. Saturdays the week before are quieter and
               dads do not actually care which day you do this.
             </span>
@@ -639,10 +638,10 @@ export default function FathersDayGiftGuideLayout() {
               },
               {
                 "@type": "Question",
-                name: "When is Father's Day 2026?",
+                name: "When is Father's Day?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Father's Day 2026 is Sunday, June 21. Father's Day weekend books up quickly at Sway Wellness Spa, so we recommend booking at least a week in advance. The weekend before is typically quieter and most dads do not mind which day you celebrate.",
+                  text: "Father's Day is the third Sunday in June. Father's Day weekend books up quickly at Sway Wellness Spa, so we recommend booking at least a week in advance. The weekend before is typically quieter and most dads do not mind which day you celebrate.",
                 },
               },
               {

@@ -73,7 +73,7 @@ export default function TechAndWellnessBlogLayout() {
 
         <p>
           <strong>Exclusive Offer:</strong> With the Sway Aescape Membership, enjoy 
-          2 Aescape Robot treatments for just $99/month. Contact{" "}
+          four 30-minute or two 60-minute Aescape sessions for $99/month. Contact{" "}
           <Link href="mailto:contact@swaywellnessspa.com" className="underline text-[#113D33] font-semibold">
             contact@swaywellnessspa.com
           </Link>{" "}

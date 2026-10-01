@@ -14,7 +14,7 @@ export default function TermsContent() {
         Terms and Conditions
       </motion.h1>
 
-      <p className="text-sm md:text-base mb-8">Updated September 18, 2024</p>
+      <p className="text-sm md:text-base mb-8">Updated October 1, 2026</p>
 
       <p className="mb-6">
         Welcome to Sway. These Terms and Conditions govern your use of our
@@ -148,10 +148,10 @@ export default function TermsContent() {
         If you have any questions about these Terms and Conditions, please
         contact us at{" "}
         <a
-          href="mailto:info@swaywellnessspa.com"
+          href="mailto:contact@swaywellnessspa.com"
           className="text-[#113D33] underline"
         >
-          info@swaywellnessspa.com
+          contact@swaywellnessspa.com
         </a>
         .
       </p>

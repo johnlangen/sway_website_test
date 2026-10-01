@@ -164,8 +164,8 @@ export default function Page() {
         <div className="grid grid-cols-3 gap-3 not-prose">
           {[
             { name: "Essential", price: "$99", sub: "/mo", sessions: "50 min", count: "3 treatments", color: "bg-[#F0F4F0]", text: "text-[#113D33]" },
-            { name: "Premier", price: "$129", sub: "/mo", sessions: "50–70 min", count: "12 treatments", color: "bg-[#113D33]", text: "text-white", badge: true },
-            { name: "Ultimate", price: "$159", sub: "/mo", sessions: "40–90 min", count: "11 treatments + tech", color: "bg-[#0D2E24]", text: "text-white" },
+            { name: "Premier", price: "$129", sub: "/mo", sessions: "50–70 min", count: "11 treatments", color: "bg-[#113D33]", text: "text-white", badge: true },
+            { name: "Ultimate", price: "$159", sub: "/mo", sessions: "50–90 min", count: "10 treatments + tech", color: "bg-[#0D2E24]", text: "text-white" },
           ].map(({ name, price, sub, sessions, count, color, text, badge }) => (
             <div key={name} className={`${color} ${text} rounded-2xl p-4 text-center`}>
               <div className="flex items-center justify-center gap-1.5 mb-1">
@@ -197,7 +197,7 @@ export default function Page() {
               The Essential tier is the entry point to consistent, professional wellness in Denver. One monthly 50-minute treatment, your choice of massage or facial, for $99. No frills, no fuss. Just expert care, every month.
             </p>
             <p className="text-gray-700">
-              The Essential Signature Massage is a classic therapeutic Swedish massage with light to medium pressure. The Essential Signature Facial is tailored to your skin type: cleanse, exfoliate, extract, and hydrate. If you&apos;re pregnant, the Essential Maternity Massage provides safe, restorative care for expecting mothers.
+              The Essential Signature Massage is a classic full-body massage with light to medium pressure. The Essential Signature Facial is tailored to your skin type: cleanse, exfoliate, extract, and hydrate. If you&apos;re pregnant, the Essential Maternity Massage provides safe, restorative care for expecting mothers.
             </p>
             <div className="grid md:grid-cols-2 gap-5 pt-2">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
@@ -302,7 +302,7 @@ export default function Page() {
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div>
                 <h2 className="text-xl font-bold text-white">Ultimate Membership</h2>
-                <p className="text-white/60 mt-0.5 text-sm">40–90 min · Tech enhancements included</p>
+                <p className="text-white/60 mt-0.5 text-sm">50–90 min · Tech enhancements included</p>
               </div>
               <div className="text-right">
                 <span className="text-3xl font-bold text-white">$159</span>

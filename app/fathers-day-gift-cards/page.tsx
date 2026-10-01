@@ -128,7 +128,7 @@ export default function FathersDayGiftCardsPage() {
           <div className="rounded-xl border border-[#c5d2cd] bg-white/70 px-5 py-4 text-center text-sm md:text-base text-[#4A776D]">
             <p>
               <span className="font-semibold text-[#113D33]">
-                {timeLeft ? `Father's Day in ${timeLeft}` : "Father's Day this Sunday"}
+                {timeLeft ? `Father's Day in ${timeLeft}` : "Father's Day gift cards"}
               </span>
               {" · Gift cards arrive in seconds by email."}
             </p>

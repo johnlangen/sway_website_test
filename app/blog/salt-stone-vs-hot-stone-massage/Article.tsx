@@ -304,7 +304,7 @@ export default function SaltStoneVsHotStoneLayout() {
             Ready to try the salt stone difference?
           </p>
           <p className="opacity-80 text-sm">
-            50-minute session. $99 members / $139 drop-in.
+            Premier, 50 minutes: $129 members / $169 drop-in. Ultimate, 70 minutes: $159 / $199.
           </p>
           <Link
             href="/locations/denver-larimer/book"
@@ -351,10 +351,10 @@ export default function SaltStoneVsHotStoneLayout() {
         <h3 className="text-lg font-bold mt-4">Pricing</h3>
         <ul className="list-disc pl-6 space-y-1">
           <li>
-            <strong>Members:</strong> $99 for 50 minutes
+            <strong>Members:</strong> $129 for 50 minutes (Premier) or $159 for 70 minutes (Ultimate)
           </li>
           <li>
-            <strong>Drop-in:</strong> $139 for 50 minutes
+            <strong>Drop-in:</strong> $169 for 50 minutes (Premier) or $199 for 70 minutes (Ultimate)
           </li>
         </ul>
 
@@ -365,17 +365,13 @@ export default function SaltStoneVsHotStoneLayout() {
         </p>
         <ul className="list-disc pl-6 space-y-1">
           <li>
-            <strong>80-Minute Extension</strong> for a longer, more thorough
-            session
-          </li>
-          <li>
             <strong>Infrared PEMF Mat</strong> for deeper cellular recovery
           </li>
           <li>
             <strong>Cupping</strong> for targeted tension release
           </li>
           <li>
-            <strong>Lymphatic Drainage</strong> for enhanced detox
+            <strong>CBD muscle cream</strong> for inflammation and recovery
           </li>
         </ul>
 

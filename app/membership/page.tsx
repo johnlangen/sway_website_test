@@ -138,7 +138,7 @@ export default function MembershipHubPage() {
           cold plunge, compression therapy, and LED light therapy. All members
           enjoy 50% off boosts and private lounge access. The three spa tiers
           also include rollover credits.
-          Available at Denver Larimer (now open), Dallas TX and Union Market DC
+          Available at Denver Larimer, RiNo, and Central Park (now open), Knox/Henderson (Dallas) and Union Market DC
           (coming soon). Voted #4 Best Day Spa in America by USA Today 10Best.
           Join at swaywellnessspa.com/membership.
         </p>

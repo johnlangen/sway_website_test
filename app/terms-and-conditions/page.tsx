@@ -35,7 +35,7 @@ export default function TermsPage() {
       name: "Terms and Conditions",
       about:
         "Policies and terms for using Sway Wellness Spa’s services, memberships, and website.",
-      dateModified: "2024-09-18",
+      dateModified: "2026-10-01",
       publisher: {
         "@type": "Organization",
         name: "Sway Wellness Spa",

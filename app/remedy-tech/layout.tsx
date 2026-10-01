@@ -59,7 +59,7 @@ const faqJsonLd = {
       name: "Who is the Remedy Room for?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. No experience needed, no special clothing required.",
+        text: "Anyone. Athletes use it for post-workout recovery. Remote workers use it to reset after long days. No experience needed. Wear a swimsuit or athletic wear.",
       },
     },
     {
@@ -136,7 +136,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 6,
       name: "Recover and Continue Your Visit",
-      text: "After completing the circuit, relax in the lounge. Many guests pair the Remedy Room with a 50-minute massage or facial for a complete wellness experience. Members enjoy the private lounge with robes, snacks, and lockers.",
+      text: "After completing the circuit, take a few minutes to rehydrate. Many guests pair the Remedy Room with a 50-minute massage or facial for a complete wellness experience. Members enjoy the private lounge with robes, snacks, and lockers.",
     },
   ],
   tool: [

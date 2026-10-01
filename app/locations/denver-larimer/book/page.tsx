@@ -1493,7 +1493,7 @@ export default function NewBookingFlow() {
                           treatmentTierFilter === "premier" ? "50 min, targeted products for your skin concern + dermapore technology" :
                           "50–60 min, tech enhancements + scalp/hand treatment"
                         ) : (
-                          treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
+                          treatmentTierFilter === "premier" ? "+20 min for Signature, or advanced techniques for targeted results" :
                           "+20 min duration added to advanced technique massages"
                         )}
                       </p>
@@ -1508,7 +1508,7 @@ export default function NewBookingFlow() {
                           "50–60 min, tech enhancements + scalp/hand treatment"
                         ) : (
                           treatmentTierFilter === "essential" ? "50-minute customized massage" :
-                          treatmentTierFilter === "premier" ? "+20 min duration for swedish, or advanced techniques for targeted results" :
+                          treatmentTierFilter === "premier" ? "+20 min for Signature, or advanced techniques for targeted results" :
                           "+20 min duration added to advanced technique massages"
                         )}
                       </p>
@@ -1829,7 +1829,7 @@ export default function NewBookingFlow() {
                 href="/locations/denver-larimer/book-aescape"
                 className="mt-2 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
               >
-                <span>Try <span className="text-[#4A776D]">Aescape AI Massage</span> , often same-day availability</span>
+                <span>Try <span className="text-[#4A776D]">Aescape AI Massage</span>, often same-day availability</span>
                 <span className="text-[#4A776D]">&rarr;</span>
               </Link>
             )}
@@ -2119,8 +2119,8 @@ export default function NewBookingFlow() {
             <p className="text-xs text-center text-[#113D33]/60">Your card will not be charged today. It is held to secure your appointment.</p>
                 {category === "massage" && !/maternity/i.test(selectedTreatment?.name ?? "") && (
                   <p className="mt-2 text-xs text-[#113D33]/55">
-                    Expecting? Massage is for after the first trimester —
-                    facials are a lovely first-trimester option.
+                    Expecting? Massage is for after the first trimester.
+                    Facials are a lovely first-trimester option.
                   </p>
                 )}
           </motion.div>
@@ -2220,7 +2220,7 @@ export default function NewBookingFlow() {
               </h2>
               <p className="text-sm text-[#113D33]/75 leading-relaxed mb-5">
                 Maternity massage is designed for after the first trimester
-                (13+ weeks) — it&apos;s the safest, most comfortable way to
+                (13+ weeks). It&apos;s the safest, most comfortable way to
                 enjoy it. Please confirm you&apos;ll be past week 13 at the
                 time of your appointment.
               </p>
@@ -2234,7 +2234,7 @@ export default function NewBookingFlow() {
                   }}
                   className="block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
                 >
-                  Yes, I&apos;ll be 13+ weeks — continue
+                  Yes, I&apos;ll be 13+ weeks, continue
                 </button>
                 <button
                   onClick={() => {

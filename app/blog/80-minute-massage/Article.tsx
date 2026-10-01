@@ -92,10 +92,11 @@ export default function Massage80MinBlogLayout() {
           L., Sway Guest
         </blockquote>
 
-        <h3 className="text-xl font-semibold">2. Specialty Techniques, No Extra Charges</h3>
+        <h3 className="text-xl font-semibold">2. Your Choice of Technique</h3>
         <p>
-          At Sway, specialty techniques are included: Deep Tissue, CBD Massage,
-          Sports Recovery, and Salt Stone Therapy, no upcharges.
+          At Sway, you choose your technique: Signature (light to medium pressure),
+          Deep Tissue, Sports, Salt Stone, or Lymphatic Drainage, with boosts like
+          CBD, cupping, and PEMF to add on.
         </p>
 
         <h3 className="text-xl font-semibold">3. Unparalleled Mind-Body Reconnection</h3>
@@ -177,7 +178,7 @@ export default function Massage80MinBlogLayout() {
                 name: "What massage techniques are included in an 80-minute session at Sway?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway Wellness Spa includes specialty techniques at no additional cost with every 80-minute massage. Options include Deep Tissue for chronic tension, CBD Massage for inflammation and relaxation, Sports Recovery for athletic performance, and Himalayan Salt Stone Therapy for mineral-rich deep relaxation. Your specialist will customize the session based on your specific needs and preferences.",
+                  text: "You choose your technique at Sway: Signature (light to medium pressure), Deep Tissue for chronic tension, Sports for active recovery, Salt Stone for mineral-rich deep relaxation, or Lymphatic Drainage. Boosts like CBD muscle cream, cupping, and the infrared PEMF mat can be added to any massage.",
                 },
               },
               {

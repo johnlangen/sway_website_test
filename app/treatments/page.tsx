@@ -59,8 +59,8 @@ const treatments: Treatment[] = [
 ];
 
 const stats = [
-  { value: "18", label: "Massage Types" },
-  { value: "13", label: "Facial Treatments" },
+  { value: "13", label: "Massage Types" },
+  { value: "11", label: "Facial Treatments" },
   { value: "4", label: "Recovery Technologies" },
   { value: "7", label: "Boost Add-Ons" },
 ];

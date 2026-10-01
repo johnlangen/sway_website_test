@@ -73,7 +73,7 @@ const eventJsonLd = {
     "Enter for a chance to win a year of wellness at Sway Knox/Henderson in Dallas. One monthly massage or facial for 12 months. Bonus entry for Instagram followers.",
   startDate: "2026-05-20",
   // Sister to confirm — placeholder = Dallas opening window
-  endDate: "2026-09-30",
+  endDate: "2026-12-31",
   eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
   eventStatus: "https://schema.org/EventScheduled",
   location: {

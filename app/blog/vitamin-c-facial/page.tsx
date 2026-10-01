@@ -4,7 +4,7 @@ import VitaminCFacialBlogLayout from "./Article";
 export const metadata: Metadata = {
   title: { absolute: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa" },
   description:
-    "Combat winter dullness with Sway’s Dr. Dennis Vitamin C Facial in Denver. Brighten, hydrate, and protect your skin with expert-led, science-backed care.",
+    "Combat winter dullness with Sway’s Dr. Dennis Gross Vitamin C Facial in Denver. Brighten, hydrate, and protect your skin with expert-led, science-backed care.",
   keywords: [
     "Vitamin C facial Denver",
     "brightening facial Denver",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa",
     description:
-      "Restore your glow this winter with the Dr. Dennis Vitamin C Facial at Sway. Brighten, hydrate, and protect your skin with science-backed skincare.",
+      "Restore your glow this winter with the Dr. Dennis Gross Vitamin C Facial at Sway. Brighten, hydrate, and protect your skin with science-backed skincare.",
     url: "https://swaywellnessspa.com/blog/vitamin-c-facial/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -41,7 +41,7 @@ export default function Page() {
     "@type": "BlogPosting",
     headline: "Vitamin C Facial in Denver | Brighten Winter Skin at Sway Spa",
     description:
-      "Combat winter dullness with Sway’s Dr. Dennis Vitamin C Facial in Denver. Brighten, hydrate, and protect your skin with expert-led, science-backed care.",
+      "Combat winter dullness with Sway’s Dr. Dennis Gross Vitamin C Facial in Denver. Brighten, hydrate, and protect your skin with expert-led, science-backed care.",
     image: "https://swaywellnessspa.com/assets/blog4.jpg",
     author: {
       "@type": "Organization",
