@@ -4,12 +4,14 @@
  * MembershipJoinFlow — native membership purchase modal.
  *
  * Sells Mindbody autopay contracts directly on the site:
- *   email lookup → (account / card details if needed) → review + agree → purchase.
+ *   email → (6-digit email code if an account exists) → (account / card
+ *   details if needed) → review + agree → purchase.
  *
- * Reuses the battle-tested client routes from the booking flows
- * (/api/mindbody/client-lookup, add-client-with-card, update-client-card,
- * update-client) and finishes with POST /api/membership/purchase
- * (Mindbody sale/purchasecontract via stored card).
+ * Email ownership (2026-10-01): /api/membership/verify/start + /confirm set a
+ * server session; the account routes (/api/membership/account/create, card,
+ * name — session-checked wrappers around the booking flows' Mindbody client
+ * routes) and POST /api/membership/purchase only act on accounts that session
+ * owns. See lib/membershipVerify.ts.
  *
  * Test mode: open the page with ?memtest=1 and the purchase fires Mindbody's
  * documented Test:true dry-run — everything validates, nothing commits,
@@ -45,7 +47,7 @@ export type MembershipSite = {
   bookHref: string; // where "Book your first visit" points
 };
 
-type Step = "email" | "already" | "details" | "confirm" | "done";
+type Step = "email" | "code" | "already" | "details" | "confirm" | "done";
 
 // Spa-tier member perks, shown on the review step as a final value reminder.
 // Spa tiers only — Aescape/Remedy perks differ.
@@ -216,6 +218,17 @@ export default function MembershipJoinFlow({
   >(null);
 
   const [savedLastFour, setSavedLastFour] = useState<string | null>(null);
+  // Email-code step. The code itself only ever lives in this input.
+  const [code, setCode] = useState("");
+  const [resendIn, setResendIn] = useState(0);
+  const [codeNotice, setCodeNotice] = useState<string | null>(null);
+  // Membership check result from the email step, applied after verification.
+  const checkDataRef = useRef<any>(null);
+  useEffect(() => {
+    if (resendIn <= 0) return;
+    const t = setTimeout(() => setResendIn((n) => n - 1), 1000);
+    return () => clearTimeout(t);
+  }, [resendIn]);
   const [termsOpen, setTermsOpen] = useState(false);
   // Set when the email already carries an equivalent active membership
   // (local or cross-regional, e.g. a Spavia home spa). We warn before they
@@ -231,6 +244,9 @@ export default function MembershipJoinFlow({
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [terms, setTerms] = useState<string | null>(null);
   const [purchaseTotal, setPurchaseTotal] = useState<number | null>(null);
+  // Set when a purchase result is uncertain: the buy button stays disabled
+  // so the guest can't fire a second charge while we don't know the outcome.
+  const [purchaseBlocked, setPurchaseBlocked] = useState(false);
 
   // ?memtest=1 anywhere in the URL = Mindbody Test:true dry-run purchases.
   const [isTest, setIsTest] = useState(false);
@@ -287,10 +303,70 @@ export default function MembershipJoinFlow({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* ── step 1: email lookup ─────────────────────────────────────── */
+  /* ── step 1: email → code (existing accounts) ─────────────────── */
+
+  function duplicateLabelFor(checkData: any): string | null {
+    // Plan-aware duplicate detection: only warn when the existing
+    // membership is the same family as what they're buying (a spa member
+    // buying an Aescape membership is a legitimate second purchase).
+    return (
+      (SPA_TIER_KEYS.includes(plan.key) && checkData?.isMember && checkData?.tier
+        ? `${String(checkData.tier).charAt(0).toUpperCase()}${String(checkData.tier).slice(1)} membership`
+        : null) ??
+      ((plan.key === "aescape30" || plan.key === "aescape60") &&
+      checkData?.hasAescapeMembership
+        ? "Aescape membership"
+        : null) ??
+      (plan.key === "remedy" && checkData?.hasRemedyMembership
+        ? "Remedy Room membership"
+        : null) ??
+      // Club unlimited-lounge plan: ANY active club membership already
+      // includes the Remedy Lounge — migrated Founding/Legacy members
+      // (flagged hasRemedyMembership or tier via the check route) and
+      // members of the other club (cross-club recognition) alike.
+      (plan.key === "club_lounge" &&
+      (checkData?.hasRemedyMembership || checkData?.isMember)
+        ? "Remedy Lounge membership"
+        : null)
+    );
+  }
+
+  function goNewClient() {
+    track("membership_email_entered", {
+      membership_tier: plan.key,
+      client_type: "new",
+    });
+    setClientId(null);
+    setShowNameFields(true);
+    setShowCardFields(true);
+    setCardContext("create_account");
+    setShowDetailsStep(true);
+    setStep("details");
+  }
+
+  async function requestCode(normalized: string): Promise<"new" | "code_sent" | null> {
+    const res = await fetch("/api/membership/verify/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: normalized, ...siteBody }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      if (data?.code === "cooldown" && typeof data?.retryAfter === "number") {
+        setResendIn(data.retryAfter);
+      }
+      setError(data?.error || "Something went wrong. Please try again.");
+      return null;
+    }
+    if (data.status === "code_sent") {
+      setResendIn(typeof data.resendAfter === "number" ? data.resendAfter : 30);
+    }
+    return data.status === "new" ? "new" : "code_sent";
+  }
 
   async function handleEmailContinue() {
     setError(null);
+    setCodeNotice(null);
     const normalized = normalizeEmail(email);
     if (!isValidEmail(normalized)) {
       setError("Please enter a valid email address.");
@@ -298,99 +374,155 @@ export default function MembershipJoinFlow({
     }
     setLoading(true);
     try {
-      // Account lookup + membership check in parallel. The membership check
-      // is cross-regional: it catches active memberships whose home spa is
-      // another Sway/Spavia location (memberships work everywhere), so we can
-      // warn before someone buys a duplicate. Best-effort — if it fails, the
-      // join proceeds normally.
-      const [res, checkData] = await Promise.all([
-        fetch(`/api/mindbody/client-lookup?email=${encodeURIComponent(normalized)}${siteQuery}`),
+      // Verification start + membership check in parallel. The membership
+      // check is cross-regional: it catches active memberships whose home spa
+      // is another Sway/Spavia location (memberships work everywhere), so we
+      // can warn before someone buys a duplicate. Best-effort — if it fails,
+      // the join proceeds normally.
+      const [status, checkData] = await Promise.all([
+        requestCode(normalized),
         fetch(`/api/membership/check?email=${encodeURIComponent(normalized)}${siteQuery}`)
           .then((r) => (r.ok ? r.json() : null))
           .catch(() => null),
       ]);
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Lookup failed.");
+      checkDataRef.current = checkData;
+      if (!status) return;
 
-      // Plan-aware duplicate detection: only warn when the existing
-      // membership is the same family as what they're buying (a spa member
-      // buying an Aescape membership is a legitimate second purchase).
-      const duplicate =
-        (SPA_TIER_KEYS.includes(plan.key) && checkData?.isMember && checkData?.tier
-          ? `${String(checkData.tier).charAt(0).toUpperCase()}${String(checkData.tier).slice(1)} membership`
-          : null) ??
-        ((plan.key === "aescape30" || plan.key === "aescape60") &&
-        checkData?.hasAescapeMembership
-          ? "Aescape membership"
-          : null) ??
-        (plan.key === "remedy" && checkData?.hasRemedyMembership
-          ? "Remedy Room membership"
-          : null) ??
-        // Club unlimited-lounge plan: ANY active club membership already
-        // includes the Remedy Lounge — migrated Founding/Legacy members
-        // (flagged hasRemedyMembership or tier via the check route) and
-        // members of the other club (cross-club recognition) alike.
-        (plan.key === "club_lounge" &&
-        (checkData?.hasRemedyMembership || checkData?.isMember)
-          ? "Remedy Lounge membership"
-          : null);
-
-      if (data.found && data.client) {
-        const existingFirst = (data.client.FirstName ?? "").trim();
-        const existingLast = (data.client.LastName ?? "").trim();
-        const existingPhone = (data.client.MobilePhone ?? "").trim();
-        const missingName = !existingFirst || !existingLast;
-        const missingCard = !data.hasCardOnFile;
-
-        setClientId(String(data.client.Id));
-        setFirstName(existingFirst);
-        setLastName(existingLast);
-        setMobilePhone(existingPhone);
-
-        track("membership_email_entered", {
-          membership_tier: plan.key,
-          client_type: "returning",
-        });
-
-        const target: Step = !missingName && !missingCard ? "confirm" : "details";
-        if (target === "confirm") setShowDetailsStep(false);
-        setShowNameFields(missingName);
-        setShowCardFields(missingCard);
-        setCardContext(missingCard ? "add_card" : null);
-
-        if (duplicate) {
-          setExistingMembership({
-            label: duplicate,
-            homeLocation: checkData?.isLocalMember ? null : checkData?.homeLocation ?? null,
-          });
-          setStepAfterAlready(target);
-          track("membership_existing_member_detected", {
-            membership_tier: plan.key,
-            cross_regional: !checkData?.isLocalMember,
-          });
-          setStep("already");
-          return;
-        }
-
-        setStep(target);
+      if (status === "new") {
+        goNewClient();
         return;
       }
 
-      // New client: collect name, phone, and card.
       track("membership_email_entered", {
         membership_tier: plan.key,
-        client_type: "new",
+        client_type: "returning",
       });
-      setClientId(null);
-      setShowNameFields(true);
-      setShowCardFields(true);
-      setCardContext("create_account");
-      setStep("details");
+      setCode("");
+      setStep("code");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
+  }
+
+  async function handleResend() {
+    if (resendIn > 0 || loading) return;
+    setError(null);
+    setCodeNotice(null);
+    setLoading(true);
+    try {
+      const status = await requestCode(normalizeEmail(email));
+      if (status === "code_sent") {
+        setCode("");
+        setCodeNotice(`New code sent to ${normalizeEmail(email)}.`);
+      } else if (status === "new") {
+        goNewClient();
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCodeSubmit(value = code) {
+    setError(null);
+    setCodeNotice(null);
+    const digits = onlyDigits(value);
+    if (digits.length !== 6) {
+      setError("Please enter the 6-digit code from your email.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch("/api/membership/verify/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: normalizeEmail(email), code: digits, ...siteBody }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setCode("");
+        setError(data?.error || "That code didn't work. Please try again.");
+        return;
+      }
+
+      if (data.status !== "verified" || !data.client) {
+        goNewClient();
+        return;
+      }
+
+      const c = data.client;
+      const existingFirst = (c.firstName ?? "").trim();
+      const existingLast = (c.lastName ?? "").trim();
+      const missingName = !existingFirst || !existingLast;
+      const missingCard = !c.hasCardOnFile;
+
+      track("membership_code_verified", {
+        membership_tier: plan.key,
+        client_type: "returning",
+      });
+
+      setClientId(String(c.id));
+      setFirstName(existingFirst);
+      setLastName(existingLast);
+      setMobilePhone((c.mobilePhone ?? "").trim());
+      setSavedLastFour(c.lastFour ?? null);
+
+      const target: Step = !missingName && !missingCard ? "confirm" : "details";
+      setShowDetailsStep(target !== "confirm");
+      setShowNameFields(missingName);
+      setShowCardFields(missingCard);
+      setCardContext(missingCard ? "add_card" : null);
+
+      const checkData = checkDataRef.current;
+      const duplicate = duplicateLabelFor(checkData);
+      if (duplicate) {
+        setExistingMembership({
+          label: duplicate,
+          homeLocation: checkData?.isLocalMember ? null : checkData?.homeLocation ?? null,
+        });
+        setStepAfterAlready(target);
+        track("membership_existing_member_detected", {
+          membership_tier: plan.key,
+          cross_regional: !checkData?.isLocalMember,
+        });
+        setStep("already");
+        return;
+      }
+
+      setStep(target);
+    } catch (err: any) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const SESSION_LOST_MESSAGE =
+    "For your security, your email confirmation expired. Please continue with your email again.";
+
+  function sessionLost(res: Response, data: any): boolean {
+    if (data?.code !== "verify_required") return false;
+    restartVerification(SESSION_LOST_MESSAGE);
+    return true;
+  }
+
+  /** Session expired / missing: back to the email step to re-verify. */
+  function restartVerification(message: string) {
+    setClientId(null);
+    setCode("");
+    setAgreeTerms(false);
+    setStep("email");
+    setError(message);
+  }
+
+  /** Returning member who wants to pay with a different card than the one on file. */
+  function switchToDifferentCard() {
+    setError(null);
+    setShowCardFields(true);
+    setCardContext("add_card");
+    setShowDetailsStep(true);
+    setStep("details");
   }
 
   /* ── step 2: account / card details ───────────────────────────── */
@@ -471,7 +603,7 @@ export default function MembershipJoinFlow({
     try {
       if (cardContext === "create_account") {
         const card = getCardPayloadFromRefs();
-        const res = await fetch("/api/mindbody/add-client-with-card", {
+        const res = await fetch("/api/membership/account/create", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -486,6 +618,7 @@ export default function MembershipJoinFlow({
           }),
         });
         const data = await res.json();
+        if (sessionLost(res, data)) return;
         if (!res.ok) {
           // Client was created but the card failed: flip to the update path
           // so the retry doesn't create a duplicate account.
@@ -501,7 +634,7 @@ export default function MembershipJoinFlow({
       } else if (showCardFields) {
         // Existing client, card missing (or previous save failed).
         const card = getCardPayloadFromRefs();
-        const res = await fetch("/api/mindbody/update-client-card", {
+        const res = await fetch("/api/membership/account/card", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -515,11 +648,12 @@ export default function MembershipJoinFlow({
           }),
         });
         const data = await res.json();
+        if (sessionLost(res, data)) return;
         if (!res.ok) throw new Error(data?.error || "We couldn't save your card.");
         setSavedLastFour(data.lastFour ?? card.cardNumber.slice(-4));
       } else {
         // Existing client with a card on file but a blank name: backfill it.
-        const res = await fetch("/api/mindbody/update-client", {
+        const res = await fetch("/api/membership/account/name", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -531,6 +665,7 @@ export default function MembershipJoinFlow({
           }),
         });
         const data = await res.json();
+        if (sessionLost(res, data)) return;
         if (!res.ok) throw new Error(data?.error || "We couldn't save your name.");
       }
 
@@ -575,7 +710,19 @@ export default function MembershipJoinFlow({
           ...siteBody,
         }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!data) {
+        // No readable answer (e.g. a gateway timeout): the charge may or may
+        // not have happened. Never invite a blind retry.
+        setPurchaseBlocked(true);
+        throw new Error(
+          "We couldn't confirm whether your membership went through. Please don't try again yet: check your email for a confirmation from Sway, or call (303) 476-6150 and we'll check for you."
+        );
+      }
+      if (sessionLost(res, data)) return;
+      if (data?.code === "in_progress" || data?.code === "uncertain") {
+        setPurchaseBlocked(true);
+      }
       if (!res.ok) {
         // Card on file missing or declined: send them straight to the card
         // step to try another card. Name/phone state is preserved.
@@ -642,6 +789,8 @@ export default function MembershipJoinFlow({
   const stepTitle =
     step === "email"
       ? "Let's find your account"
+      : step === "code"
+      ? "Check your email"
       : step === "details"
       ? cardContext === "create_account"
         ? "Create your account"
@@ -719,8 +868,10 @@ export default function MembershipJoinFlow({
                 { key: "confirm" as Step, label: "Review" },
               ] as { key: Step; label: string }[]
             ).map((s, i, steps) => {
-              const currentIdx = steps.findIndex((x) => x.key === step);
-              const isCurrent = s.key === step;
+              // The email-code screen is part of the Account step.
+              const progressStep: Step = step === "code" ? "email" : step;
+              const currentIdx = steps.findIndex((x) => x.key === progressStep);
+              const isCurrent = s.key === progressStep;
               const isPast = i < currentIdx;
               // Only the email step is safely revisitable (card inputs are
               // intentionally not kept in state, so details can't re-render
@@ -793,12 +944,85 @@ export default function MembershipJoinFlow({
                     />
                   </div>
                   <p className="text-xs text-[#113D33]/55">
-                    We&apos;ll check if you already have a Sway account. Joining
-                    takes about 2 minutes.
+                    We&apos;ll check if you already have a Sway account. If you
+                    do, we&apos;ll email you a quick code to confirm it&apos;s
+                    you. Joining takes about 2 minutes.
                   </p>
                   <button onClick={handleEmailContinue} disabled={loading} className={primaryBtn}>
                     {loading ? "Checking…" : "Continue"}
                   </button>
+                </div>
+              )}
+
+              {/* ── EMAIL CODE ── */}
+              {step === "code" && (
+                <div className="space-y-4">
+                  <p className="text-sm text-[#113D33]/70">
+                    Enter the code we sent to{" "}
+                    <span className="font-semibold text-[#113D33] break-all">
+                      {normalizeEmail(email)}
+                    </span>
+                    . It expires in 10 minutes.
+                  </p>
+                  <div>
+                    <label htmlFor="membership-code" className="block text-sm font-medium mb-1">
+                      6-digit code
+                    </label>
+                    <input
+                      id="membership-code"
+                      value={code}
+                      onChange={(e) => {
+                        const digits = onlyDigits(e.target.value).slice(0, 6);
+                        setCode(digits);
+                        // Auto-submit once complete (paste or SMS/email autofill).
+                        if (digits.length === 6 && !loading) handleCodeSubmit(digits);
+                      }}
+                      onKeyDown={(e) => e.key === "Enter" && handleCodeSubmit()}
+                      className={`${inputClass} text-center text-2xl tracking-[0.5em] font-semibold`}
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      pattern="[0-9]*"
+                      maxLength={6}
+                      aria-describedby="membership-code-help"
+                      autoFocus
+                    />
+                    <p id="membership-code-help" className="mt-1.5 text-xs text-[#113D33]/55">
+                      Can&apos;t find it? Check your spam or promotions folder.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleCodeSubmit()}
+                    disabled={loading || code.length !== 6}
+                    className={primaryBtn}
+                  >
+                    {loading ? "Checking…" : "Continue"}
+                  </button>
+                  <div className="flex items-center justify-between text-xs">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setError(null);
+                        setCodeNotice(null);
+                        setCode("");
+                        setStep("email");
+                      }}
+                      disabled={loading}
+                      className="text-[#113D33]/60 underline hover:text-[#113D33] transition"
+                    >
+                      Use a different email
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleResend}
+                      disabled={loading || resendIn > 0}
+                      className="text-[#113D33]/60 underline hover:text-[#113D33] transition disabled:no-underline disabled:opacity-60"
+                    >
+                      {resendIn > 0 ? `Send a new code in ${resendIn}s` : "Send a new code"}
+                    </button>
+                  </div>
+                  <p role="status" aria-live="polite" className="text-xs text-[#4A776D] min-h-[1em]">
+                    {codeNotice}
+                  </p>
                 </div>
               )}
 
@@ -1096,7 +1320,7 @@ export default function MembershipJoinFlow({
 
                   <button
                     onClick={handlePurchase}
-                    disabled={loading || !agreeTerms}
+                    disabled={loading || !agreeTerms || purchaseBlocked}
                     className={primaryBtn}
                   >
                     {loading ? (
@@ -1108,6 +1332,17 @@ export default function MembershipJoinFlow({
                       `Start my membership · $${plan.price}/mo`
                     )}
                   </button>
+
+                  {!showDetailsStep && savedLastFour && (
+                    <button
+                      type="button"
+                      onClick={switchToDifferentCard}
+                      disabled={loading || purchaseBlocked}
+                      className="block mx-auto text-xs text-[#113D33]/60 underline hover:text-[#113D33] transition"
+                    >
+                      Use a different card
+                    </button>
+                  )}
 
                   <p className="text-center text-[11px] text-[#113D33]/55">
                     {SPA_TIER_KEYS.includes(plan.key)

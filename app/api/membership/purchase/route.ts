@@ -3,6 +3,12 @@ import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
 import { isClubSiteId, getClubBySiteId } from "@/lib/clubLocations";
 import { sendGa4ServerEvent } from "@/lib/ga4ServerEvent";
+import {
+  NO_STORE,
+  getSession,
+  releasePurchaseLock,
+  takePurchaseLock,
+} from "@/lib/membershipVerify";
 
 export const runtime = "nodejs";
 
@@ -15,6 +21,12 @@ export const runtime = "nodejs";
  * /api/mindbody/update-client-card upstream in the join flow).
  *
  * Body: { clientId, contractId, test?, siteId? }
+ *
+ * AUTH (2026-10-01): requires the membership session cookie from
+ * /api/membership/verify/* (see lib/membershipVerify.ts). clientId must be
+ * one the session owns (email-code verified, or created in this session),
+ * at the session's site. Test mode is NOT exempt. A per-client+contract lock
+ * stops double submits from charging twice.
  * - test: true runs Mindbody's documented dry-run (validates everything,
  *   commits nothing, charges nothing). Verified live 2026-06-10.
  * - siteId: optional Mindbody site override for the Sway Wellness Club
@@ -108,6 +120,56 @@ export async function POST(req: Request) {
     );
   }
 
+  // Ownership: the session (not the browser) decides which account may be
+  // charged. Fails closed if session storage is unreachable.
+  let found;
+  try {
+    found = await getSession(req);
+  } catch {
+    console.error("[membership/purchase] session storage unavailable");
+    return NextResponse.json(
+      { error: "Something went wrong on our end. Please try again, or call (303) 476-6150 and we'll sign you up." },
+      { status: 503, headers: NO_STORE }
+    );
+  }
+  if (
+    !found ||
+    found.session.siteId !== siteId ||
+    !found.session.clientIds.includes(clientId)
+  ) {
+    console.warn("[membership/purchase] rejected: no matching verified session", {
+      hasSession: Boolean(found),
+      siteMatch: found ? found.session.siteId === siteId : null,
+    });
+    return NextResponse.json(
+      {
+        error: "For your security, please confirm your email again to continue.",
+        code: "verify_required",
+      },
+      { status: 401, headers: NO_STORE }
+    );
+  }
+
+  // Double-submit guard (real purchases only). Held for 5 minutes after a
+  // success or an uncertain result; released on a clear decline so the
+  // guest can retry with another card.
+  if (!isTest) {
+    const locked = await takePurchaseLock(siteId, clientId, contractId).catch(() => true);
+    if (!locked) {
+      return NextResponse.json(
+        {
+          error:
+            "This membership purchase is already being processed. Please check your email for a confirmation before trying again, or call (303) 476-6150.",
+          code: "in_progress",
+        },
+        { status: 409, headers: NO_STORE }
+      );
+    }
+  }
+  const release = () =>
+    isTest ? Promise.resolve() : releasePurchaseLock(siteId, clientId, contractId).catch(() => {});
+  let chargeAttempted = false;
+
   try {
     const token = await getMindbodyStaffToken(siteId);
 
@@ -133,6 +195,7 @@ export async function POST(req: Request) {
       : null;
 
     if (!lookupRes.ok || !client) {
+      await release();
       console.error("[membership/purchase] client lookup failed:", {
         clientId,
         status: lookupRes.status,
@@ -145,6 +208,7 @@ export async function POST(req: Request) {
 
     const lastFour = client.ClientCreditCard?.LastFour;
     if (!lastFour) {
+      await release();
       return NextResponse.json(
         {
           error: "No card on file for this account.",
@@ -154,6 +218,7 @@ export async function POST(req: Request) {
       );
     }
 
+    chargeAttempted = true;
     const res = await fetch(
       "https://api.mindbodyonline.com/public/v6/sale/purchasecontract",
       {
@@ -194,6 +259,7 @@ export async function POST(req: Request) {
     });
 
     if (!res.ok) {
+      await release();
       const mbMessage: string = data?.Error?.Message ?? "";
       const lowerErr = mbMessage.toLowerCase();
 
@@ -225,6 +291,7 @@ export async function POST(req: Request) {
       Array.isArray(data?.PaymentProcessingFailures) &&
       data.PaymentProcessingFailures.length > 0
     ) {
+      await release();
       console.error(
         "[membership/purchase] payment processing failures:",
         data.PaymentProcessingFailures
@@ -271,6 +338,20 @@ export async function POST(req: Request) {
     });
   } catch (err: any) {
     console.error("[membership/purchase] error:", err);
+    if (chargeAttempted && !isTest) {
+      // The charge request went out but we never got a clear answer. Keep
+      // the lock so a retry can't charge twice; the guest checks their email
+      // (Mindbody sends a confirmation on real sales) or calls the desk.
+      return NextResponse.json(
+        {
+          error:
+            "We couldn't confirm whether your membership went through. Please don't try again yet: check your email for a confirmation from Sway, or call (303) 476-6150 and we'll check for you.",
+          code: "uncertain",
+        },
+        { status: 502, headers: NO_STORE }
+      );
+    }
+    await release();
     return NextResponse.json(
       { error: err.message || "Server error" },
       { status: 500 }
