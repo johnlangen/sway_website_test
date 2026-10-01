@@ -591,7 +591,7 @@ const FacialsPage = () => {
             {[
               {
                 name: "Massages",
-                desc: "Deep Tissue, Sports, Salt Stone, and more. Customized by expert therapists with high-tech boosts.",
+                desc: "Deep Tissue, Sports, Salt Stone, and more. Customized by our specialists with high-tech boosts.",
                 href: "/massages",
               },
               {

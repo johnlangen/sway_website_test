@@ -696,7 +696,7 @@ const RemedyRoomPage = () => {
             {[
               {
                 name: "Massages",
-                desc: "Deep Tissue, Sports, CBD, and more. Customized by expert therapists with high-tech boosts.",
+                desc: "Deep Tissue, Sports, CBD, and more. Customized by our specialists with high-tech boosts.",
                 href: "/massages",
               },
               {

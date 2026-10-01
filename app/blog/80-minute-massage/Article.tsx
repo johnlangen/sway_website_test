@@ -36,7 +36,7 @@ export default function Massage80MinBlogLayout() {
           This isn’t just any massage, it’s a transformative experience designed
           to reset both your body and mind. With extended treatments,
           customizable techniques tailored to your unique needs, and expert
-          therapists who know exactly how to work on problem areas, these 80
+          specialists who know exactly how to work on problem areas, these 80
           minutes offer more than just relaxation. They provide a deep sense of
           rejuvenation that lasts beyond the treatment. You’ll feel tension melt
           away, stress levels drop, and energy begin to flow freely again.
@@ -44,7 +44,7 @@ export default function Massage80MinBlogLayout() {
 
         <p>
           Why settle for a quick fix when you can gift yourself an extended
-          reset? With extra time, your therapist can focus on stubborn knots,
+          reset? With extra time, your specialist can focus on stubborn knots,
           target multiple areas of concern, and ensure every muscle gets the
           care it deserves. It’s not just a massage, it’s an investment in your
           well-being. Make the choice to upgrade to an 80-minute massage and
@@ -81,7 +81,7 @@ export default function Massage80MinBlogLayout() {
 
         <h3 className="text-xl font-semibold">1. More Time for Problem Areas</h3>
         <p>
-          With an 80-minute treatment, our therapists have the time to truly
+          With an 80-minute treatment, our specialists have the time to truly
           focus on specific problem areas, providing targeted relief without
           rushing. This extended treatment allows for deep work on trouble spots
           plus a full-body massage.
@@ -108,7 +108,7 @@ export default function Massage80MinBlogLayout() {
         <h2 id="why-sway" className="text-2xl font-bold scroll-mt-24">Why Choose Sway?</h2>
         <p>
           At Sway Wellness Spa, self-care isn’t a luxury, it’s a necessity. From
-          transparent pricing to expert therapists and holistic services, we
+          transparent pricing to expert specialists and holistic services, we
           make sure your wellness journey is simple and restorative.
         </p>
 
@@ -169,7 +169,7 @@ export default function Massage80MinBlogLayout() {
                 name: "Why is an 80-minute massage better than a 60-minute massage?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "An 80-minute massage gives your therapist significantly more time to address specific problem areas without rushing, while still providing a thorough full-body treatment. The extra 20 minutes allow for deeper work on stubborn knots and multiple areas of concern. At Sway Wellness Spa, the 80-minute session also includes specialty techniques like Deep Tissue, CBD Massage, Sports Recovery, and Salt Stone Therapy at no extra charge.",
+                  text: "An 80-minute massage gives your specialist significantly more time to address specific problem areas without rushing, while still providing a thorough full-body treatment. The extra 20 minutes allow for deeper work on stubborn knots and multiple areas of concern. At Sway Wellness Spa, the 80-minute session also includes specialty techniques like Deep Tissue, CBD Massage, Sports Recovery, and Salt Stone Therapy at no extra charge.",
                 },
               },
               {
@@ -177,7 +177,7 @@ export default function Massage80MinBlogLayout() {
                 name: "What massage techniques are included in an 80-minute session at Sway?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Sway Wellness Spa includes specialty techniques at no additional cost with every 80-minute massage. Options include Deep Tissue for chronic tension, CBD Massage for inflammation and relaxation, Sports Recovery for athletic performance, and Himalayan Salt Stone Therapy for mineral-rich deep relaxation. Your therapist will customize the session based on your specific needs and preferences.",
+                  text: "Sway Wellness Spa includes specialty techniques at no additional cost with every 80-minute massage. Options include Deep Tissue for chronic tension, CBD Massage for inflammation and relaxation, Sports Recovery for athletic performance, and Himalayan Salt Stone Therapy for mineral-rich deep relaxation. Your specialist will customize the session based on your specific needs and preferences.",
                 },
               },
               {

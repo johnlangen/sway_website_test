@@ -33,7 +33,7 @@ const TREATMENTS = [
     title: "Massage",
     tagline: "Deep Tissue, Sports, CBD & more",
     description:
-      "Expert therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50–90 minutes, fully customized.",
+      "Our specialists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50–90 minutes, fully customized.",
     price: "From $139",
     memberPrice: "From $99",
     image: "/assets/massage3.jpg",

@@ -129,8 +129,8 @@ const MASSAGE_BOOSTS: Boost[] = [
   { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery, especially effective for the back, shoulders, and neck." },
   { id: 91, name: "PEMF Boost", type: "boost", family: "pemf", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Electromagnetic field therapy for recovery.", fullDescription: "Pulsed Electromagnetic Field therapy uses low-frequency electromagnetic waves to stimulate cellular repair, reduce inflammation, and accelerate recovery. Applied during your massage, PEMF enhances circulation and helps your body heal at a deeper level." },
   // Boost Plus — $20 member / $40 drop-in, +10 min
-  { id: 112, name: "CBD Boost Plus", type: "boost_plus", family: "causemedic", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended CBD muscle cream treatment for deeper recovery.", fullDescription: "An extended CBD muscle cream session with additional time for your therapist to work the active ingredients into multiple areas. The extra duration allows for more thorough application across back, legs, and shoulders for comprehensive relief." },
-  { id: 114, name: "Cupping Boost Plus", type: "boost_plus", family: "cupping", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended cupping therapy for full-body tension release.", fullDescription: "An extended cupping session covering more areas of the body. The additional time allows your therapist to address the full back, shoulders, and legs, ideal for athletes or anyone carrying significant tension across multiple muscle groups." },
+  { id: 112, name: "CBD Boost Plus", type: "boost_plus", family: "causemedic", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended CBD muscle cream treatment for deeper recovery.", fullDescription: "An extended CBD muscle cream session with additional time for your specialist to work the active ingredients into multiple areas. The extra duration allows for more thorough application across back, legs, and shoulders for comprehensive relief." },
+  { id: 114, name: "Cupping Boost Plus", type: "boost_plus", family: "cupping", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended cupping therapy for full-body tension release.", fullDescription: "An extended cupping session covering more areas of the body. The additional time allows your specialist to address the full back, shoulders, and legs, ideal for athletes or anyone carrying significant tension across multiple muscle groups." },
 ];
 
 /* ----------------------------------------------------------------
@@ -1037,7 +1037,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 {step === "category" ? "" :
                  step === "treatment" ? "" :
                  step === "boosts" ? "Customize with boosts" :
-                 step === "time" ? "Pick your therapist & time" :
+                 step === "time" ? "Pick your specialist & time" :
                  step === "account" ? (cardContext ? (cardContext === "create_account" ? "Create your account" : "Payment details") : "Your account") :
                  step === "name" ? "Confirm your name" :
                  step === "confirm" ? "Review and confirm" :
@@ -1301,7 +1301,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 <>
                   <p className="text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4">
                     {category === "massage"
-                      ? "Expert therapists, personalized pressure, total relaxation."
+                      ? "Skilled specialists, personalized pressure, total relaxation."
                       : "Personalized, result-driven facials designed to support healthy, radiant skin, customized by your esthetician."}
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-2">
@@ -1683,9 +1683,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* Therapist filter */}
             {allTherapists.length >= 1 && (
               <div className="text-center">
-                <p className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/60 mb-2">Therapist</p>
+                <p className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[#113D33]/60 mb-2">Specialist</p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  <button aria-pressed={filteredTherapist === null} onClick={() => setFilteredTherapist(null)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === null ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>All therapists</button>
+                  <button aria-pressed={filteredTherapist === null} onClick={() => setFilteredTherapist(null)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === null ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>All specialists</button>
                   {allTherapists.map((t) => (<button aria-pressed={filteredTherapist === t.id} key={t.id} onClick={() => setFilteredTherapist(t.id)} className={`px-4 py-2 rounded-full text-sm font-semibold transition ${filteredTherapist === t.id ? "bg-[#113D33] text-white" : "bg-white text-[#113D33] border border-[#113D33]/15 hover:border-[#113D33]/30"}`}>{t.name}</button>))}
                 </div>
               </div>
@@ -1708,7 +1708,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div role="status" className="text-center py-12 text-[#113D33]/65">Loading availability...</div>
             : displayedSlots.length === 0 ? <div role="status" className="text-center py-12 text-[#113D33]/65">
               <p>No availability on this date.</p>
-              <p className="text-xs mt-1">Try another date or therapist.</p>
+              <p className="text-xs mt-1">Try another date or specialist.</p>
               <p className="mt-4 text-xs text-[#113D33]/40">
                 <Link href={remedyPath} className="underline hover:text-[#4A776D] transition">Explore the Remedy Lounge</Link>. Sauna, cold plunge & more
               </p>
@@ -1903,7 +1903,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 {selectedSlot.staffName && filteredTherapist && (
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-[#113D33]/10 flex items-center justify-center"><span className="text-sm font-semibold text-[#113D33]">{selectedSlot.staffName.charAt(0)}</span></div>
-                    <div><p className="text-[10px] uppercase tracking-wider text-[#113D33]/60">{category === "facial" ? "Esthetician" : "Therapist"}</p><p className="text-sm font-medium text-[#113D33]">{selectedSlot.staffName}</p></div>
+                    <div><p className="text-[10px] uppercase tracking-wider text-[#113D33]/60">{category === "facial" ? "Esthetician" : "Specialist"}</p><p className="text-sm font-medium text-[#113D33]">{selectedSlot.staffName}</p></div>
                   </div>
                 )}
 

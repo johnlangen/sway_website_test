@@ -73,7 +73,7 @@ export default function SummerPrepGuideBlogLayout() {
           your body feeling sculpted and refreshed.
         </p>
         <p>
-          At Sway, our licensed therapists ensure you see noticeable results.
+          At Sway, our licensed specialists ensure you see noticeable results.
           According to the Cleveland Clinic, lymphatic massage can boost
           circulation, reduce swelling, and improve skin radiance.
         </p>
@@ -175,7 +175,7 @@ export default function SummerPrepGuideBlogLayout() {
                 name: "What are the benefits of lymphatic drainage massage before summer?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Lymphatic drainage massage flushes out excess water retention, improves blood circulation, reduces swelling, and leaves your body feeling lighter and more sculpted. It supports your immune system and enhances skin radiance by promoting the natural removal of toxins. Getting lymphatic drainage before summer helps you feel more confident and look your best for beach days and outdoor activities. Licensed therapists at Sway Wellness Spa provide this therapeutic treatment with noticeable results.",
+                  text: "Lymphatic drainage massage flushes out excess water retention, improves blood circulation, reduces swelling, and leaves your body feeling lighter and more sculpted. It supports your immune system and enhances skin radiance by promoting the natural removal of toxins. Getting lymphatic drainage before summer helps you feel more confident and look your best for beach days and outdoor activities. Licensed specialists at Sway Wellness Spa provide this therapeutic treatment with noticeable results.",
                 },
               },
             ],

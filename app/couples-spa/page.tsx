@@ -88,7 +88,7 @@ export default function CouplesSpaPage() {
                 massage
               </Link>{" "}
               treatments at the same time. You&apos;ll each have your own
-              therapist in private rooms right next to each other, and you
+              specialist in private rooms right next to each other, and you
               don&apos;t have to pick the same type, one of you can get a
               Deep Tissue while the other gets a Salt Stone.
             </p>

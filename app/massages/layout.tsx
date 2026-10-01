@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "Massage Therapy in Denver | Sway Wellness Spa" },
   description:
-    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, Salt Stone, and Lymphatic Drainage across Essential, Premier, and Ultimate tiers, all customized by expert therapists.",
+    "Explore massage therapy at Sway, a modern wellness club in Denver. Choose from Deep Tissue, Sports, Salt Stone, and Lymphatic Drainage across Essential, Premier, and Ultimate tiers, all customized by skilled specialists.",
   alternates: {
     canonical: "https://swaywellnessspa.com/massages/",
   },
@@ -60,7 +60,7 @@ const faqJsonLd = {
       name: "What makes Sway's massages different?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway's massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, compression therapy) and results-driven facials with Eminence Organics are all available under one roof.",
+        text: "Sway's massage specialists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like CBD, cupping, and PEMF at Boost and Boost Plus tiers. After your session, the Remedy Room (sauna, cold plunge, compression therapy) and results-driven facials with Eminence Organics are all available under one roof.",
       },
     },
     {

@@ -273,7 +273,7 @@ export default function BestDaySpaLayout() {
           Year two is about going deeper. More treatments, more technology, and
           more ways to make wellness a consistent part of your life. We&apos;re
           continuing to invest in the things that earned this ranking: expert
-          therapists, high-tech tools, and a space that feels genuinely different
+          specialists, high-tech tools, and a space that feels genuinely different
           from anything else in Denver.
         </p>
         <p>
