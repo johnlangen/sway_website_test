@@ -276,7 +276,7 @@ export default function Page() {
         name: "Is Sway one of the best spas in Denver?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best two years in a row (2025 and 2026). It's located on Larimer Square in downtown Denver and offers 18 massage types, 13 facial treatments across 3 tiers, the Remedy Room recovery circuit, and AI-powered Aescape robot massage.",
+          text: "Yes. Sway was ranked #4 Best Day Spa in the entire United States by USA Today 10Best two years in a row (2025 and 2026). It's located on Larimer Square in downtown Denver and offers 13 massage types, 11 facial treatments across 3 tiers, the Remedy Room recovery circuit, and AI-powered Aescape robot massage.",
         },
       },
       {

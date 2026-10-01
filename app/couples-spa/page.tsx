@@ -132,7 +132,7 @@ export default function CouplesSpaPage() {
               >
                 facials
               </Link>{" "}
-              at the same time for a shared glow-up. 13 facial treatments across 3 tiers, from
+              at the same time for a shared glow-up. 11 facial treatments across 3 tiers, from
               $99/person member · $139/person drop-in (Essential). Premier and
               Ultimate tiers also available.
             </p>

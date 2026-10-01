@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "Treatments | Massage, Facials, Recovery & Aescape at Sway" },
   description:
-    "18 massages, 13 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage, plus boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
+    "13 massages, 11 facials across 3 tiers, Remedy Room recovery circuit, and Aescape AI robot massage, plus boost add-ons. Member pricing from $99. Sway Wellness Spa, Denver.",
   alternates: {
     canonical: "https://swaywellnessspa.com/treatments/",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/treatments/",
     title: "Treatments | Massage, Facials, Recovery & Aescape at Sway",
     description:
-      "18 massages, 13 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage. Member pricing from $99 at Sway in Denver.",
+      "13 massages, 11 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage. Member pricing from $99 at Sway in Denver.",
     images: [
       {
         url: "/assets/OG/og-treatments.jpg",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Treatments | Massage, Facials, Recovery & Aescape at Sway",
     description:
-      "18 massages, 13 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage at Sway Wellness Spa in Denver.",
+      "13 massages, 11 facials across 3 tiers, Remedy Room recovery, and Aescape AI robot massage at Sway Wellness Spa in Denver.",
     images: ["/assets/OG/og-treatments.jpg"],
   },
   robots: { index: true, follow: true },
@@ -69,7 +69,7 @@ export default function TreatmentsLayout({
         "@type": "OfferCatalog",
         name: "Massage Therapy",
         description:
-          "18 massage types across 3 tiers: Essential, Premier, and Ultimate. 50–90 minutes.",
+          "13 massage types across 3 tiers: Essential, Premier, and Ultimate. 50–90 minutes.",
         url: "https://swaywellnessspa.com/massages/",
         numberOfItems: 18,
         itemListElement: [
@@ -106,7 +106,7 @@ export default function TreatmentsLayout({
         "@type": "OfferCatalog",
         name: "Facial Treatments",
         description:
-          "13 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 50–60 minutes. Powered by Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial.",
+          "11 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 50–60 minutes. Powered by Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial.",
         url: "https://swaywellnessspa.com/facials/",
         numberOfItems: 13,
         itemListElement: [
@@ -199,7 +199,7 @@ export default function TreatmentsLayout({
         name: "What treatments does Sway Wellness Spa offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway offers four treatment categories: 18 massage types across 3 tiers (Essential, Premier, Ultimate), 13 facial treatments across 3 tiers, the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape AI-powered robot massage. Plus boost add-ons.",
+          text: "Sway offers four treatment categories: 13 massage types across 3 tiers (Essential, Premier, Ultimate), 11 facial treatments across 3 tiers, the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy), and Aescape AI-powered robot massage. Plus boost add-ons.",
         },
       },
       {

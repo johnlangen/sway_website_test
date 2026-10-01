@@ -291,8 +291,8 @@ export default function BlogContent() {
             1428 Larimer St. on Larimer Square in Denver, CO. {blogs.length}{" "}
             articles covering massage therapy, skincare, recovery science,
             wellness technology, seasonal self-care, and Denver lifestyle.
-            Written by the Sway Wellness Team. Sway offers 18 massage types,
-            13 facial treatments across 3 tiers, the Remedy Room recovery
+            Written by the Sway Wellness Team. Sway offers 13 massage types,
+            11 facial treatments across 3 tiers, the Remedy Room recovery
             circuit, and AI-powered Aescape robot massage. Voted #4 Best Day Spa in America by USA
             Today 10Best. Book at swaywellnessspa.com or call (303) 476-6150.
           </p>

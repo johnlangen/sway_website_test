@@ -248,7 +248,7 @@ export default function GroupEventsPage() {
                 </p>
                 <p className="text-sm text-gray-700">
                   50–60 min · From $99/person member · $139/person drop-in
-                  (Essential). 13 treatments across 3 tiers.
+                  (Essential). 11 treatments across 3 tiers.
                 </p>
               </div>
             </li>

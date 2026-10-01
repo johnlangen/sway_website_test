@@ -184,7 +184,7 @@ export default function SwayLarimerPage() {
               in downtown Denver, CO 80202. Voted #4 Best Day Spa in America by
               USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 18
               massage types across 3 tiers (from $99 member, $139 drop-in),
-              13 facial treatments across 3 tiers using Eminence Organics and
+              11 facial treatments across 3 tiers using Eminence Organics and
               Dr. Dennis Gross (from $99 member, $139 drop-in), the Remedy Room
               40-minute recovery circuit with 4 modalities: sauna,
               cold plunge, compression therapy, and LED light therapy (from

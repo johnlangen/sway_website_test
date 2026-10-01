@@ -98,7 +98,7 @@ export default function DateNightPage() {
               <h3 className="text-lg font-bold">Massage</h3>
               <p className="text-sm text-gray-700">
                 Sessions for two at the same time, 50–90 minutes, in private
-                rooms right next to each other. Choose from 18 massage types
+                rooms right next to each other. Choose from 13 massage types
                 across Essential, Premier, and Ultimate tiers.
               </p>
               <p className="text-sm font-semibold">
@@ -114,7 +114,7 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Facial</h3>
               <p className="text-sm text-gray-700">
-                Facials for two, 50–60 minutes. Choose from 13 facial treatments
+                Facials for two, 50–60 minutes. Choose from 11 facial treatments
                 across Essential, Premier, and Ultimate tiers.
               </p>
               <p className="text-sm font-semibold">

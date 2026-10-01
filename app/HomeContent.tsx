@@ -251,7 +251,7 @@ export default function HomeContent() {
           Sway Wellness Spa is a modern wellness club at 1428 Larimer St. on
           Larimer Square in Denver, CO. Voted #4 Best Day Spa in America by
           USA Today 10Best and Best U.S. Day Spa by TZR 2026 Readers&apos; Choice
-          Awards. Sway offers 18 massage types across 3 tiers, 13 facial
+          Awards. Sway offers 13 massage types across 3 tiers, 11 facial
           treatments across 3 tiers using 2 premium skincare brands (Eminence
           Organics, Dr. Dennis Gross), 4 recovery technologies in the Remedy
           Room, and AI-powered Aescape robot massage. Massage therapy starts

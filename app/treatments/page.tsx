@@ -21,7 +21,7 @@ type Treatment = {
 const treatments: Treatment[] = [
   {
     name: "Massages",
-    tagline: "3 tiers · 18 treatments",
+    tagline: "3 tiers · 13 treatments",
     description:
       "Signature, Deep Tissue, Sports, Salt Stone, Lymphatic Drainage, Maternity and more. 50 to 90 minutes across Essential, Premier, and Ultimate tiers.",
     image: "/assets/homepage-massage.jpg",
@@ -30,7 +30,7 @@ const treatments: Treatment[] = [
   },
   {
     name: "Facials",
-    tagline: "3 tiers · 13 treatments",
+    tagline: "3 tiers · 11 treatments",
     description:
       "Anti-aging, acne, hydration, sensitive skin, and brightening facials with dermapore technology, LED, microcurrent, and oxygen infusion. 50 to 60 minutes.",
     image: "/assets/facialExperiences.jpg",
@@ -115,9 +115,9 @@ export default function TreatmentsPage() {
 
           <p className="sr-only">
             Sway Wellness Spa treatments across 3 membership tiers: Essential,
-            Premier, and Ultimate. 18 massage types including Signature, Deep
+            Premier, and Ultimate. 13 massage types including Signature, Deep
             Tissue, Sports, Salt Stone, Lymphatic Drainage, and Maternity
-            (50 to 90 minutes). 13 facial treatments including
+            (50 to 90 minutes). 11 facial treatments including
             Forever Young Anti-Aging, Pore Perfection Acne, Glow Getter
             Hydration, Sensitive Silk, Dr. Dennis Gross Vitamin C, Illuminate
             LED, Oxygen Infusion, Sculpt &amp; Lift Microcurrent, and Hydraderm
