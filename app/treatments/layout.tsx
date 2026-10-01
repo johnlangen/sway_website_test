@@ -106,7 +106,7 @@ export default function TreatmentsLayout({
         "@type": "OfferCatalog",
         name: "Facial Treatments",
         description:
-          "13 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 30–60 minutes. Powered by Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial.",
+          "13 facial treatments across 3 tiers: Essential, Premier, and Ultimate. 50–60 minutes. Powered by Eminence Organics, plus a dedicated Dr. Dennis Gross Vitamin C facial.",
         url: "https://swaywellnessspa.com/facials/",
         numberOfItems: 13,
         itemListElement: [
@@ -207,7 +207,7 @@ export default function TreatmentsLayout({
         name: "How long are treatments at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Massages range from 50 to 90 minutes depending on the tier. Facials range from 30 to 60 minutes. The Remedy Room is a guided 40-minute circuit. Aescape robot massage sessions run 15, 30, 45, or 60 minutes.",
+          text: "Massages range from 50 to 90 minutes depending on the tier. Facials range from 50 to 60 minutes. The Remedy Room is a guided 40-minute circuit. Aescape robot massage sessions run 15, 30, 45, or 60 minutes.",
         },
       },
       {

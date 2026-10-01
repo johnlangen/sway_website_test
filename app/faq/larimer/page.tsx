@@ -117,16 +117,38 @@ export default function SwayLarimerFAQPage() {
             {
               question: "Where is the best place to park?",
               answer: (
-                <p>
-                  Sway is located in <strong>Larimer Square</strong>, Denver’s most
-                  historic block and a pedestrian-only street with no cars. We
-                  validate parking for the 1st hour at the Larimer Square Parking
-                  Garage <strong>on weekdays</strong>. After the first hour, you are
-                  responsible for parking. The rate after the first hour will be $2
-                  every 10 minutes. <br />
-                  <strong>Parking Address:</strong> 1422 Market Street, Denver CO
-                  80202
-                </p>
+                <div className="space-y-3">
+                  <p>
+                    Sway is located in <strong>Larimer Square</strong>, Denver’s
+                    most historic block and a pedestrian-only street with no cars.
+                    The <strong>Larimer Square Parking Garage</strong> is open
+                    24/7 and is the easiest option. We validate the 1st hour{" "}
+                    <strong>on weekdays</strong>.
+                  </p>
+                  <p>
+                    <strong>Parking Address:</strong> 1422 Market Street, Denver CO
+                    80202. The garage entrance is on Market Street, on the right
+                    side as you pass the intersection of 14th and Market.
+                  </p>
+                  <div>
+                    <p className="font-semibold">Day rates</p>
+                    <ul className="list-disc pl-5">
+                      <li>Monday to Friday, 5 AM to 5 PM: $2 per 10 minutes ($24 max)</li>
+                      <li>Saturday, 5 AM to 5 PM: $10 flat</li>
+                      <li>Sunday, all day: $10 flat</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Night rates</p>
+                    <ul className="list-disc pl-5">
+                      <li>Monday to Thursday, 5 PM to 5 AM: $10 flat</li>
+                      <li>Friday, 5 PM to 5 AM: $30 flat</li>
+                    </ul>
+                  </div>
+                  <p className="text-sm opacity-80">
+                    Garage rates are set by the garage and can change.
+                  </p>
+                </div>
               ),
             },
             {
@@ -154,7 +176,7 @@ export default function SwayLarimerFAQPage() {
             },
             {
               question: "Do you have showers at your Spa?",
-              answer: <p>Yes, we have showers available for guest use.</p>,
+              answer: <p>Yes, we have one shower available for guest use.</p>,
             },
             {
               question: "Is there a place to store my belongings at your Spa?",
@@ -265,11 +287,30 @@ export default function SwayLarimerFAQPage() {
             {
               question: "I would like to enjoy services with my teen. What is your Minor Policy?",
               answer: (
-                <p>
-                  Please call the Spa for more information. Note that a Minor Policy
-                  Intake Form must be completed by the parent or legal guardian of
-                  any minor.
-                </p>
+                <div className="space-y-3">
+                  <p>
+                    We welcome teens with a parent or legal guardian&apos;s consent.
+                    Before any treatment, a parent or legal guardian must complete
+                    and sign our Minor Consent Form.
+                  </p>
+                  <ul className="list-disc pl-5">
+                    <li>Under 12: not eligible for spa treatments.</li>
+                    <li>
+                      Ages 12 to 15: select facials and massages with signed
+                      consent. A parent or guardian must stay on site and be in
+                      the treatment room.
+                    </li>
+                    <li>
+                      Ages 16 to 17: approved treatments with signed consent. A
+                      parent or guardian is encouraged to stay on site.
+                    </li>
+                    <li>Aescape robot massage is for guests 18 and older.</li>
+                  </ul>
+                  <p>
+                    Please call the Spa at <strong>303-476-6150</strong> before
+                    booking so we can help choose the right treatment.
+                  </p>
+                </div>
               ),
             },
           ]}
@@ -282,7 +323,12 @@ export default function SwayLarimerFAQPage() {
               question: "If I want to book a Spalebration, who should I contact?",
               answer: (
                 <p>
-                  For booking a Spalebration, please reach out to us at{" "}
+                  A Spalebration is a group spa celebration for 4 or more guests:
+                  bachelorettes, birthdays, bridal parties, and more. See our{" "}
+                  <a href="/group-events" className="underline">
+                    group events page
+                  </a>{" "}
+                  for ideas. To book a Spalebration, please reach out to us at{" "}
                   <a
                     href="mailto:contact@swaywellnessspa.com"
                     className="underline"

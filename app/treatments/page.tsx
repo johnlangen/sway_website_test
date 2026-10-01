@@ -32,7 +32,7 @@ const treatments: Treatment[] = [
     name: "Facials",
     tagline: "3 tiers · 13 treatments",
     description:
-      "Anti-aging, acne, hydration, sensitive skin, and brightening facials with dermapore technology, LED, microcurrent, and oxygen infusion. 30 to 60 minutes.",
+      "Anti-aging, acne, hydration, sensitive skin, and brightening facials with dermapore technology, LED, microcurrent, and oxygen infusion. 50 to 60 minutes.",
     image: "/assets/facialExperiences.jpg",
     mobileImage: "/assets/facialExperiencesMobile.jpg",
     learnHref: "/facials",
@@ -121,7 +121,7 @@ export default function TreatmentsPage() {
             Forever Young Anti-Aging, Pore Perfection Acne, Glow Getter
             Hydration, Sensitive Silk, Dr. Dennis Gross Vitamin C, Illuminate
             LED, Oxygen Infusion, Sculpt &amp; Lift Microcurrent, and Hydraderm
-            (30 to 60 minutes). 4 recovery technologies in the Remedy Room (sauna,
+            (50 to 60 minutes). 4 recovery technologies in the Remedy Room (sauna,
             cold plunge, compression therapy, LED light therapy, 40 minutes).
             Aescape AI-powered robot massage at select locations (15 to 60
             minute sessions). 7 boost add-ons: Dermaflash, LED light

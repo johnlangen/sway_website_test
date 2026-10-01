@@ -193,7 +193,7 @@ export default function CouplesSpaPage() {
           <h2 className="text-2xl font-bold">Add a Boost</h2>
           <p>
             Enhance any treatment with add-ons: LED light therapy, microcurrent
-            lift, oxygen infusion, scalp massage, and more. Members save 50% on
+            lift, oxygen infusion, cupping, and more. Members save 50% on
             all{" "}
             <Link
               href="/treatments"
@@ -264,7 +264,10 @@ export default function CouplesSpaPage() {
             </div>
           </div>
           <p className="text-sm text-gray-500">
-            1st hour parking validated at Larimer Square Garage (1422 Market St.)
+            1st hour parking validated on weekdays at Larimer Square Garage (1422 Market St.).{" "}
+            <Link href="/faq/larimer" className="underline">
+              Parking details
+            </Link>
           </p>
         </section>
       </div>

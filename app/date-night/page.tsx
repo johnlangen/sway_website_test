@@ -114,7 +114,7 @@ export default function DateNightPage() {
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
               <h3 className="text-lg font-bold">Facial</h3>
               <p className="text-sm text-gray-700">
-                Facials for two, 30–60 minutes. Choose from 13 facial treatments
+                Facials for two, 50–60 minutes. Choose from 13 facial treatments
                 across Essential, Premier, and Ultimate tiers.
               </p>
               <p className="text-sm font-semibold">
@@ -172,7 +172,7 @@ export default function DateNightPage() {
               boost
             </Link>{" "}
             to any treatment, LED light therapy, microcurrent, oxygen infusion,
-            scalp massage, and more. Members save 50% on all boosts.
+            cupping, and more. Members save 50% on all boosts.
           </p>
         </section>
 
@@ -283,7 +283,7 @@ export default function DateNightPage() {
             <div>
               <p className="font-semibold mb-1">Location & Parking</p>
               <p>1428 Larimer St., Denver, CO 80202</p>
-              <p>1st hour parking validated at Larimer Square Garage</p>
+              <p>1st hour parking validated on weekdays at Larimer Square Garage (<Link href="/faq/larimer" className="underline">parking details</Link>)</p>
               <p>(303) 476-6150</p>
             </div>
           </div>

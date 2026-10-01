@@ -70,7 +70,7 @@ const PRICING_CARDS = [
     items: ["Forever Young", "Glow Getter", "Pore Perfection", "Sensitive Silk"],
     memberPrice: "From $99",
     dropInPrice: "From $139",
-    duration: "30–60 min",
+    duration: "50–60 min",
     boosts: [
       { label: "Boost", member: "$10", dropIn: "$20" },
       { label: "Boost Plus", member: "$20", dropIn: "$40" },

@@ -386,7 +386,7 @@ const faqJsonLd = {
       name: "Where should I park when visiting Sway Larimer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Larimer is located on Larimer Square in downtown Denver. We validate parking for the 1st hour on weekdays at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). After the first hour, the rate is $2 every 10 minutes.",
+        text: "Sway Larimer is located on Larimer Square in downtown Denver. We validate parking for the 1st hour on weekdays at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). The garage is open 24/7; on weekdays the daytime rate after that is $2 every 10 minutes.",
       },
     },
     {
@@ -513,7 +513,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 2,
       name: "Park at the Larimer Square Garage",
-      text: "Park at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). Sway validates your first hour of parking. After the first hour, the rate is $2 every 10 minutes.",
+      text: "Park at the Larimer Square Parking Garage (1422 Market Street, Denver CO 80202). Sway validates your first hour of parking. The garage is open 24/7; on weekdays the daytime rate after that is $2 every 10 minutes.",
     },
     {
       "@type": "HowToStep",
@@ -525,13 +525,13 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 4,
       name: "Enjoy Your Treatment",
-      text: "Your massage specialist or esthetician will guide your session. Massages range from 50 to 90 minutes and facials from 30 to 60 minutes depending on the tier. The Remedy Room is a guided 40-minute recovery circuit through sauna, cold plunge, compression therapy, and LED light therapy. Aescape robot massage sessions are 15, 30, 45, or 60 minutes.",
+      text: "Your massage specialist or esthetician will guide your session. Massages range from 50 to 90 minutes and facials from 50 to 60 minutes depending on the tier. The Remedy Room is a guided 40-minute recovery circuit through sauna, cold plunge, compression therapy, and LED light therapy. Aescape robot massage sessions are 15, 30, 45, or 60 minutes.",
     },
     {
       "@type": "HowToStep",
       position: 5,
       name: "Add a Boost (Optional)",
-      text: "Enhance your treatment with a boost add-on. Options include LED light therapy, microcurrent, oxygen infusion, scalp massage, and more. Members save 50% on all boosts.",
+      text: "Enhance your treatment with a boost add-on. Options include LED light therapy, microcurrent, oxygen infusion, cupping, and more. Members save 50% on all boosts.",
     },
     {
       "@type": "HowToStep",

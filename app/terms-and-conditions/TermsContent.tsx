@@ -69,9 +69,11 @@ export default function TermsContent() {
         Cancellations and Refunds
       </h2>
       <p className="mb-6">
-        You may cancel services booked through our website according to the
-        cancellation policy provided at the time of booking. Refunds, if
-        applicable, will be processed within [X] business days.
+        To cancel or reschedule an appointment, call the spa at (303) 476-6150
+        or email contact@swaywellnessspa.com. We require at least 24 hours&apos;
+        notice. Cancellations within 24 hours and no-shows are subject to a fee
+        of 50% of the scheduled treatment price. For members, a late
+        cancellation or no-show uses that month&apos;s treatment instead.
       </p>
 
       <h2 className="text-xl md:text-2xl font-semibold mt-10 mb-2">

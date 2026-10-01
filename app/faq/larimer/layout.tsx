@@ -66,7 +66,7 @@ const faqJsonLd = {
       name: "Where is the best place to park at Sway Larimer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway is located in Larimer Square, Denver's most historic block. We validate parking for the 1st hour on weekdays at the Larimer Square Parking Garage at 1422 Market Street, Denver CO 80202. After the first hour, the rate is $2 every 10 minutes.",
+        text: "Sway is located in Larimer Square, Denver's most historic block. Park at the Larimer Square Parking Garage, open 24/7 at 1422 Market Street, Denver CO 80202. The entrance is on Market Street, on the right as you pass 14th and Market. We validate the 1st hour on weekdays. Day rates: Monday to Friday 5 AM to 5 PM, $2 per 10 minutes ($24 max); Saturday 5 AM to 5 PM, $10 flat; Sunday all day, $10 flat. Night rates: Monday to Thursday 5 PM to 5 AM, $10 flat; Friday 5 PM to 5 AM, $30 flat.",
       },
     },
     {
@@ -114,7 +114,7 @@ const faqJsonLd = {
       name: "How do I book a Spalebration or office party at Sway?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "For booking a Spalebration or office party, please reach out to us at contact@swaywellnessspa.com. We would love to host you and your guests!",
+        text: "A Spalebration is a group spa celebration for 4 or more guests, like a bachelorette, birthday, or bridal party. To book a Spalebration or office party, please reach out to us at contact@swaywellnessspa.com. We would love to host you and your guests!",
       },
     },
   ],

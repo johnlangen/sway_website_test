@@ -8,6 +8,7 @@ import Image from "next/image";
 import NextAvailableBanner from "../NextAvailableBanner";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
+import { LarimerParkingNote } from "@/app/components/LarimerParkingNote";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 
@@ -2229,9 +2230,11 @@ export default function BookRemedyRoomPage() {
                 </p>
               )}
 
-              <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
-                Please bring a swimsuit or athleisure. Check your email for confirmation details.
+              <p className="text-[#113D33]/65 text-sm mt-4 mb-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+                Please arrive 15 minutes early and bring a swimsuit or athleisure. Check your email for confirmation details.
               </p>
+
+              <LarimerParkingNote className="mb-8 animate-fade-in-up" />
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>

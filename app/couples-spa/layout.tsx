@@ -59,7 +59,7 @@ const faqJsonLd = {
       name: "What couples spa experiences does Sway offer besides massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Beyond couples massage, Sway offers couples facials (HydraFacial, Forever Young, Glow Getter, and more), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy at $25 member / $49 drop-in), and Aescape AI-powered robot massage starting at $49. Boost add-ons like LED therapy and scalp massage are also available.",
+        text: "Beyond couples massage, Sway offers couples facials (Hydraderm, Forever Young, Glow Getter, and more), the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy at $25 member / $49 drop-in), and Aescape AI-powered robot massage starting at $49. Boost add-ons like LED therapy and cupping are also available.",
       },
     },
     {
@@ -75,7 +75,7 @@ const faqJsonLd = {
       name: "Where is Sway Wellness Spa located?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway is at 1428 Larimer St. on Larimer Square in downtown Denver, CO 80202. Parking is validated for the first hour at the Larimer Square Parking Garage (1422 Market Street). The spa is walkable from Union Station and surrounded by fine dining and cocktail bars.",
+        text: "Sway is at 1428 Larimer St. on Larimer Square in downtown Denver, CO 80202. Parking is validated for the first hour on weekdays at the Larimer Square Parking Garage (1422 Market Street). The spa is walkable from Union Station and surrounded by fine dining and cocktail bars.",
       },
     },
   ],

@@ -39,8 +39,8 @@ export default function GroupEventsPage() {
             Group Events &amp; Spa Parties
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Bachelorettes, birthdays, team outings, and celebrations,
-            on Larimer Square.
+            Spalebrations for bachelorettes, bridal parties, birthdays, team
+            outings, and celebrations, on Larimer Square.
           </p>
           <div className="mt-8">
             <a
@@ -128,6 +128,88 @@ export default function GroupEventsPage() {
           </div>
         </section>
 
+        {/* Spalebrations + bridal menu */}
+        <section id="spalebrations" className="space-y-6">
+          <div className="space-y-3">
+            <h2 className="text-2xl font-bold">What&apos;s a Spalebration?</h2>
+            <p>
+              A Spalebration is our group spa celebration for 4 or more guests.
+              Most groups follow the same easy flow: everyone gets one
+              treatment, and everyone spends time together in the{" "}
+              <Link
+                href="/remedy-tech"
+                className="underline text-[#113D33] font-semibold"
+              >
+                Remedy Room
+              </Link>
+              . We rotate small groups through treatment rooms and the Remedy
+              Room, so a party of 8 to 9 usually takes about 2 to 3 hours.
+              Planning something bigger? Reach out and we&apos;ll map it out
+              with you.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-5">
+            <h3 className="text-xl font-bold">Suggested Bridal Party Menu</h3>
+            <ul className="space-y-4">
+              <li>
+                <p className="font-semibold">For the bride</p>
+                <p className="text-sm text-gray-700">
+                  The{" "}
+                  <Link
+                    href="/facials"
+                    className="underline text-[#113D33] font-semibold"
+                  >
+                    Glow Getter Hydration Facial
+                  </Link>{" "}
+                  for a dewy, photo-ready finish, or a Salt Stone Massage to
+                  melt away wedding-planning stress.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold">For the bridal party</p>
+                <p className="text-sm text-gray-700">
+                  The Signature Massage (light to medium pressure) or the
+                  Signature Facial. They&apos;re our most-booked group
+                  treatments, and easy to schedule back to back.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold">For everyone, together</p>
+                <p className="text-sm text-gray-700">
+                  The Remedy Room: a 40-minute recovery circuit with sauna, cold
+                  plunge, compression therapy, and LED light therapy. It&apos;s
+                  the part of the day groups do together.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold">For the mother of the bride</p>
+                <p className="text-sm text-gray-700">
+                  The Forever Young Anti-Aging Facial, for firmer,
+                  smoother-looking skin.
+                </p>
+              </li>
+              <li>
+                <p className="font-semibold">For a mom-to-be in the group</p>
+                <p className="text-sm text-gray-700">
+                  The Maternity Massage (second trimester and later) or a
+                  pregnancy-safe facial.
+                </p>
+              </li>
+            </ul>
+            <p className="text-sm text-gray-700">
+              Planning skincare before the big day? See our{" "}
+              <Link
+                href="/blog/bridal-skincare"
+                className="underline text-[#113D33] font-semibold"
+              >
+                bridal skincare timeline
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+
         {/* What's Available */}
         <section className="space-y-4">
           <h2 className="text-2xl font-bold">What Your Group Can Book</h2>
@@ -165,7 +247,7 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  30–60 min · From $99/person member · $139/person drop-in
+                  50–60 min · From $99/person member · $139/person drop-in
                   (Essential). 13 treatments across 3 tiers.
                 </p>
               </div>
@@ -221,8 +303,8 @@ export default function GroupEventsPage() {
                   </Link>
                 </p>
                 <p className="text-sm text-gray-700">
-                  Add LED, microcurrent, oxygen infusion, scalp massage, members
-                  save 50%
+                  Add LED, microcurrent, oxygen infusion, cupping, and more.
+                  Members save 50%
                 </p>
               </div>
             </li>
@@ -305,7 +387,10 @@ export default function GroupEventsPage() {
             </div>
           </div>
           <p className="text-sm text-gray-500">
-            1st hour parking validated at Larimer Square Garage (1422 Market St.)
+            1st hour parking validated on weekdays at Larimer Square Garage (1422 Market St.).{" "}
+            <Link href="/faq/larimer" className="underline">
+              Parking details
+            </Link>
           </p>
         </section>
       </div>

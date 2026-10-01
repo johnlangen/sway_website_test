@@ -272,12 +272,12 @@ const massageBoosts = [
 const membershipFaqs = [
   {
     q: "How does my monthly treatment work?",
-    a: "Every month your membership includes one facial or massage from your tier's menu. Book it like any appointment, online or by phone. Everything else you add that day gets member pricing, including 50% off boosts.",
+    a: "Every month your membership includes one facial or massage from your tier's menu. Book it online or by phone. As a member you also get 50% off every boost and 50% off the Remedy Room, plus member pricing on any additional services.",
   },
   {
     // Spa tiers only — Aescape and Remedy memberships do not roll over.
     q: "What if I miss a month?",
-    a: "You never lose what you don't use. Unused treatments roll over and stay good for 12 months while your membership is active, and you can redeem a rollover treatment alongside your regular monthly treatment.",
+    a: "Your massage or facial treatment rolls over. Unused treatments stay good for 12 months while your membership is active, and you can redeem a rollover treatment alongside your regular monthly treatment. Aescape and Remedy Room memberships work differently: those sessions don't roll over, so use them within your billing month.",
     spaOnly: true,
   },
   {
@@ -293,12 +293,16 @@ const membershipFaqs = [
     a: "Yes. Life happens, so you can suspend your membership for up to 3 months per calendar year.",
   },
   {
-    q: "How do I cancel?",
+    q: "How do I cancel my membership?",
     a: "A quick call or email to the spa takes care of it. Reach us at (303) 476-6150 or contact@swaywellnessspa.com.",
   },
   {
+    q: "What if I need to cancel an appointment?",
+    a: "Please give us at least 24 hours' notice to cancel or reschedule. If you cancel within 24 hours or miss your appointment, that month's treatment is used. If you don't have a treatment available, a fee of 50% of the regular price applies.",
+  },
+  {
     q: "Where can I use my membership?",
-    a: "At all Sway and Spavia locations nationwide. Your home spa is Sway Larimer, and your benefits travel with you.",
+    a: "Your massage and facial membership works at Spavia day spas nationwide, and your home spa is Sway Larimer. Menus vary by location, so call the spa you're visiting to book. Aescape and Remedy Room memberships are used here at Sway Larimer.",
   },
 ];
 

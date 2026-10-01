@@ -7,6 +7,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
+import { LarimerParkingNote } from "@/app/components/LarimerParkingNote";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 import { AddToHomeScreen } from "@/app/components/AddToHomeScreen";
 import NextAvailableBanner from "../NextAvailableBanner";
@@ -2164,6 +2165,8 @@ export default function NewBookingFlow() {
               <p className="text-[#113D33]/65 text-sm mt-4">A confirmation has been sent to {email}.</p>
               <p className="text-[#113D33]/65 text-sm">Please arrive 15 minutes early.</p>
             </div>
+
+            <LarimerParkingNote />
 
             {/* Highest-intent moment to pitch the home-screen install */}
             <AddToHomeScreen variant="card" />

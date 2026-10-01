@@ -29,7 +29,7 @@ export default function BacheloretteSpaDayBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Bridal</span>
-          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated October 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero image */}
@@ -69,11 +69,13 @@ export default function BacheloretteSpaDayBlogLayout() {
         <section id="group-packages" className="scroll-mt-24 space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold">Bachelorette Spa Packages for Your Group</h2>
           <p>
-            The most popular way to celebrate is a group spa package: your whole
-            party books treatments in the same window so you move through the day
-            together. Each guest picks what they want, a massage, a facial, or
-            both, and you spend the in-between time unwinding side by side rather
-            than rushing between separate appointments.
+            The most popular way to celebrate is a group spa package, which we
+            call a Spalebration: your whole party books in the same window so you
+            move through the day together. Most bridal groups follow the same easy
+            flow. Each guest gets one treatment, a massage or a facial, and
+            everyone spends time together in the Remedy Room. We rotate small
+            groups between treatment rooms and the Remedy Room, so a party of 8
+            to 9 usually takes about 2 to 3 hours.
           </p>
           <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
             <Image
@@ -113,9 +115,8 @@ export default function BacheloretteSpaDayBlogLayout() {
         <section id="treatments" className="scroll-mt-24 space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold">Treatments to Build Into Your Package</h2>
           <p>
-            Every bachelorette party at Sway is customizable. Mix and match these
-            so each guest gets exactly what they need to feel pampered and
-            wedding-ready.
+            Every bachelorette party at Sway is customizable, and each guest
+            picks their own treatment. Here is what bridal groups book most.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white rounded-xl border border-[#d7e2dc] overflow-hidden">
@@ -123,9 +124,10 @@ export default function BacheloretteSpaDayBlogLayout() {
               <div className="p-6 space-y-2">
                 <h3 className="text-lg font-bold text-[#113D33]">Glow-Getting Facials</h3>
                 <p className="text-[15px] text-gray-700">
-                  Group facials are a bachelorette favorite for a reason. A
-                  customized facial leaves the bride and her party with fresh,
-                  radiant skin for the photos ahead.
+                  The Glow Getter Hydration Facial is the bride favorite for a
+                  dewy, photo-ready finish. The Signature Facial is an easy pick
+                  for the rest of the party, and the Forever Young Anti-Aging
+                  Facial is a lovely choice for the mother of the bride.
                 </p>
               </div>
             </div>
@@ -134,9 +136,10 @@ export default function BacheloretteSpaDayBlogLayout() {
               <div className="p-6 space-y-2">
                 <h3 className="text-lg font-bold text-[#113D33]">Tension-Melting Massages</h3>
                 <p className="text-[15px] text-gray-700">
-                  From a relaxing Swedish to a focused deep-tissue, massages give
-                  everyone a chance to truly switch off before the wedding-week
-                  chaos kicks in.
+                  The Signature Massage (light to medium pressure) is the group
+                  go-to for pure relaxation. The Salt Stone Massage is a great
+                  treat for the bride, Deep Tissue is there for anyone who wants
+                  focused work, and a mom-to-be can book the Maternity Massage.
                 </p>
               </div>
             </div>
@@ -150,9 +153,10 @@ export default function BacheloretteSpaDayBlogLayout() {
             <Image src="/assets/insidesauna.jpg" alt="Traditional sauna at Sway Wellness Spa in Denver" width={600} height={400} className="rounded-xl w-full h-56 object-cover border border-[#d7e2dc]" />
             <div className="space-y-3">
               <p>
-                Turn your spa day into a full wellness reset. Add the traditional
-                sauna and cold plunge to your package for a hot-cold contrast
-                experience that wakes everyone up and leaves you buzzing.
+                Turn your spa day into a full wellness reset with the Remedy
+                Room, our 40-minute recovery circuit with a traditional sauna,
+                cold plunge, compression therapy, and LED light therapy. It is
+                the part of the day almost every bridal group does together.
               </p>
               <ul className="space-y-2">
                 <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Traditional sauna to relax muscles and unwind together</span></li>
@@ -264,7 +268,7 @@ export default function BacheloretteSpaDayBlogLayout() {
             </div>
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
               <p className="font-bold text-[#113D33]">What treatments are best for a bachelorette party?</p>
-              <p className="text-gray-700 mt-2 text-[15px]">Group facials for a pre-wedding glow and massages to unwind are the most popular picks, often paired with sauna and cold plunge as wellness add-ons. At Sway each guest can customize their own treatment selection.</p>
+              <p className="text-gray-700 mt-2 text-[15px]">The most popular combo is one treatment per guest plus the Remedy Room together. The Glow Getter Hydration Facial is the bride favorite, and the Signature Massage and Signature Facial are the go-to picks for the bridal party. At Sway each guest chooses their own treatment.</p>
             </div>
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
               <p className="font-bold text-[#113D33]">Where is Sway located in Denver?</p>
@@ -323,7 +327,7 @@ export default function BacheloretteSpaDayBlogLayout() {
                 name: "What spa treatments are best for a bachelorette party?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Group facials for a pre-wedding glow and massages for relaxation are the most popular bachelorette picks, often paired with wellness add-ons like traditional sauna and cold plunge. At Sway Wellness Spa, each guest can customize their own treatment selection so everyone in the bridal party gets exactly what they need.",
+                  text: "The most popular combo is one treatment per guest plus the Remedy Room together. The Glow Getter Hydration Facial is the bride favorite, and the Signature Massage and Signature Facial are the go-to picks for the bridal party. At Sway each guest chooses their own treatment.",
                 },
               },
               {
