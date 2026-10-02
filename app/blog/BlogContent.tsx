@@ -92,9 +92,9 @@ const blogs = [
   },
   {
     slug: "80-minute-massage",
-    title: "Take Time for You: Why an 80-Minute Massage Is the Ultimate Reset",
+    title: "Take Time for You: Why a Longer Massage Is the Ultimate Reset",
     summary:
-      "Relax fully with an 80-minute massage at Sway Wellness Spa. Extra time, specialty techniques, and total rejuvenation make it the ultimate reset.",
+      "Sway's longer massages run 70 and 90 minutes. Extra time for problem areas and a deeper full-body reset.",
     tag: "Massage",
     image: "/assets/blog25.jpg",
   },

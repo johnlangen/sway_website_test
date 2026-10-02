@@ -99,7 +99,7 @@ export default function FathersDayGiftGuideLayout() {
                 >
                   deep tissue or sports massage
                 </Link>
-                . 80 minutes if you love him. Add the CBD CauseMedic finisher
+                . Go 70 minutes if you love him. Add the CBD CauseMedic finisher
                 for the knot under his right shoulder blade he has been
                 talking about for three years.
               </p>
@@ -267,7 +267,7 @@ export default function FathersDayGiftGuideLayout() {
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
                   <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">11:15 AM</span>
-                  <span className="font-bold text-[#113D33]">80-minute massage</span>
+                  <span className="font-bold text-[#113D33]">70-minute massage</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
                   Deep tissue or sports. By now his nervous system has caught
@@ -406,27 +406,11 @@ export default function FathersDayGiftGuideLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-[#113D33]">50-minute massage</div>
-              <div className="text-xs sm:text-sm opacity-70">Deep tissue, sports, or relaxation</div>
+              <div className="text-xs sm:text-sm opacity-70">Signature (light to medium pressure). Deep tissue or sports: $169, $129 member</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
               <div>$139</div>
               <div className="text-xs opacity-70 font-normal">$99 Essential</div>
-            </div>
-          </div>
-
-          {/* Make it 80 */}
-          <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
-            <div className="w-10 h-10 rounded-full bg-[#113D33]/8 flex items-center justify-center text-[#113D33] shrink-0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-bold text-[#113D33]">Make it 80 minutes</div>
-              <div className="text-xs sm:text-sm opacity-70">Add 30 minutes to any massage</div>
-            </div>
-            <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
-              + $50
             </div>
           </div>
 
@@ -492,14 +476,14 @@ export default function FathersDayGiftGuideLayout() {
             </span>
             <div className="text-3xl font-bold">$250</div>
             <p className="mt-2 text-[15px] text-white/85">
-              An 80-minute massage with a boost. The &ldquo;he is going to
+              A 70-minute Ultimate massage with a boost. The &ldquo;he is going to
               text you a thank-you&rdquo; tier.
             </p>
           </div>
           <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
             <div className="text-3xl font-bold text-[#113D33]">$300+</div>
             <p className="mt-2 text-[15px] text-gray-700">
-              The full day. Remedy Room, an 80-minute massage, and a boost.
+              The full day. Remedy Room, a 70-minute Ultimate massage, and a boost.
               Or two visits. Or one visit plus a gift toward a membership.
             </p>
           </div>
@@ -600,7 +584,7 @@ export default function FathersDayGiftGuideLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog25.jpg"
-                  alt="Why an 80-Minute Massage Is the Ultimate Reset"
+                  alt="Why a Longer Massage Is the Ultimate Reset"
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -608,7 +592,7 @@ export default function FathersDayGiftGuideLayout() {
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">
-                  Why an 80-Minute Massage Is the Ultimate Reset
+                  Why a Longer Massage Is the Ultimate Reset
                 </p>
               </div>
             </Link>
@@ -633,7 +617,7 @@ export default function FathersDayGiftGuideLayout() {
                 name: "What is a good Father's Day gift in Denver?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The most-requested Father's Day gifts at Sway Wellness Spa in downtown Denver are The Remedy Room (40-minute cold plunge plus traditional sauna for $49), an 80-minute deep tissue or sports massage, and Aescape AI robotic massage. For the dad who wants to pick his own experience, a Sway gift card works on every service and never expires.",
+                  text: "The most-requested Father's Day gifts at Sway Wellness Spa in downtown Denver are The Remedy Room (40-minute cold plunge plus traditional sauna for $49), a 70-minute Ultimate deep tissue or sports massage, and Aescape AI robotic massage. For the dad who wants to pick his own experience, a Sway gift card works on every service and never expires.",
                 },
               },
               {

@@ -374,8 +374,8 @@ export default function InfraredPemfMatBlogLayout() {
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver: Sauna, Cold Plunge & Robot Massage</p></div>
             </Link>
             <Link href="/blog/80-minute-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="80-Minute Massage" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
-              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Why an 80-Minute Massage Is the Ultimate Reset</p></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="Longer massage at Sway" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Why a Longer Massage Is the Ultimate Reset</p></div>
             </Link>
             <Link href="/blog/himalayan-salt-stone-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden"><Image src="/assets/blog5.jpg" alt="Himalayan Salt Stone Massage" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>

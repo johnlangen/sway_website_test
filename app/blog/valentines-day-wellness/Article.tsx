@@ -90,7 +90,7 @@ export default function ValentinesDayWellnessBlogLayout() {
         <p>This Valentine&apos;s Day, choose one of our rejuvenating experiences:</p>
         <ul className="list-disc pl-6 space-y-1">
           <li><strong>Dr. Dennis Gross Vitamin C Facial:</strong> Restore your glow and radiance.</li>
-          <li><strong>80 Minute Deep Tissue Massage:</strong> Detoxify and release muscle tension.</li>
+          <li><strong>70-Minute Ultimate Deep Tissue Massage:</strong> Detoxify and release muscle tension.</li>
           <li><strong>Remedy Room Session:</strong> Cold plunge, sauna, compression boots, and LED light therapy for whole-body renewal.</li>
         </ul>
 
@@ -178,7 +178,7 @@ export default function ValentinesDayWellnessBlogLayout() {
                 name: "How can I practice self-love on Valentine's Day?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Valentine's Day is an ideal time to prioritize self-care. Treat yourself to a rejuvenating treatment like a Vitamin C Facial, an 80-minute Deep Tissue Massage, or a Remedy Room session with cold plunge, sauna, and compression therapy. Sway Wellness Spa also offers memberships that provide monthly wellness rituals, making self-love a consistent practice rather than a one-time event.",
+                  text: "Valentine's Day is an ideal time to prioritize self-care. Treat yourself to a rejuvenating treatment like a Vitamin C Facial, a 70-minute Ultimate Deep Tissue Massage, or a Remedy Room session with cold plunge, sauna, and compression therapy. Sway Wellness Spa also offers memberships that provide monthly wellness rituals, making self-love a consistent practice rather than a one-time event.",
                 },
               },
             ],

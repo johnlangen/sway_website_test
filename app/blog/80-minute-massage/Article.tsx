@@ -9,7 +9,7 @@ export default function Massage80MinBlogLayout() {
       {/* Banner */}
       <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center">
-          Take Time for You: Why an 80-Minute Massage Is the Ultimate Reset
+          Take Time for You: Why a Longer Massage Is the Ultimate Reset
         </h1>
       </div>
 
@@ -19,42 +19,41 @@ export default function Massage80MinBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Massage</span>
-          <span className="text-gray-500">January 2025 · By Sway Wellness Team</span>
+          <span className="text-gray-500">Updated October 2026 · By Sway Wellness Team</span>
         </div>
 
         <p>
-          Sometimes, your mind and body send clear signals that it’s time for a
-          break. Maybe it’s the tension building in your shoulders after sitting
-          at your desk all day, the persistent lower back pain that just won’t
-          go away, or the mental fog that makes even simple tasks feel
-          overwhelming. Whatever the signs, they’re telling you something
-          important: it’s time to prioritize yourself. Enter the ultimate
-          self-care solution: an 80-minute massage at Sway Wellness Spa.
+          Sometimes, your mind and body send clear signals that it&apos;s time
+          for a break. Maybe it&apos;s the tension building in your shoulders
+          after sitting at your desk all day, the persistent lower back pain
+          that just won&apos;t go away, or the mental fog that makes even simple
+          tasks feel overwhelming. Whatever the signs, they&apos;re telling you
+          something important: it&apos;s time to prioritize yourself, and to
+          give yourself more than the standard 50 minutes.
         </p>
 
-        <p>
-          This isn’t just any massage, it’s a transformative experience designed
-          to reset both your body and mind. With extended treatments,
-          customizable techniques tailored to your unique needs, and expert
-          specialists who know exactly how to work on problem areas, these 80
-          minutes offer more than just relaxation. They provide a deep sense of
-          rejuvenation that lasts beyond the treatment. You’ll feel tension melt
-          away, stress levels drop, and energy begin to flow freely again.
-        </p>
+        <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-2">
+          <p className="font-bold text-[#113D33]">Looking for an 80-minute massage?</p>
+          <p className="text-[15px] text-gray-700">
+            Sway&apos;s longer massages are <strong>70 minutes</strong> and{" "}
+            <strong>90 minutes</strong>. The 70-minute Premier Signature Massage
+            and the 70-minute Ultimate massages (Deep Tissue, Sports, Salt
+            Stone, and Lymphatic Drainage) give you real extra time, and the
+            90-minute Ultimate Signature Massage is our longest session.
+          </p>
+        </div>
 
         <p>
-          Why settle for a quick fix when you can gift yourself an extended
-          reset? With extra time, your specialist can focus on stubborn knots,
-          target multiple areas of concern, and ensure every muscle gets the
-          care it deserves. It’s not just a massage, it’s an investment in your
-          well-being. Make the choice to upgrade to an 80-minute massage and
-          give yourself the attention and care you truly deserve. You’ll leave
-          feeling lighter, calmer, and ready to take on whatever comes your way.
+          With extra time, your specialist can focus on stubborn knots, target
+          multiple areas of concern, and still give you a thorough full-body
+          massage without rushing. It&apos;s not just a longer massage,
+          it&apos;s an investment in your well-being. You&apos;ll leave feeling
+          lighter, calmer, and ready to take on whatever comes your way.
         </p>
 
         <Image
           src="/assets/blog25.jpg"
-          alt="80-Minute Massage at Sway Wellness Spa"
+          alt="Longer massage at Sway Wellness Spa in Denver"
           width={700}
           height={400}
           className="rounded-lg"
@@ -64,58 +63,65 @@ export default function Massage80MinBlogLayout() {
         <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
-            <li><a href="#benefits" className="hover:underline">The Benefits of an 80-Minute Massage at Sway</a></li>
-            <li><a href="#why-sway" className="hover:underline">Why Choose Sway?</a></li>
+            <li><a href="#options" className="hover:underline">Your Longer Massage Options</a></li>
+            <li><a href="#benefits" className="hover:underline">The Benefits of a Longer Massage</a></li>
             <li><a href="#how-to-book" className="hover:underline">How to Book</a></li>
           </ol>
         </nav>
 
-        <h2 id="benefits" className="text-2xl font-bold scroll-mt-24">
-          The Benefits of an 80-Minute Massage at Sway
+        <h2 id="options" className="text-2xl font-bold scroll-mt-24">
+          Your Longer Massage Options
         </h2>
+        <ul className="list-disc pl-6 space-y-3">
+          <li>
+            <strong>70-minute Premier Signature Massage</strong> (light to
+            medium pressure): $129 for members, $169 drop-in. Pure relaxation
+            with 20 extra minutes.
+          </li>
+          <li>
+            <strong>70-minute Ultimate massages</strong>: Deep Tissue, Sports,
+            Salt Stone, or Lymphatic Drainage. $159 for members, $199 drop-in.
+            Focused work with time to cover everything.
+          </li>
+          <li>
+            <strong>90-minute Ultimate Signature Massage</strong> (light to
+            medium pressure): $159 for members, $199 drop-in. Our longest
+            session.
+          </li>
+        </ul>
         <p>
-          80 minutes isn’t just about extra time on the massage table; it’s
-          about unlocking the fullest potential of your self-care routine.
-          Here’s what makes it worth every second:
+          Want deep pressure? Choose Deep Tissue. The Signature Massage is
+          always light to medium pressure.
         </p>
+
+        <h2 id="benefits" className="text-2xl font-bold scroll-mt-24">
+          The Benefits of a Longer Massage
+        </h2>
 
         <h3 className="text-xl font-semibold">1. More Time for Problem Areas</h3>
         <p>
-          With an 80-minute treatment, our specialists have the time to truly
-          focus on specific problem areas, providing targeted relief without
-          rushing. This extended treatment allows for deep work on trouble spots
+          A longer session gives your specialist time to truly focus on
+          specific problem areas, providing targeted relief without rushing,
           plus a full-body massage.
         </p>
-        <blockquote>
-          "The 80-minute massage gave me exactly what I needed with real time to
-          work on my shoulders and lower back without feeling rushed." – James
-          L., Sway Guest
-        </blockquote>
 
         <h3 className="text-xl font-semibold">2. Your Choice of Technique</h3>
         <p>
-          At Sway, you choose your technique: Signature (light to medium pressure),
-          Deep Tissue, Sports, Salt Stone, or Lymphatic Drainage, with boosts like
-          CBD, cupping, and PEMF to add on.
+          At Sway, you choose your technique: Signature (light to medium
+          pressure), Deep Tissue, Sports, Salt Stone, or Lymphatic Drainage,
+          with boosts like CBD, cupping, and PEMF to add on.
         </p>
 
-        <h3 className="text-xl font-semibold">3. Unparalleled Mind-Body Reconnection</h3>
+        <h3 className="text-xl font-semibold">3. A Deeper Mind-Body Reset</h3>
         <p>
-          80 minutes provides the space to truly sink into a deeper state of
-          relaxation. You’ll walk away with a clearer mind, looser muscles, and
-          reduced stress levels.
-        </p>
-
-        <h2 id="why-sway" className="text-2xl font-bold scroll-mt-24">Why Choose Sway?</h2>
-        <p>
-          At Sway Wellness Spa, self-care isn’t a luxury, it’s a necessity. From
-          transparent pricing to expert specialists and holistic services, we
-          make sure your wellness journey is simple and restorative.
+          Extra time gives you the space to truly sink into a deeper state of
+          relaxation. You&apos;ll walk away with a clearer mind, looser
+          muscles, and lower stress.
         </p>
 
         <h2 id="how-to-book" className="text-2xl font-bold scroll-mt-24">How to Book</h2>
         <p>
-          Booking is quick and easy:{" "}
+          Choose a Premier or Ultimate massage when you book online:{" "}
           <Link href="/book" className="underline text-[#113D33] font-semibold">
             Book Now &rarr;
           </Link>
@@ -167,26 +173,26 @@ export default function Massage80MinBlogLayout() {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "Why is an 80-minute massage better than a 60-minute massage?",
+                name: "Does Sway offer an 80-minute massage?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "An 80-minute massage gives your specialist significantly more time to address specific problem areas without rushing, while still providing a thorough full-body treatment. The extra 20 minutes allow for deeper work on stubborn knots and multiple areas of concern. At Sway Wellness Spa, the 80-minute session also includes specialty techniques like Deep Tissue, CBD Massage, Sports Recovery, and Salt Stone Therapy at no extra charge.",
+                  text: "Sway's longer massages are 70 and 90 minutes. Choose the 70-minute Premier Signature Massage, a 70-minute Ultimate Deep Tissue, Sports, Salt Stone, or Lymphatic Drainage massage, or the 90-minute Ultimate Signature Massage, our longest session.",
                 },
               },
               {
                 "@type": "Question",
-                name: "What massage techniques are included in an 80-minute session at Sway?",
+                name: "Why choose a longer massage?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "You choose your technique at Sway: Signature (light to medium pressure), Deep Tissue for chronic tension, Sports for active recovery, Salt Stone for mineral-rich deep relaxation, or Lymphatic Drainage. Boosts like CBD muscle cream, cupping, and the infrared PEMF mat can be added to any massage.",
+                  text: "A longer massage gives your specialist more time to address specific problem areas without rushing, while still providing a thorough full-body treatment.",
                 },
               },
               {
                 "@type": "Question",
-                name: "How do I book an 80-minute massage at Sway Wellness Spa?",
+                name: "How much is a longer massage at Sway?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Booking an 80-minute massage at Sway Wellness Spa is quick and easy through the online booking system at swaywellnessspa.com. You can select your preferred date, time, and treatment type. Sway members enjoy preferred pricing on all massage sessions, including the 80-minute option, starting at $99 per month for a facial or massage.",
+                  text: "The 70-minute Premier Signature Massage is $129 for members and $169 drop-in. 70-minute Ultimate massages and the 90-minute Ultimate Signature Massage are $159 for members and $199 drop-in. Book online at swaywellnessspa.com.",
                 },
               },
             ],

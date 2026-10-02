@@ -2,16 +2,16 @@ import { Metadata } from "next";
 import Massage80MinBlogLayout from "./Article";
 
 export const metadata: Metadata = {
-  title: { absolute: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It" },
+  title: { absolute: "Longer Massages at Sway: 70 and 90-Minute Sessions in Denver" },
   description:
-    "Relax fully with an 80-minute massage at Sway Wellness Spa in Denver. Extra time, specialty techniques, and total rejuvenation. Your body will thank you.",
+    "Looking for a longer massage in Denver? Sway offers 70 and 90-minute massages on Larimer Square, from light-to-medium Signature to Deep Tissue. Extra time, total reset.",
   alternates: {
     canonical: "https://swaywellnessspa.com/blog/80-minute-massage/",
   },
   openGraph: {
-    title: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",
+    title: "Longer Massages at Sway: 70 and 90-Minute Sessions in Denver",
     description:
-      "Discover why an 80-minute massage at Sway Wellness Spa provides the ultimate reset: extra time, personalized techniques, and deeper rejuvenation.",
+      "Why a 70 or 90-minute massage at Sway Wellness Spa is the ultimate reset: extra time for problem areas and a deeper full-body reset.",
     url: "https://swaywellnessspa.com/blog/80-minute-massage/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         url: "https://swaywellnessspa.com/assets/blog25.jpg",
         width: 1200,
         height: 630,
-        alt: "80-Minute Massage at Sway Wellness Spa",
+        alt: "Longer massage at Sway Wellness Spa",
       },
     ],
     locale: "en_US",
@@ -31,9 +31,9 @@ export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: "Why an 80-Minute Massage at Sway Wellness Spa Is Worth It",
+    headline: "Longer Massages at Sway: 70 and 90-Minute Sessions in Denver",
     description:
-      "Discover why upgrading to an 80-minute massage at Sway Wellness Spa is the ultimate reset, with specialty techniques and deeper rejuvenation.",
+      "Why a 70 or 90-minute massage at Sway Wellness Spa is the ultimate reset, with your choice of technique and a deeper full-body reset.",
     image: "https://swaywellnessspa.com/assets/blog25.jpg",
     author: {
       "@type": "Organization",
@@ -50,7 +50,7 @@ export default function Page() {
       },
     },
     datePublished: "2025-01-10",
-    dateModified: "2025-01-10",
+    dateModified: "2026-10-01",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://swaywellnessspa.com/blog/80-minute-massage/",

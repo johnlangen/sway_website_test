@@ -105,8 +105,8 @@ export default function HimalayanSaltStoneMassageLayout() {
           <h2 className="text-2xl font-bold">Related Articles</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Link href="/blog/80-minute-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="Why an 80-Minute Massage Is the Ultimate Reset" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
-              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Why an 80-Minute Massage Is the Ultimate Reset</p></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="Why a Longer Massage Is the Ultimate Reset" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Why a Longer Massage Is the Ultimate Reset</p></div>
             </Link>
             <Link href="/blog/infrared-pemf-mat" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden"><Image src="/assets/blog12.jpg" alt="Supercharge Your Massage: Infrared PEMF Mats" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>

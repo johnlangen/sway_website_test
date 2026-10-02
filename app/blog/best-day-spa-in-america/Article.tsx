@@ -426,7 +426,7 @@ export default function BestDaySpaLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog25.jpg"
-                  alt="Why an 80-Minute Massage Is the Ultimate Reset"
+                  alt="Why a Longer Massage Is the Ultimate Reset"
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -434,7 +434,7 @@ export default function BestDaySpaLayout() {
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">
-                  Why an 80-Minute Massage Is the Ultimate Reset
+                  Why a Longer Massage Is the Ultimate Reset
                 </p>
               </div>
             </Link>

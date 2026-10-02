@@ -444,7 +444,7 @@ export default function RecoveryDenverBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog25.jpg"
-                  alt="Why an 80-minute massage is the ultimate reset"
+                  alt="Why a longer massage is the ultimate reset"
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -452,7 +452,7 @@ export default function RecoveryDenverBlogLayout() {
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">
-                  Why an 80-Minute Massage Is the Ultimate Reset
+                  Why a Longer Massage Is the Ultimate Reset
                 </p>
               </div>
             </Link>
