@@ -18,7 +18,7 @@ const SERVICES = [
     title: "Massage",
     tagline: "Deep Tissue, Sports, CBD & more",
     description:
-      "Our specialists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like PEMF mats. 50–90 minutes, fully customized.",
+      "Our licensed massage therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like PEMF mats. 50–90 minutes, fully customized.",
     price: "From $139",
     memberPrice: "From $99",
     image: "/assets/homepage-massage.jpg",

@@ -161,7 +161,7 @@ export default function BlogPage() {
         name: "Who writes The Sway Edit blog?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "All articles on The Sway Edit are written by the Sway Wellness Team: the spa professionals, licensed estheticians, and massage specialists at Sway Wellness Spa on Larimer Square in Denver, CO.",
+          text: "All articles on The Sway Edit are written by the Sway Wellness Team: the spa professionals, licensed estheticians, and massage therapists at Sway Wellness Spa on Larimer Square in Denver, CO.",
         },
       },
       {

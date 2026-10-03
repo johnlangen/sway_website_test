@@ -71,7 +71,7 @@ export default function ScienceOfRelaxationBlogLayout() {
           stress, and calms the nervous system.
           <span className="block italic mt-1">
             “Our therapeutic massage treatments help release physical tension
-            while calming the nervous system.” – Steven, Sway Massage Specialist
+            while calming the nervous system.” – Steven, Sway Massage Therapist
           </span>
         </p>
 

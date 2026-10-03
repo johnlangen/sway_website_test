@@ -216,7 +216,7 @@ export default function InfraredPemfMatBlogLayout() {
               { chip: "After training", t: "Once you have cooled down", d: "Warmth helps tight, worked muscles let go after a hard session or a long day on your feet." },
               { chip: "Rest days", t: "Recovery without the effort", d: "An easy way to stay loose between workouts when you do not want to do anything strenuous." },
               { chip: "Evening", t: "Before bed", d: "The warmth is calming, which is why many people use a mat to wind down at night." },
-              { chip: "At Sway", t: "During a massage", d: "The mat warms tissue while your specialist works, so the massage meets less resistance." },
+              { chip: "At Sway", t: "During a massage", d: "The mat warms tissue while your massage therapist works, so the massage meets less resistance." },
             ].map((step) => (
               <li key={step.chip} className="pl-6 relative">
                 <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-[#113D33] border-4 border-[#F7F4E9]" aria-hidden="true" />
@@ -274,7 +274,7 @@ export default function InfraredPemfMatBlogLayout() {
               <li className="flex gap-3"><span className="text-[#9CB7A9]">&#9679;</span><span>Have epilepsy</span></li>
             </ul>
             <p className="text-[15px] text-gray-700">
-              At Sway, let your specialist know about any of these before your
+              At Sway, let your massage therapist know about any of these before your
               session and we will skip the mat.
             </p>
           </div>
@@ -289,7 +289,7 @@ export default function InfraredPemfMatBlogLayout() {
               <p>
                 On its own, a PEMF mat is a great recovery tool. Paired with
                 hands-on massage, the two reinforce each other: the mat warms and
-                loosens tissue while your specialist works, so the massage goes
+                loosens tissue while your massage therapist works, so the massage goes
                 deeper with less resistance.
               </p>
               <ul className="space-y-2">
@@ -306,7 +306,7 @@ export default function InfraredPemfMatBlogLayout() {
           <h3 className="text-2xl font-bold">Try the PEMF mat as a massage boost at Sway</h3>
           <p className="text-white/90 max-w-xl mx-auto">
             Add the infrared PEMF mat to any massage in Denver. Lie on the mat
-            while your specialist works and customize the heat and intensity to
+            while your massage therapist works and customize the heat and intensity to
             match your body. Members get 50% off all boosts.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-2">
@@ -360,7 +360,7 @@ export default function InfraredPemfMatBlogLayout() {
             </div>
             <div className="bg-white rounded-xl border border-[#d7e2dc] p-5">
               <p className="font-bold text-[#113D33]">How do I try the PEMF mat at Sway?</p>
-              <p className="text-gray-700 mt-2 text-[15px]">You can add the infrared PEMF mat as a boost to any massage at Sway Wellness Spa in Denver. During your session you lie on the mat while your specialist works, and you can customize the heat and intensity. Members receive 50% off all boosts, including the PEMF mat.</p>
+              <p className="text-gray-700 mt-2 text-[15px]">You can add the infrared PEMF mat as a boost to any massage at Sway Wellness Spa in Denver. During your session you lie on the mat while your massage therapist works, and you can customize the heat and intensity. Members receive 50% off all boosts, including the PEMF mat.</p>
             </div>
           </div>
         </section>
@@ -445,7 +445,7 @@ export default function InfraredPemfMatBlogLayout() {
                   name: "How do I try the infrared PEMF mat at Sway?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "You can add the infrared PEMF mat as a boost to any massage at Sway Wellness Spa in Denver. During your session you lie on the mat while your specialist works, and you can customize the heat and intensity. Sway members receive 50% off all boosts, including the PEMF mat.",
+                    text: "You can add the infrared PEMF mat as a boost to any massage at Sway Wellness Spa in Denver. During your session you lie on the mat while your massage therapist works, and you can customize the heat and intensity. Sway members receive 50% off all boosts, including the PEMF mat.",
                   },
                 },
               ],

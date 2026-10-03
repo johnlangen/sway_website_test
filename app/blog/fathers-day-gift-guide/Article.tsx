@@ -459,7 +459,7 @@ export default function FathersDayGiftGuideLayout() {
           <div className="bg-white rounded-2xl border border-[#d7e2dc] p-5 shadow-sm">
             <div className="text-3xl font-bold text-[#113D33]">$150</div>
             <p className="mt-2 text-[15px] text-gray-700">
-              A full 50-minute massage with a licensed specialist. The
+              A full 50-minute massage with a licensed massage therapist. The
               sweet spot.
             </p>
           </div>

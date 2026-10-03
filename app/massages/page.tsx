@@ -286,7 +286,7 @@ const MassagesPage = () => {
                     </h2>
                     <p className="mt-1 text-sm text-[#113D33]/60">
                       A curated selection of massage experiences, each
-                      customized by your specialist.
+                      customized by your massage therapist.
                     </p>
                   </div>
                   <Link
@@ -450,7 +450,7 @@ const MassagesPage = () => {
           {[
             {
               q: "What makes Sway\u2019s massages different?",
-              a: "Sway\u2019s massage specialists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, compression therapy) and result-driven facials with Eminence Organics are all available under one roof.",
+              a: "Sway\u2019s massage therapists combine traditional hands-on techniques with modern wellness technology. You can add science-backed boosts like PEMF mats for deeper recovery or cupping for targeted tension release. After your session, the Remedy Room (sauna, cold plunge, compression therapy) and result-driven facials with Eminence Organics are all available under one roof.",
             },
             {
               q: "What are the massage membership tiers?",

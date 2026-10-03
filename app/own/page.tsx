@@ -62,7 +62,7 @@ const SWAY_DIFFERENCE = [
     text: "Eminence Organics protocols, a dedicated Dr. Dennis Gross Vitamin C facial, and high-tech boosts like microcurrent, LED, and oxygen infusion.",
   },
   {
-    title: "Expert Massage Specialists",
+    title: "Licensed Massage Therapists",
     text: "Thirteen massages across three tiers, from Signature to Deep Tissue and Salt Stone, with add-ons like infrared PEMF mats and cupping.",
   },
   {

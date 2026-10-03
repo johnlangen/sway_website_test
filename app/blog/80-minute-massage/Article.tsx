@@ -44,7 +44,7 @@ export default function Massage80MinBlogLayout() {
         </div>
 
         <p>
-          With extra time, your specialist can focus on stubborn knots, target
+          With extra time, your massage therapist can focus on stubborn knots, target
           multiple areas of concern, and still give you a thorough full-body
           massage without rushing. It&apos;s not just a longer massage,
           it&apos;s an investment in your well-being. You&apos;ll leave feeling
@@ -100,7 +100,7 @@ export default function Massage80MinBlogLayout() {
 
         <h3 className="text-xl font-semibold">1. More Time for Problem Areas</h3>
         <p>
-          A longer session gives your specialist time to truly focus on
+          A longer session gives your massage therapist time to truly focus on
           specific problem areas, providing targeted relief without rushing,
           plus a full-body massage.
         </p>
@@ -184,7 +184,7 @@ export default function Massage80MinBlogLayout() {
                 name: "Why choose a longer massage?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "A longer massage gives your specialist more time to address specific problem areas without rushing, while still providing a thorough full-body treatment.",
+                  text: "A longer massage gives your massage therapist more time to address specific problem areas without rushing, while still providing a thorough full-body treatment.",
                 },
               },
               {

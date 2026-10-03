@@ -1609,7 +1609,7 @@ export default function BookRemedyRoomPage() {
                       href="/locations/denver-larimer/book"
                       className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-4 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-white/20"
                     >
-                      <span>Try <span className="text-white/90">Massage & Facials</span>, with a licensed specialist</span>
+                      <span>Try <span className="text-white/90">Massage & Facials</span>, with a licensed massage therapist or esthetician</span>
                       <span className="text-white/70">&rarr;</span>
                     </Link>
                     <p className="mt-3 text-xs text-white/30">

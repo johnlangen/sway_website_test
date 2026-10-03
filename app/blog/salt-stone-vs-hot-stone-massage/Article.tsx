@@ -134,7 +134,7 @@ export default function SaltStoneVsHotStoneLayout() {
           gives the stones their signature pink color).
         </p>
         <p>
-          During the treatment, your massage specialist warms the salt stones and
+          During the treatment, your massage therapist warms the salt stones and
           uses them to deliver long, flowing strokes across your body. As the
           Himalayan salt stones glide over your skin, they release trace minerals
           that absorb into the body while gently exfoliating the surface. The
@@ -251,7 +251,7 @@ export default function SaltStoneVsHotStoneLayout() {
           If you carry a lot of tension but find deep tissue massage too
           aggressive, salt stone massage is an excellent middle ground. The
           sustained warmth from the stones loosens tight muscles so your
-          specialist can work more effectively without excess pressure. You get
+          massage therapist can work more effectively without excess pressure. You get
           the relief without the soreness that sometimes follows a deep tissue
           session. Several of our guests have switched from deep tissue to salt
           stone for exactly this reason.
@@ -330,7 +330,7 @@ export default function SaltStoneVsHotStoneLayout() {
             unwinding before your treatment even begins.
           </li>
           <li>
-            <strong>Meet your specialist.</strong> Your massage specialist will
+            <strong>Meet your massage therapist.</strong> Your massage therapist will
             discuss your areas of tension and preferred pressure level. Our salt
             stone massage can be tailored from light to firm.
           </li>
@@ -406,7 +406,7 @@ export default function SaltStoneVsHotStoneLayout() {
             <strong>People who find deep tissue too intense:</strong> If you want
             real relief but do not enjoy the soreness that sometimes comes with
             deep tissue work, salt stone is a great alternative. The heat does a
-            lot of the heavy lifting, so your specialist can go deep without
+            lot of the heavy lifting, so your massage therapist can go deep without
             excess force.
           </li>
           <li>
