@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
+import { readGclid } from "@/lib/gclid";
 
 /* ---------------------------------------------
    MAVEN HOTEL × SWAY — AESCAPE OPTIONS
@@ -703,6 +704,7 @@ export default function MavenHotelPage() {
         sessionTypeId: selectedSession.id,
         startDateTime: formatLocalDateTime(selectedTime),
         notes,
+        gclid: readGclid(),
       }),
     });
 

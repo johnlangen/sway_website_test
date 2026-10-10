@@ -2,6 +2,7 @@
 
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+import { recordBookingAttribution } from "@/lib/adAttribution";
 
 /**
  * Maps SessionTypeId -> StaffId
@@ -33,6 +34,9 @@ export async function POST(req: Request) {
     startDateTime,
     locationId = 1,
     notes,
+    // Google Ads click id captured at landing (lib/gclid.ts). Optional and
+    // purely for attribution, never affects booking behaviour.
+    gclid,
   } = body;
 
   if (!clientId || !sessionTypeId || !startDateTime) {
@@ -90,6 +94,21 @@ export async function POST(req: Request) {
         },
         { status: res.status }
       );
+    }
+
+    // Attribution only: remember which ad click produced this appointment
+    // (same store as /api/service/book). Runs after Mindbody confirmed the
+    // booking and fails open, so it can never fail a booking.
+    const apptId = data?.Appointment?.Id;
+    if (typeof gclid === "string" && gclid && apptId) {
+      await recordBookingAttribution({
+        gclid,
+        appointmentId: apptId,
+        clientId,
+        sessionTypeId,
+        startDateTime: data.Appointment?.StartDateTime ?? startDateTime,
+        siteId: process.env.MINDBODY_SITE_ID ?? null,
+      });
     }
 
     return NextResponse.json({

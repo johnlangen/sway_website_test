@@ -11,6 +11,7 @@ import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
 import { LarimerParkingNote } from "@/app/components/LarimerParkingNote";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
+import { readGclid } from "@/lib/gclid";
 
 /* ---------------------------------------------
    AESCAPE SESSION OPTIONS
@@ -844,6 +845,7 @@ export default function BookAescapePage() {
         sessionTypeId,
         startDateTime: formatLocalDateTime(selectedTime),
         notes: bookingNotes,
+        gclid: readGclid(),
       }),
     });
 
