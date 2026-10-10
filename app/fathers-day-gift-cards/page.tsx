@@ -33,7 +33,7 @@ export default function FathersDayGiftCardsPage() {
     <div className="min-h-screen bg-[#f4f4f1] pt-24 md:pt-28 pb-20 font-vance text-[#113D33]">
       <div className="max-w-5xl mx-auto px-4">
         {/* HERO BANNER */}
-        <section className="relative rounded-2xl overflow-hidden">
+        <section className="sway-page-hero relative rounded-2xl overflow-hidden">
           {/* Desktop */}
           <div className="hidden md:block relative h-[380px] w-full">
             <Image

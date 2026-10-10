@@ -7,7 +7,7 @@ export default function MavenHotelBlogLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* ── HERO BANNER ── */}
-      <section className="bg-[#113D33] text-white pt-32 pb-20 px-6 text-center">
+      <section className="sway-article-banner bg-[#113D33] text-white pt-32 pb-20 px-6 text-center">
         <h1 className="text-3xl md:text-5xl font-bold max-w-4xl mx-auto leading-tight">
           The Maven Hotel + Sway: AI-Powered Massage Near Dairy Block
         </h1>

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import LocationExperienceNav from "@/app/components/LocationExperienceNav";
 import Image from "next/image";
 import WaitlistForm from "@/app/components/WaitlistForm";
 
@@ -86,7 +87,7 @@ export default function SwayRinoPage() {
   return (
     <div className="bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* ================================ HERO ================================ */}
-      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-16 md:pb-20">
+      <section className="sway-page-hero sway-location-hero px-6 pt-24 sm:pt-28 md:pt-36 pb-16 md:pb-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           {/* LEFT */}
           <div>
@@ -166,6 +167,8 @@ export default function SwayRinoPage() {
           </div>
         </div>
       </section>
+
+      <LocationExperienceNav location="denver-rino" />
 
       {/* ========================= FIRST VISIT OFFER ========================= */}
       <section className="px-6 pb-10 md:pb-14">

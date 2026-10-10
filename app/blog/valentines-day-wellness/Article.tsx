@@ -8,14 +8,14 @@ export default function ValentinesDayWellnessBlogLayout() {
     <div className="bg-[#F7F4E9] text-black font-vance">
 
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
+      <div className="sway-article-banner w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center">
           Celebrate Valentine&apos;s Day Through Wellness
         </h1>
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+      <div className="sway-article-body max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Holiday</span>
@@ -46,36 +46,36 @@ export default function ValentinesDayWellnessBlogLayout() {
 
         <h2 id="romantic-wellness-date" className="text-2xl font-bold scroll-mt-24">Romantic Wellness Date</h2>
         <p>
-          Forget the usual Valentine&apos;s Day traditions of dinners, roses, wine, 
-          and chocolates. This year, opt for a unique and memorable date centered 
-          on shared health and relaxation. Begin your wellness journey together 
-          with a Glow Getter Hydration Facial, expertly designed to combat dry 
-          winter skin and restore radiance. Follow this with a deeply relaxing 
-          Himalayan Salt Stone Massage, known for its ability to melt away stress 
-          and tension. Conclude your date with time in our Remedy Room, featuring 
-          therapies like traditional saunas, invigorating cold plunges, and LED 
-          light therapy. These wellness-based dates foster connection and leave 
+          Forget the usual Valentine&apos;s Day traditions of dinners, roses, wine,
+          and chocolates. This year, opt for a unique and memorable date centered
+          on shared health and relaxation. Begin your wellness journey together
+          with a Glow Getter Hydration Facial, expertly designed to combat dry
+          winter skin and restore radiance. Follow this with a deeply relaxing
+          Himalayan Salt Stone Massage, known for its ability to melt away stress
+          and tension. Conclude your date with time in our Remedy Room, featuring
+          therapies like traditional saunas, invigorating cold plunges, and LED
+          light therapy. These wellness-based dates foster connection and leave
           you both feeling recharged.
         </p>
 
         <h2 id="galentines-spa-day" className="text-2xl font-bold scroll-mt-24">Galentine&apos;s Spa Day</h2>
         <p>
           This year, celebrate the cherished bonds of friendship with a Galentine&apos;s
-          Day dedicated to wellness. Start your day on Larimer Street with coffee 
-          at Huckleberry Roasters, then head to Sway for customized facials, 
-          therapeutic massages, sessions with our innovative Aescape Robot, or 
-          time in the Remedy Room. After your spa time, explore local boutiques 
-          and end your day with brunch at Snooze, an A.M. Eatery. With pineapple 
-          upside-down pancakes and unique Eggs Benedicts, it&apos;s the perfect 
+          Day dedicated to wellness. Start your day on Larimer Street with coffee
+          at Huckleberry Roasters, then head to Sway for customized facials,
+          therapeutic massages, sessions with our innovative Aescape Robot, or
+          time in the Remedy Room. After your spa time, explore local boutiques
+          and end your day with brunch at Snooze, an A.M. Eatery. With pineapple
+          upside-down pancakes and unique Eggs Benedicts, it&apos;s the perfect
           way to toast to friendship and shared experiences.
         </p>
 
         <h2 id="prioritize-self-love" className="text-2xl font-bold scroll-mt-24">Prioritize Self-Love</h2>
         <p>
           Valentine&apos;s Day should extend beyond couples &ndash; it&apos;s also a vital
-          reminder to show love to yourself. Prioritizing your well-being is the 
-          ultimate act of self-love. Through consistent care and intention, you 
-          build a foundation to thrive and love others more fully. A Sway 
+          reminder to show love to yourself. Prioritizing your well-being is the
+          ultimate act of self-love. Through consistent care and intention, you
+          build a foundation to thrive and love others more fully. A Sway
           membership offers monthly rituals designed to restore and rejuvenate.
         </p>
 
@@ -95,7 +95,7 @@ export default function ValentinesDayWellnessBlogLayout() {
         </ul>
 
         <p>
-          Loving yourself is not selfish – it&apos;s essential. Let our expert team 
+          Loving yourself is not selfish – it&apos;s essential. Let our expert team
           at Sway help you celebrate your most important relationship: the one with yourself.
         </p>
 
@@ -108,9 +108,9 @@ export default function ValentinesDayWellnessBlogLayout() {
 
         <h2 id="make-wellness-tradition" className="text-2xl font-bold scroll-mt-24">Make Wellness Your Valentine&apos;s Tradition</h2>
         <p>
-          Whether you&apos;re spending Valentine&apos;s Day with a partner, friends, 
-          or solo, Sway&apos;s curated treatments offer a meaningful way to celebrate. 
-          Book your Valentine&apos;s wellness experience today and make this the year 
+          Whether you&apos;re spending Valentine&apos;s Day with a partner, friends,
+          or solo, Sway&apos;s curated treatments offer a meaningful way to celebrate.
+          Book your Valentine&apos;s wellness experience today and make this the year
           you truly fall in love with wellness.
         </p>
 

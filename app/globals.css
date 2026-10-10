@@ -3,16 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F7F4E9;
+  --foreground: #113D33;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   color: var(--foreground);
@@ -31,24 +25,28 @@ html, body {
   font-family: 'Vance Bold';
   src: url('/assets/fonts/vance-bold.otf') format('opentype');
   font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Vance Light';
   src: url('/assets/fonts/vance-light.otf') format('opentype');
   font-weight: 300;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Vance Regular';
   src: url('/assets/fonts/vance-regular.otf') format('opentype');
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Vance Text';
   src: url('/assets/fonts/vance-text.otf') format('opentype');
   font-weight: normal;
+  font-display: swap;
 }
 
 /* globals.css or a relevant CSS file */

@@ -98,7 +98,7 @@ export default function InfraredSaunaPage() {
   return (
     <div className="bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* HERO */}
-      <section className="px-6 pt-28 sm:pt-32 md:pt-36 pb-14 md:pb-20">
+      <section className="sway-page-hero px-6 pt-28 sm:pt-32 md:pt-36 pb-14 md:pb-20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-4">
             RiNo · Central Park

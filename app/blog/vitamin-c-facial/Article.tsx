@@ -6,16 +6,16 @@ import Image from "next/image";
 export default function VitaminCFacialBlogLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
-      
+
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
+      <div className="sway-article-banner w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center">
           Winter Skincare: Brighten Your Skin with Sway&apos;s Vitamin C Facial
         </h1>
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+      <div className="sway-article-body max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Skincare</span>
@@ -53,27 +53,27 @@ export default function VitaminCFacialBlogLayout() {
 
         <h2 id="c-the-radiance" className="text-2xl font-bold scroll-mt-24">&ldquo;C&rdquo; the Radiance: The Power of Vitamin C</h2>
         <p>
-          Vitamin C isn&apos;t just a trendy ingredient – it&apos;s a skincare powerhouse 
-          backed by scientific research. As a potent antioxidant, Vitamin C neutralizes 
-          free radicals, those unstable molecules that damage skin cells and accelerate 
-          aging. It&apos;s also a proven skin-brightening agent, effectively reducing 
-          the appearance of dark spots and hyperpigmentation for a more even skin tone. 
-          According to studies, like those cited by Ever/Body, Vitamin C facials are 
-          highly effective in improving skin texture and radiance, making them a go-to 
+          Vitamin C isn&apos;t just a trendy ingredient – it&apos;s a skincare powerhouse
+          backed by scientific research. As a potent antioxidant, Vitamin C neutralizes
+          free radicals, those unstable molecules that damage skin cells and accelerate
+          aging. It&apos;s also a proven skin-brightening agent, effectively reducing
+          the appearance of dark spots and hyperpigmentation for a more even skin tone.
+          According to studies, like those cited by Ever/Body, Vitamin C facials are
+          highly effective in improving skin texture and radiance, making them a go-to
           treatment for achieving a healthy glow.
         </p>
 
         <h2 id="why-choose-dr-dennis-gross" className="text-2xl font-bold scroll-mt-24">Why Choose Dr. Dennis Gross Skincare at Sway?</h2>
         <p>
-          At Sway, we&apos;re committed to offering only the best, most effective treatments. 
-          That&apos;s why we&apos;ve chosen to feature Dr. Dennis Gross Skincare for our 
-          Spotlight Facial. Developed by a board-certified dermatologist, these 
-          professional-grade products are formulated with potent active ingredients 
+          At Sway, we&apos;re committed to offering only the best, most effective treatments.
+          That&apos;s why we&apos;ve chosen to feature Dr. Dennis Gross Skincare for our
+          Spotlight Facial. Developed by a board-certified dermatologist, these
+          professional-grade products are formulated with potent active ingredients
           and backed by rigorous scientific research.
         </p>
         <p>
-          Dr. Dennis Gross Skincare is renowned for its innovative approach to skincare, 
-          delivering visible, lasting results. This makes it the perfect choice for 
+          Dr. Dennis Gross Skincare is renowned for its innovative approach to skincare,
+          delivering visible, lasting results. This makes it the perfect choice for
           our clients seeking a transformative experience.
         </p>
 
@@ -94,18 +94,18 @@ export default function VitaminCFacialBlogLayout() {
 
         <h2 id="why-winter" className="text-2xl font-bold scroll-mt-24">Why Winter is the Perfect Time for a Vitamin C Facial</h2>
         <p>
-          The reduced sun exposure makes winter the safest time to address pigmentation 
-          and lingering sun damage. Start the year with fresh, glowing skin and step into 
+          The reduced sun exposure makes winter the safest time to address pigmentation
+          and lingering sun damage. Start the year with fresh, glowing skin and step into
           spring with confidence.
         </p>
 
         <h2 id="science-behind-vitamin-c" className="text-2xl font-bold scroll-mt-24">The Science Behind Vitamin C</h2>
         <p>
-          "Topical vitamin C has been shown to improve skin texture, reduce wrinkles, 
-          and lighten hyperpigmentation. The efficacy and safety of topical vitamin C 
-          for various skin conditions has been reviewed in available evidence." 
+          "Topical vitamin C has been shown to improve skin texture, reduce wrinkles,
+          and lighten hyperpigmentation. The efficacy and safety of topical vitamin C
+          for various skin conditions has been reviewed in available evidence."
           <em>
-            Topical Vitamin C and the Skin: Mechanisms of Action and Clinical Applications. 
+            Topical Vitamin C and the Skin: Mechanisms of Action and Clinical Applications.
             J Clin Aesthet Dermatol. 2017;10(7):14-17.
           </em>
         </p>

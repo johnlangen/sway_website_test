@@ -352,7 +352,7 @@ const RemedyRoomPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO: art-directed background (homepage remedy photos) */}
-      <section className="relative overflow-hidden text-white">
+      <section className="sway-page-hero relative overflow-hidden text-white">
         <div className="absolute inset-0">
           <picture className="block w-full h-full">
             {!club && (

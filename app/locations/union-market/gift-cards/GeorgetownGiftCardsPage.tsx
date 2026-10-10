@@ -28,7 +28,7 @@ export default function GeorgetownGiftCardsPage() {
   };
 
   return (
-    <div className="bg-[#f4f4f1] min-h-screen flex flex-col items-center px-4 pt-32 md:pt-40 pb-20 text-black">
+    <div className="sway-page-hero bg-[#f4f4f1] min-h-screen flex flex-col items-center px-4 pt-32 md:pt-40 pb-20 text-black">
       {/* JSON-LD schema */}
       <script
         type="application/ld+json"

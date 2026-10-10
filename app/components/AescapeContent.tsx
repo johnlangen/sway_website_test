@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { SwayCurve } from "./SwayCurve";
+import BackgroundFilm from "./BackgroundFilm";
 
 const BOOK_URL = "/locations/denver-larimer/book-aescape/";
 
@@ -179,21 +180,13 @@ export default function AescapeContent() {
   );
 
   return (
-    <div className="bg-[#F7F4E9] text-black font-vance overflow-x-hidden md:h-[100svh] md:overflow-y-scroll md:snap-y md:snap-mandatory md:scroll-pb-24">
+    <div className="bg-[#F7F4E9] text-black font-vance overflow-x-hidden ">
       {/* ======================================================
           HERO (snap on desktop)
           Fix: push content down so it clears the nav on desktop + mobile
       ======================================================= */}
-      <section className="relative min-h-[92svh] md:min-h-[100svh] md:snap-start overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/assets/aescape.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/assets/OG/og-aescape.jpg"
-        />
+      <section className="sway-page-hero relative min-h-[92svh] md:min-h-[100svh] md:snap-start overflow-hidden">
+        <BackgroundFilm src="/assets/aescape.mp4" poster="/assets/OG/og-aescape.jpg" />
 
         {/* cinematic overlays */}
         <div className="absolute inset-0 bg-black/10" />

@@ -86,7 +86,7 @@ export default function Page() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#113D33]/60 via-[#113D33]/55 to-[#113D33]/75" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+        <div className="sway-article-banner absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold tracking-widest px-4 py-1.5 rounded-full mb-4 uppercase border border-white/20">
             Membership Update · April 2026
           </span>
@@ -117,7 +117,7 @@ export default function Page() {
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-4xl mx-auto px-6 py-12 space-y-10 text-[17px] leading-relaxed font-vance">
+      <div className="sway-article-body max-w-4xl mx-auto px-6 py-12 space-y-10 text-[17px] leading-relaxed font-vance">
 
         {/* Meta row */}
         <div className="flex flex-wrap items-center gap-3 text-sm">

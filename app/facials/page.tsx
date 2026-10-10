@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { SwayCurve } from "../components/SwayCurve";
 import Link from "next/link";
+import EditorialHero from "../components/EditorialHero";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 
@@ -168,44 +169,8 @@ const FacialsPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO: art-directed background (homepage facial photos) */}
-      <section className="relative h-[55vh] min-h-[340px] md:h-[70vh] md:min-h-[460px] max-h-[680px] text-white">
-        <div className="absolute inset-0">
-          <picture className="block w-full h-full">
-            <source
-              media="(max-width: 767px)"
-              srcSet="/assets/facialExperiencesMobile.jpg"
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/facialExperiences.jpg"
-              alt="Facial Experiences at Sway Wellness Spa"
-              className="w-full h-full object-cover"
-            />
-          </picture>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
-        <div className="relative h-full flex flex-col items-center justify-center px-6 text-center">
-          <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col items-center"
-          >
-            <div className="text-xs uppercase tracking-[0.35em] text-white/75 mb-4">
-              Skincare
-            </div>
-            <SwayCurve
-              width={160}
-              strokeWidth={2.2}
-              animate
-              className="text-white/85 mx-auto block mb-6"
-            />
-            <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
-              Facial Experiences
-            </h1>
-          </motion.div>
-        </div>
-      </section>
+      <EditorialHero eyebrow="Sway / Facials" title="A fresh start for your skin." description="Expert estheticians. Thoughtfully chosen skincare. Find a facial that meets your skin where it is, and leaves you feeling like yourself again." image="/assets/facialExperiences.jpg" imageAlt="Facials at Sway Wellness Spa" href={bookHref} action="Book a facial" note="Explore the full treatment menu below." />
+
 
       {/* INTRO SECTION */}
       <section className="bg-[#F7F4E9] px-6 py-10 md:py-20 text-center">
@@ -278,7 +243,7 @@ const FacialsPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white rounded-2xl shadow-[0_18px_45px_-22px_rgba(17,61,51,0.28)] overflow-hidden">
+            <div className="treatment-menu-surface">
               {/* Header bar */}
               <div className="bg-[#F7F4E9] px-6 py-5 border-b border-[#113D33]/10">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -302,11 +267,12 @@ const FacialsPage = () => {
 
               {/* Tier toggle */}
               <div className="px-6 pt-5">
-                <div className="flex bg-[#113D33]/10 rounded-full p-1 gap-0.5 w-full sm:w-auto sm:inline-flex">
+                <div className="treatment-tier-controls">
                   {facialTiers.map((tier) => (
                     <button
                       key={tier.key}
                       onClick={() => setSelectedTier(tier.key)}
+                      aria-pressed={selectedTier === tier.key}
                       className={`flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                         selectedTier === tier.key
                           ? "bg-[#113D33] text-white shadow-sm"
@@ -342,7 +308,7 @@ const FacialsPage = () => {
                     {activeTier.treatments.map((t, idx) => (
                       <div
                         key={idx}
-                        className="border border-[#113D33]/8 rounded-xl p-4 hover:border-[#113D33]/15 transition-colors"
+                        className="treatment-menu-item"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <h3 className="text-[#113D33] font-bold text-base">

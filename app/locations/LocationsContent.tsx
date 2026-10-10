@@ -263,10 +263,11 @@ export default function LocationsContent() {
 
   // Featured "Open" card (full-width inside its column)
   const OpenCard = ({ loc }: { loc: Location }) => (
-    <div
+    <button
+      type="button"
       onClick={() => goToLocation(loc)}
       className={[
-        "rounded-3xl p-5 md:p-6 bg-white shadow transition cursor-pointer",
+        "location-picker-card w-full text-left p-5 md:p-6 bg-white transition cursor-pointer",
         "hover:shadow-lg",
         selectedSlug === loc.slug ? "ring-2 ring-[#113D33]/50" : "",
       ].join(" ")}
@@ -297,12 +298,13 @@ export default function LocationsContent() {
         </div>
         <div className="hidden md:block text-[#113D33]/40 text-2xl">&rarr;</div>
       </div>
-    </div>
+    </button>
   );
 
   // Compact "Coming soon" card (no photo, denser, fits 2-up grid)
   const ComingSoonCard = ({ loc }: { loc: Location }) => (
-    <div
+    <button
+      type="button"
       onClick={() => goToLocation(loc)}
       className={[
         "rounded-2xl p-4 bg-white shadow-sm transition cursor-pointer",
@@ -329,7 +331,7 @@ export default function LocationsContent() {
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 
   return (
@@ -337,11 +339,12 @@ export default function LocationsContent() {
       className="min-h-screen font-vance"
       style={{ backgroundColor: cream, color: deepGreen }}
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 pt-24 md:pt-32 pb-16">
+      <div className="location-finder max-w-6xl mx-auto px-6 pt-28 md:pt-36 pb-20">
         {/* Header */}
-        <div className="mb-6 md:mb-8 flex items-center justify-between gap-4">
+        <div className="finder-heading mb-10 flex items-center justify-between gap-6">
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold">Find Your Sway</h1>
+            <p className="sway-eyebrow mb-5">A little closer to feeling good</p>
+            <h1 className="text-5xl md:text-7xl leading-none">Find your Sway.</h1>
             <p className="mt-2 text-sm md:text-base opacity-80 max-w-xl">
               Explore Sway Wellness Spa locations across the U.S., with three Denver
               locations open now in Larimer Square, RiNo, and Central Park, and more cities coming soon.

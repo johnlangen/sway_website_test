@@ -7,14 +7,14 @@ export default function BridalSkincareBlogLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
+      <div className="sway-article-banner w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center">
           Bridal Skincare: Get Wedding-Ready Skin with Sway Facials
         </h1>
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+      <div className="sway-article-body max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Bridal</span>

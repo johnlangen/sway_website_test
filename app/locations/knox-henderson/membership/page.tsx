@@ -111,7 +111,7 @@ export default function DallasMembershipPage() {
 
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <motion.div className="text-center mb-12" {...fadeUp}>
+        <motion.div className="sway-page-hero text-center mb-12" {...fadeUp}>
           <h1 className="text-3xl md:text-5xl font-bold tracking-widest mb-4 uppercase">
             Sway Knox/Henderson Memberships
           </h1>

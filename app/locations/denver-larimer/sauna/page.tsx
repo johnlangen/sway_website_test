@@ -15,7 +15,7 @@ export default function LarimerSaunaPage() {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO */}
-      <section className="flex flex-col md:flex-row-reverse items-center justify-center px-6 md:px-16 pt-28 md:pt-36 pb-20 md:py-36 max-w-[1300px] mx-auto">
+      <section className="sway-page-hero flex flex-col md:flex-row-reverse items-center justify-center px-6 md:px-16 pt-28 md:pt-36 pb-20 md:py-36 max-w-[1300px] mx-auto">
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}

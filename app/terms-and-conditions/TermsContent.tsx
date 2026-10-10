@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function TermsContent() {
   return (
-    <div className="bg-[#F8F5F3] min-h-screen text-black px-6 pt-32 md:pt-40 pb-20 max-w-4xl mx-auto font-vance leading-relaxed">
+    <div className="sway-page-hero bg-[#F8F5F3] min-h-screen text-black px-6 pt-32 md:pt-40 pb-20 max-w-4xl mx-auto font-vance leading-relaxed">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

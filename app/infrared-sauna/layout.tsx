@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 // Clubs-only page. Infrared cabins exist at RiNo and Central Park ONLY.
 // Larimer's sauna is traditional (CLAUDE.md content rule): never add Larimer
@@ -135,6 +136,10 @@ export default function InfraredSaunaLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      {/* Larimer's Attentive "$40 off" popup and Larimer Bowtie chat load
+          site-wide from app/layout.tsx. Neither belongs here, so hide both
+          on every page under this layout. */}
+      <HideFloatingWidgets />
       {children}
     </>
   );

@@ -7,7 +7,7 @@ export default function ColdPlungeDenverLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex flex-col justify-center items-center px-4 gap-4">
+      <div className="sway-article-banner w-full bg-[#113D33] text-white pt-32 pb-20 flex flex-col justify-center items-center px-4 gap-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center max-w-4xl">
           The Best Cold Plunges in Denver: 9 Places to Go
         </h1>
@@ -17,7 +17,7 @@ export default function ColdPlungeDenverLayout() {
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+      <div className="sway-article-body max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
         {/* Back + Date + Tag */}
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link

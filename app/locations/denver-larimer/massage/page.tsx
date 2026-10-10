@@ -68,7 +68,7 @@ export default function LarimerMassagePage() {
     <div className="w-full bg-[#F7F4E9] font-vance">
 
       {/* ── HERO ── */}
-      <section className="relative h-[55vh] min-h-[340px] max-h-[520px]">
+      <section className="sway-page-hero relative h-[55vh] min-h-[340px] max-h-[520px]">
         <Image
           src="/assets/homepage-massage.jpg"
           alt="Massage therapy at Sway Wellness Spa, Larimer Square Denver"

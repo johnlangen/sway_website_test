@@ -1,51 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { SwayCurve } from "../components/SwayCurve";
+import EditorialHero from "../components/EditorialHero";
 
 export default function CouplesSpaPage() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Hero */}
-      <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
-        <Image
-          src="/assets/homepage_photo_outside.jpg"
-          alt="Couples spa experience at Sway Wellness Spa on Larimer Square"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50 z-10" />
-        <div className="relative z-20 text-center text-white px-6">
-          <SwayCurve
-            width={140}
-            strokeWidth={2.2}
-            animate
-            className="text-white/85 mx-auto block mb-5"
-          />
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-            Couples Spa in Denver
-          </h1>
-          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Massages, facials, and recovery for two, on Larimer Square.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/locations/denver-larimer/book"
-              className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
-            >
-              Book for Two
-            </Link>
-            <Link
-              href="/gift-cards"
-              className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white/10 transition"
-            >
-              Gift Cards
-            </Link>
-          </div>
-        </div>
-      </section>
+      <EditorialHero eyebrow="Sway Larimer / Denver" title="Better, together." description="Enjoy massages at the same time in private rooms right next to each other. Then reconnect over a shared recovery ritual." image="/assets/homepage-massage.jpg" imageAlt="Sway Wellness Spa in Denver" href="/locations/denver-larimer/book" action="Explore booking" />
+
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-12 text-[17px] leading-relaxed">

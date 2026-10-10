@@ -3,15 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { MapPin, ArrowRight } from "lucide-react";
-import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
-import { SwayCurve } from "../components/SwayCurve";
-
-type SelectedLocation = {
-  slug: string;
-  name: string;
-};
+import { useEffect } from "react";
 
 const locations = [
   {
@@ -66,200 +58,191 @@ const locations = [
 
 function saveLocation(slug: string, name: string) {
   try {
-    localStorage.setItem("sway_selected_location", JSON.stringify({ slug, name }));
+    localStorage.setItem(
+      "sway_selected_location",
+      JSON.stringify({ slug, name }),
+    );
     document.cookie = `sway_loc=${slug}; path=/; max-age=${60 * 60 * 24 * 365}`;
   } catch {}
 }
 
 export default function MembershipHubPage() {
-  const [selectedLocation, setSelectedLocation] =
-    useState<SelectedLocation | null>(null);
-  const [showPage, setShowPage] = useState(false);
-
   useEffect(() => {
     try {
       // ?choose (from the in-page "Change location" links) shows the picker
       // instead of bouncing straight back to the saved location.
-      const choosing = new URLSearchParams(window.location.search).has("choose");
+      const choosing = new URLSearchParams(window.location.search).has(
+        "choose",
+      );
       const ls = localStorage.getItem("sway_selected_location");
       if (ls) {
         const loc = JSON.parse(ls);
-        setSelectedLocation(loc);
-        const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
+        const match = locations.find(
+          (l) => l.slug === loc?.slug && l.status === "open",
+        );
         if (match && !choosing) {
           window.location.replace(match.href);
           return;
         }
       }
     } catch {}
-    setShowPage(true);
   }, []);
 
-  if (!showPage) return <div className="min-h-screen bg-[#F7F4E9]" />;
-
   return (
-    <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance">
-      {/* Hero */}
-      <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
-        <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
-          Sway Wellness Club
-        </p>
-
-        <SwayCurve
-          width={150}
-          strokeWidth={2.2}
-          animate
-          className="text-[#4A776D] mx-auto block mb-6"
-        />
-
-        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight">
-          Join the Club
-        </h1>
-        <p className="text-base md:text-lg text-[#113D33]/70 max-w-xl mx-auto">
-          Massages and facials at member pricing, 50% off boosts and
-          Remedy Room sessions, private lounge access, and rollover
-          credits. Select your location to view plans.
-        </p>
-
-        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <ReviewBadge />
-          <span className="hidden sm:block opacity-30">|</span>
-          <ClassPassBadge />
+    <div className="sway-offers-page">
+      <section className="sway-campaign-intro">
+        <div>
+          <p className="sway-eyebrow">Sway memberships</p>
+          <h1>
+            Good for you.
+            <br />
+            More often.
+          </h1>
+          <p>
+            A monthly treatment to look forward to, or recovery woven into your
+            week. Find the membership that fits your ritual.
+          </p>
+          <a href="#membership-options" className="sway-text-link">
+            Compare the experiences ↓
+          </a>
         </div>
-
-        <p className="sr-only">
-          Sway Wellness Club memberships starting at $99/month. Three tiers:
-          Essential ($99/month): signature 50-minute facials and massages.
-          Premier ($129/month): enhanced products, techniques, and 70-minute
-          sessions. Ultimate ($159/month): tech-enhanced treatments with LED,
-          microcurrent, and oxygen infusion. Additional memberships: Aescape
-          Premier ($99/month): AI-powered robot massage sessions. Remedy Room
-          ($99/month): 4 monthly recovery circuit visits with traditional sauna,
-          cold plunge, compression therapy, and LED light therapy. All members
-          enjoy 50% off boosts and private lounge access. The three spa tiers
-          also include rollover credits.
-          Available at Denver Larimer, RiNo, and Central Park (now open), Knox/Henderson (Dallas) and Union Market DC
-          (coming soon). Voted #4 Best Day Spa in America by USA Today 10Best.
-          Join at swaywellnessspa.com/membership.
-        </p>
+        <div className="sway-campaign-photo">
+          <Image
+            src="/assets/membership_background_logo.jpg"
+            alt="A quiet place to unwind in Sway’s member lounge"
+            fill
+            priority
+            sizes="(max-width: 760px) 100vw, 45vw"
+            className="object-cover"
+          />
+        </div>
       </section>
-
-      {/* Location Cards */}
-      <section className="px-4 sm:px-6 pt-10 pb-16">
-        <p className="text-center text-sm uppercase tracking-[0.15em] text-[#4A776D] mb-6">
-          Select your location
-        </p>
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
-          {locations.map((loc) => {
-            const isOpen = loc.status === "open";
-            const isSelected = selectedLocation?.slug === loc.slug;
-
-            return isOpen ? (
+      <section className="sway-offers-section" id="membership-options">
+        <div className="sway-membership-story">
+          <div className="sway-membership-story-image">
+            <Image
+              src="/assets/homepage-massage.jpg"
+              alt="Massage at Sway Larimer"
+              fill
+              sizes="(max-width: 760px) 100vw, 45vw"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <p className="sway-eyebrow">Larimer Square · The spa ritual</p>
+            <h2>
+              Your monthly
+              <br />
+              moment of care.
+            </h2>
+            <p className="sway-membership-price">
+              From $99 <span>/ month</span>
+            </p>
+            <p>
+              Massage and facial memberships include one treatment each month,
+              plus member pricing on additional visits. Choose Essential,
+              Premier, or Ultimate to match your preferred treatments.
+            </p>
+            <ul>
+              <li>One monthly massage or facial from your tier</li>
+              <li>50% off boosts and $25 Remedy Room visits</li>
+              <li>Rollover credits and private member lounge access</li>
+            </ul>
+            <p>
+              Prefer technology or recovery? Larimer also offers dedicated
+              Aescape and Remedy Room memberships.
+            </p>
+            <Link
+              href="/locations/denver-larimer/membership"
+              onClick={() => saveLocation("denver-larimer", "Sway Larimer")}
+              className="sway-button"
+            >
+              Explore Larimer memberships <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        </div>
+        <div className="sway-membership-story sway-membership-story-reverse">
+          <div className="sway-membership-story-image">
+            <Image
+              src="/assets/rino1.jpeg"
+              alt="Cold plunge and recovery space at Sway RiNo"
+              fill
+              sizes="(max-width: 760px) 100vw, 45vw"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <p className="sway-eyebrow">
+              RiNo & Central Park · The recovery ritual
+            </p>
+            <h2>
+              A reset you can
+              <br />
+              return to daily.
+            </h2>
+            <p className="sway-membership-price">
+              $129 <span>/ month</span>
+            </p>
+            <p>
+              Make the Remedy Lounge part of your routine. Traditional and
+              infrared saunas, cold plunge, compression therapy, and space to
+              slow down.
+            </p>
+            <ul>
+              <li>Unlimited visits, one 75-minute session per day</li>
+              <li>Month-to-month with no enrollment fee</li>
+              <li>Freeze up to 3 months per calendar year</li>
+            </ul>
+            <p>
+              Massage and facial services are coming soon at the clubs. Central
+              Park has a temporary amenity maintenance notice on its membership
+              page.
+            </p>
+            <div className="sway-membership-location-links">
+              {locations
+                .filter(
+                  (l) =>
+                    l.slug === "denver-rino" ||
+                    l.slug === "denver-central-park",
+                )
+                .map((loc) => (
+                  <Link
+                    key={loc.slug}
+                    href={loc.href}
+                    onClick={() => saveLocation(loc.slug, loc.name)}
+                    className="sway-button"
+                  >
+                    Explore {loc.name.replace("Sway ", "")}{" "}
+                    <span aria-hidden="true">↗</span>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="sway-offer-close">
+        <p className="sway-eyebrow">A new Sway is on the way</p>
+        <h2>Find your future ritual.</h2>
+        <div>
+          {locations
+            .filter((l) => l.status === "coming-soon")
+            .map((loc) => (
               <Link
                 key={loc.slug}
                 href={loc.href}
                 onClick={() => saveLocation(loc.slug, loc.name)}
-                className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
-                  isSelected ? "ring-2 ring-[#9ABFB3]" : ""
-                }`}
+                className="sway-text-link"
               >
-                {/* Image */}
-                <div className="relative h-40 w-full">
-                  <Image
-                    src={loc.image}
-                    alt={loc.name}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-semibold shadow-sm">
-                      Now Open
-                    </span>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
-                  <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {loc.city}, {loc.state}
-                  </p>
-                  {loc.address && (
-                    <p className="text-xs text-gray-400 mb-4">{loc.address}</p>
-                  )}
-
-                  <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33] text-white font-semibold text-sm group-hover:bg-[#0a2b23] transition">
-                    View Memberships
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
+                {loc.name} ↗
               </Link>
-            ) : (
-              <Link
-                key={loc.slug}
-                href={loc.href}
-                onClick={() => saveLocation(loc.slug, loc.name)}
-                className={`group relative bg-white/80 text-[#113D33] rounded-2xl overflow-hidden shadow-md transition hover:shadow-xl hover:scale-[1.02] flex flex-col ${
-                  isSelected ? "ring-2 ring-[#9ABFB3]" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="relative h-40 w-full">
-                  <Image
-                    src={loc.image}
-                    alt={loc.name}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-block text-xs px-3 py-1 rounded-full bg-gray-200 text-gray-600 font-semibold shadow-sm">
-                      Coming Soon
-                    </span>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
-                  <p className="text-sm text-gray-500 flex items-center gap-1 mb-4">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {loc.city}, {loc.state}
-                  </p>
-
-                  <div className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 bg-[#113D33]/80 text-white font-semibold text-sm group-hover:bg-[#113D33] transition">
-                    Learn More<span className="sr-only"> about {loc.name}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+            ))}
         </div>
-      </section>
-
-      {/* Secondary links */}
-      <section className="pb-16 px-6 text-center">
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link
-            href="/massages"
-            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
-          >
-            Explore Massages
+        <p className="mt-8 text-sm">
+          Prefer to try a session first?{" "}
+          <Link href="/offers?choose=1" className="underline">
+            Explore first-visit offers.
           </Link>
-          <Link
-            href="/facials"
-            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
-          >
-            Explore Facials
-          </Link>
-          <Link
-            href="/book"
-            className="text-sm underline underline-offset-4 text-[#113D33]/70 hover:text-[#113D33] transition"
-          >
-            Book Now
-          </Link>
-        </div>
+        </p>
       </section>
     </div>
   );

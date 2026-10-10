@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { myAccountHrefForPath } from "@/lib/myAccount";
 
@@ -16,7 +15,11 @@ const FOOTER_LOCATIONS = {
     name: "Sway Larimer",
     address: ["1428 Larimer St.", "Denver, CO 80202"],
     phone: "+1 303-476-6150",
-    hours: ["Mon-Fri: 10:00 AM - 8:00 PM", "Sat: 9:00 AM - 6:00 PM", "Sun: 11:00 AM - 6:00 PM"],
+    hours: [
+      "Mon-Fri: 10:00 AM - 8:00 PM",
+      "Sat: 9:00 AM - 6:00 PM",
+      "Sun: 11:00 AM - 6:00 PM",
+    ],
   },
   rino: {
     name: "Sway RiNo",
@@ -32,146 +35,144 @@ const FOOTER_LOCATIONS = {
   },
 } as const;
 
-function resolveFooterLocation(pathname: string | null): keyof typeof FOOTER_LOCATIONS | null {
+function resolveFooterLocation(
+  pathname: string | null,
+): keyof typeof FOOTER_LOCATIONS | null {
   if (!pathname) return null;
   if (pathname.startsWith("/locations/denver-rino")) return "rino";
-  if (pathname.startsWith("/locations/denver-central-park")) return "central-park";
+  if (pathname.startsWith("/locations/denver-central-park"))
+    return "central-park";
   if (pathname.startsWith("/locations/denver-larimer")) return "larimer";
   return null; // brand-level pages -> neutral block
 }
 
 export default function Footer() {
-  const [hover, setHover] = useState({ instagram: false, tiktok: false });
   const pathname = usePathname();
   const locKey = resolveFooterLocation(pathname);
   const loc = locKey ? FOOTER_LOCATIONS[locKey] : null;
-
   return (
-    <footer className="bg-[#113D33] text-white px-8 md:px-16 py-10">
-      <div className="flex flex-col md:flex-row justify-between gap-10">
-        {/* Logo */}
-        <div className="flex flex-col">
-          <Image src="/assets/swaylogo.png" width={75} height={25} alt="Sway Logo" />
-          <span className="text-xs text-white/60 mt-1">Part of the Spavia family</span>
-        </div>
-
-        {/* Links */}
-        <div className="flex flex-col">
-          <FooterLink href="/membership" text="Memberships" />
-          <FooterLink href="/treatments" text="Treatments" />
-          <FooterLink href="/group-events" text="Group Events" />
-          <FooterLink href="/date-night" text="Date Night" />
-          <FooterLink href="/couples-spa" text="Couples Spa" />
-          <FooterLink href="/locations" text="Locations" />
-          {/* Plain <a>: on a location page this resolves to that studio's
-              Mindbody portal (external), not an in-site route. */}
-          <a href={myAccountHrefForPath(pathname)} className="hover:underline">
-            My Account
-          </a>
-          <FooterLink
-            href="/locations/knox-henderson/founding-membership"
-            text="Knox/Henderson Founding Membership"
-          />
-          <FooterLink href="/press" text="Press" />
-          <FooterLink href="/blog" text="Blog" />
-          <FooterLink href="/faq/larimer" text="FAQ" />
-          <FooterLink href="/own" text="Own a Sway" />
-        </div>
-
-        {/* Social Links */}
-        <div className="flex flex-col">
-          <FooterSocial
-            href="https://www.instagram.com/swaywellnessclub/"
-            text="Instagram"
-            hoverState={hover.instagram}
-            setHoverState={(state) => setHover({ ...hover, instagram: state })}
-          />
-          <FooterSocial
-            href="https://www.tiktok.com/@swaywellnessclub"
-            text="TikTok"
-            hoverState={hover.tiktok}
-            setHoverState={(state) => setHover({ ...hover, tiktok: state })}
-          />
-        </div>
-
-        {/* Address & Contact — location-aware (see FOOTER_LOCATIONS) */}
+    <footer className="sway-footer">
+      <div className="footer-topline">
+        <p>Make room for feeling good.</p>
+        <Link href="/book" className="sway-button sway-button-light">
+          Find your next reset <span aria-hidden="true">↗</span>
+        </Link>
+      </div>
+      <div className="footer-columns">
         <div>
+          <Link href="/" aria-label="Sway home">
+            <Image
+              src="/assets/swaylogo.png"
+              width={75}
+              height={27}
+              alt="Sway"
+              className="w-[90px] h-auto"
+            />
+          </Link>
+          <p className="footer-brand-note">
+            A modern wellness club.
+            <br />
+            Part of the Spavia family.
+          </p>
+          <a
+            href="https://www.instagram.com/swaywellnessclub/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram ↗<span className="sr-only"> (opens in new tab)</span>
+          </a>
+          <a
+            href="https://www.tiktok.com/@swaywellnessclub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            TikTok ↗<span className="sr-only"> (opens in new tab)</span>
+          </a>
+        </div>
+        <div>
+          <h2>Your Sway</h2>
+          {[
+            ["Treatments", "/treatments"],
+            ["Memberships", "/membership"],
+            ["Offers", "/offers"],
+            ["Gift Cards", "/gift-cards"],
+            ["Locations", "/locations"],
+          ].map(([label, href]) => (
+            <Link key={href} href={href}>
+              {label}
+            </Link>
+          ))}
+          <a href={myAccountHrefForPath(pathname)}>My Account</a>
+        </div>
+        <div>
+          <h2>A little more Sway</h2>
+          {[
+            ["Our Philosophy", "/swayway"],
+            ["Group Events", "/group-events"],
+            ["Date Night", "/date-night"],
+            ["Couples Spa", "/couples-spa"],
+            ["The Journal", "/blog"],
+            ["Press", "/press"],
+            ["Careers", "/careers"],
+            ["Own a Sway", "/own"],
+            ["Questions?", "/faq"],
+          ].map(([label, href]) => (
+            <Link key={href} href={href}>
+              {label}
+            </Link>
+          ))}
+        </div>
+        <div>
+          <h2>{loc ? loc.name : "Find your neighborhood"}</h2>
           {loc ? (
             <>
-              <p className="font-semibold">{loc.name}</p>
-              <p className="mt-1">{loc.address[0]}<br />{loc.address[1]}</p>
-              {"phone" in loc && loc.phone && <p className="mt-2">Phone: {loc.phone}</p>}
-              {"email" in loc && loc.email && (
-                <p className="mt-2">
-                  <a href={`mailto:${loc.email}`} className="hover:underline">{loc.email}</a>
+              <p>
+                {loc.address[0]}
+                <br />
+                {loc.address[1]}
+              </p>
+              <a href={`tel:${loc.phone.replace(/[^+\d]/g, "")}`}>
+                {loc.phone}
+              </a>
+              {"email" in loc && (
+                <a href={`mailto:${loc.email}`}>{loc.email}</a>
+              )}
+              {"hours" in loc && (
+                <p className="mt-4">
+                  {loc.hours.map((h) => (
+                    <span className="block" key={h}>
+                      {h}
+                    </span>
+                  ))}
                 </p>
               )}
-              {"hours" in loc && loc.hours && (
-                <>
-                  <p className="mt-4 font-semibold">Sway Hours of Wellness</p>
-                  <p className="text-sm">
-                    {loc.hours.map((h, i) => (
-                      <span key={i}>{h}{i < loc.hours.length - 1 && <br />}</span>
-                    ))}
-                  </p>
-                </>
-              )}
+              <Link href="/locations">Explore all locations ↗</Link>
             </>
           ) : (
             <>
-              <p className="font-semibold">Visit Sway</p>
-              <p className="mt-1 text-sm text-white/80">Denver Larimer · RiNo · Central Park · and more.</p>
-              <Link href="/locations" className="mt-2 inline-block underline">See all locations</Link>
+              {[
+                ["Denver / Larimer Square", "denver-larimer"],
+                ["Denver / RiNo", "denver-rino"],
+                ["Aurora / Central Park", "denver-central-park"],
+                ["Dallas / Knox-Henderson", "knox-henderson"],
+                ["Washington, DC / Union Market", "union-market"],
+              ].map(([name, slug]) => (
+                <Link key={slug} href={`/locations/${slug}`}>
+                  {name} ↗
+                </Link>
+              ))}
             </>
           )}
         </div>
       </div>
-
-      {/* Award */}
-      <div className="mt-10 text-center text-xs text-white/60">
-        Voted #4 Best Day Spa in America · USA Today 10Best
-      </div>
-
-      {/* Bottom Links */}
-      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 justify-between text-sm text-gray-400">
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
-          <FooterLink href="/terms-and-conditions" text="Terms and Conditions" />
-          <FooterLink href="/accessibility" text="Accessibility" />
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Sway Wellness Spa</span>
+        <span>Pause. Breathe. Rediscover.</span>
+        <div>
+          <Link href="/terms-and-conditions">Terms & Conditions</Link>
+          <Link href="/accessibility">Accessibility</Link>
         </div>
-        <span>© 2026 Sway Wellness Spa</span>
       </div>
     </footer>
   );
 }
-
-// Footer Link Component
-const FooterLink = ({ href, text }: { href: string; text: string }) => (
-  <Link href={href} className="hover:underline">
-    {text}
-  </Link>
-);
-
-// Social Media Link Component
-const FooterSocial = ({
-  href,
-  text,
-  hoverState,
-  setHoverState,
-}: {
-  href: string;
-  text: string;
-  hoverState: boolean;
-  setHoverState: (state: boolean) => void;
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    onMouseEnter={() => setHoverState(true)}
-    onMouseLeave={() => setHoverState(false)}
-    className={`hover:underline ${hoverState ? "text-green-400" : "text-white"}`}
-  >
-    {text}
-    <span className="sr-only">(opens in new tab)</span>
-  </a>
-);

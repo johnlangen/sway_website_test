@@ -10,7 +10,7 @@ export default function HolidayWellnessGuideLayout() {
       {/* =========================
           SECTION 1 — COVER (snap)
          ========================= */}
-      <section className="snap-start min-h-[100svh] flex justify-center items-center px-4">
+      <section className="sway-article-banner snap-start min-h-[100svh] flex justify-center items-center px-4">
         <div
           className="
             relative

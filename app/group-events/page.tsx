@@ -19,7 +19,7 @@ export default function GroupEventsPage() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Hero */}
-      <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
+      <section className="sway-page-hero relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
         <Image
           src="/assets/homepage_photo_outside.jpg"
           alt="Group spa event at Sway Wellness Spa on Larimer Square in Denver"

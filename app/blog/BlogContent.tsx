@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { SwayCurve } from "../components/SwayCurve";
 
 /* ---------- DATA ---------- */
 
@@ -30,13 +28,14 @@ const blogs = [
     slug: "recovery-denver",
     title: "Recovery in Denver: Sauna, Cold Plunge & Robot Massage",
     summary:
-      "Your complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, LED, and Aescape AI robot massage, all in Sway's Remedy Room.",
+      "Your complete guide to recovery in Denver: traditional sauna, cold plunge, compression therapy, and LED in the Remedy Room, plus Aescape robot massage at Sway Larimer.",
     tag: "Recovery",
     image: "/assets/remedy-room.jpg",
   },
   {
     slug: "sway-membership-tiers",
-    title: "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
+    title:
+      "Introducing Sway's New Membership Tiers: Essential, Premier & Ultimate",
     summary:
       "We just launched three membership tiers designed to match exactly where you are in your wellness journey. Here's what's new, what's included, and which tier is right for you.",
     tag: "Membership",
@@ -228,7 +227,8 @@ const blogs = [
   },
   {
     slug: "sway-shop-finds",
-    title: "From the Spa to You: The Best Sway Shop Finds for Ultimate Wellness",
+    title:
+      "From the Spa to You: The Best Sway Shop Finds for Ultimate Wellness",
     summary:
       "Explore Sway's curated selection of skincare, fragrances, and luxury wellness gifts to elevate your everyday self-care routine.",
     tag: "Retail",
@@ -249,253 +249,181 @@ const blogs = [
 const ALL_TAGS = Array.from(new Set(blogs.map((b) => b.tag))).sort();
 
 const featured = blogs.find((b) => b.featured) ?? blogs[0];
-const remaining = blogs.filter((b) => b !== featured);
-
-// Secondary background tone, matching the homepage rhythm.
-const SAND = "#EBE4D1";
-
-/* ---------- COMPONENT ---------- */
 
 export default function BlogContent() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
-
-  const filtered = activeTag
-    ? remaining.filter((b) => b.tag === activeTag)
-    : remaining;
-
+  const [query, setQuery] = useState("");
+  const searching = query.trim().length > 0 || activeTag !== null;
+  const filtered = blogs.filter((blog) => {
+    if (!searching && blog === featured) return false;
+    return (
+      (!activeTag || blog.tag === activeTag) &&
+      `${blog.title} ${blog.summary} ${blog.tag}`
+        .toLowerCase()
+        .includes(query.trim().toLowerCase())
+    );
+  });
   return (
-    <div className="w-full bg-[#F7F4E9] font-vance text-[#113D33]">
-      {/* ---------- HERO ---------- */}
-      <section className="bg-[#113D33] text-white px-6 pt-32 pb-20 md:pt-44 md:pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <div className="text-xs uppercase tracking-[0.35em] text-[#A9D2C5] mb-4">
-            The Wellness Journal
-          </div>
-          <SwayCurve
-            width={170}
-            strokeWidth={2.2}
-            animate
-            className="text-white/85 mx-auto block mb-7"
-          />
-          <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
-            The Sway Edit
-          </h1>
-
-          <p className="sr-only">
-            The Sway Edit is the wellness blog by Sway Wellness Spa, located at
-            1428 Larimer St. on Larimer Square in Denver, CO. {blogs.length}{" "}
-            articles covering massage therapy, skincare, recovery science,
-            wellness technology, seasonal self-care, and Denver lifestyle.
-            Written by the Sway Wellness Team. Sway offers 13 massage types,
-            11 facial treatments across 3 tiers, the Remedy Room recovery
-            circuit, and AI-powered Aescape robot massage. Voted #4 Best Day Spa in America by USA
-            Today 10Best. Book at swaywellnessspa.com or call (303) 476-6150.
+    <div className="sway-journal">
+      <section className="sway-journal-intro">
+        <p className="sway-eyebrow">The wellness journal</p>
+        <h1>The Sway Edit.</h1>
+        <div>
+          <p>
+            Small discoveries.
+            <br />
+            Better everyday rituals.
           </p>
-
-          <p className="mt-5 text-base md:text-lg text-white/80 max-w-2xl mx-auto">
-            Expert wellness advice, skincare science, recovery tips, and Denver
-            lifestyle, from the team at Sway Wellness Spa.
+          <p>
+            Explore massage, skincare, recovery, and life in Denver with the
+            team at Sway.
           </p>
-
-          <p className="mt-3 text-sm text-white/65">{blogs.length} articles</p>
-        </motion.div>
+        </div>
       </section>
-
-      {/* ---------- FEATURED POST ---------- */}
       <section
-        className="px-6 py-14 md:py-20"
-        style={{ backgroundColor: SAND }}
+        className="sway-journal-feature"
+        aria-labelledby="featured-story"
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 md:mb-10">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D]">
-              Editor&apos;s Pick
-            </div>
-            <SwayCurve
-              width={140}
-              strokeWidth={2.4}
-              animate
-              className="text-[#4A776D]/85 mx-auto block mt-3"
-            />
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <Link
-              href={`/blog/${featured.slug}`}
-              className="group block rounded-3xl overflow-hidden bg-white shadow-[0_18px_45px_-20px_rgba(17,61,51,0.3)] hover:shadow-[0_30px_60px_-20px_rgba(17,61,51,0.4)] transition-shadow duration-300"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="relative h-[240px] md:h-[380px]">
-                  <Image
-                    src={featured.image}
-                    alt={featured.title}
-                    fill
-                    priority
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                  <span className="absolute top-4 left-4 bg-[#113D33] text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wide">
-                    Featured
-                  </span>
-                </div>
-
-                <div className="p-8 md:p-12 flex flex-col justify-center">
-                  <span className="text-xs uppercase tracking-[0.18em] text-[#4A776D] font-semibold">
-                    {featured.tag}
-                  </span>
-                  <h2 className="mt-2 text-2xl md:text-3xl font-semibold leading-snug group-hover:underline underline-offset-4">
-                    {featured.title}
-                  </h2>
-                  <p className="mt-3 text-sm md:text-base opacity-70 leading-relaxed">
-                    {featured.summary}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#113D33]">
-                    Read article
-                    <span aria-hidden="true">&rarr;</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ---------- LATEST + FILTERS ---------- */}
-      <section className="px-6 pt-16 md:pt-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 md:mb-10">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
-              Browse by Topic
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
-              The Latest
-            </h2>
-            <SwayCurve
-              width={150}
-              strokeWidth={2.4}
-              animate
-              className="text-[#4A776D]/85 mx-auto block mt-4"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2 justify-center">
-            <button
-              onClick={() => setActiveTag(null)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                activeTag === null
-                  ? "bg-[#113D33] text-white"
-                  : "bg-[#113D33]/8 text-[#113D33]/70 hover:bg-[#113D33]/15"
-              }`}
-            >
-              All
-            </button>
-            {ALL_TAGS.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                  activeTag === tag
-                    ? "bg-[#113D33] text-white"
-                    : "bg-[#113D33]/8 text-[#113D33]/70 hover:bg-[#113D33]/15"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- BLOG GRID ---------- */}
-      <section className="px-6 py-12 md:py-16">
-        <div className="max-w-7xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTag ?? "all"}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3"
-            >
-              {filtered.map((blog) => (
-                <Link
-                  key={blog.slug}
-                  href={`/blog/${blog.slug}`}
-                  className="group block bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)] hover:shadow-[0_22px_45px_-18px_rgba(17,61,51,0.3)] transition-shadow duration-300"
-                >
-                  <div className="relative h-[180px]">
-                    <Image
-                      src={blog.image}
-                      alt={blog.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
-                    />
-                    <span className="absolute top-3 right-3 bg-[#113D33] text-white text-[11px] px-2.5 py-1 rounded-full font-semibold tracking-wide">
-                      {blog.tag}
-                    </span>
-                  </div>
-
-                  <div className="p-5">
-                    <h3 className="text-lg font-semibold leading-snug group-hover:underline underline-offset-4 line-clamp-2">
-                      {blog.title}
-                    </h3>
-                    <p className="mt-2 text-sm opacity-65 leading-relaxed line-clamp-2">
-                      {blog.summary}
-                    </p>
-                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#113D33]">
-                      Read
-                      <span aria-hidden="true">&rarr;</span>
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {filtered.length === 0 && (
-            <p className="text-center text-[#113D33]/50 py-16">
-              No articles found for &ldquo;{activeTag}&rdquo;.
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* ---------- CTA ---------- */}
-      <section className="bg-[#113D33] text-white px-6 py-20 md:py-24">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
-            Ready to Experience Sway?
-          </h2>
-          <SwayCurve
-            width={150}
-            strokeWidth={2.4}
-            animate
-            className="text-[#A9D2C5] mx-auto block mt-4 mb-5"
+        <Link
+          href={`/blog/${featured.slug}`}
+          className="sway-journal-feature-image"
+        >
+          <Image
+            src={featured.image}
+            alt={featured.title}
+            fill
+            priority
+            sizes="(max-width: 760px) 100vw, 55vw"
+            className="object-cover"
           />
-          <p className="text-base text-white/80 max-w-lg mx-auto">
-            Book a massage, facial, or recovery session at Denver&apos;s
-            award-winning wellness club.
-          </p>
-          <Link
-            href="/locations/denver-larimer"
-            className="group relative mt-8 inline-flex items-center justify-center bg-white text-[#113D33] px-8 py-3.5 text-sm font-semibold rounded-full hover:bg-gray-100 transition shadow-sm"
-          >
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
-              <SwayCurve width={40} strokeWidth={1.4} className="text-white" />
-            </span>
-            Book Now
+        </Link>
+        <div>
+          <p className="sway-eyebrow">Editor’s pick · {featured.tag}</p>
+          <h2 id="featured-story">
+            <Link href={`/blog/${featured.slug}`}>{featured.title}</Link>
+          </h2>
+          <p>{featured.summary}</p>
+          <Link href={`/blog/${featured.slug}`} className="sway-text-link">
+            Read the guide ↗
           </Link>
         </div>
+      </section>
+      <section
+        className="sway-journal-library"
+        aria-labelledby="journal-library-heading"
+      >
+        <div className="sway-section-heading">
+          <div>
+            <p className="sway-eyebrow">Follow your curiosity</p>
+            <h2 id="journal-library-heading">A little more to explore.</h2>
+          </div>
+          <label className="sway-journal-search">
+            Search the journal
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Try massage, skincare, Denver…"
+            />
+          </label>
+        </div>
+        <label className="sway-journal-mobile-topic">
+          Topic
+          <select
+            value={activeTag ?? ""}
+            onChange={(event) => setActiveTag(event.target.value || null)}
+          >
+            <option value="">All topics</option>
+            {ALL_TAGS.map((tag) => (
+              <option value={tag} key={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div
+          className="sway-journal-topics"
+          aria-label="Filter articles by topic"
+        >
+          <button
+            type="button"
+            aria-pressed={activeTag === null}
+            onClick={() => setActiveTag(null)}
+          >
+            All topics
+          </button>
+          {ALL_TAGS.map((tag) => (
+            <button
+              type="button"
+              key={tag}
+              aria-pressed={activeTag === tag}
+              onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+        <p className="sway-journal-count" role="status">
+          {filtered.length} {filtered.length === 1 ? "story" : "stories"}
+          {activeTag ? ` in ${activeTag}` : ""}
+          {query.trim() ? ` matching “${query.trim()}”` : ""}
+        </p>
+        <div className="sway-journal-grid">
+          {filtered.map((blog) => (
+            <article key={blog.slug}>
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="sway-journal-story-image"
+                tabIndex={-1}
+                aria-hidden="true"
+              >
+                <Image
+                  src={blog.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </Link>
+              <p className="sway-eyebrow">{blog.tag}</p>
+              <h3>
+                <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
+              </h3>
+              <p>{blog.summary}</p>
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="sway-text-link"
+                aria-label={`Read ${blog.title}`}
+              >
+                Read story ↗
+              </Link>
+            </article>
+          ))}
+        </div>
+        {filtered.length === 0 && (
+          <div className="sway-journal-empty">
+            <h3>No stories found just yet.</h3>
+            <p>Try another phrase, or explore all of the journal.</p>
+            <button
+              type="button"
+              className="sway-button"
+              onClick={() => {
+                setQuery("");
+                setActiveTag(null);
+              }}
+            >
+              Clear filters <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        )}
+      </section>
+      <section className="sway-offer-close">
+        <p className="sway-eyebrow">From inspiration to experience</p>
+        <h2>Make a little room for you.</h2>
+        <p>Find your next massage, facial, or recovery ritual.</p>
+        <Link href="/treatments" className="sway-text-link">
+          Explore the experiences ↗
+        </Link>
       </section>
     </div>
   );

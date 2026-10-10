@@ -35,7 +35,7 @@ export default function SaltStoneVsHotStoneLayout() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Banner */}
-      <div className="w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
+      <div className="sway-article-banner w-full bg-[#113D33] text-white pt-32 pb-20 flex justify-center items-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold text-center leading-tight">
           Salt Stone vs Hot Stone Massage:<br className="hidden md:block" />{" "}
           Why Himalayan Salt Wins
@@ -43,7 +43,7 @@ export default function SaltStoneVsHotStoneLayout() {
       </div>
 
       {/* Blog Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
+      <div className="sway-article-body max-w-4xl mx-auto px-6 py-16 space-y-10 text-[17px] leading-relaxed">
         {/* Back Link + Meta */}
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link

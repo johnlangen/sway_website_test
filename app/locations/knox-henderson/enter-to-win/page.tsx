@@ -60,7 +60,7 @@ export default function DallasEnterToWinPage() {
       {/* =========================================================
           SECTION 1 — HERO with video
       ========================================================= */}
-      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+      <section className="sway-page-hero relative min-h-[100svh] flex items-center justify-center overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/assets/background.jpg"

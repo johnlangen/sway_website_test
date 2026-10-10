@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./editorial.css";
+import SiteCanvas from "./components/SiteCanvas";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { AddToHomeScreen } from "./components/AddToHomeScreen";
@@ -234,7 +236,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AdAttribution />
         <LarimerOnlyChat />
         <NavBar />
-        <main id="main-content" className="relative z-10">{children}</main>
+        <SiteCanvas>{children}</SiteCanvas>
         <Footer />
         {/* Preview-only: shows the install card on any page with ?a2hs=1 (testing).
             Real traffic never sees this — the live prompt is the booking-done card. */}

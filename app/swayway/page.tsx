@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import EditorialHero from "../components/EditorialHero";
 import { SwayCurve } from "../components/SwayCurve";
 
 /* ---------------------------------------------
@@ -38,62 +39,8 @@ export default function SwayWayPage() {
       {/* ======================================================
           1. Hero
           ====================================================== */}
-      <section className="snap-section h-screen flex items-center justify-center relative text-white">
-        <Image
-          src="/assets/OG/og-home.jpg"
-          alt="The Sway Way"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-10" />
+      <EditorialHero eyebrow="Our philosophy" title="The Sway way." description="Pause. Breathe. Rediscover. A modern approach to wellness, made for real life." image="/assets/swayway.jpg" imageAlt="Sway Wellness Spa in Denver" href="/locations" action="Find your Sway" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          className="relative z-20 text-center px-6 font-vance"
-        >
-          <div className="text-xs uppercase tracking-[0.35em] text-white/75 mb-4">
-            Our Philosophy
-          </div>
-          <SwayCurve
-            width={170}
-            strokeWidth={2.2}
-            animate
-            className="text-white/85 mx-auto block mb-7"
-          />
-          <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
-            The Sway Way
-          </h1>
-          <p className="mt-5 text-base md:text-2xl font-light text-white/85 tracking-wide">
-            The next wave of wellness.
-          </p>
-        </motion.div>
-
-        {/* Scroll affordance */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.6, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/80 flex flex-col items-center gap-2 pointer-events-none"
-        >
-          <span className="text-[10px] uppercase tracking-[0.35em]">Scroll</span>
-          <svg
-            className="w-4 h-4 scroll-bounce"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth={1.75}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-        </motion.div>
-      </section>
 
       {/* ======================================================
           2. Manifesto: single hook

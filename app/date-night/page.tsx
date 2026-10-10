@@ -1,52 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { SwayCurve } from "../components/SwayCurve";
+import EditorialHero from "../components/EditorialHero";
 
 export default function DateNightPage() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance">
       {/* Hero */}
-      <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
-        <Image
-          src="/assets/homepage_photo_outside.jpg"
-          alt="Sway Wellness Spa on Larimer Square, date night in Denver"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50 z-10" />
-        <div className="relative z-20 text-center text-white px-6">
-          <SwayCurve
-            width={140}
-            strokeWidth={2.2}
-            animate
-            className="text-white/85 mx-auto block mb-5"
-          />
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-            Date Night in Denver
-          </h1>
-          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Start with a couples massage on Larimer Square. Finish with dinner
-            steps away.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/locations/denver-larimer/book"
-              className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
-            >
-              Book a Couples Treatment
-            </Link>
-            <Link
-              href="/gift-cards"
-              className="inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white/10 transition"
-            >
-              Gift a Date Night
-            </Link>
-          </div>
-        </div>
-      </section>
+      <EditorialHero eyebrow="A little time, together" title="Date night, with a softer start." description="Begin with a treatment on Larimer Square. Stay for dinner, a long conversation, and a different kind of night out." image="/assets/homepage_photo_outside.jpg" imageAlt="Sway Wellness Spa in Denver" href="/locations/denver-larimer/book" action="Plan your date night" />
+
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-6 py-16 space-y-12 text-[17px] leading-relaxed">

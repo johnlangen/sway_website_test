@@ -32,7 +32,7 @@ export default function LedLightTherapyPage() {
   return (
     <div className="w-full max-w-screen bg-[#F7F4E9] font-vance">
       {/* ✅ Hero Section */}
-      <section className="flex flex-col md:flex-row-reverse items-center justify-center px-6 md:px-16 pt-28 md:pt-36 pb-20 md:py-36 max-w-[1300px] mx-auto">
+      <section className="sway-page-hero sway-therapy-hero flex flex-col md:flex-row-reverse items-center justify-center px-6 md:px-16 pt-28 md:pt-36 pb-20 md:py-36 max-w-[1300px] mx-auto">
         {/* Image */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}

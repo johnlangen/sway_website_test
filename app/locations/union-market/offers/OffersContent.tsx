@@ -35,7 +35,7 @@ export default function OffersContent() {
   };
 
   return (
-    <div className="bg-[#F8F5F3] min-h-screen flex flex-col items-center px-4 pt-32 md:pt-40 pb-20 text-black">
+    <div className="sway-page-hero bg-[#F8F5F3] min-h-screen flex flex-col items-center px-4 pt-32 md:pt-40 pb-20 text-black">
       {/* Inject JSON-LD FAQ Schema */}
       <script
         type="application/ld+json"
@@ -63,8 +63,8 @@ export default function OffersContent() {
           Founding Member Offers Coming Soon
         </h2>
         <p className="text-sm md:text-base font-vance text-gray-800 mb-6">
-          Our <strong>Union Market, DC</strong> location is preparing to open. 
-          Exclusive <strong>Founding Member perks</strong> and launch specials 
+          Our <strong>Union Market, DC</strong> location is preparing to open.
+          Exclusive <strong>Founding Member perks</strong> and launch specials
           will be posted here as we get closer to welcoming our first guests.
         </p>
 

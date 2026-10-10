@@ -25,7 +25,7 @@ export default function AescapeBlogLayout() {
       {/* =========================
           SECTION 1 — HERO (snap on desktop)
          ========================= */}
-      <section className="md:snap-start min-h-[100svh] flex justify-center items-center px-4">
+      <section className="sway-article-banner md:snap-start min-h-[100svh] flex justify-center items-center px-4">
         <div className="relative w-full max-w-[420px] md:max-w-[560px] lg:max-w-[640px] aspect-[3/5] max-h-[82vh] overflow-hidden rounded-md shadow-2xl">
           <Image
             src="/assets/blog22.jpg"

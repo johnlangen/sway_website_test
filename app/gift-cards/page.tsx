@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
-import { SwayCurve } from "../components/SwayCurve";
 
 type SelectedLocation = {
   slug: string;
@@ -100,21 +99,14 @@ export default function GiftCardsHubPage() {
   return (
     <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* Hero */}
-      <section className="px-6 pt-28 md:pt-36 pb-4 text-center max-w-4xl mx-auto">
+      <section className="sway-directory-hero">
         <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#4A776D] mb-4">
-          Sway Wellness Spa
+          Sway gift cards
         </p>
 
-        <SwayCurve
-          width={150}
-          strokeWidth={2.2}
-          animate
-          className="text-[#4A776D] mx-auto block mb-6"
-        />
 
-        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight">
-          Gift Cards
-        </h1>
+
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 leading-tight">A moment, just for them.</h1>
         <p className="text-base md:text-lg text-[#113D33]/70 max-w-xl mx-auto">
           Give the ultimate wellness gift. Select your location to purchase a
           Sway gift card online.
@@ -144,7 +136,7 @@ export default function GiftCardsHubPage() {
         <p className="text-center text-sm uppercase tracking-[0.15em] text-[#4A776D] mb-6">
           Select your location
         </p>
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {locations.map((loc) => {
             const isOpen = loc.status === "open";
             const isSelected = selectedLocation?.slug === loc.slug;
@@ -154,7 +146,7 @@ export default function GiftCardsHubPage() {
                 key={loc.slug}
                 href={loc.href}
                 onClick={() => saveLocation(loc.slug, loc.name)}
-                className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col ${
+                className={`group relative bg-white text-[#113D33] rounded-2xl overflow-hidden shadow-xl transition hover:shadow-2xl hover:-translate-y-1 flex flex-col ${
                   isSelected ? "ring-2 ring-[#9ABFB3]" : ""
                 }`}
               >
@@ -195,7 +187,7 @@ export default function GiftCardsHubPage() {
                 key={loc.slug}
                 href={loc.href}
                 onClick={() => saveLocation(loc.slug, loc.name)}
-                className={`group relative bg-white/80 text-[#113D33] rounded-2xl overflow-hidden shadow-md transition hover:shadow-xl hover:scale-[1.02] flex flex-col ${
+                className={`group relative bg-white/80 text-[#113D33] rounded-2xl overflow-hidden shadow-md transition hover:shadow-xl hover:-translate-y-1 flex flex-col ${
                   isSelected ? "ring-2 ring-[#9ABFB3]" : ""
                 }`}
               >

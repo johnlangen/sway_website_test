@@ -144,6 +144,20 @@ const NavBar = () => {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previous; };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1280px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
+
   // Restore focus to the hamburger button whenever the menu closes.
   const prevMobileOpenRef = useRef(false);
   useEffect(() => {
@@ -154,7 +168,7 @@ const NavBar = () => {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[#113D33]">
+    <header className="sway-header fixed top-0 left-0 w-full z-50 bg-[#113D33]">
       <nav className="h-[56px] px-4 md:px-12">
         <div className="h-full max-w-[1300px] mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-4">
           {/* Logo — on the homepage, intercept the click to trigger an
@@ -177,7 +191,7 @@ const NavBar = () => {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center justify-center gap-3 lg:gap-6 xl:gap-8 text-sm lg:text-base">
+          <div className="desktop-links hidden xl:flex items-center justify-center gap-3 lg:gap-6 xl:gap-8 text-sm lg:text-base">
             {/* Treatments */}
             <div className="relative treatments-dropdown">
               <button
@@ -300,7 +314,7 @@ const NavBar = () => {
           {/* Right side */}
           <div className="flex items-center gap-3 justify-end">
             {savedLocation ? (
-              <div className="hidden md:flex items-center gap-2 text-white font-vance text-sm max-w-[160px] lg:max-w-[200px]">
+              <div className="hidden lg:flex items-center gap-2 text-white font-vance text-sm max-w-[160px] lg:max-w-[200px]">
                 <Link href={`/locations/${savedLocation.slug}`} className="truncate">
                   {/* Resolve from slug, not the cached name — a guest who
                       saved this location before a rebrand would otherwise
@@ -312,7 +326,7 @@ const NavBar = () => {
                 </Link>
               </div>
             ) : (
-              <Link href="/locations" className="hidden md:inline-block text-white text-sm font-vance whitespace-nowrap">
+              <Link href="/locations" className="hidden lg:inline-block text-white text-sm font-vance whitespace-nowrap">
                 Select Location
               </Link>
             )}
@@ -326,7 +340,7 @@ const NavBar = () => {
 
             <a
               href={bookHref}
-              className="bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
+              className="nav-book bg-white text-[#113D33] px-4 lg:px-5 py-2 rounded-full font-vance hover:bg-gray-200 text-sm whitespace-nowrap"
             >
               Book Now
             </a>
@@ -337,7 +351,7 @@ const NavBar = () => {
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
-              className="md:hidden text-white text-2xl"
+              className="mobile-toggle xl:hidden text-white text-2xl"
             >
               <span aria-hidden="true">☰</span>
             </button>
@@ -347,7 +361,8 @@ const NavBar = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div ref={mobileMenuRef} id="mobile-menu" className="md:hidden bg-black p-6 flex flex-col items-center space-y-4">
+        <div ref={mobileMenuRef} id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation" className="sway-mobile-menu xl:hidden flex flex-col space-y-2">
+          <button onClick={() => setMobileMenuOpen(false)} className="text-white self-end min-h-11 px-2" aria-label="Close navigation">Close ×</button>
           {/* Location selector */}
           {savedLocation ? (
             <div className="flex items-center gap-2 text-white text-sm">

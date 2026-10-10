@@ -15,6 +15,7 @@
  */
 
 import Link from "next/link";
+import RecoveryValue from "./RecoveryValue";
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
@@ -24,10 +25,7 @@ import MembershipJoinFlow, {
   type MembershipPlan,
   type MembershipSite,
 } from "./MembershipJoinFlow";
-import {
-  CLUB_LOCATIONS,
-  type ClubLocationKey,
-} from "@/lib/clubLocations";
+import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
 
 /* ------------------------------------------------------------------
    PER-CLUB MARKETING CONFIG (Mindbody config lives in lib/clubLocations)
@@ -160,13 +158,15 @@ export default function ClubMembershipPage({
   return (
     <div className="bg-[#F7F4E9] text-[#113D33] font-vance">
       {/* ================================ HERO ================================ */}
-      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-12 md:pb-16">
+      <section className="sway-page-hero sway-membership-hero px-6 pt-24 sm:pt-28 md:pt-36 pb-12 md:pb-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div>
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
-              {cfg.areaLine}{" "}
-              &middot;{" "}
-              <Link href="/membership?choose=1" className="underline underline-offset-4 hover:opacity-100 normal-case tracking-normal">
+              {cfg.areaLine} &middot;{" "}
+              <Link
+                href="/membership?choose=1"
+                className="underline underline-offset-4 hover:opacity-100 normal-case tracking-normal"
+              >
                 Change location
               </Link>
             </div>
@@ -233,6 +233,16 @@ export default function ClubMembershipPage({
         </div>
       </section>
 
+      {clubKey === "denver-central-park" && (
+        <aside className="sway-membership-notice">
+          <strong>Central Park amenity update.</strong> One cold plunge and the
+          warm soak are temporarily under maintenance.{" "}
+          <Link href="/locations/denver-central-park/offers#club-status">
+            See what’s currently available ↗
+          </Link>
+        </aside>
+      )}
+
       {/* ====================== WHAT'S INCLUDED / PRICE CARD ====================== */}
       <section className="px-6 pb-14 md:pb-20">
         <div className="max-w-6xl mx-auto">
@@ -289,36 +299,7 @@ export default function ClubMembershipPage({
         </div>
       </section>
 
-      {/* ============================ VALUE MATH ============================ */}
-      <section className="px-6 pb-14 md:pb-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-3xl border border-black/10 bg-white/50 p-7 sm:p-10">
-            <div className="grid sm:grid-cols-3 gap-6 text-center">
-              <div>
-                <p className="text-3xl font-bold">${DROP_IN_PRICE}</p>
-                <p className="mt-1 text-sm opacity-70">per drop-in session</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold">3 visits</p>
-                <p className="mt-1 text-sm opacity-70">
-                  a month and membership already wins
-                </p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold">Every day</p>
-                <p className="mt-1 text-sm opacity-70">
-                  is included once you&apos;re a member
-                </p>
-              </div>
-            </div>
-            <p className="mt-6 text-center text-sm opacity-70 max-w-xl mx-auto">
-              Three drop-ins cost ${DROP_IN_PRICE * 3}. The membership is $
-              {MONTHLY_PRICE} for as many days as you want to come. Recovery
-              works best as a habit, and this makes the habit the cheap option.
-            </p>
-          </div>
-        </div>
-      </section>
+      <RecoveryValue />
 
       {/* =========================== HOW IT WORKS =========================== */}
       <section className="px-6 pb-14 md:pb-20">
@@ -370,10 +351,10 @@ export default function ClubMembershipPage({
               You&apos;re already in.
             </h2>
             <p className="mt-2 text-white/80 text-sm sm:text-base max-w-2xl">
-              Existing members were carried over automatically at their
-              Founding rate and already have unlimited Remedy Lounge access.
-              There&apos;s nothing to buy here. If you join again by accident,
-              we&apos;ll catch it and warn you before any charge.
+              Existing members were carried over automatically at their Founding
+              rate and already have unlimited Remedy Lounge access. There&apos;s
+              nothing to buy here. If you join again by accident, we&apos;ll
+              catch it and warn you before any charge.
             </p>
           </div>
         </div>
@@ -446,7 +427,10 @@ export default function ClubMembershipPage({
           </div>
           <p className="mt-6 text-sm text-white/60">
             Questions? Call{" "}
-            <a href={`tel:${club.phone.replace(/[^\d+]/g, "")}`} className="underline">
+            <a
+              href={`tel:${club.phone.replace(/[^\d+]/g, "")}`}
+              className="underline"
+            >
               {club.phone}
             </a>{" "}
             or email{" "}
@@ -470,7 +454,10 @@ export default function ClubMembershipPage({
           </span>
           <span className="block text-[#113D33] font-semibold text-sm">
             ${MONTHLY_PRICE}
-            <span className="text-[#113D33]/50 font-normal"> / month · unlimited</span>
+            <span className="text-[#113D33]/50 font-normal">
+              {" "}
+              / month · unlimited
+            </span>
           </span>
         </span>
         <span className="shrink-0 rounded-full bg-[#113D33] text-white px-7 py-2.5 text-sm font-semibold">

@@ -84,7 +84,7 @@ export default function LarimerGiftCardsPage() {
       />
 
       {/* HERO */}
-      <section className="px-6 pt-28 md:pt-36 pb-8 text-center max-w-5xl mx-auto">
+      <section className="sway-page-hero px-6 pt-28 md:pt-36 pb-8 text-center max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}

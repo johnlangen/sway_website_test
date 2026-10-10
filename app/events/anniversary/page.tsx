@@ -646,7 +646,7 @@ export default function AnniversaryEventPage() {
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance text-[#113D33]">
       {/* HERO */}
-      <section className="relative overflow-hidden">
+      <section className="sway-page-hero relative overflow-hidden">
         <div className="relative h-[520px] md:h-[620px] w-full">
           <Image
             src={EVENT_ASSETS.hero}
@@ -757,7 +757,7 @@ export default function AnniversaryEventPage() {
                 <div className="h-px bg-white/15" />
 
                 <div className="text-sm text-white/80">
-                  Remedy Room Spots hold Max 3 guests - grab a friend or two and experience wellness together! 
+                  Remedy Room Spots hold Max 3 guests - grab a friend or two and experience wellness together!
                 </div>
 
                 <div className="rounded-2xl bg-white/10 border border-white/15 p-4">

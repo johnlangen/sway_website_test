@@ -80,7 +80,7 @@ export default function SwayClubPage() {
       {/* ===========================
           HERO - video background (same as homepage)
       =========================== */}
-      <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden">
+      <section className="sway-page-hero relative min-h-[90svh] flex items-center justify-center overflow-hidden">
         {/* Poster for instant LCP */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

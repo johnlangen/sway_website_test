@@ -54,7 +54,7 @@ export default function OffersContent() {
   };
 
   return (
-    <div className="bg-[#F8F5F3] min-h-screen flex flex-col items-center px-4 pt-32 md:pt-40 pb-20 text-black">
+    <div className="sway-page-hero bg-[#F8F5F3] min-h-screen flex flex-col items-center px-4 pt-32 md:pt-40 pb-20 text-black">
       {/* JSON-LD */}
       <script
         type="application/ld+json"

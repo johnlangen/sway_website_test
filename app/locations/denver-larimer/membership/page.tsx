@@ -482,7 +482,7 @@ export default function MembershipPage() {
   return (
     <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
       {/* HERO — club-style: text left, clean photo right (no overlay fade) */}
-      <section className="px-6 pt-24 sm:pt-28 md:pt-36 pb-7 md:pb-14">
+      <section className="sway-page-hero px-6 pt-24 sm:pt-28 md:pt-36 pb-7 md:pb-14">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
         <div>
         <motion.p

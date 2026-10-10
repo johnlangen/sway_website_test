@@ -144,7 +144,7 @@ export default function PressContent() {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance text-[#113D33]">
       {/* ---------- HERO ---------- */}
-      <section className="bg-[#113D33] text-white px-6 pt-32 pb-20 md:pt-44 md:pb-24">
+      <section className="sway-page-hero bg-[#113D33] text-white px-6 pt-32 pb-20 md:pt-44 md:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import EditorialHero from "../components/EditorialHero";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 import { SwayCurve } from "../components/SwayCurve";
@@ -174,38 +174,8 @@ const MassagesPage = () => {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO: background image (homepage massage photo) */}
-      <section className="relative h-[55vh] min-h-[340px] md:h-[70vh] md:min-h-[460px] max-h-[680px] text-white">
-        <Image
-          src="/assets/homepage-massage.jpg"
-          alt="Massage Experiences at Sway Wellness Spa"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
-        <div className="relative h-full flex flex-col items-center justify-center px-6 text-center">
-          <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col items-center"
-          >
-            <div className="text-xs uppercase tracking-[0.35em] text-white/75 mb-4">
-              Massage Therapy
-            </div>
-            <SwayCurve
-              width={160}
-              strokeWidth={2.2}
-              animate
-              className="text-white/85 mx-auto block mb-6"
-            />
-            <h1 className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
-              Massage Experiences
-            </h1>
-          </motion.div>
-        </div>
-
-        <p className="sr-only">
+      <EditorialHero eyebrow="Sway / Massages" title="Let your shoulders drop." description="From light-to-medium Signature Massage to focused Deep Tissue. Explore three tiers of care, and find your kind of release." image="/assets/homepage-massage.jpg" imageAlt="Massages at Sway Wellness Spa" href={bookHref} action="Book a massage" note="Explore the full treatment menu below." />
+<p className="sr-only">
           Sway Wellness Spa offers massage treatments at 1428 Larimer St. in
           Denver across three tiers: Essential (Signature and Maternity
           Massage), Premier (Signature, Maternity, Deep Tissue, Salt Stone,
@@ -216,7 +186,6 @@ const MassagesPage = () => {
           10 AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Book online at
           swaywellnessspa.com or call (303) 476-6150.
         </p>
-      </section>
 
       {/* INTRO SECTION */}
       <section className="bg-[#F7F4E9] px-6 py-10 md:py-20 text-center">
@@ -268,7 +237,7 @@ const MassagesPage = () => {
       {/* ============================================================
           MASSAGE MENU: Tier toggle + treatment list
       ============================================================ */}
-      <section className="bg-[#F7F4E9] px-4 sm:px-6 py-14">
+      <section className="sway-treatment-menu bg-[#F7F4E9] px-4 sm:px-6 py-14">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
@@ -276,7 +245,7 @@ const MassagesPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white rounded-2xl shadow-[0_18px_45px_-22px_rgba(17,61,51,0.28)] overflow-hidden">
+            <div className="treatment-menu-surface">
               {/* Header bar */}
               <div className="bg-[#F7F4E9] px-6 py-5 border-b border-[#113D33]/10">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -300,11 +269,12 @@ const MassagesPage = () => {
 
               {/* Tier toggle */}
               <div className="px-6 pt-5">
-                <div className="flex bg-[#113D33]/10 rounded-full p-1 gap-0.5 w-full sm:w-auto sm:inline-flex">
+                <div className="treatment-tier-controls">
                   {massageTiers.map((tier) => (
                     <button
                       key={tier.key}
                       onClick={() => setSelectedTier(tier.key)}
+                      aria-pressed={selectedTier === tier.key}
                       className={`flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                         selectedTier === tier.key
                           ? "bg-[#113D33] text-white shadow-sm"
@@ -340,7 +310,7 @@ const MassagesPage = () => {
                     {activeTier.treatments.map((t, idx) => (
                       <div
                         key={idx}
-                        className="border border-[#113D33]/8 rounded-xl p-4 hover:border-[#113D33]/15 transition-colors"
+                        className="treatment-menu-item"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <h3 className="text-[#113D33] font-bold text-base">

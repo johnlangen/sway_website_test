@@ -10,7 +10,7 @@ export default function CareersContent() {
   return (
     <div className="bg-[#F7F4E9] text-black font-vance flex flex-col items-center min-h-screen">
       {/* Top Banner */}
-      <div className="w-full bg-[#113D33] text-white py-24 flex flex-col justify-center items-center px-6">
+      <div className="sway-page-hero w-full bg-[#113D33] text-white py-24 flex flex-col justify-center items-center px-6">
         <SwayCurve
           width={150}
           strokeWidth={2.2}
@@ -67,7 +67,7 @@ export default function CareersContent() {
          </p>
 
 
-        
+
 
         <h3 className="text-xl font-bold mt-10 mb-4">
           Benefits for Massage Therapists

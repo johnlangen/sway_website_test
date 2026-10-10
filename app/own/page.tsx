@@ -84,7 +84,7 @@ export default function OwnASwayPage() {
   return (
     <div className="w-full bg-[#F7F4E9] font-vance text-[#113D33]">
       {/* ---------- HERO ---------- */}
-      <section className="relative h-[75vh] md:h-[85vh] w-full overflow-hidden text-white">
+      <section className="sway-page-hero relative h-[75vh] md:h-[85vh] w-full overflow-hidden text-white">
         <Image
           src="/assets/OG/og-home.jpg"
           alt="Sway Wellness Spa interior"

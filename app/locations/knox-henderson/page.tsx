@@ -22,7 +22,7 @@ export default function SwayDallasComingSoonPage() {
       <GiveawayBanner location="knox-henderson" />
 
       {/* ====== HERO ====== */}
-      <section className="px-6 pt-10 md:pt-14 pb-12">
+      <section className="sway-page-hero sway-location-hero px-6 pt-10 md:pt-14 pb-12">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <motion.div {...fadeUp}>
             <h1 className="text-3xl md:text-5xl font-bold">Sway Knox/Henderson</h1>
