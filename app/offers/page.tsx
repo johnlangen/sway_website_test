@@ -1,5 +1,7 @@
+
 // app/offers/page.tsx
 "use client";
+import ArrowMark from "@/app/components/ArrowMark";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -110,10 +112,10 @@ export default function OffersPage() {
           </p>
           <nav aria-label="Offers by location" className="sway-anchor-nav">
             <a href="#larimer-offers">
-              Larimer Square <span aria-hidden="true">↓</span>
+              Larimer Square <span aria-hidden="true"><ArrowMark direction="down" /></span>
             </a>
             <a href="#club-offers">
-              RiNo & Central Park <span aria-hidden="true">↓</span>
+              RiNo & Central Park <span aria-hidden="true"><ArrowMark direction="down" /></span>
             </a>
           </nav>
         </div>
@@ -146,7 +148,7 @@ export default function OffersPage() {
             1428 Larimer St · Denver
             <br />
             <Link href="/locations/denver-larimer" className="sway-text-link">
-              Explore the spa <span aria-hidden="true">↗</span>
+              Explore the spa <span aria-hidden="true"><ArrowMark /></span>
             </Link>
           </p>
         </div>
@@ -237,7 +239,7 @@ export default function OffersPage() {
                     {loc.slug === "denver-rino"
                       ? "RiNo’s offer"
                       : "Central Park pricing"}
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true"><ArrowMark /></span>
                   </Link>
                 </div>
               </article>
@@ -251,10 +253,10 @@ export default function OffersPage() {
         <p>Explore what’s coming to Dallas and Washington, DC.</p>
         <div>
           <Link href="/locations/knox-henderson" className="sway-text-link">
-            Knox / Henderson ↗
+            Knox / Henderson
           </Link>
           <Link href="/locations/union-market" className="sway-text-link">
-            Union Market ↗
+            Union Market
           </Link>
         </div>
       </section>

@@ -1,3 +1,5 @@
+
+import ArrowMark from "@/app/components/ArrowMark";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleReviews from "./components/GoogleReviews";
@@ -95,7 +97,7 @@ export default function HomeContent() {
           The Zoe Report <span>· Best U.S. Day Spa</span>
         </Link>
         <Link href="/press" className="recognition-link">
-          In the press ↗
+          In the press
         </Link>
       </div>
 
@@ -113,7 +115,7 @@ export default function HomeContent() {
             longer. This is wellness, the Sway way.
           </p>
           <Link href="/swayway" className="sway-text-link">
-            Get to know Sway <span aria-hidden="true">↗</span>
+            Get to know Sway <span aria-hidden="true"><ArrowMark /></span>
           </Link>
         </div>
       </section>
@@ -125,7 +127,7 @@ export default function HomeContent() {
             <h2>How do you want to feel?</h2>
           </div>
           <Link href="/treatments" className="sway-text-link">
-            All treatments ↗
+            All treatments
           </Link>
         </div>
         <div className="experience-grid">
@@ -147,7 +149,7 @@ export default function HomeContent() {
                   {item.number} / {item.name}
                 </span>
                 <span className="experience-arrow" aria-hidden="true">
-                  ↗
+                  <ArrowMark />
                 </span>
               </Link>
               <p className="sway-eyebrow experience-detail">{item.detail}</p>
@@ -157,7 +159,7 @@ export default function HomeContent() {
               <p>{item.text}</p>
               <p className="experience-price">{item.price}</p>
               <Link href={item.href} className="sway-text-link">
-                Explore {item.name} ↗
+                Explore {item.name} <ArrowMark />
               </Link>
             </article>
           ))}
@@ -187,10 +189,10 @@ export default function HomeContent() {
             your favorite ways to unwind.
           </p>
           <Link href="/membership" className="sway-button sway-button-light">
-            Find your membership <span aria-hidden="true">↗</span>
+            Find your membership <span aria-hidden="true"><ArrowMark /></span>
           </Link>
           <Link href="/offers" className="sway-text-link">
-            First time here? Explore local offers ↗
+            First time here? Explore local offers
           </Link>
         </div>
       </section>
@@ -202,7 +204,7 @@ export default function HomeContent() {
             <h2>Find your Sway.</h2>
           </div>
           <Link href="/locations" className="sway-text-link">
-            All locations ↗
+            All locations
           </Link>
         </div>
         <div className="home-locations">
@@ -246,7 +248,7 @@ export default function HomeContent() {
               <p className="sway-eyebrow">{loc.place}</p>
               <h3>
                 {loc.name}
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true"><ArrowMark /></span>
               </h3>
               <p>{loc.description}</p>
             </Link>
@@ -255,10 +257,10 @@ export default function HomeContent() {
         <p className="home-coming-soon">
           More good things are coming.{" "}
           <Link href="/locations/knox-henderson">
-            Dallas / Knox-Henderson ↗
+            Dallas / Knox-Henderson
           </Link>
           <Link href="/locations/union-market">
-            Washington, DC / Union Market ↗
+            Washington, DC / Union Market
           </Link>
         </p>
       </section>
@@ -279,7 +281,7 @@ export default function HomeContent() {
             long way.
           </p>
           <Link href="/gift-cards" className="sway-button">
-            Give a little Sway <span aria-hidden="true">↗</span>
+            Give a little Sway <span aria-hidden="true"><ArrowMark /></span>
           </Link>
         </div>
         <div className="gift-story-art">
@@ -303,7 +305,7 @@ export default function HomeContent() {
             things to know.
           </h2>
           <Link href="/faq" className="sway-text-link">
-            More questions? Start here ↗
+            More questions? Start here
           </Link>
         </div>
         <div className="sway-accordions">
@@ -322,7 +324,7 @@ export default function HomeContent() {
         <p className="sway-eyebrow">Pause. Breathe. Rediscover.</p>
         <h2>See you at Sway.</h2>
         <Link href="/book" className="sway-button sway-button-light">
-          Make time for yourself <span aria-hidden="true">↗</span>
+          Make time for yourself <span aria-hidden="true"><ArrowMark /></span>
         </Link>
       </section>
     </div>

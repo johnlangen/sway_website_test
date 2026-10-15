@@ -1,5 +1,7 @@
 "use client";
 
+import ArrowMark from "@/app/components/ArrowMark";
+
 /**
  * ClubOffersPage — shared offers page for the Sway Wellness Club
  * locations (RiNo + Central Park).
@@ -89,7 +91,7 @@ export default function ClubOffersPage({
         <div>
           <p className="sway-eyebrow">{cfg.areaLine}</p>
           <Link href="/offers?choose=1" className="sway-text-link">
-            Change location ↗
+            Change location
           </Link>
           <h1>
             {cfg.offerPaused ? (
@@ -118,13 +120,13 @@ export default function ClubOffersPage({
                 applied at checkout.
               </p>
               <Link href={cfg.bookHref} className="sway-button">
-                Book your $25 first visit <span aria-hidden="true">↗</span>
+                Book your $25 first visit <span aria-hidden="true"><ArrowMark /></span>
               </Link>
             </>
           )}
           {cfg.offerPaused && (
             <a href="#club-status" className="sway-button">
-              View current availability <span aria-hidden="true">↓</span>
+              View current availability <span aria-hidden="true"><ArrowMark direction="down" /></span>
             </a>
           )}
         </div>
@@ -155,7 +157,7 @@ export default function ClubOffersPage({
               open as usual for $49 drop-in sessions.
             </p>
             <Link href={cfg.bookHref} className="sway-button">
-              Book a $49 drop-in <span aria-hidden="true">↗</span>
+              Book a $49 drop-in <span aria-hidden="true"><ArrowMark /></span>
             </Link>
           </div>
         </section>
@@ -184,7 +186,7 @@ export default function ClubOffersPage({
               available recovery amenities at your own pace.
             </p>
             <Link href={cfg.bookHref} className="sway-text-link">
-              Book a session ↗
+              Book a session
             </Link>
           </div>
           <div>
@@ -198,7 +200,7 @@ export default function ClubOffersPage({
               Month-to-month, with no enrollment fee.
             </p>
             <Link href={cfg.membershipHref} className="sway-text-link">
-              Explore membership ↗
+              Explore membership
             </Link>
           </div>
         </div>
@@ -210,13 +212,13 @@ export default function ClubOffersPage({
         <p>Arrive 15 minutes early and give yourself time to settle in.</p>
         <div>
           <Link href={cfg.locationHref} className="sway-text-link">
-            Plan your visit ↗
+            Plan your visit
           </Link>
           <a href={`tel:+${cfg.phoneDigits}`} className="sway-text-link">
-            {cfg.phone} ↗
+            {cfg.phone} <ArrowMark />
           </a>
           <Link href="/gift-cards" className="sway-text-link">
-            Gift cards ↗
+            Gift cards
           </Link>
         </div>
       </section>

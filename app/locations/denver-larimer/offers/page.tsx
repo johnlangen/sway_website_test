@@ -1,3 +1,5 @@
+
+import ArrowMark from "@/app/components/ArrowMark";
 import Link from "next/link";
 import Image from "next/image";
 import FirstVisitOffers, {
@@ -15,7 +17,7 @@ export default function LarimerOffersPage() {
         <div>
           <p className="sway-eyebrow">
             Sway Larimer · Denver{" "}
-            <Link href="/offers?choose=1">Change location ↗</Link>
+            <Link href="/offers?choose=1">Change location </Link>
           </p>
           <h1>
             Your first visit.
@@ -27,7 +29,7 @@ export default function LarimerOffersPage() {
             Square.
           </p>
           <a href="#first-visit" className="sway-button">
-            Find your first experience <span aria-hidden="true">↓</span>
+            Find your first experience <span aria-hidden="true"><ArrowMark direction="down" /></span>
           </a>
           <p className="sway-campaign-eligibility">
             Locals only · First-time guests. Massage, facial, and 60-minute
@@ -78,7 +80,7 @@ export default function LarimerOffersPage() {
             href="/locations/denver-larimer/membership"
             className="sway-button sway-button-light"
           >
-            Explore membership <span aria-hidden="true">↗</span>
+            Explore membership <span aria-hidden="true"><ArrowMark /></span>
           </Link>
         </div>
         <div className="sway-offer-membership-image">
@@ -102,17 +104,17 @@ export default function LarimerOffersPage() {
         <p className="sway-eyebrow">We’re here to help</p>
         <h2>A little guidance? Just ask.</h2>
         <a href="tel:13034766150" className="sway-text-link">
-          (303) 476-6150 ↗
+          (303) 476-6150
         </a>
         <div>
           <Link href="/locations/denver-larimer" className="sway-text-link">
-            Plan your visit ↗
+            Plan your visit
           </Link>
           <Link
             href="/locations/denver-larimer/gift-cards"
             className="sway-text-link"
           >
-            Give the feeling ↗
+            Give the feeling
           </Link>
         </div>
       </section>

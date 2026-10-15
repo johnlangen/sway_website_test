@@ -1,4 +1,6 @@
 "use client";
+
+import ArrowMark from "@/app/components/ArrowMark";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -86,7 +88,7 @@ export default function TreatmentsPage() {
         {treatments.map((t, i) => (
           <a href={`#treatment-${i}`} key={t.name}>
             <span>0{i + 1}</span>
-            {t.name} ↓
+            {t.name} <ArrowMark direction="down" />
           </a>
         ))}
       </nav>
@@ -115,10 +117,10 @@ export default function TreatmentsPage() {
               <div>
                 <Link href={t.learnHref} className="sway-button">
                   Explore {t.name}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true"><ArrowMark /></span>
                 </Link>
                 <Link href={bookHref} className="sway-text-link">
-                  Book a visit ↗
+                  Book a visit
                 </Link>
               </div>
               <p className="treatment-location-note">
@@ -151,7 +153,7 @@ export default function TreatmentsPage() {
         <p className="sway-eyebrow">Good things start with a pause</p>
         <h2>Your reset is waiting.</h2>
         <Link href={bookHref} className="sway-button sway-button-light">
-          Book your experience <span aria-hidden="true">↗</span>
+          Book your experience <span aria-hidden="true"><ArrowMark /></span>
         </Link>
       </section>
     </div>

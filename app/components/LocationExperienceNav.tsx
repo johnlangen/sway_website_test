@@ -1,3 +1,5 @@
+
+import ArrowMark from "@/app/components/ArrowMark";
 import Link from "next/link";
 
 export default function LocationExperienceNav({
@@ -62,7 +64,7 @@ export default function LocationExperienceNav({
           <Link href={choice.href} key={choice.name}>
             <span>
               {choice.name}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true"><ArrowMark /></span>
             </span>
             <small>{choice.detail}</small>
           </Link>

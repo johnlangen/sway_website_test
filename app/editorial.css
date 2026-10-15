@@ -1757,53 +1757,53 @@ body {
     padding: 24px;
   }
 }
-.sway-membership-story {
+.sway-membership-option {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7vw;
   align-items: center;
   padding: 30px 0 85px;
 }
-.sway-membership-story + .sway-membership-story {
+.sway-membership-option + .sway-membership-option {
   border-top: 1px solid var(--sway-rule);
   padding-top: 85px;
 }
-.sway-membership-story-image {
+.sway-membership-option-image {
   position: relative;
   min-height: 570px;
   align-self: stretch;
 }
-.sway-membership-story h2 {
+.sway-membership-option h2 {
   font-size: clamp(36px, 4vw, 60px);
   line-height: 1.07;
   margin: 22px 0;
 }
-.sway-membership-story p {
+.sway-membership-option p {
   font-size: 14px;
   line-height: 1.8;
 }
-.sway-membership-story .sway-membership-price {
+.sway-membership-option .sway-membership-price {
   font-size: 34px;
   margin-bottom: 20px;
 }
 .sway-membership-price span {
   font-size: 12px;
 }
-.sway-membership-story ul {
+.sway-membership-option ul {
   margin: 22px 0;
   padding: 0;
   list-style: none;
 }
-.sway-membership-story li {
+.sway-membership-option li {
   border-top: 1px solid var(--sway-rule);
   padding: 12px 0;
   font-size: 13px;
   line-height: 1.7;
 }
-.sway-membership-story .sway-button {
+.sway-membership-option .sway-button {
   margin-top: 25px;
 }
-.sway-membership-story-reverse > div:first-child {
+.sway-membership-option-reverse > div:first-child {
   order: 2;
 }
 .sway-membership-location-links {
@@ -1812,18 +1812,18 @@ body {
   gap: 12px;
 }
 @media (max-width: 760px) {
-  .sway-membership-story {
+  .sway-membership-option {
     grid-template-columns: 1fr;
     gap: 28px;
     padding: 0 0 45px;
   }
-  .sway-membership-story + .sway-membership-story {
+  .sway-membership-option + .sway-membership-option {
     padding-top: 45px;
   }
-  .sway-membership-story-image {
+  .sway-membership-option-image {
     min-height: 280px;
   }
-  .sway-membership-story-reverse > div:first-child {
+  .sway-membership-option-reverse > div:first-child {
     order: 0;
   }
 }
@@ -2117,4 +2117,269 @@ body {
   .sway-journal-search {
     width: 100%;
   }
+}
+
+/* Mobile polish: independent membership compositions, measured spacing and
+   platform-independent iconography. Keep transactional styling untouched. */
+.sway-arrow-mark {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.sway-button > span[aria-hidden] {
+  display: inline-flex;
+  align-items: center;
+}
+.sway-membership-option {
+  background: transparent;
+  color: var(--sway-forest);
+}
+.sway-membership-option-copy {
+  min-width: 0;
+}
+.sway-membership-option .sway-eyebrow {
+  font-family: "Vance Text", sans-serif;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.sway-membership-option li {
+  font-family: "Vance Text", sans-serif;
+  font-weight: 400;
+}
+.sway-text-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sway-button {
+    transition:
+      background 0.2s,
+      color 0.2s,
+      transform 0.2s;
+  }
+  .sway-button:active {
+    transform: scale(0.98);
+  }
+  .sway-arrow-mark {
+    transition: translate 0.25s ease;
+  }
+  .sway-button:hover .sway-arrow-mark {
+    translate: 3px 0;
+  }
+  .sway-marketing summary {
+    transition: color 0.2s;
+  }
+  .sway-marketing details[open] > p {
+    animation: sway-enter 0.35s ease-out both;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --sway-gutter: 24px;
+  }
+  .sway-marketing .sway-button {
+    gap: 16px;
+    min-height: 50px;
+    padding: 15px 20px;
+    font-size: 14px;
+  }
+  .sway-marketing .sway-text-link {
+    gap: 14px;
+    font-size: 13px;
+  }
+  .sway-membership-option {
+    gap: 0;
+    padding: 0;
+    margin-bottom: 40px;
+    background: #fffdf7;
+  }
+  .sway-membership-option + .sway-membership-option {
+    padding-top: 0;
+    border: 0;
+  }
+  .sway-membership-option-image {
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 1.4;
+  }
+  .sway-membership-option-copy {
+    padding: 28px 22px 30px;
+  }
+  .sway-membership-option h2 {
+    font-size: 36px;
+    line-height: 1.08;
+    margin: 15px 0 20px;
+  }
+  .sway-membership-option p {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .sway-membership-option .sway-membership-price {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  .sway-membership-option ul {
+    margin: 22px 0;
+  }
+  .sway-membership-option li {
+    font-size: 13px;
+    line-height: 1.65;
+    padding: 13px 0;
+  }
+  .sway-membership-option .sway-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 22px;
+  }
+  .sway-membership-option .sway-button svg {
+    display: none;
+  }
+  .sway-membership-location-links {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .sway-membership-location-links .sway-button {
+    margin-top: 0;
+  }
+  .sway-membership-option-copy > p:last-of-type:not(.sway-membership-price) {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .sway-campaign-intro {
+    gap: 26px;
+    padding-top: 104px;
+  }
+  .sway-campaign-intro h1 {
+    font-size: clamp(38px, 10.5vw, 46px);
+  }
+  .sway-campaign-intro .sway-eyebrow {
+    font-size: 10px;
+  }
+  .sway-campaign-intro .sway-eyebrow a {
+    margin: 8px 0 0;
+    display: block;
+  }
+  .sway-campaign-intro .sway-campaign-eligibility {
+    line-height: 1.65;
+  }
+  .sway-campaign-note {
+    transform: none;
+  }
+  .sway-offer-close {
+    text-align: left;
+  }
+  .sway-offer-close > div {
+    justify-content: flex-start;
+    gap: 14px 24px;
+  }
+  .sway-section-heading h2 {
+    font-size: 34px;
+  }
+  .sway-anchor-nav {
+    gap: 8px 20px;
+  }
+  .sway-anchor-nav a {
+    font-size: 12px;
+    gap: 12px;
+  }
+  .sway-offer-copy .sway-button {
+    font-size: 13px;
+  }
+  .sway-experience-nav a > span {
+    font-size: 18px;
+  }
+  .sway-journal-grid h3 {
+    font-size: 25px;
+  }
+  .sway-article :is(p, li) {
+    overflow-wrap: break-word;
+  }
+}
+@media (max-width: 360px) {
+  :root {
+    --sway-gutter: 20px;
+  }
+  .sway-membership-option-copy {
+    padding: 24px 18px;
+  }
+  .sway-membership-option h2 {
+    font-size: 32px;
+  }
+  .sway-marketing .sway-button {
+    font-size: 13px;
+    padding-inline: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sway-marketing *,
+  .sway-article * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (max-width: 760px) {
+  .aescape-hero-benefits {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .aescape-hero-benefits > div {
+    padding: 12px 0;
+    border: 0;
+    border-top: 1px solid #ffffff55;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+  .aescape-hero-benefits p:first-child {
+    font-size: 13px;
+  }
+  .aescape-hero-benefits p:last-child {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .aescape-hero-actions {
+    margin-top: 22px;
+  }
+  .aescape-hero-actions a:last-child {
+    border: 0;
+    background: none;
+    padding-inline: 0;
+    min-height: 44px;
+    text-decoration: underline;
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+  .sway-membership-hero h1 {
+    margin-top: 22px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sway-mobile-menu {
+    animation: sway-menu-enter 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes sway-menu-enter {
+    from {
+      opacity: 0.5;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sway-mobile-menu {
+    animation: none;
+  }
+}
+
+.sway-button:focus-visible {
+  outline: 2px solid var(--sway-forest);
+  outline-offset: 5px;
+  box-shadow: 0 0 0 5px var(--sway-paper);
 }

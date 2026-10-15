@@ -171,12 +171,7 @@ export default function ClubMembershipPage({
               </Link>
             </div>
 
-            <SwayCurve
-              width={130}
-              strokeWidth={2.2}
-              animate
-              className="text-[#4A776D] block mb-5"
-            />
+
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
               The Remedy Lounge Membership
@@ -238,7 +233,7 @@ export default function ClubMembershipPage({
           <strong>Central Park amenity update.</strong> One cold plunge and the
           warm soak are temporarily under maintenance.{" "}
           <Link href="/locations/denver-central-park/offers#club-status">
-            See what’s currently available ↗
+            See what’s currently available
           </Link>
         </aside>
       )}

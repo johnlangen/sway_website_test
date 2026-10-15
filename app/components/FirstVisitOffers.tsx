@@ -1,3 +1,5 @@
+
+import ArrowMark from "@/app/components/ArrowMark";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -66,7 +68,7 @@ export default function FirstVisitOffers({
         {offers.map((offer) => (
           <a key={offer.id} href={`#${offer.id}`}>
             {offer.name}
-            <span>{offer.price} ↓</span>
+            <span>{offer.price} <ArrowMark direction="down" /></span>
           </a>
         ))}
       </nav>
@@ -106,7 +108,7 @@ export default function FirstVisitOffers({
                 className="sway-button"
               >
                 {offer.action}
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true"><ArrowMark /></span>
               </Link>
             </div>
           </article>

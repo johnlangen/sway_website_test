@@ -1,3 +1,5 @@
+
+import ArrowMark from "@/app/components/ArrowMark";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,7 +36,7 @@ export default function EditorialHero({
         {href && (
           <Link href={href} className="sway-button sway-button-light">
             {action}
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true"><ArrowMark /></span>
           </Link>
         )}
         {note && <p className="editorial-hero-note">{note}</p>}

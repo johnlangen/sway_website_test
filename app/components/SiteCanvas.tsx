@@ -1,5 +1,7 @@
 "use client";
 
+import EditorialMotion from "./EditorialMotion";
+
 import { usePathname } from "next/navigation";
 
 export default function SiteCanvas({
@@ -29,6 +31,7 @@ export default function SiteCanvas({
       data-page={pathname}
     >
       {children}
+      <EditorialMotion />
     </main>
   );
 }

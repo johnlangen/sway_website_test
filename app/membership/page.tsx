@@ -1,5 +1,6 @@
 // app/membership/page.tsx
 "use client";
+import ArrowMark from "@/app/components/ArrowMark";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -103,7 +104,7 @@ export default function MembershipHubPage() {
             week. Find the membership that fits your ritual.
           </p>
           <a href="#membership-options" className="sway-text-link">
-            Compare the experiences ↓
+            Compare the experiences
           </a>
         </div>
         <div className="sway-campaign-photo">
@@ -118,8 +119,8 @@ export default function MembershipHubPage() {
         </div>
       </section>
       <section className="sway-offers-section" id="membership-options">
-        <div className="sway-membership-story">
-          <div className="sway-membership-story-image">
+        <div className="sway-membership-option">
+          <div className="sway-membership-option-image">
             <Image
               src="/assets/homepage-massage.jpg"
               alt="Massage at Sway Larimer"
@@ -128,7 +129,7 @@ export default function MembershipHubPage() {
               className="object-cover"
             />
           </div>
-          <div>
+          <div className="sway-membership-option-copy">
             <p className="sway-eyebrow">Larimer Square · The spa ritual</p>
             <h2>
               Your monthly
@@ -157,12 +158,15 @@ export default function MembershipHubPage() {
               onClick={() => saveLocation("denver-larimer", "Sway Larimer")}
               className="sway-button"
             >
-              Explore Larimer memberships <span aria-hidden="true">↗</span>
+              Explore Larimer memberships{" "}
+              <span aria-hidden="true">
+                <ArrowMark />
+              </span>
             </Link>
           </div>
         </div>
-        <div className="sway-membership-story sway-membership-story-reverse">
-          <div className="sway-membership-story-image">
+        <div className="sway-membership-option sway-membership-option-reverse">
+          <div className="sway-membership-option-image">
             <Image
               src="/assets/rino1.jpeg"
               alt="Cold plunge and recovery space at Sway RiNo"
@@ -171,7 +175,7 @@ export default function MembershipHubPage() {
               className="object-cover"
             />
           </div>
-          <div>
+          <div className="sway-membership-option-copy">
             <p className="sway-eyebrow">
               RiNo & Central Park · The recovery ritual
             </p>
@@ -213,7 +217,9 @@ export default function MembershipHubPage() {
                     className="sway-button"
                   >
                     Explore {loc.name.replace("Sway ", "")}{" "}
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">
+                      <ArrowMark />
+                    </span>
                   </Link>
                 ))}
             </div>
@@ -233,7 +239,7 @@ export default function MembershipHubPage() {
                 onClick={() => saveLocation(loc.slug, loc.name)}
                 className="sway-text-link"
               >
-                {loc.name} ↗
+                {loc.name} <ArrowMark />
               </Link>
             ))}
         </div>

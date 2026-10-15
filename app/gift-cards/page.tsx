@@ -73,7 +73,6 @@ function saveLocation(slug: string, name: string) {
 export default function GiftCardsHubPage() {
   const [selectedLocation, setSelectedLocation] =
     useState<SelectedLocation | null>(null);
-  const [showPage, setShowPage] = useState(false);
 
   useEffect(() => {
     try {
@@ -91,10 +90,8 @@ export default function GiftCardsHubPage() {
         }
       }
     } catch {}
-    setShowPage(true);
   }, []);
 
-  if (!showPage) return <div className="min-h-screen bg-[#F7F4E9]" />;
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] text-[#113D33] font-vance">

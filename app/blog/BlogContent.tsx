@@ -1,5 +1,7 @@
 "use client";
 
+import ArrowMark from "@/app/components/ArrowMark";
+
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -304,7 +306,7 @@ export default function BlogContent() {
           </h2>
           <p>{featured.summary}</p>
           <Link href={`/blog/${featured.slug}`} className="sway-text-link">
-            Read the guide ↗
+            Read the guide
           </Link>
         </div>
       </section>
@@ -395,7 +397,7 @@ export default function BlogContent() {
                 className="sway-text-link"
                 aria-label={`Read ${blog.title}`}
               >
-                Read story ↗
+                Read story
               </Link>
             </article>
           ))}
@@ -412,7 +414,7 @@ export default function BlogContent() {
                 setActiveTag(null);
               }}
             >
-              Clear filters <span aria-hidden="true">↗</span>
+              Clear filters <span aria-hidden="true"><ArrowMark /></span>
             </button>
           </div>
         )}
@@ -422,7 +424,7 @@ export default function BlogContent() {
         <h2>Make a little room for you.</h2>
         <p>Find your next massage, facial, or recovery ritual.</p>
         <Link href="/treatments" className="sway-text-link">
-          Explore the experiences ↗
+          Explore the experiences
         </Link>
       </section>
     </div>

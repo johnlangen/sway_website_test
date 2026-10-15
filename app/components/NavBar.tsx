@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { Menu, X, MapPin } from "lucide-react";
 import SwayEasterEgg from "./SwayEasterEgg";
 import { myAccountHrefForPath } from "@/lib/myAccount";
 import { locationDisplayName } from "@/lib/locationNames";
@@ -353,7 +354,7 @@ const NavBar = () => {
               aria-controls="mobile-menu"
               className="mobile-toggle xl:hidden text-white text-2xl"
             >
-              <span aria-hidden="true">☰</span>
+              <Menu size={22} aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -362,7 +363,7 @@ const NavBar = () => {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div ref={mobileMenuRef} id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation" className="sway-mobile-menu xl:hidden flex flex-col space-y-2">
-          <button onClick={() => setMobileMenuOpen(false)} className="text-white self-end min-h-11 px-2" aria-label="Close navigation">Close ×</button>
+          <button onClick={() => setMobileMenuOpen(false)} className="text-white self-end min-h-11 px-2 inline-flex items-center gap-2" aria-label="Close navigation"><span>Close</span><X size={16} aria-hidden="true" /></button>
           {/* Location selector */}
           {savedLocation ? (
             <div className="flex items-center gap-2 text-white text-sm">
@@ -371,7 +372,7 @@ const NavBar = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-semibold"
               >
-                📍 {locationDisplayName(savedLocation.slug, savedLocation.name)}
+                <MapPin size={14} className="inline-block mr-1 align-middle" aria-hidden="true" />{locationDisplayName(savedLocation.slug, savedLocation.name)}
               </Link>
               <Link
                 href="/locations"
@@ -387,7 +388,7 @@ const NavBar = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="text-white text-sm font-semibold"
             >
-              📍 Select Location
+              <MapPin size={14} className="inline-block mr-1 align-middle" aria-hidden="true" />Select Location
             </Link>
           )}
 

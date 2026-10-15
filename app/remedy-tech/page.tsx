@@ -1,5 +1,7 @@
 "use client";
 
+import ArrowMark from "@/app/components/ArrowMark";
+
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -724,7 +726,7 @@ const RemedyRoomPage = () => {
                   <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
                   <p className="mt-2 text-sm text-[#113D33]/70 leading-relaxed">{s.desc}</p>
                   <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-                    Learn More<span className="sr-only"> about {s.name}</span> →
+                    Learn More<span className="sr-only"> about {s.name}</span> <ArrowMark />
                   </span>
                 </Link>
               </motion.div>
@@ -751,7 +753,7 @@ const RemedyRoomPage = () => {
               {club ? club.cardArea : "Denver, CO · Larimer Square"}
             </p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-              Book Now →
+              Book Now
             </span>
           </Link>
           {club && (

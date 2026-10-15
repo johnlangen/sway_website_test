@@ -1,5 +1,7 @@
 "use client";
 
+import ArrowMark from "@/app/components/ArrowMark";
+
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -232,7 +234,7 @@ export default function AescapeContent() {
                   Massage reimagined: quiet, controlled, and repeatable.
                 </p>
 
-                <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="aescape-hero-benefits mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { k: "Control", v: "Adjust pressure & zones live" },
                     { k: "Private", v: "Fully personal session" },
@@ -250,7 +252,7 @@ export default function AescapeContent() {
                   ))}
                 </div>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="aescape-hero-actions mt-8 flex flex-wrap gap-3">
                   <Link
                     href={BOOK_URL}
                     target="_blank"
@@ -617,7 +619,7 @@ export default function AescapeContent() {
                 <h3 className="text-lg font-semibold text-[#113D33]">{s.name}</h3>
                 <p className="mt-2 text-sm text-[#5a5a5a] leading-relaxed">{s.desc}</p>
                 <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-                  Learn More<span className="sr-only"> about {s.name}</span> →
+                  Learn More<span className="sr-only"> about {s.name}</span> <ArrowMark />
                 </span>
               </Link>
             ))}
@@ -662,7 +664,7 @@ export default function AescapeContent() {
                 <h3 className="mt-3 text-lg md:text-xl font-semibold leading-snug">
                   {article.title}
                 </h3>
-                <p className="mt-4 text-sm text-white/75">Open article →</p>
+                <p className="mt-4 text-sm text-white/75">Open article </p>
                 <span className="sr-only">(opens in new tab)</span>
               </motion.a>
             ))}

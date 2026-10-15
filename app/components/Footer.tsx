@@ -1,5 +1,7 @@
 "use client";
 
+import ArrowMark from "@/app/components/ArrowMark";
+
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -55,7 +57,7 @@ export default function Footer() {
       <div className="footer-topline">
         <p>Make room for feeling good.</p>
         <Link href="/book" className="sway-button sway-button-light">
-          Find your next reset <span aria-hidden="true">↗</span>
+          Find your next reset <span aria-hidden="true"><ArrowMark /></span>
         </Link>
       </div>
       <div className="footer-columns">
@@ -79,14 +81,14 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Instagram ↗<span className="sr-only"> (opens in new tab)</span>
+            Instagram <span className="sr-only"> (opens in new tab)</span>
           </a>
           <a
             href="https://www.tiktok.com/@swaywellnessclub"
             target="_blank"
             rel="noopener noreferrer"
           >
-            TikTok ↗<span className="sr-only"> (opens in new tab)</span>
+            TikTok <span className="sr-only"> (opens in new tab)</span>
           </a>
         </div>
         <div>
@@ -146,7 +148,7 @@ export default function Footer() {
                   ))}
                 </p>
               )}
-              <Link href="/locations">Explore all locations ↗</Link>
+              <Link href="/locations">Explore all locations </Link>
             </>
           ) : (
             <>
@@ -158,7 +160,7 @@ export default function Footer() {
                 ["Washington, DC / Union Market", "union-market"],
               ].map(([name, slug]) => (
                 <Link key={slug} href={`/locations/${slug}`}>
-                  {name} ↗
+                  {name} <ArrowMark />
                 </Link>
               ))}
             </>

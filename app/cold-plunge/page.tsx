@@ -179,7 +179,7 @@ export default function ColdPlungePage() {
             <p className="text-lg font-vance-bold text-[#113D33]">Sway Larimer</p>
             <p className="text-sm text-gray-600 mt-1">Denver, CO · Larimer Square</p>
             <span className="mt-3 inline-block text-sm font-bold text-[#113D33] group-hover:underline">
-              Book Now →
+              Book Now
             </span>
           </Link>
           <p className="mt-6 text-sm text-gray-700">

@@ -366,14 +366,14 @@ export default function LocationsContent() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by city or ZIP"
             aria-label="Search locations by city or ZIP"
-            className="w-full rounded-2xl px-5 py-4 text-base md:text-lg bg-white shadow focus:outline-none focus:ring-2 focus:ring-[#113D33]/40"
+            className="w-full min-w-0 rounded-2xl px-5 py-4 text-base md:text-lg bg-white shadow focus:outline-none focus:ring-2 focus:ring-[#113D33]/40"
           />
           <button
             onClick={useMyLocation}
-            className="md:hidden rounded-2xl px-4 py-4 bg-[#113D33] text-white shadow"
+            className="md:hidden shrink-0 rounded-2xl px-4 py-4 bg-[#113D33] text-white shadow"
             aria-label="Use my location"
           >
-            Use
+            Near me
           </button>
         </div>
 

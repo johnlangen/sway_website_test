@@ -219,7 +219,7 @@ const MassagesPage = () => {
             whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.25 }}
-            className="mt-9 flex items-center justify-center"
+            className="mt-9 hidden md:flex items-center justify-center"
           >
             <Link
               href={bookHref}
