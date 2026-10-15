@@ -13,7 +13,7 @@
  * Caps below match the LOUNGE_FINAL model locked May 26 (see the internal
  * dashboard app/internal/upswell/page.tsx, data-backed from the Upswell MT
  * exports): Lounge concurrent cap 15 RiNo / 18 CP, traditional sauna 4 seats
- * each, infrared 3 cabins RiNo / 4 cabins CP. These are concurrent-in-one-window
+ * each, infrared 3 cabins RiNo / 2 cabins CP (Glow 3 + 4 since 2026-10-15). These are concurrent-in-one-window
  * counts (the dashboard's "9/12 per slot" figures are seats × 3 rotations =
  * throughput, not concurrent capacity). Mindbody's bookableitems still enforces
  * resource availability server-side, so these numbers are belt-and-suspenders for
@@ -177,12 +177,14 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
         sessionTypeId: 133,
         resourceStaffId: 100000003,
         minutes: 25,
-        capacity: 4,
-        // CP's 4 infrared cabins, each its own Mindbody provider (Glow 1-4,
-        // created 2026-06-23). NOTE: CP staff ids differ from RiNo's.
+        capacity: 2,
+        // CP infrared cabins, each its own Mindbody provider (created
+        // 2026-06-23). NOTE: CP staff ids differ from RiNo's.
+        // 2026-10-15: Glow 1 + Glow 2 (staff 100000016 / 100000017) were
+        // REMOVED from the club, so only Glow 3 + 4 are bookable. Mindbody
+        // still lists the old cabins even with schedules/staff deactivated,
+        // so this list (and capacity) is what keeps them out of online booking.
         cabins: [
-          { label: "Glow 1", resourceStaffId: 100000016 },
-          { label: "Glow 2", resourceStaffId: 100000017 },
           { label: "Glow 3", resourceStaffId: 100000018 },
           { label: "Glow 4", resourceStaffId: 100000019 },
         ],

@@ -23,7 +23,7 @@ const CLUBS = [
     name: "Sway Central Park",
     area: "Aurora, next to Denver's Central Park",
     address: "2271 Clinton St, Aurora, CO 80010",
-    cabins: "4 infrared cabins",
+    cabins: "2 infrared cabins",
     extras: "Traditional sauna, cold plunges, PEMF mats, compression therapy",
     hours: "Mon 4 to 8 PM. Tue to Thu 8 to 11 AM and 4 to 8 PM. Fri and Sat 8 AM to 2 PM. Sun 8 AM to 6 PM.",
     image: "/assets/centralpark2.jpg",
