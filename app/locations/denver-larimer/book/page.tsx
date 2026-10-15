@@ -1107,16 +1107,16 @@ export default function NewBookingFlow() {
 
         {/* Persistent identity banner — members + remembered guests */}
         {memberCheckDone && clientId && ["category", "treatment", "boosts", "time", "account", "confirm"].includes(step) && (
-          <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "bg-[#113D33] text-white" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
+          <div className={`mb-4 mx-auto w-fit max-w-full flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full px-4 py-2 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "bg-[#A9D2C5]/40 border border-[#4A776D]/25 text-[#113D33]" : "bg-white border border-[#113D33]/10 text-[#113D33]"}`}>
             {(isMember || hasAescapeMembership || hasRemedyMembership) && <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
             <p className="text-sm">
               <span className="font-bold">{memberFirstName ?? email}</span>
               {isMember && memberTier && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
               {hasAescapeMembership && !isMember && <> · <span className="font-semibold">Aescape Member</span></>}
               {hasRemedyMembership && !isMember && <> · <span className="font-semibold">Remedy Room Member</span></>}
-              {homeLocation && <span className={(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
+              {homeLocation && <span className={(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-[#113D33]/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
             </p>
-            <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
+            <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${(isMember || hasAescapeMembership || hasRemedyMembership) ? "text-[#113D33]/60 hover:text-[#113D33]" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
           </div>
         )}
 
