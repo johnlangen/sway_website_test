@@ -19,6 +19,17 @@ import { readGclid } from "@/lib/gclid";
 
 const AESCAPE_OPTIONS = [
   {
+    // The Brady Protocol (Mindbody session type 2951, $69), launched
+    // 2026-10-15. Copy is Aescape's approved wording; don't paraphrase it
+    // (partner Terms). Deep-tissue by design, unlike our Signature massage.
+    id: 2951,
+    label: "The Brady Protocol",
+    price: "$69",
+    image: "/assets/brady-protocol-hero.jpg",
+    minutes: 30,
+    bestFor: "A new 30-minute session co-developed by Tom Brady and Aescape",
+  },
+  {
     id: 95,
     label: "15 Minute Express",
     price: "$49",
@@ -53,6 +64,7 @@ const AESCAPE_OPTIONS = [
 ] as const;
 
 const MOST_POPULAR_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 93;
+const BRADY_SESSION_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 2951;
 
 /* ---------------------------------------------
    DATE HELPERS
@@ -398,6 +410,14 @@ export default function BookAescapePage() {
     (typeof AESCAPE_OPTIONS)[number]["id"]
   >(92);
 
+  // Deep link: /locations/denver-larimer/book-aescape?session=brady
+  // pre-selects The Brady Protocol (used by the landing page, email, ads).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const want = new URLSearchParams(window.location.search).get("session");
+    if (want === "brady") setSessionTypeId(BRADY_SESSION_ID);
+  }, []);
+
   const [weekStart, setWeekStart] = useState(today);
   const [selectedDate, setSelectedDate] = useState(formatISO(today));
   const [times, setTimes] = useState<Date[]>([]);
@@ -490,7 +510,7 @@ export default function BookAescapePage() {
   const selectedOption = useMemo(
     () =>
       AESCAPE_OPTIONS.find((o) => o.id === sessionTypeId) ??
-      AESCAPE_OPTIONS[1],
+      AESCAPE_OPTIONS.find((o) => o.id === 92)!,
     [sessionTypeId]
   );
 
@@ -827,7 +847,7 @@ export default function BookAescapePage() {
       hour12: true,
     });
     const noteParts: string[] = [
-      `Booked: ${bookerLabel} · ${bookedAt} MT — Aescape`,
+      `Booked: ${bookerLabel} · ${bookedAt} MT — Aescape${sessionTypeId === BRADY_SESSION_ID ? " · BRADY PROTOCOL" : ""}`,
     ];
     if (forSomeoneElse && guestFirstName.trim() && guestPhone.trim()) {
       const guestName = `${guestFirstName.trim()} ${guestLastName.trim()}`.trim();
@@ -1378,31 +1398,38 @@ export default function BookAescapePage() {
                   {AESCAPE_OPTIONS.map((opt) => {
                     const selected = sessionTypeId === opt.id;
                     const isPopular = opt.id === MOST_POPULAR_ID;
+                    const isBrady = opt.id === BRADY_SESSION_ID;
 
                     return (
                       <button
                         aria-pressed={selected}
                         key={opt.id}
                         onClick={() => setSessionTypeId(opt.id)}
-                        className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                        className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${isBrady ? "sm:col-span-2 " : ""}${
                           selected
                             ? "border-[#113D33] bg-white shadow-xl ring-1 ring-[#113D33]/20 scale-[1.02]"
                             : "border-[#113D33]/10 bg-white/70 hover:bg-white hover:shadow-lg hover:-translate-y-1"
                         }`}
                       >
-                        <div className="relative h-44 w-full overflow-hidden">
+                        <div className={`relative w-full overflow-hidden ${isBrady ? "h-52 sm:h-64" : "h-44"}`}>
                           <Image
                             src={opt.image}
-                            alt={opt.label}
+                            alt={isBrady ? "Tom Brady seated on the Aescape table" : opt.label}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            priority={opt.id === 92}
+                            priority={opt.id === BRADY_SESSION_ID}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
                           {isPopular && (
                             <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-[10px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full">
                               Most popular
+                            </div>
+                          )}
+
+                          {isBrady && (
+                            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-[10px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full">
+                              New
                             </div>
                           )}
 
@@ -1431,7 +1458,7 @@ export default function BookAescapePage() {
                           <div className="text-sm text-[#113D33]/65 mt-0.5">
                             {opt.bestFor}
                           </div>
-                          {hasAescapeMembership && (
+                          {hasAescapeMembership && !isBrady && (
                             <div className="text-xs text-[#4A776D] font-semibold mt-1">
                               Included in your Aescape membership
                             </div>

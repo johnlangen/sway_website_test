@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/massages/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/facials/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/aescape/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/aescape/brady-protocol/`, lastModified: new Date("2026-10-15"), changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/remedy-tech/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/sauna/`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/cold-plunge/`, changeFrequency: "monthly" as const, priority: 0.6 },

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import GoogleReviews from "./components/GoogleReviews";
 import EditorialHero from "./components/EditorialHero";
+import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
 
 const experiences = [
   {
@@ -87,6 +88,8 @@ export default function HomeContent() {
         action="Find your feel-good"
         note="Your next reset starts here."
       />
+
+      <BradyProtocolBanner />
 
       <div className="sway-recognition">
         <span>Good company. Great recognition.</span>

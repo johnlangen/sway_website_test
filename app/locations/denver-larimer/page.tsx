@@ -7,6 +7,7 @@ import Image from "next/image";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import BookingPeek from "@/app/components/BookingPeek";
 import { SwayCurve } from "@/app/components/SwayCurve";
+import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -279,6 +280,8 @@ export default function SwayLarimerPage() {
           </div>
         </div>
       </section>
+
+      <BradyProtocolBanner />
 
       <LocationExperienceNav location="denver-larimer" />
 

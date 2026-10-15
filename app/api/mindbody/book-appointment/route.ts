@@ -17,8 +17,8 @@ function resolveStaffId(sessionTypeId: number): number | null {
     return 100000014;
   }
 
-  // Aescape sessions
-  if ([92, 93, 94, 95].includes(sessionTypeId)) {
+  // Aescape sessions (2951 = The Brady Protocol, 30 min, launched 2026-10-15)
+  if ([92, 93, 94, 95, 2951].includes(sessionTypeId)) {
     return 100000040;
   }
 

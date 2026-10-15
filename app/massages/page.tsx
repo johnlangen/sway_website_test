@@ -6,6 +6,7 @@ import EditorialHero from "../components/EditorialHero";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { resolveLocationHref } from "../components/LocationAwareHref";
 import { SwayCurve } from "../components/SwayCurve";
+import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
 
 /* ---------------- TIER DATA ---------------- */
 
@@ -175,6 +176,7 @@ const MassagesPage = () => {
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO: background image (homepage massage photo) */}
       <EditorialHero eyebrow="Sway / Massages" title="Let your shoulders drop." description="From light-to-medium Signature Massage to focused Deep Tissue. Explore three tiers of care, and find your kind of release." image="/assets/homepage-massage.jpg" imageAlt="Massages at Sway Wellness Spa" href={bookHref} action="Book a massage" note="Explore the full treatment menu below." />
+      <BradyProtocolBanner />
 <p className="sr-only">
           Sway Wellness Spa offers massage treatments at 1428 Larimer St. in
           Denver across three tiers: Essential (Signature and Maternity

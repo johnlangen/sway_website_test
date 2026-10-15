@@ -14,7 +14,8 @@ export async function GET(req: Request) {
     );
   }
 
-  const ALLOWED_SESSION_TYPE_IDS = [92, 93, 94, 95];
+  // 2951 = The Brady Protocol (30 min, launched 2026-10-15), same robot/staff.
+  const ALLOWED_SESSION_TYPE_IDS = [92, 93, 94, 95, 2951];
   if (!ALLOWED_SESSION_TYPE_IDS.includes(Number(sessionTypeId))) {
     return NextResponse.json(
       { error: "Invalid sessionTypeId for aescape" },

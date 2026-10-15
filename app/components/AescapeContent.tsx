@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { SwayCurve } from "./SwayCurve";
+import { BRADY_LANDING_HREF } from "./BradyProtocolBanner";
 import BackgroundFilm from "./BackgroundFilm";
 
 const BOOK_URL = "/locations/denver-larimer/book-aescape/";
@@ -216,6 +217,14 @@ export default function AescapeContent() {
                     Sway Wellness Spa
                   </span>
                 </div>
+
+                <Link
+                  href={BRADY_LANDING_HREF}
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#A9D2C5] text-[#113D33] px-4 py-2 text-sm font-semibold hover:bg-[#9ABFB3] transition"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.2em] bg-[#113D33] text-white rounded-full px-2 py-0.5">New</span>
+                  Introducing the Brady Protocol <span aria-hidden="true">&rarr;</span>
+                </Link>
 
                 <SwayCurve
                   width={140}
