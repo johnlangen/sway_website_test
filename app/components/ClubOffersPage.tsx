@@ -73,8 +73,6 @@ const CLUB_CONFIG: Record<
     offerImageAlt: "Recovery pools at Sway Central Park",
     loungeLine:
       "Traditional dry sauna, infrared sauna cabins, cold plunges, a warm soak, and compression therapy.",
-    // FTVORL-CP-PAUSE (Sept 2026): cold plunge down for maintenance.
-    offerPaused: true,
   },
 };
 

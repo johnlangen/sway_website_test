@@ -228,16 +228,6 @@ export default function ClubMembershipPage({
         </div>
       </section>
 
-      {clubKey === "denver-central-park" && (
-        <aside className="sway-membership-notice">
-          <strong>Central Park amenity update.</strong> One cold plunge and the
-          warm soak are temporarily under maintenance.{" "}
-          <Link href="/locations/denver-central-park/offers#club-status">
-            See what’s currently available
-          </Link>
-        </aside>
-      )}
-
       {/* ====================== WHAT'S INCLUDED / PRICE CARD ====================== */}
       <section className="px-6 pb-14 md:pb-20">
         <div className="max-w-6xl mx-auto">

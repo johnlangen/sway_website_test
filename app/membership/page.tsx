@@ -198,9 +198,7 @@ export default function MembershipHubPage() {
               <li>Freeze up to 3 months per calendar year</li>
             </ul>
             <p>
-              Massage and facial services are coming soon at the clubs. Central
-              Park has a temporary amenity maintenance notice on its membership
-              page.
+              Massage and facial services are coming soon at the clubs.
             </p>
             <div className="sway-membership-location-links">
               {locations

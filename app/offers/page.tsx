@@ -195,14 +195,15 @@ export default function OffersPage() {
                     {loc.address} · {loc.city}
                   </p>
                   <h3>{loc.name}</h3>
-                  {loc.slug === "denver-rino" ? (
+                  {loc.slug === "denver-rino" || loc.slug === "denver-central-park" ? (
                     <>
                       <p className="sway-club-price">
                         $25 <span>/ first 75-minute visit</span>
                       </p>
                       <p>
-                        Traditional and infrared saunas, cold plunge, and
-                        compression therapy. Regularly $49.
+                        {loc.slug === "denver-central-park"
+                          ? "Traditional and infrared saunas, cold plunges, a warm soak, and compression therapy. Regularly $49."
+                          : "Traditional and infrared saunas, cold plunge, and compression therapy. Regularly $49."}
                       </p>
                       <p className="sway-offer-terms">
                         <strong>

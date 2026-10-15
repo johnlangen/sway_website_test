@@ -49,11 +49,9 @@ const FAQS = [
     q: "What's included in the Sway Remedy Lounge?",
     a: "Access to the traditional dry sauna, infrared sauna cabins, cold plunges, a warm soak, compression therapy, and lounge.",
   },
-  // FTVORL-CP-PAUSE (Sept 2026): first-visit offer paused during cold
-  // plunge maintenance. Restore the $25/FTVORL answer when back.
   {
     q: "How much is my first visit?",
-    a: "Remedy Lounge sessions are $49 as a drop-in. Our $25 first-visit offer is temporarily paused while the cold plunge is under maintenance, so your first visit is everything it should be. It will be back as soon as the plunge is.",
+    a: "Local first-time guests get their first 75-minute Remedy Lounge session for $25 (regularly $49). Book online, then mention code FTVORL at check-in. Locals only, any day.",
   },
   {
     q: "Do I need a membership?",
@@ -175,32 +173,26 @@ export default function SwayCentralParkPage() {
 
       <LocationExperienceNav location="denver-central-park" />
 
-      {/* ========================= FIRST VISIT OFFER =========================
-          FTVORL-CP-PAUSE (Sept 2026): offer banner swapped for a
-          maintenance notice while the cold plunge is down. Restore the
-          $25/FTVORL banner when it's back. */}
+      {/* ========================= FIRST VISIT OFFER ========================= */}
       <section className="px-6 pb-10 md:pb-14">
         <div className="max-w-6xl mx-auto">
           <div className="rounded-2xl bg-[#113D33] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5">
             <div className="text-center sm:text-left">
               <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
-                A quick heads-up
+                First Visit Offer · Locals Only
               </div>
               <h2 className="text-xl sm:text-2xl font-bold">
-                Plunge maintenance in progress.
+                Your first Remedy Lounge visit, $25.
               </h2>
               <p className="mt-1.5 text-white/80 text-sm">
-                A cold plunge and the warm soak are getting some care. The
-                saunas, remaining cold plunges, and compression are open as
-                usual. Our $25 first-visit offer is paused until everything
-                is back.
+                Regularly $49 · Any day · Use code FTVORL at check-in
               </p>
             </div>
             <Link
-              href="/locations/denver-central-park/book-remedy-lounge"
+              href="/locations/denver-central-park/offers"
               className="bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-100 transition whitespace-nowrap"
             >
-              Book a Session
+              View Offer
             </Link>
           </div>
         </div>

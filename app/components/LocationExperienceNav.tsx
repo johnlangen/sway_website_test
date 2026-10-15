@@ -44,10 +44,7 @@ export default function LocationExperienceNav({
         },
         {
           name: "Before your first visit",
-          detail:
-            location === "denver-central-park"
-              ? "Current pricing & amenity maintenance update"
-              : "Current offers & first-visit details",
+          detail: "Current offers & first-visit details",
           href: `/locations/${location}/offers`,
         },
       ];

@@ -30,8 +30,7 @@ const CLUBS = [
     imageAlt: "Recovery suite at Sway Wellness Spa Central Park",
     href: "/locations/denver-central-park/",
     bookHref: "/locations/denver-central-park/book-remedy-lounge",
-    // FTVORL-CP-PAUSE: no first-visit offer line while the CP plunge is down.
-    offer: null as string | null,
+    offer: "First visit $25, locals only (code FTVORL at check-in)." as string | null,
   },
 ];
 
