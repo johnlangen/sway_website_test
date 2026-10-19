@@ -82,6 +82,9 @@ export default function GiftCardsHubPage() {
       const ls = localStorage.getItem("sway_selected_location");
       if (ls) {
         const loc = JSON.parse(ls);
+        // Backfill the cookie so middleware.ts redirects server-side next
+        // time (no picker flash) for visitors who only have localStorage.
+        if (loc?.slug) document.cookie = `sway_loc=${loc.slug}; path=/; max-age=${60 * 60 * 24 * 365}`;
         setSelectedLocation(loc);
         const match = locations.find((l) => l.slug === loc?.slug && l.status === "open");
         if (match && !choosing) {
