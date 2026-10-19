@@ -485,6 +485,11 @@ body {
 .sway-page-hero {
   text-align: left;
 }
+/* Heroes built centered (gift cards, DC/Dallas membership, my-account,
+   review) keep it: the rule above was overriding their text-center. */
+.sway-page-hero.text-center {
+  text-align: center;
+}
 .sway-page-hero h1 {
   font-size: clamp(40px, 5.5vw, 76px);
   line-height: 1.08;
