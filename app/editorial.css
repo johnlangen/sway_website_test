@@ -876,6 +876,43 @@ body {
   .editorial-hero-description {
     animation-delay: 140ms;
   }
+
+  /* Hero entrance for the offers + membership heroes, timed to match the
+     gift cards hero (framer-motion there: fade up from 0, ~0.1s stagger,
+     image last). CSS so it starts at first paint, no hydration flash.
+     No `to` frame on purpose: it ends on each element's own opacity, so
+     text styled opacity-70 / -90 stays that way. */
+  @keyframes sway-hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(var(--sway-rise, 12px));
+    }
+  }
+  .sway-campaign-intro > div:first-child > *,
+  .sway-hero-enter > * {
+    animation: sway-hero-rise 0.5s cubic-bezier(0, 0, 0.58, 1) both;
+  }
+  .sway-campaign-intro > div:first-child > :nth-child(2),
+  .sway-hero-enter > :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .sway-campaign-intro > div:first-child > :nth-child(3),
+  .sway-hero-enter > :nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .sway-campaign-intro > div:first-child > :nth-child(4),
+  .sway-hero-enter > :nth-child(4) {
+    animation-delay: 0.25s;
+  }
+  .sway-campaign-intro > div:first-child > :nth-child(n + 5),
+  .sway-hero-enter > :nth-child(n + 5) {
+    animation-delay: 0.3s;
+  }
+  .sway-campaign-intro > div:last-child:not(:first-child),
+  .sway-hero-enter-media {
+    --sway-rise: 24px;
+    animation: sway-hero-rise 0.6s cubic-bezier(0, 0, 0.58, 1) 0.3s both;
+  }
 }
 .treatment-jump {
   display: flex;

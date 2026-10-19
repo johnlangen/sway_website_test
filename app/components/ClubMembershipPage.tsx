@@ -160,7 +160,7 @@ export default function ClubMembershipPage({
       {/* ================================ HERO ================================ */}
       <section className="sway-page-hero sway-membership-hero px-6 pt-24 sm:pt-28 md:pt-36 pb-12 md:pb-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
-          <div>
+          <div className="sway-hero-enter">
             <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
               {cfg.areaLine} &middot;{" "}
               <Link
@@ -170,8 +170,6 @@ export default function ClubMembershipPage({
                 Change location
               </Link>
             </div>
-
-
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
               The Remedy Lounge Membership
@@ -215,7 +213,7 @@ export default function ClubMembershipPage({
             </p>
           </div>
 
-          <div className="relative">
+          <div className="relative sway-hero-enter-media">
             <Image
               src={cfg.heroImage}
               alt={cfg.heroImageAlt}
