@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import Image from "next/image";
@@ -680,6 +681,19 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       .finally(() => setLoading(false));
   }, [SITE_ID, LOUNGE_ST, SUB_SLOTS, selectedDate, availabilityNonce]);
 
+  // Week-strip availability dots: one ?days=7 request per shown week; the
+  // route applies the same room-cap gating as the day view.
+  const weekAvail = useWeekAvailability(
+    step === "select" ? `${SITE_ID}|${formatISO(weekStart)}` : null,
+    async () => {
+      const res = await fetch(`/api/club/availability?siteId=${SITE_ID}&sessionTypeId=${LOUNGE_ST}&date=${formatISO(weekStart)}&days=7`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (!Array.isArray(data.openDays)) return null;
+      return toDayAvailability(weekIsoDays(weekStart), new Set<string>(data.openDays), !!data.partial);
+    }
+  );
+
   /* ── LOOKUP ── */
   // Returns either { multiple: [...] } when an email maps to several clients on
   // this site (and no specific one was requested), or the resolved lookup shape.
@@ -1332,19 +1346,21 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       const iso = formatISO(day);
                       const isPast = day < bookFloor && iso !== formatISO(bookFloor);
                       const selected = iso === selectedDate;
+                      const avail = weekAvail[iso];
                       const dayName = day.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
                       return (
                         <button
                           aria-pressed={selected}
-                          aria-label={fullDayLabel(day)}
+                          aria-label={`${fullDayLabel(day)}${avail === true ? ", open times" : avail === false ? ", fully booked" : ""}`}
                           key={iso}
                           disabled={isPast}
                           onClick={() => setSelectedDate(iso)}
-                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/25 ${selected ? "bg-[#113D33] text-white shadow-lg" : isPast ? "opacity-25 cursor-not-allowed text-[#113D33]" : "bg-white text-[#113D33] border border-[#113D33]/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}
+                          className={`${avail === false && !selected && !isPast ? "opacity-40 " : ""}flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/25 ${selected ? "bg-[#113D33] text-white shadow-lg" : isPast ? "opacity-25 cursor-not-allowed text-[#113D33]" : "bg-white text-[#113D33] border border-[#113D33]/10 shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{day.getDate()}</span>
                           <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                          <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-white" : "bg-[#4A776D]") : "bg-transparent"}`} />
                         </button>
                       );
                     })}

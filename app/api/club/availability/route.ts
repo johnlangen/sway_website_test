@@ -8,6 +8,7 @@ import {
   peakOverlap,
   type ApptInterval,
 } from "@/lib/clubOccupancy";
+import { rangeEnd, isPartial } from "@/lib/dateRange";
 
 /**
  * Availability for the Sway Wellness Club locations (RiNo / Central Park).
@@ -73,8 +74,10 @@ export async function GET(req: Request) {
   );
   url.searchParams.append("request.sessionTypeIds[0]", String(stId));
   url.searchParams.append("request.locationIds[0]", String(club.locationId));
+  // Optional ?days=N (Lounge week-strip dots): one call for the range.
+  const { end, days } = rangeEnd(date, searchParams.get("days"));
   url.searchParams.append("request.startDate", `${date}T00:00:00`);
-  url.searchParams.append("request.endDate", `${date}T23:59:59`);
+  url.searchParams.append("request.endDate", `${end}T23:59:59`);
   url.searchParams.append("request.includeResourceAvailability", "true");
   url.searchParams.append("request.limit", "200");
   url.searchParams.append("request.staffIds[0]", String(staffId));
@@ -119,6 +122,69 @@ export async function GET(req: Request) {
     const blockMin =
       club.remedyLounge.serviceMinutes + club.remedyLounge.bufferMinutes;
     const slotStarts = generateWaveStarts(windows, ENTRY_STEP_MIN);
+
+    // Week-strip dots (?days=N): which days have at least one entry time
+    // under the room cap, using the same grid + peakOverlap gating as the
+    // day view below. Saunas are optional add-ons inside a visit, so they
+    // don't decide whether a day is open. Lounge appointments for the whole
+    // range come from one paginated staffappointments read. If occupancy
+    // can't be read, report partial so the client shows no dots (unknown)
+    // rather than guessing.
+    if (days > 1) {
+      try {
+        const token = await getMindbodyStaffToken(siteId);
+        const loungeRange: ApptInterval[] = [];
+        let complete = false;
+        for (let offset = 0; offset < 1000; offset += 200) {
+          const u = new URL(
+            "https://api.mindbodyonline.com/public/v6/appointment/staffappointments"
+          );
+          u.searchParams.append("staffIds", String(club.remedyLounge.resourceStaffId));
+          u.searchParams.append("startDate", `${date}T00:00:00`);
+          u.searchParams.append("endDate", `${end}T23:59:59`);
+          u.searchParams.append("locationIds", String(club.locationId));
+          u.searchParams.append("limit", "200");
+          u.searchParams.append("offset", String(offset));
+          const r = await fetch(u.toString(), {
+            headers: {
+              Accept: "application/json",
+              "Api-Key": apiKey,
+              SiteId: siteId,
+              Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+          });
+          if (!r.ok) throw new Error(`staffappointments ${r.status}`);
+          const d = await r.json().catch(() => ({}));
+          const appts = d?.Appointments ?? d?.StaffAppointments ?? [];
+          for (const a of Array.isArray(appts) ? appts : []) {
+            if (a.Status === "Booked" || a.Status === "Confirmed") {
+              loungeRange.push({ start: a.StartDateTime, end: a.EndDateTime });
+            }
+          }
+          const total = Number(d?.PaginationResponse?.TotalResults);
+          if (!Number.isFinite(total) || offset + 200 >= total) {
+            complete = true;
+            break;
+          }
+        }
+        const capacity = club.remedyLounge.capacity;
+        const openDays = new Set<string>();
+        for (const start of slotStarts) {
+          const s = parseWall(start);
+          if (peakOverlap(loungeRange, s, s + blockMin * 60_000) < capacity) {
+            openDays.add(start.slice(0, 10));
+          }
+        }
+        return NextResponse.json({
+          openDays: Array.from(openDays),
+          partial: !complete || isPartial(data, windows.length),
+        });
+      } catch (e) {
+        console.warn("[club availability] week occupancy lookup failed:", e);
+        return NextResponse.json({ openDays: [], partial: true });
+      }
+    }
 
     const saunas: Record<
       string,
