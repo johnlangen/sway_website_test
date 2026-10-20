@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { rangeEnd, isPartial } from "@/lib/dateRange";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 
 export const runtime = "nodejs";
@@ -58,8 +59,11 @@ export async function GET(req: Request) {
       "https://api.mindbodyonline.com/public/v6/appointment/staffappointments"
     );
     url.searchParams.append("staffIds", String(staffId));
+    // Optional ?days=N (Remedy Room week dots): one call for the range.
+    const { end, days } = rangeEnd(date, searchParams.get("days"));
     url.searchParams.append("startDate", `${date}T00:00:00`);
-    url.searchParams.append("endDate", `${date}T23:59:59`);
+    url.searchParams.append("endDate", `${end}T23:59:59`);
+    if (days > 1) url.searchParams.append("limit", "200");
     url.searchParams.append("locationIds", "1");
 
     const res = await fetch(url.toString(), {
@@ -92,7 +96,11 @@ export async function GET(req: Request) {
         end: a.EndDateTime,
       }));
 
-    return NextResponse.json({ appointments });
+    return NextResponse.json(
+      days > 1 && isPartial(data, Array.isArray(appts) ? appts.length : 0)
+        ? { appointments, partial: true }
+        : { appointments }
+    );
   } catch (err: any) {
     console.error("[STAFF SCHEDULE] Server error", err);
     return NextResponse.json(

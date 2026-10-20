@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { rangeEnd, isPartial } from "@/lib/dateRange";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -36,8 +37,10 @@ export async function GET(req: Request) {
   );
 
   url.searchParams.append("request.sessionTypeIds[0]", sessionTypeId);
+  // Optional ?days=N (week-strip availability dots): one call for the range.
+  const { end, days } = rangeEnd(date, searchParams.get("days"));
   url.searchParams.append("request.startDate", `${date}T00:00:00`);
-  url.searchParams.append("request.endDate", `${date}T23:59:59`);
+  url.searchParams.append("request.endDate", `${end}T23:59:59`);
   url.searchParams.append("request.includeResourceAvailability", "true");
   url.searchParams.append("request.limit", "200");
   url.searchParams.append("request.staffIds[0]", "100000014");
@@ -67,7 +70,9 @@ export async function GET(req: Request) {
         bookableEnd: a.BookableEndDateTime,
       })) || [];
 
-    return NextResponse.json({ windows });
+    return NextResponse.json(
+      days > 1 && isPartial(data, windows.length) ? { windows, partial: true } : { windows }
+    );
   } catch (err) {
     console.error("Mindbody availability error:", err);
     return NextResponse.json(

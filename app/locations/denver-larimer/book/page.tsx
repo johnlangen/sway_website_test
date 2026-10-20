@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Link from "next/link";
 import { trackCrossSell } from "@/lib/trackCrossSell";
@@ -964,6 +965,20 @@ export default function NewBookingFlow() {
     finally { setNameSaving(false); }
   };
 
+  /* -- Week-strip availability dots: one ?days=7 request per shown week
+     (and specialist filter), cached; see lib/useWeekAvailability.ts -- */
+  const weekAvail = useWeekAvailability(
+    step === "time" && selectedTreatment ? `${selectedTreatment.id}|${formatISO(weekStart)}|${filteredTherapist ?? "any"}` : null,
+    async () => {
+      if (!selectedTreatment) return null;
+      const res = await fetch(`/api/service/availability?sessionTypeId=${selectedTreatment.id}&date=${formatISO(weekStart)}&days=7${filteredTherapist ? `&staffId=${filteredTherapist}` : ""}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      const open = new Set<string>((Array.isArray(data.slots) ? data.slots : []).map((sl: { startDateTime: string }) => sl.startDateTime.slice(0, 10)));
+      return toDayAvailability(weekIsoDays(weekStart), open, !!data.partial);
+    }
+  );
+
   /* -- "Complete your visit" suggestion on the confirmation screen --
      First fit wins (see lib/postBookingSuggestion.ts): Aescape warm-up
      before a massage, else Remedy Room after, else the other service the
@@ -1805,12 +1820,13 @@ export default function NewBookingFlow() {
                 <div className="flex gap-1.5 overflow-x-auto scrollbar-hide px-1">
                   {Array.from({ length: 7 }).map((_, i) => {
                     const d = addDays(weekStart, i); const iso = formatISO(d); const isSel = iso === selectedDate; const isToday = iso === formatISO(today);
-                    return (<button key={iso} aria-pressed={isSel} aria-label={d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} onClick={() => { setSelectedDate(iso); setSelectedSlot(null); }}
-                      className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
+                    const avail = weekAvail[iso];
+                    return (<button key={iso} aria-pressed={isSel} aria-current={isToday ? "date" : undefined} aria-label={`${d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}${avail === true ? ", open times" : avail === false ? ", fully booked" : ""}`} onClick={() => { setSelectedDate(iso); setSelectedSlot(null); }}
+                      className={`${avail === false && !isSel ? "opacity-40 " : ""}flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
                       <span className="text-[10px] font-semibold tracking-wider uppercase">{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
                       <span className="text-lg font-bold leading-tight">{d.getDate()}</span>
                       <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(d)}</span>
-                      {isToday && <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSel ? "bg-white" : "bg-[#4A776D]"}`} />}
+                      <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true ? (isSel ? "bg-white" : "bg-[#4A776D]") : "bg-transparent"}`} />
                     </button>);
                   })}
                 </div>

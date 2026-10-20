@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import { SwayCurve } from "../../../components/SwayCurve";
@@ -587,6 +588,31 @@ export default function BookRemedyRoomPage() {
   const displayedTimes = useMemo(() => {
     return filterAvailableSlots(times, existingAppointments, REMEDY_MAX_CAPACITY);
   }, [times, existingAppointments]);
+
+  // Week-strip availability dots: one ?days=7 request each for windows and
+  // occupancy per shown week, run through the same capacity filter as the
+  // time list so a "fully booked" day really is.
+  const weekAvail = useWeekAvailability(
+    step === "select" ? `${sessionTypeId}|${formatISO(weekStart)}` : null,
+    async () => {
+      const start = formatISO(weekStart);
+      const [aRes, sRes] = await Promise.all([
+        fetch(`/api/remedy-room/availability?sessionTypeId=${sessionTypeId}&date=${start}&days=7`),
+        fetch(`/api/service/staff-schedule?staffId=100000014&date=${start}&days=7`),
+      ]);
+      if (!aRes.ok || !sRes.ok) return null;
+      const [avail, sched] = await Promise.all([aRes.json(), sRes.json()]);
+      if (!Array.isArray(avail.windows) || !Array.isArray(sched.appointments)) return null;
+      const appts = sched.appointments.map((a: { start: string }) => {
+        const st = parseMindbodyDateTime(a.start);
+        return { start: st, end: new Date(st.getTime() + REMEDY_BLOCK_MINUTES * 60_000) };
+      });
+      const open = new Set(
+        filterAvailableSlots(generateTimesFromWindows(avail.windows), appts, REMEDY_MAX_CAPACITY).map((t) => formatISO(t))
+      );
+      return toDayAvailability(weekIsoDays(weekStart), open, !!avail.partial || !!sched.partial);
+    }
+  );
 
   // Apply the deep-linked time once BOTH that day's times and its occupancy
   // are in, and only if the slot is still open after the capacity filter.
@@ -1549,6 +1575,7 @@ export default function BookRemedyRoomPage() {
                       const iso = formatISO(day);
                       const isPast = day < today && iso !== formatISO(today);
                       const selected = iso === selectedDate;
+                      const avail = weekAvail[iso];
                       const dayName = day.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
                       const dayNum = day.getDate();
 
@@ -1557,9 +1584,9 @@ export default function BookRemedyRoomPage() {
                           key={iso}
                           disabled={isPast}
                           aria-pressed={selected}
-                          aria-label={fullDayLabel(day)}
+                          aria-label={`${fullDayLabel(day)}${avail === true ? ", open times" : avail === false ? ", fully booked" : ""}`}
                           onClick={() => setSelectedDate(iso)}
-                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                          className={`${avail === false && !selected && !isPast ? "opacity-40 " : ""}flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
                             selected
                               ? "bg-white text-[#113D33] shadow-lg"
                               : isPast
@@ -1570,6 +1597,7 @@ export default function BookRemedyRoomPage() {
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
                           <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                          <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-[#113D33]" : "bg-[#A9D2C5]") : "bg-transparent"}`} />
                         </button>
                       );
                     })}

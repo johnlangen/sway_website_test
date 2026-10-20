@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import { SwayCurve } from "../../../components/SwayCurve";
@@ -809,6 +810,19 @@ export default function BookAescapePage() {
     };
   }, [sessionTypeId, selectedDate]);
 
+  // Week-strip availability dots: one ?days=7 request per shown week.
+  const weekAvail = useWeekAvailability(
+    step === "time" ? `${sessionTypeId}|${formatISO(weekStart)}` : null,
+    async () => {
+      const res = await fetch(`/api/aescape/availability?sessionTypeId=${sessionTypeId}&date=${formatISO(weekStart)}&days=7`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (!Array.isArray(data.windows)) return null;
+      const open = new Set(generateTimesFromWindows(data.windows).map((t) => formatISO(t)));
+      return toDayAvailability(weekIsoDays(weekStart), open, !!data.partial);
+    }
+  );
+
   // Apply the deep-linked warm-up time once the right day's times are in.
   useEffect(() => {
     const want = pendingTimeRef.current;
@@ -1569,6 +1583,7 @@ export default function BookAescapePage() {
                       const iso = formatISO(day);
                       const isPast = day < today && iso !== formatISO(today);
                       const selected = iso === selectedDate;
+                      const avail = weekAvail[iso];
                       const dayName = day.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
                       const dayNum = day.getDate();
 
@@ -1577,9 +1592,9 @@ export default function BookAescapePage() {
                           key={iso}
                           disabled={isPast}
                           aria-pressed={selected}
-                          aria-label={fullDayLabel(day)}
+                          aria-label={`${fullDayLabel(day)}${avail === true ? ", open times" : avail === false ? ", fully booked" : ""}`}
                           onClick={() => setSelectedDate(iso)}
-                          className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
+                          className={`${avail === false && !selected && !isPast ? "opacity-40 " : ""}flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                             selected
                               ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20"
                               : isPast
@@ -1590,6 +1605,7 @@ export default function BookAescapePage() {
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
                           <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                          <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-white" : "bg-[#4A776D]") : "bg-transparent"}`} />
                         </button>
                       );
                     })}
