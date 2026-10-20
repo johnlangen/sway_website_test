@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import { SwayCurve } from "../../../components/SwayCurve";
 import { useRouter } from "next/navigation";
@@ -474,16 +475,21 @@ export default function BookRemedyRoomPage() {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<Step>("select");
 
-  // Deep link from the /book confirmation's "Recover after" card: ?date=
-  // opens on that day. The card names the open time, but we don't preselect
-  // it: occupancy loads separately, so the guest picks from the live list.
+  // Deep link from the /book confirmation's "Recover after" card:
+  // ?date=YYYY-MM-DD&at=HH:MM opens on that day with that time selected.
+  // The time is applied only after that day's occupancy has loaded and the
+  // slot still passes the capacity filter (see the preselect effect below).
+  const pendingTimeRef = useRef<string | null>(null);
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const date = new URLSearchParams(window.location.search).get("date");
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get("date");
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
     const [y, m, d] = date.split("-").map(Number);
     setSelectedDate(date);
     setWeekStart(new Date(y, m - 1, d));
+    const at = params.get("at");
+    if (at && /^\d{2}:\d{2}$/.test(at)) pendingTimeRef.current = `${date}T${at}`;
   }, []);
 
   const [loading, setLoading] = useState(false);
@@ -547,6 +553,8 @@ export default function BookRemedyRoomPage() {
   const REMEDY_MAX_CAPACITY = 3;
   const [slotOccupancy, setSlotOccupancy] = useState<Record<string, number>>({});
   const [existingAppointments, setExistingAppointments] = useState<{ start: Date; end: Date }[]>([]);
+  // Which day's occupancy is actually loaded (null while loading / on error).
+  const [occupancyDate, setOccupancyDate] = useState<string | null>(null);
 
   const cardHolderRef = useRef<HTMLInputElement | null>(null);
   const cardNumberRef = useRef<HTMLInputElement | null>(null);
@@ -579,6 +587,20 @@ export default function BookRemedyRoomPage() {
   const displayedTimes = useMemo(() => {
     return filterAvailableSlots(times, existingAppointments, REMEDY_MAX_CAPACITY);
   }, [times, existingAppointments]);
+
+  // Apply the deep-linked time once BOTH that day's times and its occupancy
+  // are in, and only if the slot is still open after the capacity filter.
+  useEffect(() => {
+    const want = pendingTimeRef.current;
+    if (!want || loading || occupancyDate !== want.slice(0, 10)) return;
+    if (times.length === 0 || formatISO(times[0]) !== want.slice(0, 10)) return;
+    pendingTimeRef.current = null;
+    const match = displayedTimes.find(
+      (t) => `${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}` === want.slice(11)
+    );
+    if (match) setSelectedTime(match);
+    selectRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [displayedTimes, times, loading, occupancyDate]);
 
   const groupedTimes = useMemo(
     () => groupByPartOfDay(displayedTimes, (d) => d.getHours()),
@@ -781,6 +803,7 @@ export default function BookRemedyRoomPage() {
     setExistingAppointments([]);
     // Occupancy is our only capacity check, so never apply another day's.
     let stale = false;
+    setOccupancyDate(null);
 
     fetch(
       `/api/service/staff-schedule?staffId=100000014&date=${selectedDate}`
@@ -810,6 +833,7 @@ export default function BookRemedyRoomPage() {
 
         setSlotOccupancy(counts);
         setExistingAppointments(appts);
+        setOccupancyDate(selectedDate);
       })
       .catch(() => {
         if (stale) return;
@@ -1504,8 +1528,8 @@ export default function BookRemedyRoomPage() {
               {/* Day picker */}
               <section className="mb-10 md:mb-12">
                 <h2 className="text-lg font-semibold text-white/90 mb-1">Choose a Day</h2>
-                <p className="text-sm text-white/40 mb-4">
-                  {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                <p aria-live="polite" className="text-sm text-white/40 mb-4">
+                  {weekMonthLabel(weekStart)}
                 </p>
 
                 <div className="flex items-center justify-center gap-1">
@@ -1533,6 +1557,7 @@ export default function BookRemedyRoomPage() {
                           key={iso}
                           disabled={isPast}
                           aria-pressed={selected}
+                          aria-label={fullDayLabel(day)}
                           onClick={() => setSelectedDate(iso)}
                           className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
                             selected
@@ -1544,6 +1569,7 @@ export default function BookRemedyRoomPage() {
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
+                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
                         </button>
                       );
                     })}

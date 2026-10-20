@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
@@ -1354,11 +1355,8 @@ export default function MavenHotelPage() {
               <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">
                 Choose a Day
               </h2>
-              <p className="text-sm text-[#113D33]/40 mb-4">
-                {addDays(weekStart, 3).toLocaleDateString("en-US", {
-                  month: "long",
-                  year: "numeric",
-                })}
+              <p className="text-sm text-[#113D33]/40 mb-4" aria-live="polite">
+                {weekMonthLabel(weekStart)}
               </p>
 
               <div className="flex items-center justify-center gap-1">
@@ -1397,6 +1395,8 @@ export default function MavenHotelPage() {
                       <button
                         key={iso}
                         disabled={isPast}
+                        aria-pressed={selected}
+                        aria-label={fullDayLabel(day)}
                         onClick={() => setSelectedDate(iso)}
                         className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                           selected
@@ -1412,6 +1412,7 @@ export default function MavenHotelPage() {
                         <span className="text-lg font-bold leading-tight">
                           {dayNum}
                         </span>
+                        <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
                       </button>
                     );
                   })}

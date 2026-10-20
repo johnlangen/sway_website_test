@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -1319,8 +1320,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               {/* Day picker */}
               <section className="mb-10 md:mb-12">
                 <h2 className="text-lg font-semibold text-[#113D33] mb-1">Choose a Day</h2>
-                <p className="text-sm text-[#113D33]/50 mb-4">
-                  {addDays(weekStart, 3).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                <p aria-live="polite" className="text-sm text-[#113D33]/50 mb-4">
+                  {weekMonthLabel(weekStart)}
                 </p>
                 <div className="flex items-center justify-center gap-1">
                   <button onClick={() => setWeekStart(addDays(weekStart, -7))} disabled={weekStart <= bookFloor} className="p-2 rounded-full hover:bg-[#113D33]/5 disabled:opacity-20 transition-all duration-150" aria-label="Previous week">
@@ -1335,6 +1336,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       return (
                         <button
                           aria-pressed={selected}
+                          aria-label={fullDayLabel(day)}
                           key={iso}
                           disabled={isPast}
                           onClick={() => setSelectedDate(iso)}
@@ -1342,6 +1344,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{day.getDate()}</span>
+                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
                         </button>
                       );
                     })}

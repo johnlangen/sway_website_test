@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Link from "next/link";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import { findPostBookingSuggestion, type PostBookingSuggestion } from "@/lib/postBookingSuggestion";
@@ -1791,8 +1792,8 @@ export default function NewBookingFlow() {
             {/* "Choose a Day" header with month */}
             <div className="text-center pt-4">
               <h2 className="text-2xl font-bold text-[#113D33]">Choose a Day</h2>
-              <p className="text-sm text-[#113D33]/65 mt-1">
-                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+              <p className="text-sm text-[#113D33]/65 mt-1" aria-live="polite">
+                {weekMonthLabel(weekStart)}
               </p>
             </div>
             {/* Week navigator */}
@@ -1808,6 +1809,7 @@ export default function NewBookingFlow() {
                       className={`flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${isSel ? "bg-[#113D33] text-white shadow-lg shadow-[#113D33]/20" : "bg-white text-[#113D33] shadow-sm hover:shadow-md hover:-translate-y-0.5"}`}>
                       <span className="text-[10px] font-semibold tracking-wider uppercase">{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
                       <span className="text-lg font-bold leading-tight">{d.getDate()}</span>
+                      <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(d)}</span>
                       {isToday && <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSel ? "bg-white" : "bg-[#4A776D]"}`} />}
                     </button>);
                   })}
