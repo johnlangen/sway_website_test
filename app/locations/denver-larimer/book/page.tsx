@@ -1034,6 +1034,60 @@ export default function NewBookingFlow() {
     if (prev) setStep(prev);
   };
 
+  /* -- Aescape warm-up offer (massage confirmation only) --
+     15 Minute Express (session type 95) right before the massage. Read-only
+     availability check; the card only shows when the robot has a start 30-60
+     min before the massage (closest to 45: loosen up, change out of the
+     compression apparel, still on time). Times are built on the same 10-min
+     grid book-aescape uses, so its ?at= preselect always finds the slot. */
+  const [warmup, setWarmup] = useState<{ href: string; label: string } | null>(null);
+  useEffect(() => {
+    setWarmup(null);
+    if (step !== "done" || category !== "massage" || !selectedSlot) return;
+    let cancelled = false;
+    const massageRaw = selectedSlot.startDateTime;
+    const massageStart = parseMindbodyDateTime(massageRaw);
+    const date = massageRaw.slice(0, 10);
+    const nowDenver = parseMindbodyDateTime(
+      new Date().toLocaleString("sv-SE", { timeZone: "America/Denver" }).replace(" ", "T")
+    );
+    fetch(`/api/aescape/availability?sessionTypeId=95&date=${date}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (cancelled || !Array.isArray(data?.windows)) return;
+        let best: Date | null = null;
+        let bestGap = Infinity;
+        for (const w of data.windows as { start: string; bookableEnd: string }[]) {
+          const cursor = parseMindbodyDateTime(w.start);
+          const last = parseMindbodyDateTime(w.bookableEnd);
+          const rem = cursor.getMinutes() % 10;
+          cursor.setMinutes(cursor.getMinutes() + (rem ? 10 - rem : 0), 0, 0);
+          for (; cursor <= last; cursor.setMinutes(cursor.getMinutes() + 10)) {
+            const lead = (massageStart.getTime() - cursor.getTime()) / 60000;
+            if (lead < 30 || lead > 60) continue;
+            if (cursor.getTime() < nowDenver.getTime() + 15 * 60000) continue;
+            const gap = Math.abs(lead - 45);
+            // ties go to the later start (less waiting around)
+            if (gap < bestGap || (gap === bestGap && best && cursor > best)) {
+              best = new Date(cursor);
+              bestGap = gap;
+            }
+          }
+        }
+        if (!best) return;
+        const hh = String(best.getHours()).padStart(2, "0");
+        const mm = String(best.getMinutes()).padStart(2, "0");
+        setWarmup({
+          href: `/locations/denver-larimer/book-aescape/?session=express&date=${date}&at=${hh}:${mm}`,
+          label: formatTime12h(`${date}T${hh}:${mm}:00`),
+        });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [step, category, selectedSlot]);
+
   /* -- styles (matched to book-service) -- */
   const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
   const primaryBtn = "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
@@ -2177,7 +2231,23 @@ export default function NewBookingFlow() {
             {/* Upsells */}
             <div className="pt-6 space-y-3">
               <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">Add another service</p>
-              <Link href="/locations/denver-larimer/book-aescape/?session=brady" onClick={() => trackCrossSell(category, "brady")} className={secondaryBtn + " inline-flex items-center justify-center"}>New: Book the Brady Protocol on Aescape</Link>
+              {warmup && (
+                <Link
+                  href={warmup.href}
+                  onClick={() => trackCrossSell(category, "aescape")}
+                  className="block text-left rounded-2xl overflow-hidden border-2 border-[#113D33] bg-white hover:shadow-[0_10px_30px_-18px_rgba(17,61,51,0.35)] transition-shadow"
+                >
+                  <div className="relative h-32 w-full">
+                    <Image src="/assets/aescapeblog6.jpg" alt="Aescape's robotic arms working on a guest's calf" fill className="object-cover" sizes="(max-width: 640px) 100vw, 640px" />
+                    <span className="absolute top-3 left-3 rounded-full bg-[#113D33] text-white text-[11px] font-semibold uppercase tracking-[0.12em] px-3 py-1">Recommended</span>
+                  </div>
+                  <div className="p-4">
+                    <p className="font-semibold text-[#113D33]">Warm up first · 15-min Aescape</p>
+                    <p className="mt-1 text-sm text-[#113D33]/70 leading-relaxed">Loosen up on Aescape at {warmup.label}, right before your massage. 15 minutes · $49.</p>
+                    <span className="mt-3 flex w-full items-center justify-center rounded-full bg-[#113D33] text-white py-3 text-sm font-semibold">Add the {warmup.label} warm-up</span>
+                  </div>
+                </Link>
+              )}
               <Link href="/locations/denver-larimer/book-remedy-room" onClick={() => trackCrossSell(category, "remedy_room")} className={secondaryBtn + " inline-flex items-center justify-center"}>Book Remedy Room</Link>
               <button onClick={() => { trackCrossSell(category, "massage_facial"); setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
             </div>

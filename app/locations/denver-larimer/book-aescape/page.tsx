@@ -66,6 +66,7 @@ const AESCAPE_OPTIONS = [
 
 const MOST_POPULAR_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 93;
 const BRADY_SESSION_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 2951;
+const EXPRESS_SESSION_ID: (typeof AESCAPE_OPTIONS)[number]["id"] = 95;
 
 /* ---------------------------------------------
    DATE HELPERS
@@ -427,6 +428,26 @@ export default function BookAescapePage() {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<Step>("select");
 
+  // Deep link from the massage confirmation's warm-up card:
+  // ?session=express&date=YYYY-MM-DD&at=HH:MM preselects the 15 Minute
+  // Express, that day, and that time, and opens on the time step. The time
+  // is applied once that day's availability loads (see the times effect).
+  const pendingTimeRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("session") !== "express") return;
+    setSessionTypeId(EXPRESS_SESSION_ID);
+    const date = params.get("date");
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
+    const [y, m, d] = date.split("-").map(Number);
+    setSelectedDate(date);
+    setWeekStart(new Date(y, m - 1, d));
+    const at = params.get("at");
+    if (at && /^\d{2}:\d{2}$/.test(at)) pendingTimeRef.current = `${date}T${at}`;
+    setStep("time");
+  }, []);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -758,11 +779,15 @@ export default function BookAescapePage() {
     setError(null);
     setShowAllTimes(false); // UI-only: reset “recommended” view when day/session changes
 
+    // Ignore responses for a day/session the guest already moved off of (a
+    // slow earlier fetch could otherwise overwrite the current day's times).
+    let stale = false;
     fetch(
       `/api/aescape/availability?sessionTypeId=${sessionTypeId}&date=${selectedDate}`
     )
       .then((res) => res.json())
       .then((data) => {
+        if (stale) return;
         if (!Array.isArray(data.windows)) {
           setTimes([]);
           setError("No availability for this day.");
@@ -771,11 +796,29 @@ export default function BookAescapePage() {
         setTimes(generateTimesFromWindows(data.windows));
       })
       .catch(() => {
+        if (stale) return;
         setTimes([]);
         setError("Unable to load availability.");
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!stale) setLoading(false);
+      });
+    return () => {
+      stale = true;
+    };
   }, [sessionTypeId, selectedDate]);
+
+  // Apply the deep-linked warm-up time once the right day's times are in.
+  useEffect(() => {
+    const want = pendingTimeRef.current;
+    if (!want || times.length === 0 || formatISO(times[0]) !== want.slice(0, 10)) return;
+    pendingTimeRef.current = null;
+    const match = times.find(
+      (t) =>
+        `${formatISO(t)}T${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}` === want
+    );
+    if (match) setSelectedTime(match);
+  }, [times]);
 
   /* ---------------------------------------------
      LOOKUP + BRANCH
