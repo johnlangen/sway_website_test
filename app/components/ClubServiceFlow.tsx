@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { trackCrossSell } from "@/lib/trackCrossSell";
 import { SwayCurve } from "./SwayCurve";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -2036,8 +2037,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* Upsells */}
             <div className="pt-6 space-y-3">
               <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">Add another service</p>
-              <Link href={remedyPath} className={secondaryBtn + " inline-flex items-center justify-center"}>Book the Remedy Lounge</Link>
-              <button onClick={() => { setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
+              <Link href={remedyPath} onClick={() => trackCrossSell(category, "remedy_lounge")} className={secondaryBtn + " inline-flex items-center justify-center"}>Book the Remedy Lounge</Link>
+              <button onClick={() => { trackCrossSell(category, "massage_facial"); setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
             </div>
 
             {/* Need to change this booking? Until now the only exit was a

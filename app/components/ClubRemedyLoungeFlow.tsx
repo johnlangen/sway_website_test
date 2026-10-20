@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { trackCrossSell } from "@/lib/trackCrossSell";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -1894,7 +1895,10 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   Complete your visit
                 </p>
                 <button
-                  onClick={handleBookAnother}
+                  onClick={() => {
+                    trackCrossSell("remedy_lounge", "another_session");
+                    handleBookAnother();
+                  }}
                   className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
                 >
                   Book another session
@@ -1902,6 +1906,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 {!hasRemedyMembership && (
                   <Link
                     href="/membership"
+                    onClick={() => trackCrossSell("remedy_lounge", "membership")}
                     className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
                   >
                     Join the Club · Lounge included

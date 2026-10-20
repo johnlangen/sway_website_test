@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { trackCrossSell } from "@/lib/trackCrossSell";
 import { SwayCurve } from "../../../components/SwayCurve";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -2304,12 +2305,14 @@ export default function BookAescapePage() {
                 </p>
                 <Link
                   href="/locations/denver-larimer/book"
+                  onClick={() => trackCrossSell("aescape", "massage_facial")}
                   className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
                 >
                   Book a Massage or Facial
                 </Link>
                 <Link
                   href="/locations/denver-larimer/book-remedy-room"
+                  onClick={() => trackCrossSell("aescape", "remedy_room")}
                   className="block w-full text-center rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200"
                 >
                   Book Remedy Room
