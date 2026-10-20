@@ -474,6 +474,18 @@ export default function BookRemedyRoomPage() {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<Step>("select");
 
+  // Deep link from the /book confirmation's "Recover after" card: ?date=
+  // opens on that day. The card names the open time, but we don't preselect
+  // it: occupancy loads separately, so the guest picks from the live list.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const date = new URLSearchParams(window.location.search).get("date");
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
+    const [y, m, d] = date.split("-").map(Number);
+    setSelectedDate(date);
+    setWeekStart(new Date(y, m - 1, d));
+  }, []);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -735,11 +747,14 @@ export default function BookRemedyRoomPage() {
     setSelectedTime(null);
     setError(null);
 
+    // Ignore responses for a day the guest already moved off of.
+    let stale = false;
     fetch(
       `/api/remedy-room/availability?sessionTypeId=${sessionTypeId}&date=${selectedDate}`
     )
       .then((res) => res.json())
       .then((data) => {
+        if (stale) return;
         if (!Array.isArray(data.windows)) {
           setTimes([]);
           setError("No availability for this day.");
@@ -748,22 +763,31 @@ export default function BookRemedyRoomPage() {
         setTimes(generateTimesFromWindows(data.windows));
       })
       .catch(() => {
+        if (stale) return;
         setTimes([]);
         setError("Unable to load availability.");
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!stale) setLoading(false);
+      });
+    return () => {
+      stale = true;
+    };
   }, [sessionTypeId, selectedDate]);
 
   // Fetch booked appointments for the remedy room to compute occupancy + overlap filtering
   useEffect(() => {
     setSlotOccupancy({});
     setExistingAppointments([]);
+    // Occupancy is our only capacity check, so never apply another day's.
+    let stale = false;
 
     fetch(
       `/api/service/staff-schedule?staffId=100000014&date=${selectedDate}`
     )
       .then((res) => res.json())
       .then((data) => {
+        if (stale) return;
         if (!Array.isArray(data.appointments)) return;
 
         // Count how many appointments at each start time (for X/3 display)
@@ -788,9 +812,13 @@ export default function BookRemedyRoomPage() {
         setExistingAppointments(appts);
       })
       .catch(() => {
+        if (stale) return;
         setSlotOccupancy({});
         setExistingAppointments([]);
       });
+    return () => {
+      stale = true;
+    };
   }, [selectedDate]);
 
   /* ---------------------------------------------

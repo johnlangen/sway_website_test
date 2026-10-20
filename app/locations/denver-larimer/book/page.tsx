@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { trackCrossSell } from "@/lib/trackCrossSell";
+import { findPostBookingSuggestion, type PostBookingSuggestion } from "@/lib/postBookingSuggestion";
 import { SwayCurve } from "../../../components/SwayCurve";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1034,59 +1035,25 @@ export default function NewBookingFlow() {
     if (prev) setStep(prev);
   };
 
-  /* -- Aescape warm-up offer (massage confirmation only) --
-     15 Minute Express (session type 95) right before the massage. Read-only
-     availability check; the card only shows when the robot has a start 30-60
-     min before the massage (closest to 45: loosen up, change out of the
-     compression apparel, still on time). Times are built on the same 10-min
-     grid book-aescape uses, so its ?at= preselect always finds the slot. */
-  const [warmup, setWarmup] = useState<{ href: string; label: string } | null>(null);
+  /* -- "Complete your visit" suggestion on the confirmation screen --
+     First fit wins (see lib/postBookingSuggestion.ts): Aescape warm-up
+     before a massage, else Remedy Room after, else the other service the
+     same day. Read-only availability checks; no fit means plain buttons. */
+  const [suggestion, setSuggestion] = useState<PostBookingSuggestion | null>(null);
   useEffect(() => {
-    setWarmup(null);
-    if (step !== "done" || category !== "massage" || !selectedSlot) return;
+    setSuggestion(null);
+    if (step !== "done" || !selectedSlot || !selectedTreatment) return;
     let cancelled = false;
-    const massageRaw = selectedSlot.startDateTime;
-    const massageStart = parseMindbodyDateTime(massageRaw);
-    const date = massageRaw.slice(0, 10);
-    const nowDenver = parseMindbodyDateTime(
-      new Date().toLocaleString("sv-SE", { timeZone: "America/Denver" }).replace(" ", "T")
-    );
-    fetch(`/api/aescape/availability?sessionTypeId=95&date=${date}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (cancelled || !Array.isArray(data?.windows)) return;
-        let best: Date | null = null;
-        let bestGap = Infinity;
-        for (const w of data.windows as { start: string; bookableEnd: string }[]) {
-          const cursor = parseMindbodyDateTime(w.start);
-          const last = parseMindbodyDateTime(w.bookableEnd);
-          const rem = cursor.getMinutes() % 10;
-          cursor.setMinutes(cursor.getMinutes() + (rem ? 10 - rem : 0), 0, 0);
-          for (; cursor <= last; cursor.setMinutes(cursor.getMinutes() + 10)) {
-            const lead = (massageStart.getTime() - cursor.getTime()) / 60000;
-            if (lead < 30 || lead > 60) continue;
-            if (cursor.getTime() < nowDenver.getTime() + 15 * 60000) continue;
-            const gap = Math.abs(lead - 45);
-            // ties go to the later start (less waiting around)
-            if (gap < bestGap || (gap === bestGap && best && cursor > best)) {
-              best = new Date(cursor);
-              bestGap = gap;
-            }
-          }
-        }
-        if (!best) return;
-        const hh = String(best.getHours()).padStart(2, "0");
-        const mm = String(best.getMinutes()).padStart(2, "0");
-        setWarmup({
-          href: `/locations/denver-larimer/book-aescape/?session=express&date=${date}&at=${hh}:${mm}`,
-          label: formatTime12h(`${date}T${hh}:${mm}:00`),
-        });
-      })
+    findPostBookingSuggestion({
+      category,
+      startDateTime: selectedSlot.startDateTime,
+      totalMinutes: selectedTreatment.durationMinutes + selectedBoosts.reduce((sum, b) => sum + b.addsMinutes, 0),
+    })
+      .then((s) => { if (!cancelled) setSuggestion(s); })
       .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, [step, category, selectedSlot]);
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, selectedSlot, selectedTreatment]);
 
   /* -- styles (matched to book-service) -- */
   const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
@@ -2231,24 +2198,62 @@ export default function NewBookingFlow() {
             {/* Upsells */}
             <div className="pt-6 space-y-3">
               <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">Add another service</p>
-              {warmup && (
-                <Link
-                  href={warmup.href}
-                  onClick={() => trackCrossSell(category, "aescape")}
-                  className="block text-left rounded-2xl overflow-hidden border-2 border-[#113D33] bg-white hover:shadow-[0_10px_30px_-18px_rgba(17,61,51,0.35)] transition-shadow"
-                >
-                  <div className="relative h-32 w-full">
-                    <Image src="/assets/aescapeblog6.jpg" alt="Aescape's robotic arms working on a guest's calf" fill className="object-cover" sizes="(max-width: 640px) 100vw, 640px" />
-                    <span className="absolute top-3 left-3 rounded-full bg-[#113D33] text-white text-[11px] font-semibold uppercase tracking-[0.12em] px-3 py-1">Recommended</span>
-                  </div>
-                  <div className="p-4">
-                    <p className="font-semibold text-[#113D33]">Warm up first · 15-min Aescape</p>
-                    <p className="mt-1 text-sm text-[#113D33]/70 leading-relaxed">Loosen up on Aescape at {warmup.label}, right before your massage. 15 minutes · $49.</p>
-                    <span className="mt-3 flex w-full items-center justify-center rounded-full bg-[#113D33] text-white py-3 text-sm font-semibold">Add the {warmup.label} warm-up</span>
-                  </div>
-                </Link>
+              {suggestion && (() => {
+                const otherCat: Category = category === "massage" ? "facial" : "massage";
+                const startOver = () => { setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); };
+                const card = {
+                  aescape_warmup: {
+                    image: "/assets/aescapeblog6.jpg", alt: "Aescape's robotic arms working on a guest's calf",
+                    title: "Warm up first · 15-min Aescape",
+                    body: `Loosen up on Aescape at ${suggestion.label}, right before your massage. 15 minutes · $49.`,
+                    cta: `Add the ${suggestion.label} warm-up`,
+                    href: `/locations/denver-larimer/book-aescape/?session=express&date=${suggestion.date}&at=${suggestion.at}`,
+                  },
+                  remedy_room_after: {
+                    image: "/assets/remedy-room3.jpg", alt: "The Remedy Room at Sway Larimer",
+                    title: "Recover after · Remedy Room",
+                    body: `Sauna, cold plunge, and the recovery lounge at ${suggestion.label}, right after your ${category}. 40 minutes · $49, members $25.`,
+                    cta: `Add Remedy Room at ${suggestion.label}`,
+                    href: `/locations/denver-larimer/book-remedy-room/?date=${suggestion.date}&at=${suggestion.at}`,
+                  },
+                  facial_same_day: {
+                    image: "/assets/facialExperiences.jpg", alt: "A facial at Sway Larimer",
+                    title: "Make it a spa day · Add a facial",
+                    body: `Facials are open at ${suggestion.label}, right ${suggestion.relation} your massage.`,
+                    cta: "Choose a facial",
+                    href: null,
+                  },
+                  massage_same_day: {
+                    image: "/assets/massage2.jpg", alt: "A massage at Sway Larimer",
+                    title: "Make it a spa day · Add a massage",
+                    body: `Massages are open at ${suggestion.label}, right ${suggestion.relation} your facial.`,
+                    cta: "Choose a massage",
+                    href: null,
+                  },
+                }[suggestion.kind];
+                const inner = (
+                  <>
+                    <div className="relative h-32 w-full">
+                      <Image src={card.image} alt={card.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, 640px" />
+                      <span className="absolute top-3 left-3 rounded-full bg-[#113D33] text-white text-[11px] font-semibold uppercase tracking-[0.12em] px-3 py-1">Recommended</span>
+                    </div>
+                    <div className="p-4">
+                      <p className="font-semibold text-[#113D33]">{card.title}</p>
+                      <p className="mt-1 text-sm text-[#113D33]/70 leading-relaxed">{card.body}</p>
+                      <span className="mt-3 flex w-full items-center justify-center rounded-full bg-[#113D33] text-white py-3 text-sm font-semibold">{card.cta}</span>
+                    </div>
+                  </>
+                );
+                const cardClass = "block w-full text-left rounded-2xl overflow-hidden border-2 border-[#113D33] bg-white hover:shadow-[0_10px_30px_-18px_rgba(17,61,51,0.35)] transition-shadow";
+                return card.href ? (
+                  <Link href={card.href} onClick={() => trackCrossSell(category, suggestion.kind)} className={cardClass}>{inner}</Link>
+                ) : (
+                  <button type="button" onClick={() => { trackCrossSell(category, suggestion.kind); startOver(); handleCategorySelect(otherCat); }} className={cardClass}>{inner}</button>
+                );
+              })()}
+              {suggestion?.kind !== "remedy_room_after" && (
+                <Link href="/locations/denver-larimer/book-remedy-room" onClick={() => trackCrossSell(category, "remedy_room")} className={secondaryBtn + " inline-flex items-center justify-center"}>Book Remedy Room</Link>
               )}
-              <Link href="/locations/denver-larimer/book-remedy-room" onClick={() => trackCrossSell(category, "remedy_room")} className={secondaryBtn + " inline-flex items-center justify-center"}>Book Remedy Room</Link>
               <button onClick={() => { trackCrossSell(category, "massage_facial"); setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
             </div>
 

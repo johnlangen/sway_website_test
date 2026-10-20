@@ -14,7 +14,12 @@ export type CrossSellTarget =
   | "remedy_lounge"
   | "massage_facial"
   | "another_session"
-  | "membership";
+  | "membership"
+  // featured "complete your visit" cards on the /book confirmation
+  | "aescape_warmup"
+  | "remedy_room_after"
+  | "facial_same_day"
+  | "massage_same_day";
 
 export function trackCrossSell(bookingFlow: string, target: CrossSellTarget) {
   if (typeof window === "undefined") return;
