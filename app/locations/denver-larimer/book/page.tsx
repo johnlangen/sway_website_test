@@ -963,6 +963,14 @@ export default function NewBookingFlow() {
     finally { setNameSaving(false); }
   };
 
+  /* -- "Complete your visit" suggestion on the confirmation screen --
+     First fit wins (see lib/postBookingSuggestion.ts): Aescape warm-up
+     before a massage, else Remedy Room after, else the other service the
+     same day. Read-only availability checks; no fit means plain buttons.
+     Fetched in parallel with the booking call (handleFinalConfirmAndBook) so
+     the confirmation screen appears with its card already in place. */
+  const [suggestion, setSuggestion] = useState<PostBookingSuggestion | null>(null);
+
   const handleFinalConfirmAndBook = async () => {
     if (bookingLock.current) return;
     bookingLock.current = true;
@@ -972,6 +980,13 @@ export default function NewBookingFlow() {
     }
     window.dataLayer?.push({ event: "booking_confirmed", booking_flow: category });
     setStep("booking"); setError(null);
+    // "Complete your visit" check runs alongside the booking (read-only), so
+    // the confirmation shows up with its card instead of popping it in after.
+    const suggestionPromise = findPostBookingSuggestion({
+      category,
+      startDateTime: selectedSlot!.startDateTime,
+      totalMinutes: (selectedTreatment?.durationMinutes ?? 0) + selectedBoosts.reduce((sum, b) => sum + b.addsMinutes, 0),
+    }).catch(() => null);
     try {
       // Prepend booker name + Mountain Time stamp so front desk can recover
       // the booker from notes if the Mindbody calendar entry ever shows blank
@@ -1008,6 +1023,8 @@ export default function NewBookingFlow() {
         gtagFn("event", "conversion", { send_to: "AW-17421817568/ArEMCLWJ0P0bEOCtr_NA", transaction_id: `${clientId}-${txnTimestamp}-svc`, value: bookingValue, currency: "USD" });
       }
       window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD" });
+      // Never hold the confirmation more than 2.5s for the suggestion.
+      setSuggestion(await Promise.race([suggestionPromise, new Promise<null>((r) => setTimeout(() => r(null), 2500))]));
       setStep("done");
     } catch (e: any) { setError(e?.message ? `${e.message} Call (303) 476-6150 to complete your booking.` : "Booking failed. Call (303) 476-6150 to complete your booking."); setStep("confirm"); }
     finally { bookingLock.current = false; }
@@ -1035,25 +1052,6 @@ export default function NewBookingFlow() {
     if (prev) setStep(prev);
   };
 
-  /* -- "Complete your visit" suggestion on the confirmation screen --
-     First fit wins (see lib/postBookingSuggestion.ts): Aescape warm-up
-     before a massage, else Remedy Room after, else the other service the
-     same day. Read-only availability checks; no fit means plain buttons. */
-  const [suggestion, setSuggestion] = useState<PostBookingSuggestion | null>(null);
-  useEffect(() => {
-    setSuggestion(null);
-    if (step !== "done" || !selectedSlot || !selectedTreatment) return;
-    let cancelled = false;
-    findPostBookingSuggestion({
-      category,
-      startDateTime: selectedSlot.startDateTime,
-      totalMinutes: selectedTreatment.durationMinutes + selectedBoosts.reduce((sum, b) => sum + b.addsMinutes, 0),
-    })
-      .then((s) => { if (!cancelled) setSuggestion(s); })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, selectedSlot, selectedTreatment]);
 
   /* -- styles (matched to book-service) -- */
   const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
@@ -2210,7 +2208,7 @@ export default function NewBookingFlow() {
                     href: `/locations/denver-larimer/book-aescape/?session=express&date=${suggestion.date}&at=${suggestion.at}`,
                   },
                   remedy_room_after: {
-                    image: "/assets/remedy-room3.jpg", alt: "The Remedy Room at Sway Larimer",
+                    image: "/assets/remedy-room.jpg", alt: "A guest relaxing under warm red light in the Remedy Room at Sway Larimer",
                     title: "Recover after · Remedy Room",
                     body: `Sauna, cold plunge, and the recovery lounge at ${suggestion.label}, right after your ${category}. 40 minutes · $49, members $25.`,
                     cta: `Add Remedy Room at ${suggestion.label}`,
