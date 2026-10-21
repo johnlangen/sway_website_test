@@ -99,6 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/locations/union-market/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/locations/union-market/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/union-market/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${base}/locations/union-market/win-a-massage-or-facial/`, changeFrequency: "weekly" as const, priority: 0.7 },
   ];
 
   /* ------------------------------------------------------------------
