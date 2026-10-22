@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { recordCompletion } from "@/lib/ops/record";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
 import { isClubSiteId, getClubBySiteId } from "@/lib/clubLocations";
@@ -312,6 +313,17 @@ export async function POST(req: Request) {
     // measures how much the browser tag is losing. Never blocks the response
     // on failure (sendGa4ServerEvent swallows its own errors).
     if (!isTest) {
+      // First-party completion ledger (lib/ops): after the response, never affects the purchase.
+      after(() =>
+        recordCompletion(req, {
+          flow: "membership",
+          location: getClubBySiteId(siteId)?.key ?? "denver-larimer",
+          item: contract.key,
+          label: contract.name,
+          value: contract.monthly,
+          ref: data?.ClientContractId ?? undefined,
+        })
+      );
       await sendGa4ServerEvent({
         name: "membership_purchase_server",
         clientId: gaClientId,

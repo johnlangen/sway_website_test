@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { recordCompletion } from "@/lib/ops/record";
 import { Redis } from "@upstash/redis";
 
 export const runtime = "nodejs";
@@ -177,6 +178,16 @@ export async function POST(req: Request) {
       console.error("[founding-member] Dallas lead notification failed:", err);
     }
   }
+
+  // First-party completion ledger (lib/ops): counts + source only, never the lead's contact details.
+  after(() =>
+    recordCompletion(req, {
+      flow: "lead",
+      location,
+      item: source,
+      extra: { sms_consent: !!consentText, phone: !!phone },
+    })
+  );
 
   return NextResponse.json({ success: true });
 }

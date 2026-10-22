@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useRef, useState } from "react";
+import { useFlowTrack } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { useSearchParams } from "next/navigation";
@@ -1001,6 +1002,15 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   /* -- styles (matched to book-service) -- */
   const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
   const primaryBtn = "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
+  // First-party funnel (lib/ops): each step + the treatment picked + errors shown + value at done.
+  useFlowTrack(
+    "service",
+    step,
+    selectedTreatment ? `${category}-${selectedTreatment.id}` : category,
+    error,
+    selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn + selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0) : undefined
+  );
+
   /* -- Week-strip availability dots: one ?days=7 request per shown week
      (and specialist filter), cached; see lib/useWeekAvailability.ts -- */
   const weekAvail = useWeekAvailability(

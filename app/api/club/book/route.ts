@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { recordCompletion } from "@/lib/ops/record";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { getClubBySiteId, type ClubLocation } from "@/lib/clubLocations";
 import {
@@ -380,6 +381,17 @@ export async function POST(req: Request) {
     }
 
     const failedSaunas = saunaResults.filter((s) => !s.success);
+
+    // First-party completion ledger (lib/ops): after the response, never affects the booking.
+    after(() =>
+      recordCompletion(req, {
+        flow: "remedy_lounge",
+        location: club.key,
+        item: club.remedyLounge.sessionTypeId,
+        ref: (loungeAppointment as any)?.Id,
+        extra: { saunas: saunaResults.filter((s) => s.success).length },
+      })
+    );
 
     return NextResponse.json({
       success: true,

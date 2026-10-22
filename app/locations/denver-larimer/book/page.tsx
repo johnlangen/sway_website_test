@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useFlowTrack } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Link from "next/link";
@@ -977,6 +978,15 @@ export default function NewBookingFlow() {
       const open = new Set<string>((Array.isArray(data.slots) ? data.slots : []).map((sl: { startDateTime: string }) => sl.startDateTime.slice(0, 10)));
       return toDayAvailability(weekIsoDays(weekStart), open, !!data.partial);
     }
+  );
+
+  // First-party funnel (lib/ops): each step + the treatment picked + errors shown + value at done.
+  useFlowTrack(
+    "service",
+    step,
+    selectedTreatment ? `${category}-${selectedTreatment.id}` : category,
+    error,
+    selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn + selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0) : undefined
   );
 
   /* -- "Complete your visit" suggestion on the confirmation screen --

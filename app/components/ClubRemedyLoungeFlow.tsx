@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useFlowTrack } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
@@ -884,6 +885,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       currency: "USD",
     });
   }
+
+  // First-party funnel (lib/ops): each step + errors shown + value at done.
+  useFlowTrack("remedy_lounge", step, null, error, bookingValue);
 
   /* ── FUNNEL TRACKING ── */
   useEffect(() => {

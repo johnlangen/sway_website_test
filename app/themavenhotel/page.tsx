@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useFlowTrack } from "@/lib/ops/client";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -624,6 +625,9 @@ export default function MavenHotelPage() {
       currency: "USD",
     });
   }
+
+  // First-party funnel (lib/ops): each step + the session picked + errors + value at done.
+  useFlowTrack("maven", step, selectedSession.id, error, selectedSession.priceNum);
 
   /* --- Funnel tracking --- */
   useEffect(() => {

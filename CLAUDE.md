@@ -141,6 +141,9 @@ All funnel step tags include `booking_flow` as an event parameter via Data Layer
 
 **The GTM `location` variable is a hardcoded pathname matcher** that defaults to `denver-larimer`. Renaming or adding a location slug WITHOUT updating it silently mislabels that location's traffic as Larimer (this happened to Union Market + Knox-Henderson after commit 5482853). Update it in the same change as any slug work.
 
+### First-party analytics + /ops/ dashboard (since 10/22/2026)
+Sway's own server counts every page view, click, booking/membership flow step (with the option picked, e.g. Brady = 2951), error shown, landing source, and every completed booking / membership / lead (written by the API routes after Mindbody confirms, with first/last-touch attribution). Use it FIRST for any "how many / where do people drop / what did they click" question: `node scripts/ops.mjs [--days 28] [--loc denver-rino] [--funnel aescape] [--clicks /page/]`. Dashboard at /ops/ (login link: `node scripts/ops.mjs --link`, private). Details + privacy rules: `lib/ops/README.md`. New booking flows must add `useFlowTrack(...)` and a `recordCompletion(...)` in their book route.
+
 ### TODO: GA4 Funnel Explorations
 Create funnel explorations in GA4 (Explore → Funnel Exploration) for each booking flow:
 - Aescape funnel (filter: booking_flow = aescape)

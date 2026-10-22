@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { AddToHomeScreen } from "./components/AddToHomeScreen";
 import AdAttribution from "./components/AdAttribution";
+import OpsTracker from "./components/OpsTracker";
 import { LarimerOnlyChat } from "./components/LarimerOnlyChat";
 // BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md):
 // swap the import above for the line below, delete the inline "Bowtie AI
@@ -234,6 +235,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             the ad that produced them (offline conversion upload). Renders
             nothing. */}
         <AdAttribution />
+        {/* First-party page views + clicks (lib/ops, lib/ops/README.md).
+            Renders nothing; only counts on the production domain. */}
+        <OpsTracker />
         <LarimerOnlyChat />
         <NavBar />
         <SiteCanvas>{children}</SiteCanvas>

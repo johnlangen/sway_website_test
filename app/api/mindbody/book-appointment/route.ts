@@ -1,6 +1,7 @@
 // /api/mindbody/book-appointment/route.ts
 
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { recordCompletion } from "@/lib/ops/record";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { recordBookingAttribution } from "@/lib/adAttribution";
 
@@ -109,6 +110,20 @@ export async function POST(req: Request) {
         startDateTime: data.Appointment?.StartDateTime ?? startDateTime,
         siteId: process.env.MINDBODY_SITE_ID ?? null,
       });
+    }
+
+    // First-party completion ledger (lib/ops): after the response, never affects the booking.
+    if (apptId) {
+      const st = Number(sessionTypeId);
+      after(() =>
+        recordCompletion(req, {
+          flow: st === 96 ? "remedy_room" : "aescape",
+          location: "denver-larimer",
+          item: st,
+          ref: apptId,
+          extra: { gclid: typeof gclid === "string" && !!gclid, brady: st === 2951 },
+        })
+      );
     }
 
     return NextResponse.json({

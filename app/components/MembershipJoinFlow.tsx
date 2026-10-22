@@ -19,6 +19,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useFlowTrack } from "@/lib/ops/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Lock, X } from "lucide-react";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
@@ -197,6 +198,8 @@ export default function MembershipJoinFlow({
   });
   const [step, setStep] = useState<Step>("email");
   const [error, setError] = useState<string | null>(null);
+  // First-party funnel (lib/ops): each step + the plan + errors shown + monthly price at done.
+  useFlowTrack("membership", step, plan.key, error, plan.price);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     loadingRef.current = loading;

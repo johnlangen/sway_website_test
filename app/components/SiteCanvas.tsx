@@ -10,7 +10,7 @@ export default function SiteCanvas({
   children: React.ReactNode;
 }) {
   const pathname = usePathname() || "/";
-  const isInternal = /\/(internal|clubdesk|dashboard)(\/|$)/.test(pathname);
+  const isInternal = /\/(internal|clubdesk|dashboard|ops)(\/|$)/.test(pathname);
   const isFlow =
     /\/(book[^/]*|founding-membership|membership-join-preview|themavenhotel)(\/|$)/.test(
       pathname,

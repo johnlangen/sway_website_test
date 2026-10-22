@@ -13,6 +13,7 @@ export default function robots(): MetadataRoute.Robots {
           "/internal/",
           "/locations/knox-henderson/dashboard",
           "/membership-join-preview",
+          "/ops/",
         ],
       },
       // Explicitly allow AI search/retrieval bots

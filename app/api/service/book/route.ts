@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { recordCompletion } from "@/lib/ops/record";
+import { getClubBySiteId } from "@/lib/clubLocations";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { recordBookingAttribution } from "@/lib/adAttribution";
 
@@ -301,6 +303,21 @@ export async function POST(req: Request) {
         startDateTime: mainData.Appointment?.StartDateTime ?? startDateTime,
         siteId,
       });
+    }
+
+    // First-party completion ledger (lib/ops): after the response, never affects the booking.
+    if (mainApptId) {
+      const opsLocation =
+        siteId === process.env.MINDBODY_SITE_ID ? "denver-larimer" : getClubBySiteId(siteId)?.key ?? "denver-larimer";
+      after(() =>
+        recordCompletion(req, {
+          flow: "service",
+          location: opsLocation,
+          item: sessionTypeId,
+          ref: mainApptId,
+          extra: { boosts: Array.isArray(addOnIds) ? addOnIds.length : 0, gclid: typeof gclid === "string" && !!gclid },
+        })
+      );
     }
 
     const addOnResults: any[] = [];
