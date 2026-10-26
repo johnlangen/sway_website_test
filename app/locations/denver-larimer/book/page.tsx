@@ -715,6 +715,144 @@ export default function NewBookingFlow() {
     (s) => parseMindbodyDateTime(s.startDateTime).getHours()
   );
 
+  /* -- Aescape fallback on full or thin days (Jocelyn, 10/21) --
+     When the chosen day has no (or 2 or fewer) massage/facial times, offer the closest Aescape
+     length (45 for 50-min treatments, else 60) at the times nearest what the guest was looking at:
+     the time they picked before changing days, else the few times still open, else one per part of
+     the day. Each time is one tap into the Aescape flow (?session&date&at&go=1 preselects it and
+     continues; a saved guest with a card on file lands on the confirm screen). Read-only
+     availability check. Never for maternity treatments (Aescape isn't for pregnancy). */
+  const lastPickedMinute = useRef<number | null>(null);
+  useEffect(() => {
+    if (!selectedSlot) return;
+    const d = parseMindbodyDateTime(selectedSlot.startDateTime);
+    lastPickedMinute.current = d.getHours() * 60 + d.getMinutes();
+  }, [selectedSlot]);
+  const fallbackDay =
+    step === "time" &&
+    !loading &&
+    !(totalExtMinutes > 0 && !schedulesLoaded) &&
+    !!selectedTreatment &&
+    !/maternity/i.test(selectedTreatment.name) &&
+    displayedSlots.length <= 2;
+  const openSlotKey = displayedSlots.map((sl) => sl.startDateTime.slice(11, 16)).join(",");
+  const [aescapeFallback, setAescapeFallback] = useState<{
+    session: string;
+    minutes: number;
+    date: string;
+    times: { at: string; label: string }[];
+    failed?: boolean;
+  } | null>(null);
+  useEffect(() => {
+    setAescapeFallback(null);
+    if (!fallbackDay || !selectedTreatment) return;
+    let cancelled = false;
+    const sixty = selectedTreatment.durationMinutes > 50;
+    const session = sixty ? "60" : "45";
+    const minutes = sixty ? 60 : 45;
+    const date = selectedDate;
+    const now = parseMindbodyDateTime(new Date().toLocaleString("sv-SE", { timeZone: "America/Denver" }).replace(" ", "T"));
+    fetch(`/api/aescape/availability?sessionTypeId=${sixty ? 93 : 94}&date=${date}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (cancelled) return;
+        if (!Array.isArray(data?.windows)) {
+          setAescapeFallback({ session, minutes, date, times: [], failed: true });
+          return;
+        }
+        // Same 10-min grid as book-aescape, so ?at= always finds the time there
+        const times: Date[] = [];
+        for (const w of data.windows as { start: string; bookableEnd: string }[]) {
+          const c = parseMindbodyDateTime(w.start);
+          const last = parseMindbodyDateTime(w.bookableEnd);
+          const rem = c.getMinutes() % 10;
+          c.setMinutes(c.getMinutes() + (rem ? 10 - rem : 0), 0, 0);
+          for (; c <= last; c.setMinutes(c.getMinutes() + 10)) if (c.getTime() >= now.getTime() + 30 * 60000) times.push(new Date(c));
+        }
+        const mins = (d: Date) => d.getHours() * 60 + d.getMinutes();
+        const targets =
+          lastPickedMinute.current !== null
+            ? [lastPickedMinute.current]
+            : openSlotKey
+              ? openSlotKey.split(",").map((t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5)))
+              : [];
+        let pick: Date[] = [];
+        if (targets.length) {
+          const dist = (d: Date) => Math.min(...targets.map((t) => Math.abs(mins(d) - t)));
+          for (const t of [...times].sort((a, b) => dist(a) - dist(b))) {
+            if (pick.every((p) => Math.abs(mins(p) - mins(t)) >= 30)) pick.push(t);
+            if (pick.length === 3) break;
+          }
+        } else {
+          pick = [times.find((t) => t.getHours() < 12), times.find((t) => t.getHours() >= 12 && t.getHours() < 17), times.find((t) => t.getHours() >= 17)].filter(
+            (t): t is Date => !!t
+          );
+          for (const t of times) {
+            if (pick.length >= 3) break;
+            if (pick.every((p) => Math.abs(mins(p) - mins(t)) >= 30)) pick.push(t);
+          }
+        }
+        pick.sort((a, b) => a.getTime() - b.getTime());
+        setAescapeFallback({
+          session,
+          minutes,
+          date,
+          times: pick.map((t) => {
+            const at = `${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}`;
+            return { at, label: formatTime12h(`${date}T${at}:00`) };
+          }),
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setAescapeFallback({ session, minutes, date, times: [], failed: true });
+      });
+    return () => {
+      cancelled = true;
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fallbackDay, selectedDate, selectedTreatment?.id, openSlotKey]);
+
+  const fallbackDayLabel =
+    selectedDate === formatISO(today)
+      ? "today"
+      : new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+  const aescapeFallbackCard = !aescapeFallback ? null : aescapeFallback.failed ? (
+    <Link
+      href="/locations/denver-larimer/book-aescape"
+      className="mt-2 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
+    >
+      <span>Try <span className="text-[#4A776D]">Aescape AI Massage</span>, often same-day availability</span>
+      <span className="text-[#4A776D]">&rarr;</span>
+    </Link>
+  ) : aescapeFallback.times.length === 0 ? null : (
+    <div className="rounded-2xl border border-[#4A776D]/30 bg-[#4A776D]/5 p-4 text-left">
+      <p className="font-semibold text-[#113D33]">
+        {displayedSlots.length === 0
+          ? `No ${category} times left ${fallbackDayLabel === "today" ? "today" : `on ${fallbackDayLabel}`}.`
+          : `Only ${displayedSlots.length} ${category} ${displayedSlots.length === 1 ? "time" : "times"} left ${fallbackDayLabel === "today" ? "today" : `on ${fallbackDayLabel}`}.`}
+      </p>
+      <p className="mt-1 text-sm text-[#113D33]/70">
+        {category === "facial"
+          ? `Want a reset that day instead? A ${aescapeFallback.minutes}-minute Aescape robotic massage is open:`
+          : `A ${aescapeFallback.minutes}-minute Aescape robotic massage is open that day:`}
+      </p>
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        {aescapeFallback.times.map((t) => (
+          <Link
+            key={t.at}
+            href={`/locations/denver-larimer/book-aescape/?session=${aescapeFallback.session}&date=${aescapeFallback.date}&at=${t.at}&go=1`}
+            data-track={`aescape_fallback ${t.at}`}
+            onClick={() => trackCrossSell(category, "aescape_fallback")}
+            className="rounded-xl bg-white py-3 text-center text-sm font-semibold text-[#113D33] shadow-sm hover:shadow-md transition-shadow focus:outline-none focus:ring-2 focus:ring-[#113D33]/40"
+          >
+            {t.label}
+          </Link>
+        ))}
+      </div>
+      <p className="mt-2 text-xs text-[#113D33]/55">Tap a time to book it on Aescape. Compression apparel is provided at check-in.</p>
+    </div>
+  );
+
   /* ----------------------------------------------------------------
      HANDLERS
   ---------------------------------------------------------------- */
@@ -1871,16 +2009,8 @@ export default function NewBookingFlow() {
                 onJumpToDate={(d) => { setSelectedDate(d); const jumpDate = new Date(d + "T12:00:00"); jumpDate.setHours(0,0,0,0); setWeekStart(jumpDate); }}
               />
             )}
-            {/* Aescape cross-sell — banner style, direct substitute */}
-            {!loading && displayedSlots.length === 0 && selectedTreatment && (
-              <Link
-                href="/locations/denver-larimer/book-aescape"
-                className="mt-2 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
-              >
-                <span>Try <span className="text-[#4A776D]">Aescape AI Massage</span>, often same-day availability</span>
-                <span className="text-[#4A776D]">&rarr;</span>
-              </Link>
-            )}
+            {/* Aescape fallback on a full day: real times, one tap (see aescapeFallbackCard) */}
+            {!loading && displayedSlots.length === 0 && aescapeFallbackCard}
             {/* Slots */}
             {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div role="status" className="text-center py-12 text-[#113D33]/65">Loading availability...</div>
             : displayedSlots.length === 0 ? <div role="status" className="text-center py-12 text-[#113D33]/65">
@@ -1909,6 +2039,8 @@ export default function NewBookingFlow() {
                 ))}
               </div>
             )}
+            {/* Aescape fallback on a thin day (2 or fewer times left), below the times; hidden once a time is picked */}
+            {!loading && displayedSlots.length > 0 && !selectedSlot && aescapeFallbackCard}
             {/* Selected time confirmation card */}
             {selectedSlot && selectedTreatment && (
               <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 text-sm text-left shadow-sm">

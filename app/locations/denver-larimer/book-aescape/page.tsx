@@ -431,23 +431,37 @@ export default function BookAescapePage() {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<Step>("select");
 
-  // Deep link from the massage confirmation's warm-up card:
-  // ?session=express&date=YYYY-MM-DD&at=HH:MM preselects the 15 Minute
-  // Express, that day, and that time, and opens on the time step. The time
-  // is applied once that day's availability loads (see the times effect).
+  // Deep links that preselect a session, day and time and open on the time step:
+  //   ?session=express&date=YYYY-MM-DD&at=HH:MM   massage confirmation's warm-up card
+  //   ?session=45|60&date=…&at=…&go=1             /book's fallback on a full or thin
+  //                                               massage/facial day (go=1: continue
+  //                                               on its own, like tapping Continue)
+  // The time is applied once that day's availability loads (see the times effect).
   const pendingTimeRef = useRef<string | null>(null);
+  const autoContinueRef = useRef(false);
+  const hadSavedEmailRef = useRef(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    if (params.get("session") !== "express") return;
-    setSessionTypeId(EXPRESS_SESSION_ID);
+    const LINKED: Record<string, (typeof AESCAPE_OPTIONS)[number]["id"]> = { express: EXPRESS_SESSION_ID, "30": 92, "45": 94, "60": 93 };
+    const linked = LINKED[params.get("session") || ""];
+    if (!linked) return;
+    setSessionTypeId(linked);
     const date = params.get("date");
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
     const [y, m, d] = date.split("-").map(Number);
     setSelectedDate(date);
     setWeekStart(new Date(y, m - 1, d));
     const at = params.get("at");
-    if (at && /^\d{2}:\d{2}$/.test(at)) pendingTimeRef.current = `${date}T${at}`;
+    if (at && /^\d{2}:\d{2}$/.test(at)) {
+      pendingTimeRef.current = `${date}T${at}`;
+      autoContinueRef.current = params.get("go") === "1";
+      try {
+        hadSavedEmailRef.current = !!localStorage.getItem("sway_booking_email");
+      } catch {
+        hadSavedEmailRef.current = false;
+      }
+    }
     setStep("time");
   }, []);
 
@@ -942,6 +956,40 @@ export default function BookAescapePage() {
 
 
   }
+
+  /** The time step's Continue (button and the go=1 deep link use the same path). */
+  const continueFromTime = () => {
+    setError(null);
+    // Returning user missing FirstName/LastName -> collect name
+    // before booking (PATCH lands at handleSaveNameAndContinue)
+    if (memberCheckDone && clientId && (needsNameUpdate || needsPhoneUpdate)) {
+      if (!hasCardOnFile) setCardContext("add_card");
+      setStep("name");
+      return;
+    }
+    // If returning user with card on file, skip email+card
+    if (memberCheckDone && hasCardOnFile && clientId) {
+      setStep("confirm");
+      return;
+    }
+    // If returning user without card, go to card step
+    if (memberCheckDone && clientId && !hasCardOnFile) {
+      setCardContext("add_card");
+      setStep("card");
+      return;
+    }
+    setStep("email");
+  };
+
+  // go=1 deep link: once the linked time is selected and a saved guest's lookup has finished
+  // (or failed), continue exactly like tapping Continue. Once per page load.
+  useEffect(() => {
+    if (!autoContinueRef.current || step !== "time" || !selectedTime) return;
+    if (hadSavedEmailRef.current && !memberCheckDone && email !== "") return; // lookup still running
+    autoContinueRef.current = false;
+    continueFromTime();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, selectedTime, memberCheckDone, email]);
 
   // First-party funnel (lib/ops): each step + the session picked (2951 = Brady) + errors + value.
   useFlowTrack("aescape", step, sessionTypeId, error, parseInt(String(selectedOption.price).replace(/\D/g, ""), 10) || 0);
@@ -1721,28 +1769,7 @@ export default function BookAescapePage() {
                 hint={selectedTime ? `${selectedOption.label} · ${formatDayLabel(new Date(selectedDate + "T00:00:00"))} · ${formatTime12h(selectedTime)}` : undefined}
               >
                 <button
-                  onClick={() => {
-                    setError(null);
-                    // Returning user missing FirstName/LastName -> collect name
-                    // before booking (PATCH lands at handleSaveNameAndContinue)
-                    if (memberCheckDone && clientId && (needsNameUpdate || needsPhoneUpdate)) {
-                      if (!hasCardOnFile) setCardContext("add_card");
-                      setStep("name");
-                      return;
-                    }
-                    // If returning user with card on file, skip email+card
-                    if (memberCheckDone && hasCardOnFile && clientId) {
-                      setStep("confirm");
-                      return;
-                    }
-                    // If returning user without card, go to card step
-                    if (memberCheckDone && clientId && !hasCardOnFile) {
-                      setCardContext("add_card");
-                      setStep("card");
-                      return;
-                    }
-                    setStep("email");
-                  }}
+                  onClick={continueFromTime}
                   className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 shadow-lg"
                 >
                   Continue

@@ -19,7 +19,9 @@ export type CrossSellTarget =
   | "aescape_warmup"
   | "remedy_room_after"
   | "facial_same_day"
-  | "massage_same_day";
+  | "massage_same_day"
+  // /book time step: Aescape times offered on a full or thin massage/facial day
+  | "aescape_fallback";
 
 export function trackCrossSell(bookingFlow: string, target: CrossSellTarget) {
   if (typeof window === "undefined") return;
