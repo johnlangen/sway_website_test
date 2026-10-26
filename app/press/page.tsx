@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Press | Sway Wellness Spa in the Media",
     description:
-      "Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by TZR. Featured in 11 major publications.",
+      "Voted #4 Best Day Spa in America by USA Today 10Best and Best U.S. Day Spa by TZR. Featured in 12 major publications.",
     url: "https://swaywellnessspa.com/press/",
     siteName: "Sway Wellness Spa",
     type: "website",
@@ -45,6 +45,22 @@ export default function Page() {
     description:
       "Press features, awards, and media articles covering Sway Wellness Spa, voted #4 Best Day Spa in America.",
     mainEntity: [
+      {
+        "@type": "NewsArticle",
+        headline: "Denver's Elements: Where to Sweat, Plunge, and Glow",
+        url: "https://www.wellcityguide.com/articles/denver-sauna-cold-plunge-light-therapy",
+        datePublished: "2026-10-24",
+        publisher: {
+          "@type": "Organization",
+          name: "Well City Guide",
+          url: "https://www.wellcityguide.com",
+        },
+        about: {
+          "@type": "DaySpa",
+          name: "Sway Wellness Spa",
+          url: "https://swaywellnessspa.com",
+        },
+      },
       {
         "@type": "NewsArticle",
         headline:
@@ -268,7 +284,7 @@ export default function Page() {
         name: "Where has Sway Wellness Spa been featured in the press?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway has been featured in 11 major publications including USA Today, The Zoe Report, Colorado Public Radio, The Denver Post, Denverite, 5280 Magazine, Athletech News, Yoga+Life, Salon Today (Modern Spa & Wellness), Denver Business Journal, and Mile High CRE.",
+          text: "Sway has been featured in 12 major publications including USA Today, The Zoe Report, Colorado Public Radio, The Denver Post, Denverite, 5280 Magazine, Athletech News, Yoga+Life, Salon Today (Modern Spa & Wellness), Denver Business Journal, Mile High CRE, and Well City Guide.",
         },
       },
       {

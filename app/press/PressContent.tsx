@@ -39,6 +39,15 @@ const AWARDS = [
 
 const PRESS = [
   {
+    title: "Denver's Elements: Where to Sweat, Plunge, and Glow",
+    publication: "Well City Guide",
+    date: "October 2026",
+    description:
+      "Well City Guide's Denver guide to sauna, cold plunge, and light therapy features Sway's Remedy Room recovery circuit, with locations on Larimer Square, in RiNo, and in Central Park.",
+    image: "/assets/remedy-room.jpg",
+    link: "https://www.wellcityguide.com/articles/denver-sauna-cold-plunge-light-therapy",
+  },
+  {
     title: "I Got a Robot Massage. Here's Why Human Therapists Shouldn't Worry",
     publication: "Denverite",
     date: "March 2026",
@@ -123,6 +132,7 @@ const PRESS = [
 
 const FEATURED_IN = [
   "USA Today",
+  "Well City Guide",
   "The Zoe Report",
   "CPR News",
   "The Denver Post",
@@ -168,14 +178,14 @@ export default function PressContent() {
             Sway Wellness Spa has been featured in USA Today 10Best, The Zoe
             Report, The Denver Post, 5280 Magazine, Athletech News, Yoga+Life,
             Salon Today, Denver Business Journal, Mile High CRE, Colorado Public
-            Radio, and Denverite. Awards include #4 Best Day Spa in America
+            Radio, Denverite, and Well City Guide. Awards include #4 Best Day Spa in America
             (USA Today 10Best 2025 and 2026, back-to-back) and Best U.S. Day
             Spa (TZR Readers&apos; Choice 2026). Located at 1428 Larimer St. on Larimer Square in
             Denver, CO. Book at swaywellnessspa.com or call (303) 476-6150.
           </p>
 
           <p className="mt-5 text-base md:text-lg text-white/80 max-w-2xl mx-auto">
-            Featured in 11 major publications. Three national awards, including
+            Featured in 12 major publications. Three national awards, including
             back-to-back top-five finishes in USA Today&apos;s 10Best.
           </p>
 
