@@ -26,7 +26,7 @@ export default function MavenHotelBlogLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Partnership
           </span>
-          <span className="text-gray-500">
+          <span className="text-gray-600">
             March 2026 · By Sway Wellness Team
           </span>
         </div>
@@ -43,7 +43,7 @@ export default function MavenHotelBlogLayout() {
         </div>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li>
@@ -384,7 +384,7 @@ export default function MavenHotelBlogLayout() {
           </Link>
         </div>
 
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-600">
           You can also{" "}
           <Link
             href="/locations/denver-larimer/book"
@@ -435,7 +435,7 @@ export default function MavenHotelBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog22.jpg"
-                  alt="AI Meets Recovery: Reset with Aescape"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -454,7 +454,7 @@ export default function MavenHotelBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/background.png"
-                  alt="Best Things to Do in Denver at Night"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -473,7 +473,7 @@ export default function MavenHotelBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/homepage_photo_outside.jpg"
-                  alt="#4 Best Day Spa in America"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

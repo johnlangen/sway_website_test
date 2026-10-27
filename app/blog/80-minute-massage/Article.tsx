@@ -19,7 +19,7 @@ export default function Massage80MinBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Massage</span>
-          <span className="text-gray-500">Updated October 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">Updated October 2026 · By Sway Wellness Team</span>
         </div>
 
         <p>
@@ -60,7 +60,7 @@ export default function Massage80MinBlogLayout() {
         />
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#options" className="hover:underline">Your Longer Massage Options</a></li>
@@ -133,7 +133,7 @@ export default function Massage80MinBlogLayout() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link href="/blog/himalayan-salt-stone-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog5.jpg" alt="Himalayan Salt Stone Massage" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/blog5.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Himalayan Salt Stone Massage: Ultimate Relaxation</p>
@@ -141,7 +141,7 @@ export default function Massage80MinBlogLayout() {
             </Link>
             <Link href="/blog/recovery-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog20.jpg" alt="Recovery in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/blog20.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver: Sauna, Cold Plunge &amp; Robot Massage</p>
@@ -149,7 +149,7 @@ export default function Massage80MinBlogLayout() {
             </Link>
             <Link href="/blog/infrared-pemf-mat" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog12.jpg" alt="Infrared PEMF Mat" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/blog12.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Supercharge Your Massage: Infrared PEMF Mats</p>

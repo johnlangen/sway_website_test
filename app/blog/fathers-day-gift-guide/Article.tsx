@@ -22,7 +22,7 @@ export default function FathersDayGiftGuideLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Holiday
           </span>
-          <span className="text-gray-500">May 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">May 2026 · By Sway Wellness Team</span>
         </div>
 
         <p className="text-xl font-semibold text-[#113D33]">
@@ -223,7 +223,7 @@ export default function FathersDayGiftGuideLayout() {
               </div>
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">10:15 AM</span>
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/75 font-semibold">10:15 AM</span>
                   <span className="font-bold text-[#113D33]">Arrive at Sway</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
@@ -243,7 +243,7 @@ export default function FathersDayGiftGuideLayout() {
               </div>
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">10:30 AM</span>
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/75 font-semibold">10:30 AM</span>
                   <span className="font-bold text-[#113D33]">The Remedy Room</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
@@ -266,7 +266,7 @@ export default function FathersDayGiftGuideLayout() {
               </div>
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">11:15 AM</span>
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/75 font-semibold">11:15 AM</span>
                   <span className="font-bold text-[#113D33]">70-minute massage</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
@@ -287,7 +287,7 @@ export default function FathersDayGiftGuideLayout() {
               </div>
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">12:45 PM</span>
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/75 font-semibold">12:45 PM</span>
                   <span className="font-bold text-[#113D33]">Sway Shop</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
@@ -310,7 +310,7 @@ export default function FathersDayGiftGuideLayout() {
               </div>
               <div className="flex-1 bg-white rounded-xl p-5 border border-[#d7e2dc] shadow-sm">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-xs uppercase tracking-wider text-[#113D33]/60 font-semibold">1:30 PM</span>
+                  <span className="text-xs uppercase tracking-wider text-[#113D33]/75 font-semibold">1:30 PM</span>
                   <span className="font-bold text-[#113D33]">Walk to lunch</span>
                 </div>
                 <p className="text-[15px] mt-1.5">
@@ -372,7 +372,7 @@ export default function FathersDayGiftGuideLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-[#113D33]">Aescape AI massage</div>
-              <div className="text-xs sm:text-sm opacity-70">15-min express up to 60-min full body</div>
+              <div className="text-xs sm:text-sm opacity-80">15-min express up to 60-min full body</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
               $49 &ndash; $139
@@ -388,11 +388,11 @@ export default function FathersDayGiftGuideLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-[#113D33]">The Remedy Room</div>
-              <div className="text-xs sm:text-sm opacity-70">40-min contrast circuit</div>
+              <div className="text-xs sm:text-sm opacity-80">40-min contrast circuit</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
               <div>$49</div>
-              <div className="text-xs opacity-70 font-normal">$25 member</div>
+              <div className="text-xs opacity-80 font-normal">$25 member</div>
             </div>
           </div>
 
@@ -406,11 +406,11 @@ export default function FathersDayGiftGuideLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-[#113D33]">50-minute massage</div>
-              <div className="text-xs sm:text-sm opacity-70">Signature (light to medium pressure). Deep tissue or sports: $169, $129 member</div>
+              <div className="text-xs sm:text-sm opacity-80">Signature (light to medium pressure). Deep tissue or sports: $169, $129 member</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
               <div>$139</div>
-              <div className="text-xs opacity-70 font-normal">$99 Essential</div>
+              <div className="text-xs opacity-80 font-normal">$99 Essential</div>
             </div>
           </div>
 
@@ -425,7 +425,7 @@ export default function FathersDayGiftGuideLayout() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-[#113D33]">Sway gift card</div>
-              <div className="text-xs sm:text-sm opacity-70">Any amount, never expires</div>
+              <div className="text-xs sm:text-sm opacity-80">Any amount, never expires</div>
             </div>
             <div className="font-semibold text-[#113D33] text-right shrink-0 text-sm sm:text-base">
               You pick
@@ -546,7 +546,7 @@ export default function FathersDayGiftGuideLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog20.jpg"
-                  alt="Recovery in Denver at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -565,7 +565,7 @@ export default function FathersDayGiftGuideLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/aescapeblog3.jpg"
-                  alt="Aescape AI massage at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -584,7 +584,7 @@ export default function FathersDayGiftGuideLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog25.jpg"
-                  alt="Why a Longer Massage Is the Ultimate Reset"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

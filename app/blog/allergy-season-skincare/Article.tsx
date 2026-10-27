@@ -18,7 +18,7 @@ export default function AllergySeasonSkincareBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Skincare</span>
-          <span className="text-gray-500">March 2025 · By Sway Wellness Team</span>
+          <span className="text-gray-600">March 2025 · By Sway Wellness Team</span>
         </div>
 
         <p>
@@ -36,7 +36,7 @@ export default function AllergySeasonSkincareBlogLayout() {
           season long.
         </p>
 
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#sensitive-silk-facial" className="hover:underline">Sensitive Silk Facial</a></li>
@@ -138,15 +138,15 @@ export default function AllergySeasonSkincareBlogLayout() {
           <h3 className="text-xl font-bold mb-6">Related Articles</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Link href="/blog/post-summer-skin-recovery" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog23.jpg" alt="Post-Summer Skin Recovery" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog23.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Repair &amp; Refresh: Post-Summer Skin Recovery Starts Now</p></div>
             </Link>
             <Link href="/blog/vitamin-c-facial" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog4.jpg" alt="Vitamin C Facial" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog4.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Winter Skincare: Brighten Your Skin with Sway&apos;s Vitamin C Facial</p></div>
             </Link>
             <Link href="/blog/spring-reset" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog9.jpg" alt="Spring Reset" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog9.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Spring Reset: Detox Your Skin &amp; Body with Sway</p></div>
             </Link>
           </div>

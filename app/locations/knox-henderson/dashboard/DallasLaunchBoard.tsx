@@ -246,7 +246,7 @@ export default function DallasLaunchBoard() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1.5 inline-block text-[11px] text-[#113D33]/50 underline underline-offset-2 hover:text-[#113D33] transition"
+                  className="mt-1.5 inline-block text-[11px] text-[#113D33]/75 underline underline-offset-2 hover:text-[#113D33] transition"
                 >
                   view page<span aria-hidden> ↗</span>
                 </a>
@@ -256,7 +256,7 @@ export default function DallasLaunchBoard() {
         </div>
 
         {/* Secondary aggregate stats */}
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-[#113D33]/60">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-[#113D33]/75">
           {miniStats.map((m) => (
             <span key={m.label}>
               <span className="font-semibold text-[#113D33]">{m.value}</span> {m.label}
@@ -268,11 +268,11 @@ export default function DallasLaunchBoard() {
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
           <div className="flex items-baseline justify-between mb-1">
             <h2 className="text-lg font-semibold">Lead goal</h2>
-            <span className="text-sm text-[#113D33]/60">
+            <span className="text-sm text-[#113D33]/75">
               {total} of {goal} leads
             </span>
           </div>
-          <p className="text-xs text-[#113D33]/55 mb-3">
+          <p className="text-xs text-[#113D33]/75 mb-3">
             People who raised their hand — not paying members yet. Memberships
             get sold closer to opening.
           </p>
@@ -288,7 +288,7 @@ export default function DallasLaunchBoard() {
           <div className="mt-5 pt-4 border-t border-[#113D33]/10">
             <div className="flex items-baseline justify-between mb-1">
               <span className="text-sm font-semibold">Founding spots claimed</span>
-              <span className="text-sm text-[#113D33]/60">
+              <span className="text-sm text-[#113D33]/75">
                 {FOUNDING_MEMBERS_CLAIMED} of {FOUNDING_SPOTS}
               </span>
             </div>
@@ -298,7 +298,7 @@ export default function DallasLaunchBoard() {
                 style={{ width: `${Math.min(100, (FOUNDING_MEMBERS_CLAIMED / FOUNDING_SPOTS) * 100)}%` }}
               />
             </div>
-            <p className="mt-1.5 text-xs text-[#113D33]/55">
+            <p className="mt-1.5 text-xs text-[#113D33]/75">
               Only {FOUNDING_SPOTS} founding spots will ever exist. Membership
               sales open closer to launch — every lead above is a head start.
             </p>
@@ -313,7 +313,7 @@ export default function DallasLaunchBoard() {
                   className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${
                     hit
                       ? "bg-[#113D33] text-white"
-                      : "bg-[#113D33]/[0.06] text-[#113D33]/45"
+                      : "bg-[#113D33]/[0.06] text-[#113D33]/75"
                   }`}
                 >
                   <span>{m.emoji}</span>
@@ -338,19 +338,19 @@ export default function DallasLaunchBoard() {
               <div className="text-xs text-white/70 mt-1">
                 Today&apos;s list, realistic ({Math.round(REALISTIC_RATE * 100)}% join)
               </div>
-              <div className="text-[11px] text-white/50">{money(mrrRealistic * 12)}/year</div>
+              <div className="text-[11px] text-white/70">{money(mrrRealistic * 12)}/year</div>
             </div>
             <div>
               <div className="text-2xl font-bold">{money(mrrAll)}<span className="text-sm font-normal text-white/60">/mo</span></div>
               <div className="text-xs text-white/70 mt-1">Today&apos;s list, best case (all join)</div>
-              <div className="text-[11px] text-white/50">{money(mrrAll * 12)}/year</div>
+              <div className="text-[11px] text-white/70">{money(mrrAll * 12)}/year</div>
             </div>
             <div className="rounded-xl bg-white/[0.07] p-3 -m-3 sm:m-0 sm:p-3">
               <div className="text-2xl font-bold text-[#A9D2C5]">{money(mrrOpening)}<span className="text-sm font-normal text-white/60">/mo</span></div>
               <div className="text-xs text-white/70 mt-1">
                 Sell out all {OPENING_TARGET} founding spots
               </div>
-              <div className="text-[11px] text-white/50">
+              <div className="text-[11px] text-white/70">
                 {money(mrrOpening * 12)}/year before a single walk-in
               </div>
             </div>
@@ -380,10 +380,10 @@ export default function DallasLaunchBoard() {
           <h2 className="text-lg font-semibold mb-4">
             Momentum · by week
             {filter !== "all" && (
-              <span className="text-sm font-normal text-[#113D33]/55"> · {filterLabel}</span>
+              <span className="text-sm font-normal text-[#113D33]/75"> · {filterLabel}</span>
             )}
           </h2>
-          <p className="text-xs text-[#113D33]/50 -mt-3 mb-4">
+          <p className="text-xs text-[#113D33]/75 -mt-3 mb-4">
             Each bar is one calendar week (Sunday to Saturday), labeled by its
             start date.
           </p>
@@ -397,7 +397,7 @@ export default function DallasLaunchBoard() {
                   className="w-full rounded-t-md bg-[#4A776D]/80"
                   style={{ height: `${Math.max(4, (w.count / maxWeek) * 80)}px` }}
                 />
-                <span className="text-[9px] text-[#113D33]/45 whitespace-nowrap">{w.label}</span>
+                <span className="text-[9px] text-[#113D33]/75 whitespace-nowrap">{w.label}</span>
               </div>
             ))}
           </div>
@@ -444,9 +444,9 @@ export default function DallasLaunchBoard() {
                   </span>
                 )}
                 {l.hasPhone && (
-                  <span className="text-[11px] text-[#113D33]/45">📱 on the text list</span>
+                  <span className="text-[11px] text-[#113D33]/75">📱 on the text list</span>
                 )}
-                <span className="text-xs text-[#113D33]/50 ml-auto">
+                <span className="text-xs text-[#113D33]/75 ml-auto">
                   {l.createdAt
                     ? new Date(l.createdAt).toLocaleDateString("en-US", {
                         month: "short",
@@ -457,7 +457,7 @@ export default function DallasLaunchBoard() {
               </div>
             ))}
             {filtered.length === 0 && (
-              <p className="py-6 text-center text-sm text-[#113D33]/50">
+              <p className="py-6 text-center text-sm text-[#113D33]/75">
                 No leads from this source yet — that&apos;s the next milestone.
               </p>
             )}
@@ -467,7 +467,7 @@ export default function DallasLaunchBoard() {
         {/* PROMOTE & TRACK — self-serve UTM links for events / QR codes */}
         <div className="rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] p-6">
           <h2 className="text-lg font-semibold mb-1">Promote &amp; track</h2>
-          <p className="text-xs text-[#113D33]/60 mb-4 leading-relaxed">
+          <p className="text-xs text-[#113D33]/75 mb-4 leading-relaxed">
             Doing a market, event, or flyer? Name it below, copy the link, and
             paste it into any QR code generator. Everyone who scans and signs up
             shows up on this board tagged with your event name — so you can see
@@ -499,7 +499,7 @@ export default function DallasLaunchBoard() {
           )}
         </div>
 
-        <p className="text-center text-[11px] text-[#113D33]/45">
+        <p className="text-center text-[11px] text-[#113D33]/75">
           Private link — don&apos;t share outside the Dallas team. Questions:
           contact@swaywellnessspa.com
         </p>

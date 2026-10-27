@@ -41,18 +41,18 @@ function Panel({ title, note, children }: { title: string; note?: string; childr
   return (
     <section className="rounded-2xl bg-white border border-[#113D33]/10 p-5 md:p-6">
       <h2 className="text-lg font-semibold text-[#113D33]">{title}</h2>
-      {note && <p className="text-xs text-[#113D33]/55 mt-1">{note}</p>}
+      {note && <p className="text-xs text-[#113D33]/75 mt-1">{note}</p>}
       <div className="mt-4">{children}</div>
     </section>
   );
 }
 function Table({ head, rows, empty = "Nothing yet." }: { head: string[]; rows: React.ReactNode[][]; empty?: string }) {
-  if (!rows.length) return <p className="text-sm text-[#113D33]/50">{empty}</p>;
+  if (!rows.length) return <p className="text-sm text-[#113D33]/75">{empty}</p>;
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-[11px] uppercase tracking-wider text-[#113D33]/50">
+          <tr className="text-left text-[11px] uppercase tracking-wider text-[#113D33]/75">
             {head.map((h, i) => (
               <th key={h} className={`py-1.5 pr-3 font-semibold ${i > 0 && typeof rows[0]?.[i] === "number" ? "text-right" : ""}`}>
                 {h}
@@ -111,7 +111,7 @@ export default async function OpsPage({
         <header className="space-y-3">
           <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D]">Private · first-party counts</p>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Sway site analytics</h1>
-          <p className="text-sm text-[#113D33]/60">
+          <p className="text-sm text-[#113D33]/75">
             {r.range.from === r.range.to ? r.range.to : `${r.range.from} to ${r.range.to}`} (Mountain time)
             {loc ? ` · ${locName(loc)}` : " · all locations"}
             {page ? ` · clicks on ${page}` : ""}. Counted on Sway&apos;s own server, so ad blockers don&apos;t hide anything.
@@ -141,12 +141,12 @@ export default async function OpsPage({
             ["Online value", money(r.totals.completedValue)],
           ].map(([k, v]) => (
             <div key={k} className="rounded-2xl bg-white border border-[#113D33]/10 p-4">
-              <p className="text-[11px] uppercase tracking-wider text-[#113D33]/50">{k}</p>
+              <p className="text-[11px] uppercase tracking-wider text-[#113D33]/75">{k}</p>
               <p className="text-2xl font-semibold mt-1 tabular-nums">{v}</p>
             </div>
           ))}
         </div>
-        <p className="text-xs text-[#113D33]/50 -mt-3">
+        <p className="text-xs text-[#113D33]/75 -mt-3">
           Completed = bookings, memberships and leads written by the server after Mindbody confirmed (authoritative). Online value = memberships&apos; monthly price; booking value shows in each funnel.
         </p>
 
@@ -155,7 +155,7 @@ export default async function OpsPage({
             <div className="space-y-1">
               {r.trend.map((t) => (
                 <div key={t.day} className="flex items-center gap-3 text-xs">
-                  <span className="w-20 shrink-0 tabular-nums text-[#113D33]/60">{t.day.slice(5)}</span>
+                  <span className="w-20 shrink-0 tabular-nums text-[#113D33]/75">{t.day.slice(5)}</span>
                   <div className="flex-1 h-3 rounded-full bg-[#113D33]/5 overflow-hidden">
                     <div className="h-full bg-[#4A776D]" style={{ width: `${(t.visitors / maxTrend) * 100}%` }} />
                   </div>
@@ -172,7 +172,7 @@ export default async function OpsPage({
           title="Funnels"
           note="Unique visitors who reached each step (each browser once per day). 'Completed (server)' = confirmed by Mindbody; the gap to 'done' is blocked/failed reporting, not lost bookings."
         >
-          {r.funnels.length === 0 && <p className="text-sm text-[#113D33]/50">No flow activity in this range yet.</p>}
+          {r.funnels.length === 0 && <p className="text-sm text-[#113D33]/75">No flow activity in this range yet.</p>}
           <div className="grid md:grid-cols-2 gap-5">
             {r.funnels.map((f) => {
               const first = f.steps[0]?.visitors || 0;

@@ -161,7 +161,7 @@ export default function ClubMembershipPage({
       <section className="sway-page-hero sway-membership-hero px-6 pt-24 sm:pt-28 md:pt-36 pb-12 md:pb-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div className="sway-hero-enter">
-            <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
+            <div className="mb-3 text-xs tracking-wide uppercase opacity-80">
               {cfg.areaLine} &middot;{" "}
               <Link
                 href="/membership?choose=1"
@@ -208,7 +208,7 @@ export default function ClubMembershipPage({
               </a>
             </div>
 
-            <p className="mt-4 text-sm opacity-70">
+            <p className="mt-4 text-sm opacity-80">
               No enrollment fee · Month-to-month · Join online in 2 minutes
             </p>
           </div>
@@ -257,7 +257,7 @@ export default function ClubMembershipPage({
                 <div className="flex items-baseline gap-3 mb-6">
                   <span className="text-4xl font-bold">${MONTHLY_PRICE}</span>
                   <span className="text-white/60 text-sm">/ month</span>
-                  <span className="text-white/50 text-sm">
+                  <span className="text-white/70 text-sm">
                     · drop-ins ${DROP_IN_PRICE}/session
                   </span>
                 </div>
@@ -437,7 +437,7 @@ export default function ClubMembershipPage({
           </span>
           <span className="block text-[#113D33] font-semibold text-sm">
             ${MONTHLY_PRICE}
-            <span className="text-[#113D33]/50 font-normal">
+            <span className="text-[#113D33]/75 font-normal">
               {" "}
               / month · unlimited
             </span>

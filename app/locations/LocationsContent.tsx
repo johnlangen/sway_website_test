@@ -293,7 +293,7 @@ export default function LocationsContent() {
             {loc.city}, {loc.state}
           </div>
           {loc.address && (
-            <div className="mt-1 text-sm opacity-70">{loc.address}</div>
+            <div className="mt-1 text-sm opacity-80">{loc.address}</div>
           )}
         </div>
         <div className="hidden md:block text-[#113D33]/40 text-2xl">&rarr;</div>
@@ -318,11 +318,11 @@ export default function LocationsContent() {
         </div>
         <div className="flex-1 min-w-0">
           <div className="font-bold text-[#113D33] truncate">{loc.name}</div>
-          <div className="text-sm opacity-70 truncate">
+          <div className="text-sm opacity-80 truncate">
             {loc.city}, {loc.state}
           </div>
           {loc.address && (
-            <div className="text-xs opacity-60 truncate mt-0.5">
+            <div className="text-xs opacity-80 truncate mt-0.5">
               {loc.address}
             </div>
           )}
@@ -384,7 +384,7 @@ export default function LocationsContent() {
             {/* Open Now */}
             {openLocs.length > 0 && (
               <section>
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] opacity-60 mb-3">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] opacity-80 mb-3">
                   Open Now
                 </h2>
                 <div className="space-y-3">
@@ -398,7 +398,7 @@ export default function LocationsContent() {
             {/* Coming Soon, grouped by state */}
             {comingSoonByState.length > 0 && (
               <section>
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] opacity-60 mb-3">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.18em] opacity-80 mb-3">
                   Coming Soon
                 </h2>
                 <div className="space-y-5">
@@ -439,8 +439,9 @@ export default function LocationsContent() {
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               />
 
+              {/* Pins are named for screen readers; each one is also in the location list below (WCAG 2.5.8 equivalent control). */}
               {LOCATIONS.map((loc) => (
-                <Marker key={loc.slug} position={loc.coords}>
+                <Marker key={loc.slug} position={loc.coords} alt={`${loc.name}, ${loc.city}`} title={loc.name}>
                   <Popup>
                     <div className="space-y-1">
                       <div className="font-bold">{loc.name}</div>
@@ -472,7 +473,7 @@ export default function LocationsContent() {
 
         {/* Crawlable SEO links, grouped by state */}
         <div className="mt-12 pt-8 border-t border-black/10">
-          <h2 className="text-xs uppercase tracking-[0.18em] opacity-60 mb-4">
+          <h2 className="text-xs uppercase tracking-[0.18em] opacity-80 mb-4">
             All Locations
           </h2>
           <div className="space-y-5">
@@ -490,7 +491,7 @@ export default function LocationsContent() {
                     >
                       <div className="min-w-0">
                         <div className="font-semibold truncate">{loc.name}</div>
-                        <div className="text-xs opacity-70 truncate">
+                        <div className="text-xs opacity-80 truncate">
                           {loc.address || `${loc.city}, ${loc.state}`}
                         </div>
                       </div>

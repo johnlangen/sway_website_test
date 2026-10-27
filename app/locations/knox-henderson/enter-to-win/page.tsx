@@ -157,7 +157,7 @@ export default function DallasEnterToWinPage() {
 
           <motion.p
             {...fadeUp}
-            className="text-center text-xs text-[#113D33]/55 mt-6"
+            className="text-center text-xs text-[#113D33]/75 mt-6"
           >
             Open through {CONTEST.endDate} &middot; {CONTEST.eligibility} &middot;{" "}
             Winner emailed before opening day
@@ -219,7 +219,7 @@ export default function DallasEnterToWinPage() {
                 +
               </span>
             </summary>
-            <div className="mt-4 text-xs text-[#113D33]/60 space-y-3 leading-relaxed">
+            <div className="mt-4 text-xs text-[#113D33]/75 space-y-3 leading-relaxed">
               <p>
                 <strong>No purchase necessary.</strong> A purchase will not
                 improve your chances of winning. Void where prohibited.

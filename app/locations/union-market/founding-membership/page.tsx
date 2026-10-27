@@ -500,7 +500,7 @@ export default function GeorgetownFoundingMembershipPage() {
               Reserve Your Founding Spot
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </button>
-            <span className="text-xs text-white/50">
+            <span className="text-xs text-white/70">
               No charge until we open
             </span>
           </motion.div>
@@ -878,7 +878,7 @@ export default function GeorgetownFoundingMembershipPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-sm uppercase tracking-[0.2em] text-white/50 mb-4"
+            className="text-sm uppercase tracking-[0.2em] text-white/70 mb-4"
           >
             Coming to Union Market
           </motion.p>

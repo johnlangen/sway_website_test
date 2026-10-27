@@ -229,7 +229,7 @@ export default function InfraredSaunaPage() {
               </article>
             ))}
           </div>
-          <p className="text-center text-sm opacity-70 mt-8">
+          <p className="text-center text-sm opacity-80 mt-8">
             Downtown? Our Larimer Square spa has a traditional sauna in its{" "}
             <Link href="/sauna/" className="underline">Remedy Room</Link>.
           </p>

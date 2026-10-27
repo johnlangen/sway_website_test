@@ -231,7 +231,7 @@ export default function GoogleReviews({ attribution }: GoogleReviewsProps) {
           What Our Guests Are Saying
         </h2>
         {attribution && (
-          <p className="text-sm opacity-70 mb-3">
+          <p className="text-sm opacity-80 mb-3">
             Reviews from {attribution}. Our newest locations are still
             preparing to open.
           </p>
@@ -250,7 +250,7 @@ export default function GoogleReviews({ attribution }: GoogleReviewsProps) {
           <span className="font-semibold text-lg">
             {formatRating(rating)}
           </span>
-          <span className="opacity-60 text-sm">
+          <span className="opacity-80 text-sm">
             ({totalReviews} reviews on Google)
           </span>
           <GoogleLogo className="w-4 h-4 ml-1" />
@@ -298,7 +298,7 @@ export default function GoogleReviews({ attribution }: GoogleReviewsProps) {
                     </div>
                     <div>
                       <p className="text-xs font-semibold">{review.author}</p>
-                      <p className="text-[11px] opacity-70">{review.date}</p>
+                      <p className="text-[11px] opacity-80">{review.date}</p>
                     </div>
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function GoogleReviews({ attribution }: GoogleReviewsProps) {
 
       {/* Attribution + View All */}
       <div className="mt-3 md:mt-4 flex items-center justify-center gap-3 text-xs">
-        <span className="flex items-center gap-1.5 opacity-60">
+        <span className="flex items-center gap-1.5 opacity-80">
           <GoogleLogo />
           Reviews from Google
         </span>
@@ -372,7 +372,7 @@ export function ReviewBadge({ attribution }: { attribution?: string }) {
         ))}
       </div>
       <span className="font-semibold">{formatRating(rating)}</span>
-      <span className="opacity-60">
+      <span className="opacity-80">
         ({totalReviews} reviews{attribution ? ` at ${attribution}` : ""})
       </span>
       <GoogleLogo className="w-3.5 h-3.5 ml-0.5" />
@@ -400,7 +400,7 @@ export function ClassPassBadge() {
         ))}
       </span>
       <span className="font-semibold">4.8</span>
-      <span className="opacity-60">(694 ratings)</span>
+      <span className="opacity-80">(694 ratings)</span>
       <span className="font-semibold ml-0.5">ClassPass</span>
       <span className="sr-only">(opens in new tab)</span>
     </a>

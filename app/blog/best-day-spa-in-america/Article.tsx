@@ -26,7 +26,7 @@ export default function BestDaySpaLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Award
           </span>
-          <span className="text-gray-500">February 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">February 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}
@@ -51,7 +51,7 @@ export default function BestDaySpaLayout() {
         </p>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li>
@@ -386,7 +386,7 @@ export default function BestDaySpaLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog20.jpg"
-                  alt="Recovery in Denver at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -406,7 +406,7 @@ export default function BestDaySpaLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog22.jpg"
-                  alt="AI Meets Recovery: Reset with Aescape"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -426,7 +426,7 @@ export default function BestDaySpaLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog25.jpg"
-                  alt="Why a Longer Massage Is the Ultimate Reset"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

@@ -444,7 +444,7 @@ function RemedySessionCard({ option }: { option: RemedyOption }) {
                 <div className="text-lg font-semibold text-[#113D33]">
                   {option.price}
                 </div>
-                <div className="text-xs text-[#113D33]/60">
+                <div className="text-xs text-[#113D33]/75">
                   Members $25
                 </div>
               </div>
@@ -1436,9 +1436,9 @@ export default function BookRemedyRoomPage() {
                 <span className="font-bold">{memberFirstName ?? email}</span>
                 {hasRemedyMembership && <> · <span className="font-semibold">Remedy Room Member</span></>}
                 {isMember && !hasRemedyMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-                {homeLocation && <span className={isDarkStep ? "text-white/50 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
+                {homeLocation && <span className={isDarkStep ? "text-white/70 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/75 ml-1"}>· {homeLocation}</span>}
               </p>
-              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/40 hover:text-white" : isMember ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/70 hover:text-white" : isMember ? "text-white/70 hover:text-white" : "text-[#113D33]/75 hover:text-[#113D33]"}`}>Switch</button>
             </div>
           )}
 
@@ -1473,7 +1473,7 @@ export default function BookRemedyRoomPage() {
                 {/* Compact mobile price line (replaces the photo card below). */}
                 <p className="sm:hidden text-sm text-white/70 mb-1">
                   {selectedOption.minutes} min · Shared session · <span className="font-semibold text-white">{memberPrice}</span>
-                  {!(isMember || hasRemedyMembership) && <span className="text-white/50"> · Members $25</span>}
+                  {!(isMember || hasRemedyMembership) && <span className="text-white/70"> · Members $25</span>}
                 </p>
 
                 <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6">
@@ -1532,7 +1532,7 @@ export default function BookRemedyRoomPage() {
                   </Link>
                 </div>
 
-                <p className="hidden sm:block mt-3 text-xs text-white/40">
+                <p className="hidden sm:block mt-3 text-xs text-white/70">
                   Want the room to yourself?{" "}
                   <a href="tel:3034766150" className="underline underline-offset-4 hover:text-white/60 transition">
                     Call (303) 476-6150
@@ -1558,7 +1558,7 @@ export default function BookRemedyRoomPage() {
               {/* Day picker */}
               <section className="mb-10 md:mb-12">
                 <h2 className="text-lg font-semibold text-white/90 mb-1">Choose a Day</h2>
-                <p aria-live="polite" className="text-sm text-white/40 mb-4">
+                <p aria-live="polite" className="text-sm text-white/70 mb-4">
                   {weekMonthLabel(weekStart)}
                 </p>
 
@@ -1600,7 +1600,7 @@ export default function BookRemedyRoomPage() {
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
-                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-80">{monthAbbr(day)}</span>
                           <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-[#113D33]" : "bg-[#A9D2C5]") : "bg-transparent"}`} />
                         </button>
                       );
@@ -1627,7 +1627,7 @@ export default function BookRemedyRoomPage() {
                   </h2>
                 </div>
 
-                {loading && <p role="status" className="text-center text-white/50">Loading…</p>}
+                {loading && <p role="status" className="text-center text-white/70">Loading…</p>}
                 {error && <p role="alert" className="text-center text-red-400">{error}</p>}
 
                 {!loading &&
@@ -1663,8 +1663,8 @@ export default function BookRemedyRoomPage() {
                                     <div
                                       className={`text-[10px] mt-0.5 ${
                                         isSelected
-                                          ? "text-[#113D33]/65"
-                                          : "text-white/40"
+                                          ? "text-[#113D33]/75"
+                                          : "text-white/70"
                                       }`}
                                     >
                                       {`${booked}/${REMEDY_MAX_CAPACITY} booked`}
@@ -1679,7 +1679,7 @@ export default function BookRemedyRoomPage() {
                   )}
 
                 {!loading && !error && displayedTimes.length === 0 && (
-                  <div className="text-center text-white/50">
+                  <div className="text-center text-white/70">
                     <p>No times available for this day.</p>
                     <NextAvailableBanner
                       type="remedy"
@@ -1701,7 +1701,7 @@ export default function BookRemedyRoomPage() {
                       <span>Try <span className="text-white/90">Massage & Facials</span>, with a licensed massage therapist or esthetician</span>
                       <span className="text-white/70">&rarr;</span>
                     </Link>
-                    <p className="mt-3 text-xs text-white/30">
+                    <p className="mt-3 text-xs text-white/70">
                       <Link href="/locations/denver-larimer/book-aescape" className="underline hover:text-white/60 transition">Try Aescape AI Massage</Link>, often same-day availability
                     </p>
                   </div>
@@ -1743,7 +1743,7 @@ export default function BookRemedyRoomPage() {
               </StickyFlowCTA>
 
               <div className="max-w-md mx-auto">
-                <div className="text-center text-xs text-white/40">
+                <div className="text-center text-xs text-white/70">
                   Prefer to book with staff?{" "}
                   <a className="underline underline-offset-4 hover:text-white/70 transition" href="tel:3034766150">
                     Call (303) 476-6150
@@ -2096,7 +2096,7 @@ export default function BookRemedyRoomPage() {
                   Call to book: (303) 476-6150
                 </a>
 
-                <p className="text-xs opacity-60 mt-4 text-center">
+                <p className="text-xs opacity-80 mt-4 text-center">
                   Using: <span className="font-semibold">{emailNormalized}</span>
                 </p>
               </div>
@@ -2127,7 +2127,7 @@ export default function BookRemedyRoomPage() {
                   </div>
 
                   <div className="p-4">
-                    <div className="text-sm uppercase tracking-wide opacity-70 mb-2">Summary</div>
+                    <div className="text-sm uppercase tracking-wide opacity-80 mb-2">Summary</div>
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <div className="font-semibold text-[#113D33]">{confirmDetails?.session}</div>
@@ -2143,7 +2143,7 @@ export default function BookRemedyRoomPage() {
                         {(isMember || hasRemedyMembership) ? (
                           <div className="text-xs text-[#4A776D] font-semibold">Member price</div>
                         ) : (
-                          <div className="text-xs opacity-70">Members $25</div>
+                          <div className="text-xs opacity-80">Members $25</div>
                         )}
                         </div>
 
@@ -2223,7 +2223,7 @@ export default function BookRemedyRoomPage() {
                           onChange={(e) => setIsSurprise(e.target.checked)}
                           className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
                         />
-                        <span className="text-xs text-[#113D33]/60">
+                        <span className="text-xs text-[#113D33]/75">
                           This is a surprise · don&apos;t contact the guest
                         </span>
                       </label>
@@ -2314,12 +2314,12 @@ export default function BookRemedyRoomPage() {
               )}
 
               {selectedTime && (
-                <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                <p className="text-[#113D33]/75 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   {formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, selectedOption.minutes)}
                 </p>
               )}
 
-              <p className="text-[#113D33]/65 text-sm mt-4 mb-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/75 text-sm mt-4 mb-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Please arrive 15 minutes early and bring a swimsuit or athleisure. Check your email for confirmation details.
               </p>
 
@@ -2327,7 +2327,7 @@ export default function BookRemedyRoomPage() {
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/75">
                   Complete your visit
                 </p>
                 <Link
@@ -2348,7 +2348,7 @@ export default function BookRemedyRoomPage() {
 
               <Link
                 href="/locations/denver-larimer"
-                className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors"
               >
                 Done · back to Sway Larimer
               </Link>
@@ -2356,7 +2356,7 @@ export default function BookRemedyRoomPage() {
               <div className="mt-6">
                 <a
                   href="tel:3034766150"
-                  className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                  className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors"
                 >
                   Questions? (303) 476-6150
                 </a>

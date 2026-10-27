@@ -170,7 +170,7 @@ const NavBar = () => {
 
   return (
     <header className="sway-header fixed top-0 left-0 w-full z-50 bg-[#113D33]">
-      <nav className="h-[56px] px-4 md:px-12">
+      <nav aria-label="Main" className="h-[56px] px-4 md:px-12">
         <div className="h-full max-w-[1300px] mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-4">
           {/* Logo — on the homepage, intercept the click to trigger an
               easter egg instead of navigating (we're already on /). */}
@@ -201,7 +201,6 @@ const NavBar = () => {
                   setTreatmentsOpen((v) => !v);
                   setSwayWayOpen(false);
                 }}
-                aria-haspopup="true"
                 aria-expanded={treatmentsOpen}
                 aria-controls="treatments-menu"
                 className="text-white hover:text-gray-300 font-vance"
@@ -212,7 +211,6 @@ const NavBar = () => {
               {treatmentsOpen && (
                 <div
                   id="treatments-menu"
-                  role="menu"
                   aria-label="Treatments"
                   className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg"
                 >
@@ -226,7 +224,6 @@ const NavBar = () => {
                     <Link
                       key={href}
                       href={href}
-                      role="menuitem"
                       onClick={closeAll}
                       className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                     >
@@ -253,7 +250,6 @@ const NavBar = () => {
                   setSwayWayOpen((v) => !v);
                   setTreatmentsOpen(false);
                 }}
-                aria-haspopup="true"
                 aria-expanded={swayWayOpen}
                 aria-controls="swayway-menu"
                 className="text-white hover:text-gray-300 font-vance"
@@ -264,13 +260,11 @@ const NavBar = () => {
               {swayWayOpen && (
                 <div
                   id="swayway-menu"
-                  role="menu"
                   aria-label="The Sway Way"
                   className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg"
                 >
                   <Link
                     href="/swayway"
-                    role="menuitem"
                     onClick={closeAll}
                     className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
@@ -278,7 +272,6 @@ const NavBar = () => {
                   </Link>
                   <Link
                     href="/press"
-                    role="menuitem"
                     onClick={closeAll}
                     className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
@@ -286,7 +279,6 @@ const NavBar = () => {
                   </Link>
                   <Link
                     href="/blog"
-                    role="menuitem"
                     onClick={closeAll}
                     className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >
@@ -294,7 +286,6 @@ const NavBar = () => {
                   </Link>
                   <Link
                     href="/own"
-                    role="menuitem"
                     onClick={closeAll}
                     className="block px-4 py-3 text-white hover:bg-gray-800 focus:bg-gray-800 focus:outline-none"
                   >

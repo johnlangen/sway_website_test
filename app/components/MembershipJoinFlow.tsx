@@ -843,9 +843,9 @@ export default function MembershipJoinFlow({
             </p>
             <p className="text-sm font-semibold">
               ${plan.price}
-              <span className="text-[#113D33]/50 font-normal"> / month</span>
+              <span className="text-[#113D33]/75 font-normal"> / month</span>
               {stepTitle && (
-                <span className="text-[#113D33]/50 font-normal"> · {stepTitle}</span>
+                <span className="text-[#113D33]/75 font-normal"> · {stepTitle}</span>
               )}
             </p>
           </div>
@@ -853,7 +853,7 @@ export default function MembershipJoinFlow({
             onClick={onClose}
             disabled={loading}
             aria-label="Close"
-            className="rounded-full p-2 text-[#113D33]/50 hover:bg-[#113D33]/5 hover:text-[#113D33] transition"
+            className="rounded-full p-2 text-[#113D33]/75 hover:bg-[#113D33]/5 hover:text-[#113D33] transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -899,7 +899,7 @@ export default function MembershipJoinFlow({
                           ? "bg-[#113D33] text-white"
                           : isPast
                           ? "bg-[#4A776D] text-white"
-                          : "bg-[#113D33]/10 text-[#113D33]/50"
+                          : "bg-[#113D33]/10 text-[#113D33]/75"
                       }`}
                     >
                       {isPast ? <Check className="w-2.5 h-2.5" /> : i + 1}
@@ -908,7 +908,7 @@ export default function MembershipJoinFlow({
                       className={
                         isCurrent
                           ? "font-semibold text-[#113D33]"
-                          : "text-[#113D33]/50"
+                          : "text-[#113D33]/75"
                       }
                     >
                       {s.label}
@@ -947,7 +947,7 @@ export default function MembershipJoinFlow({
                       autoFocus
                     />
                   </div>
-                  <p className="text-xs text-[#113D33]/55">
+                  <p className="text-xs text-[#113D33]/75">
                     We&apos;ll check if you already have a Sway account. If you
                     do, we&apos;ll email you a quick code to confirm it&apos;s
                     you. Joining takes about 2 minutes.
@@ -990,7 +990,7 @@ export default function MembershipJoinFlow({
                       aria-describedby="membership-code-help"
                       autoFocus
                     />
-                    <p id="membership-code-help" className="mt-1.5 text-xs text-[#113D33]/55">
+                    <p id="membership-code-help" className="mt-1.5 text-xs text-[#113D33]/75">
                       Can&apos;t find it? Check your spam or promotions folder.
                     </p>
                   </div>
@@ -1011,7 +1011,7 @@ export default function MembershipJoinFlow({
                         setStep("email");
                       }}
                       disabled={loading}
-                      className="text-[#113D33]/60 underline hover:text-[#113D33] transition"
+                      className="text-[#113D33]/75 underline hover:text-[#113D33] transition"
                     >
                       Use a different email
                     </button>
@@ -1019,7 +1019,7 @@ export default function MembershipJoinFlow({
                       type="button"
                       onClick={handleResend}
                       disabled={loading || resendIn > 0}
-                      className="text-[#113D33]/60 underline hover:text-[#113D33] transition disabled:no-underline disabled:opacity-60"
+                      className="text-[#113D33]/75 underline hover:text-[#113D33] transition disabled:no-underline disabled:opacity-60"
                     >
                       {resendIn > 0 ? `Send a new code in ${resendIn}s` : "Send a new code"}
                     </button>
@@ -1052,7 +1052,7 @@ export default function MembershipJoinFlow({
                   </a>
                   <button
                     onClick={() => setStep(stepAfterAlready)}
-                    className="text-xs text-[#113D33]/55 underline hover:text-[#113D33] transition"
+                    className="text-xs text-[#113D33]/75 underline hover:text-[#113D33] transition"
                   >
                     I want to purchase an additional membership anyway
                   </button>
@@ -1113,12 +1113,12 @@ export default function MembershipJoinFlow({
                             <Lock className="w-3.5 h-3.5 text-[#4A776D]" />
                             Card details
                           </span>
-                          <span className="text-[10px] text-[#113D33]/50">
+                          <span className="text-[10px] text-[#113D33]/75">
                             Secure, encrypted
                           </span>
                         </div>
                         <div>
-                          <label className="block text-xs text-[#113D33]/65 mb-1">Card number</label>
+                          <label className="block text-xs text-[#113D33]/75 mb-1">Card number</label>
                           <input
                             ref={cardNumberRef}
                             className={inputClass}
@@ -1131,7 +1131,7 @@ export default function MembershipJoinFlow({
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs text-[#113D33]/65 mb-1">Month</label>
+                            <label className="block text-xs text-[#113D33]/75 mb-1">Month</label>
                             <select ref={expMonthRef} className={inputClass} defaultValue="" aria-label="Expiration month">
                               <option value="">MM</option>
                               {expMonthOptions.map((m) => (
@@ -1142,7 +1142,7 @@ export default function MembershipJoinFlow({
                             </select>
                           </div>
                           <div>
-                            <label className="block text-xs text-[#113D33]/65 mb-1">Year</label>
+                            <label className="block text-xs text-[#113D33]/75 mb-1">Year</label>
                             <select ref={expYearRef} className={inputClass} defaultValue="" aria-label="Expiration year">
                               <option value="">YYYY</option>
                               {expYearOptions.map((y) => (
@@ -1154,7 +1154,7 @@ export default function MembershipJoinFlow({
                           </div>
                         </div>
                         <div>
-                          <label className="block text-xs text-[#113D33]/65 mb-1">Name on card</label>
+                          <label className="block text-xs text-[#113D33]/75 mb-1">Name on card</label>
                           <input
                             ref={cardHolderRef}
                             className={inputClass}
@@ -1206,7 +1206,7 @@ export default function MembershipJoinFlow({
                         </div>
                       </div>
 
-                      <p className="text-xs text-[#113D33]/55">
+                      <p className="text-xs text-[#113D33]/75">
                         Nothing is charged yet. You&apos;ll review everything on
                         the next step before your membership starts.
                       </p>
@@ -1241,11 +1241,11 @@ export default function MembershipJoinFlow({
                       <p className="font-semibold">{plan.name} Membership</p>
                       <p className="font-semibold">
                         ${plan.price}
-                        <span className="text-[#113D33]/50 font-normal text-sm"> / mo</span>
+                        <span className="text-[#113D33]/75 font-normal text-sm"> / mo</span>
                       </p>
                     </div>
-                    <p className="mt-1 text-xs text-[#113D33]/60">{plan.blurb}</p>
-                    <p className="mt-3 text-xs text-[#113D33]/60">
+                    <p className="mt-1 text-xs text-[#113D33]/75">{plan.blurb}</p>
+                    <p className="mt-3 text-xs text-[#113D33]/75">
                       {firstName ? `${firstName}, your` : "Your"} first payment of $
                       {plan.price} is charged today to your card on file
                       {savedLastFour ? ` ending in ${savedLastFour}` : ""}, then monthly
@@ -1342,13 +1342,13 @@ export default function MembershipJoinFlow({
                       type="button"
                       onClick={switchToDifferentCard}
                       disabled={loading || purchaseBlocked}
-                      className="block mx-auto text-xs text-[#113D33]/60 underline hover:text-[#113D33] transition"
+                      className="block mx-auto text-xs text-[#113D33]/75 underline hover:text-[#113D33] transition"
                     >
                       Use a different card
                     </button>
                   )}
 
-                  <p className="text-center text-[11px] text-[#113D33]/55">
+                  <p className="text-center text-[11px] text-[#113D33]/75">
                     {SPA_TIER_KEYS.includes(plan.key)
                       ? "No enrollment fee · Treatments roll over · Pause up to 3 months a year"
                       : plan.key === "club_lounge"
@@ -1381,7 +1381,7 @@ export default function MembershipJoinFlow({
                   </a>
                   <button
                     onClick={onClose}
-                    className="text-sm text-[#113D33]/60 hover:text-[#113D33] transition"
+                    className="text-sm text-[#113D33]/75 hover:text-[#113D33] transition"
                   >
                     Close
                   </button>
@@ -1397,7 +1397,7 @@ export default function MembershipJoinFlow({
           )}
 
           {step !== "done" && (
-            <p className="mt-4 text-center text-[11px] text-[#113D33]/45">
+            <p className="mt-4 text-center text-[11px] text-[#113D33]/75">
               Questions? Call{" "}
               <a href={`tel:+1${(site?.phone ?? "(303) 476-6150").replace(/\D/g, "")}`} className="underline">
                 {site?.phone ?? "(303) 476-6150"}

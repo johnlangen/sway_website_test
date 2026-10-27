@@ -184,17 +184,17 @@ export default function SwayClubPage() {
           >
             <div className="grid md:grid-cols-2 gap-8 md:gap-12">
               <div className="md:border-r md:border-[#113D33]/10 md:pr-10">
-                <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-3">
+                <div className="text-xs uppercase tracking-[0.2em] opacity-80 mb-3">
                   Your reserved rate
                 </div>
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="text-6xl md:text-7xl font-bold">$99</span>
-                  <span className="text-base opacity-70">/ month</span>
+                  <span className="text-base opacity-80">/ month</span>
                 </div>
-                <div className="text-sm opacity-70 mb-4">
+                <div className="text-sm opacity-80 mb-4">
                   unlimited recovery
                 </div>
-                <div className="text-xs opacity-60 leading-relaxed">
+                <div className="text-xs opacity-80 leading-relaxed">
                   Membership begins <b>June 1</b> when our new system goes
                   live. Reserve before then to keep your $99 rate. Standard
                   rate after launch: <b>$129/month</b>.
@@ -202,7 +202,7 @@ export default function SwayClubPage() {
               </div>
 
               <div>
-                <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-3">
+                <div className="text-xs uppercase tracking-[0.2em] opacity-80 mb-3">
                   What&apos;s included in unlimited
                 </div>
                 <ul className="space-y-2.5 text-sm mb-5">
@@ -220,7 +220,7 @@ export default function SwayClubPage() {
                   ))}
                 </ul>
 
-                <div className="text-xs uppercase tracking-[0.2em] opacity-60 mb-2 pt-2 border-t border-[#113D33]/10">
+                <div className="text-xs uppercase tracking-[0.2em] opacity-80 mb-2 pt-2 border-t border-[#113D33]/10">
                   Also a member, booked separately
                 </div>
                 <ul className="space-y-2 text-xs opacity-80">
@@ -300,7 +300,7 @@ export default function SwayClubPage() {
                 June 1 to confirm your activation. Recovery access begins
                 June 1 when our new system goes live. No card charged today.
               </p>
-              <p className="text-xs opacity-60 mt-4">
+              <p className="text-xs opacity-80 mt-4">
                 Questions in the meantime? Reply to Heather&apos;s email or
                 reach us at contact@swaywellnessspa.com.
               </p>
@@ -312,7 +312,7 @@ export default function SwayClubPage() {
             >
               <div>
                 <h2 className="text-2xl font-bold mb-1">Reserve your rate</h2>
-                <p className="text-sm opacity-70 mb-4">
+                <p className="text-sm opacity-80 mb-4">
                   Reserve by <b>June 1, 2026</b> to claim the $99/month rate.
                   That&apos;s when membership begins and our standard rate
                   becomes $129. No card today; we&apos;ll reach out before
@@ -322,7 +322,7 @@ export default function SwayClubPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider opacity-70 mb-1.5">
+                  <label className="block text-xs font-semibold uppercase tracking-wider opacity-80 mb-1.5">
                     First name
                   </label>
                   <input
@@ -336,7 +336,7 @@ export default function SwayClubPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider opacity-70 mb-1.5">
+                  <label className="block text-xs font-semibold uppercase tracking-wider opacity-80 mb-1.5">
                     Last name
                   </label>
                   <input
@@ -351,7 +351,7 @@ export default function SwayClubPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider opacity-70 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider opacity-80 mb-1.5">
                   Email
                 </label>
                 <input
@@ -366,7 +366,7 @@ export default function SwayClubPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider opacity-70 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider opacity-80 mb-1.5">
                   Phone <span className="font-normal opacity-60">(optional)</span>
                 </label>
                 <input
@@ -380,7 +380,7 @@ export default function SwayClubPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider opacity-70 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider opacity-80 mb-2">
                   Which location?
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -419,7 +419,7 @@ export default function SwayClubPage() {
                 {status !== "submitting" && <ArrowRight className="w-4 h-4" />}
               </button>
 
-              <p className="text-[11px] opacity-60 text-center leading-relaxed pt-1">
+              <p className="text-[11px] opacity-80 text-center leading-relaxed pt-1">
                 No charge today. Your rate is reserved until membership begins
                 June 1. You can decline activation with no obligation.
               </p>

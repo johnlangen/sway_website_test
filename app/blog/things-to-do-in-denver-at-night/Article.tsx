@@ -26,7 +26,7 @@ export default function ThingsToDoAtNightLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Denver
           </span>
-          <span className="text-gray-500">March 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">March 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}
@@ -56,7 +56,7 @@ export default function ThingsToDoAtNightLayout() {
         </p>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li>
@@ -500,7 +500,7 @@ export default function ThingsToDoAtNightLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/homepage_photo_outside.jpg"
-                  alt="Sway Wellness Spa on Larimer Square"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -519,7 +519,7 @@ export default function ThingsToDoAtNightLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog6.jpg"
-                  alt="Valentine's Day wellness"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -538,7 +538,7 @@ export default function ThingsToDoAtNightLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog20.jpg"
-                  alt="Recovery in Denver at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

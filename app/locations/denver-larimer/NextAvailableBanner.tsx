@@ -61,7 +61,7 @@ export default function NextAvailableBanner({
 
   if (status === "searching") {
     return (
-      <div className="mt-4 flex items-center justify-center gap-2 text-sm text-[#113D33]/50 animate-pulse">
+      <div className="mt-4 flex items-center justify-center gap-2 text-sm text-[#113D33]/75 animate-pulse">
         <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/20 border-t-[#113D33]/50 animate-spin" />
         Searching for next availability...
       </div>
@@ -70,7 +70,7 @@ export default function NextAvailableBanner({
 
   if (status === "none") {
     return (
-      <p className="mt-4 text-sm text-[#113D33]/40 text-center">
+      <p className="mt-4 text-sm text-[#113D33]/75 text-center">
         {staffName
           ? `No availability for ${staffName} in the next 30 days.`
           : "No availability in the next 30 days."}

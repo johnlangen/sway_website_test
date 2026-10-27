@@ -18,7 +18,7 @@ export default function HimalayanSaltStoneMassageLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Massage</span>
-          <span className="text-gray-500">February 2025 · By Sway Wellness Team</span>
+          <span className="text-gray-600">February 2025 · By Sway Wellness Team</span>
         </div>
 
         <p>
@@ -29,7 +29,7 @@ export default function HimalayanSaltStoneMassageLayout() {
           deep relaxation, and deliver a wealth of holistic wellness benefits.
         </p>
 
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#what-is-himalayan-salt-stone" className="hover:underline">What is the Himalayan Salt Stone Treatment?</a></li>
@@ -105,15 +105,15 @@ export default function HimalayanSaltStoneMassageLayout() {
           <h2 className="text-2xl font-bold">Related Articles</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Link href="/blog/80-minute-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="Why a Longer Massage Is the Ultimate Reset" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Why a Longer Massage Is the Ultimate Reset</p></div>
             </Link>
             <Link href="/blog/infrared-pemf-mat" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog12.jpg" alt="Supercharge Your Massage: Infrared PEMF Mats" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog12.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Supercharge Your Massage: Infrared PEMF Mats</p></div>
             </Link>
             <Link href="/blog/recovery-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog20.jpg" alt="Recovery in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog20.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver: Sauna, Cold Plunge &amp; Robot Massage</p></div>
             </Link>
           </div>

@@ -218,3 +218,11 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* Bowtie chat (Larimer): its faded date lines and light links fail WCAG AA contrast, and so does
+   the "Welcome to Sway!" invitation header. Same fixes as the Spavia site (ADA pass 10/27). */
+#bowtie-cta-header { color: #113D33 !important; }
+#bowtie-cta-title { color: #5f636b !important; }
+#bowtie-chat_messages .time_divider { opacity: 1 !important; }
+#bowtie-chat_messages .time_divider span { color: #5f636b !important; }
+.webchat_company_bubble a { color: #2a4fc4 !important; text-decoration: underline !important; }

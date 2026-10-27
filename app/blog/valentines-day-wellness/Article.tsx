@@ -19,7 +19,7 @@ export default function ValentinesDayWellnessBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Holiday</span>
-          <span className="text-gray-500">February 2025 · By Sway Wellness Team</span>
+          <span className="text-gray-600">February 2025 · By Sway Wellness Team</span>
         </div>
 
         <p>
@@ -33,7 +33,7 @@ export default function ValentinesDayWellnessBlogLayout() {
           Valentine&apos;s Day truly special and health-focused.
         </p>
 
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#romantic-wellness-date" className="hover:underline">Romantic Wellness Date</a></li>
@@ -128,19 +128,19 @@ export default function ValentinesDayWellnessBlogLayout() {
           <h2 className="text-2xl font-bold">Related Articles</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Link href="/blog/mothers-day-gift-guide" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog16.jpg" alt="Mother's Day Spa Day Gift Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog16.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Mother&apos;s Day Spa Day Gift Guide</p></div>
             </Link>
             <Link href="/blog/science-of-relaxation" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog11.jpg" alt="Science of Relaxation: Spa &amp; Stress" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog11.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Science of Relaxation: Spa &amp; Stress</p></div>
             </Link>
             <Link href="/blog/give-wellness-get-wellness" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="Give Wellness, Get Wellness: Referral Program" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Give Wellness, Get Wellness: Referral Program</p></div>
             </Link>
             <Link href="/blog/bachelorette-spa-day" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/facial.jpg" alt="Bachelorette Spa Packages in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/facial.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Bachelorette Spa Packages in Denver for Your Bridal Crew</p></div>
             </Link>
           </div>

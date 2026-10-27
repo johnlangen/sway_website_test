@@ -419,7 +419,7 @@ function Row({ tab, r }: { tab: Tab; r: any }) {
       <>
         <div className="flex items-baseline justify-between gap-2">
           <span className="font-semibold truncate">{r.name || "(no name)"}</span>
-          <span className={`text-xs font-semibold shrink-0 ${isFailure ? "text-[#B4541B]" : "text-[#113D33]/60"}`}>
+          <span className={`text-xs font-semibold shrink-0 ${isFailure ? "text-[#B4541B]" : "text-[#113D33]/75"}`}>
             {isFailure ? "Payment failure" : "Frozen"}{r.amountOwed && Number(r.amountOwed) > 0 ? ` · $${r.amountOwed} owed` : ""}
           </span>
         </div>

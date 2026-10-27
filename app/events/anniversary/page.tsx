@@ -800,7 +800,7 @@ export default function AnniversaryEventPage() {
 
           {/* Summary */}
           <div className="mb-8 max-w-3xl mx-auto text-left bg-white/70 border border-[#113D33]/15 rounded-2xl p-5">
-            <div className="text-sm uppercase tracking-wide opacity-70 mb-1">
+            <div className="text-sm uppercase tracking-wide opacity-80 mb-1">
               Your selection
             </div>
             <div className="font-semibold">
@@ -856,7 +856,7 @@ export default function AnniversaryEventPage() {
                           </div>
                           <div className="text-right">
                             <div className="text-sm opacity-80">{opt.price}</div>
-                            <div className="text-xs text-[#113D33]/60 mt-1">
+                            <div className="text-xs text-[#113D33]/75 mt-1">
                               {opt.minutes} min
                             </div>
                           </div>
@@ -911,7 +911,7 @@ export default function AnniversaryEventPage() {
                             className={`text-[11px] mt-1 ${
                               isSelected
                                 ? "text-white/80"
-                                : "text-[#113D33]/60"
+                                : "text-[#113D33]/75"
                             }`}
                           >
                             {s.staffName}
@@ -932,7 +932,7 @@ export default function AnniversaryEventPage() {
                   Continue
                 </button>
 
-                <div className="mt-5 text-center text-xs text-[#113D33]/60">
+                <div className="mt-5 text-center text-xs text-[#113D33]/75">
                   Prefer to book with staff?{" "}
                   <a
                     className="underline underline-offset-4"
@@ -1151,7 +1151,7 @@ export default function AnniversaryEventPage() {
                   </div>
 
                   <div className="p-4">
-                    <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
+                    <div className="text-sm uppercase tracking-wide opacity-80 mb-2">
                       Summary
                     </div>
                     <div className="font-semibold">{summaryText}</div>
@@ -1324,7 +1324,7 @@ export default function AnniversaryEventPage() {
           )}
 
           {/* Footer micro-help */}
-          <div className="mt-10 text-center text-xs text-[#113D33]/60">
+          <div className="mt-10 text-center text-xs text-[#113D33]/75">
             Questions?{" "}
             <a className="underline underline-offset-4" href="tel:3034766150">
               (303) 476-6150

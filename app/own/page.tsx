@@ -162,7 +162,7 @@ export default function OwnASwayPage() {
             transition={{ duration: 0.7 }}
             className="text-center"
           >
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-3">
               Sway &times; Spavia
             </div>
             <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">
@@ -201,7 +201,7 @@ export default function OwnASwayPage() {
       <section className="px-6 py-16 md:py-24" style={{ backgroundColor: SAND }}>
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-10 md:mb-14">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-3">
               The Opportunity
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
@@ -223,7 +223,7 @@ export default function OwnASwayPage() {
               >
                 <div className="mb-3 h-1.5 w-12 rounded-full bg-[#9ABFB3]" />
                 <h3 className="text-lg font-semibold">{c.title}</h3>
-                <p className="mt-2 text-sm opacity-70 leading-relaxed">{c.text}</p>
+                <p className="mt-2 text-sm opacity-80 leading-relaxed">{c.text}</p>
               </div>
             ))}
           </div>
@@ -263,7 +263,7 @@ export default function OwnASwayPage() {
             ))}
           </div>
 
-          <p className="mt-6 text-xs text-white/50 max-w-3xl">
+          <p className="mt-6 text-xs text-white/70 max-w-3xl">
             *Median gross sales source: 2026 Spavia FDD, Item 19, Part III (44
             reporting locations, 2025 measurement period). **Initial investment
             source: 2026 Spavia FDD, Item 7. Reflects system-wide Spavia
@@ -293,7 +293,7 @@ export default function OwnASwayPage() {
       <section className="bg-[#F7F4E9] px-6 py-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-10 md:mb-14">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-3">
               The Difference
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
@@ -314,7 +314,7 @@ export default function OwnASwayPage() {
                 className="rounded-2xl bg-white p-6 shadow-[0_10px_30px_-18px_rgba(17,61,51,0.18)]"
               >
                 <h3 className="text-lg font-semibold">{c.title}</h3>
-                <p className="mt-2 text-sm opacity-70 leading-relaxed">{c.text}</p>
+                <p className="mt-2 text-sm opacity-80 leading-relaxed">{c.text}</p>
               </div>
             ))}
           </div>
@@ -325,7 +325,7 @@ export default function OwnASwayPage() {
       <section className="px-6 py-16 md:py-24" style={{ backgroundColor: SAND }}>
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-10 md:mb-14">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-3">
               How It Works
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">

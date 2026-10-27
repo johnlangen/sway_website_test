@@ -26,7 +26,7 @@ export default function DateNightDenverLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Denver
           </span>
-          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}
@@ -56,7 +56,7 @@ export default function DateNightDenverLayout() {
         </p>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#start-at-sway" className="hover:underline">Start Your Date at Sway</a></li>
@@ -99,7 +99,7 @@ export default function DateNightDenverLayout() {
               {" "}before heading to dinner. It is the kind of thing that turns a regular
               Tuesday into something you actually talk about afterward.
             </p>
-            <p className="text-[15px] text-[#113D33]/60">
+            <p className="text-[15px] text-[#113D33]/75">
               Open until 8 PM on weekdays. Voted{" "}
               <Link href="/blog/best-day-spa-in-america" className="underline font-semibold text-[#113D33]">
                 #4 Best Day Spa in America
@@ -206,7 +206,7 @@ export default function DateNightDenverLayout() {
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-bold">Williams &amp; Graham</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">LoHi</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">LoHi</span>
             </div>
             <p className="text-[15px]">
               A speakeasy hidden behind a bookshelf on Platte Street. The cocktails
@@ -219,7 +219,7 @@ export default function DateNightDenverLayout() {
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-bold">Safta</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">RiNo</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">RiNo</span>
             </div>
             <p className="text-[15px]">
               Israeli-inspired cuisine from James Beard Award winner Alon Shaya.
@@ -231,7 +231,7 @@ export default function DateNightDenverLayout() {
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-bold">Mercantile Dining &amp; Provision</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Union Station</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Union Station</span>
             </div>
             <p className="text-[15px]">
               Farm-to-table fine dining inside Union Station with a beautiful bar and
@@ -258,7 +258,7 @@ export default function DateNightDenverLayout() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <h3 className="text-lg font-bold">Meow Wolf</h3>
-            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Sun Valley</p>
+            <p className="text-xs font-semibold text-[#113D33]/75 tracking-wide mb-1">Sun Valley</p>
             <p className="text-[15px]">
               Four stories of immersive, interactive art that you walk through together.
               Open late on weekends with a full bar inside. Plan for two to three hours
@@ -268,7 +268,7 @@ export default function DateNightDenverLayout() {
 
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <h3 className="text-lg font-bold">Denver Center for the Performing Arts</h3>
-            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Downtown</p>
+            <p className="text-xs font-semibold text-[#113D33]/75 tracking-wide mb-1">Downtown</p>
             <p className="text-[15px]">
               The largest performing arts complex under one roof in the country. Broadway
               tours, ballet, comedy, and concerts rotate through all year. Check the
@@ -278,7 +278,7 @@ export default function DateNightDenverLayout() {
 
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <h3 className="text-lg font-bold">Nocturne</h3>
-            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">RiNo</p>
+            <p className="text-xs font-semibold text-[#113D33]/75 tracking-wide mb-1">RiNo</p>
             <p className="text-[15px]">
               Live jazz in an intimate listening room with craft cocktails and small
               plates. This is the kind of place that makes a regular Thursday feel
@@ -288,7 +288,7 @@ export default function DateNightDenverLayout() {
 
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <h3 className="text-lg font-bold">Comedy Works</h3>
-            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Downtown</p>
+            <p className="text-xs font-semibold text-[#113D33]/75 tracking-wide mb-1">Downtown</p>
             <p className="text-[15px]">
               One of the top comedy clubs in the country, with national headliners
               performing regularly. The downtown location is a short walk from
@@ -315,7 +315,7 @@ export default function DateNightDenverLayout() {
 
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <h3 className="text-lg font-bold">54thirty Rooftop</h3>
-            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Downtown · Seasonal (Apr-Oct)</p>
+            <p className="text-xs font-semibold text-[#113D33]/75 tracking-wide mb-1">Downtown · Seasonal (Apr-Oct)</p>
             <p className="text-[15px]">
               The highest rooftop bar in Denver, perched on top of the Le Meridien
               hotel. Mountain views at sunset with craft cocktails.
@@ -324,7 +324,7 @@ export default function DateNightDenverLayout() {
 
           <div className="bg-white rounded-xl border border-[#d7e2dc] p-5 space-y-2 hover:shadow-md transition">
             <h3 className="text-lg font-bold">Lookout Mountain</h3>
-            <p className="text-xs font-semibold text-[#113D33]/40 tracking-wide mb-1">Golden · 30 min drive</p>
+            <p className="text-xs font-semibold text-[#113D33]/75 tracking-wide mb-1">Golden · 30 min drive</p>
             <p className="text-[15px]">
               One of the best sunset views along the Front Range. Pack a blanket and
               something to drink, or stop at one of the breweries in Golden on the way back.
@@ -477,7 +477,7 @@ export default function DateNightDenverLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/background.png"
-                  alt="Best things to do in Denver at night"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -496,7 +496,7 @@ export default function DateNightDenverLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog14.jpg"
-                  alt="Bachelorette spa day at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -515,7 +515,7 @@ export default function DateNightDenverLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog6.jpg"
-                  alt="Valentine's Day wellness at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

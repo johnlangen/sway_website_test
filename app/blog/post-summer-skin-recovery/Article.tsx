@@ -19,7 +19,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Skincare</span>
-          <span className="text-gray-500">September 2025 · By Sway Wellness Team</span>
+          <span className="text-gray-600">September 2025 · By Sway Wellness Team</span>
         </div>
 
         <p>
@@ -57,7 +57,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
         </p>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#why-recovery" className="hover:underline">Why Your Skin Needs Recovery</a></li>
@@ -141,7 +141,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link href="/blog/vitamin-c-facial" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog4.jpg" alt="Vitamin C Facial" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/blog4.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Winter Skincare: Brighten with Vitamin C</p>
@@ -149,7 +149,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
             </Link>
             <Link href="/blog/allergy-season-skincare" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/allergy.jpg" alt="Allergy Season Skincare" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/allergy.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">Allergy Season? Soothe Sensitive Skin</p>
@@ -157,7 +157,7 @@ export default function PostSummerSkinRecoveryBlogLayout() {
             </Link>
             <Link href="/blog/sun-protection-post-sun-care" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
               <div className="h-36 overflow-hidden">
-                <Image src="/assets/blog18.jpg" alt="Sun Protection Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                <Image src="/assets/blog18.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4">
                 <p className="font-bold text-sm group-hover:text-[#113D33] transition">The Ultimate Guide to Sun Protection</p>

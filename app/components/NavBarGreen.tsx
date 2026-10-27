@@ -55,7 +55,7 @@ const NavBarGreen = () => {
   };
 
   return (
-    <nav className="fixed top-10 left-0 w-full px-4 md:px-8 lg:px-12 z-50">
+    <nav aria-label="Main" className="fixed top-10 left-0 w-full px-4 md:px-8 lg:px-12 z-50">
       <div className="flex items-center w-full max-w-[1300px] mx-auto gap-4">
 
         {/* Green Logo */}

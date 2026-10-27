@@ -1005,7 +1005,7 @@ export default function MavenHotelPage() {
               <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/70 font-medium">
                 The Maven Hotel
               </span>
-              <span className="text-white/30">&times;</span>
+              <span className="text-white/70">&times;</span>
               <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/70 font-medium">
                 Sway Wellness Spa
               </span>
@@ -1109,14 +1109,14 @@ export default function MavenHotelPage() {
                     <span className="text-2xl font-bold text-[#113D33]">
                       $69
                     </span>
-                    <span className="text-[#113D33]/50 text-sm">
+                    <span className="text-[#113D33]/75 text-sm">
                       / 30 min
                     </span>
                     <span className="text-[#113D33]/30">|</span>
                     <span className="text-2xl font-bold text-[#113D33]">
                       $139
                     </span>
-                    <span className="text-[#113D33]/50 text-sm">
+                    <span className="text-[#113D33]/75 text-sm">
                       / 60 min
                     </span>
                   </div>
@@ -1160,7 +1160,7 @@ export default function MavenHotelPage() {
                       <h3 className="font-semibold text-[#113D33] mb-1">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-[#113D33]/60">{item.desc}</p>
+                      <p className="text-sm text-[#113D33]/75">{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -1193,7 +1193,7 @@ export default function MavenHotelPage() {
                     <p className="text-sm text-[#113D33]/70 mb-1">
                       1850 Wazee Street, Denver, CO 80202
                     </p>
-                    <p className="text-sm text-[#113D33]/50 mb-4">
+                    <p className="text-sm text-[#113D33]/75 mb-4">
                       A boutique hotel in Denver&apos;s vibrant LoDo neighborhood
                     </p>
                     <a
@@ -1229,7 +1229,7 @@ export default function MavenHotelPage() {
                     />
                   </svg>
                 </a>
-                <p className="text-xs text-[#113D33]/40 mt-4">
+                <p className="text-xs text-[#113D33]/75 mt-4">
                   Questions? Call{" "}
                   <a
                     href="tel:3034766150"
@@ -1272,7 +1272,7 @@ export default function MavenHotelPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-[#113D33] mb-2 font-vance">
               Choose Your Session
             </h2>
-            <p className="text-sm text-[#113D33]/60 mb-8">
+            <p className="text-sm text-[#113D33]/75 mb-8">
               AI-powered robot massage · pick your duration
             </p>
 
@@ -1348,7 +1348,7 @@ export default function MavenHotelPage() {
                 <div className="font-semibold text-[#113D33] text-sm">
                   {selectedSession.label}
                 </div>
-                <div className="text-xs text-[#113D33]/50">
+                <div className="text-xs text-[#113D33]/75">
                   {selectedSession.minutes} min · {selectedSession.price}
                 </div>
               </div>
@@ -1359,7 +1359,7 @@ export default function MavenHotelPage() {
               <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">
                 Choose a Day
               </h2>
-              <p className="text-sm text-[#113D33]/40 mb-4" aria-live="polite">
+              <p className="text-sm text-[#113D33]/75 mb-4" aria-live="polite">
                 {weekMonthLabel(weekStart)}
               </p>
 
@@ -1416,7 +1416,7 @@ export default function MavenHotelPage() {
                         <span className="text-lg font-bold leading-tight">
                           {dayNum}
                         </span>
-                        <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                        <span className="text-[9px] font-semibold tracking-wider uppercase opacity-80">{monthAbbr(day)}</span>
                       </button>
                     );
                   })}
@@ -1462,7 +1462,7 @@ export default function MavenHotelPage() {
               </div>
 
               {loading && (
-                <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/50 animate-pulse">
+                <div className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/75 animate-pulse">
                   <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/15 border-t-[#113D33]/40 animate-spin" />
                   Loading availability...
                 </div>
@@ -1500,7 +1500,7 @@ export default function MavenHotelPage() {
                 )}
 
               {!loading && !error && times.length === 0 && (
-                <div className="text-center text-[#113D33]/60 py-8">
+                <div className="text-center text-[#113D33]/75 py-8">
                   <p>No times available for this day. Try another date.</p>
                 </div>
               )}
@@ -1519,7 +1519,7 @@ export default function MavenHotelPage() {
                 Continue
               </button>
 
-              <div className="mt-5 text-center text-xs text-[#113D33]/40">
+              <div className="mt-5 text-center text-xs text-[#113D33]/75">
                 Prefer to book by phone?{" "}
                 <a
                   className="underline underline-offset-4 hover:text-[#113D33]/60 transition"
@@ -1779,7 +1779,7 @@ export default function MavenHotelPage() {
                   Call to book: (303) 476-6150
                 </a>
 
-                <p className="text-xs opacity-60 mt-4 text-center">
+                <p className="text-xs opacity-80 mt-4 text-center">
                   Using:{" "}
                   <span className="font-semibold">{emailNormalized}</span>
                 </p>
@@ -1820,7 +1820,7 @@ export default function MavenHotelPage() {
                   </div>
 
                   <div className="p-4">
-                    <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
+                    <div className="text-sm uppercase tracking-wide opacity-80 mb-2">
                       Summary
                     </div>
                     <div className="flex items-start justify-between gap-4">

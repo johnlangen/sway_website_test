@@ -70,7 +70,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-3 leading-tight">
             Book Your Experience
           </h1>
-          <p className="text-base md:text-lg text-[#113D33]/60 max-w-md mx-auto mb-10">
+          <p className="text-base md:text-lg text-[#113D33]/75 max-w-md mx-auto mb-10">
             How would you like to get started?
           </p>
 
@@ -96,7 +96,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
                   <h3 className="text-lg font-bold text-[#113D33] mb-1">
                     {c.title}
                   </h3>
-                  <p className="text-sm text-[#113D33]/65">{c.blurb}</p>
+                  <p className="text-sm text-[#113D33]/75">{c.blurb}</p>
                   <p className="text-xs text-[#4A776D] font-semibold mt-2">
                     {c.price}
                   </p>
@@ -106,7 +106,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
             ))}
           </div>
 
-          <p className="mt-8 text-sm text-[#113D33]/60">
+          <p className="mt-8 text-sm text-[#113D33]/75">
             Prefer to call?{" "}
             <a
               href={`tel:${phoneDigits}`}
@@ -119,7 +119,7 @@ export default function ClubBookHub({ clubKey }: { clubKey: ClubLocationKey }) {
           <p className="mt-6">
             <Link
               href={basePath}
-              className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+              className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors"
             >
               Back to Sway {club.label}
             </Link>

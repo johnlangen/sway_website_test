@@ -1590,7 +1590,7 @@ export default function UpswellDashboard() {
                 className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition border-b-2 ${
                   tab === t
                     ? "border-[#113D33] text-[#113D33]"
-                    : "border-transparent text-[#113D33]/50 hover:text-[#113D33]"
+                    : "border-transparent text-[#113D33]/75 hover:text-[#113D33]"
                 }`}
               >
                 {t === "mylist" ? "My List" : t === "lounge" ? "🛋️ Lounge Decision" : t.charAt(0).toUpperCase() + t.slice(1)}

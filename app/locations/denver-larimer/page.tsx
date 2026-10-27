@@ -174,7 +174,7 @@ export default function SwayLarimerPage() {
               animate
               className="text-[#4A776D]/85 block mb-5"
             />
-            <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
+            <div className="mb-3 text-xs tracking-wide uppercase opacity-80">
               Massage, Facials & Recovery · Larimer Square, Denver
             </div>
 
@@ -212,7 +212,7 @@ export default function SwayLarimerPage() {
               href="https://10best.usatoday.com/awards/sway-denver-colorado/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/70 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
+              className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/80 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
             >
               Voted #4 Best Day Spa in America · USA Today 10Best <span className="sr-only">(opens in new tab)</span>
             </a>
@@ -375,7 +375,7 @@ export default function SwayLarimerPage() {
 
                 {/* TEXT */}
                 <div className={i % 2 !== 0 ? "md:[direction:ltr]" : ""}>
-                  <div className="text-xs uppercase tracking-wider opacity-50 mb-2">
+                  <div className="text-xs uppercase tracking-wider opacity-80 mb-2">
                     {t.tagline}
                   </div>
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-3">
@@ -442,7 +442,7 @@ export default function SwayLarimerPage() {
 
               {/* CONTENT */}
               <div className="p-8 sm:p-10 md:p-12">
-                <div className="text-xs uppercase tracking-wider text-white/50 mb-2">
+                <div className="text-xs uppercase tracking-wider text-white/70 mb-2">
                   Membership
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-3">
@@ -520,7 +520,7 @@ export default function SwayLarimerPage() {
                 <br />
                 {loc.city}, {loc.state} {loc.zip}
               </p>
-              <p className="text-sm opacity-60 mb-4">
+              <p className="text-sm opacity-80 mb-4">
                 Larimer Square, Downtown Denver
               </p>
               <a

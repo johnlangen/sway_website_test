@@ -502,7 +502,7 @@ export default function DallasFoundingMembershipPage() {
               Reserve Your Founding Spot
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </button>
-            <span className="text-xs text-white/50">
+            <span className="text-xs text-white/70">
               No charge until we open
             </span>
           </motion.div>
@@ -549,7 +549,7 @@ export default function DallasFoundingMembershipPage() {
               <p className="text-xs sm:text-sm text-gray-500 mt-1 group-hover:text-[#113D33] transition-colors">
                 Best Day Spa in the U.S.
               </p>
-              <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5">
+              <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5">
                 USA Today 10Best
               </p>
               <span className="sr-only">(opens in new tab)</span>
@@ -726,7 +726,7 @@ export default function DallasFoundingMembershipPage() {
                     >
                       <div className="pt-4 border-t border-gray-100 mt-4 text-left">
                         {/* Benefits */}
-                        <p className="text-xs uppercase tracking-[0.1em] text-gray-400 mb-2">
+                        <p className="text-xs uppercase tracking-[0.1em] text-gray-600 mb-2">
                           Included
                         </p>
                         <ul className="space-y-1.5 mb-4">
@@ -776,7 +776,7 @@ export default function DallasFoundingMembershipPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-sm uppercase tracking-[0.2em] text-gray-400 mb-10"
+            className="text-sm uppercase tracking-[0.2em] text-gray-600 mb-10"
           >
             As Seen In
           </motion.p>
@@ -828,7 +828,7 @@ export default function DallasFoundingMembershipPage() {
           <p className="text-2xl md:text-3xl font-bold text-[#113D33] mb-1">
             {liveReviewTotal} Reviews &middot; {liveReviewAvg} Average
           </p>
-          <p className="text-gray-400 text-sm">from our Denver location</p>
+          <p className="text-gray-600 text-sm">from our Denver location</p>
         </motion.div>
 
         {/* Testimonials */}
@@ -876,7 +876,7 @@ export default function DallasFoundingMembershipPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-sm uppercase tracking-[0.2em] text-white/50 mb-4"
+            className="text-sm uppercase tracking-[0.2em] text-white/70 mb-4"
           >
             Coming to Knox/Henderson
           </motion.p>
@@ -1108,7 +1108,7 @@ export default function DallasFoundingMembershipPage() {
                     className={
                       formData.membership
                         ? "text-[#113D33]"
-                        : "text-gray-400"
+                        : "text-gray-500"
                     }
                   >
                     {formData.membership
@@ -1177,7 +1177,7 @@ export default function DallasFoundingMembershipPage() {
                             >
                               {option.label}
                             </p>
-                            <p className="text-xs text-gray-400 mt-0.5">
+                            <p className="text-xs text-gray-600 mt-0.5">
                               {option.desc}
                             </p>
                           </div>
@@ -1206,7 +1206,7 @@ export default function DallasFoundingMembershipPage() {
               </button>
 
               {/* Consent disclosure — must match the text stored on the lead */}
-              <p className="text-[11px] text-gray-400 leading-relaxed text-center">
+              <p className="text-[11px] text-gray-600 leading-relaxed text-center">
                 {waitlistConsentText("knox-henderson")} Membership pricing and perks
                 are not yet final.
               </p>
@@ -1214,7 +1214,7 @@ export default function DallasFoundingMembershipPage() {
           )}
 
           {/* Trust signals */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-600">
             <span className="flex items-center gap-1.5">
               <Clock className="w-4 h-4" /> No commitment required
             </span>

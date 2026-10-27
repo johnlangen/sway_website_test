@@ -180,7 +180,7 @@ export default function LarimerGiftCardsPage() {
               </span>
               Purchase a Gift Card <span className="sr-only">(opens in new tab)</span>
             </a>
-            <p className="text-sm text-[#113D33]/60 mt-3">
+            <p className="text-sm text-[#113D33]/75 mt-3">
               Delivered instantly via email
             </p>
           </div>
@@ -220,7 +220,7 @@ export default function LarimerGiftCardsPage() {
                   {r.icon}
                 </div>
                 <h3 className="font-semibold text-sm mb-1">{r.title}</h3>
-                <p className="text-xs text-[#113D33]/60">{r.description}</p>
+                <p className="text-xs text-[#113D33]/75">{r.description}</p>
               </motion.div>
             ))}
           </div>
@@ -315,7 +315,7 @@ export default function LarimerGiftCardsPage() {
           </Link>
         </div>
 
-        <p className="text-[9px] text-[#113D33]/35 leading-relaxed max-w-xl mx-auto">
+        <p className="text-[9px] text-[#113D33]/75 leading-relaxed max-w-xl mx-auto">
           {disclaimer}
         </p>
       </section>

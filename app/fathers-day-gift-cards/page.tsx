@@ -152,7 +152,7 @@ export default function FathersDayGiftCardsPage() {
             </div>
           </div>
 
-          <p className="mt-8 text-center text-xs md:text-sm text-[#7b9b92]">
+          <p className="mt-8 text-center text-xs md:text-sm text-[#4A776D]">
             $150 covers a 60-min Aescape robot massage · $200 adds the Remedy Room recovery circuit · $300+ a half-day reset
           </p>
         </section>
@@ -215,7 +215,7 @@ export default function FathersDayGiftCardsPage() {
               />
             </div>
             <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col justify-center">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#7b9b92] mb-2">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D] mb-2">
                 On Larimer Square
               </p>
               <h2 className="text-2xl md:text-3xl font-light mb-3 leading-tight">
@@ -240,7 +240,7 @@ export default function FathersDayGiftCardsPage() {
                 &ldquo;Easily the best spa I&apos;ve ever been to. The deep tissue massage was both
                 relaxing and therapeutic. The Remedy Room was incredible.&rdquo;
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Visiting Guest</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Visiting Guest</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
@@ -248,7 +248,7 @@ export default function FathersDayGiftCardsPage() {
                 &ldquo;The Aescape robot massage is unreal. I went in skeptical and walked out
                 booking another session for next week.&rdquo;
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Recent Guest</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Recent Guest</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
@@ -256,7 +256,7 @@ export default function FathersDayGiftCardsPage() {
                 &ldquo;Best massage I&apos;ve ever had. The Remedy Room made the experience
                 next-level. Left feeling mentally and physically rejuvenated.&rdquo;
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Erin Schmidt</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Erin Schmidt</p>
             </div>
           </div>
         </section>
@@ -269,7 +269,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">How fast is delivery?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Gift cards are emailed instantly to you. Purchase right up to Father&apos;s Day morning,
@@ -280,7 +280,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">What amount should I get?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Any amount. $150 covers a 60-minute Aescape robot massage. $200 adds the Remedy Room
@@ -292,7 +292,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">What&apos;s the Aescape robot massage?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 AI-powered, fully personalized full-body massage. Dad lies face-down, the robot scans
@@ -304,7 +304,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Do gift cards expire?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 No. Sway gift cards never expire.
@@ -314,7 +314,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Are gift cards refundable?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Gift card purchases are non-refundable. They never expire, so they can be used anytime.
@@ -324,7 +324,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">What can Dad use it for?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Any service at Sway Wellness Spa: Aescape robot massage, Remedy Room recovery
@@ -335,7 +335,7 @@ export default function FathersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Where is Sway located?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 1428 Larimer St., Denver, CO 80202. In the heart of downtown Denver.
@@ -366,7 +366,7 @@ export default function FathersDayGiftCardsPage() {
           </div>
         </section>
 
-        <p className="mt-8 text-center text-[11px] text-[#7b9b92]">
+        <p className="mt-8 text-center text-[11px] text-[#4A776D]">
           Gift card purchases are non-refundable. Gift cards never expire.
         </p>
       </div>

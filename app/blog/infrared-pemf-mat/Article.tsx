@@ -18,7 +18,7 @@ export default function InfraredPemfMatBlogLayout() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Technology</span>
-          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero: image + intro, two columns so the real mat photo renders sharp */}
@@ -42,7 +42,7 @@ export default function InfraredPemfMatBlogLayout() {
         </div>
 
         {/* TOC */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#what-is" className="hover:underline">What Is an Infrared PEMF Mat?</a></li>
@@ -200,7 +200,7 @@ export default function InfraredPemfMatBlogLayout() {
               transformed my recovery. I feel rejuvenated and notice a real
               reduction in muscle soreness.&rdquo;
             </p>
-            <footer className="text-sm text-gray-500 mt-2">Alex P., Sway Guest</footer>
+            <footer className="text-sm text-gray-600 mt-2">Alex P., Sway Guest</footer>
           </blockquote>
         </section>
 
@@ -253,9 +253,9 @@ export default function InfraredPemfMatBlogLayout() {
                 <h3 className="font-bold text-lg">{m.t}</h3>
                 {m.ours && <p className="text-xs font-semibold uppercase tracking-wide text-[#9CB7A9]">What Sway uses</p>}
                 <dl className="text-[15px] space-y-2">
-                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-500"}`}>What it uses</dt><dd>{m.what}</dd></div>
-                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-500"}`}>What you feel</dt><dd>{m.feel}</dd></div>
-                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-500"}`}>Best for</dt><dd>{m.best}</dd></div>
+                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-600"}`}>What it uses</dt><dd>{m.what}</dd></div>
+                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-600"}`}>What you feel</dt><dd>{m.feel}</dd></div>
+                  <div><dt className={`text-xs uppercase tracking-wide ${m.ours ? "text-white/60" : "text-gray-600"}`}>Best for</dt><dd>{m.best}</dd></div>
                 </dl>
               </div>
             ))}
@@ -370,15 +370,15 @@ export default function InfraredPemfMatBlogLayout() {
           <h3 className="text-xl font-bold mb-6">Related Articles</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <Link href="/blog/recovery-denver" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/remedy-room.jpg" alt="Recovery in Denver" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/remedy-room.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Recovery in Denver: Sauna, Cold Plunge & Robot Massage</p></div>
             </Link>
             <Link href="/blog/80-minute-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="Longer massage at Sway" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog25.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Why a Longer Massage Is the Ultimate Reset</p></div>
             </Link>
             <Link href="/blog/himalayan-salt-stone-massage" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-              <div className="h-36 overflow-hidden"><Image src="/assets/blog5.jpg" alt="Himalayan Salt Stone Massage" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+              <div className="h-36 overflow-hidden"><Image src="/assets/blog5.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
               <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Himalayan Salt Stone Massage: Ultimate Relaxation at Sway</p></div>
             </Link>
           </div>

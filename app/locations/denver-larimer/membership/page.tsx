@@ -417,9 +417,9 @@ export default function MembershipPage() {
       {/* Treatments */}
       <div className="mt-5 grid gap-x-6 gap-y-5 border-t border-[#113D33]/10 pt-5 sm:grid-cols-2">
         <div>
-          <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
+          <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
             Facials ({tier.facials.length})
-          </h4>
+          </h2>
           <ul className="space-y-2">
             {tier.facials.map((t, idx) => (
               <li key={idx} className="flex items-center justify-between gap-2 text-sm">
@@ -435,9 +435,9 @@ export default function MembershipPage() {
           </ul>
         </div>
         <div>
-          <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
+          <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[#4A776D]">
             Massages ({tier.massages.length})
-          </h4>
+          </h2>
           <ul className="space-y-2">
             {tier.massages.map((t, idx) => (
               <li key={idx} className="flex items-center justify-between gap-2 text-sm">
@@ -696,7 +696,7 @@ export default function MembershipPage() {
                     className={`relative rounded-xl py-2.5 px-1 text-center transition-colors duration-200 ${
                       isSel
                         ? "bg-[#113D33] text-white shadow-sm"
-                        : "text-[#113D33]/60 hover:text-[#113D33]"
+                        : "text-[#113D33]/75 hover:text-[#113D33]"
                     }`}
                   >
                     {tier.mostPopular && (
@@ -711,7 +711,7 @@ export default function MembershipPage() {
                     <span className="block text-sm font-bold">{tier.name}</span>
                     <span
                       className={`block text-[11px] ${
-                        isSel ? "text-white/70" : "text-[#113D33]/45"
+                        isSel ? "text-white/70" : "text-[#113D33]/75"
                       }`}
                     >
                       {tier.price}/mo
@@ -763,7 +763,7 @@ export default function MembershipPage() {
           </div>
 
           {/* Mobile swipe hint */}
-          <p className="sm:hidden mt-3 text-center text-[11px] text-[#113D33]/50">
+          <p className="sm:hidden mt-3 text-center text-[11px] text-[#113D33]/75">
             Swipe to compare memberships
           </p>
 
@@ -803,7 +803,7 @@ export default function MembershipPage() {
           <div>
             <div className="mb-4">
               <span className="text-4xl font-bold">$99</span>
-              <span className="text-sm text-[#113D33]/50 ml-1">/ month</span>
+              <span className="text-sm text-[#113D33]/75 ml-1">/ month</span>
               <span className="block text-sm font-semibold text-[#44576D] mt-1">
                 Under $25 per session
               </span>
@@ -843,7 +843,7 @@ export default function MembershipPage() {
                 Join · 2×60 min sessions
               </button>
             </div>
-            <p className="mt-3 text-xs text-[#113D33]/55">
+            <p className="mt-3 text-xs text-[#113D33]/75">
               No enrollment fee &middot; Pause up to 3 months a year
             </p>
             <Link
@@ -872,7 +872,7 @@ export default function MembershipPage() {
           <div className="order-2 md:order-1">
             <div className="mb-4">
               <span className="text-4xl font-bold">$99</span>
-              <span className="text-sm text-[#113D33]/50 ml-1">/ month</span>
+              <span className="text-sm text-[#113D33]/75 ml-1">/ month</span>
               <span className="block text-sm font-semibold text-[#B0713F] mt-1">
                 Under $25 per visit &middot; 4 visits per month
               </span>
@@ -902,7 +902,7 @@ export default function MembershipPage() {
                 Become a Remedy Room Member
               </button>
             </div>
-            <p className="mt-3 text-xs text-[#113D33]/55">
+            <p className="mt-3 text-xs text-[#113D33]/75">
               No enrollment fee &middot; Pause up to 3 months a year
             </p>
             <Link
@@ -952,7 +952,7 @@ export default function MembershipPage() {
               </span>
             ))}
           </div>
-          <p className="mt-5 pt-4 border-t border-[#113D33]/10 text-center text-xs text-[#113D33]/60">
+          <p className="mt-5 pt-4 border-t border-[#113D33]/10 text-center text-xs text-[#113D33]/75">
             Your membership works at all Sway and Spavia locations nationwide.
           </p>
         </div>
@@ -989,9 +989,9 @@ export default function MembershipPage() {
               >
                 <div className="grid md:grid-cols-2 gap-4 pt-4 pb-2">
                   <div className="bg-white rounded-xl shadow-sm p-4">
-                    <h4 className="text-xs font-semibold text-[#4A776D] uppercase tracking-wider mb-3">
+                    <h3 className="text-xs font-semibold text-[#4A776D] uppercase tracking-wider mb-3">
                       Facial Boosts
-                    </h4>
+                    </h3>
                     <ul className="space-y-2">
                       {facialBoosts.map((b, idx) => (
                         <li
@@ -1001,7 +1001,7 @@ export default function MembershipPage() {
                           <span className="text-[#113D33]/80">
                             {b.name}
                             {b.note && (
-                              <span className="text-[#113D33]/50 ml-1 text-xs">
+                              <span className="text-[#113D33]/75 ml-1 text-xs">
                                 {b.note}
                               </span>
                             )}
@@ -1015,9 +1015,9 @@ export default function MembershipPage() {
                   </div>
 
                   <div className="bg-white rounded-xl shadow-sm p-4">
-                    <h4 className="text-xs font-semibold text-[#4A776D] uppercase tracking-wider mb-3">
+                    <h3 className="text-xs font-semibold text-[#4A776D] uppercase tracking-wider mb-3">
                       Massage Boosts
-                    </h4>
+                    </h3>
                     <ul className="space-y-2">
                       {massageBoosts.map((b, idx) => (
                         <li
@@ -1027,7 +1027,7 @@ export default function MembershipPage() {
                           <span className="text-[#113D33]/80">
                             {b.name}
                             {b.note && (
-                              <span className="text-[#113D33]/50 ml-1 text-xs">
+                              <span className="text-[#113D33]/75 ml-1 text-xs">
                                 {b.note}
                               </span>
                             )}
@@ -1040,7 +1040,7 @@ export default function MembershipPage() {
                     </ul>
                   </div>
                 </div>
-                <p className="text-xs text-[#113D33]/55 text-center pb-2">
+                <p className="text-xs text-[#113D33]/75 text-center pb-2">
                   Member prices shown. Drop-in rates are 2× listed price.
                 </p>
               </motion.div>
@@ -1128,7 +1128,7 @@ export default function MembershipPage() {
             <Phone className="w-6 h-6" />
             (303) 476-6150
           </a>
-          <p className="text-sm text-[#113D33]/60 mt-2">
+          <p className="text-sm text-[#113D33]/75 mt-2">
             Call to learn more or sign up over the phone
           </p>
         </div>

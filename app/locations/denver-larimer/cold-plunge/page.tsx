@@ -134,7 +134,7 @@ export default function LarimerColdPlungePage() {
             .
           </p>
 
-          <p className="text-xs text-gray-500 mt-6 max-w-3xl mx-auto">
+          <p className="text-xs text-gray-600 mt-6 max-w-3xl mx-auto">
             Cold plunge therapy is intended for generally healthy adults.
             Guests with cardiovascular conditions, pregnancy, or medical concerns
             should consult a healthcare professional before use.

@@ -160,21 +160,21 @@ export default function HolidayGiftCardsPage() {
               <p className="text-[#4A776D] leading-relaxed">
                 “I tried the Remedy Room and the Glow Getter facial. My skin felt incredibly smooth and firm. Ended up getting a membership!”
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Whitney Gustafson</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Whitney Gustafson</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
                 “Took my son's girlfriend to Sway for her first facial. She LOVED it. Highly recommend the Remedy Room too!”
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Laura Rolfe</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Laura Rolfe</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
                 “Best massage I’ve ever had. The Remedy Room made the experience next-level. Left feeling mentally and physically rejuvenated.”
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Erin Schmidt</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Erin Schmidt</p>
             </div>
           </div>
         </section>
@@ -190,7 +190,7 @@ export default function HolidayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">How do I get the bonus card?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 When you purchase a $150 gift card during the promotion, your $25 bonus card will be emailed to you within 24–48 hours.
@@ -200,7 +200,7 @@ export default function HolidayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Do the gift card or bonus card expire?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Gift cards never expire. Bonus cards expire February 28, 2027.
@@ -210,7 +210,7 @@ export default function HolidayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Can the gift card be emailed?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Yes. Gift cards are delivered instantly by email.
@@ -220,7 +220,7 @@ export default function HolidayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Can it be used for the Aescape Robot Massage?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Yes. Gift cards are valid for all Sway services including the Aescape robot massage.
@@ -230,7 +230,7 @@ export default function HolidayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Are gift cards refundable?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Gift card and bonus card purchases are non-refundable.
@@ -244,7 +244,7 @@ export default function HolidayGiftCardsPage() {
         {/* TERMS & CONDITIONS — UPDATED TO YOUR SCREENSHOT */}
         <section
         id="bonus-terms"
-            className="mt-16 max-w-3xl mx-auto text-center text-[11px] md:text-xs text-[#7b9b92] leading-relaxed scroll-mt-40"
+            className="mt-16 max-w-3xl mx-auto text-center text-[11px] md:text-xs text-[#4A776D] leading-relaxed scroll-mt-40"
             >
             <p className="font-medium text-[#113D33] mb-2">Bonus Terms & Conditions</p>
 

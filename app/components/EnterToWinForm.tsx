@@ -291,7 +291,7 @@ export default function EnterToWinForm({
           did drift once: after the v2 Dallas rename the stored text said
           "Sway Knox/Henderson" while this paragraph still hardcoded "Sway
           Dallas". Do not re-hardcode this copy. */}
-      <p className="text-[11px] text-[#113D33]/65 leading-relaxed">
+      <p className="text-[11px] text-[#113D33]/75 leading-relaxed">
         By clicking <strong>Enter to Win</strong>
         {CONSENT_TEXT.slice("By clicking Enter to Win".length).replace(
           " See our Terms and Privacy Policy.",
@@ -321,7 +321,7 @@ export default function EnterToWinForm({
         )}
       </button>
 
-      <p className="text-[11px] text-[#113D33]/45 text-center leading-relaxed">
+      <p className="text-[11px] text-[#113D33]/75 text-center leading-relaxed">
         No purchase necessary. Must be 18+. One entry per email. Bonus entry
         requires following @swaywellnessclub on Instagram. See full rules
         below.

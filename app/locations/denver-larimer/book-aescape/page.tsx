@@ -1436,9 +1436,9 @@ export default function BookAescapePage() {
                 <span className="font-bold">{memberFirstName ?? email}</span>
                 {hasAescapeMembership && <> · <span className="font-semibold">Aescape Member</span></>}
                 {isMember && !hasAescapeMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-                {homeLocation && <span className={isMember || hasAescapeMembership ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
+                {homeLocation && <span className={isMember || hasAescapeMembership ? "text-white/60 ml-1" : "text-[#113D33]/75 ml-1"}>· {homeLocation}</span>}
               </p>
-              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isMember || hasAescapeMembership ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isMember || hasAescapeMembership ? "text-white/70 hover:text-white" : "text-[#113D33]/75 hover:text-[#113D33]"}`}>Switch</button>
             </div>
           )}
 
@@ -1461,7 +1461,7 @@ export default function BookAescapePage() {
                 <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[#113D33] mb-3 md:mb-4 leading-tight animate-fade-in-up">
                   Aescape Robot Massage
                 </h1>
-                <p className="hidden sm:block text-base md:text-lg text-[#113D33]/60 max-w-xl mx-auto mb-4 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
+                <p className="hidden sm:block text-base md:text-lg text-[#113D33]/75 max-w-xl mx-auto mb-4 animate-fade-in-up" style={{ animationDelay: "50ms" }}>
                   AI-powered precision massage that adapts to your body in real time.
                   Choose your session and reserve in under a minute.
                 </p>
@@ -1475,7 +1475,7 @@ export default function BookAescapePage() {
                   {["AI-Guided", "Personalized Pressure", "Zero Wait", "No Tipping"].map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[#113D33]/10 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 text-xs text-[#113D33]/60"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[#113D33]/10 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 text-xs text-[#113D33]/75"
                     >
                       <IconSpark className="w-3 h-3 text-[#4A776D]" />
                       {tag}
@@ -1486,13 +1486,13 @@ export default function BookAescapePage() {
                 <div className="hidden sm:flex items-center justify-center gap-4 text-sm animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   <Link
                     href="/aescape"
-                    className="text-[#113D33]/65 underline underline-offset-4 hover:text-[#113D33] transition"
+                    className="text-[#113D33]/75 underline underline-offset-4 hover:text-[#113D33] transition"
                   >
                     Learn about Aescape
                   </Link>
                   <Link
                     href="/blog/aescape"
-                    className="text-[#113D33]/65 underline underline-offset-4 hover:text-[#113D33] transition"
+                    className="text-[#113D33]/75 underline underline-offset-4 hover:text-[#113D33] transition"
                   >
                     Read the blog
                   </Link>
@@ -1557,7 +1557,7 @@ export default function BookAescapePage() {
                           <div className="absolute bottom-3 right-3">
                             <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-right">
                               <div className="text-sm font-bold text-[#113D33]">{opt.price}</div>
-                              <div className="text-[10px] text-[#113D33]/60">{opt.minutes} min</div>
+                              <div className="text-[10px] text-[#113D33]/75">{opt.minutes} min</div>
                             </div>
                           </div>
                         </div>
@@ -1566,7 +1566,7 @@ export default function BookAescapePage() {
                           <div className="font-semibold text-[#113D33]">
                             {opt.label}
                           </div>
-                          <div className="text-sm text-[#113D33]/65 mt-0.5">
+                          <div className="text-sm text-[#113D33]/75 mt-0.5">
                             {opt.bestFor}
                           </div>
                           {hasAescapeMembership && !isBrady && (
@@ -1607,14 +1607,14 @@ export default function BookAescapePage() {
                 </div>
                 <div className="text-left">
                   <div className="font-semibold text-[#113D33] text-sm">{selectedOption.label}</div>
-                  <div className="text-xs text-[#113D33]/65">{selectedOption.minutes} min · {selectedOption.price}</div>
+                  <div className="text-xs text-[#113D33]/75">{selectedOption.minutes} min · {selectedOption.price}</div>
                 </div>
               </div>
 
               {/* DAY PICKER */}
               <section className="mb-10 md:mb-12">
                 <h2 className="text-lg font-semibold text-[#113D33]/80 mb-1">Choose a Day</h2>
-                <p aria-live="polite" className="text-sm text-[#113D33]/60 mb-4">
+                <p aria-live="polite" className="text-sm text-[#113D33]/75 mb-4">
                   {weekMonthLabel(weekStart)}
                 </p>
 
@@ -1656,7 +1656,7 @@ export default function BookAescapePage() {
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
-                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-80">{monthAbbr(day)}</span>
                           <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-white" : "bg-[#4A776D]") : "bg-transparent"}`} />
                         </button>
                       );
@@ -1693,7 +1693,7 @@ export default function BookAescapePage() {
                 </div>
 
                 {loading && (
-                  <div role="status" className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/65 animate-pulse">
+                  <div role="status" className="flex items-center justify-center gap-2 py-8 text-sm text-[#113D33]/75 animate-pulse">
                     <div className="w-4 h-4 rounded-full border-2 border-[#113D33]/15 border-t-[#113D33]/40 animate-spin" aria-hidden="true" />
                     Loading availability…
                   </div>
@@ -1732,7 +1732,7 @@ export default function BookAescapePage() {
                   )}
 
                 {!loading && !error && times.length === 0 && (
-                  <div className="text-center text-[#113D33]/60">
+                  <div className="text-center text-[#113D33]/75">
                     <p>No times available for this day.</p>
                     {sessionTypeId && (
                       <NextAvailableBanner
@@ -1756,7 +1756,7 @@ export default function BookAescapePage() {
                       <span>Try <span className="text-[#4A776D]">Massage & Facials</span>, with a licensed massage therapist or esthetician</span>
                       <span className="text-[#4A776D]">&rarr;</span>
                     </Link>
-                    <p className="mt-3 text-xs text-[#113D33]/40">
+                    <p className="mt-3 text-xs text-[#113D33]/75">
                       <Link href="/locations/denver-larimer/book-remedy-room" className="underline hover:text-[#4A776D] transition">Explore The Remedy Room</Link>. Sauna, cold plunge & more
                     </p>
                   </div>
@@ -1777,7 +1777,7 @@ export default function BookAescapePage() {
               </StickyFlowCTA>
 
               <div className="max-w-md mx-auto">
-                <div className="text-center text-xs text-[#113D33]/60">
+                <div className="text-center text-xs text-[#113D33]/75">
                   Prefer to book with staff?{" "}
                   <a
                     className="underline underline-offset-4 hover:text-[#113D33]/60 transition"
@@ -2148,7 +2148,7 @@ export default function BookAescapePage() {
                   Call to book: (303) 476-6150
                 </a>
 
-                <p className="text-xs opacity-60 mt-4 text-center">
+                <p className="text-xs opacity-80 mt-4 text-center">
                   Using: <span className="font-semibold">{emailNormalized}</span>
                 </p>
               </div>
@@ -2184,7 +2184,7 @@ export default function BookAescapePage() {
                   </div>
 
                   <div className="p-4">
-                    <div className="text-sm uppercase tracking-wide opacity-70 mb-2">
+                    <div className="text-sm uppercase tracking-wide opacity-80 mb-2">
                       Summary
                     </div>
                     <div className="flex items-start justify-between gap-4">
@@ -2281,7 +2281,7 @@ export default function BookAescapePage() {
                           onChange={(e) => setIsSurprise(e.target.checked)}
                           className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30"
                         />
-                        <span className="text-xs text-[#113D33]/60">
+                        <span className="text-xs text-[#113D33]/75">
                           This is a surprise · don&apos;t contact the guest
                         </span>
                       </label>
@@ -2380,12 +2380,12 @@ export default function BookAescapePage() {
               )}
 
               {selectedTime && (
-                <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+                <p className="text-[#113D33]/75 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
                   {formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, selectedOption.minutes)}
                 </p>
               )}
 
-              <p className="text-[#113D33]/65 text-sm mt-4 mb-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+              <p className="text-[#113D33]/75 text-sm mt-4 mb-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 Please arrive 15 minutes early. Check your email for confirmation. We&apos;ll see you soon.
               </p>
 
@@ -2393,7 +2393,7 @@ export default function BookAescapePage() {
 
               {/* Cross-sell */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/75">
                   Complete your visit
                 </p>
                 <Link
@@ -2414,7 +2414,7 @@ export default function BookAescapePage() {
 
               <Link
                 href="/locations/denver-larimer"
-                className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors"
               >
                 Done · back to Sway Larimer
               </Link>
@@ -2422,7 +2422,7 @@ export default function BookAescapePage() {
               <div className="mt-6">
                 <a
                   href="tel:3034766150"
-                  className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors"
+                  className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors"
                 >
                   Questions? (303) 476-6150
                 </a>

@@ -123,7 +123,7 @@ export default function Page() {
         <div className="flex flex-wrap items-center gap-3 text-sm">
           <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; The Sway Edit</Link>
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Membership</span>
-          <span className="text-gray-500">April 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">April 2026 · By Sway Wellness Team</span>
         </div>
 
         <p className="text-xl leading-relaxed font-medium text-[#113D33]">
@@ -135,7 +135,7 @@ export default function Page() {
         </p>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-2xl p-6">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-2xl p-6">
           <p className="font-bold text-[#113D33] text-base mb-3">In This Post</p>
           <ol className="list-decimal list-inside space-y-1.5 text-[#113D33] text-[15px]">
             <li><a href="#why-tiers" className="hover:underline">Why Three Tiers?</a></li>
@@ -172,8 +172,8 @@ export default function Page() {
                 <p className="font-bold text-sm md:text-base">{name}</p>
                 {badge && <span className="bg-white/20 text-white text-[10px] px-1.5 py-0.5 rounded-full font-semibold hidden md:inline">Popular</span>}
               </div>
-              <p className="text-2xl md:text-3xl font-bold">{price}<span className="text-xs font-normal opacity-70">{sub}</span></p>
-              <p className="text-xs opacity-60 mt-1">{sessions}</p>
+              <p className="text-2xl md:text-3xl font-bold">{price}<span className="text-xs font-normal opacity-80">{sub}</span></p>
+              <p className="text-xs opacity-80 mt-1">{sessions}</p>
               <p className="text-xs opacity-75 mt-0.5 font-medium">{count}</p>
             </div>
           ))}
@@ -184,7 +184,7 @@ export default function Page() {
           <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between flex-wrap gap-2">
             <div>
               <h2 className="text-xl font-bold text-[#113D33]">Essential Membership</h2>
-              <p className="text-gray-500 text-sm mt-0.5">50-minute treatments · 1 visit/month</p>
+              <p className="text-gray-600 text-sm mt-0.5">50-minute treatments · 1 visit/month</p>
             </div>
             <div className="text-right">
               <span className="text-3xl font-bold text-[#113D33]">$99</span>
@@ -406,7 +406,7 @@ export default function Page() {
                     <span className="font-medium">{name}</span>
                     <span className="text-right whitespace-nowrap">
                       <span className="text-[#113D33] font-semibold">{mem}</span>
-                      <span className="text-gray-500 mx-1">·</span>
+                      <span className="text-gray-600 mx-1">·</span>
                       <span className="text-gray-600 line-through text-xs">{drop}</span>
                       <span className="text-gray-600 text-xs ml-1">{time}</span>
                     </span>
@@ -431,7 +431,7 @@ export default function Page() {
                     <span className="font-medium">{name}</span>
                     <span className="text-right whitespace-nowrap">
                       <span className="text-[#113D33] font-semibold">{mem}</span>
-                      <span className="text-gray-500 mx-1">·</span>
+                      <span className="text-gray-600 mx-1">·</span>
                       <span className="text-gray-600 line-through text-xs">{drop}</span>
                       <span className="text-gray-600 text-xs ml-1">{time}</span>
                     </span>

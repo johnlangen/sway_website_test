@@ -1257,9 +1257,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 <span className="font-bold">{memberFirstName ?? email}</span>
                 {hasRemedyMembership && <> · <span className="font-semibold">Remedy Lounge Member</span></>}
                 {isMember && !hasRemedyMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-                {homeLocation && <span className={isDarkStep ? "text-white/50 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/60 ml-1"}>· {homeLocation}</span>}
+                {homeLocation && <span className={isDarkStep ? "text-white/70 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/75 ml-1"}>· {homeLocation}</span>}
               </p>
-              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/40 hover:text-white" : isMember ? "text-white/50 hover:text-white" : "text-[#113D33]/60 hover:text-[#113D33]"}`}>Switch</button>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/70 hover:text-white" : isMember ? "text-white/70 hover:text-white" : "text-[#113D33]/75 hover:text-[#113D33]"}`}>Switch</button>
             </div>
           )}
 
@@ -1321,7 +1321,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   </div>
                 </div>
 
-                <p className="hidden sm:block mt-3 text-xs text-white/40">
+                <p className="hidden sm:block mt-3 text-xs text-white/70">
                   Planning a birthday or corporate event?{" "}
                   <a href={`mailto:${contactEmail}`} className="underline underline-offset-4 hover:text-white/60 transition">
                     Email {contactEmail}
@@ -1338,7 +1338,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               {/* Day picker */}
               <section className="mb-10 md:mb-12">
                 <h2 className="text-lg font-semibold text-[#113D33] mb-1">Choose a Day</h2>
-                <p aria-live="polite" className="text-sm text-[#113D33]/50 mb-4">
+                <p aria-live="polite" className="text-sm text-[#113D33]/75 mb-4">
                   {weekMonthLabel(weekStart)}
                 </p>
                 <div className="flex items-center justify-center gap-1">
@@ -1363,7 +1363,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{day.getDate()}</span>
-                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-60">{monthAbbr(day)}</span>
+                          <span className="text-[9px] font-semibold tracking-wider uppercase opacity-80">{monthAbbr(day)}</span>
                           <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-white" : "bg-[#4A776D]") : "bg-transparent"}`} />
                         </button>
                       );
@@ -1380,7 +1380,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 <div className="mb-1">
                   <h2 className="text-lg font-semibold text-[#113D33] text-center">Choose a Session</h2>
                 </div>
-                <p className="text-sm text-[#113D33]/50 text-center mb-5">
+                <p className="text-sm text-[#113D33]/75 text-center mb-5">
                   Sessions run in {SERVICE_MIN}-minute blocks. Arrive at your start time.
                 </p>
                 {!loading && !error && !occupancyKnown && times.length > 0 && (
@@ -1388,7 +1388,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                     Live availability is updating. These sessions may fill up. We&apos;ll confirm your spot at booking.
                   </p>
                 )}
-                {loading && <p role="status" className="text-center text-[#113D33]/50">Loading…</p>}
+                {loading && <p role="status" className="text-center text-[#113D33]/75">Loading…</p>}
                 {error && <p role="alert" className="text-center text-red-600">{error}</p>}
                 {!loading && !error && times.length > 0 && (() => {
                   // Group the session waves by part of day so the list is
@@ -1433,7 +1433,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                                     ) : left != null && left <= 5 ? (
                                       <span className="shrink-0 text-[11px] font-semibold text-amber-700">{left} left</span>
                                     ) : left != null ? (
-                                      <span className="shrink-0 text-[11px] text-[#113D33]/45">{left} open</span>
+                                      <span className="shrink-0 text-[11px] text-[#113D33]/75">{left} open</span>
                                     ) : null}
                                   </div>
                                 </button>
@@ -1446,14 +1446,14 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   );
                 })()}
                 {!loading && !error && times.length === 0 && (
-                  <div role="status" className="text-center text-[#113D33]/60">
+                  <div role="status" className="text-center text-[#113D33]/75">
                     <p>No sessions available for this day.</p>
-                    <p className="mt-3 text-xs text-[#113D33]/40">Try another day, or <a href={`mailto:${contactEmail}`} className="underline hover:text-[#113D33]/70 transition">email {contactEmail}</a>.</p>
+                    <p className="mt-3 text-xs text-[#113D33]/75">Try another day, or <a href={`mailto:${contactEmail}`} className="underline hover:text-[#113D33]/70 transition">email {contactEmail}</a>.</p>
                   </div>
                 )}
               </section>
 
-              <div className="max-w-md mx-auto text-center text-xs text-[#113D33]/50">
+              <div className="max-w-md mx-auto text-center text-xs text-[#113D33]/75">
                 Prefer to book with staff?{" "}
                 <a className="underline underline-offset-4 hover:text-[#113D33]/80 transition" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
               </div>
@@ -1474,7 +1474,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
             <div className="max-w-lg mx-auto text-left">
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-semibold text-[#113D33] mb-2">Your 75 minutes, your way</h2>
-                <p className="text-sm text-[#113D33]/60">
+                <p className="text-sm text-[#113D33]/75">
                   Everything below is yours for the whole session. If you&apos;d like to use the sauna, reserve your time and sauna type below.
                 </p>
                 {selectedTime && (
@@ -1486,7 +1486,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
               {/* What's included — passive modalities, no action. Sets the value
                   of the circuit before the one interactive choice (sauna). */}
-              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-[#113D33]/50">
+              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-[#113D33]/75">
                 Included with your session
               </div>
               <div className="space-y-2 mb-8">
@@ -1507,7 +1507,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               </div>
 
               {/* The one interactive choice: reserve a sauna window. */}
-              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-[#113D33]/50">
+              <div className="mb-2 px-1 text-[11px] uppercase tracking-[0.14em] text-[#113D33]/75">
                 Reserve a sauna
               </div>
               <div className="space-y-3 mb-8">
@@ -1519,7 +1519,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         <span className="text-sm font-semibold text-[#113D33]">
                           Window {i + 1}
                           {slotStart && (
-                            <span className="text-[#113D33]/50 font-normal ml-2">
+                            <span className="text-[#113D33]/75 font-normal ml-2">
                               {formatTimeRange(slotStart, SUB_SLOT_MIN)}
                             </span>
                           )}
@@ -1551,7 +1551,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                               className={`py-2.5 rounded-xl text-sm font-medium border transition ${isChosen ? "bg-[#113D33] text-white border-[#113D33]" : blocked ? "border-[#113D33]/10 bg-[#113D33]/5 text-[#113D33]/35 cursor-not-allowed" : "border-[#113D33]/15 bg-white text-[#113D33] hover:bg-[#113D33]/5"}`}
                             >
                               <div>{s.key === "traditional" ? "Traditional" : "Infrared"}</div>
-                              <div className="text-[10px] font-normal mt-0.5 opacity-70">
+                              <div className="text-[10px] font-normal mt-0.5 opacity-80">
                                 {full ? "Full" : capReached && !isChosen ? "Max 2 per visit" : `${seatsLeft} left`}
                               </div>
                             </button>
@@ -1566,9 +1566,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                           (one shared room) and where no cabins are configured. */}
                       {choice === "infrared" && infraredCabins.length > 0 && (
                         <div className="mt-3 rounded-xl border border-[#113D33]/10 bg-[#113D33]/[0.03] p-3 animate-fade-in">
-                          <div className="text-[11px] uppercase tracking-wider text-[#113D33]/60 mb-2">
+                          <div className="text-[11px] uppercase tracking-wider text-[#113D33]/75 mb-2">
                             Preferred cabin
-                            <span className="text-[#113D33]/40 normal-case tracking-normal"> · confirmed at check-in</span>
+                            <span className="text-[#113D33]/75 normal-case tracking-normal"> · confirmed at check-in</span>
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {infraredCabins.map((cab) => {
@@ -1601,7 +1601,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 })}
               </div>
 
-              <p className="text-center text-xs text-[#113D33]/50">
+              <p className="text-center text-xs text-[#113D33]/75">
                 Sauna availability is confirmed at booking. If a window is full, we&apos;ll keep your Lounge session and let you know.
               </p>
 
@@ -1628,7 +1628,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                     <p className="text-sm text-[#113D33]/80 leading-relaxed">We only use your email for booking confirmation and account lookup.</p>
                   </div>
                 </div>
-                <p className="text-xs text-[#113D33]/60 mb-4">
+                <p className="text-xs text-[#113D33]/75 mb-4">
                   Spavia and Sway members: if this is your first visit to this location, continue as a guest. Your membership benefits will be applied at check-in.
                 </p>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} inputMode="email" autoComplete="email" aria-label="Email address" name="email" placeholder="you@email.com" className="w-full px-4 py-3 border rounded-xl mb-3 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
@@ -1647,7 +1647,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         </button>
                       ))}
                     </div>
-                    <button onClick={() => { setMultipleClients(null); setError(null); }} className="w-full mt-2 text-xs text-[#113D33]/60 underline underline-offset-2 hover:text-[#113D33]">Use a different email</button>
+                    <button onClick={() => { setMultipleClients(null); setError(null); }} className="w-full mt-2 text-xs text-[#113D33]/75 underline underline-offset-2 hover:text-[#113D33]">Use a different email</button>
                   </div>
                 )}
                 {error && <p className="text-red-700 text-sm mb-3" role="alert">{error}</p>}
@@ -1753,7 +1753,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 <button onClick={handleSaveCardAndContinue} disabled={cardSaving} className="w-full py-3 bg-[#113D33] text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">{cardSaving ? "Saving…" : "Save & continue"}</button>
                 <button onClick={() => { setError(null); clearCardRefs(); setStep(memberCheckDone && clientId ? "sauna" : "email"); }} className="w-full mt-3 py-3 rounded-xl border border-[#113D33]/25 bg-white/60 hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Back</button>
                 <a href={`mailto:${contactEmail}`} className="block w-full text-center mt-3 py-3 rounded-xl border-2 border-[#113D33] text-[#113D33] font-semibold hover:bg-[#113D33] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30">Need help? Email {contactEmail}</a>
-                <p className="text-xs opacity-60 mt-4 text-center">Using: <span className="font-semibold">{emailNormalized}</span></p>
+                <p className="text-xs opacity-80 mt-4 text-center">Using: <span className="font-semibold">{emailNormalized}</span></p>
               </div>
             </div>
           )}
@@ -1775,7 +1775,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                     </div>
                   </div>
                   <div className="p-4">
-                    <div className="text-sm uppercase tracking-wide opacity-70 mb-2">Summary</div>
+                    <div className="text-sm uppercase tracking-wide opacity-80 mb-2">Summary</div>
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <div className="font-semibold text-[#113D33]">Remedy Lounge · {club.label}</div>
@@ -1804,7 +1804,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         ) : isMember ? (
                           <div className="text-xs text-[#4A776D] font-semibold">Member price</div>
                         ) : (
-                          <div className="text-xs opacity-70">Included with membership</div>
+                          <div className="text-xs opacity-80">Included with membership</div>
                         )}
                       </div>
                     </div>
@@ -1830,7 +1830,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                       <input type="email" placeholder="Guest email (optional)" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} className="w-full rounded-xl border border-[#113D33]/20 bg-white px-3 py-2.5 text-sm text-[#113D33] focus:outline-none focus:ring-2 focus:ring-[#113D33]/30" />
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" checked={isSurprise} onChange={(e) => setIsSurprise(e.target.checked)} className="w-4 h-4 rounded border-[#113D33]/30 text-[#113D33] focus:ring-[#113D33]/30" />
-                        <span className="text-xs text-[#113D33]/60">This is a surprise · don&apos;t contact the guest</span>
+                        <span className="text-xs text-[#113D33]/75">This is a surprise · don&apos;t contact the guest</span>
                       </label>
                     </div>
                   )}
@@ -1877,7 +1877,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
               {selectedTime && (
                 <>
                   <p className="text-[#113D33] font-semibold text-lg mb-1 animate-fade-in-up" style={{ animationDelay: "100ms" }}>Remedy Lounge · {club.label}</p>
-                  <p className="text-[#113D33]/60 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>{formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, SERVICE_MIN)}</p>
+                  <p className="text-[#113D33]/75 text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "150ms" }}>{formatDayLabel(new Date(selectedDate + "T00:00:00"))} · {formatTimeRange(selectedTime, SERVICE_MIN)}</p>
                   {selectedSaunaCount > 0 && (() => {
                     // Selected sauna labels in order. Remove any the route reported as
                     // failed (one removal per failure, to preserve multiplicity when the
@@ -1910,11 +1910,11 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   })()}
                 </>
               )}
-              <p className="text-[#113D33]/65 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>Please bring a swimsuit or athleisure. Check your email for confirmation details.</p>
+              <p className="text-[#113D33]/75 text-sm mt-4 mb-8 animate-fade-in-up" style={{ animationDelay: "200ms" }}>Please bring a swimsuit or athleisure. Check your email for confirmation details.</p>
 
               {/* Cross-sell: keep the visit going. */}
               <div className="space-y-3 mb-8 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/60">
+                <p className="text-xs uppercase tracking-[0.15em] font-semibold text-[#113D33]/75">
                   Complete your visit
                 </p>
                 <button
@@ -1957,7 +1957,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                   in your Sway {club.label} account.
                 </p>
                 {saunaChoices.some(Boolean) && (
-                  <p className="mt-2 text-sm text-[#113D33]/60 leading-relaxed">
+                  <p className="mt-2 text-sm text-[#113D33]/75 leading-relaxed">
                     Heads up: your sauna time is booked as its own separate
                     reservation, so please change or cancel both. If that gets
                     fiddly, email us at{" "}
@@ -1969,9 +1969,9 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                 )}
               </div>
 
-              <Link href={basePath} className="text-sm text-[#113D33]/65 hover:text-[#113D33] underline underline-offset-4 transition-colors">Done. Back to Sway {club.label}</Link>
+              <Link href={basePath} className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors">Done. Back to Sway {club.label}</Link>
               <div className="mt-6">
-                <a href={`mailto:${contactEmail}`} className="text-sm text-[#113D33]/60 hover:text-[#113D33] underline underline-offset-4 transition-colors">Questions? {contactEmail}</a>
+                <a href={`mailto:${contactEmail}`} className="text-sm text-[#113D33]/75 hover:text-[#113D33] underline underline-offset-4 transition-colors">Questions? {contactEmail}</a>
               </div>
             </div>
           )}

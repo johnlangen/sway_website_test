@@ -37,10 +37,10 @@ export default function FAQIndexPage() {
           >
             Sway Larimer
           </Link>
-          <div className="rounded-2xl bg-gray-200 text-gray-500 py-10 px-6 text-center shadow opacity-70">
+          <div className="rounded-2xl bg-gray-200 text-gray-600 py-10 px-6 text-center shadow">
             Dallas (Coming Soon)
           </div>
-          <div className="rounded-2xl bg-gray-200 text-gray-500 py-10 px-6 text-center shadow opacity-70">
+          <div className="rounded-2xl bg-gray-200 text-gray-600 py-10 px-6 text-center shadow">
             Union Market (Coming Soon)
           </div>
         </div>

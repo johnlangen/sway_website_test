@@ -1031,21 +1031,21 @@ export default function HolidayWellnessGuideLayout() {
   <div className="flex flex-wrap items-center gap-4 text-sm">
     <Link href="/blog" className="text-[#113D33] font-semibold hover:underline">&larr; Back to Blog</Link>
     <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Holiday</span>
-    <span className="text-gray-500">December 2025 · By Sway Wellness Team</span>
+    <span className="text-gray-600">December 2025 · By Sway Wellness Team</span>
   </div>
   <div className="pt-6">
     <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <Link href="/blog/mothers-day-gift-guide" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-        <div className="h-36 overflow-hidden"><Image src="/assets/blog16.jpg" alt="Mother's Day Gift Guide" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+        <div className="h-36 overflow-hidden"><Image src="/assets/blog16.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
         <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">The Ultimate Mother&apos;s Day Gift Guide</p></div>
       </Link>
       <Link href="/blog/give-wellness-get-wellness" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-        <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="Referral Program" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+        <div className="h-36 overflow-hidden"><Image src="/assets/blog19.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
         <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Give Wellness, Get Wellness</p></div>
       </Link>
       <Link href="/blog/sway-shop-finds" className="group block bg-white rounded-xl border border-[#d7e2dc] overflow-hidden hover:shadow-lg transition">
-        <div className="h-36 overflow-hidden"><Image src="/assets/blog13.jpg" alt="Sway Shop Finds" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
+        <div className="h-36 overflow-hidden"><Image src="/assets/blog13.jpg" alt="" width={400} height={200} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" /></div>
         <div className="p-4"><p className="font-bold text-sm group-hover:text-[#113D33] transition">Best Sway Shop Finds for Wellness</p></div>
       </Link>
     </div>

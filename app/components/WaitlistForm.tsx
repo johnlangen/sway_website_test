@@ -94,7 +94,7 @@ export default function WaitlistForm({
       >
         <div className="text-3xl mb-3">✓</div>
         <h3 className="text-xl font-bold mb-2">You&apos;re on the list!</h3>
-        <p className={variant === "compact" ? "text-sm opacity-80" : "text-sm opacity-70"}>
+        <p className={variant === "compact" ? "text-sm opacity-80" : "text-sm opacity-80"}>
           {CLUB_COPY[location]
             ? `We\u2019ll let you know as soon as massage and facial booking opens at Sway ${CLUB_COPY[location]!.place}.`
             : <>
@@ -111,11 +111,11 @@ export default function WaitlistForm({
   if (variant === "compact") {
     return (
       <div className="bg-[#113D33] text-white rounded-2xl p-6 md:p-8">
-        <h3 className="text-lg md:text-xl font-bold mb-1">
+        <h2 className="text-lg md:text-xl font-bold mb-1">
           {CLUB_COPY[location]
             ? "Be First for Massage & Facials"
             : "Get Notified When We Open"}
-        </h3>
+        </h2>
         <p className="text-sm opacity-80 mb-4">
           {CLUB_COPY[location]
             ? `Massage and facial treatments are coming to Sway ${CLUB_COPY[location]!.place}. Get first access to booking and launch offers.`
@@ -173,7 +173,7 @@ export default function WaitlistForm({
           </button>
         </form>
 
-        <p className="text-[11px] opacity-60 mt-3 leading-relaxed">
+        <p className="text-[11px] opacity-80 mt-3 leading-relaxed">
           {consentText}
         </p>
       </div>
@@ -228,7 +228,7 @@ export default function WaitlistForm({
 
         <div>
           <label className="block text-sm font-semibold mb-1">
-            Phone <span className="text-xs opacity-70 font-normal">(optional)</span>
+            Phone <span className="text-xs opacity-80 font-normal">(optional)</span>
           </label>
           <input
             type="tel"
@@ -252,7 +252,7 @@ export default function WaitlistForm({
         </button>
       </form>
 
-      <p className="text-[11px] opacity-60 mt-3 text-center leading-relaxed">
+      <p className="text-[11px] opacity-80 mt-3 text-center leading-relaxed">
         {consentText} Membership pricing and perks are not yet final.
       </p>
     </div>

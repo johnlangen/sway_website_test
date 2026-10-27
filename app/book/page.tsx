@@ -96,12 +96,12 @@ function LocationCard({
         </div>
       </div>
       <div className="p-5 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold mb-1">{loc.name}</h3>
+        <h2 className="text-xl font-bold mb-1">{loc.name}</h2>
         <p className="text-sm text-gray-500 flex items-center gap-1 mb-1">
           <MapPin className="w-3.5 h-3.5" />
           {loc.city}, {loc.state}
         </p>
-        {loc.address && <p className="text-xs text-gray-400 mb-4">{loc.address}</p>}
+        {loc.address && <p className="text-xs text-gray-600 mb-4">{loc.address}</p>}
         <div
           className={`mt-auto flex items-center justify-center gap-2 w-full rounded-full py-3 px-5 text-white font-semibold text-sm transition ${
             isOpen ? "bg-[#113D33] group-hover:bg-[#0a2b23]" : "bg-[#113D33]/80 group-hover:bg-[#113D33]"

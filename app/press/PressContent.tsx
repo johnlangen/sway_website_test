@@ -208,7 +208,7 @@ export default function PressContent() {
       <section className="px-6 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-3">
               Recognition
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
@@ -253,7 +253,7 @@ export default function PressContent() {
                     {award.title}
                   </h3>
 
-                  <p className="mt-3 text-sm opacity-70 max-w-md leading-relaxed">
+                  <p className="mt-3 text-sm opacity-80 max-w-md leading-relaxed">
                     {award.description}
                   </p>
 
@@ -272,7 +272,7 @@ export default function PressContent() {
       {/* ---------- AS FEATURED IN ---------- */}
       <section className="px-6 py-14 md:py-20" style={{ backgroundColor: SAND }}>
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-8">
             As Featured In
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 md:gap-x-12 gap-y-5">
@@ -292,7 +292,7 @@ export default function PressContent() {
       <section className="px-6 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
-            <div className="text-xs uppercase tracking-[0.3em] text-[#4A776D] mb-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#3d665c] mb-3">
               Coverage
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">

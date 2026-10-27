@@ -136,7 +136,7 @@ export default function LarimerMassagePage() {
           {TREATMENTS.map((t) => (
             <div key={t.key}>
               <p className="text-white font-bold text-base md:text-lg">{t.price}</p>
-              <p className="text-white/55 text-xs">{t.label}</p>
+              <p className="text-white/70 text-xs">{t.label}</p>
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ export default function LarimerMassagePage() {
               <div className="bg-[#F7F4E9] px-6 py-5 border-b border-[#113D33]/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
                   <h2 className="text-[#113D33] text-xl font-semibold">Massage menu</h2>
-                  <p className="text-sm text-[#113D33]/60 mt-0.5">Choose your tier to see available treatments</p>
+                  <p className="text-sm text-[#113D33]/75 mt-0.5">Choose your tier to see available treatments</p>
                 </div>
                 <Link
                   href="/locations/denver-larimer/book/?category=massage"
@@ -175,7 +175,7 @@ export default function LarimerMassagePage() {
                       className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                         selectedTier === t.key
                           ? "bg-[#113D33] text-white shadow-sm"
-                          : "text-[#113D33]/60 hover:text-[#113D33]"
+                          : "text-[#113D33]/75 hover:text-[#113D33]"
                       }`}
                     >
                       {t.label}
@@ -186,7 +186,7 @@ export default function LarimerMassagePage() {
 
               {/* Pricing */}
               <div className="px-6 pt-3 text-center">
-                <p className="text-sm text-[#113D33]/60">
+                <p className="text-sm text-[#113D33]/75">
                   <span className="font-semibold text-[#4A776D]">{activeTier.price}</span>
                   <span className="mx-1.5">·</span>
                   <span>{activeTier.dropIn} drop-in</span>
@@ -210,7 +210,7 @@ export default function LarimerMassagePage() {
                         className="flex items-center justify-between bg-[#F7F4E9] rounded-xl px-4 py-3"
                       >
                         <span className="text-sm font-medium text-[#113D33]">{item.name}</span>
-                        <span className="text-xs text-[#113D33]/50 ml-3 shrink-0">{item.duration}</span>
+                        <span className="text-xs text-[#113D33]/75 ml-3 shrink-0">{item.duration}</span>
                       </div>
                     ))}
                   </motion.div>

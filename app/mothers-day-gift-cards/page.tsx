@@ -152,7 +152,7 @@ export default function MothersDayGiftCardsPage() {
             </div>
           </div>
 
-          <p className="mt-8 text-center text-xs md:text-sm text-[#7b9b92]">
+          <p className="mt-8 text-center text-xs md:text-sm text-[#4A776D]">
             $150 covers a signature service · $250 adds the Remedy Room · $400+ a half-day
           </p>
         </section>
@@ -208,7 +208,7 @@ export default function MothersDayGiftCardsPage() {
               />
             </div>
             <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col justify-center">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#7b9b92] mb-2">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D] mb-2">
                 On Larimer Square
               </p>
               <h2 className="text-2xl md:text-3xl font-light mb-3 leading-tight">
@@ -231,21 +231,21 @@ export default function MothersDayGiftCardsPage() {
               <p className="text-[#4A776D] leading-relaxed">
                 "I tried the Remedy Room and the Glow Getter facial. My skin felt incredibly smooth and firm. Ended up getting a membership!"
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Whitney Gustafson</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Whitney Gustafson</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
                 "Took my son's girlfriend to Sway for her first facial. She LOVED it. Highly recommend the Remedy Room too!"
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Laura Rolfe</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Laura Rolfe</p>
             </div>
 
             <div className="rounded-2xl bg-white/70 border border-[#d4dfda] p-4 h-full flex flex-col justify-between">
               <p className="text-[#4A776D] leading-relaxed">
                 "Best massage I've ever had. The Remedy Room made the experience next-level. Left feeling mentally and physically rejuvenated."
               </p>
-              <p className="mt-3 text-[11px] text-[#7b9b92]">Erin Schmidt</p>
+              <p className="mt-3 text-[11px] text-[#4A776D]">Erin Schmidt</p>
             </div>
           </div>
         </section>
@@ -258,7 +258,7 @@ export default function MothersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">How fast is delivery?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Gift cards are emailed instantly to you. You can purchase right up to Mother's Day morning, then print it, forward it, or send it straight to Mom.
@@ -268,7 +268,7 @@ export default function MothersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">What amount should I get?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Choose any amount. $150 covers a signature massage or facial. $250 covers a massage plus the Remedy Room recovery circuit. $400+ gives Mom a full half-day.
@@ -278,7 +278,7 @@ export default function MothersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Do gift cards expire?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 No. Sway gift cards never expire.
@@ -288,7 +288,7 @@ export default function MothersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Are gift cards refundable?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Gift card purchases are non-refundable. They never expire, so they can be used anytime.
@@ -298,7 +298,7 @@ export default function MothersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">What can Mom use it for?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 Any service at Sway Wellness Spa · massage, facials, Remedy Room, sauna, cold plunge, Aescape robot massage, and retail.
@@ -308,7 +308,7 @@ export default function MothersDayGiftCardsPage() {
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
                 <span className="font-semibold text-[#113D33]">Where is Sway located?</span>
-                <span className="text-xs text-[#7b9b92] group-open:rotate-180 transition-transform">▾</span>
+                <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
                 1428 Larimer St., Denver, CO 80202, in the heart of downtown Denver.
@@ -339,7 +339,7 @@ export default function MothersDayGiftCardsPage() {
           </div>
         </section>
 
-        <p className="mt-8 text-center text-[11px] text-[#7b9b92]">
+        <p className="mt-8 text-center text-[11px] text-[#4A776D]">
           Gift card purchases are non-refundable. Gift cards never expire.
         </p>
       </div>

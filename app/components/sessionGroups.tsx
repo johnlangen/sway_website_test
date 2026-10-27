@@ -82,7 +82,7 @@ export function PartOfDayHeading({
   return (
     <div
       className={`flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] font-semibold ${
-        dark ? "text-[#9ABFB3]" : "text-[#113D33]/60"
+        dark ? "text-[#9ABFB3]" : "text-[#113D33]/75"
       } ${className}`}
     >
       {PART_ICONS[part.key]}

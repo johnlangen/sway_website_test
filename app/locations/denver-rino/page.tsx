@@ -91,7 +91,7 @@ export default function SwayRinoPage() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           {/* LEFT */}
           <div>
-            <div className="mb-3 text-xs tracking-wide uppercase opacity-70">
+            <div className="mb-3 text-xs tracking-wide uppercase opacity-80">
               Sauna, Cold Plunge &amp; Recovery · RiNo, Denver
             </div>
 
@@ -211,7 +211,7 @@ export default function SwayRinoPage() {
               </div>
 
               <div>
-                <div className="text-xs uppercase tracking-wider opacity-50 mb-2">
+                <div className="text-xs uppercase tracking-wider opacity-80 mb-2">
                   Open Daily
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
@@ -271,7 +271,7 @@ export default function SwayRinoPage() {
                   </div>
                 ))}
               </dl>
-              <p className="text-xs opacity-60 mt-3">
+              <p className="text-xs opacity-80 mt-3">
                 Last session starts 75 minutes before close. Booking always shows live availability.
               </p>
               <a
@@ -290,7 +290,7 @@ export default function SwayRinoPage() {
                 <br />
                 {loc.city}, {loc.state} {loc.zip}
               </p>
-              <p className="text-sm opacity-60 mb-4">
+              <p className="text-sm opacity-80 mb-4">
                 {loc.neighborhood}. Walkable from the 38th &amp; Blake light
                 rail station.
               </p>

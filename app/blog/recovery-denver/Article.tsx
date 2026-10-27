@@ -23,7 +23,7 @@ export default function RecoveryDenverBlogLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Recovery
           </span>
-          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}
@@ -52,7 +52,7 @@ export default function RecoveryDenverBlogLayout() {
         </p>
 
         {/* Table of Contents */}
-        <nav className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
+        <nav aria-label="In this article" className="bg-white border-l-4 border-[#9CB7A9] rounded-xl p-6 space-y-2">
           <p className="font-bold text-lg mb-3">In This Guide</p>
           <ol className="list-decimal list-inside space-y-2 text-[#113D33]">
             <li><a href="#remedy-room" className="hover:underline">The Remedy Room: Denver&apos;s Recovery Circuit</a></li>
@@ -90,7 +90,7 @@ export default function RecoveryDenverBlogLayout() {
               each tool separately around the city, you move through the full
               contrast cycle in a single visit.
             </p>
-            <p className="text-[15px] text-[#113D33]/60">
+            <p className="text-[15px] text-[#113D33]/75">
               Member access is $25 per session and drop-in is $49, which makes
               consistent recovery realistic instead of a once-in-a-while splurge.
             </p>
@@ -271,7 +271,7 @@ export default function RecoveryDenverBlogLayout() {
               customizable pressure, with sessions available in 15, 30, 45, or
               60-minute lengths.
             </p>
-            <p className="text-[15px] text-[#113D33]/60">
+            <p className="text-[15px] text-[#113D33]/75">
               Precise, repeatable recovery on your schedule, and a genuinely
               one-of-a-kind experience in the city.
             </p>
@@ -425,7 +425,7 @@ export default function RecoveryDenverBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/aescapeblog3.jpg"
-                  alt="Aescape AI massage at Sway"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -444,7 +444,7 @@ export default function RecoveryDenverBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog25.jpg"
-                  alt="Why a longer massage is the ultimate reset"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -463,7 +463,7 @@ export default function RecoveryDenverBlogLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/saltstoneblog.jpg"
-                  alt="Salt stone vs hot stone massage"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

@@ -9,6 +9,7 @@ import { AddToHomeScreen } from "./components/AddToHomeScreen";
 import AdAttribution from "./components/AdAttribution";
 import OpsTracker from "./components/OpsTracker";
 import { LarimerOnlyChat } from "./components/LarimerOnlyChat";
+import { BOWTIE_KEYBOARD } from "@/lib/bowtieKeyboard";
 // BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md):
 // swap the import above for the line below, delete the inline "Bowtie AI
 // Chat" script block further down, and replace <LarimerOnlyChat /> with
@@ -231,6 +232,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         {/* ACTIVATION: replace with <BowtieChat /> (and delete
             LarimerOnlyChat.tsx — BowtieChat subsumes its hide logic). */}
+        {/* Keyboard + screen-reader access for the Bowtie chat (ADA, lib/bowtieKeyboard.ts).
+            In the body because it watches document.body for the widget. Keep it with
+            <BowtieChat /> at activation. */}
+        {process.env.NODE_ENV === "production" && (
+          <script dangerouslySetInnerHTML={{ __html: BOWTIE_KEYBOARD }} />
+        )}
         {/* Persists the Google Ads click id so bookings can be attributed to
             the ad that produced them (offline conversion upload). Renders
             nothing. */}

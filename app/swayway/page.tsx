@@ -164,7 +164,7 @@ export default function SwayWayPage() {
                 <h3 className="text-2xl md:text-3xl font-semibold mb-3">
                   {p.word}
                 </h3>
-                <p className="text-sm md:text-base opacity-70 leading-relaxed">
+                <p className="text-sm md:text-base opacity-80 leading-relaxed">
                   {p.body}
                 </p>
               </motion.div>
@@ -238,7 +238,7 @@ export default function SwayWayPage() {
             width={200}
             strokeWidth={1.5}
             animate
-            className="text-[#113D33]/55 mb-10"
+            className="text-[#113D33]/75 mb-10"
           />
           <p className="font-vance italic text-2xl md:text-4xl leading-[1.25] mb-8">
             This is the Sway Way.
@@ -264,7 +264,7 @@ export default function SwayWayPage() {
 
           <Link
             href="/own"
-            className="mt-7 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-[#113D33]/55 hover:text-[#113D33] transition"
+            className="mt-7 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-[#113D33]/75 hover:text-[#113D33] transition"
           >
             Bring Sway to your city · Own a Sway
             <span aria-hidden="true">&rarr;</span>

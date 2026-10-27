@@ -29,7 +29,7 @@ export default function ColdPlungeDenverLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
             Recovery
           </span>
-          <span className="text-gray-500">Updated September 2026 · By Sway Wellness Team</span>
+          <span className="text-gray-600">Updated September 2026 · By Sway Wellness Team</span>
         </div>
 
         {/* Hero Image */}
@@ -122,7 +122,7 @@ export default function ColdPlungeDenverLayout() {
                 "linear-gradient(to right, #D7EDF1, #8FC1CF, #3E7A94, #12293D)",
             }}
           />
-          <div className="flex justify-between text-xs font-bold text-[#113D33]/50 mt-2 px-1">
+          <div className="flex justify-between text-xs font-bold text-[#113D33]/75 mt-2 px-1">
             <span>65&deg;F · brisk</span>
             <span className="hidden sm:inline">55&deg;F</span>
             <span className="hidden sm:inline">45&deg;F</span>
@@ -134,7 +134,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="rounded-xl p-5 space-y-1 bg-[#EDF7F9] border border-[#C9E4EA]">
             <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-bold text-[#12293D]">The Gateway</h3>
-              <span className="text-sm font-bold text-[#3E7A94]">60&ndash;65&deg;F</span>
+              <span className="text-sm font-bold text-[#33687f]">60&ndash;65&deg;F</span>
             </div>
             <p className="text-[15px] text-[#12293D]/80">
               Brisk but friendly. Cold enough to feel it, warm enough to
@@ -162,7 +162,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="rounded-xl p-5 space-y-1 bg-[#3E7A94] text-white">
             <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-bold">The Deep End</h3>
-              <span className="text-sm font-bold text-white/70">40&ndash;49&deg;F</span>
+              <span className="text-sm font-bold text-white">40&ndash;49&deg;F</span>
             </div>
             <p className="text-[15px] text-white/85">
               A bigger stimulus for experienced plungers. Nobody should start
@@ -173,7 +173,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="rounded-xl p-5 space-y-1 bg-[#12293D] text-white">
             <div className="flex items-baseline justify-between">
               <h3 className="text-lg font-bold">Polar Territory</h3>
-              <span className="text-sm font-bold text-white/70">Below 40&deg;F</span>
+              <span className="text-sm font-bold text-white">Below 40&deg;F</span>
             </div>
             <p className="text-[15px] text-white/85">
               Mountain runoff in May. Seconds, not minutes. Earn your way down
@@ -191,7 +191,7 @@ export default function ColdPlungeDenverLayout() {
         <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-5">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-bold">The Remedy Room at Sway Larimer</h3>
-            <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Larimer Sq</span>
+            <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Larimer Sq</span>
           </div>
           <p className="text-[15px]">
             The easiest first plunge in Denver: one guided 40-minute circuit,
@@ -203,7 +203,7 @@ export default function ColdPlungeDenverLayout() {
             <div className="flex-1 rounded-lg bg-[#F7F4E9] border border-[#e5dfc9] p-4 text-center space-y-1">
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#B85C38] text-white text-sm font-bold">1</span>
               <p className="font-bold text-[15px]">Heat</p>
-              <p className="text-[13px] text-[#113D33]/60">
+              <p className="text-[13px] text-[#113D33]/75">
                 <Link href="/sauna" className="underline">Traditional sauna</Link>
               </p>
             </div>
@@ -217,7 +217,7 @@ export default function ColdPlungeDenverLayout() {
             <div className="flex-1 rounded-lg bg-[#F7F4E9] border border-[#e5dfc9] p-4 text-center space-y-1">
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#113D33] text-white text-sm font-bold">3</span>
               <p className="font-bold text-[15px]">Flush</p>
-              <p className="text-[13px] text-[#113D33]/60">
+              <p className="text-[13px] text-[#113D33]/75">
                 <Link href="/compression-therapy" className="underline">Compression therapy</Link>
               </p>
             </div>
@@ -225,12 +225,12 @@ export default function ColdPlungeDenverLayout() {
             <div className="flex-1 rounded-lg bg-[#F7F4E9] border border-[#e5dfc9] p-4 text-center space-y-1">
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#9CB7A9] text-white text-sm font-bold">4</span>
               <p className="font-bold text-[15px]">Glow</p>
-              <p className="text-[13px] text-[#113D33]/60">LED light therapy</p>
+              <p className="text-[13px] text-[#113D33]/75">LED light therapy</p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-[13px] text-[#113D33]/60">
+            <p className="text-[13px] text-[#113D33]/75">
               $49 drop-in · $25 members · first visit $25 for locals
             </p>
             <Link
@@ -257,7 +257,7 @@ export default function ColdPlungeDenverLayout() {
             <div className="p-5 space-y-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-bold">Sway RiNo</h3>
-                <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">RiNo</span>
+                <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">RiNo</span>
               </div>
               <p className="text-[15px]">
                 A 75-minute Remedy Lounge session built around the big plunge
@@ -286,7 +286,7 @@ export default function ColdPlungeDenverLayout() {
             <div className="p-5 space-y-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-bold">Sway Central Park</h3>
-                <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Central Park</span>
+                <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Central Park</span>
               </div>
               <p className="text-[15px]">
                 Three cold plunge cabins plus a hot soak, so you can run true
@@ -317,7 +317,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
             <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
               <h3 className="font-bold">Denver Sports Recovery</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">LoHi</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">LoHi</span>
             </div>
             <p className="text-[15px] mt-1 sm:mt-0">
               No-frills recovery gym with cold tubs, sauna, and game-day
@@ -327,7 +327,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
             <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
               <h3 className="font-bold">SweatHouz (SWTHZ)</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">S Broadway · Tennyson</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">S Broadway · Tennyson</span>
             </div>
             <p className="text-[15px] mt-1 sm:mt-0">
               Private suites, each with an infrared sauna and its own plunge.
@@ -337,7 +337,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
             <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
               <h3 className="font-bold">ROK SPAS</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Union Station</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Union Station</span>
             </div>
             <p className="text-[15px] mt-1 sm:mt-0">
               Multiple plunges at stepped temperatures down toward polar
@@ -347,7 +347,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
             <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
               <h3 className="font-bold">Perspire Sauna Studio</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Cherry Hills</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Cherry Hills</span>
             </div>
             <p className="text-[15px] mt-1 sm:mt-0">
               Infrared sauna studio with contrast therapy. South-side
@@ -357,7 +357,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
             <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
               <h3 className="font-bold">Clear Creek</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Golden · free</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Golden · free</span>
             </div>
             <p className="text-[15px] mt-1 sm:mt-0">
               Snowmelt off the Front Range, cold well into summer. Calm eddies
@@ -367,7 +367,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="p-5 sm:flex sm:items-baseline sm:gap-6">
             <div className="sm:w-56 flex-shrink-0 flex items-baseline justify-between sm:block">
               <h3 className="font-bold">Mountain Lakes</h3>
-              <span className="text-xs font-semibold text-[#113D33]/40 tracking-wide">Front Range · summer</span>
+              <span className="text-xs font-semibold text-[#113D33]/75 tracking-wide">Front Range · summer</span>
             </div>
             <p className="text-[15px] mt-1 sm:mt-0">
               Alpine water above 10,000 feet stays in plunge territory all
@@ -440,7 +440,7 @@ export default function ColdPlungeDenverLayout() {
           </div>
         </div>
 
-        <p className="text-[15px] text-[#113D33]/60">
+        <p className="text-[15px] text-[#113D33]/75">
           One sensible caveat: cold water is a real stressor. If you are
           pregnant or have a heart condition, check with your doctor first.
         </p>
@@ -454,7 +454,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <p className="font-bold">The Lunch-Break Reset</p>
-              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/60 px-2 py-1 rounded-full">Midday</span>
+              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/75 px-2 py-1 rounded-full">Midday</span>
             </div>
             <ol className="relative border-l-2 border-[#d7e2dc] ml-1 space-y-4">
               <li className="pl-4 relative text-[15px]">
@@ -479,7 +479,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <p className="font-bold">The Sunday Contrast Morning</p>
-              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/60 px-2 py-1 rounded-full">Sun AM</span>
+              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/75 px-2 py-1 rounded-full">Sun AM</span>
             </div>
             <ol className="relative border-l-2 border-[#d7e2dc] ml-1 space-y-4">
               <li className="pl-4 relative text-[15px]">
@@ -503,7 +503,7 @@ export default function ColdPlungeDenverLayout() {
           <div className="bg-white border border-[#d7e2dc] rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <p className="font-bold">The Mountain Double</p>
-              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/60 px-2 py-1 rounded-full">All day</span>
+              <span className="text-[11px] font-bold uppercase tracking-wide bg-[#F7F4E9] border border-[#e5dfc9] text-[#113D33]/75 px-2 py-1 rounded-full">All day</span>
             </div>
             <ol className="relative border-l-2 border-[#d7e2dc] ml-1 space-y-4">
               <li className="pl-4 relative text-[15px]">
@@ -613,7 +613,7 @@ export default function ColdPlungeDenverLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/remedy-room.jpg"
-                  alt="Recovery in Denver guide"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -632,7 +632,7 @@ export default function ColdPlungeDenverLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/pemf.jpg"
-                  alt="Infrared PEMF mat guide"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
@@ -651,7 +651,7 @@ export default function ColdPlungeDenverLayout() {
               <div className="h-36 overflow-hidden">
                 <Image
                   src="/assets/blog40.jpg"
-                  alt="Best date night ideas in Denver"
+                  alt=""
                   width={400}
                   height={200}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"

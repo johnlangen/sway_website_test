@@ -152,7 +152,7 @@ export function AddToHomeScreen({ variant, previewOnly = false }: { variant: "ca
     return (
       <div className="rounded-2xl border border-[#113D33]/12 bg-[#4A776D]/[0.06] px-5 py-4 text-left">
         <p className="font-semibold text-[#113D33] text-[15px]">Make your next visit one tap</p>
-        <p className="text-sm text-[#113D33]/65 mt-0.5">
+        <p className="text-sm text-[#113D33]/75 mt-0.5">
           Add Sway to your home screen so booking is always a tap away.
         </p>
         {!ios && deferred ? (
@@ -171,7 +171,7 @@ export function AddToHomeScreen({ variant, previewOnly = false }: { variant: "ca
     <div className="fixed inset-x-3 z-[60] mx-auto max-w-md rounded-2xl border border-[#113D33]/12 bg-white shadow-lg px-4 py-3 flex items-center gap-3" style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}>
       <div className="min-w-0 flex-1">
         <p className="font-semibold text-[#113D33] text-sm leading-tight">Add Sway to your home screen</p>
-        <p className="text-xs text-[#113D33]/60 mt-0.5">
+        <p className="text-xs text-[#113D33]/75 mt-0.5">
           {!ios && deferred ? "One tap to your next booking." : instruction}
         </p>
       </div>
@@ -180,7 +180,7 @@ export function AddToHomeScreen({ variant, previewOnly = false }: { variant: "ca
           Add
         </button>
       ) : null}
-      <button onClick={dismiss} aria-label="Dismiss" className="shrink-0 text-[#113D33]/40 hover:text-[#113D33] transition-colors">
+      <button onClick={dismiss} aria-label="Dismiss" className="shrink-0 text-[#113D33]/75 hover:text-[#113D33] transition-colors">
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
     </div>

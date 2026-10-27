@@ -108,7 +108,7 @@ export default function ReviewContent() {
             />
           </Link>
 
-          <div className="flex justify-center mt-6 text-[#113D33]/40">
+          <div className="flex justify-center mt-6 text-[#113D33]/75">
             <SwayCurve width={80} />
           </div>
 
@@ -145,7 +145,7 @@ export default function ReviewContent() {
                 <p className="font-vance font-semibold tracking-tight text-lg leading-tight">
                   {loc.name}
                 </p>
-                <p className="mt-0.5 text-sm text-[#113D33]/65 truncate">
+                <p className="mt-0.5 text-sm text-[#113D33]/75 truncate">
                   {loc.address}
                 </p>
                 <p className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#113D33]">
@@ -162,7 +162,7 @@ export default function ReviewContent() {
           ))}
         </div>
 
-        <p className="mt-8 text-center text-sm leading-relaxed text-[#113D33]/55">
+        <p className="mt-8 text-center text-sm leading-relaxed text-[#113D33]/75">
           Reviews open in Google and may ask you to sign in to your Google
           account. Not the right spot?{" "}
           <Link href="/locations/" className="underline hover:no-underline">

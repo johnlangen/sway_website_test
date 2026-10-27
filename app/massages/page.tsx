@@ -211,7 +211,7 @@ const MassagesPage = () => {
             whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/40 border border-[#113D33]/15 rounded-full px-4 py-1.5 hover:border-[#113D33]/30 transition"
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/75 border border-[#113D33]/15 rounded-full px-4 py-1.5 hover:border-[#113D33]/30 transition"
           >
             Voted #4 Best Day Spa in America &middot; USA Today 10Best <span className="sr-only">(opens in new tab)</span>
           </motion.a>
@@ -255,7 +255,7 @@ const MassagesPage = () => {
                     <h2 className="text-[#113D33] text-2xl font-semibold">
                       Massage menu
                     </h2>
-                    <p className="mt-1 text-sm text-[#113D33]/60">
+                    <p className="mt-1 text-sm text-[#113D33]/75">
                       A curated selection of massage experiences, each
                       customized by your massage therapist.
                     </p>
@@ -280,7 +280,7 @@ const MassagesPage = () => {
                       className={`flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                         selectedTier === tier.key
                           ? "bg-[#113D33] text-white shadow-sm"
-                          : "text-[#113D33]/60 hover:text-[#113D33]"
+                          : "text-[#113D33]/75 hover:text-[#113D33]"
                       }`}
                     >
                       {tier.name}
@@ -291,7 +291,7 @@ const MassagesPage = () => {
 
               {/* Tier pricing */}
               <div className="px-6 pt-4 text-center">
-                <p className="text-sm text-[#113D33]/60">
+                <p className="text-sm text-[#113D33]/75">
                   <span className="font-semibold text-[#4A776D]">${TIER_PRICING[selectedTier].member}/mo</span>
                   <span className="mx-1.5">·</span>
                   <span>${TIER_PRICING[selectedTier].dropIn} drop-in</span>
@@ -318,11 +318,11 @@ const MassagesPage = () => {
                           <h3 className="text-[#113D33] font-bold text-base">
                             {t.name}
                           </h3>
-                          <span className="text-xs text-[#113D33]/50 shrink-0 mt-0.5">
+                          <span className="text-xs text-[#113D33]/75 shrink-0 mt-0.5">
                             {t.duration}
                           </span>
                         </div>
-                        <p className="mt-1.5 text-sm text-[#113D33]/65 leading-relaxed">
+                        <p className="mt-1.5 text-sm text-[#113D33]/75 leading-relaxed">
                           {t.description}
                         </p>
                       </div>
@@ -359,7 +359,7 @@ const MassagesPage = () => {
               animate
               className="text-[#A9D2C5] mx-auto block mt-4"
             />
-            <p className="mt-4 text-white/55 max-w-2xl mx-auto">
+            <p className="mt-4 text-white/70 max-w-2xl mx-auto">
               Add a boost during checkout for deeper focus and faster recovery.
               Members save 50% on every add-on.
             </p>

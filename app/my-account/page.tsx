@@ -39,7 +39,7 @@ export default function MyAccountPage() {
               className="group bg-white text-[#113D33] rounded-2xl p-6 shadow-xl transition hover:shadow-2xl hover:scale-[1.02] flex flex-col"
             >
               <h2 className="text-xl font-bold mb-1">{loc.label}</h2>
-              <p className="text-sm text-[#113D33]/60 flex items-center gap-1.5 mb-6">
+              <p className="text-sm text-[#113D33]/75 flex items-center gap-1.5 mb-6">
                 <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
                 {loc.city}
               </p>

@@ -424,7 +424,7 @@ const RemedyRoomPage = () => {
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/50 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
+            className="inline-block mt-5 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/70 border border-white/20 rounded-full px-4 py-1.5 hover:border-white/40 transition"
           >
             Voted #4 Best Day Spa in America &middot; USA Today 10Best <span className="sr-only">(opens in new tab)</span>
           </motion.a>
@@ -464,7 +464,7 @@ const RemedyRoomPage = () => {
               <div className="text-2xl md:text-3xl font-bold text-[#113D33]">
                 {s.value}
               </div>
-              <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/50 font-semibold mt-1">
+              <div className="text-xs uppercase tracking-[0.15em] text-[#113D33]/75 font-semibold mt-1">
                 {s.label}
               </div>
             </div>
@@ -592,7 +592,7 @@ const RemedyRoomPage = () => {
         <div className="mt-14 text-center">
           <button
             onClick={handleScroll}
-            className="inline-flex flex-col items-center text-white/50 hover:text-white/80 transition"
+            className="inline-flex flex-col items-center text-white/70 hover:text-white/80 transition"
           >
             <span className="text-xs uppercase tracking-widest mb-2">
               Explore Technologies
@@ -755,7 +755,7 @@ const RemedyRoomPage = () => {
             </span>
           </Link>
           {club && (
-            <p className="mt-4 text-sm text-[#113D33]/60">
+            <p className="mt-4 text-sm text-[#113D33]/75">
               Visiting downtown?{" "}
               <Link
                 href="/locations/denver-larimer/book-remedy-room/"

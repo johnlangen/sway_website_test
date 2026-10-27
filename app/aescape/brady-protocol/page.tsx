@@ -116,7 +116,7 @@ export default function BradyProtocolPage() {
                 </span>
                 Book the Brady Protocol
               </Link>
-              <span className="text-sm text-[#113D33]/65">30 min · $69</span>
+              <span className="text-sm text-[#113D33]/75">30 min · $69</span>
             </div>
           </div>
 

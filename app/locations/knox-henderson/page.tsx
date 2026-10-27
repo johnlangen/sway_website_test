@@ -117,7 +117,7 @@ export default function SwayDallasComingSoonPage() {
             ))}
           </div>
 
-          <motion.p {...fadeUp} className="text-center text-sm opacity-60 mt-6">
+          <motion.p {...fadeUp} className="text-center text-sm opacity-80 mt-6">
             Member pricing available. Explore memberships for founding member rates.
           </motion.p>
         </div>
@@ -131,7 +131,7 @@ export default function SwayDallasComingSoonPage() {
             <p className="text-lg mb-2">
               Three tiers · <strong>Essential</strong>, <strong>Premier</strong>, and <strong>Ultimate</strong>, plus a <strong>Remedy Room</strong> membership
             </p>
-            <p className="text-sm opacity-70 mb-6 max-w-xl mx-auto">
+            <p className="text-sm opacity-80 mb-6 max-w-xl mx-auto">
               Founding members will receive exclusive pricing and priority booking before Sway Knox/Henderson
               opens. Join the waitlist to be notified when founding memberships go live.
             </p>
@@ -139,19 +139,19 @@ export default function SwayDallasComingSoonPage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-left max-w-3xl mx-auto">
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Essential</h3>
-                <p className="text-xs opacity-70">Signature treatments · the perfect entry to Sway.</p>
+                <p className="text-xs opacity-80">Signature treatments · the perfect entry to Sway.</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Premier</h3>
-                <p className="text-xs opacity-70">Enhanced treatments and extended durations.</p>
+                <p className="text-xs opacity-80">Enhanced treatments and extended durations.</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">Ultimate</h3>
-                <p className="text-xs opacity-70">Technology-infused treatments and extended durations.</p>
+                <p className="text-xs opacity-80">Technology-infused treatments and extended durations.</p>
               </div>
               <div className="bg-[#F7F4E9] rounded-xl p-4">
                 <h3 className="font-bold text-sm mb-1">The Remedy Room</h3>
-                <p className="text-xs opacity-70">Recovery circuit access · sauna, cold plunge, LED, and compression.</p>
+                <p className="text-xs opacity-80">Recovery circuit access · sauna, cold plunge, LED, and compression.</p>
               </div>
             </div>
 
@@ -168,7 +168,7 @@ export default function SwayDallasComingSoonPage() {
       {/* ====== DENVER SOCIAL PROOF ====== */}
       <section className="px-6 py-16 bg-white">
         <div className="max-w-6xl mx-auto">
-          <motion.p {...fadeUp} className="text-center text-sm opacity-50 mb-2">
+          <motion.p {...fadeUp} className="text-center text-sm opacity-80 mb-2">
             From our Denver flagship
           </motion.p>
           <GoogleReviews attribution="Sway Larimer in Denver" />
@@ -261,7 +261,7 @@ export default function SwayDallasComingSoonPage() {
       {/* ====== CROSS LINKS ====== */}
       <section className="px-6 py-12">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm opacity-60 mb-3">Explore other Sway locations</p>
+          <p className="text-sm opacity-80 mb-3">Explore other Sway locations</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/locations/denver-larimer"

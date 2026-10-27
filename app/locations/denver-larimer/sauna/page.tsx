@@ -111,7 +111,7 @@ export default function LarimerSaunaPage() {
             </a>
           </div>
 
-          <p className="text-xs text-gray-500 mt-10 max-w-3xl mx-auto">
+          <p className="text-xs text-gray-600 mt-10 max-w-3xl mx-auto">
             Sauna therapy is intended for generally healthy adults.
             Guests with cardiovascular conditions, pregnancy, or medical concerns
             should consult a healthcare professional before use.
