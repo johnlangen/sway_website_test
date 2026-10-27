@@ -64,12 +64,13 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
   const r = redis();
   const empty = {
     range: { from: range[0], to, days, loc },
-    totals: { visitors: 0, views: 0, clicks: 0, completions: 0, completedValue: 0 },
+    totals: { visitors: 0, views: 0, clicks: 0, completions: 0, completedValue: 0, bookedValue: 0 },
     trend: [] as { day: string; visitors: number; views: number; completions: number }[],
     funnels: [] as {
       flow: string;
       steps: { step: string; visitors: number; reports: number }[];
       completed: number;
+      bookedValue: number;
       variants: { variant: string; first: number; done: number; completed: number }[];
     }[],
     landings: [] as { source: string; medium: string; campaign: string; n: number }[],
@@ -79,6 +80,7 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
     clickTypes: [] as { type: string; n: number }[],
     shown: [] as { flow: string; location: string; step: string; message: string; n: number }[],
     completions: [] as { flow: string; location: string; item: string; n: number }[],
+    byLocation: [] as { location: string; bookings: number; memberships: number; leads: number; bookedValue: number }[],
     bySource: [] as { flow: string; source: string; n: number; value: number }[],
     ledger: [] as LedgerRow[],
   };
@@ -121,6 +123,8 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
   const landings = new Map<string, number>();
   const landingPages = new Map<string, number>();
   const completed = new Map<string, number>();
+  // Booked value: the price the flow showed at its done step (cents, first-party, lib/ops/record.ts)
+  const doneValue = new Map<string, number>(); // flow|location → dollars
   const trend: { day: string; views: number; completions: number }[] = [];
   let views = 0;
   let clicks = 0;
@@ -165,6 +169,10 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
       if (!inLoc(l)) continue;
       add(completed, k, n);
       dc += n;
+    }
+    for (const [k, cents] of Object.entries(d.donevalue)) {
+      const [flow, l] = k.split("|");
+      if (inLoc(l)) add(doneValue, `${flow}|${l}`, cents / 100);
     }
     trend.push({ day: d.day, views: dv, completions: dc });
   }
@@ -245,7 +253,8 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
           };
         })
         .sort((a, b) => b.first - a.first);
-      return { flow, steps, completed: flowCompleted, variants };
+      const bookedValue = [...doneValue.entries()].filter(([k]) => k.startsWith(`${flow}|`)).reduce((s, [, v]) => s + v, 0);
+      return { flow, steps, completed: flowCompleted, bookedValue: Math.round(bookedValue), variants };
     });
 
   const completedValue = ledger.reduce((s, row) => s + (typeof row.value === "number" ? row.value : 0), 0);
@@ -267,6 +276,7 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
       clicks,
       completions: [...completed.values()].reduce((s, n) => s + n, 0),
       completedValue,
+      bookedValue: Math.round([...doneValue.values()].reduce((s, v) => s + v, 0)),
     },
     trend: trend.map((t, j) => ({ ...t, visitors: dayVisitors[j] })),
     funnels,
@@ -300,10 +310,54 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
         return { flow, location, item, n };
       })
     ),
+    byLocation: (() => {
+      const m = new Map<string, { location: string; bookings: number; memberships: number; leads: number; bookedValue: number }>();
+      const row = (l: string) => m.get(l) ?? m.set(l, { location: l, bookings: 0, memberships: 0, leads: 0, bookedValue: 0 }).get(l)!;
+      for (const [k, n] of completed) {
+        const [flow, l] = k.split("|");
+        const r = row(l);
+        if (flow === "membership") r.memberships += n;
+        else if (flow === "lead") r.leads += n;
+        else r.bookings += n;
+      }
+      for (const [k, v] of doneValue) row(k.split("|")[1]).bookedValue += v;
+      return [...m.values()]
+        .map((r) => ({ ...r, bookedValue: Math.round(r.bookedValue) }))
+        .sort((a, b) => b.bookedValue - a.bookedValue || b.bookings - a.bookings);
+    })(),
     bySource: [...bySourceMap].map(([k, v]) => {
       const [flow, source] = k.split("|");
       return { flow, source, ...v };
     }).sort((a, b) => b.n - a.n),
     ledger: ledger.slice(0, 200),
   };
+}
+
+export type OpsTrend = Awaited<ReturnType<typeof opsTrend>>;
+
+/** Light per-day series for the dashboard's bars: completed bookings, memberships, leads and booked value. */
+export async function opsTrend(to: string, days: number, loc = "") {
+  const range = dayRange(to, days);
+  const r = redis();
+  const blank = range.map((day) => ({ day, bookings: 0, memberships: 0, leads: 0, bookedValue: 0 }));
+  if (!r) return blank;
+  const p = r.pipeline();
+  for (const d of range) {
+    p.hgetall(`${OPS_PREFIX}completed:${d}`);
+    p.hgetall(`${OPS_PREFIX}donevalue:${d}`);
+  }
+  const res = (await p.exec()) as unknown[];
+  return blank.map((row, i) => {
+    for (const [k, n] of Object.entries(asHash(res[i * 2]))) {
+      const [flow, l] = k.split("|");
+      if (loc && l !== loc) continue;
+      if (flow === "membership") row.memberships += n;
+      else if (flow === "lead") row.leads += n;
+      else row.bookings += n;
+    }
+    for (const [k, cents] of Object.entries(asHash(res[i * 2 + 1]))) {
+      if (!loc || k.split("|")[1] === loc) row.bookedValue += cents / 100;
+    }
+    return { ...row, bookedValue: Math.round(row.bookedValue) };
+  });
 }
