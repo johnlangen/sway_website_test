@@ -61,18 +61,18 @@ const touch = (row: LedgerRow) => {
   return t ? `${t.source} / ${t.medium}${t.campaign ? ` · ${t.campaign}` : ""}` : "direct / untagged";
 };
 
-const card = "rounded-2xl border border-[#113D33]/10 bg-white shadow-[0_1px_2px_rgba(17,61,51,0.04)]";
-const th = "border-b border-[#113D33]/10 px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[#113D33]/75";
-const td = "border-b border-[#113D33]/5 px-3 py-2 align-top text-sm";
+const card = "rounded-2xl border border-[#e7e1d6] bg-white shadow-[0_1px_2px_rgba(36,40,35,0.04)]";
+const th = "border-b border-[#ece7dd] px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[#8a8478]";
+const td = "border-b border-[#f1ede5] px-3 py-2 align-top text-sm";
 
 function Panel({ title, note, children, right }: { title: string; note?: string; children: React.ReactNode; right?: React.ReactNode }) {
   return (
     <section className={`${card} p-5 sm:p-6`}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+        <h2 className="font-recoleta text-xl text-[#242823]">{title}</h2>
         {right}
       </div>
-      {note && <p className="mt-1 text-sm text-[#113D33]/75">{note}</p>}
+      {note && <p className="mt-1 text-sm text-[#7a756b]">{note}</p>}
       <div className="mt-4 overflow-x-auto">{children}</div>
     </section>
   );
@@ -84,18 +84,104 @@ function Detail({ title, summary, children }: { title: string; summary?: string;
     <details className={`${card} group`}>
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 sm:px-6">
         <span>
-          <span className="font-semibold">{title}</span>
-          {summary && <span className="ml-2 text-sm text-[#113D33]/75">{summary}</span>}
+          <span className="font-semibold text-[#242823]">{title}</span>
+          {summary && <span className="ml-2 text-sm text-[#7a756b]">{summary}</span>}
         </span>
-        <span aria-hidden="true" className="text-[#4A776D] transition-transform group-open:rotate-90">›</span>
+        <span aria-hidden="true" className="text-[#b38a5f] transition-transform group-open:rotate-90">›</span>
       </summary>
       <div className="overflow-x-auto px-5 pb-5 sm:px-6">{children}</div>
     </details>
   );
 }
 
+type FunnelRow = { label: string; n: number; side?: boolean; done?: boolean };
+
+/** One funnel card: bars against the widest step, drop-off from the previous main step, side screens quiet. */
+function FunnelCard({
+  title,
+  note,
+  rows,
+  confirmed,
+  finish,
+  finishLabel = "finish",
+  children,
+}: {
+  title: string;
+  note?: string;
+  rows: FunnelRow[];
+  confirmed?: { n: number; value: number };
+  finish: string;
+  finishLabel?: string;
+  children?: React.ReactNode;
+}) {
+  const top = Math.max(0, ...rows.map((x) => x.n));
+  let prev: number | undefined;
+  return (
+    <section className={`${card} p-5`}>
+      <div className="flex items-baseline justify-between gap-2">
+        <h2 className="font-recoleta text-lg">{title}</h2>
+        <span className="text-sm tabular-nums text-[#7a756b]">{top ? `${finish} ${finishLabel}` : "no visits"}</span>
+      </div>
+      {note && <p className="text-xs text-[#7a756b]">{note}</p>}
+      <ul className="mt-4 space-y-2">
+        {rows.map((x) => {
+          const lost = !x.side && prev !== undefined && prev > x.n ? prev - x.n : 0;
+          if (!x.side) prev = x.n;
+          return (
+            <li key={x.label} className={x.side ? "pl-4" : ""}>
+              <div className="flex items-baseline justify-between gap-2 text-sm">
+                <span className={x.side ? "text-xs italic text-[#7a756b]" : ""}>{x.label}</span>
+                <span className="tabular-nums">
+                  {lost > 0 && <span className="mr-2 text-xs text-[#b4532a]">−{fmt(lost)}</span>}
+                  <span className="font-semibold">{fmt(x.n)}</span>
+                </span>
+              </div>
+              <div className="mt-1 h-1.5 rounded-full bg-[#f0ebe2]">
+                <div
+                  className={`h-1.5 rounded-full ${x.side ? "bg-[#cfc6b6]" : x.done ? "bg-emerald-500" : "bg-[#b38a5f]"}`}
+                  style={{ width: `${top ? (x.n / top) * 100 : 0}%` }}
+                />
+              </div>
+            </li>
+          );
+        })}
+        {confirmed && (
+          <li>
+            <div className="flex items-baseline justify-between gap-2 border-t border-[#ece7dd] pt-2 text-sm">
+              <span className="font-semibold">Confirmed by Mindbody</span>
+              <span className="tabular-nums">
+                {confirmed.value > 0 && <span className="mr-2 text-xs text-[#7a756b]">{money(confirmed.value)}</span>}
+                <span className="font-semibold text-[#1f5c35]">{fmt(confirmed.n)}</span>
+              </span>
+            </div>
+          </li>
+        )}
+      </ul>
+      {children}
+    </section>
+  );
+}
+
+function Options({ variants, verb }: { variants: { variant: string; first: number; done: number; completed: number }[]; verb: string }) {
+  return (
+    <details className="mt-4">
+      <summary className="cursor-pointer text-sm font-semibold text-[#b38a5f]">By option picked ({variants.length})</summary>
+      <ul className="mt-2 space-y-1 text-sm">
+        {variants.map((v) => (
+          <li key={v.variant} className="flex items-baseline justify-between gap-3">
+            <span className="min-w-0 truncate">{variantLabel(v.variant)}</span>
+            <span className="shrink-0 tabular-nums text-[#7a756b]">
+              {v.first} started · {v.done} done · <strong className="text-[#242823]">{v.completed}</strong> {verb}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
 function Empty({ children = "None." }: { children?: React.ReactNode }) {
-  return <p className="text-sm text-[#113D33]/75">{children}</p>;
+  return <p className="text-sm text-[#7a756b]">{children}</p>;
 }
 
 function Table({ head, rows, empty }: { head: string[]; rows: React.ReactNode[][]; empty?: string }) {
@@ -160,6 +246,13 @@ export default function Dashboard({
   const started = BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps[0]?.visitors || 0), 0);
   const bookedValue = BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.bookedValue || 0), 0);
   const messages = r.shown.reduce((n, s) => n + s.n, 0);
+  const stageOf = (step: string) => BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps.find((s) => s.step === step)?.visitors || 0), 0);
+  const memberStep = (step: string) => flow("membership")?.steps.find((s) => s.step === step)?.visitors || 0;
+  // Page visitors are unique per page; a guest who opens two of these pages counts twice
+  const membershipPageVisitors = r.pages.filter((p) => /\/membership\/$/.test(p.page)).reduce((n, p) => n + p.visitors, 0);
+  const giftPageVisitors = r.pages.filter((p) => /gift-cards\/$/.test(p.page)).reduce((n, p) => n + p.visitors, 0);
+  const giftTaps = r.clickTypes.find((c) => c.type === "gift_card_purchase")?.n || 0;
+  const treatmentFlows = r.funnels.filter((f) => BOOKING_FLOWS.includes(f.flow) && f.steps.length);
   const notConfirmed = BOOKING_FLOWS.reduce((n, f) => {
     const x = flow(f);
     const tapped = x?.steps.find((s) => s.step === "booking")?.visitors || 0;
@@ -174,13 +267,13 @@ export default function Dashboard({
   const when = days === 1 ? (day === today ? "today" : "that day") : `these ${days} days`;
 
   return (
-    <div className="min-h-screen bg-[#F7F4E9] pb-16 font-vance text-[#113D33]">
+    <div className="ops-monitor min-h-screen bg-[#f4f1ea] pb-16 text-[#242823]">
       {/* ===== Header: status, pickers, the 14-day bars ===== */}
-      <div className="bg-[#0d2f27] pt-14 text-white">
+      <div className="bg-[#1d201c] pt-14 text-white">
         <div className="mx-auto max-w-7xl px-4 pb-6 pt-8 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#C9D8B6]">
+              <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#d4b48c]">
                 {isLive ? (
                   <>
                     <span className="relative flex h-2 w-2">
@@ -193,18 +286,18 @@ export default function Dashboard({
                   <>{days === 1 ? "Past day" : `${days} days`} · read {time(new Date().toISOString())} MT</>
                 )}
               </p>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{rangeLabel}</h1>
-              <p className="mt-1 text-sm text-white/70">
-                Sway site monitor ·{" "}
+              <h1 className="mt-2 font-recoleta text-3xl sm:text-4xl">{rangeLabel}</h1>
+              <p className="mt-1 text-sm text-white/60">
+                Site monitor ·{" "}
                 {loc ? (
                   <>
-                    showing <span className="text-white">{locName(loc)}</span> ·{" "}
+                    showing <span className="text-white">{loc}</span> ·{" "}
                     <a className="underline decoration-white/30 underline-offset-2 hover:text-white" href={link({ loc: "" })}>
-                      all locations
+                      all spas
                     </a>
                   </>
                 ) : (
-                  "all locations"
+                  "all spas"
                 )}
                 {page ? (
                   <>
@@ -217,7 +310,7 @@ export default function Dashboard({
           </div>
 
           <div className="mt-8">
-            <div className="flex items-baseline justify-between text-[11px] uppercase tracking-[0.2em] text-white/70">
+            <div className="flex items-baseline justify-between text-[11px] uppercase tracking-[0.2em] text-white/45">
               <span>Bookings, last 14 days</span>
               <span className="hidden sm:inline">Tap a day to open it</span>
             </div>
@@ -232,9 +325,9 @@ export default function Dashboard({
                       aria-current={selected ? "date" : undefined}
                       className="group flex h-full flex-col items-center justify-end gap-1"
                     >
-                      <span className={`text-[10px] tabular-nums ${selected ? "text-white" : "text-white/0 group-hover:text-white/80"}`}>{t.bookings}</span>
+                      <span className={`text-[10px] tabular-nums ${selected ? "text-white" : "text-white/0 group-hover:text-white/70"}`}>{t.bookings}</span>
                       <span
-                        className={`w-full rounded-t-md transition-colors ${selected ? "bg-[#C9D8B6]" : t.bookings ? "bg-white/25 group-hover:bg-white/45" : "bg-white/10"}`}
+                        className={`w-full rounded-t-md transition-colors ${selected ? "bg-[#d4b48c]" : t.bookings ? "bg-white/25 group-hover:bg-white/45" : "bg-white/10"}`}
                         style={{ height: `${Math.max(4, (t.bookings / peak) * 100)}%` }}
                       />
                     </a>
@@ -244,7 +337,7 @@ export default function Dashboard({
             </ol>
             <ol className="mt-2 grid gap-1.5 sm:gap-2" style={{ gridTemplateColumns: `repeat(${trend.length}, minmax(0, 1fr))` }}>
               {trend.map((t) => (
-                <li key={t.day} className={`text-center text-[10px] leading-tight ${t.day === day && days === 1 ? "font-semibold text-[#C9D8B6]" : "text-white/70"}`}>
+                <li key={t.day} className={`text-center text-[10px] leading-tight ${t.day === day && days === 1 ? "font-semibold text-[#d4b48c]" : "text-white/45"}`}>
                   <span className="block">{prettyDay(t.day, { weekday: "narrow" })}</span>
                   <span className="block tabular-nums">{Number(t.day.slice(8))}</span>
                 </li>
@@ -288,103 +381,107 @@ export default function Dashboard({
             { label: "Visitors", value: fmt(r.totals.visitors), sub: `${fmt(r.totals.views)} views · ${fmt(r.totals.clicks)} clicks` },
           ].map((k) => (
             <div key={k.label} className={`${card} p-4 sm:p-5`}>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#113D33]/75">{k.label}</p>
-              <p className="mt-2 text-4xl font-semibold leading-none tracking-tight tabular-nums">{k.value}</p>
-              <p className="mt-2 text-xs text-[#113D33]/75">{k.sub}</p>
-              {k.trend && <p className="text-xs text-[#113D33]/75">{k.trend}</p>}
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#7a756b]">{k.label}</p>
+              <p className="mt-2 font-recoleta text-4xl tabular-nums leading-none">{k.value}</p>
+              <p className="mt-2 text-xs text-[#7a756b]">{k.sub}</p>
+              {k.trend && <p className="text-xs text-[#7a756b]">{k.trend}</p>}
             </div>
           ))}
         </div>
 
-        {/* ===== Funnels ===== */}
-        {r.funnels.filter((f) => f.steps.length).length === 0 ? (
-          <Panel title="Funnels">
-            <Empty>No flow activity {when} yet.</Empty>
-          </Panel>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {r.funnels
-              .filter((f) => f.steps.length)
-              .map((f) => {
-                const main = f.steps.filter((s) => !SIDE_STEPS.has(`${f.flow}:${s.step}`));
-                const first = Math.max(0, ...f.steps.map((s) => s.visitors));
-                const start = main[0]?.visitors || 0;
-                return (
-                  <section key={f.flow} className={`${card} p-5`}>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <h2 className="text-lg font-semibold tracking-tight">{FLOW_NAMES[f.flow] ?? f.flow}</h2>
-                      <span className="text-sm tabular-nums text-[#113D33]/75">{start ? `${pct(f.completed, start)} finish` : "no visits"}</span>
-                    </div>
-                    <ul className="mt-4 space-y-2">
-                      {f.steps.map((s, i) => {
-                        const side = SIDE_STEPS.has(`${f.flow}:${s.step}`);
-                        const before = main[main.findIndex((m) => m.step === s.step) - 1];
-                        const lost = !side && before && before.visitors > s.visitors ? before.visitors - s.visitors : 0;
-                        return (
-                          <li key={s.step} className={side ? "pl-4" : ""}>
-                            <div className="flex items-baseline justify-between gap-2 text-sm">
-                              <span className={side ? "text-xs italic text-[#113D33]/75" : ""}>{STEP_NAMES[f.flow]?.[s.step] || s.step}</span>
-                              <span className="tabular-nums">
-                                {lost > 0 && i > 0 && <span className="mr-2 text-xs text-[#a3401f]">−{lost}</span>}
-                                <span className="font-semibold">{fmt(s.visitors)}</span>
-                              </span>
-                            </div>
-                            <div className="mt-1 h-1.5 rounded-full bg-[#113D33]/[0.06]">
-                              <div
-                                className={`h-1.5 rounded-full ${side ? "bg-[#9CB7A9]/60" : s.step === "done" ? "bg-emerald-500" : "bg-[#4A776D]"}`}
-                                style={{ width: `${first ? (s.visitors / first) * 100 : 0}%` }}
-                              />
-                            </div>
-                          </li>
-                        );
-                      })}
-                      <li>
-                        <div className="flex items-baseline justify-between gap-2 border-t border-[#113D33]/10 pt-2 text-sm">
-                          <span className="font-semibold">Confirmed by Mindbody</span>
-                          <span className="tabular-nums">
-                            {f.bookedValue > 0 && <span className="mr-2 text-xs text-[#113D33]/75">{money(f.bookedValue)}</span>}
-                            <span className="font-semibold text-[#1f5c35]">{fmt(f.completed)}</span>
-                          </span>
-                        </div>
-                      </li>
-                    </ul>
-                    {f.variants.length > 1 || (f.variants[0] && f.variants[0].variant !== "-") ? (
-                      <details className="mt-4">
-                        <summary className="cursor-pointer text-sm font-semibold text-[#4A776D]">By option picked ({f.variants.length})</summary>
-                        <ul className="mt-2 space-y-1 text-sm">
-                          {f.variants.map((v) => (
-                            <li key={v.variant} className="flex items-baseline justify-between gap-3">
-                              <span className="min-w-0 truncate">{variantLabel(v.variant)}</span>
-                              <span className="shrink-0 tabular-nums text-[#113D33]/75">
-                                {v.first} started · {v.done} done · <strong className="text-[#113D33]">{v.completed}</strong> booked
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </details>
-                    ) : null}
-                  </section>
-                );
-              })}
-          </div>
-        )}
+        {/* ===== The three funnels (as on the Spavia monitor) ===== */}
+        <div className="grid gap-6 lg:grid-cols-3">
+          <FunnelCard
+            title="Booking"
+            note="All treatments together"
+            rows={[
+              { label: "Opened booking", n: started },
+              { label: "Review", n: stageOf("confirm") },
+              { label: "Tapped Book", n: stageOf("booking") },
+              { label: "Booked", n: stageOf("done"), done: true },
+            ]}
+            confirmed={{ n: bookings, value: bookedValue }}
+            finish={pct(bookings, started)}
+          />
+          <FunnelCard
+            title="Membership join"
+            rows={[
+              { label: "Viewed a membership page", n: membershipPageVisitors },
+              { label: "Opened join checkout", n: memberStep("email") },
+              { label: "Email code", n: memberStep("code"), side: true },
+              { label: "Already a member (stopped)", n: memberStep("already"), side: true },
+              { label: "Details", n: memberStep("details") },
+              { label: "Review", n: memberStep("confirm") },
+              { label: "Joined", n: memberStep("done"), done: true },
+            ]}
+            confirmed={{ n: memberships, value: r.totals.completedValue }}
+            finish={pct(memberships, memberStep("email"))}
+          >
+            {(flow("membership")?.variants.length || 0) > 0 && (
+              <Options variants={flow("membership")!.variants} verb="joined" />
+            )}
+          </FunnelCard>
+          <FunnelCard
+            title="Gift cards"
+            note="Bought on Mindbody's own page"
+            rows={[
+              { label: "Viewed a gift card page", n: giftPageVisitors },
+              { label: "Tapped Buy (opens Mindbody)", n: giftTaps },
+            ]}
+            finish={pct(giftTaps, giftPageVisitors)}
+            finishLabel="tap Buy"
+          >
+            <p className="mt-4 text-xs text-[#7a756b]">
+              Purchases happen on Mindbody, so they can&apos;t be counted here. Taps are clicks, not unique guests.
+            </p>
+          </FunnelCard>
+        </div>
 
-        {/* ===== Locations ===== */}
-        <Panel title={`Locations ${days === 1 && day === today ? "today" : days === 1 ? "that day" : `· ${days} days`}`} note="Completed bookings, memberships and leads, by booked value. Tap a location to see only its activity.">
+        {/* ===== Each treatment's own funnel ===== */}
+        <div className="space-y-3">
+          <p className="pt-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#7a756b]">Booking by treatment</p>
+          {treatmentFlows.length === 0 ? (
+            <Panel title="No bookings started">
+              <Empty>No booking activity {when} yet.</Empty>
+            </Panel>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {treatmentFlows.map((f) => (
+                <FunnelCard
+                  key={f.flow}
+                  title={FLOW_NAMES[f.flow] ?? f.flow}
+                  rows={f.steps.map((s) => ({
+                    label: STEP_NAMES[f.flow]?.[s.step] || s.step,
+                    n: s.visitors,
+                    side: SIDE_STEPS.has(`${f.flow}:${s.step}`),
+                    done: s.step === "done",
+                  }))}
+                  confirmed={{ n: f.completed, value: f.bookedValue }}
+                  finish={pct(f.completed, f.steps.find((s) => !SIDE_STEPS.has(`${f.flow}:${s.step}`))?.visitors || 0)}
+                >
+                  {f.variants.length > 1 || (f.variants[0] && f.variants[0].variant !== "-") ? <Options variants={f.variants} verb="booked" /> : null}
+                </FunnelCard>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ===== Spas ===== */}
+        <Panel title={`Spas ${days === 1 && day === today ? "today" : days === 1 ? "that day" : `· ${days} days`}`} note="Completed bookings, memberships and leads, by value. Tap a spa to see only its activity.">
           {r.byLocation.length ? (
             <ul className="grid gap-x-10 gap-y-2 md:grid-cols-2">
               {r.byLocation.map((x, i) => (
                 <li key={x.location} className="grid grid-cols-[1.5rem_1fr_auto] items-center gap-3 text-sm">
-                  <span className="text-right text-xs tabular-nums text-[#113D33]/75">{i + 1}</span>
+                  <span className="text-right text-xs tabular-nums text-[#7a756b]">{i + 1}</span>
                   <span className="min-w-0">
-                    <a href={link({ loc: x.location })} className="block truncate hover:underline">{locName(x.location)}</a>
-                    <span className="mt-1 block h-1 rounded-full bg-[#113D33]/[0.06]">
-                      <span className="block h-1 rounded-full bg-[#4A776D]" style={{ width: `${(x.bookedValue / topValue) * 100}%` }} />
+                    <a href={link({ loc: x.location })} className="block truncate hover:underline">{x.location}</a>
+                    <span className="mt-1 block h-1 rounded-full bg-[#f0ebe2]">
+                      <span className="block h-1 rounded-full bg-[#b38a5f]" style={{ width: `${(x.bookedValue / topValue) * 100}%` }} />
                     </span>
                   </span>
                   <span className="whitespace-nowrap text-right tabular-nums">
                     <span className="font-semibold">{money(x.bookedValue)}</span>
-                    <span className="ml-2 text-xs text-[#113D33]/75">
+                    <span className="ml-2 text-xs text-[#7a756b]">
                       {[x.bookings && `${x.bookings} bk`, x.memberships && `${x.memberships} mem`, x.leads && `${x.leads} lead${x.leads === 1 ? "" : "s"}`]
                         .filter(Boolean)
                         .join(" · ")}
@@ -419,11 +516,11 @@ export default function Dashboard({
         {/* ===== Messages guests saw ===== */}
         <Panel title="Messages guests saw" note="Errors and notices shown in the booking and membership flows, by flow and step.">
           {r.shown.length ? (
-            <ul className="divide-y divide-[#113D33]/5">
+            <ul className="divide-y divide-[#f1ede5]">
               {r.shown.slice(0, 40).map((e, i) => (
                 <li key={i} className="flex gap-4 py-2 text-sm">
                   <span className="w-8 shrink-0 text-right font-semibold tabular-nums">{e.n}</span>
-                  <span className="w-48 shrink-0 text-[#113D33]/75">
+                  <span className="w-48 shrink-0 text-[#7a756b]">
                     {FLOW_NAMES[e.flow] ?? e.flow} · {STEP_NAMES[e.flow]?.[e.step] || e.step}
                     {!loc && e.location ? ` · ${locName(e.location)}` : ""}
                   </span>
@@ -438,7 +535,7 @@ export default function Dashboard({
 
         {/* ===== Detail, folded ===== */}
         <div className="space-y-3">
-          <p className="pt-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#113D33]/75">Detail</p>
+          <p className="pt-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#7a756b]">Detail</p>
 
           <Detail title="Recent completions" summary={`${r.ledger.length} · what was booked and where the guest came from`}>
             <Table
@@ -459,7 +556,7 @@ export default function Dashboard({
             <Table
               head={["Page", "Location", "Views", "Visitors"]}
               rows={r.pages.slice(0, 80).map((p) => [
-                <a key={p.page} className="underline decoration-[#9CB7A9] underline-offset-2" href={link({ page: p.page })}>
+                <a key={p.page} className="underline decoration-[#d4b48c] underline-offset-2" href={link({ page: p.page })}>
                   {p.page}
                 </a>,
                 locName(p.location),
@@ -478,12 +575,12 @@ export default function Dashboard({
             )}
             <div className="mb-4 flex flex-wrap gap-2">
               {r.clickTypes.map((c) => (
-                <span key={c.type} className="rounded-full bg-[#113D33]/5 px-2.5 py-1 text-xs font-semibold">
+                <span key={c.type} className="rounded-full bg-[#f7f3ec] px-2.5 py-1 text-xs font-semibold">
                   {c.type} · {fmt(c.n)}
                 </span>
               ))}
             </div>
-            <p className="mb-3 text-sm text-[#113D33]/75">Booking-flow buttons show &quot;(private)&quot; unless they&apos;re times or dates (they can show guest names).</p>
+            <p className="mb-3 text-sm text-[#7a756b]">Booking-flow buttons show &quot;(private)&quot; unless they&apos;re times or dates (they can show guest names).</p>
             <Table
               head={page ? ["Type", "Goes to", "Label", "Clicks"] : ["Page", "Type", "Goes to", "Label", "Clicks"]}
               rows={r.clicks.slice(0, 200).map((c) => (page ? [c.type, c.target, c.label, c.n] : [c.page, c.type, c.target, c.label, c.n]))}

@@ -23,7 +23,7 @@ export default function OpsControls({
     window.location.href = `/ops/${next.toString() ? `?${next.toString()}` : ""}`;
   };
   const field =
-    "h-10 rounded-lg border border-white/15 bg-white/5 px-3 text-sm text-white [color-scheme:dark] focus:border-[#C9D8B6] focus:outline-none";
+    "h-10 rounded-lg border border-white/15 bg-white/5 px-3 text-sm text-white [color-scheme:dark] focus:border-[#d4b48c] focus:outline-none";
   return (
     <div className="flex flex-wrap items-center gap-2">
       <label className="sr-only" htmlFor="ops-day">Day</label>
@@ -45,10 +45,10 @@ export default function OpsControls({
       </select>
       <label className="sr-only" htmlFor="ops-loc">Location</label>
       <select id="ops-loc" className={`${field} max-w-[14rem]`} value={loc} onChange={(e) => go({ loc: e.target.value })}>
-        <option value="" className="text-black">All locations</option>
+        <option value="" className="text-black">All spas</option>
         {locs.map((l) => (
           <option key={l.slug} value={l.slug} className="text-black">
-            {l.name}
+            {l.slug}
           </option>
         ))}
       </select>

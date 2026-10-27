@@ -11,6 +11,7 @@ import { opsDay } from "@/lib/ops/record";
 import { LOCATION_NAMES } from "@/lib/ops/labels";
 import AutoRefresh from "./AutoRefresh";
 import Dashboard from "./Dashboard";
+import "./ops.css";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {

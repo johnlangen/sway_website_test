@@ -1,0 +1,27 @@
+/* The /ops/ monitor wears the Spavia site monitor's type (John 10/27: "everything looks exactly
+   like spavia"): Recoleta for headings and big numbers, Helvetica Neue for the rest. Loaded only
+   on this private page. */
+@font-face {
+  font-family: "Recoleta";
+  src: url("/fonts/ops/Recoleta-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Recoleta";
+  src: url("/fonts/ops/Recoleta-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+.ops-monitor {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.ops-monitor :is(h1, h2, h3),
+.ops-monitor .font-recoleta {
+  font-family: "Recoleta", Cambria, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
