@@ -193,6 +193,17 @@
       "printImage": "emily-happy-holidays-pine-print-d68099cc728d255c.jpg"
     },
     {
+      "id": 276,
+      "slug": "emily-merry-christmas-storefront",
+      "name": "Merry Christmas · Larimer Storefront",
+      "occasions": [
+        "Holiday"
+      ],
+      "image": "emily-merry-christmas-storefront-image-ffe0edaf30ca2213.jpg",
+      "thumbnail": "emily-merry-christmas-storefront-thumbnail-642f66ec9b872be1.jpg",
+      "printImage": "emily-merry-christmas-storefront-print-2d329709187ada8d.jpg"
+    },
+    {
       "id": 274,
       "slug": "emily-happy-holidays-ski",
       "name": "Happy Holidays · Ski and Recover",
@@ -206,7 +217,7 @@
     {
       "id": 275,
       "slug": "emily-merry-christmas",
-      "name": "Merry Christmas",
+      "name": "Merry Christmas · Snow Day",
       "occasions": [
         "Holiday"
       ],

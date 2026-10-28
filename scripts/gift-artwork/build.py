@@ -191,10 +191,11 @@ DESIGNS = [
     (252, "sauna-day", "Sauna Day", ["Self-Care", "Everyday"], lambda: panel("join2.jpg", "Time to unwind", (0.5, 0.35))),
     # Mother's Day
     (261, "mothers-day", "Happy Mother's Day", ["Mother’s Day"], lambda: panel("mothersday.jpg", "Happy Mother’s Day", (0.5, 0.3))),
-    # Holiday (Emily's three, 10/28, lead the group: in season the first holiday design is the default)
+    # Holiday (Emily's four, 10/28, lead the group, alternating Happy Holidays / Merry Christmas: in season the first holiday design is the default)
     (273, "emily-happy-holidays-pine", "Happy Holidays · Snowy Pine", ["Holiday"], lambda: supplied("emily-holiday-2.png")),
+    (276, "emily-merry-christmas-storefront", "Merry Christmas · Larimer Storefront", ["Holiday"], lambda: supplied("emily-holiday-4.png")),
     (274, "emily-happy-holidays-ski", "Happy Holidays · Ski and Recover", ["Holiday"], lambda: supplied("emily-holiday-3.png")),
-    (275, "emily-merry-christmas", "Merry Christmas", ["Holiday"], lambda: supplied("emily-holiday-1.png")),
+    (275, "emily-merry-christmas", "Merry Christmas · Snow Day", ["Holiday"], lambda: supplied("emily-holiday-1.png")),
     (271, "holiday-ornaments", "Holiday · The Gift of Wellness", ["Holiday"], lambda: existing("giftcard.jpg", (0.5, 0.5))),
     (272, "happy-holidays", "Happy Holidays", ["Holiday"], lambda: panel("holidaygcdesktop.jpg", "Happy Holidays", (0.5, 0.5))),
 ]
