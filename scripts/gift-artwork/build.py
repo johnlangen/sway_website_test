@@ -159,6 +159,14 @@ def existing(photo, focus=(0.5, 0.5)):
     return cover(photo, focus)
 
 
+def supplied(name):
+    """A finished design made by the team (scripts/gift-artwork/sources/), used as is, squared."""
+    im = Image.open(os.path.join(HERE, "sources", name)).convert("RGB")
+    side = min(im.size)
+    im = im.crop(((im.width - side) // 2, (im.height - side) // 2, (im.width + side) // 2, (im.height + side) // 2))
+    return im.resize((S, S), Image.LANCZOS)
+
+
 DESIGNS = [
     # Everyday
     (201, "gift-of-wellness", "The Gift of Wellness", ["Everyday"], lambda: solid(FOREST, big_logo=True)),
@@ -183,7 +191,10 @@ DESIGNS = [
     (252, "sauna-day", "Sauna Day", ["Self-Care", "Everyday"], lambda: panel("join2.jpg", "Time to unwind", (0.5, 0.35))),
     # Mother's Day
     (261, "mothers-day", "Happy Mother's Day", ["Mother’s Day"], lambda: panel("mothersday.jpg", "Happy Mother’s Day", (0.5, 0.3))),
-    # Holiday
+    # Holiday (Emily's three, 10/28, lead the group: in season the first holiday design is the default)
+    (273, "emily-happy-holidays-pine", "Happy Holidays · Snowy Pine", ["Holiday"], lambda: supplied("emily-holiday-2.png")),
+    (274, "emily-happy-holidays-ski", "Happy Holidays · Ski and Recover", ["Holiday"], lambda: supplied("emily-holiday-3.png")),
+    (275, "emily-merry-christmas", "Merry Christmas", ["Holiday"], lambda: supplied("emily-holiday-1.png")),
     (271, "holiday-ornaments", "Holiday · The Gift of Wellness", ["Holiday"], lambda: existing("giftcard.jpg", (0.5, 0.5))),
     (272, "happy-holidays", "Happy Holidays", ["Holiday"], lambda: panel("holidaygcdesktop.jpg", "Happy Holidays", (0.5, 0.5))),
 ]

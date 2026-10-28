@@ -182,6 +182,39 @@
       "printImage": "mothers-day-print-c5713060959652cd.jpg"
     },
     {
+      "id": 273,
+      "slug": "emily-happy-holidays-pine",
+      "name": "Happy Holidays · Snowy Pine",
+      "occasions": [
+        "Holiday"
+      ],
+      "image": "emily-happy-holidays-pine-image-00cbec192ac4016e.jpg",
+      "thumbnail": "emily-happy-holidays-pine-thumbnail-bab83d077f576442.jpg",
+      "printImage": "emily-happy-holidays-pine-print-d68099cc728d255c.jpg"
+    },
+    {
+      "id": 274,
+      "slug": "emily-happy-holidays-ski",
+      "name": "Happy Holidays · Ski and Recover",
+      "occasions": [
+        "Holiday"
+      ],
+      "image": "emily-happy-holidays-ski-image-abc2fb38b7de20b5.jpg",
+      "thumbnail": "emily-happy-holidays-ski-thumbnail-4c82e1d2c6e3515b.jpg",
+      "printImage": "emily-happy-holidays-ski-print-a45400d4dc981f0a.jpg"
+    },
+    {
+      "id": 275,
+      "slug": "emily-merry-christmas",
+      "name": "Merry Christmas",
+      "occasions": [
+        "Holiday"
+      ],
+      "image": "emily-merry-christmas-image-ba063301f0e586e5.jpg",
+      "thumbnail": "emily-merry-christmas-thumbnail-38bc5614e7bbe75b.jpg",
+      "printImage": "emily-merry-christmas-print-c9eaec1d5dbc3264.jpg"
+    },
+    {
       "id": 271,
       "slug": "holiday-ornaments",
       "name": "Holiday · The Gift of Wellness",
