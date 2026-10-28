@@ -5,6 +5,7 @@
  */
 import library from "./artwork-library.json";
 import { publicOrigin } from "./sites";
+import { holidaySeason } from "./season";
 
 export type GiftDesign = {
   id: number;
@@ -24,7 +25,11 @@ const files = new Set<string>([
 ]);
 
 export function giftDesigns(): GiftDesign[] {
-  return library.designs.map((d) => ({
+  // In the holiday season the holiday designs come first (the checkout opens on the first design)
+  const designs = holidaySeason()
+    ? [...library.designs].sort((a, b) => Number(b.occasions.includes("Holiday")) - Number(a.occasions.includes("Holiday")))
+    : library.designs;
+  return designs.map((d) => ({
     id: d.id,
     name: d.name,
     occasions: [...d.occasions],

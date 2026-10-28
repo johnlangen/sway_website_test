@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import type { GiftDesign } from "@/lib/giftCards/artwork";
+import { holidaySeason } from "@/lib/giftCards/season";
+import GiftOccasionIcon from "./GiftOccasionIcon";
 
 const OCCASIONS = ["All", "Birthday", "Thank You", "Love", "Anniversary", "Congratulations", "Self-Care", "Mother’s Day", "Holiday", "Everyday"];
 
@@ -15,7 +17,9 @@ export default function GiftDesignPicker({
   onChange: (id: number) => void;
 }) {
   const [filter, setFilter] = useState("All");
-  const available = OCCASIONS.filter((o) => o === "All" || designs.some((d) => d.occasions.includes(o)));
+  // Holiday season (Nov 1 to Dec 25): Holiday right after All
+  const order = holidaySeason() ? ["All", "Holiday", ...OCCASIONS.filter((o) => o !== "All" && o !== "Holiday")] : OCCASIONS;
+  const available = order.filter((o) => o === "All" || designs.some((d) => d.occasions.includes(o)));
   const shown = designs.filter((d) => filter === "All" || d.occasions.includes(filter));
   const chosen = designs.find((d) => d.id === selected);
   return (
@@ -28,10 +32,11 @@ export default function GiftDesignPicker({
             type="button"
             aria-pressed={filter === o}
             onClick={() => setFilter(o)}
-            className={`min-h-10 rounded-full border px-4 py-2 text-sm font-semibold transition ${
+            className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
               filter === o ? "border-[#113D33] bg-[#113D33] text-white" : "border-[#113D33]/20 bg-white text-[#113D33] hover:border-[#113D33]/50"
             }`}
           >
+            <GiftOccasionIcon occasion={o} />
             {o}
           </button>
         ))}
