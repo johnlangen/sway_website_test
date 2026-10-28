@@ -152,25 +152,15 @@ export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: st
         </p>
       </section>
 
-      {/* GIFT CARD IMAGE + CTA */}
-      <section className="px-4 sm:px-6 pt-6 pb-16">
+      {/* CTA (right under the reviews, on screen without scrolling on a phone) + GIFT CARD IMAGE */}
+      <section className="px-4 sm:px-6 pt-2 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className="max-w-lg mx-auto"
         >
-          <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-[#113D33]/15">
-            <Image
-              src="/assets/giftcard.jpg"
-              alt="Sway Wellness Spa Gift Card"
-              width={600}
-              height={360}
-              className="w-full object-cover"
-            />
-          </div>
-
-          <div className="mt-8 text-center">
+          <div className="mb-8 text-center">
             <a
               href={buyHref}
               target={external ? "_blank" : undefined}
@@ -184,8 +174,17 @@ export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: st
               Purchase a Gift Card {external && <span className="sr-only">(opens in new tab)</span>}
             </a>
             <p className="text-sm text-[#113D33]/75 mt-3">
-              Delivered instantly via email
+              {external ? "Delivered instantly via email" : "Any amount · emailed now or on a date you pick"}
             </p>
+          </div>
+          <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-[#113D33]/15">
+            <Image
+              src="/assets/giftcard.jpg"
+              alt="Sway Wellness Spa Gift Card"
+              width={600}
+              height={360}
+              className="w-full object-cover"
+            />
           </div>
         </motion.div>
       </section>
