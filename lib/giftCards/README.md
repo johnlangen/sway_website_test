@@ -38,8 +38,8 @@ everything Mindbody did wrong in production.
 
 - `GIFT_CHECKOUT=off`: checkout pages send guests to the location's Mindbody gift card store; no new
   purchases (open gifts and status checks still work).
-- `GIFT_CHECKOUT_BUTTONS=native` (+ redeploy): the gift card pages' Buy buttons open this checkout
-  instead of Mindbody's store.
+- `GIFT_CHECKOUT_BUTTONS=mindbody` (+ redeploy): the gift card pages' Buy buttons go back to Mindbody's
+  store (they open this checkout by default since 10/28).
 - `OPS_ALERT_EMAIL`: where alerts go (default contact@swaywellnessspa.com).
 - `CRON_SECRET`: optional; without it the cron is recognized by Vercel's user agent.
 - Uses the existing `RESEND_API_KEY` (sender contact@swaywellnessspa.com, reply-to the location's address).

@@ -82,22 +82,44 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
     completions: [] as { flow: string; location: string; item: string; n: number }[],
     byLocation: [] as { location: string; bookings: number; memberships: number; leads: number; gifts: number; bookedValue: number }[],
     bySource: [] as { flow: string; source: string; n: number; value: number }[],
+    serverErrors: [] as { flow: string; location: string; where: string; message: string; n: number }[],
+    alerts: [] as { at: string; kind: string; subject: string; lines: string[] }[],
+    gifts: { settling: 0, emailsPending: 0 },
     ledger: [] as LedgerRow[],
   };
   if (!r) return empty;
 
   // 1) per-day hashes + ledgers
-  const kinds = ["views", "clicks", "steps", "shown", "landings", "completed", "donevalue"] as const;
+  const kinds = ["views", "clicks", "steps", "shown", "landings", "completed", "donevalue", "errors"] as const;
   const p = r.pipeline();
   for (const d of range) for (const k of kinds) p.hgetall(`${OPS_PREFIX}${k}:${d}`);
   for (const d of range) p.lrange(`${OPS_PREFIX}ledger:${d}`, 0, 499);
+  p.lrange(`${OPS_PREFIX}alerts`, 0, 99);
   const res = (await p.exec()) as unknown[];
+  const alertsRaw = res.pop();
   const perDay = range.map((d, i) => {
     const o: Record<string, Record<string, number>> = {};
     kinds.forEach((k, j) => (o[k] = asHash(res[i * kinds.length + j])));
     return { day: d, ...o } as { day: string } & Record<(typeof kinds)[number], Record<string, number>>;
   });
   const ledgerRaw = res.slice(range.length * kinds.length) as unknown[];
+  const serverErrors = new Map<string, number>();
+  for (const d of perDay)
+    for (const [k, n] of Object.entries(d.errors)) {
+      const [, l] = k.split("|");
+      if (!loc || l === loc) add(serverErrors, k, n);
+    }
+  // Live gift checkout state (the site's KV, lib/giftCards): purchases settling, emails not out yet
+  const gifts = { settling: 0, emailsPending: 0 };
+  try {
+    const { giftStore } = await import("@/lib/giftCards/store");
+    const g = giftStore();
+    const [settling, pending] = await Promise.all([g.smembers("uncertain"), g.smembers("deliveries")]);
+    gifts.settling = settling.filter((x) => !loc || x.includes(`"slug":"${loc}"`)).length;
+    gifts.emailsPending = pending.length;
+  } catch {
+    /* not configured locally */
+  }
   const ledger: LedgerRow[] = ledgerRaw
     .flatMap((list) => (Array.isArray(list) ? list : []))
     .flatMap((item) => {
@@ -331,6 +353,20 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
       return { flow, source, ...v };
     }).sort((a, b) => b.n - a.n),
     ledger: ledger.slice(0, 200),
+    serverErrors: sorted(
+      [...serverErrors].map(([k, n]) => {
+        const [flow, location, where, message] = k.split("|");
+        return { flow, location, where, message, n };
+      })
+    ),
+    alerts: (Array.isArray(alertsRaw) ? alertsRaw : []).flatMap((a) => {
+      try {
+        return [(typeof a === "string" ? JSON.parse(a) : a) as { at: string; kind: string; subject: string; lines: string[] }];
+      } catch {
+        return [];
+      }
+    }),
+    gifts,
   };
 }
 

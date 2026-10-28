@@ -84,8 +84,7 @@ export function publicOrigin(): string {
 }
 
 /**
- * The native checkout is on unless GIFT_CHECKOUT=off in Vercel (kill switch: every checkout page
- * then sends guests to the location's Mindbody store). Until John has tested it, the gift card
- * pages' buttons keep pointing at Mindbody and the checkout is reached by its own address.
+ * The native checkout is on unless GIFT_CHECKOUT=off in Vercel (kill switch: no new purchases, the
+ * page points to the location's Mindbody store; gift links keep working).
  */
 export const giftCheckoutOn = () => process.env.GIFT_CHECKOUT !== "off";

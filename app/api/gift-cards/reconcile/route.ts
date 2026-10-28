@@ -7,6 +7,7 @@ import { recoverGift, releaseOrder, type PurchaseRecord } from "@/lib/giftCards/
 import { giftSaleSince, purchasesSince } from "@/lib/giftCards/mindbody";
 import { fulfillGift } from "@/lib/giftCards/delivery";
 import { countSale, liveSiteRequest } from "@/lib/giftCards/count";
+import { recordServerError } from "@/lib/ops/record";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -64,6 +65,7 @@ export async function GET(req: NextRequest) {
       }
     } catch (e) {
       outcome = `error: ${e instanceof Error ? e.message : "unknown"}`;
+      await recordServerError("gift", item.slug, "reconcile", outcome);
     }
     const age = Date.now() - item.at;
     if (outcome === "found" || outcome === "released") {

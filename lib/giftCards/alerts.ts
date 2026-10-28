@@ -9,6 +9,7 @@
  *    most every 30 minutes. To: OPS_ALERT_EMAIL, else contact@swaywellnessspa.com.
  */
 import type { GiftStore } from "./store";
+import { recordAlert } from "@/lib/ops/record";
 
 export type UncertainGift = { id: string; slug: string; at: number };
 
@@ -43,6 +44,8 @@ export async function alert(store: GiftStore, kind: string, subject: string, lin
   } catch {
     /* Redis down: send anyway rather than stay silent */
   }
+  // On /ops/ too (Alerts panel, health strip)
+  await recordAlert(kind, subject, lines).catch(() => {});
   if (!process.env.RESEND_API_KEY || !process.env.VERCEL) return;
   try {
     const { resend } = await import("@/lib/resend");

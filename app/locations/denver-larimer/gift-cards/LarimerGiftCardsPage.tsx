@@ -10,7 +10,7 @@ import { trackGiftCardIntent } from "../../../lib/track";
 export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: string }) {
   const giftCardUrl =
     "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42";
-  // The native checkout once GIFT_CHECKOUT_BUTTONS=native (page.tsx), else Mindbody's store
+  // The site's own gift checkout (page.tsx), or Mindbody's store when GIFT_CHECKOUT_BUTTONS=mindbody
   const buyHref = checkoutUrl ?? giftCardUrl;
   const external = !checkoutUrl;
 

@@ -16,7 +16,7 @@ import type { ClubGiftCardsConfig } from "./clubGiftCardsConfig";
 
 export default function ClubGiftCardsPage({ club, checkoutUrl }: { club: ClubGiftCardsConfig; checkoutUrl?: string }) {
   const giftCardUrl = `https://clients.mindbodyonline.com/classic/ws?studioid=${club.studioId}&stype=42`;
-  // The native checkout once GIFT_CHECKOUT_BUTTONS=native (page.tsx), else Mindbody's store
+  // The site's own gift checkout (page.tsx), or Mindbody's store when GIFT_CHECKOUT_BUTTONS=mindbody
   const buyHref = checkoutUrl ?? giftCardUrl;
   const external = !checkoutUrl;
 

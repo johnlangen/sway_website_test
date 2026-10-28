@@ -2,6 +2,7 @@ import { NextResponse, after, type NextRequest } from "next/server";
 import { randomUUID } from "crypto";
 import { findClientsByEmail } from "@/lib/membershipVerify";
 import { countSale } from "@/lib/giftCards/count";
+import { recordServerError } from "@/lib/ops/record";
 import { GiftError, giftStore } from "@/lib/giftCards/store";
 import { giftCheckoutOn, giftSite } from "@/lib/giftCards/sites";
 import { beginVerification, readSession, saveSession, verifyCode, type GiftSession } from "@/lib/giftCards/auth";
@@ -73,11 +74,12 @@ const publicProfile = (c: { id: string; firstName: string; lastName: string; has
   cardLastFour: c.hasCardOnFile ? c.lastFour : null,
 });
 
-async function handle(req: NextRequest, action: string): Promise<NextResponse> {
+async function handle(req: NextRequest, action: string, ctx: { slug?: string }): Promise<NextResponse> {
   if (!sameOrigin(req)) throw new GiftError("origin", "Please use the gift card checkout on this website.", 403);
   const b = await readBody(req);
   const site = giftSite(b.slug);
   if (!site) throw new GiftError("location", "Gift cards aren't sold online for this location.", 404);
+  ctx.slug = site.slug;
   const store = giftStore();
   const ip = clientIp(req);
   if ((await store.incr(`rate:req:${ip}`, 600)) > 150) throw new GiftError("rate_limit", "Too many requests. Please wait a few minutes.", 429);
@@ -187,7 +189,10 @@ async function handle(req: NextRequest, action: string): Promise<NextResponse> {
 
   if (action === "commit") {
     const result: GiftResult = await commitGift(store, site, s, order, String(b.quoteId || ""), b.accepted, b.card);
-    if (result.state !== "purchased") return reply({ result });
+    if (result.state !== "purchased") {
+      if (!result.replay) after(() => recordServerError("gift", site.slug, "commit", "Mindbody didn't confirm the sale (settling)"));
+      return reply({ result });
+    }
     after(() => countSale(req, store, order));
     // A second delivery try a few seconds later, registered first so it runs even if the first throws
     after(async () => {
@@ -212,9 +217,15 @@ async function handle(req: NextRequest, action: string): Promise<NextResponse> {
 
 export async function POST(req: NextRequest, context: { params: Promise<{ action: string }> }) {
   const { action } = await context.params;
+  const ctx: { slug?: string } = {};
   try {
-    return await handle(req, action);
+    return await handle(req, action, ctx);
   } catch (e) {
+    // Our side or Mindbody failed (not a guest mistake): on /ops/ as a server error
+    if (!(e instanceof GiftError) || e.status >= 500)
+      after(() =>
+        recordServerError("gift", ctx.slug || "-", action, e instanceof GiftError ? `${e.code}: ${e.refusal || e.message}` : e instanceof Error ? e.message : "unknown"),
+      );
     if (e instanceof GiftError) return reply({ error: e.code, message: e.message }, e.status);
     console.error("[gift-cards]", action, e instanceof Error ? e.message : "unknown");
     return reply(

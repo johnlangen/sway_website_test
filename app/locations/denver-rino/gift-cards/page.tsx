@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-// Buy buttons open the site's own gift checkout once GIFT_CHECKOUT_BUTTONS=native is set in Vercel
-const nativeCheckout = process.env.GIFT_CHECKOUT_BUTTONS === "native" ? "/locations/denver-rino/gift-cards/checkout/" : undefined;
+// Buy buttons open the site's own gift checkout (live 10/28); GIFT_CHECKOUT_BUTTONS=mindbody (+ redeploy) points them back at Mindbody
+const nativeCheckout = process.env.GIFT_CHECKOUT_BUTTONS !== "mindbody" ? "/locations/denver-rino/gift-cards/checkout/" : undefined;
 
 export default function Page() {
   return <ClubGiftCardsPage club={CLUB_GIFT_CARDS.rino} checkoutUrl={nativeCheckout} />;

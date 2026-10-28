@@ -252,3 +252,26 @@ export async function recordCompletion(req: Request, c: Completion) {
     ttl(p, `${OPS_PREFIX}ledger:${day}`, LEDGER_DAYS * 86400);
   });
 }
+
+// ---------------------------------------------------------------- server errors + alerts (10/28, gift checkout)
+const onLiveSite = () => process.env.VERCEL_ENV === "production";
+
+/** A server-side failure a guest hit (5xx, an unexpected throw, a failing background job), per day */
+export async function recordServerError(flow: OpsFlow, location: string, where: string, message: string) {
+  if (!onLiveSite()) return;
+  const day = opsDay();
+  await exec((p) => {
+    p.hincrby(`${OPS_PREFIX}errors:${day}`, `${flow}|${part(location, 40)}|${part(where, 40)}|${part(message, 160)}`, 1);
+    ttl(p, `${OPS_PREFIX}errors:${day}`, COUNT_DAYS * 86400);
+  });
+}
+
+/** Something a person must act on (also emailed by the sender); the newest 200 are kept for /ops/.
+ *  Scrubbed like everything else here: the email has the guest details, the dashboard doesn't. */
+export async function recordAlert(kind: string, subject: string, lines: string[]) {
+  if (!onLiveSite()) return;
+  await exec((p) => {
+    p.lpush(`${OPS_PREFIX}alerts`, JSON.stringify({ at: new Date().toISOString(), kind: part(kind, 60), subject: clip(scrub(subject), 160), lines: lines.map((l) => clip(scrub(l), 600)) }));
+    p.ltrim(`${OPS_PREFIX}alerts`, 0, 199);
+  });
+}

@@ -250,6 +250,12 @@ export default function Dashboard({
   const started = BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps[0]?.visitors || 0), 0);
   const bookedValue = BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.bookedValue || 0), 0);
   const messages = r.shown.reduce((n, s) => n + s.n, 0);
+  const serverErrors = r.serverErrors.reduce((n, e) => n + e.n, 0);
+  // Alerts in the range shown (Mountain days)
+  const rangeAlerts = r.alerts.filter((a) => {
+    const d = mtDay(a.at);
+    return d >= r.range.from && d <= day;
+  });
   const stageOf = (step: string) => BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps.find((s) => s.step === step)?.visitors || 0), 0);
   const memberStep = (step: string) => flow("membership")?.steps.find((s) => s.step === step)?.visitors || 0;
   // Page visitors are unique per page; a guest who opens two of these pages counts twice
@@ -262,6 +268,7 @@ export default function Dashboard({
     const tapped = x?.steps.find((s) => s.step === "booking")?.visitors || 0;
     return n + Math.max(0, tapped - (x?.completed || 0));
   }, 0);
+  const issues = serverErrors + r.gifts.settling + r.gifts.emailsPending + rangeAlerts.filter((a) => !/settled, nothing to do/i.test(a.subject)).length + notConfirmed;
 
   // The 14-day bars: completed bookings by height, the day's numbers on hover, each one opens its day
   const peak = Math.max(1, ...trend.map((t) => t.bookings));
@@ -355,19 +362,20 @@ export default function Dashboard({
         {/* ===== Health ===== */}
         <div
           className={`-mt-px flex flex-wrap items-center gap-x-6 gap-y-2 rounded-b-2xl px-5 py-3 text-sm ${
-            notConfirmed ? "bg-[#fbe9e4] text-[#8a2b17]" : "bg-[#e5f2e9] text-[#1f5c35]"
+            issues ? "bg-[#fbe9e4] text-[#8a2b17]" : "bg-[#e5f2e9] text-[#1f5c35]"
           }`}
         >
-          <span className="font-semibold">{notConfirmed ? "Needs a look" : "All clear"}</span>
+          <span className="font-semibold">{issues ? "Needs a look" : "All clear"}</span>
+          <span>{serverErrors} server errors</span>
+          <span>{r.gifts.settling} gift purchases settling</span>
+          <span>{r.gifts.emailsPending} gift emails pending</span>
+          <span>{rangeAlerts.length} alerts</span>
           <span>{notConfirmed} tapped Book but not confirmed</span>
           <span>{messages} messages guests saw</span>
-          <span>{fmt(r.totals.visitors)} visitors</span>
-          <span>{fmt(r.totals.views)} page views</span>
-          <span>{fmt(r.totals.clicks)} clicks</span>
         </div>
 
         {/* ===== The day in numbers ===== */}
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
           {[
             {
               label: "Bookings",
@@ -382,6 +390,11 @@ export default function Dashboard({
               value: pct(bookings, started),
               sub: `${bookings} of ${fmt(started)} who opened booking`,
             },
+            {
+              label: "Total value",
+              value: money(bookedValue + valueOf("gift") + valueOf("membership")),
+              sub: `${r.byLocation.filter((x) => x.bookings + x.gifts + x.memberships > 0).length} spas with a sale`,
+            },
             { label: "Leads", value: String(leads), sub: "enter-to-win, waitlist, founding" },
           ].map((k) => (
             <div key={k.label} className={`${card} p-4 sm:p-5`}>
@@ -392,6 +405,30 @@ export default function Dashboard({
             </div>
           ))}
         </div>
+
+        {/* ===== Alerts that need a person (emailed too) ===== */}
+        {rangeAlerts.length > 0 && (
+          <Detail title="Alerts" summary={`${rangeAlerts.length} ${when} · emailed when a person needs to act`}>
+            <ul className="space-y-3">
+              {rangeAlerts.slice(0, 20).map((a, i) => (
+                <li
+                  key={i}
+                  className={`rounded-r-lg border-l-4 bg-[#faf8f4] px-4 py-3 ${/settled, nothing to do/i.test(a.subject) ? "border-emerald-400" : "border-[#c2410c]"}`}
+                >
+                  <p className="text-xs tabular-nums text-[#7a756b]">
+                    {mtDay(a.at).slice(5)} {shortTime(a.at)} MT
+                  </p>
+                  <p className="mt-0.5 font-semibold">{a.subject}</p>
+                  {a.lines?.map((l, j) => (
+                    <p key={j} className="mt-0.5 text-sm text-[#55524b]">
+                      {l}
+                    </p>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          </Detail>
+        )}
 
         {/* ===== The three funnels (as on the Spavia monitor) ===== */}
         <div className="grid gap-6 lg:grid-cols-3">
@@ -543,6 +580,18 @@ export default function Dashboard({
         {/* ===== Detail, folded ===== */}
         <div className="space-y-3">
           <p className="pt-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#7a756b]">Detail</p>
+
+          <Detail title="Server errors" summary={serverErrors ? `${serverErrors} ${when}` : "none"}>
+            <p className="mb-3 text-sm text-[#7a756b]">
+              Requests that failed on our side or at Mindbody (not guest mistakes), and purchases Mindbody didn&apos;t confirm right away. Gift
+              purchases settle by themselves within minutes; anything that needs a person shows under Alerts.
+            </p>
+            <Table
+              head={["Times", "Flow", "Spa", "Where", "What"]}
+              rows={r.serverErrors.slice(0, 50).map((e) => [e.n, FLOW_NAMES[e.flow] ?? e.flow, e.location, e.where, e.message])}
+              empty="None."
+            />
+          </Detail>
 
           <Detail title="Recent completions" summary={`${r.ledger.length} · what was booked and where the guest came from`}>
             <Table

@@ -6,7 +6,8 @@
       "WebFetch(domain:developers.mindbodyonline.com)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(ls /Users/John | head -50; ls /Users/John/*/scripts/ops.mjs 2>/dev/null)"
     ]
   }
 }
