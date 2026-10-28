@@ -80,7 +80,7 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
     clickTypes: [] as { type: string; n: number }[],
     shown: [] as { flow: string; location: string; step: string; message: string; n: number }[],
     completions: [] as { flow: string; location: string; item: string; n: number }[],
-    byLocation: [] as { location: string; bookings: number; memberships: number; leads: number; bookedValue: number }[],
+    byLocation: [] as { location: string; bookings: number; memberships: number; leads: number; gifts: number; bookedValue: number }[],
     bySource: [] as { flow: string; source: string; n: number; value: number }[],
     ledger: [] as LedgerRow[],
   };
@@ -311,13 +311,14 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
       })
     ),
     byLocation: (() => {
-      const m = new Map<string, { location: string; bookings: number; memberships: number; leads: number; bookedValue: number }>();
-      const row = (l: string) => m.get(l) ?? m.set(l, { location: l, bookings: 0, memberships: 0, leads: 0, bookedValue: 0 }).get(l)!;
+      const m = new Map<string, { location: string; bookings: number; memberships: number; leads: number; gifts: number; bookedValue: number }>();
+      const row = (l: string) => m.get(l) ?? m.set(l, { location: l, bookings: 0, memberships: 0, leads: 0, gifts: 0, bookedValue: 0 }).get(l)!;
       for (const [k, n] of completed) {
         const [flow, l] = k.split("|");
         const r = row(l);
         if (flow === "membership") r.memberships += n;
         else if (flow === "lead") r.leads += n;
+        else if (flow === "gift") r.gifts += n;
         else r.bookings += n;
       }
       for (const [k, v] of doneValue) row(k.split("|")[1]).bookedValue += v;
@@ -339,7 +340,7 @@ export type OpsTrend = Awaited<ReturnType<typeof opsTrend>>;
 export async function opsTrend(to: string, days: number, loc = "") {
   const range = dayRange(to, days);
   const r = redis();
-  const blank = range.map((day) => ({ day, bookings: 0, memberships: 0, leads: 0, bookedValue: 0 }));
+  const blank = range.map((day) => ({ day, bookings: 0, memberships: 0, leads: 0, gifts: 0, bookedValue: 0 }));
   if (!r) return blank;
   const p = r.pipeline();
   for (const d of range) {
@@ -353,6 +354,7 @@ export async function opsTrend(to: string, days: number, loc = "") {
       if (loc && l !== loc) continue;
       if (flow === "membership") row.memberships += n;
       else if (flow === "lead") row.leads += n;
+      else if (flow === "gift") row.gifts += n;
       else row.bookings += n;
     }
     for (const [k, cents] of Object.entries(asHash(res[i * 2 + 1]))) {

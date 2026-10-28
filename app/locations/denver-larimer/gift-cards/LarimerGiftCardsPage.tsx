@@ -7,9 +7,12 @@ import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/
 import { SwayCurve } from "../../../components/SwayCurve";
 import { trackGiftCardIntent } from "../../../lib/track";
 
-export default function LarimerGiftCardsPage() {
+export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: string }) {
   const giftCardUrl =
     "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42";
+  // The native checkout once GIFT_CHECKOUT_BUTTONS=native (page.tsx), else Mindbody's store
+  const buyHref = checkoutUrl ?? giftCardUrl;
+  const external = !checkoutUrl;
 
   const disclaimer = `*Your Sway\u00AE Gift Card cannot be redeemed for cash unless required by law AND THEN ONLY TO THE EXTENT REQUIRED BY LAW. Gift card purchases are non-refundable. Gift cards are valid only at Sway\u00AE or Spavia branded spas in the United States. Gift Cards cannot be purchased and redeemed on the same day due to a 24-hour hold on all gift card activations. During this time, we will verify the transaction made with the credit card provided. The gift card will be activated once the transaction is successfully verified. Failure to verify the transaction within this period may result in the cancellation of the gift card purchase. The value of this Gift Card will not be replaced if this card is damaged, lost or stolen. This Gift Card has no dormancy fee and does not expire. Treat this Gift Card like cash. Acceptance of this Gift Card constitutes acceptance of these terms.`;
 
@@ -169,16 +172,16 @@ export default function LarimerGiftCardsPage() {
 
           <div className="mt-8 text-center">
             <a
-              href={giftCardUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={buyHref}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
               onClick={() => trackGiftCardIntent("larimer_gc_hero")}
               className="group relative inline-block w-full max-w-sm px-8 py-4 bg-[#113D33] text-white font-bold rounded-full text-lg hover:bg-[#0c2a23] transition shadow-lg"
             >
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
                 <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
               </span>
-              Purchase a Gift Card <span className="sr-only">(opens in new tab)</span>
+              Purchase a Gift Card {external && <span className="sr-only">(opens in new tab)</span>}
             </a>
             <p className="text-sm text-[#113D33]/75 mt-3">
               Delivered instantly via email
@@ -268,9 +271,9 @@ export default function LarimerGiftCardsPage() {
             something they&apos;ll actually use.
           </motion.p>
           <motion.a
-            href={giftCardUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={buyHref}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             onClick={() => trackGiftCardIntent("larimer_gc_bottom_cta")}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +284,7 @@ export default function LarimerGiftCardsPage() {
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
               <SwayCurve width={40} strokeWidth={1.4} className="text-[#113D33]" />
             </span>
-            Buy a Gift Card <span className="sr-only">(opens in new tab)</span>
+            Buy a Gift Card {external && <span className="sr-only">(opens in new tab)</span>}
           </motion.a>
         </div>
       </section>

@@ -3,5 +3,11 @@
     "deploymentEnabled": {
       "master": false
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/gift-cards/reconcile/",
+      "schedule": "*/5 * * * *"
+    }
+  ]
 }

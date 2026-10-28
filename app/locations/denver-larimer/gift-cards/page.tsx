@@ -33,6 +33,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Buy buttons open the site's own gift checkout once GIFT_CHECKOUT_BUTTONS=native is set in Vercel
+const nativeCheckout = process.env.GIFT_CHECKOUT_BUTTONS === "native" ? "/locations/denver-larimer/gift-cards/checkout/" : undefined;
+
 export default function Page() {
-  return <LarimerGiftCardsPage />;
+  return <LarimerGiftCardsPage checkoutUrl={nativeCheckout} />;
 }

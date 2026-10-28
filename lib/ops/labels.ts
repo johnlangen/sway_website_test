@@ -7,6 +7,7 @@ export const FLOW_NAMES: Record<string, string> = {
   membership: "Membership join",
   maven: "Maven hotel Aescape",
   lead: "Leads (enter-to-win, waitlist, founding)",
+  gift: "Gift card checkout",
 };
 
 /** Step order per flow, as the guest sees them. Unknown steps are listed after these. */
@@ -18,6 +19,7 @@ export const FLOW_STEPS: Record<string, string[]> = {
   membership: ["email", "code", "already", "details", "confirm", "done"],
   maven: ["session", "time", "email", "card", "confirm", "booking", "done"],
   lead: [],
+  gift: ["gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done"],
 };
 
 export const LOCATION_NAMES: Record<string, string> = {

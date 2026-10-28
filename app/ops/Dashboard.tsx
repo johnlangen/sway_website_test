@@ -243,6 +243,10 @@ export default function Dashboard({
   const bookings = completedOf(BOOKING_FLOWS);
   const memberships = completedOf(["membership"]);
   const leads = completedOf(["lead"]);
+  const gifts = completedOf(["gift"]);
+  // Completed value per flow, from the ledger's attribution rows (membership = monthly price, gift = amount paid)
+  const valueOf = (f: string) => r.bySource.filter((x) => x.flow === f).reduce((n, x) => n + x.value, 0);
+  const giftStep = (step: string) => flow("gift")?.steps.find((s) => s.step === step)?.visitors || 0;
   const started = BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps[0]?.visitors || 0), 0);
   const bookedValue = BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.bookedValue || 0), 0);
   const messages = r.shown.reduce((n, s) => n + s.n, 0);
@@ -371,14 +375,14 @@ export default function Dashboard({
               sub: `${money(bookedValue)} booked`,
               trend: yesterday && isLive ? `${yesterday.bookings} yesterday` : "",
             },
-            { label: "Memberships", value: String(memberships), sub: r.totals.completedValue ? `${money(r.totals.completedValue)}/mo` : "joined online" },
-            { label: "Leads", value: String(leads), sub: "enter-to-win, waitlist, founding" },
+            { label: "Gift cards", value: String(gifts), sub: gifts ? money(valueOf("gift")) : "bought on the site" },
+            { label: "Memberships", value: String(memberships), sub: memberships ? `${money(valueOf("membership"))}/mo` : "joined online" },
             {
               label: "Booking conversion",
               value: pct(bookings, started),
               sub: `${bookings} of ${fmt(started)} who opened booking`,
             },
-            { label: "Visitors", value: fmt(r.totals.visitors), sub: `${fmt(r.totals.views)} views · ${fmt(r.totals.clicks)} clicks` },
+            { label: "Leads", value: String(leads), sub: "enter-to-win, waitlist, founding" },
           ].map((k) => (
             <div key={k.label} className={`${card} p-4 sm:p-5`}>
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#7a756b]">{k.label}</p>
@@ -414,7 +418,7 @@ export default function Dashboard({
               { label: "Review", n: memberStep("confirm") },
               { label: "Joined", n: memberStep("done"), done: true },
             ]}
-            confirmed={{ n: memberships, value: r.totals.completedValue }}
+            confirmed={{ n: memberships, value: valueOf("membership") }}
             finish={pct(memberships, memberStep("email"))}
           >
             {(flow("membership")?.variants.length || 0) > 0 && (
@@ -422,18 +426,21 @@ export default function Dashboard({
             )}
           </FunnelCard>
           <FunnelCard
-            title="Gift cards"
-            note="Bought on Mindbody's own page"
+            title="Gift card checkout"
             rows={[
               { label: "Viewed a gift card page", n: giftPageVisitors },
-              { label: "Tapped Buy (opens Mindbody)", n: giftTaps },
+              { label: "Opened checkout", n: giftStep("gift") },
+              { label: "Personalized", n: giftStep("delivery") },
+              { label: "Verified email", n: Math.max(giftStep("profiles") + giftStep("profile"), giftStep("payment")) },
+              { label: "New guest account", n: giftStep("profile"), side: true },
+              { label: "Review", n: giftStep("review") },
+              { label: "Purchased", n: giftStep("done"), done: true },
+              { label: "Tapped Buy on Mindbody instead", n: giftTaps, side: true },
             ]}
-            finish={pct(giftTaps, giftPageVisitors)}
-            finishLabel="tap Buy"
+            confirmed={{ n: gifts, value: valueOf("gift") }}
+            finish={pct(gifts, giftStep("gift"))}
           >
-            <p className="mt-4 text-xs text-[#7a756b]">
-              Purchases happen on Mindbody, so they can&apos;t be counted here. Taps are clicks, not unique guests.
-            </p>
+            <p className="mt-4 text-xs text-[#7a756b]">Mindbody taps are clicks, not unique guests; sales made on Mindbody&apos;s page aren&apos;t counted here.</p>
           </FunnelCard>
         </div>
 
@@ -467,7 +474,7 @@ export default function Dashboard({
         </div>
 
         {/* ===== Spas ===== */}
-        <Panel title={`Spas ${days === 1 && day === today ? "today" : days === 1 ? "that day" : `· ${days} days`}`} note="Completed bookings, memberships and leads, by value. Tap a spa to see only its activity.">
+        <Panel title={`Spas ${days === 1 && day === today ? "today" : days === 1 ? "that day" : `· ${days} days`}`} note="Completed bookings, gift cards, memberships and leads, by value. Tap a spa to see only its activity.">
           {r.byLocation.length ? (
             <ul className="grid gap-x-10 gap-y-2 md:grid-cols-2">
               {r.byLocation.map((x, i) => (
@@ -482,7 +489,7 @@ export default function Dashboard({
                   <span className="whitespace-nowrap text-right tabular-nums">
                     <span className="font-semibold">{money(x.bookedValue)}</span>
                     <span className="ml-2 text-xs text-[#7a756b]">
-                      {[x.bookings && `${x.bookings} bk`, x.memberships && `${x.memberships} mem`, x.leads && `${x.leads} lead${x.leads === 1 ? "" : "s"}`]
+                      {[x.bookings && `${x.bookings} bk`, x.gifts && `${x.gifts} gift`, x.memberships && `${x.memberships} mem`, x.leads && `${x.leads} lead${x.leads === 1 ? "" : "s"}`]
                         .filter(Boolean)
                         .join(" · ")}
                     </span>

@@ -144,6 +144,9 @@ All funnel step tags include `booking_flow` as an event parameter via Data Layer
 ### First-party analytics + /ops/ dashboard (since 10/22/2026)
 Sway's own server counts every page view, click, booking/membership flow step (with the option picked, e.g. Brady = 2951), error shown, landing source, and every completed booking / membership / lead (written by the API routes after Mindbody confirms, with first/last-touch attribution). Use it FIRST for any "how many / where do people drop / what did they click" question: `node scripts/ops.mjs [--days 28] [--loc denver-rino] [--funnel aescape] [--clicks /page/]`. Dashboard at /ops/ (login link: `node scripts/ops.mjs --link`, private). Details + privacy rules: `lib/ops/README.md`. New booking flows must add `useFlowTrack(...)` and a `recordCompletion(...)` in their book route.
 
+### Gift card checkout (native, since 10/28/2026)
+Guests buy Mindbody gift cards on the site at `/locations/<slug>/gift-cards/checkout/` (Larimer, RiNo, Central Park), ported from the Spavia site. Payment logic: treat `lib/giftCards/checkout.ts` like booking/card code (no changes without John). Read `lib/giftCards/README.md` first. Switches: `GIFT_CHECKOUT=off` (back to Mindbody's store), `GIFT_CHECKOUT_BUTTONS=native` (gift card pages' Buy buttons use it). Settle cron: `/api/gift-cards/reconcile/` every 5 min.
+
 ### TODO: GA4 Funnel Explorations
 Create funnel explorations in GA4 (Explore → Funnel Exploration) for each booking flow:
 - Aescape funnel (filter: booking_flow = aescape)

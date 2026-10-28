@@ -12,7 +12,7 @@ export default function SiteCanvas({
   const pathname = usePathname() || "/";
   const isInternal = /\/(internal|clubdesk|dashboard|ops)(\/|$)/.test(pathname);
   const isFlow =
-    /\/(book[^/]*|founding-membership|membership-join-preview|themavenhotel)(\/|$)/.test(
+    /\/(book[^/]*|founding-membership|membership-join-preview|themavenhotel|checkout)(\/|$)/.test(
       pathname,
     );
   const isArticle = pathname.startsWith("/blog/") && pathname !== "/blog/";

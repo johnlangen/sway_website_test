@@ -140,7 +140,7 @@ export function trackView() {
   send({ kind: "view", ...(landing ? { landing } : {}) });
 }
 
-const FLOW_PAGE = /\/(book[^/]*|founding-membership|themavenhotel)(\/|$)/;
+const FLOW_PAGE = /\/(book[^/]*|founding-membership|themavenhotel|checkout)(\/|$)/;
 const TIME_OR_DAY = /^(\d{1,2}:\d{2}\s?(AM|PM)|(Mon|Tue|Wed|Thu|Fri|Sat|Sun)[a-z]*\.?,?\s+\w+\s+\d{1,2}|\d{1,2})$/i;
 const scrubText = (v: string) => v.replace(/\d[\d -]{5,}\d/g, "#").replace(/[^\s@]+@[^\s@]+/g, "[email]");
 
@@ -217,7 +217,7 @@ export function listenForClicks() {
 }
 
 // ---------------------------------------------------------------- flow steps
-export type OpsFlow = "service" | "aescape" | "remedy_room" | "remedy_lounge" | "membership" | "maven" | "lead";
+export type OpsFlow = "service" | "aescape" | "remedy_room" | "remedy_lounge" | "membership" | "maven" | "lead" | "gift";
 
 export function trackStep(flow: OpsFlow, step: string, variant?: string | number, extra?: { error?: string; value?: number }) {
   send({

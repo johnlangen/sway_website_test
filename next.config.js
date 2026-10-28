@@ -4,6 +4,10 @@ const nextConfig = {
   // output: "export",
 
   trailingSlash: true,
+  // The gift card PDF (lib/giftCards/delivery.ts) reads its artwork, logo and fonts from public/
+  outputFileTracingIncludes: {
+    "/api/gift-cards/*": ["./public/gift-cards/**/*", "./public/assets/fonts/vance-*.otf"],
+  },
   images: {
     // Next.js will auto-optimize: WebP conversion, responsive sizing, lazy loading
   },

@@ -33,6 +33,7 @@ export const FLOWS = [
   "membership",
   "maven", // Maven hotel Aescape page
   "lead", // enter-to-win / waitlist / founding forms
+  "gift", // native gift card checkout (lib/giftCards)
 ] as const;
 export type OpsFlow = (typeof FLOWS)[number];
 
