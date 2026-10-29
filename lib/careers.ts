@@ -1,25 +1,12 @@
 /**
  * Sway's open jobs, read live from its Discovered hiring site (spaviasway.discovered.ai, company
- * 7684 "Sway by Spavia"; the same system the Spavia spas use). Found 10/29/2026 after the careers
+ * 7684 "Sway by Spavia"; the same system the Spavia spas use). It covers all three Denver-area
+ * locations (Larimer, RiNo, Central Park; confirmed 10/29). Found 10/29/2026 after the careers
  * page's old apply link (oc.spaviajobs.com) turned out to go nowhere. Cached an hour; if Discovered
  * can't be read, the page shows the hiring site link instead of an empty list.
  */
 export const HIRING_SITE = "https://spaviasway.discovered.ai/";
 const JOBS_API = "https://tht-api-discoveredats-v2-23a221eb374c.herokuapp.com/api/common/company/jobs?companyId=7684";
-
-/**
- * The careers page's location picker. `href` = the location's online hiring site (only Sway Larimer
- * has one on Discovered so far, checked 10/29); without one the page shows a short note with the
- * location's email instead of opening anything. Add a location's Discovered link as `href` once
- * John has it.
- */
-export const CAREER_LOCATIONS: { slug: string; label: string; href?: string; email: string; soon?: boolean }[] = [
-  { slug: "denver-larimer", label: "Sway Larimer · Denver, CO", href: HIRING_SITE, email: "contact@swaywellnessspa.com" },
-  { slug: "denver-rino", label: "Sway RiNo · Denver, CO", email: "contact@swayrino.com" },
-  { slug: "denver-central-park", label: "Sway Central Park · Aurora, CO", email: "contact@swaycentralpark.com" },
-  { slug: "union-market", label: "Sway Union Market · Washington, DC (coming soon)", email: "contact@swaywellnessspa.com", soon: true },
-  { slug: "knox-henderson", label: "Sway Knox/Henderson · Dallas, TX (coming soon)", email: "contact@swaywellnessspa.com", soon: true },
-];
 
 export type OpenJob = { id: string; title: string; city: string; state: string; url: string };
 
