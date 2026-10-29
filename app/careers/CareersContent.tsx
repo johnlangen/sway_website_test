@@ -155,7 +155,7 @@ export default function CareersContent({ jobs }: { jobs: OpenJob[] | null }) {
             </div>
           </div>
           <div className="relative hidden aspect-[3/5] self-start overflow-hidden rounded-3xl lg:mt-24 lg:block">
-            <Image src="/assets/rino1.jpeg" alt="Sway RiNo's cold plunge pool" fill sizes="30vw" className="object-cover" />
+            <Image src="/assets/careers-salt-stone-massage.jpg" alt="A massage therapist giving a salt stone massage" fill sizes="30vw" className="object-cover" />
           </div>
         </div>
       </section>
@@ -175,7 +175,7 @@ export default function CareersContent({ jobs }: { jobs: OpenJob[] | null }) {
           >
             View open positions
           </a>
-          <div className="mt-5 flex w-full justify-center">
+          <div className="mt-5 flex w-full justify-center text-left">
             <CareersLocationPicker locations={CAREER_LOCATIONS} id="careers-location-cta" />
           </div>
         </div>

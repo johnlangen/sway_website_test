@@ -8,16 +8,17 @@ export const HIRING_SITE = "https://spaviasway.discovered.ai/";
 const JOBS_API = "https://tht-api-discoveredats-v2-23a221eb374c.herokuapp.com/api/common/company/jobs?companyId=7684";
 
 /**
- * Where each location's "See jobs" goes. Only Sway Larimer has a Discovered hiring site so far
- * (checked 10/29: Discovered's Spavia listings have one Sway company); the others email the location
- * until John sends their hiring links (replace `href` with the link).
+ * The careers page's location picker. `href` = the location's online hiring site (only Sway Larimer
+ * has one on Discovered so far, checked 10/29); without one the page shows a short note with the
+ * location's email instead of opening anything. Add a location's Discovered link as `href` once
+ * John has it.
  */
-export const CAREER_LOCATIONS: { slug: string; label: string; href: string; soon?: boolean }[] = [
-  { slug: "denver-larimer", label: "Sway Larimer · Denver, CO", href: HIRING_SITE },
-  { slug: "denver-rino", label: "Sway RiNo · Denver, CO", href: "mailto:contact@swayrino.com?subject=Careers%20at%20Sway%20RiNo" },
-  { slug: "denver-central-park", label: "Sway Central Park · Aurora, CO", href: "mailto:contact@swaycentralpark.com?subject=Careers%20at%20Sway%20Central%20Park" },
-  { slug: "union-market", label: "Sway Union Market · Washington, DC (coming soon)", href: "mailto:contact@swaywellnessspa.com?subject=Careers%20at%20Sway%20Union%20Market", soon: true },
-  { slug: "knox-henderson", label: "Sway Knox/Henderson · Dallas, TX (coming soon)", href: "mailto:contact@swaywellnessspa.com?subject=Careers%20at%20Sway%20Knox%2FHenderson", soon: true },
+export const CAREER_LOCATIONS: { slug: string; label: string; href?: string; email: string; soon?: boolean }[] = [
+  { slug: "denver-larimer", label: "Sway Larimer · Denver, CO", href: HIRING_SITE, email: "contact@swaywellnessspa.com" },
+  { slug: "denver-rino", label: "Sway RiNo · Denver, CO", email: "contact@swayrino.com" },
+  { slug: "denver-central-park", label: "Sway Central Park · Aurora, CO", email: "contact@swaycentralpark.com" },
+  { slug: "union-market", label: "Sway Union Market · Washington, DC (coming soon)", email: "contact@swaywellnessspa.com", soon: true },
+  { slug: "knox-henderson", label: "Sway Knox/Henderson · Dallas, TX (coming soon)", email: "contact@swaywellnessspa.com", soon: true },
 ];
 
 export type OpenJob = { id: string; title: string; city: string; state: string; url: string };
