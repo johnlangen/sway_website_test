@@ -8,13 +8,13 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: { absolute: "Careers at Sway Wellness Spa | Spa Jobs in Denver, CO" },
   description:
-    "Work at Sway Wellness Spa in Larimer Square, Denver. See open roles for massage therapists and spa team members: competitive pay, gratuity and bonuses, paid training and flexible schedules.",
+    "Build a career in wellness at Sway: Larimer Square, RiNo and Central Park in the Denver area, with Washington, DC and Dallas coming soon. Massage therapists, estheticians, wellness coordinators and managers.",
   alternates: {
     canonical: "https://swaywellnessspa.com/careers/",
   },
   openGraph: {
     title: "Careers at Sway Wellness Spa | Spa Jobs in Denver, CO",
-    description: "Join the team at Sway Larimer in Denver: open roles for massage therapists and spa team members.",
+    description: "Join the team at Sway's Denver-area locations: massage therapists, estheticians, wellness coordinators and managers.",
     url: "https://swaywellnessspa.com/careers/",
     siteName: "Sway Wellness Spa",
     type: "website",
@@ -34,8 +34,8 @@ export default async function Page() {
         acceptedAnswer: {
           "@type": "Answer",
           text: jobs?.length
-            ? `Yes. Sway Larimer in Denver, CO is hiring: ${jobs.map((j) => j.title).join(", ")}. See the open roles and apply at swaywellnessspa.com/careers/.`
-            : "See current openings at Sway Larimer in Denver, CO at swaywellnessspa.com/careers/.",
+            ? `Yes. Sway is hiring at Sway Larimer in Denver, CO: ${jobs.map((j) => j.title).join(", ")}. See every opening and apply at swaywellnessspa.com/careers/.`
+            : "See current openings at Sway's Larimer, RiNo and Central Park locations at swaywellnessspa.com/careers/.",
         },
       },
       {
@@ -43,7 +43,7 @@ export default async function Page() {
         name: "What's it like working at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway is a modern day spa in Larimer Square with massages, facials, the Remedy Room recovery circuit and Aescape robot massage. Team members get competitive pay with gratuity and bonuses, paid in-house training, flexible schedules and a supportive, family culture.",
+          text: "Sway has three Denver-area locations: a day spa in Larimer Square with massages, facials, the Remedy Room recovery circuit and Aescape, and wellness clubs in RiNo and Central Park. Team members get competitive pay with gratuity and bonuses, paid in-house training, flexible schedules and a supportive, family culture.",
         },
       },
       {
