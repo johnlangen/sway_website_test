@@ -1,53 +1,28 @@
 import { Metadata } from "next";
 import CareersContent from "./CareersContent";
+import { openJobs } from "@/lib/careers";
+
+// Open roles are read from Sway's Discovered hiring site, refreshed hourly (lib/careers.ts)
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: { absolute: "Massage Therapist Job – Denver, CO | Sway Wellness Spa" },
+  title: { absolute: "Careers at Sway Wellness Spa | Spa Jobs in Denver, CO" },
   description:
-    "Apply for Massage Therapist positions at Sway Wellness Spa in Denver, CO. Join our modern, high-end wellness club with flexible schedules, competitive pay, and a supportive team culture.",
+    "Work at Sway Wellness Spa in Larimer Square, Denver. See open roles for massage therapists and spa team members: competitive pay, gratuity and bonuses, paid training and flexible schedules.",
   alternates: {
     canonical: "https://swaywellnessspa.com/careers/",
   },
   openGraph: {
-    title: "Massage Therapist Job – Denver, CO | Sway Wellness Spa",
-    description:
-      "Join Sway Wellness Spa as a Massage Therapist. Competitive pay, flexible scheduling, advanced modalities, and a next-generation wellness environment.",
+    title: "Careers at Sway Wellness Spa | Spa Jobs in Denver, CO",
+    description: "Join the team at Sway Larimer in Denver: open roles for massage therapists and spa team members.",
     url: "https://swaywellnessspa.com/careers/",
     siteName: "Sway Wellness Spa",
     type: "website",
   },
 };
 
-export default function Page() {
-  // Job posting JSON-LD
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: "Massage Therapist",
-    description:
-      "Sway Wellness Spa is seeking full-time and part-time Massage Therapists of all experience levels. Join a modern, technology-forward spa with a supportive team culture and competitive compensation.",
-    hiringOrganization: {
-      "@type": "Organization",
-      name: "Sway Wellness Spa",
-      sameAs: "https://swaywellnessspa.com",
-      logo: "https://swaywellnessspa.com/assets/swaylogo.png",
-    },
-    jobLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Larimer Square",
-        addressLocality: "Denver",
-        addressRegion: "CO",
-        postalCode: "80202",
-        addressCountry: "US",
-      },
-    },
-    employmentType: ["FULL_TIME", "PART_TIME"],
-    hiringOrganizationSameAs: "https://swaywellnessspa.com",
-    applyUrl:
-      "https://oc.spaviajobs.com/v2/#/a/job/a2Vlb?source=SwayWebsite",
-  };
+export default async function Page() {
+  const jobs = await openJobs();
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -58,7 +33,9 @@ export default function Page() {
         name: "Is Sway Wellness Spa hiring?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Sway is actively hiring licensed Massage Therapists (full-time and part-time) at our Larimer Square location in Denver, CO. We welcome therapists of all experience levels.",
+          text: jobs?.length
+            ? `Yes. Sway Larimer in Denver, CO is hiring: ${jobs.map((j) => j.title).join(", ")}. See the open roles and apply at swaywellnessspa.com/careers/.`
+            : "See current openings at Sway Larimer in Denver, CO at swaywellnessspa.com/careers/.",
         },
       },
       {
@@ -66,7 +43,7 @@ export default function Page() {
         name: "What's it like working at Sway?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sway offers a modern, technology-forward spa environment with competitive pay, flexible scheduling, and advanced modalities including AI-powered Aescape robot massage. The culture is supportive, team-oriented, and focused on professional growth.",
+          text: "Sway is a modern day spa in Larimer Square with massages, facials, the Remedy Room recovery circuit and Aescape robot massage. Team members get competitive pay with gratuity and bonuses, paid in-house training, flexible schedules and a supportive, family culture.",
         },
       },
       {
@@ -74,7 +51,7 @@ export default function Page() {
         name: "How do I apply for a job at Sway Wellness Spa?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Visit swaywellnessspa.com/careers to view open positions and apply online. You can also reach out directly to the team for more information about available roles.",
+          text: "Choose a role at swaywellnessspa.com/careers/ and apply online. Questions? Email contact@swaywellnessspa.com.",
         },
       },
     ],
@@ -82,15 +59,8 @@ export default function Page() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <CareersContent />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <CareersContent jobs={jobs} />
     </>
   );
 }
