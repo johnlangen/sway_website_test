@@ -40,7 +40,8 @@ export type ClubFoundingConfig = {
   cap: number;
   /** Real deadline, written the way the page says it. */
   closesLabel: string;
-  /** When massage + facials open, written the way the page says it. No date yet (John 11/2). */
+  /** When massage + facials start, as the page says it. The clubs are already open for the Remedy Lounge.
+   *  Month level on purpose: the working dates (RiNo 11/16, CP 11/30 or 12/1) stay private until locked. */
   opensLabel: string;
   heroImage: string;
   clubImage: string;
@@ -64,7 +65,7 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     leadsMembershipPage: true,
     cap: 50,
     closesLabel: "January 31",
-    opensLabel: "soon",
+    opensLabel: "in mid-November",
     heroImage: "/assets/founding-massage-lamp.jpg",
     clubImage: "/assets/rino1.jpeg",
     clubImageAlt: "Recovery pool at Sway RiNo",
@@ -78,7 +79,7 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     leadsMembershipPage: true,
     cap: 50,
     closesLabel: "January 31",
-    opensLabel: "soon",
+    opensLabel: "in December",
     heroImage: "/assets/founding-massage-lamp.jpg",
     clubImage: "/assets/centralpark2.jpg",
     clubImageAlt: "Cold plunges and sauna at Sway Central Park",

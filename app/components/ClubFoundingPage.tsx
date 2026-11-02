@@ -146,8 +146,8 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
 
   const faqs = [
     {
-      q: "When do massage and facials open?",
-      a: `Soon. ${cfg.shortName} is open now, and the massage and facial rooms are the next step. We don't have a date to share yet. Founding members hear first and book before anyone else.`,
+      q: "When do massage and facials start?",
+      a: `${cfg.shortName} is already open for the Remedy Lounge. Massage and facials start ${cfg.opensLabel}. Founding members hear the exact date first and book before anyone else.`,
     },
     {
       q: "How long does the founding offer last?",

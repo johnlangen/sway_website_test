@@ -145,8 +145,8 @@ export default function MembershipHubPage() {
               From $89 <span>/ month</span>
             </p>
             <p>
-              Massage and facials are coming to our RiNo and Central Park clubs.
-              Only 50 founding memberships at each club, through January 31.
+              Massage and facials start at RiNo in mid-November and Central Park in
+              December. Only 50 founding memberships at each club, through January 31.
             </p>
             <ul>
               <li>One monthly massage or facial from your tier</li>
