@@ -32,6 +32,14 @@ const TIER_RANK: Record<string, number> = { essential: 1, premier: 2, ultimate: 
 /**
  * Determine tier from a Mindbody contract or membership name.
  */
+// A massage/facial tier contract: "Founding Premier Membership", "membership | premier | monthly".
+// At the clubs these do NOT include the Remedy Lounge (Lounge contracts say "Remedy", and CP's older
+// generic "Founding Membership" names no tier, so both still count as Lounge).
+function isSpaTierContractName(name: string): boolean {
+  const lower = name.toLowerCase();
+  return !lower.includes("remedy") && !lower.includes("aescape") && /\b(essential|premier|ultimate)\b/.test(lower);
+}
+
 function detectTierFromName(name: string): MembershipTier {
   const lower = name.toLowerCase();
   // Aescape and Remedy Room are NOT spa tier memberships — skip them
@@ -204,6 +212,7 @@ export async function GET(req: Request) {
       let hasRemedyMembership = false;
       let homeLocation: string | null = null;
       let isLocalMember = false;
+      let hasClubLoungeContract = false;
 
       // Step 2: local contracts — scan ALL active contracts for spa tier + aescape + remedy
       const contractsUrl = new URL(
@@ -232,6 +241,7 @@ export async function GET(req: Request) {
           // Check for spa tier
           const detected = detectTierFromName(contract.Name ?? contract.ContractName ?? "");
           if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) tier = detected;
+          if (detected && !isSpaTierContractName(contract.Name ?? contract.ContractName ?? "")) hasClubLoungeContract = true;
         }
       }
 
@@ -242,9 +252,12 @@ export async function GET(req: Request) {
       // Sway Wellness Club sites (RiNo / Central Park): their $99 Unlimited
       // membership (migrated from Mariana Tek as "Founding Membership", and any
       // future club membership) INCLUDES the Remedy Lounge. That contract name
-      // has no "remedy" keyword, so flag inclusion explicitly for any local club
-      // member. Scoped to club site IDs — Larimer pricing is unaffected.
-      if (CLUB_SITE_IDS.includes(String(siteId)) && isLocalMember) {
+      // has no "remedy" keyword, so flag inclusion explicitly for those members.
+      // Massage/facial tier members (founding memberships, Nov 2026) don't get it:
+      // the Lounge is its own membership. Checked 11/2/2026 against every current
+      // club member; none lost access. Scoped to club site IDs — Larimer pricing
+      // is unaffected.
+      if (CLUB_SITE_IDS.includes(String(siteId)) && hasClubLoungeContract) {
         hasRemedyMembership = true;
       }
 
@@ -336,6 +349,7 @@ export async function GET(req: Request) {
                 termDate && !termDate.startsWith("0001-01-01") && new Date(termDate) < new Date();
               if (c.IsActive === false || terminated) return false;
               const nm = c.ContractName ?? c.Name ?? "";
+              if (isSpaTierContractName(nm)) return false; // massage/facial tier: no Lounge
               return !!detectTierFromName(nm) || /remedy|founding|unlimited|membership/i.test(nm);
             });
             if (clubMember) break;

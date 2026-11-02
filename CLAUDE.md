@@ -107,6 +107,7 @@ All three booking flows push the same shared funnel events to `dataLayer`, with 
 - Service (Massage/Facial): `service_booking_complete` + Google Ads conversion
 - Remedy Room: `remedy_room_booking_complete` + Google Ads conversion
 - Club Remedy Lounge (RiNo/CP): `remedy_lounge_booking_complete` — GA4 only, NO Google Ads conversion yet (no club campaigns; intentional). GTM tag added in container version 24 (2026-07-01) with params booking_location / value / currency / is_member.
+- Club Massage/Facial (RiNo/CP): `service_booking_complete` — GA4 only, NO Google Ads conversion (removed 11/2/2026; it was firing Larimer's labels).
 
 ### `booking_flow` Values
 - `"aescape"` — book-aescape/page.tsx

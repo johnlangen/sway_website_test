@@ -327,9 +327,10 @@ export default function MembershipJoinFlow({
       // Club unlimited-lounge plan: ANY active club membership already
       // includes the Remedy Lounge — migrated Founding/Legacy members
       // (flagged hasRemedyMembership or tier via the check route) and
-      // members of the other club (cross-club recognition) alike.
+      // members of the other club (cross-club recognition) alike. A local
+      // massage/facial tier member has no Lounge, so they can still join it.
       (plan.key === "club_lounge" &&
-      (checkData?.hasRemedyMembership || checkData?.isMember)
+      (checkData?.hasRemedyMembership || (checkData?.isMember && !checkData?.isLocalMember))
         ? "Remedy Lounge membership"
         : null)
     );

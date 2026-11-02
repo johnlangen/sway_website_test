@@ -964,13 +964,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       const bookingValueTreatment = selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn : 0;
       const bookingValueBoosts = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0);
       const bookingValue = bookingValueTreatment + bookingValueBoosts;
-      const txnTimestamp = Date.now();
-      // Fire conversions
-      const gtagFn = (window as any).gtag;
-      if (typeof gtagFn === "function") {
-        gtagFn("event", "conversion", { send_to: "AW-17421817568/T3o8CK-LoukbEOCtr_NA", transaction_id: `${clientId}-${txnTimestamp}`, value: bookingValue, currency: "USD" });
-        gtagFn("event", "conversion", { send_to: "AW-17421817568/ArEMCLWJ0P0bEOCtr_NA", transaction_id: `${clientId}-${txnTimestamp}-svc`, value: bookingValue, currency: "USD" });
-      }
+      // No Google Ads conversion here: those labels are Larimer's, and firing them would feed club
+      // bookings into Larimer's bidding. GA4-only until the clubs have their own conversion actions
+      // (same as remedy_lounge_booking_complete; see CLAUDE.md).
       window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD" });
       setStep("done");
     } catch (e: any) { setError(e?.message ? `${e.message} Email ${club.contactEmail} to complete your booking.` : `Booking failed. Email ${club.contactEmail} to complete your booking.`); setStep("confirm"); }
