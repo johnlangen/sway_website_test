@@ -72,9 +72,9 @@ const CLUB_CONTRACTS: Record<number, SellableContract> = {
   137: { key: "essential", name: "Founding Essential Membership", monthly: 89 },
   138: { key: "premier", name: "Founding Premier Membership", monthly: 119 },
   139: { key: "ultimate", name: "Founding Ultimate Membership", monthly: 149 },
-  122: { key: "essential", name: "Essential Membership + 6 Lounge visits", monthly: 99 },
-  123: { key: "premier", name: "Premier Membership + 6 Lounge visits", monthly: 129 },
-  124: { key: "ultimate", name: "Ultimate Membership + 6 Lounge visits", monthly: 159 },
+  122: { key: "essential", name: "Essential Membership + 6 Remedy Lounge visits", monthly: 99 },
+  123: { key: "premier", name: "Premier Membership + 6 Remedy Lounge visits", monthly: 129 },
+  124: { key: "ultimate", name: "Ultimate Membership + 6 Remedy Lounge visits", monthly: 159 },
 };
 
 function sellableContractsForSite(

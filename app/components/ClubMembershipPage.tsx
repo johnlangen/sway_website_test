@@ -188,7 +188,7 @@ export default function ClubMembershipPage({
                 </p>
 
                 <p className="mt-3 text-base leading-relaxed max-w-lg opacity-90">
-                  Treatment rooms are coming to {cfg.shortName} {founding.opensLabel}. Founding members choose a perk and book before anyone else.
+                  Treatment rooms are coming to {cfg.shortName} {founding.opensLabel}. Founding members choose $10 off every month or 6 free Remedy Lounge visits.
                 </p>
               </>
             ) : (
@@ -256,9 +256,9 @@ export default function ClubMembershipPage({
           <div className="relative sway-hero-enter-media">
             <Image
               src={founding.leadsMembershipPage ? founding.heroImage : cfg.heroImage}
-              alt={founding.leadsMembershipPage ? "A massage therapist working on a guest's back in lamplight" : cfg.heroImageAlt}
-              width={founding.leadsMembershipPage ? 2200 : 959}
-              height={founding.leadsMembershipPage ? 1466 : 1640}
+              alt={founding.leadsMembershipPage ? "A candlelit hallway of treatment rooms at Sway" : cfg.heroImageAlt}
+              width={founding.leadsMembershipPage ? 2400 : 959}
+              height={founding.leadsMembershipPage ? 1600 : 1640}
               priority
               className={`rounded-3xl shadow-lg w-full ${founding.leadsMembershipPage ? "h-[210px]" : "h-[300px]"} sm:h-[360px] md:h-[460px] object-cover`}
             />

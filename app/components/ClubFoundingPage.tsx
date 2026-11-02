@@ -126,12 +126,12 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
         blurb:
           perk === "rate"
             ? `One massage or facial a month at ${cfg.shortName}, $10 off every month.`
-            : `One massage or facial a month at ${cfg.shortName}, plus ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits.`,
+            : `One massage or facial a month at ${cfg.shortName}, plus ${LOUNGE_VISIT_PERK.visits} free Remedy Lounge visits.`,
         perks: EVERY_MEMBERSHIP,
         doneNote:
           perk === "rate"
-            ? "We'll reach out when massage and facial booking opens. Founding members book first."
-            : `We'll add your ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits to your account, and reach out when massage and facial booking opens. Founding members book first.`,
+            ? "We'll reach out when massage and facial booking opens."
+            : `We'll add your ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits to your account, and reach out when massage and facial booking opens.`,
         doneCta: perk === "rate" ? `Back to ${cfg.shortName}` : "Book a Remedy Lounge visit",
       }
     : null;
@@ -147,7 +147,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
   const faqs = [
     {
       q: "When do massage and facials start?",
-      a: `${cfg.shortName} is already open for the Remedy Lounge. Massage and facials start ${cfg.opensLabel}. Founding members hear the exact date first and book before anyone else.`,
+      a: `${cfg.shortName} is already open for the Remedy Lounge. Massage and facials start ${cfg.opensLabel}. We'll let founding members know the exact date as soon as it's set.`,
     },
     {
       q: "How long does the founding offer last?",
@@ -167,11 +167,11 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
     },
     {
       q: "Is the Remedy Lounge included?",
-      a: `The Remedy Lounge is a separate membership. Choose the ${LOUNGE_VISIT_PERK.visits} visit founding perk to try it, or join the Lounge for unlimited access at $129 a month.`,
+      a: `The Remedy Lounge is a separate membership. Choose the ${LOUNGE_VISIT_PERK.visits} free visits perk to try it, or join the Remedy Lounge for unlimited access at $129 a month.`,
     },
     {
       q: "I'm already a Remedy Lounge member. Does this change anything?",
-      a: "Your Lounge membership and rate stay exactly as they are. A founding membership is separate and adds a monthly massage or facial.",
+      a: "Your Remedy Lounge membership and rate stay exactly as they are. A founding membership is separate and adds a monthly massage or facial.",
     },
   ];
 
@@ -193,11 +193,11 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
             <h1 className="mt-6">Be one of the first {cfg.cap}.</h1>
             <SwayCurve width={120} strokeWidth={2} className="my-5 block text-[#9CB7A9] md:my-7" />
             <p className="max-w-md text-base text-white/90 md:text-lg">
-              Massage and facials are coming to {cfg.shortName} {cfg.opensLabel}. Join now for a monthly treatment at a founding rate, with first access to every appointment.
+              Massage and facials are coming to {cfg.shortName} {cfg.opensLabel}. Join now for a monthly treatment at an exclusive founding rate. This is the best pricing you will ever see.
             </p>
             <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-white/25 pt-4 md:mt-9 md:gap-4 md:pt-5">
               <div className="flex flex-col-reverse">
-                <dt className="mt-1 text-xs text-white/80">a month, to start</dt>
+                <dt className="mt-1 text-xs text-white/80">a month, locked in</dt>
                 <dd className="cf-num text-[28px] md:text-4xl">${fromPrice}</dd>
               </div>
               <div className="flex flex-col-reverse">
@@ -209,64 +209,18 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
                 <dd className="cf-num text-[28px] md:text-4xl">{cfg.closesLabel.replace("January", "Jan")}</dd>
               </div>
             </dl>
-            <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-1 md:mt-9">
+            <p className="mt-4 text-sm text-white/85">
+              Or ${FOUNDING_RATES.essential.regular} a month with {LOUNGE_VISIT_PERK.visits} free Remedy Lounge visits.
+            </p>
+            <div className="mt-6 md:mt-8">
               <a href="#tiers" className="sway-button sway-button-light w-full sm:w-auto">
                 See founding rates <span aria-hidden="true"><ArrowMark /></span>
               </a>
-              <a href="#why" className="sway-text-link text-white">Why join now</a>
             </div>
           </div>
         </div>
         <div className="relative h-52 sm:h-64 md:absolute md:inset-y-0 md:right-0 md:h-auto md:w-1/2">
-          <Image src={cfg.heroImage} alt="" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-        </div>
-      </section>
-
-      {/* ===== Why founding ===== */}
-      <section id="why" className="scroll-mt-24 bg-[#F7F4E9] py-12 md:py-28">
-        <div className="mx-auto max-w-6xl px-6">
-          <p className={`${eyebrow} text-[#4A776D]`}>Why founding</p>
-          <h2 className="mt-3 max-w-3xl text-[32px] leading-[1.1] md:mt-4 md:text-6xl">Get in before the treatment rooms open.</h2>
-          <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-7 md:mt-14 md:gap-x-10 md:gap-y-10 lg:grid-cols-4">
-            {[
-              { n: "$600", t: "less a year than drop-in", b: "With $10 off, each treatment is $50 under drop-in." },
-              { n: `$${visitsValue}`, t: "in Remedy Lounge visits", b: `Or pick ${LOUNGE_VISIT_PERK.visits} free visits instead of $10 off.` },
-              { n: "First", t: "pick of appointments", b: "You book before the public." },
-              { n: "12", t: "months of rollover", b: "Busy month? It waits for you while you stay active." },
-            ].map((v) => (
-              <div key={v.t} className="border-t border-[#113D33]/25 pt-3 md:pt-5">
-                <p className="cf-num text-[40px] md:text-6xl">{v.n}</p>
-                <h3 className="mt-2 text-base leading-snug md:mt-3 md:text-lg">{v.t}</h3>
-                <p className="mt-1 text-sm leading-snug text-[#113D33]/80 md:mt-2 md:text-base md:leading-relaxed">{v.b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== What is opening ===== */}
-      <section className="bg-[#F7F4E9] pb-12 md:pb-28">
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2 md:gap-10">
-          <article>
-            <div className="relative aspect-[16/10] overflow-hidden md:aspect-[4/5]">
-              <Image src="/assets/founding-massage-stone.jpg" alt="A massage therapist working with a warm salt stone" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover object-[50%_60%]" />
-            </div>
-            <p className={`${eyebrow} mt-4 text-[#4A776D] md:mt-7`}>Massage</p>
-            <h3 className="cf-title mt-1 text-[28px] md:mt-2 md:text-4xl">13 ways to let go</h3>
-            <p className="mt-2 max-w-md text-[15px] leading-normal text-[#113D33]/80 md:mt-3 md:text-base md:leading-relaxed">
-              Licensed massage therapists, in 50, 70 and 90 minutes. Signature (light to medium pressure), Deep Tissue, Sports, Salt Stone, Lymphatic Drainage and Maternity.
-            </p>
-          </article>
-          <article className="md:mt-24">
-            <div className="relative aspect-[16/10] overflow-hidden md:aspect-[4/5]">
-              <Image src="/assets/J2.jpg" alt="A serum dropper held to a guest's cheek during a facial" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
-            </div>
-            <p className={`${eyebrow} mt-4 text-[#4A776D] md:mt-7`}>Facials</p>
-            <h3 className="cf-title mt-1 text-[28px] md:mt-2 md:text-4xl">11 ways to glow</h3>
-            <p className="mt-2 max-w-md text-[15px] leading-normal text-[#113D33]/80 md:mt-3 md:text-base md:leading-relaxed">
-              Eminence Organics facials for aging, acne, hydration and sensitive skin, a dedicated Dr. Dennis Gross Vitamin C facial, and advanced treatments like Oxygen Infusion and Microcurrent.
-            </p>
-          </article>
+          <Image src={cfg.heroImage} alt="A candlelit hallway of treatment rooms at Sway" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
       </section>
 
@@ -280,7 +234,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
             {(
               [
                 { id: "rate", title: "$10 off every month", body: "A lower monthly rate." },
-                { id: "visits", title: `${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits`, body: `A $${visitsValue} value, at the regular monthly rate.` },
+                { id: "visits", title: `${LOUNGE_VISIT_PERK.visits} free Remedy Lounge visits`, body: `A $${visitsValue} value, at the regular monthly rate.` },
               ] as { id: Perk; title: string; body: string }[]
             ).map((p) => (
               <button
@@ -322,16 +276,20 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
                   <p className="mt-3 flex flex-wrap items-baseline gap-x-2 md:mt-6">
                     <span className="cf-num text-5xl md:text-6xl">${price}</span>
                     <span className={muted}>/ month</span>
-                    {perk === "rate" && (
+                    {perk === "rate" ? (
                       <span className={`ml-1 line-through ${muted}`}>
                         <span className="sr-only">Regular rate </span>${r.regular}
+                      </span>
+                    ) : (
+                      <span className={`basis-full text-sm ${dark ? "text-[#D7E5DD]" : "text-[#2F5D50]"}`}>
+                        Plus {LOUNGE_VISIT_PERK.visits} free Remedy Lounge visits
                       </span>
                     )}
                   </p>
                   <p className={`mt-2 text-sm md:mt-3 ${dark ? "text-[#D7E5DD]" : "text-[#2F5D50]"}`}>
                     {perk === "rate"
                       ? `$${(r.dropIn - price) * 12} less a year than $${r.dropIn} drop-ins`
-                      : `Plus ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits. Drop-in is $${r.dropIn}.`}
+                      : `Drop-in $${r.dropIn}`}
                   </p>
                   <p className={`mt-2 text-[15px] leading-snug md:mt-5 md:text-base md:leading-relaxed ${muted}`}>{t.line}</p>
                   {/* Phones: treatment list on tap, so all three prices are close together */}
@@ -357,7 +315,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
                   <div className="mt-auto pt-3 md:pt-8">
                     <button type="button" onClick={() => openTier(t.key)} className={`sway-button w-full ${dark ? "sway-button-light" : ""}`}>
                       <span>
-                        {canJoin ? "Become a founder" : "Get first access"}
+                        {canJoin ? "Become a founder" : "Join the list"}
                         <span className="sr-only"> for {t.name}</span>
                       </span>
                       <span aria-hidden="true"><ArrowMark /></span>
@@ -380,6 +338,32 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* ===== What is opening ===== */}
+      <section className="bg-[#F7F4E9] py-12 md:py-28">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2 md:gap-10">
+          <article>
+            <div className="relative aspect-[16/10] overflow-hidden md:aspect-[4/5]">
+              <Image src="/assets/founding-massage-stone.jpg" alt="A massage therapist working with a warm salt stone" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover object-[50%_60%]" />
+            </div>
+            <p className={`${eyebrow} mt-4 text-[#4A776D] md:mt-7`}>Massage</p>
+            <h3 className="cf-title mt-1 text-[28px] md:mt-2 md:text-4xl">13 ways to let go</h3>
+            <p className="mt-2 max-w-md text-[15px] leading-normal text-[#113D33]/80 md:mt-3 md:text-base md:leading-relaxed">
+              Licensed massage therapists, in 50, 70 and 90 minutes. Signature (light to medium pressure), Deep Tissue, Sports, Salt Stone, Lymphatic Drainage and Maternity.
+            </p>
+          </article>
+          <article className="md:mt-24">
+            <div className="relative aspect-[16/10] overflow-hidden md:aspect-[4/5]">
+              <Image src="/assets/J2.jpg" alt="A serum dropper held to a guest's cheek during a facial" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            </div>
+            <p className={`${eyebrow} mt-4 text-[#4A776D] md:mt-7`}>Facials</p>
+            <h3 className="cf-title mt-1 text-[28px] md:mt-2 md:text-4xl">11 ways to glow</h3>
+            <p className="mt-2 max-w-md text-[15px] leading-normal text-[#113D33]/80 md:mt-3 md:text-base md:leading-relaxed">
+              Eminence Organics facials for aging, acne, hydration and sensitive skin, a dedicated Dr. Dennis Gross Vitamin C facial, and advanced treatments like Oxygen Infusion and Microcurrent.
+            </p>
+          </article>
         </div>
       </section>
 
@@ -420,7 +404,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
           <ol className="mt-5 grid gap-5 md:mt-8 md:grid-cols-3 md:gap-12">
             {[
               { t: "Claim your spot", b: `Only ${cfg.cap} founding memberships at ${cfg.shortName}. The offer ends ${cfg.closesLabel}, or sooner if they are all taken.` },
-              { t: "Book before everyone else", b: "When the rooms are ready, founding members get the first appointments, before booking opens to the public." },
+              { t: "Book your first treatment", b: `Massage and facials start ${cfg.opensLabel}. We'll let you know as soon as booking opens.` },
               { t: "Enjoy it every month", b: "A massage or facial every month. Anything you don't use rolls over for 12 months while you stay active." },
             ].map((s, i) => (
               <li key={s.t} className="flex gap-4 border-t border-[#113D33]/25 pt-4 md:block md:pt-5">
@@ -443,13 +427,13 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
           </div>
           <div>
             <p className={`${eyebrow} text-[#4A776D]`}>Open now</p>
-            <h2 className="mt-3 text-[32px] leading-[1.1] md:mt-4 md:text-6xl">Come see it before the rooms open.</h2>
+            <h2 className="mt-3 text-[32px] leading-[1.1] md:mt-4 md:text-6xl">Begin your wellness now in our Remedy Lounge.</h2>
             <p className="mt-3 max-w-lg text-base leading-normal text-[#113D33]/85 md:mt-6 md:text-lg md:leading-relaxed">{cfg.lounge}</p>
             <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-1 md:mt-8">
               <Link href={`${base}/book-remedy-lounge`} className="sway-button w-full sm:w-auto">
                 Book the Remedy Lounge <span aria-hidden="true"><ArrowMark /></span>
               </Link>
-              <Link href={`${base}/membership`} className="sway-text-link">Unlimited Lounge membership</Link>
+              <Link href={`${base}/membership`} className="sway-text-link">Unlimited Remedy Lounge membership</Link>
             </div>
             <div className="mt-7 border-t border-[#113D33]/25 pt-4 md:mt-12 md:pt-6">
               <p className="text-sm text-[#113D33]/80">Sway has been featured in</p>
@@ -503,13 +487,13 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
             </p>
           </div>
           <div className="rounded-[4px] bg-[#F7F4E9] p-5 text-[#113D33] sm:p-8">
-            <h3 className="cf-title text-[28px] md:text-3xl">{canJoin ? "Not ready today?" : "Get first access"}</h3>
+            <h3 className="cf-title text-[28px] md:text-3xl">{canJoin ? "Not ready today?" : "Join the list"}</h3>
             <p className="mb-4 mt-1 text-[15px] leading-snug text-[#113D33]/80 md:mb-6 md:mt-2 md:text-base md:leading-relaxed">
               {canJoin
                 ? "Leave your name and we'll follow up before the founding spots are gone."
                 : "Leave your name and we'll reach out to get you set up."}
             </p>
-            <WaitlistForm location={clubKey} source="founding-membership" variant="full" submitLabel={canJoin ? "Keep Me Posted" : "Get First Access"} />
+            <WaitlistForm location={clubKey} source="founding-membership" variant="full" submitLabel="Keep Me Posted" />
           </div>
         </div>
       </section>

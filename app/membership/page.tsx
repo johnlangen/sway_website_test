@@ -150,8 +150,8 @@ export default function MembershipHubPage() {
             </p>
             <ul>
               <li>One monthly massage or facial from your tier</li>
-              <li>Choose $10 off every month or 6 Remedy Lounge visits</li>
-              <li>Book before booking opens to the public</li>
+              <li>Choose $10 off every month or 6 free Remedy Lounge visits</li>
+              <li>Your founding rate, locked in</li>
             </ul>
             <div className="sway-membership-location-links">
               {locations
