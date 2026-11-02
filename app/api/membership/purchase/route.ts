@@ -4,6 +4,7 @@ import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
 import { isClubSiteId, getClubBySiteId } from "@/lib/clubLocations";
 import { sendGa4ServerEvent } from "@/lib/ga4ServerEvent";
+import { notifyDeskOfFounder } from "@/lib/clubFoundingDesk";
 import {
   NO_STORE,
   getSession,
@@ -65,6 +66,15 @@ const CLUB_CONTRACTS: Record<number, SellableContract> = {
     name: "Premier Remedy Lounge Membership",
     monthly: 129,
   },
+  // Founding memberships (massage + facial launch, Nov 2026; lib/clubFounding.ts). Dry-run verified on
+  // both club sites 11/2/2026. 137-139 are the $10 off perk; 122-124 are the regular rate, sold online
+  // at the clubs only to founders who pick the Remedy Lounge visits.
+  137: { key: "essential", name: "Founding Essential Membership", monthly: 89 },
+  138: { key: "premier", name: "Founding Premier Membership", monthly: 119 },
+  139: { key: "ultimate", name: "Founding Ultimate Membership", monthly: 149 },
+  122: { key: "essential", name: "Essential Membership + 6 Lounge visits", monthly: 99 },
+  123: { key: "premier", name: "Premier Membership + 6 Lounge visits", monthly: 129 },
+  124: { key: "ultimate", name: "Ultimate Membership + 6 Lounge visits", monthly: 159 },
 };
 
 function sellableContractsForSite(
@@ -324,6 +334,11 @@ export async function POST(req: Request) {
           ref: data?.ClientContractId ?? undefined,
         })
       );
+      if (isClubSiteId(siteId) && contract.key !== "club_lounge") {
+        after(() =>
+          notifyDeskOfFounder(siteId, contractId, contract.name, clientId, `${client.FirstName ?? ""} ${client.LastName ?? ""}`.trim())
+        );
+      }
       await sendGa4ServerEvent({
         name: "membership_purchase_server",
         clientId: gaClientId,

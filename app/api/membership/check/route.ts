@@ -213,6 +213,7 @@ export async function GET(req: Request) {
       let homeLocation: string | null = null;
       let isLocalMember = false;
       let hasClubLoungeContract = false;
+      const isClubSite = CLUB_SITE_IDS.includes(String(siteId));
 
       // Step 2: local contracts — scan ALL active contracts for spa tier + aescape + remedy
       const contractsUrl = new URL(
@@ -240,8 +241,14 @@ export async function GET(req: Request) {
 
           // Check for spa tier
           const detected = detectTierFromName(contract.Name ?? contract.ContractName ?? "");
-          if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) tier = detected;
-          if (detected && !isSpaTierContractName(contract.Name ?? contract.ContractName ?? "")) hasClubLoungeContract = true;
+          // At the clubs a contract that names no tier (CP's older "Founding Membership", 18 members
+          // 11/2/2026) is Lounge only. It must not read as a Premier massage/facial membership, or
+          // treatments would show as included.
+          if (isClubSite && detected && !isSpaTierContractName(contract.Name ?? contract.ContractName ?? "")) {
+            hasClubLoungeContract = true;
+          } else if (detected && (!tier || TIER_RANK[detected] > TIER_RANK[tier])) {
+            tier = detected;
+          }
         }
       }
 
@@ -257,12 +264,12 @@ export async function GET(req: Request) {
       // the Lounge is its own membership. Checked 11/2/2026 against every current
       // club member; none lost access. Scoped to club site IDs — Larimer pricing
       // is unaffected.
-      if (CLUB_SITE_IDS.includes(String(siteId)) && hasClubLoungeContract) {
+      if (hasClubLoungeContract) {
         hasRemedyMembership = true;
       }
 
       // Step 3: cross-regional memberships (only if no local spa tier found)
-      if (!tier) {
+      if (!tier && !hasClubLoungeContract) {
         const membershipUrl = new URL(
           "https://api.mindbodyonline.com/public/v6/client/activeclientmemberships"
         );
@@ -294,7 +301,7 @@ export async function GET(req: Request) {
       }
 
       // Step 4: status field fallback
-      if (!tier) {
+      if (!tier && !hasClubLoungeContract) {
         const status = (client.Status ?? "").toLowerCase();
         if (status.includes("member") && status !== "non-member") {
           tier = "premier";

@@ -17,7 +17,8 @@ const WEBSITE_CONTRACT_IDS = [122, 123, 124, 111, 102];
 // Club sites (RiNo / Central Park): the unlimited Remedy Lounge membership.
 // Kept SoldOnline=false in Mindbody on purpose (hidden from the Mindbody
 // consumer store), so the SoldOnline filter below is Larimer-only.
-const CLUB_CONTRACT_IDS = [143];
+// Founding memberships: 137-139 ($10 off perk), 122-124 (regular rate + Lounge visits perk).
+const CLUB_CONTRACT_IDS = [143, 137, 138, 139, 122, 123, 124];
 
 // Mindbody returns AgreementTerms as HTML. The join flow renders terms as
 // plain text (whitespace-pre-wrap), so convert: block-level closes become

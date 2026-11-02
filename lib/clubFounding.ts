@@ -6,11 +6,9 @@ import type { ClubLocationKey } from "./clubLocations";
  * Mindbody: contracts 137 / 138 / 139 ("Founding Essential / Premier / Ultimate", $89 / $119 / $149)
  * exist on BOTH club sites, read live 11/2/2026. SoldOnline=false, same as contract 143.
  *
- * `salesOpen` stays false until John approves selling online. While false the page collects a first
- * access list and sells nothing. Turning it on also needs: these contract ids in the club whitelists
- * of app/api/membership/purchase + contracts, a fixed start date in the purchase route (today it
- * always starts the contract the day of sale), and the Lounge fix in app/api/membership/check (today
- * any local club member with a spa tier is treated as having unlimited Remedy Lounge).
+ * `salesOpen` sells on the site through MembershipJoinFlow (John 11/2). Set it false to go back to a
+ * first access list at that club. The contract starts the day of sale, even before rooms open; the
+ * treatment waits on the account and rolls over for 12 months, and the page says so.
  *
  * The Lounge visits perk is manual, the way Larimer ran its founding Remedy visits: the guest joins on
  * the regular contract (122 / 123 / 124) and the desk tracks the visits in their profile notes
@@ -62,7 +60,7 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     shortName: "Sway RiNo",
     place: "RiNo",
     analyticsKey: "rino",
-    salesOpen: false,
+    salesOpen: true,
     leadsMembershipPage: true,
     cap: 50,
     closesLabel: "January 31",
@@ -76,7 +74,7 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     shortName: "Sway Central Park",
     place: "Central Park",
     analyticsKey: "central_park",
-    salesOpen: false,
+    salesOpen: true,
     leadsMembershipPage: true,
     cap: 50,
     closesLabel: "January 31",

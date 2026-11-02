@@ -33,6 +33,9 @@ export type MembershipPlan = {
   blurb: string; // one-line inclusion summary shown in the flow
   /** Optional perk grid on the review step (spa tiers default to SPA_MEMBER_PERKS). */
   perks?: string[];
+  /** Optional finish step wording, for memberships bought before treatments can be booked. */
+  doneNote?: string;
+  doneCta?: string;
 };
 
 /**
@@ -1375,10 +1378,11 @@ export default function MembershipJoinFlow({
                         : `Your ${plan.name} membership is active${
                             purchaseTotal != null ? ` · $${purchaseTotal} charged today` : ""
                           }. A confirmation email is on its way.`}
+                      {plan.doneNote ? ` ${plan.doneNote}` : ""}
                     </p>
                   </div>
                   <a href={firstVisitHref} className={`${primaryBtn} block text-center`}>
-                    Book your first visit
+                    {plan.doneCta ?? "Book your first visit"}
                   </a>
                   <button
                     onClick={onClose}

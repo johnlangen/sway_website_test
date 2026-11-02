@@ -2,8 +2,8 @@
 
 /**
  * Founding membership page for the Sway Wellness Clubs (RiNo + Central Park): the massage and facial
- * launch. Sells nothing until lib/clubFounding.ts says salesOpen; until then every button goes to the
- * first access form (the same list and endpoint as the club Notify Me form).
+ * launch. Buttons join on the site while lib/clubFounding.ts says salesOpen. Otherwise, or once all the
+ * spots are taken, they go to the first access form (same list and endpoint as the club Notify Me form).
  *
  * Treatment names and lengths come from the club booking menu (ClubServiceFlow). Membership terms
  * come from the live Mindbody agreement on contracts 137-139.
@@ -98,6 +98,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
   const [perk, setPerk] = useState<Perk>("rate");
   const [joining, setJoining] = useState<FoundingTierKey | null>(null);
   const spotsLeft = useFoundingSpots(clubKey);
+  const canJoin = cfg.salesOpen && !spotsLeft?.startsWith("All");
 
   const visitsValue = LOUNGE_VISIT_PERK.visits * LOUNGE_VISIT_PERK.dropIn;
   const base = `/locations/${clubKey}`;
@@ -109,8 +110,16 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
         contractId: perk === "rate" ? FOUNDING_RATES[joining].contractId : FOUNDING_RATES[joining].regularContractId,
         name: `Founding ${joining.charAt(0).toUpperCase()}${joining.slice(1)}`,
         price: perk === "rate" ? FOUNDING_RATES[joining].founding : FOUNDING_RATES[joining].regular,
-        blurb: `One massage or facial a month at ${cfg.shortName}, at the founding rate.`,
+        blurb:
+          perk === "rate"
+            ? `One massage or facial a month at ${cfg.shortName}, $10 off every month.`
+            : `One massage or facial a month at ${cfg.shortName}, plus ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits.`,
         perks: EVERY_MEMBERSHIP,
+        doneNote:
+          perk === "rate"
+            ? "We'll reach out when massage and facial booking opens. Founding members book first."
+            : `We'll add your ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits to your account, and reach out when massage and facial booking opens. Founding members book first.`,
+        doneCta: perk === "rate" ? `Back to ${cfg.shortName}` : "Book a Remedy Lounge visit",
       }
     : null;
 
@@ -119,7 +128,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
     phone: club.phone,
     locationLabel: cfg.shortName,
     analyticsKey: cfg.analyticsKey,
-    bookHref: `${base}/book`,
+    bookHref: perk === "rate" ? `${base}/` : `${base}/book-remedy-lounge`,
   };
 
   const faqs = [
@@ -133,11 +142,11 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
     },
     {
       q: "Can I join today?",
-      a: `Yes. The front desk at ${cfg.shortName} can sign you up in person or by phone at ${club.phone}. You can also leave your name here and we'll reach out.`,
+      a: `Yes. Choose your perk and tier on this page and join in about 2 minutes, or the front desk at ${cfg.shortName} can sign you up in person or by phone at ${club.phone}.`,
     },
     {
       q: "How does billing work?",
-      a: "Your first month is charged the day you join, and it includes your first treatment. After that you are billed monthly. There is no enrollment fee. The membership renews automatically every 12 months, and we recommend at least three months to feel the difference.",
+      a: "Your first month is charged the day you join, and it includes your first treatment. After that you are billed monthly on the same date, including before the rooms open. There is no enrollment fee. Unused treatments wait on your account and roll over for 12 months while you stay active, so a treatment you pay for before opening is still yours. The membership renews automatically every 12 months, and we recommend at least three months to feel the difference.",
     },
     {
       q: "How do I cancel or pause?",
@@ -154,7 +163,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
   ];
 
   const openTier = (tier: FoundingTierKey) => {
-    if (cfg.salesOpen) setJoining(tier);
+    if (canJoin) setJoining(tier);
     else
       document.getElementById("first-access")?.scrollIntoView({
         behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
@@ -326,7 +335,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
                       className="sway-button w-full"
                     >
                       <span>
-                        {cfg.salesOpen ? "Become a founder" : "Get first access"}
+                        {canJoin ? "Become a founder" : "Get first access"}
                         <span className="sr-only"> for {t.name}</span>
                       </span>
                       <span aria-hidden="true"><ArrowMark /></span>
@@ -421,12 +430,14 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
       <section id="first-access" className="scroll-mt-24 bg-[#113D33] py-20 text-white md:py-28">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:gap-20">
           <div>
-            <p className={`${eyebrow} text-[#D7E5DD]`}>First access</p>
+            <p className={`${eyebrow} text-[#D7E5DD]`}>{canJoin ? "Not ready today?" : "First access"}</p>
             <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
               {spotsLeft ? `${spotsLeft} at ${cfg.shortName}.` : `Only ${cfg.cap} at ${cfg.shortName}.`}
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-white/85">
-              Leave your name and we&apos;ll reach out to get you set up. Ready now? The front desk can sign you up today.
+              {canJoin
+                ? "Leave your name and we'll follow up before the founding spots are gone."
+                : "Leave your name and we'll reach out to get you set up."}
             </p>
             <p className="mt-6 text-sm text-white/80">
               Questions? Call{" "}
@@ -435,7 +446,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
             </p>
           </div>
           <div className="rounded-3xl bg-white p-6 text-[#113D33] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)] sm:p-8">
-            <WaitlistForm location={clubKey} source="founding-membership" variant="full" submitLabel="Get First Access" />
+            <WaitlistForm location={clubKey} source="founding-membership" variant="full" submitLabel={canJoin ? "Keep Me Posted" : "Get First Access"} />
           </div>
         </div>
       </section>
