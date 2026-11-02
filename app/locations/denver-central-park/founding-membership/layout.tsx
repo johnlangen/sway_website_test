@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-central-park/founding-membership/",
     title: "Founding Membership | Sway Central Park",
     description: "Massage and facials are coming to Sway Central Park. Only 50 founding memberships.",
-    images: [{ url: "/assets/founding-massage-lamp.jpg", width: 2200, height: 1466, alt: "A massage therapist working on a guest's back in lamplight" }],
+    images: [{ url: "/assets/central-park-treatment-rendering.jpg", width: 1618, height: 956, alt: "Rendering of the treatment area at Sway Central Park" }],
     siteName: "Sway Wellness Spa",
   },
 };
