@@ -185,7 +185,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
       {/* ===== Hero ===== */}
       <section className="sway-page-hero relative overflow-hidden bg-[#113D33] text-white">
         <div className="absolute inset-y-0 right-0 hidden w-1/2 md:block">
-          <Image src={cfg.heroImage} alt="" fill priority sizes="50vw" className="object-cover" />
+          <Image src={cfg.heroImage} alt="" fill priority sizes="50vw" className="object-cover object-[50%_45%]" />
         </div>
         <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-32 md:pb-24 md:pt-40">
           <div className="md:w-1/2 md:pr-14">
@@ -218,7 +218,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
           </div>
         </div>
         <div className="relative h-72 md:hidden">
-          <Image src={cfg.heroImage} alt="" fill sizes="100vw" className="object-cover" />
+          <Image src={cfg.heroImage} alt="" fill sizes="100vw" className="object-cover object-[50%_45%]" />
         </div>
       </section>
 
@@ -249,7 +249,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
         <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:gap-10">
           <article>
             <div className="relative aspect-[4/5] overflow-hidden">
-              <Image src="/assets/massage4.jpg" alt="A guest resting with warm salt stones" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+              <Image src="/assets/founding-massage-stone.jpg" alt="A massage therapist working with a warm salt stone" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
             </div>
             <p className={`${eyebrow} mt-7 text-[#4A776D]`}>Massage</p>
             <h3 className="cf-title mt-2 text-4xl">13 ways to let go</h3>

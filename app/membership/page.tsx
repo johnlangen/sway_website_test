@@ -125,8 +125,8 @@ export default function MembershipHubPage() {
         <div className="sway-membership-option">
           <div className="sway-membership-option-image">
             <Image
-              src="/assets/massage2.jpg"
-              alt="A massage therapist working on a guest's back"
+              src="/assets/founding-massage-hero.jpg"
+              alt="A guest relaxing during a head and neck massage"
               fill
               sizes="(max-width: 760px) 100vw, 45vw"
               className="object-cover"
