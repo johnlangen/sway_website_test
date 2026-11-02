@@ -40,7 +40,7 @@ export type ClubFoundingConfig = {
   cap: number;
   /** Real deadline, written the way the page says it. */
   closesLabel: string;
-  /** When massage + facials open, written the way the page says it. Confirm before going public. */
+  /** When massage + facials open, written the way the page says it. No date yet (John 11/2). */
   opensLabel: string;
   heroImage: string;
   clubImage: string;
@@ -64,7 +64,7 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     leadsMembershipPage: true,
     cap: 50,
     closesLabel: "January 31",
-    opensLabel: "this November",
+    opensLabel: "soon",
     heroImage: "/assets/massage2.jpg",
     clubImage: "/assets/rino1.jpeg",
     clubImageAlt: "Recovery pool at Sway RiNo",
@@ -78,7 +78,7 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     leadsMembershipPage: true,
     cap: 50,
     closesLabel: "January 31",
-    opensLabel: "soon after RiNo",
+    opensLabel: "soon",
     heroImage: "/assets/massage2.jpg",
     clubImage: "/assets/centralpark1.jpg",
     clubImageAlt: "Recovery pools at Sway Central Park",
