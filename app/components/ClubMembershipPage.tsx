@@ -256,11 +256,11 @@ export default function ClubMembershipPage({
           <div className="relative sway-hero-enter-media">
             <Image
               src={founding.leadsMembershipPage ? founding.heroImage : cfg.heroImage}
-              alt={founding.leadsMembershipPage ? "A guest relaxing during a head and neck massage" : cfg.heroImageAlt}
-              width={founding.leadsMembershipPage ? 1333 : 959}
-              height={founding.leadsMembershipPage ? 2000 : 1640}
+              alt={founding.leadsMembershipPage ? "A massage therapist working on a guest's back in lamplight" : cfg.heroImageAlt}
+              width={founding.leadsMembershipPage ? 2200 : 959}
+              height={founding.leadsMembershipPage ? 1466 : 1640}
               priority
-              className={`rounded-3xl shadow-lg w-full ${founding.leadsMembershipPage ? "h-[210px] object-[50%_42%]" : "h-[300px]"} sm:h-[360px] md:h-[460px] object-cover`}
+              className={`rounded-3xl shadow-lg w-full ${founding.leadsMembershipPage ? "h-[210px]" : "h-[300px]"} sm:h-[360px] md:h-[460px] object-cover`}
             />
           </div>
         </div>

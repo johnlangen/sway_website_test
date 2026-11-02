@@ -218,7 +218,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
           </div>
         </div>
         <div className="relative h-52 sm:h-64 md:absolute md:inset-y-0 md:right-0 md:h-auto md:w-1/2">
-          <Image src={cfg.heroImage} alt="" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-[50%_42%]" />
+          <Image src={cfg.heroImage} alt="" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
       </section>
 

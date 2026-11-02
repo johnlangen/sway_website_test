@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-rino/founding-membership/",
     title: "Founding Membership | Sway RiNo",
     description: "Massage and facials are coming to Sway RiNo. Only 50 founding memberships.",
-    images: [{ url: "/assets/founding-massage-hero.jpg", width: 1333, height: 2000, alt: "A guest relaxing during a head and neck massage" }],
+    images: [{ url: "/assets/founding-massage-lamp.jpg", width: 2200, height: 1466, alt: "A massage therapist working on a guest's back in lamplight" }],
     siteName: "Sway Wellness Spa",
   },
 };
