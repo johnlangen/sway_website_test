@@ -26,7 +26,7 @@ import MembershipJoinFlow, {
   type MembershipSite,
 } from "./MembershipJoinFlow";
 import ArrowMark from "./ArrowMark";
-import { useFoundingSpots } from "./ClubFoundingPage";
+import { useFoundingSpots } from "@/lib/useFoundingSpots";
 import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
 import { CLUB_FOUNDING, FOUNDING_RATES } from "@/lib/clubFounding";
 
@@ -260,7 +260,7 @@ export default function ClubMembershipPage({
               width={founding.leadsMembershipPage ? 1333 : 959}
               height={founding.leadsMembershipPage ? 2000 : 1640}
               priority
-              className="rounded-3xl shadow-lg w-full h-[300px] sm:h-[360px] md:h-[460px] object-cover"
+              className={`rounded-3xl shadow-lg w-full ${founding.leadsMembershipPage ? "h-[210px] object-[50%_42%]" : "h-[300px]"} sm:h-[360px] md:h-[460px] object-cover`}
             />
           </div>
         </div>
