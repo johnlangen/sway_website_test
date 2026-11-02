@@ -220,7 +220,10 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
           </div>
         </div>
         <div className="relative h-52 sm:h-64 md:absolute md:inset-y-0 md:right-0 md:h-auto md:w-1/2">
-          <Image src={cfg.heroImage} alt="A candlelit hallway of treatment rooms at Sway" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          <Image src={cfg.hero.src} alt={cfg.hero.alt} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ objectPosition: cfg.hero.position }} />
+          {cfg.hero.caption && (
+            <p className="absolute bottom-2 right-2 rounded-[2px] bg-black/60 px-2 py-0.5 text-[11px] leading-normal text-white">{cfg.hero.caption}</p>
+          )}
         </div>
       </section>
 

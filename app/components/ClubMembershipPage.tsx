@@ -255,13 +255,17 @@ export default function ClubMembershipPage({
 
           <div className="relative sway-hero-enter-media">
             <Image
-              src={founding.leadsMembershipPage ? founding.heroImage : cfg.heroImage}
-              alt={founding.leadsMembershipPage ? "A candlelit hallway of treatment rooms at Sway" : cfg.heroImageAlt}
-              width={founding.leadsMembershipPage ? 2400 : 959}
-              height={founding.leadsMembershipPage ? 1600 : 1640}
+              src={founding.leadsMembershipPage ? founding.hero.src : cfg.heroImage}
+              alt={founding.leadsMembershipPage ? founding.hero.alt : cfg.heroImageAlt}
+              width={founding.leadsMembershipPage ? founding.hero.width : 959}
+              height={founding.leadsMembershipPage ? founding.hero.height : 1640}
+              style={founding.leadsMembershipPage ? { objectPosition: founding.hero.position } : undefined}
               priority
               className={`rounded-3xl shadow-lg w-full ${founding.leadsMembershipPage ? "h-[210px]" : "h-[300px]"} sm:h-[360px] md:h-[460px] object-cover`}
             />
+            {founding.leadsMembershipPage && founding.hero.caption && (
+              <p className="absolute bottom-2 right-3 rounded-[2px] bg-black/60 px-2 py-0.5 text-[11px] leading-normal text-white">{founding.hero.caption}</p>
+            )}
           </div>
         </div>
       </section>

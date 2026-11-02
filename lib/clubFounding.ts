@@ -43,7 +43,7 @@ export type ClubFoundingConfig = {
   /** When massage + facials start, as the page says it. The clubs are already open for the Remedy Lounge.
    *  Month level on purpose: the working dates (RiNo 11/16, CP 11/30 or 12/1) stay private until locked. */
   opensLabel: string;
-  heroImage: string;
+  hero: { src: string; width: number; height: number; alt: string; position: string; caption?: string };
   clubImage: string;
   clubImageAlt: string;
   lounge: string; // what the Lounge is at this club (real modalities only)
@@ -66,7 +66,15 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     cap: 50,
     closesLabel: "January 31",
     opensLabel: "in mid-November",
-    heroImage: "/assets/homepage-massage.jpg",
+    // John 11/2: the rendering is very close to how RiNo's treatment area looks
+    hero: {
+      src: "/assets/rino-treatment-rendering.jpg",
+      width: 2000,
+      height: 861,
+      alt: "Rendering of the treatment area at Sway RiNo, with warm lighting, shelves of skincare and a hallway to the treatment rooms",
+      position: "48% 50%",
+      caption: "Rendering of Sway RiNo",
+    },
     clubImage: "/assets/rino1.jpeg",
     clubImageAlt: "Recovery pool at Sway RiNo",
     lounge: "Traditional and infrared saunas, cold plunge, compression therapy and PEMF, in one 75-minute session.",
@@ -80,7 +88,13 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     cap: 50,
     closesLabel: "January 31",
     opensLabel: "in December",
-    heroImage: "/assets/homepage-massage.jpg",
+    hero: {
+      src: "/assets/homepage-massage.jpg",
+      width: 2400,
+      height: 1600,
+      alt: "A candlelit hallway of treatment rooms at Sway",
+      position: "50% 50%",
+    },
     clubImage: "/assets/centralpark2.jpg",
     clubImageAlt: "Cold plunges and sauna at Sway Central Park",
     lounge: "Traditional and infrared saunas, cold plunges, a warm soak, compression therapy and PEMF, in one 75-minute session.",
