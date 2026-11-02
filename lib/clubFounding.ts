@@ -88,11 +88,12 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     cap: 50,
     closesLabel: "January 31",
     opensLabel: "in December",
+    // A generic massage photo until Central Park has a rendering: never Larimer's rooms (John 11/2)
     hero: {
-      src: "/assets/homepage-massage.jpg",
-      width: 2400,
-      height: 1600,
-      alt: "A candlelit hallway of treatment rooms at Sway",
+      src: "/assets/founding-massage-lamp.jpg",
+      width: 2200,
+      height: 1466,
+      alt: "A massage therapist working on a guest's back in lamplight",
       position: "50% 50%",
     },
     clubImage: "/assets/centralpark2.jpg",
