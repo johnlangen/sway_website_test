@@ -11,7 +11,10 @@ export default function SiteCanvas({
 }) {
   const pathname = usePathname() || "/";
   const isInternal = /\/(internal|clubdesk|dashboard|ops)(\/|$)/.test(pathname);
+  // The club founding pages (RiNo, Central Park) are normal marketing pages
+  const isClubFounding = /\/denver-(rino|central-park)\/founding-membership(\/|$)/.test(pathname);
   const isFlow =
+    !isClubFounding &&
     /\/(book[^/]*|founding-membership|membership-join-preview|themavenhotel|checkout)(\/|$)/.test(
       pathname,
     );

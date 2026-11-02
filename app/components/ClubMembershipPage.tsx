@@ -25,7 +25,10 @@ import MembershipJoinFlow, {
   type MembershipPlan,
   type MembershipSite,
 } from "./MembershipJoinFlow";
+import ArrowMark from "./ArrowMark";
+import { useFoundingSpots } from "./ClubFoundingPage";
 import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
+import { CLUB_FOUNDING, FOUNDING_RATES } from "@/lib/clubFounding";
 
 /* ------------------------------------------------------------------
    PER-CLUB MARKETING CONFIG (Mindbody config lives in lib/clubLocations)
@@ -103,6 +106,9 @@ export default function ClubMembershipPage({
   const club = CLUB_LOCATIONS[clubKey];
   const cfg = CLUB_CONFIG[clubKey];
   const [joinOpen, setJoinOpen] = useState(false);
+  const founding = CLUB_FOUNDING[clubKey];
+  const foundingHref = `/locations/${clubKey}/founding-membership/`;
+  const spotsLeft = useFoundingSpots(clubKey);
 
   const plan: MembershipPlan = {
     key: "club_lounge",
@@ -171,18 +177,36 @@ export default function ClubMembershipPage({
               </Link>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
-              The Remedy Lounge Membership
-            </h1>
+            {founding.leadsMembershipPage ? (
+              <>
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
+                  Be one of the first {founding.cap} founding members.
+                </h1>
 
-            <p className="mt-4 text-lg sm:text-xl font-medium">
-              Unlimited recovery for ${MONTHLY_PRICE} a month.
-            </p>
+                <p className="mt-4 text-lg sm:text-xl font-medium">
+                  Massage and facials from ${FOUNDING_RATES.essential.founding} a month.
+                </p>
 
-            <p className="mt-3 text-base leading-relaxed max-w-lg opacity-90">
-              One membership, one price. Come in every day for a 75-minute
-              recovery session: sauna, cold plunge, compression, and more.
-            </p>
+                <p className="mt-3 text-base leading-relaxed max-w-lg opacity-90">
+                  Treatment rooms are coming to {cfg.shortName} {founding.opensLabel}. Founding members choose a perk and book before anyone else.
+                </p>
+              </>
+            ) : (
+              <>
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
+                  The Remedy Lounge Membership
+                </h1>
+
+                <p className="mt-4 text-lg sm:text-xl font-medium">
+                  Unlimited recovery for ${MONTHLY_PRICE} a month.
+                </p>
+
+                <p className="mt-3 text-base leading-relaxed max-w-lg opacity-90">
+                  One membership, one price. Come in every day for a 75-minute
+                  recovery session: sauna, cold plunge, compression, and more.
+                </p>
+              </>
+            )}
 
             <p className="sr-only">
               {cfg.shortName} Remedy Lounge Membership: unlimited Sway Remedy
@@ -194,31 +218,47 @@ export default function ClubMembershipPage({
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-4">
+              {founding.leadsMembershipPage && (
+                <Link
+                  href={foundingHref}
+                  className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
+                >
+                  See founding rates
+                </Link>
+              )}
               <button
                 onClick={() => setJoinOpen(true)}
-                className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
+                className={
+                  founding.leadsMembershipPage
+                    ? "border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
+                    : "bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
+                }
               >
-                Become a Member · ${MONTHLY_PRICE}/mo
+                {founding.leadsMembershipPage ? `Join the Remedy Lounge · $${MONTHLY_PRICE}/mo` : `Become a Member · $${MONTHLY_PRICE}/mo`}
               </button>
-              <a
+{!founding.leadsMembershipPage && (
+                            <a
                 href={cfg.bookHref}
                 className="border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
               >
                 Try a Drop-In First
               </a>
+              )}
             </div>
 
             <p className="mt-4 text-sm opacity-80">
-              No enrollment fee · Month-to-month · Join online in 2 minutes
+              {founding.leadsMembershipPage
+                ? `${spotsLeft ? spotsLeft : `Only ${founding.cap} at this club`} · Ends ${founding.closesLabel}`
+                : "No enrollment fee · Month-to-month · Join online in 2 minutes"}
             </p>
           </div>
 
           <div className="relative sway-hero-enter-media">
             <Image
-              src={cfg.heroImage}
-              alt={cfg.heroImageAlt}
-              width={959}
-              height={1640}
+              src={founding.leadsMembershipPage ? founding.heroImage : cfg.heroImage}
+              alt={founding.leadsMembershipPage ? "A massage therapist working on a guest's back" : cfg.heroImageAlt}
+              width={founding.leadsMembershipPage ? 1326 : 959}
+              height={founding.leadsMembershipPage ? 1162 : 1640}
               priority
               className="rounded-3xl shadow-lg w-full h-[300px] sm:h-[360px] md:h-[460px] object-cover"
             />
@@ -328,7 +368,7 @@ export default function ClubMembershipPage({
         <div className="max-w-6xl mx-auto">
           <div className="rounded-2xl bg-[#113D33] text-white p-6 sm:p-8 md:p-10">
             <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
-              Founding &amp; Upswell Members
+              Current Upswell Members
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold">
               You&apos;re already in.
@@ -337,7 +377,8 @@ export default function ClubMembershipPage({
               Existing members were carried over automatically at their Founding
               rate and already have unlimited Remedy Lounge access. There&apos;s
               nothing to buy here. If you join again by accident, we&apos;ll
-              catch it and warn you before any charge.
+              catch it and warn you before any charge. The new founding
+              membership for massage and facials is separate and optional.
             </p>
           </div>
         </div>
@@ -427,7 +468,23 @@ export default function ClubMembershipPage({
 
       {/* Sticky mobile Join bar (mirrors the Larimer membership page). */}
       <div className="h-20 md:hidden" aria-hidden="true" />
-      <button
+{founding.leadsMembershipPage ? (
+        <Link href={foundingHref} className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur pl-4 pr-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-left">
+          <span className="leading-tight min-w-0">
+            <span className="block text-[10px] uppercase tracking-[0.15em] text-[#4A776D]">
+              Founding Membership
+            </span>
+            <span className="block text-[#113D33] font-semibold text-sm">
+              ${FOUNDING_RATES.essential.founding}
+              <span className="text-[#113D33]/75 font-normal"> / month · massage + facial</span>
+            </span>
+          </span>
+          <span className="shrink-0 rounded-full bg-[#113D33] text-white px-7 py-2.5 text-sm font-semibold">
+            See rates
+          </span>
+        </Link>
+      ) : (
+            <button
         onClick={() => setJoinOpen(true)}
         className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur pl-4 pr-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-left"
       >
@@ -447,6 +504,7 @@ export default function ClubMembershipPage({
           Join
         </span>
       </button>
+      )}
 
       {/* NATIVE JOIN FLOW MODAL (club-site-aware) */}
       <AnimatePresence>

@@ -76,6 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/locations/denver-rino/`, changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${base}/locations/denver-rino/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-rino/membership/`, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${base}/locations/denver-rino/founding-membership/`, changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-rino/offers/`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-rino/gift-cards/`, changeFrequency: "monthly" as const, priority: 0.6 },
   ];
@@ -87,6 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/locations/denver-central-park/`, changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${base}/locations/denver-central-park/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-central-park/membership/`, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${base}/locations/denver-central-park/founding-membership/`, changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-central-park/offers/`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-central-park/gift-cards/`, changeFrequency: "monthly" as const, priority: 0.6 },
   ];

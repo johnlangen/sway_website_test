@@ -125,6 +125,60 @@ export default function MembershipHubPage() {
         <div className="sway-membership-option">
           <div className="sway-membership-option-image">
             <Image
+              src="/assets/massage2.jpg"
+              alt="A massage therapist working on a guest's back"
+              fill
+              sizes="(max-width: 760px) 100vw, 45vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="sway-membership-option-copy">
+            <p className="sway-eyebrow">
+              RiNo & Central Park · Founding membership
+            </p>
+            <h2>
+              Be one of
+              <br />
+              the first 50.
+            </h2>
+            <p className="sway-membership-price">
+              From $89 <span>/ month</span>
+            </p>
+            <p>
+              Massage and facials are coming to our RiNo and Central Park clubs.
+              Only 50 founding memberships at each club, through January 31.
+            </p>
+            <ul>
+              <li>One monthly massage or facial from your tier</li>
+              <li>Choose $10 off every month or 6 Remedy Lounge visits</li>
+              <li>Book before booking opens to the public</li>
+            </ul>
+            <div className="sway-membership-location-links">
+              {locations
+                .filter(
+                  (l) =>
+                    l.slug === "denver-rino" ||
+                    l.slug === "denver-central-park",
+                )
+                .map((loc) => (
+                  <Link
+                    key={loc.slug}
+                    href={`/locations/${loc.slug}/founding-membership`}
+                    onClick={() => saveLocation(loc.slug, loc.name)}
+                    className="sway-button"
+                  >
+                    {loc.name.replace("Sway ", "")} founding rates{" "}
+                    <span aria-hidden="true">
+                      <ArrowMark />
+                    </span>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </div>
+        <div className="sway-membership-option sway-membership-option-reverse">
+          <div className="sway-membership-option-image">
+            <Image
               src="/assets/homepage-massage.jpg"
               alt="Massage at Sway Larimer"
               fill
@@ -168,7 +222,7 @@ export default function MembershipHubPage() {
             </Link>
           </div>
         </div>
-        <div className="sway-membership-option sway-membership-option-reverse">
+        <div className="sway-membership-option">
           <div className="sway-membership-option-image">
             <Image
               src="/assets/rino1.jpeg"

@@ -22,12 +22,15 @@ type WaitlistFormProps = {
   source?: "location-page" | "founding-membership";
   /** Compact = inline on location page hero, full = founding membership page */
   variant?: "compact" | "full";
+  /** Full variant button label (club founding pages). */
+  submitLabel?: string;
 };
 
 export default function WaitlistForm({
   location,
   source = "location-page",
   variant = "compact",
+  submitLabel = "Join the Waitlist",
 }: WaitlistFormProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -248,12 +251,12 @@ export default function WaitlistForm({
           disabled={status === "submitting"}
           className="w-full bg-[#113D33] text-white font-semibold rounded-full py-3 px-6 hover:opacity-90 transition disabled:opacity-60"
         >
-          {status === "submitting" ? "Joining..." : "Join the Waitlist"}
+          {status === "submitting" ? "Joining..." : submitLabel}
         </button>
       </form>
 
       <p className="text-[11px] opacity-80 mt-3 text-center leading-relaxed">
-        {consentText} Membership pricing and perks are not yet final.
+        {consentText}{CLUB_COPY[location] ? "" : " Membership pricing and perks are not yet final."}
       </p>
     </div>
   );
