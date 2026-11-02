@@ -2425,3 +2425,32 @@ body {
   outline-offset: 5px;
   box-shadow: 0 0 0 5px var(--sway-paper);
 }
+
+/* Club founding pages (RiNo, Central Park): lighter type on tailwind blocks, matching the marketing pages */
+.club-founding h3 {
+  font-family: "Vance Regular", sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.club-founding .cf-title,
+.club-founding .cf-num {
+  font-family: "Vance Light", "Vance Regular", sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+}
+.club-founding .cf-num {
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.club-founding .cf-label {
+  font-family: "Vance Regular", sans-serif;
+  font-weight: 400;
+}
+.club-founding li,
+.club-founding dt {
+  font-family: "Vance Text", sans-serif;
+  font-weight: 400;
+}
+.club-founding button.sway-button {
+  font-size: 13px;
+}

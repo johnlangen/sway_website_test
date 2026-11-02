@@ -80,8 +80,8 @@ export const CLUB_FOUNDING: Record<ClubLocationKey, ClubFoundingConfig> = {
     closesLabel: "January 31",
     opensLabel: "soon",
     heroImage: "/assets/massage2.jpg",
-    clubImage: "/assets/centralpark1.jpg",
-    clubImageAlt: "Recovery pools at Sway Central Park",
+    clubImage: "/assets/centralpark2.jpg",
+    clubImageAlt: "Cold plunges and sauna at Sway Central Park",
     lounge: "Traditional and infrared saunas, cold plunges, a warm soak, compression therapy and PEMF, in one 75-minute session.",
   },
 };

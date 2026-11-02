@@ -13,10 +13,11 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import ArrowMark from "./ArrowMark";
 import { SwayCurve } from "./SwayCurve";
 import WaitlistForm from "./WaitlistForm";
+import { useRating } from "./GoogleReviews";
 import MembershipJoinFlow, { type MembershipPlan, type MembershipSite } from "./MembershipJoinFlow";
 import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
 import { CLUB_FOUNDING, FOUNDING_RATES, LOUNGE_VISIT_PERK, spotsLeftLabel, type FoundingTierKey } from "@/lib/clubFounding";
@@ -62,6 +63,14 @@ const TIERS: {
   },
 ];
 
+// Real Google reviews from Sway Larimer (app/components/GoogleReviews.tsx), and labeled as Larimer on
+// the page: the club rooms aren't open yet, so these speak to the Sway team and experience.
+const REVIEWS = [
+  { text: "I had one of the best massages I\u2019ve ever had! Also loved the entire vibe of Sway - super clean and relaxing.", author: "Kayla Grant" },
+  { text: "Best massage I\u2019ve had in years. Very relaxing vibes too!", author: "Whitney Lunn" },
+  { text: "Had an excellent facial with Bri. Friendly and relaxing spa!", author: "Melanie Maslouski" },
+];
+
 const EVERY_MEMBERSHIP = [
   "One massage or facial every month",
   "Unused treatments roll over for 12 months while you stay active",
@@ -99,6 +108,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
   const [joining, setJoining] = useState<FoundingTierKey | null>(null);
   const spotsLeft = useFoundingSpots(clubKey);
   const canJoin = cfg.salesOpen && !spotsLeft?.startsWith("All");
+  const google = useRating();
 
   const visitsValue = LOUNGE_VISIT_PERK.visits * LOUNGE_VISIT_PERK.dropIn;
   const base = `/locations/${clubKey}`;
@@ -171,81 +181,92 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
   };
 
   return (
-    <div className="text-[#113D33]">
+    <div className="club-founding text-[#113D33]">
       {/* ===== Hero ===== */}
       <section className="sway-page-hero relative overflow-hidden bg-[#113D33] text-white">
-        <div className="absolute inset-y-0 right-0 hidden w-[52%] md:block">
-          <Image src={cfg.heroImage} alt="" fill priority sizes="52vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#113D33] via-[#113D33]/35 to-transparent" />
+        <div className="absolute inset-y-0 right-0 hidden w-1/2 md:block">
+          <Image src={cfg.heroImage} alt="" fill priority sizes="50vw" className="object-cover" />
         </div>
-        <div className="relative mx-auto grid max-w-6xl px-6 pb-16 pt-32 md:grid-cols-2 md:pb-28 md:pt-40">
-          <div>
+        <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-32 md:pb-24 md:pt-40">
+          <div className="md:w-1/2 md:pr-14">
             <p className={`${eyebrow} text-[#D7E5DD]`}>Founding membership · {cfg.shortName}</p>
-            <h1 className="mt-6 text-6xl font-semibold leading-[0.98] tracking-tight md:text-8xl">
-              Be one of the first {cfg.cap}.
-            </h1>
-            <SwayCurve width={120} strokeWidth={2.2} className="my-7 block text-[#9CB7A9]" />
-            <p className="max-w-md text-lg leading-relaxed text-white/90">
-              Massage and facials are coming to {cfg.shortName} {cfg.opensLabel}. Founding members choose a perk, $10 off every month or {LOUNGE_VISIT_PERK.visits} Remedy Lounge visits, and book before anyone else.
+            <h1 className="mt-6">Be one of the first {cfg.cap}.</h1>
+            <SwayCurve width={120} strokeWidth={2} className="my-7 block text-[#9CB7A9]" />
+            <p className="max-w-md text-lg text-white/90">
+              Massage and facials are coming to {cfg.shortName} {cfg.opensLabel}. Join now for a monthly treatment at a founding rate, with first access to every appointment.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <dl className="mt-9 grid grid-cols-3 gap-4 border-t border-white/25 pt-5">
+              <div className="flex flex-col-reverse">
+                <dt className="mt-1 text-xs text-white/80">a month, to start</dt>
+                <dd className="cf-num text-3xl md:text-4xl">${fromPrice}</dd>
+              </div>
+              <div className="flex flex-col-reverse">
+                <dt className="mt-1 text-xs text-white/80">{spotsLeft && !spotsLeft.startsWith("All") ? `of ${cfg.cap} left` : "spots at this club"}</dt>
+                <dd className="cf-num text-3xl md:text-4xl">{spotsLeft && !spotsLeft.startsWith("All") ? spotsLeft.split(" of ")[0] : cfg.cap}</dd>
+              </div>
+              <div className="flex flex-col-reverse">
+                <dt className="mt-1 text-xs text-white/80">founding ends</dt>
+                <dd className="cf-num text-3xl md:text-4xl">{cfg.closesLabel.replace("January", "Jan")}</dd>
+              </div>
+            </dl>
+            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-3">
               <a href="#tiers" className="sway-button sway-button-light">
                 See founding rates <span aria-hidden="true"><ArrowMark /></span>
               </a>
-              <p className="text-sm text-white/85">
-                From ${fromPrice} a month. {spotsLeft ? `${spotsLeft}.` : `Only ${cfg.cap} at this club.`} Ends {cfg.closesLabel}.
-              </p>
-            </div>
-          </div>
-          {/* The founder card: the thing you are actually getting a place on */}
-          <div className="mt-12 flex items-end justify-center md:mt-0 md:justify-end">
-            <div className="w-full max-w-[21rem] rotate-[-2deg] rounded-3xl border border-white/25 bg-[#F7F4E9] p-7 text-[#113D33] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)]">
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-2xl font-semibold tracking-tight">{cfg.shortName}</p>
-                <p className="text-right text-[11px] font-semibold uppercase leading-snug tracking-[0.2em] text-[#4A776D]">
-                  Founding
-                  <br />
-                  member
-                </p>
-              </div>
-              <SwayCurve width={90} strokeWidth={2} className="my-6 block text-[#4A776D]" />
-              <p className="text-sm text-[#113D33]/80">Massage + facial</p>
-              <p className="mt-1 text-lg">One of {cfg.cap} at this club</p>
+              <a href="#why" className="sway-text-link text-white">Why join now</a>
             </div>
           </div>
         </div>
-        <div className="relative h-64 md:hidden">
+        <div className="relative h-72 md:hidden">
           <Image src={cfg.heroImage} alt="" fill sizes="100vw" className="object-cover" />
         </div>
       </section>
 
-      {/* ===== What is opening ===== */}
-      <section className="bg-[#F7F4E9] py-20 md:py-28">
+      {/* ===== Why founding ===== */}
+      <section id="why" className="scroll-mt-24 bg-[#F7F4E9] py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <p className={`${eyebrow} text-[#4A776D]`}>What&apos;s opening</p>
-          <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-            The club you know, with treatment rooms.
-          </h2>
-          <div className="mt-12 grid gap-10 md:grid-cols-2">
-            <article>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-                <Image src="/assets/massage4.jpg" alt="A guest resting with warm salt stones" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+          <p className={`${eyebrow} text-[#4A776D]`}>Why founding</p>
+          <h2 className="mt-4 max-w-3xl text-4xl leading-tight md:text-6xl">Get in before the treatment rooms open.</h2>
+          <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { n: "$600", t: "less a year than drop-in", b: "With $10 off every month, each monthly treatment costs $50 less than booking it as a drop-in." },
+              { n: `$${visitsValue}`, t: "in Remedy Lounge visits", b: `Or pick ${LOUNGE_VISIT_PERK.visits} visits instead of the $10 off: sauna, cold plunge and compression therapy, on us.` },
+              { n: "First", t: "pick of appointments", b: "Founding members book before booking opens to the public." },
+              { n: "12", t: "months of rollover", b: "Busy month? Your treatment waits for you for 12 months while you stay active." },
+            ].map((v) => (
+              <div key={v.t} className="border-t border-[#113D33]/25 pt-5">
+                <p className="cf-num text-6xl">{v.n}</p>
+                <h3 className="mt-3 text-lg">{v.t}</h3>
+                <p className="mt-2 leading-relaxed text-[#113D33]/80">{v.b}</p>
               </div>
-              <h3 className="mt-6 text-2xl font-semibold tracking-tight">13 massages</h3>
-              <p className="mt-2 max-w-md leading-relaxed text-[#113D33]/80">
-                With licensed massage therapists, in 50, 70 and 90 minutes. From our light to medium pressure Signature Massage to Deep Tissue, Sports, Salt Stone, Lymphatic Drainage and Maternity.
-              </p>
-            </article>
-            <article className="md:mt-16">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-                <Image src="/assets/J2.jpg" alt="A serum dropper held to a guest's cheek during a facial" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold tracking-tight">11 facials</h3>
-              <p className="mt-2 max-w-md leading-relaxed text-[#113D33]/80">
-                Eminence Organics facials for aging, acne, hydration and sensitive skin, a dedicated Dr. Dennis Gross Vitamin C facial, and advanced treatments like Oxygen Infusion and Microcurrent.
-              </p>
-            </article>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===== What is opening ===== */}
+      <section className="bg-[#F7F4E9] pb-20 md:pb-28">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:gap-10">
+          <article>
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <Image src="/assets/massage4.jpg" alt="A guest resting with warm salt stones" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            </div>
+            <p className={`${eyebrow} mt-7 text-[#4A776D]`}>Massage</p>
+            <h3 className="cf-title mt-2 text-4xl">13 ways to let go</h3>
+            <p className="mt-3 max-w-md leading-relaxed text-[#113D33]/80">
+              Licensed massage therapists, in 50, 70 and 90 minutes. Signature (light to medium pressure), Deep Tissue, Sports, Salt Stone, Lymphatic Drainage and Maternity.
+            </p>
+          </article>
+          <article className="md:mt-24">
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <Image src="/assets/J2.jpg" alt="A serum dropper held to a guest's cheek during a facial" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            </div>
+            <p className={`${eyebrow} mt-7 text-[#4A776D]`}>Facials</p>
+            <h3 className="cf-title mt-2 text-4xl">11 ways to glow</h3>
+            <p className="mt-3 max-w-md leading-relaxed text-[#113D33]/80">
+              Eminence Organics facials for aging, acne, hydration and sensitive skin, a dedicated Dr. Dennis Gross Vitamin C facial, and advanced treatments like Oxygen Infusion and Microcurrent.
+            </p>
+          </article>
         </div>
       </section>
 
@@ -253,9 +274,9 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
       <section id="tiers" className="scroll-mt-24 bg-[#EBE4D1] py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
           <p className={`${eyebrow} text-[#4A776D]`}>Founding rates</p>
-          <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-tight md:text-5xl">Pick your perk, then your treatment.</h2>
+          <h2 className="mt-4 max-w-2xl text-4xl leading-tight md:text-6xl">Pick your perk, then your treatment.</h2>
 
-          <div role="radiogroup" aria-label="Choose your founding perk" className="mt-8 grid gap-3 sm:grid-cols-2 lg:max-w-3xl">
+          <div role="radiogroup" aria-label="Choose your founding perk" className="mt-10 grid gap-3 sm:grid-cols-2 lg:max-w-3xl">
             {(
               [
                 { id: "rate", title: "$10 off every month", body: "A lower monthly rate." },
@@ -268,72 +289,63 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
                 role="radio"
                 aria-checked={perk === p.id}
                 onClick={() => setPerk(p.id)}
-                className={`flex items-start gap-3 rounded-2xl border-2 p-5 text-left transition ${
-                  perk === p.id ? "border-[#113D33] bg-white" : "border-[#113D33]/20 bg-transparent hover:border-[#113D33]/50"
+                className={`flex items-start gap-3 rounded-[4px] border p-5 text-left transition ${
+                  perk === p.id ? "border-[#113D33] bg-white shadow-[inset_0_0_0_1px_#113D33]" : "border-[#113D33]/25 hover:border-[#113D33]/60"
                 }`}
               >
                 <span
                   aria-hidden="true"
-                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-[#113D33] ${perk === p.id ? "bg-[#113D33] text-white" : ""}`}
+                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#113D33] ${perk === p.id ? "bg-[#113D33] text-white" : ""}`}
                 >
                   {perk === p.id && <Check className="h-3 w-3" strokeWidth={3} />}
                 </span>
                 <span>
-                  <span className="block font-semibold">{p.title}</span>
+                  <span className="cf-label block text-base">{p.title}</span>
                   <span className="mt-0.5 block text-sm text-[#113D33]/80">{p.body}</span>
                 </span>
               </button>
             ))}
           </div>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {TIERS.map((t) => {
               const r = FOUNDING_RATES[t.key];
               const price = perk === "rate" ? r.founding : r.regular;
+              const dark = !!t.popular;
+              const muted = dark ? "text-white/85" : "text-[#113D33]/80";
               return (
-                <article
-                  key={t.key}
-                  className={`flex flex-col rounded-3xl bg-white p-7 shadow-[0_10px_30px_-15px_rgba(17,61,51,0.25)] ${t.popular ? "ring-2 ring-[#113D33]" : ""}`}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-2xl font-medium tracking-tight">{t.name}</h3>
-                    {t.popular && (
-                      <span className="rounded-[3px] bg-[#113D33] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">Most popular</span>
-                    )}
+                <article key={t.key} className={`flex flex-col rounded-[4px] p-8 ${dark ? "bg-[#113D33] text-white" : "bg-[#F7F4E9]"}`}>
+                  <div className="flex min-h-7 items-center justify-between gap-3">
+                    <h3 className="text-xl">{t.name}</h3>
+                    {t.popular && <span className={`${eyebrow} text-[#D7E5DD]`}>Most popular</span>}
                   </div>
-                  <p className="mt-5 flex items-baseline gap-2">
-                    <span className="text-5xl tracking-tight">${price}</span>
-                    <span className="text-[#113D33]/80">/ month</span>
+                  <p className="mt-6 flex flex-wrap items-baseline gap-x-2">
+                    <span className="cf-num text-6xl">${price}</span>
+                    <span className={muted}>/ month</span>
                     {perk === "rate" && (
-                      <span className="ml-1 text-[#113D33]/75 line-through">
+                      <span className={`ml-1 line-through ${muted}`}>
                         <span className="sr-only">Regular rate </span>${r.regular}
                       </span>
                     )}
                   </p>
-                  <p className="mt-2 text-sm font-semibold text-[#2F5D50]">
-                    {perk === "rate" ? `$${r.dropIn - price} less than a $${r.dropIn} drop-in, every month` : `Plus ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits. Drop-in is $${r.dropIn}.`}
+                  <p className={`mt-3 text-sm ${dark ? "text-[#D7E5DD]" : "text-[#2F5D50]"}`}>
+                    {perk === "rate"
+                      ? `$${(r.dropIn - price) * 12} less a year than $${r.dropIn} drop-ins`
+                      : `Plus ${LOUNGE_VISIT_PERK.visits} Remedy Lounge visits. Drop-in is $${r.dropIn}.`}
                   </p>
-                  <p className="mt-5 leading-relaxed text-[#113D33]/85">{t.line}</p>
-                  <details className="group mt-4 border-t border-[#113D33]/15 pt-4">
-                    <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-semibold [&::-webkit-details-marker]:hidden">
-                      What you can choose
-                      <span aria-hidden="true" className="text-xl leading-none transition group-open:rotate-45">+</span>
-                    </summary>
-                    <p className={`${eyebrow} mt-3 text-[11px] text-[#4A776D]`}>Massage</p>
-                    <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-[#113D33]/85">
+                  <p className={`mt-5 leading-relaxed ${muted}`}>{t.line}</p>
+                  <div className={`mt-6 border-t pt-5 ${dark ? "border-white/25" : "border-[#113D33]/20"}`}>
+                    <p className={`${eyebrow} ${dark ? "text-[#D7E5DD]" : "text-[#4A776D]"}`}>Massage</p>
+                    <ul className={`mt-2 space-y-1.5 text-sm leading-relaxed ${muted}`}>
                       {t.massages.map((m) => <li key={m}>{m}</li>)}
                     </ul>
-                    <p className={`${eyebrow} mt-4 text-[11px] text-[#4A776D]`}>Facial</p>
-                    <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-[#113D33]/85">
+                    <p className={`${eyebrow} mt-5 ${dark ? "text-[#D7E5DD]" : "text-[#4A776D]"}`}>Facial</p>
+                    <ul className={`mt-2 space-y-1.5 text-sm leading-relaxed ${muted}`}>
                       {t.facials.map((f) => <li key={f}>{f}</li>)}
                     </ul>
-                  </details>
-                  <div className="mt-auto pt-6">
-                    <button
-                      type="button"
-                      onClick={() => openTier(t.key)}
-                      className="sway-button w-full"
-                    >
+                  </div>
+                  <div className="mt-auto pt-8">
+                    <button type="button" onClick={() => openTier(t.key)} className={`sway-button w-full ${dark ? "sway-button-light" : ""}`}>
                       <span>
                         {canJoin ? "Become a founder" : "Get first access"}
                         <span className="sr-only"> for {t.name}</span>
@@ -345,13 +357,14 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
               );
             })}
           </div>
+          <p className="mt-5 text-sm text-[#113D33]/80">No enrollment fee · Treatments roll over · Suspend up to 3 months a year</p>
 
-          <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-            <h3 className="text-2xl font-semibold tracking-tight">Every founding membership includes</h3>
+          <div className="mt-16 grid gap-8 border-t border-[#113D33]/25 pt-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+            <h3 className="cf-title text-3xl">Every founding membership includes</h3>
             <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
               {EVERY_MEMBERSHIP.map((b) => (
                 <li key={b} className="flex gap-3 leading-relaxed">
-                  <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-[#2F5D50]" strokeWidth={3} />
+                  <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-[#2F5D50]" strokeWidth={2} />
                   {b}
                 </li>
               ))}
@@ -360,20 +373,50 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
         </div>
       </section>
 
-      {/* ===== How it works (a real order of events) ===== */}
+      {/* ===== Proof ===== */}
       <section className="bg-[#113D33] py-20 text-white md:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <p className={`${eyebrow} text-[#D7E5DD]`}>How founding works</p>
-          <ol className="mt-10 grid gap-10 md:grid-cols-3 md:gap-12">
+          <p className={`${eyebrow} text-[#D7E5DD]`}>From guests at Sway Larimer</p>
+          <blockquote className="mt-6 max-w-4xl">
+            <p className="cf-title text-3xl leading-[1.15] md:text-5xl">&ldquo;{REVIEWS[0].text}&rdquo;</p>
+            <footer className="mt-5 text-sm text-white/80">{REVIEWS[0].author}, Google review</footer>
+          </blockquote>
+          <div className="mt-12 grid gap-8 border-t border-white/25 pt-8 md:grid-cols-4">
+            {REVIEWS.slice(1).map((r) => (
+              <blockquote key={r.author}>
+                <p className="leading-relaxed text-white/90">&ldquo;{r.text}&rdquo;</p>
+                <footer className="mt-3 text-sm text-white/80">{r.author}, Google review</footer>
+              </blockquote>
+            ))}
+            <div>
+              <p className="cf-num text-4xl">#4</p>
+              <p className="mt-2 text-sm leading-relaxed text-white/85">Best Day Spa in the U.S., USA Today 10Best</p>
+            </div>
+            <div>
+              <p className="cf-num flex items-center gap-2 text-4xl">
+                {google?.rating ?? 4.9}
+                <Star aria-hidden="true" className="h-6 w-6 fill-current" strokeWidth={0} />
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/85">Google rating at Sway Larimer</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== How it works (a real order of events) ===== */}
+      <section className="bg-[#F7F4E9] py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className={`${eyebrow} text-[#4A776D]`}>How founding works</p>
+          <ol className="mt-8 grid gap-10 md:grid-cols-3 md:gap-12">
             {[
-              { t: "Claim your spot", b: `There are ${cfg.cap} founding memberships at ${cfg.shortName}. The offer ends ${cfg.closesLabel}, or sooner if they are all taken.` },
+              { t: "Claim your spot", b: `Only ${cfg.cap} founding memberships at ${cfg.shortName}. The offer ends ${cfg.closesLabel}, or sooner if they are all taken.` },
               { t: "Book before everyone else", b: "When the rooms are ready, founding members get the first appointments, before booking opens to the public." },
-              { t: "Keep your membership", b: "Enjoy a massage or facial every month. Anything you don't use rolls over for 12 months while you stay active." },
+              { t: "Enjoy it every month", b: "A massage or facial every month. Anything you don't use rolls over for 12 months while you stay active." },
             ].map((s, i) => (
-              <li key={s.t} className="border-t border-white/25 pt-6">
-                <p className="text-5xl tracking-tight text-[#9CB7A9]">{i + 1}</p>
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight">{s.t}</h3>
-                <p className="mt-3 leading-relaxed text-white/85">{s.b}</p>
+              <li key={s.t} className="border-t border-[#113D33]/25 pt-5">
+                <p className="cf-num text-5xl text-[#4A776D]">{i + 1}</p>
+                <h3 className="mt-4 text-xl">{s.t}</h3>
+                <p className="mt-2 leading-relaxed text-[#113D33]/80">{s.b}</p>
               </li>
             ))}
           </ol>
@@ -381,25 +424,27 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
       </section>
 
       {/* ===== The club is already open ===== */}
-      <section className="bg-[#F7F4E9] py-20 md:py-28">
+      <section className="bg-[#EBE4D1] py-20 md:py-28">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-20">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+          <div className="relative aspect-[4/5] overflow-hidden">
             <Image src={cfg.clubImage} alt={cfg.clubImageAlt} fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
           </div>
           <div>
             <p className={`${eyebrow} text-[#4A776D]`}>Open now</p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">Come see it before the rooms open.</h2>
+            <h2 className="mt-4 text-4xl leading-tight md:text-6xl">Come see it before the rooms open.</h2>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#113D33]/85">{cfg.lounge}</p>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 font-semibold">
-              <Link href={`${base}/book-remedy-lounge`} className="underline underline-offset-4">Book the Remedy Lounge</Link>
-              <Link href={`${base}/membership`} className="underline underline-offset-4">Unlimited Lounge membership</Link>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <Link href={`${base}/book-remedy-lounge`} className="sway-button">
+                Book the Remedy Lounge <span aria-hidden="true"><ArrowMark /></span>
+              </Link>
+              <Link href={`${base}/membership`} className="sway-text-link">Unlimited Lounge membership</Link>
             </div>
-            <div className="mt-12 border-t border-[#113D33]/20 pt-6">
+            <div className="mt-12 border-t border-[#113D33]/25 pt-6">
               <p className="text-sm text-[#113D33]/80">Sway has been featured in</p>
               <ul className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
                 {PRESS.map((p) => (
                   <li key={p.alt}>
-                    <Image src={p.src} alt={p.alt} width={96} height={36} className="h-8 w-auto object-contain" />
+                    <Image src={p.src} alt={p.alt} width={96} height={36} className="h-8 w-auto object-contain mix-blend-multiply grayscale" />
                   </li>
                 ))}
               </ul>
@@ -409,13 +454,13 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="bg-[#EBE4D1] py-20 md:py-28">
+      <section className="bg-[#F7F4E9] py-20 md:py-28">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-          <h2 className="text-4xl font-semibold leading-tight tracking-tight">Good questions</h2>
+          <h2 className="text-4xl leading-tight md:text-5xl">Good questions</h2>
           <div>
             {faqs.map((f) => (
-              <details key={f.q} className="group border-t border-[#113D33]/20 py-1 last:border-b">
-                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              <details key={f.q} className="group border-t border-[#113D33]/25 py-1 last:border-b">
+                <summary className="cf-label flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-lg [&::-webkit-details-marker]:hidden">
                   {f.q}
                   <span aria-hidden="true" className="text-2xl leading-none transition group-open:rotate-45">+</span>
                 </summary>
@@ -426,26 +471,32 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
         </div>
       </section>
 
-      {/* ===== First access ===== */}
+      {/* ===== Close ===== */}
       <section id="first-access" className="scroll-mt-24 bg-[#113D33] py-20 text-white md:py-28">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:gap-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-2 md:gap-20">
           <div>
-            <p className={`${eyebrow} text-[#D7E5DD]`}>{canJoin ? "Not ready today?" : "First access"}</p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
-              {spotsLeft ? `${spotsLeft} at ${cfg.shortName}.` : `Only ${cfg.cap} at ${cfg.shortName}.`}
+            <p className={`${eyebrow} text-[#D7E5DD]`}>Founding ends {cfg.closesLabel}</p>
+            <h2 className="mt-4 text-5xl leading-[1.05] md:text-7xl">
+              {spotsLeft ? `${spotsLeft}.` : `Only ${cfg.cap} at ${cfg.shortName}.`}
             </h2>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-white/85">
-              {canJoin
-                ? "Leave your name and we'll follow up before the founding spots are gone."
-                : "Leave your name and we'll reach out to get you set up."}
-            </p>
-            <p className="mt-6 text-sm text-white/80">
+            {canJoin && (
+              <a href="#tiers" className="sway-button sway-button-light mt-8">
+                Choose your membership <span aria-hidden="true"><ArrowMark /></span>
+              </a>
+            )}
+            <p className="mt-8 text-sm text-white/80">
               Questions? Call{" "}
               <a className="underline underline-offset-4" href={`tel:${club.phone.replace(/[^\d+]/g, "")}`}>{club.phone}</a> or email{" "}
               <a className="underline underline-offset-4" href={`mailto:${club.contactEmail}`}>{club.contactEmail}</a>.
             </p>
           </div>
-          <div className="rounded-3xl bg-white p-6 text-[#113D33] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)] sm:p-8">
+          <div className="rounded-[4px] bg-[#F7F4E9] p-6 text-[#113D33] sm:p-8">
+            <h3 className="cf-title text-3xl">{canJoin ? "Not ready today?" : "Get first access"}</h3>
+            <p className="mb-6 mt-2 leading-relaxed text-[#113D33]/80">
+              {canJoin
+                ? "Leave your name and we'll follow up before the founding spots are gone."
+                : "Leave your name and we'll reach out to get you set up."}
+            </p>
             <WaitlistForm location={clubKey} source="founding-membership" variant="full" submitLabel={canJoin ? "Keep Me Posted" : "Get First Access"} />
           </div>
         </div>
@@ -459,9 +510,9 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
       >
         <span className="min-w-0 leading-tight">
           <span className="block text-[10px] uppercase tracking-[0.15em] text-[#2F5D50]">Founding membership</span>
-          <span className="block text-sm font-semibold text-[#113D33]">From ${fromPrice} a month</span>
+          <span className="block text-sm text-[#113D33]">From ${fromPrice} a month · {spotsLeft ?? `Only ${cfg.cap}`}</span>
         </span>
-        <span className="shrink-0 rounded-[3px] bg-[#113D33] px-7 py-2.5 text-sm font-semibold text-white">See rates</span>
+        <span className="shrink-0 rounded-[3px] bg-[#113D33] px-7 py-2.5 text-sm text-white">See rates</span>
       </a>
 
       <AnimatePresence>
