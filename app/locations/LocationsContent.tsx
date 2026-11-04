@@ -436,7 +436,9 @@ export default function LocationsContent() {
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                // Carto requires a key since 2026 or it watermarks the map. Free up to 1M requests a month; sent by the
+                // browser so it isn't secret. Requested 11/4/2026 by john@spaviadayspa.com, managed at dashboard.basemaps.carto.com
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_5267_1_6226aab21cd2478932e18836"
               />
 
               {/* Pins are named for screen readers; each one is also in the location list below (WCAG 2.5.8 equivalent control). */}
