@@ -2,28 +2,13 @@
 
 import "leaflet/dist/leaflet.css";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { LOCATION_NAMES } from "@/lib/locationNames";
 
-// --- Dynamic imports for react-leaflet (client-only) ---
-const MapContainer: any = dynamic(
-  () => import("react-leaflet").then((m) => m.MapContainer),
-  { ssr: false }
-);
-const TileLayer: any = dynamic(
-  () => import("react-leaflet").then((m) => m.TileLayer),
-  { ssr: false }
-);
-const Marker: any = dynamic(
-  () => import("react-leaflet").then((m) => m.Marker),
-  { ssr: false }
-);
-const Popup: any = dynamic(
-  () => import("react-leaflet").then((m) => m.Popup),
-  { ssr: false }
-);
+// Leaflet needs the browser, so the map loads client-only
+const LocationsMap = dynamic(() => import("./LocationsMap"), { ssr: false });
 
 export type Location = {
   slug: string;
@@ -186,35 +171,8 @@ export default function LocationsContent() {
   const [query, setQuery] = useState("");
   const [userCenter, setUserCenter] = useState<[number, number] | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const [map, setMap] = useState<any>(null);
-
-  // Fix Leaflet icons
-  useEffect(() => {
-    (async () => {
-      if (typeof window === "undefined") return;
-      const leaflet = await import("leaflet");
-      // @ts-ignore
-      delete leaflet.Icon.Default.prototype._getIconUrl;
-      leaflet.Icon.Default.mergeOptions({
-        iconRetinaUrl:
-          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        iconUrl:
-          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-        shadowUrl:
-          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      });
-    })();
-  }, []);
-
-  // Fit to markers on load
-  useEffect(() => {
-    if (!map) return;
-    if (userCenter) return;
-    const pts = LOCATIONS.map((l) => l.coords);
-    if (pts.length > 0 && typeof (map as any).fitBounds === "function") {
-      map.fitBounds(pts, { padding: [80, 80] });
-    }
-  }, [map, userCenter]);
+  // The card being hovered or focused: its pin stands out on the map
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
 
   const visible = useMemo(() => filterLocations(query, LOCATIONS), [query]);
   const openLocs = useMemo(
@@ -245,9 +203,6 @@ export default function LocationsContent() {
     navigator.geolocation.getCurrentPosition((pos) => {
       const me: [number, number] = [pos.coords.latitude, pos.coords.longitude];
       setUserCenter(me);
-      if (map && typeof map.setView === "function") {
-        map.setView(me, 8);
-      }
       let best = LOCATIONS[0];
       let bestD = Infinity;
       for (const loc of LOCATIONS) {
@@ -266,6 +221,10 @@ export default function LocationsContent() {
     <button
       type="button"
       onClick={() => goToLocation(loc)}
+      onMouseEnter={() => setActiveSlug(loc.slug)}
+      onMouseLeave={() => setActiveSlug(null)}
+      onFocus={() => setActiveSlug(loc.slug)}
+      onBlur={() => setActiveSlug(null)}
       className={[
         "location-picker-card w-full text-left p-5 md:p-6 bg-white transition cursor-pointer",
         "hover:shadow-lg",
@@ -306,6 +265,10 @@ export default function LocationsContent() {
     <button
       type="button"
       onClick={() => goToLocation(loc)}
+      onMouseEnter={() => setActiveSlug(loc.slug)}
+      onMouseLeave={() => setActiveSlug(null)}
+      onFocus={() => setActiveSlug(loc.slug)}
+      onBlur={() => setActiveSlug(null)}
       className={[
         "rounded-2xl p-4 bg-white shadow-sm transition cursor-pointer",
         "hover:shadow-md hover:-translate-y-0.5",
@@ -388,8 +351,9 @@ export default function LocationsContent() {
                   Open Now
                 </h2>
                 <div className="space-y-3">
+                  {/* Called as functions: as <OpenCard /> every hover would remount the card and drop keyboard focus */}
                   {openLocs.map((loc) => (
-                    <OpenCard key={loc.slug} loc={loc} />
+                    <div key={loc.slug}>{OpenCard({ loc })}</div>
                   ))}
                 </div>
               </section>
@@ -409,7 +373,7 @@ export default function LocationsContent() {
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {locs.map((loc) => (
-                          <ComingSoonCard key={loc.slug} loc={loc} />
+                          <div key={loc.slug} className="grid">{ComingSoonCard({ loc })}</div>
                         ))}
                       </div>
                     </div>
@@ -426,50 +390,14 @@ export default function LocationsContent() {
           </div>
 
           {/* Map */}
-          <div className="h-[360px] md:h-[520px] rounded-3xl overflow-hidden border border-black/5 bg-white shadow md:sticky md:top-24">
-            <MapContainer
-              center={[39.8283, -98.5795]}
-              zoom={4}
-              scrollWheelZoom={false}
-              className="h-full w-full"
-              whenCreated={(m: any) => setMap(m)}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                // Carto requires a key since 2026 or it watermarks the map. Free up to 1M requests a month; sent by the
-                // browser so it isn't secret. Requested 11/4/2026 by john@spaviadayspa.com, managed at dashboard.basemaps.carto.com
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_5267_1_6226aab21cd2478932e18836"
-              />
-
-              {/* Pins are named for screen readers; each one is also in the location list below (WCAG 2.5.8 equivalent control). */}
-              {LOCATIONS.map((loc) => (
-                <Marker key={loc.slug} position={loc.coords} alt={`${loc.name}, ${loc.city}`} title={loc.name}>
-                  <Popup>
-                    <div className="space-y-1">
-                      <div className="font-bold">{loc.name}</div>
-                      <div className="text-sm opacity-80">
-                        {loc.city}, {loc.state}
-                      </div>
-                      {loc.status === "open" ? (
-                        <button
-                          onClick={() => goToLocation(loc)}
-                          className="mt-2 text-[#113D33] bg-emerald-200 hover:bg-emerald-300 rounded px-2 py-1"
-                        >
-                          View page
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => goToLocation(loc)}
-                          className="mt-2 text-[#113D33] bg-gray-200 hover:bg-gray-300 rounded px-2 py-1"
-                        >
-                          View page
-                        </button>
-                      )}
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
+          <div className="location-map h-[360px] md:h-[520px] rounded-3xl overflow-hidden border border-black/5 shadow md:sticky md:top-24">
+            <LocationsMap
+              locations={visible}
+              activeSlug={activeSlug}
+              userCenter={userCenter}
+              nearest={LOCATIONS.find((l) => l.slug === selectedSlug) ?? null}
+              onOpen={goToLocation}
+            />
           </div>
         </div>
 

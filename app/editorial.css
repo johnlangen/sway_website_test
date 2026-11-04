@@ -2454,3 +2454,106 @@ body {
 .club-founding button.sway-button {
   font-size: 13px;
 }
+
+/* Find your Sway map (app/locations/LocationsMap.tsx): cream land, sage water, Sway pins */
+.location-map,
+.location-map .leaflet-container {
+  background: #eeeadb;
+  font-family: "Vance Text", sans-serif;
+}
+.location-map .leaflet-tile-pane {
+  filter: sepia(0.35) hue-rotate(25deg) brightness(0.97);
+}
+.location-map .leaflet-bar {
+  border: 1px solid rgba(17, 61, 51, 0.2);
+  border-radius: 3px;
+  box-shadow: none;
+}
+.location-map .leaflet-bar a {
+  background: #f7f4e9;
+  color: #113d33;
+  border-color: rgba(17, 61, 51, 0.2);
+}
+.location-map .leaflet-bar a:hover {
+  background: #d8dfc9;
+}
+.location-map .leaflet-control-attribution {
+  background: rgba(247, 244, 233, 0.85);
+  color: rgba(17, 61, 51, 0.8);
+}
+.location-map .leaflet-control-attribution a {
+  color: #113d33;
+}
+.location-map .leaflet-popup-content-wrapper {
+  background: #f7f4e9;
+  color: #113d33;
+  border-radius: 4px;
+  box-shadow: 0 12px 30px -12px rgba(17, 61, 51, 0.45);
+}
+.location-map .leaflet-popup-tip {
+  background: #f7f4e9;
+}
+.location-map-popup p {
+  margin: 0 !important;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.location-map-popup .location-map-popup-name {
+  font-family: "Vance Regular", sans-serif;
+  font-size: 17px;
+}
+.location-map-popup button {
+  margin-top: 10px;
+  min-height: 36px;
+  width: 100%;
+  background: #113d33;
+  color: #f7f4e9;
+  border-radius: 2px;
+  font-size: 13px;
+}
+.location-map-popup button:hover {
+  background: #23594a;
+}
+.sway-map-pin {
+  display: block;
+  width: 34px;
+  height: 44px;
+  transform-origin: 50% 95%;
+  filter: drop-shadow(0 4px 5px rgba(17, 61, 51, 0.35));
+  transition: transform 0.15s ease;
+}
+.sway-map-pin svg {
+  display: block;
+}
+.sway-map-pin.is-active,
+.leaflet-marker-icon:hover .sway-map-pin,
+.leaflet-marker-icon:focus-visible .sway-map-pin {
+  transform: scale(1.22);
+}
+.sway-map-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #113d33;
+  color: #f7f4e9;
+  border: 3px solid #f7f4e9;
+  font-family: "Vance Regular", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  box-shadow: 0 0 0 5px rgba(17, 61, 51, 0.18), 0 6px 12px rgba(17, 61, 51, 0.3);
+  transition: transform 0.15s ease;
+}
+.sway-map-cluster.is-active,
+.leaflet-marker-icon:hover .sway-map-cluster,
+.leaflet-marker-icon:focus-visible .sway-map-cluster {
+  transform: scale(1.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sway-map-pin,
+  .sway-map-cluster {
+    transition: none;
+  }
+}
