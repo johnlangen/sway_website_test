@@ -1,13 +1,23 @@
 "use client";
 
+/**
+ * Sway Larimer location page. Time is the organizing idea: LarimerTimePicker puts every session length
+ * on one scale, LarimerHours shows the week on one clock, and the membership section draws drop-in and
+ * member prices to scale. JSON-LD lives in layout.tsx and is unchanged by page design.
+ */
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import LocationExperienceNav from "@/app/components/LocationExperienceNav";
 import Image from "next/image";
+import ArrowMark from "@/app/components/ArrowMark";
+import LocationExperienceNav from "@/app/components/LocationExperienceNav";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import BookingPeek from "@/app/components/BookingPeek";
 import { SwayCurve } from "@/app/components/SwayCurve";
 import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
+import { getOpenStatus } from "@/lib/larimerHours";
+import LarimerHours from "./LarimerHours";
+import LarimerTimePicker from "./LarimerTimePicker";
 
 /* ---------------------------------------------
    LOCATION CONFIG
@@ -30,568 +40,81 @@ const loc = {
    TREATMENTS
 --------------------------------------------- */
 
-const TREATMENTS = [
-  {
-    title: "Massage",
-    tagline: "Deep Tissue, Sports, CBD & more",
-    description:
-      "Our licensed massage therapists blend traditional techniques like deep tissue, cupping, and salt stone with recovery tools like infrared PEMF mats. 50–90 minutes, fully customized.",
-    price: "From $139",
-    memberPrice: "From $99",
-    image: "/assets/massage3.jpg",
-    bookHref: "/locations/denver-larimer/book/?category=massage",
-    learnHref: "/massages",
-  },
-  {
-    title: "Facials",
-    tagline: "Forever Young, Glow Getter & more",
-    description:
-      "Clean, organic Eminence Organics skincare, plus dedicated Dr. Dennis Gross Vitamin C facials. Add LED, microcurrent, or oxygen infusion boosts.",
-    price: "From $139",
-    memberPrice: "From $99",
-    image: "/assets/facialExperiences.jpg",
-    bookHref: "/locations/denver-larimer/book/?category=facial",
-    learnHref: "/facials",
-  },
-  {
-    title: "Remedy Room",
-    tagline: "Sauna + cold plunge recovery",
-    description:
-      "Sauna, cold plunge, compression therapy, and LED light therapy. Four evidence-based modalities in one 40-minute guided circuit.",
-    price: "$49",
-    memberPrice: "$25",
-    image: "/assets/remedy-room.jpg",
-    bookHref: "/locations/denver-larimer/book-remedy-room",
-    learnHref: "/remedy-tech",
-  },
-  {
-    title: "Aescape Robot Massage",
-    tagline: "AI-powered precision recovery",
-    description:
-      "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection. 15, 30, 45, or 60 minute sessions.",
-    price: "From $49",
-    memberPrice: null,
-    image: "/assets/aescapeblog6.jpg",
-    bookHref: "/locations/denver-larimer/book-aescape",
-    learnHref: "/aescape",
-  },
-] as const;
+const MASSAGE = {
+  title: "Massage",
+  tagline: "Deep Tissue, Sports, Salt Stone & more",
+  description:
+    "Licensed massage therapists and 13 massages, from our Signature (light to medium pressure) to Deep Tissue. Add boosts like cupping or PEMF.",
+  minutes: "50, 70 or 90 min",
+  price: "From $139",
+  memberPrice: "From $99",
+  image: "/assets/founding-massage-stone.jpg",
+  alt: "A massage therapist working with a warm salt stone",
+  bookHref: "/locations/denver-larimer/book/?category=massage",
+  bookLabel: "Book a massage",
+  learnHref: "/massages",
+};
 
-/* ---------------------------------------------
-   TIME HELPERS (MOUNTAIN TIME SAFE)
---------------------------------------------- */
+const FACIALS = {
+  title: "Facials",
+  tagline: "Forever Young, Glow Getter & more",
+  description:
+    "Clean, organic Eminence Organics skincare, plus dedicated Dr. Dennis Gross Vitamin C facials. Add LED, microcurrent, or oxygen infusion boosts.",
+  minutes: "50 to 60 min",
+  price: "From $139",
+  memberPrice: "From $99",
+  image: "/assets/facialExperiences.jpg",
+  alt: "Skincare on a guest's cheek, seen through green leaves",
+  bookHref: "/locations/denver-larimer/book/?category=facial",
+  bookLabel: "Book a facial",
+  learnHref: "/facials",
+};
 
-function getDenverTimeParts() {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Denver",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false,
-    weekday: "short",
-  }).formatToParts(new Date());
+const REMEDY = {
+  title: "Remedy Room",
+  tagline: "Sauna + cold plunge recovery",
+  description: "Four modalities in one guided circuit.",
+  minutes: "40 min",
+  price: "$49",
+  memberPrice: "$25",
+  image: "/assets/remedy-room.jpg",
+  alt: "A guest in a robe under LED light therapy in the Remedy Room",
+  bookHref: "/locations/denver-larimer/book-remedy-room",
+  bookLabel: "Book the Remedy Room",
+  learnHref: "/remedy-tech",
+};
 
-  const get = (type: string) =>
-    parts.find((p) => p.type === type)?.value ?? "";
+const AESCAPE = {
+  title: "Aescape Robot Massage",
+  tagline: "AI-powered precision recovery",
+  description: "AI body mapping with dual robotic arms delivers personalized pressure and real-time muscle detection.",
+  minutes: "15, 30, 45 or 60 min",
+  price: "From $49",
+  memberPrice: null as string | null,
+  image: "/assets/aescapeblog6.jpg",
+  alt: "Aescape robotic arms working on a guest's calf",
+  bookHref: "/locations/denver-larimer/book-aescape",
+  bookLabel: "Book Aescape",
+  learnHref: "/aescape",
+};
 
-  return {
-    hour: Number(get("hour")),
-    minute: Number(get("minute")),
-    weekday: get("weekday"),
-  };
-}
+const REMEDY_STEPS = ["Sauna", "Cold plunge", "Compression", "LED"];
 
-function getOpenStatus() {
-  const { hour, minute, weekday } = getDenverTimeParts();
-  const mins = hour * 60 + minute;
+// Drawn to scale against the most expensive bar
+const PRICE_SCALE = 139;
+const SAVINGS = [
+  { label: "Massage or facial", dropIn: 139, member: 99, note: "From, across 3 tiers" },
+  { label: "Remedy Room", dropIn: 49, member: 25, note: "Per session" },
+];
 
-  const schedule: Record<string, { opens: number; closes: number; label: string }> = {
-    Mon: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
-    Tue: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
-    Wed: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
-    Thu: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
-    Fri: { opens: 10 * 60, closes: 20 * 60, label: "10:00 AM" },
-    Sat: { opens: 9 * 60, closes: 18 * 60, label: "9:00 AM" },
-    Sun: { opens: 11 * 60, closes: 18 * 60, label: "11:00 AM" },
-  };
+const VISIT_STEPS = [
+  { title: "Park or walk", body: "Larimer Square Garage, 1422 Market St. We validate the 1st hour on weekdays. Or it's a short walk from Union Station." },
+  { title: "Arrive 15 minutes early", body: "Check in and settle into the space." },
+  { title: "Take your time", body: "Massage, facial, recovery, or all three." },
+  { title: "Step back out on Larimer Square", body: "Dinner and drinks are right outside the door." },
+];
 
-  const dayOrder = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const today = schedule[weekday];
-
-  if (mins >= today.opens && mins < today.closes) {
-    return { open: true, label: "Open now" };
-  }
-
-  // Before opening today → show today's opening time
-  if (mins < today.opens) {
-    return { open: false, label: `Closed · Opens at ${today.label}` };
-  }
-
-  // Past closing → show NEXT day's opening time
-  const todayIdx = dayOrder.indexOf(weekday);
-  const nextDay = dayOrder[(todayIdx + 1) % 7];
-  const next = schedule[nextDay];
-
-  return {
-    open: false,
-    label: `Closed · Opens ${nextDay} at ${next.label}`,
-  };
-}
-
-/* ---------------------------------------------
-   PAGE
---------------------------------------------- */
-
-export default function SwayLarimerPage() {
-  const [status, setStatus] = useState<{ open: boolean; label: string } | null>(
-    null
-  );
-
-  useEffect(() => {
-    localStorage.setItem(
-      "sway_selected_location",
-      JSON.stringify({
-        slug: loc.slug,
-        name: loc.name,
-        city: loc.city,
-        state: loc.state,
-      })
-    );
-    document.cookie = `sway_loc=${loc.slug}; path=/; max-age=31536000`;
-
-    setStatus(getOpenStatus());
-  }, []);
-
-  return (
-    <div className="bg-[#F7F4E9] text-[#113D33] font-vance">
-      {/* ================================ HERO ================================ */}
-      <section className="sway-page-hero sway-location-hero px-6 pt-24 sm:pt-28 md:pt-36 pb-16 md:pb-20">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
-          {/* LEFT */}
-          <div>
-            <SwayCurve
-              width={120}
-              strokeWidth={2.2}
-              animate
-              className="text-[#4A776D]/85 block mb-5"
-            />
-            <div className="mb-3 text-xs tracking-wide uppercase opacity-80">
-              Massage, Facials & Recovery · Larimer Square, Denver
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
-              {loc.name}
-            </h1>
-            <p className="sr-only">
-              Sway Wellness Spa is located at 1428 Larimer St. on Larimer Square
-              in downtown Denver, CO 80202. Voted #4 Best Day Spa in America by
-              USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 13
-              massage types across 3 tiers (from $99 member, $139 drop-in),
-              11 facial treatments across 3 tiers using Eminence Organics and
-              Dr. Dennis Gross (from $99 member, $139 drop-in), the Remedy Room
-              40-minute recovery circuit with 4 modalities: sauna,
-              cold plunge, compression therapy, and LED light therapy (from
-              $25), and AI-powered Aescape robot massage (from $49, 15, 30, 45,
-              or 60 min). 7 boost add-ons across services. Open Mon–Fri 10
-              AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from
-              $99/month. 1st hour parking validated on weekdays at Larimer Square Garage.
-              Book at swaywellnessspa.com or call (303) 476-6150.
-            </p>
-
-            {status && (
-              <div className="mt-4 flex items-center gap-2 text-sm">
-                <span
-                  className={`inline-block h-2 w-2 rounded-full ${
-                    status.open ? "bg-green-600" : "bg-red-500"
-                  }`}
-                />
-                <span>{status.label}</span>
-              </div>
-            )}
-
-            <a
-              href="https://10best.usatoday.com/awards/sway-denver-colorado/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-4 text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#113D33]/80 border border-[#113D33]/20 rounded-full px-4 py-1.5 hover:border-[#113D33]/40 transition"
-            >
-              Voted #4 Best Day Spa in America · USA Today 10Best <span className="sr-only">(opens in new tab)</span>
-            </a>
-
-            <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-              <ReviewBadge />
-              <span className="hidden sm:block opacity-30">|</span>
-              <ClassPassBadge />
-            </div>
-
-            <p className="mt-5 text-base leading-relaxed max-w-lg opacity-90">
-              A modern wellness club on historic Larimer Square offering
-              massage, facials, recovery, and technology-forward experiences
-              designed for real life.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Link
-                href="/locations/denver-larimer/book"
-                className="bg-[#113D33] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition shadow-sm"
-              >
-                Book Now
-              </Link>
-
-              <Link
-                href="/locations/denver-larimer/membership"
-                className="border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
-              >
-                Join the Club · $99/mo
-              </Link>
-            </div>
-
-            <div className="mt-4">
-              <BookingPeek />
-            </div>
-
-            {/* ADDRESS */}
-            <div className="mt-7 text-sm opacity-75 leading-relaxed">
-              <a
-                href={loc.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
-              </a>
-              <span className="mx-2">·</span>
-              <a href={`tel:${loc.phoneDigits}`} className="hover:underline">
-                (303) 476-6150
-              </a>
-            </div>
-          </div>
-
-          {/* RIGHT IMAGE */}
-          <div className="relative">
-            <Image
-              src={loc.heroImage}
-              alt="Sway Larimer wellness spa on Larimer Square in Denver"
-              width={720}
-              height={520}
-              priority
-              className="rounded-3xl shadow-lg w-full h-[300px] sm:h-[360px] md:h-[460px] object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      <BradyProtocolBanner />
-
-      <LocationExperienceNav location="denver-larimer" />
-
-      {/* ========================= FIRST VISIT OFFER ========================= */}
-      <section className="px-6 pb-16 md:pb-20">
-        <div className="max-w-6xl mx-auto">
-          <Link
-            href="/locations/denver-larimer/book"
-            className="group block rounded-2xl bg-[#113D33] text-white p-6 sm:p-8 md:p-10 hover:bg-[#0c2a23] transition"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <div className="text-xs uppercase tracking-wider text-white/60 mb-1.5">
-                  For Our Denver Neighbors
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold">
-                  $99 First Visit Massage or Facial
-                </h2>
-                <p className="mt-2 text-white/80 text-sm sm:text-base max-w-lg">
-                  Regularly $139. Same $40 off every tier: Premier $129,
-                  Ultimate $159. Code FTVO40, Mon-Fri. Locals only, first-time guests.
-                </p>
-              </div>
-              <div className="shrink-0">
-                <span className="inline-flex items-center gap-2 bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold group-hover:gap-3 transition-all">
-                  Book Now
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* ========================= TREATMENTS ========================= */}
-      <section className="px-6 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3">
-            Our Services
-          </h2>
-          <p className="opacity-75 max-w-xl mb-10 md:mb-14">
-            Massage, facials, and modern recovery, all under one roof in
-            downtown Denver. Planning a celebration? See our{" "}
-            <Link
-              href="/blog/bachelorette-spa-day"
-              className="underline underline-offset-4 hover:opacity-100"
-            >
-              bachelorette and group spa packages
-            </Link>
-            .
-          </p>
-
-          <div className="space-y-8 md:space-y-10">
-            {TREATMENTS.map((t, i) => (
-              <div
-                key={t.title}
-                className={`group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center ${
-                  i % 2 !== 0 ? "md:[direction:rtl]" : ""
-                }`}
-              >
-                {/* IMAGE */}
-                <div className={i % 2 !== 0 ? "md:[direction:ltr]" : ""}>
-                  <Link href={t.bookHref}>
-                    <div className="relative overflow-hidden rounded-2xl">
-                      <Image
-                        src={t.image}
-                        alt={t.title}
-                        width={640}
-                        height={420}
-                        className="w-full h-[240px] sm:h-[280px] md:h-[340px] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      />
-                      {/* Price badge */}
-                      <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-[#113D33] text-xs font-semibold px-3 py-1.5 rounded-full">
-                        {t.price}
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* TEXT */}
-                <div className={i % 2 !== 0 ? "md:[direction:ltr]" : ""}>
-                  <div className="text-xs uppercase tracking-wider opacity-80 mb-2">
-                    {t.tagline}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-3">
-                    {t.title}
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed opacity-80 mb-4 max-w-md">
-                    {t.description}
-                  </p>
-
-                  {/* Pricing line */}
-                  <div className="flex items-baseline gap-3 mb-5 text-sm">
-                    <span className="font-semibold">{t.price}</span>
-                    {t.memberPrice && (
-                      <>
-                        <span className="opacity-40">|</span>
-                        <span className="text-[#4A776D] font-semibold">
-                          {t.memberPrice} for members
-                        </span>
-                      </>
-                    )}
-                  </div>
-
-                  {/* CTAs */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Link
-                      href={t.bookHref}
-                      className="bg-[#113D33] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#0c2a23] transition"
-                    >
-                      Book {t.title === "Aescape Robot Massage" ? "Aescape" : t.title}
-                    </Link>
-                    <Link
-                      href={t.learnHref}
-                      className="text-sm font-medium underline underline-offset-4 opacity-70 hover:opacity-100 transition"
-                    >
-                      Learn more<span className="sr-only"> about {t.title}</span>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ======================== REVIEWS ======================== */}
-      <section className="px-6 pb-20 md:pb-28">
-        <GoogleReviews />
-      </section>
-
-      {/* ======================== MEMBERSHIP TEASER ======================== */}
-      <section className="px-6 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-3xl bg-[#113D33] text-white overflow-hidden">
-            <div className="grid md:grid-cols-2 items-center">
-              {/* IMAGE */}
-              <div className="relative h-[240px] md:h-full md:min-h-[380px]">
-                <Image
-                  src="/assets/membership_background_logo.jpg"
-                  alt="Sway Wellness Club membership"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* CONTENT */}
-              <div className="p-8 sm:p-10 md:p-12">
-                <div className="text-xs uppercase tracking-wider text-white/70 mb-2">
-                  Membership
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3">
-                  $99/month.
-                </h2>
-                <ul className="space-y-2 text-sm text-white/80 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#9ABFB3]">✓</span>
-                    Massages & facials from $99 across 3 tiers
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#9ABFB3]">✓</span>
-                    50% off Boosts, Super Boosts & Remedy Room
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-0.5 text-[#9ABFB3]">✓</span>
-                    Private lounge, bring-a-friend, rollover credits
-                  </li>
-                </ul>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/locations/denver-larimer/membership"
-                    className="bg-white text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
-                  >
-                    View Memberships
-                  </Link>
-                  <a
-                    href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium underline underline-offset-4 text-white/70 hover:text-white transition"
-                  >
-                    Join Now <span className="sr-only">(opens in new tab)</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================= HOURS + LOCATION ========================= */}
-      <section className="px-6 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8">
-            Visit Us
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Hours */}
-            <div className="border border-black/10 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4">Hours</h3>
-              <ul className="text-sm space-y-2 opacity-80">
-                <li className="flex justify-between">
-                  <span>Mon – Fri</span>
-                  <span>10:00 AM – 8:00 PM</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Saturday</span>
-                  <span>9:00 AM – 6:00 PM</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Sunday</span>
-                  <span>11:00 AM – 6:00 PM</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Location */}
-            <div className="border border-black/10 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4">Location</h3>
-              <p className="text-sm opacity-80 leading-relaxed mb-3">
-                {loc.street}
-                <br />
-                {loc.city}, {loc.state} {loc.zip}
-              </p>
-              <p className="text-sm opacity-80 mb-4">
-                Larimer Square, Downtown Denver
-              </p>
-              <a
-                href={loc.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium underline underline-offset-4"
-              >
-                Get Directions <span className="sr-only">(opens in new tab)</span>
-              </a>
-            </div>
-
-            {/* Contact */}
-            <div className="border border-black/10 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <p className="text-sm opacity-80 mb-3">
-                Questions? We&apos;re here to help.
-              </p>
-              <div className="space-y-2">
-                <a
-                  href={`tel:${loc.phoneDigits}`}
-                  className="flex items-center gap-2 text-sm font-medium hover:underline"
-                >
-                  <svg
-                    className="w-4 h-4 opacity-60"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                  (303) 476-6150
-                </a>
-                <Link
-                  href="/locations/denver-larimer/book"
-                  className="flex items-center gap-2 text-sm font-medium hover:underline"
-                >
-                  <svg
-                    className="w-4 h-4 opacity-60"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Book Online
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================= FAQ =============================== */}
-      <section className="px-6 pb-20 md:pb-28">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8">
-            Frequently Asked Questions
-          </h2>
-
-          {[
+const FAQS = [
             {
               q: "Where should I park when visiting Sway Larimer?",
               a: "Park at the Larimer Square Parking Garage, 1422 Market Street, open 24/7. The entrance is on Market Street, on the right as you pass 14th and Market. We validate the 1st hour on weekdays. Full rates are on our FAQ page.",
@@ -620,59 +143,346 @@ export default function SwayLarimerPage() {
               q: "When should I arrive for my appointment?",
               a: "Please arrive about 15 minutes early to check in and settle into the space.",
             },
-          ].map((item) => (
-            <details
-              key={item.q}
-              className="border-b border-black/10 py-4 group"
+];
+
+function Service({
+  s,
+  aspect,
+  sizes,
+  children,
+}: {
+  s: typeof MASSAGE | typeof AESCAPE;
+  aspect: string;
+  sizes: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <article className="group">
+      <Link href={s.bookHref} tabIndex={-1} aria-hidden="true" className="block">
+        <div className={`relative overflow-hidden rounded-[2px] ${aspect}`}>
+          <Image src={s.image} alt={s.alt} fill sizes={sizes} className="object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none" />
+        </div>
+      </Link>
+      <p className="sway-eyebrow mt-4 text-[#4A776D] md:mt-5">{s.tagline}</p>
+      <h3 className="mt-1 text-[28px] leading-tight md:text-4xl">{s.title}</h3>
+      <p className="mt-2 max-w-md text-[15px] leading-normal text-[#113D33]/85 md:text-base md:leading-relaxed">{s.description}</p>
+      {children}
+      <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-[#113D33]/20 pt-3 text-sm">
+        <div className="flex gap-1.5"><dt className="sr-only">Length</dt><dd>{s.minutes}</dd></div>
+        <div className="flex gap-1.5"><dt className="sr-only">Drop-in price</dt><dd className="font-semibold">{s.price}</dd></div>
+        {s.memberPrice && (
+          <div className="flex gap-1.5"><dt className="sr-only">Member price</dt><dd className="text-[#2F5D50]">{s.memberPrice} for members</dd></div>
+        )}
+      </dl>
+      <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 md:mt-4">
+        <Link href={s.bookHref} className="sway-button w-full sm:w-auto">
+          {s.bookLabel} <span aria-hidden="true"><ArrowMark /></span>
+        </Link>
+        <Link href={s.learnHref} className="sway-text-link">
+          Learn more<span className="sr-only"> about {s.title}</span>
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+/* ---------------------------------------------
+   PAGE
+--------------------------------------------- */
+
+export default function SwayLarimerPage() {
+  const [status, setStatus] = useState<{ open: boolean; label: string } | null>(
+    null
+  );
+
+  useEffect(() => {
+    localStorage.setItem(
+      "sway_selected_location",
+      JSON.stringify({
+        slug: loc.slug,
+        name: loc.name,
+        city: loc.city,
+        state: loc.state,
+      })
+    );
+    document.cookie = `sway_loc=${loc.slug}; path=/; max-age=31536000`;
+
+    setStatus(getOpenStatus());
+  }, []);
+
+  return (
+    <div className="club-founding bg-[#F7F4E9] text-[#113D33]">
+      {/* ================================ HERO ================================ */}
+      <section className="sway-page-hero bg-[#E9EDDF] pb-8 pt-24 md:pb-12 md:pt-36">
+        <div className="mx-auto grid max-w-6xl items-center gap-7 px-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-14">
+          <div>
+            <p className="sway-eyebrow text-[#2F5D50]">Massage, Facials &amp; Recovery · Larimer Square, Denver</p>
+            <h1 className="mt-3 md:mt-5">{loc.name}</h1>
+            <p className="sr-only">
+              Sway Wellness Spa is located at 1428 Larimer St. on Larimer Square
+              in downtown Denver, CO 80202. Voted #4 Best Day Spa in America by
+              USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 13
+              massage types across 3 tiers (from $99 member, $139 drop-in),
+              11 facial treatments across 3 tiers using Eminence Organics and
+              Dr. Dennis Gross (from $99 member, $139 drop-in), the Remedy Room
+              40-minute recovery circuit with 4 modalities: sauna,
+              cold plunge, compression therapy, and LED light therapy (from
+              $25), and AI-powered Aescape robot massage (from $49, 15, 30, 45,
+              or 60 min). 7 boost add-ons across services. Open Mon–Fri 10
+              AM–8 PM, Sat 9 AM–6 PM, Sun 11 AM–6 PM. Memberships from
+              $99/month. 1st hour parking validated on weekdays at Larimer Square Garage.
+              Book at swaywellnessspa.com or call (303) 476-6150.
+            </p>
+
+            <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
+              {status && (
+                <>
+                  <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#D9822B] shadow-[0_0_10px_2px_rgba(217,130,43,0.6)]" : "bg-[#113D33]/35"}`} />
+                  <span>{status.label}</span>
+                </>
+              )}
+            </div>
+            <SwayCurve width={120} strokeWidth={2} animate className="my-4 block text-[#4A776D] md:my-6" />
+            <p className="max-w-lg text-base text-[#113D33]/85 md:text-lg">
+              A modern wellness club on historic Larimer Square offering massage, facials, recovery, and technology-forward experiences designed for real life.
+            </p>
+            <div className="mt-5 flex flex-col gap-2 sm:flex-row md:mt-7">
+              <Link href="/locations/denver-larimer/book" className="sway-button">
+                Book Now <span aria-hidden="true"><ArrowMark /></span>
+              </Link>
+              <Link href="/locations/denver-larimer/membership" className="sway-button !bg-transparent !text-[#113D33] hover:!bg-[#113D33]/5">
+                Join the Club · $99/mo <span aria-hidden="true"><ArrowMark /></span>
+              </Link>
+            </div>
+            <div className="mt-3">
+              <BookingPeek />
+            </div>
+          </div>
+          <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] md:aspect-[5/4]">
+            <Image
+              src={loc.heroImage}
+              alt="The lantern-lit hallway at Sway Larimer on Larimer Square in Denver"
+              fill
+              priority
+              sizes="(min-width: 768px) 620px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Proof and the practical stuff, in one quiet line */}
+        <div className="mx-auto mt-6 max-w-6xl px-6 md:mt-10">
+          <div className="grid gap-x-8 gap-y-2 border-t border-[#113D33]/20 pt-4 text-sm md:grid-cols-[auto_auto_auto_1fr] md:items-center">
+            <a
+              href="https://10best.usatoday.com/awards/sway-denver-colorado/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
             >
-              <summary className="cursor-pointer font-medium flex items-center justify-between gap-4">
-                <span>{item.q}</span>
-                <svg
-                  className="w-4 h-4 shrink-0 opacity-40 transition-transform duration-200 group-open:rotate-45"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
-              </summary>
-              <p className="mt-3 text-sm opacity-80 leading-relaxed pr-8">
-                {item.a}
-              </p>
-            </details>
-          ))}
+              Voted #4 Best Day Spa in America · USA Today 10Best <span className="sr-only">(opens in new tab)</span>
+            </a>
+            <ReviewBadge />
+            <ClassPassBadge />
+            <p className="md:text-right">
+              <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
+              </a>
+              <span aria-hidden="true" className="mx-2">·</span>
+              <a href={`tel:${loc.phoneDigits}`} className="hover:underline">(303) 476-6150</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <BradyProtocolBanner />
+
+      <LocationExperienceNav location="denver-larimer" />
+
+      {/* ========================= FIRST VISIT OFFER: a ticket with a tear line ========================= */}
+      <section className="px-6 pb-12 md:pb-20">
+        <div className="mx-auto max-w-6xl">
+          <Link href="/locations/denver-larimer/book" className="group relative grid overflow-hidden rounded-[4px] bg-[#EBE4D1] md:grid-cols-[minmax(0,1fr)_260px]">
+            <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-10">
+              <p className="cf-num shrink-0 text-7xl md:text-8xl">$99</p>
+              <div>
+                <p className="sway-eyebrow text-[#2F5D50]">For Our Denver Neighbors</p>
+                <h2 className="mt-1 text-2xl leading-tight md:text-4xl">$99 First Visit Massage or Facial</h2>
+                <p className="mt-2 max-w-xl text-sm leading-snug text-[#113D33]/85 md:text-base">
+                  Regularly $139. Same $40 off every tier: Premier $129, Ultimate $159. Mon-Fri. Locals only, first-time guests.
+                </p>
+              </div>
+            </div>
+            <div className="relative flex items-center justify-between gap-4 border-t-2 border-dashed border-[#113D33]/30 p-6 md:flex-col md:items-start md:justify-center md:border-l-2 md:border-t-0 md:p-8">
+              {/* The notches where a ticket tears */}
+              <span aria-hidden="true" className="absolute -left-3 -top-3 h-6 w-6 rounded-full bg-[#F7F4E9] md:-left-3 md:-top-3" />
+              <span aria-hidden="true" className="absolute -right-3 -top-3 h-6 w-6 rounded-full bg-[#F7F4E9] md:-bottom-3 md:-left-3 md:right-auto md:top-auto" />
+              <div>
+                <p className="text-xs text-[#113D33]/80">Use code</p>
+                <p className="cf-num mt-1 text-3xl md:text-4xl">FTVO40</p>
+              </div>
+              <span className="inline-flex items-center gap-3 text-sm font-semibold">
+                Book Now
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1"><ArrowMark /></span>
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ========================= HOW MUCH TIME ========================= */}
+      <LarimerTimePicker />
+
+      {/* ========================= THE FOUR SERVICES ========================= */}
+      <section className="py-12 md:py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-10 md:grid-cols-12 md:gap-x-10 md:gap-y-24">
+            <div className="md:col-span-5">
+              <Service s={MASSAGE} aspect="aspect-[16/10] md:aspect-[4/5]" sizes="(min-width: 768px) 460px, 100vw" />
+            </div>
+            <div className="md:col-span-6 md:col-start-7 md:mt-32">
+              <Service s={FACIALS} aspect="aspect-[16/10] md:aspect-[3/2]" sizes="(min-width: 768px) 560px, 100vw" />
+            </div>
+            <div className="md:col-span-7">
+              <Service s={REMEDY} aspect="aspect-[16/10] md:aspect-[3/2]" sizes="(min-width: 768px) 660px, 100vw">
+                {/* The circuit is a sequence, so it reads as one */}
+                <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm">
+                  {REMEDY_STEPS.map((step, i) => (
+                    <li key={step} className="flex items-center gap-1.5">
+                      <span className="rounded-full border border-[#113D33]/30 px-3 py-1">{step}</span>
+                      {i < REMEDY_STEPS.length - 1 && <span aria-hidden="true" className="scale-75 opacity-70"><ArrowMark /></span>}
+                    </li>
+                  ))}
+                </ol>
+              </Service>
+            </div>
+            <div className="md:col-span-4 md:col-start-9 md:mt-20">
+              <Service s={AESCAPE} aspect="aspect-[16/10] md:aspect-square" sizes="(min-width: 768px) 360px, 100vw" />
+            </div>
+          </div>
+
+          <p className="mt-10 border-t border-[#113D33]/20 pt-4 text-[15px] md:mt-20 md:text-base">
+            Planning a celebration? See our{" "}
+            <Link href="/blog/bachelorette-spa-day" className="underline underline-offset-4">
+              bachelorette and group spa packages
+            </Link>{" "}
+            or{" "}
+            <Link href="/group-events" className="underline underline-offset-4">
+              plan a group event
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      {/* ======================== REVIEWS ======================== */}
+      <section className="bg-[#EBE4D1] py-12 md:py-24">
+        <GoogleReviews />
+      </section>
+
+      {/* ======================== MEMBERSHIP: the math, to scale ======================== */}
+      <section className="bg-[#113D33] py-12 text-white md:py-28">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 md:gap-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-center">
+          <div>
+            <p className="sway-eyebrow text-[#D7E5DD]">Membership</p>
+            <h2 className="cf-num mt-3 text-[64px] md:mt-4 md:text-8xl">$99/month.</h2>
+            <ul className="mt-5 space-y-2 text-[15px] text-white/90 md:mt-7 md:text-base">
+              <li>Massages &amp; facials from $99 across 3 tiers</li>
+              <li>50% off Boosts, Super Boosts &amp; Remedy Room</li>
+              <li>Private lounge, bring-a-friend, rollover credits</li>
+            </ul>
+            <Link href="/locations/denver-larimer/membership" className="sway-button sway-button-light mt-6 w-full sm:w-auto md:mt-8">
+              View Memberships <span aria-hidden="true"><ArrowMark /></span>
+            </Link>
+          </div>
+          <div className="space-y-7 md:space-y-9">
+            {SAVINGS.map((row) => (
+              <div key={row.label}>
+                <p className="flex items-baseline justify-between gap-3">
+                  <span className="cf-label text-lg md:text-xl">{row.label}</span>
+                  <span className="text-xs text-white/75">{row.note}</span>
+                </p>
+                <div className="mt-2.5 space-y-1.5">
+                  <div className="flex h-10 items-center rounded-[2px] bg-white/15 px-3 text-sm" style={{ width: `${(row.dropIn / PRICE_SCALE) * 100}%`, minWidth: "148px" }}>
+                    Drop-in ${row.dropIn}
+                  </div>
+                  <div className="flex h-10 items-center rounded-[2px] bg-[#A9D2C5] px-3 text-sm font-semibold text-[#113D33]" style={{ width: `${(row.member / PRICE_SCALE) * 100}%`, minWidth: "148px" }}>
+                    Member ${row.member}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= HOURS + YOUR VISIT ========================= */}
+      <section className="py-12 md:py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="text-[38px] leading-[1.05] md:text-6xl">Visit us</h2>
+          <div className="mt-6 grid gap-10 md:mt-12 md:gap-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+            <div>
+              <h3 className="text-xl md:text-2xl">Hours</h3>
+              <div className="mt-3 md:mt-4">
+                <LarimerHours />
+              </div>
+              <div className="mt-6 grid gap-x-8 gap-y-1 border-t border-[#113D33]/20 pt-4 text-sm sm:grid-cols-3">
+                <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center underline underline-offset-4">
+                  Get Directions <span className="sr-only">(opens in new tab)</span>
+                </a>
+                <a href={`tel:${loc.phoneDigits}`} className="flex min-h-11 items-center underline underline-offset-4">(303) 476-6150</a>
+                <Link href="/faq/larimer" className="flex min-h-11 items-center underline underline-offset-4">Parking details</Link>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl">Your visit</h3>
+              <ol className="mt-3 md:mt-4">
+                {VISIT_STEPS.map((step, i) => (
+                  <li key={step.title} className="relative pb-5 pl-7 last:pb-0">
+                    {i < VISIT_STEPS.length - 1 && (
+                      <span aria-hidden="true" className="absolute bottom-0 left-[5px] top-3 border-l-2 border-dotted border-[#113D33]/35" />
+                    )}
+                    <span aria-hidden="true" className="absolute left-0 top-1.5 h-3 w-3 rounded-full bg-[#113D33]" />
+                    <p className="cf-label text-base md:text-lg">{step.title}</p>
+                    <p className="mt-0.5 text-[15px] leading-snug text-[#113D33]/85">{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================= FAQ =============================== */}
+      <section className="bg-[#EBE4D1] py-12 md:py-28">
+        <div className="mx-auto grid max-w-6xl gap-5 px-6 md:gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+          <h2 className="text-[32px] leading-[1.1] md:text-5xl">Frequently Asked Questions</h2>
+          <div>
+            {FAQS.map((item) => (
+              <details key={item.q} className="group border-t border-[#113D33]/25 py-1 last:border-b">
+                <summary className="cf-label flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 py-2 text-base md:min-h-14 md:py-3 md:text-lg [&::-webkit-details-marker]:hidden">
+                  {item.q}
+                  <span aria-hidden="true" className="text-2xl leading-none transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="max-w-2xl pb-4 text-[15px] leading-normal text-[#113D33]/85 md:pb-5 md:text-base md:leading-relaxed">{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ========================== FINAL CTA ============================ */}
-      <section className="px-6 pb-24 md:pb-32">
-        <div className="max-w-6xl mx-auto rounded-3xl bg-[#113D33] text-white p-10 sm:p-14 text-center">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
-            Reset in the heart of Denver.
-          </h3>
-          <p className="text-white/75 max-w-lg mx-auto mb-7">
-            Book your massage, facial, or recovery session at Sway Larimer on
-            Larimer Square.
+      <section className="bg-[#113D33] py-14 text-white md:py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <SwayCurve width={160} strokeWidth={2} animate className="mb-5 block text-[#A9D2C5] md:mb-8" />
+          <h2 className="max-w-3xl text-[40px] leading-[1.05] md:text-7xl">Reset in the heart of Denver.</h2>
+          <p className="mt-3 max-w-lg text-base text-white/85 md:mt-5 md:text-lg">
+            Book your massage, facial, or recovery session at Sway Larimer on Larimer Square.
           </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/locations/denver-larimer/book"
-              className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
-            >
-              Book Your Session
+          <div className="mt-6 flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:items-center md:mt-8">
+            <Link href="/locations/denver-larimer/book" className="sway-button sway-button-light">
+              Book Your Session <span aria-hidden="true"><ArrowMark /></span>
             </Link>
-            <Link
-              href="/gift-cards"
-              className="border-2 border-white/40 text-white px-6 py-3 rounded-full text-sm font-semibold hover:border-white transition"
-            >
-              Gift Cards
-            </Link>
+            <Link href="/gift-cards" className="sway-text-link self-start sm:self-auto">Gift Cards</Link>
           </div>
         </div>
       </section>
