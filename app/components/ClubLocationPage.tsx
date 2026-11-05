@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowMark from "./ArrowMark";
+import ClubHeroSplit from "./ClubHeroSplit";
 import ClubHoursChart from "./ClubHoursChart";
 import ClubLoungeStrip from "./ClubLoungeStrip";
 import LocationExperienceNav from "./LocationExperienceNav";
@@ -95,41 +96,43 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
   return (
     <div className="club-founding bg-[#F7F4E9] text-[#113D33]">
       {/* ================================ HERO ================================ */}
-      <section className="sway-page-hero bg-[#E9EDDF] pb-8 pt-24 md:pb-12 md:pt-36">
-        <div className="mx-auto grid max-w-6xl items-center gap-7 px-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-14">
-          <div>
-            <p className="sway-eyebrow text-[#2F5D50]">{cfg.eyebrow}</p>
-            <h1 className="mt-3 md:mt-5">{short}</h1>
-            <p className="sr-only">{cfg.srSummary}</p>
-            <p className="mt-2 text-base md:text-lg">Formerly Upswell Studio. New ownership, same recovery space.</p>
-            <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
-              {status && (
-                <>
-                  <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#C8552B] shadow-[0_0_10px_2px_rgba(200,85,43,0.55)]" : "bg-[#113D33]/35"}`} />
-                  <span>{status.label} · Drop-ins welcome</span>
-                </>
-              )}
+      <section className="sway-page-hero bg-[#E9EDDF]">
+        <div className="grid md:min-h-[min(88vh,860px)] md:grid-cols-[minmax(0,1fr)_min(50vw,1000px)]">
+          <div className="order-2 flex items-center px-6 pb-8 pt-5 md:order-1 md:py-24 md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-14">
+            <div className="hero-rise max-w-xl">
+              <p className="sway-eyebrow text-[#2F5D50]">{cfg.eyebrow}</p>
+              <h1 className="mt-3 md:mt-5">{short}</h1>
+              <p className="sr-only">{cfg.srSummary}</p>
+              <p className="mt-2 text-base md:text-lg">Formerly Upswell Studio. New ownership, same recovery space.</p>
+              <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
+                {status && (
+                  <>
+                    <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#C8552B] shadow-[0_0_10px_2px_rgba(200,85,43,0.55)]" : "bg-[#113D33]/35"}`} />
+                    <span>{status.label} · Drop-ins welcome</span>
+                  </>
+                )}
+              </div>
+              <SwayCurve width={120} strokeWidth={2} animate className="my-4 block text-[#4A776D] md:my-6" />
+              <p className="text-base text-[#113D33]/85 md:text-lg">{cfg.intro}</p>
+              <div className="mt-5 flex flex-col gap-2 sm:flex-row md:mt-7">
+                <a href={bookHref} className="sway-button">
+                  Book Your Experience <span aria-hidden="true"><ArrowMark /></span>
+                </a>
+                <Link href={`${base}/membership`} className="sway-button !bg-transparent !text-[#113D33] hover:!bg-[#113D33]/5">
+                  Membership <span aria-hidden="true"><ArrowMark /></span>
+                </Link>
+              </div>
+              <p className="mt-4 text-sm text-[#113D33]/85">
+                <a href={cfg.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  {cfg.street}, {cfg.city}, CO {cfg.zip} <span className="sr-only">(opens in new tab)</span>
+                </a>
+                <span aria-hidden="true" className="mx-2">·</span>
+                <a href={`tel:${club.phone.replace(/[^\d+]/g, "")}`} className="whitespace-nowrap hover:underline">{club.phone}</a>
+              </p>
             </div>
-            <SwayCurve width={120} strokeWidth={2} animate className="my-4 block text-[#4A776D] md:my-6" />
-            <p className="max-w-lg text-base text-[#113D33]/85 md:text-lg">{cfg.intro}</p>
-            <div className="mt-5 flex flex-col gap-2 sm:flex-row md:mt-7">
-              <a href={bookHref} className="sway-button">
-                Book Your Experience <span aria-hidden="true"><ArrowMark /></span>
-              </a>
-              <Link href={`${base}/membership`} className="sway-button !bg-transparent !text-[#113D33] hover:!bg-[#113D33]/5">
-                Membership <span aria-hidden="true"><ArrowMark /></span>
-              </Link>
-            </div>
-            <p className="mt-4 text-sm text-[#113D33]/85">
-              <a href={cfg.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                {cfg.street}, {cfg.city}, CO {cfg.zip} <span className="sr-only">(opens in new tab)</span>
-              </a>
-              <span aria-hidden="true" className="mx-2">·</span>
-              <a href={`tel:${club.phone.replace(/[^\d+]/g, "")}`} className="whitespace-nowrap hover:underline">{club.phone}</a>
-            </p>
           </div>
-          <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] md:aspect-[5/4]">
-            <Image src={cfg.hero.src} alt={cfg.hero.alt} fill priority sizes="(min-width: 768px) 620px, 100vw" className="object-cover" style={{ objectPosition: cfg.hero.position }} />
+          <div className="relative order-1 mt-14 h-[260px] sm:h-[340px] md:order-2 md:h-auto">
+            <ClubHeroSplit hot={cfg.hot} cold={cfg.cold} />
           </div>
         </div>
       </section>
@@ -267,11 +270,15 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
             <Link href={`${base}/founding-membership`} className="sway-button sway-button-light mt-5 w-full sm:w-auto md:mt-8">
               See founding rates <span aria-hidden="true"><ArrowMark /></span>
             </Link>
-            <div className="mt-7 rounded-[4px] bg-[#F7F4E9] p-5 text-[#113D33] md:mt-10 md:p-6">
-              <p className="cf-title text-2xl">Not ready today?</p>
-              <p className="mb-4 mt-1 text-[15px] leading-snug text-[#113D33]/85">Leave your name and we&apos;ll keep you posted.</p>
-              <WaitlistForm location={clubKey} source="location-page" variant="full" submitLabel="Keep Me Posted" />
-            </div>
+            <details className="group mt-6 border-t border-white/25 md:mt-9">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 py-3 text-[15px] md:text-base [&::-webkit-details-marker]:hidden">
+                Not ready today? Leave your name and we&apos;ll keep you posted.
+                <span aria-hidden="true" className="text-2xl leading-none transition group-open:rotate-45">+</span>
+              </summary>
+              <div className="pb-2 pt-2">
+                <WaitlistForm location={clubKey} source="location-page" variant="full" tone="dark" submitLabel="Keep Me Posted" />
+              </div>
+            </details>
           </div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-[2px] md:aspect-[4/5]">
             <Image src={founding.hero.src} alt={founding.hero.alt} fill sizes="(min-width: 768px) 540px, 100vw" className="object-cover" style={{ objectPosition: founding.hero.position }} />

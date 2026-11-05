@@ -26,7 +26,9 @@ export type ClubPageConfig = {
   srSummary: string;
   mapUrl: string;
   reviewsUrl: string;
-  hero: { src: string; alt: string; position: string };
+  /** Hero split: the sauna on one side, the plunge on the other. */
+  hot: { src: string; alt: string; position: string };
+  cold: { src: string; alt: string; position: string };
   loungePhoto: { src: string; alt: string; position: string };
   whereNote: string;
   hasWarmSoak: boolean;
@@ -49,7 +51,12 @@ export const CLUB_PAGES: Record<ClubLocationKey, ClubPageConfig> = {
       "Sway Wellness Spa RiNo is a recovery-led wellness club at 3636 Blake St. in Denver's RiNo Art District, CO 80205, formerly Upswell Studio. The Sway Remedy Lounge is open daily with sauna, cold plunge, infrared, compression therapy, and PEMF. Massage and facial treatments are coming soon. Memberships are available for unlimited Sway Remedy Lounge access. Existing Upswell members were carried over automatically.",
     mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",
     reviewsUrl: "https://www.google.com/maps/place/?q=place_id:ChIJSYpObGF5bIcRFVlb08RlL8I",
-    hero: {
+    hot: {
+      src: "/assets/rino2.jpeg",
+      alt: "Traditional sauna at Sway Wellness Spa RiNo",
+      position: "50% 58%",
+    },
+    cold: {
       src: "/assets/rino1.jpeg",
       alt: "Cold plunge and recovery pool at Sway Wellness Spa RiNo",
       position: "50% 76%",
@@ -83,10 +90,15 @@ export const CLUB_PAGES: Record<ClubLocationKey, ClubPageConfig> = {
       "Sway Wellness Spa Central Park is a recovery-led wellness club at 2271 Clinton St. in Aurora, CO 80010, on the edge of Denver's Central Park neighborhood, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional and infrared saunas, cold plunges, a warm soak, compression therapy, and PEMF. Massage and facial treatments are coming soon. Memberships are available for unlimited Sway Remedy Lounge access. Existing Upswell members were carried over automatically.",
     mapUrl: "https://www.google.com/maps?q=2271+Clinton+St,+Aurora,+CO+80010",
     reviewsUrl: "https://www.google.com/maps/place/?q=place_id:ChIJw3MZ6UZ9bIcRmE9mIeK__KU",
-    hero: {
+    hot: {
       src: "/assets/centralpark2.jpg",
-      alt: "The arched sauna and cold plunge tubs at Sway Wellness Spa Central Park",
-      position: "62% 45%",
+      alt: "The arched sauna at Sway Wellness Spa Central Park",
+      position: "85% 45%",
+    },
+    cold: {
+      src: "/assets/centralpark1.jpg",
+      alt: "Cold plunge tubs set in warm wood at Sway Wellness Spa Central Park",
+      position: "50% 92%",
     },
     loungePhoto: {
       src: "/assets/centralpark1.jpg",

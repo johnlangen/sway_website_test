@@ -24,6 +24,8 @@ type WaitlistFormProps = {
   variant?: "compact" | "full";
   /** Full variant button label (club founding pages). */
   submitLabel?: string;
+  /** Full variant only: fields made for a dark green section. */
+  tone?: "light" | "dark";
 };
 
 export default function WaitlistForm({
@@ -31,7 +33,13 @@ export default function WaitlistForm({
   source = "location-page",
   variant = "compact",
   submitLabel = "Join the Waitlist",
+  tone = "light",
 }: WaitlistFormProps) {
+  const dark = tone === "dark";
+  const fullInput = dark
+    ? "w-full rounded-[3px] px-4 py-3 text-sm text-white bg-white/10 border border-white/30 placeholder:text-white/70 focus:outline-none focus:border-white"
+    : "w-full rounded-xl px-4 py-3 text-sm bg-[#F7F4E9] border border-[#113D33]/10 focus:outline-none focus:border-[#113D33]/30";
+  const required = dark ? "text-[#F3C998]" : "text-red-500";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -190,7 +198,7 @@ export default function WaitlistForm({
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold mb-1">
-              First Name <span className="text-red-500">*</span>
+              First Name <span className={required}>*</span>
             </label>
             <input
               type="text"
@@ -198,7 +206,7 @@ export default function WaitlistForm({
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="w-full rounded-xl px-4 py-3 text-sm bg-[#F7F4E9] border border-[#113D33]/10 focus:outline-none focus:border-[#113D33]/30"
+              className={fullInput}
             />
           </div>
           <div>
@@ -210,14 +218,14 @@ export default function WaitlistForm({
               placeholder="Doe"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full rounded-xl px-4 py-3 text-sm bg-[#F7F4E9] border border-[#113D33]/10 focus:outline-none focus:border-[#113D33]/30"
+              className={fullInput}
             />
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-semibold mb-1">
-            Email <span className="text-red-500">*</span>
+            Email <span className={required}>*</span>
           </label>
           <input
             type="email"
@@ -225,7 +233,7 @@ export default function WaitlistForm({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-xl px-4 py-3 text-sm bg-[#F7F4E9] border border-[#113D33]/10 focus:outline-none focus:border-[#113D33]/30"
+            className={fullInput}
           />
         </div>
 
@@ -238,24 +246,24 @@ export default function WaitlistForm({
             placeholder="(555) 123-4567"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded-xl px-4 py-3 text-sm bg-[#F7F4E9] border border-[#113D33]/10 focus:outline-none focus:border-[#113D33]/30"
+            className={fullInput}
           />
         </div>
 
         {status === "error" && (
-          <p className="text-red-600 text-sm" role="alert">{errorMsg}</p>
+          <p className={`text-sm ${dark ? "text-[#F3C998]" : "text-red-600"}`} role="alert">{errorMsg}</p>
         )}
 
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="w-full bg-[#113D33] text-white font-semibold rounded-full py-3 px-6 hover:opacity-90 transition disabled:opacity-60"
+          className={dark ? "w-full min-h-[52px] rounded-[2px] bg-[#F7F4E9] px-6 py-3 text-sm text-[#113D33] transition hover:bg-white disabled:opacity-60" : "w-full bg-[#113D33] text-white font-semibold rounded-full py-3 px-6 hover:opacity-90 transition disabled:opacity-60"}
         >
           {status === "submitting" ? "Joining..." : submitLabel}
         </button>
       </form>
 
-      <p className="text-[11px] opacity-80 mt-3 text-center leading-relaxed">
+      <p className={`text-[11px] opacity-80 mt-3 leading-relaxed ${dark ? "" : "text-center"}`}>
         {consentText}{CLUB_COPY[location] ? "" : " Membership pricing and perks are not yet final."}
       </p>
     </div>

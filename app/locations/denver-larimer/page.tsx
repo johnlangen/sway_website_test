@@ -10,12 +10,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ArrowMark from "@/app/components/ArrowMark";
-import LocationExperienceNav from "@/app/components/LocationExperienceNav";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import BookingPeek from "@/app/components/BookingPeek";
 import { SwayCurve } from "@/app/components/SwayCurve";
 import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
 import { getOpenStatus } from "@/lib/larimerHours";
+import LarimerHero from "./LarimerHero";
 import LarimerHours from "./LarimerHours";
 import LarimerTimePicker from "./LarimerTimePicker";
 
@@ -213,12 +213,13 @@ export default function SwayLarimerPage() {
   return (
     <div className="club-founding bg-[#F7F4E9] text-[#113D33]">
       {/* ================================ HERO ================================ */}
-      <section className="sway-page-hero bg-[#E9EDDF] pb-8 pt-24 md:pb-12 md:pt-36">
-        <div className="mx-auto grid max-w-6xl items-center gap-7 px-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-14">
-          <div>
-            <p className="sway-eyebrow text-[#2F5D50]">Massage, Facials &amp; Recovery · Larimer Square, Denver</p>
-            <h1 className="mt-3 md:mt-5">{loc.name}</h1>
-            <p className="sr-only">
+      <section className="sway-page-hero bg-[#E9EDDF] pb-8 md:pb-10">
+        <LarimerHero
+          intro={
+            <>
+              <p className="sway-eyebrow text-[#2F5D50]">Massage, Facials &amp; Recovery · Larimer Square, Denver</p>
+              <h1 className="mt-3 md:mt-4">{loc.name}</h1>
+              <p className="sr-only">
               Sway Wellness Spa is located at 1428 Larimer St. on Larimer Square
               in downtown Denver, CO 80202. Voted #4 Best Day Spa in America by
               USA Today 10Best and Best U.S. Day Spa by TZR. Sway offers 13
@@ -234,51 +235,45 @@ export default function SwayLarimerPage() {
               Book at swaywellnessspa.com or call (303) 476-6150.
             </p>
 
-            <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
-              {status && (
-                <>
-                  <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#D9822B] shadow-[0_0_10px_2px_rgba(217,130,43,0.6)]" : "bg-[#113D33]/35"}`} />
-                  <span>{status.label}</span>
-                </>
-              )}
-            </div>
-            <SwayCurve width={120} strokeWidth={2} animate className="my-4 block text-[#4A776D] md:my-6" />
-            <p className="max-w-lg text-base text-[#113D33]/85 md:text-lg">
-              A modern wellness club on historic Larimer Square offering massage, facials, recovery, and technology-forward experiences designed for real life.
-            </p>
-            <div className="mt-5 flex flex-col gap-2 sm:flex-row md:mt-7">
-              <Link href="/locations/denver-larimer/book" className="sway-button">
-                Book Now <span aria-hidden="true"><ArrowMark /></span>
-              </Link>
-              <Link href="/locations/denver-larimer/membership" className="sway-button !bg-transparent !text-[#113D33] hover:!bg-[#113D33]/5">
-                Join the Club · $99/mo <span aria-hidden="true"><ArrowMark /></span>
-              </Link>
-            </div>
-            <div className="mt-3">
-              <BookingPeek />
-            </div>
-            <p className="mt-3 text-sm text-[#113D33]/85">
-              <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
-              </a>
-              <span aria-hidden="true" className="mx-2">·</span>
-              <a href={`tel:${loc.phoneDigits}`} className="whitespace-nowrap hover:underline">(303) 476-6150</a>
-            </p>
-          </div>
-          <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] md:aspect-[5/4]">
-            <Image
-              src={loc.heroImage}
-              alt="The lantern-lit hallway at Sway Larimer on Larimer Square in Denver"
-              fill
-              priority
-              sizes="(min-width: 768px) 620px, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
+              <div className="mt-2 flex min-h-6 items-center gap-2 text-sm md:mt-3">
+                {status && (
+                  <>
+                    <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#D9822B] shadow-[0_0_10px_2px_rgba(217,130,43,0.6)]" : "bg-[#113D33]/35"}`} />
+                    <span>{status.label}</span>
+                  </>
+                )}
+              </div>
+              <p className="mt-3 text-[15px] leading-snug text-[#113D33]/85 md:mt-4 md:text-base md:leading-normal">
+                A modern wellness club on historic Larimer Square offering massage, facials, recovery, and technology-forward experiences designed for real life.
+              </p>
+            </>
+          }
+          actions={
+            <>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Link href="/locations/denver-larimer/book" className="sway-button">
+                  Book Now <span aria-hidden="true"><ArrowMark /></span>
+                </Link>
+                <Link href="/locations/denver-larimer/membership" className="sway-button !bg-transparent !text-[#113D33] hover:!bg-[#113D33]/5">
+                  Join the Club · $99/mo <span aria-hidden="true"><ArrowMark /></span>
+                </Link>
+              </div>
+              <div className="mt-3">
+                <BookingPeek />
+              </div>
+              <p className="mt-2 text-sm text-[#113D33]/85">
+                <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
+                </a>
+                <span aria-hidden="true" className="mx-2">·</span>
+                <a href={`tel:${loc.phoneDigits}`} className="whitespace-nowrap hover:underline">(303) 476-6150</a>
+              </p>
+            </>
+          }
+        />
 
         {/* Proof, then the Brady news, as quiet lines that belong to the hero */}
-        <div className="mx-auto mt-6 max-w-6xl px-6 md:mt-10">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col gap-x-8 gap-y-2 border-t border-[#113D33]/20 pt-4 text-sm md:flex-row md:items-center md:justify-between">
             <a
               href="https://10best.usatoday.com/awards/sway-denver-colorado/"
@@ -297,10 +292,8 @@ export default function SwayLarimerPage() {
         </div>
       </section>
 
-      <LocationExperienceNav location="denver-larimer" />
-
       {/* ========================= FIRST VISIT OFFER: a ticket with a tear line ========================= */}
-      <section className="pb-12 md:pb-20">
+      <section className="py-10 md:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <Link href="/locations/denver-larimer/book" className="group relative grid overflow-hidden rounded-[4px] bg-[#EBE4D1] md:grid-cols-[minmax(0,1fr)_260px]">
             <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-10">
