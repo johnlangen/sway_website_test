@@ -52,7 +52,7 @@ export const CLUB_EVENTS: Record<
     },
     space: {
       src: "/assets/rino2.jpeg",
-      alt: "The cedar traditional sauna at Sway RiNo",
+      alt: "The traditional sauna at Sway RiNo",
       position: "50% 62%",
       width: 1093,
       height: 1438,
@@ -63,7 +63,7 @@ export const CLUB_EVENTS: Record<
     formLocation: "Sway Central Park",
     neighborhood: "Central Park",
     seoPlace: "Central Park, Denver",
-    address: "2271 Clinton St, Denver, CO 80010",
+    address: "2271 Clinton St, Aurora, CO 80010",
     hero: {
       src: "/assets/centralpark2.jpg",
       alt: "The arched sauna and cold plunges at Sway Central Park",

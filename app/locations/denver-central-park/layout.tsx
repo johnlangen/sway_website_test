@@ -148,7 +148,7 @@ const faqJsonLd = {
       name: "When can I book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Massage and facial treatments are coming soon. Use the Notify Me form on this page to get first access when booking opens.",
+        text: "Massage and facial treatments start in December. Founding memberships are open now, or leave your name on this page and we'll keep you posted.",
       },
     },
     {
