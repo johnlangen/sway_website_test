@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import L from "leaflet";
 import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import type { Location } from "./LocationsContent";
@@ -125,11 +125,17 @@ function View({
 }) {
   const map = useMap();
   const slugs = locations.map((l) => l.slug).join(",");
+  const firstFit = useRef(true);
 
   useEffect(() => {
     if (userCenter || locations.length === 0) return;
-    if (locations.length === 1) map.setView(locations[0].coords, 12);
-    else map.fitBounds(L.latLngBounds(locations.map((l) => l.coords)), { padding: [40, 40] });
+    // The first view just appears. After that the map flies, so guests see where it's taking them.
+    const fly = !firstFit.current && !reducedMotion();
+    firstFit.current = false;
+    const bounds = L.latLngBounds(locations.map((l) => l.coords));
+    const options = { padding: [50, 50] as [number, number], maxZoom: 12 };
+    if (fly) map.flyToBounds(bounds, { ...options, duration: 1.2 });
+    else map.fitBounds(bounds, options);
     // slugs stands in for the list: refit only when the shown locations change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, slugs, userCenter]);
@@ -137,7 +143,9 @@ function View({
   useEffect(() => {
     if (!userCenter) return;
     const points = nearest ? [userCenter, nearest.coords] : [userCenter];
-    map.fitBounds(L.latLngBounds(points), { padding: [60, 60], maxZoom: 11 });
+    const options = { padding: [60, 60] as [number, number], maxZoom: 11 };
+    if (reducedMotion()) map.fitBounds(L.latLngBounds(points), options);
+    else map.flyToBounds(L.latLngBounds(points), { ...options, duration: 1.4 });
   }, [map, userCenter, nearest]);
 
   return null;

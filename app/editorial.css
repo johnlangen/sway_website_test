@@ -2789,3 +2789,20 @@ body {
     transition: none;
   }
 }
+@media (prefers-reduced-motion: no-preference) {
+  /* Pins drop in. They do it again when picked, which reads as a small hello. */
+  .sway-map-pin svg,
+  .sway-map-cluster {
+    animation: pin-drop 0.55s cubic-bezier(0.2, 1.3, 0.4, 1) backwards;
+  }
+}
+@keyframes pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
