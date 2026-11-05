@@ -174,8 +174,8 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
             <Image src={cfg.loungePhoto.src} alt={cfg.loungePhoto.alt} fill sizes="(min-width: 768px) 540px, 100vw" className="object-cover" style={{ objectPosition: cfg.loungePhoto.position }} />
           </div>
           <div>
-            <p className="sway-eyebrow text-[#4A776D]">What&apos;s inside · Hottest to coldest</p>
-            <h2 className="mt-3 text-[34px] leading-[1.08] md:mt-4 md:text-5xl">From ember to ice.</h2>
+            <p className="sway-eyebrow text-[#4A776D]">Hottest to coldest</p>
+            <h2 className="mt-3 text-[34px] leading-[1.08] md:mt-4 md:text-5xl">Inside the Remedy Lounge</h2>
             {/* A thermometer: the rail's color is the temperature of each row */}
             <ul className="mt-5 md:mt-8">
               {inside.map((item, i) => (
