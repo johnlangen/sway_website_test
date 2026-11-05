@@ -555,6 +555,11 @@ body {
   border-radius: 2px;
 }
 /* Header keeps the 72px footprint stable across all routes. */
+/* The nav is 72px, but booking flows stick their progress bar at 56px in markup. Without this, the
+   top of the bar (Back, step title) slides under the nav. */
+[data-booking-header] {
+  top: 72px !important;
+}
 .sway-header {
   height: 72px;
   border-bottom: 1px solid rgba(247, 244, 233, 0.2);

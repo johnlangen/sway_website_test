@@ -14,6 +14,7 @@ import { ReviewBadge, ClassPassBadge } from "@/app/components/GoogleReviews";
 import { StickyFlowCTA } from "@/app/components/StickyFlowCTA";
 import { LarimerParkingNote } from "@/app/components/LarimerParkingNote";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
+import ArrowMark from "@/app/components/ArrowMark";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
 import { readGclid } from "@/lib/gclid";
 
@@ -1376,7 +1377,10 @@ export default function BookRemedyRoomPage() {
   const showHeader = step !== "done";
   const showHeaderBack = step === "select" || step === "email" || step === "name" || step === "card" || step === "confirm";
 
-  const isDarkStep = step === "select";
+  // Page chrome is cream on every step, same as the club Remedy Lounge flow (John 11/4: not liking the
+  // green). isDarkStep stays wired in case the dark chrome ever comes back.
+  const isDarkStep = false;
+  const isSelectStep = step === "select";
 
   return (
     <div className={`min-h-screen font-vance snap-none ${isDarkStep ? "bg-gradient-to-b from-[#0e2b24] via-[#113D33] to-[#0b1f1a]" : "bg-[#F7F4E9]"}`}>
@@ -1422,8 +1426,8 @@ export default function BookRemedyRoomPage() {
       )}
 
       {/* Extra bottom padding clears the sticky CTA bar on the select step. */}
-      <div className={`px-4 pt-24 md:pt-28 ${isDarkStep ? "pb-36" : "pb-20"}`}>
-        <div ref={stepContentRef} tabIndex={-1} className="focus:outline-none max-w-3xl mx-auto text-center">
+      <div className={`px-4 pt-20 md:pt-24 ${isSelectStep ? "pb-36" : "pb-20"}`}>
+        <div ref={stepContentRef} tabIndex={-1} className={`focus:outline-none mx-auto text-center ${isSelectStep ? "max-w-6xl" : "max-w-3xl"}`}>
           {/* Persistent identity banner — members + remembered guests */}
           {memberCheckDone && clientId && ["select", "email", "name", "card", "confirm"].includes(step) && (
             <div className={`mb-4 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 ${
@@ -1436,129 +1440,99 @@ export default function BookRemedyRoomPage() {
                 <span className="font-bold">{memberFirstName ?? email}</span>
                 {hasRemedyMembership && <> · <span className="font-semibold">Remedy Room Member</span></>}
                 {isMember && !hasRemedyMembership && <> · <span className="capitalize font-semibold">{memberTier}</span> Member</>}
-                {homeLocation && <span className={isDarkStep ? "text-white/70 ml-1" : isMember ? "text-white/60 ml-1" : "text-[#113D33]/75 ml-1"}>· {homeLocation}</span>}
+                {homeLocation && <span className={isDarkStep ? "text-white/70 ml-1" : isMember || hasRemedyMembership ? "text-white/80 ml-1" : "text-[#113D33]/75 ml-1"}>· {homeLocation}</span>}
               </p>
-              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/70 hover:text-white" : isMember ? "text-white/70 hover:text-white" : "text-[#113D33]/75 hover:text-[#113D33]"}`}>Switch</button>
+              <button onClick={handleSwitchAccount} className={`text-xs underline underline-offset-2 ml-2 ${isDarkStep ? "text-white/70 hover:text-white" : isMember || hasRemedyMembership ? "text-white/80 hover:text-white" : "text-[#113D33]/75 hover:text-[#113D33]"}`}>Switch</button>
             </div>
           )}
 
-          {/* Hero + session card + summary — only on select step */}
+          {/* Select step: what you're booking on the left, the day and time on the right, so the
+              times are on screen right away. On phones the left side stays short (heading, reviews,
+              price line) so the picker is reachable without scrolling; the photo and extras are
+              tablet and up. */}
           {step === "select" && (
-            <>
-              {/* Dark immersive hero. On mobile this stays intentionally short
-                  (eyebrow, heading, reviews, price line) so the day/time picker
-                  is reachable without scrolling; the pills, photo card, and
-                  secondary links are desktop-only. */}
-              <div className="mb-6 md:mb-12">
-                <p className="text-sm md:text-base uppercase tracking-[0.2em] text-[#9ABFB3] mb-3 md:mb-4">
-                  Sway Wellness Spa
-                </p>
-                <SwayCurve
-                  width={150}
-                  strokeWidth={2.2}
-                  animate
-                  className="hidden sm:block text-[#A9D2C5] mx-auto mb-5"
-                />
-                <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-3 md:mb-4 leading-tight">
-                  The Remedy Room
-                </h1>
-                <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl mx-auto mb-4">
+            <div className="club-founding text-left text-[#113D33] lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-14">
+              <div className="mb-6 lg:sticky lg:top-[172px] lg:mb-0">
+                <p className="sway-eyebrow text-[#4A776D]">Sway Larimer · {selectedOption.minutes}-minute recovery circuit</p>
+                <h1 className="mt-2 mb-2 md:mb-3">The Remedy Room</h1>
+                <p className="mb-3 hidden text-base leading-normal text-[#113D33]/85 sm:block">
                   Science-backed recovery in a shared sanctuary. Cold plunge, sauna, LED therapy, and lymphatic compression, all in one 40-minute session.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 md:mb-4 text-white">
+                <div className="mb-2 flex flex-col items-start gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 md:mb-4">
                   <ReviewBadge />
-                  <span className="hidden sm:block opacity-30">|</span>
                   <span className="hidden sm:block"><ClassPassBadge /></span>
                 </div>
                 {/* Compact mobile price line (replaces the photo card below). */}
-                <p className="sm:hidden text-sm text-white/70 mb-1">
-                  {selectedOption.minutes} min · Shared session · <span className="font-semibold text-white">{memberPrice}</span>
-                  {!(isMember || hasRemedyMembership) && <span className="text-white/70"> · Members $25</span>}
+                <p className="text-sm text-[#113D33]/85 sm:hidden">
+                  {selectedOption.minutes} min · Shared session · <span className="font-semibold text-[#113D33]">{memberPrice}</span>
+                  {!(isMember || hasRemedyMembership) && <span> · Members $25</span>}
                 </p>
 
-                <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap mb-6">
-                  {["Cold Plunge", "Sauna", "LED Therapy", "Compression"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 text-xs text-white/80"
-                    >
-                      <IconSpark className="w-3 h-3 text-[#9ABFB3]" />
-                      {tag}
-                    </span>
-                  ))}
+                {/* Session photos + pricing */}
+                <div className="relative hidden aspect-[16/9] w-full overflow-hidden rounded-[2px] sm:block">
+                  <ImageCarousel
+                    images={[
+                      "/assets/remedy-room.jpg",
+                      "/assets/remedy-room2.jpg",
+                      "/assets/remedy-room3.jpg",
+                    ]}
+                  />
                 </div>
-
-                {/* Session image + pricing */}
-                <div className="hidden sm:block max-w-lg mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
-                  <div className="relative h-48 w-full">
-                    <ImageCarousel
-                      images={[
-                        "/assets/remedy-room.jpg",
-                        "/assets/remedy-room2.jpg",
-                        "/assets/remedy-room3.jpg",
-                      ]}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-                      <div className="text-left">
-                        <div className="text-white font-semibold text-lg">{selectedOption.label}</div>
-                        <div className="text-white/70 text-sm">{selectedOption.minutes} min • Shared session</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-white font-bold text-lg">{memberPrice}</div>
-                        {!(isMember || hasRemedyMembership) && (
-                          <div className="text-white/60 text-xs">Members $25</div>
-                        )}
-                        {(isMember || hasRemedyMembership) && (
-                          <div className="text-[#9ABFB3] text-xs font-semibold">Member price</div>
-                        )}
-                      </div>
-                    </div>
+                <div className="mt-3 hidden items-baseline justify-between gap-4 border-b border-[#113D33]/20 pb-3 sm:flex">
+                  <div>
+                    <div className="text-base font-semibold">{selectedOption.label}</div>
+                    <div className="text-sm text-[#113D33]/80">{selectedOption.minutes} min · Shared session</div>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <div className="cf-num text-4xl">{memberPrice}</div>
+                    {!(isMember || hasRemedyMembership) && (
+                      <div className="mt-1 text-xs text-[#113D33]/80">Members $25</div>
+                    )}
+                    {(isMember || hasRemedyMembership) && (
+                      <div className="mt-1 text-xs font-semibold text-[#2F5D50]">Member price</div>
+                    )}
                   </div>
                 </div>
 
-                <div className="hidden sm:flex mt-4 items-center justify-center gap-4 text-sm">
-                  <Link
-                    href="/remedy-tech"
-                    className="text-gray-400 underline underline-offset-4 hover:text-white transition"
-                  >
+                {/* The circuit is a sequence, so it reads as one */}
+                <ol className="mt-3 hidden flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] sm:flex">
+                  {["Sauna", "Cold plunge", "Compression", "LED"].map((tag, i, all) => (
+                    <li key={tag} className="flex items-center gap-1.5">
+                      <span className="rounded-full border border-[#113D33]/30 px-2.5 py-0.5">{tag}</span>
+                      {i < all.length - 1 && <span aria-hidden="true" className="scale-75 opacity-70"><ArrowMark /></span>}
+                    </li>
+                  ))}
+                </ol>
+
+                <p className="mt-3 hidden flex-wrap gap-x-4 gap-y-1 text-[13px] text-[#113D33]/85 sm:flex">
+                  <Link href="/remedy-tech" className="underline underline-offset-4 hover:text-[#113D33]">
                     Learn more
                   </Link>
-                  <Link
-                    href="/offers"
-                    className="text-gray-400 underline underline-offset-4 hover:text-white transition"
-                  >
+                  <Link href="/offers" className="underline underline-offset-4 hover:text-[#113D33]">
                     View offers
                   </Link>
-                </div>
-
-                <p className="hidden sm:block mt-3 text-xs text-white/70">
-                  Want the room to yourself?{" "}
-                  <a href="tel:3034766150" className="underline underline-offset-4 hover:text-white/60 transition">
-                    Call (303) 476-6150
-                  </a>
-                  {" "}to book a private session.
+                  <span>
+                    Want the room to yourself?{" "}
+                    <a href="tel:3034766150" className="underline underline-offset-4 hover:text-[#113D33]">
+                      Call (303) 476-6150
+                    </a>
+                  </span>
                 </p>
               </div>
 
+              <div ref={selectRef} className="scroll-mt-40">
               {/* Selection summary (mobile gets the same info in the sticky bar) */}
-              <div className="hidden sm:block mb-8 md:mb-10 max-w-lg mx-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4">
-                <div className="text-xs uppercase tracking-wider text-[#9ABFB3] mb-1">
-                  Your selection
-                </div>
-                <div className="font-semibold text-white">
+              <div className="mb-6 hidden border-b border-[#113D33]/20 pb-3 sm:block">
+                <div className="sway-eyebrow text-[#4A776D]">Your selection</div>
+                <div className="mt-1 font-semibold">
                   {summaryText ?? "Select a day and time to continue."}
                 </div>
               </div>
-            </>
-          )}
 
-          {step === "select" && (
-            <div ref={selectRef}>
               {/* Day picker */}
-              <section className="mb-10 md:mb-12">
-                <h2 className="text-lg font-semibold text-white/90 mb-1">Choose a Day</h2>
-                <p aria-live="polite" className="text-sm text-white/70 mb-4">
+              <section className="mb-8 md:mb-10">
+                <h2 className="text-lg font-semibold text-[#113D33] mb-1">Choose a Day</h2>
+                <p aria-live="polite" className="text-sm text-[#113D33]/80 mb-3">
                   {weekMonthLabel(weekStart)}
                 </p>
 
@@ -1566,15 +1540,15 @@ export default function BookRemedyRoomPage() {
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, -7))}
                     disabled={weekStart <= today}
-                    className="p-2 rounded-full hover:bg-white/10 disabled:opacity-20 transition-all duration-150"
+                    className="p-2 rounded-full hover:bg-[#113D33]/5 disabled:opacity-20 transition-all duration-150"
                     aria-label="Previous week"
                   >
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-5 h-5 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
 
-                  <div className="flex gap-1.5 overflow-x-auto scrollbar-hide px-1">
+                  <div className="flex flex-1 gap-1.5 overflow-x-auto scrollbar-hide px-1">
                     {weekDays.map((day) => {
                       const iso = formatISO(day);
                       const isPast = day < today && iso !== formatISO(today);
@@ -1590,18 +1564,18 @@ export default function BookRemedyRoomPage() {
                           aria-pressed={selected}
                           aria-label={`${fullDayLabel(day)}${avail === true ? ", open times" : avail === false ? ", fully booked" : ""}`}
                           onClick={() => setSelectedDate(iso)}
-                          className={`${avail === false && !selected && !isPast ? "opacity-40 " : ""}flex flex-col items-center justify-center rounded-2xl px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                          className={`${avail === false && !selected && !isPast ? "opacity-40 " : ""}flex flex-1 flex-col items-center justify-center rounded-2xl border px-3 py-2 min-w-[52px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                             selected
-                              ? "bg-white text-[#113D33] shadow-lg"
+                              ? "border-[#113D33] bg-[#113D33] text-white"
                               : isPast
-                                ? "opacity-25 cursor-not-allowed"
-                                : "bg-white/5 text-white hover:bg-white/10 hover:-translate-y-0.5"
+                                ? "border-transparent text-[#113D33] opacity-25 cursor-not-allowed"
+                                : "border-[#113D33]/20 bg-white text-[#113D33] hover:border-[#113D33]"
                           }`}
                         >
                           <span className="text-[10px] font-semibold tracking-wider">{dayName}</span>
                           <span className="text-lg font-bold leading-tight">{dayNum}</span>
                           <span className="text-[9px] font-semibold tracking-wider uppercase opacity-80">{monthAbbr(day)}</span>
-                          <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-[#113D33]" : "bg-[#A9D2C5]") : "bg-transparent"}`} />
+                          <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full mt-0.5 ${avail === true && !isPast ? (selected ? "bg-white" : "bg-[#4A776D]") : "bg-transparent"}`} />
                         </button>
                       );
                     })}
@@ -1609,10 +1583,10 @@ export default function BookRemedyRoomPage() {
 
                   <button
                     onClick={() => setWeekStart(addDays(weekStart, 7))}
-                    className="p-2 rounded-full hover:bg-white/10 transition-all duration-150"
+                    className="p-2 rounded-full hover:bg-[#113D33]/5 transition-all duration-150"
                     aria-label="Next week"
                   >
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-5 h-5 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -1622,20 +1596,20 @@ export default function BookRemedyRoomPage() {
               {/* Times */}
               <section className="mb-8 md:mb-10 text-left">
                 <div className="mb-4">
-                  <h2 className="text-lg font-semibold text-white/90 text-center">
+                  <h2 className="text-lg font-semibold text-[#113D33]">
                     Choose a Time
                   </h2>
                 </div>
 
-                {loading && <p role="status" className="text-center text-white/70">Loading…</p>}
-                {error && <p role="alert" className="text-center text-red-400">{error}</p>}
+                {loading && <p role="status" className="text-[#113D33]/80">Loading…</p>}
+                {error && <p role="alert" className="text-red-700">{error}</p>}
 
                 {!loading &&
                   !error &&
                   groupedTimes.map(
                     (g) => (
                         <div key={g.key} className="mb-6">
-                          <PartOfDayHeading part={g} dark className="mb-2" />
+                          <PartOfDayHeading part={g} className="mb-2" />
 
                           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
                             {g.items.map((time) => {
@@ -1650,10 +1624,10 @@ export default function BookRemedyRoomPage() {
                                   aria-pressed={isSelected}
                                   aria-label={formatTime12h(time)}
                                   onClick={() => setSelectedTime(time)}
-                                  className={`py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                                  className={`py-3 rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 ${
                                     isSelected
-                                      ? "bg-white text-[#113D33] border-white shadow-lg shadow-white/10 scale-[1.02]"
-                                      : "border-white/15 bg-white/5 hover:bg-white/10 text-white hover:-translate-y-0.5"
+                                      ? "border-[#113D33] bg-[#113D33] text-white"
+                                      : "border-[#113D33]/20 bg-white text-[#113D33] hover:border-[#113D33]"
                                   }`}
                                 >
                                   <div className="font-semibold text-sm">
@@ -1663,8 +1637,8 @@ export default function BookRemedyRoomPage() {
                                     <div
                                       className={`text-[10px] mt-0.5 ${
                                         isSelected
-                                          ? "text-[#113D33]/75"
-                                          : "text-white/70"
+                                          ? "text-white/85"
+                                          : "text-[#113D33]/75"
                                       }`}
                                     >
                                       {`${booked}/${REMEDY_MAX_CAPACITY} booked`}
@@ -1679,7 +1653,7 @@ export default function BookRemedyRoomPage() {
                   )}
 
                 {!loading && !error && displayedTimes.length === 0 && (
-                  <div className="text-center text-white/70">
+                  <div className="text-center text-[#113D33]/85">
                     <p>No times available for this day.</p>
                     <NextAvailableBanner
                       type="remedy"
@@ -1696,13 +1670,13 @@ export default function BookRemedyRoomPage() {
                     {/* Massage cross-sell — banner style */}
                     <Link
                       href="/locations/denver-larimer/book"
-                      className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-4 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-white/20"
+                      className="mt-3 w-full flex items-center justify-center gap-2 rounded-xl border border-[#113D33]/25 bg-white hover:border-[#113D33] px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                     >
-                      <span>Try <span className="text-white/90">Massage & Facials</span>, with a licensed massage therapist or esthetician</span>
-                      <span className="text-white/70">&rarr;</span>
+                      <span>Try Massage & Facials, with a licensed massage therapist or esthetician</span>
+                      <span aria-hidden="true">&rarr;</span>
                     </Link>
-                    <p className="mt-3 text-xs text-white/70">
-                      <Link href="/locations/denver-larimer/book-aescape" className="underline hover:text-white/60 transition">Try Aescape AI Massage</Link>, often same-day availability
+                    <p className="mt-3 text-xs text-[#113D33]/80">
+                      <Link href="/locations/denver-larimer/book-aescape" className="underline hover:text-[#113D33] transition">Try Aescape AI Massage</Link>, often same-day availability
                     </p>
                   </div>
                 )}
@@ -1710,7 +1684,6 @@ export default function BookRemedyRoomPage() {
 
               <StickyFlowCTA
                 show={!!selectedTime}
-                dark
                 hint={selectedTime ? `${formatDayLabel(new Date(selectedDate + "T00:00:00"))} · ${formatTime12h(selectedTime)}` : undefined}
               >
                 <button
@@ -1736,19 +1709,20 @@ export default function BookRemedyRoomPage() {
                     }
                     setStep("email");
                   }}
-                  className="w-full py-3.5 rounded-full bg-white text-[#113D33] font-semibold hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-white/30 shadow-lg"
+                  className="w-full py-3.5 rounded-full bg-[#113D33] text-white font-semibold hover:bg-[#0c2a23] transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/30"
                 >
                   Continue
                 </button>
               </StickyFlowCTA>
 
               <div className="max-w-md mx-auto">
-                <div className="text-center text-xs text-white/70">
+                <div className="text-center text-xs text-[#113D33]/80">
                   Prefer to book with staff?{" "}
-                  <a className="underline underline-offset-4 hover:text-white/70 transition" href="tel:3034766150">
+                  <a className="underline underline-offset-4 hover:text-[#113D33] transition" href="tel:3034766150">
                     Call (303) 476-6150
                   </a>
                 </div>
+              </div>
               </div>
             </div>
           )}

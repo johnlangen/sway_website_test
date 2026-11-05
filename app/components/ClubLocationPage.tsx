@@ -131,7 +131,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
               </p>
             </div>
           </div>
-          <div className="relative order-1 mt-14 h-[260px] sm:h-[340px] md:order-2 md:h-auto">
+          <div className="relative order-1 mt-[72px] h-[260px] sm:h-[340px] md:order-2 md:h-auto">
             <ClubHeroSplit hot={cfg.hot} cold={cfg.cold} />
           </div>
         </div>

@@ -127,7 +127,7 @@ export default function LarimerHero({ intro, actions }: { intro: ReactNode; acti
         </div>
       </div>
 
-      <div className={`relative order-1 mt-14 h-[250px] overflow-hidden sm:h-[320px] md:order-2 md:h-auto ${playing ? "" : "lh-still"}`}>
+      <div className={`relative order-1 mt-[72px] h-[250px] overflow-hidden sm:h-[320px] md:order-2 md:h-auto ${playing ? "" : "lh-still"}`}>
         <div className={`lh-photo absolute inset-0 ${active === -1 ? "is-on" : ""}`}>
           <Image src={HALLWAY.src} alt={HALLWAY.alt} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ objectPosition: HALLWAY.position }} />
         </div>

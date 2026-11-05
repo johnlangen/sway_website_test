@@ -258,7 +258,7 @@ export default function LocationsContent() {
     <div className="club-founding min-h-screen bg-[#F7F4E9] text-[#113D33]">
       <div className="grid md:grid-cols-[minmax(0,1fr)_min(46vw,920px)] md:grid-rows-[auto_1fr]">
         {/* Heading and the finder */}
-        <header className="sway-page-hero px-6 pb-4 pt-[84px] md:col-start-1 md:row-start-1 md:pb-7 md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-12 md:pt-32">
+        <header className="sway-page-hero px-6 pb-4 pt-24 md:col-start-1 md:row-start-1 md:pb-7 md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-12 md:pt-32">
           <div className="hero-rise">
             <p className="sway-eyebrow text-[#4A776D]">A little closer to feeling good</p>
             <h1 className="mt-3 md:mt-5">Find your Sway.</h1>
@@ -304,7 +304,7 @@ export default function LocationsContent() {
         </header>
 
         {/* The map stays with you while the list scrolls */}
-        <div className="location-map relative h-[300px] sm:h-[360px] md:sticky md:top-14 md:col-start-2 md:row-span-2 md:row-start-1 md:mt-14 md:h-[calc(100vh-56px)]">
+        <div className="location-map relative h-[300px] sm:h-[360px] md:sticky md:top-[72px] md:col-start-2 md:row-span-2 md:row-start-1 md:mt-[72px] md:h-[calc(100vh-72px)]">
           <LocationsMap
             locations={mapLocations}
             activeSlug={activeSlug}
