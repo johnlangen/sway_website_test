@@ -2049,8 +2049,12 @@ body {
 }
 .sway-experience-nav {
   max-width: 1296px;
-  padding: 0 24px 55px;
+  padding: 48px 24px 55px;
   margin: auto;
+}
+/* Larimer page: lines up with the sections around it */
+.club-founding .sway-experience-nav {
+  max-width: 72rem;
 }
 .sway-experience-nav > p {
   margin-bottom: 16px;

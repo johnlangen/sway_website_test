@@ -15,7 +15,30 @@ export const BRADY_BOOK_HREF = "/locations/denver-larimer/book-aescape/?session=
  * copy as written). Same sage band as GiveawayBanner so it reads as its own
  * announcement rather than site chrome.
  */
-export default function BradyProtocolBanner() {
+export default function BradyProtocolBanner({ quiet = false }: { quiet?: boolean }) {
+  // Quiet: a line of type that sits inside the section around it, same approved copy, no color band.
+  if (quiet) {
+    return (
+      <Link
+        href={BRADY_LANDING_HREF}
+        className="group flex flex-col gap-x-6 gap-y-1 md:flex-row md:items-baseline md:justify-between"
+      >
+        <span className="flex flex-col gap-x-4 gap-y-1 md:flex-row md:items-baseline">
+          <span className="sway-eyebrow shrink-0 text-[#2F5D50]">
+            <span aria-hidden="true">✦</span> New
+          </span>
+          <span className="text-[15px] leading-snug">
+            Introducing the Brady Protocol, a new 30-minute session co-developed
+            by Tom Brady and Aescape. Now available at Sway Larimer.
+          </span>
+        </span>
+        <span className="shrink-0 text-[15px] underline underline-offset-4 group-hover:no-underline">
+          Learn more <span aria-hidden="true">&rarr;</span>
+        </span>
+      </Link>
+    );
+  }
+
   return (
     <Link
       href={BRADY_LANDING_HREF}

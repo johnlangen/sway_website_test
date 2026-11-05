@@ -257,6 +257,13 @@ export default function SwayLarimerPage() {
             <div className="mt-3">
               <BookingPeek />
             </div>
+            <p className="mt-3 text-sm text-[#113D33]/85">
+              <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
+              </a>
+              <span aria-hidden="true" className="mx-2">·</span>
+              <a href={`tel:${loc.phoneDigits}`} className="whitespace-nowrap hover:underline">(303) 476-6150</a>
+            </p>
           </div>
           <div className="relative aspect-[3/2] overflow-hidden rounded-[2px] md:aspect-[5/4]">
             <Image
@@ -270,9 +277,9 @@ export default function SwayLarimerPage() {
           </div>
         </div>
 
-        {/* Proof and the practical stuff, in one quiet line */}
+        {/* Proof, then the Brady news, as quiet lines that belong to the hero */}
         <div className="mx-auto mt-6 max-w-6xl px-6 md:mt-10">
-          <div className="grid gap-x-8 gap-y-2 border-t border-[#113D33]/20 pt-4 text-sm md:grid-cols-[auto_auto_auto_1fr] md:items-center">
+          <div className="flex flex-col gap-x-8 gap-y-2 border-t border-[#113D33]/20 pt-4 text-sm md:flex-row md:items-center md:justify-between">
             <a
               href="https://10best.usatoday.com/awards/sway-denver-colorado/"
               target="_blank"
@@ -283,24 +290,18 @@ export default function SwayLarimerPage() {
             </a>
             <ReviewBadge />
             <ClassPassBadge />
-            <p className="md:text-right">
-              <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                {loc.street}, {loc.city}, {loc.state} {loc.zip} <span className="sr-only">(opens in new tab)</span>
-              </a>
-              <span aria-hidden="true" className="mx-2">·</span>
-              <a href={`tel:${loc.phoneDigits}`} className="hover:underline">(303) 476-6150</a>
-            </p>
+          </div>
+          <div className="mt-4 border-t border-[#113D33]/20 pt-4">
+            <BradyProtocolBanner quiet />
           </div>
         </div>
       </section>
 
-      <BradyProtocolBanner />
-
       <LocationExperienceNav location="denver-larimer" />
 
       {/* ========================= FIRST VISIT OFFER: a ticket with a tear line ========================= */}
-      <section className="px-6 pb-12 md:pb-20">
-        <div className="mx-auto max-w-6xl">
+      <section className="pb-12 md:pb-20">
+        <div className="mx-auto max-w-6xl px-6">
           <Link href="/locations/denver-larimer/book" className="group relative grid overflow-hidden rounded-[4px] bg-[#EBE4D1] md:grid-cols-[minmax(0,1fr)_260px]">
             <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-10">
               <p className="cf-num shrink-0 text-7xl md:text-8xl">$99</p>
