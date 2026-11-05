@@ -15,33 +15,46 @@ import type { Location } from "./LocationsContent";
 const CLUSTER_DISTANCE_PX = 38;
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function pinIcon(loc: Location, active: boolean) {
+// One icon per pin, kept for good. A new icon object makes Leaflet rebuild that pin's DOM, which would
+// replay its entrance. Highlighting toggles a class instead (see Pins).
+const iconCache = new Map<string, L.DivIcon>();
+function cachedIcon(key: string, make: () => L.DivIcon) {
+  let icon = iconCache.get(key);
+  if (!icon) {
+    icon = make();
+    iconCache.set(key, icon);
+  }
+  return icon;
+}
+
+function pinIcon(loc: Location) {
   const open = loc.status === "open";
-  return L.divIcon({
+  return cachedIcon(loc.slug, () => L.divIcon({
     className: "",
     iconSize: [34, 44],
     iconAnchor: [17, 42],
     popupAnchor: [0, -40],
-    html: `<span class="sway-map-pin${active ? " is-active" : ""}">
+    html: `<span class="sway-map-pin" data-slugs="${loc.slug}">
       <svg viewBox="0 0 34 44" width="34" height="44" aria-hidden="true">
         <path d="M17 2C8.7 2 2 8.7 2 17c0 11 15 25 15 25s15-14 15-25C32 8.7 25.3 2 17 2z" fill="${open ? "#113D33" : "#F7F4E9"}" stroke="${open ? "#F7F4E9" : "#113D33"}" stroke-width="2.5"/>
         <circle cx="17" cy="17" r="5" fill="${open ? "#F7F4E9" : "#113D33"}"/>
       </svg>
       <span class="sr-only">${loc.name}, ${loc.city}. ${open ? "Open" : "Coming soon"}.</span>
     </span>`,
-  });
+  }));
 }
 
-function clusterIcon(group: Location[], active: boolean) {
-  return L.divIcon({
+function clusterIcon(group: Location[]) {
+  const slugs = group.map((l) => l.slug).join(" ");
+  return cachedIcon(slugs, () => L.divIcon({
     className: "",
     iconSize: [44, 44],
     iconAnchor: [22, 22],
-    html: `<span class="sway-map-cluster${active ? " is-active" : ""}">
+    html: `<span class="sway-map-cluster" data-slugs="${slugs}">
       <span aria-hidden="true">${group.length}</span>
       <span class="sr-only">${group.length} Sway locations here. Zoom in to see them.</span>
     </span>`,
-  });
+  }));
 }
 
 /** Groups locations whose pins would overlap at this zoom. */
@@ -70,6 +83,14 @@ function Pins({
   useMapEvents({ zoomend: () => setZoom(map.getZoom()) });
   const groups = useMemo(() => groupForZoom(map, zoom, locations), [map, zoom, locations]);
 
+  // Highlight in place, so only the pin being pointed at changes and it can ease up in size
+  useEffect(() => {
+    map.getContainer().querySelectorAll<HTMLElement>("[data-slugs]").forEach((el) => {
+      const slugs = el.dataset.slugs?.split(" ") ?? [];
+      el.classList.toggle("is-active", !!activeSlug && slugs.includes(activeSlug));
+    });
+  }, [map, activeSlug, groups]);
+
   const zoomInto = (group: Location[]) => {
     const bounds = L.latLngBounds(group.map((l) => l.coords));
     const options = { padding: [60, 60] as [number, number], maxZoom: 14 };
@@ -87,7 +108,7 @@ function Pins({
             <Marker
               key={key}
               position={group[0].coords}
-              icon={clusterIcon(group, active)}
+              icon={clusterIcon(group)}
               title={`${group.length} Sway locations`}
               zIndexOffset={active ? 1000 : 0}
               eventHandlers={{ click: () => zoomInto(group) }}
@@ -96,7 +117,7 @@ function Pins({
         }
         const loc = group[0];
         return (
-          <Marker key={loc.slug} position={loc.coords} icon={pinIcon(loc, active)} title={loc.name} zIndexOffset={active ? 1000 : 0}>
+          <Marker key={loc.slug} position={loc.coords} icon={pinIcon(loc)} title={loc.name} zIndexOffset={active ? 1000 : 0}>
             <Popup>
               <div className="location-map-popup">
                 <p className="location-map-popup-name">{loc.name}</p>
