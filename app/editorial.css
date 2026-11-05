@@ -2455,6 +2455,74 @@ body {
   font-size: 13px;
 }
 
+/* Event pages: floor plans that fill up as they scroll into view (app/components/EventRoomDiagram.tsx) */
+.ce-ripple {
+  opacity: 0.3;
+}
+.ce-line {
+  stroke-dasharray: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ce-room .ce-dot,
+  .ce-room .ce-ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .ce-room:not(.is-in) .ce-dot,
+  .ce-room:not(.is-in) .ce-ripple {
+    opacity: 0;
+  }
+  .ce-room:not(.is-in) .ce-line {
+    stroke-dashoffset: 1;
+  }
+  .ce-room.is-in .ce-line {
+    animation: ce-draw 1.3s ease-out both;
+  }
+  .ce-room.is-in .ce-line.ce-late {
+    animation-delay: 0.6s;
+  }
+  .ce-room.is-in .ce-dot {
+    animation: ce-pop 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+    animation-delay: calc(0.25s + var(--i, 0) * 60ms);
+  }
+  /* Stops after three waves, so nothing keeps moving on the page */
+  .ce-room.is-in .ce-ripple {
+    animation: ce-ripple 3s ease-out 3 both;
+    animation-delay: calc(var(--i, 0) * 0.5s);
+  }
+}
+@keyframes ce-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ce-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes ce-ripple {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  35% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
 /* Find your Sway map (app/locations/LocationsMap.tsx): cream land, sage water, Sway pins */
 .location-map,
 .location-map .leaflet-container {

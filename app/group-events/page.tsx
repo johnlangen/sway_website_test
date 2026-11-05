@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SwayCurve } from "../components/SwayCurve";
+import EventInquiryForm from "../components/EventInquiryForm";
 
 function trackGroupContact(method: "call" | "email") {
   if (typeof window === "undefined") return;
@@ -325,6 +326,27 @@ export default function GroupEventsPage() {
             <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
           </div>
         </div>
+
+        {/* Inquiry form (same form as the club event pages, with Larimer picked) */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold">Or Send Us the Details</h2>
+          <p>
+            Tell us your date, group size, and what you&apos;re picturing, and
+            our team will follow up.
+          </p>
+          <EventInquiryForm location="Sway Larimer" />
+          <p className="text-sm text-gray-700">
+            Planning something near RiNo or Central Park? See events at{" "}
+            <Link href="/locations/denver-rino/events" className="underline text-[#113D33] font-semibold">
+              Sway RiNo
+            </Link>{" "}
+            and{" "}
+            <Link href="/locations/denver-central-park/events" className="underline text-[#113D33] font-semibold">
+              Sway Central Park
+            </Link>
+            .
+          </p>
+        </section>
 
         {/* Gift Cards */}
         <section className="space-y-4">

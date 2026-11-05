@@ -47,10 +47,15 @@ export default function LocationExperienceNav({
           detail: "Current offers & first-visit details",
           href: `/locations/${location}/offers`,
         },
+        {
+          name: "Host an event",
+          detail: "Group celebrations, community & private events",
+          href: `/locations/${location}/events`,
+        },
       ];
   return (
     <nav
-      className={`sway-experience-nav ${spa ? "sway-experience-nav-spa" : ""}`}
+      className="sway-experience-nav sway-experience-nav-spa"
       aria-label="Choose your Sway experience"
     >
       <p className="sway-eyebrow">
