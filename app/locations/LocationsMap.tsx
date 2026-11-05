@@ -27,6 +27,12 @@ function cachedIcon(key: string, make: () => L.DivIcon) {
   return icon;
 }
 
+/** Phones have far less room around the pins, so the margin scales with the map. */
+const edge = (map: L.Map, wide: number, narrow = 24): [number, number] => {
+  const p = map.getSize().x < 500 ? narrow : wide;
+  return [p, p];
+};
+
 function pinIcon(loc: Location) {
   const open = loc.status === "open";
   return cachedIcon(loc.slug, () => L.divIcon({
@@ -93,7 +99,7 @@ function Pins({
 
   const zoomInto = (group: Location[]) => {
     const bounds = L.latLngBounds(group.map((l) => l.coords));
-    const options = { padding: [60, 60] as [number, number], maxZoom: 14 };
+    const options = { padding: edge(map, 60, 36), maxZoom: 14 };
     if (reducedMotion()) map.fitBounds(bounds, options);
     else map.flyToBounds(bounds, { ...options, duration: 0.9 });
   };
@@ -148,26 +154,49 @@ function View({
   const slugs = locations.map((l) => l.slug).join(",");
   const firstFit = useRef(true);
 
+  // Everything shown, or the guest and their nearest spa
+  const target = () => {
+    if (userCenter) {
+      const points = nearest ? [userCenter, nearest.coords] : [userCenter];
+      return { bounds: L.latLngBounds(points), options: { padding: edge(map, 60, 36), maxZoom: 11 } };
+    }
+    if (locations.length === 0) return null;
+    return {
+      bounds: L.latLngBounds(locations.map((l) => l.coords)),
+      options: { padding: edge(map, 50), maxZoom: 12 },
+    };
+  };
+
   useEffect(() => {
-    if (userCenter || locations.length === 0) return;
+    if (userCenter) return;
+    const t = target();
+    if (!t) return;
     // The first view just appears. After that the map flies, so guests see where it's taking them.
     const fly = !firstFit.current && !reducedMotion();
     firstFit.current = false;
-    const bounds = L.latLngBounds(locations.map((l) => l.coords));
-    const options = { padding: [50, 50] as [number, number], maxZoom: 12 };
-    if (fly) map.flyToBounds(bounds, { ...options, duration: 1.2 });
-    else map.fitBounds(bounds, options);
+    if (fly) map.flyToBounds(t.bounds, { ...t.options, duration: 1.2 });
+    else map.fitBounds(t.bounds, t.options);
     // slugs stands in for the list: refit only when the shown locations change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, slugs, userCenter]);
 
   useEffect(() => {
     if (!userCenter) return;
-    const points = nearest ? [userCenter, nearest.coords] : [userCenter];
-    const options = { padding: [60, 60] as [number, number], maxZoom: 11 };
-    if (reducedMotion()) map.fitBounds(L.latLngBounds(points), options);
-    else map.flyToBounds(L.latLngBounds(points), { ...options, duration: 1.4 });
+    const t = target();
+    if (!t) return;
+    if (reducedMotion()) map.fitBounds(t.bounds, t.options);
+    else map.flyToBounds(t.bounds, { ...t.options, duration: 1.4 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, userCenter, nearest]);
+
+  // The map changed size (a rotated phone, a resized window): keep everything in view.
+  // Leaflet only fires this when the size really changes, not when a phone's address bar hides.
+  useMapEvents({
+    resize: () => {
+      const t = target();
+      if (t) map.fitBounds(t.bounds, { ...t.options, animate: false });
+    },
+  });
 
   return null;
 }
@@ -186,7 +215,16 @@ export default function LocationsMap({
   onOpen: (loc: Location) => void;
 }) {
   return (
-    <MapContainer center={[39.8283, -98.5795]} zoom={4} scrollWheelZoom={false} className="h-full w-full">
+    <MapContainer
+      center={[39.8283, -98.5795]}
+      zoom={4}
+      zoomSnap={0.5}
+      scrollWheelZoom={false}
+      // On a phone one finger scrolls the page, so the map can't trap someone mid-scroll. Pins and the
+      // zoom buttons still work with a tap, and two fingers still move the map.
+      dragging={!L.Browser.mobile}
+      className="h-full w-full"
+    >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         // Carto requires a key since 2026 or it watermarks the map. Free up to 1M requests a month; sent by the

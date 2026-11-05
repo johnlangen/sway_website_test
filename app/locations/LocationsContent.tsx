@@ -258,7 +258,7 @@ export default function LocationsContent() {
     <div className="club-founding min-h-screen bg-[#F7F4E9] text-[#113D33]">
       <div className="grid md:grid-cols-[minmax(0,1fr)_min(46vw,920px)] md:grid-rows-[auto_1fr]">
         {/* Heading and the finder */}
-        <header className="sway-page-hero px-6 pb-5 pt-24 md:col-start-1 md:row-start-1 md:pb-7 md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-12 md:pt-32">
+        <header className="sway-page-hero px-6 pb-4 pt-[84px] md:col-start-1 md:row-start-1 md:pb-7 md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-12 md:pt-32">
           <div className="hero-rise">
             <p className="sway-eyebrow text-[#4A776D]">A little closer to feeling good</p>
             <h1 className="mt-3 md:mt-5">Find your Sway.</h1>
@@ -273,7 +273,7 @@ export default function LocationsContent() {
                 aria-label="Search locations by city or ZIP"
                 className="min-h-[52px] w-full min-w-0 rounded-[2px] border border-[#113D33]/30 bg-white px-4 text-base placeholder:text-[#113D33]/70 focus:border-[#113D33] focus:outline-none"
               />
-              <button type="button" onClick={useMyLocation} className="sway-button shrink-0 !gap-0 whitespace-nowrap">
+              <button type="button" onClick={useMyLocation} className="sway-button shrink-0 !gap-0 whitespace-nowrap !px-4 md:!px-6">
                 {locating ? "Finding you..." : "Near me"}
               </button>
             </div>
@@ -283,14 +283,15 @@ export default function LocationsContent() {
 
             <fieldset className="mt-5 md:mt-7">
               <legend className="cf-label text-base md:text-lg">What are you looking for?</legend>
-              <div className="mt-2 flex flex-wrap gap-1.5 md:gap-2">
+              {/* One swipeable row on phones, so the map stays close to the top */}
+              <div className="-mx-6 mt-2 flex gap-1.5 overflow-x-auto px-6 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:gap-2 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
                 {SERVICES.map((s) => (
                   <button
                     key={s.id}
                     type="button"
                     aria-pressed={service === s.id}
                     onClick={() => setService(s.id)}
-                    className={`min-h-11 rounded-[3px] border px-3 py-2 text-sm transition md:px-4 md:text-[15px] ${
+                    className={`min-h-11 shrink-0 whitespace-nowrap rounded-[3px] border px-3 py-2 text-sm transition md:px-4 md:text-[15px] ${
                       service === s.id ? "border-[#113D33] bg-[#113D33] font-semibold text-white" : "border-[#113D33]/35 hover:border-[#113D33]"
                     }`}
                   >
@@ -303,7 +304,7 @@ export default function LocationsContent() {
         </header>
 
         {/* The map stays with you while the list scrolls */}
-        <div className="location-map relative h-[280px] sm:h-[340px] md:sticky md:top-14 md:col-start-2 md:row-span-2 md:row-start-1 md:mt-14 md:h-[calc(100vh-56px)]">
+        <div className="location-map relative h-[300px] sm:h-[360px] md:sticky md:top-14 md:col-start-2 md:row-span-2 md:row-start-1 md:mt-14 md:h-[calc(100vh-56px)]">
           <LocationsMap
             locations={mapLocations}
             activeSlug={activeSlug}
@@ -378,7 +379,7 @@ export default function LocationsContent() {
                     <a
                       href={offer.href}
                       onClick={() => saveLocation(loc)}
-                      className="relative z-10 mt-1 inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline underline-offset-4 md:min-h-0 md:mt-2"
+                      className="relative z-10 mt-2 inline-flex min-h-11 items-center rounded-[3px] border border-[#113D33]/35 bg-[#F7F4E9] px-4 text-sm font-semibold transition hover:border-[#113D33] md:min-h-10"
                     >
                       {offer.action}
                       <span className="sr-only"> at {loc.name}</span>
