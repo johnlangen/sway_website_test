@@ -94,7 +94,7 @@ export default function BacheloretteSpaDayBlogLayout() {
                 wants a deep-tissue massage. Larger groups book best with a
                 little lead time, so reach out early. You can also see
                 everything we offer for groups on our{" "}
-                <Link href="/group-events" className="underline text-[#113D33] font-semibold">
+                <Link href="/locations/denver-larimer/events" className="underline text-[#113D33] font-semibold">
                   group events page
                 </Link>
                 .
