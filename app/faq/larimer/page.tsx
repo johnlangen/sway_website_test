@@ -325,7 +325,7 @@ export default function SwayLarimerFAQPage() {
                 <p>
                   A Spalebration is a group spa celebration for 4 or more guests:
                   bachelorettes, birthdays, bridal parties, and more. See our{" "}
-                  <a href="/group-events" className="underline">
+                  <a href="/locations/denver-larimer/events" className="underline">
                     group events page
                   </a>{" "}
                   for ideas. To book a Spalebration, please reach out to us at{" "}

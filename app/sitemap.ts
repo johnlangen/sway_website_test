@@ -62,6 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/locations/denver-larimer/book-remedy-room/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-larimer/membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-larimer/offers/`, changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${base}/locations/denver-larimer/events/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-larimer/gift-cards/`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${base}/locations/denver-larimer/massage/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/locations/denver-larimer/facials/`, changeFrequency: "monthly" as const, priority: 0.7 },

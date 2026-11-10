@@ -1,421 +1,191 @@
 "use client";
 
+/**
+ * /group-events: the page for guests who haven't picked a location yet. Each Sway location has its
+ * own events page (/locations/{slug}/events) with the inquiry form already set to that location.
+ * The grid shows which ways to gather each location offers, with the same floor plans as those pages.
+ *
+ * Deliberately no automatic redirect to a saved location here (unlike the gift card and membership
+ * hubs): the 10/19 server redirect is still a suspect in the late-October gift card drop.
+ */
+
 import Image from "next/image";
 import Link from "next/link";
+import ArrowMark from "../components/ArrowMark";
+import EventRoomDiagram, { type EventKind } from "../components/EventRoomDiagram";
 import { SwayCurve } from "../components/SwayCurve";
-import EventInquiryForm from "../components/EventInquiryForm";
+import { CLUB_FOUNDING } from "@/lib/clubFounding";
+import { groupHubFaqs } from "@/lib/clubEvents";
 
-function trackGroupContact(method: "call" | "email") {
-  if (typeof window === "undefined") return;
-  const w = window as any;
-  w.dataLayer = w.dataLayer || [];
-  w.dataLayer.push({
-    event: "group_contact_click",
-    contact_method: method,
-    contact_source: "group_events_page",
-  });
-}
+const LOCATIONS = [
+  {
+    key: "denver-larimer",
+    name: "Sway Larimer",
+    place: "Larimer Square, Denver",
+    line: "Massage, facials, the Remedy Room and Aescape, steps from dinner on Larimer Square.",
+    image: "/assets/homepage_photo_outside.jpg",
+  },
+  {
+    key: "denver-rino",
+    name: "Sway RiNo",
+    place: "RiNo Art District, Denver",
+    line: `The Remedy Lounge now, with massage and facials starting ${CLUB_FOUNDING["denver-rino"].opensLabel}.`,
+    image: "/assets/rino-card.jpg",
+  },
+  {
+    key: "denver-central-park",
+    name: "Sway Central Park",
+    place: "Aurora, near Central Park",
+    line: `The Remedy Lounge now, with massage and facials starting ${CLUB_FOUNDING["denver-central-park"].opensLabel}.`,
+    image: "/assets/centralpark-card.jpg",
+  },
+] as const;
+
+const WAYS: { kind: EventKind; name: string; line: string; where: Record<string, boolean> }[] = [
+  {
+    kind: "community",
+    name: "Community Events",
+    line: "Run clubs, neighborhood meetups and casual Remedy Lounge gatherings.",
+    where: { "denver-larimer": false, "denver-rino": true, "denver-central-park": true },
+  },
+  {
+    kind: "host",
+    name: "Host or Partner With Sway",
+    line: "Sound baths, talks, workshops and brand collabs.",
+    where: { "denver-larimer": true, "denver-rino": true, "denver-central-park": true },
+  },
+  {
+    kind: "spalebration",
+    name: "Spalebrations",
+    line: "Birthdays, bridal parties, bachelorettes and friends’ wellness days.",
+    where: { "denver-larimer": true, "denver-rino": true, "denver-central-park": true },
+  },
+  {
+    kind: "buyout",
+    name: "Luxury Buyouts",
+    line: "Corporate events, retreats and celebrations of 20 or more.",
+    where: { "denver-larimer": true, "denver-rino": true, "denver-central-park": true },
+  },
+];
+
+const placeName = (name: string) => name.replace("Sway ", "");
 
 export default function GroupEventsPage() {
   return (
-    <div className="bg-[#F7F4E9] text-black font-vance">
-      {/* Hero */}
-      <section className="sway-page-hero relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
-        <Image
-          src="/assets/homepage_photo_outside.jpg"
-          alt="Group spa event at Sway Wellness Spa on Larimer Square in Denver"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50 z-10" />
-        <div className="relative z-20 text-center text-white px-6">
-          <SwayCurve
-            width={140}
-            strokeWidth={2.2}
-            animate
-            className="text-white/85 mx-auto block mb-5"
-          />
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
-            Group Events &amp; Spa Parties
-          </h1>
-          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Spalebrations for bachelorettes, bridal parties, birthdays, team
-            outings, and celebrations, on Larimer Square.
+    <div className="club-founding bg-[#F7F4E9] text-[#113D33]">
+      {/* ===== Hero ===== */}
+      <section className="sway-page-hero px-6 pb-8 pt-24 md:pb-14 md:pt-36">
+        <div className="hero-rise mx-auto max-w-6xl">
+          <p className="sway-eyebrow text-[#4A776D]">Group events &amp; spa parties · Denver</p>
+          <h1 className="mt-4 max-w-3xl md:mt-6">Bring your people to Sway.</h1>
+          <SwayCurve width={120} strokeWidth={2} animate className="my-5 block text-[#4A776D] md:my-7" />
+          <p className="max-w-2xl text-base text-[#113D33]/85 md:text-lg">
+            Spalebrations for bachelorettes, bridal parties and birthdays, team outings, workshops and private buyouts, at three Denver locations. Pick a location to see what&apos;s possible and send us the details.
           </p>
-          <div className="mt-8">
-            <a
-              href="#plan"
-              className="inline-block bg-white text-[#113D33] font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition"
-            >
-              Inquire About Group Events
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-6 py-16 space-y-12 text-[17px] leading-relaxed">
-        {/* Event Types */}
-        <section className="space-y-6">
-          <h2 className="text-2xl font-bold">Events We Host</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
-              <h3 className="text-lg font-bold">Bachelorette Parties</h3>
-              <p className="text-sm text-gray-700">
-                Treat the bridal crew to massages, facials, or the Remedy Room
-                recovery circuit. Then walk straight to Larimer Square&apos;s
-                best restaurants and bars. Read our{" "}
-                <Link
-                  href="/blog/bachelorette-spa-day"
-                  className="underline text-[#113D33] font-semibold"
-                >
-                  bachelorette planning guide
-                </Link>
-                .
-              </p>
-            </div>
-            <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
-              <h3 className="text-lg font-bold">Birthday Celebrations</h3>
-              <p className="text-sm text-gray-700">
-                Give the birthday person what they actually want: a spa day with
-                friends. Choose from{" "}
-                <Link
-                  href="/massages"
-                  className="underline text-[#113D33] font-semibold"
-                >
-                  massage
-                </Link>,
-                {" "}
-                <Link
-                  href="/facials"
-                  className="underline text-[#113D33] font-semibold"
-                >
-                  facials
-                </Link>,
-                 and{" "}
-                <Link
-                  href="/aescape"
-                  className="underline text-[#113D33] font-semibold"
-                >
-                  Aescape robot massage
-                </Link>
-                .
-              </p>
-            </div>
-            <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
-              <h3 className="text-lg font-bold">Corporate Wellness</h3>
-              <p className="text-sm text-gray-700">
-                Team outings, offsite wellness days, and employee appreciation
-                events. Sway offers massage, facials, recovery tech, and a
-                modern space on Larimer Square, pair with a team dinner nearby.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-3">
-              <h3 className="text-lg font-bold">Friends &amp; Family</h3>
-              <p className="text-sm text-gray-700">
-                No occasion needed. Grab your people, book treatments, and spend
-                the afternoon on Larimer Square. The{" "}
-                <Link
-                  href="/remedy-tech"
-                  className="underline text-[#113D33] font-semibold"
-                >
-                  Remedy Room
-                </Link>{" "}
-                is great for groups, sauna, cold plunge, and recovery tech at
-                just $25/person for members.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Spalebrations + bridal menu */}
-        <section id="spalebrations" className="space-y-6">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-bold">What&apos;s a Spalebration?</h2>
-            <p>
-              A Spalebration is our group spa celebration for 4 or more guests.
-              Most groups follow the same easy flow: everyone gets one
-              treatment, and everyone spends time together in the{" "}
+      {/* ===== Pick a location ===== */}
+      <section className="px-6 pb-12 md:pb-20">
+        <ul className="mx-auto max-w-6xl">
+          {LOCATIONS.map((loc) => (
+            <li key={loc.key} className="border-t border-[#113D33]/20 last:border-b">
               <Link
-                href="/remedy-tech"
-                className="underline text-[#113D33] font-semibold"
+                href={`/locations/${loc.key}/events`}
+                className="group grid grid-cols-[96px_minmax(0,1fr)_auto] items-center gap-4 py-4 sm:grid-cols-[150px_minmax(0,1fr)_auto] md:gap-8 md:py-6"
               >
-                Remedy Room
+                <span className="relative block h-[96px] overflow-hidden rounded-[2px] sm:h-[110px]">
+                  <Image src={loc.image} alt="" fill sizes="150px" className="object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none" />
+                </span>
+                <span className="min-w-0">
+                  <span className="cf-title block text-[28px] leading-[1.05] md:text-5xl">{loc.name}</span>
+                  <span className="mt-1 block text-sm text-[#113D33]/80">{loc.place}</span>
+                  <span className="mt-1 block text-[15px] leading-snug text-[#113D33]/85 md:text-base">{loc.line}</span>
+                </span>
+                <span className="flex items-center gap-2 text-sm font-semibold">
+                  <span className="hidden sm:inline">Events at {placeName(loc.name)}</span>
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none"><ArrowMark /></span>
+                </span>
               </Link>
-              . We rotate small groups through treatment rooms and the Remedy
-              Room, so a party of 8 to 9 usually takes about 2 to 3 hours.
-              Planning something bigger? Reach out and we&apos;ll map it out
-              with you.
-            </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ===== Which ways, where ===== */}
+      <section className="bg-[#113D33] py-12 text-white md:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="sway-eyebrow text-[#D7E5DD]">Ways to gather</p>
+          <h2 className="mt-3 text-[34px] leading-[1.08] md:mt-4 md:text-6xl">What each location can host</h2>
+          <div className="mt-6 overflow-x-auto md:mt-10">
+            <table className="w-full min-w-[560px] border-collapse text-left">
+              <caption className="sr-only">Which event types each Sway location offers</caption>
+              <thead>
+                <tr className="border-b border-white/25 text-sm text-white/85">
+                  <th scope="col" className="py-3 pr-4 font-normal">Event</th>
+                  {LOCATIONS.map((l) => (
+                    <th key={l.key} scope="col" className="w-[110px] py-3 text-center font-normal md:w-[150px]">
+                      {placeName(l.name)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {WAYS.map((w) => (
+                  <tr key={w.name} className="border-b border-white/15">
+                    <th scope="row" className="py-4 pr-4 font-normal">
+                      <span className="flex items-center gap-4">
+                        <EventRoomDiagram kind={w.kind} accent="#A9D2C5" animate={false} className="h-12 w-auto shrink-0 text-white md:h-16" />
+                        <span>
+                          <span className="cf-label block text-lg md:text-xl">{w.name}</span>
+                          <span className="block text-sm text-white/80">{w.line}</span>
+                        </span>
+                      </span>
+                    </th>
+                    {LOCATIONS.map((l) => (
+                      <td key={l.key} className="py-4 text-center">
+                        {w.where[l.key] ? (
+                          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#A9D2C5] text-[#113D33]">
+                            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 13l4 4L19 7" /></svg>
+                            <span className="sr-only">Yes</span>
+                          </span>
+                        ) : (
+                          <span className="text-white/70">
+                            <span aria-hidden="true">·</span>
+                            <span className="sr-only">No</span>
+                          </span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-
-          <div className="bg-white rounded-xl border border-[#d7e2dc] p-6 space-y-5">
-            <h3 className="text-xl font-bold">Suggested Bridal Party Menu</h3>
-            <ul className="space-y-4">
-              <li>
-                <p className="font-semibold">For the bride</p>
-                <p className="text-sm text-gray-700">
-                  The{" "}
-                  <Link
-                    href="/facials"
-                    className="underline text-[#113D33] font-semibold"
-                  >
-                    Glow Getter Hydration Facial
-                  </Link>{" "}
-                  for a dewy, photo-ready finish, or a Salt Stone Massage to
-                  melt away wedding-planning stress.
-                </p>
-              </li>
-              <li>
-                <p className="font-semibold">For the bridal party</p>
-                <p className="text-sm text-gray-700">
-                  The Signature Massage (light to medium pressure) or the
-                  Signature Facial. They&apos;re our most-booked group
-                  treatments, and easy to schedule back to back.
-                </p>
-              </li>
-              <li>
-                <p className="font-semibold">For everyone, together</p>
-                <p className="text-sm text-gray-700">
-                  The Remedy Room: a 40-minute recovery circuit with sauna, cold
-                  plunge, compression therapy, and LED light therapy. It&apos;s
-                  the part of the day groups do together.
-                </p>
-              </li>
-              <li>
-                <p className="font-semibold">For the mother of the bride</p>
-                <p className="text-sm text-gray-700">
-                  The Forever Young Anti-Aging Facial, for firmer,
-                  smoother-looking skin.
-                </p>
-              </li>
-              <li>
-                <p className="font-semibold">For a mom-to-be in the group</p>
-                <p className="text-sm text-gray-700">
-                  The Maternity Massage (second trimester and later) or a
-                  pregnancy-safe facial.
-                </p>
-              </li>
-            </ul>
-            <p className="text-sm text-gray-700">
-              Planning skincare before the big day? See our{" "}
-              <Link
-                href="/blog/bridal-skincare"
-                className="underline text-[#113D33] font-semibold"
-              >
-                bridal skincare timeline
-              </Link>
-              .
-            </p>
-          </div>
-        </section>
-
-        {/* What's Available */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold">What Your Group Can Book</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="bg-[#113D33] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                1
-              </span>
-              <div>
-                <p className="font-semibold">
-                  <Link
-                    href="/massages"
-                    className="underline text-[#113D33]"
-                  >
-                    Massage
-                  </Link>
-                </p>
-                <p className="text-sm text-gray-700">
-                  50–90 min · From $99/person member · $139/person drop-in
-                  (Essential). Premier and Ultimate tiers available.
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="bg-[#113D33] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                2
-              </span>
-              <div>
-                <p className="font-semibold">
-                  <Link
-                    href="/facials"
-                    className="underline text-[#113D33]"
-                  >
-                    Facials
-                  </Link>
-                </p>
-                <p className="text-sm text-gray-700">
-                  50–60 min · From $99/person member · $139/person drop-in
-                  (Essential). 11 treatments across 3 tiers.
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="bg-[#113D33] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                3
-              </span>
-              <div>
-                <p className="font-semibold">
-                  <Link
-                    href="/remedy-tech"
-                    className="underline text-[#113D33]"
-                  >
-                    Remedy Room
-                  </Link>
-                </p>
-                <p className="text-sm text-gray-700">
-                  40 min circuit · $25 member / $49 drop-in · Sauna, cold
-                  plunge, compression, LED
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="bg-[#113D33] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                4
-              </span>
-              <div>
-                <p className="font-semibold">
-                  <Link
-                    href="/aescape"
-                    className="underline text-[#113D33]"
-                  >
-                    Aescape Robot Massage
-                  </Link>
-                </p>
-                <p className="text-sm text-gray-700">
-                  15, 30, 45, or 60 min · Starting at $49 · AI-powered autonomous massage
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="bg-[#113D33] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                +
-              </span>
-              <div>
-                <p className="font-semibold">
-                  <Link
-                    href="/treatments"
-                    className="underline text-[#113D33]"
-                  >
-                    Boosts
-                  </Link>
-                </p>
-                <p className="text-sm text-gray-700">
-                  Add LED, microcurrent, oxygen infusion, cupping, and more.
-                  Members save 50%
-                </p>
-              </div>
-            </li>
-          </ul>
-        </section>
-
-        {/* CTA */}
-        <div id="plan" className="scroll-mt-24 bg-[#113D33] text-white rounded-xl p-8 text-center space-y-4">
-          <p className="text-xl font-bold">Plan Your Group Event</p>
-          <p className="text-sm opacity-90">
-            Contact us to coordinate group bookings, timing, and treatment
-            selection. We&apos;ll handle the logistics.
+          <p className="mt-4 text-sm text-white/85">
+            Planning a bachelorette? Read our{" "}
+            <Link href="/blog/bachelorette-spa-day" className="underline underline-offset-4">bachelorette spa day guide</Link>.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-x-3 gap-y-1 text-lg">
-            <span>Call</span>
-            <a href="tel:+13034766150" onClick={() => trackGroupContact("call")} className="font-bold underline underline-offset-4 hover:text-white/80">(303) 476-6150</a>
-            <span className="text-white/70">or email</span>
-            <a href="mailto:contact@swaywellnessspa.com" onClick={() => trackGroupContact("email")} className="font-bold underline underline-offset-4 hover:text-white/80">contact@swaywellnessspa.com</a>
+        </div>
+      </section>
+
+      {/* ===== FAQ ===== */}
+      <section className="py-12 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-5 px-6 md:gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+          <h2 className="text-[32px] leading-[1.1] md:text-5xl">Good questions</h2>
+          <div>
+            {groupHubFaqs().map((f) => (
+              <details key={f.q} className="group border-t border-[#113D33]/25 py-1 last:border-b">
+                <summary className="cf-label flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 py-2 text-base md:min-h-14 md:py-3 md:text-lg [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <span aria-hidden="true" className="text-2xl leading-none transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="max-w-2xl pb-4 text-[15px] leading-normal text-[#113D33]/85 md:pb-5 md:text-base md:leading-relaxed">{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
-
-        {/* Inquiry form (same form as the club event pages, with Larimer picked) */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold">Or Send Us the Details</h2>
-          <p>
-            Tell us your date, group size, and what you&apos;re picturing, and
-            our team will follow up.
-          </p>
-          <EventInquiryForm location="Sway Larimer" />
-          <p className="text-sm text-gray-700">
-            Planning something near RiNo or Central Park? See events at{" "}
-            <Link href="/locations/denver-rino/events" className="underline text-[#113D33] font-semibold">
-              Sway RiNo
-            </Link>{" "}
-            and{" "}
-            <Link href="/locations/denver-central-park/events" className="underline text-[#113D33] font-semibold">
-              Sway Central Park
-            </Link>
-            .
-          </p>
-        </section>
-
-        {/* Gift Cards */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold">Gift Cards for Your Group</h2>
-          <p>
-            <Link
-              href="/gift-cards"
-              className="underline text-[#113D33] font-semibold"
-            >
-              Sway gift cards
-            </Link>{" "}
-            are available in any amount and never expire. Buy them for your
-            group so everyone can book their own preferred treatment and time.
-          </p>
-        </section>
-
-        {/* After the Spa */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold">After the Spa</h2>
-          <p>
-            Sway is on{" "}
-            <Link
-              href="/locations/denver-larimer"
-              className="underline text-[#113D33] font-semibold"
-            >
-              Larimer Square
-            </Link>{" "}
-           , Denver&apos;s best block for dining and nightlife. Walk out the
-            front door and your group is steps from Rioja, Tamayo, Corridor 44,
-            and more. No rideshare coordination needed.
-          </p>
-          <p>
-            Read our guide to{" "}
-            <Link
-              href="/blog/things-to-do-in-denver-at-night"
-              className="underline text-[#113D33] font-semibold"
-            >
-              things to do in Denver at night
-            </Link>{" "}
-            for more ideas on where to go after.
-          </p>
-        </section>
-
-        {/* Location Info */}
-        <section className="bg-white border border-[#d7e2dc] rounded-xl p-6 space-y-3">
-          <h2 className="text-xl font-bold">Location &amp; Hours</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="font-semibold">Location</p>
-              <p>1428 Larimer St., Denver, CO 80202</p>
-              <p>On Larimer Square in downtown Denver</p>
-              <p>(303) 476-6150</p>
-              <p>contact@swaywellnessspa.com</p>
-            </div>
-            <div>
-              <p className="font-semibold">Hours</p>
-              <p>Mon–Fri: 10 AM – 8 PM</p>
-              <p>Saturday: 9 AM – 6 PM</p>
-              <p>Sunday: 11 AM – 6 PM</p>
-            </div>
-          </div>
-          <p className="text-sm text-gray-500">
-            1st hour parking validated on weekdays at Larimer Square Garage (1422 Market St.).{" "}
-            <Link href="/faq/larimer" className="underline">
-              Parking details
-            </Link>
-          </p>
-        </section>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
 /**
- * Events page for the Sway clubs (RiNo + Central Park). The four event types run from an open door
+ * Events page for each Sway location (Larimer, RiNo, Central Park). Larimer drops Community Events and
+ * leads with Spalebrations, plus a bridal menu and the after-spa notes (see lib/clubEvents.ts). The four event types run from an open door
  * to a private event, so the page shows that directly: each section has a floor plan of who is in
  * the room (EventRoomDiagram), and the background deepens from cream to forest as it gets more private.
  *
@@ -17,13 +18,12 @@ import ArrowMark from "./ArrowMark";
 import EventInquiryForm from "./EventInquiryForm";
 import EventRoomDiagram, { type EventKind } from "./EventRoomDiagram";
 import { SwayCurve } from "./SwayCurve";
-import { CLUB_EVENTS, clubEventFaqs } from "@/lib/clubEvents";
+import { CLUB_EVENTS, clubEventFaqs, isClubEvents, type EventsKey } from "@/lib/clubEvents";
 import { CLUB_FOUNDING } from "@/lib/clubFounding";
-import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
 
 const eyebrow = "sway-eyebrow";
 
-function trackContact(method: "call" | "email", clubKey: ClubLocationKey) {
+function trackContact(method: "call" | "email", clubKey: EventsKey) {
   const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
   w.dataLayer = w.dataLayer || [];
   w.dataLayer.push({
@@ -54,15 +54,16 @@ type Chapter = {
   accent: string;
 };
 
-export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }) {
-  const club = CLUB_LOCATIONS[clubKey];
-  const founding = CLUB_FOUNDING[clubKey];
+export default function ClubEventsPage({ clubKey }: { clubKey: EventsKey }) {
   const cfg = CLUB_EVENTS[clubKey];
-  const short = founding.shortName;
+  const isClub = isClubEvents(clubKey);
+  const short = cfg.shortName;
   const base = `/locations/${clubKey}`;
-  const otherClub = clubKey === "denver-rino" ? "denver-central-park" : "denver-rino";
+  const others = (["denver-larimer", "denver-rino", "denver-central-park"] as EventsKey[]).filter((k) => k !== clubKey);
+  const club = { phone: cfg.phone, contactEmail: cfg.email };
+  const opensLabel = isClub ? CLUB_FOUNDING[clubKey].opensLabel : "";
 
-  const chapters: Chapter[] = [
+  const allChapters: Chapter[] = [
     {
       id: "community",
       kind: "community",
@@ -130,7 +131,7 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
       facts: [
         { label: "Group size", value: "4 to 19 guests" },
         { label: "Pricing", value: "Standard treatment and service pricing, tailored to your group." },
-        { label: "What’s on", value: `The Remedy Lounge now. Massage and facials start ${founding.opensLabel}.` },
+        { label: "What’s on", value: `The Remedy Lounge now. Massage and facials start ${opensLabel}.` },
       ],
       cta: "Plan a Spalebration",
       section: "bg-[#BFD3C6] text-[#113D33]",
@@ -164,6 +165,31 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
     },
   ];
 
+  // Larimer is the full spa: no Community Events (its Remedy Room is a small shared circuit), and
+  // Spalebrations run on treatments that are bookable today.
+  const chapters: Chapter[] = isClub
+    ? allChapters
+    : allChapters
+        .filter((c) => c.id !== "community")
+        .map((c) => {
+          if (c.id === "host")
+            return { ...c, section: "bg-[#F7F4E9] text-[#113D33]", tile: "bg-[#F7F4E9] text-[#113D33]", eyebrowColor: "text-[#4A776D]", accent: "#4A776D" };
+          if (c.id === "spalebrations")
+            return {
+              ...c,
+              body: "Everyone gets time to themselves, then you come back together in the Remedy Room. Then walk straight out to dinner on Larimer Square.",
+              facts: [
+                { label: "Group size", value: "4 or more guests" },
+                { label: "How it works", value: "Everyone books a treatment, and we rotate small groups through the treatment rooms and the Remedy Room. A party of 8 to 9 usually takes about 2 to 3 hours." },
+                { label: "Pricing", value: "Standard treatment pricing. Massage and facials from $139 per person ($99 for members), Remedy Room $49 ($25 for members)." },
+              ],
+            };
+          if (c.id === "buyouts")
+            return { ...c, tags: c.tags.map((t) => (t === "Private Remedy Lounge access" ? "Remedy Room time for your group" : t)) };
+          return c;
+        });
+  const count = chapters.length === 4 ? "four" : "three";
+
   return (
     <div className="club-founding text-[#113D33]">
       {/* ===== Hero ===== */}
@@ -172,25 +198,25 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
           <div>
             <p className="text-sm text-[#113D33]/80">
               Events at {short}. Also at{" "}
-              <Link href={`/locations/${otherClub}/events`} className="underline underline-offset-4">
-                {CLUB_FOUNDING[otherClub].shortName}
+              <Link href={`/locations/${others[0]}/events`} className="underline underline-offset-4">
+                {CLUB_EVENTS[others[0]].shortName}
               </Link>{" "}
               and{" "}
-              <Link href="/group-events" className="underline underline-offset-4">
-                Sway Larimer
+              <Link href={`/locations/${others[1]}/events`} className="underline underline-offset-4">
+                {CLUB_EVENTS[others[1]].shortName}
               </Link>
               .
             </p>
             <h1 className="mt-5 md:mt-8">Bring your people.</h1>
             <SwayCurve width={120} strokeWidth={2} animate className="my-5 block text-[#4A776D] md:my-7" />
             <p className="max-w-lg text-base text-[#113D33]/85 md:text-lg">
-              From run clubs to corporate retreats, there are four ways to gather at {short} in {cfg.neighborhood}. Tell us what you have in mind, and we&apos;ll take it from there.
+              {isClub ? "From run clubs to corporate retreats" : "From birthdays and bridal parties to corporate retreats"}, there are {count} ways to gather at {short} {cfg.neighborhood === "Larimer Square" ? "on" : "in"} {cfg.neighborhood}. Tell us what you have in mind, and we&apos;ll take it from there.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2 md:mt-8">
               <a href="#plan" className="sway-button w-full sm:w-auto">
                 Plan your event <span aria-hidden="true"><ArrowMark /></span>
               </a>
-              <a href="#ways" className="sway-text-link">See the four ways</a>
+              <a href="#ways" className="sway-text-link">See the {count} ways</a>
             </div>
           </div>
           {/* An archway into the club */}
@@ -211,13 +237,13 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
       </section>
 
       {/* ===== The four ways, as a strip of the page's own colors ===== */}
-      <nav id="ways" aria-label="Four ways to gather" className="scroll-mt-20 bg-[#F7F4E9]">
+      <nav id="ways" aria-label={`${count === "four" ? "Four" : "Three"} ways to gather`} className="scroll-mt-20 bg-[#F7F4E9]">
         <div className="mx-auto max-w-6xl px-6 pb-10 md:pb-20">
           <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-1">
-            <p className={`${eyebrow} text-[#4A776D]`}>Four ways to gather</p>
+            <p className={`${eyebrow} text-[#4A776D]`}>{count === "four" ? "Four" : "Three"} ways to gather</p>
             <p className="text-sm text-[#113D33]/80">From an open door to all yours</p>
           </div>
-          <ul className="mt-4 grid grid-cols-2 overflow-hidden rounded-[4px] border border-[#113D33]/15 md:grid-cols-4">
+          <ul className={`mt-4 grid overflow-hidden rounded-[4px] border border-[#113D33]/15 ${chapters.length === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-3"}`}>
             {chapters.map((c) => (
               <li key={c.id} className={c.tile}>
                 <a href={`#${c.id}`} className="group flex h-full flex-col p-4 md:p-6">
@@ -273,7 +299,7 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
               <EventRoomDiagram kind={c.kind} accent={c.accent} className="mx-auto h-52 w-auto md:h-[400px]" />
             </div>
             <div className={`md:col-span-6 ${i % 2 ? "md:order-1 md:col-start-1" : "md:col-start-7"}`}>
-              <p className={`${eyebrow} ${c.eyebrowColor}`}>0{i + 1} of 04</p>
+              <p className={`${eyebrow} ${c.eyebrowColor}`}>0{i + 1} of 0{chapters.length}</p>
               <h2 className="mt-3 text-[38px] leading-[1.05] md:mt-4 md:text-6xl">{c.name}</h2>
               <p className="cf-title mt-2 text-2xl md:mt-3 md:text-3xl">{c.tagline}</p>
               <p className={`mt-3 max-w-lg text-base leading-normal md:mt-5 md:text-lg md:leading-relaxed ${c.muted}`}>{c.body}</p>
@@ -302,6 +328,54 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
         </section>
       ))}
 
+      {/* ===== Larimer only: the bridal menu and what's outside the door ===== */}
+      {!isClub && (
+        <section className="bg-[#EBE4D1] py-12 md:py-24">
+          <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-16">
+            <div>
+              <p className={`${eyebrow} text-[#2F5D50]`}>Bridal parties</p>
+              <h2 className="mt-3 text-[34px] leading-[1.08] md:mt-4 md:text-5xl">A suggested menu</h2>
+              <dl className="mt-5 md:mt-8">
+                {[
+                  { who: "The bride", what: "The Glow Getter Hydration Facial for a dewy, photo-ready finish, or a Salt Stone Massage to melt away wedding-planning stress." },
+                  { who: "The bridal party", what: "The Signature Massage (light to medium pressure) or the Signature Facial, our most-booked group treatments and easy to schedule back to back." },
+                  { who: "Everyone, together", what: "The Remedy Room, a 40-minute circuit with sauna, cold plunge, compression therapy and LED light therapy. It\u2019s the part of the day groups do together." },
+                  { who: "Mother of the bride", what: "The Forever Young Anti-Aging Facial, for firmer, smoother-looking skin." },
+                  { who: "A mom-to-be", what: "The Maternity Massage (second trimester and later) or a pregnancy-safe facial." },
+                ].map((row) => (
+                  <div key={row.who} className="grid gap-1 border-t border-[#113D33]/25 py-3 md:grid-cols-[180px_minmax(0,1fr)] md:gap-6 md:py-4">
+                    <dt className="cf-label text-base md:text-lg">{row.who}</dt>
+                    <dd className="text-[15px] leading-snug text-[#113D33]/85 md:text-base md:leading-normal">{row.what}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-4 text-sm text-[#113D33]/85">
+                Planning skincare before the big day? See our{" "}
+                <Link href="/blog/bridal-skincare" className="underline underline-offset-4">bridal skincare timeline</Link>
+                , or read the{" "}
+                <Link href="/blog/bachelorette-spa-day" className="underline underline-offset-4">bachelorette planning guide</Link>.
+              </p>
+            </div>
+            <div className="md:border-l md:border-[#113D33]/20 md:pl-12">
+              <p className={`${eyebrow} text-[#2F5D50]`}>After the spa</p>
+              <h2 className="mt-3 text-[34px] leading-[1.08] md:mt-4 md:text-5xl">Dinner is next door.</h2>
+              <p className="mt-3 text-[15px] leading-snug text-[#113D33]/85 md:mt-5 md:text-base md:leading-relaxed">
+                Walk out the front door onto Larimer Square, steps from Rioja, Tamayo, Corridor 44 and more. No rideshare to coordinate.
+              </p>
+              <p className="mt-5 border-t border-[#113D33]/25 pt-4 text-[15px] leading-snug text-[#113D33]/85 md:text-base">
+                <span className="cf-label block text-[#113D33]">Parking</span>
+                Larimer Square Garage, 1422 Market St. We validate the 1st hour on weekdays.{" "}
+                <Link href="/faq/larimer" className="underline underline-offset-4">Parking details</Link>
+              </p>
+              <p className="mt-4 border-t border-[#113D33]/25 pt-4 text-[15px] leading-snug text-[#113D33]/85 md:text-base">
+                <span className="cf-label block text-[#113D33]">Gift cards for the group</span>
+                <Link href="/locations/denver-larimer/gift-cards" className="underline underline-offset-4">Sway gift cards</Link> let everyone book their own treatment and time.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ===== The space ===== */}
       <section className="bg-[#F7F4E9] py-12 md:py-28">
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-6 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-20">
@@ -318,7 +392,7 @@ export default function ClubEventsPage({ clubKey }: { clubKey: ClubLocationKey }
           <div>
             <p className={`${eyebrow} text-[#4A776D]`}>The space</p>
             <h2 className="mt-3 text-[32px] leading-[1.1] md:mt-4 md:text-5xl">Gather somewhere that helps everyone unwind.</h2>
-            <p className="mt-3 text-base leading-normal text-[#113D33]/85 md:mt-5 md:text-lg md:leading-relaxed">{founding.lounge}</p>
+            <p className="mt-3 text-base leading-normal text-[#113D33]/85 md:mt-5 md:text-lg md:leading-relaxed">{cfg.spaceLine}</p>
             <p className="mt-3 text-sm text-[#113D33]/80">{cfg.address}</p>
             <Link href={base} className="sway-text-link mt-3">
               More about {short} <span aria-hidden="true"><ArrowMark /></span>

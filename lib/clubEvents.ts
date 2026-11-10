@@ -1,16 +1,25 @@
 /**
- * Events pages for the Sway clubs (RiNo + Central Park). Copy comes from Mackenzie's "Sway Event
+ * Events pages for each Sway location: /locations/{slug}/events (Larimer, RiNo, Central Park), plus the
+ * /group-events page that helps guests pick a location. Copy comes from Mackenzie's "Sway Event
  * Structure" doc, Emily's 10/23 brief and the inquiry form. Keep the option names matched to the form.
  *
- * UPCOMING: add a real, dated event here and an "On the calendar" section appears on that club's
+ * Larimer is the full spa, so its page leads with Spalebrations and has treatments now. The clubs have
+ * the Remedy Lounge now and massage and facials soon, plus Community Events. Larimer has no Community
+ * Events section: its Remedy Room is a small shared circuit, not a lounge for a run club.
+ *
+ * UPCOMING: add a real, dated event here and an "On the calendar" section appears on that location's
  * page. It stays hidden while the list is empty, so the page never shows an empty calendar. Member
  * and public rates are only shown once the team has set them for that event.
  */
 
 import type { Metadata } from "next";
 import { CLUB_FOUNDING } from "./clubFounding";
-import type { ClubLocationKey } from "./clubLocations";
+import { CLUB_LOCATIONS, type ClubLocationKey } from "./clubLocations";
 import type { EventFormLocation } from "./eventInquiry";
+
+export type EventsKey = ClubLocationKey | "denver-larimer";
+
+export const isClubEvents = (key: EventsKey): key is ClubLocationKey => key !== "denver-larimer";
 
 export type UpcomingEvent = {
   /** How the date reads on the page, like "Thursday, December 4, 6:30 PM". */
@@ -25,20 +34,58 @@ export type UpcomingEvent = {
 
 type Photo = { src: string; alt: string; position: string; width: number; height: number };
 
-export const CLUB_EVENTS: Record<
-  ClubLocationKey,
-  {
-    formLocation: EventFormLocation;
-    neighborhood: string;
-    /** "in the neighborhood" wording for search titles. */
-    seoPlace: string;
-    address: string;
-    hero: Photo;
-    space: Photo;
-    upcoming: UpcomingEvent[];
-  }
-> = {
+type EventsConfig = {
+  shortName: string;
+  formLocation: EventFormLocation;
+  neighborhood: string;
+  /** "in the neighborhood" wording for search titles. */
+  seoPlace: string;
+  address: string;
+  phone: string;
+  email: string;
+  /** One line about the space, under "The space". */
+  spaceLine: string;
+  hero: Photo;
+  space: Photo;
+  upcoming: UpcomingEvent[];
+};
+
+const club = (key: ClubLocationKey) => ({
+  shortName: CLUB_FOUNDING[key].shortName,
+  phone: CLUB_LOCATIONS[key].phone,
+  email: CLUB_LOCATIONS[key].contactEmail,
+  spaceLine: CLUB_FOUNDING[key].lounge,
+});
+
+export const CLUB_EVENTS: Record<EventsKey, EventsConfig> = {
+  "denver-larimer": {
+    shortName: "Sway Larimer",
+    formLocation: "Sway Larimer",
+    neighborhood: "Larimer Square",
+    seoPlace: "Larimer Square, Denver",
+    address: "1428 Larimer St., Denver, CO 80202",
+    phone: "(303) 476-6150",
+    email: "contact@swaywellnessspa.com",
+    spaceLine:
+      "Massage, facials, the Remedy Room and Aescape, all under one roof on Larimer Square. Dinner and drinks are right outside the door.",
+    hero: {
+      src: "/assets/homepage_photo_outside.jpg",
+      alt: "The lantern-lit hallway at Sway Larimer on Larimer Square",
+      position: "48% 50%",
+      width: 1070,
+      height: 788,
+    },
+    space: {
+      src: "/assets/founding-massage-lamp.jpg",
+      alt: "A massage in a warm, lamp-lit treatment room",
+      position: "50% 50%",
+      width: 2200,
+      height: 1466,
+    },
+    upcoming: [],
+  },
   "denver-rino": {
+    ...club("denver-rino"),
     formLocation: "Sway RiNo",
     neighborhood: "the RiNo Art District",
     seoPlace: "RiNo, Denver",
@@ -60,6 +107,7 @@ export const CLUB_EVENTS: Record<
     upcoming: [],
   },
   "denver-central-park": {
+    ...club("denver-central-park"),
     formLocation: "Sway Central Park",
     neighborhood: "Central Park",
     seoPlace: "Central Park, Denver",
@@ -82,8 +130,36 @@ export const CLUB_EVENTS: Record<
   },
 };
 
-export function clubEventFaqs(clubKey: ClubLocationKey): { q: string; a: string }[] {
-  const { shortName, opensLabel } = CLUB_FOUNDING[clubKey];
+export function clubEventFaqs(key: EventsKey): { q: string; a: string }[] {
+  if (!isClubEvents(key)) {
+    return [
+      {
+        q: "Can I host a group spa day at Sway Larimer?",
+        a: "Yes. Spalebrations are our group spa celebrations for 4 or more guests, and Luxury Buyouts give groups of 20 or more private or exclusive use of designated spaces. Send us the details on the inquiry form, or call (303) 476-6150.",
+      },
+      {
+        q: "How much does a group spa day cost?",
+        a: "Spalebrations use standard treatment pricing. Massage and facials start at $139 per person ($99 for members), the Remedy Room is $49 ($25 for members), and Aescape robot massage starts at $49. Luxury Buyouts are priced for your event.",
+      },
+      {
+        q: "How long does a group visit take?",
+        a: "Everyone gets a treatment, and we rotate small groups through the treatment rooms and the Remedy Room. A party of 8 to 9 usually takes about 2 to 3 hours.",
+      },
+      {
+        q: "Do you have a bridal party package?",
+        a: "Most bridal groups book one treatment each plus the Remedy Room together. Our suggested menu is on this page, and we'll tailor it to your group.",
+      },
+      {
+        q: "Where do we park?",
+        a: "Park at the Larimer Square Garage, 1422 Market St. We validate the 1st hour on weekdays. Sway is also a short walk from Union Station.",
+      },
+      {
+        q: "I run sound baths, workshops or talks. Can I host one at Sway?",
+        a: "We'd love to hear about it. Choose Host or Partner With Sway on the inquiry form, and tell us the topic and who would lead it.",
+      },
+    ];
+  }
+  const { shortName, opensLabel } = CLUB_FOUNDING[key];
   return [
     {
       q: `Can I host a private event at ${shortName}?`,
@@ -112,20 +188,45 @@ export function clubEventFaqs(clubKey: ClubLocationKey): { q: string; a: string 
   ];
 }
 
-const pageUrl = (clubKey: ClubLocationKey) => `https://swaywellnessspa.com/locations/${clubKey}/events/`;
+/** /group-events: the questions people ask before they've picked a location. */
+export function groupHubFaqs(): { q: string; a: string }[] {
+  return [
+    {
+      q: "Can I host a group event at Sway?",
+      a: "Yes, at all three Denver locations: Sway Larimer on Larimer Square, Sway RiNo and Sway Central Park. Each has its own events page and an inquiry form that goes straight to that location's team.",
+    },
+    {
+      q: "Which Sway location is best for a group spa day?",
+      a: `Sway Larimer has massage, facials, the Remedy Room and Aescape robot massage today. Sway RiNo and Sway Central Park have the Remedy Lounge (saunas, cold plunge and compression therapy) now, with massage and facials starting ${CLUB_FOUNDING["denver-rino"].opensLabel} at RiNo and ${CLUB_FOUNDING["denver-central-park"].opensLabel} at Central Park.`,
+    },
+    {
+      q: "How much does a group spa day cost?",
+      a: "Group spa days use standard pricing. At Sway Larimer, massage and facials start at $139 per person ($99 for members) and the Remedy Room is $49. A Remedy Lounge session at RiNo or Central Park is $49 drop-in. Private events and buyouts are priced for your event.",
+    },
+    {
+      q: "Do you host corporate events?",
+      a: "Yes. Luxury Buyouts give corporate groups, executive retreats and client appreciation events private or exclusive use of designated spaces, with options like chair massage, sound baths, live music, catering and a mocktail or cocktail bar.",
+    },
+  ];
+}
 
-export function clubEventsMetadata(clubKey: ClubLocationKey): Metadata {
-  const { shortName } = CLUB_FOUNDING[clubKey];
-  const { seoPlace, hero } = CLUB_EVENTS[clubKey];
-  const title = `Private Events & Group Spa Parties in ${seoPlace} | ${shortName}`;
-  const description = `Host a run club, a workshop, a birthday, a bridal party or a private corporate event at ${shortName}. Four ways to gather, from community nights to luxury buyouts.`;
+const pageUrl = (key: EventsKey) => `https://swaywellnessspa.com/locations/${key}/events/`;
+
+export function clubEventsMetadata(key: EventsKey): Metadata {
+  const { shortName, seoPlace, hero } = CLUB_EVENTS[key];
+  const title = isClubEvents(key)
+    ? `Private Events & Group Spa Parties in ${seoPlace} | ${shortName}`
+    : `Group Spa Days, Bridal Parties & Private Events on ${seoPlace} | ${shortName}`;
+  const description = isClubEvents(key)
+    ? `Host a run club, a workshop, a birthday, a bridal party or a private corporate event at ${shortName}. Four ways to gather, from community nights to luxury buyouts.`
+    : `Plan a birthday, bridal party, bachelorette or corporate event at ${shortName}. Massage, facials, the Remedy Room and Aescape for groups, steps from dinner on Larimer Square.`;
   return {
     title: { absolute: title },
     description,
-    alternates: { canonical: pageUrl(clubKey) },
+    alternates: { canonical: pageUrl(key) },
     openGraph: {
       type: "website",
-      url: pageUrl(clubKey),
+      url: pageUrl(key),
       title,
       description,
       siteName: "Sway Wellness Spa",
@@ -134,8 +235,8 @@ export function clubEventsMetadata(clubKey: ClubLocationKey): Metadata {
   };
 }
 
-export function clubEventsJsonLd(clubKey: ClubLocationKey): string {
-  const { shortName } = CLUB_FOUNDING[clubKey];
+export function clubEventsJsonLd(key: EventsKey): string {
+  const { shortName } = CLUB_EVENTS[key];
   const data = [
     {
       "@context": "https://schema.org",
@@ -143,14 +244,14 @@ export function clubEventsJsonLd(clubKey: ClubLocationKey): string {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://swaywellnessspa.com/" },
         { "@type": "ListItem", position: 2, name: "Locations", item: "https://swaywellnessspa.com/locations/" },
-        { "@type": "ListItem", position: 3, name: shortName, item: `https://swaywellnessspa.com/locations/${clubKey}/` },
-        { "@type": "ListItem", position: 4, name: "Events", item: pageUrl(clubKey) },
+        { "@type": "ListItem", position: 3, name: shortName, item: `https://swaywellnessspa.com/locations/${key}/` },
+        { "@type": "ListItem", position: 4, name: "Events", item: pageUrl(key) },
       ],
     },
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: clubEventFaqs(clubKey).map((f) => ({
+      mainEntity: clubEventFaqs(key).map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },

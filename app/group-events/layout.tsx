@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { groupHubFaqs } from "@/lib/clubEvents";
 
 export const metadata: Metadata = {
   title: { absolute: "Group Events & Spa Parties in Denver | Sway Wellness Spa" },
   description:
-    "Host your bachelorette party, birthday celebration, corporate wellness event, or group spa day at Sway on Larimer Square in Denver. Massage, facials, and Remedy Room recovery for groups.",
+    "Bachelorette parties, birthdays, corporate events and group spa days at three Denver locations: Sway Larimer on Larimer Square, Sway RiNo and Sway Central Park.",
   alternates: {
     canonical: "https://swaywellnessspa.com/group-events/",
   },
   openGraph: {
     title: "Group Events & Spa Parties | Sway Wellness Spa",
     description:
-      "Bachelorette parties, birthdays, corporate wellness, and group spa days at Sway on Larimer Square in Denver.",
+      "Bachelorette parties, birthdays, corporate events and group spa days at Sway in Larimer Square, RiNo and Central Park.",
     url: "https://swaywellnessspa.com/group-events/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Group Events & Spa Parties | Sway Wellness Spa",
     description:
-      "Bachelorette parties, birthdays, corporate wellness, and group spa days at Sway on Larimer Square.",
+      "Bachelorette parties, birthdays, corporate events and group spa days at three Denver locations.",
     images: ["/assets/homepage_photo_outside.jpg"],
   },
   robots: { index: true, follow: true },
@@ -37,48 +38,11 @@ export const metadata: Metadata = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Can I host a group event at Sway Wellness Spa?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Sway Wellness Spa on Larimer Square in Denver hosts group events including bachelorette parties, birthday celebrations, corporate wellness outings, and private spa days. Contact the team at contact@swaywellnessspa.com or (303) 476-6150 to plan your event.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Does Sway offer bachelorette spa packages in Denver?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Sway is ideal for bachelorette spa days in Denver. Groups can book massage, facials, and the Remedy Room recovery circuit (sauna, cold plunge, compression therapy, LED light therapy). Located on Larimer Square, it's easy to continue the celebration at nearby restaurants and bars. Book online or contact the team for group coordination.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How much does a group spa day at Sway cost?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Individual treatments at Sway start at $99 (member) / $139 (drop-in) for an Essential tier massage, with Premier ($129/$169) and Ultimate ($159/$199) tiers available. The Remedy Room is $25 (member) / $49 (drop-in). Group pricing depends on the size of your party and treatments selected. Contact Sway at (303) 476-6150 or contact@swaywellnessspa.com for group coordination.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can I host a corporate wellness event at Sway?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Sway hosts corporate wellness events and team outings. Offerings include massage, facials, Aescape AI-powered robot massage, and the Remedy Room recovery circuit. Sway is located on Larimer Square in downtown Denver, making it easy to combine with team dinners. Contact contact@swaywellnessspa.com to plan.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Where is Sway located for group events?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Sway Wellness Spa is at 1428 Larimer St. on Larimer Square in downtown Denver, CO 80202. It's walkable from Union Station, surrounded by restaurants and bars, and validates parking for the first hour on weekdays at the Larimer Square Parking Garage.",
-      },
-    },
-  ],
+  mainEntity: groupHubFaqs().map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 };
 
 const breadcrumbJsonLd = {

@@ -360,7 +360,7 @@ export default function SwayLarimerPage() {
               bachelorette and group spa packages
             </Link>{" "}
             or{" "}
-            <Link href="/group-events" className="underline underline-offset-4">
+            <Link href="/locations/denver-larimer/events" className="underline underline-offset-4">
               plan a group event
             </Link>
             .
