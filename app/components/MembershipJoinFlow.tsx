@@ -19,7 +19,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useFlowTrack } from "@/lib/ops/client";
+import { useFlowTrack, trackStep } from "@/lib/ops/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Lock, X } from "lucide-react";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
@@ -203,6 +203,16 @@ export default function MembershipJoinFlow({
   const [error, setError] = useState<string | null>(null);
   // First-party funnel (lib/ops): each step + the plan + errors shown + monthly price at done.
   useFlowTrack("membership", step, plan.key, error, plan.price);
+  // Came from booking's "Become a member" (sessionStorage flag set on the booking page):
+  // counted when the checkout opens, and again if the join completes. Tracking only.
+  const fromBookingRef = useRef(false);
+  useEffect(() => {
+    try {
+      fromBookingRef.current = sessionStorage.getItem("sway_join_from") === "booking";
+    } catch {}
+    if (fromBookingRef.current) trackStep("membership", "from-booking", plan.key);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     loadingRef.current = loading;
@@ -774,6 +784,12 @@ export default function MembershipJoinFlow({
             value: plan.price,
             currency: "USD",
           });
+        }
+        if (fromBookingRef.current) {
+          trackStep("membership", "joined-from-booking", plan.key);
+          try {
+            sessionStorage.removeItem("sway_join_from");
+          } catch {}
         }
       }
       setStep("done");

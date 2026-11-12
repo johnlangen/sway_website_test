@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useFlowTrack } from "@/lib/ops/client";
+import { useFlowTrack, trackStep } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Link from "next/link";
@@ -20,6 +20,14 @@ import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import { useDialogA11y } from "@/lib/useDialogA11y";
 import { readGclid } from "@/lib/gclid";
+
+/** "Become a member" from booking: count the tap, and flag the tab so the join can be credited to booking. */
+function markJoinFromBooking(step: "join-welcome" | "join-click") {
+  trackStep("service", step);
+  try {
+    sessionStorage.setItem("sway_join_from", "booking");
+  } catch {}
+}
 
 /* ================================================================
    NEW TIER-AWARE BOOKING FLOW
@@ -1368,6 +1376,12 @@ export default function NewBookingFlow() {
                         Continue as guest
                       </button>
                     </div>
+                    <p className="text-center text-sm text-[#113D33]/75">
+                      Not a member yet?{" "}
+                      <Link href="/locations/denver-larimer/membership/?from=booking" onClick={() => markJoinFromBooking("join-click")} className="font-semibold text-[#4A776D] underline underline-offset-2">
+                        Join a membership
+                      </Link>
+                    </p>
                   </div>
                 ) : (
                   <div className="p-6 space-y-3">
@@ -1397,6 +1411,23 @@ export default function NewBookingFlow() {
                 <h2 className="text-lg font-bold text-[#113D33] mb-1">Continue as Guest</h2>
                 <p className="text-sm text-[#113D33]/75">Browse treatments &amp; book your visit</p>
               </button>
+
+              {/* A third way in, as on the Spavia site (John 11/12). Counted as the service flow's
+                  join-welcome step; the membership checkout then reports from-booking and
+                  joined-from-booking (sessionStorage flag). */}
+              {!welcomeShowEmail && (
+                <Link
+                  href="/locations/denver-larimer/membership/?from=booking"
+                  onClick={() => markJoinFromBooking("join-welcome")}
+                  className="sm:col-span-2 flex items-center justify-between gap-4 rounded-2xl border border-[#113D33]/15 bg-[#113D33]/[0.04] px-6 py-4 text-left transition-colors hover:bg-[#113D33]/[0.08]"
+                >
+                  <span>
+                    <span className="block text-base font-bold text-[#113D33]">Become a member</span>
+                    <span className="block text-sm text-[#113D33]/75">A massage or facial every month, from $99/mo</span>
+                  </span>
+                  <svg aria-hidden="true" className="w-5 h-5 shrink-0 text-[#4A776D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </Link>
+              )}
             </div>
 
             {/* Phone CTA */}
