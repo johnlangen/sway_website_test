@@ -2203,7 +2203,7 @@ export default function NewBookingFlow() {
               <>
                 <div className="text-center pt-4">
                   <h2 className="text-2xl font-bold text-[#113D33]">Almost there!</h2>
-                  <p className="mt-2 text-sm text-[#113D33]/75">Enter your email to complete your booking.</p>
+                  <p className="mt-2 text-sm text-[#113D33]/75">{waitlistMode ? "Enter your email to join the waitlist." : "Enter your email to complete your booking."}</p>
                 </div>
 
                 {/* Service recap */}
@@ -2291,7 +2291,7 @@ export default function NewBookingFlow() {
         {/* ===== CONFIRM ===== */}
         {step === "confirm" && selectedTreatment && selectedSlot && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <div className="text-center pt-4"><h2 className="text-2xl font-bold text-[#113D33]">Confirm your booking</h2></div>
+            <div className="text-center pt-4"><h2 className="text-2xl font-bold text-[#113D33]">{waitlistMode ? "Join the waitlist" : "Confirm your booking"}</h2></div>
             <div className="bg-white border border-[#113D33]/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {/* Service image header */}
               <div className="relative h-44 w-full overflow-hidden">
@@ -2329,7 +2329,7 @@ export default function NewBookingFlow() {
                   <div className="rounded-xl bg-[#113D33]/[0.04] p-4 text-sm text-[#113D33]/85 leading-relaxed space-y-2" data-track="waitlist-how">
                     <p className="font-semibold text-[#113D33]">How the waitlist works</p>
                     <p>If someone cancels, we text everyone on the waitlist for that day. The first to reply gets the spot and is booked automatically.</p>
-                    <p>Nothing is booked or charged when you join. Your card is only held once you&apos;re booked, the same as any appointment.</p>
+                    <p>Nothing is booked or charged when you join. Once you claim a spot, it&apos;s a regular appointment and our usual cancellation policy applies.</p>
                     {selectedBoosts.length > 0 && <p>Boosts are added once you&apos;re booked. We&apos;ve noted the ones you picked.</p>}
                   </div>
                 ) : (<>
