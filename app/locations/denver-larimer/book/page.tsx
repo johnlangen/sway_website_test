@@ -56,7 +56,8 @@ type Step =
   | "name"
   | "confirm"
   | "booking"
-  | "done";
+  | "done"
+  | "waitlisted";
 
 type Category = "massage" | "facial";
 type MembershipTier = "essential" | "premier" | "ultimate" | null;
@@ -310,7 +311,7 @@ function ProgressBarNew({ step }: { step: Step }) {
     name: 4,
     confirm: 5,
   };
-  if (step === "welcome" || step === "booking" || step === "done") return null;
+  if (step === "welcome" || step === "booking" || step === "done" || step === "waitlisted") return null;
   const displayIdx = stepToIdx[step] ?? 0;
   const pct = ((displayIdx + 1) / displaySteps.length) * 100;
   return (
@@ -433,6 +434,13 @@ export default function NewBookingFlow() {
   const [selectedDate, setSelectedDate] = useState(formatISO(today));
   const [slots, setSlots] = useState<DisplaySlot[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<DisplaySlot | null>(null);
+  /* Waitlist (John 11/16): on a fully booked day the guest can join Mindbody's appointment
+     waitlist for that day instead of picking a time. They go through the same account and card
+     steps; the last step calls /api/service/waitlist instead of booking. selectedSlot then holds
+     a placeholder (noon, the filtered specialist or none) so those steps work unchanged; every
+     place that shows a time checks waitlistMode first. Larimer has First to Claim on, so a
+     cancellation texts everyone waiting and the first to reply "11" is booked. */
+  const [waitlistMode, setWaitlistMode] = useState(false);
   const [filteredTherapist, setFilteredTherapist] = useState<number | null>(null);
   const [allTherapists, setAllTherapists] = useState<{ id: number; name: string }[]>([]);
 
@@ -894,8 +902,8 @@ export default function NewBookingFlow() {
   };
   const handleBoostsContinue = () => { window.dataLayer?.push({ event: "booking_boosts_done", booking_flow: category, boosts: selectedBoosts.map((b) => b.name) }); setStep("time"); };
 
-  const handleTimeContinue = () => {
-    if (!selectedSlot) return;
+  const handleTimeContinue = (forWaitlist = false) => {
+    if (!selectedSlot && !forWaitlist) return;
     window.dataLayer?.push({ event: "booking_time_selected", booking_flow: category, booking_date: selectedDate });
     // Stub returning client (clientId but blank name) — collect name before
     // anything else. Defense against booking under a nameless profile, which
@@ -933,6 +941,29 @@ export default function NewBookingFlow() {
     setCardContext(null);
     setStep("account");
   };
+
+  /* Waitlist entry point (full day): placeholder slot, then the normal account / card path. */
+  const startWaitlist = () => {
+    if (!selectedTreatment) return;
+    trackStep("service", "waitlist-start", `${category}-${selectedTreatment.id}`);
+    window.dataLayer?.push({ event: "booking_waitlist_start", booking_flow: category, booking_date: selectedDate });
+    setWaitlistMode(true);
+    setSelectedSlot({
+      startDateTime: `${selectedDate}T12:00:00`,
+      staffId: filteredTherapist,
+      staffName: filteredTherapist !== null ? allTherapists.find((t) => t.id === filteredTherapist)?.name ?? null : null,
+      availableResourceIds: [],
+    });
+    handleTimeContinue(true);
+  };
+  // Back on the time step means the guest is choosing again: drop the placeholder.
+  useEffect(() => {
+    if (step === "time" && waitlistMode) {
+      setWaitlistMode(false);
+      setSelectedSlot(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   // Account step: email check + card handling
   const handleAccountEmailSubmit = async () => {
@@ -1202,6 +1233,31 @@ export default function NewBookingFlow() {
     finally { bookingLock.current = false; }
   };
 
+  /* Waitlist: same last step as a booking, but joins Mindbody's appointment waitlist for the
+     day (no time, no boosts, nothing booked or charged). See app/api/service/waitlist. */
+  const handleJoinWaitlist = async () => {
+    if (bookingLock.current || !selectedTreatment || !clientId) return;
+    bookingLock.current = true;
+    setStep("booking"); setError(null);
+    try {
+      const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(" ") || email.trim() || "(unknown)";
+      const joinedAt = new Date().toLocaleString("en-US", { timeZone: "America/Denver", month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
+      const notes = [
+        `Website waitlist: ${fullName} \u00B7 ${joinedAt} MT`,
+        selectedBoosts.length ? `Wanted boosts: ${selectedBoosts.map((b) => b.name).join(", ")}` : "",
+      ].filter(Boolean).join(" | ");
+      const res = await fetch("/api/service/waitlist", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientId, sessionTypeId: selectedTreatment.id, date: selectedDate, staffId: filteredTherapist, notes }) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error ?? "We couldn't add you to the waitlist just now.");
+      window.dataLayer?.push({ event: "booking_waitlist_joined", booking_flow: category, service_name: selectedTreatment.name, booking_date: selectedDate, is_member: isMember });
+      setStep("waitlisted");
+    } catch (e: any) {
+      setError(`${e?.message || "We couldn't add you to the waitlist just now."} Call (303) 476-6150 and we'll add you.`);
+      setStep("confirm");
+    } finally { bookingLock.current = false; }
+  };
+
   const handleBack = () => {
     setError(null);
     if (step === "account" && cardContext) {
@@ -1243,7 +1299,7 @@ export default function NewBookingFlow() {
           locals/first-visit-only) once a guest is in the funnel. Restored on unmount. */}
       <HideFloatingWidgets />
       {/* Sticky header — matches book-service: top-[56px] to sit below nav */}
-      {step !== "welcome" && step !== "done" && (
+      {step !== "welcome" && step !== "done" && step !== "waitlisted" && (
         <div
           data-booking-header="true"
           className="sticky top-[56px] z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
@@ -1272,8 +1328,8 @@ export default function NewBookingFlow() {
                  step === "time" ? "Pick your specialist & time" :
                  step === "account" ? (cardContext ? (cardContext === "create_account" ? "Create your account" : "Payment details") : "Your account") :
                  step === "name" ? "Confirm your name" :
-                 step === "confirm" ? "Review and confirm" :
-                 step === "booking" ? "Booking your appointment" : ""}
+                 step === "confirm" ? (waitlistMode ? "Join the waitlist" : "Review and confirm") :
+                 step === "booking" ? (waitlistMode ? "Joining the waitlist" : "Booking your appointment") : ""}
               </div>
               <span className="w-16" />
             </div>
@@ -2040,6 +2096,21 @@ export default function NewBookingFlow() {
                 onJumpToDate={(d) => { setSelectedDate(d); const jumpDate = new Date(d + "T12:00:00"); jumpDate.setHours(0,0,0,0); setWeekStart(jumpDate); }}
               />
             )}
+            {/* Waitlist on a full day (see startWaitlist). Not for maternity: that booking has its own trimester check. */}
+            {!loading && !(totalExtMinutes > 0 && !schedulesLoaded) && displayedSlots.length === 0 && selectedTreatment && !/maternity/i.test(selectedTreatment.name) && (
+              <div className="rounded-2xl border border-[#113D33]/15 bg-white p-5 text-left shadow-sm" data-track="waitlist-card">
+                <p className="text-[10px] uppercase tracking-wider font-semibold text-[#4A776D]">Fully booked {fallbackDayLabel}</p>
+                <h3 className="mt-1 text-lg font-bold text-[#113D33]">Join the waitlist</h3>
+                <p className="mt-1 text-sm text-[#113D33]/80 leading-relaxed">
+                  If a {selectedTreatment.name.replace(/^(Essential|Premier|Ultimate) /, "")} opens up {fallbackDayLabel}
+                  {filteredTherapist !== null && allTherapists.find((t) => t.id === filteredTherapist) ? ` with ${allTherapists.find((t) => t.id === filteredTherapist)!.name}` : ""}, we&apos;ll text you.
+                  Reply to claim it and you&apos;re booked. No charge to join.
+                </p>
+                <button onClick={startWaitlist} className="mt-4 w-full rounded-full bg-[#113D33] py-3 text-sm font-semibold text-white transition hover:bg-[#0e3029] focus:outline-none focus:ring-2 focus:ring-[#113D33]/40">
+                  Join the waitlist for {fallbackDayLabel}
+                </button>
+              </div>
+            )}
             {/* Aescape fallback on a full day: real times, one tap (see aescapeFallbackCard) */}
             {!loading && displayedSlots.length === 0 && aescapeFallbackCard}
             {/* Slots */}
@@ -2085,7 +2156,7 @@ export default function NewBookingFlow() {
               </div>
             )}
 
-            {selectedSlot && <button onClick={handleTimeContinue} className={primaryBtn}>Continue</button>}
+            {selectedSlot && <button onClick={() => handleTimeContinue()} className={primaryBtn}>Continue</button>}
           </motion.div>
         )}
 
@@ -2144,7 +2215,7 @@ export default function NewBookingFlow() {
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
                       <p className="text-xs text-[#113D33]/75">
-                        {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {formatTime12h(selectedSlot.startDateTime)}
+                        {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {waitlistMode ? "Waitlist, any time that day" : formatTime12h(selectedSlot.startDateTime)}
                       </p>
                     </div>
                   </div>
@@ -2233,7 +2304,7 @@ export default function NewBookingFlow() {
               </div>
 
               <div className="p-5 text-left space-y-4">
-                {selectedBoosts.length > 0 && (
+                {selectedBoosts.length > 0 && !waitlistMode && (
                   <div>
                     <p className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">Boosts</p>
                     {selectedBoosts.map((b) => <p key={b.id} className="text-sm text-[#113D33]/75">+ {b.name}</p>)}
@@ -2250,10 +2321,18 @@ export default function NewBookingFlow() {
                 <div>
                   <p className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">When</p>
                   <p className="text-sm font-medium text-[#113D33]">
-                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
+                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {waitlistMode ? "Waitlist, any time that day" : formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
                   </p>
                 </div>
 
+                {waitlistMode ? (
+                  <div className="rounded-xl bg-[#113D33]/[0.04] p-4 text-sm text-[#113D33]/85 leading-relaxed space-y-2" data-track="waitlist-how">
+                    <p className="font-semibold text-[#113D33]">How the waitlist works</p>
+                    <p>If someone cancels, we text everyone on the waitlist for that day. The first to reply gets the spot and is booked automatically.</p>
+                    <p>Nothing is booked or charged when you join. Your card is only held once you&apos;re booked, the same as any appointment.</p>
+                    {selectedBoosts.length > 0 && <p>Boosts are added once you&apos;re booked. We&apos;ve noted the ones you picked.</p>}
+                  </div>
+                ) : (<>
                 <div className="pt-3 border-t border-[#113D33]/10 space-y-2">
                   {/* Itemized pricing */}
                   {(() => {
@@ -2312,10 +2391,11 @@ export default function NewBookingFlow() {
                   <svg className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/75" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                   No charge today. Your card is stored for no-show / late cancellation protection.
                 </div>
+                </>)}
               </div>
             </div>
             {/* For someone else */}
-            <div className="bg-white rounded-2xl border border-black/5 p-6">
+            {!waitlistMode && <div className="bg-white rounded-2xl border border-black/5 p-6">
               <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={forSomeoneElse} onChange={(e) => setForSomeoneElse(e.target.checked)} className="rounded border-gray-300" /><span className="text-sm text-[#113D33]">This booking is for someone else</span></label>
               {forSomeoneElse && (
                 <div className="mt-4 space-y-3">
@@ -2325,9 +2405,18 @@ export default function NewBookingFlow() {
                   <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={isSurprise} onChange={(e) => setIsSurprise(e.target.checked)} className="rounded border-gray-300" /><span className="text-xs text-[#113D33]/75">This is a surprise. Don&apos;t contact them</span></label>
                 </div>
               )}
-            </div>
-            <button onClick={handleFinalConfirmAndBook} disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())} className={primaryBtn}>Confirm & book</button>
-            <p className="text-xs text-center text-[#113D33]/75">Your card will not be charged today. It is held to secure your appointment.</p>
+            </div>}
+            {waitlistMode ? (
+              <>
+                <button onClick={handleJoinWaitlist} className={primaryBtn}>Join the waitlist</button>
+                <p className="text-xs text-center text-[#113D33]/75">Texts go to the mobile number on your account.</p>
+              </>
+            ) : (
+              <>
+                <button onClick={handleFinalConfirmAndBook} disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())} className={primaryBtn}>Confirm & book</button>
+                <p className="text-xs text-center text-[#113D33]/75">Your card will not be charged today. It is held to secure your appointment.</p>
+              </>
+            )}
                 {category === "massage" && !/maternity/i.test(selectedTreatment?.name ?? "") && (
                   <p className="mt-2 text-xs text-[#113D33]/75">
                     Expecting? Massage is for after the first trimester.
@@ -2341,9 +2430,51 @@ export default function NewBookingFlow() {
         {step === "booking" && (
           <div className="text-center py-24">
             <div className="inline-block w-10 h-10 border-4 border-[#113D33]/20 border-t-[#113D33] rounded-full animate-spin" />
-            <p className="mt-4 text-[#113D33] font-semibold">Booking your appointment...</p>
+            <p className="mt-4 text-[#113D33] font-semibold">{waitlistMode ? "Adding you to the waitlist..." : "Booking your appointment..."}</p>
             <p className="text-sm text-[#113D33]/75 mt-1">Please don&apos;t close this page</p>
           </div>
+        )}
+
+        {/* ===== WAITLISTED ===== */}
+        {step === "waitlisted" && selectedTreatment && (
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center pt-4 space-y-6">
+            <div className="relative rounded-2xl overflow-hidden mb-8">
+              <div className="relative h-48 w-full">
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
+              </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+                <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center mb-3">
+                  <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">You&apos;re on the waitlist</h2>
+              </div>
+            </div>
+            <div className="text-left space-y-1">
+              <p className="text-[#113D33] font-semibold text-lg">{selectedTreatment.name}</p>
+              <p className="text-[#113D33]/75 text-sm">
+                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })} &middot; any time that day
+                {selectedSlot?.staffName ? ` with ${selectedSlot.staffName}` : ""}
+              </p>
+              <p className="text-[#113D33]/80 text-sm mt-4 leading-relaxed">
+                If a spot opens, we&apos;ll text the mobile number on your account. Reply to the text to claim it and you&apos;re booked. Others on the list get the same text, so reply quickly.
+              </p>
+              <p className="text-[#113D33]/75 text-sm">Nothing is booked yet, and you haven&apos;t been charged. Questions? Call (303) 476-6150.</p>
+            </div>
+            <div className="pt-2 space-y-3">
+              <button
+                onClick={() => { setWaitlistMode(false); setSelectedSlot(null); setStep("time"); }}
+                className="w-full rounded-full border border-[#113D33]/20 py-3 text-sm font-semibold text-[#113D33] hover:bg-[#113D33]/5 transition"
+              >
+                Look for another day
+              </button>
+              {category === "massage" && (
+                <Link href="/locations/denver-larimer/book-aescape" className="block w-full rounded-full bg-[#113D33] py-3 text-sm font-semibold text-white hover:bg-[#0e3029] transition">
+                  Try Aescape robot massage instead
+                </Link>
+              )}
+            </div>
+          </motion.div>
         )}
 
         {/* ===== DONE ===== */}
