@@ -335,6 +335,14 @@ function ProgressBarNew({ step }: { step: Step }) {
 const SAVED_EMAIL_KEY = "sway_booking_email";
 const SAVED_CLIENT_KEY = "sway_booking_client_id";
 
+type WaitlistTime = "any" | "morning" | "afternoon" | "evening";
+const WAITLIST_TIMES: { key: WaitlistTime; label: string; hint: string; note: string }[] = [
+  { key: "any", label: "Any time", hint: "", note: "" },
+  { key: "morning", label: "Morning", hint: "before 12", note: "Morning (before 12)" },
+  { key: "afternoon", label: "Afternoon", hint: "12 to 4", note: "Afternoon (12 to 4)" },
+  { key: "evening", label: "Evening", hint: "after 4", note: "Evening (after 4)" },
+];
+
 export default function NewBookingFlow() {
   const [step, setStep] = useState<Step>("welcome");
   // Scroll to top on step change
@@ -441,6 +449,9 @@ export default function NewBookingFlow() {
      place that shows a time checks waitlistMode first. Larimer has First to Claim on, so a
      cancellation texts everyone waiting and the first to reply "11" is booked. */
   const [waitlistMode, setWaitlistMode] = useState(false);
+  /* Preferred time of day (John 11/17). Mindbody still holds the whole day and First to Claim
+     texts about any opening, so this is a preference for the desk + demand data, not a filter. */
+  const [waitlistTime, setWaitlistTime] = useState<WaitlistTime>("any");
   const [filteredTherapist, setFilteredTherapist] = useState<number | null>(null);
   const [allTherapists, setAllTherapists] = useState<{ id: number; name: string }[]>([]);
 
@@ -948,6 +959,7 @@ export default function NewBookingFlow() {
     trackStep("service", "waitlist-start", `${category}-${selectedTreatment.id}`);
     window.dataLayer?.push({ event: "booking_waitlist_start", booking_flow: category, booking_date: selectedDate });
     setWaitlistMode(true);
+    setWaitlistTime("any");
     setSelectedSlot({
       startDateTime: `${selectedDate}T12:00:00`,
       staffId: filteredTherapist,
@@ -1258,15 +1270,17 @@ export default function NewBookingFlow() {
     try {
       const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(" ") || email.trim() || "(unknown)";
       const joinedAt = new Date().toLocaleString("en-US", { timeZone: "America/Denver", month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
+      const timeNote = WAITLIST_TIMES.find((t) => t.key === waitlistTime)?.note;
       const notes = [
         `Website waitlist: ${fullName} \u00B7 ${joinedAt} MT`,
+        timeNote ? `Prefers: ${timeNote}` : "",
         selectedBoosts.length ? `Wanted boosts: ${selectedBoosts.map((b) => b.name).join(", ")}` : "",
       ].filter(Boolean).join(" | ");
       const res = await fetch("/api/service/waitlist", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clientId, sessionTypeId: selectedTreatment.id, date: selectedDate, staffId: filteredTherapist, notes }) });
+        body: JSON.stringify({ clientId, sessionTypeId: selectedTreatment.id, date: selectedDate, staffId: filteredTherapist, timePref: waitlistTime, notes }) });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error ?? "We couldn't add you to the waitlist just now.");
-      window.dataLayer?.push({ event: "booking_waitlist_joined", booking_flow: category, service_name: selectedTreatment.name, booking_date: selectedDate, is_member: isMember });
+      window.dataLayer?.push({ event: "booking_waitlist_joined", booking_flow: category, service_name: selectedTreatment.name, booking_date: selectedDate, is_member: isMember, time_pref: waitlistTime });
       setStep("waitlisted");
     } catch (e: any) {
       setError(`${e?.message || "We couldn't add you to the waitlist just now."} Call (303) 476-6150 and we'll add you.`);
@@ -2337,9 +2351,40 @@ export default function NewBookingFlow() {
                 <div>
                   <p className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">When</p>
                   <p className="text-sm font-medium text-[#113D33]">
-                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {waitlistMode ? "Waitlist, any time that day" : formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
+                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {waitlistMode ? (waitlistTime === "any" ? "Waitlist, any time that day" : `Waitlist, ${WAITLIST_TIMES.find((t) => t.key === waitlistTime)!.label.toLowerCase()} preferred`) : formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
                   </p>
                 </div>
+
+                {waitlistMode && (
+                  <div>
+                    <p id="waitlist-time-label" className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">What time works best?</p>
+                    <div role="radiogroup" aria-labelledby="waitlist-time-label" className="mt-2 grid grid-cols-2 gap-2">
+                      {WAITLIST_TIMES.map((t) => {
+                        const on = waitlistTime === t.key;
+                        return (
+                          <button
+                            key={t.key}
+                            type="button"
+                            role="radio"
+                            aria-checked={on}
+                            data-track={`waitlist-time-${t.key}`}
+                            onClick={() => setWaitlistTime(t.key)}
+                            className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${on ? "border-[#113D33] bg-[#113D33]/[0.06] font-semibold text-[#113D33]" : "border-[#113D33]/15 bg-white text-[#113D33]/85 hover:border-[#113D33]/40"}`}
+                          >
+                            <span aria-hidden="true" className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#113D33]" : "border-[#113D33]/40"}`}>
+                              {on && <span className="h-2 w-2 rounded-full bg-[#113D33]" />}
+                            </span>
+                            <span>
+                              {t.label}
+                              {t.hint && <span className="block text-xs font-normal text-[#113D33]/70">{t.hint}</span>}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <p className="mt-2 text-xs text-[#113D33]/75">We&apos;ll still text you about any opening that day, so you can grab one outside this window too.</p>
+                  </div>
+                )}
 
                 {waitlistMode ? (
                   <div className="rounded-xl bg-[#113D33]/[0.04] p-4 text-sm text-[#113D33]/85 leading-relaxed space-y-2" data-track="waitlist-how">
@@ -2469,7 +2514,7 @@ export default function NewBookingFlow() {
             <div className="text-left space-y-1">
               <p className="text-[#113D33] font-semibold text-lg">{selectedTreatment.name}</p>
               <p className="text-[#113D33]/75 text-sm">
-                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })} &middot; any time that day
+                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })} &middot; {waitlistTime === "any" ? "any time that day" : `${WAITLIST_TIMES.find((t) => t.key === waitlistTime)!.label.toLowerCase()} preferred`}
                 {selectedSlot?.staffName ? ` with ${selectedSlot.staffName}` : ""}
               </p>
               <p className="text-[#113D33]/80 text-sm mt-4 leading-relaxed">

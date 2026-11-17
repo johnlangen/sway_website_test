@@ -55,13 +55,15 @@ if (args.includes("--waitlist")) {
   const tally = (f) => Object.entries(rows.reduce((m, row) => ((m[f(row)] = (m[f(row)] || 0) + 1), m), {})).sort((a, b) => b[1] - a[1]);
   console.log("\nby weekday wanted");
   for (const [k, n] of tally((row) => row.extra?.weekday ?? "?")) console.log(`  ${String(n).padStart(4)}  ${k}`);
+  console.log("\nby time of day wanted");
+  for (const [k, n] of tally((row) => row.extra?.time_pref ?? "any")) console.log(`  ${String(n).padStart(4)}  ${k}`);
   console.log("\nby treatment");
   for (const [k, n] of tally((row) => row.item)) console.log(`  ${String(n).padStart(4)}  ${k}`);
   console.log("\njoins (newest first)");
   for (const row of rows) {
     const x = row.extra || {};
     const src = row.last ? `${row.last.source}/${row.last.medium}` : "direct";
-    console.log(`  ${row.at.slice(0, 16)}  wants ${x.wanted_date ?? "?"} ${x.weekday ?? ""}  ${row.item}  ${x.specialist ? `staff ${x.staff_id}` : "any"}  ${x.days_out ?? "?"}d out  entry ${row.ref}  ${src}`);
+    console.log(`  ${row.at.slice(0, 16)}  wants ${x.wanted_date ?? "?"} ${x.weekday ?? ""} ${x.time_pref ?? "any"}  ${row.item}  ${x.specialist ? `staff ${x.staff_id}` : "any"}  ${x.days_out ?? "?"}d out  entry ${row.ref}  ${src}`);
   }
   process.exit(0);
 }

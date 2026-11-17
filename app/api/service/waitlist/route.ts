@@ -44,7 +44,9 @@ function denverToday(): string {
 
 export async function POST(req: Request) {
   try {
-    const { clientId, sessionTypeId, date, staffId, notes } = await req.json();
+    const { clientId, sessionTypeId, date, staffId, notes, timePref } = await req.json();
+    // Preferred time of day: stored for the desk (in notes) + demand data. Mindbody holds the whole day regardless.
+    const pref = ["morning", "afternoon", "evening"].includes(timePref) ? (timePref as string) : "any";
 
     const cid = clientId ? String(clientId) : "";
     const stid = Number(sessionTypeId);
@@ -121,6 +123,7 @@ export async function POST(req: Request) {
           specialist: sid !== null,
           ...(sid !== null ? { staff_id: sid } : {}),
           days_out: daysOut,
+          time_pref: pref,
         },
       })
     );
