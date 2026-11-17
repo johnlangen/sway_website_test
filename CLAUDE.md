@@ -42,6 +42,15 @@ If something looks odd but works — assume it is intentional.
 - Type safety > abstraction
 - Mobile UX is critical
 
+## Every change ships with tracking (John 11/17/2026)
+
+Any new feature, flow step, button, offer or page change goes out with tracking in the SAME commit, without being asked. John: "whenever we add an update we should add tracking... so we can track what is working."
+- Flow steps: `useFlowTrack(...)` / `trackStep(...)` (lib/ops), with distinct step names so a new path never inflates an existing funnel.
+- Seen vs clicked: count when the new thing is shown, not just tapped. Buttons on booking pages need `data-track="…"` to be labeled.
+- Outcomes: record the server-confirmed result with `recordCompletion(...)` (and `recordServerError(...)` on failure), keeping any data worth analyzing later (what/when people wanted) in `extra`. No names, emails or phones.
+- Add new steps to `FLOW_STEPS` in lib/ops/labels.ts, and a `scripts/ops.mjs` view if the data needs its own report.
+- Say in the commit + reply what is tracked and how to read it. GA4 dataLayer events with no GTM tag don't reach GA4: flag it.
+
 ## When You Are Unsure
 
 - Ask before changing structure

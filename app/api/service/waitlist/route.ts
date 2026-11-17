@@ -33,6 +33,8 @@ const WAITLIST_SERVICE_IDS = new Set([
   2830, 2831, 2832, 2833, 90, // Ultimate Signature / Deep Tissue / Salt Stone / Sports / Lymphatic
 ]);
 
+const FACIAL_IDS = new Set([75, 77, 78, 79, 80, 81, 82, 84, 85, 103, 104]);
+
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const MAX_DAYS_AHEAD = 60;
 
@@ -110,7 +112,16 @@ export async function POST(req: Request) {
         item: `waitlist-${stid}`,
         label: "Appointment waitlist",
         ref: data.Appointment.WaitlistEntryId,
-        extra: { specialist: sid !== null, days_out: daysOut },
+        // Kept for demand reporting (node scripts/ops.mjs --waitlist): which day, weekday and
+        // treatment people wanted. Mindbody drops the entry once it is claimed or removed.
+        extra: {
+          wanted_date: date,
+          weekday: new Date(`${date}T12:00:00Z`).toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
+          category: FACIAL_IDS.has(stid) ? "facial" : "massage",
+          specialist: sid !== null,
+          ...(sid !== null ? { staff_id: sid } : {}),
+          days_out: daysOut,
+        },
       })
     );
     console.log("[SERVICE WAITLIST] Joined", { stid, date, staff: sid ?? "any", entry: data.Appointment.WaitlistEntryId });

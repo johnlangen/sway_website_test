@@ -5,6 +5,7 @@
 //   node scripts/ops.mjs --days 28 --loc denver-rino
 //   node scripts/ops.mjs --funnel aescape      # one flow, with the option picked (e.g. Brady)
 //   node scripts/ops.mjs --clicks /aescape/brady-protocol/   # every click on one page
+//   node scripts/ops.mjs --waitlist --days 90  # Larimer appointment waitlist joins: day/treatment wanted
 //   node scripts/ops.mjs --json                # the whole report as JSON
 //   node scripts/ops.mjs --link                # the dashboard login link (prints the key: keep private)
 //
@@ -43,6 +44,25 @@ if (!res.ok) {
 const r = await res.json();
 if (args.includes("--json")) {
   console.log(JSON.stringify(r, null, 2));
+  process.exit(0);
+}
+
+if (args.includes("--waitlist")) {
+  // Successful joins only (server ledger, after Mindbody confirms). No names: match ref to the
+  // desk's Appointment Waitlist screen. The report returns the newest 200 ledger rows.
+  const rows = r.ledger.filter((row) => row.flow === "lead" && /^waitlist-/.test(row.item || ""));
+  console.log(`${r.range.from} → ${r.range.to} · waitlist joins ${rows.length}`);
+  const tally = (f) => Object.entries(rows.reduce((m, row) => ((m[f(row)] = (m[f(row)] || 0) + 1), m), {})).sort((a, b) => b[1] - a[1]);
+  console.log("\nby weekday wanted");
+  for (const [k, n] of tally((row) => row.extra?.weekday ?? "?")) console.log(`  ${String(n).padStart(4)}  ${k}`);
+  console.log("\nby treatment");
+  for (const [k, n] of tally((row) => row.item)) console.log(`  ${String(n).padStart(4)}  ${k}`);
+  console.log("\njoins (newest first)");
+  for (const row of rows) {
+    const x = row.extra || {};
+    const src = row.last ? `${row.last.source}/${row.last.medium}` : "direct";
+    console.log(`  ${row.at.slice(0, 16)}  wants ${x.wanted_date ?? "?"} ${x.weekday ?? ""}  ${row.item}  ${x.specialist ? `staff ${x.staff_id}` : "any"}  ${x.days_out ?? "?"}d out  entry ${row.ref}  ${src}`);
+  }
   process.exit(0);
 }
 
