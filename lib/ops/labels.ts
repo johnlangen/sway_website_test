@@ -12,7 +12,9 @@ export const FLOW_NAMES: Record<string, string> = {
 
 /** Step order per flow, as the guest sees them. Unknown steps are listed after these. */
 export const FLOW_STEPS: Record<string, string[]> = {
-  service: ["welcome", "category", "treatment", "boosts", "time", "account", "name", "confirm", "booking", "done"],
+  service: ["welcome", "category", "treatment", "boosts", "time", "account", "name", "confirm", "booking", "done",
+    // Larimer appointment waitlist (full day): offered → start → its own account/confirm steps → joined
+    "waitlist-offered", "waitlist-start", "wl-account", "wl-name", "wl-confirm", "wl-booking", "waitlisted"],
   aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done"],
   remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done"],
   remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done"],
@@ -85,4 +87,9 @@ export function variantLabel(v: string): string {
   if (v === "massage" || v === "facial") return `${v[0].toUpperCase()}${v.slice(1)} (no treatment yet)`;
   return SESSION_NAMES[v] ?? v;
 }
-export const itemLabel = (flow: string, item: string) => (flow === "membership" || flow === "lead" ? item : SESSION_NAMES[item] ?? item);
+export const itemLabel = (flow: string, item: string) => {
+  // Larimer appointment waitlist joins are leads with item "waitlist-<session type id>"
+  const wl = flow === "lead" ? /^waitlist-(\d+)$/.exec(item) : null;
+  if (wl) return `Waitlist · ${SESSION_NAMES[wl[1]] ?? wl[1]}`;
+  return flow === "membership" || flow === "lead" ? item : SESSION_NAMES[item] ?? item;
+};

@@ -1160,11 +1160,27 @@ export default function NewBookingFlow() {
   // First-party funnel (lib/ops): each step + the treatment picked + errors shown + value at done.
   useFlowTrack(
     "service",
-    step,
+    // Waitlist joins count as their own steps (wl-account ... waitlisted) so they never inflate the booking funnel.
+    waitlistMode && step !== "time" && step !== "waitlisted" ? `wl-${step}` : step,
     selectedTreatment ? `${category}-${selectedTreatment.id}` : category,
     error,
     selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn + selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0) : undefined
   );
+
+  /* Waitlist offer seen: once per treatment + date + specialist the card is shown for. Same
+     condition as the card on the time step. */
+  const waitlistOffered =
+    step === "time" && !loading && !(totalExtMinutes > 0 && !schedulesLoaded) && displayedSlots.length === 0 &&
+    !!selectedTreatment && !/maternity/i.test(selectedTreatment.name);
+  const waitlistOfferSeen = useRef(new Set<string>());
+  useEffect(() => {
+    if (!waitlistOffered || !selectedTreatment) return;
+    const key = `${selectedTreatment.id}|${selectedDate}|${filteredTherapist ?? "any"}`;
+    if (waitlistOfferSeen.current.has(key)) return;
+    waitlistOfferSeen.current.add(key);
+    trackStep("service", "waitlist-offered", `${category}-${selectedTreatment.id}`);
+    window.dataLayer?.push({ event: "booking_waitlist_offered", booking_flow: category, booking_date: selectedDate });
+  }, [waitlistOffered, selectedTreatment, selectedDate, filteredTherapist, category]);
 
   /* -- "Complete your visit" suggestion on the confirmation screen --
      First fit wins (see lib/postBookingSuggestion.ts): Aescape warm-up

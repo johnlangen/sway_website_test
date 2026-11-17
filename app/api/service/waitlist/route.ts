@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+import { recordCompletion, recordServerError } from "@/lib/ops/record";
 
 export const runtime = "nodejs";
 
@@ -91,16 +92,32 @@ export async function POST(req: Request) {
 
     if (!res.ok || !data?.Appointment?.WaitlistEntryId) {
       console.error("[SERVICE WAITLIST] Mindbody rejected", res.status, JSON.stringify(data).slice(0, 500));
+      const why = String(data?.Error?.Message || data?.Message || `HTTP ${res.status}`);
+      after(() => recordServerError("service", "denver-larimer", "waitlist", why));
       return NextResponse.json(
         { error: "We couldn't add you to the waitlist just now." },
         { status: 502 }
       );
     }
 
+    // First-party ledger (lib/ops): counted as a lead, not a booking (nothing is booked or paid).
+    // The ref is Mindbody's WaitlistEntryId; who joined is on the desk's waitlist screen.
+    const daysOut = Math.round((Date.parse(`${date}T12:00:00Z`) - Date.parse(`${today}T12:00:00Z`)) / 86400000);
+    after(() =>
+      recordCompletion(req, {
+        flow: "lead",
+        location: "denver-larimer",
+        item: `waitlist-${stid}`,
+        label: "Appointment waitlist",
+        ref: data.Appointment.WaitlistEntryId,
+        extra: { specialist: sid !== null, days_out: daysOut },
+      })
+    );
     console.log("[SERVICE WAITLIST] Joined", { stid, date, staff: sid ?? "any", entry: data.Appointment.WaitlistEntryId });
     return NextResponse.json({ ok: true, waitlistEntryId: data.Appointment.WaitlistEntryId });
   } catch (e: any) {
     console.error("[SERVICE WAITLIST] Error", e?.message);
+    after(() => recordServerError("service", "denver-larimer", "waitlist", String(e?.message || "error")));
     return NextResponse.json({ error: "We couldn't add you to the waitlist just now." }, { status: 500 });
   }
 }
