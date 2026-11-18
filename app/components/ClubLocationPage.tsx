@@ -1,10 +1,12 @@
 "use client";
 
 /**
- * Location page for the Sway clubs (RiNo + Central Park). The Remedy Lounge is what's open now and it is
- * all about contrast, so temperature is the organizing idea: ClubLoungeStrip draws a session to scale,
- * and the list of what's inside runs from hottest to coldest. Founding membership gets its own section
- * while massage and facials are on the way. JSON-LD lives in each club's layout.tsx.
+ * Location page for the Sway clubs (RiNo + Central Park). Temperature is the organizing idea: the hero
+ * splits hot and cold, ClubLoungeStrip draws a Lounge session to scale, and the list of what's inside runs
+ * from hottest to coldest. Once a club's massage + facials are live (club.servicesLive, RiNo 11/18/2026)
+ * they become the third state, still: ClubThreeWays is the front door (hot -> cold -> still -> glow) and
+ * ClubTreatmentMenu draws the menu to scale (app/components/ClubTreatments.tsx). Before that, founding
+ * membership gets its own section. JSON-LD lives in each club's layout.tsx; keep its FAQ text identical.
  */
 
 import { useEffect, useState } from "react";
@@ -15,6 +17,7 @@ import ArrowMark from "./ArrowMark";
 import ClubHeroSplit from "./ClubHeroSplit";
 import ClubHoursChart from "./ClubHoursChart";
 import ClubLoungeStrip from "./ClubLoungeStrip";
+import { ClubThreeWays, ClubTreatmentMenu } from "./ClubTreatments";
 import LocationExperienceNav from "./LocationExperienceNav";
 import { SwayCurve } from "./SwayCurve";
 import { CLUB_FOUNDING, FOUNDING_RATES } from "@/lib/clubFounding";
@@ -94,6 +97,22 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
         ? `Now. Massage and facials are open at ${short} and you can book online. Choose Massage or Facial on the booking page, pick your treatment, then your massage therapist or esthetician and time. Founding memberships are open too.`
         : `Massage and facial treatments start ${founding.opensLabel}. Founding memberships are open now, or leave your name on this page and we'll keep you posted.`,
     },
+    ...(servicesLive
+      ? [
+          {
+            q: `What massages can I book at ${short}?`,
+            a: "Signature Massage (light to medium pressure), Deep Tissue, Sports, Salt Stone, Lymphatic Drainage and Maternity, in 50, 70 and 90 minute lengths with a licensed massage therapist. Drop-in from $139.",
+          },
+          {
+            q: `What facials does ${short} offer?`,
+            a: "Signature, Forever Young, Pore Perfection, Sensitive Silk and Glow Getter facials, plus Oxygen Infusion, Sculpt & Lift Microcurrent and Hydraderm, 50 to 60 minutes with a licensed esthetician. Drop-in from $139.",
+          },
+          {
+            q: "Can I pair a massage with the Remedy Lounge?",
+            a: "Yes. Book them as two appointments on the same day, back to back in either order. A 50-minute massage plus a 75-minute Lounge session is about two hours.",
+          },
+        ]
+      : []),
     {
       q: "What about my Upswell membership?",
       a: "Existing Upswell members were carried over automatically, so no action is needed. Current members roll into Sway at the Founding rate.",
@@ -119,7 +138,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
                 )}
               </div>
               <SwayCurve width={120} strokeWidth={2} animate className="my-4 block text-[#4A776D] md:my-6" />
-              <p className="text-base text-[#113D33]/85 md:text-lg">{cfg.intro}</p>
+              <p className="text-base text-[#113D33]/85 md:text-lg">{servicesLive && cfg.introLive ? cfg.introLive : cfg.intro}</p>
               <div className="mt-5 flex flex-col gap-2 sm:flex-row md:mt-7">
                 <a href={bookHref} className="sway-button">
                   Book Your Experience <span aria-hidden="true"><ArrowMark /></span>
@@ -143,7 +162,11 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
         </div>
       </section>
 
-      <LocationExperienceNav location={clubKey} />
+      {servicesLive ? (
+        <ClubThreeWays short={short} base={base} loungePhoto={cfg.cold} />
+      ) : (
+        <LocationExperienceNav location={clubKey} />
+      )}
 
       {/* ========================= FIRST VISIT OFFER: a ticket with a tear line ========================= */}
       <section className="pb-12 md:pb-20">
@@ -209,6 +232,11 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
         </div>
       </section>
 
+      {/* ========================= STILL: MASSAGE + FACIAL MENU ========================= */}
+      {servicesLive && (
+        <ClubTreatmentMenu short={short} base={base} foundingFrom={FOUNDING_RATES.essential.founding} regularFrom={FOUNDING_RATES.essential.regular} />
+      )}
+
       {/* ========================= HOW OFTEN WILL YOU COME? ========================= */}
       <section className="bg-[#EBE4D1] py-12 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
@@ -268,23 +296,15 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
       <section className="bg-[#113D33] text-white">
         <div className="mx-auto grid max-w-6xl items-center gap-7 px-6 py-12 md:grid-cols-2 md:gap-16 md:py-28">
           <div>
-            <p className="sway-eyebrow text-[#D7E5DD]">{servicesLive ? "Now open · Massage & facials" : `Founding membership · Ends ${founding.closesLabel}`}</p>
-            <h2 className="mt-3 text-[38px] leading-[1.05] md:mt-4 md:text-6xl">{servicesLive ? `Massage and facials are open at ${short}.` : `Massage and facials start ${founding.opensLabel}.`}</h2>
+            <p className="sway-eyebrow text-[#D7E5DD]">{servicesLive ? `Founding membership · First ${founding.cap} members` : `Founding membership · Ends ${founding.closesLabel}`}</p>
+            <h2 className="mt-3 text-[38px] leading-[1.05] md:mt-4 md:text-6xl">{servicesLive ? `A massage or facial every month, from $${FOUNDING_RATES.essential.founding}.` : `Massage and facials start ${founding.opensLabel}.`}</h2>
             {servicesLive ? (
               <>
                 <p className="mt-3 max-w-md text-base text-white/85 md:mt-5 md:text-lg">
-                  Licensed massage therapists and estheticians, from a light to medium Signature Massage to deep tissue, sports and salt stone, plus facials from Forever Young to Hydraderm. $139 drop-in, or a monthly treatment from ${FOUNDING_RATES.essential.founding} a month for the first {founding.cap} founders.{spotsLeft && !spotsLeft.startsWith("All") ? ` ${spotsLeft}.` : ""}
+                  Founding membership locks in a monthly massage or facial at ${FOUNDING_RATES.essential.founding} a month (regularly ${FOUNDING_RATES.essential.regular}), for the first {founding.cap} founders at {short}. Ends {founding.closesLabel}.{spotsLeft && !spotsLeft.startsWith("All") ? ` ${spotsLeft}.` : ""}
                 </p>
-                <div className="mt-5 flex flex-col gap-3 sm:flex-row md:mt-8">
-                  <Link href={`${bookHref}?category=massage`} data-track="club-page-book-massage" className="sway-button sway-button-light w-full sm:w-auto">
-                    Book a massage <span aria-hidden="true"><ArrowMark /></span>
-                  </Link>
-                  <Link href={`${bookHref}?category=facial`} data-track="club-page-book-facial" className="sway-button sway-button-light w-full sm:w-auto">
-                    Book a facial <span aria-hidden="true"><ArrowMark /></span>
-                  </Link>
-                </div>
-                <Link href={`${base}/founding-membership`} className="sway-text-link mt-4 inline-block text-white">
-                  See founding rates
+                <Link href={`${base}/founding-membership`} data-track="club-page-founding" className="sway-button sway-button-light mt-5 w-full sm:w-auto md:mt-8">
+                  See founding rates <span aria-hidden="true"><ArrowMark /></span>
                 </Link>
               </>
             ) : (
@@ -410,9 +430,11 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
       <section className="bg-[#113D33] py-14 text-white md:py-28">
         <div className="mx-auto max-w-6xl px-6">
           <SwayCurve width={160} strokeWidth={2} animate className="mb-5 block text-[#A9D2C5] md:mb-8" />
-          <h2 className="max-w-3xl text-[40px] leading-[1.05] md:text-7xl">Recover at {short}.</h2>
+          <h2 className="max-w-3xl text-[40px] leading-[1.05] md:text-7xl">{servicesLive ? "Hot. Cold. Still." : `Recover at ${short}.`}</h2>
           <p className="mt-3 max-w-lg text-base text-white/85 md:mt-5 md:text-lg">
-            Book a Sway Remedy Lounge recovery session. {founding.lounge}
+            {servicesLive
+              ? `The Remedy Lounge, massage and facials, all at ${short} in the RiNo Art District.`
+              : <>Book a Sway Remedy Lounge recovery session. {founding.lounge}</>}
           </p>
           <div className="mt-6 flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:items-center md:mt-8">
             <a href={bookHref} className="sway-button sway-button-light">

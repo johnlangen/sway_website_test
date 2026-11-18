@@ -74,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Denver RiNo location (open — Sway Remedy Lounge)
      ------------------------------------------------------------------ */
   const rinoPages = [
-    { url: `${base}/locations/denver-rino/`, changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${base}/locations/denver-rino/`, lastModified: new Date("2026-11-18"), changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${base}/locations/denver-rino/book/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-rino/membership/`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/locations/denver-rino/founding-membership/`, changeFrequency: "weekly" as const, priority: 0.8 },

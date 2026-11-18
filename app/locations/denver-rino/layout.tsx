@@ -2,18 +2,18 @@ import { Metadata } from "next";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 
 export const metadata: Metadata = {
-  title: { absolute: "Infrared Sauna & Cold Plunge in RiNo, Denver | Sway (formerly Upswell)" },
+  title: { absolute: "Massage, Facials, Sauna & Cold Plunge in RiNo, Denver | Sway" },
   description:
-    "Sway RiNo (formerly Upswell Studio) at 3636 Blake St, Denver. 75-minute Remedy Lounge sessions with infrared and traditional saunas, cold plunge, PEMF mats, and compression therapy. Massage and facials now booking online. $49 drop-in, $25 first visit for locals.",
+    "Sway RiNo (formerly Upswell), 3636 Blake St, Denver: massage, facials, infrared and traditional saunas, and a cold plunge. Book online. $25 first Lounge visit, locals only.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-rino/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/denver-rino/",
-    title: "Sway Wellness Spa · RiNo (formerly Upswell Studio)",
+    title: "Sway RiNo · Massage, Facials, Sauna & Cold Plunge (formerly Upswell Studio)",
     description:
-      "Traditional and infrared saunas, cold plunge, and compression therapy in the Sway Remedy Lounge. Massage and facials now open. Open daily in Denver's RiNo Art District.",
+      "Hot, cold, still. Saunas and a cold plunge in the Remedy Lounge, plus massage and facials, open daily in Denver's RiNo Art District.",
     images: [
       {
         url: "/assets/SWAY.jpg",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sway Wellness Spa · RiNo (formerly Upswell Studio)",
+    title: "Sway RiNo · Massage, Facials, Sauna & Cold Plunge (formerly Upswell Studio)",
     description:
-      "Traditional and infrared saunas, cold plunge, and compression therapy in the Sway Remedy Lounge. Massage and facials now open. Open daily in RiNo.",
+      "Hot, cold, still. Saunas and a cold plunge in the Remedy Lounge, plus massage and facials, open daily in RiNo.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: {
@@ -155,6 +155,30 @@ const faqJsonLd = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Now. Massage and facials are open at Sway RiNo and you can book online. Choose Massage or Facial on the booking page, pick your treatment, then your massage therapist or esthetician and time. Founding memberships are open too.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What massages can I book at Sway RiNo?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Signature Massage (light to medium pressure), Deep Tissue, Sports, Salt Stone, Lymphatic Drainage and Maternity, in 50, 70 and 90 minute lengths with a licensed massage therapist. Drop-in from $139.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What facials does Sway RiNo offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Signature, Forever Young, Pore Perfection, Sensitive Silk and Glow Getter facials, plus Oxygen Infusion, Sculpt & Lift Microcurrent and Hydraderm, 50 to 60 minutes with a licensed esthetician. Drop-in from $139.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I pair a massage with the Remedy Lounge?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Book them as two appointments on the same day, back to back in either order. A 50-minute massage plus a 75-minute Lounge session is about two hours.",
       },
     },
     {
