@@ -7,6 +7,7 @@ import { Menu, X, MapPin } from "lucide-react";
 import SwayEasterEgg from "./SwayEasterEgg";
 import { myAccountHrefForPath } from "@/lib/myAccount";
 import { locationDisplayName, LOCATION_NAMES } from "@/lib/locationNames";
+import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
 
 const NavBar = () => {
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
@@ -34,6 +35,28 @@ const NavBar = () => {
   // resolved from the pathname only, never from savedLocation — a stale
   // localStorage value would silently sign a guest in at the wrong Sway.
   const myAccountHref = myAccountHrefForPath(pathname);
+
+  // Treatments menu follows the chosen location (John 11/18). The default menu is Larimer's pages
+  // (Remedy Room, Aescape and /massages + /facials are Larimer); a club gets its own booking links
+  // and the Remedy Lounge instead, so a RiNo guest never lands on Larimer-only treatments.
+  const clubForMenu = savedLocation?.slug ? CLUB_LOCATIONS[savedLocation.slug as ClubLocationKey] : undefined;
+  const treatmentLinks: [string, string][] = clubForMenu
+    ? [
+        ...(clubForMenu.servicesLive
+          ? ([
+              ["Massages", `/locations/${clubForMenu.key}/book?category=massage`],
+              ["Facials", `/locations/${clubForMenu.key}/book?category=facial`],
+            ] as [string, string][])
+          : []),
+        ["Remedy Lounge", `/locations/${clubForMenu.key}/book-remedy-lounge`],
+      ]
+    : [
+        ["All Treatments", "/treatments"],
+        ["Facials", "/facials"],
+        ["Massages", "/massages"],
+        ["Remedy Room", "/remedy-tech"],
+        ["Aescape Robot", "/aescape"],
+      ];
 
   // Load saved location. On a /locations/<slug>/ page the URL wins and is remembered, so a guest who
   // lands straight on a booking link (e.g. RiNo's massage link from an email) sees that location in
@@ -228,13 +251,7 @@ const NavBar = () => {
                   aria-label="Treatments"
                   className="absolute left-0 mt-2 w-52 bg-black border border-gray-700 rounded-md shadow-lg"
                 >
-                  {[
-                    ["All Treatments", "/treatments"],
-                    ["Facials", "/facials"],
-                    ["Massages", "/massages"],
-                    ["Remedy Room", "/remedy-tech"],
-                    ["Aescape Robot", "/aescape"],
-                  ].map(([label, href]) => (
+                  {treatmentLinks.map(([label, href]) => (
                     <Link
                       key={href}
                       href={href}
@@ -400,7 +417,8 @@ const NavBar = () => {
           <div className="w-12 border-t border-white/20" />
 
           {[
-            ["Treatments", "/treatments"],
+            // A club's treatments live on its booking page (Remedy Lounge + massage/facial), not Larimer's /treatments.
+            ["Treatments", clubForMenu ? `/locations/${clubForMenu.key}/book` : "/treatments"],
             ["Join the Club", "/membership"],
             ["Gift Cards", "/gift-cards"],
             ["Offers", "/offers"],

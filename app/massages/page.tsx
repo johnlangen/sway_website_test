@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import EditorialHero from "../components/EditorialHero";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
-import { resolveLocationHref } from "../components/LocationAwareHref";
+import { resolveLocationHref, getSelectedLocation } from "../components/LocationAwareHref";
 import { SwayCurve } from "../components/SwayCurve";
 import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
 
@@ -157,6 +157,8 @@ const MassagesPage = () => {
   const [bookHref, setBookHref] = useState("/book");
   const [selectedTier, setSelectedTier] = useState("premier");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // Brady Protocol is Larimer-only: hide its band when a guest has picked another Sway (John 11/18).
+  const [showBrady, setShowBrady] = useState(true);
 
   const activeTier = massageTiers.find((t) => t.key === selectedTier)!;
 
@@ -170,13 +172,15 @@ const MassagesPage = () => {
     });
 
     setBookHref(resolved);
+    const loc = getSelectedLocation();
+    setShowBrady(!loc?.slug || loc.slug === "denver-larimer");
   }, []);
 
   return (
     <div className="w-full bg-[#F7F4E9] font-vance">
       {/* HERO: background image (homepage massage photo) */}
-      <EditorialHero eyebrow="Sway / Massages" title="Let your shoulders drop." description="From light-to-medium Signature Massage to focused Deep Tissue. Explore three tiers of care, and find your kind of release." image="/assets/homepage-massage.jpg" imageAlt="Massages at Sway Wellness Spa" href={bookHref} action="Book a massage" note="Explore the full treatment menu below." />
-      <BradyProtocolBanner />
+      <EditorialHero eyebrow="Sway / Massages" title="Let your shoulders drop." description="Every body needs something different. Explore three levels of massage care, from gentle relaxation to targeted muscle relief." image="/assets/homepage-massage.jpg" imageAlt="Massages at Sway Wellness Spa" href={bookHref} action="Book a massage" note="Explore the full treatment menu below." />
+      {showBrady && <BradyProtocolBanner />}
 <p className="sr-only">
           Sway Wellness Spa offers massage treatments at 1428 Larimer St. in
           Denver across three tiers: Essential (Signature and Maternity

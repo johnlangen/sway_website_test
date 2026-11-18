@@ -110,7 +110,6 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
               <p className="sway-eyebrow text-[#2F5D50]">{cfg.eyebrow}</p>
               <h1 className="mt-3 md:mt-5">{short}</h1>
               <p className="sr-only">{cfg.srSummary}</p>
-              <p className="mt-2 text-base md:text-lg">Formerly Upswell Studio. New ownership, same recovery space.</p>
               <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
                 {status && (
                   <>
