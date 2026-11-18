@@ -2,18 +2,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "RiNo Sauna & Cold Plunge Offers | Sway Wellness Club RiNo",
+  title: "RiNo Massage, Facial, Sauna & Cold Plunge Offers | Sway RiNo",
   description:
-    "First Remedy Lounge visit $25 (code FTVORL, any day, locals only, regularly $49). Traditional and infrared saunas, cold plunge, compression therapy. Membership $129/mo. Sway RiNo, 3636 Blake St, Denver.",
+    "$40 off your first massage or facial (code FTVO40, Mon-Fri, locals only). First Remedy Lounge visit $25 (code FTVORL, any day, locals only). Sway RiNo, 3636 Blake St, Denver.",
   alternates: {
     canonical: "/locations/denver-rino/offers/",
   },
   openGraph: {
     type: "website",
     url: "https://swaywellnessspa.com/locations/denver-rino/offers/",
-    title: "RiNo Sauna & Cold Plunge Offers | Sway Wellness Club RiNo",
+    title: "RiNo Massage, Facial, Sauna & Cold Plunge Offers | Sway RiNo",
     description:
-      "$25 first Remedy Lounge visit (locals only, regularly $49). Sauna, cold plunge, and compression therapy in Denver's RiNo Art District. Membership $129/mo.",
+      "$40 off your first massage or facial (Mon-Fri, locals only) and a $25 first Remedy Lounge visit (locals only) in Denver's RiNo Art District.",
     images: [
       {
         url: "/assets/rino1.jpeg",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RiNo Sauna & Cold Plunge Offers | Sway Wellness Club RiNo",
+    title: "RiNo Massage, Facial, Sauna & Cold Plunge Offers | Sway RiNo",
     description:
-      "$25 first Remedy Lounge visit (locals only, regularly $49). Sauna, cold plunge, and compression therapy in RiNo. Membership $129/mo.",
+      "$40 off your first massage or facial (Mon-Fri, locals only) and a $25 first Remedy Lounge visit (locals only) in RiNo.",
     images: ["/assets/rino1.jpeg"],
   },
   robots: {
@@ -73,8 +73,24 @@ export default function RinoOffersLayout({
     url: "https://swaywellnessspa.com/locations/denver-rino/offers/",
     description:
       "Current offers, introductory pricing, and membership deals at Sway Wellness Club in Denver's RiNo Art District.",
-    numberOfItems: 3,
+    numberOfItems: 4,
     itemListElement: [
+      {
+        "@type": "Offer",
+        name: "First Massage or Facial (FTVO40)",
+        description:
+          "$40 off your first massage or facial at any tier (Essential $99, Premier $129, Ultimate $159; regularly $139, $169, $199). Locals only. Valid Monday to Friday for first-time guests. Use code FTVO40 at check-in.",
+        price: "99.00",
+        priceCurrency: "USD",
+        eligibleCustomerType: "http://schema.org/NewCustomer",
+        availability: "https://schema.org/InStock",
+        url: "https://swaywellnessspa.com/locations/denver-rino/offers/",
+        seller: {
+          "@type": "DaySpa",
+          "@id": "https://swaywellnessspa.com/locations/denver-rino/",
+          name: "Sway Wellness Spa · RiNo",
+        },
+      },
       {
         "@type": "Offer",
         name: "First Remedy Lounge Visit (FTVORL)",

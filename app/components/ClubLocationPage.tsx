@@ -93,7 +93,9 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
     },
     {
       q: "How much is my first visit?",
-      a: "Local first-time guests get their first 75-minute Remedy Lounge session for $25 (regularly $49). Book online, then mention code FTVORL at check-in. Locals only, any day.",
+      a: servicesLive
+        ? "Local first-time guests get $40 off their first massage or facial at any tier (code FTVO40, Monday to Friday) and their first 75-minute Remedy Lounge session for $25 (code FTVORL, any day, regularly $49). Book online, then mention the code at check-in. Locals only."
+        : "Local first-time guests get their first 75-minute Remedy Lounge session for $25 (regularly $49). Book online, then mention code FTVORL at check-in. Locals only, any day.",
     },
     {
       q: "Do I need a membership?",
@@ -184,7 +186,31 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
 
       {/* ========================= FIRST VISIT OFFER: a ticket with a tear line ========================= */}
       <section className={servicesLive ? "py-12 md:py-20" : "pb-12 md:pb-20"}>
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl space-y-4 px-6 md:space-y-6">
+          {servicesLive && (
+            <Link href={`${base}/offers#massage-facial`} data-track="club-page-ftvo" className="group relative grid overflow-hidden rounded-[4px] bg-[#113D33] text-white md:grid-cols-[minmax(0,1fr)_260px]">
+              <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-10">
+                <p className="cf-num shrink-0 text-7xl md:text-8xl">$40</p>
+                <div>
+                  <p className="sway-eyebrow text-[#D7E5DD]">First Visit Offer · Locals Only</p>
+                  <h2 className="mt-1 text-2xl leading-tight md:text-4xl">$40 off your first massage or facial.</h2>
+                  <p className="mt-2 text-sm text-white/85 md:text-base">Any tier · Monday to Friday · Locals only</p>
+                </div>
+              </div>
+              <div className="relative flex items-center justify-between gap-4 border-t-2 border-dashed border-white/30 p-6 md:flex-col md:items-start md:justify-center md:border-l-2 md:border-t-0 md:p-8">
+                <span aria-hidden="true" className="absolute -left-3 -top-3 h-6 w-6 rounded-full bg-[#F7F4E9]" />
+                <span aria-hidden="true" className="absolute -right-3 -top-3 h-6 w-6 rounded-full bg-[#F7F4E9] md:-bottom-3 md:-left-3 md:right-auto md:top-auto" />
+                <div>
+                  <p className="text-xs text-white/80">Use code at check-in</p>
+                  <p className="cf-num mt-1 text-3xl md:text-4xl">FTVO40</p>
+                </div>
+                <span className="inline-flex items-center gap-3 text-sm font-semibold">
+                  View Offer
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-1"><ArrowMark /></span>
+                </span>
+              </div>
+            </Link>
+          )}
           <Link href={`${base}/offers`} className="group relative grid overflow-hidden rounded-[4px] bg-[#EBE4D1] md:grid-cols-[minmax(0,1fr)_260px]">
             <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-10">
               <p className="cf-num shrink-0 text-7xl md:text-8xl">$25</p>

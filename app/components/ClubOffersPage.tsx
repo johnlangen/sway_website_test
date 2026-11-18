@@ -20,6 +20,10 @@ import ArrowMark from "@/app/components/ArrowMark";
 import Link from "next/link";
 import Image from "next/image";
 import { OfferRedemption } from "./FirstVisitOffers";
+import { CLUB_LOCATIONS } from "@/lib/clubLocations";
+
+/* First massage or facial at a club with servicesLive (RiNo since 11/18/2026): Larimer's FTVO40 terms. */
+export const CLUB_TREATMENT_OFFER_CODE = "FTVO40";
 
 export const CLUB_OFFER_CODE = "FTVORL";
 export const CLUB_OFFER_PRICE = 25;
@@ -82,6 +86,8 @@ export default function ClubOffersPage({
   clubKey: "denver-rino" | "denver-central-park";
 }) {
   const cfg = CLUB_CONFIG[clubKey];
+  const servicesLive = CLUB_LOCATIONS[clubKey].servicesLive;
+  const treatmentBook = `${cfg.locationHref}/book`;
 
   return (
     <div className="sway-offers-page">
@@ -140,6 +146,57 @@ export default function ClubOffersPage({
           <span>75 minutes for you · Remedy Lounge</span>
         </div>
       </section>
+      {servicesLive && (
+        <section className="sway-offers-section" id="massage-facial" aria-labelledby="club-ftvo-heading">
+          <div className="sway-section-heading">
+            <div>
+              <p className="sway-eyebrow">New at {cfg.shortName}</p>
+              <h2 id="club-ftvo-heading">Your first massage or facial, $40 off.</h2>
+            </div>
+            <p>
+              Any tier, from a light to medium Signature Massage to Deep Tissue or a facial made for your skin.
+            </p>
+          </div>
+          <article className="sway-offer grid md:grid-cols-2">
+            <div className="sway-offer-image !h-[260px] md:!h-auto md:min-h-[360px]">
+              <Image
+                src="/assets/founding-massage-lamp.jpg"
+                alt={`A massage therapist working on a guest's back by lamplight at ${cfg.shortName}`}
+                fill
+                sizes="(max-width: 760px) 100vw, 50vw"
+                className="object-cover"
+              />
+              <span>First visit · Massage or facial</span>
+            </div>
+            <div className="sway-offer-copy">
+              <h3>Massage or facial</h3>
+              <div className="sway-offer-price">
+                $99
+                <span>
+                  50 min · Essential Signature
+                  <small>Regularly $139</small>
+                </span>
+              </div>
+              <p>$40 off your first massage or facial at any tier.</p>
+              <p className="sway-offer-tier">Essential $99 · Premier $129 · Ultimate $159</p>
+              <div className="sway-offer-terms">
+                <strong>Locals only · First-time guests</strong>
+                <span>
+                  Monday–Friday · Mention <b>{CLUB_TREATMENT_OFFER_CODE}</b> at check-in.
+                </span>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Link href={`${treatmentBook}?category=massage`} data-track="club-offer-ftvo-massage" className="sway-button">
+                  Book a massage <span aria-hidden="true"><ArrowMark /></span>
+                </Link>
+                <Link href={`${treatmentBook}?category=facial`} data-track="club-offer-ftvo-facial" className="sway-button">
+                  Book a facial <span aria-hidden="true"><ArrowMark /></span>
+                </Link>
+              </div>
+            </div>
+          </article>
+        </section>
+      )}
       {cfg.offerPaused && (
         <section className="sway-offers-section" id="club-status">
           <div className="sway-maintenance-note">

@@ -178,6 +178,10 @@ export function ClubTreatmentMenu({ short, base, foundingFrom, regularFrom }: { 
         <p className="mt-3 max-w-2xl text-base text-[#113D33]/85 md:mt-5 md:text-lg">
           Three tiers. Each step up adds time or depth. Licensed massage therapists and estheticians, in private treatment rooms at {short}.
         </p>
+        <Link href={`${base}/offers#massage-facial`} data-track="club-menu-ftvo" className="mt-4 inline-flex flex-wrap items-baseline gap-x-2 rounded-[3px] bg-[#113D33] px-4 py-2.5 text-[15px] text-white hover:bg-[#0e3029] md:text-base">
+          <strong>First visit: $40 off any massage or facial.</strong>
+          <span className="text-white/85">Locals only · Mon to Fri · Code FTVO40</span>
+        </Link>
 
         <div className="mt-8 grid gap-12 md:mt-12 md:grid-cols-2 md:gap-16">
           <Ladder title="Massage" color={STILL} tiers={MASSAGE_TIERS} href={`${book}?category=massage`} cta="Book a massage" track="club-page-book-massage" />

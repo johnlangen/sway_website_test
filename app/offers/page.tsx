@@ -214,6 +214,17 @@ export default function OffersPage() {
                         </strong>
                         <span>Mention FTVORL at check-in.</span>
                       </p>
+                      {loc.slug === "denver-rino" && (
+                        <>
+                          <p className="sway-club-price">
+                            $40 off <span>/ first massage or facial</span>
+                          </p>
+                          <p className="sway-offer-terms">
+                            <strong>Locals only · First-time guests · Monday–Friday</strong>
+                            <span>Any tier. Mention FTVO40 at check-in.</span>
+                          </p>
+                        </>
+                      )}
                     </>
                   ) : (
                     <>
