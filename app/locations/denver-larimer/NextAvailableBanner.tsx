@@ -9,6 +9,7 @@ type Props = {
   onJumpToDate: (iso: string) => void;
   staffId?: number | null; // optional — filter to a specific staff member
   staffName?: string | null; // optional — display name for the banner text
+  siteId?: string; // optional — a club's Mindbody site (RiNo / Central Park); default Larimer
 };
 
 /**
@@ -23,6 +24,7 @@ export default function NextAvailableBanner({
   onJumpToDate,
   staffId,
   staffName,
+  siteId,
 }: Props) {
   const [status, setStatus] = useState<
     "searching" | "found" | "none" | "error"
@@ -35,8 +37,9 @@ export default function NextAvailableBanner({
     setNextDate(null);
 
     const staffParam = staffId ? `&staffId=${staffId}` : "";
+    const siteParam = siteId ? `&siteId=${siteId}` : "";
     fetch(
-      `/api/next-available?type=${type}&sessionTypeId=${sessionTypeId}&startDate=${currentDate}${staffParam}`
+      `/api/next-available?type=${type}&sessionTypeId=${sessionTypeId}&startDate=${currentDate}${staffParam}${siteParam}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -55,7 +58,7 @@ export default function NextAvailableBanner({
     return () => {
       cancelled = true;
     };
-  }, [type, sessionTypeId, currentDate, staffId]);
+  }, [type, sessionTypeId, currentDate, staffId, siteId]);
 
   if (status === "error") return null; // fail silently
 

@@ -1,11 +1,11 @@
 "use client";
 
 import { Suspense, useEffect, useRef, useState } from "react";
-import { useFlowTrack } from "@/lib/ops/client";
-import { treatmentBanner } from "@/lib/treatmentImages";
+import { useSearchParams } from "next/navigation";
+import { useFlowTrack, trackStep } from "@/lib/ops/client";
+import { treatmentImage } from "@/lib/treatmentImages";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { trackCrossSell } from "@/lib/trackCrossSell";
 import { SwayCurve } from "./SwayCurve";
@@ -13,30 +13,31 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 import { groupByPartOfDay, PartOfDayHeading } from "@/app/components/sessionGroups";
+import NextAvailableBanner from "@/app/locations/denver-larimer/NextAvailableBanner";
 import { getClosingHour } from "@/lib/locationHours";
 import { rotateSameTimeSlots } from "@/lib/slotRotation";
+import { useDialogA11y } from "@/lib/useDialogA11y";
 import { getClubLocation, type ClubLocationKey } from "@/lib/clubLocations";
 import { myAccountUrl } from "@/lib/myAccount";
-// BOWTIE CLUB CHAT ACTIVATION (docs/bowtie-club-chat-activation.md): once the
-// club layouts switch to <HideFloatingWidgets attentiveOnly />, this flow must
-// hide the chat bubble itself (like ClubRemedyLoungeFlow does) so it doesn't
-// cover the sticky CTA on mobile. Uncomment the import + the mount below.
-// import { HideFloatingWidgets } from "./HideFloatingWidgets";
 
 /* ================================================================
-   CLUB TIER-AWARE BOOKING FLOW (RiNo / Central Park)
-   Site-aware clone of Larimer's /book flow. Every Mindbody call is
-   scoped to the club's own SiteId (threaded via &siteId / siteId in body).
-   Steps: category → treatment → boosts → time → account → confirm → booking → done
+   CLUB MASSAGE + FACIAL BOOKING FLOW (RiNo / Central Park)
 
-   Key design decisions:
-   - No email gate before browsing — zero friction to explore treatments
-   - Optional "Sway member?" shortcut on treatment step for returning members
-   - Email collected at account step (after time selection — user is invested)
-   - Silent membership check personalizes account + confirm steps
-   - Card skipped entirely if member has card on file
-   - Treatments organized by Essential / Premier / Ultimate with "All" default
-   - Uses new Mindbody session type IDs (75-108)
+   Rebuilt 11/18/2026 from the CURRENT Larimer flow (app/locations/denver-larimer/book/page.tsx),
+   John: "copy Larimer". Keep the two in step: a booking-UX change on Larimer should land here too.
+   What differs from Larimer, on purpose:
+   - Every Mindbody call carries the club's SiteId (siteId param/body), and the club's own
+     LocationId on writes. Remembered email/client keys are per club.
+   - Clubs keep the OLD Mindbody session type IDs (88, 98-108, 116); Larimer moved to 28xx in Aug.
+   - club.hiddenServiceIds hides what nobody at the club can perform yet.
+   - No Aescape, Remedy Room or Larimer parking: the full-day fallback and post-booking links point
+     to the club's Remedy Lounge. No "complete your visit" suggestion (Larimer-only checks).
+   - No Google Ads conversions or gclid (club bookings are GA4 + /ops only, no club campaigns).
+   - The appointment waitlist is Larimer-only (WAITLIST_ENABLED below) until the club sites'
+     Mindbody waitlist settings are checked.
+   - WELCOME + CATEGORY steps are the club's: cross-location member copy, Remedy Lounge card on top,
+     Massage/Facial cards live only where club.servicesLive.
+   - Contact is the club's email (no shared club phone line yet).
 ================================================================ */
 
 type Step =
@@ -49,7 +50,8 @@ type Step =
   | "name"
   | "confirm"
   | "booking"
-  | "done";
+  | "done"
+  | "waitlisted";
 
 type Category = "massage" | "facial";
 type MembershipTier = "essential" | "premier" | "ultimate" | null;
@@ -67,6 +69,7 @@ type Treatment = {
   tier: "essential" | "premier" | "ultimate";
   image: string;
   concerns?: string[];
+  badge?: string; // curated merchandising tag, e.g. "Therapist favorite"
 };
 
 type Boost = {
@@ -80,16 +83,17 @@ type Boost = {
   description: string;
   fullDescription?: string; // longer description shown on hover/tap
   resourceId?: number;
+  recommended?: boolean; // data-driven "most added" spotlight (no extra therapist time)
 };
 
 const FACIAL_TREATMENTS: Treatment[] = [
   // Essential — 50 min, $99 member / $139 drop-in
   { id: 75, name: "Essential Signature Facial", duration: "50 min", durationMinutes: 50, description: "A classic facial customized to your skin type: cleanse, exfoliate, extract, and hydrate.", tier: "essential", image: "/assets/facial1.jpg", concerns: ["hydration", "sensitive", "brightening", "acne", "anti-aging"] },
   // Premier — 50 min, $129 member / $169 drop-in. Value add: targeted products + dermapore technology
-  { id: 78, name: "Premier Forever Young Anti-Aging Facial", duration: "50 min", durationMinutes: 50, description: "Hydrates, brightens, and tightens the skin while supporting collagen production.", tier: "premier", image: "/assets/facial2.jpg", concerns: ["anti-aging", "hydration"] },
+  { id: 78, name: "Premier Forever Young Anti-Aging Facial", duration: "50 min", durationMinutes: 50, description: "Hydrates, brightens, and tightens the skin while supporting collagen production.", tier: "premier", image: "/assets/facial2.jpg", concerns: ["anti-aging", "hydration"], badge: "Guest favorite" },
   { id: 80, name: "Premier Pore Perfection Acne Facial", duration: "50 min", durationMinutes: 50, description: "Targets congestion, bacteria, and inflammation for clearer, healthier skin.", tier: "premier", image: "/assets/facial4.jpg", concerns: ["acne", "texture"] },
   { id: 81, name: "Premier Sensitive Silk Facial", duration: "50 min", durationMinutes: 50, description: "Calms redness, strengthens the skin barrier, and supports sensitive skin types.", tier: "premier", image: "/assets/facial5.jpg", concerns: ["sensitive"] },
-  { id: 79, name: "Premier Glow Getter Hydration Facial", duration: "50 min", durationMinutes: 50, description: "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.", tier: "premier", image: "/assets/facial3.jpg", concerns: ["hydration", "anti-aging", "brightening"] },
+  { id: 79, name: "Premier Glow Getter Hydration Facial", duration: "50 min", durationMinutes: 50, description: "Correcting peptides and antioxidants instantly smooth and firm for radiant, hydrated skin.", tier: "premier", image: "/assets/facial3.jpg", concerns: ["hydration", "anti-aging", "brightening"], badge: "Guest favorite" },
   { id: 77, name: "Premier Dr. Dennis Gross Vitamin C Facial", duration: "50 min", durationMinutes: 50, description: "A brightening facial powered by Vitamin C to improve tone, clarity, and radiance.", tier: "premier", image: "/assets/facial6.jpg", concerns: ["brightening", "anti-aging"] },
   // Ultimate — 50–60 min, $159 member / $199 drop-in. Value add: +10 min, tech + scalp/hand
   { id: 85, name: "Ultimate Illuminate LED Facial", duration: "60 min", durationMinutes: 60, description: "An advanced facial infused with LED light therapy to brighten, even skin tone, and support collagen.", tier: "ultimate", image: "/assets/facial2.jpg", concerns: ["brightening", "anti-aging"] },
@@ -121,7 +125,7 @@ const MASSAGE_TREATMENTS: Treatment[] = [
 const FACIAL_BOOSTS: Boost[] = [
   { id: 74, name: "LED Boost", type: "boost", family: "led", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Red light therapy.", fullDescription: "This non-invasive treatment uses targeted light wavelengths to recharge your skin at the cellular level, reduce inflammation, and stimulate collagen and elastin production. LED Light Therapy activates ATP, your cells' energy source, to support faster healing, ease muscle tension, and leave your skin visibly firmer, calmer, and more radiant.", resourceId: 6 },
   { id: 86, name: "Oxygen Boost", type: "boost", family: "oxygen", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Cooling oxygen infusion.", fullDescription: "A pressurized stream of oxygen delivers hydrating serums deep into the skin, plumping fine lines and restoring a dewy, refreshed glow. Ideal for dull or dehydrated skin that needs an instant pick-me-up.", resourceId: 4 },
-  { id: 115, name: "Dermaflash Boost", type: "boost", family: "dermaflash", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Exfoliates and removes peach fuzz.", fullDescription: "A gentle exfoliating treatment that removes dead skin cells and fine vellus hair (peach fuzz) to reveal a smoother, brighter complexion. Allows skincare products to penetrate more effectively and creates a flawless canvas for makeup.", resourceId: 5 },
+  { id: 115, name: "Dermaflash Boost", type: "boost", family: "dermaflash", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Exfoliates and removes peach fuzz.", recommended: true, fullDescription: "A gentle exfoliating treatment that removes dead skin cells and fine vellus hair (peach fuzz) to reveal a smoother, brighter complexion. Allows skincare products to penetrate more effectively and creates a flawless canvas for makeup.", resourceId: 5 },
   { id: 73, name: "LED Boost Plus", type: "boost_plus", family: "led", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended LED therapy.", fullDescription: "An extended session of targeted LED light therapy for deeper cellular activation. The additional time allows for greater collagen stimulation, enhanced healing, and more pronounced anti-inflammatory benefits.", resourceId: 6 },
   { id: 87, name: "Oxygen Boost Plus", type: "boost_plus", family: "oxygen", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended oxygen infusion.", fullDescription: "An extended oxygen infusion session for deeper serum penetration and more intensive hydration. The additional time targets multiple areas for a more comprehensive, luminous result.", resourceId: 4 },
   { id: 109, name: "Dermaflash Boost Plus", type: "boost_plus", family: "dermaflash", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended dermaflash.", fullDescription: "An extended dermaflash session with more thorough exfoliation across the full face and neck. The additional time allows your esthetician to address more areas for an even smoother, more radiant complexion.", resourceId: 5 },
@@ -131,7 +135,7 @@ const FACIAL_BOOSTS: Boost[] = [
 const MASSAGE_BOOSTS: Boost[] = [
   // Boost — $10 member / $20 drop-in, no time added
   { id: 111, name: "CBD Boost", type: "boost", family: "causemedic", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Soothing CBD muscle cream for deep relaxation and recovery.", fullDescription: "A CBD-infused muscle cream applied to targeted tension areas during your massage. The active ingredients work synergistically with massage techniques to reduce inflammation, soothe sore muscles, and promote deeper relaxation and recovery." },
-  { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery, especially effective for the back, shoulders, and neck." },
+  { id: 113, name: "Cupping Boost", type: "boost", family: "cupping", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Suction therapy for deep tension release.", recommended: true, fullDescription: "Silicone cups create gentle suction on the skin, lifting connective tissue, increasing blood flow, and releasing deep-seated muscle tension. Cupping helps break up adhesions and promotes faster recovery, especially effective for the back, shoulders, and neck." },
   { id: 91, name: "PEMF Boost", type: "boost", family: "pemf", addsMinutes: 0, memberPrice: "$10", dropInPrice: "$20", description: "Electromagnetic field therapy for recovery.", fullDescription: "Pulsed Electromagnetic Field therapy uses low-frequency electromagnetic waves to stimulate cellular repair, reduce inflammation, and accelerate recovery. Applied during your massage, PEMF enhances circulation and helps your body heal at a deeper level." },
   // Boost Plus — $20 member / $40 drop-in, +10 min
   { id: 112, name: "CBD Boost Plus", type: "boost_plus", family: "causemedic", addsMinutes: 10, memberPrice: "$20", dropInPrice: "$40", description: "Extended CBD muscle cream treatment for deeper recovery.", fullDescription: "An extended CBD muscle cream session with additional time for your massage therapist to work the active ingredients into multiple areas. The extra duration allows for more thorough application across back, legs, and shoulders for comprehensive relief." },
@@ -176,6 +180,54 @@ const MASSAGE_CONCERNS = [
   { id: "recovery", label: "Recovery" },
   { id: "detox", label: "Detox" },
 ];
+
+/* ----------------------------------------------------------------
+   CONCERN VISUALS — a small icon + intent color per treatment so the
+   list reads at a glance instead of as a wall of identical rows.
+   Differentiation is carried by COLOR (the icon set is intentionally
+   tiny). Keyed off a treatment's primary (first) concern.
+---------------------------------------------------------------- */
+const ICON_D: Record<string, string> = {
+  sparkle: "M12 3l1.6 4.9L18.5 9l-4.9 1.6L12 15l-1.6-4.4L5.5 9l4.9-1.1L12 3z",
+  droplet: "M12 3s5.5 5.8 5.5 9.5a5.5 5.5 0 11-11 0C6.5 8.8 12 3 12 3z",
+  sun: "M12 7a5 5 0 100 10 5 5 0 000-10zM12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.42 1.42M6.34 17.66l-1.41 1.41m12.73 0l-1.41-1.41M6.34 6.34L4.93 4.93",
+  bolt: "M13 2L4.5 13.5H11l-1 8.5L19.5 10.5H13l0-8.5z",
+  heart: "M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733C11.285 4.876 9.623 3.75 7.688 3.75 5.099 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z",
+  refresh: "M3 16.5l5.25-5.25 3.75 3.75L21 6m0 0h-5.25M21 6v5.25",
+  shield: "M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z",
+};
+const CONCERN_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
+  relaxation: { color: "#4A776D", icon: "sparkle" },
+  "pain-relief": { color: "#B4663A", icon: "bolt" },
+  prenatal: { color: "#B06A86", icon: "heart" },
+  recovery: { color: "#3E6F8E", icon: "refresh" },
+  detox: { color: "#5B8A72", icon: "droplet" },
+  acne: { color: "#6E8BA3", icon: "droplet" },
+  "anti-aging": { color: "#A6803A", icon: "sparkle" },
+  hydration: { color: "#4E8FA6", icon: "droplet" },
+  sensitive: { color: "#9A7AA0", icon: "shield" },
+  brightening: { color: "#C29A3B", icon: "sun" },
+  texture: { color: "#7A8C5A", icon: "sparkle" },
+};
+function getConcernVisual(concerns?: string[]) {
+  const key = concerns?.find((c) => CONCERN_VISUAL[c]);
+  return (key && CONCERN_VISUAL[key]) || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
+}
+
+
+// Boost families → icon + intent color, same visual language as the treatment list.
+const BOOST_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
+  cupping: { color: "#B4663A", icon: "refresh" },
+  causemedic: { color: "#4A776D", icon: "sparkle" },
+  pemf: { color: "#3E6F8E", icon: "bolt" },
+  led: { color: "#C29A3B", icon: "sun" },
+  oxygen: { color: "#4E8FA6", icon: "droplet" },
+  dermaflash: { color: "#9A7AA0", icon: "sparkle" },
+  microcurrent: { color: "#B06A86", icon: "bolt" },
+};
+function getBoostVisual(family: string) {
+  return BOOST_VISUAL[family] || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
+}
 
 function getTreatmentPrice(tier: "essential" | "premier" | "ultimate", isMember: boolean, memberTier: MembershipTier): number {
   if (isMember && memberTier) {
@@ -242,7 +294,7 @@ function ProgressBarNew({ step }: { step: Step }) {
     name: 4,
     confirm: 5,
   };
-  if (step === "welcome" || step === "booking" || step === "done") return null;
+  if (step === "welcome" || step === "booking" || step === "done" || step === "waitlisted") return null;
   const displayIdx = stepToIdx[step] ?? 0;
   const pct = ((displayIdx + 1) / displaySteps.length) * 100;
   return (
@@ -263,6 +315,15 @@ function ProgressBarNew({ step }: { step: Step }) {
    COMPONENT
 ================================================================ */
 
+type WaitlistTime = "any" | "morning" | "afternoon" | "evening";
+const WAITLIST_TIMES: { key: WaitlistTime; label: string; hint: string; note: string }[] = [
+  { key: "any", label: "Any time", hint: "", note: "" },
+  { key: "morning", label: "Morning", hint: "before 12", note: "Morning (before 12)" },
+  { key: "afternoon", label: "Afternoon", hint: "12 to 4", note: "Afternoon (12 to 4)" },
+  { key: "evening", label: "Evening", hint: "after 4", note: "Evening (after 4)" },
+];
+
+
 export default function ClubServiceFlow({ clubKey }: { clubKey: ClubLocationKey }) {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#F7F4E9]" />}>
@@ -271,17 +332,20 @@ export default function ClubServiceFlow({ clubKey }: { clubKey: ClubLocationKey 
   );
 }
 
+/* Appointment waitlist (Larimer since 11/16) stays off at the clubs until their Mindbody waitlist
+   settings are checked. The code path is Larimer's; this only hides the entry point. */
+const WAITLIST_ENABLED = false;
+
 function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   // Per-location Mindbody config (RiNo / Central Park). SITE_ID is threaded into
   // every Mindbody call so reads/writes hit this club's own site, never Larimer.
   const club = getClubLocation(clubKey)!;
   const SITE_ID = club.siteId;
   const basePath = `/locations/${club.key}`;
-  const hubPath = `${basePath}/book`;
   const remedyPath = `${basePath}/book-remedy-lounge`;
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category");
-  // ?view=services lands directly on the 3-service chooser (used by the Remedy
+  // ?view=services lands directly on the service chooser (used by the Remedy
   // Lounge "back" so it returns to the treatment selection, not welcome).
   const initialView = searchParams.get("view");
 
@@ -305,22 +369,6 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
     }
     prevStepRef.current = step;
   }, [step]);
-  // Deep link from the hub (?category=massage|facial) jumps straight to the
-  // treatment list, skipping welcome/category — mirrors arriving from a card.
-  useEffect(() => {
-    if (initialCategory === "massage" || initialCategory === "facial") {
-      setCategory(initialCategory);
-      setSelectedTreatment(null);
-      setSelectedBoosts([]);
-      setActiveConcern(null);
-      setStep("treatment");
-      // Same funnel start as tapping a category card (deep links from the location page / emails).
-      window.dataLayer?.push({ event: "booking_start", booking_flow: initialCategory, booking_entry: "deep_link" });
-    } else if (initialView === "services") {
-      setStep("category");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialCategory, initialView]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [category, setCategory] = useState<Category>("massage");
@@ -370,13 +418,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
           setNeedsNameUpdate(true);
         }
         if (data.isMember && data.tier) setTreatmentTierFilter(data.tier);
-        // Honor a hub deep-link (?category=) — jump straight to treatments.
-        if (initialCategory === "massage" || initialCategory === "facial") {
-          setCategory(initialCategory);
-          setStep("treatment");
-        } else {
-          setStep("category"); // skip welcome
-        }
+        setStep("category"); // skip welcome
       })
       .catch(() => { clearSavedEmail(); setEmail(""); })
       .finally(() => setLoading(false));
@@ -384,6 +426,16 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
 
   // Treatment
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
+  // Maternity trimester confirmation dialog (null = closed).
+  const [maternityConfirmFor, setMaternityConfirmFor] = useState<Treatment | null>(null);
+  const maternityDialogRef = useDialogA11y<HTMLDivElement>(
+    maternityConfirmFor !== null,
+    () => setMaternityConfirmFor(null)
+  );
+  // Set when a guest pivots from maternity massage to facials, so the facial
+  // list opens with a note explaining WHY they're here (the dialog that told
+  // them is gone by then). Cleared on any later category change.
+  const [firstTrimesterPivot, setFirstTrimesterPivot] = useState(false);
   const [treatmentTierFilter, setTreatmentTierFilter] = useState<"essential" | "premier" | "ultimate">("premier");
   const [expandedTreatmentId, setExpandedTreatmentId] = useState<number | null>(null);
   const [boostInfoId, setBoostInfoId] = useState<number | null>(null);
@@ -400,6 +452,16 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   const [selectedDate, setSelectedDate] = useState(formatISO(today));
   const [slots, setSlots] = useState<DisplaySlot[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<DisplaySlot | null>(null);
+  /* Waitlist (John 11/16): on a fully booked day the guest can join Mindbody's appointment
+     waitlist for that day instead of picking a time. They go through the same account and card
+     steps; the last step calls /api/service/waitlist instead of booking. selectedSlot then holds
+     a placeholder (noon, the filtered specialist or none) so those steps work unchanged; every
+     place that shows a time checks waitlistMode first. Larimer has First to Claim on, so a
+     cancellation texts everyone waiting and the first to reply "11" is booked. */
+  const [waitlistMode, setWaitlistMode] = useState(false);
+  /* Preferred time of day (John 11/17). Mindbody still holds the whole day and First to Claim
+     texts about any opening, so this is a preference for the desk + demand data, not a filter. */
+  const [waitlistTime, setWaitlistTime] = useState<WaitlistTime>("any");
   const [filteredTherapist, setFilteredTherapist] = useState<number | null>(null);
   const [allTherapists, setAllTherapists] = useState<{ id: number; name: string }[]>([]);
 
@@ -437,6 +499,23 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   const [guestEmail, setGuestEmail] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
   const [isSurprise, setIsSurprise] = useState(false);
+
+  // Deep link (?category=massage|facial, from the location page, emails, the locations list)
+  // jumps straight to the treatment list, skipping welcome/category.
+  useEffect(() => {
+    if (initialCategory === "massage" || initialCategory === "facial") {
+      setCategory(initialCategory);
+      setSelectedTreatment(null);
+      setSelectedBoosts([]);
+      setActiveConcern(null);
+      setStep("treatment");
+      // Same funnel start as tapping a category card.
+      window.dataLayer?.push({ event: "booking_start", booking_flow: initialCategory, booking_entry: "deep_link" });
+    } else if (initialView === "services") {
+      setStep("category");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialCategory, initialView]);
 
   /* -- helpers -- */
   const saveEmail = (e: string) => { try { localStorage.setItem(SAVED_EMAIL_KEY, e); } catch {} };
@@ -692,6 +771,22 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
     (s) => parseMindbodyDateTime(s.startDateTime).getHours()
   );
 
+  /* -- Full day: the club has no Aescape, so point to the Remedy Lounge (Larimer offers Aescape times here). -- */
+  const loungeFallbackCard = (
+    <Link
+      href={remedyPath}
+      onClick={() => trackCrossSell(category, "remedy_lounge_fallback")}
+      className="mt-2 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition"
+    >
+      <span>Try the <span className="text-[#4A776D]">Remedy Lounge</span>, often same-day availability</span>
+      <span className="text-[#4A776D]">&rarr;</span>
+    </Link>
+  );
+  const fallbackDayLabel =
+    selectedDate === formatISO(today)
+      ? "today"
+      : new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+
   /* ----------------------------------------------------------------
      HANDLERS
   ---------------------------------------------------------------- */
@@ -699,7 +794,19 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   const handleCategorySelect = (cat: Category) => { setCategory(cat); setSelectedTreatment(null); setSelectedBoosts([]); setActiveConcern(null); setStep("treatment"); window.dataLayer?.push({ event: "booking_start", booking_flow: cat }); };
 
 
-  const handleTreatmentSelect = (t: Treatment) => { setSelectedTreatment(t); setSelectedBoosts([]); window.dataLayer?.push({ event: "booking_service_selected", booking_flow: category, service_name: t.name, service_tier: t.tier }); setStep(BOOST_LIMITS[t.tier] === 0 ? "time" : "boosts"); };
+  const proceedWithTreatment = (t: Treatment) => { setSelectedTreatment(t); setSelectedBoosts([]); window.dataLayer?.push({ event: "booking_service_selected", booking_flow: category, service_name: t.name, service_tier: t.tier }); setStep(BOOST_LIMITS[t.tier] === 0 ? "time" : "boosts"); };
+  // Maternity massage is contraindicated in the first trimester — staff asked
+  // for an explicit confirmation at booking (two first-trimester bookings
+  // slipped through in one week, July 2026). Guests who aren't past week 13
+  // get a one-tap pivot to facials, which are first-trimester friendly.
+  const handleTreatmentSelect = (t: Treatment) => {
+    if (/maternity/i.test(t.name)) {
+      setMaternityConfirmFor(t);
+      window.dataLayer?.push({ event: "maternity_confirm_shown", booking_flow: category });
+      return;
+    }
+    proceedWithTreatment(t);
+  };
   const boostLimit = selectedTreatment ? BOOST_LIMITS[selectedTreatment.tier] ?? 2 : 2;
   const handleBoostToggle = (boost: Boost) => {
     setSelectedBoosts((prev) => {
@@ -713,8 +820,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   };
   const handleBoostsContinue = () => { window.dataLayer?.push({ event: "booking_boosts_done", booking_flow: category, boosts: selectedBoosts.map((b) => b.name) }); setStep("time"); };
 
-  const handleTimeContinue = () => {
-    if (!selectedSlot) return;
+  const handleTimeContinue = (forWaitlist = false) => {
+    if (!selectedSlot && !forWaitlist) return;
     window.dataLayer?.push({ event: "booking_time_selected", booking_flow: category, booking_date: selectedDate });
     // Stub returning client (clientId but blank name) — collect name before
     // anything else. Defense against booking under a nameless profile, which
@@ -752,6 +859,30 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
     setCardContext(null);
     setStep("account");
   };
+
+  /* Waitlist entry point (full day): placeholder slot, then the normal account / card path. */
+  const startWaitlist = () => {
+    if (!selectedTreatment) return;
+    trackStep("service", "waitlist-start", `${category}-${selectedTreatment.id}`);
+    window.dataLayer?.push({ event: "booking_waitlist_start", booking_flow: category, booking_date: selectedDate });
+    setWaitlistMode(true);
+    setWaitlistTime("any");
+    setSelectedSlot({
+      startDateTime: `${selectedDate}T12:00:00`,
+      staffId: filteredTherapist,
+      staffName: filteredTherapist !== null ? allTherapists.find((t) => t.id === filteredTherapist)?.name ?? null : null,
+      availableResourceIds: [],
+    });
+    handleTimeContinue(true);
+  };
+  // Back on the time step means the guest is choosing again: drop the placeholder.
+  useEffect(() => {
+    if (step === "time" && waitlistMode) {
+      setWaitlistMode(false);
+      setSelectedSlot(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   // Account step: email check + card handling
   const handleAccountEmailSubmit = async () => {
@@ -932,6 +1063,45 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
     finally { setNameSaving(false); }
   };
 
+  /* -- Week-strip availability dots: one ?days=7 request per shown week
+     (and specialist filter), cached; see lib/useWeekAvailability.ts -- */
+  const weekAvail = useWeekAvailability(
+    step === "time" && selectedTreatment ? `${selectedTreatment.id}|${formatISO(weekStart)}|${filteredTherapist ?? "any"}` : null,
+    async () => {
+      if (!selectedTreatment) return null;
+      const res = await fetch(`/api/service/availability?sessionTypeId=${selectedTreatment.id}&date=${formatISO(weekStart)}&days=7&siteId=${SITE_ID}${filteredTherapist ? `&staffId=${filteredTherapist}` : ""}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      const open = new Set<string>((Array.isArray(data.slots) ? data.slots : []).map((sl: { startDateTime: string }) => sl.startDateTime.slice(0, 10)));
+      return toDayAvailability(weekIsoDays(weekStart), open, !!data.partial);
+    }
+  );
+
+  // First-party funnel (lib/ops): each step + the treatment picked + errors shown + value at done.
+  useFlowTrack(
+    "service",
+    // Waitlist joins count as their own steps (wl-account ... waitlisted) so they never inflate the booking funnel.
+    waitlistMode && step !== "time" && step !== "waitlisted" ? `wl-${step}` : step,
+    selectedTreatment ? `${category}-${selectedTreatment.id}` : category,
+    error,
+    selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn + selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0) : undefined
+  );
+
+  /* Waitlist offer seen: once per treatment + date + specialist the card is shown for. Same
+     condition as the card on the time step. */
+  const waitlistOffered =
+    WAITLIST_ENABLED && step === "time" && !loading && !(totalExtMinutes > 0 && !schedulesLoaded) && displayedSlots.length === 0 &&
+    !!selectedTreatment && !/maternity/i.test(selectedTreatment.name);
+  const waitlistOfferSeen = useRef(new Set<string>());
+  useEffect(() => {
+    if (!waitlistOffered || !selectedTreatment) return;
+    const key = `${selectedTreatment.id}|${selectedDate}|${filteredTherapist ?? "any"}`;
+    if (waitlistOfferSeen.current.has(key)) return;
+    waitlistOfferSeen.current.add(key);
+    trackStep("service", "waitlist-offered", `${category}-${selectedTreatment.id}`);
+    window.dataLayer?.push({ event: "booking_waitlist_offered", booking_flow: category, booking_date: selectedDate });
+  }, [waitlistOffered, selectedTreatment, selectedDate, filteredTherapist, category]);
+
   const handleFinalConfirmAndBook = async () => {
     if (bookingLock.current) return;
     bookingLock.current = true;
@@ -969,13 +1139,38 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       const bookingValueTreatment = selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn : 0;
       const bookingValueBoosts = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0);
       const bookingValue = bookingValueTreatment + bookingValueBoosts;
-      // No Google Ads conversion here: those labels are Larimer's, and firing them would feed club
-      // bookings into Larimer's bidding. GA4-only until the clubs have their own conversion actions
-      // (same as remedy_lounge_booking_complete; see CLAUDE.md).
+      // No Google Ads conversions for club bookings (no club campaigns; they fired Larimer's labels until 11/2).
       window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD" });
       setStep("done");
     } catch (e: any) { setError(e?.message ? `${e.message} Email ${club.contactEmail} to complete your booking.` : `Booking failed. Email ${club.contactEmail} to complete your booking.`); setStep("confirm"); }
     finally { bookingLock.current = false; }
+  };
+
+  /* Waitlist: same last step as a booking, but joins Mindbody's appointment waitlist for the
+     day (no time, no boosts, nothing booked or charged). See app/api/service/waitlist. */
+  const handleJoinWaitlist = async () => {
+    if (bookingLock.current || !selectedTreatment || !clientId) return;
+    bookingLock.current = true;
+    setStep("booking"); setError(null);
+    try {
+      const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(" ") || email.trim() || "(unknown)";
+      const joinedAt = new Date().toLocaleString("en-US", { timeZone: "America/Denver", month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit", hour12: true });
+      const timeNote = WAITLIST_TIMES.find((t) => t.key === waitlistTime)?.note;
+      const notes = [
+        `Website waitlist: ${fullName} \u00B7 ${joinedAt} MT`,
+        timeNote ? `Prefers: ${timeNote}` : "",
+        selectedBoosts.length ? `Wanted boosts: ${selectedBoosts.map((b) => b.name).join(", ")}` : "",
+      ].filter(Boolean).join(" | ");
+      const res = await fetch("/api/service/waitlist", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientId, sessionTypeId: selectedTreatment.id, date: selectedDate, staffId: filteredTherapist, timePref: waitlistTime, notes }) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error ?? "We couldn't add you to the waitlist just now.");
+      window.dataLayer?.push({ event: "booking_waitlist_joined", booking_flow: category, service_name: selectedTreatment.name, booking_date: selectedDate, is_member: isMember, time_pref: waitlistTime });
+      setStep("waitlisted");
+    } catch (e: any) {
+      setError(`${e?.message || "We couldn't add you to the waitlist just now."} Email ${club.contactEmail} and we'll add you.`);
+      setStep("confirm");
+    } finally { bookingLock.current = false; }
   };
 
   const handleBack = () => {
@@ -1000,32 +1195,10 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
     if (prev) setStep(prev);
   };
 
+
   /* -- styles (matched to book-service) -- */
   const inputClass = "w-full rounded-xl border border-[#113D33]/20 bg-white px-4 py-3 text-[#113D33] placeholder:text-[#113D33]/70 focus:outline-none focus:ring-2 focus:ring-[#113D33]/30 text-base transition-shadow duration-200";
   const primaryBtn = "w-full rounded-full bg-[#113D33] text-white py-4 text-lg font-semibold hover:bg-[#0e3029] active:scale-[0.98] transition-all duration-200 disabled:opacity-30 disabled:active:scale-100 shadow-lg";
-  // First-party funnel (lib/ops): each step + the treatment picked + errors shown + value at done.
-  useFlowTrack(
-    "service",
-    step,
-    selectedTreatment ? `${category}-${selectedTreatment.id}` : category,
-    error,
-    selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn + selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0) : undefined
-  );
-
-  /* -- Week-strip availability dots: one ?days=7 request per shown week
-     (and specialist filter), cached; see lib/useWeekAvailability.ts -- */
-  const weekAvail = useWeekAvailability(
-    step === "time" && selectedTreatment ? `${selectedTreatment.id}|${formatISO(weekStart)}|${filteredTherapist ?? "any"}` : null,
-    async () => {
-      if (!selectedTreatment) return null;
-      const res = await fetch(`/api/service/availability?sessionTypeId=${selectedTreatment.id}&date=${formatISO(weekStart)}&days=7&siteId=${SITE_ID}${filteredTherapist ? `&staffId=${filteredTherapist}` : ""}`);
-      if (!res.ok) return null;
-      const data = await res.json();
-      const open = new Set<string>((Array.isArray(data.slots) ? data.slots : []).map((sl: { startDateTime: string }) => sl.startDateTime.slice(0, 10)));
-      return toDayAvailability(weekIsoDays(weekStart), open, !!data.partial);
-    }
-  );
-
   const secondaryBtn = "w-full rounded-full border-2 border-[#113D33] text-[#113D33] py-3 text-base font-semibold hover:bg-[#113D33] hover:text-white active:scale-[0.98] transition-all duration-200";
 
   /* (progress bar is rendered by ProgressBarNew component) */
@@ -1036,10 +1209,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
 
   return (
     <div className="min-h-screen bg-[#F7F4E9] font-vance">
-      {/* ACTIVATION: uncomment (see import note at top of file).
-      <HideFloatingWidgets /> */}
+      {/* Floating widgets are hidden by the club layouts (HideFloatingWidgets). */}
       {/* Sticky header — matches book-service: top-[56px] to sit below nav */}
-      {step !== "welcome" && step !== "done" && (
+      {step !== "welcome" && step !== "done" && step !== "waitlisted" && (
         <div
           data-booking-header="true"
           className="sticky top-[56px] z-30 border-b border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur-md"
@@ -1068,8 +1240,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                  step === "time" ? "Pick your specialist & time" :
                  step === "account" ? (cardContext ? (cardContext === "create_account" ? "Create your account" : "Payment details") : "Your account") :
                  step === "name" ? "Confirm your name" :
-                 step === "confirm" ? "Review and confirm" :
-                 step === "booking" ? "Booking your appointment" : ""}
+                 step === "confirm" ? (waitlistMode ? "Join the waitlist" : "Review and confirm") :
+                 step === "booking" ? (waitlistMode ? "Joining the waitlist" : "Booking your appointment") : ""}
               </div>
               <span className="w-16" />
             </div>
@@ -1368,6 +1540,58 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               )}
             </div>
 
+            {/* Category switch — change massage/facial without going back a step */}
+            <div className="flex justify-center">
+              <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
+                {(["massage", "facial"] as const).map((cat) => {
+                  const isActive = category === cat;
+                  return (
+                    <button
+                      aria-pressed={isActive}
+                      key={cat}
+                      onClick={() => {
+                        if (cat === category) return;
+                        setCategory(cat);
+                        setFirstTrimesterPivot(false);
+                        setSelectedTreatment(null);
+                        setSelectedBoosts([]);
+                        setActiveConcern(null);
+                        setExpandedTreatmentId(null);
+                      }}
+                      className={`relative px-7 py-2.5 rounded-full text-sm font-semibold transition-colors duration-200 ${isActive ? "bg-[#113D33] text-white shadow-sm" : "text-[#113D33]/75 hover:text-[#113D33]"}`}
+                    >
+                      {cat === "massage" ? "Massage" : "Facial"}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* First-trimester pivot note: keeps the "why" visible after the
+                maternity dialog closes and the guest lands on facials. */}
+            {firstTrimesterPivot && category === "facial" && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="max-w-xl mx-auto rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.18)] px-5 py-4 text-center"
+              >
+                <p className="text-sm text-[#113D33]/85">
+                  <span className="font-semibold text-[#113D33]">
+                    Facials are safe and wonderful at every stage of pregnancy
+                  </span>
+                  . That&apos;s why we brought you here. Once you&apos;re past
+                  your first trimester, we&apos;d love to welcome you back for
+                  your maternity massage.
+                </p>
+                <button
+                  onClick={() => setFirstTrimesterPivot(false)}
+                  className="mt-2 text-xs text-[#4A776D] underline underline-offset-2 hover:text-[#113D33] transition"
+                >
+                  Got it
+                </button>
+              </motion.div>
+            )}
+
             {/* Tier toggle */}
             <div className="flex justify-center">
               <div className="inline-flex bg-[#113D33]/10 rounded-full p-1 gap-0.5">
@@ -1471,13 +1695,13 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   )}
                 </div>
 
-                {/* Treatment cards — expandable, tier-distinct */}
+                {/* Treatment cards — one tap to select, tier-distinct, icon-anchored */}
                 <div className="space-y-2.5">
                   {filteredTreatments.map((t, i) => {
                     const isUltimate = t.tier === "ultimate";
                     const isPremier = t.tier === "premier";
-                    const isExpanded = expandedTreatmentId === t.id;
                     const matchesConcern = !activeConcern || (t.concerns?.includes(activeConcern) ?? false);
+                    const img = treatmentImage(t.name);
                     return (
                     <motion.div
                       key={t.id}
@@ -1485,65 +1709,65 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: matchesConcern ? 1 : 0.35, y: 0, scale: matchesConcern ? 1 : 0.98 }}
                       transition={{ duration: 0.2, delay: i * 0.04 }}
-                      className={`rounded-xl border overflow-hidden transition-all duration-200 ${
-                        isUltimate
-                          ? "bg-[#113D33]/[0.04] border-[#113D33]/15"
-                          : isPremier
-                          ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
-                          : "bg-white border-[#113D33]/8"
-                      } ${isExpanded ? "shadow-md" : "hover:shadow-sm"}`}>
-                      {/* Collapsed row — always visible */}
+                      className="[backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+                      style={{ willChange: "transform, opacity" }}>
+                      {/* Visual styling lives on the button (not the animated wrapper) with a
+                          specific transition — combining transition-all + box-shadow + framer
+                          entry animation causes an end-of-animation flash on mobile. */}
                       <button
-                        aria-expanded={isExpanded}
-                        onClick={() => setExpandedTreatmentId(isExpanded ? null : t.id)}
-                        className="w-full text-left px-5 py-4 flex items-center justify-between gap-4">
+                        aria-label={`Select ${t.name}`}
+                        onClick={() => handleTreatmentSelect(t)}
+                        className={`group w-full text-left rounded-xl border overflow-hidden px-4 py-4 flex items-center gap-3.5 transition-[box-shadow,border-color] duration-200 hover:shadow-md [backface-visibility:hidden] [-webkit-backface-visibility:hidden] ${
+                          isUltimate
+                            ? "bg-white border-l-[3px] border-l-[#B0883C] border-[#B0883C]/30"
+                            : isPremier
+                            ? "bg-white border-l-[3px] border-l-[#4A776D] border-[#113D33]/10"
+                            : "bg-white border-[#113D33]/8"
+                        }`}>
+                        {img && (
+                          <span className="shrink-0 w-16 h-16 rounded-lg overflow-hidden relative bg-[#113D33]/5">
+                            <Image src={img} alt="" fill sizes="64px" className="object-cover" />
+                          </span>
+                        )}
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-1.5">
-                            {isUltimate && <span className="text-[#4A776D] text-xs">✦</span>}
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            {isUltimate && <span className="text-[#B0883C] text-xs">✦</span>}
                             <h3 className="font-semibold text-[15px] text-[#113D33] leading-tight">{t.name}</h3>
-                          </div>
-                          <p className="text-[13px] text-[#113D33]/75 mt-0.5">{t.duration}</p>
-                        </div>
-                        <div className="flex items-center gap-3 shrink-0">
-                          <div className="text-right">
-                            {tierIncluded ? (
-                              <span className="text-sm font-bold text-[#4A776D]">Included</span>
-                            ) : isUpgrade ? (
-                              <span className="text-sm font-bold text-[#4A776D]">+${upgradeCost}</span>
-                            ) : (
-                              <span className="text-sm font-bold text-[#113D33]">${TIER_PRICING[t.tier].dropIn}</span>
+                            {t.badge && (
+                              <span className={`text-[10px] font-semibold tracking-wide rounded-full px-2 py-0.5 ${isUltimate ? "text-[#8A6A2E] bg-[#B0883C]/10" : "text-[#4A776D] bg-[#4A776D]/10"}`}>{t.badge}</span>
                             )}
                           </div>
-                          <svg className={`w-4 h-4 text-[#113D33]/30 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          <p className="text-[13px] text-[#113D33]/75 mt-0.5 leading-snug">{t.description}</p>
+                        </div>
+                        <div className="flex items-center gap-2.5 shrink-0 self-center">
+                          <div className="text-right">
+                            {/* Duration is the headline differentiator across tiers (50 / 70 / 90 min) */}
+                            <div className="text-base font-bold text-[#113D33] leading-none">{t.duration}</div>
+                            <div className="mt-1 text-xs font-semibold">
+                              {tierIncluded ? (
+                                <span className={isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}>Included</span>
+                              ) : isUpgrade ? (
+                                <span className={isUltimate ? "text-[#B0883C]" : "text-[#4A776D]"}>+${upgradeCost}</span>
+                              ) : (
+                                <span className={isUltimate ? "text-[#B0883C]" : "text-[#113D33]/70"}>${TIER_PRICING[t.tier].dropIn}</span>
+                              )}
+                            </div>
+                          </div>
+                          <svg className="w-4 h-4 text-[#113D33]/25 group-hover:text-[#113D33]/50 group-hover:translate-x-0.5 transition-[transform,color] duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
                       </button>
-                      {/* Expanded details */}
-                      <AnimatePresence initial={false}>
-                        {isExpanded && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2, ease: "easeInOut" }}
-                            className="overflow-hidden">
-                            <div className="px-5 pb-4 pt-0">
-                              <p className="text-sm text-[#113D33]/75 leading-relaxed mb-4">{t.description}</p>
-                              <button
-                                onClick={() => handleTreatmentSelect(t)}
-                                className="w-full bg-[#113D33] text-white font-semibold text-sm py-3 rounded-lg hover:bg-[#0a2b23] transition-colors">
-                                Select {t.name.replace(/^(Essential |Premier |Ultimate )/, "")}
-                              </button>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
                     </motion.div>
                     );
                   })}
                 </div>
+                {/* Boost seed — primes the enhancement decision before the next step */}
+                {treatmentTierFilter !== "ultimate" && (
+                  <p className="text-center text-xs text-[#113D33]/75 mt-4">
+                    <span className="text-[#4A776D]">✦</span> Add a boost to elevate your results. You&rsquo;ll choose right after.
+                  </p>
+                )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
@@ -1560,24 +1784,32 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
 
           return (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            {/* Service recap card */}
-            {selectedTreatment && (
-              <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
-                <div className="relative h-32 w-full">
-                  <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
-                    <p className="text-white/70 text-xs mt-0.5">{selectedTreatment.duration} · ${selectedPrice}</p>
-                  </div>
+            {/* Service recap — photo-less, matches the treatment-card visual language */}
+            {selectedTreatment && (() => {
+              const rUlt = selectedTreatment.tier === "ultimate";
+              const rVis = getConcernVisual(selectedTreatment.concerns);
+              return (
+              <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm px-4 py-3.5 flex items-center gap-3.5">
+                <span className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center" style={rUlt ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${rVis.color}1A` }} aria-hidden="true">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={rUlt ? "#B0883C" : rVis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d={ICON_D[rVis.icon]} /></svg>
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-[15px] text-[#113D33] leading-tight">{selectedTreatment.name}</p>
+                  <p className="text-xs text-[#113D33]/75 mt-0.5">{selectedTreatment.duration} · {selectedPrice === 0 ? "Included" : `$${selectedPrice}`}</p>
                 </div>
+                <svg className="w-5 h-5 text-[#4A776D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               </div>
-            )}
+              );
+            })()}
 
             <div className="text-center">
               <h2 className="text-2xl font-bold text-[#113D33]">Customize your experience</h2>
               <p className="mt-1 text-sm text-[#113D33]/75">
-                Add science-backed enhancements to your {category}.
+                {isMember && selectedPrice === 0 ? (
+                  <>Your {category} is included. Make it even better from <span className="font-semibold text-[#113D33]">$10</span>.</>
+                ) : (
+                  <>Add science-backed enhancements to your {category}.</>
+                )}
                 {selectedTreatment?.tier !== "ultimate" && <span className="block mt-1 text-[#4A776D] font-medium">One per type. Mix and match across categories.</span>}
               </p>
             </div>
@@ -1591,7 +1823,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               <div className="bg-[#113D33]/5 border border-[#113D33]/10 rounded-xl px-4 py-3 text-center">
                 <p className="text-sm text-[#113D33]">
                   <span className="font-bold">Members save 50%</span> on every boost.{" "}
-                  <Link href={basePath} className="underline underline-offset-2 font-semibold text-[#4A776D]">Join the club &rarr;</Link>
+                  <Link href={`${basePath}/membership`} className="underline underline-offset-2 font-semibold text-[#4A776D]">Join the club &rarr;</Link>
                 </p>
               </div>
             )}
@@ -1611,37 +1843,43 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                     </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {group.items.map((b) => {
+                <div className="space-y-2.5">
+                  {[...group.items].sort((a, b) => (b.recommended ? 1 : 0) - (a.recommended ? 1 : 0)).map((b) => {
                     const sel = selectedBoosts.some((sb) => sb.id === b.id);
                     const familyConflict = !sel && selectedBoosts.some((sb) => sb.family === b.family);
                     const atLimit = !sel && !familyConflict && selectedBoosts.length >= boostLimit;
                     const disabled = atLimit;
                     const showInfo = boostInfoId === b.id;
+                    const bv = getBoostVisual(b.family);
                     return (
                       <div key={b.id} className="relative">
                         <button aria-pressed={sel} onClick={() => !disabled && handleBoostToggle(b)} disabled={disabled}
-                          className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all ${sel ? "bg-[#113D33] border-[#113D33] text-white" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:border-[#113D33]/40" : "bg-white border-[#113D33]/10 hover:border-[#113D33]/25"}`}>
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5">
-                                <h4 className={`font-semibold text-sm leading-tight ${sel ? "text-white" : "text-[#113D33]"}`}>{b.name.replace(/ Boost$| Boost Plus$| Boost Pro$/, "")}</h4>
-                                {b.fullDescription && (
-                                  <button
-                                    type="button"
-                                    onClick={(e) => { e.stopPropagation(); setBoostInfoId(showInfo ? null : b.id); }}
-                                    className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${sel ? "border-white/50 hover:border-white" : "border-[#113D33]/20 hover:border-[#113D33]/40"}`}
-                                  >
-                                    <span className={`text-[10px] font-bold leading-none ${sel ? "text-white/70" : "text-[#113D33]/75"}`}>i</span>
-                                  </button>
-                                )}
-                              </div>
-                              <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/75"}`}>{b.description}</p>
+                          className={`group w-full text-left rounded-xl border px-4 py-3.5 flex items-center gap-3.5 transition-[box-shadow,border-color] duration-200 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] ${sel ? "bg-[#113D33] border-[#113D33]" : disabled ? "bg-white/50 border-[#113D33]/5 opacity-40 cursor-not-allowed" : familyConflict ? "bg-white border-[#113D33]/20 border-dashed hover:shadow-md" : b.recommended ? "bg-[#4A776D]/[0.06] border-[#4A776D] hover:shadow-md" : "bg-white border-[#113D33]/10 hover:shadow-md"}`}>
+                          {/* Boost icon tile — same visual language as the treatment list */}
+                          <span className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={sel ? { backgroundColor: "rgba(255,255,255,0.15)" } : { backgroundColor: `${bv.color}1F` }} aria-hidden="true">
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={sel ? "#ffffff" : bv.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d={ICON_D[bv.icon]} /></svg>
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h4 className={`font-semibold text-sm leading-tight ${sel ? "text-white" : "text-[#113D33]"}`}>{b.name.replace(/ Boost$| Boost Plus$| Boost Pro$/, "")}</h4>
+                              {b.recommended && !sel && (
+                                <span className="text-[10px] font-semibold text-[#4A776D] bg-[#4A776D]/10 rounded-full px-2 py-0.5 whitespace-nowrap">Most popular</span>
+                              )}
+                              {b.fullDescription && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); setBoostInfoId(showInfo ? null : b.id); }}
+                                  className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${sel ? "border-white/50 hover:border-white" : "border-[#113D33]/20 hover:border-[#113D33]/40"}`}
+                                >
+                                  <span className={`text-[10px] font-bold leading-none ${sel ? "text-white/70" : "text-[#113D33]/75"}`}>i</span>
+                                </button>
+                              )}
                             </div>
-                            <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition ${sel ? "bg-white border-white" : familyConflict ? "border-[#113D33]/30" : "border-[#113D33]/20"}`}>
-                              {sel && <svg className="w-3 h-3 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
-                              {familyConflict && <svg className="w-3 h-3 text-[#113D33]/75" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
-                            </div>
+                            <p className={`text-xs mt-0.5 leading-snug ${sel ? "text-white/70" : "text-[#113D33]/75"}`}>{b.description}</p>
+                          </div>
+                          <div className={`w-5 h-5 rounded-full border-2 shrink-0 self-center flex items-center justify-center ${sel ? "bg-white border-white" : familyConflict ? "border-[#113D33]/30" : "border-[#113D33]/20"}`}>
+                            {sel && <svg className="w-3 h-3 text-[#113D33]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+                            {familyConflict && <svg className="w-3 h-3 text-[#113D33]/75" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>}
                           </div>
                         </button>
                         {/* Info tooltip — shown on tap (mobile) or hover via i icon */}
@@ -1671,7 +1909,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               </div>
             ))}
 
-            <button onClick={handleBoostsContinue} className={primaryBtn}>{selectedBoosts.length > 0 ? `Continue with ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}` : "Skip, no boosts"}</button>
+            <button onClick={handleBoostsContinue} className={primaryBtn}>{selectedBoosts.length > 0 ? `Continue with ${selectedBoosts.length} boost${selectedBoosts.length > 1 ? "s" : ""}` : "Continue"}</button>
           </motion.div>
           );
         })()}
@@ -1679,24 +1917,25 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
         {/* ===== TIME ===== */}
         {step === "time" && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            {/* Treatment recap card */}
-            {selectedTreatment && (
+            {/* Treatment recap — photo-less, matches the treatment-card visual language */}
+            {selectedTreatment && (() => {
+              const rUlt = selectedTreatment.tier === "ultimate";
+              const rVis = getConcernVisual(selectedTreatment.concerns);
+              const rIncluded = isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[selectedTreatment.tier];
+              return (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
-                <div className="relative h-28 w-full">
-                  <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-                    <div>
-                      <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
-                      <p className="text-white/70 text-xs mt-0.5">
-                        {selectedTreatment.duration}
-                        {selectedBoosts.length > 0 && ` + ${selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0)} min boosts`}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-white font-bold text-sm">{isMember && memberTier && TIER_RANK[memberTier] >= TIER_RANK[selectedTreatment.tier] ? "Included" : `$${selectedPrice}`}</p>
-                    </div>
+                <div className="px-4 py-3.5 flex items-center gap-3.5">
+                  <span className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center" style={rUlt ? { backgroundColor: "#ffffff", border: "1px solid #B0883C66" } : { backgroundColor: `${rVis.color}1A` }} aria-hidden="true">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke={rUlt ? "#B0883C" : rVis.color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><path d={ICON_D[rVis.icon]} /></svg>
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-[15px] text-[#113D33] leading-tight">{selectedTreatment.name}</p>
+                    <p className="text-xs text-[#113D33]/75 mt-0.5">
+                      {selectedTreatment.duration}
+                      {selectedBoosts.length > 0 && ` + ${selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0)} min boosts`}
+                    </p>
                   </div>
+                  <p className={`text-sm font-bold shrink-0 ${rIncluded ? (rUlt ? "text-[#B0883C]" : "text-[#4A776D]") : "text-[#113D33]"}`}>{rIncluded ? "Included" : `$${selectedPrice}`}</p>
                 </div>
                 {selectedBoosts.length > 0 && (
                   <div className="px-4 py-2 border-t border-[#113D33]/5 flex flex-wrap gap-2">
@@ -1706,7 +1945,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   </div>
                 )}
               </div>
-            )}
+              );
+            })()}
             {/* "Choose a Day" header with month */}
             <div className="text-center pt-4">
               <h2 className="text-2xl font-bold text-[#113D33]">Choose a Day</h2>
@@ -1753,16 +1993,35 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* "Pick a Time" header */}
             <h3 className="text-xl font-bold text-[#113D33] text-center">Pick a Time</h3>
 
-            {/* Remedy Lounge cross-sell — recovery alternative when no slots */}
+            {/* Next available banner */}
             {!loading && displayedSlots.length === 0 && selectedTreatment && (
-              <Link
-                href={remedyPath}
-                className="mt-2 w-full flex items-center justify-center gap-2 rounded-xl border border-[#4A776D]/30 bg-[#4A776D]/5 hover:bg-[#4A776D]/10 px-4 py-3 text-sm font-semibold text-[#113D33] transition focus:outline-none focus:ring-2 focus:ring-[#4A776D]/30"
-              >
-                <span>Try the <span className="text-[#4A776D]">Remedy Lounge</span>, often same-day availability</span>
-                <span className="text-[#4A776D]">&rarr;</span>
-              </Link>
+              <NextAvailableBanner
+                type="service"
+                siteId={SITE_ID}
+                sessionTypeId={selectedTreatment.id}
+                currentDate={selectedDate}
+                staffId={filteredTherapist}
+                staffName={allTherapists.find((t) => t.id === filteredTherapist)?.name ?? null}
+                onJumpToDate={(d) => { setSelectedDate(d); const jumpDate = new Date(d + "T12:00:00"); jumpDate.setHours(0,0,0,0); setWeekStart(jumpDate); }}
+              />
             )}
+            {/* Waitlist on a full day (see startWaitlist). Not for maternity: that booking has its own trimester check. */}
+            {WAITLIST_ENABLED && !loading && !(totalExtMinutes > 0 && !schedulesLoaded) && displayedSlots.length === 0 && selectedTreatment && !/maternity/i.test(selectedTreatment.name) && (
+              <div className="rounded-2xl border border-[#113D33]/15 bg-white p-5 text-left shadow-sm" data-track="waitlist-card">
+                <p className="text-[10px] uppercase tracking-wider font-semibold text-[#4A776D]">Fully booked {fallbackDayLabel}</p>
+                <h3 className="mt-1 text-lg font-bold text-[#113D33]">Join the waitlist</h3>
+                <p className="mt-1 text-sm text-[#113D33]/80 leading-relaxed">
+                  If a {selectedTreatment.name.replace(/^(Essential|Premier|Ultimate) /, "")} opens up {fallbackDayLabel}
+                  {filteredTherapist !== null && allTherapists.find((t) => t.id === filteredTherapist) ? ` with ${allTherapists.find((t) => t.id === filteredTherapist)!.name}` : ""}, we&apos;ll text you.
+                  Reply to claim it and you&apos;re booked. No charge to join.
+                </p>
+                <button onClick={startWaitlist} className="mt-4 w-full rounded-full bg-[#113D33] py-3 text-sm font-semibold text-white transition hover:bg-[#0e3029] focus:outline-none focus:ring-2 focus:ring-[#113D33]/40">
+                  Join the waitlist for {fallbackDayLabel}
+                </button>
+              </div>
+            )}
+            {/* Full day: Remedy Lounge instead (clubs have no Aescape) */}
+            {!loading && displayedSlots.length === 0 && loungeFallbackCard}
             {/* Slots */}
             {loading || (totalExtMinutes > 0 && !schedulesLoaded) ? <div role="status" className="text-center py-12 text-[#113D33]/75">Loading availability...</div>
             : displayedSlots.length === 0 ? <div role="status" className="text-center py-12 text-[#113D33]/75">
@@ -1804,7 +2063,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               </div>
             )}
 
-            {selectedSlot && <button onClick={handleTimeContinue} className={primaryBtn}>Continue</button>}
+            {selectedSlot && <button onClick={() => handleTimeContinue()} className={primaryBtn}>Continue</button>}
           </motion.div>
         )}
 
@@ -1851,19 +2110,19 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               <>
                 <div className="text-center pt-4">
                   <h2 className="text-2xl font-bold text-[#113D33]">Almost there!</h2>
-                  <p className="mt-2 text-sm text-[#113D33]/75">Enter your email to complete your booking.</p>
+                  <p className="mt-2 text-sm text-[#113D33]/75">{waitlistMode ? "Enter your email to join the waitlist." : "Enter your email to complete your booking."}</p>
                 </div>
 
                 {/* Service recap */}
                 {selectedTreatment && selectedSlot && (
                   <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-3">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
-                      <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
+                      <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
                       <p className="text-xs text-[#113D33]/75">
-                        {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {formatTime12h(selectedSlot.startDateTime)}
+                        {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {waitlistMode ? "Waitlist, any time that day" : formatTime12h(selectedSlot.startDateTime)}
                       </p>
                     </div>
                   </div>
@@ -1872,7 +2131,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
                   <label className="block text-sm font-medium text-[#113D33]">Email address</label>
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleAccountEmailSubmit()} placeholder="you@example.com" className={inputClass} aria-label="Email" autoFocus />
-                  <p className="text-xs text-gray-600 flex items-center gap-1.5">
+                  <p className="text-xs text-gray-400 flex items-center gap-1.5">
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                     We use your email to find or create your Mindbody account. You won&apos;t be charged today.
                   </p>
@@ -1886,7 +2145,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 {isMember && memberFirstName && (
                   <div className="bg-[#113D33] text-white rounded-2xl p-5 text-center">
                     <p className="text-lg font-semibold">Welcome back, {memberFirstName}!</p>
-                    <p className="text-sm text-white/70 mt-1">Your <span className="font-bold capitalize">{memberTier}</span> membership has been applied.</p>
+                    <p className="text-sm text-white/70 mt-1">Your <span className="font-bold capitalize">{memberTier}</span> membership pricing has been applied.</p>
                     {homeLocation && <p className="text-xs text-white/70 mt-1">Member at {homeLocation}</p>}
                   </div>
                 )}
@@ -1927,7 +2186,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <div className="bg-[#113D33]/[0.04] border border-[#113D33]/10 rounded-2xl p-4 text-center">
                     <p className="text-sm text-[#113D33]">
                       <span className="font-bold">Save ${TIER_PRICING[selectedTreatment.tier].dropIn - TIER_PRICING[selectedTreatment.tier].member}/visit</span> with a {selectedTreatment.tier} membership.{" "}
-                      <Link href={basePath} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 font-semibold text-[#4A776D]">Learn more<span className="sr-only"> about membership</span> &rarr; <span className="sr-only">(opens in new tab)</span></Link>
+                      <Link href={`${basePath}/membership`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 font-semibold text-[#4A776D]">Learn more<span className="sr-only"> about membership</span> &rarr; <span className="sr-only">(opens in new tab)</span></Link>
                     </p>
                   </div>
                 )}
@@ -1939,11 +2198,11 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
         {/* ===== CONFIRM ===== */}
         {step === "confirm" && selectedTreatment && selectedSlot && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <div className="text-center pt-4"><h2 className="text-2xl font-bold text-[#113D33]">Confirm your booking</h2></div>
+            <div className="text-center pt-4"><h2 className="text-2xl font-bold text-[#113D33]">{waitlistMode ? "Join the waitlist" : "Confirm your booking"}</h2></div>
             <div className="bg-white border border-[#113D33]/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {/* Service image header */}
               <div className="relative h-44 w-full overflow-hidden">
-                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-5">
                   <p className="text-xs uppercase tracking-wider text-white/70 font-semibold capitalize">{selectedTreatment.tier} {category}</p>
@@ -1952,7 +2211,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               </div>
 
               <div className="p-5 text-left space-y-4">
-                {selectedBoosts.length > 0 && (
+                {selectedBoosts.length > 0 && !waitlistMode && (
                   <div>
                     <p className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">Boosts</p>
                     {selectedBoosts.map((b) => <p key={b.id} className="text-sm text-[#113D33]/75">+ {b.name}</p>)}
@@ -1969,10 +2228,49 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 <div>
                   <p className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">When</p>
                   <p className="text-sm font-medium text-[#113D33]">
-                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
+                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} &middot; {waitlistMode ? (waitlistTime === "any" ? "Waitlist, any time that day" : `Waitlist, ${WAITLIST_TIMES.find((t) => t.key === waitlistTime)!.label.toLowerCase()} preferred`) : formatTimeRange(selectedSlot.startDateTime, selectedTreatment.durationMinutes + selectedBoosts.reduce((s, b) => s + b.addsMinutes, 0))}
                   </p>
                 </div>
 
+                {waitlistMode && (
+                  <div>
+                    <p id="waitlist-time-label" className="text-[10px] uppercase tracking-wider text-[#113D33]/75 font-semibold">What time works best?</p>
+                    <div role="radiogroup" aria-labelledby="waitlist-time-label" className="mt-2 grid grid-cols-2 gap-2">
+                      {WAITLIST_TIMES.map((t) => {
+                        const on = waitlistTime === t.key;
+                        return (
+                          <button
+                            key={t.key}
+                            type="button"
+                            role="radio"
+                            aria-checked={on}
+                            data-track={`waitlist-time-${t.key}`}
+                            onClick={() => setWaitlistTime(t.key)}
+                            className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-[#113D33]/40 ${on ? "border-[#113D33] bg-[#113D33]/[0.06] font-semibold text-[#113D33]" : "border-[#113D33]/15 bg-white text-[#113D33]/85 hover:border-[#113D33]/40"}`}
+                          >
+                            <span aria-hidden="true" className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#113D33]" : "border-[#113D33]/40"}`}>
+                              {on && <span className="h-2 w-2 rounded-full bg-[#113D33]" />}
+                            </span>
+                            <span>
+                              {t.label}
+                              {t.hint && <span className="block text-xs font-normal text-[#113D33]/70">{t.hint}</span>}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <p className="mt-2 text-xs text-[#113D33]/75">We&apos;ll still text you about any opening that day, so you can grab one outside this window too.</p>
+                  </div>
+                )}
+
+                {waitlistMode ? (
+                  <div className="rounded-xl bg-[#113D33]/[0.04] p-4 text-sm text-[#113D33]/85 leading-relaxed space-y-2" data-track="waitlist-how">
+                    <p className="font-semibold text-[#113D33]">How the waitlist works</p>
+                    <p>If someone cancels, we text everyone on the waitlist for that day. The first to reply gets the spot and is booked automatically.</p>
+                    <p>Nothing is booked or charged when you join. Once you claim a spot, it&apos;s a regular appointment and our usual cancellation policy applies.</p>
+                    {selectedBoosts.length > 0 && <p>Boosts are added once you&apos;re booked. We&apos;ve noted the ones you picked.</p>}
+                  </div>
+                ) : (<>
                 <div className="pt-3 border-t border-[#113D33]/10 space-y-2">
                   {/* Itemized pricing */}
                   {(() => {
@@ -2031,22 +2329,38 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                   <svg className="w-4 h-4 shrink-0 mt-0.5 text-[#113D33]/75" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                   No charge today. Your card is stored for no-show / late cancellation protection.
                 </div>
+                </>)}
               </div>
             </div>
             {/* For someone else */}
-            <div className="bg-white rounded-2xl border border-black/5 p-6">
+            {!waitlistMode && <div className="bg-white rounded-2xl border border-black/5 p-6">
               <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={forSomeoneElse} onChange={(e) => setForSomeoneElse(e.target.checked)} className="rounded border-gray-300" /><span className="text-sm text-[#113D33]">This booking is for someone else</span></label>
               {forSomeoneElse && (
                 <div className="mt-4 space-y-3">
-                  <div className="grid grid-cols-2 gap-3"><input type="text" value={guestFirstName} onChange={(e) => setGuestFirstName(e.target.value)} placeholder="Their first name *" className={inputClass} /><input type="text" value={guestLastName} onChange={(e) => setGuestLastName(e.target.value)} placeholder="Last name" className={inputClass} /></div>
-                  <input type="tel" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value)} placeholder="Their phone *" className={inputClass} />
-                  <input type="email" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} placeholder="Their email (optional)" className={inputClass} />
+                  <div className="grid grid-cols-2 gap-3"><input type="text" value={guestFirstName} onChange={(e) => setGuestFirstName(e.target.value)} placeholder="Their first name *" className={inputClass} aria-label="Guest first name" /><input type="text" value={guestLastName} onChange={(e) => setGuestLastName(e.target.value)} placeholder="Last name" className={inputClass} aria-label="Guest last name" /></div>
+                  <input type="tel" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value)} placeholder="Their phone *" className={inputClass} aria-label="Guest phone" />
+                  <input type="email" value={guestEmail} onChange={(e) => setGuestEmail(e.target.value)} placeholder="Their email (optional)" className={inputClass} aria-label="Guest email" />
                   <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={isSurprise} onChange={(e) => setIsSurprise(e.target.checked)} className="rounded border-gray-300" /><span className="text-xs text-[#113D33]/75">This is a surprise. Don&apos;t contact them</span></label>
                 </div>
               )}
-            </div>
-            <button onClick={handleFinalConfirmAndBook} disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())} className={primaryBtn}>Confirm & book</button>
-            <p className="text-xs text-center text-[#113D33]/75">Your card will not be charged today. It is held to secure your appointment.</p>
+            </div>}
+            {waitlistMode ? (
+              <>
+                <button onClick={handleJoinWaitlist} className={primaryBtn}>Join the waitlist</button>
+                <p className="text-xs text-center text-[#113D33]/75">Texts go to the mobile number on your account.</p>
+              </>
+            ) : (
+              <>
+                <button onClick={handleFinalConfirmAndBook} disabled={forSomeoneElse && (!guestFirstName.trim() || !guestPhone.trim())} className={primaryBtn}>Confirm & book</button>
+                <p className="text-xs text-center text-[#113D33]/75">Your card will not be charged today. It is held to secure your appointment.</p>
+              </>
+            )}
+                {category === "massage" && !/maternity/i.test(selectedTreatment?.name ?? "") && (
+                  <p className="mt-2 text-xs text-[#113D33]/75">
+                    Expecting? Massage is for after the first trimester.
+                    Facials are a lovely first-trimester option.
+                  </p>
+                )}
           </motion.div>
         )}
 
@@ -2054,9 +2368,51 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
         {step === "booking" && (
           <div className="text-center py-24">
             <div className="inline-block w-10 h-10 border-4 border-[#113D33]/20 border-t-[#113D33] rounded-full animate-spin" />
-            <p className="mt-4 text-[#113D33] font-semibold">Booking your appointment...</p>
+            <p className="mt-4 text-[#113D33] font-semibold">{waitlistMode ? "Adding you to the waitlist..." : "Booking your appointment..."}</p>
             <p className="text-sm text-[#113D33]/75 mt-1">Please don&apos;t close this page</p>
           </div>
+        )}
+
+        {/* ===== WAITLISTED ===== */}
+        {step === "waitlisted" && selectedTreatment && (
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center pt-4 space-y-6">
+            <div className="relative rounded-2xl overflow-hidden mb-8">
+              <div className="relative h-48 w-full">
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
+              </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+                <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center mb-3">
+                  <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">You&apos;re on the waitlist</h2>
+              </div>
+            </div>
+            <div className="text-left space-y-1">
+              <p className="text-[#113D33] font-semibold text-lg">{selectedTreatment.name}</p>
+              <p className="text-[#113D33]/75 text-sm">
+                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })} &middot; {waitlistTime === "any" ? "any time that day" : `${WAITLIST_TIMES.find((t) => t.key === waitlistTime)!.label.toLowerCase()} preferred`}
+                {selectedSlot?.staffName ? ` with ${selectedSlot.staffName}` : ""}
+              </p>
+              <p className="text-[#113D33]/80 text-sm mt-4 leading-relaxed">
+                If a spot opens, we&apos;ll text the mobile number on your account. Reply to the text to claim it and you&apos;re booked. Others on the list get the same text, so reply quickly.
+              </p>
+              <p className="text-[#113D33]/75 text-sm">Nothing is booked yet, and you haven&apos;t been charged. Questions? Email {club.contactEmail}.</p>
+            </div>
+            <div className="pt-2 space-y-3">
+              <button
+                onClick={() => { setWaitlistMode(false); setSelectedSlot(null); setStep("time"); }}
+                className="w-full rounded-full border border-[#113D33]/20 py-3 text-sm font-semibold text-[#113D33] hover:bg-[#113D33]/5 transition"
+              >
+                Look for another day
+              </button>
+              {category === "massage" && (
+                <Link href={remedyPath} className="block w-full rounded-full bg-[#113D33] py-3 text-sm font-semibold text-white hover:bg-[#0e3029] transition">
+                  Try the Remedy Lounge instead
+                </Link>
+              )}
+            </div>
+          </motion.div>
         )}
 
         {/* ===== DONE ===== */}
@@ -2065,7 +2421,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* Image hero with checkmark */}
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -2099,21 +2455,14 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               <button onClick={() => { trackCrossSell(category, "massage_facial"); setSelectedTreatment(null); setSelectedBoosts([]); setSelectedSlot(null); setSlots([]); setBoostWarning(null); setError(null); setCardContext(null); setForSomeoneElse(false); setStep("category"); }} className={secondaryBtn}>Book Another Massage or Facial</button>
             </div>
 
-            {/* Need to change this booking? Until now the only exit was a
-                generic "Questions?" mailto, so guests went hunting for a
-                reschedule button that doesn't exist on this site. Point them
-                at their Mindbody account, which has Reschedule and Cancel. */}
+            {/* Need to change this booking? Point to the club's Mindbody account (Reschedule + Cancel). */}
             <div className="pt-6 border-t border-[#113D33]/10">
               <p className="text-sm text-[#113D33]/75 leading-relaxed">
                 Need to change your time?{" "}
-                <a
-                  href={myAccountUrl(club.siteId)}
-                  className="text-[#4A776D] underline underline-offset-2 font-medium"
-                >
+                <a href={myAccountUrl(club.siteId)} className="text-[#4A776D] underline underline-offset-2 font-medium">
                   Manage your reservation
                 </a>{" "}
-                in your Sway {club.label} account, or email us and we&apos;ll
-                move it for you.
+                in your Sway {club.label} account, or email us and we&apos;ll move it for you.
               </p>
             </div>
 
@@ -2125,6 +2474,79 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
         )}
         </div>
       </div>
+
+      {/* MATERNITY TRIMESTER CONFIRMATION */}
+      <AnimatePresence>
+        {maternityConfirmFor && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/45 p-4"
+            onClick={() => setMaternityConfirmFor(null)}
+          >
+            <motion.div
+              ref={maternityDialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Maternity massage timing check"
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-md rounded-3xl bg-white p-6 sm:p-8 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D] mb-2">
+                One quick check
+              </p>
+              <h2 className="text-xl font-semibold text-[#113D33] mb-3">
+                Will you be past your first trimester?
+              </h2>
+              <p className="text-sm text-[#113D33]/75 leading-relaxed mb-5">
+                Maternity massage is designed for after the first trimester
+                (13+ weeks). It&apos;s the safest, most comfortable way to
+                enjoy it. Please confirm you&apos;ll be past week 13 at the
+                time of your appointment.
+              </p>
+              <div className="space-y-2.5">
+                <button
+                  onClick={() => {
+                    const t = maternityConfirmFor;
+                    setMaternityConfirmFor(null);
+                    window.dataLayer?.push({ event: "maternity_confirm_continue", booking_flow: category });
+                    if (t) proceedWithTreatment(t);
+                  }}
+                  className="block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
+                >
+                  Yes, I&apos;ll be 13+ weeks, continue
+                </button>
+                <button
+                  onClick={() => {
+                    setMaternityConfirmFor(null);
+                    window.dataLayer?.push({ event: "maternity_confirm_to_facials", booking_flow: category });
+                    setFirstTrimesterPivot(true);
+                    setCategory("facial");
+                    setSelectedTreatment(null);
+                    setSelectedBoosts([]);
+                    setActiveConcern(null);
+                    setExpandedTreatmentId(null);
+                  }}
+                  className="block w-full rounded-full border-2 border-[#113D33] py-3 text-center text-sm font-semibold text-[#113D33] transition hover:bg-[#113D33] hover:text-white"
+                >
+                  Not yet · show me facials instead
+                </button>
+              </div>
+              <p className="mt-4 text-center text-xs text-[#113D33]/75">
+                Facials are a wonderful first-trimester option. Questions?{" "}
+                <a href={`mailto:${club.contactEmail}`} className="underline">
+                  {club.contactEmail}
+                </a>
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

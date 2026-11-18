@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useFlowTrack, trackStep } from "@/lib/ops/client";
-import { treatmentImage, treatmentBanner } from "@/lib/treatmentImages";
+import { treatmentImage } from "@/lib/treatmentImages";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Link from "next/link";
@@ -1640,7 +1640,7 @@ export default function NewBookingFlow() {
                 <>
                   <p className="text-base md:text-lg text-[#113D33]/75 max-w-xl mx-auto mb-4">
                     {category === "massage"
-                      ? "Licensed massage therapists, personalized pressure, total relaxation."
+                      ? "Licensed massage therapists, from light to medium Signature to deep tissue and sports."
                       : "Personalized, result-driven facials designed to support healthy, radiant skin, customized by your esthetician."}
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-2">
@@ -2230,7 +2230,7 @@ export default function NewBookingFlow() {
                 {selectedTreatment && selectedSlot && (
                   <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-3">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
-                      <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
+                      <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
@@ -2315,7 +2315,7 @@ export default function NewBookingFlow() {
             <div className="bg-white border border-[#113D33]/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {/* Service image header */}
               <div className="relative h-44 w-full overflow-hidden">
-                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-5">
                   <p className="text-xs uppercase tracking-wider text-white/70 font-semibold capitalize">{selectedTreatment.tier} {category}</p>
@@ -2491,7 +2491,7 @@ export default function NewBookingFlow() {
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center pt-4 space-y-6">
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
@@ -2534,7 +2534,7 @@ export default function NewBookingFlow() {
             {/* Image hero with checkmark */}
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center">

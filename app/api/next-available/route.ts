@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isClubSiteId } from "@/lib/clubLocations";
 
 export const runtime = "nodejs";
 
@@ -174,7 +175,10 @@ export async function GET(req: Request) {
   }
 
   const apiKey = process.env.MINDBODY_API_KEY;
-  const siteId = process.env.MINDBODY_SITE_ID;
+  // Optional club site (RiNo / Central Park service flow, 11/18/2026). Only known club site IDs are
+  // accepted; anything else falls back to Larimer exactly as before.
+  const siteParam = searchParams.get("siteId");
+  const siteId = type === "service" && isClubSiteId(siteParam) ? siteParam! : process.env.MINDBODY_SITE_ID;
 
   if (!apiKey || !siteId) {
     return NextResponse.json(

@@ -12,6 +12,7 @@ export type CrossSellTarget =
   | "aescape"
   | "remedy_room"
   | "remedy_lounge"
+  | "remedy_lounge_fallback" // club service flow, full day (no Aescape at the clubs)
   | "massage_facial"
   | "another_session"
   | "membership"
