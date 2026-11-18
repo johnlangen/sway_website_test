@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useFlowTrack } from "@/lib/ops/client";
+import { treatmentBanner } from "@/lib/treatmentImages";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { useSearchParams } from "next/navigation";
@@ -1563,7 +1564,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {selectedTreatment && (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
                 <div className="relative h-32 w-full">
-                  <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
+                  <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4">
                     <p className="text-white font-semibold text-base">{selectedTreatment.name}</p>
@@ -1682,7 +1683,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {selectedTreatment && (
               <div className="bg-white rounded-2xl border border-[#113D33]/10 shadow-sm overflow-hidden">
                 <div className="relative h-28 w-full">
-                  <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
+                  <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 600px" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
                     <div>
@@ -1857,7 +1858,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 {selectedTreatment && selectedSlot && (
                   <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-3">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
-                      <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
+                      <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
@@ -1942,7 +1943,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             <div className="bg-white border border-[#113D33]/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {/* Service image header */}
               <div className="relative h-44 w-full overflow-hidden">
-                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-5">
                   <p className="text-xs uppercase tracking-wider text-white/70 font-semibold capitalize">{selectedTreatment.tier} {category}</p>
@@ -2064,7 +2065,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
             {/* Image hero with checkmark */}
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center">

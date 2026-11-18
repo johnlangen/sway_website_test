@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useFlowTrack, trackStep } from "@/lib/ops/client";
+import { treatmentImage, treatmentBanner } from "@/lib/treatmentImages";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import Link from "next/link";
@@ -220,17 +221,6 @@ function getConcernVisual(concerns?: string[]) {
   return (key && CONCERN_VISUAL[key]) || { color: "#4A776D", icon: "sparkle" as keyof typeof ICON_D };
 }
 
-// Mood/texture photo per massage treatment type (returns null for facials — no mood shots yet).
-function treatmentImage(name: string): string | null {
-  const n = name.toLowerCase();
-  if (n.includes("signature")) return "/assets/treatments/signature.jpg";
-  if (n.includes("maternity")) return "/assets/treatments/maternity.jpg";
-  if (n.includes("deep tissue")) return "/assets/treatments/deep-tissue.jpg";
-  if (n.includes("salt stone")) return "/assets/treatments/salt-stone.jpg";
-  if (n.includes("sports")) return "/assets/treatments/sports.jpg";
-  if (n.includes("lymphatic")) return "/assets/treatments/lymphatic.jpg";
-  return null;
-}
 
 // Boost families → icon + intent color, same visual language as the treatment list.
 const BOOST_VISUAL: Record<string, { color: string; icon: keyof typeof ICON_D }> = {
@@ -2240,7 +2230,7 @@ export default function NewBookingFlow() {
                 {selectedTreatment && selectedSlot && (
                   <div className="bg-white/80 backdrop-blur-sm border border-[#113D33]/10 rounded-2xl p-4 flex items-center gap-3">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0">
-                      <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
+                      <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="56px" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm text-[#113D33]">{selectedTreatment.name}</p>
@@ -2325,7 +2315,7 @@ export default function NewBookingFlow() {
             <div className="bg-white border border-[#113D33]/10 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {/* Service image header */}
               <div className="relative h-44 w-full overflow-hidden">
-                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-5">
                   <p className="text-xs uppercase tracking-wider text-white/70 font-semibold capitalize">{selectedTreatment.tier} {category}</p>
@@ -2501,7 +2491,7 @@ export default function NewBookingFlow() {
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center pt-4 space-y-6">
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
@@ -2544,7 +2534,7 @@ export default function NewBookingFlow() {
             {/* Image hero with checkmark */}
             <div className="relative rounded-2xl overflow-hidden mb-8">
               <div className="relative h-48 w-full">
-                <Image src={category === "facial" ? "/assets/facialExperiences.jpg" : "/assets/massage2.jpg"} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
+                <Image src={treatmentBanner(category, selectedTreatment.name)} alt={selectedTreatment.name} fill className="object-cover" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#113D33] via-[#113D33]/40 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col items-center justify-center">

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Menu, X, MapPin } from "lucide-react";
 import SwayEasterEgg from "./SwayEasterEgg";
 import { myAccountHrefForPath } from "@/lib/myAccount";
-import { locationDisplayName } from "@/lib/locationNames";
+import { locationDisplayName, LOCATION_NAMES } from "@/lib/locationNames";
 
 const NavBar = () => {
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
@@ -35,15 +35,29 @@ const NavBar = () => {
   // localStorage value would silently sign a guest in at the wrong Sway.
   const myAccountHref = myAccountHrefForPath(pathname);
 
-  // Load saved location
+  // Load saved location. On a /locations/<slug>/ page the URL wins and is remembered, so a guest who
+  // lands straight on a booking link (e.g. RiNo's massage link from an email) sees that location in
+  // the header instead of a stale or default one (John 11/18). Same keys ClubLocationPage writes.
   useEffect(() => {
     try {
+      const slug = pathname?.match(/^\/locations\/([^/]+)/)?.[1];
+      if (slug && LOCATION_NAMES[slug]) {
+        const stored = localStorage.getItem("sway_selected_location");
+        const prev = stored ? JSON.parse(stored) : null;
+        const loc = prev?.slug === slug ? prev : { slug, name: LOCATION_NAMES[slug] };
+        if (prev?.slug !== slug) {
+          localStorage.setItem("sway_selected_location", JSON.stringify(loc));
+          document.cookie = `sway_loc=${slug}; path=/; max-age=31536000`;
+        }
+        setSavedLocation(loc);
+        return;
+      }
       const stored = localStorage.getItem("sway_selected_location");
       if (stored) setSavedLocation(JSON.parse(stored));
     } catch (e) {
       console.error("Error reading saved location", e);
     }
-  }, []);
+  }, [pathname]);
 
   // Close dropdowns on outside click
   useEffect(() => {
