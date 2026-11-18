@@ -23,7 +23,8 @@ export type ClubPageConfig = {
   zip: string;
   eyebrow: string;
   intro: string;
-  /** Hero intro once massage + facials are live at the club (club.servicesLive). */
+  /** Hero eyebrow + intro once massage + facials are live at the club (club.servicesLive). */
+  eyebrowLive?: string;
   introLive?: string;
   srSummary: string;
   mapUrl: string;
@@ -50,8 +51,9 @@ export const CLUB_PAGES: Record<ClubLocationKey, ClubPageConfig> = {
     eyebrow: "Sauna, Cold Plunge, Massage & Facials · RiNo, Denver",
     intro:
       "A recovery-led wellness club in the heart of RiNo. Traditional and infrared saunas, cold plunge, and compression therapy in the Remedy Lounge, plus massage and facials with licensed massage therapists and estheticians.",
+    eyebrowLive: "Massage, Facials, Sauna & Cold Plunge · RiNo, Denver",
     introLive:
-      "Heat to loosen you up, cold to wake you up, and still time with a massage therapist or esthetician when you want someone else to do the work. A recovery club in the RiNo Art District.",
+      "Massage, facials, sauna and a cold plunge, under one roof in the RiNo Art District. Come in for one, or make an afternoon of all four.",
     srSummary:
       "Sway Wellness Spa RiNo is a recovery-led wellness club at 3636 Blake St. in Denver's RiNo Art District, CO 80205, formerly Upswell Studio. The Sway Remedy Lounge is open daily with sauna, cold plunge, infrared, compression therapy, and PEMF, and massage and facials are now bookable online with licensed massage therapists and estheticians. Memberships are available for unlimited Sway Remedy Lounge access or a monthly massage or facial. Existing Upswell members were carried over automatically.",
     mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",

@@ -4,8 +4,8 @@
  * Location page for the Sway clubs (RiNo + Central Park). Temperature is the organizing idea: the hero
  * splits hot and cold, ClubLoungeStrip draws a Lounge session to scale, and the list of what's inside runs
  * from hottest to coldest. Once a club's massage + facials are live (club.servicesLive, RiNo 11/18/2026)
- * they become the third state, still: ClubThreeWays is the front door (hot -> cold -> still -> glow) and
- * ClubTreatmentMenu draws the menu to scale (app/components/ClubTreatments.tsx). Before that, founding
+ * the page runs on four equal states, Hot, Cold, Still (massage), Glow (facial): ClubHeroPanels is the hero,
+ * ClubThreeWays the front door, and ClubTreatmentMenu (right after it) draws the menu to scale (app/components/ClubTreatments.tsx). Before that, founding
  * membership gets its own section. JSON-LD lives in each club's layout.tsx; keep its FAQ text identical.
  */
 
@@ -15,9 +15,10 @@ import Image from "next/image";
 import Link from "next/link";
 import ArrowMark from "./ArrowMark";
 import ClubHeroSplit from "./ClubHeroSplit";
+import ClubHeroPanels, { type HeroPanel } from "./ClubHeroPanels";
 import ClubHoursChart from "./ClubHoursChart";
 import ClubLoungeStrip from "./ClubLoungeStrip";
-import { ClubThreeWays, ClubTreatmentMenu } from "./ClubTreatments";
+import { ClubThreeWays, ClubTreatmentMenu, HOT, COLD, STILL, GLOW } from "./ClubTreatments";
 import LocationExperienceNav from "./LocationExperienceNav";
 import { SwayCurve } from "./SwayCurve";
 import { CLUB_FOUNDING, FOUNDING_RATES } from "@/lib/clubFounding";
@@ -65,6 +66,14 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
       line: cfg.hasWarmSoak ? "Three tubs run cold, at different temperatures." : "One big plunge, ready when you are.",
       color: "#7DBAD3",
     },
+  ];
+
+  // Hero once treatments are live: Hot, Cold, Still, Glow as four equal panels (ClubHeroPanels).
+  const heroPanels: HeroPanel[] = [
+    { key: "hot", state: "Hot", name: "Traditional & infrared sauna", color: HOT, photo: cfg.hot, href: `${base}/book-remedy-lounge`, cta: "Book the Remedy Lounge", track: "club-hero-hot" },
+    { key: "cold", state: "Cold", name: cfg.plungeLabel, color: COLD, photo: cfg.cold, href: `${base}/book-remedy-lounge`, cta: "Book the Remedy Lounge", track: "club-hero-cold" },
+    { key: "still", state: "Still", name: "Massage", color: STILL, photo: { src: "/assets/founding-massage-lamp.jpg", alt: `A massage therapist working on a guest's back by lamplight at ${short}`, position: "62% 50%" }, href: `${bookHref}?category=massage`, cta: "Book a massage", track: "club-hero-massage" },
+    { key: "glow", state: "Glow", name: "Facials", color: GLOW, photo: { src: "/assets/facialExperiences.jpg", alt: "Close-up of a guest's skin with a dab of hydrating treatment", position: "45% 40%" }, href: `${bookHref}?category=facial`, cta: "Book a facial", track: "club-hero-facial" },
   ];
 
   const dropInTotal = visits * DROP_IN;
@@ -126,7 +135,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
         <div className="grid md:min-h-[min(88vh,860px)] md:grid-cols-[minmax(0,1fr)_min(50vw,1000px)]">
           <div className="order-2 flex items-center px-6 pb-8 pt-5 md:order-1 md:py-24 md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-14">
             <div className="hero-rise max-w-xl">
-              <p className="sway-eyebrow text-[#2F5D50]">{cfg.eyebrow}</p>
+              <p className="sway-eyebrow text-[#2F5D50]">{servicesLive && cfg.eyebrowLive ? cfg.eyebrowLive : cfg.eyebrow}</p>
               <h1 className="mt-3 md:mt-5">{short}</h1>
               <p className="sr-only">{cfg.srSummary}</p>
               <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
@@ -157,7 +166,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
             </div>
           </div>
           <div className="relative order-1 mt-[72px] h-[260px] sm:h-[340px] md:order-2 md:h-auto">
-            <ClubHeroSplit hot={cfg.hot} cold={cfg.cold} />
+            {servicesLive ? <ClubHeroPanels panels={heroPanels} /> : <ClubHeroSplit hot={cfg.hot} cold={cfg.cold} />}
           </div>
         </div>
       </section>
@@ -168,8 +177,13 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
         <LocationExperienceNav location={clubKey} />
       )}
 
+      {/* ========================= STILL: MASSAGE + FACIAL MENU ========================= */}
+      {servicesLive && (
+        <ClubTreatmentMenu short={short} base={base} foundingFrom={FOUNDING_RATES.essential.founding} regularFrom={FOUNDING_RATES.essential.regular} />
+      )}
+
       {/* ========================= FIRST VISIT OFFER: a ticket with a tear line ========================= */}
-      <section className="pb-12 md:pb-20">
+      <section className={servicesLive ? "py-12 md:py-20" : "pb-12 md:pb-20"}>
         <div className="mx-auto max-w-6xl px-6">
           <Link href={`${base}/offers`} className="group relative grid overflow-hidden rounded-[4px] bg-[#EBE4D1] md:grid-cols-[minmax(0,1fr)_260px]">
             <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-10">
@@ -231,11 +245,6 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
           </div>
         </div>
       </section>
-
-      {/* ========================= STILL: MASSAGE + FACIAL MENU ========================= */}
-      {servicesLive && (
-        <ClubTreatmentMenu short={short} base={base} foundingFrom={FOUNDING_RATES.essential.founding} regularFrom={FOUNDING_RATES.essential.regular} />
-      )}
 
       {/* ========================= HOW OFTEN WILL YOU COME? ========================= */}
       <section className="bg-[#EBE4D1] py-12 md:py-28">
@@ -430,10 +439,10 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
       <section className="bg-[#113D33] py-14 text-white md:py-28">
         <div className="mx-auto max-w-6xl px-6">
           <SwayCurve width={160} strokeWidth={2} animate className="mb-5 block text-[#A9D2C5] md:mb-8" />
-          <h2 className="max-w-3xl text-[40px] leading-[1.05] md:text-7xl">{servicesLive ? "Hot. Cold. Still." : `Recover at ${short}.`}</h2>
+          <h2 className="max-w-3xl text-[40px] leading-[1.05] md:text-7xl">{servicesLive ? "Hot. Cold. Still. Glow." : `Recover at ${short}.`}</h2>
           <p className="mt-3 max-w-lg text-base text-white/85 md:mt-5 md:text-lg">
             {servicesLive
-              ? `The Remedy Lounge, massage and facials, all at ${short} in the RiNo Art District.`
+              ? `Massage, facials and the Remedy Lounge, all at ${short} in the RiNo Art District.`
               : <>Book a Sway Remedy Lounge recovery session. {founding.lounge}</>}
           </p>
           <div className="mt-6 flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:items-center md:mt-8">

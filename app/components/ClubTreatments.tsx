@@ -17,10 +17,12 @@ import Link from "next/link";
 import ArrowMark from "./ArrowMark";
 import { SwayCurve } from "./SwayCurve";
 
-const HOT = "#C8552B";
-const COLD = "#7DBAD3";
-const STILL = "#9ABFB3";
-const GLOW = "#E7B98F";
+// The four states, shared with the hero panels (ClubHeroPanels) so the colors mean the same thing everywhere.
+// Dark enough for white label text at AA (>= 4.5:1).
+export const HOT = "#B4471F";
+export const COLD = "#2F7099";
+export const STILL = "#4A776D";
+export const GLOW = "#A8653A";
 
 type Props = { short: string; base: string; loungePhoto: { src: string; alt: string; position: string } };
 
@@ -43,7 +45,7 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
       key: "massage",
       state: "Still",
       title: "Massage",
-      line: "Lie down and let a licensed massage therapist take over, from a light to medium Signature to Deep Tissue.",
+      line: "A licensed massage therapist in a private room, from a light to medium Signature to Deep Tissue, Sports and Salt Stone.",
       meta: "50, 70 or 90 min · From $139",
       href: `${book}?category=massage`,
       cta: "Book a massage",
@@ -55,7 +57,7 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
       key: "facial",
       state: "Glow",
       title: "Facials",
-      line: "Results-driven facials with a licensed esthetician, from Forever Young to Hydraderm.",
+      line: "A licensed esthetician and results-driven facials, from Forever Young to Oxygen Infusion and Hydraderm.",
       meta: "50 or 60 min · From $139",
       href: `${book}?category=facial`,
       cta: "Book a facial",
@@ -68,12 +70,12 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
   return (
     <section className="pb-12 pt-10 md:pb-20 md:pt-16" aria-labelledby="club-ways-title">
       <div className="mx-auto max-w-6xl px-6">
-        <p className="sway-eyebrow text-[#4A776D]">Three ways to recover in RiNo</p>
+        <p className="sway-eyebrow text-[#4A776D]">Recover your way in RiNo</p>
         <h2 id="club-ways-title" className="mt-3 text-[40px] leading-[1.02] md:mt-4 md:text-7xl">
-          Hot. Cold. <span className="text-[#4A776D]">Still.</span>
+          <span style={{ color: HOT }}>Hot.</span> <span style={{ color: COLD }}>Cold.</span> <span style={{ color: STILL }}>Still.</span> <span style={{ color: GLOW }}>Glow.</span>
         </h2>
         <p className="mt-3 max-w-xl text-base text-[#113D33]/85 md:mt-5 md:text-lg">
-          Work the contrast in the Remedy Lounge, or lie still for a massage or facial. Or do both in one afternoon.
+          The Remedy Lounge for heat and cold, massage and facials with licensed pros. Book one, or pair them into an afternoon.
         </p>
 
         {/* One rail, hot to glow. Continuous on desktop; each card keeps its own segment on mobile. */}
@@ -170,7 +172,7 @@ export function ClubTreatmentMenu({ short, base, foundingFrom, regularFrom }: { 
   return (
     <section id="massage-facials" className="bg-[#EEF2EA] py-12 md:py-28" aria-labelledby="club-menu-title">
       <div className="mx-auto max-w-6xl px-6">
-        <p className="sway-eyebrow text-[#2F5D50]">Still</p>
+        <p className="sway-eyebrow text-[#2F5D50]">Still &amp; glow</p>
         <SwayCurve width={120} strokeWidth={2} className="my-3 block text-[#4A776D] md:my-4" />
         <h2 id="club-menu-title" className="text-[38px] leading-[1.05] md:text-6xl">Massage and facials in RiNo</h2>
         <p className="mt-3 max-w-2xl text-base text-[#113D33]/85 md:mt-5 md:text-lg">
@@ -187,7 +189,7 @@ export function ClubTreatmentMenu({ short, base, foundingFrom, regularFrom }: { 
           <p className="sway-eyebrow text-[#4A776D]">Make it an afternoon</p>
           <p className="cf-title mt-2 text-[26px] leading-tight md:text-4xl">Massage + Remedy Lounge, about 2 hours.</p>
           <div aria-hidden="true" className="mt-5 flex h-12 gap-1 md:h-14">
-            <div className="flex items-center rounded-l-[3px] px-3 text-sm font-semibold text-[#113D33]" style={{ width: `${(massage / total) * 100}%`, background: STILL }}>
+            <div className="flex items-center rounded-l-[3px] px-3 text-sm font-semibold text-white" style={{ width: `${(massage / total) * 100}%`, background: STILL }}>
               Massage · {massage} min
             </div>
             <div className="flex items-center rounded-r-[3px] px-3 text-sm font-semibold text-white" style={{ width: `${(lounge / total) * 100}%`, background: `linear-gradient(90deg, ${HOT}, ${COLD})` }}>
