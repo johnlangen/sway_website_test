@@ -91,7 +91,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
       q: "When can I book a massage?",
       // Keep the live answer identical to the FAQPage JSON-LD in app/locations/denver-rino/layout.tsx.
       a: servicesLive
-        ? `Now. Massage and facials are open at Sway ${short} and you can book online. Choose Massage or Facial on the booking page, pick your treatment, then your massage therapist or esthetician and time. Founding memberships are open too.`
+        ? `Now. Massage and facials are open at ${short} and you can book online. Choose Massage or Facial on the booking page, pick your treatment, then your massage therapist or esthetician and time. Founding memberships are open too.`
         : `Massage and facial treatments start ${founding.opensLabel}. Founding memberships are open now, or leave your name on this page and we'll keep you posted.`,
     },
     {
