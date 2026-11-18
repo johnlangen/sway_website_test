@@ -20,6 +20,7 @@ import EventRoomDiagram, { type EventKind } from "./EventRoomDiagram";
 import { SwayCurve } from "./SwayCurve";
 import { CLUB_EVENTS, clubEventFaqs, isClubEvents, type EventsKey } from "@/lib/clubEvents";
 import { CLUB_FOUNDING } from "@/lib/clubFounding";
+import { CLUB_LOCATIONS } from "@/lib/clubLocations";
 
 const eyebrow = "sway-eyebrow";
 
@@ -131,7 +132,7 @@ export default function ClubEventsPage({ clubKey }: { clubKey: EventsKey }) {
       facts: [
         { label: "Group size", value: "4 to 19 guests" },
         { label: "Pricing", value: "Standard treatment and service pricing, tailored to your group." },
-        { label: "What’s on", value: `The Remedy Lounge now. Massage and facials start ${opensLabel}.` },
+        { label: "What’s on", value: isClub && CLUB_LOCATIONS[clubKey].servicesLive ? "The Remedy Lounge, massage and facials." : `The Remedy Lounge now. Massage and facials start ${opensLabel}.` },
       ],
       cta: "Plan a Spalebration",
       section: "bg-[#BFD3C6] text-[#113D33]",

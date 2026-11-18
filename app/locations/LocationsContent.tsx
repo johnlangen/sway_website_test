@@ -8,7 +8,7 @@ import Image from "next/image";
 import ArrowMark from "@/app/components/ArrowMark";
 import { CLUB_FOUNDING } from "@/lib/clubFounding";
 import { CLUB_PAGES, getClubStatus } from "@/lib/clubLocationPages";
-import type { ClubLocationKey } from "@/lib/clubLocations";
+import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
 import { getOpenStatus } from "@/lib/larimerHours";
 import { LOCATION_NAMES } from "@/lib/locationNames";
 
@@ -116,6 +116,11 @@ function offering(slug: string, service: Service): { note: string; action: strin
     const recovery = CLUB_PAGES[slug].hasWarmSoak
       ? "Saunas, cold plunges, a warm soak, compression and PEMF"
       : "Saunas, cold plunge, compression and PEMF";
+    if (CLUB_LOCATIONS[slug].servicesLive && service !== "recovery") {
+      if (service === "all") return { note: "Remedy Lounge, massage and facials.", action: "Book", href: `${base}/book` };
+      if (service === "massage") return { note: "Massage with licensed massage therapists.", action: "Book", href: `${base}/book?category=massage` };
+      if (service === "facials") return { note: "Facials with licensed estheticians.", action: "Book", href: `${base}/book?category=facial` };
+    }
     switch (service) {
       case "all":
         return { note: `Remedy Lounge. Massage and facials start ${opensLabel}.`, action: "Book", href: `${base}/book` };

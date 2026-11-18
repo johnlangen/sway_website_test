@@ -26,6 +26,17 @@ const LOCATION_HOURS: LocationHours = {
     5: { open: 10, close: 20 }, // Fri  10 AM – 8 PM
     6: { open: 9, close: 18 },  // Sat   9 AM – 6 PM
   },
+  // RiNo club hours from 11/19/2026 (Mindbody schedule + John 11/18). Keep in step with
+  // CLUB_PAGES["denver-rino"].week and the JSON-LD in app/locations/denver-rino/layout.tsx.
+  "denver-rino": {
+    0: { open: 11, close: 18 },   // Sun 11 AM – 6 PM
+    1: { open: 10, close: 20 },   // Mon 10 AM – 8 PM
+    2: { open: 6.5, close: 20 },  // Tue 6:30 AM – 8 PM
+    3: { open: 6.5, close: 20 },  // Wed 6:30 AM – 8 PM
+    4: { open: 6.5, close: 20 },  // Thu 6:30 AM – 8 PM
+    5: { open: 10, close: 20 },   // Fri 10 AM – 8 PM
+    6: { open: 11, close: 18 },   // Sat 11 AM – 6 PM
+  },
 };
 
 /**

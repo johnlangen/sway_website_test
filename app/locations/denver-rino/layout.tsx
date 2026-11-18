@@ -4,7 +4,7 @@ import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
 export const metadata: Metadata = {
   title: { absolute: "Infrared Sauna & Cold Plunge in RiNo, Denver | Sway (formerly Upswell)" },
   description:
-    "Sway RiNo (formerly Upswell Studio) at 3636 Blake St, Denver. 75-minute Remedy Lounge sessions with infrared and traditional saunas, cold plunge, PEMF mats, and compression therapy. $49 drop-in, $25 first visit for locals. Massage and facials coming soon.",
+    "Sway RiNo (formerly Upswell Studio) at 3636 Blake St, Denver. 75-minute Remedy Lounge sessions with infrared and traditional saunas, cold plunge, PEMF mats, and compression therapy. Massage and facials now booking online. $49 drop-in, $25 first visit for locals.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-rino/",
   },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-rino/",
     title: "Sway Wellness Spa · RiNo (formerly Upswell Studio)",
     description:
-      "Traditional and infrared saunas, cold plunge, and compression therapy in the Sway Remedy Lounge. Open daily in Denver's RiNo Art District. Massage and facials coming soon.",
+      "Traditional and infrared saunas, cold plunge, and compression therapy in the Sway Remedy Lounge. Massage and facials now open. Open daily in Denver's RiNo Art District.",
     images: [
       {
         url: "/assets/SWAY.jpg",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sway Wellness Spa · RiNo (formerly Upswell Studio)",
     description:
-      "Traditional and infrared saunas, cold plunge, and compression therapy in the Sway Remedy Lounge. Open daily in RiNo. Massage and facials coming soon.",
+      "Traditional and infrared saunas, cold plunge, and compression therapy in the Sway Remedy Lounge. Massage and facials now open. Open daily in RiNo.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: {
@@ -43,7 +43,7 @@ const localBusinessJsonLd = {
   name: "Sway Wellness Spa · RiNo",
   alternateName: "Upswell Studio",
   description:
-    "A recovery-led wellness club in Denver's RiNo Art District, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy. Massage and facial treatments are coming soon.",
+    "A recovery-led wellness club in Denver's RiNo Art District, formerly Upswell Studio. The Sway Remedy Lounge is open daily with traditional sauna, infrared, cold plunge, and compression therapy, plus massage and facials with licensed massage therapists and estheticians.",
   image: "https://swaywellnessspa.com/assets/rino1.jpeg",
   "@id": "https://swaywellnessspa.com/locations/denver-rino/",
   telephone: "+1-303-225-0480",
@@ -71,33 +71,45 @@ const localBusinessJsonLd = {
           "A recovery session with traditional and infrared saunas, cold plunge, compression therapy, and lounge access.",
       },
     },
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Massage",
+        description:
+          "Signature (light to medium pressure), deep tissue, sports, salt stone, lymphatic drainage and maternity massage in 50, 70 and 90 minute lengths, with a licensed massage therapist.",
+      },
+    },
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Facial",
+        description:
+          "Signature, anti-aging, acne, sensitive-skin and hydration facials, plus oxygen infusion, microcurrent and Hydraderm, with a licensed esthetician.",
+      },
+    },
   ],
-  // Mirrors the Google Business Profile hours (checked 2026-09-28) and the
-  // HOURS list on page.tsx. Change all three together.
+  // Hours from 11/19/2026 (John 11/18, matches Mindbody). Change together with
+  // CLUB_PAGES["denver-rino"].week, lib/locationHours.ts and the Google Business Profile.
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday"],
-      opens: "16:00",
+      dayOfWeek: ["Monday", "Friday"],
+      opens: "10:00",
       closes: "20:00",
     },
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday"],
       opens: "06:30",
-      closes: "10:00",
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "16:00",
       closes: "20:00",
     },
     {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Saturday", "Sunday"],
       opens: "11:00",
-      closes: "17:00",
+      closes: "18:00",
     },
   ],
   hasMap: "https://www.google.com/maps/place/?q=place_id:ChIJSYpObGF5bIcRFVlb08RlL8I",
@@ -118,7 +130,7 @@ const faqJsonLd = {
       name: "Is this the old Upswell?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, with new treatments and experiences on the way.",
+        text: "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, now with massage and facials too.",
       },
     },
     {
@@ -142,7 +154,7 @@ const faqJsonLd = {
       name: "When can I book a massage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Massage and facial treatments start in mid-November. Founding memberships are open now, or leave your name on this page and we'll keep you posted.",
+        text: "Now. Massage and facials are open at Sway RiNo and you can book online. Choose Massage or Facial on the booking page, pick your treatment, then your massage therapist or esthetician and time. Founding memberships are open too.",
       },
     },
     {

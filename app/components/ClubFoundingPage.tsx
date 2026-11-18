@@ -147,7 +147,9 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
   const faqs = [
     {
       q: "When do massage and facials start?",
-      a: `${cfg.shortName} is already open for the Remedy Lounge. Massage and facials start ${cfg.opensLabel}. We'll let founding members know the exact date as soon as it's set.`,
+      a: club.servicesLive
+        ? `They're open now. Book a massage or facial at ${cfg.shortName} online any time, and founding members can use their monthly treatment right away.`
+        : `${cfg.shortName} is already open for the Remedy Lounge. Massage and facials start ${cfg.opensLabel}. We'll let founding members know the exact date as soon as it's set.`,
     },
     {
       q: "How long does the founding offer last?",
@@ -193,7 +195,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
             <h1 className="mt-6">Be one of the first {cfg.cap}.</h1>
             <SwayCurve width={120} strokeWidth={2} className="my-5 block text-[#9CB7A9] md:my-7" />
             <p className="max-w-md text-base text-white/90 md:text-lg">
-              Massage and facials are coming to {cfg.shortName} {cfg.opensLabel}. Join now for a monthly treatment at an exclusive founding rate. This is the best pricing you will ever see.
+              {club.servicesLive ? `Massage and facials are now open at ${cfg.shortName}.` : `Massage and facials are coming to ${cfg.shortName} ${cfg.opensLabel}.`} Join now for a monthly treatment at an exclusive founding rate. This is the best pricing you will ever see.
             </p>
             <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-white/25 pt-4 md:mt-9 md:gap-4 md:pt-5">
               <div className="flex flex-col-reverse">
@@ -407,7 +409,7 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
           <ol className="mt-5 grid gap-5 md:mt-8 md:grid-cols-3 md:gap-12">
             {[
               { t: "Claim your spot", b: `Only ${cfg.cap} founding memberships at ${cfg.shortName}. The offer ends ${cfg.closesLabel}, or sooner if they are all taken.` },
-              { t: "Book your first treatment", b: `Massage and facials start ${cfg.opensLabel}. We'll let you know as soon as booking opens.` },
+              { t: "Book your first treatment", b: club.servicesLive ? "Massage and facials are open now. Book online and pick your massage therapist or esthetician and time." : `Massage and facials start ${cfg.opensLabel}. We'll let you know as soon as booking opens.` },
               { t: "Enjoy it every month", b: "A massage or facial every month. Anything you don't use rolls over for 12 months while you stay active." },
             ].map((s, i) => (
               <li key={s.t} className="flex gap-4 border-t border-[#113D33]/25 pt-4 md:block md:pt-5">

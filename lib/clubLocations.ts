@@ -81,6 +81,12 @@ export interface ClubLocation {
    *  sites (Mackenzie, George, Sarah, Kyana, Halle, etc.) are wellness
    *  coordinators / front desk and must NOT be assigned bookable services. */
   testTherapistIds: number[];
+  /** Massage + facial booking is open on the site (the /book hub cards are live and the club's
+   *  pages say so). RiNo went live 11/18/2026; Central Park stays "coming soon" until set. */
+  servicesLive: boolean;
+  /** Treatments + boosts nobody can perform at this club yet (no provider assigned in its
+   *  Mindbody): hidden from the booking flow so they never show "no times". */
+  hiddenServiceIds: number[];
 }
 
 export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
@@ -135,6 +141,10 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
     ],
     // "Esty" — fake test provider configured for massage + facial dry-runs.
     testTherapistIds: [100000013],
+    servicesLive: true,
+    // 11/18/2026: no esthetician assigned in RiNo's Mindbody for the Dr. Dennis Gross Vitamin C
+    // facials (77, 84) or Illuminate LED (85), nor the LED boosts (74, 73). John: hide the 3 facials.
+    hiddenServiceIds: [77, 84, 85, 74, 73],
   },
 
   "denver-central-park": {
@@ -192,6 +202,8 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
     ],
     // "Esty" — fake test provider configured for massage + facial dry-runs.
     testTherapistIds: [100000014],
+    servicesLive: false,
+    hiddenServiceIds: [],
   },
 };
 

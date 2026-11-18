@@ -175,7 +175,9 @@ export function clubEventFaqs(key: EventsKey): { q: string; a: string }[] {
     },
     {
       q: `Can my group book massage and facials at ${shortName}?`,
-      a: `Massage and facials start ${opensLabel}. ${shortName} is already open for the Remedy Lounge, so your group can gather there now.`,
+      a: CLUB_LOCATIONS[key].servicesLive
+        ? `Yes. Massage and facials are open at ${shortName}, alongside the Remedy Lounge. Tell us your group size and timing on the inquiry form and we'll line up massage therapists and estheticians.`
+        : `Massage and facials start ${opensLabel}. ${shortName} is already open for the Remedy Lounge, so your group can gather there now.`,
     },
     {
       q: "I run sound baths, workshops or talks. Can I host one at Sway?",
@@ -197,7 +199,7 @@ export function groupHubFaqs(): { q: string; a: string }[] {
     },
     {
       q: "Which Sway location is best for a group spa day?",
-      a: `Sway Larimer has massage, facials, the Remedy Room and Aescape robot massage today. Sway RiNo and Sway Central Park have the Remedy Lounge (saunas, cold plunge and compression therapy) now, with massage and facials starting ${CLUB_FOUNDING["denver-rino"].opensLabel} at RiNo and ${CLUB_FOUNDING["denver-central-park"].opensLabel} at Central Park.`,
+      a: `Sway Larimer has massage, facials, the Remedy Room and Aescape robot massage today. Sway RiNo has the Remedy Lounge (saunas, cold plunge and compression therapy) plus massage and facials now. Sway Central Park has the Remedy Lounge now, with massage and facials starting ${CLUB_FOUNDING["denver-central-park"].opensLabel}.`,
     },
     {
       q: "How much does a group spa day cost?",

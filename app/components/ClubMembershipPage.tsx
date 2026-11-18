@@ -188,7 +188,7 @@ export default function ClubMembershipPage({
                 </p>
 
                 <p className="mt-3 text-base leading-relaxed max-w-lg opacity-90">
-                  Treatment rooms are coming to {cfg.shortName} {founding.opensLabel}. Founding members choose $10 off every month or 6 free Remedy Lounge visits.
+                  {club.servicesLive ? `Massage and facials are now open at ${cfg.shortName}.` : `Treatment rooms are coming to ${cfg.shortName} ${founding.opensLabel}.`} Founding members choose $10 off every month or 6 free Remedy Lounge visits.
                 </p>
               </>
             ) : (

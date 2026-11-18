@@ -313,6 +313,8 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       setSelectedBoosts([]);
       setActiveConcern(null);
       setStep("treatment");
+      // Same funnel start as tapping a category card (deep links from the location page / emails).
+      window.dataLayer?.push({ event: "booking_start", booking_flow: initialCategory, booking_entry: "deep_link" });
     } else if (initialView === "services") {
       setStep("category");
     }
@@ -452,8 +454,10 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
   };
 
   /* -- computed -- */
-  const treatments = category === "facial" ? FACIAL_TREATMENTS : MASSAGE_TREATMENTS;
-  const boosts = category === "facial" ? FACIAL_BOOSTS : MASSAGE_BOOSTS;
+  // Hide what nobody at this club can perform yet (club.hiddenServiceIds, e.g. RiNo's Vitamin C + LED facials).
+  const hiddenIds = new Set(club.hiddenServiceIds);
+  const treatments = (category === "facial" ? FACIAL_TREATMENTS : MASSAGE_TREATMENTS).filter((t) => !hiddenIds.has(t.id));
+  const boosts = (category === "facial" ? FACIAL_BOOSTS : MASSAGE_BOOSTS).filter((b) => !hiddenIds.has(b.id));
   const filteredTreatments = treatments.filter((t) => t.tier === treatmentTierFilter);
   const selectedPrice = selectedTreatment ? getTreatmentPrice(selectedTreatment.tier, isMember, memberTier) : 0;
 
@@ -1269,7 +1273,35 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
               </Link>
             </div>
 
-            {/* Massage & Facial — coming soon (not yet bookable at the clubs) */}
+            {/* Massage & Facial: live at clubs with servicesLive (RiNo since 11/18/2026), "coming soon" elsewhere */}
+            {club.servicesLive ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 mb-12 max-w-xl mx-auto">
+                {([
+                  { cat: "massage" as const, label: "Massage", img: "/assets/massage2.jpg", sub: "Signature, Deep Tissue, Sports, Salt Stone & more" },
+                  { cat: "facial" as const, label: "Facial", img: "/assets/facialExperiences.jpg", sub: "Forever Young, Glow Getter, Hydraderm & more" },
+                ]).map((item) => (
+                  <button key={item.cat} type="button" onClick={() => handleCategorySelect(item.cat)} data-track={`club-category-${item.cat}`}
+                    className="group relative overflow-hidden rounded-2xl bg-white border border-[#113D33]/10 text-left shadow-sm hover:shadow-md transition-shadow focus:outline-none focus:ring-2 focus:ring-[#113D33]/40">
+                    <div className="relative h-44 md:h-52 w-full overflow-hidden">
+                      <Image src={item.img} alt="" fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" sizes="(max-width: 640px) 100vw, 50vw" />
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <h2 className="text-base font-semibold leading-tight text-[#113D33]">{item.label}</h2>
+                          <p className="text-sm text-[#113D33]/75 mt-0.5">{item.sub}</p>
+                        </div>
+                        <div className="shrink-0 w-8 h-8 rounded-full bg-[#113D33]/5 flex items-center justify-center group-hover:bg-[#113D33]/10 transition-colors" aria-hidden="true">
+                          <svg className="w-4 h-4 text-[#113D33] transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 mb-12 max-w-xl mx-auto">
               {([
                 { label: "Massage", img: "/assets/massage2.jpg", sub: "Deep Tissue, Sports, Salt Stone & more" },
@@ -1291,6 +1323,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 </div>
               ))}
             </div>
+            )}
 
             {/* Contact CTA */}
             <div className="bg-[#113D33] rounded-2xl p-6 md:p-8 text-center text-white">
@@ -1324,7 +1357,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
                 <>
                   <p className="text-base md:text-lg text-[#113D33]/75 max-w-xl mx-auto mb-4">
                     {category === "massage"
-                      ? "Licensed massage therapists, personalized pressure, total relaxation."
+                      ? "Licensed massage therapists, from light to medium Signature to deep tissue and sports."
                       : "Personalized, result-driven facials designed to support healthy, radiant skin, customized by your esthetician."}
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-2">

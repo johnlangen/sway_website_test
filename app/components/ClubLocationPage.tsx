@@ -36,6 +36,8 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
   const base = `/locations/${clubKey}`;
   const bookHref = `${base}/book`;
   const spotsLeft = useFoundingSpots(clubKey);
+  // Massage + facial booking open at this club (RiNo since 11/18/2026); see lib/clubLocations.ts.
+  const servicesLive = club.servicesLive;
 
   const [status, setStatus] = useState<{ open: boolean; label: string } | null>(null);
   const [visits, setVisits] = useState(4);
@@ -69,7 +71,9 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
   const faqs = [
     {
       q: "Is this the old Upswell?",
-      a: "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, with new treatments and experiences on the way.",
+      a: servicesLive
+        ? "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, now with massage and facials too."
+        : "Yes. Sway took over both Upswell locations in June 2026 and now operates them as Sway Wellness Spa. Same recovery space, with new treatments and experiences on the way.",
     },
     {
       q: "What's included in the Sway Remedy Lounge?",
@@ -85,7 +89,10 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
     },
     {
       q: "When can I book a massage?",
-      a: `Massage and facial treatments start ${founding.opensLabel}. Founding memberships are open now, or leave your name on this page and we'll keep you posted.`,
+      // Keep the live answer identical to the FAQPage JSON-LD in app/locations/denver-rino/layout.tsx.
+      a: servicesLive
+        ? `Now. Massage and facials are open at Sway ${short} and you can book online. Choose Massage or Facial on the booking page, pick your treatment, then your massage therapist or esthetician and time. Founding memberships are open too.`
+        : `Massage and facial treatments start ${founding.opensLabel}. Founding memberships are open now, or leave your name on this page and we'll keep you posted.`,
     },
     {
       q: "What about my Upswell membership?",
@@ -262,14 +269,36 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
       <section className="bg-[#113D33] text-white">
         <div className="mx-auto grid max-w-6xl items-center gap-7 px-6 py-12 md:grid-cols-2 md:gap-16 md:py-28">
           <div>
-            <p className="sway-eyebrow text-[#D7E5DD]">Founding membership · Ends {founding.closesLabel}</p>
-            <h2 className="mt-3 text-[38px] leading-[1.05] md:mt-4 md:text-6xl">Massage and facials start {founding.opensLabel}.</h2>
-            <p className="mt-3 max-w-md text-base text-white/85 md:mt-5 md:text-lg">
-              A monthly treatment from ${FOUNDING_RATES.essential.founding} a month, for the first {founding.cap} founders at {short}.{spotsLeft && !spotsLeft.startsWith("All") ? ` ${spotsLeft}.` : ""}
-            </p>
-            <Link href={`${base}/founding-membership`} className="sway-button sway-button-light mt-5 w-full sm:w-auto md:mt-8">
-              See founding rates <span aria-hidden="true"><ArrowMark /></span>
-            </Link>
+            <p className="sway-eyebrow text-[#D7E5DD]">{servicesLive ? "Now open · Massage & facials" : `Founding membership · Ends ${founding.closesLabel}`}</p>
+            <h2 className="mt-3 text-[38px] leading-[1.05] md:mt-4 md:text-6xl">{servicesLive ? `Massage and facials are open at ${short}.` : `Massage and facials start ${founding.opensLabel}.`}</h2>
+            {servicesLive ? (
+              <>
+                <p className="mt-3 max-w-md text-base text-white/85 md:mt-5 md:text-lg">
+                  Licensed massage therapists and estheticians, from a light to medium Signature Massage to deep tissue, sports and salt stone, plus facials from Forever Young to Hydraderm. $139 drop-in, or a monthly treatment from ${FOUNDING_RATES.essential.founding} a month for the first {founding.cap} founders.{spotsLeft && !spotsLeft.startsWith("All") ? ` ${spotsLeft}.` : ""}
+                </p>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row md:mt-8">
+                  <Link href={`${bookHref}?category=massage`} data-track="club-page-book-massage" className="sway-button sway-button-light w-full sm:w-auto">
+                    Book a massage <span aria-hidden="true"><ArrowMark /></span>
+                  </Link>
+                  <Link href={`${bookHref}?category=facial`} data-track="club-page-book-facial" className="sway-button sway-button-light w-full sm:w-auto">
+                    Book a facial <span aria-hidden="true"><ArrowMark /></span>
+                  </Link>
+                </div>
+                <Link href={`${base}/founding-membership`} className="sway-text-link mt-4 inline-block text-white">
+                  See founding rates
+                </Link>
+              </>
+            ) : (
+              <>
+                <p className="mt-3 max-w-md text-base text-white/85 md:mt-5 md:text-lg">
+                  A monthly treatment from ${FOUNDING_RATES.essential.founding} a month, for the first {founding.cap} founders at {short}.{spotsLeft && !spotsLeft.startsWith("All") ? ` ${spotsLeft}.` : ""}
+                </p>
+                <Link href={`${base}/founding-membership`} className="sway-button sway-button-light mt-5 w-full sm:w-auto md:mt-8">
+                  See founding rates <span aria-hidden="true"><ArrowMark /></span>
+                </Link>
+              </>
+            )}
+            {!servicesLive && (
             <details className="group mt-6 border-t border-white/25 md:mt-9">
               <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 py-3 text-[15px] md:text-base [&::-webkit-details-marker]:hidden">
                 Not ready today? Leave your name and we&apos;ll keep you posted.
@@ -279,6 +308,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
                 <WaitlistForm location={clubKey} source="location-page" variant="full" tone="dark" submitLabel="Keep Me Posted" />
               </div>
             </details>
+            )}
           </div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-[2px] md:aspect-[4/5]">
             <Image src={founding.hero.src} alt={founding.hero.alt} fill sizes="(min-width: 768px) 540px, 100vw" className="object-cover" style={{ objectPosition: founding.hero.position }} />

@@ -15,6 +15,7 @@ import ArrowMark from "../components/ArrowMark";
 import EventRoomDiagram, { type EventKind } from "../components/EventRoomDiagram";
 import { SwayCurve } from "../components/SwayCurve";
 import { CLUB_FOUNDING } from "@/lib/clubFounding";
+import { CLUB_LOCATIONS } from "@/lib/clubLocations";
 import { groupHubFaqs } from "@/lib/clubEvents";
 
 const LOCATIONS = [
@@ -29,7 +30,9 @@ const LOCATIONS = [
     key: "denver-rino",
     name: "Sway RiNo",
     place: "RiNo Art District, Denver",
-    line: `The Remedy Lounge now, with massage and facials starting ${CLUB_FOUNDING["denver-rino"].opensLabel}.`,
+    line: CLUB_LOCATIONS["denver-rino"].servicesLive
+      ? "The Remedy Lounge, massage and facials."
+      : `The Remedy Lounge now, with massage and facials starting ${CLUB_FOUNDING["denver-rino"].opensLabel}.`,
     image: "/assets/rino-card.jpg",
   },
   {

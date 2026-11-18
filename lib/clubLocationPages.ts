@@ -36,7 +36,8 @@ export type ClubPageConfig = {
   week: WeekHours;
 };
 
-const RINO_WEEKDAY = [hours(t(6, 30), t(10)), hours(t(16), t(20))];
+// RiNo hours from 11/19/2026 (John 11/18, matches Mindbody): Tue-Thu 6:30-8 straight through.
+const RINO_EARLY = [hours(t(6, 30), t(20))];
 const CP_MIDWEEK = [hours(t(8), t(11)), hours(t(16), t(20))];
 
 export const CLUB_PAGES: Record<ClubLocationKey, ClubPageConfig> = {
@@ -44,11 +45,11 @@ export const CLUB_PAGES: Record<ClubLocationKey, ClubPageConfig> = {
     city: "Denver",
     street: "3636 Blake St",
     zip: "80205",
-    eyebrow: "Sauna, Cold Plunge & Recovery · RiNo, Denver",
+    eyebrow: "Sauna, Cold Plunge, Massage & Facials · RiNo, Denver",
     intro:
-      "A recovery-led wellness club in the heart of RiNo. Traditional and infrared saunas, cold plunge, and compression therapy in the Remedy Lounge.",
+      "A recovery-led wellness club in the heart of RiNo. Traditional and infrared saunas, cold plunge, and compression therapy in the Remedy Lounge, plus massage and facials with licensed massage therapists and estheticians.",
     srSummary:
-      "Sway Wellness Spa RiNo is a recovery-led wellness club at 3636 Blake St. in Denver's RiNo Art District, CO 80205, formerly Upswell Studio. The Sway Remedy Lounge is open daily with sauna, cold plunge, infrared, compression therapy, and PEMF. Massage and facial treatments are coming soon. Memberships are available for unlimited Sway Remedy Lounge access. Existing Upswell members were carried over automatically.",
+      "Sway Wellness Spa RiNo is a recovery-led wellness club at 3636 Blake St. in Denver's RiNo Art District, CO 80205, formerly Upswell Studio. The Sway Remedy Lounge is open daily with sauna, cold plunge, infrared, compression therapy, and PEMF, and massage and facials are now bookable online with licensed massage therapists and estheticians. Memberships are available for unlimited Sway Remedy Lounge access or a monthly massage or facial. Existing Upswell members were carried over automatically.",
     mapUrl: "https://www.google.com/maps?q=3636+Blake+St,+Denver,+CO+80205",
     reviewsUrl: "https://www.google.com/maps/place/?q=place_id:ChIJSYpObGF5bIcRFVlb08RlL8I",
     hot: {
@@ -70,13 +71,13 @@ export const CLUB_PAGES: Record<ClubLocationKey, ClubPageConfig> = {
     hasWarmSoak: false,
     plungeLabel: "Cold plunge",
     week: {
-      Mon: [hours(t(16), t(20))],
-      Tue: RINO_WEEKDAY,
-      Wed: RINO_WEEKDAY,
-      Thu: RINO_WEEKDAY,
-      Fri: RINO_WEEKDAY,
-      Sat: [hours(t(11), t(17))],
-      Sun: [hours(t(11), t(17))],
+      Mon: [hours(t(10), t(20))],
+      Tue: RINO_EARLY,
+      Wed: RINO_EARLY,
+      Thu: RINO_EARLY,
+      Fri: [hours(t(10), t(20))],
+      Sat: [hours(t(11), t(18))],
+      Sun: [hours(t(11), t(18))],
     },
   },
   "denver-central-park": {
