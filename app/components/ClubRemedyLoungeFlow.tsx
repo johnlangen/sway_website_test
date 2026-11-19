@@ -19,6 +19,8 @@ import {
 } from "@/lib/clubLocations";
 import { parseWall, peakOverlap, type ApptInterval } from "@/lib/clubOccupancy";
 import { myAccountUrl } from "@/lib/myAccount";
+import { readGclid } from "@/lib/gclid";
+import { fireClubAdsConversion } from "@/lib/clubAds";
 
 /* ---------------------------------------------
    Sway Wellness Club — Remedy Lounge booking flow
@@ -838,6 +840,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         startDateTime: formatLocalDateTime(selectedTime),
         saunas: buildSaunaPayload(),
         notes: bookingNotes,
+        gclid: readGclid(), // ad click id, attribution only
       }),
     });
 
@@ -864,16 +867,23 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       setFailedSaunaLabels([]);
     }
 
-    reportPurchaseConversion();
+    reportPurchaseConversion(resolvedClientId);
     setStep("done");
     return true;
   }
 
-  function reportPurchaseConversion() {
+  function reportPurchaseConversion(bookedClientId?: string | number | null) {
     if (typeof window === "undefined") return;
     const w = window as any;
-    // No Google Ads conversion fired for club locations yet (no campaigns).
-    // dataLayer only, with a club-specific flow + location for clean separation.
+    // Google Ads: the club's OWN lounge conversion, and only for guests who aren't members (a
+    // member's visit isn't an acquisition). Nothing fires where the club has no label set.
+    const adsConversionSent =
+      !isMember && !hasRemedyMembership
+        ? fireClubAdsConversion(club, "lounge", {
+            value: bookingValue,
+            transactionId: `${bookedClientId ?? "guest"}-${Date.now()}`,
+          })
+        : false;
     w.dataLayer = w.dataLayer || [];
     w.dataLayer.push({
       event: "remedy_lounge_booking_complete",
@@ -883,6 +893,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       is_member: isMember || hasRemedyMembership,
       value: bookingValue,
       currency: "USD",
+      ads_conversion_sent: adsConversionSent,
     });
   }
 

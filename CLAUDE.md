@@ -115,8 +115,8 @@ All three booking flows push the same shared funnel events to `dataLayer`, with 
 - Aescape: `aescape_booking_complete` + Google Ads conversion
 - Service (Massage/Facial): `service_booking_complete` + Google Ads conversion
 - Remedy Room: `remedy_room_booking_complete` + Google Ads conversion
-- Club Remedy Lounge (RiNo/CP): `remedy_lounge_booking_complete` — GA4 only, NO Google Ads conversion yet (no club campaigns; intentional). GTM tag added in container version 24 (2026-07-01) with params booking_location / value / currency / is_member.
-- Club Massage/Facial (RiNo/CP): `service_booking_complete` — GA4 only, NO Google Ads conversion (removed 11/2/2026; it was firing Larimer's labels).
+- Club Remedy Lounge (RiNo/CP): `remedy_lounge_booking_complete` (GA4; GTM tag since container version 24, 2026-07-01, params booking_location / value / currency / is_member). Google Ads: the CLUB's own conversion, non-members only (RiNo since 11/19/2026; Central Park none yet).
+- Club Massage/Facial (RiNo/CP): `service_booking_complete` (GA4). Google Ads: the CLUB's own conversion (RiNo since 11/19/2026; Central Park none yet). NEVER Larimer's labels (it fired them until 11/2/2026).
 
 ### `booking_flow` Values
 - `"aescape"` — book-aescape/page.tsx
@@ -140,6 +140,17 @@ Each booking fires TWO conversions: one main (primary, count=One) + one per-serv
 | Remedy Room Purchase | `NB15CLC60P0bEOCtr_NA` | Secondary (reporting) | Every |
 
 All use Google Ads account `AW-17421817568`. Switch campaigns to "Maximize Conversions" after ~30 conversions in 30 days.
+
+### Club (RiNo) Google Ads conversions (since 11/19/2026)
+Each club has its OWN conversion actions, set in `lib/clubLocations.ts` `adsConversions` and fired by `lib/clubAds.ts`. They are **secondary** actions; only the club's campaigns bid on them, through the custom goal "RiNo – Bookings + Membership". Larimer's campaigns never see them, and club flows never fire Larimer's labels. A club with no labels (Central Park) fires nothing.
+
+| RiNo conversion | send_to Label | Fired by |
+|-----------|---------------|------|
+| RiNo – Massage/Facial Booking | `FjugCJO51bsdEOCtr_NA` | ClubServiceFlow, every completed booking, value = menu price |
+| RiNo – Remedy Lounge Booking (non-member) | `PBdTCJa51bsdEOCtr_NA` | ClubRemedyLoungeFlow, non-members only; Google values it at a flat $25 |
+| RiNo – Membership Join | `4-NwCJm51bsdEOCtr_NA` | MembershipJoinFlow on a club page, value = plan price |
+
+The club booking flows also pass the ad click id (gclid) to `/api/service/book` and `/api/club/book`; it is stored per site (`gclid:appt:<siteId>:<appointmentId>`, Larimer keeps `gclid:appt:<appointmentId>`) and flagged on the /ops ledger row (`extra.gclid`). The dataLayer completion events carry `ads_conversion_sent`. Build scripts: `~/spavia-agents/sway/rino_ads/`.
 
 ### GTM Tags (Version 17+)
 All funnel step tags include `booking_flow` as an event parameter via Data Layer Variable `DLV - booking_flow`.

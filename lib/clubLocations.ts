@@ -87,6 +87,10 @@ export interface ClubLocation {
   /** Treatments + boosts nobody can perform at this club yet (no provider assigned in its
    *  Mindbody): hidden from the booking flow so they never show "no times". */
   hiddenServiceIds: number[];
+  /** This club's OWN Google Ads conversion labels (send_to), fired by lib/clubAds.ts. They are
+   *  secondary actions used only by the club's campaigns through a custom goal, so Larimer's
+   *  bidding never sees them. Never put a Larimer label here. Unset = no Ads conversion. */
+  adsConversions?: { service?: string; lounge?: string; membership?: string };
 }
 
 export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
@@ -142,6 +146,13 @@ export const CLUB_LOCATIONS: Record<ClubLocationKey, ClubLocation> = {
     // "Esty" — fake test provider configured for massage + facial dry-runs.
     testTherapistIds: [100000013],
     servicesLive: true,
+    // Created 11/19/2026 (~/spavia-agents/sway/rino_ads/01_conversion_actions.py): "RiNo – Massage/Facial
+    // Booking", "RiNo – Remedy Lounge Booking (non-member)", "RiNo – Membership Join".
+    adsConversions: {
+      service: "AW-17421817568/FjugCJO51bsdEOCtr_NA",
+      lounge: "AW-17421817568/PBdTCJa51bsdEOCtr_NA",
+      membership: "AW-17421817568/4-NwCJm51bsdEOCtr_NA",
+    },
     // 11/18/2026: no esthetician assigned in RiNo's Mindbody for the Dr. Dennis Gross Vitamin C
     // facials (77, 84) or Illuminate LED (85), nor the LED boosts (74, 73). John: hide the 3 facials.
     hiddenServiceIds: [77, 84, 85, 74, 73],

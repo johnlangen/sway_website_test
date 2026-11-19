@@ -1,5 +1,6 @@
 import { NextResponse, after } from "next/server";
 import { recordCompletion } from "@/lib/ops/record";
+import { recordBookingAttribution } from "@/lib/adAttribution";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { getClubBySiteId, type ClubLocation } from "@/lib/clubLocations";
 import {
@@ -96,11 +97,14 @@ export async function POST(req: Request) {
     clientId,
     startDateTime,
     notes,
+    // Google Ads click id captured at landing (lib/gclid.ts). Optional, attribution only.
+    gclid,
   } = body as {
     siteId?: string;
     clientId?: string;
     startDateTime?: string;
     notes?: string;
+    gclid?: string | null;
   };
 
   const saunasRaw: SaunaSelection[] = Array.isArray(body?.saunas)
@@ -382,14 +386,30 @@ export async function POST(req: Request) {
 
     const failedSaunas = saunaResults.filter((s) => !s.success);
 
+    // Attribution only: which ad click produced this Lounge booking (stored per site, fails open).
+    const hasGclid = typeof gclid === "string" && !!gclid;
+    const loungeApptId = (loungeAppointment as any)?.Id;
+    if (hasGclid && loungeApptId) {
+      after(() =>
+        recordBookingAttribution({
+          gclid: gclid as string,
+          appointmentId: loungeApptId,
+          clientId,
+          sessionTypeId: club.remedyLounge.sessionTypeId,
+          startDateTime,
+          siteId,
+        })
+      );
+    }
+
     // First-party completion ledger (lib/ops): after the response, never affects the booking.
     after(() =>
       recordCompletion(req, {
         flow: "remedy_lounge",
         location: club.key,
         item: club.remedyLounge.sessionTypeId,
-        ref: (loungeAppointment as any)?.Id,
-        extra: { saunas: saunaResults.filter((s) => s.success).length },
+        ref: loungeApptId,
+        extra: { saunas: saunaResults.filter((s) => s.success).length, gclid: hasGclid },
       })
     );
 

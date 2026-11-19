@@ -18,6 +18,16 @@ import { Redis } from "@upstash/redis";
 const TTL_SECONDS = 90 * 24 * 60 * 60; // Google's max click lookback
 const PREFIX = "gclid:appt:";
 
+/* Each Sway location is its own Mindbody site with its own appointment-id sequence, so a club
+   appointment id can equal a Larimer one. Larimer keeps the original key (gclid:appt:<id>, what
+   the click-matched read scripts scan); a club's key carries its SiteId (gclid:appt:<siteId>:<id>). */
+function keyFor(appointmentId: string | number, siteId?: string | null): string {
+  const larimer = process.env.MINDBODY_SITE_ID;
+  return siteId && larimer && siteId !== larimer
+    ? `${PREFIX}${siteId}:${appointmentId}`
+    : `${PREFIX}${appointmentId}`;
+}
+
 function getRedis(): Redis | null {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
   const token =
@@ -44,7 +54,7 @@ export async function recordBookingAttribution(
     const redis = getRedis();
     if (!redis) return;
     await redis.set(
-      `${PREFIX}${a.appointmentId}`,
+      keyFor(a.appointmentId, a.siteId),
       JSON.stringify({ ...a, recordedAt: new Date().toISOString() }),
       { ex: TTL_SECONDS }
     );
@@ -59,12 +69,13 @@ export async function recordBookingAttribution(
 
 /** Used by the offline-conversion uploader. */
 export async function getBookingAttribution(
-  appointmentId: string | number
+  appointmentId: string | number,
+  siteId?: string | null
 ): Promise<Record<string, unknown> | null> {
   try {
     const redis = getRedis();
     if (!redis) return null;
-    const raw = await redis.get(`${PREFIX}${appointmentId}`);
+    const raw = await redis.get(keyFor(appointmentId, siteId));
     if (!raw) return null;
     return typeof raw === "string" ? JSON.parse(raw) : (raw as any);
   } catch {

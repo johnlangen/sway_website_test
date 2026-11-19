@@ -24,6 +24,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Lock, X } from "lucide-react";
 import { HideFloatingWidgets } from "./HideFloatingWidgets";
 import { useDialogA11y } from "@/lib/useDialogA11y";
+import { fireClubAdsConversionBySite } from "@/lib/clubAds";
 
 export type MembershipPlan = {
   key: "essential" | "premier" | "ultimate" | "aescape30" | "aescape60" | "remedy" | "club_lounge";
@@ -769,9 +770,15 @@ export default function MembershipJoinFlow({
         // (created 2026-07-27, SUBSCRIBE_PAID, reporting only). Only ALL
         // Purchases is primary, so bidding is unaffected and nothing is
         // double-counted.
-        // Larimer only: the clubs run no Google Ads campaigns, so club
-        // membership purchases are GA4-only (same intentional gap as
-        // remedy_lounge_booking_complete — see CLAUDE.md).
+        // Larimer only. A club join fires the CLUB's own "Membership Join"
+        // action instead (lib/clubAds.ts; RiNo since 11/19/2026, nothing
+        // where the club has no label), never Larimer's.
+        if (site) {
+          fireClubAdsConversionBySite(site.siteId, "membership", {
+            value: plan.price,
+            transactionId: `${site.analyticsKey}-${plan.key}-${Date.now()}`,
+          });
+        }
         const gtag = (window as any).gtag;
         if (typeof gtag === "function" && !site) {
           gtag("event", "conversion", {

@@ -19,6 +19,8 @@ import { rotateSameTimeSlots } from "@/lib/slotRotation";
 import { useDialogA11y } from "@/lib/useDialogA11y";
 import { getClubLocation, type ClubLocationKey } from "@/lib/clubLocations";
 import { myAccountUrl } from "@/lib/myAccount";
+import { readGclid } from "@/lib/gclid";
+import { fireClubAdsConversion } from "@/lib/clubAds";
 
 /* ================================================================
    CLUB MASSAGE + FACIAL BOOKING FLOW (RiNo / Central Park)
@@ -32,7 +34,9 @@ import { myAccountUrl } from "@/lib/myAccount";
    - club.hiddenServiceIds hides what nobody at the club can perform yet.
    - No Aescape, Remedy Room or Larimer parking: the full-day fallback and post-booking links point
      to the club's Remedy Lounge. No "complete your visit" suggestion (Larimer-only checks).
-   - No Google Ads conversions or gclid (club bookings are GA4 + /ops only, no club campaigns).
+   - Google Ads: never Larimer's labels. A completed booking fires the CLUB's own conversion
+     (club.adsConversions.service via lib/clubAds.ts; RiNo since 11/19/2026, nothing where unset)
+     and passes the ad click id (gclid) to /api/service/book, stored per site.
    - The appointment waitlist is Larimer-only (WAITLIST_ENABLED below) until the club sites'
      Mindbody waitlist settings are checked.
    - WELCOME + CATEGORY steps are the club's: cross-location member copy, Remedy Lounge card on top,
@@ -1130,7 +1134,7 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
         if (isSurprise) noteParts.push("\u26A0\uFE0F SURPRISE \u2014 do not contact guest");
       }
       const res = await fetch("/api/service/book", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ siteId: SITE_ID, locationId: club.locationId, clientId, sessionTypeId: selectedTreatment!.id, startDateTime: selectedSlot!.startDateTime, staffId: selectedSlot!.staffId, staffRequested: filteredTherapist !== null, addOnIds: selectedBoosts.map((b) => b.id), notes: noteParts.join(" | ") }) });
+        body: JSON.stringify({ siteId: SITE_ID, locationId: club.locationId, clientId, sessionTypeId: selectedTreatment!.id, startDateTime: selectedSlot!.startDateTime, staffId: selectedSlot!.staffId, staffRequested: filteredTherapist !== null, addOnIds: selectedBoosts.map((b) => b.id), notes: noteParts.join(" | "), gclid: readGclid() }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Booking failed");
       if (data.addOns?.some((a: any) => !a.success)) setBoostWarning(`Some boosts couldn\u2019t be added automatically. Email ${club.contactEmail} to add them.`);
@@ -1139,8 +1143,9 @@ function ClubServiceInner({ clubKey }: { clubKey: ClubLocationKey }) {
       const bookingValueTreatment = selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn : 0;
       const bookingValueBoosts = selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0);
       const bookingValue = bookingValueTreatment + bookingValueBoosts;
-      // No Google Ads conversions for club bookings (no club campaigns; they fired Larimer's labels until 11/2).
-      window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD" });
+      // Google Ads: the club's OWN conversion only (never Larimer's labels, which this fired until 11/2).
+      const adsConversionSent = fireClubAdsConversion(club, "service", { value: bookingValue, transactionId: `${clientId}-${Date.now()}` });
+      window.dataLayer?.push({ event: "service_booking_complete", booking_flow: category, service_name: selectedTreatment?.name, service_tier: selectedTreatment?.tier, member_tier: memberTier ?? "none", is_member: isMember, value: bookingValue, currency: "USD", ads_conversion_sent: adsConversionSent });
       setStep("done");
     } catch (e: any) { setError(e?.message ? `${e.message} Email ${club.contactEmail} to complete your booking.` : `Booking failed. Email ${club.contactEmail} to complete your booking.`); setStep("confirm"); }
     finally { bookingLock.current = false; }
