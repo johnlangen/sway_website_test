@@ -2,7 +2,8 @@
 
 /**
  * The Remedy Lounge is contrast: hot, then cold, then rest. This draws a 75-minute session to scale and
- * colored by temperature. Blue and ember are off-palette on purpose, because here color IS the meaning.
+ * toned by temperature, in brand colors only (Emily + John 11/20/2026: no ember or blue). The section is
+ * deep green, so heat is the warm neutrals (cream, sand), cold is the light green, and rest recedes.
  * Up to two 25-minute sauna windows is the real rule; the rest of the plan is an example, and says so.
  *
  * Motion (app/editorial.css, .ls-*, skipped with prefers-reduced-motion): the first time it scrolls into
@@ -14,10 +15,10 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { LoungeStep } from "@/lib/clubLocationPages";
 
 const HEAT: Record<LoungeStep["heat"], { color: string; text: string }> = {
-  hot: { color: "#C8552B", text: "#FFFFFF" },
-  warm: { color: "#E2A25A", text: "#113D33" },
-  rest: { color: "#EBE4D1", text: "#113D33" },
-  cold: { color: "#7DBAD3", text: "#113D33" },
+  hot: { color: "#F7F4E9", text: "#113D33" },
+  warm: { color: "#EBE4D1", text: "#113D33" },
+  rest: { color: "#2C5A4E", text: "#FFFFFF" },
+  cold: { color: "#B6CFBF", text: "#113D33" },
 };
 
 // The longest plan has five steps. Keeping five slots is what lets blocks morph between plans.
@@ -79,7 +80,7 @@ export default function ClubLoungeStrip({ hasWarmSoak, plungeLabel }: { hasWarmS
       <div className="mx-auto max-w-6xl px-6">
         <p className="sway-eyebrow text-[#D7E5DD]">The Remedy Lounge · 75 minutes, self-guided</p>
         <h2 className="mt-3 text-[46px] leading-[1.02] md:mt-4 md:text-8xl">
-          <span className="text-[#E9A06B]">Hot.</span> <span className="text-[#9CCFE3]">Cold.</span> Repeat.
+          Hot. <span className="text-[#B6CFBF]">Cold.</span> Repeat.
         </h2>
         <p className="mt-3 max-w-xl text-base text-white/85 md:mt-5 md:text-lg">
           Your session, your order. Book up to two 25-minute sauna windows, and use everything else as you like. Here are two ways it could go.
@@ -149,7 +150,7 @@ export default function ClubLoungeStrip({ hasWarmSoak, plungeLabel }: { hasWarmS
               style={{ "--i": i } as CSSProperties}
             >
               <span className="flex min-w-0 items-center gap-2.5">
-                <span aria-hidden="true" className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: HEAT[s.heat].color }} />
+                <span aria-hidden="true" className="h-3 w-3 shrink-0 rounded-full ring-1 ring-white/30" style={{ backgroundColor: HEAT[s.heat].color }} />
                 {s.label}
               </span>
               <span className="shrink-0 text-white/85">{s.minutes} min</span>

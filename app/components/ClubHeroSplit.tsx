@@ -74,8 +74,8 @@ export default function ClubHeroSplit({ hot, cold }: { hot: Photo; cold: Photo }
         <Image src={hot.src} alt={hot.alt} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="pointer-events-none object-cover" style={{ objectPosition: hot.position }} />
       </div>
 
-      <span className="pointer-events-none absolute bottom-3 left-3 rounded-[2px] bg-[#C8552B] px-2.5 py-1 text-xs text-white md:bottom-5 md:left-5 md:text-sm">Hot</span>
-      <span className="pointer-events-none absolute bottom-3 right-3 rounded-[2px] bg-[#7DBAD3] px-2.5 py-1 text-xs text-[#113D33] md:bottom-5 md:right-5 md:text-sm">Cold</span>
+      <span className="pointer-events-none absolute bottom-3 left-3 rounded-[2px] bg-[#113D33] px-2.5 py-1 text-xs text-white md:bottom-5 md:left-5 md:text-sm">Hot</span>
+      <span className="pointer-events-none absolute bottom-3 right-3 rounded-[2px] bg-[#B6CFBF] px-2.5 py-1 text-xs text-[#113D33] md:bottom-5 md:right-5 md:text-sm">Cold</span>
 
       <div aria-hidden="true" className="ch-line pointer-events-none absolute inset-y-0 w-0.5 -translate-x-1/2 bg-white">
         <span className="ch-grip absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#113D33] shadow-[0_4px_18px_rgba(0,0,0,0.35)]">

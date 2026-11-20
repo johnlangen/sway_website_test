@@ -19,7 +19,8 @@ export type HeroPanel = {
   key: string;
   state: string; // Hot, Cold, Still, Glow
   name: string; // what it is
-  color: string;
+  color: string; // the chip's fill
+  ink: string; // the chip's text, chosen to pass AA on that fill
   photo: { src: string; alt: string; position: string };
   href: string;
   cta: string;
@@ -86,15 +87,15 @@ export default function ClubHeroPanels({ panels }: { panels: HeroPanel[] }) {
             {/* Closed: a vertical label in the panel's color */}
             <span
               aria-hidden="true"
-              className={`pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rotate-180 rounded-[2px] px-1.5 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-opacity duration-300 [writing-mode:vertical-rl] md:bottom-5 md:text-xs ${isOpen ? "opacity-0" : "opacity-100"}`}
-              style={{ background: p.color }}
+              className={`pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rotate-180 rounded-[2px] px-1.5 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] transition-opacity duration-300 [writing-mode:vertical-rl] md:bottom-5 md:text-xs ${isOpen ? "opacity-0" : "opacity-100"}`}
+              style={{ background: p.color, color: p.ink }}
             >
               {p.state}
             </span>
 
             {/* Open: state chip, what it is, and its booking link */}
             <div className={`absolute inset-x-0 bottom-0 z-10 p-4 transition-opacity duration-500 md:p-6 ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}>
-              <span className="inline-block rounded-[2px] px-2 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white md:text-[13px]" style={{ background: p.color }}>
+              <span className="inline-block rounded-[2px] px-2 py-1 text-xs font-semibold uppercase tracking-[0.18em] md:text-[13px]" style={{ background: p.color, color: p.ink }}>
                 {p.state}
               </span>
               <p className="mt-2 text-xl font-semibold leading-tight text-white md:text-3xl">{p.name}</p>

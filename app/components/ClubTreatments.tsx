@@ -3,7 +3,7 @@
  *
  * The club page's idea is temperature. The Remedy Lounge is contrast (hot, then cold, you move between
  * them); massage and facials are the third state, still (someone else does the work). So:
- * - ClubThreeWays: the page's front door, drawn as one rail running hot -> cold -> still -> glow.
+ * - ClubThreeWays: the page's front door, three cards on one hairline rail (Lounge, massage, facials).
  * - ClubTreatmentMenu: the menu as two ladders, each tier's length drawn to scale, plus a to-scale
  *   "make it an afternoon" strip pairing a massage with a Lounge session.
  *
@@ -17,12 +17,19 @@ import Link from "next/link";
 import ArrowMark from "./ArrowMark";
 import { SwayCurve } from "./SwayCurve";
 
-// The four states, shared with the hero panels (ClubHeroPanels) so the colors mean the same thing everywhere.
-// Dark enough for white label text at AA (>= 4.5:1).
-export const HOT = "#B4471F";
-export const COLD = "#2F7099";
-export const STILL = "#4A776D";
-export const GLOW = "#A8653A";
+// The four states in two brand greens, shared with the hero panels (ClubHeroPanels) so the colors mean
+// the same thing everywhere. Emily + John 11/20/2026: the ember, blue and clay read as off-brand, so
+// deep green = Hot and Still, light green = Cold and Glow.
+export const DEEP = "#113D33";
+export const LIGHT = "#B6CFBF";
+export const HOT = DEEP;
+export const COLD = LIGHT;
+export const STILL = DEEP;
+export const GLOW = LIGHT;
+// Text that sits ON a state fill (both pass AA: white on deep 12:1, deep on light 7:1).
+export const INK: Record<string, string> = { [DEEP]: "#FFFFFF", [LIGHT]: "#113D33" };
+// Light green is a fill, never a text color: on cream it is 1.5:1. Words in the light state use this sage (4.6:1).
+export const LIGHT_TEXT = "#4A776D";
 
 type Props = { short: string; base: string; loungePhoto: { src: string; alt: string; position: string } };
 
@@ -38,7 +45,6 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
       href: `${base}/book-remedy-lounge`,
       cta: "Book the Lounge",
       photo: loungePhoto,
-      rail: `linear-gradient(90deg, ${HOT}, ${COLD})`,
       track: "club-ways-lounge",
     },
     {
@@ -50,7 +56,6 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
       href: `${book}?category=massage`,
       cta: "Book a massage",
       photo: { src: "/assets/founding-massage-lamp.jpg", alt: `A massage therapist working on a guest's back by lamplight at ${short}`, position: "60% 50%" },
-      rail: `linear-gradient(90deg, ${COLD}, ${STILL})`,
       track: "club-ways-massage",
     },
     {
@@ -62,7 +67,6 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
       href: `${book}?category=facial`,
       cta: "Book a facial",
       photo: { src: "/assets/facialExperiences.jpg", alt: "Close-up of a guest's skin with a dab of hydrating treatment", position: "50% 45%" },
-      rail: `linear-gradient(90deg, ${STILL}, ${GLOW})`,
       track: "club-ways-facial",
     },
   ];
@@ -72,15 +76,14 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
       <div className="mx-auto max-w-6xl px-6">
         <p className="sway-eyebrow text-[#4A776D]">Recover your way in RiNo</p>
         <h2 id="club-ways-title" className="mt-3 text-[40px] leading-[1.02] md:mt-4 md:text-7xl">
-          <span style={{ color: HOT }}>Hot.</span> <span style={{ color: COLD }}>Cold.</span> <span style={{ color: STILL }}>Still.</span> <span style={{ color: GLOW }}>Glow.</span>
+          <span style={{ color: DEEP }}>Hot.</span> <span style={{ color: LIGHT_TEXT }}>Cold.</span> <span style={{ color: DEEP }}>Still.</span> <span style={{ color: LIGHT_TEXT }}>Glow.</span>
         </h2>
         <p className="mt-3 max-w-xl text-base text-[#113D33]/85 md:mt-5 md:text-lg">
           The Remedy Lounge for heat and cold, massage and facials with licensed pros. Book one, or pair them into an afternoon.
         </p>
 
-        {/* One rail, hot to glow. Continuous on desktop; each card keeps its own segment on mobile. */}
-        <div aria-hidden="true" className="relative mt-8 hidden h-[6px] rounded-full md:mt-12 md:block"
-          style={{ background: `linear-gradient(90deg, ${HOT} 0%, ${COLD} 33%, ${STILL} 66%, ${GLOW} 100%)` }}>
+        {/* One rail with a stop per card. A hairline on desktop; each card keeps its own rule on mobile. */}
+        <div aria-hidden="true" className="relative mt-8 hidden h-[2px] rounded-full bg-[#113D33]/20 md:mt-12 md:block">
           {[16.5, 50, 83.5].map((at) => (
             <span key={at} className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#F7F4E9] bg-[#113D33]" style={{ left: `${at}%` }} />
           ))}
@@ -89,7 +92,7 @@ export function ClubThreeWays({ short, base, loungePhoto }: Props) {
         <ul className="mt-6 grid gap-8 md:mt-6 md:grid-cols-3 md:gap-6">
           {ways.map((w) => (
             <li key={w.key} className="flex flex-col">
-              <span aria-hidden="true" className="mb-4 block h-[6px] rounded-full md:hidden" style={{ background: w.rail }} />
+              <span aria-hidden="true" className="mb-4 block h-[2px] rounded-full bg-[#113D33]/20 md:hidden" />
               <p className="sway-eyebrow text-[#4A776D]">{w.state}</p>
               <Link href={w.href} data-track={w.track} className="group mt-3 block">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[2px]">
@@ -147,7 +150,7 @@ function Ladder({ title, color, tiers, href, cta, track }: { title: string; colo
                 <div aria-hidden="true" className="relative h-3 flex-1 rounded-full bg-[#113D33]/[0.08]">
                   <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${(longest / SCALE) * 100}%`, background: color }} />
                   {t.lengths.slice(0, -1).map((m) => (
-                    <span key={m} className="absolute inset-y-0 w-[2px] bg-[#F7F4E9]" style={{ left: `${(m / SCALE) * 100}%` }} />
+                    <span key={m} className="absolute inset-y-0 w-[2px]" style={{ left: `${(m / SCALE) * 100}%`, background: color === LIGHT ? "#113D33" : "#F7F4E9" }} />
                   ))}
                 </div>
                 <span className="w-24 shrink-0 text-right text-sm text-[#113D33]/85">{label}</span>
@@ -196,7 +199,7 @@ export function ClubTreatmentMenu({ short, base, foundingFrom, regularFrom }: { 
             <div className="flex items-center rounded-l-[3px] px-3 text-sm font-semibold text-white" style={{ width: `${(massage / total) * 100}%`, background: STILL }}>
               Massage · {massage} min
             </div>
-            <div className="flex items-center rounded-r-[3px] px-3 text-sm font-semibold text-white" style={{ width: `${(lounge / total) * 100}%`, background: `linear-gradient(90deg, ${HOT}, ${COLD})` }}>
+            <div className="flex items-center rounded-r-[3px] px-3 text-sm font-semibold" style={{ width: `${(lounge / total) * 100}%`, background: LIGHT, color: INK[LIGHT] }}>
               Remedy Lounge · {lounge} min
             </div>
           </div>

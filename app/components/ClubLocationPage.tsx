@@ -18,7 +18,7 @@ import ClubHeroSplit from "./ClubHeroSplit";
 import ClubHeroPanels, { type HeroPanel } from "./ClubHeroPanels";
 import ClubHoursChart from "./ClubHoursChart";
 import ClubLoungeStrip from "./ClubLoungeStrip";
-import { ClubThreeWays, ClubTreatmentMenu, HOT, COLD, STILL, GLOW } from "./ClubTreatments";
+import { ClubThreeWays, ClubTreatmentMenu, HOT, COLD, STILL, GLOW, INK } from "./ClubTreatments";
 import LocationExperienceNav from "./LocationExperienceNav";
 import { SwayCurve } from "./SwayCurve";
 import { CLUB_FOUNDING, FOUNDING_RATES } from "@/lib/clubFounding";
@@ -55,25 +55,26 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
     setStatus(getClubStatus(cfg.week));
   }, [clubKey, short, cfg.city, cfg.week]);
 
+  // Hottest to coldest as one brand-green ramp, deep to light (deep = hot, light = cold, as in ClubTreatments).
   const inside = [
-    { name: "Traditional sauna", line: "Dry heat, in a 25-minute window you book.", color: "#C8552B" },
-    { name: "Infrared sauna cabins", line: "A gentler heat, also in a 25-minute window.", color: "#E2A25A" },
-    ...(cfg.hasWarmSoak ? [{ name: "Warm soak", line: "One tub runs warm instead of cold.", color: "#EBCB9B" }] : []),
-    { name: "PEMF mats", line: "Included with every session.", color: "#EBE4D1" },
-    { name: "Compression therapy", line: "Included with every session.", color: "#CFE0DF" },
+    { name: "Traditional sauna", line: "Dry heat, in a 25-minute window you book.", color: "#113D33" },
+    { name: "Infrared sauna cabins", line: "A gentler heat, also in a 25-minute window.", color: "#2F5D50" },
+    ...(cfg.hasWarmSoak ? [{ name: "Warm soak", line: "One tub runs warm instead of cold.", color: "#4A776D" }] : []),
+    { name: "PEMF mats", line: "Included with every session.", color: "#7FA596" },
+    { name: "Compression therapy", line: "Included with every session.", color: "#9ABFB3" },
     {
       name: cfg.plungeLabel,
       line: cfg.hasWarmSoak ? "Three tubs run cold, at different temperatures." : "One big plunge, ready when you are.",
-      color: "#7DBAD3",
+      color: "#B6CFBF",
     },
   ];
 
   // Hero once treatments are live: Hot, Cold, Still, Glow as four equal panels (ClubHeroPanels).
   const heroPanels: HeroPanel[] = [
-    { key: "hot", state: "Hot", name: "Traditional & infrared sauna", color: HOT, photo: cfg.hot, href: `${base}/book-remedy-lounge`, cta: "Book the Remedy Lounge", track: "club-hero-hot" },
-    { key: "cold", state: "Cold", name: cfg.plungeLabel, color: COLD, photo: cfg.cold, href: `${base}/book-remedy-lounge`, cta: "Book the Remedy Lounge", track: "club-hero-cold" },
-    { key: "still", state: "Still", name: "Massage", color: STILL, photo: { src: "/assets/founding-massage-lamp.jpg", alt: `A massage therapist working on a guest's back by lamplight at ${short}`, position: "62% 50%" }, href: `${bookHref}?category=massage`, cta: "Book a massage", track: "club-hero-massage" },
-    { key: "glow", state: "Glow", name: "Facials", color: GLOW, photo: { src: "/assets/facialExperiences.jpg", alt: "Close-up of a guest's skin with a dab of hydrating treatment", position: "45% 40%" }, href: `${bookHref}?category=facial`, cta: "Book a facial", track: "club-hero-facial" },
+    { key: "hot", state: "Hot", name: "Traditional & infrared sauna", color: HOT, ink: INK[HOT], photo: cfg.hot, href: `${base}/book-remedy-lounge`, cta: "Book the Remedy Lounge", track: "club-hero-hot" },
+    { key: "cold", state: "Cold", name: cfg.plungeLabel, color: COLD, ink: INK[COLD], photo: cfg.cold, href: `${base}/book-remedy-lounge`, cta: "Book the Remedy Lounge", track: "club-hero-cold" },
+    { key: "still", state: "Still", name: "Massage", color: STILL, ink: INK[STILL], photo: { src: "/assets/founding-massage-lamp.jpg", alt: `A massage therapist working on a guest's back by lamplight at ${short}`, position: "62% 50%" }, href: `${bookHref}?category=massage`, cta: "Book a massage", track: "club-hero-massage" },
+    { key: "glow", state: "Glow", name: "Facials", color: GLOW, ink: INK[GLOW], photo: { src: "/assets/facialExperiences.jpg", alt: "Close-up of a guest's skin with a dab of hydrating treatment", position: "45% 40%" }, href: `${bookHref}?category=facial`, cta: "Book a facial", track: "club-hero-facial" },
   ];
 
   const dropInTotal = visits * DROP_IN;
@@ -143,7 +144,7 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
               <div className="mt-3 flex min-h-6 items-center gap-2 text-sm md:mt-4">
                 {status && (
                   <>
-                    <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#C8552B] shadow-[0_0_10px_2px_rgba(200,85,43,0.55)]" : "bg-[#113D33]/35"}`} />
+                    <span aria-hidden="true" className={`inline-block h-2.5 w-2.5 rounded-full ${status.open ? "bg-[#4A776D] shadow-[0_0_10px_2px_rgba(74,119,109,0.55)]" : "bg-[#113D33]/35"}`} />
                     <span>{status.label} · Drop-ins welcome</span>
                   </>
                 )}
