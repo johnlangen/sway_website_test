@@ -5,6 +5,8 @@ import { LAUNCH_SITES } from "@/lib/launchSites";
 // Founding memberships on sale (lib/launchSites.ts): descriptions and FAQ answers say so, matching
 // the page's visible FAQ.
 const FOUNDING = LAUNCH_SITES["union-market"].founding;
+// The Remedy Room membership sold before opening (a regular membership, not founding).
+const REMEDY = LAUNCH_SITES["union-market"].remedyRoom ?? null;
 const ON_SALE = FOUNDING.salesOpen;
 const FROM = `$${FOUNDING.tiers.essential.price}`;
 const SAVING = FOUNDING.tiers.essential.visit !== undefined ? FOUNDING.tiers.essential.visit - FOUNDING.tiers.essential.price : null;
@@ -137,7 +139,7 @@ const faqJsonLd = {
       acceptedAnswer: {
         "@type": "Answer",
         text: ON_SALE
-          ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month${SAVING !== null ? `, and each is $${SAVING} less than a single visit at that tier` : ""}. Your first month is charged when you join. Remedy Room membership pricing will be announced closer to opening.`
+          ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month${SAVING !== null ? `, and each is $${SAVING} less than a single visit at that tier` : ""}. Your first month is charged when you join.${REMEDY ? ` The Remedy Room membership is open now too: ${REMEDY.visits} visits a month for $${REMEDY.price}, at the regular rate (it is not a founding membership).` : " Remedy Room membership pricing will be announced closer to opening."}`
           : "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
       },
     },

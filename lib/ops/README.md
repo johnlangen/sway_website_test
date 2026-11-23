@@ -157,3 +157,28 @@ written for `?memtest=1` or off the production site.
 
 Checks: `npx tsx scripts/test-launch-founding.mts` and
 `npx tsx --experimental-test-module-mocks scripts/test-membership-purchase-route.mts` (Node 22+).
+
+## Remedy Room membership at a launch site (Union Market, 11/23/2026)
+
+Sold before opening on its own Mindbody contract (145, "Remedy Room Membership | 4 Sessions |
+Pre-Opening": the regular $99 membership with the spa's start date). It is NOT founding, so it is
+kept out of everything founding:
+
+- Shown: the page view. It is on `/locations/union-market/` (the cream box under the founding
+  card, plus the fourth card in the membership row) and on the founding page (its own section).
+- Clicked: `remedy-box-join`, `um-membership-remedy`, `remedy-section-join`
+  (`remedy-section-reserve` if Mindbody says the contract is off sale). Read with
+  `node scripts/ops.mjs --clicks /locations/union-market/`.
+- Checkout: flow `membership`, variant `remedy` (opened, email, code, details, payment, review,
+  done, joined), detail in flow `checkout` (`from-location`, `from-membership`, `from-founding` =
+  which page sent them). Read with `node scripts/ops.mjs --funnel membership --loc union-market`.
+  It never sends `from-founding` / `founding-joined` in the membership flow.
+- Sale: ledger row `item: "remedy"`, `extra.founding: false`, `extra.plan: "remedy"`, `extra.start`.
+- Atlas's Launch Board: `/api/ops/funnel/` leaves out variant `remedy` and `/api/ops/sales/` only
+  returns `extra.founding === true`, so the founding funnel and the 150 count never include it.
+  A guest who stops partway IS on the follow-up list (`/api/ops/founding-checkouts/`), which does
+  not record the plan.
+
+At opening: Mindbody's regular contract 102 goes back on sale online and 145 comes off, so
+`remedyRoom.contractId` in lib/launchSites.ts must change in the same deploy (the contract check
+refuses anything not named "… Pre-Opening").

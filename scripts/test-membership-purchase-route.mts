@@ -47,11 +47,13 @@ const founding = (id: number, tier: string, price: number, patch: Record<string,
   AgreementTerms: "<div>terms</div>",
   ...patch,
 });
+// Union Market's Remedy Room membership sold before opening (contract 145): the regular price on a fixed start.
+const remedyPre = (patch: Record<string, unknown> = {}) => ({ ...founding(145, "x", 99), Name: "Remedy Room Membership | 4 Sessions | Pre-Opening", ...patch });
 const okSale = (total: number, id: number | null) => ({ status: 200, json: { ClientContractId: id, Totals: { Total: total, SubTotal: total, Tax: 0 } } });
 function reset() {
   calls = [];
   world = {
-    contracts: [founding(137, "Essential", 89), founding(138, "Premier", 119), founding(139, "Ultimate", 149)],
+    contracts: [founding(137, "Essential", 89), founding(138, "Premier", 119), founding(139, "Ultimate", 149), remedyPre()],
     preview: () => okSale(89, null),
     charge: () => okSale(89, 777),
   };
@@ -186,7 +188,35 @@ await check("Union Market: card declined on the test sale → back to the card s
   assert.equal(r.data.code, "card_failed");
   assert.deepEqual(r.sales.map((b) => b.Test), [true]);
 });
-await check("Union Market: only the three founding contracts can be bought", async () => {
+await check("Union Market, Remedy Room membership: sold on its pre-opening contract with that contract's start date", async () => {
+  world.preview = () => okSale(99, null);
+  world.charge = () => okSale(99, 778);
+  const r = await buy(UM, 145);
+  assert.equal(r.status, 200, JSON.stringify(r.data));
+  assert.equal(r.sales.length, 2);
+  const [preview, sale] = r.sales;
+  assert.deepEqual([preview.Test, preview.SendNotifications], [true, false]);
+  assert.deepEqual([sale.Test, sale.SendNotifications], [false, true]);
+  for (const b of r.sales) assert.deepEqual([b.LocationId, b.ContractId, b.StartDate, b.FirstPaymentOccurs, b.StoredCardInfo.LastFour], [1, 145, "2099-02-05", "Instant", "4242"]);
+  assert.deepEqual([r.data.success, r.data.clientContractId, r.data.membership, r.data.startDate, r.data.fixedStart, r.data.nextCharge], [true, 778, "remedy", "2099-02-05", true, "2099-03-05"]);
+});
+await check("Union Market, Remedy Room membership: refused when 145 is renamed, repriced or loses its fixed start", async () => {
+  for (const patch of [
+    { Name: "Remedy Room Membership | 4 Sessions" }, // the regular contract's name: starts the day it is bought
+    { FirstPaymentAmountTotal: 109, RecurringPaymentAmountTotal: 109 },
+    { ClientsChargedOn: "OnSaleDate", ClientsChargedOnSpecificDate: null },
+    { SoldOnline: false },
+  ]) {
+    world.contracts = [founding(137, "Essential", 89), remedyPre(patch)];
+    world.preview = () => okSale(99, null);
+    const r = await buy(UM, 145);
+    assert.equal(r.status, 409, JSON.stringify(patch));
+    assert.equal(r.data.code, "off_sale");
+    assert.equal(r.sales.length, 0, "Mindbody is never asked to sell");
+    guest = String(Number(guest) + 1000);
+  }
+});
+await check("Union Market: only the founding contracts and the pre-opening Remedy Room contract can be bought", async () => {
   for (const id of [102, 122, 143, 100]) {
     const r = await buy(UM, id);
     assert.equal(r.status, 400, String(id));

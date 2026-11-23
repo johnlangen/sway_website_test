@@ -14,6 +14,8 @@ import { LAUNCH_SITES } from "@/lib/launchSites";
 /** The founding checkout's steps, in order (app/components/MembershipCheckout.tsx). */
 export const FOUNDING_STEPS = ["from-founding", "plan", "email", "code", "details", "payment", "review", "founding-joined"];
 export const FOUNDING_SIDE_STEPS = ["member"];
+/** Membership-flow variants (plan keys) that are NOT founding: a launch site's Remedy Room membership. */
+const NOT_FOUNDING_VARIANTS = new Set(["remedy"]);
 
 const MAX_DAYS = 120; // the unique-visitor sketches are kept 120 days
 
@@ -48,7 +50,7 @@ export async function launchFunnelRows(days: string[]): Promise<FunnelRow[]> {
   hashes.forEach((h, i) => {
     for (const field of Object.keys(h ?? {})) {
       const [flow, spa, step, variant] = field.split("|");
-      if (flow !== "membership" || !spas.has(spa) || !step) continue;
+      if (flow !== "membership" || !spas.has(spa) || !step || NOT_FOUNDING_VARIANTS.has(variant)) continue;
       const k = `${days[i]}|${spa}|${step}`;
       if (!combos.has(k)) combos.set(k, new Set());
       combos.get(k)!.add(variant || "-");

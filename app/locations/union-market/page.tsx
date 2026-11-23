@@ -7,12 +7,17 @@ import GoogleReviews from "@/app/components/GoogleReviews";
 import WaitlistForm from "@/app/components/WaitlistForm";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
 import { LAUNCH_SITES, type LaunchTierKey } from "@/lib/launchSites";
+import { RemedyRoomBox } from "@/app/components/LaunchRemedyOffer";
 import { FOUNDING_TIER_CONTENT } from "@/lib/foundingTiers";
 
 // Founding memberships are on sale on the site (lib/launchSites.ts salesOpen). While true, this
 // page leads with joining and the waitlist becomes the quiet second option. With it false, every
 // line below reads as it did before 11/23/2026.
 const FOUNDING = LAUNCH_SITES["union-market"].founding;
+// The Remedy Room membership sold before opening: a regular membership, not founding, so it sits in
+// its own cream box under the founding card (John 11/23/2026).
+const REMEDY = LAUNCH_SITES["union-market"].remedyRoom ?? null;
+const REMEDY_HREF = "/locations/union-market/founding-membership/join/?tier=remedy&from=membership";
 const ON_SALE = FOUNDING.salesOpen;
 const FOUNDING_HREF = "/locations/union-market/founding-membership/";
 const JOIN_HREF = (tier: LaunchTierKey) => `/locations/union-market/founding-membership/join/?tier=${tier}`;
@@ -96,6 +101,7 @@ export default function SwayGeorgetownComingSoonPage() {
             transition={{ duration: 0.6 }}
           >
             {ON_SALE ? (
+              <>
               <div className="bg-[#113D33] text-white rounded-2xl p-6 md:p-8">
                 <p className="text-xs uppercase tracking-widest text-[#b6cfbf]">
                   Founding membership · First {FOUNDING.cap} members
@@ -145,6 +151,8 @@ export default function SwayGeorgetownComingSoonPage() {
                   </a>
                 </p>
               </div>
+              {REMEDY && <RemedyRoomBox base="/locations/union-market" offer={REMEDY} />}
+              </>
             ) : (
               <WaitlistForm location="union-market" source="location-page" variant="compact" />
             )}
@@ -214,7 +222,7 @@ export default function SwayGeorgetownComingSoonPage() {
             </p>
             <p className="text-sm opacity-80 mb-6 max-w-xl mx-auto">
               {ON_SALE
-                ? `One massage or facial every month${LEAD_SAVING !== null ? `, for $${LEAD_SAVING} less than a single visit` : " at the founding rate"}. For the first ${FOUNDING.cap} members only. Remedy Room membership pricing will be announced closer to opening.`
+                ? `One massage or facial every month${LEAD_SAVING !== null ? `, for $${LEAD_SAVING} less than a single visit` : " at the founding rate"}. For the first ${FOUNDING.cap} members only.${REMEDY ? ` The Remedy Room membership is open too: ${REMEDY.visits} recovery visits a month for $${REMEDY.price}, at the regular rate.` : " Remedy Room membership pricing will be announced closer to opening."}`
                 : "Founding members will receive exclusive pricing and priority booking before Sway Union Market opens. Join the waitlist to be notified when founding memberships go live."}
             </p>
 
@@ -238,11 +246,30 @@ export default function SwayGeorgetownComingSoonPage() {
                         )}
                       </p>
                     )}
-                    {ON_SALE && c.key === "remedy" && (
-                      <p className="mt-3 text-xs opacity-80">Pricing announced closer to opening.</p>
-                    )}
+                    {ON_SALE && c.key === "remedy" &&
+                      (REMEDY ? (
+                        <p className="mt-3 text-sm font-bold">
+                          ${REMEDY.price} a month <span aria-hidden="true">&rarr;</span>
+                          <span className="block text-xs font-normal opacity-80">
+                            {REMEDY.visits} visits a month · not a founding rate
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="mt-3 text-xs opacity-80">Pricing announced closer to opening.</p>
+                      ))}
                   </>
                 );
+                if (ON_SALE && c.key === "remedy" && REMEDY)
+                  return (
+                    <Link
+                      key={c.key}
+                      href={REMEDY_HREF}
+                      data-track="um-membership-remedy"
+                      className="block rounded-xl border border-[#D8CDB0] bg-[#F7F4E9] p-4 transition hover:bg-[#EBE4D1]"
+                    >
+                      {inner}
+                    </Link>
+                  );
                 return price !== null && c.key !== "remedy" ? (
                   <Link
                     key={c.key}
@@ -328,12 +355,12 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "Does Sway Union Market have a sauna and cold plunge?",
-                a: "Yes. The Remedy Room at Sway Union Market will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or get unlimited access through a Remedy Room membership.",
+                a: "Yes. The Remedy Room at Sway Union Market will feature a sauna, cold plunge, LED light therapy, and lymphatic drainage compression boots. You can book individual sessions or join the Remedy Room membership for four visits a month.",
               },
               {
                 q: "How much are Sway Union Market memberships?",
                 a: ON_SALE
-                  ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month${LEAD_SAVING !== null ? `, and each is $${LEAD_SAVING} less than a single visit at that tier` : ""}. Your first month is charged when you join. Remedy Room membership pricing will be announced closer to opening.`
+                  ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month${LEAD_SAVING !== null ? `, and each is $${LEAD_SAVING} less than a single visit at that tier` : ""}. Your first month is charged when you join.${REMEDY ? ` The Remedy Room membership is open now too: ${REMEDY.visits} visits a month for $${REMEDY.price}, at the regular rate (it is not a founding membership).` : " Remedy Room membership pricing will be announced closer to opening."}`
                   : "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
               ON_SALE

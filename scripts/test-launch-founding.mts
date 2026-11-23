@@ -11,7 +11,7 @@ import fs from "node:fs";
 import { checkFoundingContract, longDate, monthAfter, termsToPlainText } from "../lib/launchFounding";
 import { mergeFoundingCheckout } from "../lib/foundingCheckouts";
 import { feedDays } from "../lib/ops/feeds";
-import { LAUNCH_SITES, LAUNCH_TIER_KEYS, launchTierForContract, launchToday } from "../lib/launchSites";
+import { LAUNCH_SITES, LAUNCH_TIER_KEYS, launchPlanForContract, launchPlanPrice, launchTierForContract, launchToday, type LaunchPlanKey } from "../lib/launchSites";
 
 let n = 0;
 const ok = (name: string, fn: () => void) => {
@@ -105,8 +105,51 @@ ok("the page's contracts map to tiers, and only those", () => {
   const site = LAUNCH_SITES["union-market"];
   assert.equal(launchTierForContract(site, 137), "essential");
   assert.equal(launchTierForContract(site, 139), "ultimate");
-  assert.equal(launchTierForContract(site, 102), null); // Remedy Room: sold online in Mindbody, not on the page
+  assert.equal(launchTierForContract(site, 102), null); // the regular Remedy Room contract is never sold here
+  assert.equal(launchTierForContract(site, 145), null); // the pre-opening Remedy Room contract is not a founding TIER
+  assert.equal(launchPlanForContract(site, 145), "remedy"); // but it is a plan the site sells
+  assert.equal(launchPlanForContract(site, 137), "essential");
+  assert.equal(launchPlanForContract(site, 102), null);
+  assert.deepEqual(launchPlanPrice(site, "remedy"), { contractId: 145, price: 99 });
   assert.match(launchToday(site, new Date("2026-11-24T03:30:00Z")), /^2026-11-23$/); // 10:30 PM in DC
+});
+// The Remedy Room membership sold before opening: contract 145 as Mindbody returned it on 11/23/2026 (trimmed).
+const remedyBase = {
+  ...base,
+  Id: 145,
+  Name: "Remedy Room Membership | 4 Sessions | Pre-Opening",
+  FirstPaymentAmountTotal: 99,
+  RecurringPaymentAmountTotal: 99,
+};
+ok("the Remedy Room membership sells only on its pre-opening contract, at its price, with a fixed start", () => {
+  const c = checkFoundingContract(remedyBase, "remedy", 99, today);
+  assert.equal(c.ok, true);
+  if (c.ok) {
+    assert.equal(c.contract.contractId, 145);
+    assert.equal(c.contract.startDate, "2027-02-05");
+    assert.equal(c.contract.fixedStart, true);
+  }
+  // the regular contract (starts the day it is bought), a Flex one, and a founding tier are all refused
+  for (const Name of ["Remedy Room Membership | 4 Sessions", "Flex Remedy Room Membership | 1 Month", "Founding Essential Membership - $89 per month", "Founding Remedy Room Membership - $99 per month"]) {
+    const r = checkFoundingContract({ ...remedyBase, Name }, "remedy", 99, today);
+    assert.equal(r.ok, false, Name);
+    if (!r.ok) assert.equal(r.reason, "not_founding");
+  }
+  // and the pre-opening contract is not a founding tier
+  assert.equal(checkFoundingContract(remedyBase, "essential", 99, today).ok, false);
+  // wrong price, not sold online
+  assert.equal(checkFoundingContract(remedyBase, "remedy", 89, today).ok, false);
+  assert.equal(checkFoundingContract({ ...remedyBase, SoldOnline: false }, "remedy", 99, today).ok, false);
+  // switched to "on the sale date": it would bill from today for a spa that isn't open
+  const flipped = checkFoundingContract({ ...remedyBase, ClientsChargedOn: "OnSaleDate", ClientsChargedOnSpecificDate: null }, "remedy", 99, today);
+  assert.equal(flipped.ok, false);
+  if (!flipped.ok) assert.equal(flipped.reason, "shape");
+  // a founding tier on the sale date is still allowed, as before
+  assert.equal(checkFoundingContract({ ...base, ClientsChargedOn: "OnSaleDate", ClientsChargedOnSpecificDate: null }, "essential", 89, today).ok, true);
+  // once the fixed date has passed it starts the day it is bought
+  const later = checkFoundingContract(remedyBase, "remedy", 99, "2027-03-01");
+  assert.equal(later.ok && later.contract.startDate, "2027-03-01");
+  assert.equal(later.ok && later.contract.fixedStart, false);
 });
 ok("the follow-up list keeps the furthest screen and fills in the name", () => {
   const a = mergeFoundingCheckout(undefined, "union-market", "a@b.co", "email", {}, "2026-11-23T10:00:00.000Z");
@@ -134,8 +177,9 @@ if (livePath) {
   const live = JSON.parse(fs.readFileSync(livePath, "utf8"));
   const site = LAUNCH_SITES["union-market"];
   ok(`live contracts from ${livePath} all match the page`, () => {
-    for (const tier of LAUNCH_TIER_KEYS) {
-      const { contractId, price } = site.founding.tiers[tier];
+    const plans: LaunchPlanKey[] = [...LAUNCH_TIER_KEYS, ...(site.remedyRoom ? (["remedy"] as const) : [])];
+    for (const tier of plans) {
+      const { contractId, price } = launchPlanPrice(site, tier)!;
       const raw = (live.Contracts as any[]).find((c) => c.Id === contractId);
       const c = checkFoundingContract(raw, tier, price, launchToday(site));
       assert.equal(c.ok, true, `${tier}: ${JSON.stringify(c)}`);

@@ -87,6 +87,26 @@ ok("Union Market: three founding contracts, live prices, unchanged", () => {
   assert.equal(c.config.launch, true);
   assert.equal(c.config.marketingDefault, false);
 });
+ok("Union Market: the Remedy Room membership is its own checkout, on the pre-opening contract, and is not founding", () => {
+  const site = LAUNCH_SITES["union-market"];
+  const c = launchCheckout(site, "remedy");
+  assert.equal(c.initialPlan, "remedy");
+  assert.deepEqual(c.config.plans.map((p) => [p.key, p.family, p.contractId, p.price]), [["remedy", "remedy", 145, 99]]);
+  assert.equal(c.config.siteId, "5757939");
+  assert.equal(c.config.offer, "membership"); // not "founding": no founding funnel steps, no founding count
+  assert.equal(c.config.launch, true); // price, start date and agreement are read live
+  assert.equal(c.config.ads, "none");
+  assert.equal(c.config.marketingDefault, false);
+  assert.equal(c.config.salesOpen, site.founding.salesOpen);
+  const said = JSON.stringify(c.config);
+  assert.doesNotMatch(said, /founding(?!-membership\/)/i, "nothing in the Remedy Room checkout says founding (its back link's path aside)");
+  assert.doesNotMatch(said, /normatec|infrared|cancel anytime/i);
+  // the founding checkout never offers it, and a wrong tier still lands on the founding picker
+  assert.deepEqual(launchCheckout(site, "essential").config.plans.map((p) => p.contractId), [137, 138, 139]);
+  assert.equal(launchCheckout(site, "nonsense").config.offer, "founding");
+  // a site without one falls back to founding
+  assert.equal(launchCheckout({ ...site, remedyRoom: undefined }, "remedy").config.offer, "founding");
+});
 ok("join links", () => {
   assert.equal(joinHref("denver-larimer", "premier", { from: "tier" }), "/locations/denver-larimer/membership/join/?plan=premier&from=tier");
   assert.equal(joinHref("denver-rino", "essential", { perk: "visits", from: "tier" }), "/locations/denver-rino/membership/join/?plan=essential&perk=visits&from=tier");

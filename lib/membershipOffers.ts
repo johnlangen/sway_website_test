@@ -8,6 +8,8 @@
  *   /locations/denver-rino/membership/join/?plan=essential&perk=rate   (founding; perk=visits = the
  *                                                                       regular rate + Lounge visits)
  *   /locations/union-market/founding-membership/join/?tier=essential   (launch site, lib/launchSites.ts)
+ *   /locations/union-market/founding-membership/join/?tier=remedy      (its Remedy Room membership,
+ *                                                                       sold before opening; NOT founding)
  * all rendered by app/components/MembershipCheckout.tsx on the SAME server routes the pop-up used.
  *
  * Contract ids and prices are NOT retyped here where they already live somewhere: Larimer's plans
@@ -327,7 +329,65 @@ function clubCheckout(clubKey: ClubLocationKey, planKey: string | undefined, per
 
 /* ── Launch sites (Union Market) ──────────────────────────────────────────── */
 
+/** What one Remedy Room visit is, in the brand-neutral words the site uses everywhere. */
+export const REMEDY_ROOM_CIRCUIT = ["Sauna", "Cold plunge", "LED light therapy", "Compression therapy"];
+
+/**
+ * The Remedy Room membership a launch site sells before it opens (site.remedyRoom). Its own
+ * checkout, worded as a regular membership: it is NOT a founding membership (regular price, not
+ * one of the founding spots), so nothing here says "founding" and the Launch Board's founding
+ * funnel and count never see it. Price, start date and agreement are read live, like founding.
+ */
+function launchRemedyCheckout(site: LaunchSite): { config: CheckoutConfig; initialPlan: string | null } {
+  const base = `/locations/${site.key}`;
+  const r = site.remedyRoom!;
+  const visitWord = r.visits === 4 ? "Four" : String(r.visits);
+  return {
+    initialPlan: "remedy",
+    config: {
+      offer: "membership",
+      locationKey: site.key,
+      shortName: site.shortName,
+      cityLine: site.cityLine,
+      siteId: site.siteId,
+      analyticsKey: site.key.replace(/-/g, "_"),
+      help: { email: site.helpEmail },
+      back: { href: `${base}/founding-membership/#remedy-room`, label: "Back to memberships" },
+      label: "Remedy Room membership",
+      memberLabel: "Remedy Room member",
+      welcome: "Welcome to Sway.",
+      joinVerb: "Start my membership",
+      plans: [
+        {
+          key: "remedy",
+          family: "remedy",
+          contractId: r.contractId,
+          name: "Remedy Room",
+          price: r.price,
+          line: `${visitWord} ${r.visitMinutes}-minute Remedy Room visits every month.${r.visit !== undefined ? ` A single visit is $${r.visit}.` : ""}`,
+          headline: `${visitWord} Remedy Room visits, every month`,
+          short: `${visitWord} Remedy Room visits`,
+          chooseLabel: "Every visit",
+          choose: REMEDY_ROOM_CIRCUIT,
+          doneNotes: ["We'll email you as soon as booking opens."],
+          doneCta: { href: `${base}/`, label: `Back to ${site.shortName}` },
+        },
+      ],
+      perksLabel: "",
+      perks: [],
+      finePrint: "",
+      renewal: "Your membership renews every 12 months until you cancel. To cancel, contact the spa by phone or email.",
+      marketingDefault: false,
+      followUp: true,
+      salesOpen: site.founding.salesOpen,
+      launch: true,
+      ads: "none",
+    },
+  };
+}
+
 export function launchCheckout(site: LaunchSite, tierParam: string | undefined): { config: CheckoutConfig; initialPlan: string | null } {
+  if ((tierParam || "").toLowerCase() === "remedy" && site.remedyRoom) return launchRemedyCheckout(site);
   const base = `/locations/${site.key}`;
   const plans: CheckoutPlan[] = LAUNCH_TIER_KEYS.map((k) => {
     const t = FOUNDING_TIER_CONTENT[k];

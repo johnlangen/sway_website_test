@@ -13,8 +13,12 @@
  * charged at signup, exactly like Mindbody's own store; the next charge falls a month after the
  * start. Once the date has passed (or the contract is switched to "on sale date") the membership
  * starts the day it is bought.
+ *
+ * The Remedy Room membership sold before opening (site.remedyRoom, plan "remedy") goes through the
+ * same check with its own name rule: it must be the "Remedy Room Membership … Pre-Opening"
+ * contract, never the regular one, and it must carry a fixed start date. It is not founding.
  */
-import { launchToday, type LaunchSite, type LaunchTierKey } from "@/lib/launchSites";
+import { launchPlanPrice, launchToday, type LaunchPlanKey, type LaunchSite, type LaunchTierKey } from "@/lib/launchSites";
 
 const MB = "https://api.mindbodyonline.com/public/v6";
 
@@ -32,6 +36,9 @@ export type LiveFoundingContract = {
 export type FoundingContractCheck =
   | { ok: true; contract: LiveFoundingContract }
   | { ok: false; reason: "unreachable" | "missing" | "not_founding" | "not_online" | "shape" | "price"; detail: string };
+
+/** One check per founding tier, plus `remedy` where the site sells the Remedy Room membership. */
+export type LiveLaunchChecks = Record<LaunchTierKey, FoundingContractCheck> & { remedy?: FoundingContractCheck };
 
 const money = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? Math.round(v * 100) / 100 : NaN);
 
@@ -53,17 +60,26 @@ export function termsToPlainText(html: string): string {
     .trim();
 }
 
-/** Pure: is this Mindbody contract the founding plan the page sells for `tier` at `price`? */
+/**
+ * Is this the contract the page means, by name? A founding tier is "Founding <Tier> …". The Remedy
+ * Room membership sold before opening is "Remedy Room Membership … Pre-Opening": NOT the regular
+ * "Remedy Room Membership | 4 Sessions" (starts the day it is bought) and not a Flex one.
+ */
+function planNameMatches(plan: LaunchPlanKey, name: string): boolean {
+  if (plan === "remedy") return /^\s*remedy room membership\b/i.test(name) && /\bpre-?opening\b/i.test(name);
+  return /^\s*founding\b/i.test(name) && new RegExp(`\\b${plan}\\b`, "i").test(name);
+}
+
+/** Pure: is this Mindbody contract the plan the page sells for `tier` at `price`? */
 export function checkFoundingContract(
   raw: any,
-  tier: LaunchTierKey,
+  tier: LaunchPlanKey,
   price: number,
   today: string
 ): FoundingContractCheck {
   if (!raw || typeof raw !== "object") return { ok: false, reason: "missing", detail: "contract not returned" };
   const name = String(raw.Name ?? "");
-  if (!/^\s*founding\b/i.test(name) || !new RegExp(`\\b${tier}\\b`, "i").test(name))
-    return { ok: false, reason: "not_founding", detail: `name "${name}"` };
+  if (!planNameMatches(tier, name)) return { ok: false, reason: "not_founding", detail: `name "${name}"` };
   if (raw.SoldOnline !== true) return { ok: false, reason: "not_online", detail: "not marked sold online" };
   const sched = raw.AutopaySchedule ?? {};
   const monthly = sched.FrequencyTimeUnit === "Monthly" && Number(sched.FrequencyValue) === 1 && raw.AutopayEnabled !== false;
@@ -91,6 +107,10 @@ export function checkFoundingContract(
     }
   } else if (raw.ClientsChargedOn !== "OnSaleDate") {
     return { ok: false, reason: "shape", detail: `charged on "${raw.ClientsChargedOn}"` };
+  } else if (tier === "remedy") {
+    // The whole point of the pre-opening contract is its fixed start. If it has been switched to
+    // "on the sale date" it would bill a guest from today for a spa that may not be open.
+    return { ok: false, reason: "shape", detail: "pre-opening contract has no fixed start date" };
   }
   return {
     ok: true,
@@ -113,15 +133,16 @@ export function checkFoundingContract(
 export async function liveFoundingContracts(
   site: LaunchSite,
   token?: string | null
-): Promise<Record<LaunchTierKey, FoundingContractCheck>> {
-  const tiers = Object.keys(site.founding.tiers) as LaunchTierKey[];
+): Promise<LiveLaunchChecks> {
+  // The founding tiers, plus the Remedy Room membership where the site sells one (key "remedy").
+  const tiers: LaunchPlanKey[] = [...(Object.keys(site.founding.tiers) as LaunchTierKey[]), ...(site.remedyRoom ? (["remedy"] as const) : [])];
   const fail = (reason: "unreachable", detail: string) =>
-    Object.fromEntries(tiers.map((t) => [t, { ok: false, reason, detail }])) as Record<LaunchTierKey, FoundingContractCheck>;
+    Object.fromEntries(tiers.map((t) => [t, { ok: false, reason, detail }])) as LiveLaunchChecks;
   const url = new URL(`${MB}/sale/contracts`);
   url.searchParams.set("request.locationId", String(site.locationId));
   url.searchParams.set("request.limit", "100");
   if (!token) url.searchParams.set("request.soldOnline", "true");
-  tiers.forEach((t, i) => url.searchParams.set(`request.contractIds[${i}]`, String(site.founding.tiers[t].contractId)));
+  tiers.forEach((t, i) => url.searchParams.set(`request.contractIds[${i}]`, String(launchPlanPrice(site, t)!.contractId)));
   try {
     const res = await fetch(url.toString(), {
       headers: {
@@ -138,22 +159,22 @@ export async function liveFoundingContracts(
     const today = launchToday(site);
     return Object.fromEntries(
       tiers.map((t) => {
-        const { contractId, price } = site.founding.tiers[t];
+        const { contractId, price } = launchPlanPrice(site, t)!;
         return [t, checkFoundingContract(list.find((c) => Number(c?.Id) === contractId), t, price, today)];
       })
-    ) as Record<LaunchTierKey, FoundingContractCheck>;
+    ) as LiveLaunchChecks;
   } catch (err: any) {
     return fail("unreachable", err?.message || "fetch failed");
   }
 }
 
-/** One founding contract, read live with a staff token (the purchase route's check). */
+/** One contract the site sells, read live with a staff token (the purchase route's check). */
 export async function liveFoundingContract(
   site: LaunchSite,
-  tier: LaunchTierKey,
+  tier: LaunchPlanKey,
   token: string
 ): Promise<FoundingContractCheck> {
-  return (await liveFoundingContracts(site, token))[tier];
+  return (await liveFoundingContracts(site, token))[tier] ?? { ok: false, reason: "missing", detail: "not sold at this site" };
 }
 
 /** "February 5, 2027" from yyyy-mm-dd (no time zone math: it is a calendar date). */

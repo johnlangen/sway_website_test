@@ -1,7 +1,7 @@
 import { NextResponse, after } from "next/server";
 import { createHash } from "crypto";
 import { recordAlert, recordCompletion } from "@/lib/ops/record";
-import { getLaunchSiteBySiteId, launchTierForContract, LAUNCH_TIER_KEYS, type LaunchSite } from "@/lib/launchSites";
+import { getLaunchSiteBySiteId, launchPlanForContract, LAUNCH_TIER_KEYS, type LaunchSite } from "@/lib/launchSites";
 import { liveFoundingContract, monthAfter, type LiveFoundingContract } from "@/lib/launchFounding";
 import { followUpSpaForSite, noteFoundingCheckout, noteJoinedIfStarted } from "@/lib/foundingCheckouts";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
@@ -44,7 +44,8 @@ export const runtime = "nodejs";
  * id 122 means different agreements on each) — never share one whitelist.
  *
  * LAUNCH SITES (lib/launchSites.ts, Union Market since 11/23/2026): a spa that
- * isn't open yet sells its founding contracts only. Two extra steps there,
+ * isn't open yet sells its founding contracts and, where configured, its Remedy
+ * Room membership on a pre-opening contract (same checks, not founding). Two extra steps there,
  * both before any money moves: the contract is re-read from Mindbody and must
  * still be the founding plan at the page's price (lib/launchFounding.ts), and
  * Mindbody's no-charge test sale must come to that same total. Founding
@@ -100,13 +101,15 @@ function sellableContractsForSite(
   return null; // unknown site: refuse rather than guess
 }
 
-// A launch site sells its three founding tiers and nothing else.
+// A launch site sells its three founding tiers, plus (where lib/launchSites.ts lists one) the
+// Remedy Room membership on its pre-opening contract. Nothing else.
 function launchContracts(site: LaunchSite): Record<number, SellableContract> {
   const out: Record<number, SellableContract> = {};
   for (const tier of LAUNCH_TIER_KEYS) {
     const { contractId, price } = site.founding.tiers[tier];
     out[contractId] = { key: tier, name: `Founding ${tier[0].toUpperCase()}${tier.slice(1)} Membership`, monthly: price };
   }
+  if (site.remedyRoom) out[site.remedyRoom.contractId] = { key: "remedy", name: "Remedy Room Membership", monthly: site.remedyRoom.price };
   return out;
 }
 
@@ -271,7 +274,7 @@ export async function POST(req: Request) {
     // Launch site: sell only if Mindbody's contract is still the founding plan the page shows.
     let founding: LiveFoundingContract | null = null;
     if (launch) {
-      const tier = launchTierForContract(launch, contractId);
+      const tier = launchPlanForContract(launch, contractId);
       const check = tier ? await liveFoundingContract(launch, tier, token) : null;
       if (!check || !check.ok) {
         await release();
@@ -422,7 +425,8 @@ export async function POST(req: Request) {
           // Founding sale at a launch site: what Atlas's Launch Board reads from /api/ops/sales/.
           // The email is kept only as a hash, to match a founder to the spa's interest list.
           ...(launch && founding
-            ? { extra: { founding: true, plan: contract.key, start: founding.startDate, siteId, buyerEmailHash: emailHash(buyerEmail) } }
+            ? // The Remedy Room membership is not a founding membership: it stays off the Launch Board's founding count.
+              { extra: { founding: contract.key !== "remedy", plan: contract.key, start: founding.startDate, siteId, buyerEmailHash: emailHash(buyerEmail) } }
             : {}),
         })
       );

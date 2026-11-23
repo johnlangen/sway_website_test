@@ -20,7 +20,9 @@
  * TRACKING (lib/ops; nothing in test mode, nothing while a founding offer is closed):
  *  - Screens: flow "membership", one step per screen (plan, email, code, member, details, payment,
  *    review, done), plus "opened" when the page loads and "joined" on a real sale. Variant = plan.
- *    Launch sites also send "from-founding" / "founding-joined" (the Launch Board reads those).
+ *    A launch site's FOUNDING checkout also sends "from-founding" / "founding-joined" (the Launch
+ *    Board reads those). Its Remedy Room membership (?tier=remedy) does not: it is not founding,
+ *    and its screens are recorded under variant "remedy", which the Launch Board feed leaves out.
  *  - Detail: flow "checkout", one count per thing that happened (see ev() calls): where they came
  *    from, new vs returning guest, code sent / resent / wrong, saved card vs new card, which card
  *    field failed, declines, plan switches, terms opened, time spent on each screen (bucketed) and
@@ -137,6 +139,11 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
   const [liveFailed, setLiveFailed] = useState(false);
   const [terms, setTerms] = useState<string | null>(null);
 
+  /** A launch site's founding checkout (not its Remedy Room membership, which is a regular membership). */
+  const foundingLaunch = cfg.launch && cfg.offer === "founding";
+  /** "founding membership" / "Remedy Room membership", for the sentences a launch site shows. */
+  const thisMembership = cfg.offer === "founding" ? "founding membership" : cfg.label;
+
   const plan: CheckoutPlan | null = planKey ? cfg.plans.find((p) => p.key === planKey) ?? null : null;
   const livePlan = plan && cfg.launch ? live?.plans.find((p) => p.tier === plan.key) ?? null : null;
   const price = plan ? livePlan?.price ?? plan.price : null;
@@ -176,7 +183,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
   useEffect(() => {
     if (counted) {
       trackStep("membership", "opened", initialPlan ?? undefined);
-      if (cfg.launch) trackStep("membership", "from-founding", initialPlan ?? undefined);
+      if (foundingLaunch) trackStep("membership", "from-founding", initialPlan ?? undefined);
       try {
         fromBookingRef.current = sessionStorage.getItem("sway_join_from") === "booking";
       } catch {}
@@ -189,7 +196,13 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
     if (cfg.launch) {
       fetch(`/api/membership/founding/?location=${encodeURIComponent(cfg.locationKey)}`)
         .then((r) => (r.ok ? r.json() : Promise.reject()))
-        .then((d) => setLive({ checkoutReady: Boolean(d?.checkoutReady), plans: Array.isArray(d?.plans) ? d.plans : [] }))
+        .then((d) =>
+          setLive({
+            // Founding needs every founding tier on sale; the Remedy Room membership only needs itself.
+            checkoutReady: Boolean(foundingLaunch ? d?.checkoutReady : d?.remedyReady),
+            plans: [...(Array.isArray(d?.plans) ? d.plans : []), ...(d?.remedy ? [d.remedy] : [])],
+          })
+        )
         .catch(() => setLiveFailed(true));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -633,7 +646,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
       setChargedToday(typeof data?.totals?.Total === "number" ? data.totals.Total : null);
       if (counted) {
         trackStep("membership", "joined", plan.key, { value: price });
-        if (cfg.launch) trackStep("membership", "founding-joined", plan.key);
+        if (foundingLaunch) trackStep("membership", "founding-joined", plan.key);
         track("membership_purchase_complete", { membership_tier: plan.key, membership_price: price, value: price, currency: "USD" });
         // Google Ads, unchanged from the pop-up. Larimer: the main "All Purchases" conversion plus
         // the "Membership Signup" secondary action. A club: its OWN "Membership Join" action
@@ -889,7 +902,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
                       <>
                         <p className="mt-3 text-base text-[#113D33]/85">
                           This email has an active {existing.label}
-                          {existing.home ? ` at ${existing.home}` : ""}. A founding membership here would be a second membership, billed on its own.
+                          {existing.home ? ` at ${existing.home}` : ""}. A {thisMembership} here would be a second membership, billed on its own.
                         </p>
                         <p className="mt-3 text-base text-[#113D33]/85">Want to move your membership to {shortName} instead? Email <a className="underline underline-offset-4" href={`mailto:${help.email}`}>{help.email}</a> and we&apos;ll help.</p>
                       </>
@@ -911,7 +924,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
                       data-track="checkout-member-continue"
                       className={cfg.launch ? `${primaryBtn} mt-6` : `${quietLink} mt-5 block`}
                     >
-                      {cfg.launch ? "Add a founding membership anyway" : "I want to purchase an additional membership anyway"}
+                      {cfg.launch ? `Add a ${thisMembership} anyway` : "I want to purchase an additional membership anyway"}
                     </button>
                     {cfg.launch && (
                       <Link href={cfg.back.href} data-track="checkout-member-back" className={`${quietLink} mt-4 inline-block`}>

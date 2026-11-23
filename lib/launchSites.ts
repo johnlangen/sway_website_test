@@ -8,6 +8,9 @@
  * MINDBODY_STAFF_USER_<siteId> / MINDBODY_STAFF_PASS_<siteId>. If John's shared Manager login
  * (MINDBODY_STAFF_USER2) is added to the site instead, it is picked up with no Vercel change.
  *
+ * Besides founding, a launch site can sell its Remedy Room membership before opening (remedyRoom
+ * below): the regular membership on a contract that starts when the spa does. Not founding.
+ *
  * What is sold is decided by Mindbody, not by this file: the purchase route re-reads the contract
  * before every sale and refuses when its name, price or billing date no longer match (see
  * lib/launchFounding.ts). The numbers here are what the PAGE shows.
@@ -20,6 +23,8 @@
 
 export type LaunchSiteKey = "union-market";
 export type LaunchTierKey = "essential" | "premier" | "ultimate";
+/** Everything the website can sell at a launch site: the founding tiers, plus the Remedy Room membership. */
+export type LaunchPlanKey = LaunchTierKey | "remedy";
 
 export interface LaunchSite {
   key: LaunchSiteKey;
@@ -51,6 +56,16 @@ export interface LaunchSite {
      */
     tiers: Record<LaunchTierKey, { contractId: number; price: number; regular?: number; visit?: number }>;
   };
+  /**
+   * The Remedy Room membership, sold before opening. NOT a founding membership (Emily 11/23/2026:
+   * "it isn't a founding membership? It's just the remedy room membership, with a different start
+   * date"): the regular price, no founding rate, not one of the founding spots. It is its own
+   * Mindbody contract only because the regular one starts the day it is bought; this one starts
+   * on the spa's start date like the founding contracts (first month charged at signup, next
+   * charge a month after the start). Sold on the same switch as founding (founding.salesOpen).
+   * visits = sessions a month, visitMinutes = one session, visit = the single-visit price.
+   */
+  remedyRoom?: { contractId: number; price: number; visits: number; visitMinutes: number; visit?: number };
 }
 
 export const LAUNCH_SITES: Record<LaunchSiteKey, LaunchSite> = {
@@ -76,6 +91,11 @@ export const LAUNCH_SITES: Record<LaunchSiteKey, LaunchSite> = {
         ultimate: { contractId: 139, price: 149, regular: 159, visit: 199 },
       },
     },
+    // Contract 145 "Remedy Room Membership | 4 Sessions | Pre-Opening", made 11/23/2026 as a copy of
+    // the regular contract 102 with the 2027-02-05 start (102's online sale is off until opening).
+    // $49 = "The Remedy Room Experience | 40 min" in Union Market's Mindbody. AT OPENING: point this
+    // at 102 again (or remove it) when 102 goes back on sale and 145 comes off.
+    remedyRoom: { contractId: 145, price: 99, visits: 4, visitMinutes: 40, visit: 49 },
   },
 };
 
@@ -95,6 +115,18 @@ export const isLaunchSiteId = (siteId: string | null | undefined) => getLaunchSi
 /** The tier a contract id sells at this site, or null when the website doesn't sell it. */
 export function launchTierForContract(site: LaunchSite, contractId: number): LaunchTierKey | null {
   return LAUNCH_TIER_KEYS.find((t) => site.founding.tiers[t].contractId === contractId) ?? null;
+}
+
+/** The plan a contract id sells at this site (a founding tier or the Remedy Room membership), or null. */
+export function launchPlanForContract(site: LaunchSite, contractId: number): LaunchPlanKey | null {
+  if (site.remedyRoom && site.remedyRoom.contractId === contractId) return "remedy";
+  return launchTierForContract(site, contractId);
+}
+
+/** Contract id and page price of a plan at this site, or null when the site doesn't sell it. */
+export function launchPlanPrice(site: LaunchSite, plan: LaunchPlanKey): { contractId: number; price: number } | null {
+  if (plan === "remedy") return site.remedyRoom ? { contractId: site.remedyRoom.contractId, price: site.remedyRoom.price } : null;
+  return site.founding.tiers[plan] ?? null;
 }
 
 /** Env var names for this site's staff login, most specific first. */

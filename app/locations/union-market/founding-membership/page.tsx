@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
 import FoundingLiveTiers, { type LiveFoundingPlan } from "@/app/components/FoundingLiveTiers";
+import { RemedyRoomSection, type RemedyRoomLive } from "@/app/components/LaunchRemedyOffer";
 import { LAUNCH_SITES, LAUNCH_TIER_KEYS } from "@/lib/launchSites";
 
 // Founding memberships are sold on the site once this is true (lib/launchSites.ts) AND the live
@@ -37,6 +38,8 @@ const FALLBACK_PLANS: LiveFoundingPlan[] = LAUNCH_TIER_KEYS.map((tier) => ({
   nextChargeLabel: null,
 }));
 // What the founding rate is worth, in one line: a single visit vs the founding month.
+// The Remedy Room membership sold before opening (not founding): its own section below the tiers.
+const REMEDY = LAUNCH.remedyRoom ?? null;
 const LEAD = LAUNCH.founding.tiers.essential;
 const LEAD_SAVING = LEAD.visit !== undefined ? LEAD.visit - LEAD.price : null;
 
@@ -362,12 +365,15 @@ export default function GeorgetownFoundingMembershipPage() {
   // answer. Only a live "not ready" closes it; the checkout page re-checks either way.
   const [livePlans, setLivePlans] = useState<LiveFoundingPlan[] | null>(null);
   const [liveClosed, setLiveClosed] = useState(false);
+  const [liveRemedy, setLiveRemedy] = useState<RemedyRoomLive | null>(null);
   useEffect(() => {
     if (!SALES_OPEN) return;
     fetch("/api/membership/founding/?location=union-market")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         if (!d) return;
+        // The Remedy Room membership: sold only while its own contract checks out and the checkout can sell it.
+        if (d.remedy) setLiveRemedy({ ...d.remedy, available: Boolean(d.remedy.available && d.remedyReady) });
         if (d.salesOpen && d.checkoutReady && Array.isArray(d.plans)) setLivePlans(d.plans);
         else setLiveClosed(true);
       })
@@ -701,7 +707,12 @@ export default function GeorgetownFoundingMembershipPage() {
 
       {/* ========================================================
           SECTION 3 — MEMBERSHIP CARDS
+          While memberships are on sale this is the Remedy Room membership's own section (a regular
+          membership, not founding). Otherwise the old "choose your membership" interest cards.
       ======================================================== */}
+      {selling && REMEDY ? (
+        <RemedyRoomSection base="/locations/union-market" shortName={LAUNCH.shortName} offer={REMEDY} live={liveRemedy} onReserve={scrollToReserve} />
+      ) : (
       <section className="bg-[#F7F4E9] px-4 sm:px-6 pb-24">
         <div className="max-w-5xl mx-auto text-center mb-14">
           <motion.h2
@@ -869,6 +880,7 @@ export default function GeorgetownFoundingMembershipPage() {
           })}
         </motion.div>
       </section>
+      )}
 
       {/* ========================================================
           SECTION 4 — SOCIAL PROOF
