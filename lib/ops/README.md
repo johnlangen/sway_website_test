@@ -76,3 +76,46 @@ beacons, attribution cookies, `useFlowTrack`), `lib/ops/labels.ts` (display name
 `app/api/ops/v/` (beacon endpoint; deliberately not named "track"), `app/api/ops/login/`,
 `app/api/ops/report/`, `app/ops/page.tsx` (dashboard), `app/components/OpsTracker.tsx`,
 `scripts/ops.mjs`.
+
+## Launch-site founding checkout (Union Market, 11/23/2026)
+
+A Sway spa that isn't open yet but has its own Mindbody site sells founding memberships on the
+website (`lib/launchSites.ts`). Page: `/locations/union-market/founding-membership/`, checkout:
+`…/founding-membership/join/?tier=essential|premier|ultimate` (`app/components/FoundingJoinFlow.tsx`).
+
+**Switches.** `founding.salesOpen` in `lib/launchSites.ts` puts the Join buttons on the founding
+page. They also need the live check (`/api/membership/founding/?location=…`): the website's staff
+login must work on that Mindbody site and every contract must still match the page. The join page
+works with `?memtest=1` (Mindbody's no-charge test sale) while `salesOpen` is false: run one before
+flipping it.
+
+**Staff login.** None of Sway Denver's logins work on a franchise-owned site. The owner adds a staff
+user for the website; its username and password go in Vercel as `MINDBODY_STAFF_USER_<siteId>` /
+`MINDBODY_STAFF_PASS_<siteId>` (Union Market: `…_5757939`). John's shared Manager login
+(`MINDBODY_STAFF_USER2`) is tried next, so adding that login to the site also works.
+
+**Money safety** (`lib/launchFounding.ts`, purchase route): before every sale the contract is
+re-read and must still be the founding plan at the page's price, then Mindbody's no-charge test
+sale must come to that same total. Anything else: no charge, the guest is asked to email, and an
+`/ops/` alert (`founding-contract:<slug>` / `founding-total:<slug>`) is raised. Founding contracts
+are "charged on a specific date": the first month is charged at signup, the membership starts on
+that date, the next charge is a month later.
+
+**Tracking.** Flow `membership`, location `union-market`, variant = tier. Steps: `from-founding`
+(checkout opened), `plan`, `email`, `code`, `member` (already a member), `details`, `payment`,
+`review`, `done`, and `founding-joined` on a real sale. Read it:
+`node scripts/ops.mjs --loc union-market --funnel membership`. Completed sales are ledger rows with
+`extra.founding = true`, the tier, the start date and a hash of the buyer's email.
+
+**Who stopped where** (`lib/foundingCheckouts.ts`): one record per spa and email, with the furthest
+screen reached and the name and phone once known. This is the one place contact details are kept,
+so it is NOT in the ops store: it lives in the site's Redis (`sway:founding-checkouts:v1`) and is
+readable only with the ops key. The email screen tells the guest the spa may reach out. Never
+written for `?memtest=1` or off the production site.
+
+**Feeds for Atlas's Launch Board** (ops key; same shapes as the Spavia site's):
+`/api/ops/funnel/?from=&to=` (unique guests per step per day), `/api/ops/founding-checkouts/`
+(the follow-up list) and `/api/ops/sales/?from=&to=` (founding sales). Launch sites only.
+
+Checks: `npx tsx scripts/test-launch-founding.mts` and
+`npx tsx --experimental-test-module-mocks scripts/test-membership-purchase-route.mts` (Node 22+).

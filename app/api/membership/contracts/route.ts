@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { isClubSiteId } from "@/lib/clubLocations";
+import { getLaunchSiteBySiteId, LAUNCH_TIER_KEYS } from "@/lib/launchSites";
 
 export const runtime = "nodejs";
 
@@ -45,7 +46,12 @@ export async function GET(req: Request) {
   const siteIdRaw = searchParams.get("siteId");
   const siteId = (siteIdRaw && siteIdRaw.trim()) || process.env.MINDBODY_SITE_ID!;
   const isClub = isClubSiteId(siteId);
-  const contractIds = isClub ? CLUB_CONTRACT_IDS : WEBSITE_CONTRACT_IDS;
+  const launch = getLaunchSiteBySiteId(siteId);
+  const contractIds = launch
+    ? LAUNCH_TIER_KEYS.map((t) => launch.founding.tiers[t].contractId)
+    : isClub
+    ? CLUB_CONTRACT_IDS
+    : WEBSITE_CONTRACT_IDS;
 
   try {
     const token = await getMindbodyStaffToken(siteId);

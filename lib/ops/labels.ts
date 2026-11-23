@@ -18,7 +18,10 @@ export const FLOW_STEPS: Record<string, string[]> = {
   aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done"],
   remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done"],
   remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done"],
-  membership: ["email", "code", "already", "details", "confirm", "done"],
+  membership: ["email", "code", "already", "details", "confirm", "done",
+    // Founding checkout at a launch site (app/components/FoundingJoinFlow.tsx, Union Market 11/23/2026):
+    // opened → plan → email → code → (member) → details → payment → review → joined
+    "from-founding", "plan", "member", "payment", "review", "founding-joined"],
   maven: ["session", "time", "email", "card", "confirm", "booking", "done"],
   lead: [],
   gift: ["gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done"],

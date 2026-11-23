@@ -20,6 +20,13 @@ import {
   Trophy,
 } from "lucide-react";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
+import FoundingLiveTiers, { type LiveFoundingPlan } from "@/app/components/FoundingLiveTiers";
+import { LAUNCH_SITES } from "@/lib/launchSites";
+
+// Founding memberships are sold on the site once this is true (lib/launchSites.ts) AND the live
+// check below says the checkout is ready. Until then this page takes interest only, as before.
+const LAUNCH = LAUNCH_SITES["union-market"];
+const SALES_OPEN = LAUNCH.founding.salesOpen;
 
 /* ------------------------------------------------------------------
    ANIMATED COUNTER HOOK
@@ -327,6 +334,39 @@ export default function GeorgetownFoundingMembershipPage() {
     null
   );
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Live founding plans (price, start date, whether the checkout can sell right now)
+  const [livePlans, setLivePlans] = useState<LiveFoundingPlan[] | null>(null);
+  useEffect(() => {
+    if (!SALES_OPEN) return;
+    fetch("/api/membership/founding/?location=union-market")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.salesOpen && d?.checkoutReady && Array.isArray(d.plans)) setLivePlans(d.plans);
+      })
+      .catch(() => {});
+  }, []);
+  const selling = SALES_OPEN && livePlans !== null;
+  const firstPlan = livePlans?.find((pl) => pl.available && pl.startLabel) ?? null;
+  const shownMemberships = selling ? memberships.filter((m) => m.key !== "spa") : memberships;
+  const t = LAUNCH.founding.tiers;
+  const shownFaqs = !SALES_OPEN
+    ? faqs
+    : faqs.map((f) =>
+        f.question === "Do I get charged before you open?"
+          ? {
+              question: f.question,
+              answer: firstPlan?.fixedStart
+                ? `Yes, one month. Your first month is charged when you join, to lock in your founding rate. Your membership starts ${firstPlan.startLabel}, and your card isn't charged again until ${firstPlan.nextChargeLabel}.`
+                : "Yes, one month. Your first month is charged when you join, to lock in your founding rate. Your card isn't charged again until your second month of membership.",
+            }
+          : f.question === "Will there be founding member pricing?"
+          ? {
+              question: "What is the founding member rate?",
+              answer: `Founding memberships are $${t.essential.price} a month for Essential, $${t.premier.price} for Premier and $${t.ultimate.price} for Ultimate. Each includes one massage or facial a month.`,
+            }
+          : f
+      );
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -598,6 +638,19 @@ export default function GeorgetownFoundingMembershipPage() {
       </section>
 
       {/* ========================================================
+          FOUNDING RATES — live once memberships are on sale
+      ======================================================== */}
+      {selling && livePlans && (
+        <FoundingLiveTiers
+          base="/locations/union-market"
+          shortName={LAUNCH.shortName}
+          cap={LAUNCH.founding.cap}
+          plans={livePlans}
+          onReserve={scrollToReserve}
+        />
+      )}
+
+      {/* ========================================================
           SECTION 3 — MEMBERSHIP CARDS
       ======================================================== */}
       <section className="bg-[#F7F4E9] px-4 sm:px-6 pb-24">
@@ -609,7 +662,7 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4"
           >
-            Choose Your Membership
+            {selling ? "Remedy Room Membership" : "Choose Your Membership"}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
@@ -618,7 +671,7 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-[#4A776D] text-sm uppercase tracking-[0.15em]"
           >
-            Founding Member Pricing · Limited Availability
+            {selling ? "Pricing announced closer to opening" : "Founding Member Pricing · Limited Availability"}
           </motion.p>
         </div>
 
@@ -627,9 +680,9 @@ export default function GeorgetownFoundingMembershipPage() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch"
+          className={`mx-auto grid grid-cols-1 gap-5 md:gap-6 items-stretch ${selling ? "max-w-md" : "max-w-4xl md:grid-cols-2"}`}
         >
-          {memberships.map((m) => {
+          {shownMemberships.map((m) => {
             const isExpanded = expandedCard === m.key;
 
             return (
@@ -1240,7 +1293,7 @@ export default function GeorgetownFoundingMembershipPage() {
           </motion.h2>
 
           <div className="space-y-2">
-            {faqs.map((faq, i) => (
+            {shownFaqs.map((faq, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 8 }}

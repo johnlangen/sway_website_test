@@ -1,5 +1,9 @@
 import { NextResponse, after } from "next/server";
-import { recordCompletion } from "@/lib/ops/record";
+import { createHash } from "crypto";
+import { recordAlert, recordCompletion } from "@/lib/ops/record";
+import { getLaunchSiteBySiteId, launchTierForContract, LAUNCH_TIER_KEYS, type LaunchSite } from "@/lib/launchSites";
+import { liveFoundingContract, monthAfter, type LiveFoundingContract } from "@/lib/launchFounding";
+import { noteFoundingCheckout } from "@/lib/foundingCheckouts";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
 import { isClubSiteId, getClubBySiteId } from "@/lib/clubLocations";
@@ -38,6 +42,15 @@ export const runtime = "nodejs";
  * sell the memberships we actually offer on the website. Contract ids
  * collide across sites (the club sites were cloned from Larimer, so e.g.
  * id 122 means different agreements on each) — never share one whitelist.
+ *
+ * LAUNCH SITES (lib/launchSites.ts, Union Market since 11/23/2026): a spa that
+ * isn't open yet sells its founding contracts only. Two extra steps there,
+ * both before any money moves: the contract is re-read from Mindbody and must
+ * still be the founding plan at the page's price (lib/launchFounding.ts), and
+ * Mindbody's no-charge test sale must come to that same total. Founding
+ * contracts are "charged on a specific date": the sale is sent with that start
+ * date and the first month is charged at signup, as Mindbody's own store does.
+ * Larimer and the clubs are untouched by any of this.
  */
 
 type SellableContract = { key: string; name: string; monthly: number };
@@ -82,8 +95,23 @@ function sellableContractsForSite(
 ): Record<number, SellableContract> | null {
   if (siteId === process.env.MINDBODY_SITE_ID) return LARIMER_CONTRACTS;
   if (isClubSiteId(siteId)) return CLUB_CONTRACTS;
+  const launch = getLaunchSiteBySiteId(siteId);
+  if (launch) return launchContracts(launch);
   return null; // unknown site: refuse rather than guess
 }
+
+// A launch site sells its three founding tiers and nothing else.
+function launchContracts(site: LaunchSite): Record<number, SellableContract> {
+  const out: Record<number, SellableContract> = {};
+  for (const tier of LAUNCH_TIER_KEYS) {
+    const { contractId, price } = site.founding.tiers[tier];
+    out[contractId] = { key: tier, name: `Founding ${tier[0].toUpperCase()}${tier.slice(1)} Membership`, monthly: price };
+  }
+  return out;
+}
+
+const money = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? Math.round(v * 100) / 100 : NaN);
+const emailHash = (email: string) => createHash("sha256").update(email.trim().toLowerCase()).digest("hex");
 
 // All Sway serverless functions run in UTC on Vercel. Anchor "today" to
 // Denver so an evening signup doesn't get a StartDate of tomorrow.
@@ -124,6 +152,15 @@ export async function POST(req: Request) {
 
   const sellable = sellableContractsForSite(siteId);
   const contract = sellable?.[contractId];
+  const launch = getLaunchSiteBySiteId(siteId);
+  const offSale = () =>
+    NextResponse.json(
+      {
+        error: `This membership isn't available for online signup right now. Please email ${launch?.helpEmail} and we'll set you up.`,
+        code: "off_sale",
+      },
+      { status: 409, headers: NO_STORE }
+    );
   if (!clientId || !contract) {
     return NextResponse.json(
       { error: "Invalid membership selection." },
@@ -160,6 +197,8 @@ export async function POST(req: Request) {
       { status: 401, headers: NO_STORE }
     );
   }
+
+  const buyerEmail = found.session.email;
 
   // Double-submit guard (real purchases only). Held for 5 minutes after a
   // success or an uncertain result; released on a clear decline so the
@@ -229,10 +268,30 @@ export async function POST(req: Request) {
       );
     }
 
-    chargeAttempted = true;
-    const res = await fetch(
-      "https://api.mindbodyonline.com/public/v6/sale/purchasecontract",
-      {
+    // Launch site: sell only if Mindbody's contract is still the founding plan the page shows.
+    let founding: LiveFoundingContract | null = null;
+    if (launch) {
+      const tier = launchTierForContract(launch, contractId);
+      const check = tier ? await liveFoundingContract(launch, tier, token) : null;
+      if (!check || !check.ok) {
+        await release();
+        const why = check ? `${check.reason}: ${check.detail}` : "contract not on the page";
+        console.error("[membership/purchase] founding contract refused:", { siteId, contractId, why });
+        if (check && check.reason !== "unreachable") {
+          after(() =>
+            recordAlert(`founding-contract:${launch.key}`, `${launch.shortName}: founding checkout refused a sale`, [
+              `Contract ${contractId} no longer matches the founding page (${why}).`,
+              "Nothing was charged. The guest was asked to email us. Fix the contract in Mindbody or the price in lib/launchSites.ts.",
+            ])
+          );
+        }
+        return offSale();
+      }
+      founding = check.contract;
+    }
+
+    const purchase = (test: boolean) =>
+      fetch("https://api.mindbodyonline.com/public/v6/sale/purchasecontract", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -242,20 +301,48 @@ export async function POST(req: Request) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          Test: isTest,
-          LocationId: 1,
+          Test: test,
+          LocationId: launch ? launch.locationId : 1,
           ClientId: clientId,
           ContractId: contractId,
-          StartDate: denverToday(),
+          // Founding at a launch site: the contract's own start date (first month still charged now).
+          StartDate: founding ? founding.startDate : denverToday(),
           FirstPaymentOccurs: "Instant",
           // Mindbody emails the client a purchase confirmation on real sales.
-          SendNotifications: !isTest,
+          SendNotifications: !test,
           StoredCardInfo: { LastFour: String(lastFour) },
         }),
-      }
-    );
+      });
 
-    const data = await res.json().catch(() => ({}));
+    let res: Response;
+    let data: any;
+    if (launch && founding) {
+      // No-charge test sale first: the total Mindbody would charge must be the page's price.
+      res = await purchase(true);
+      data = await res.json().catch(() => ({}));
+      const failures = Array.isArray(data?.PaymentProcessingFailures) && data.PaymentProcessingFailures.length > 0;
+      if (res.ok && !failures && money(data?.Totals?.Total) !== founding.price) {
+        await release();
+        const expected = founding.price;
+        console.error("[membership/purchase] founding preview total mismatch:", { siteId, contractId, totals: data?.Totals ?? null, expected });
+        after(() =>
+          recordAlert(`founding-total:${launch.key}`, `${launch.shortName}: founding checkout refused a sale`, [
+            `Mindbody's test sale for contract ${contractId} came to ${JSON.stringify(data?.Totals ?? null)}, the page says $${expected}.`,
+            "Nothing was charged. The guest was asked to email us.",
+          ])
+        );
+        return offSale();
+      }
+      if (res.ok && !failures && !isTest) {
+        chargeAttempted = true;
+        res = await purchase(false);
+        data = await res.json().catch(() => ({}));
+      }
+    } else {
+      chargeAttempted = true;
+      res = await purchase(isTest);
+      data = await res.json().catch(() => ({}));
+    }
 
     console.log("[membership/purchase] MB result:", {
       httpStatus: res.status,
@@ -327,13 +414,27 @@ export async function POST(req: Request) {
       after(() =>
         recordCompletion(req, {
           flow: "membership",
-          location: getClubBySiteId(siteId)?.key ?? "denver-larimer",
+          location: launch?.key ?? getClubBySiteId(siteId)?.key ?? "denver-larimer",
           item: contract.key,
           label: contract.name,
           value: contract.monthly,
           ref: data?.ClientContractId ?? undefined,
+          // Founding sale at a launch site: what Atlas's Launch Board reads from /api/ops/sales/.
+          // The email is kept only as a hash, to match a founder to the spa's interest list.
+          ...(launch && founding
+            ? { extra: { founding: true, plan: contract.key, start: founding.startDate, siteId, buyerEmailHash: emailHash(buyerEmail) } }
+            : {}),
         })
       );
+      if (launch) {
+        after(() =>
+          noteFoundingCheckout(launch, false, buyerEmail, "joined", {
+            firstName: client.FirstName ?? undefined,
+            lastName: client.LastName ?? undefined,
+            phone: client.MobilePhone ?? undefined,
+          })
+        );
+      }
       if (isClubSiteId(siteId) && contract.key !== "club_lounge") {
         after(() =>
           notifyDeskOfFounder(siteId, contractId, contract.name, clientId, `${client.FirstName ?? ""} ${client.LastName ?? ""}`.trim())
@@ -348,7 +449,7 @@ export async function POST(req: Request) {
           currency: "USD",
           membership_tier: contract.key,
           membership_name: contract.name,
-          location: getClubBySiteId(siteId)?.key ?? "denver-larimer",
+          location: launch?.key ?? getClubBySiteId(siteId)?.key ?? "denver-larimer",
           // Mindbody's client-contract id: the dedupe/join key back to the
           // sale record if these ever need reconciling by hand.
           transaction_id: data?.ClientContractId ?? undefined,
@@ -362,6 +463,10 @@ export async function POST(req: Request) {
       clientContractId: data?.ClientContractId ?? null,
       totals: data?.Totals ?? null,
       membership: contract.key,
+      // Launch-site founding sale: when the membership starts and when the card is next charged.
+      ...(founding
+        ? { startDate: founding.startDate, fixedStart: founding.fixedStart, nextCharge: monthAfter(founding.startDate) }
+        : {}),
     });
   } catch (err: any) {
     console.error("[membership/purchase] error:", err);

@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { getLaunchSiteBySiteId } from "@/lib/launchSites";
+import { noteFoundingCheckout } from "@/lib/foundingCheckouts";
 import {
   NO_STORE,
   VerifyUnavailableError,
@@ -57,6 +59,16 @@ export async function POST(req: Request) {
       clientIds: clients.map((c) => c.id),
     });
     const primary = clients[0] ?? null;
+    const launch = getLaunchSiteBySiteId(siteId);
+    if (launch) {
+      after(() =>
+        noteFoundingCheckout(launch, body?.test === true, email, "account", {
+          firstName: primary?.firstName,
+          lastName: primary?.lastName,
+          phone: primary?.mobilePhone,
+        })
+      );
+    }
     const res = NextResponse.json(
       {
         status: primary ? "verified" : "new",

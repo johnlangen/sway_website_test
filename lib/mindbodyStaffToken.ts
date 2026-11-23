@@ -1,4 +1,5 @@
 import { getClubBySiteId } from "@/lib/clubLocations";
+import { getLaunchSiteBySiteId, launchStaffEnv } from "@/lib/launchSites";
 
 // Per-site token cache. Larimer (default site) is keyed by its resolved site id too.
 const cachedTokens: Record<string, { token: string; expiresAt: number }> = {};
@@ -8,6 +9,9 @@ const cachedTokens: Record<string, { token: string; expiresAt: number }> = {};
  * - Default / Larimer site → existing MINDBODY_STAFF_USER / MINDBODY_STAFF_PASS.
  * - Club sites (RiNo / Central Park) → their own per-site env vars (provisioned by
  *   John; Mindbody now requires a location-specific login to create appointments).
+ * - Launch sites (lib/launchSites.ts, e.g. Union Market) → the first configured pair of that
+ *   site's own login, then John's shared Manager login. A login only works once it exists on
+ *   that Mindbody site.
  */
 function resolveCreds(siteId: string): { user?: string; pass?: string } {
   const club = getClubBySiteId(siteId);
@@ -16,6 +20,13 @@ function resolveCreds(siteId: string): { user?: string; pass?: string } {
       user: process.env[club.staffCreds.userEnv],
       pass: process.env[club.staffCreds.passEnv],
     };
+  }
+  const launch = getLaunchSiteBySiteId(siteId);
+  if (launch) {
+    for (const { userEnv, passEnv } of launchStaffEnv(launch)) {
+      if (process.env[userEnv] && process.env[passEnv]) return { user: process.env[userEnv], pass: process.env[passEnv] };
+    }
+    return {};
   }
   return {
     user: process.env.MINDBODY_STAFF_USER,
@@ -39,6 +50,8 @@ export async function getMindbodyStaffToken(siteIdArg?: string) {
   const { user, pass } = resolveCreds(siteId);
   if (!user || !pass) {
     const club = getClubBySiteId(siteId);
+    const launch = getLaunchSiteBySiteId(siteId);
+    if (launch) throw new Error(`Online signup for ${launch.shortName} isn't available right now. Please email ${launch.helpEmail} and we'll help.`);
     throw new Error(
       club
         ? `Online booking for Sway ${club.label} isn't available yet. Please call us at ${club.phone} to book.`
@@ -67,6 +80,8 @@ export async function getMindbodyStaffToken(siteIdArg?: string) {
       res.status,
       await res.text().catch(() => "")
     );
+    const launchSite = getLaunchSiteBySiteId(siteId);
+    if (launchSite) throw new Error(`Online signup for ${launchSite.shortName} isn't available right now. Please email ${launchSite.helpEmail} and we'll help.`);
     throw new Error(
       "Online booking is temporarily unavailable. Please call us at (303) 476-6150 to book your appointment."
     );

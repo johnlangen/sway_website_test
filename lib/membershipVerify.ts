@@ -2,6 +2,7 @@ import { Redis } from "@upstash/redis";
 import { createHash, randomBytes, randomInt, timingSafeEqual } from "crypto";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { getClubBySiteId, isClubSiteId } from "@/lib/clubLocations";
+import { getLaunchSiteBySiteId, isLaunchSiteId } from "@/lib/launchSites";
 
 /**
  * Email verification for the native membership checkout.
@@ -133,12 +134,12 @@ export function resolveSiteId(raw: unknown): string | null {
   if (raw === undefined || raw === null || raw === "") return larimer;
   if (typeof raw !== "string") return null;
   const s = raw.trim();
-  if (s === larimer || isClubSiteId(s)) return s;
+  if (s === larimer || isClubSiteId(s) || isLaunchSiteId(s)) return s;
   return null;
 }
 
 export function siteLabel(siteId: string): string {
-  return getClubBySiteId(siteId)?.label ?? "Sway Larimer";
+  return getLaunchSiteBySiteId(siteId)?.shortName ?? getClubBySiteId(siteId)?.label ?? "Sway Larimer";
 }
 
 function clientIp(req: Request): string {
@@ -354,7 +355,7 @@ export async function sendCodeEmail(to: string, code: string, siteId: string): P
         "",
         "If you didn't request this, you can ignore this email. Nothing happens without the code.",
         "",
-        "Sway Wellness · (303) 476-6150",
+        getLaunchSiteBySiteId(siteId) ? "Sway Wellness" : "Sway Wellness · (303) 476-6150",
       ].join("\n"),
       html: `<div style="font-family:Helvetica,Arial,sans-serif;color:#113D33;max-width:440px;margin:0 auto;padding:24px">
   <p style="font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#4A776D;margin:0 0 16px">Sway Wellness</p>

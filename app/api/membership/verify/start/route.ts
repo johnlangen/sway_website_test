@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { getLaunchSiteBySiteId } from "@/lib/launchSites";
+import { noteFoundingCheckout } from "@/lib/foundingCheckouts";
 import {
   NO_STORE,
   RESEND_COOLDOWN_SECONDS,
@@ -48,6 +50,11 @@ export async function POST(req: Request) {
     }
 
     const clients = await findClientsByEmail(siteId, email);
+
+    // Founding checkout at a launch site: the owner's follow-up list starts once a guest has sent
+    // their email (the email screen says so). A new guest goes straight on to their details.
+    const launch = getLaunchSiteBySiteId(siteId);
+    if (launch) after(() => noteFoundingCheckout(launch, body?.test === true, email, clients.length === 0 ? "account" : "email"));
 
     if (clients.length === 0) {
       const token = await createSession({ email, siteId, mode: "new", clientIds: [] });
