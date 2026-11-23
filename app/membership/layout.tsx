@@ -1,10 +1,11 @@
 // app/membership/layout.tsx
 import { Metadata } from "next";
+import { MEMBERSHIP_FAQ } from "./faq";
 
 export const metadata: Metadata = {
   title: { absolute: "Wellness Club Memberships | Sway from $99/month" },
   description:
-    "Join Sway Wellness Club. Three membership tiers, Essential ($99), Premier ($129), Ultimate ($159), with massages, facials, 50% off boosts, Remedy Room access, and rollover credits. Denver (now open), Dallas & Union Market DC (coming soon).",
+    "Find your Sway membership by location: Sway Larimer from $99 a month, unlimited Remedy Lounge at RiNo and Central Park, Union Market DC founding memberships.",
   alternates: {
     canonical: "https://swaywellnessspa.com/membership/",
   },
@@ -69,52 +70,16 @@ export default function MembershipLayout({
           name: "Sway Wellness Spa",
         },
         description:
-          "Sway Wellness Club memberships from $99/month. Three tiers, Essential, Premier, and Ultimate, with massages, facials, 50% off boosts, Remedy Room access, private lounge, and rollover credits.",
+          "Sway memberships by location. At Sway Larimer in Denver: Essential ($99), Premier ($129) and Ultimate ($159) massage and facial memberships, plus Aescape and Remedy Room memberships. At Sway RiNo and Central Park: the unlimited Remedy Lounge membership ($129) and founding memberships from $89. Founding memberships are open at Sway Union Market in Washington, DC.",
       },
       {
         "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "How much is a Sway Wellness Spa membership?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Sway memberships start at $99/month with three tiers: Essential ($99), Premier ($129), and Ultimate ($159). Each tier includes monthly facials and massages, 50% off boosts, private lounge access, and rollover credits.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "What's included in a Sway membership?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "All Sway members enjoy monthly facials and massages at member pricing, 50% off boosts, private member lounge access, rollover credits, and a bring-a-friend benefit. Higher tiers unlock enhanced products, extended sessions, and tech-enhanced treatments.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Do Sway membership credits roll over?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. Unused massage and facial treatments roll over and stay good for 12 months while your membership is active. Aescape and Remedy Room sessions don't roll over.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Can I use my Sway membership at any location?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. Sway memberships work across all open Sway locations. Currently Sway is open on Larimer Square in Denver and at Sway Wellness Club in RiNo and Central Park, with Union Market (DC) and Knox/Henderson (Dallas) coming soon.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Do I need a membership to book at Sway?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "No, anyone can book at Sway. Memberships are optional but offer significant savings on massages, facials, boosts, and recovery sessions.",
-            },
-          },
-        ],
+        // The same questions and answers the page shows (./faq.ts): FAQ markup must match visible text.
+        mainEntity: MEMBERSHIP_FAQ.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
       },
     ],
   };

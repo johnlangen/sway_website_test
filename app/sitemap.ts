@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const corePages = [
     { url: `${base}/`, changeFrequency: "weekly" as const, priority: 1.0 },
     { url: `${base}/locations/`, changeFrequency: "monthly" as const, priority: 0.8 },
-    { url: `${base}/membership/`, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${base}/membership/`, lastModified: new Date("2026-11-23"), changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${base}/offers/`, changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${base}/gift-cards/`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${base}/holiday-gift-cards/`, changeFrequency: "monthly" as const, priority: 0.6 },
