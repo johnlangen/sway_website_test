@@ -816,7 +816,7 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
 
                 {step === "done" && tier && (
                   <section>
-                    <p className="flex items-center gap-2 text-sm font-semibold text-[#2F5D50]"><Check className="h-4 w-4" aria-hidden="true" /> {test ? "Test passed. Nothing was charged or saved." : "You're in."}</p>
+                    <p className="flex items-center gap-2 text-sm font-semibold text-[#2F5D50]"><Check className="h-4 w-4" aria-hidden="true" /> {test ? "Test passed. Nothing was charged and no membership was created." : "You're in."}</p>
                     <h1 ref={headingRef} tabIndex={-1} className="cf-title mt-3 text-[38px] leading-[1.02] focus:outline-none md:text-6xl">Welcome, founding member.</h1>
                     <div className="mt-7 max-w-sm">{FounderCard}</div>
                     <ul className="mt-7 max-w-md space-y-3 text-base">
