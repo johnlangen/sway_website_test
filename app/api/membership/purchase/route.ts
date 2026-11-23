@@ -45,7 +45,7 @@ export const runtime = "nodejs";
  *
  * LAUNCH SITES (lib/launchSites.ts, Union Market since 11/23/2026): a spa that
  * isn't open yet sells its founding contracts and, where configured, its Remedy
- * Room membership on a pre-opening contract (same checks, not founding). Two extra steps there,
+ * Room membership while that contract carries the spa's start date (same checks, not founding). Two extra steps there,
  * both before any money moves: the contract is re-read from Mindbody and must
  * still be the founding plan at the page's price (lib/launchFounding.ts), and
  * Mindbody's no-charge test sale must come to that same total. Founding
@@ -102,7 +102,7 @@ function sellableContractsForSite(
 }
 
 // A launch site sells its three founding tiers, plus (where lib/launchSites.ts lists one) the
-// Remedy Room membership on its pre-opening contract. Nothing else.
+// regular Remedy Room membership (sold only while it carries the spa's start date). Nothing else.
 function launchContracts(site: LaunchSite): Record<number, SellableContract> {
   const out: Record<number, SellableContract> = {};
   for (const tier of LAUNCH_TIER_KEYS) {

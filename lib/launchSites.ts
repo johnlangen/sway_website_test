@@ -59,13 +59,16 @@ export interface LaunchSite {
   /**
    * The Remedy Room membership, sold before opening. NOT a founding membership (Emily 11/23/2026:
    * "it isn't a founding membership? It's just the remedy room membership, with a different start
-   * date"): the regular price, no founding rate, not one of the founding spots. It is its own
-   * Mindbody contract only because the regular one starts the day it is bought; this one starts
-   * on the spa's start date like the founding contracts (first month charged at signup, next
-   * charge a month after the start). Sold on the same switch as founding (founding.salesOpen).
+   * date"): the regular price, no founding rate, not one of the founding spots. It is the spa's
+   * REGULAR Remedy Room contract, with one setting changed until opening: "clients charged on" is
+   * the spa's start date instead of the sale date, like the founding contracts (first month charged
+   * at signup, next charge a month after the start). The owner switches that setting back at
+   * opening. Sold on the same switch as founding (founding.salesOpen).
    * visits = sessions a month, visitMinutes = one session, visit = the single-visit price.
+   * opens = the spa's start date (yyyy-mm-dd): before it, the site sells this contract only while
+   * Mindbody has it starting on a fixed date; from that day on, "on the sale date" is fine too.
    */
-  remedyRoom?: { contractId: number; price: number; visits: number; visitMinutes: number; visit?: number };
+  remedyRoom?: { contractId: number; price: number; visits: number; visitMinutes: number; visit?: number; opens: string };
 }
 
 export const LAUNCH_SITES: Record<LaunchSiteKey, LaunchSite> = {
@@ -91,11 +94,13 @@ export const LAUNCH_SITES: Record<LaunchSiteKey, LaunchSite> = {
         ultimate: { contractId: 139, price: 149, regular: 159, visit: 199 },
       },
     },
-    // Contract 145 "Remedy Room Membership | 4 Sessions | Pre-Opening", made 11/23/2026 as a copy of
-    // the regular contract 102 with the 2027-02-05 start (102's online sale is off until opening).
-    // $49 = "The Remedy Room Experience | 40 min" in Union Market's Mindbody. AT OPENING: point this
-    // at 102 again (or remove it) when 102 goes back on sale and 145 comes off.
-    remedyRoom: { contractId: 145, price: 99, visits: 4, visitMinutes: 40, visit: 49 },
+    // Contract 102 "Remedy Room Membership | 4 Sessions": the regular contract, set on 11/23/2026 to
+    // start 2027-02-05 until the spa opens (John, after the owner asked for one contract rather than
+    // a separate pre-opening copy; that copy, 145, was made the same day and retired). $49 = "The
+    // Remedy Room Experience | 40 min" in Union Market's Mindbody. AT OPENING the owner switches 102
+    // back to "on the sale date" in Mindbody; nothing changes here (see lib/launchFounding.ts). If the
+    // opening date moves, change `opens` (and the date on the contracts in Mindbody).
+    remedyRoom: { contractId: 102, price: 99, visits: 4, visitMinutes: 40, visit: 49, opens: "2027-02-05" },
   },
 };
 

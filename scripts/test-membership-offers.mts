@@ -87,11 +87,11 @@ ok("Union Market: three founding contracts, live prices, unchanged", () => {
   assert.equal(c.config.launch, true);
   assert.equal(c.config.marketingDefault, false);
 });
-ok("Union Market: the Remedy Room membership is its own checkout, on the pre-opening contract, and is not founding", () => {
+ok("Union Market: the Remedy Room membership is its own checkout, on the Remedy Room contract, and is not founding", () => {
   const site = LAUNCH_SITES["union-market"];
   const c = launchCheckout(site, "remedy");
   assert.equal(c.initialPlan, "remedy");
-  assert.deepEqual(c.config.plans.map((p) => [p.key, p.family, p.contractId, p.price]), [["remedy", "remedy", 145, 99]]);
+  assert.deepEqual(c.config.plans.map((p) => [p.key, p.family, p.contractId, p.price]), [["remedy", "remedy", 102, 99]]);
   assert.equal(c.config.siteId, "5757939");
   assert.equal(c.config.offer, "membership"); // not "founding": no founding funnel steps, no founding count
   assert.equal(c.config.launch, true); // price, start date and agreement are read live

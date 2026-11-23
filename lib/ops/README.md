@@ -160,9 +160,10 @@ Checks: `npx tsx scripts/test-launch-founding.mts` and
 
 ## Remedy Room membership at a launch site (Union Market, 11/23/2026)
 
-Sold before opening on its own Mindbody contract (145, "Remedy Room Membership | 4 Sessions |
-Pre-Opening": the regular $99 membership with the spa's start date). It is NOT founding, so it is
-kept out of everything founding:
+Sold before opening on the spa's REGULAR Remedy Room contract (102, "Remedy Room Membership | 4
+Sessions", $99), which the owner's Mindbody has set to start on the spa's start date until opening
+(one contract, on purpose: desk, Mindbody link and website all start the same day). It is NOT
+founding, so it is kept out of everything founding:
 
 - Shown: the page view. It is on `/locations/union-market/` (the cream box under the founding
   card, plus the fourth card in the membership row) and on the founding page (its own section).
@@ -179,6 +180,7 @@ kept out of everything founding:
   A guest who stops partway IS on the follow-up list (`/api/ops/founding-checkouts/`), which does
   not record the plan.
 
-At opening: Mindbody's regular contract 102 goes back on sale online and 145 comes off, so
-`remedyRoom.contractId` in lib/launchSites.ts must change in the same deploy (the contract check
-refuses anything not named "… Pre-Opening").
+At opening: the owner switches contract 102 back to "on the sale date" in Mindbody. Before
+`remedyRoom.opens` (lib/launchSites.ts) the site sells it only while it carries a fixed start date,
+so it can never bill from today for a spa that is not open; from that date on, either setting
+sells. Contract 145 ("… Pre-Opening") was a same-day copy, retired unsold.

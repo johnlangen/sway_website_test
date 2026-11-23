@@ -4,7 +4,8 @@
  *
  * It is NOT a founding membership (Emily 11/23/2026: "it isn't a founding membership? It's just
  * the remedy room membership, with a different start date"): the regular price, no founding rate,
- * not one of the founding spots. So it never sits among the founding tiers. It gets its own
+ * not one of the founding spots. It is the spa's regular Remedy Room contract with its start set
+ * to the spa's start date until opening. So it never sits among the founding tiers. It gets its own
  * cream box (John 11/23/2026: "maybe it gets a creme color or gold or something to differentiate.
  * in a box below actually since its not founding"):
  *   - RemedyRoomBox: the small box under the founding card on the location page.

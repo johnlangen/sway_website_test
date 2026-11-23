@@ -15,8 +15,10 @@
  * starts the day it is bought.
  *
  * The Remedy Room membership sold before opening (site.remedyRoom, plan "remedy") goes through the
- * same check with its own name rule: it must be the "Remedy Room Membership … Pre-Opening"
- * contract, never the regular one, and it must carry a fixed start date. It is not founding.
+ * same check with its own name rule (the spa's "Remedy Room Membership …" contract, never a Flex
+ * or founding one) and one extra rule: it must carry a fixed start date until that date has
+ * passed, so the site can never bill a guest from today for a spa that is not open. It is not
+ * founding.
  */
 import { launchPlanPrice, launchToday, type LaunchPlanKey, type LaunchSite, type LaunchTierKey } from "@/lib/launchSites";
 
@@ -62,11 +64,11 @@ export function termsToPlainText(html: string): string {
 
 /**
  * Is this the contract the page means, by name? A founding tier is "Founding <Tier> …". The Remedy
- * Room membership sold before opening is "Remedy Room Membership … Pre-Opening": NOT the regular
- * "Remedy Room Membership | 4 Sessions" (starts the day it is bought) and not a Flex one.
+ * Room membership is the spa's regular "Remedy Room Membership | 4 Sessions": not a Flex one
+ * ("Flex Remedy Room Membership …") and not anything founding.
  */
 function planNameMatches(plan: LaunchPlanKey, name: string): boolean {
-  if (plan === "remedy") return /^\s*remedy room membership\b/i.test(name) && /\bpre-?opening\b/i.test(name);
+  if (plan === "remedy") return /^\s*remedy room membership\b/i.test(name);
   return /^\s*founding\b/i.test(name) && new RegExp(`\\b${plan}\\b`, "i").test(name);
 }
 
@@ -75,7 +77,9 @@ export function checkFoundingContract(
   raw: any,
   tier: LaunchPlanKey,
   price: number,
-  today: string
+  today: string,
+  /** The spa's start date (yyyy-mm-dd), for the Remedy Room contract's fixed-start rule. */
+  opens?: string
 ): FoundingContractCheck {
   if (!raw || typeof raw !== "object") return { ok: false, reason: "missing", detail: "contract not returned" };
   const name = String(raw.Name ?? "");
@@ -107,10 +111,11 @@ export function checkFoundingContract(
     }
   } else if (raw.ClientsChargedOn !== "OnSaleDate") {
     return { ok: false, reason: "shape", detail: `charged on "${raw.ClientsChargedOn}"` };
-  } else if (tier === "remedy") {
-    // The whole point of the pre-opening contract is its fixed start. If it has been switched to
-    // "on the sale date" it would bill a guest from today for a spa that may not be open.
-    return { ok: false, reason: "shape", detail: "pre-opening contract has no fixed start date" };
+  } else if (tier === "remedy" && !(opens && today >= opens)) {
+    // Before opening, the Remedy Room contract is sold only while it carries the spa's start date.
+    // On "the sale date" it would bill a guest from today for a spa that is not open. From the
+    // spa's start date on, the owner switches it back and it sells as a normal membership.
+    return { ok: false, reason: "shape", detail: "Remedy Room contract has no fixed start date" };
   }
   return {
     ok: true,
@@ -160,7 +165,7 @@ export async function liveFoundingContracts(
     return Object.fromEntries(
       tiers.map((t) => {
         const { contractId, price } = launchPlanPrice(site, t)!;
-        return [t, checkFoundingContract(list.find((c) => Number(c?.Id) === contractId), t, price, today)];
+        return [t, checkFoundingContract(list.find((c) => Number(c?.Id) === contractId), t, price, today, site.remedyRoom?.opens)];
       })
     ) as LiveLaunchChecks;
   } catch (err: any) {
