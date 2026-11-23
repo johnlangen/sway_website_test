@@ -44,7 +44,12 @@ export interface LaunchSite {
     salesOpen: boolean;
     /** Founding spots, as the founding page has said since the waitlist opened. */
     cap: number;
-    tiers: Record<LaunchTierKey, { contractId: number; price: number }>;
+    /**
+     * price = the founding rate (checked against the Mindbody contract before every sale).
+     * regular = the spa's regular monthly membership, visit = its single-visit price: what the
+     * founding rate is shown against. Display only, read from the spa's own Mindbody.
+     */
+    tiers: Record<LaunchTierKey, { contractId: number; price: number; regular?: number; visit?: number }>;
   };
 }
 
@@ -64,9 +69,11 @@ export const LAUNCH_SITES: Record<LaunchSiteKey, LaunchSite> = {
       salesOpen: true,
       cap: 150,
       tiers: {
-        essential: { contractId: 137, price: 89 },
-        premier: { contractId: 138, price: 119 },
-        ultimate: { contractId: 139, price: 149 },
+        // regular + visit: Union Market's Mindbody on 11/23/2026 (memberships $99 / $129 / $159 a
+        // month, "Massage Treatments" and "Skin Care Treatments" $139 / $169 / $199).
+        essential: { contractId: 137, price: 89, regular: 99, visit: 139 },
+        premier: { contractId: 138, price: 119, regular: 129, visit: 169 },
+        ultimate: { contractId: 139, price: 149, regular: 159, visit: 199 },
       },
     },
   },

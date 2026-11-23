@@ -22,12 +22,23 @@ import {
 } from "lucide-react";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
 import FoundingLiveTiers, { type LiveFoundingPlan } from "@/app/components/FoundingLiveTiers";
-import { LAUNCH_SITES } from "@/lib/launchSites";
+import { LAUNCH_SITES, LAUNCH_TIER_KEYS } from "@/lib/launchSites";
 
 // Founding memberships are sold on the site once this is true (lib/launchSites.ts) AND the live
 // check below says the checkout is ready. Until then this page takes interest only, as before.
 const LAUNCH = LAUNCH_SITES["union-market"];
 const SALES_OPEN = LAUNCH.founding.salesOpen;
+const FALLBACK_PLANS: LiveFoundingPlan[] = LAUNCH_TIER_KEYS.map((tier) => ({
+  tier,
+  price: LAUNCH.founding.tiers[tier].price,
+  available: true,
+  startLabel: null,
+  fixedStart: false,
+  nextChargeLabel: null,
+}));
+// What the founding rate is worth, in one line: a single visit vs the founding month.
+const LEAD = LAUNCH.founding.tiers.essential;
+const LEAD_SAVING = LEAD.visit !== undefined ? LEAD.visit - LEAD.price : null;
 
 /* ------------------------------------------------------------------
    ANIMATED COUNTER HOOK
@@ -347,17 +358,22 @@ export default function GeorgetownFoundingMembershipPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Live founding plans (price, start date, whether the checkout can sell right now)
+  // The offer renders at once from the page's own prices (FALLBACK_PLANS), then takes the live
+  // answer. Only a live "not ready" closes it; the checkout page re-checks either way.
   const [livePlans, setLivePlans] = useState<LiveFoundingPlan[] | null>(null);
+  const [liveClosed, setLiveClosed] = useState(false);
   useEffect(() => {
     if (!SALES_OPEN) return;
     fetch("/api/membership/founding/?location=union-market")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
-        if (d?.salesOpen && d?.checkoutReady && Array.isArray(d.plans)) setLivePlans(d.plans);
+        if (!d) return;
+        if (d.salesOpen && d.checkoutReady && Array.isArray(d.plans)) setLivePlans(d.plans);
+        else setLiveClosed(true);
       })
       .catch(() => {});
   }, []);
-  const selling = SALES_OPEN && livePlans !== null;
+  const selling = SALES_OPEN && !liveClosed;
   const firstPlan = livePlans?.find((pl) => pl.available && pl.startLabel) ?? null;
   const shownMemberships = selling ? memberships.filter((m) => m.key !== "spa") : memberships;
   const t = LAUNCH.founding.tiers;
@@ -374,7 +390,7 @@ export default function GeorgetownFoundingMembershipPage() {
           : f.question === "Will there be founding member pricing?"
           ? {
               question: "What is the founding member rate?",
-              answer: `Founding memberships are $${t.essential.price} a month for Essential, $${t.premier.price} for Premier and $${t.ultimate.price} for Ultimate. Each includes one massage or facial a month.`,
+              answer: `Founding memberships are $${t.essential.price} a month for Essential, $${t.premier.price} for Premier and $${t.ultimate.price} for Ultimate. Each includes one massage or facial a month${LEAD_SAVING !== null ? `, and each is $${LEAD_SAVING} less than a single visit at that tier` : ""}.`,
             }
           : f
       );
@@ -475,7 +491,9 @@ export default function GeorgetownFoundingMembershipPage() {
       {/* ========================================================
           SECTION 1 — HERO
       ======================================================== */}
-      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+      {/* The giveaway banner above already clears the fixed nav, so the hero fills what is left
+          of the screen and centers in it (it used to be a full screen pushed down by the banner). */}
+      <section className="relative min-h-[calc(100svh-10.5rem)] flex items-center justify-center overflow-hidden">
         {/* Poster image for instant LCP */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -504,7 +522,7 @@ export default function GeorgetownFoundingMembershipPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80" />
 
         {/* Content */}
-        <div className="relative z-10 px-6 pt-28 md:pt-36 pb-20 text-center max-w-4xl mx-auto">
+        <div className="relative z-10 px-6 py-14 md:py-16 text-center max-w-4xl mx-auto">
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -512,7 +530,7 @@ export default function GeorgetownFoundingMembershipPage() {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/25 bg-white/10 text-white/90 text-xs uppercase tracking-[0.25em] backdrop-blur-md mb-8"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            Founding Member · Limited Spots
+            {SALES_OPEN ? `Now Open · First ${LAUNCH.founding.cap} Members` : "Founding Member · Limited Spots"}
           </motion.span>
 
           <motion.p
@@ -539,9 +557,21 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            Founding members get{" "}
-            <strong className="text-white">exclusive pricing</strong>, with
-            priority booking, VIP events, and perks that disappear after launch.
+            {SALES_OPEN && LEAD.visit !== undefined ? (
+              <>
+                Become a founding member and a{" "}
+                <strong className="text-white">
+                  ${LEAD.visit} massage or facial is ${LEAD.price}
+                </strong>
+                , every month. Founding rates are for the first {LAUNCH.founding.cap} members only.
+              </>
+            ) : (
+              <>
+                Founding members get{" "}
+                <strong className="text-white">exclusive pricing</strong>, with
+                priority booking, VIP events, and perks that disappear after launch.
+              </>
+            )}
           </motion.p>
 
           <motion.div
@@ -560,14 +590,30 @@ export default function GeorgetownFoundingMembershipPage() {
             </button>
             <span className="text-xs text-white/70">
               {SALES_OPEN
-                ? `Founding rates from $${t.essential.price} a month`
+                ? LEAD_SAVING !== null
+                  ? `From $${t.essential.price} a month · $${LEAD_SAVING} less than a single visit`
+                  : `Founding rates from $${t.essential.price} a month`
                 : "No charge until we open"}
             </span>
           </motion.div>
         </div>
 
-        <div className="absolute -bottom-px left-0 right-0 h-1 bg-[#F7F4E9] z-10" />
+        {!selling && <div className="absolute -bottom-px left-0 right-0 h-1 bg-[#F7F4E9] z-10" />}
       </section>
+
+      {/* ========================================================
+          FOUNDING RATES — straight under the hero while memberships are on sale
+      ======================================================== */}
+      {selling && (
+        <FoundingLiveTiers
+          base="/locations/union-market"
+          shortName={LAUNCH.shortName}
+          cap={LAUNCH.founding.cap}
+          plans={livePlans ?? FALLBACK_PLANS}
+          anchors={LAUNCH.founding.tiers}
+          onReserve={scrollToReserve}
+        />
+      )}
 
       {/* ========================================================
           SECTION 2 — STATS ROW
@@ -656,19 +702,6 @@ export default function GeorgetownFoundingMembershipPage() {
           </p>
         </motion.div>
       </section>
-
-      {/* ========================================================
-          FOUNDING RATES — live once memberships are on sale
-      ======================================================== */}
-      {selling && livePlans && (
-        <FoundingLiveTiers
-          base="/locations/union-market"
-          shortName={LAUNCH.shortName}
-          cap={LAUNCH.founding.cap}
-          plans={livePlans}
-          onReserve={scrollToReserve}
-        />
-      )}
 
       {/* ========================================================
           SECTION 3 — MEMBERSHIP CARDS

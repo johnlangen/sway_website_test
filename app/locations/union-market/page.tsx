@@ -7,6 +7,7 @@ import GoogleReviews from "@/app/components/GoogleReviews";
 import WaitlistForm from "@/app/components/WaitlistForm";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
 import { LAUNCH_SITES, type LaunchTierKey } from "@/lib/launchSites";
+import { FOUNDING_TIER_CONTENT } from "@/lib/foundingTiers";
 
 // Founding memberships are on sale on the site (lib/launchSites.ts salesOpen). While true, this
 // page leads with joining and the waitlist becomes the quiet second option. With it false, every
@@ -15,6 +16,8 @@ const FOUNDING = LAUNCH_SITES["union-market"].founding;
 const ON_SALE = FOUNDING.salesOpen;
 const FOUNDING_HREF = "/locations/union-market/founding-membership/";
 const JOIN_HREF = (tier: LaunchTierKey) => `/locations/union-market/founding-membership/join/?tier=${tier}`;
+const LEAD = FOUNDING.tiers.essential;
+const LEAD_SAVING = LEAD.visit !== undefined ? LEAD.visit - LEAD.price : null;
 const TIER_CARDS: { key: LaunchTierKey | "remedy"; name: string; desc: string }[] = [
   { key: "essential", name: "Essential", desc: "Signature treatments · the perfect entry to Sway." },
   { key: "premier", name: "Premier", desc: "Enhanced treatments and extended durations." },
@@ -98,29 +101,45 @@ export default function SwayGeorgetownComingSoonPage() {
                   Founding membership · First {FOUNDING.cap} members
                 </p>
                 <h2 className="text-xl md:text-2xl font-bold mt-2">Founding memberships are open</h2>
-                <p className="text-sm opacity-80 mt-2">
-                  One massage or facial every month at the founding rate. Join online in about two minutes.
+                <p className="text-sm opacity-90 mt-2">
+                  {LEAD_SAVING !== null
+                    ? `One massage or facial every month. A $${LEAD.visit} visit is $${LEAD.price} at the founding rate, and every tier is $${LEAD_SAVING} less than a single visit.`
+                    : "One massage or facial every month at the founding rate."}
                 </p>
                 <ul className="mt-4 divide-y divide-white/15">
-                  {TIER_CARDS.filter((c) => c.key !== "remedy").map((c) => (
-                    <li key={c.key}>
-                      <Link
-                        href={JOIN_HREF(c.key as LaunchTierKey)}
-                        data-track={`um-hero-tier-${c.key}`}
-                        className="flex items-center justify-between gap-4 py-3.5 hover:opacity-80 transition"
-                      >
-                        <span className="font-bold">{c.name}</span>
-                        <span className="whitespace-nowrap">
-                          <span className="text-xl font-bold">${FOUNDING.tiers[c.key as LaunchTierKey].price}</span>
-                          <span className="text-xs opacity-80"> a month</span>
-                          <span aria-hidden="true" className="ml-2">&rarr;</span>
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
+                  {TIER_CARDS.filter((c) => c.key !== "remedy").map((c) => {
+                    const key = c.key as LaunchTierKey;
+                    const tier = FOUNDING.tiers[key];
+                    return (
+                      <li key={c.key}>
+                        <Link
+                          href={JOIN_HREF(key)}
+                          data-track={`um-hero-tier-${c.key}`}
+                          className="flex items-center justify-between gap-4 py-3.5 hover:opacity-80 transition"
+                        >
+                          <span>
+                            <span className="block font-bold">{c.name}</span>
+                            <span className="block text-xs opacity-80">{FOUNDING_TIER_CONTENT[key].short}, every month</span>
+                          </span>
+                          <span className="flex items-center gap-3 whitespace-nowrap text-right">
+                            <span>
+                              <span className="text-xl font-bold">${tier.price}</span>
+                              <span className="text-xs opacity-80"> a month</span>
+                              {tier.visit !== undefined && (
+                                <span className="block text-xs opacity-80">
+                                  <s>${tier.visit}</s> single visit
+                                </span>
+                              )}
+                            </span>
+                            <span aria-hidden="true">&rarr;</span>
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
                 <p className="text-xs opacity-80 mt-3">
-                  Your first month is charged when you join.{" "}
+                  For the first {FOUNDING.cap} members. Your first month is charged when you join.{" "}
                   <a href="#waitlist" data-track="um-hero-waitlist" className="underline underline-offset-2">
                     Not ready? Join the waitlist.
                   </a>
@@ -195,20 +214,28 @@ export default function SwayGeorgetownComingSoonPage() {
             </p>
             <p className="text-sm opacity-80 mb-6 max-w-xl mx-auto">
               {ON_SALE
-                ? `One massage or facial every month at the founding rate, for the first ${FOUNDING.cap} members. Join online in about two minutes. Remedy Room membership pricing will be announced closer to opening.`
+                ? `One massage or facial every month${LEAD_SAVING !== null ? `, for $${LEAD_SAVING} less than a single visit` : " at the founding rate"}. For the first ${FOUNDING.cap} members only. Remedy Room membership pricing will be announced closer to opening.`
                 : "Founding members will receive exclusive pricing and priority booking before Sway Union Market opens. Join the waitlist to be notified when founding memberships go live."}
             </p>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-left max-w-3xl mx-auto">
               {TIER_CARDS.map((c) => {
                 const price = ON_SALE && c.key !== "remedy" ? FOUNDING.tiers[c.key].price : null;
+                const visit = ON_SALE && c.key !== "remedy" ? FOUNDING.tiers[c.key].visit : undefined;
                 const inner = (
                   <>
                     <h3 className="font-bold text-sm mb-1">{c.name}</h3>
-                    <p className="text-xs opacity-80">{c.desc}</p>
+                    <p className="text-xs opacity-80">
+                      {ON_SALE && c.key !== "remedy" ? `${FOUNDING_TIER_CONTENT[c.key].short}, every month.` : c.desc}
+                    </p>
                     {price !== null && (
                       <p className="mt-3 text-sm font-bold">
                         ${price} a month <span aria-hidden="true">&rarr;</span>
+                        {visit !== undefined && (
+                          <span className="block text-xs font-normal opacity-80">
+                            <s>${visit}</s> single visit
+                          </span>
+                        )}
                       </p>
                     )}
                     {ON_SALE && c.key === "remedy" && (
@@ -306,7 +333,7 @@ export default function SwayGeorgetownComingSoonPage() {
               {
                 q: "How much are Sway Union Market memberships?",
                 a: ON_SALE
-                  ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month. Your first month is charged when you join. Remedy Room membership pricing will be announced closer to opening.`
+                  ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month${LEAD_SAVING !== null ? `, and each is $${LEAD_SAVING} less than a single visit at that tier` : ""}. Your first month is charged when you join. Remedy Room membership pricing will be announced closer to opening.`
                   : "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
               ON_SALE

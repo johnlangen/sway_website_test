@@ -37,6 +37,7 @@ import { trackStep, useFlowTrack } from "@/lib/ops/client";
 import { SwayCurve } from "./SwayCurve";
 import ArrowMark from "./ArrowMark";
 import FoundingCelebration from "./FoundingCelebration";
+import { FOUNDING_TIER_CONTENT } from "@/lib/foundingTiers";
 
 export type FoundingTier = "essential" | "premier" | "ultimate";
 
@@ -60,7 +61,7 @@ export type FoundingJoinProps = {
   siteId: string;
   helpEmail: string;
   /** Page prices, shown until the live plans load. */
-  tiers: Record<FoundingTier, { contractId: number; price: number }>;
+  tiers: Record<FoundingTier, { contractId: number; price: number; regular?: number; visit?: number }>;
   initialTier: FoundingTier | null;
   /** ?memtest=1: Mindbody's no-charge test sale. Nothing is recorded. */
   test: boolean;
@@ -72,12 +73,13 @@ export type FoundingJoinProps = {
 
 const TIER_ORDER: FoundingTier[] = ["essential", "premier", "ultimate"];
 const TIER_COPY: Record<FoundingTier, { name: string; line: string }> = {
-  essential: { name: "Essential", line: "One Essential massage or facial a month: our signature treatments." },
-  premier: { name: "Premier", line: "One Premier massage or facial a month: targeted treatments, or more time." },
-  ultimate: { name: "Ultimate", line: "One Ultimate massage or facial a month: our longest and most advanced treatments." },
+  essential: { name: "Essential", line: "50 minutes a month: our Signature Massage or Signature Facial." },
+  premier: { name: "Premier", line: "Up to 70 minutes a month: a longer Signature Massage, or a targeted massage or facial." },
+  ultimate: { name: "Ultimate", line: "Up to 90 minutes a month: our longest massages and most advanced facials." },
 };
+// The tier's own panel (time, what you choose, the price ladder) says the monthly treatment, so
+// this list is what comes with every tier on top of it.
 const EVERY_MEMBERSHIP = [
-  "One massage or facial every month",
   "Unused treatments roll over for 12 months while you stay active",
   "Member pricing on extra treatments",
   "Share your treatment with one family member or partner",
@@ -536,6 +538,8 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
 
   /* ── render ───────────────────────────────────────────────────── */
   const tierName = tier ? TIER_COPY[tier].name : null;
+  const visitPrice = tier ? props.tiers[tier].visit : undefined;
+  const regularPrice = tier ? props.tiers[tier].regular : undefined;
   const fullName = `${firstName} ${lastName}`.trim();
   const progressKey: Step = step === "code" || step === "member" ? "email" : step;
   const progressIdx = PROGRESS.findIndex((p) => p.key === progressKey);
@@ -552,7 +556,7 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
       <SwayCurve width={220} strokeWidth={1.4} animate={step === "done"} className="pointer-events-none absolute -right-10 top-6 text-[#B6CFBF]/35" />
       {step === "done" && <span className="cf-sheen" />}
       <p className="sway-eyebrow text-[#B6CFBF]">{step === "done" ? "Founding member" : "Founding membership"}</p>
-      <p className={`cf-title mt-8 min-h-[2.2em] break-words text-[26px] leading-tight md:text-[30px] ${step === "done" ? "cf-name-in" : ""}`}>{fullName || "Your name here"}</p>
+      <p className={`cf-title mt-8 min-h-[2.2em] break-words text-[26px] leading-tight md:text-[30px] ${step === "done" ? "cf-name-in" : ""}`}>{fullName || (tier ? FOUNDING_TIER_CONTENT[tier].timeLine : "Founding member")}</p>
       <div className="mt-6 flex items-end justify-between gap-4 border-t border-[#F7F4E9]/20 pt-4">
         <div>
           <p className="text-[15px]">{shortName}</p>
@@ -593,7 +597,17 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
           )}
 
           {/* The founder's card rides along on phones, above the form */}
-          {step !== "done" && !closed && <div className="mt-6 md:hidden">{FounderCard}</div>}
+          {step !== "done" && !closed && (
+            <div className="mt-6 md:hidden">
+              {FounderCard}
+              {tier && (
+                <p className="mt-3 text-sm text-[#113D33]/85">
+                  {FOUNDING_TIER_CONTENT[tier].short}, every month
+                  {visitPrice !== undefined && price !== null ? `. $${visitPrice - price} less than a single visit.` : "."}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className="mt-7 md:mt-9" aria-live="polite">
             {closed ? (
@@ -615,7 +629,7 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
                 {step === "plan" && (
                   <section>
                     <h1 ref={headingRef} tabIndex={-1} className="cf-title text-[34px] leading-[1.05] focus:outline-none md:text-5xl">Choose your membership.</h1>
-                    <p className="mt-3 max-w-md text-base text-[#113D33]/85">Three tiers, each with one massage or facial a month.</p>
+                    <p className="mt-3 max-w-md text-base text-[#113D33]/85">Three tiers, each with one massage or facial a month. The difference is time, and how targeted the treatment is.</p>
                     <ul className="mt-6 space-y-3">
                       {TIER_ORDER.map((t) => {
                         const p = live?.plans.find((x) => x.tier === t);
@@ -637,6 +651,9 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
                               <span className="shrink-0 text-right">
                                 <span className="cf-num block text-3xl">${p?.price ?? props.tiers[t].price}</span>
                                 <span className="text-xs text-[#113D33]/75">a month</span>
+                                {props.tiers[t].visit !== undefined && (
+                                  <span className="block text-xs text-[#113D33]/75"><s>${props.tiers[t].visit}</s> single visit</span>
+                                )}
                               </span>
                             </button>
                           </li>
@@ -856,6 +873,37 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
           <aside className="hidden md:block">
             <div className="sticky top-28">
               {FounderCard}
+              {tier && (
+                <div className="mt-6">
+                  <p className="sway-eyebrow text-[#4A776D]">Founding {TIER_COPY[tier].name} · choose each month</p>
+                  <ul className="mt-3 space-y-1.5 text-[15px] leading-snug">
+                    {FOUNDING_TIER_CONTENT[tier].choose.map((c) => (
+                      <li key={c} className="flex gap-2.5">
+                        <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-[#4A776D]" aria-hidden="true" />
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                  {visitPrice !== undefined && price !== null && (
+                    <dl className="mt-4 space-y-1 border-y border-[#113D33]/15 py-3 text-sm">
+                      <div className="flex justify-between gap-3">
+                        <dt className="text-[#113D33]/80">Single visit</dt>
+                        <dd className="text-[#113D33]/80 line-through decoration-[#113D33]/50">${visitPrice}</dd>
+                      </div>
+                      {regularPrice !== undefined && (
+                        <div className="flex justify-between gap-3">
+                          <dt className="text-[#113D33]/80">Regular membership</dt>
+                          <dd className="text-[#113D33]/80 line-through decoration-[#113D33]/50">${regularPrice} a month</dd>
+                        </div>
+                      )}
+                      <div className="flex justify-between gap-3 font-semibold">
+                        <dt>Founding rate</dt>
+                        <dd>${price} a month</dd>
+                      </div>
+                    </dl>
+                  )}
+                </div>
+              )}
               <ul className="mt-6 space-y-2.5 text-[15px]">
                 {EVERY_MEMBERSHIP.map((line) => (
                   <li key={line} className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-[#4A776D]" aria-hidden="true" />{line}</li>

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
 import { LAUNCH_SITES, type LaunchTierKey } from "@/lib/launchSites";
+import { FOUNDING_TIER_CONTENT } from "@/lib/foundingTiers";
 
 // Founding memberships on sale on the site (lib/launchSites.ts salesOpen): each tier shows its
 // founding price and a Join button. With it false the page reads as it did before 11/23/2026.
@@ -156,13 +157,19 @@ export default function GeorgetownMembershipPage() {
 
               <div className="mb-4 text-center">
                 <p className="text-xs uppercase tracking-widest text-[#4A776D] mb-1">
-                  {tier.tagline}
+                  {ON_SALE ? FOUNDING_TIER_CONTENT[tier.key as LaunchTierKey].timeLine : tier.tagline}
                 </p>
                 <h2 className="text-xl md:text-2xl font-bold">{tier.name}</h2>
                 {ON_SALE && (
                   <p className="mt-2">
                     <span className="text-3xl font-bold">${FOUNDING.tiers[tier.key as LaunchTierKey].price}</span>
                     <span className="text-sm text-gray-600"> a month · founding rate</span>
+                    {FOUNDING.tiers[tier.key as LaunchTierKey].visit !== undefined && (
+                      <span className="block text-xs text-gray-600 mt-1">
+                        <s>${FOUNDING.tiers[tier.key as LaunchTierKey].visit}</s> single visit ·{" "}
+                        <s>${FOUNDING.tiers[tier.key as LaunchTierKey].regular}</s> regular membership
+                      </span>
+                    )}
                   </p>
                 )}
               </div>
