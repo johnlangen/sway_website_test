@@ -6,7 +6,7 @@
  *
  * Built to sell, not just list (John 11/23/2026: "the value proposition is not here, doesnt even
  * say the discount, no urgency or scarcity. no beautiful images to sell, it should lean on time").
- * Each tier leads with a photo and its time on the table (50, up to 70, up to 90 minutes, every
+ * Each tier leads with a photo (Emily's picks, 11/23/2026) and its time on the table (50, up to 70, up to 90 minutes, every
  * month), then the price ladder that makes the founding rate obvious (single visit, regular
  * membership, founding rate), then what a member chooses from each month, then the Join button
  * into the website checkout (/locations/<slug>/founding-membership/join/?tier=…). The header
@@ -38,12 +38,9 @@ export type LiveFoundingPlan = {
 
 export type FoundingAnchorPrices = Record<LiveFoundingPlan["tier"], { regular?: number; visit?: number }>;
 
-// The photo grows with the time: the tiers step up left to right on desktop.
-const PHOTO: Record<LiveFoundingPlan["tier"], string> = {
-  essential: "md:h-44",
-  premier: "md:h-56",
-  ultimate: "md:h-[17rem]",
-};
+// All three cards are the same height with the same photo size (Emily 11/23/2026: "make these all
+// the same height and same image sizes"). They used to step up with the time.
+const PHOTO = "md:h-56";
 
 export default function FoundingLiveTiers({
   base,
@@ -76,10 +73,10 @@ export default function FoundingLiveTiers({
               Time that&apos;s yours, every month.
             </h2>
             <p className="mt-4 max-w-xl text-base text-[#F7F4E9]/90 md:text-lg">
-              {saving !== null && lead && leadVisit
-                ? `One massage or facial every month. A $${leadVisit} visit is $${lead.price} at the founding rate, and every tier is $${saving} less than a single visit.`
-                : "One massage or facial every month, at the founding rate."}{" "}
-              Join online in about two minutes.
+              {saving !== null
+                ? `Make wellness a monthly ritual with $${saving} off a massage or facial of your choice.`
+                : "Make wellness a monthly ritual with a massage or facial of your choice, at the founding rate."}{" "}
+              Explore three tiers of membership and find the right fit for your routine.
             </p>
           </div>
           {/* Scarcity, stated once and plainly */}
@@ -89,15 +86,15 @@ export default function FoundingLiveTiers({
           </p>
         </div>
 
-        <ul className="mt-10 grid gap-5 md:mt-14 md:grid-cols-3 md:items-end">
+        <ul className="mt-10 grid gap-5 md:mt-14 md:grid-cols-3 md:items-stretch">
           {plans.map((p) => {
             const t = FOUNDING_TIER_CONTENT[p.tier];
             const a = anchors[p.tier] ?? {};
             return (
               <li key={p.tier} className="flex">
                 <article className="flex w-full flex-col overflow-hidden rounded-[4px] bg-[#F7F4E9] text-[#113D33]">
-                  <div className={`relative aspect-[16/9] md:aspect-auto ${PHOTO[p.tier]}`}>
-                    <Image src={t.image} alt={t.alt} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover" />
+                  <div className={`relative aspect-[16/9] md:aspect-auto ${PHOTO}`}>
+                    <Image src={t.image} alt={t.alt} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover" style={t.imagePosition ? { objectPosition: t.imagePosition } : undefined} />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B2A23]/90 via-[#0B2A23]/25 to-transparent" aria-hidden="true" />
                     <p className="absolute inset-x-5 bottom-4 text-[#F7F4E9]">
                       {t.upTo && <span className="block text-[11px] uppercase tracking-[0.18em] text-[#F7F4E9]/90">Up to</span>}

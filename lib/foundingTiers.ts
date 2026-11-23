@@ -30,6 +30,8 @@ export type FoundingTierContent = {
   choose: string[];
   image: string;
   alt: string;
+  /** CSS object-position for the card photo, when the centre crop would lose the subject. */
+  imagePosition?: string;
 };
 
 export const FOUNDING_TIER_CONTENT: Record<LaunchTierKey, FoundingTierContent> = {
@@ -45,8 +47,8 @@ export const FOUNDING_TIER_CONTENT: Record<LaunchTierKey, FoundingTierContent> =
       "Signature Facial, 50 min",
       "Maternity Massage, 50 min",
     ],
-    image: "/assets/founding-massage-lamp.jpg",
-    alt: "A massage therapist's hands on a guest's back in a dim, lamp-lit treatment room",
+    image: "/assets/founding-tier-shoulder.jpg",
+    alt: "A hand resting on a bare shoulder in warm light",
   },
   premier: {
     name: "Premier",
@@ -60,8 +62,9 @@ export const FOUNDING_TIER_CONTENT: Record<LaunchTierKey, FoundingTierContent> =
       "Deep Tissue, Salt Stone, Sports or Lymphatic Drainage Massage, 50 min",
       "Targeted facials: Forever Young, Pore Perfection, Glow Getter, Sensitive Silk, Dr. Dennis Gross Vitamin C",
     ],
-    image: "/assets/founding-massage-stone.jpg",
-    alt: "A salt stone massage in a warm, lamp-lit treatment room",
+    image: "/assets/founding-tier-facial.jpg",
+    alt: "A guest with eyes closed and cleansing foam on their face during a facial",
+    imagePosition: "50% 30%",
   },
   ultimate: {
     name: "Ultimate",

@@ -428,7 +428,7 @@ export default function GeorgetownFoundingMembershipPage() {
   const rankCounter = useAnimatedCounter(4, 1200);
   const spotsCounter = useAnimatedCounter(150);
   const googleRating = useRating();
-  const liveReviewTotal = googleRating?.totalReviews ?? 164;
+  const liveReviewTotal = googleRating?.totalReviews ?? 188;
   const liveReviewAvg = (googleRating?.rating ?? 4.9).toFixed(1);
   const reviewCounter = useAnimatedCounter(liveReviewTotal);
 
@@ -529,7 +529,6 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/25 bg-white/10 text-white/90 text-xs uppercase tracking-[0.25em] backdrop-blur-md mb-8"
           >
-            <Sparkles className="w-3.5 h-3.5" />
             {SALES_OPEN ? `Now Open · First ${LAUNCH.founding.cap} Members` : "Founding Member · Limited Spots"}
           </motion.span>
 
@@ -557,13 +556,16 @@ export default function GeorgetownFoundingMembershipPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            {SALES_OPEN && LEAD.visit !== undefined ? (
+            {SALES_OPEN && LEAD_SAVING !== null ? (
               <>
-                Become a founding member and a{" "}
-                <strong className="text-white">
-                  ${LEAD.visit} massage or facial is ${LEAD.price}
-                </strong>
-                , every month. Founding rates are for the first {LAUNCH.founding.cap} members only.
+                Become a Founding Member and enjoy{" "}
+                <strong className="text-white">${LEAD_SAVING} off your monthly massage or facial</strong>{" "}
+                every month. This exclusive pricing is limited to our first {LAUNCH.founding.cap} members.
+              </>
+            ) : SALES_OPEN ? (
+              <>
+                Become a Founding Member and enjoy exclusive pricing on your monthly massage or facial.
+                This pricing is limited to our first {LAUNCH.founding.cap} members.
               </>
             ) : (
               <>
@@ -588,13 +590,7 @@ export default function GeorgetownFoundingMembershipPage() {
               {SALES_OPEN ? "Become a Founding Member" : "Reserve Your Founding Spot"}
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </button>
-            <span className="text-xs text-white/70">
-              {SALES_OPEN
-                ? LEAD_SAVING !== null
-                  ? `From $${t.essential.price} a month · $${LEAD_SAVING} less than a single visit`
-                  : `Founding rates from $${t.essential.price} a month`
-                : "No charge until we open"}
-            </span>
+            {!SALES_OPEN && <span className="text-xs text-white/70">No charge until we open</span>}
           </motion.div>
         </div>
 

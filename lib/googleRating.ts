@@ -6,7 +6,9 @@
 
 const PLACE_ID = "ChIJtRQkUu55bIcR91jycB7Jcns"; // Sway Wellness Spa Larimer
 
-export const RATING_FALLBACK = { rating: 4.9, totalReviews: 164 }; // as of 2026-09-01
+// 188 read off the Google listing 11/23/2026. The live call is being refused (REQUEST_DENIED: billing is
+// not enabled on the Google Cloud project), so every page shows this number until that is fixed.
+export const RATING_FALLBACK = { rating: 4.9, totalReviews: 188 };
 
 export async function getGoogleRating(): Promise<{ rating: number; totalReviews: number }> {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
