@@ -81,9 +81,9 @@ export default function MembershipHubPage() {
         // Backfill the cookie so middleware.ts redirects server-side next
         // time (no picker flash) for visitors who only have localStorage.
         if (loc?.slug) document.cookie = `sway_loc=${loc.slug}; path=/; max-age=${60 * 60 * 24 * 365}`;
-        const match = locations.find(
-          (l) => l.slug === loc?.slug && l.status === "open",
-        );
+        // Open locations go to their membership page, coming-soon ones to their founding
+        // membership page (each location's href above). Same rule as middleware.ts.
+        const match = locations.find((l) => l.slug === loc?.slug);
         if (match && !choosing) {
           window.location.replace(match.href);
           return;
