@@ -85,6 +85,8 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
     serverErrors: [] as { flow: string; location: string; where: string; message: string; n: number }[],
     alerts: [] as { at: string; kind: string; subject: string; lines: string[] }[],
     gifts: { settling: 0, emailsPending: 0 },
+    /** Membership checkout detail events (flow "checkout"): times each happened, by step and variant. */
+    checkout: [] as { step: string; variant: string; n: number }[],
     ledger: [] as LedgerRow[],
   };
   if (!r) return empty;
@@ -147,6 +149,7 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
   const completed = new Map<string, number>();
   // Booked value: the price the flow showed at its done step (cents, first-party, lib/ops/record.ts)
   const doneValue = new Map<string, number>(); // flow|location → dollars
+  const checkoutDetail = new Map<string, number>();
   const trend: { day: string; views: number; completions: number }[] = [];
   let views = 0;
   let clicks = 0;
@@ -171,6 +174,7 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
       const [flow, l, step, variant] = k.split("|");
       if (!inLoc(l)) continue;
       add(stepReports, `${flow}|${step}`, n);
+      if (flow === "checkout") add(checkoutDetail, `${step}|${variant}`, n);
       if (!stepCombos.has(`${flow}|${step}`)) stepCombos.set(`${flow}|${step}`, new Set());
       stepCombos.get(`${flow}|${step}`)!.add(`${d.day}:${l}:${variant}`);
       if (!variantCombos.has(flow)) variantCombos.set(flow, new Set());
@@ -302,6 +306,10 @@ export async function opsReport(opts: { to?: string; days?: number; loc?: string
     },
     trend: trend.map((t, j) => ({ ...t, visitors: dayVisitors[j] })),
     funnels,
+    checkout: [...checkoutDetail].map(([k, n]) => {
+      const [step, variant] = k.split("|");
+      return { step, variant: variant === "-" ? "" : variant, n };
+    }),
     landings: sorted([...landings].map(([k, n]) => {
       const [source, medium, campaign] = k.split("|");
       return { source, medium, campaign: campaign === "-" ? "" : campaign, n };

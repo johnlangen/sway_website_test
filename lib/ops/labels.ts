@@ -36,7 +36,7 @@ export const FLOW_STEPS: Record<string, string[]> = {
     "guest-new", "guest-returning", "code-sent", "code-resent", "code-wrong", "code-ok", "email-change",
     "already-member", "already-book", "already-continue",
     "card-on-file", "card-invalid", "card-rejected", "account-created", "card-saved", "card-change",
-    "terms-open", "agree-checked", "submit", "declined", "off-sale", "uncertain", "session-expired",
+    "terms-open", "agree-checked", "submit", "join-failed", "declined", "off-sale", "uncertain", "session-expired",
     "time-plan", "time-email", "time-code", "time-member", "time-details", "time-payment", "time-review",
     "left-plan", "left-email", "left-code", "left-member", "left-details", "left-payment", "left-review",
   ],

@@ -21,7 +21,25 @@ const STEP_NAMES: Record<string, Record<string, string>> = {
   aescape: { select: "Session", time: "Time", email: "Email", name: "Name & phone", card: "Card", confirm: "Review", booking: "Tapped Book", done: "Booked" },
   remedy_room: { select: "Opened booking", email: "Email", name: "Name & phone", card: "Card", confirm: "Review", booking: "Tapped Book", done: "Booked" },
   remedy_lounge: { select: "Opened booking", sauna: "Sauna add-on", email: "Email", name: "Name & phone", card: "Card", confirm: "Review", booking: "Tapped Book", done: "Booked" },
-  membership: { email: "Email", code: "Email code", already: "Already a member (stopped)", details: "Details", confirm: "Review", done: "Joined" },
+  // The checkout page's screens (11/23/2026). "already" and "confirm" are the old pop-up's names.
+  membership: {
+    opened: "Opened checkout",
+    plan: "Plan",
+    email: "Email",
+    code: "Code",
+    already: "Already a member (stopped)",
+    member: "Already a member (stopped)",
+    details: "Details",
+    payment: "Card",
+    confirm: "Review",
+    review: "Review",
+    done: "Joined",
+    joined: "Joined",
+    "from-booking": "Came from booking",
+    "joined-from-booking": "Joined, came from booking",
+    "from-founding": "Opened founding checkout",
+    "founding-joined": "Founding joined",
+  },
   maven: { session: "Session", time: "Time", email: "Email", card: "Card", confirm: "Review", booking: "Tapped Book", done: "Booked" },
 };
 // Screens only some guests see (saved email, members, optional add-ons); drawn quietly and left out of the drop-off
@@ -44,6 +62,98 @@ const SIDE_STEPS = new Set([
   "membership:already",
 ]);
 const BOOKING_FLOWS = ["service", "aescape", "remedy_room", "remedy_lounge", "maven"];
+
+// Membership checkout detail (flow "checkout", app/components/MembershipCheckout.tsx): event → plain label
+const CHECKOUT_GROUPS: { title: string; steps: [string, string][] }[] = [
+  {
+    title: "Button that opened the checkout",
+    steps: [
+      ["from-hero", "Top of the page"],
+      ["from-tier", "A tier card"],
+      ["from-card", "A membership card"],
+      ["from-compare", "Compare section"],
+      ["from-final", "Bottom of the page"],
+      ["from-sticky", "Sticky bar (phones)"],
+      ["from-bar", "Member bar"],
+      ["from-founding", "Founding page"],
+      ["from-membership", "Membership page"],
+      ["from-offer", "Offers page"],
+      ["from-location", "Location page"],
+      ["from-booking", "Booking flow"],
+      ["from-other", "Somewhere else"],
+      ["from-direct", "Direct link (no button)"],
+    ],
+  },
+  {
+    title: "Who they are",
+    steps: [
+      ["guest-new", "New guest (no account)"],
+      ["guest-returning", "Has an account"],
+      ["already-member", "Already a member"],
+      ["already-book", "Already a member: went to book"],
+      ["already-continue", "Already a member: bought another anyway"],
+    ],
+  },
+  {
+    title: "Email code",
+    steps: [
+      ["code-sent", "Code sent"],
+      ["code-resent", "Asked for a new code"],
+      ["code-wrong", "Wrong code entered"],
+      ["code-ok", "Code accepted"],
+      ["email-change", "Went back to change email"],
+      ["session-expired", "Confirmation expired, started over"],
+    ],
+  },
+  {
+    title: "Card",
+    steps: [
+      ["card-on-file", "Used the card on file"],
+      ["account-created", "New account + card saved"],
+      ["card-saved", "Card saved"],
+      ["card-invalid", "Card form filled in wrong"],
+      ["card-rejected", "Mindbody rejected the card"],
+      ["card-change", "Chose a different card at review"],
+    ],
+  },
+  {
+    title: "Review and join",
+    steps: [
+      ["plan-change-open", "Tapped Change plan"],
+      ["plan-switch", "Switched plan"],
+      ["terms-open", "Opened the agreement"],
+      ["agree-checked", "Ticked the agreement"],
+      ["submit", "Tapped Join"],
+      ["declined", "Card declined at join"],
+      ["off-sale", "Plan not on sale (refused)"],
+      ["uncertain", "Not confirmed yet"],
+    ],
+  },
+];
+const CHECKOUT_SCREENS: [string, string][] = [
+  ["plan", "Plan"],
+  ["email", "Email"],
+  ["code", "Code"],
+  ["member", "Already a member"],
+  ["details", "Details"],
+  ["payment", "Card"],
+  ["review", "Review"],
+];
+const TIME_BUCKETS: [string, string][] = [
+  ["under-10s", "Under 10s"],
+  ["10-30s", "10–30s"],
+  ["30-60s", "30–60s"],
+  ["1-3m", "1–3 min"],
+  ["over-3m", "Over 3 min"],
+];
+const JOIN_FAIL: Record<string, string> = {
+  card_failed: "Card declined",
+  no_card: "No card on file",
+  off_sale: "Plan not on sale",
+  in_progress: "Second tap while joining",
+  uncertain: "Mindbody didn't confirm",
+  other: "Other",
+};
 
 const time = (iso: unknown) =>
   new Date(String(iso)).toLocaleTimeString("en-US", { timeZone: "America/Denver", hour: "numeric", minute: "2-digit", second: "2-digit" });
@@ -258,8 +368,16 @@ export default function Dashboard({
   });
   const stageOf = (step: string) => BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps.find((s) => s.step === step)?.visitors || 0), 0);
   const memberStep = (step: string) => flow("membership")?.steps.find((s) => s.step === step)?.visitors || 0;
+  // Detail events from the checkout page (flow "checkout"): guests who hit one, and how often each happened
+  const checkoutGuests = (step: string) => flow("checkout")?.steps.find((s) => s.step === step)?.visitors || 0;
+  const checkoutCount = (step: string, variant?: string) =>
+    r.checkout.filter((x) => x.step === step && (variant === undefined || x.variant === variant)).reduce((n, x) => n + x.n, 0);
+  const checkoutVariants = (step: string) => r.checkout.filter((x) => x.step === step && x.n > 0).sort((a, b) => b.n - a.n);
+  // The checkout page reports "opened"; the old pop-up's first screen was its email screen
+  const memberOpened = Math.max(memberStep("opened"), memberStep("email"));
+  const memberJoined = Math.max(memberStep("joined"), memberStep("done"));
   // Page visitors are unique per page; a guest who opens two of these pages counts twice
-  const membershipPageVisitors = r.pages.filter((p) => /\/membership\/$/.test(p.page)).reduce((n, p) => n + p.visitors, 0);
+  const membershipPageVisitors = r.pages.filter((p) => /\/(founding-)?membership\/$/.test(p.page)).reduce((n, p) => n + p.visitors, 0);
   const giftPageVisitors = r.pages.filter((p) => /gift-cards\/$/.test(p.page)).reduce((n, p) => n + p.visitors, 0);
   const giftTaps = r.clickTypes.find((c) => c.type === "gift_card_purchase")?.n || 0;
   const treatmentFlows = r.funnels.filter((f) => BOOKING_FLOWS.includes(f.flow) && f.steps.length);
@@ -448,15 +566,24 @@ export default function Dashboard({
             title="Membership join"
             rows={[
               { label: "Viewed a membership page", n: membershipPageVisitors },
-              { label: "Opened join checkout", n: memberStep("email") },
-              { label: "Email code", n: memberStep("code"), side: true },
-              { label: "Already a member (stopped)", n: memberStep("already"), side: true },
-              { label: "Details", n: memberStep("details") },
-              { label: "Review", n: memberStep("confirm") },
-              { label: "Joined", n: memberStep("done"), done: true },
+              { label: "Opened checkout", n: memberOpened },
+              { label: "Came from booking", n: memberStep("from-booking"), side: true },
+              { label: "Opened founding checkout (launch spa)", n: memberStep("from-founding"), side: true },
+              { label: "Plan (no plan picked yet, or changed it)", n: memberStep("plan"), side: true },
+              { label: "Email", n: memberStep("email") },
+              { label: "Code (has an account)", n: memberStep("code"), side: true },
+              { label: "Already a member (stopped)", n: memberStep("member") + memberStep("already"), side: true },
+              { label: "Details (name and phone)", n: memberStep("details"), side: true },
+              { label: "Card (no card on file)", n: memberStep("payment"), side: true },
+              { label: "Review", n: memberStep("review") + memberStep("confirm") },
+              { label: "Joined", n: memberJoined, done: true },
+              { label: "Didn't go through (card or refusal)", n: checkoutGuests("join-failed"), side: true },
+              { label: "Not confirmed yet", n: checkoutGuests("uncertain"), side: true },
+              { label: "Joined, came from booking", n: memberStep("joined-from-booking"), side: true },
+              { label: "Founding joined (launch spa)", n: memberStep("founding-joined"), side: true },
             ]}
             confirmed={{ n: memberships, value: valueOf("membership") }}
-            finish={pct(memberships, memberStep("email"))}
+            finish={pct(memberships, memberOpened)}
           >
             {(flow("membership")?.variants.length || 0) > 0 && (
               <Options variants={flow("membership")!.variants} verb="joined" />
@@ -480,6 +607,50 @@ export default function Dashboard({
             <p className="mt-4 text-xs text-[#7a756b]">Mindbody taps are clicks, not unique guests; sales made on Mindbody&apos;s page aren&apos;t counted here.</p>
           </FunnelCard>
         </div>
+
+        {/* ===== Membership checkout, in detail (the checkout page's own events) ===== */}
+        <Detail
+          title="Membership checkout detail"
+          summary={r.checkout.length ? `${fmt(checkoutCount("submit"))} tapped Join ${when} · entry button, card trouble, time per screen, where they left` : `nothing ${when} yet`}
+        >
+          {r.checkout.length === 0 ? (
+            <Empty>No one has used the membership checkout page {when}.</Empty>
+          ) : (
+            <div className="space-y-6">
+              <p className="text-xs text-[#7a756b]">Counts are how many times each thing happened, not unique guests. Test runs (?memtest) are never counted.</p>
+              <div className="grid gap-6 md:grid-cols-2">
+                {CHECKOUT_GROUPS.map((g) => {
+                  const rows = g.steps.map(([step, label]) => [label, checkoutCount(step)] as [string, number]).filter(([, n]) => n > 0);
+                  return (
+                    <div key={g.title}>
+                      <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#7a756b]">{g.title}</p>
+                      <Table head={["", "Times"]} rows={rows.map(([label, n]) => [label, fmt(n)])} empty="None." />
+                    </div>
+                  );
+                })}
+                <div>
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#7a756b]">Card field that stopped them</p>
+                  <Table head={["Field", "Times"]} rows={checkoutVariants("card-invalid").map((x) => [x.variant || "(unknown)", fmt(x.n)])} empty="None." />
+                </div>
+                <div>
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#7a756b]">Why a join didn&apos;t go through</p>
+                  <Table head={["Reason", "Times"]} rows={checkoutVariants("join-failed").map((x) => [JOIN_FAIL[x.variant] ?? x.variant ?? "other", fmt(x.n)])} empty="None." />
+                </div>
+              </div>
+              {(["time", "left"] as const).map((kind) => (
+                <div key={kind}>
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#7a756b]">
+                    {kind === "time" ? "Time on each screen before moving on" : "Left the checkout from this screen, after this long"}
+                  </p>
+                  <Table
+                    head={["Screen", ...TIME_BUCKETS.map(([, label]) => label)]}
+                    rows={CHECKOUT_SCREENS.map(([screen, label]) => [label, ...TIME_BUCKETS.map(([b]) => fmt(checkoutCount(`${kind}-${screen}`, b)))])}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </Detail>
 
         {/* ===== Each treatment's own funnel ===== */}
         <div className="space-y-3">

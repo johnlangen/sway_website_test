@@ -109,6 +109,15 @@ for (const f of r.funnels.filter((f) => !only || f.flow === only)) {
   if (f.variants.length > 1 || only)
     for (const v of f.variants) console.log(`    option ${String(v.variant).padEnd(16)} started ${v.first}  done ${v.done}  completed ${v.completed}`);
 }
+if (only === "checkout" && r.checkout?.length) {
+  // Times each thing happened, split by its variant (the plan, the card field, or the time bucket)
+  console.log("\ncheckout detail (times it happened · by variant)");
+  const steps = [...new Set(r.checkout.map((x) => x.step))].sort();
+  for (const step of steps) {
+    const rows = r.checkout.filter((x) => x.step === step).sort((a, b) => b.n - a.n);
+    console.log(`  ${step.padEnd(18)} ${String(rows.reduce((n, x) => n + x.n, 0)).padStart(5)}   ${rows.map((x) => `${x.variant || "-"} ${x.n}`).join(" · ")}`);
+  }
+}
 if (!only) {
   console.log("\nlandings by source");
   for (const l of r.landings.slice(0, 15)) console.log(`  ${String(l.n).padStart(5)}  ${l.source} / ${l.medium}${l.campaign ? ` · ${l.campaign}` : ""}`);

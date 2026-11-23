@@ -621,6 +621,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
         ev("uncertain", data.code);
       }
       if (!res.ok) {
+        ev("join-failed", typeof data?.code === "string" ? data.code : "other");
         if (data?.code === "no_card" || data?.code === "card_failed") {
           ev("declined", data.code);
           setSavedLastFour(null);
