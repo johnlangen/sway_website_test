@@ -7,7 +7,8 @@ import { LAUNCH_SITES, LAUNCH_TIER_KEYS } from "@/lib/launchSites";
  * Founding membership checkout for Sway Union Market:
  *   /locations/union-market/founding-membership/join/?tier=essential|premier|ultimate
  * A card page: not indexed, and nothing about the guest is put in the URL. ?memtest=1 runs
- * Mindbody's no-charge test sale (works while lib/launchSites.ts salesOpen is still false).
+ * Mindbody's no-charge test sale (works whether or not lib/launchSites.ts salesOpen is true).
+ * ?memtest=1&preview=welcome opens on the welcome screen, to look at the celebration.
  */
 export const metadata: Metadata = {
   title: "Join | Founding Membership | Sway Union Market",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export default async function UnionMarketFoundingJoinPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tier?: string; memtest?: string }>;
+  searchParams: Promise<{ tier?: string; memtest?: string; preview?: string }>;
 }) {
   const site = LAUNCH_SITES["union-market"];
   if (!site) notFound();
@@ -33,6 +34,7 @@ export default async function UnionMarketFoundingJoinPage({
       tiers={site.founding.tiers}
       initialTier={tier as FoundingTier | null}
       test={q.memtest !== undefined}
+      previewWelcome={q.memtest !== undefined && q.preview === "welcome"}
       salesOpen={site.founding.salesOpen}
     />
   );

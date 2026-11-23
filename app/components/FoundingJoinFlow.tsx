@@ -23,6 +23,11 @@
  * sale. Those names are what the Launch Board's Founding Checkout funnel reads
  * (/api/ops/funnel/). The owner's follow-up list (who stopped where) is kept server-side
  * (lib/foundingCheckouts.ts). ?memtest=1 = Mindbody's no-charge test sale, and records nothing.
+ *
+ * The welcome screen celebrates (John 11/23/2026): FoundingCelebration's one burst of paper, the
+ * card landing with a sheen, the name writing itself in (.cf-* in app/editorial.css). Decoration
+ * only, off for reduced motion, nothing new to track ("founding-joined" already counts the sale).
+ * ?memtest=1&preview=welcome opens straight on that screen, to look at it without a test run.
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -31,6 +36,7 @@ import { Check, ChevronDown, Lock } from "lucide-react";
 import { trackStep, useFlowTrack } from "@/lib/ops/client";
 import { SwayCurve } from "./SwayCurve";
 import ArrowMark from "./ArrowMark";
+import FoundingCelebration from "./FoundingCelebration";
 
 export type FoundingTier = "essential" | "premier" | "ultimate";
 
@@ -58,6 +64,8 @@ export type FoundingJoinProps = {
   initialTier: FoundingTier | null;
   /** ?memtest=1: Mindbody's no-charge test sale. Nothing is recorded. */
   test: boolean;
+  /** ?memtest=1&preview=welcome: open on the welcome screen (test mode only; nothing is sent). */
+  previewWelcome?: boolean;
   /** False while the founding page still takes interest only (the checkout opens with ?memtest=1). */
   salesOpen: boolean;
 };
@@ -132,8 +140,9 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
   const { locationKey, shortName, cityLine, siteId, helpEmail, test, salesOpen } = props;
   const base = `/locations/${locationKey}`;
 
-  const [tier, setTier] = useState<FoundingTier | null>(props.initialTier);
-  const [step, setStep] = useState<Step>(props.initialTier ? "email" : "plan");
+  const previewWelcome = Boolean(props.previewWelcome && test);
+  const [tier, setTier] = useState<FoundingTier | null>(props.initialTier ?? (previewWelcome ? "essential" : null));
+  const [step, setStep] = useState<Step>(previewWelcome ? "done" : props.initialTier ? "email" : "plan");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [live, setLive] = useState<{ checkoutReady: boolean; plans: LivePlan[] } | null>(null);
@@ -540,9 +549,10 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
 
   const FounderCard = (
     <div className="relative overflow-hidden rounded-[6px] bg-[#113D33] p-6 text-[#F7F4E9] shadow-[0_22px_45px_-22px_rgba(17,61,51,0.6)] md:p-7" aria-hidden="true">
-      <SwayCurve width={220} strokeWidth={1.4} className="pointer-events-none absolute -right-10 top-6 text-[#B6CFBF]/35" />
+      <SwayCurve width={220} strokeWidth={1.4} animate={step === "done"} className="pointer-events-none absolute -right-10 top-6 text-[#B6CFBF]/35" />
+      {step === "done" && <span className="cf-sheen" />}
       <p className="sway-eyebrow text-[#B6CFBF]">{step === "done" ? "Founding member" : "Founding membership"}</p>
-      <p className="cf-title mt-8 min-h-[2.2em] break-words text-[26px] leading-tight md:text-[30px]">{fullName || "Your name here"}</p>
+      <p className={`cf-title mt-8 min-h-[2.2em] break-words text-[26px] leading-tight md:text-[30px] ${step === "done" ? "cf-name-in" : ""}`}>{fullName || "Your name here"}</p>
       <div className="mt-6 flex items-end justify-between gap-4 border-t border-[#F7F4E9]/20 pt-4">
         <div>
           <p className="text-[15px]">{shortName}</p>
@@ -816,15 +826,16 @@ export default function FoundingJoinFlow(props: FoundingJoinProps) {
 
                 {step === "done" && tier && (
                   <section>
-                    <p className="flex items-center gap-2 text-sm font-semibold text-[#2F5D50]"><Check className="h-4 w-4" aria-hidden="true" /> {test ? "Test passed. Nothing was charged and no membership was created." : "You're in."}</p>
-                    <h1 ref={headingRef} tabIndex={-1} className="cf-title mt-3 text-[38px] leading-[1.02] focus:outline-none md:text-6xl">Welcome, founding member.</h1>
-                    <div className="mt-7 max-w-sm">{FounderCard}</div>
-                    <ul className="mt-7 max-w-md space-y-3 text-base">
+                    <FoundingCelebration />
+                    <p className="cf-rise flex items-center gap-2 text-sm font-semibold text-[#2F5D50]"><Check className="h-4 w-4" aria-hidden="true" /> {previewWelcome ? "Preview of the welcome screen. Nothing was charged and no membership was created." : test ? "Test passed. Nothing was charged and no membership was created." : "You're in."}</p>
+                    <h1 ref={headingRef} tabIndex={-1} className="cf-title cf-rise mt-3 text-[38px] leading-[1.02] focus:outline-none md:text-6xl" style={{ ["--cf-d" as string]: "0.08s" }}>Welcome, founding member.</h1>
+                    <div className="cf-card-in mt-7 max-w-sm">{FounderCard}</div>
+                    <ul className="cf-rise mt-7 max-w-md space-y-3 text-base" style={{ ["--cf-d" as string]: "0.95s" }}>
                       {!test && <li className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-[#4A776D]" aria-hidden="true" />A confirmation is on its way to {normalizeEmail(email)}.</li>}
                       {plan?.startLabel && plan.fixedStart && <li className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-[#4A776D]" aria-hidden="true" />Your membership starts {plan.startLabel}. Your next charge is {plan.nextChargeLabel}.</li>}
                       <li className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-[#4A776D]" aria-hidden="true" />We&apos;ll email you as soon as booking opens.</li>
                     </ul>
-                    <Link href={`${base}/`} data-track="founding-done-back" className="sway-button mt-8">
+                    <Link href={`${base}/`} data-track="founding-done-back" className="sway-button cf-rise mt-8" style={{ ["--cf-d" as string]: "1.1s" }}>
                       Back to {shortName} <span aria-hidden="true"><ArrowMark /></span>
                     </Link>
                   </section>

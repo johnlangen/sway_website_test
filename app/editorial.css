@@ -2464,6 +2464,58 @@ body {
   font-size: 13px;
 }
 
+/* Founding checkout welcome screen (FoundingJoinFlow step "done"): the lines rise in, the
+   founder's card lands and catches the light once, the name writes itself in. Plays once.
+   Animated wrappers only, never the card's own box-shadow. */
+@keyframes cfRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cfCardIn {
+  0% { opacity: 0; transform: translateY(36px) rotate(-4deg) scale(0.92); }
+  60% { opacity: 1; transform: translateY(-4px) rotate(0.6deg) scale(1.015); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes cfSheen {
+  from { transform: translateX(-130%) skewX(-18deg); }
+  to { transform: translateX(330%) skewX(-18deg); }
+}
+@keyframes cfNameIn {
+  from { clip-path: inset(-0.2em 100% -0.2em 0); }
+  to { clip-path: inset(-0.2em -0.2em -0.2em 0); }
+}
+.club-founding .cf-rise {
+  animation: cfRise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--cf-d, 0s);
+}
+.club-founding .cf-card-in {
+  transform-origin: 30% 80%;
+  animation: cfCardIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both;
+}
+.club-founding .cf-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(247, 244, 233, 0.2), transparent);
+  animation: cfSheen 1.1s ease-out 0.95s both;
+}
+.club-founding .cf-name-in {
+  animation: cfNameIn 0.9s cubic-bezier(0.3, 0, 0.2, 1) 0.75s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .club-founding .cf-rise,
+  .club-founding .cf-card-in,
+  .club-founding .cf-name-in {
+    animation: none;
+  }
+  .club-founding .cf-sheen {
+    display: none;
+  }
+}
+
 /* Event pages: floor plans that fill up as they scroll into view (app/components/EventRoomDiagram.tsx) */
 .ce-ripple {
   opacity: 0.3;

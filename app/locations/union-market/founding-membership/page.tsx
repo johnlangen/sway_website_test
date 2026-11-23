@@ -17,6 +17,7 @@ import {
   Clock,
   Sparkles,
   ArrowDown,
+  ArrowUp,
   Trophy,
 } from "lucide-react";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
@@ -277,13 +278,23 @@ const schema = {
         "Founding member membership for Sway Union Market wellness spa in Washington, DC with exclusive pricing.",
       image: "/assets/OG/og-join-the-club.jpg",
       brand: { "@type": "Brand", name: "Sway Wellness Spa" },
-      offers: {
-        "@type": "Offer",
-        url: "https://swaywellnessspa.com/locations/union-market/founding-membership/",
-        availability: "https://schema.org/PreOrder",
-        priceCurrency: "USD",
-        price: "0",
-      },
+      offers: SALES_OPEN
+        ? {
+            "@type": "AggregateOffer",
+            url: "https://swaywellnessspa.com/locations/union-market/founding-membership/",
+            availability: "https://schema.org/PreOrder",
+            priceCurrency: "USD",
+            lowPrice: String(LAUNCH.founding.tiers.essential.price),
+            highPrice: String(LAUNCH.founding.tiers.ultimate.price),
+            offerCount: 3,
+          }
+        : {
+            "@type": "Offer",
+            url: "https://swaywellnessspa.com/locations/union-market/founding-membership/",
+            availability: "https://schema.org/PreOrder",
+            priceCurrency: "USD",
+            price: "0",
+          },
     },
   ],
 };
@@ -443,6 +454,12 @@ export default function GeorgetownFoundingMembershipPage() {
       .getElementById("reserve")
       ?.scrollIntoView({ behavior: "smooth" });
   };
+  // On sale: the page's main buttons go to the founding rates (the interest form if they
+  // haven't loaded).
+  const scrollToRates = () => {
+    (document.getElementById("founding-rates") ?? document.getElementById("reserve"))
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen font-vance bg-[#F7F4E9]">
@@ -534,14 +551,17 @@ export default function GeorgetownFoundingMembershipPage() {
             className="flex flex-col items-center gap-4"
           >
             <button
-              onClick={scrollToReserve}
+              onClick={SALES_OPEN ? scrollToRates : scrollToReserve}
+              data-track={SALES_OPEN ? "founding-hero-join" : "founding-hero-reserve"}
               className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-[#113D33] font-bold rounded-full uppercase hover:bg-[#F7F4E9] transition-all text-base md:text-lg shadow-2xl shadow-black/20"
             >
-              Reserve Your Founding Spot
+              {SALES_OPEN ? "Become a Founding Member" : "Reserve Your Founding Spot"}
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </button>
             <span className="text-xs text-white/70">
-              No charge until we open
+              {SALES_OPEN
+                ? `Founding rates from $${t.essential.price} a month`
+                : "No charge until we open"}
             </span>
           </motion.div>
         </div>
@@ -1259,8 +1279,8 @@ export default function GeorgetownFoundingMembershipPage() {
 
               {/* Consent disclosure — must match the text stored on the lead */}
               <p className="text-[11px] text-gray-400 leading-relaxed text-center">
-                {waitlistConsentText("union-market")} Membership pricing and
-                perks are not yet final.
+                {waitlistConsentText("union-market")}{" "}
+                {SALES_OPEN ? "Perks are not yet final." : "Membership pricing and perks are not yet final."}
               </p>
             </motion.form>
           )}
@@ -1359,11 +1379,16 @@ export default function GeorgetownFoundingMembershipPage() {
             they&apos;re gone.
           </p>
           <button
-            onClick={scrollToReserve}
+            onClick={SALES_OPEN ? scrollToRates : scrollToReserve}
+            data-track={SALES_OPEN ? "founding-bottom-join" : "founding-bottom-reserve"}
             className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-[#113D33] font-bold rounded-full uppercase hover:bg-[#F7F4E9] transition-all text-base md:text-lg"
           >
-            Reserve Your Spot
-            <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+            {SALES_OPEN ? "See Founding Rates" : "Reserve Your Spot"}
+            {SALES_OPEN ? (
+              <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+            ) : (
+              <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+            )}
           </button>
         </motion.div>
       </section>

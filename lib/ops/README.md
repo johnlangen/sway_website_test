@@ -87,7 +87,8 @@ website (`lib/launchSites.ts`). Page: `/locations/union-market/founding-membersh
 page. They also need the live check (`/api/membership/founding/?location=…`): the website's staff
 login must work on that Mindbody site and every contract must still match the page. The join page
 works with `?memtest=1` (Mindbody's no-charge test sale) while `salesOpen` is false: run one before
-flipping it.
+flipping it. Union Market: on sale since 11/23/2026 (test passed that morning).
+`?memtest=1&preview=welcome` opens on the welcome screen (the celebration) without a test run.
 
 **Staff login.** None of Sway Denver's logins work on a franchise-owned site. The owner adds a staff
 user for the website; its username and password go in Vercel as `MINDBODY_STAFF_USER_<siteId>` /

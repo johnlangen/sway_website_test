@@ -59,7 +59,9 @@ export const LAUNCH_SITES: Record<LaunchSiteKey, LaunchSite> = {
     timezone: "America/New_York",
     helpEmail: "contact@swaywellnessspa.com",
     founding: {
-      salesOpen: false,
+      // On sale since 11/23/2026: staff login added to this Mindbody site and John's no-charge
+      // test passed ($89 due today, starts Feb 5, 2027).
+      salesOpen: true,
       cap: 150,
       tiers: {
         essential: { contractId: 137, price: 89 },
