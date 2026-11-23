@@ -1,10 +1,15 @@
 import { Metadata } from "next";
 import OffersContent from "./OffersContent";
+import { LAUNCH_SITES } from "@/lib/launchSites";
+
+const FOUNDING = LAUNCH_SITES["union-market"].founding;
+const ON_SALE = FOUNDING.salesOpen;
 
 export const metadata: Metadata = {
   title: "Union Market Spa Offers & Founding Member Deals | Sway Wellness Spa",
-  description:
-    "Sway Union Market is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here. Check back soon!",
+  description: ON_SALE
+    ? `Sway Union Market is coming soon. Founding memberships are open now, from $${FOUNDING.tiers.essential.price} a month. Launch specials will be announced here.`
+    : "Sway Union Market is coming soon. Exclusive Founding Member offers, perks, and launch specials will be announced here. Check back soon!",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/union-market/offers/",
   },

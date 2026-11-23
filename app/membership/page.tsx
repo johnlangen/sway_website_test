@@ -53,7 +53,7 @@ const locations = [
     state: "DC",
     status: "coming-soon" as const,
     image: "/assets/SWAY.jpg",
-    href: "/locations/union-market",
+    href: "/locations/union-market/founding-membership",
   },
 ];
 

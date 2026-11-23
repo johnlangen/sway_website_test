@@ -100,9 +100,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Union Market location
      ------------------------------------------------------------------ */
   const georgetownPages = [
-    { url: `${base}/locations/union-market/`, changeFrequency: "monthly" as const, priority: 0.7 },
-    { url: `${base}/locations/union-market/membership/`, changeFrequency: "monthly" as const, priority: 0.6 },
-    { url: `${base}/locations/union-market/founding-membership/`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${base}/locations/union-market/`, lastModified: new Date("2026-11-23"), changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${base}/locations/union-market/membership/`, lastModified: new Date("2026-11-23"), changeFrequency: "monthly" as const, priority: 0.6 },
+    { url: `${base}/locations/union-market/founding-membership/`, lastModified: new Date("2026-11-23"), changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${base}/locations/union-market/enter-to-win/`, changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${base}/locations/union-market/win-a-massage-or-facial/`, changeFrequency: "weekly" as const, priority: 0.7 },
   ];

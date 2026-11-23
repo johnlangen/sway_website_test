@@ -6,6 +6,21 @@ import { ReviewBadge } from "@/app/components/GoogleReviews";
 import GoogleReviews from "@/app/components/GoogleReviews";
 import WaitlistForm from "@/app/components/WaitlistForm";
 import GiveawayBanner from "@/app/components/GiveawayBanner";
+import { LAUNCH_SITES, type LaunchTierKey } from "@/lib/launchSites";
+
+// Founding memberships are on sale on the site (lib/launchSites.ts salesOpen). While true, this
+// page leads with joining and the waitlist becomes the quiet second option. With it false, every
+// line below reads as it did before 11/23/2026.
+const FOUNDING = LAUNCH_SITES["union-market"].founding;
+const ON_SALE = FOUNDING.salesOpen;
+const FOUNDING_HREF = "/locations/union-market/founding-membership/";
+const JOIN_HREF = (tier: LaunchTierKey) => `/locations/union-market/founding-membership/join/?tier=${tier}`;
+const TIER_CARDS: { key: LaunchTierKey | "remedy"; name: string; desc: string }[] = [
+  { key: "essential", name: "Essential", desc: "Signature treatments · the perfect entry to Sway." },
+  { key: "premier", name: "Premier", desc: "Enhanced treatments and extended durations." },
+  { key: "ultimate", name: "Ultimate", desc: "Technology-infused treatments and extended durations." },
+  { key: "remedy", name: "The Remedy Room", desc: "Recovery circuit access · sauna, cold plunge, LED, and compression." },
+];
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -35,6 +50,14 @@ export default function SwayGeorgetownComingSoonPage() {
                 >
                   Coming Soon
                 </span>
+                {ON_SALE && (
+                  <span
+                    className="inline-block rounded-full px-3 py-1 text-sm shadow"
+                    style={{ backgroundColor: "#b6cfbf", color: "#113D33" }}
+                  >
+                    Founding memberships open
+                  </span>
+                )}
                 <ReviewBadge attribution="Sway Larimer in Denver" />
               </div>
 
@@ -49,9 +72,10 @@ export default function SwayGeorgetownComingSoonPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/locations/union-market/founding-membership"
+                data-track={ON_SALE ? "um-hero-founding" : "um-hero-memberships"}
                 className="inline-block bg-[#113D33] text-white px-5 py-3 rounded-full hover:opacity-90 transition"
               >
-                Explore Memberships
+                {ON_SALE ? "Become a Founding Member" : "Explore Memberships"}
               </Link>
               <Link
                 href="/treatments"
@@ -68,7 +92,43 @@ export default function SwayGeorgetownComingSoonPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <WaitlistForm location="union-market" source="location-page" variant="compact" />
+            {ON_SALE ? (
+              <div className="bg-[#113D33] text-white rounded-2xl p-6 md:p-8">
+                <p className="text-xs uppercase tracking-widest text-[#b6cfbf]">
+                  Founding membership · First {FOUNDING.cap} members
+                </p>
+                <h2 className="text-xl md:text-2xl font-bold mt-2">Founding memberships are open</h2>
+                <p className="text-sm opacity-80 mt-2">
+                  One massage or facial every month at the founding rate. Join online in about two minutes.
+                </p>
+                <ul className="mt-4 divide-y divide-white/15">
+                  {TIER_CARDS.filter((c) => c.key !== "remedy").map((c) => (
+                    <li key={c.key}>
+                      <Link
+                        href={JOIN_HREF(c.key as LaunchTierKey)}
+                        data-track={`um-hero-tier-${c.key}`}
+                        className="flex items-center justify-between gap-4 py-3.5 hover:opacity-80 transition"
+                      >
+                        <span className="font-bold">{c.name}</span>
+                        <span className="whitespace-nowrap">
+                          <span className="text-xl font-bold">${FOUNDING.tiers[c.key as LaunchTierKey].price}</span>
+                          <span className="text-xs opacity-80"> a month</span>
+                          <span aria-hidden="true" className="ml-2">&rarr;</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs opacity-80 mt-3">
+                  Your first month is charged when you join.{" "}
+                  <a href="#waitlist" data-track="um-hero-waitlist" className="underline underline-offset-2">
+                    Not ready? Join the waitlist.
+                  </a>
+                </p>
+              </div>
+            ) : (
+              <WaitlistForm location="union-market" source="location-page" variant="compact" />
+            )}
           </motion.div>
         </div>
       </section>
@@ -127,39 +187,58 @@ export default function SwayGeorgetownComingSoonPage() {
       <section className="px-6 py-16">
         <div className="max-w-4xl mx-auto">
           <motion.div {...fadeUp} className="bg-white rounded-2xl p-8 md:p-10 shadow text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Membership Tiers Coming Soon</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              {ON_SALE ? "Founding Memberships Are Open" : "Membership Tiers Coming Soon"}
+            </h2>
             <p className="text-lg mb-2">
               Three tiers · <strong>Essential</strong>, <strong>Premier</strong>, and <strong>Ultimate</strong>, plus a <strong>Remedy Room</strong> membership
             </p>
             <p className="text-sm opacity-80 mb-6 max-w-xl mx-auto">
-              Founding members will receive exclusive pricing and priority booking before Sway Union Market
-              opens. Join the waitlist to be notified when founding memberships go live.
+              {ON_SALE
+                ? `One massage or facial every month at the founding rate, for the first ${FOUNDING.cap} members. Join online in about two minutes. Remedy Room membership pricing will be announced closer to opening.`
+                : "Founding members will receive exclusive pricing and priority booking before Sway Union Market opens. Join the waitlist to be notified when founding memberships go live."}
             </p>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-left max-w-3xl mx-auto">
-              <div className="bg-[#F7F4E9] rounded-xl p-4">
-                <h3 className="font-bold text-sm mb-1">Essential</h3>
-                <p className="text-xs opacity-80">Signature treatments · the perfect entry to Sway.</p>
-              </div>
-              <div className="bg-[#F7F4E9] rounded-xl p-4">
-                <h3 className="font-bold text-sm mb-1">Premier</h3>
-                <p className="text-xs opacity-80">Enhanced treatments and extended durations.</p>
-              </div>
-              <div className="bg-[#F7F4E9] rounded-xl p-4">
-                <h3 className="font-bold text-sm mb-1">Ultimate</h3>
-                <p className="text-xs opacity-80">Technology-infused treatments and extended durations.</p>
-              </div>
-              <div className="bg-[#F7F4E9] rounded-xl p-4">
-                <h3 className="font-bold text-sm mb-1">The Remedy Room</h3>
-                <p className="text-xs opacity-80">Recovery circuit access · sauna, cold plunge, LED, and compression.</p>
-              </div>
+              {TIER_CARDS.map((c) => {
+                const price = ON_SALE && c.key !== "remedy" ? FOUNDING.tiers[c.key].price : null;
+                const inner = (
+                  <>
+                    <h3 className="font-bold text-sm mb-1">{c.name}</h3>
+                    <p className="text-xs opacity-80">{c.desc}</p>
+                    {price !== null && (
+                      <p className="mt-3 text-sm font-bold">
+                        ${price} a month <span aria-hidden="true">&rarr;</span>
+                      </p>
+                    )}
+                    {ON_SALE && c.key === "remedy" && (
+                      <p className="mt-3 text-xs opacity-80">Pricing announced closer to opening.</p>
+                    )}
+                  </>
+                );
+                return price !== null && c.key !== "remedy" ? (
+                  <Link
+                    key={c.key}
+                    href={JOIN_HREF(c.key)}
+                    data-track={`um-membership-tier-${c.key}`}
+                    className="block bg-[#F7F4E9] rounded-xl p-4 hover:bg-[#EBE4D1] transition"
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div key={c.key} className="bg-[#F7F4E9] rounded-xl p-4">
+                    {inner}
+                  </div>
+                );
+              })}
             </div>
 
             <Link
               href="/locations/union-market/founding-membership"
+              data-track={ON_SALE ? "um-membership-founding" : "um-membership-waitlist"}
               className="inline-block bg-[#113D33] text-white px-6 py-3 rounded-full hover:opacity-90 transition font-semibold"
             >
-              Join the Waitlist
+              {ON_SALE ? "Become a Founding Member" : "Join the Waitlist"}
             </Link>
           </motion.div>
         </div>
@@ -208,7 +287,9 @@ export default function SwayGeorgetownComingSoonPage() {
             {[
               {
                 q: "When is Sway Union Market opening?",
-                a: "Sway Union Market is coming soon to Washington, DC. The exact opening date will be announced here. Sign up as a Founding Member to get notified first and receive exclusive opening-day perks.",
+                a: ON_SALE
+                  ? "Sway Union Market is coming soon to Washington, DC. The exact opening date will be announced here. Founding memberships are open now, and founding members will be the first to know the date."
+                  : "Sway Union Market is coming soon to Washington, DC. The exact opening date will be announced here. Sign up as a Founding Member to get notified first and receive exclusive opening-day perks.",
               },
               {
                 q: "Where in DC will Sway Union Market be located?",
@@ -224,12 +305,19 @@ export default function SwayGeorgetownComingSoonPage() {
               },
               {
                 q: "How much are Sway Union Market memberships?",
-                a: "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
+                a: ON_SALE
+                  ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month. Your first month is charged when you join. Remedy Room membership pricing will be announced closer to opening.`
+                  : "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
               },
-              {
-                q: "Can I join the waitlist now?",
-                a: "Yes. Visit our Founding Membership page to join the waitlist. You'll be the first to know when founding memberships go live and will get priority booking and VIP perks on opening day.",
-              },
+              ON_SALE
+                ? {
+                    q: "Can I become a founding member now?",
+                    a: `Yes. Founding memberships are open to the first ${FOUNDING.cap} members, and you can join online on our Founding Membership page in about two minutes. Not ready yet? Join the waitlist and we'll keep you posted.`,
+                  }
+                : {
+                    q: "Can I join the waitlist now?",
+                    a: "Yes. Visit our Founding Membership page to join the waitlist. You'll be the first to know when founding memberships go live and will get priority booking and VIP perks on opening day.",
+                  },
               {
                 q: "Are Sway gift cards valid at the Union Market location?",
                 a: "Yes. Sway gift cards are valid at all participating Sway locations. Gift cards purchased now can be redeemed at Sway Union Market once we open in DC.",
@@ -272,6 +360,20 @@ export default function SwayGeorgetownComingSoonPage() {
         </div>
       </section>
 
+      {/* ====== WAITLIST (on sale: the second option, for guests not ready to join) ====== */}
+      {ON_SALE && (
+        <section id="waitlist" className="px-6 pb-16 scroll-mt-28">
+          <div className="max-w-md mx-auto">
+            <WaitlistForm
+              location="union-market"
+              source="location-page"
+              variant="compact"
+              blurb="Not ready to join yet? Leave your name and we'll keep you posted on opening news."
+            />
+          </div>
+        </section>
+      )}
+
       {/* ====== FINAL CTA ====== */}
       <section className="px-6 py-16 bg-[#113D33] text-white text-center">
         <div className="max-w-2xl mx-auto">
@@ -279,15 +381,17 @@ export default function SwayGeorgetownComingSoonPage() {
             Be First in DC
           </motion.h2>
           <motion.p {...fadeUp} className="mb-6 opacity-80">
-            Join the waitlist for exclusive founding member pricing and VIP access when Sway
-            Union Market opens in Washington, DC.
+            {ON_SALE
+              ? `Founding memberships are open for the first ${FOUNDING.cap} members, from $${FOUNDING.tiers.essential.price} a month, before Sway Union Market opens in Washington, DC.`
+              : "Join the waitlist for exclusive founding member pricing and VIP access when Sway Union Market opens in Washington, DC."}
           </motion.p>
           <motion.div {...fadeUp}>
             <Link
               href="/locations/union-market/founding-membership"
+              data-track={ON_SALE ? "um-final-founding" : "um-final-waitlist"}
               className="inline-block bg-white text-[#113D33] px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
             >
-              Join the Waitlist
+              {ON_SALE ? "Become a Founding Member" : "Join the Waitlist"}
             </Link>
           </motion.div>
         </div>

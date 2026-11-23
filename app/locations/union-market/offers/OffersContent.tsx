@@ -1,6 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { LAUNCH_SITES } from "@/lib/launchSites";
+
+// Founding memberships on sale (lib/launchSites.ts): they are this spa's offer until it opens.
+const FOUNDING = LAUNCH_SITES["union-market"].founding;
+const ON_SALE = FOUNDING.salesOpen;
 
 export default function OffersContent() {
   const faqJsonLd = {
@@ -20,7 +25,9 @@ export default function OffersContent() {
         "name": "Will there be Founding Member offers in Union Market?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes! Our Union Market location will feature exclusive Founding Member perks and opening offers. Details will be shared on this page."
+          "text": ON_SALE
+            ? `Yes. Founding memberships are open now for the first ${FOUNDING.cap} members, from $${FOUNDING.tiers.essential.price} a month, at swaywellnessspa.com/locations/union-market/founding-membership. Opening offers will be shared on this page.`
+            : "Yes! Our Union Market location will feature exclusive Founding Member perks and opening offers. Details will be shared on this page."
         }
       },
       {
@@ -49,7 +56,7 @@ export default function OffersContent() {
         transition={{ duration: 0.6 }}
         className="text-3xl md:text-5xl font-vance font-bold text-center mb-8"
       >
-        OFFERS · COMING SOON
+        {ON_SALE ? "FOUNDING MEMBERSHIPS · NOW OPEN" : "OFFERS · COMING SOON"}
       </motion.h1>
 
       {/* Coming Soon Card */}
@@ -60,13 +67,32 @@ export default function OffersContent() {
         className="bg-white rounded-2xl shadow-md p-8 md:p-12 max-w-xl w-full text-center"
       >
         <h2 className="text-lg md:text-xl font-vance font-bold mb-3 text-[#113D33]">
-          Founding Member Offers Coming Soon
+          {ON_SALE ? "Become a Founding Member" : "Founding Member Offers Coming Soon"}
         </h2>
-        <p className="text-sm md:text-base font-vance text-gray-800 mb-6">
-          Our <strong>Union Market, DC</strong> location is preparing to open.
-          Exclusive <strong>Founding Member perks</strong> and launch specials
-          will be posted here as we get closer to welcoming our first guests.
-        </p>
+        {ON_SALE ? (
+          <p className="text-sm md:text-base font-vance text-gray-800 mb-6">
+            Our <strong>Union Market, DC</strong> location is preparing to open.{" "}
+            <strong>Founding memberships are open now</strong> for the first {FOUNDING.cap} members,
+            from ${FOUNDING.tiers.essential.price} a month. Launch specials will be posted here as we
+            get closer to welcoming our first guests.
+          </p>
+        ) : (
+          <p className="text-sm md:text-base font-vance text-gray-800 mb-6">
+            Our <strong>Union Market, DC</strong> location is preparing to open.
+            Exclusive <strong>Founding Member perks</strong> and launch specials
+            will be posted here as we get closer to welcoming our first guests.
+          </p>
+        )}
+
+        {ON_SALE && (
+          <a
+            href="/locations/union-market/founding-membership/"
+            data-track="um-offers-founding"
+            className="inline-block bg-[#113D33] hover:opacity-90 text-white text-sm md:text-base px-6 py-3 rounded-full font-vance font-semibold transition mr-0 mb-3 md:mb-0 md:mr-3"
+          >
+            See Founding Memberships
+          </a>
+        )}
 
         <a
           href="/treatments"

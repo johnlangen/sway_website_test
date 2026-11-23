@@ -5,6 +5,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 import { ReviewBadge } from "@/app/components/GoogleReviews";
+import { LAUNCH_SITES, type LaunchTierKey } from "@/lib/launchSites";
+
+// Founding memberships on sale on the site (lib/launchSites.ts salesOpen): each tier shows its
+// founding price and a Join button. With it false the page reads as it did before 11/23/2026.
+const FOUNDING = LAUNCH_SITES["union-market"].founding;
+const ON_SALE = FOUNDING.salesOpen;
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -116,15 +122,17 @@ export default function GeorgetownMembershipPage() {
             Sway Union Market Memberships
           </h1>
           <p className="text-xl md:text-2xl font-semibold mb-3">
-            Three membership tiers · pricing announced at launch
+            {ON_SALE
+              ? `Founding memberships are open · from $${FOUNDING.tiers.essential.price} a month`
+              : "Three membership tiers · pricing announced at launch"}
           </p>
           <div className="flex justify-center mb-4">
             <ReviewBadge attribution="Sway Larimer in Denver" />
           </div>
           <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto">
-            Essential, Premier, and Ultimate tiers will be available at our
-            Washington, DC location. Join the waitlist to be first in line for
-            founding member pricing.
+            {ON_SALE
+              ? `Essential, Premier, and Ultimate founding memberships are on sale now for our Washington, DC location, for the first ${FOUNDING.cap} members. One massage or facial every month. Join online in about two minutes.`
+              : "Essential, Premier, and Ultimate tiers will be available at our Washington, DC location. Join the waitlist to be first in line for founding member pricing."}
           </p>
         </motion.div>
 
@@ -151,6 +159,12 @@ export default function GeorgetownMembershipPage() {
                   {tier.tagline}
                 </p>
                 <h2 className="text-xl md:text-2xl font-bold">{tier.name}</h2>
+                {ON_SALE && (
+                  <p className="mt-2">
+                    <span className="text-3xl font-bold">${FOUNDING.tiers[tier.key as LaunchTierKey].price}</span>
+                    <span className="text-sm text-gray-600"> a month · founding rate</span>
+                  </p>
+                )}
               </div>
 
               <p className="text-sm text-gray-600 mb-5 text-center leading-relaxed">
@@ -242,9 +256,24 @@ export default function GeorgetownMembershipPage() {
                   )}
                 </AnimatePresence>
               </div>
+
+              {ON_SALE && (
+                <Link
+                  href={`/locations/union-market/founding-membership/join/?tier=${tier.key}`}
+                  data-track={`um-membership-page-tier-${tier.key}`}
+                  className="mt-auto block text-center bg-[#113D33] text-white px-5 py-3 rounded-full font-semibold hover:opacity-90 transition"
+                >
+                  Become a founder<span className="sr-only">, {tier.name}</span>
+                </Link>
+              )}
             </motion.div>
           ))}
         </div>
+        {ON_SALE && (
+          <p className="text-center text-sm text-gray-600 -mt-6 mb-12">
+            Your first month is charged when you join. Unused treatments roll over for 12 months while you stay active.
+          </p>
+        )}
 
         {/* FAQ */}
         <motion.div className="max-w-2xl mx-auto" {...fadeUp}>
@@ -261,11 +290,13 @@ export default function GeorgetownMembershipPage() {
             </details>
             <details className="bg-white rounded-xl p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                Will there be founding member pricing?
+                {ON_SALE ? "What is the founding member rate?" : "Will there be founding member pricing?"}
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                Yes. Founding members will receive exclusive pricing before Sway Union Market opens. Join the waitlist to be notified when founding memberships become available.
+                {ON_SALE
+                  ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential, $${FOUNDING.tiers.premier.price} for Premier and $${FOUNDING.tiers.ultimate.price} for Ultimate, for the first ${FOUNDING.cap} members. Each includes one massage or facial a month. Your first month is charged when you join.`
+                  : "Yes. Founding members will receive exclusive pricing before Sway Union Market opens. Join the waitlist to be notified when founding memberships become available."}
               </p>
             </details>
             <details className="bg-white rounded-xl p-4 group">
@@ -274,7 +305,9 @@ export default function GeorgetownMembershipPage() {
                 <span className="text-lg group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed opacity-80">
-                Sway Union Market is coming soon to Washington, DC. Waitlist members will be the first to know the exact date and will get priority access.
+                {ON_SALE
+                  ? "Sway Union Market is coming soon to Washington, DC. Founding members and waitlist members will be the first to know the exact date."
+                  : "Sway Union Market is coming soon to Washington, DC. Waitlist members will be the first to know the exact date and will get priority access."}
               </p>
             </details>
           </div>
@@ -284,11 +317,14 @@ export default function GeorgetownMembershipPage() {
         <motion.div className="text-center mt-12" {...fadeUp}>
           <Link
             href="/locations/union-market/founding-membership"
+            data-track={ON_SALE ? "um-membership-page-founding" : "um-membership-page-waitlist"}
             className="inline-block bg-[#113D33] text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition"
           >
-            Join the Waitlist
+            {ON_SALE ? "See Founding Memberships" : "Join the Waitlist"}
           </Link>
-          <p className="text-sm text-gray-500 mt-3">Be first in line for founding member pricing</p>
+          <p className="text-sm text-gray-600 mt-3">
+            {ON_SALE ? `For the first ${FOUNDING.cap} members` : "Be first in line for founding member pricing"}
+          </p>
         </motion.div>
       </div>
     </div>

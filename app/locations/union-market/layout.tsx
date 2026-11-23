@@ -1,10 +1,18 @@
 import { Metadata } from "next";
 import { HideFloatingWidgets } from "@/app/components/HideFloatingWidgets";
+import { LAUNCH_SITES } from "@/lib/launchSites";
+
+// Founding memberships on sale (lib/launchSites.ts): descriptions and FAQ answers say so, matching
+// the page's visible FAQ.
+const FOUNDING = LAUNCH_SITES["union-market"].founding;
+const ON_SALE = FOUNDING.salesOpen;
+const FROM = `$${FOUNDING.tiers.essential.price}`;
 
 export const metadata: Metadata = {
   title: { absolute: "Sway Union Market | Spa & Wellness Club in Washington, DC | Coming Soon" },
-  description:
-    "Sway Wellness Spa is coming to Union Market in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
+  description: ON_SALE
+    ? `Sway Wellness Spa is coming to Union Market in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Founding memberships are open, from ${FROM} a month.`
+    : "Sway Wellness Spa is coming to Union Market in Washington, DC. Massage, facials, sauna, cold plunge, and the Remedy Room. Join the waitlist for founding member pricing.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/union-market/",
   },
@@ -26,8 +34,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sway Union Market | Spa & Wellness Club in Washington, DC | Coming Soon",
-    description:
-      "Massage, facials, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Union Market, DC. Join the waitlist for founding member pricing.",
+    description: ON_SALE
+      ? `Massage, facials, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Union Market, DC. Founding memberships are open, from ${FROM} a month.`
+      : "Massage, facials, sauna, cold plunge, and the Remedy Room. Sway Wellness Spa opening soon in Union Market, DC. Join the waitlist for founding member pricing.",
     images: ["/assets/SWAY.jpg"],
   },
   robots: { index: true, follow: true },
@@ -92,7 +101,9 @@ const faqJsonLd = {
       name: "When is Sway Union Market opening?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sway Union Market in Washington, DC is coming soon. Sign up as a Founding Member at swaywellnessspa.com/locations/union-market/founding-membership to receive early access, exclusive pricing, and opening-day perks.",
+        text: ON_SALE
+          ? "Sway Union Market in Washington, DC is coming soon. The exact opening date will be announced on this page. Founding memberships are open now at swaywellnessspa.com/locations/union-market/founding-membership, and founding members will be the first to know the date."
+          : "Sway Union Market in Washington, DC is coming soon. Sign up as a Founding Member at swaywellnessspa.com/locations/union-market/founding-membership to receive early access, exclusive pricing, and opening-day perks.",
       },
     },
     {
@@ -124,7 +135,9 @@ const faqJsonLd = {
       name: "How much are Sway Union Market memberships?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
+        text: ON_SALE
+          ? `Founding memberships are $${FOUNDING.tiers.essential.price} a month for Essential (signature treatments), $${FOUNDING.tiers.premier.price} for Premier (enhanced treatments and extended durations) and $${FOUNDING.tiers.ultimate.price} for Ultimate (technology-infused treatments and extended durations). Each includes one massage or facial a month. Your first month is charged when you join. Remedy Room membership pricing will be announced closer to opening.`
+          : "Three membership tiers will be available: Essential (signature treatments), Premier (enhanced treatments and extended durations), and Ultimate (technology-infused treatments and extended durations), plus a Remedy Room membership for recovery circuit access. Founding member pricing will be announced before we open. Join the waitlist to be notified.",
       },
     },
     {
@@ -132,7 +145,9 @@ const faqJsonLd = {
       name: "Can I become a founding member at Sway Union Market?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Founding Members receive exclusive pricing and priority booking before Sway Union Market opens. Benefits include VIP opening-day perks and guaranteed rates. Sign up at swaywellnessspa.com/locations/union-market/founding-membership.",
+        text: ON_SALE
+          ? `Yes. Founding memberships are open to the first ${FOUNDING.cap} members, and you can join online at swaywellnessspa.com/locations/union-market/founding-membership in about two minutes.`
+          : "Yes. Founding Members receive exclusive pricing and priority booking before Sway Union Market opens. Benefits include VIP opening-day perks and guaranteed rates. Sign up at swaywellnessspa.com/locations/union-market/founding-membership.",
       },
     },
     {

@@ -1075,14 +1075,15 @@ export default function GeorgetownFoundingMembershipPage() {
             className="text-center"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-[#113D33] mb-4">
-              Join the Waitlist
+              {SALES_OPEN ? "Not Ready Yet?" : "Join the Waitlist"}
             </h2>
             <p className="text-gray-600 mb-2 max-w-lg mx-auto leading-relaxed">
-              Be the first to know when founding memberships go live.
-              Pricing and perks shown above are not yet final.
+              {SALES_OPEN
+                ? "Founding memberships are open now. If you'd rather wait, leave your name and we'll keep you posted on opening news."
+                : "Be the first to know when founding memberships go live. Pricing and perks shown above are not yet final."}
             </p>
             <p className="text-sm text-[#4A776D] mb-10">
-              No commitment. We&apos;ll notify you when we&apos;re ready
+              {SALES_OPEN ? "No commitment." : "No commitment. We'll notify you when we're ready"}
             </p>
           </motion.div>
 
@@ -1109,8 +1110,9 @@ export default function GeorgetownFoundingMembershipPage() {
                 You&apos;re on the list!
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                We&apos;ll reach out with exclusive founding member details
-                before anyone else. Welcome to the Sway community.
+                {SALES_OPEN
+                  ? "We'll keep you posted on opening news. Welcome to the Sway community."
+                  : "We'll reach out with exclusive founding member details before anyone else. Welcome to the Sway community."}
               </p>
             </motion.div>
           ) : (

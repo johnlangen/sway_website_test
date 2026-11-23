@@ -26,6 +26,8 @@ type WaitlistFormProps = {
   submitLabel?: string;
   /** Full variant only: fields made for a dark green section. */
   tone?: "light" | "dark";
+  /** Compact variant: replaces the line under the heading (a launch spa already selling founding memberships). */
+  blurb?: string;
 };
 
 export default function WaitlistForm({
@@ -34,6 +36,7 @@ export default function WaitlistForm({
   variant = "compact",
   submitLabel = "Join the Waitlist",
   tone = "light",
+  blurb,
 }: WaitlistFormProps) {
   const dark = tone === "dark";
   const fullInput = dark
@@ -128,7 +131,9 @@ export default function WaitlistForm({
             : "Get Notified When We Open"}
         </h2>
         <p className="text-sm opacity-80 mb-4">
-          {CLUB_COPY[location]
+          {blurb
+            ? blurb
+            : CLUB_COPY[location]
             ? `Massage and facial treatments are coming to Sway ${CLUB_COPY[location]!.place}. Get first access to booking and launch offers.`
             : "Join the waitlist for exclusive founding member pricing before we open."}
         </p>

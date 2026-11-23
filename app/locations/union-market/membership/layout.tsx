@@ -1,9 +1,15 @@
 import { Metadata } from "next";
+import { LAUNCH_SITES } from "@/lib/launchSites";
+
+const FOUNDING = LAUNCH_SITES["union-market"].founding;
+const ON_SALE = FOUNDING.salesOpen;
+const FROM = `$${FOUNDING.tiers.essential.price}`;
 
 export const metadata: Metadata = {
   title: "Spa Memberships Union Market DC | Sway Wellness Club",
-  description:
-    "Sway Union Market spa memberships: Essential, Premier, and Ultimate tiers with massage, facials, sauna, cold plunge, and recovery. Washington, DC location coming soon. Join the waitlist for founding member pricing.",
+  description: ON_SALE
+    ? `Sway Union Market spa memberships: Essential, Premier, and Ultimate tiers with a massage or facial every month. Washington, DC location coming soon. Founding memberships are open, from ${FROM} a month.`
+    : "Sway Union Market spa memberships: Essential, Premier, and Ultimate tiers with massage, facials, sauna, cold plunge, and recovery. Washington, DC location coming soon. Join the waitlist for founding member pricing.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/union-market/membership/",
   },
@@ -11,8 +17,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://swaywellnessspa.com/locations/union-market/membership/",
     title: "Spa Memberships Union Market DC | Sway Wellness Club",
-    description:
-      "Three membership tiers, Essential, Premier, and Ultimate, at Sway Union Market in Washington, DC. Join the waitlist for founding member pricing.",
+    description: ON_SALE
+      ? `Three membership tiers, Essential, Premier, and Ultimate, at Sway Union Market in Washington, DC. Founding memberships are open, from ${FROM} a month.`
+      : "Three membership tiers, Essential, Premier, and Ultimate, at Sway Union Market in Washington, DC. Join the waitlist for founding member pricing.",
     images: [
       {
         url: "/assets/OG/og-join-the-club.jpg",
