@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     // email screen says the spa may reach out). The old pop-up never sends it, so it adds nobody.
     const launch = getLaunchSiteBySiteId(siteId);
     const spa = launch ?? (body?.followUp === true ? followUpSpaForSite(siteId) : null);
-    if (spa) after(() => noteFoundingCheckout(spa, body?.test === true, email, clients.length === 0 ? "account" : "email"));
+    if (spa) after(() => noteFoundingCheckout(spa, body?.test === true, email, clients.length === 0 ? "account" : "email", { plan: body?.plan }));
 
     if (clients.length === 0) {
       const token = await createSession({ email, siteId, mode: "new", clientIds: [] });

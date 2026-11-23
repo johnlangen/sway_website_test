@@ -3,7 +3,9 @@
 // never shown in /ops/.
 //   GET …/api/ops/founding-checkouts/?key=…[&spa=union-market]
 //   {"stages": ["email","account","payment","review","joined"],
-//    "rows": [{"spa","email","firstName","lastName","phone","startedAt","updatedAt","stage"}, ...]}
+//    "rows": [{"spa","email","firstName","lastName","phone","startedAt","updatedAt","stage","plan"}, ...]}
+// plan = the plan they were joining: "essential" / "premier" / "ultimate" (founding) or "remedy" (the
+// Remedy Room membership, not founding). null on rows from before 11/23/2026 evening, all founding.
 // CONTRACT: the same field names as the Spavia site's feed, which Atlas reads
 // (spavia-analytics-pipeline api/founding_checkouts.py). Don't rename or drop one.
 import { NextResponse } from "next/server";
@@ -25,5 +27,5 @@ export async function GET(req: Request) {
   // checkouts (kept since 11/23/2026) come back with ?spa=<slug> or ?all=1 (scripts/ops.mjs --stopped).
   const all = q.get("all") === "1";
   const rows = (await foundingCheckouts()).filter((r) => (spa ? r.spa === spa : all || isLaunchSpa(r.spa)));
-  return NextResponse.json({ stages: FOUNDING_STAGES, rows }, { headers });
+  return NextResponse.json({ stages: FOUNDING_STAGES, rows: rows.map((r) => ({ ...r, plan: r.plan ?? null })) }, { headers });
 }

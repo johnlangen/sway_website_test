@@ -438,6 +438,7 @@ export async function POST(req: Request) {
             firstName: client.FirstName ?? undefined,
             lastName: client.LastName ?? undefined,
             phone: client.MobilePhone ?? undefined,
+            plan: contract.key,
           })
         );
       }

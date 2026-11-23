@@ -334,7 +334,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
       method: "POST",
       headers: { "Content-Type": "application/json" },
       keepalive: true,
-      body: JSON.stringify({ stage, firstName: firstName.trim(), lastName: lastName.trim(), phone: mobilePhone.trim(), test }),
+      body: JSON.stringify({ stage, firstName: firstName.trim(), lastName: lastName.trim(), phone: mobilePhone.trim(), test, plan: planRef.current ?? undefined }),
     }).catch(() => {});
   };
   const go = (next: Step) => {
@@ -355,7 +355,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
 
   /* ── email → code ─────────────────────────────────────────────── */
   async function requestCode(address: string): Promise<"new" | "code_sent" | null> {
-    const res = await post("/api/membership/verify/start", { email: address, test, followUp: cfg.followUp });
+    const res = await post("/api/membership/verify/start", { email: address, test, followUp: cfg.followUp, plan: planRef.current ?? undefined });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       if (data?.code === "cooldown" && typeof data?.retryAfter === "number") setResendIn(data.retryAfter);
@@ -439,7 +439,7 @@ export default function MembershipCheckout({ config: cfg, initialPlan, test, pre
     if (digits.length !== 6) return fail("Please enter the 6-digit code from your email.");
     setLoading(true);
     try {
-      const res = await post("/api/membership/verify/confirm", { email: normalizeEmail(email), code: digits, test, followUp: cfg.followUp });
+      const res = await post("/api/membership/verify/confirm", { email: normalizeEmail(email), code: digits, test, followUp: cfg.followUp, plan: planRef.current ?? undefined });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         ev("code-wrong");

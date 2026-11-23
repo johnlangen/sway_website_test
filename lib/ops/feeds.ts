@@ -17,6 +17,29 @@ export const FOUNDING_SIDE_STEPS = ["member"];
 /** Membership-flow variants (plan keys) that are NOT founding: a launch site's Remedy Room membership. */
 const NOT_FOUNDING_VARIANTS = new Set(["remedy"]);
 
+/**
+ * The Remedy Room membership's checkout at a launch site, as its OWN flow in the feed ("remedy"),
+ * so Atlas can show it beside the founding checkout without mixing the two (Atlas, 11/23/2026).
+ * Its screens are the membership flow's steps recorded under variant "remedy"; which page sent the
+ * guest is the checkout-detail flow's from-* steps under the same variant.
+ */
+export const REMEDY_FLOW = "remedy";
+export const REMEDY_STEPS = ["opened", "email", "code", "details", "payment", "review", "joined"];
+export const REMEDY_SOURCE_STEPS = ["from-location", "from-membership", "from-founding", "from-direct", "from-other"];
+
+/**
+ * Pure: which feed row one recorded step field ("flow|spa|step|variant") belongs to, or null.
+ * `from` is the flow it was recorded under (the unique-guest sketch is keyed by it).
+ */
+export function feedRowFor(field: string, spas: Set<string>): { flow: string; spa: string; step: string; from: string; variant: string } | null {
+  const [flow, spa, step, variant = ""] = field.split("|");
+  if (!spas.has(spa) || !step) return null;
+  const v = variant || "-";
+  if (flow === "membership") return NOT_FOUNDING_VARIANTS.has(variant) ? { flow: REMEDY_FLOW, spa, step, from: flow, variant: v } : { flow, spa, step, from: flow, variant: v };
+  if (flow === "checkout" && variant === "remedy" && step.startsWith("from-")) return { flow: REMEDY_FLOW, spa, step, from: flow, variant: v };
+  return null;
+}
+
 const MAX_DAYS = 120; // the unique-visitor sketches are kept 120 days
 
 function redis(): Redis | null {
@@ -45,29 +68,28 @@ export async function launchFunnelRows(days: string[]): Promise<FunnelRow[]> {
   const p = r.pipeline();
   for (const d of days) p.hgetall(`${OPS_PREFIX}steps:${d}`);
   const hashes = (await p.exec()) as (Record<string, unknown> | null)[];
-  // day|spa|step -> the variants (tiers) it was recorded under: one sketch per variant
+  // day|flow|spa|step -> the sketches it was recorded under (one per variant): "membership" rows are
+  // the founding checkout (every variant except the Remedy Room's), "remedy" rows are the Remedy
+  // Room membership's checkout (feedRowFor above).
   const combos = new Map<string, Set<string>>();
   hashes.forEach((h, i) => {
     for (const field of Object.keys(h ?? {})) {
-      const [flow, spa, step, variant] = field.split("|");
-      if (flow !== "membership" || !spas.has(spa) || !step || NOT_FOUNDING_VARIANTS.has(variant)) continue;
-      const k = `${days[i]}|${spa}|${step}`;
+      const row = feedRowFor(field, spas);
+      if (!row) continue;
+      const k = `${days[i]}|${row.flow}|${row.spa}|${row.step}`;
       if (!combos.has(k)) combos.set(k, new Set());
-      combos.get(k)!.add(variant || "-");
+      combos.get(k)!.add(`${OPS_PREFIX}sv:${days[i]}:${row.from}:${row.spa}:${row.step}:${row.variant}`);
     }
   });
   if (!combos.size) return [];
   const keys = [...combos.keys()];
   const q = r.pipeline();
-  for (const k of keys) {
-    const [day, spa, step] = k.split("|");
-    q.pfcount(...([...combos.get(k)!].map((v) => `${OPS_PREFIX}sv:${day}:membership:${spa}:${step}:${v}`) as [string, ...string[]]));
-  }
+  for (const k of keys) q.pfcount(...([...combos.get(k)!] as [string, ...string[]]));
   const counts = (await q.exec()) as unknown[];
   return keys
     .map((k, i) => {
-      const [day, spa, step] = k.split("|");
-      return { day, spa, flow: "membership", step, guests: Number(counts[i]) || 0 };
+      const [day, flow, spa, step] = k.split("|");
+      return { day, spa, flow, step, guests: Number(counts[i]) || 0 };
     })
     .filter((row) => row.guests > 0);
 }
@@ -81,13 +103,18 @@ export type FoundingSale = {
   clientContractId?: string;
   amount: number;
   plan?: string;
-  founding: true;
+  /** true = a founding membership. false = the launch site's Remedy Room membership (plan "remedy"). */
+  founding: boolean;
   buyerEmailHash?: string;
   membershipStart?: string;
   attribution: { first?: LedgerRow["first"]; last?: LedgerRow["last"] };
 };
 
-/** Founding memberships the website sold at the launch sites (from the completion ledger). */
+/**
+ * Memberships the website sold at the launch sites (from the completion ledger): founding ones
+ * (founding: true) and, since 11/23/2026, the Remedy Room membership (founding: false, plan
+ * "remedy"). Founding counts must filter on founding === true.
+ */
 export async function foundingSales(days: string[]): Promise<FoundingSale[]> {
   const r = redis();
   if (!r || !days.length) return [];
@@ -104,7 +131,8 @@ export async function foundingSales(days: string[]): Promise<FoundingSale[]> {
         continue;
       }
       const site = LAUNCH_SITES[row?.location as keyof typeof LAUNCH_SITES];
-      if (!site || row.flow !== "membership" || row.extra?.founding !== true) continue;
+      const isFounding = row.extra?.founding === true;
+      if (!site || row.flow !== "membership" || !(isFounding || row.extra?.plan === "remedy")) continue;
       const str = (v: unknown) => (typeof v === "string" && v ? v : undefined);
       out.push({
         at: row.at,
@@ -115,7 +143,7 @@ export async function foundingSales(days: string[]): Promise<FoundingSale[]> {
         ...(row.ref ? { clientContractId: row.ref } : {}),
         amount: typeof row.value === "number" ? row.value : 0,
         ...(str(row.extra?.plan) ? { plan: str(row.extra?.plan) } : {}),
-        founding: true,
+        founding: isFounding,
         ...(str(row.extra?.buyerEmailHash) ? { buyerEmailHash: str(row.extra?.buyerEmailHash) } : {}),
         ...(str(row.extra?.start) ? { membershipStart: str(row.extra?.start) } : {}),
         attribution: { ...(row.first ? { first: row.first } : {}), ...(row.last ? { last: row.last } : {}) },

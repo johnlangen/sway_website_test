@@ -50,6 +50,10 @@ export type FoundingCheckout = {
   startedAt: string;
   updatedAt: string;
   stage: FoundingStage;
+  /** The plan they were joining: a founding tier ("essential" / "premier" / "ultimate") or "remedy"
+   *  (a launch site's Remedy Room membership, which is not founding). Missing on rows written
+   *  before 11/23/2026 evening, when every launch-site checkout was a founding one. */
+  plan?: string;
 };
 
 const KEY = "sway:founding-checkouts:v1";
@@ -61,6 +65,8 @@ function redis(): Redis | null {
 }
 
 const clean = (v: unknown, max = 80) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+/** A plan key as the checkout names it (lib/membershipOffers.ts CheckoutPlan.key), or "". */
+const cleanPlan = (v: unknown) => (typeof v === "string" && /^[a-z0-9_-]{1,40}$/.test(v) ? v : "");
 
 /** Pure merge: the record after a guest reaches `stage`. */
 export function mergeFoundingCheckout(
@@ -68,9 +74,18 @@ export function mergeFoundingCheckout(
   spa: string,
   email: string,
   stage: FoundingStage,
-  who: { firstName?: string; lastName?: string; phone?: string },
+  who: { firstName?: string; lastName?: string; phone?: string; plan?: string },
   now: string
 ): FoundingCheckout {
+  const plan = cleanPlan(who.plan);
+  // Someone who already joined and is now in the checkout for a DIFFERENT membership (a founder
+  // adding the Remedy Room membership) is a new checkout: start the record over, so they show as
+  // stopped on the new plan instead of "joined" on it. Their name and phone carry over. A joined
+  // row with no plan predates the Remedy Room checkout, so it was a founding tier: only "remedy"
+  // is known to be different from it.
+  const another =
+    !!old && old.stage === "joined" && stage !== "joined" && !!plan && (old.plan ? plan !== old.plan : plan === "remedy");
+  if (old && another) old = { ...old, stage, startedAt: now };
   const furthest = old && FOUNDING_STAGES.indexOf(old.stage) > FOUNDING_STAGES.indexOf(stage) ? old.stage : stage;
   const firstName = clean(who.firstName) || old?.firstName;
   const lastName = clean(who.lastName) || old?.lastName;
@@ -84,6 +99,7 @@ export function mergeFoundingCheckout(
     startedAt: old?.startedAt || now,
     updatedAt: now,
     stage: furthest,
+    ...(plan || old?.plan ? { plan: plan || old?.plan } : {}),
   };
 }
 
@@ -92,7 +108,7 @@ export async function noteFoundingCheckout(
   test: boolean,
   email: string | undefined | null,
   stage: FoundingStage,
-  who: { firstName?: string; lastName?: string; phone?: string } = {}
+  who: { firstName?: string; lastName?: string; phone?: string; plan?: string } = {}
 ) {
   const address = clean(email, 200).toLowerCase();
   // Real guests on the real site only: previews and local runs never write to the owner's list.

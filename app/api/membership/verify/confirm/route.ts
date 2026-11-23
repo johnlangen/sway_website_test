@@ -67,6 +67,7 @@ export async function POST(req: Request) {
           firstName: primary?.firstName,
           lastName: primary?.lastName,
           phone: primary?.mobilePhone,
+          plan: body?.plan,
         })
       );
     }

@@ -33,6 +33,7 @@ export async function POST(req: Request) {
         firstName: str(body.firstName),
         lastName: str(body.lastName),
         phone: str(body.phone),
+        plan: str(body.plan),
       })
     );
   } catch {

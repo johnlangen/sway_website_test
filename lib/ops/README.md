@@ -175,10 +175,16 @@ founding, so it is kept out of everything founding:
   which page sent them). Read with `node scripts/ops.mjs --funnel membership --loc union-market`.
   It never sends `from-founding` / `founding-joined` in the membership flow.
 - Sale: ledger row `item: "remedy"`, `extra.founding: false`, `extra.plan: "remedy"`, `extra.start`.
-- Atlas's Launch Board: `/api/ops/funnel/` leaves out variant `remedy` and `/api/ops/sales/` only
-  returns `extra.founding === true`, so the founding funnel and the 150 count never include it.
-  A guest who stops partway IS on the follow-up list (`/api/ops/founding-checkouts/`), which does
-  not record the plan.
+- Atlas's Launch Board (feeds, additive since 11/23 evening; founding rows are unchanged):
+  - `/api/ops/funnel/`: the Remedy Room checkout is its own flow, `"flow":"remedy"`, never mixed
+    into `"flow":"membership"` (founding). Screens in `steps.remedy` (opened, email, code, details,
+    payment, review, joined), which page sent the guest in `sourceSteps.remedy` (from-location,
+    from-membership, from-founding, from-direct, from-other).
+  - `/api/ops/sales/`: Remedy Room sales come back with `"founding":false,"plan":"remedy"`; founding
+    sales stay `"founding":true`. Founding counts filter on `founding === true`.
+  - `/api/ops/founding-checkouts/`: every row has `plan` ("essential" / "premier" / "ultimate" /
+    "remedy", or null on rows from before plans were recorded, all founding). A founder who later
+    starts the Remedy Room checkout becomes a new row on "remedy" rather than "joined" on it.
 
 At opening: the owner switches contract 102 back to "on the sale date" in Mindbody. Before
 `remedyRoom.opens` (lib/launchSites.ts) the site sells it only while it carries a fixed start date,

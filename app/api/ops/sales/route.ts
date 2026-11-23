@@ -3,8 +3,9 @@
 // emails: the buyer's email is a sha256 hash, to match a founder to the spa's interest list.
 //   GET …/api/ops/sales/?key=…&from=2026-11-23&to=2026-11-30   (America/Denver days, max 120)
 //   {"sales":[{"at","day","flow":"membership","spa","siteId","clientContractId","amount","plan",
-//              "founding":true,"buyerEmailHash","membershipStart","attribution":{"first","last"}}]}
-// Launch-site founding sales ONLY (not Larimer or club joins).
+//              "founding":true|false,"buyerEmailHash","membershipStart","attribution":{"first","last"}}]}
+// Launch-site sales ONLY (not Larimer or club joins): founding memberships (founding true) and the
+// Remedy Room membership (founding false, plan "remedy"). Founding counts filter on founding === true.
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { OPS_COOKIE, opsKeyMatches } from "@/lib/ops/report";

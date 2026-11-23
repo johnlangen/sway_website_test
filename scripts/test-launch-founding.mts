@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import { checkFoundingContract, longDate, monthAfter, termsToPlainText } from "../lib/launchFounding";
 import { mergeFoundingCheckout } from "../lib/foundingCheckouts";
-import { feedDays } from "../lib/ops/feeds";
+import { feedDays, feedRowFor } from "../lib/ops/feeds";
 import { LAUNCH_SITES, LAUNCH_TIER_KEYS, launchPlanForContract, launchPlanPrice, launchTierForContract, launchToday, type LaunchPlanKey } from "../lib/launchSites";
 
 let n = 0;
@@ -171,6 +171,38 @@ ok("the follow-up list keeps the furthest screen and fills in the name", () => {
   assert.equal(c.firstName, "Ada");
   assert.equal(c.updatedAt, "2026-11-24T09:00:00.000Z");
   assert.equal(mergeFoundingCheckout(c, "union-market", "a@b.co", "joined", {}, "x").stage, "joined");
+});
+ok("the follow-up list records the plan, and a founder who starts the Remedy Room checkout is a new checkout", () => {
+  const a = mergeFoundingCheckout(undefined, "union-market", "a@b.co", "email", { plan: "essential" }, "2026-11-23T10:00:00.000Z");
+  assert.equal(a.plan, "essential");
+  // a later note without a plan keeps it; a switch of tier follows the guest
+  assert.equal(mergeFoundingCheckout(a, "union-market", "a@b.co", "payment", {}, "t").plan, "essential");
+  assert.equal(mergeFoundingCheckout(a, "union-market", "a@b.co", "payment", { plan: "premier" }, "t").plan, "premier");
+  assert.equal(mergeFoundingCheckout(a, "union-market", "a@b.co", "payment", { plan: "not a plan!" }, "t").plan, "essential");
+  // joined founding, then the Remedy Room checkout: the record restarts on "remedy", it is not "joined" on it
+  const joined = mergeFoundingCheckout(a, "union-market", "a@b.co", "joined", { firstName: "Ada", plan: "essential" }, "2026-11-23T10:10:00.000Z");
+  const remedy = mergeFoundingCheckout(joined, "union-market", "a@b.co", "email", { plan: "remedy" }, "2026-11-24T09:00:00.000Z");
+  assert.deepEqual([remedy.plan, remedy.stage, remedy.startedAt, remedy.firstName], ["remedy", "email", "2026-11-24T09:00:00.000Z", "Ada"]);
+  assert.equal(mergeFoundingCheckout(remedy, "union-market", "a@b.co", "joined", { plan: "remedy" }, "t").stage, "joined");
+  // a joined row from before plans were recorded (founding): only "remedy" restarts it
+  const old = { spa: "union-market", email: "a@b.co", startedAt: "s", updatedAt: "u", stage: "joined" as const };
+  assert.deepEqual([mergeFoundingCheckout(old, "union-market", "a@b.co", "email", { plan: "essential" }, "t").stage, mergeFoundingCheckout(old, "union-market", "a@b.co", "email", { plan: "remedy" }, "t").stage], ["joined", "email"]);
+  // the same plan again after joining stays joined
+  assert.equal(mergeFoundingCheckout(joined, "union-market", "a@b.co", "email", { plan: "essential" }, "t").stage, "joined");
+});
+ok("the Launch Board funnel keeps founding and the Remedy Room checkout in separate flows", () => {
+  const spas = new Set(["union-market"]);
+  const row = (f: string) => { const r = feedRowFor(f, spas); return r ? `${r.flow}/${r.step}/${r.from}/${r.variant}` : null; };
+  assert.equal(row("membership|union-market|email|essential"), "membership/email/membership/essential");
+  assert.equal(row("membership|union-market|from-founding|premier"), "membership/from-founding/membership/premier");
+  assert.equal(row("membership|union-market|opened|"), "membership/opened/membership/-");
+  assert.equal(row("membership|union-market|email|remedy"), "remedy/email/membership/remedy"); // its own flow
+  assert.equal(row("membership|union-market|joined|remedy"), "remedy/joined/membership/remedy");
+  assert.equal(row("checkout|union-market|from-location|remedy"), "remedy/from-location/checkout/remedy"); // which page sent them
+  assert.equal(row("checkout|union-market|from-founding|essential"), null); // founding detail stays out of the feed, as before
+  assert.equal(row("checkout|union-market|code-sent|remedy"), null);
+  assert.equal(row("membership|denver-larimer|email|remedy"), null); // launch sites only
+  assert.equal(row("service|union-market|done|x"), null);
 });
 ok("feed day ranges are inclusive, capped and never in the future", () => {
   assert.deepEqual(feedDays("2026-11-21", "2026-11-23", "2026-11-23"), ["2026-11-21", "2026-11-22", "2026-11-23"]);
