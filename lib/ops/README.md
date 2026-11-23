@@ -100,6 +100,20 @@ was name and card on one screen, now `details` then `payment`. Compare funnels a
 with that in mind. GA4: the same `membership_*` dataLayer events as before (they have GTM tags),
 now with `membership_checkout: "page"`; the `checkout` detail events are first-party only.
 
+## Booking and gift card detail (11/23/2026, to match the Spavia monitor)
+
+Every booking flow has one extra line, `useBookingDetail(flow, { step, cardContext, lookup })`
+(`lib/ops/client.ts`). It watches state the flow already holds and records, in the SAME flow:
+`guest-new`, `card-needed` (has an account, no card), `member-found`, `member-missing`, `accounts`
+(more than one account on the email), `card-on-file`, `card-new`, `book-failed` (variant `error`, or
+`sent-to-select` when the time filled up) and `back` (variant = the screen left). The gift checkout
+records `result-purchased|pending|unconfirmed|released`, again if a pending purchase settles while
+the guest is still on the page. On /ops/ these are the side rows of the Booking, per-treatment and
+Gift card cards. A new booking flow needs `useFlowTrack` AND `useBookingDetail`.
+
+Sway has no email code, policy checkbox or "checking time" screen in booking, so the Spavia
+monitor's Code, Ticked the policy and Checking time rows have nothing to count here.
+
 ## Launch-site founding checkout (Union Market, 11/23/2026)
 
 A Sway spa that isn't open yet but has its own Mindbody site sells founding memberships on the

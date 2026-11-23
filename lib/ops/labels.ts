@@ -15,10 +15,12 @@ export const FLOW_NAMES: Record<string, string> = {
 export const FLOW_STEPS: Record<string, string[]> = {
   service: ["welcome", "category", "treatment", "boosts", "time", "account", "name", "confirm", "booking", "done",
     // Larimer appointment waitlist (full day): offered → start → its own account/confirm steps → joined
-    "waitlist-offered", "waitlist-start", "wl-account", "wl-name", "wl-confirm", "wl-booking", "waitlisted"],
-  aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done"],
-  remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done"],
-  remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done"],
+    "waitlist-offered", "waitlist-start", "wl-account", "wl-name", "wl-confirm", "wl-booking", "waitlisted",
+    // "Become a member" taps inside booking, then the detail events (lib/ops/client.ts useBookingDetail)
+    "join-welcome", "join-click", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
+  aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
+  remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
+  remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
   // Membership checkout PAGE (app/components/MembershipCheckout.tsx; every membership since
   // 11/23/2026): opened → plan → email → code → (member) → details → payment → review → done, and
   // "joined" on a real sale. "already" and "confirm" are the old pop-up's names for member and
@@ -42,7 +44,8 @@ export const FLOW_STEPS: Record<string, string[]> = {
   ],
   maven: ["session", "time", "email", "card", "confirm", "booking", "done"],
   lead: [],
-  gift: ["gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done"],
+  gift: ["loading", "gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done",
+    "result-purchased", "result-pending", "result-unconfirmed", "result-released"],
 };
 
 export const LOCATION_NAMES: Record<string, string> = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useFlowTrack, trackStep } from "@/lib/ops/client";
+import { useFlowTrack, useBookingDetail, trackStep } from "@/lib/ops/client";
 import { treatmentImage } from "@/lib/treatmentImages";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
@@ -1168,6 +1168,8 @@ export default function NewBookingFlow() {
     error,
     selectedTreatment ? TIER_PRICING[selectedTreatment.tier].dropIn + selectedBoosts.reduce((sum, b) => sum + parseInt(b.dropInPrice.replace("$", ""), 10), 0) : undefined
   );
+  // Detail for the dashboard's Booking card (who they are, saved card or new, failed Book taps, going back). Watches state only.
+  useBookingDetail("service", { step, cardContext, lookup: welcomeResult, variant: selectedTreatment ? `${category}-${selectedTreatment.id}` : category });
 
   /* Waitlist offer seen: once per treatment + date + specialist the card is shown for. Same
      condition as the card on the time step. */

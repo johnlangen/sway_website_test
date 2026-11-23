@@ -10,7 +10,7 @@
  * card is kept in this component's state.
  */
 import { useEffect, useRef, useState } from "react";
-import { useFlowTrack } from "@/lib/ops/client";
+import { trackStep, useFlowTrack } from "@/lib/ops/client";
 import { defaultGiftAmount, giftAmountOptions } from "@/lib/giftCards/amounts";
 import { GIFT_ACTIVATION_NOTICE, GIFT_CARD_TERMS, MAX_GIFT } from "@/lib/giftCards/terms";
 import { giftDate, giftDeliveryLabel, lastGiftDate, nextDay } from "@/lib/giftCards/schedule";
@@ -87,6 +87,11 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
   const product = products.find((p) => p.id === details.productId);
   const value = product ? (product.custom ? details.amount : product.value) : 0;
   useFlowTrack("gift", step, product ? String(product.custom ? "custom" : product.id) : null, error, step === "done" && result?.state === "purchased" ? result.amount : undefined);
+  // How the purchase ended: purchased, pending, unconfirmed or released. Counted again if a pending
+  // purchase settles while the guest is still on the page. Tracking only.
+  useEffect(() => {
+    if (step === "done" && result?.state) trackStep("gift", `result-${result.state}`);
+  }, [step, result?.state]);
 
   async function api<T>(action: string, data: Record<string, unknown> = {}): Promise<T> {
     let r: Response;

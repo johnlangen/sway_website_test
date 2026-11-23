@@ -62,6 +62,30 @@ const SIDE_STEPS = new Set([
   "membership:already",
 ]);
 const BOOKING_FLOWS = ["service", "aescape", "remedy_room", "remedy_lounge", "maven"];
+// Things that happen to some guests inside a booking flow (lib/ops/client.ts useBookingDetail, and the
+// "Become a member" taps). Side rows on every booking card, never part of the drop-off.
+const BOOKING_DETAIL: Record<string, string> = {
+  "join-welcome": "Tapped Become a member",
+  "join-click": "Tapped Join membership",
+  "guest-new": "New guest (no account)",
+  "card-needed": "Has an account, no card",
+  "member-found": "Member found",
+  "member-missing": "Member not found",
+  accounts: "Choose account",
+  "card-on-file": "Card on file",
+  "card-new": "Entered a new card",
+  "book-failed": "Didn't go through",
+  back: "Went back a screen",
+  "waitlist-offered": "Saw the waitlist offer",
+  "waitlist-start": "Started the waitlist",
+  "wl-account": "Waitlist: email",
+  "wl-name": "Waitlist: name",
+  "wl-confirm": "Waitlist: review",
+  "wl-booking": "Waitlist: tapped Join",
+  waitlisted: "Joined the waitlist",
+};
+const stepName = (flow: string, step: string) => STEP_NAMES[flow]?.[step] || (BOOKING_FLOWS.includes(flow) ? BOOKING_DETAIL[step] : "") || step;
+const isSide = (flow: string, step: string) => SIDE_STEPS.has(`${flow}:${step}`) || (BOOKING_FLOWS.includes(flow) && step in BOOKING_DETAIL);
 
 // Membership checkout detail (flow "checkout", app/components/MembershipCheckout.tsx): event → plain label
 const CHECKOUT_GROUPS: { title: string; steps: [string, string][] }[] = [
@@ -367,6 +391,9 @@ export default function Dashboard({
     return d >= r.range.from && d <= day;
   });
   const stageOf = (step: string) => BOOKING_FLOWS.reduce((n, f) => n + (flow(f)?.steps.find((s) => s.step === step)?.visitors || 0), 0);
+  const stepOf = (f: string, step: string) => flow(f)?.steps.find((s) => s.step === step)?.visitors || 0;
+  // Aescape, the Remedy Room, the Remedy Lounge and the Maven page sell one thing: opening them IS choosing the treatment
+  const singleProductStarts = ["aescape", "remedy_room", "remedy_lounge", "maven"].reduce((n, f) => n + (flow(f)?.steps[0]?.visitors || 0), 0);
   const memberStep = (step: string) => flow("membership")?.steps.find((s) => s.step === step)?.visitors || 0;
   // Detail events from the checkout page (flow "checkout"): guests who hit one, and how often each happened
   const checkoutGuests = (step: string) => flow("checkout")?.steps.find((s) => s.step === step)?.visitors || 0;
@@ -555,9 +582,22 @@ export default function Dashboard({
             note="All treatments together"
             rows={[
               { label: "Opened booking", n: started },
+              { label: "Tapped Become a member", n: stageOf("join-welcome"), side: true },
+              { label: "Treatment", n: stageOf("treatment") + singleProductStarts },
+              { label: "Boosts or add-ons", n: stageOf("boosts") + stageOf("sauna"), side: true },
+              { label: "Time", n: stageOf("time") + stepOf("remedy_room", "select") + stepOf("remedy_lounge", "select") },
+              { label: "Email", n: stageOf("account") + stageOf("email"), side: true },
+              { label: "New guest (no account)", n: stageOf("guest-new"), side: true },
+              { label: "Member not found", n: stageOf("member-missing"), side: true },
+              { label: "Tapped Join membership", n: stageOf("join-click"), side: true },
+              { label: "Choose account", n: stageOf("accounts"), side: true },
+              { label: "Card on file", n: stageOf("card-on-file"), side: true },
+              { label: "Entered a new card", n: stageOf("card-new"), side: true },
               { label: "Review", n: stageOf("confirm") },
               { label: "Tapped Book", n: stageOf("booking") },
               { label: "Booked", n: stageOf("done"), done: true },
+              { label: "Didn't go through", n: stageOf("book-failed"), side: true },
+              { label: "Went back a screen", n: stageOf("back"), side: true },
             ]}
             confirmed={{ n: bookings, value: bookedValue }}
             finish={pct(bookings, started)}
@@ -593,12 +633,18 @@ export default function Dashboard({
             title="Gift card checkout"
             rows={[
               { label: "Viewed a gift card page", n: giftPageVisitors },
-              { label: "Opened checkout", n: giftStep("gift") },
-              { label: "Personalized", n: giftStep("delivery") },
-              { label: "Verified email", n: Math.max(giftStep("profiles") + giftStep("profile"), giftStep("payment")) },
-              { label: "New guest account", n: giftStep("profile"), side: true },
+              { label: "Opened", n: Math.max(giftStep("loading"), giftStep("gift")) },
+              { label: "Amount", n: giftStep("gift") },
+              { label: "Delivery", n: giftStep("delivery") },
+              { label: "Email", n: giftStep("email"), side: true },
+              { label: "Code", n: giftStep("code"), side: true },
+              { label: "Choose account", n: giftStep("profiles"), side: true },
+              { label: "Profile (new guest)", n: giftStep("profile"), side: true },
+              { label: "Payment", n: giftStep("payment") },
               { label: "Review", n: giftStep("review") },
-              { label: "Purchased", n: giftStep("done"), done: true },
+              { label: "Purchased", n: Math.max(giftStep("result-purchased"), giftStep("done") - giftStep("result-pending") - giftStep("result-unconfirmed") - giftStep("result-released")), done: true },
+              { label: "Not confirmed yet", n: giftStep("result-pending") + giftStep("result-unconfirmed"), side: true },
+              { label: "Didn't go through (released)", n: giftStep("result-released"), side: true },
               { label: "Tapped Buy on Mindbody instead", n: giftTaps, side: true },
             ]}
             confirmed={{ n: gifts, value: valueOf("gift") }}
@@ -666,13 +712,13 @@ export default function Dashboard({
                   key={f.flow}
                   title={FLOW_NAMES[f.flow] ?? f.flow}
                   rows={f.steps.map((s) => ({
-                    label: STEP_NAMES[f.flow]?.[s.step] || s.step,
+                    label: stepName(f.flow, s.step),
                     n: s.visitors,
-                    side: SIDE_STEPS.has(`${f.flow}:${s.step}`),
+                    side: isSide(f.flow, s.step),
                     done: s.step === "done",
                   }))}
                   confirmed={{ n: f.completed, value: f.bookedValue }}
-                  finish={pct(f.completed, f.steps.find((s) => !SIDE_STEPS.has(`${f.flow}:${s.step}`))?.visitors || 0)}
+                  finish={pct(f.completed, f.steps.find((s) => !isSide(f.flow, s.step))?.visitors || 0)}
                 >
                   {f.variants.length > 1 || (f.variants[0] && f.variants[0].variant !== "-") ? <Options variants={f.variants} verb="booked" /> : null}
                 </FunnelCard>
@@ -736,7 +782,7 @@ export default function Dashboard({
                 <li key={i} className="flex gap-4 py-2 text-sm">
                   <span className="w-8 shrink-0 text-right font-semibold tabular-nums">{e.n}</span>
                   <span className="w-48 shrink-0 text-[#7a756b]">
-                    {FLOW_NAMES[e.flow] ?? e.flow} · {STEP_NAMES[e.flow]?.[e.step] || e.step}
+                    {FLOW_NAMES[e.flow] ?? e.flow} · {stepName(e.flow, e.step)}
                     {!loc && e.location ? ` · ${locName(e.location)}` : ""}
                   </span>
                   <span>{e.message}</span>

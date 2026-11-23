@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useFlowTrack } from "@/lib/ops/client";
+import { useFlowTrack, useBookingDetail } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
@@ -1016,6 +1016,8 @@ export default function BookRemedyRoomPage() {
 
   // First-party funnel (lib/ops): each step + errors shown + drop-in value at done.
   useFlowTrack("remedy_room", step, null, error, 49);
+  // Detail for the dashboard's Booking card (who they are, saved card or new, failed Book taps, going back). Watches state only.
+  useBookingDetail("remedy_room", { step, cardContext });
 
   /* ---------------------------------------------
      FUNNEL TRACKING

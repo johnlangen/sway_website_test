@@ -255,3 +255,64 @@ export function useFlowTrack(flow: OpsFlow, step: string, variant?: string | num
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 }
+
+/**
+ * Booking detail the step list can't show, for the dashboard's Booking card (John 11/23/2026:
+ * match the Spavia monitor). One line in each booking flow, right after useFlowTrack:
+ *   useBookingDetail("aescape", { step, cardContext, variant: sessionTypeId })
+ * It only WATCHES state the flow already has, so no booking code changes:
+ *  - guest-new / card-needed: the email lookup found no account / an account with no card
+ *  - member-found / member-missing / accounts: the "I'm a member" lookup's answer (accounts = more
+ *    than one account on the email, so the guest was shown a picker)
+ *  - card-on-file / card-new: reached review with the saved card, or after filling in the card form
+ *  - book-failed: tapped Book and was sent back (variant: "error", or "sent-to-<screen>" when the
+ *    time filled up and the flow returned to the time picker)
+ *  - back: went back a screen (variant = the screen they left)
+ */
+// The screens of each booking flow in order (same as lib/ops/labels.ts FLOW_STEPS; kept here so every
+// page doesn't load the label tables).
+const SCREEN_ORDER: Partial<Record<OpsFlow, string[]>> = {
+  service: ["welcome", "category", "treatment", "boosts", "time", "account", "name", "confirm", "booking", "done"],
+  aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done"],
+  remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done"],
+  remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done"],
+};
+
+export function useBookingDetail(
+  flow: OpsFlow,
+  o: { step: string; cardContext?: string | null; lookup?: string | null; variant?: string | number | null }
+) {
+  const prev = useRef(o.step);
+  const sawCardForm = useRef(false);
+  const cardTold = useRef(false);
+  const variantRef = useRef(o.variant);
+  variantRef.current = o.variant;
+  useEffect(() => {
+    if (o.cardContext) trackStep(flow, o.cardContext === "create_account" ? "guest-new" : "card-needed", variantRef.current ?? undefined);
+  }, [flow, o.cardContext]);
+  useEffect(() => {
+    if (o.lookup) trackStep(flow, o.lookup === "found" ? "member-found" : o.lookup === "multiple" ? "accounts" : "member-missing", variantRef.current ?? undefined);
+  }, [flow, o.lookup]);
+  useEffect(() => {
+    const from = prev.current;
+    const to = o.step;
+    // A card form is on screen: its own step, or the massage/facial account step once the lookup has answered
+    if (to === "card" || (to === "account" && o.cardContext)) sawCardForm.current = true;
+    if (from === to) return;
+    prev.current = to;
+    if (from === "booking" && to !== "done" && to !== "waitlisted") {
+      trackStep(flow, "book-failed", to === "confirm" ? "error" : `sent-to-${to}`);
+      return;
+    }
+    if (to === "confirm" && !cardTold.current) {
+      cardTold.current = true;
+      trackStep(flow, sawCardForm.current ? "card-new" : "card-on-file", variantRef.current ?? undefined);
+      return;
+    }
+    // "name" is left out: the massage/facial flow returns from it to its account screen for the card form
+    const order = SCREEN_ORDER[flow] ?? [];
+    const a = order.indexOf(from);
+    const b = order.indexOf(to);
+    if (from !== "done" && from !== "booking" && from !== "name" && a > 0 && b >= 0 && b < a) trackStep(flow, "back", from);
+  }, [flow, o.step, o.cardContext]);
+}

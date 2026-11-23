@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useFlowTrack } from "@/lib/ops/client";
+import { useFlowTrack, useBookingDetail } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
@@ -993,6 +993,8 @@ export default function BookAescapePage() {
 
   // First-party funnel (lib/ops): each step + the session picked (2951 = Brady) + errors + value.
   useFlowTrack("aescape", step, sessionTypeId, error, parseInt(String(selectedOption.price).replace(/\D/g, ""), 10) || 0);
+  // Detail for the dashboard's Booking card (who they are, saved card or new, failed Book taps, going back). Watches state only.
+  useBookingDetail("aescape", { step, cardContext, variant: sessionTypeId });
 
   /* ---------------------------------------------
      FUNNEL TRACKING
