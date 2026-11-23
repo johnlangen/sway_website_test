@@ -17,6 +17,8 @@
 import Link from "next/link";
 import RecoveryValue from "./RecoveryValue";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { CHECKOUT_MODE, CLUB_LOUNGE, joinHref } from "@/lib/membershipOffers";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import { Check, Phone } from "lucide-react";
@@ -87,9 +89,10 @@ const CLUB_CONFIG: Record<ClubLocationKey, ClubMembershipConfig> = {
 
 // Contract 143 = "Premier Remedy Lounge Membership" on BOTH club sites.
 // $129/mo, monthly auto-renew, first payment on the day you join.
-const CLUB_CONTRACT_ID = 143;
-const MONTHLY_PRICE = 129;
-const DROP_IN_PRICE = 49;
+// One source with the checkout page (lib/membershipOffers.ts).
+const CLUB_CONTRACT_ID = CLUB_LOUNGE.contractId;
+const MONTHLY_PRICE = CLUB_LOUNGE.price;
+const DROP_IN_PRICE = CLUB_LOUNGE.dropIn;
 
 const MEMBER_PERKS = [
   "Unlimited Remedy Lounge visits",
@@ -106,6 +109,13 @@ export default function ClubMembershipPage({
   const club = CLUB_LOCATIONS[clubKey];
   const cfg = CLUB_CONFIG[clubKey];
   const [joinOpen, setJoinOpen] = useState(false);
+  // Join opens the checkout PAGE (lib/membershipOffers.ts CHECKOUT_MODE; "popup" = the old pop-up).
+  const router = useRouter();
+  const openJoin = (from: string) => {
+    if (CHECKOUT_MODE[clubKey] !== "page") return setJoinOpen(true);
+    const test = new URLSearchParams(window.location.search).has("memtest") ? "&memtest=1" : "";
+    router.push(joinHref(clubKey, "lounge", { from }) + test);
+  };
   const founding = CLUB_FOUNDING[clubKey];
   const foundingHref = `/locations/${clubKey}/founding-membership/`;
   const spotsLeft = useFoundingSpots(clubKey);
@@ -227,7 +237,7 @@ export default function ClubMembershipPage({
                 </Link>
               )}
               <button
-                onClick={() => setJoinOpen(true)}
+                onClick={() => openJoin("hero")}
                 className={
                   founding.leadsMembershipPage
                     ? "border-2 border-[#113D33] text-[#113D33] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#113D33] hover:text-white transition"
@@ -306,7 +316,7 @@ export default function ClubMembershipPage({
                   </span>
                 </div>
                 <button
-                  onClick={() => setJoinOpen(true)}
+                  onClick={() => openJoin("card")}
                   className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
                 >
                   Become a Member
@@ -441,7 +451,7 @@ export default function ClubMembershipPage({
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <button
-              onClick={() => setJoinOpen(true)}
+              onClick={() => openJoin("final")}
               className="bg-white text-[#113D33] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition"
             >
               Become a Member
@@ -489,7 +499,7 @@ export default function ClubMembershipPage({
         </Link>
       ) : (
             <button
-        onClick={() => setJoinOpen(true)}
+        onClick={() => openJoin("sticky")}
         className="md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-[#113D33]/10 bg-[#F7F4E9]/95 backdrop-blur pl-4 pr-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-left"
       >
         <span className="leading-tight min-w-0">

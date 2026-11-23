@@ -1,5 +1,6 @@
 import { NextResponse, after } from "next/server";
 import { getLaunchSiteBySiteId } from "@/lib/launchSites";
+import { followUpSpaForSite } from "@/lib/foundingCheckouts";
 import { noteFoundingCheckout } from "@/lib/foundingCheckouts";
 import {
   NO_STORE,
@@ -59,7 +60,7 @@ export async function POST(req: Request) {
       clientIds: clients.map((c) => c.id),
     });
     const primary = clients[0] ?? null;
-    const launch = getLaunchSiteBySiteId(siteId);
+    const launch = getLaunchSiteBySiteId(siteId) ?? (body?.followUp === true ? followUpSpaForSite(siteId) : null);
     if (launch) {
       after(() =>
         noteFoundingCheckout(launch, body?.test === true, email, "account", {

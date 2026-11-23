@@ -4,6 +4,9 @@
 //   node scripts/ops.mjs                       # last 7 days, all locations: summary
 //   node scripts/ops.mjs --days 28 --loc denver-rino
 //   node scripts/ops.mjs --funnel aescape      # one flow, with the option picked (e.g. Brady)
+//   node scripts/ops.mjs --funnel membership   # the membership checkout, screen by screen
+//   node scripts/ops.mjs --funnel checkout     # the checkout's detail: entry button, card trouble, time per screen, where they left
+//   node scripts/ops.mjs --stopped [--loc denver-rino] [--days 30]   # WHO started a membership checkout and stopped (prints contact details)
 //   node scripts/ops.mjs --clicks /aescape/brady-protocol/   # every click on one page
 //   node scripts/ops.mjs --waitlist --days 90  # Larimer appointment waitlist joins: day/treatment wanted
 //   node scripts/ops.mjs --json                # the whole report as JSON
@@ -29,6 +32,30 @@ const base = arg("base", "https://swaywellnessspa.com");
 
 if (args.includes("--link")) {
   console.log(`${base}/api/ops/login/?key=${key}`);
+  process.exit(0);
+}
+
+if (args.includes("--stopped")) {
+  // Who started a membership checkout and hasn't joined, with the furthest screen they reached
+  // (lib/foundingCheckouts.ts). Contact details: this prints them, so keep the output private.
+  const q = new URLSearchParams({ key, all: "1" });
+  if (arg("loc")) q.set("spa", arg("loc"));
+  const res = await fetch(`${base}/api/ops/founding-checkouts/?${q}`);
+  if (!res.ok) {
+    console.error(`stopped checkouts ${res.status}`);
+    process.exit(1);
+  }
+  const { rows } = await res.json();
+  const since = Date.now() - Number(arg("days", 30)) * 86400000;
+  const recent = rows.filter((r) => Date.parse(r.updatedAt) >= since);
+  const open = recent.filter((r) => r.stage !== "joined");
+  console.log(`membership checkouts, last ${arg("days", 30)} days${arg("loc") ? ` · ${arg("loc")}` : ""}: started ${recent.length} · joined ${recent.length - open.length} · stopped ${open.length}`);
+  const by = {};
+  for (const r of open) by[`${r.spa} · stopped after ${r.stage}`] = (by[`${r.spa} · stopped after ${r.stage}`] || 0) + 1;
+  for (const [k, v] of Object.entries(by).sort()) console.log(`  ${String(v).padStart(4)}  ${k}`);
+  console.log("\nstopped (newest first)");
+  for (const r of open)
+    console.log(`  ${r.updatedAt.slice(0, 16)}  ${r.spa.padEnd(20)} ${r.stage.padEnd(8)} ${[r.firstName, r.lastName].filter(Boolean).join(" ") || "(no name yet)"}  ${r.email}${r.phone ? `  ${r.phone}` : ""}`);
   process.exit(0);
 }
 

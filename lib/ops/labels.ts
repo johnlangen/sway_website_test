@@ -8,6 +8,7 @@ export const FLOW_NAMES: Record<string, string> = {
   maven: "Maven hotel Aescape",
   lead: "Leads (enter-to-win, waitlist, founding)",
   gift: "Gift card checkout",
+  checkout: "Membership checkout, detail",
 };
 
 /** Step order per flow, as the guest sees them. Unknown steps are listed after these. */
@@ -18,10 +19,27 @@ export const FLOW_STEPS: Record<string, string[]> = {
   aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done"],
   remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done"],
   remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done"],
-  membership: ["email", "code", "already", "details", "confirm", "done",
-    // Founding checkout at a launch site (app/components/FoundingJoinFlow.tsx, Union Market 11/23/2026):
-    // opened → plan → email → code → (member) → details → payment → review → joined
-    "from-founding", "plan", "member", "payment", "review", "founding-joined"],
+  // Membership checkout PAGE (app/components/MembershipCheckout.tsx; every membership since
+  // 11/23/2026): opened → plan → email → code → (member) → details → payment → review → done, and
+  // "joined" on a real sale. "already" and "confirm" are the old pop-up's names for member and
+  // review (kept for history; the pop-up's "details" was name + card on one screen).
+  // from-founding / founding-joined = launch sites (the Launch Board reads them), from-booking /
+  // joined-from-booking = came from the booking flow's "Become a member".
+  membership: ["opened", "plan", "email", "code", "already", "member", "details", "payment", "confirm", "review", "done", "joined",
+    "from-founding", "founding-joined", "from-booking", "joined-from-booking"],
+  // Detail events from the checkout page, in the order they can happen. Variant = the plan unless
+  // noted. from-* = the button that opened it. time-<screen> / left-<screen>: variant = time bucket.
+  checkout: [
+    "from-hero", "from-tier", "from-card", "from-compare", "from-sticky", "from-bar", "from-final", "from-founding", "from-membership",
+    "from-offer", "from-location", "from-booking", "from-other", "from-direct",
+    "plan-switch", "plan-change-open",
+    "guest-new", "guest-returning", "code-sent", "code-resent", "code-wrong", "code-ok", "email-change",
+    "already-member", "already-book", "already-continue",
+    "card-on-file", "card-invalid", "card-rejected", "account-created", "card-saved", "card-change",
+    "terms-open", "agree-checked", "submit", "declined", "off-sale", "uncertain", "session-expired",
+    "time-plan", "time-email", "time-code", "time-member", "time-details", "time-payment", "time-review",
+    "left-plan", "left-email", "left-code", "left-member", "left-details", "left-payment", "left-review",
+  ],
   maven: ["session", "time", "email", "card", "confirm", "booking", "done"],
   lead: [],
   gift: ["gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done"],

@@ -77,6 +77,29 @@ beacons, attribution cookies, `useFlowTrack`), `lib/ops/labels.ts` (display name
 `app/api/ops/report/`, `app/ops/page.tsx` (dashboard), `app/components/OpsTracker.tsx`,
 `scripts/ops.mjs`.
 
+## Membership checkout page (every membership, 11/23/2026)
+
+One checkout page sells every membership (`app/components/MembershipCheckout.tsx`, what each
+location sells: `lib/membershipOffers.ts`): Larimer's six plans, the clubs' Remedy Lounge and
+founding memberships, and Union Market's founding membership. It replaced the pop-up
+(`MembershipJoinFlow`, still in the repo: set a location to `"popup"` in `CHECKOUT_MODE` to go back).
+Same server routes as before; `scripts/test-membership-offers.mts` pins each plan to its contract.
+
+What it records (nothing for `?memtest=1`):
+
+| Question | Where | Read it |
+| --- | --- | --- |
+| How far do people get, screen by screen? | flow `membership`: opened, plan, email, code, member, details, payment, review, done, joined (variant = plan) | `node scripts/ops.mjs --funnel membership [--loc denver-rino]` |
+| Which button sends people in? New or returning? Saved card or new? Which card field trips them? Declines? How long on each screen? Which screen do they leave from? | flow `checkout`: `from-*`, `guest-new` / `guest-returning`, `code-sent` / `-resent` / `-wrong` / `-ok`, `card-on-file` / `card-invalid` (variant = field) / `card-rejected` / `card-saved` / `card-change`, `already-member`, `plan-switch`, `terms-open`, `agree-checked`, `submit`, `declined`, `off-sale`, `uncertain`, `session-expired`, `time-<screen>` and `left-<screen>` (variant = time bucket) | `node scripts/ops.mjs --funnel checkout` |
+| What did guests see go wrong? | every message shown, with its screen | "messages guests saw" in the report |
+| WHO stopped, and where? | `lib/foundingCheckouts.ts` (email, name, phone, furthest screen; the email screen tells the guest). Contact details, so NOT in the ops store | `node scripts/ops.mjs --stopped [--loc …]` |
+| Did the sale really happen? | the purchase route's ledger row after Mindbody confirms | `completed` in the funnel, ledger on /ops/ |
+
+The pop-up's step names `already` and `confirm` are the page's `member` and `review`; its `details`
+was name and card on one screen, now `details` then `payment`. Compare funnels across 11/23/2026
+with that in mind. GA4: the same `membership_*` dataLayer events as before (they have GTM tags),
+now with `membership_checkout: "page"`; the `checkout` detail events are first-party only.
+
 ## Launch-site founding checkout (Union Market, 11/23/2026)
 
 A Sway spa that isn't open yet but has its own Mindbody site sells founding memberships on the

@@ -10,6 +10,8 @@ import GoogleReviews, {
   ClassPassBadge,
 } from "../../../components/GoogleReviews";
 import { SwayCurve } from "../../../components/SwayCurve";
+import { useRouter } from "next/navigation";
+import { CHECKOUT_MODE, LARIMER_JOIN_PLANS, joinHref } from "@/lib/membershipOffers";
 import MembershipJoinFlow, {
   type MembershipPlan,
 } from "../../../components/MembershipJoinFlow";
@@ -26,52 +28,8 @@ import MembershipJoinFlow, {
 const MINDBODY_JOIN_URL =
   "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=40&prodid=100";
 
-const joinPlans: Record<string, MembershipPlan> = {
-  essential: {
-    key: "essential",
-    contractId: 122,
-    name: "Essential",
-    price: 99,
-    blurb: "1 signature facial or massage per month, plus all member perks.",
-  },
-  premier: {
-    key: "premier",
-    contractId: 123,
-    name: "Premier",
-    price: 129,
-    blurb: "1 targeted facial or massage per month, plus all member perks.",
-  },
-  ultimate: {
-    key: "ultimate",
-    contractId: 124,
-    name: "Ultimate",
-    price: 159,
-    blurb: "1 tech-enhanced facial or massage per month, plus all member perks.",
-  },
-  // Aescape = two new-menu contracts at the same price; the card shows a
-  // two-button chooser. Old generic 111 (pre-menu-switch) must never sell.
-  aescape30: {
-    key: "aescape30",
-    contractId: 119,
-    name: "Aescape 4×30",
-    price: 99,
-    blurb: "Four 30-minute Aescape robot massage sessions every month.",
-  },
-  aescape60: {
-    key: "aescape60",
-    contractId: 120,
-    name: "Aescape 2×60",
-    price: 99,
-    blurb: "Two 60-minute Aescape robot massage sessions every month.",
-  },
-  remedy: {
-    key: "remedy",
-    contractId: 102,
-    name: "Remedy Room",
-    price: 99,
-    blurb: "4 Remedy Room recovery circuit visits per month.",
-  },
-};
+// Plans live in lib/membershipOffers.ts (the checkout page reads the same list).
+const joinPlans: Record<string, MembershipPlan> = LARIMER_JOIN_PLANS;
 
 /* ------------------------------------------------------------------
    MEMBERSHIP FAMILIES — the top-of-page selector. Each family gets an
@@ -342,6 +300,14 @@ export default function MembershipPage() {
   const [boostsOpen, setBoostsOpen] = useState(false);
   // Which membership the join modal is open for (null = closed).
   const [joinKey, setJoinKey] = useState<string | null>(null);
+  // Join opens the checkout PAGE (lib/membershipOffers.ts CHECKOUT_MODE; "popup" = the old pop-up).
+  // `from` names the button, so the checkout knows which one people use.
+  const router = useRouter();
+  const openJoin = (key: string, from: string) => {
+    if (CHECKOUT_MODE["denver-larimer"] !== "page") return setJoinKey(key);
+    const test = new URLSearchParams(window.location.search).has("memtest") ? "&memtest=1" : "";
+    router.push(joinHref("denver-larimer", key, { from }) + test);
+  };
   // Keyed by question text, not index: the FAQ list is filtered per family, so
   // an index would open the wrong question after switching tabs.
   const [openFaq, setOpenFaq] = useState<string | null>(null);
@@ -457,7 +423,7 @@ export default function MembershipPage() {
       {/* CTA — price lives on the card; button states the action */}
       {nativeJoin ? (
         <button
-          onClick={() => setJoinKey(tier.key)}
+          onClick={() => openJoin(tier.key, "tier")}
           className="mt-6 block w-full rounded-full bg-[#113D33] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#0e3029]"
         >
           Become a {tier.name} Member
@@ -831,13 +797,13 @@ export default function MembershipPage() {
             </p>
             <div className="space-y-2 max-w-sm">
               <button
-                onClick={() => setJoinKey("aescape30")}
+                onClick={() => openJoin("aescape30", "card")}
                 className="block w-full rounded-full bg-[#44576D] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#36465a]"
               >
                 Join · 4×30 min sessions
               </button>
               <button
-                onClick={() => setJoinKey("aescape60")}
+                onClick={() => openJoin("aescape60", "card")}
                 className="block w-full rounded-full border-2 border-[#44576D] py-3 text-center text-sm font-semibold text-[#44576D] transition hover:bg-[#44576D] hover:text-white"
               >
                 Join · 2×60 min sessions
@@ -896,7 +862,7 @@ export default function MembershipPage() {
             </ul>
             <div className="max-w-sm">
               <button
-                onClick={() => setJoinKey("remedy")}
+                onClick={() => openJoin("remedy", "card")}
                 className="block w-full rounded-full bg-[#B0713F] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#955e33]"
               >
                 Become a Remedy Room Member
@@ -1164,7 +1130,7 @@ export default function MembershipPage() {
           </p>
           {nativeJoin ? (
             <button
-              onClick={() => setJoinKey(selectedTier)}
+              onClick={() => openJoin(selectedTier, "final")}
               className="group relative px-8 py-4 bg-[#D7E5DD] text-[#113D33] font-bold rounded-full uppercase hover:bg-white transition"
             >
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sway-cta-flourish pointer-events-none">
@@ -1207,13 +1173,13 @@ export default function MembershipPage() {
               </span>
               <span className="flex gap-1.5 shrink-0">
                 <button
-                  onClick={() => setJoinKey("aescape30")}
+                  onClick={() => openJoin("aescape30", "sticky")}
                   className="rounded-full bg-white text-[#113D33] px-3.5 py-2.5 text-xs font-semibold"
                 >
                   4×30
                 </button>
                 <button
-                  onClick={() => setJoinKey("aescape60")}
+                  onClick={() => openJoin("aescape60", "sticky")}
                   className="rounded-full border border-white/40 text-white px-3.5 py-2.5 text-xs font-semibold"
                 >
                   2×60
@@ -1225,7 +1191,7 @@ export default function MembershipPage() {
         if (family === "remedy") {
           return (
             <button
-              onClick={() => setJoinKey("remedy")}
+              onClick={() => openJoin("remedy", "sticky")}
               className={`${barBase} flex items-center justify-between gap-3 text-left w-full`}
             >
               <span className="leading-tight min-w-0">
@@ -1261,7 +1227,7 @@ export default function MembershipPage() {
         const stickyClass =
           "md:hidden fixed bottom-0 inset-x-0 z-40 flex items-center justify-between gap-3 border-t border-white/10 bg-[#0b1f1a]/95 backdrop-blur pl-4 pr-20 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-left";
         return nativeJoin ? (
-          <button onClick={() => setJoinKey(selectedTier)} className={stickyClass}>
+          <button onClick={() => openJoin(selectedTier, "sticky")} className={stickyClass}>
             {stickyInner}
           </button>
         ) : (

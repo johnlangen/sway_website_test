@@ -9,7 +9,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { OPS_COOKIE, opsKeyMatches } from "@/lib/ops/report";
-import { FOUNDING_STAGES, foundingCheckouts } from "@/lib/foundingCheckouts";
+import { FOUNDING_STAGES, foundingCheckouts, isLaunchSpa } from "@/lib/foundingCheckouts";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,6 +21,9 @@ export async function GET(req: Request) {
   if (!opsKeyMatches(q.get("key") || (await cookies()).get(OPS_COOKIE)?.value))
     return NextResponse.json({ error: "not found" }, { status: 404 });
   const spa = (q.get("spa") || "").trim().toLowerCase();
-  const rows = (await foundingCheckouts()).filter((r) => !spa || r.spa === spa);
+  // Atlas's Launch Board feed (no parameters) stays launch sites only. Larimer's and the clubs'
+  // checkouts (kept since 11/23/2026) come back with ?spa=<slug> or ?all=1 (scripts/ops.mjs --stopped).
+  const all = q.get("all") === "1";
+  const rows = (await foundingCheckouts()).filter((r) => (spa ? r.spa === spa : all || isLaunchSpa(r.spa)));
   return NextResponse.json({ stages: FOUNDING_STAGES, rows }, { headers });
 }

@@ -1,5 +1,6 @@
 import { NextResponse, after } from "next/server";
 import { getLaunchSiteBySiteId } from "@/lib/launchSites";
+import { followUpSpaForSite } from "@/lib/foundingCheckouts";
 import { noteFoundingCheckout } from "@/lib/foundingCheckouts";
 import {
   NO_STORE,
@@ -53,8 +54,11 @@ export async function POST(req: Request) {
 
     // Founding checkout at a launch site: the owner's follow-up list starts once a guest has sent
     // their email (the email screen says so). A new guest goes straight on to their details.
+    // Since 11/23/2026 every membership checkout PAGE does this too and sends followUp: true (its
+    // email screen says the spa may reach out). The old pop-up never sends it, so it adds nobody.
     const launch = getLaunchSiteBySiteId(siteId);
-    if (launch) after(() => noteFoundingCheckout(launch, body?.test === true, email, clients.length === 0 ? "account" : "email"));
+    const spa = launch ?? (body?.followUp === true ? followUpSpaForSite(siteId) : null);
+    if (spa) after(() => noteFoundingCheckout(spa, body?.test === true, email, clients.length === 0 ? "account" : "email"));
 
     if (clients.length === 0) {
       const token = await createSession({ email, siteId, mode: "new", clientIds: [] });

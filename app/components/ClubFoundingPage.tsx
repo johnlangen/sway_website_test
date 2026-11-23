@@ -11,6 +11,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Check, Star } from "lucide-react";
@@ -18,7 +19,8 @@ import ArrowMark from "./ArrowMark";
 import { SwayCurve } from "./SwayCurve";
 import type { MembershipPlan, MembershipSite } from "./MembershipJoinFlow";
 import { CLUB_LOCATIONS, type ClubLocationKey } from "@/lib/clubLocations";
-import { CLUB_FOUNDING, FOUNDING_RATES, LOUNGE_VISIT_PERK, type FoundingTierKey } from "@/lib/clubFounding";
+import { CLUB_FOUNDING, CLUB_FOUNDING_TIERS, FOUNDING_RATES, LOUNGE_VISIT_PERK, type FoundingTierKey } from "@/lib/clubFounding";
+import { CHECKOUT_MODE, joinHref } from "@/lib/membershipOffers";
 import { useFoundingSpots } from "@/lib/useFoundingSpots";
 
 // Most guests shop on a phone: the form and the checkout load on their own, not with the page.
@@ -27,44 +29,7 @@ const MembershipJoinFlow = dynamic(() => import("./MembershipJoinFlow"), { ssr: 
 
 type Perk = "rate" | "visits";
 
-const TIERS: {
-  key: FoundingTierKey;
-  name: string;
-  line: string;
-  massages: string[];
-  facials: string[];
-  popular?: boolean;
-}[] = [
-  {
-    key: "essential",
-    name: "Essential",
-    line: "One 50-minute signature treatment a month.",
-    massages: ["Signature Massage, 50 min (light to medium pressure)", "Maternity Massage, 50 min"],
-    facials: ["Signature Facial, 50 min"],
-  },
-  {
-    key: "premier",
-    name: "Premier",
-    line: "One targeted treatment a month, or a longer Signature.",
-    popular: true,
-    massages: [
-      "Signature Massage, 70 min (light to medium pressure)",
-      "Maternity Massage, 70 min",
-      "Deep Tissue, Sports, Salt Stone or Lymphatic Drainage, 50 min",
-    ],
-    facials: ["Forever Young, Pore Perfection, Sensitive Silk, Glow Getter or Dr. Dennis Gross Vitamin C, 50 min"],
-  },
-  {
-    key: "ultimate",
-    name: "Ultimate",
-    line: "One of our longest or most advanced treatments a month.",
-    massages: [
-      "Signature Massage, 90 min (light to medium pressure)",
-      "Deep Tissue, Sports, Salt Stone or Lymphatic Drainage, 70 min",
-    ],
-    facials: ["Advanced facials, including Oxygen Infusion, Sculpt & Lift Microcurrent and Hydraderm, 50 to 60 min"],
-  },
-];
+const TIERS = CLUB_FOUNDING_TIERS;
 
 // Real Google reviews from Sway Larimer (app/components/GoogleReviews.tsx), and labeled as Larimer on
 // the page: the club rooms aren't open yet, so these speak to the Sway team and experience.
@@ -177,8 +142,13 @@ export default function ClubFoundingPage({ clubKey }: { clubKey: ClubLocationKey
     },
   ];
 
+  // Join opens the checkout PAGE (lib/membershipOffers.ts CHECKOUT_MODE; "popup" = the old pop-up).
+  const router = useRouter();
   const openTier = (tier: FoundingTierKey) => {
-    if (canJoin) setJoining(tier);
+    if (canJoin && CHECKOUT_MODE[clubKey] === "page") {
+      const test = new URLSearchParams(window.location.search).has("memtest") ? "&memtest=1" : "";
+      router.push(joinHref(clubKey, tier, { perk, from: "tier" }) + test);
+    } else if (canJoin) setJoining(tier);
     else
       document.getElementById("first-access")?.scrollIntoView({
         behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",

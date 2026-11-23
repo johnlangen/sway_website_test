@@ -14,7 +14,26 @@
  * that doesn't land is skipped.
  */
 import { Redis } from "@upstash/redis";
-import type { LaunchSite } from "@/lib/launchSites";
+import { getLaunchSiteBySiteId, LAUNCH_SITES } from "@/lib/launchSites";
+import { getClubBySiteId } from "@/lib/clubLocations";
+
+/**
+ * The spa a checkout belongs to, for the follow-up list. Since 11/23/2026 every membership
+ * checkout page keeps this list (lib/membershipOffers.ts followUp), not only launch sites:
+ * a launch site's key, a club's slug, or "denver-larimer" (no siteId, or Larimer's own).
+ */
+export function followUpSpaForSite(siteId: string | null | undefined): { key: string } | null {
+  const s = (siteId || "").trim();
+  const launch = getLaunchSiteBySiteId(s);
+  if (launch) return { key: launch.key };
+  const club = s ? getClubBySiteId(s) : null;
+  if (club) return { key: club.key };
+  if (!s || s === process.env.MINDBODY_SITE_ID) return { key: "denver-larimer" };
+  return null;
+}
+
+/** Launch-site spas: the only rows Atlas's Launch Board feed returns by default. */
+export const isLaunchSpa = (spa: string) => Object.prototype.hasOwnProperty.call(LAUNCH_SITES, spa);
 
 /** Furthest screen reached, in checkout order. Matches the Launch Board's funnel bars:
  *  email = sent their email (a returning guest still needs the emailed code), account = their
@@ -69,7 +88,7 @@ export function mergeFoundingCheckout(
 }
 
 export async function noteFoundingCheckout(
-  site: LaunchSite | null | undefined,
+  site: { key: string } | null | undefined,
   test: boolean,
   email: string | undefined | null,
   stage: FoundingStage,
@@ -88,6 +107,26 @@ export async function noteFoundingCheckout(
     await r.hset(KEY, { [field]: JSON.stringify(record) });
   } catch {
     /* follow-up list only: never block the checkout */
+  }
+}
+
+/**
+ * A sale went through: mark the guest joined, but only if they are already on the list (a join
+ * through a checkout that never told them about the list adds nobody to it).
+ */
+export async function noteJoinedIfStarted(site: { key: string } | null | undefined, email: string | undefined | null) {
+  const address = clean(email, 200).toLowerCase();
+  if (!site || !address.includes("@") || process.env.VERCEL_ENV !== "production") return;
+  try {
+    const r = redis();
+    if (!r) return;
+    const field = `${site.key}|${address}`;
+    const raw = await r.hget<FoundingCheckout | string>(KEY, field);
+    const old = typeof raw === "string" ? (JSON.parse(raw) as FoundingCheckout) : raw ?? undefined;
+    if (!old) return;
+    await r.hset(KEY, { [field]: JSON.stringify(mergeFoundingCheckout(old, site.key, address, "joined", {}, new Date().toISOString())) });
+  } catch {
+    /* follow-up list only */
   }
 }
 

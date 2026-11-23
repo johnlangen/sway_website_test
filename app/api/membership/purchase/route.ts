@@ -3,7 +3,7 @@ import { createHash } from "crypto";
 import { recordAlert, recordCompletion } from "@/lib/ops/record";
 import { getLaunchSiteBySiteId, launchTierForContract, LAUNCH_TIER_KEYS, type LaunchSite } from "@/lib/launchSites";
 import { liveFoundingContract, monthAfter, type LiveFoundingContract } from "@/lib/launchFounding";
-import { noteFoundingCheckout } from "@/lib/foundingCheckouts";
+import { followUpSpaForSite, noteFoundingCheckout, noteJoinedIfStarted } from "@/lib/foundingCheckouts";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { checkCardRateLimit, RATE_LIMIT_RESPONSE } from "@/lib/cardRateLimit";
 import { isClubSiteId, getClubBySiteId } from "@/lib/clubLocations";
@@ -426,6 +426,8 @@ export async function POST(req: Request) {
             : {}),
         })
       );
+      // Larimer and the clubs: take the guest off the stopped-checkout list (only if they were on it).
+      if (!launch) after(() => noteJoinedIfStarted(followUpSpaForSite(siteId), buyerEmail));
       if (launch) {
         after(() =>
           noteFoundingCheckout(launch, false, buyerEmail, "joined", {

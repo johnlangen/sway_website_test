@@ -1,7 +1,6 @@
 import { NextResponse, after } from "next/server";
 import { NO_STORE, getSession } from "@/lib/membershipVerify";
-import { getLaunchSiteBySiteId } from "@/lib/launchSites";
-import { noteFoundingCheckout, type FoundingStage } from "@/lib/foundingCheckouts";
+import { followUpSpaForSite, noteFoundingCheckout, type FoundingStage } from "@/lib/foundingCheckouts";
 
 export const runtime = "nodejs";
 
@@ -25,7 +24,8 @@ export async function POST(req: Request) {
     const stage = body?.stage as FoundingStage;
     if (!body || !STAGES.includes(stage)) return done;
     const found = await getSession(req).catch(() => null);
-    const site = found ? getLaunchSiteBySiteId(found.session.siteId) : null;
+    // Any spa's checkout page (launch sites first; Larimer and the clubs since 11/23/2026).
+    const site = found ? followUpSpaForSite(found.session.siteId) : null;
     if (!found || !site) return done;
     const email = found.session.email;
     after(() =>

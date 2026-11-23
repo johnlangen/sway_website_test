@@ -2,7 +2,7 @@
  * What each founding membership tier is, in the terms a guest buys on: time on the table, what
  * they can choose each month, and a photo. One source for the founding page's tier cards
  * (FoundingLiveTiers), the location page's founding card and the checkout's side panel
- * (FoundingJoinFlow), so the three never describe a tier differently.
+ * (MembershipCheckout), so the three never describe a tier differently.
  *
  * Time is the lead (John 11/23/2026: "it should lean on time as a value factor"): 50, 70 and 90
  * minutes are the Signature Massage lengths at Essential, Premier and Ultimate. Treatment lists

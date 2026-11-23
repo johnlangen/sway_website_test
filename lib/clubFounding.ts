@@ -23,6 +23,46 @@ export const FOUNDING_RATES: Record<FoundingTierKey, { founding: number; regular
   ultimate: { founding: 149, regular: 159, dropIn: 199, contractId: 139, regularContractId: 124 },
 };
 
+/** What each tier is at the clubs (real club menu: no LED). The founding page and the checkout both read this. */
+export const CLUB_FOUNDING_TIERS: {
+  key: FoundingTierKey;
+  name: string;
+  line: string;
+  massages: string[];
+  facials: string[];
+  popular?: boolean;
+}[] = [
+  {
+    key: "essential",
+    name: "Essential",
+    line: "One 50-minute signature treatment a month.",
+    massages: ["Signature Massage, 50 min (light to medium pressure)", "Maternity Massage, 50 min"],
+    facials: ["Signature Facial, 50 min"],
+  },
+  {
+    key: "premier",
+    name: "Premier",
+    line: "One targeted treatment a month, or a longer Signature.",
+    popular: true,
+    massages: [
+      "Signature Massage, 70 min (light to medium pressure)",
+      "Maternity Massage, 70 min",
+      "Deep Tissue, Sports, Salt Stone or Lymphatic Drainage, 50 min",
+    ],
+    facials: ["Forever Young, Pore Perfection, Sensitive Silk, Glow Getter or Dr. Dennis Gross Vitamin C, 50 min"],
+  },
+  {
+    key: "ultimate",
+    name: "Ultimate",
+    line: "One of our longest or most advanced treatments a month.",
+    massages: [
+      "Signature Massage, 90 min (light to medium pressure)",
+      "Deep Tissue, Sports, Salt Stone or Lymphatic Drainage, 70 min",
+    ],
+    facials: ["Advanced facials, including Oxygen Infusion, Sculpt & Lift Microcurrent and Hydraderm, 50 to 60 min"],
+  },
+];
+
 /** Show "X of 50 left" only once this many are really taken. Before that the page just says "Only 50". */
 export const SHOW_COUNT_FROM = 10;
 

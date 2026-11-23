@@ -2464,7 +2464,7 @@ body {
   font-size: 13px;
 }
 
-/* Founding checkout welcome screen (FoundingJoinFlow step "done"): the lines rise in, the
+/* Founding checkout welcome screen (MembershipCheckout step "done"): the lines rise in, the
    founder's card lands and catches the light once, the name writes itself in. Plays once.
    Animated wrappers only, never the card's own box-shadow. */
 @keyframes cfRise {

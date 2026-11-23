@@ -11,7 +11,7 @@ import { OPS_PREFIX, opsRedisSettings } from "./record";
 import type { LedgerRow } from "./report";
 import { LAUNCH_SITES } from "@/lib/launchSites";
 
-/** The founding checkout's steps, in order (app/components/FoundingJoinFlow.tsx). */
+/** The founding checkout's steps, in order (app/components/MembershipCheckout.tsx). */
 export const FOUNDING_STEPS = ["from-founding", "plan", "email", "code", "details", "payment", "review", "founding-joined"];
 export const FOUNDING_SIDE_STEPS = ["member"];
 
