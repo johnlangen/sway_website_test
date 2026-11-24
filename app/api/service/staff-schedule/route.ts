@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { rangeEnd, isPartial } from "@/lib/dateRange";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
+import { holdsSeat } from "@/lib/clubOccupancy";
 
 export const runtime = "nodejs";
 
@@ -88,9 +89,12 @@ export async function GET(req: Request) {
 
     const appts = data?.Appointments ?? data?.StaffAppointments ?? [];
 
-    // Return only start/end times — no sensitive data
+    // Return only start/end times — no sensitive data.
+    // A checked-in (Arrived) or Completed appointment still holds its time: the desk completes every
+    // visit, so counting only Booked/Confirmed made a guest's slot read as free once they checked in
+    // (same rule as the clubs, lib/clubOccupancy.ts holdsSeat, 11/23/2026).
     const appointments = (Array.isArray(appts) ? appts : [])
-      .filter((a: any) => a.Status === "Booked" || a.Status === "Confirmed")
+      .filter((a: any) => holdsSeat(a.Status))
       .map((a: any) => ({
         start: a.StartDateTime,
         end: a.EndDateTime,

@@ -4,11 +4,20 @@ import { recordBookingAttribution } from "@/lib/adAttribution";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { getClubBySiteId, type ClubLocation } from "@/lib/clubLocations";
 import {
-  fetchClubAppointments,
+  clientOverlap,
+  fetchClubHeldAppointments,
   parseWall,
   peakOverlap,
   type ApptInterval,
 } from "@/lib/clubOccupancy";
+
+/** "2026-11-22T14:55:00" -> "2:55 PM" (wall clock, no timezone math). */
+function clockLabel(wall: string): string {
+  const m = /[T ](\d{2}):(\d{2})/.exec(wall);
+  if (!m) return "";
+  const h = Number(m[1]);
+  return `${h % 12 || 12}:${m[2]} ${h < 12 ? "AM" : "PM"}`;
+}
 
 export const runtime = "nodejs";
 
@@ -234,7 +243,7 @@ export async function POST(req: Request) {
     try {
       const lists = await Promise.all(
         fetchStaffIds.map((id) =>
-          fetchClubAppointments({
+          fetchClubHeldAppointments({
             siteId,
             token,
             staffId: id,
@@ -246,6 +255,29 @@ export async function POST(req: Request) {
       fetchStaffIds.forEach((id, i) => occByStaff.set(id, lists[i] ?? []));
 
       const loungeStart = parseWall(startDateTime);
+      const loungeHeld =
+        lists[fetchStaffIds.indexOf(club.remedyLounge.resourceStaffId)] ?? [];
+      // One guest, one seat: if they already hold a Lounge visit that overlaps this one (a retry
+      // after a failed sauna add-on, or a double tap), say so instead of booking a second seat.
+      const mine = clientOverlap(
+        loungeHeld,
+        clientId,
+        loungeStart,
+        loungeStart + club.remedyLounge.serviceMinutes * 60_000
+      );
+      if (mine) {
+        const at = clockLabel(mine.start);
+        console.warn(
+          `[club book] already booked (site ${siteId}, client ${clientId}): has ${mine.start}, asked ${startDateTime}`
+        );
+        return NextResponse.json(
+          {
+            error: `You already have a Remedy Lounge visit booked${at ? ` at ${at}` : ""} that day. To add a sauna or change your time, let the front desk know when you arrive, or email ${club.contactEmail}.`,
+            alreadyBooked: true,
+          },
+          { status: 409 }
+        );
+      }
       const loungeAppts =
         occByStaff.get(club.remedyLounge.resourceStaffId) ?? [];
       const loungeBooked = peakOverlap(

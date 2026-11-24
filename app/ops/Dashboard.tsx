@@ -75,6 +75,8 @@ const BOOKING_DETAIL: Record<string, string> = {
   "card-on-file": "Card on file",
   "card-new": "Entered a new card",
   "book-failed": "Didn't go through",
+  "sauna-failed": "Sauna add-on didn't take",
+  "already-booked": "Already had a visit then",
   back: "Went back a screen",
   "waitlist-offered": "Saw the waitlist offer",
   "waitlist-start": "Started the waitlist",

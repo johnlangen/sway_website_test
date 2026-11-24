@@ -159,6 +159,33 @@ export function holdsSeat(status: unknown): boolean {
   return typeof status === "string" && HOLDS_SEAT.has(status);
 }
 
+/** An appointment that holds a seat, with whose it is. Server-side only: never send clientId to a browser. */
+export interface HeldAppt extends ApptInterval {
+  clientId: string;
+}
+
+/**
+ * The guest's own appointment on this resource that overlaps [start, end), if any. Back-to-back
+ * does not count. Used so one guest cannot hold two overlapping Lounge visits: on 11/22/2026 a
+ * guest whose sauna add-on failed booked again five minutes later and held two seats.
+ */
+export function clientOverlap(
+  held: HeldAppt[],
+  clientId: string,
+  start: number,
+  end: number
+): HeldAppt | null {
+  const id = String(clientId);
+  return (
+    held.find((a) => {
+      if (a.clientId !== id) return false;
+      const s = parseWall(a.start);
+      const e = parseWall(a.end);
+      return Number.isFinite(s) && Number.isFinite(e) && s < end && e > start;
+    }) ?? null
+  );
+}
+
 /**
  * Server-only: fetch a resource's booked appointments for a date, reduced to
  * {start, end} wall-clock intervals. Mirrors /api/service/staff-schedule.
@@ -170,6 +197,17 @@ export async function fetchClubAppointments(opts: {
   locationId: number;
   date: string; // YYYY-MM-DD
 }): Promise<ApptInterval[]> {
+  return (await fetchClubHeldAppointments(opts)).map((a) => ({ start: a.start, end: a.end }));
+}
+
+/** Server-only: the same read, keeping each appointment's client id (for the booking guard). */
+export async function fetchClubHeldAppointments(opts: {
+  siteId: string;
+  token: string;
+  staffId: number;
+  locationId: number;
+  date: string; // YYYY-MM-DD
+}): Promise<HeldAppt[]> {
   const url = new URL(
     "https://api.mindbodyonline.com/public/v6/appointment/staffappointments"
   );
@@ -196,5 +234,9 @@ export async function fetchClubAppointments(opts: {
   const appts = data?.Appointments ?? data?.StaffAppointments ?? [];
   return (Array.isArray(appts) ? appts : [])
     .filter((a: any) => holdsSeat(a.Status))
-    .map((a: any) => ({ start: a.StartDateTime, end: a.EndDateTime }));
+    .map((a: any) => ({
+      start: a.StartDateTime,
+      end: a.EndDateTime,
+      clientId: String(a.ClientId ?? ""),
+    }));
 }

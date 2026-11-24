@@ -21,7 +21,8 @@ export const FLOW_STEPS: Record<string, string[]> = {
   aescape: ["select", "time", "email", "name", "card", "confirm", "booking", "done", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
   remedy_room: ["select", "email", "name", "card", "confirm", "booking", "done", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
   // sauna-failed = the Lounge booked but a sauna add-on did not, and the guest was told so
-  remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done", "sauna-failed", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
+  // already-booked = stopped at Book: they already hold a Lounge visit that overlaps this one
+  remedy_lounge: ["select", "sauna", "email", "name", "card", "confirm", "booking", "done", "sauna-failed", "already-booked", "guest-new", "card-needed", "member-found", "member-missing", "accounts", "card-on-file", "card-new", "book-failed", "back"],
   // Membership checkout PAGE (app/components/MembershipCheckout.tsx; every membership since
   // 11/23/2026): opened → plan → email → code → (member) → details → payment → review → done, and
   // "joined" on a real sale. "already" and "confirm" are the old pop-up's names for member and

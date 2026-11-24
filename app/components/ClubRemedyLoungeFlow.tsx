@@ -856,6 +856,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         setStep("select");
         return false;
       }
+      // They already hold a Lounge visit that overlaps this one; the server says which and what to do.
+      if (bookRes.status === 409 && bookData?.alreadyBooked) trackStep("remedy_lounge", "already-booked");
       throw new Error(bookData?.error || `Booking failed. Please try again or email us at ${club!.contactEmail}.`);
     }
     if (bookData?.partial && Array.isArray(bookData.failedSaunas) && bookData.failedSaunas.length) {
@@ -1917,7 +1919,7 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                         )}
                         {failedSaunaLabels.length > 0 && (
                           <p className="text-[#B4541B] text-sm mb-1 animate-fade-in-up" style={{ animationDelay: "175ms" }}>
-                            We couldn&apos;t confirm your {failedSaunaLabels.join(" + ")} add-on. Your Remedy Lounge is booked. Email us at {contactEmail} and we&apos;ll get the sauna added.
+                            We couldn&apos;t confirm your {failedSaunaLabels.join(" + ")} add-on. Your Remedy Lounge is booked. Let the front desk know when you arrive and we&apos;ll find you a sauna time, or email us at {contactEmail}.
                           </p>
                         )}
                       </>
