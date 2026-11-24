@@ -109,6 +109,13 @@ Flow `gift` in the first-party analytics (`lib/ops`): steps from the page, the s
 (`count.ts`) after Mindbody confirms. `/ops/` shows the Gift card checkout funnel and gift sales per spa.
 GA4 gets `gift_card_purchase_complete` (no GTM tag yet).
 
+Google Ads (11/24/2026): a confirmed sale fires the "Gift Card Purchase" conversion with its amount
+(`lib/giftCards/ads.ts`; a secondary action, so only the gift campaign reports on it). The ad click id
+saved at landing (`lib/gclid.ts`) is sent with the purchase, kept as `gclid:<order>` and
+`gclid:sale:<siteId>:<saleId>`, and flags the ledger row (`extra.gclid`): that flag is the count of
+ad-driven gift sales to trust, since ad blockers stop Google's own tag. Campaign build and audit
+scripts: `~/spavia-agents/sway/gift_ads/`. Test: `npx tsx scripts/test-gift-ads.mts`.
+
 Layout (11/24/2026, after the Spavia site's): each step's main button sits in a bottom bar
 (`GiftStickyActions`, rendered inside the step's form), amounts are rectangles, the design grid shows
 the first eight with "View all". Detail steps on flow `gift`: `amount` and `design` (what the guest

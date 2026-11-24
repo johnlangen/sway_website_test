@@ -1,6 +1,7 @@
 import { NextResponse, after, type NextRequest } from "next/server";
 import { randomUUID } from "crypto";
 import { findClientsByEmail } from "@/lib/membershipVerify";
+import { cleanClickId } from "@/lib/giftCards/ads";
 import { countSale } from "@/lib/giftCards/count";
 import { recordServerError } from "@/lib/ops/record";
 import { GiftError, giftStore } from "@/lib/giftCards/store";
@@ -188,6 +189,10 @@ async function handle(req: NextRequest, action: string, ctx: { slug?: string }):
   if (action === "quote") return reply({ quote: giftReview(await quoteGift(store, site, s, order, b.details as GiftDetails)) });
 
   if (action === "commit") {
+    // The ad click id that led here, if any: kept beside the order for the ledger (attribution
+    // only, never part of the purchase; a failure to save it changes nothing)
+    const clickId = cleanClickId(b.gclid);
+    if (clickId) await store.put(`gclid:${order}`, clickId, 90 * 86400).catch(() => false);
     const result: GiftResult = await commitGift(store, site, s, order, String(b.quoteId || ""), b.accepted, b.card);
     if (result.state !== "purchased") {
       if (!result.replay) after(() => recordServerError("gift", site.slug, "commit", "Mindbody didn't confirm the sale (settling)"));

@@ -19,6 +19,8 @@ import { HOLIDAY_BONUS, bonusTerms, holidayBonusOpen, qualifiesForBonus } from "
 import type { GiftResult, GiftReview } from "@/lib/giftCards/checkout";
 import GiftDesignPicker from "./GiftDesignPicker";
 import GiftStickyActions from "./GiftStickyActions";
+import { fireGiftAdsConversion } from "@/lib/giftCards/ads";
+import { readGclid } from "@/lib/gclid";
 import IssuedGift from "./IssuedGift";
 
 export type PublicGiftSite = {
@@ -320,9 +322,12 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
   useEffect(() => {
     if (result?.state !== "purchased" || result.replay || recovered || pushed.current === result.reference) return;
     pushed.current = result.reference;
+    // Google Ads: the sale and its amount, once (lib/giftCards/ads.ts). Not on a repeat or a gift
+    // opened again later; the Mindbody sale id makes Google drop a duplicate.
+    const adsSent = fireGiftAdsConversion({ value: result.amount ?? 0, transactionId: `gift-${site.slug}-${result.saleId ?? result.reference}` });
     const w = window as unknown as { dataLayer?: unknown[] };
     w.dataLayer = w.dataLayer || [];
-    w.dataLayer.push({ event: "gift_card_purchase_complete", value: result.amount, currency: "USD", gift_location: site.slug });
+    w.dataLayer.push({ event: "gift_card_purchase_complete", value: result.amount, currency: "USD", gift_location: site.slug, ads_conversion_sent: adsSent });
   }, [result, recovered, site.slug]);
 
   const titles: Record<Step, string> = {
@@ -989,7 +994,8 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   void run(async () => {
                     let r: { result: GiftResult };
                     try {
-                      r = await api<{ result: GiftResult }>("commit", { quoteId: quote.id, accepted: true, card });
+                      // gclid: the ad click id saved at landing, attribution only (lib/gclid.ts)
+                      r = await api<{ result: GiftResult }>("commit", { quoteId: quote.id, accepted: true, card, gclid: readGclid() });
                     } catch (err) {
                       // No answer, or our server failed: the charge may still be going through. If a
                       // purchase was recorded, show its checking screen instead of inviting a second one
