@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
+import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
 
 type SelectedLocation = {
   slug: string;
@@ -133,6 +134,7 @@ export default function GiftCardsHubPage() {
 
       {/* Location Cards */}
       <section className="px-4 sm:px-6 pt-10 pb-16">
+        <HolidayBonusNotice where="gift-cards-hub" className="mx-auto mb-10 max-w-3xl" />
         <p className="text-center text-sm uppercase tracking-[0.15em] text-[#4A776D] mb-6">
           Select your location
         </p>

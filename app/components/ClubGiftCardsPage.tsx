@@ -6,6 +6,7 @@ import Link from "next/link";
 import { SwayCurve } from "./SwayCurve";
 import { trackGiftCardIntent } from "../lib/track";
 import type { ClubGiftCardsConfig } from "./clubGiftCardsConfig";
+import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
 
 /* Shared gift-cards page for the Sway Wellness Club locations (RiNo +
    Central Park). Mirrors the Larimer gift-cards page visually, but the
@@ -147,6 +148,7 @@ export default function ClubGiftCardsPage({ club, checkoutUrl }: { club: ClubGif
           transition={{ duration: 0.5, delay: 0.3 }}
           className="max-w-lg mx-auto"
         >
+          {!external && <HolidayBonusNotice where={`${club.key}-gift-cards`} slug={club.slug} spaName={club.name} className="mb-8" />}
           <div className="mb-8 text-center">
             <a
               href={buyHref}

@@ -53,7 +53,12 @@ export const FLOW_STEPS: Record<string, string[]> = {
     // Detail, not funnel stages (11/24/2026): amount / design = what they went on with from the first
     // screen (variant = dollars, or typed-<nearest 25>; the design id), once a checkout.
     // occasion = filtered the designs (variant = which), occasions-more / designs-all = opened those.
-    "amount", "design", "occasion", "occasions-more", "designs-all"],
+    "amount", "design", "occasion", "occasions-more", "designs-all",
+    // Holiday bonus (lib/holidayBonus.ts, Nov 26 to Dec 25): bonus-shown = saw the offer (variant
+    // offer / unlocked), bonus-nudge = tapped "Make it $200" (variant = the amount they were on),
+    // bonus-continue = left the first screen with / without it, bonus-who = recipient / self.
+    // bonus-notice = saw the offer on a gift card page before the checkout (variant = which page)
+    "bonus-shown", "bonus-nudge", "bonus-continue", "bonus-who", "bonus-notice"],
 };
 
 export const LOCATION_NAMES: Record<string, string> = {

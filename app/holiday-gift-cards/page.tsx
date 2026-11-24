@@ -6,6 +6,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { trackGiftCardIntent } from "../lib/track";
 
+// The holiday bonus is tied to the location that sells the card, so the page sends buyers to that
+// location's own checkout (11/24/2026; the buttons used to open Larimer's Mindbody store, where
+// there is no bonus).
+const LOCATIONS = [
+  { slug: "denver-larimer", name: "Sway Larimer", where: "1428 Larimer St., Denver" },
+  { slug: "denver-rino", name: "Sway RiNo", where: "3636 Blake St., Denver" },
+  { slug: "denver-central-park", name: "Sway Central Park", where: "2271 Clinton St., Aurora" },
+];
+
 export default function HolidayGiftCardsPage() {
   const MINDBODY_GC_URL =
     "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42";
@@ -58,9 +67,9 @@ export default function HolidayGiftCardsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
               >
-                Buy a <span className="font-semibold">$150 Gift Card</span>
+                Give a <span className="font-semibold">$200 Gift Card</span>
                 <br />
-                Receive a <span className="font-semibold">FREE $25 Bonus Card</span>
+                Get a <span className="font-semibold">FREE 30-Minute Express Facial or Massage</span>
               </motion.p>
 
               <motion.div
@@ -69,13 +78,14 @@ export default function HolidayGiftCardsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
-                <Link
-                  href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42"
+                <a
+                  href="#choose-location"
+                  data-track="holiday-gc-hero"
                   onClick={() => trackGiftCardIntent("holiday_gc_hero")}
                   className="inline-block bg-white text-[#113D33] px-7 py-2.5 md:px-9 md:py-3 rounded-xl text-sm md:text-base font-medium"
                 >
                   Buy Spa Gift Cards
-                </Link>
+                </a>
 
               </motion.div>
 
@@ -87,7 +97,7 @@ export default function HolidayGiftCardsPage() {
                 transition={{ delay: 0.45, duration: 0.5 }}
               >
                 <a href="#bonus-terms" className="underline">
-                  Bonus card terms apply. See details below.
+                  Bonus terms apply. See details below.
                 </a>
               </motion.p>
 
@@ -99,9 +109,34 @@ export default function HolidayGiftCardsPage() {
         <section className="mt-8 md:mt-10">
           <div className="rounded-xl border border-[#c5d2cd] bg-white/70 px-5 py-4 text-center text-sm md:text-base text-[#4A776D]">
             <p>
-              <span className="font-semibold text-[#113D33]">The holiday bonus card offer runs December 12–25.</span>
+              <span className="font-semibold text-[#113D33]">The holiday bonus runs November 26 through December 25, 2026.</span>
               {" "}Gift cards are available year-round.
             </p>
+          </div>
+        </section>
+
+        {/* CHOOSE A LOCATION: the bonus is redeemed where the card is bought */}
+        <section id="choose-location" className="mt-10 md:mt-12 scroll-mt-32">
+          <h2 className="text-2xl md:text-3xl font-light text-center">Choose where to buy</h2>
+          <p className="mt-3 max-w-2xl mx-auto text-center text-sm md:text-base text-[#4A776D]">
+            Your gift card works at any Sway. The free bonus treatment is used at the location you buy from, January 1 to April 30, 2027.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {LOCATIONS.map((loc) => (
+              <Link
+                key={loc.slug}
+                href={`/locations/${loc.slug}/gift-cards/checkout/`}
+                data-track={`holiday-gc-${loc.slug}`}
+                onClick={() => trackGiftCardIntent(`holiday_gc_${loc.slug}`)}
+                className="group rounded-2xl border border-[#c5d2cd] bg-white px-5 py-5 text-center transition-colors hover:border-[#113D33]"
+              >
+                <span className="block text-lg font-semibold text-[#113D33]">{loc.name}</span>
+                <span className="mt-1 block text-sm text-[#4A776D]">{loc.where}</span>
+                <span className="mt-4 inline-block rounded-full bg-[#113D33] px-6 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-[#0c2a23]">
+                  Buy a gift card
+                </span>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -113,8 +148,8 @@ export default function HolidayGiftCardsPage() {
               <p>For partners, parents, friends, and coworkers.</p>
             </div>
             <div>
-              <p className="font-semibold text-[#113D33] mb-1">Instant Digital Delivery</p>
-              <p>Send it straight to their inbox in seconds.</p>
+              <p className="font-semibold text-[#113D33] mb-1">Emailed When You Choose</p>
+              <p>Right after purchase, or on a date you pick.</p>
             </div>
             <div>
               <p className="font-semibold text-[#113D33] mb-1">Redeem on Any Service</p>
@@ -189,21 +224,21 @@ export default function HolidayGiftCardsPage() {
 
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
-                <span className="font-semibold text-[#113D33]">How do I get the bonus card?</span>
+                <span className="font-semibold text-[#113D33]">How do I get the holiday bonus?</span>
                 <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                When you purchase a $150 gift card during the promotion, your $25 bonus card will be emailed to you within 24–48 hours.
+                Buy a single gift card of $200 or more on this site from November 26 through December 25, 2026. The free 30-minute express facial or massage comes by email with its own bonus code. At checkout you choose whether it goes with the gift or to you.
               </p>
             </details>
 
             <details className="group rounded-xl bg-white/70 border border-[#d4dfda] px-4 py-3">
               <summary className="cursor-pointer list-none flex justify-between items-center">
-                <span className="font-semibold text-[#113D33]">Do the gift card or bonus card expire?</span>
+                <span className="font-semibold text-[#113D33]">Where and when can the bonus be used?</span>
                 <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Gift cards never expire. Bonus cards expire February 28, 2027.
+                Only at the Sway location that sold the gift card, from January 1 through April 30, 2027. You choose facial or massage when you book. Gift cards themselves never expire and work at any Sway or Spavia spa.
               </p>
             </details>
 
@@ -213,7 +248,7 @@ export default function HolidayGiftCardsPage() {
                 <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Yes. Gift cards are delivered instantly by email.
+                Yes. Gift cards are emailed right after purchase, or on a date you pick. A gift card is ready to use 24 hours after purchase.
               </p>
             </details>
 
@@ -233,7 +268,7 @@ export default function HolidayGiftCardsPage() {
                 <span className="text-xs text-[#4A776D] group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p className="mt-2">
-                Gift card and bonus card purchases are non-refundable.
+                Gift card purchases are non-refundable. The holiday bonus has no cash value.
               </p>
             </details>
 
@@ -249,9 +284,15 @@ export default function HolidayGiftCardsPage() {
             <p className="font-medium text-[#113D33] mb-2">Bonus Terms & Conditions</p>
 
             <p>
-                Valid Only On Purchases of $150 or More. Not Redeemable for Cash. May Not Be Combined With
-                Membership or Any Other Offer. Gift card and bonus card purchases are non-refundable.
-                Terms & Conditions May Change At Any Time. Bonus card expires 2.28.2027.
+                One complimentary 30-minute express facial or massage comes with each single gift card of $200 or
+                more purchased on swaywellnessspa.com from November 26 through December 25, 2026, at Sway Larimer,
+                Sway RiNo and Sway Central Park. The bonus is redeemable only at the location that sold the gift
+                card. The gift card itself can be used at any Sway or Spavia spa in the United States. The bonus
+                can be used from January 1, 2027 and must be used by April 30, 2027. The guest chooses facial or
+                massage when booking; an appointment is required and is subject to availability. The bonus has no
+                cash value, cannot be added to a gift card balance, and is void if the gift card purchase is
+                cancelled. Two cards under $200 do not combine to qualify. The bonus treatment can&apos;t be
+                combined with other offers, including first-visit offers. Gift card purchases are non-refundable.
             </p>
         </section>
 
@@ -264,13 +305,14 @@ export default function HolidayGiftCardsPage() {
             <p className="text-sm md:text-base text-white/85 mb-6">
               Gift Wellness This Season. Stress-Free For You. Stress-Free For Them.
             </p>
-            <Link
-              href="https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42"
+            <a
+              href="#choose-location"
+              data-track="holiday-gc-bottom"
               onClick={() => trackGiftCardIntent("holiday_gc_bottom_cta")}
               className="inline-block bg-white text-[#113D33] px-8 py-3 rounded-xl text-sm md:text-base font-medium"
             >
               Buy Spa Gift Cards
-            </Link>
+            </a>
 
           </div>
         </section>

@@ -44,6 +44,34 @@ everything Mindbody did wrong in production.
 - `CRON_SECRET`: optional; without it the cron is recognized by Vercel's user agent.
 - Uses the existing `RESEND_API_KEY` (sender contact@swaywellnessspa.com, reply-to the location's address).
 
+## Holiday bonus (Nov 26 to Dec 25, 2026)
+
+The same offer the Spavia spas run, at Larimer, RiNo and Central Park (John 11/24/2026): a single gift
+card of $200 or more comes with one free 30-minute express facial or massage, usable Jan 1 to Apr 30,
+2027, only at the location that sold the card. Offer, dates, locations and terms: `lib/holidayBonus.ts`.
+It turns on and off BY DATE (Mountain time); no deploy on Nov 26 or Dec 26.
+
+- Checkout: the offer (and "Make it $200") on the first screen, "Who gets the holiday bonus?" on the
+  second (with the gift, or keep it), the bonus and its terms on the review screen before payment.
+- `quoteGift` decides it (`giftBonusFor`, `lib/giftCards/bonus.ts`) and the quote carries it. The
+  charge path is unchanged.
+- After Mindbody confirms the sale, `fulfillGift` issues one code per gift card (`issueBonusCode`:
+  repeat runs return the same code), adds a bonus block to the gift email and receipt, and sends the
+  bonus email (`bonusmail:<order>`, same send-once + retry + alert rules as the other two).
+- Codes: `bonus:code:<CODE>`, `bonus:card:<siteId>:<barcode>`, `bonus:spa:<siteId>:<locationId>`,
+  `bonus:codes` in the gift Redis. Record fields match the Spavia site's bonus database.
+- Pages: `/holiday-gift-cards/` (offer, FAQ, terms, location picker) and a dated notice on the gift
+  card pages (`HolidayBonusNotice`). `?bonuspreview=1` shows the offer before Nov 26 (look only).
+- Tracking, flow `gift`: `bonus-notice` (saw it on a gift card page), `bonus-shown` (saw it in the
+  checkout: offer / unlocked), `bonus-nudge` (tapped Make it $200), `bonus-continue` (with / without),
+  `bonus-who` (recipient / self). The ledger row's `extra.bonus` marks a sale that carried one.
+- Test: `npx tsx scripts/test-holiday-bonus.mts`.
+
+**NOT built yet, needed by Jan 1, 2027:** the desk's way to look up a code and mark it used (an /ops
+page here, or copy the codes into Atlas's redeem screen: `bonusCodes()` lists them). Also the desk
+side in each Mindbody: a $0 code for the 30-minute express facial and massage, and those two
+treatments bookable. Desk-sold cards get the team's printed bonus card, not a code.
+
 ## Artwork
 
 `python3 scripts/gift-artwork/build.py` draws every design from Sway photos and Vance type into

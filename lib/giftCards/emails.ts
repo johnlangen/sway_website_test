@@ -7,6 +7,7 @@
  * Pure functions. No em dashes in copy.
  */
 import { GIFT_CARD_TERMS } from "./catalog";
+import { HOLIDAY_BONUS, bonusTerms, bonusWhereLine } from "@/lib/holidayBonus";
 
 export type RenderedEmail = { subject: string; html: string; text: string };
 
@@ -46,7 +47,7 @@ export const money = (n: number) => `$${n.toLocaleString("en-US", { minimumFract
 /** 175746437675 → 1757 4643 7675 (easier to read out at the desk) */
 export const formatCode = (code: string) => code.replace(/\s+/g, "").replace(/(.{4})(?=.)/g, "$1 ");
 
-function shell(title: string, preheader: string, logoUrl: string, body: string) {
+function shell(title: string, preheader: string, logoUrl: string, body: string, terms = { title: "Gift card terms", text: GIFT_CARD_TERMS }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -68,7 +69,7 @@ ${body}
 Sway Wellness &middot; <a href="https://swaywellnessspa.com/" style="color:${MUTED};">swaywellnessspa.com</a>
 </td></tr>
 </table>
-<div style="max-width:560px;margin:0 auto;padding:20px 24px 0;font-size:11px;line-height:1.6;color:${MUTED};text-align:left;"><strong>Gift card terms</strong><br>${esc(GIFT_CARD_TERMS)}</div>
+<div style="max-width:560px;margin:0 auto;padding:20px 24px 0;font-size:11px;line-height:1.6;color:${MUTED};text-align:left;"><strong>${esc(terms.title)}</strong><br>${esc(terms.text)}</div>
 </td></tr>
 </table>
 </body>
@@ -178,4 +179,92 @@ Want to hand it over yourself? Print it from the link above. Need a change, or d
     `\nGift card terms: ${GIFT_CARD_TERMS}`,
   ].join("\n");
   return { subject, html: shell(subject, `${money(i.value)} gift card for ${i.recipientName}. ${when}`, i.logoUrl, body), text };
+}
+
+// ---------------------------------------------------------------- holiday bonus (lib/holidayBonus.ts)
+export type HolidayBonusEmailInput = {
+  spa: GiftEmailInput["spa"];
+  recipientName: string;
+  /** Who bought it; omitted when the buyer kept the bonus */
+  senderName?: string;
+  code: string;
+  logoUrl: string;
+};
+
+const GOLD = "#B08D57";
+
+/** The bonus itself, to whoever the buyer chose: the code, then everything about using it as real text */
+export function holidayBonusEmail(i: HolidayBonusEmailInput): RenderedEmail {
+  const t = HOLIDAY_BONUS.treatment;
+  const subject = i.senderName ? `${i.senderName} sent you a free ${t}` : `Your free ${t} at ${i.spa.name}`;
+  const headline = i.senderName ? `${esc(i.recipientName)}, ${esc(i.senderName)} sent you a free ${t}` : `${esc(i.recipientName)}, your free ${t} is here`;
+  const tel = `tel:${i.spa.phone.replace(/\D/g, "")}`;
+  const body = `
+<tr><td style="padding:34px 32px 0;text-align:center;">
+<div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">Holiday bonus</div>
+<h1 style="margin:14px 0 0;font-size:26px;font-weight:bold;line-height:1.25;color:${FOREST};">${headline}</h1>
+</td></tr>
+<tr><td style="padding:26px 32px 0;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:${CREAM};border:1px solid ${GOLD};border-radius:12px;">
+<tr><td style="padding:22px 24px;text-align:center;">
+<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:${MUTED};">Bonus code</div>
+<div style="margin-top:8px;font-size:28px;letter-spacing:4px;font-family:'Courier New',monospace;color:${FOREST};">${esc(i.code)}</div>
+<div style="margin-top:10px;font-size:14px;color:${FOREST};">One complimentary ${t}</div>
+<div style="margin-top:4px;font-size:13px;color:${MUTED};">Valid ${HOLIDAY_BONUS.windowLabel} &middot; Only at ${esc(i.spa.name)}</div>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding:26px 32px 0;font-size:15px;line-height:1.65;color:${FOREST};">
+<strong>How to use it</strong><br>
+Call ${esc(i.spa.name)} to book and mention your holiday bonus. You choose a facial or a massage when you book. Bring this code to your visit, and the front desk will take care of the rest.<br><br>
+This bonus is redeemable only at ${esc(i.spa.name)}, from ${HOLIDAY_BONUS.validFromLabel} through ${HOLIDAY_BONUS.expiresLabel}.
+</td></tr>
+<tr><td style="padding:22px 32px 0;text-align:center;">${button(tel, `Call ${i.spa.phone} to book`)}</td></tr>
+<tr><td style="padding:26px 32px 30px;font-size:14px;line-height:1.6;color:${FOREST};">
+<strong>${esc(i.spa.name)}</strong><br>
+${esc(i.spa.address)}<br>
+<a href="${tel}" style="color:${FOREST};">${esc(i.spa.phone)}</a> &middot; <a href="${esc(i.spa.pageUrl)}" style="color:${SAGE};">Hours and details</a><br>
+<span style="font-size:12px;color:${MUTED};">Keep this email: the code is your bonus.</span>
+</td></tr>`;
+  const text = [
+    `${i.recipientName}, ${i.senderName ? `${i.senderName} sent you` : "here is your"} a free ${t}.`,
+    `\nBonus code: ${i.code}`,
+    `One complimentary ${t}. Valid ${HOLIDAY_BONUS.windowLabel}. Only at ${i.spa.name}.`,
+    `\nHow to use it: call ${i.spa.name} at ${i.spa.phone} to book and mention your holiday bonus. You choose a facial or a massage when you book. Bring this code to your visit.`,
+    `\n${i.spa.name}\n${i.spa.address}\n${i.spa.phone}\n${i.spa.pageUrl}`,
+    `\nKeep this email: the code is your bonus.`,
+    `\nHoliday bonus terms: ${bonusTerms(i.spa.name)}`,
+  ].join("\n");
+  return {
+    subject,
+    html: shell(subject, `Bonus code ${i.code}, only at ${i.spa.name}, valid ${HOLIDAY_BONUS.windowLabel}`, i.logoUrl, body, { title: "Holiday bonus terms", text: bonusTerms(i.spa.name) }),
+    text,
+  };
+}
+
+/** The rows the bonus block goes in front of: "How to use it" (gift email), the help block (receipt) */
+const GIFT_ANCHOR = '<tr><td style="padding:26px 32px 0;font-size:15px;line-height:1.65;';
+const RECEIPT_ANCHOR = '<tr><td style="padding:22px 32px 30px;font-size:14px;line-height:1.6;';
+
+/**
+ * Adds the "holiday bonus included" block to a rendered gift email or receipt.
+ * `note` is the delivery line, e.g. "Your bonus code arrives in a separate email."
+ */
+export function withBonusLine(email: RenderedEmail, kind: "gift" | "receipt", spaName: string, note: string): RenderedEmail {
+  const block = `<tr><td style="padding:26px 32px 0;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:${CREAM};border:1px solid ${GOLD};border-radius:12px;">
+<tr><td style="padding:18px 22px;font-size:14px;line-height:1.6;color:${FOREST};">
+<div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:${GOLD};">Holiday bonus included</div>
+<div style="margin-top:8px;">Includes a free ${HOLIDAY_BONUS.treatment}, redeemable only at ${esc(spaName)}, ${HOLIDAY_BONUS.windowLabel}. Your gift card works at any Sway or Spavia spa.</div>
+<div style="margin-top:8px;color:${MUTED};">${esc(note)}</div>
+</td></tr>
+</table>
+</td></tr>
+`;
+  const at = email.html.indexOf(kind === "gift" ? GIFT_ANCHOR : RECEIPT_ANCHOR);
+  return {
+    ...email,
+    html: at < 0 ? email.html : email.html.slice(0, at) + block + email.html.slice(at),
+    text: `${email.text}\n\nHoliday bonus: ${bonusWhereLine(spaName)} ${note}`,
+  };
 }

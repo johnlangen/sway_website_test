@@ -19,7 +19,9 @@ import { GiftError, sha256, type GiftStore } from "./store";
 import { GIFT_ACTIVATION_NOTICE, GIFT_CARD_TERMS } from "./catalog";
 import { absoluteArtwork, artworkFile, ART_PATH } from "./artwork";
 import { giftDeliveryLabel } from "./schedule";
-import { giftEmail, receiptEmail, formatCode } from "./emails";
+import { giftEmail, receiptEmail, formatCode, holidayBonusEmail, withBonusLine } from "./emails";
+import { issueBonusCode } from "./bonus";
+import { recordServerError } from "@/lib/ops/record";
 import { alert } from "./alerts";
 import { RECORD_TTL, type GiftResult, type PurchaseRecord } from "./checkout";
 import { bookPath, giftCheckoutPath, giftSite, publicOrigin, type GiftSite } from "./sites";
@@ -168,8 +170,35 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
   };
   const scheduled = Boolean(q.scheduledAt && Date.parse(q.scheduledAt) > Date.now());
   const deliveryLabel = q.scheduledAt ? giftDeliveryLabel(q.deliveryDate, true) : "Right after purchase";
-  const gEmail = giftEmail(base);
-  const rEmail = receiptEmail({
+  // Holiday bonus (lib/holidayBonus.ts), fixed at quote time. The same card always gets the same
+  // code, so a repeat run is safe, and a code that can't be issued never holds up the gift: the next
+  // run (the guest's status check or the reconcile job) tries again.
+  const bonus = q.giftBonus;
+  const bonusLater = Boolean(bonus?.scheduledAt && Date.parse(bonus.scheduledAt) > Date.now());
+  const bonusWhen = bonus?.scheduledAt ? `on ${giftDeliveryLabel(bonus.date, true)}` : "right away";
+  let bonusCode = "";
+  if (bonus) {
+    try {
+      bonusCode = (
+        await issueBonusCode(store, {
+          site,
+          saleId: r.receipt.saleId,
+          barcode: r.receipt.barcode,
+          value: r.receipt.value,
+          buyerName: q.sender,
+          buyerEmail: r.email,
+          bonus,
+          purchasedAt: new Date(r.startedAt),
+        })
+      ).code;
+    } catch (e) {
+      console.error("[gift-cards] bonus code", order, e);
+      await recordServerError("gift", site.slug, "bonus-code", e instanceof Error ? e.message : "could not issue").catch(() => undefined);
+    }
+  }
+  // The gift card's recipient only hears about a bonus that's theirs
+  const gEmail = bonus?.who === "recipient" ? withBonusLine(giftEmail(base), "gift", site.name, "Your bonus code arrives in a separate email.") : giftEmail(base);
+  const rEmailPlain = receiptEmail({
     ...base,
     recipientEmail: q.recipientEmail,
     buyerName: q.sender,
@@ -180,7 +209,15 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
     deliveryLabel,
     scheduled: Boolean(q.scheduledAt),
   });
-  const [delivery, receipt] = await Promise.all([
+  const rEmail = bonus
+    ? withBonusLine(
+        rEmailPlain,
+        "receipt",
+        site.name,
+        bonus.who === "self" ? `You kept the bonus: we'll email your bonus code to ${bonus.email} ${bonusWhen}.` : `We'll email the bonus code to ${bonus.name} (${bonus.email}) ${bonusWhen}.`,
+      )
+    : rEmailPlain;
+  const [delivery, receipt, bonusDelivery] = await Promise.all([
     sendOnce(store, `delivery:${order}`, {
       from: FROM,
       reply_to: site.contactEmail,
@@ -196,7 +233,33 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
       tags: [{ name: "type", value: "gift-receipt" }],
       ...rEmail,
     }),
+    bonus && bonusCode
+      ? sendOnce(store, `bonusmail:${order}`, {
+          from: FROM,
+          reply_to: site.contactEmail,
+          to: [bonus.email],
+          tags: [{ name: "type", value: "gift-bonus" }],
+          ...holidayBonusEmail({ spa, recipientName: bonus.name, senderName: bonus.who === "self" ? undefined : q.sender, code: bonusCode, logoUrl: base.logoUrl }),
+          ...(bonusLater ? { scheduled_at: bonus.scheduledAt } : {}),
+        })
+      : null,
   ]);
+  // A guest was promised a bonus and it hasn't gone out
+  const bonusStuck = !bonus
+    ? ""
+    : !bonusCode
+      ? "the bonus code couldn't be issued"
+      : bonusDelivery?.state === "needs_help"
+        ? "the bonus email gave up after 23 hours"
+        : BAD_EVENTS.includes(bonusDelivery?.lastEvent || "")
+          ? `the bonus email ${bonusDelivery?.lastEvent}`
+          : "";
+  if (bonusStuck)
+    await alert(store, `gift-bonus:${order}`, `Holiday bonus not delivered (${site.name})`, [
+      `Order ${r.result.reference}, Mindbody sale #${r.receipt.saleId}: ${bonusStuck}.`,
+      `The gift card itself is fine. The buyer (${r.email}) was promised a free ${site.name} holiday bonus for ${bonus!.name} (${bonus!.email})${bonusCode ? `, code ${bonusCode}` : ""}. Opening the gift's status retries it; the same card keeps the same code.`,
+    ]);
+  const bonusPending = Boolean(bonus) && (!bonusCode || (!bonusDelivery?.id && bonusDelivery?.state !== "needs_help"));
   // A paid gift whose email can't go out needs a person
   const stuck = [
     delivery?.state === "needs_help" && "the gift email gave up after 23 hours",
@@ -208,7 +271,7 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
       `Order ${r.result.reference}, Mindbody sale #${r.receipt.saleId}: ${stuck.join("; ")}.`,
       `The gift card is purchased in Mindbody. Email the buyer (${r.email}) the gift link, or ask for a new recipient address: ${giftUrl}`,
     ]);
-  const deliveryCheckNeeded = (!delivery?.id && delivery?.state !== "needs_help") || (!receipt?.id && receipt?.state !== "needs_help");
+  const deliveryCheckNeeded = (!delivery?.id && delivery?.state !== "needs_help") || (!receipt?.id && receipt?.state !== "needs_help") || bonusPending;
   // An email still not out is retried by the reconcile job even after the guest leaves
   try {
     if (deliveryCheckNeeded) await store.sadd("deliveries", order);
@@ -220,6 +283,15 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
     ...r.result,
     giftToken: r.token,
     deliveryCheckNeeded,
+    ...(bonus
+      ? {
+          bonus: !bonusCode
+            ? "Your purchase includes a free holiday bonus treatment. Its code is still being prepared: use “Check email delivery” below to check again."
+            : bonusDelivery?.id
+              ? `Holiday bonus: the code for a free ${site.name} treatment is ${bonusLater ? `scheduled for ${giftDeliveryLabel(bonus.date, true)}` : "on its way"} to ${bonus.email}.`
+              : `Holiday bonus: the code for a free ${site.name} treatment hasn't been emailed yet. Use “Check email delivery” below, or contact ${site.name}.`,
+        }
+      : {}),
     buyerReceipt: receipt?.id
       ? "Your receipt is on its way to your email."
       : receipt?.state === "needs_help"

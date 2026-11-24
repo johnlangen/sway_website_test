@@ -16,7 +16,8 @@ export async function countSale(req: Request, store: GiftStore, order: string) {
     label: `Gift card $${r.receipt.value}`,
     ref: r.receipt.saleId,
     value: r.receipt.amount,
-    extra: { scheduled: Boolean(r.gift.scheduledAt), payment: r.gift.payment },
+    // bonus = the holiday bonus went with this card, and to whom ("self" or "recipient"); no contact details
+    extra: { scheduled: Boolean(r.gift.scheduledAt), payment: r.gift.payment, ...(r.gift.giftBonus ? { bonus: r.gift.giftBonus.who } : {}) },
   });
 }
 

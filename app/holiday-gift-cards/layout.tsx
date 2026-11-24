@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "Holiday Spa Gift Cards | Sway Wellness Spa Denver" },
   description:
-    "Give the gift of wellness this holiday season. Buy a $150 spa gift card at Sway and receive a $25 bonus card. Instant digital delivery.",
+    "Holiday bonus, Nov 26 to Dec 25: give a $200 Sway gift card and get a free 30-minute express facial or massage. Emailed now or on a date you pick.",
   alternates: {
     canonical: "https://swaywellnessspa.com/holiday-gift-cards/",
   },
   openGraph: {
     title: "Holiday Spa Gift Cards | Sway Wellness Spa",
     description:
-      "Holiday bonus: Buy a $150 spa gift card at Sway and get a $25 bonus card. Perfect for massages, facials, sauna, cold plunge, and Aescape.",
+      "Holiday bonus, Nov 26 to Dec 25: give a $200 Sway gift card and get a free 30-minute express facial or massage. Good for massages, facials, sauna, cold plunge, and Aescape.",
     url: "https://swaywellnessspa.com/holiday-gift-cards/",
     siteName: "Sway Wellness Spa",
     images: [
@@ -35,7 +35,7 @@ const faqJsonLd = {
       name: "What is Sway's holiday gift card bonus?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "During the holiday season (typically December 12–25), buy a $150 Sway gift card and receive a $25 bonus card. The bonus card is valid for any service at Sway Wellness Spa.",
+        text: "From November 26 through December 25, 2026, each single Sway gift card of $200 or more bought on swaywellnessspa.com comes with one free 30-minute express facial or massage. The bonus can be used January 1 through April 30, 2027, only at the Sway location that sold the gift card (Sway Larimer, Sway RiNo or Sway Central Park). The gift card itself works at any Sway or Spavia spa.",
       },
     },
     {
@@ -43,7 +43,7 @@ const faqJsonLd = {
       name: "Can I buy Sway holiday gift cards online?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway holiday gift cards can be purchased online at swaywellnessspa.com with instant digital delivery via email, making them a perfect last-minute gift.",
+        text: "Yes. Sway gift cards can be purchased online at swaywellnessspa.com and are emailed right after purchase or on a date you pick, making them a perfect last-minute gift. A gift card is ready to use 24 hours after purchase.",
       },
     },
     {

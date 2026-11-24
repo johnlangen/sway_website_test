@@ -15,7 +15,8 @@
  */
 import { randomBytes, randomUUID } from "crypto";
 import { GiftError, sha256, type GiftStore } from "./store";
-import { giftSelection, normalizeGifts, sellableGifts, type GiftDetails, type GiftProduct } from "./catalog";
+import { giftSelection, normalizeGifts, sellableGifts, type GiftBonus, type GiftDetails, type GiftProduct } from "./catalog";
+import { giftBonusFor } from "./bonus";
 import { giftScheduledAt as scheduleOrThrow } from "./schedule";
 import { newCardPayment, sampleCardPayment, storedCardPayment, validateGiftCard, type GiftCard } from "./payment";
 import { buyerProfile, giftCardBalance, giftCardRows, giftSaleSince, purchaseGiftCard, purchasesSince } from "./mindbody";
@@ -34,6 +35,8 @@ export type GiftQuote = GiftDetails & {
   value: number;
   scheduledAt?: string;
   cardLastFour?: string;
+  /** Holiday bonus on this purchase (lib/holidayBonus.ts): fixed here, shown on the review screen */
+  giftBonus?: GiftBonus;
 };
 
 /** What the browser sees of a quote (no session or client ids) */
@@ -55,6 +58,8 @@ export type GiftResult = {
   delivery?: string;
   buyerReceipt?: string;
   deliveryCheckNeeded?: boolean;
+  /** Holiday bonus: where its code went (shown on the confirmation screen) */
+  bonus?: string;
 };
 
 type Receipt = { saleId: number; barcode: string; value: number; amount: number };
@@ -175,8 +180,11 @@ export async function quoteGift(store: GiftStore, site: GiftSite, s: GiftSession
   if (p.email !== s.email || (input?.payment === "stored" && (!p.hasCard || !/^\d{4}$/.test(p.lastFour || ""))))
     throw new GiftError("card", "Use your account with a valid saved card, or a new card.", 403);
   const selection = giftSelection(site, await giftCatalog(site), input);
+  // Holiday bonus: decided here, by date and amount, and disclosed on the review screen before payment
+  const giftBonus = giftBonusFor(site, selection.details, selection.value, s.email);
   const q: GiftQuote = {
     ...selection.details,
+    ...(giftBonus ? { giftBonus } : {}),
     product: selection.product,
     value: selection.value,
     id: randomUUID(),

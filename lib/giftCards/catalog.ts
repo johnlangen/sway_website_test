@@ -36,6 +36,19 @@ export type GiftDetails = {
   message: string;
   deliveryDate: string;
   payment: "stored" | "new";
+  /** Holiday bonus (lib/holidayBonus.ts): who gets it. Absent = it goes with the gift to its recipient. */
+  bonus?: GiftBonusChoice;
+};
+
+export type GiftBonusChoice = "recipient" | "self";
+/** The holiday bonus on a purchase, decided at quote time and shown before payment (lib/giftCards/bonus.ts) */
+export type GiftBonus = {
+  who: GiftBonusChoice;
+  name: string;
+  email: string;
+  /** YYYY-MM-DD: when its email goes out */
+  date: string;
+  scheduledAt?: string;
 };
 
 export { MAX_GIFT } from "./terms";
@@ -155,6 +168,7 @@ export function giftSelection(site: GiftSite, products: GiftProduct[], input: Gi
       message: short(giftText(input.message), 300, "the message", true),
       deliveryDate,
       payment: input.payment,
+      ...(input.bonus === "self" || input.bonus === "recipient" ? { bonus: input.bonus } : {}),
     } satisfies GiftDetails,
   };
 }

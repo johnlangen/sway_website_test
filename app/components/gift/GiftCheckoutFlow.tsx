@@ -14,7 +14,8 @@ import { trackStep, useFlowTrack } from "@/lib/ops/client";
 import { defaultGiftAmount, giftAmountOptions } from "@/lib/giftCards/amounts";
 import { GIFT_ACTIVATION_NOTICE, GIFT_CARD_TERMS, MAX_GIFT } from "@/lib/giftCards/terms";
 import { giftDate, giftDeliveryLabel, lastGiftDate, nextDay } from "@/lib/giftCards/schedule";
-import type { GiftDetails, GiftProduct } from "@/lib/giftCards/catalog";
+import type { GiftBonusChoice, GiftDetails, GiftProduct } from "@/lib/giftCards/catalog";
+import { HOLIDAY_BONUS, bonusTerms, holidayBonusOpen, qualifiesForBonus } from "@/lib/holidayBonus";
 import type { GiftResult, GiftReview } from "@/lib/giftCards/checkout";
 import GiftDesignPicker from "./GiftDesignPicker";
 import GiftStickyActions from "./GiftStickyActions";
@@ -89,6 +90,23 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
   const picked = useRef(false);
   const product = products.find((p) => p.id === details.productId);
   const value = product ? (product.custom ? details.amount : product.value) : 0;
+  // Holiday bonus (lib/holidayBonus.ts): on by date. ?bonuspreview=1 shows the offer on this screen
+  // before it starts (look only: the server still decides by date whether a purchase carries one).
+  const [bonusWho, setBonusWho] = useState<GiftBonusChoice>("recipient");
+  const [bonusPreview, setBonusPreview] = useState(false);
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).has("bonuspreview")) setBonusPreview(true);
+  }, []);
+  const bonusLive = holidayBonusOpen(site.slug, site.timezone);
+  const bonusOpen = bonusLive || bonusPreview;
+  const bonusEligible = bonusOpen && !!product && qualifiesForBonus(value);
+  const bonusSeen = useRef(false);
+  useEffect(() => {
+    // Counted once a checkout, when the offer is first on screen (variant: already at $200 or not)
+    if (step !== "gift" || !bonusOpen || !product || bonusSeen.current) return;
+    bonusSeen.current = true;
+    trackStep("gift", "bonus-shown", bonusEligible ? "unlocked" : "offer");
+  }, [step, bonusOpen, product, bonusEligible]);
   useFlowTrack("gift", step, product ? String(product.custom ? "custom" : product.id) : null, error, step === "done" && result?.state === "purchased" ? result.amount : undefined);
   // How the purchase ended: purchased, pending, unconfirmed or released. Counted again if a pending
   // purchase settles while the guest is still on the page. Tracking only.
@@ -216,7 +234,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
 
   async function review() {
     const r = await api<{ quote: GiftReview }>("quote", {
-      details: { ...details, recipientEmail: self ? email : details.recipientEmail, deliveryDate: scheduled ? details.deliveryDate : today },
+      details: { ...details, bonus: bonusWho, recipientEmail: self ? email : details.recipientEmail, deliveryDate: scheduled ? details.deliveryDate : today },
     });
     setQuote(r.quote);
     setStep("review");
@@ -326,6 +344,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
       <>
         <strong className="font-semibold text-[#113D33]">{money(value)} gift card</strong>
         {details.recipient.trim() ? ` for ${details.recipient.trim()}` : ""} · {site.name}
+        {bonusEligible ? " · free holiday bonus included" : ""}
       </>
     ) : (
       "Choose an amount to continue"
@@ -437,6 +456,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                     picked.current = true;
                     trackStep("gift", "amount", customEntry ? `typed-${Math.min(MAX_GIFT, Math.max(25, Math.round(value / 25) * 25))}` : String(Math.round(value)));
                     trackStep("gift", "design", String(details.designId));
+                    if (bonusOpen) trackStep("gift", "bonus-continue", bonusEligible ? "with" : "without");
                   }
                   setStep("delivery");
                 }}
@@ -488,6 +508,64 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                     </div>
                   )}
                 </fieldset>
+                {bonusOpen && (
+                  // Festive on purpose: forest and gold, the one dark block on the page
+                  <div aria-live="polite" className="relative overflow-hidden rounded-2xl bg-[#113D33] p-5 text-[#F7F4E9] shadow-[0_14px_34px_-16px_rgba(17,61,51,0.7)] sm:p-7">
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_88%_12%,rgba(226,197,143,0.32),transparent_45%),radial-gradient(circle_at_8%_100%,rgba(226,197,143,0.16),transparent_50%)]"
+                    />
+                    <div className="relative">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E2C58F]">
+                        {bonusEligible ? (
+                          <>
+                            <span aria-hidden="true">✓ </span>Holiday bonus unlocked
+                          </>
+                        ) : (
+                          `Holiday bonus · ${HOLIDAY_BONUS.saleWindowLabel}`
+                        )}
+                      </p>
+                      {bonusEligible ? (
+                        <>
+                          <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+                            Your ${Number.isInteger(value) ? value : value.toFixed(2)} gift comes with a free {HOLIDAY_BONUS.treatment}
+                          </p>
+                          <p className="mt-3 text-sm leading-relaxed text-[#F7F4E9]/85">
+                            Redeemable only at {site.name}, {HOLIDAY_BONUS.windowLabel}. You’ll choose who receives it on the next step. Your gift card works at any Sway or
+                            Spavia spa.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+                            Give ${HOLIDAY_BONUS.minValue}, get a free {HOLIDAY_BONUS.treatment}
+                          </p>
+                          <p className="mt-3 text-sm leading-relaxed text-[#F7F4E9]/85">
+                            Choose ${HOLIDAY_BONUS.minValue} or more and we’ll add a bonus treatment at {site.name}, to enjoy {HOLIDAY_BONUS.windowLabel}.
+                          </p>
+                          {(() => {
+                            const o = giftAmountOptions(products).find((x) => !x.entry && x.amount === HOLIDAY_BONUS.minValue);
+                            return o ? (
+                              <button
+                                type="button"
+                                data-track="gift-bonus-nudge"
+                                className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#E2C58F] px-6 font-semibold text-[#113D33] transition hover:bg-[#EFD9AC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E2C58F]"
+                                onClick={() => {
+                                  trackStep("gift", "bonus-nudge", Number.isFinite(value) ? String(Math.round(value)) : "none");
+                                  setCustomEntry(false);
+                                  setDetails((d) => ({ ...d, productId: o.productId, amount: o.amount }));
+                                }}
+                              >
+                                Make it ${HOLIDAY_BONUS.minValue} →
+                              </button>
+                            ) : null;
+                          })()}
+                        </>
+                      )}
+                      {!bonusLive && <p className="mt-4 text-xs text-[#F7F4E9]/75">Preview only: this offer starts November 26.</p>}
+                    </div>
+                  </div>
+                )}
                 <GiftDesignPicker designs={product.designs} selected={details.designId} onChange={(designId) => setDetails((d) => ({ ...d, designId }))} />
                 <GiftStickyActions hint={stickyHint}>
                   <button data-track="gift-next-gift" className={button}>
@@ -504,6 +582,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (!validate(e.currentTarget)) return;
+                  if (bonusEligible) trackStep("gift", "bonus-who", bonusWho);
                   void run(async () => {
                     if (buyer) return setStep("payment");
                     try {
@@ -572,6 +651,36 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   />
                   <p className="mt-1 text-xs text-[#113D33]/75">{300 - details.message.length} characters left</p>
                 </div>
+                {bonusEligible && (
+                  <fieldset className="rounded-2xl border border-[#B08D57]/70 bg-white p-5">
+                    <legend className="px-1 text-lg font-semibold">Who gets the holiday bonus?</legend>
+                    <p className="text-sm leading-relaxed text-[#113D33]/80">
+                      Your gift includes a free {HOLIDAY_BONUS.treatment}, valid {HOLIDAY_BONUS.windowLabel}. It arrives in its own email with a bonus code.
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed">
+                      <strong>The bonus can be used only at {site.name}.</strong> If they live somewhere else, you might keep it for yourself.
+                    </p>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      {(
+                        [
+                          ["recipient", "Send it with the gift", `We’ll email the bonus code to ${self ? "you" : details.recipient.trim() || "your recipient"}`],
+                          ["self", "Keep it for myself", "We’ll email the bonus code to you"],
+                        ] as const
+                      ).map(([who, text, note]) => (
+                        <label
+                          key={who}
+                          className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 ${bonusWho === who ? "border-[#113D33] bg-[#D7E5DD]/60" : "border-[#113D33]/20 bg-white"}`}
+                        >
+                          <input type="radio" name="bonus-who" className="mt-0.5 h-5 w-5 shrink-0 accent-[#113D33]" checked={bonusWho === who} onChange={() => setBonusWho(who)} />
+                          <span>
+                            <span className="block font-semibold">{text}</span>
+                            <span className="mt-0.5 block text-sm text-[#113D33]/75">{note}</span>
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                )}
                 <fieldset className="border-t border-[#113D33]/10 pt-5">
                   <legend className="text-lg font-semibold">When should it arrive?</legend>
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -932,6 +1041,17 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                     </div>
                   </dl>
                   {quote.message && <p className="mt-4 whitespace-pre-line text-sm italic">“{quote.message}”</p>}
+                  {quote.giftBonus && (
+                    <div className="mt-5 rounded-xl border border-[#B08D57]/70 bg-[#F7F4E9] p-4 text-sm leading-relaxed">
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#75561F]">Holiday bonus included</p>
+                      <p className="mt-2">
+                        Free {HOLIDAY_BONUS.treatment}, redeemable only at {site.name}, {HOLIDAY_BONUS.windowLabel}. Your gift card works at any Sway or Spavia spa.
+                      </p>
+                      <p className="mt-2 text-[#113D33]/80">
+                        Bonus code goes to {quote.giftBonus.name} · {quote.giftBonus.email}, {quote.giftBonus.scheduledAt ? `on ${giftDeliveryLabel(quote.giftBonus.date, true)}` : "right after purchase"}.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {quote.payment === "new" && (
@@ -964,12 +1084,13 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                 )}
 
                 <details className="rounded-2xl bg-white p-5 shadow-sm">
-                  <summary className="cursor-pointer font-semibold">Gift card terms</summary>
+                  <summary className="cursor-pointer font-semibold">{quote.giftBonus ? "Gift card and holiday bonus terms" : "Gift card terms"}</summary>
                   <p className="mt-3 whitespace-pre-line text-sm leading-relaxed">
                     {GIFT_ACTIVATION_NOTICE}
                     {"\n\n"}
                     {GIFT_CARD_TERMS}
                     {quote.product.terms ? `\n\n${quote.product.terms}` : ""}
+                    {quote.giftBonus ? `\n\nHoliday bonus: ${bonusTerms(site.name)}` : ""}
                   </p>
                 </details>
 
@@ -1046,6 +1167,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   </button>
                 )}
                 {result.delivery && <p className="mt-4">{result.delivery}</p>}
+                {result.bonus && <p className="mt-2">{result.bonus}</p>}
                 {result.buyerReceipt && <p className="mt-2 text-sm">{result.buyerReceipt}</p>}
                 {result.saleId && <p className="mt-2 text-sm">Order number: {result.saleId}</p>}
                 {waiting && waitedLong && (

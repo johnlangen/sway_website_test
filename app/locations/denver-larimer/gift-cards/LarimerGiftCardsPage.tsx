@@ -6,6 +6,7 @@ import Link from "next/link";
 import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/GoogleReviews";
 import { SwayCurve } from "../../../components/SwayCurve";
 import { trackGiftCardIntent } from "../../../lib/track";
+import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
 
 export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: string }) {
   const giftCardUrl =
@@ -160,6 +161,7 @@ export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: st
           transition={{ duration: 0.5, delay: 0.3 }}
           className="max-w-lg mx-auto"
         >
+          {!external && <HolidayBonusNotice where="larimer-gift-cards" slug="denver-larimer" spaName="Sway Larimer" className="mb-8" />}
           <div className="mb-8 text-center">
             <a
               href={buyHref}
