@@ -5,7 +5,7 @@ import { giftSite } from "@/lib/giftCards/sites";
 import { alert, clearUncertain, uncertainGifts } from "@/lib/giftCards/alerts";
 import { recoverGift, releaseOrder, type PurchaseRecord } from "@/lib/giftCards/checkout";
 import { giftSaleSince, purchasesSince } from "@/lib/giftCards/mindbody";
-import { fulfillGift } from "@/lib/giftCards/delivery";
+import { confirmGiftDelivered, dropGiftToConfirm, fulfillGift, giftsToConfirm } from "@/lib/giftCards/delivery";
 import { countSale, liveSiteRequest } from "@/lib/giftCards/count";
 import { recordServerError } from "@/lib/ops/record";
 
@@ -23,8 +23,11 @@ export const maxDuration = 120;
  *   no sale at all for the guest after 3 minutes → nothing was charged: the order is released (the
  *     guest's status check says they can buy again);
  *   neither after 2 hours → one alert to check Mindbody, and it leaves the list.
- * Then it retries any purchased gift whose email hasn't gone out.
+ * Then it retries any purchased gift whose email hasn't gone out, and checks every gift email once
+ * it was due: a bounce tells the buyer and alerts the team, a gift sent on a later date gets the
+ * buyer their "it was delivered" note, and anything unconfirmed after 2 days alerts.
  */
+const CONFIRM_GIVE_UP = 2 * 86400000;
 const GIVE_UP = 2 * 3600000;
 const RELEASE_AFTER = 3 * 60000;
 
@@ -101,6 +104,26 @@ export async function GET(req: NextRequest) {
           `Retrying the emails for gift order GIFT-${order.slice(0, 8).toUpperCase()} failed: ${e instanceof Error ? e.message : "unknown"}. It keeps retrying every 5 minutes.`,
         ]);
     }
+  }
+
+  // Gift emails that were due: did they arrive? (lib/giftCards/delivery.ts confirmGiftDelivered)
+  for (const { raw, item } of await giftsToConfirm(store)) {
+    if (Date.now() < item.at) continue;
+    let outcome: string;
+    try {
+      outcome = await confirmGiftDelivered(store, item.order);
+    } catch (e) {
+      outcome = `error: ${e instanceof Error ? e.message : "unknown"}`;
+    }
+    const open = outcome === "waiting" || outcome.startsWith("error");
+    if (open && Date.now() - item.at > CONFIRM_GIVE_UP) {
+      await dropGiftToConfirm(store, raw);
+      await alert(store, `gift-unconfirmed:${item.order}`, `Gift card email: delivery not confirmed after 2 days (${giftSite(item.slug)?.name ?? item.slug})`, [
+        `The gift email for order GIFT-${item.order.slice(0, 8).toUpperCase()} was sent, but the recipient's mail server never confirmed it arrived (last check: ${outcome}).`,
+        "The gift card is purchased in Mindbody. Check with the buyer that the recipient got it; the buyer's receipt has the gift link.",
+      ]);
+    } else if (!open) await dropGiftToConfirm(store, raw);
+    results.push({ confirm: item.order.slice(0, 8), slug: item.slug, outcome });
   }
 
   // Released orders (nothing found after 3 minutes): watched for 24 h in case Mindbody lists the sale late

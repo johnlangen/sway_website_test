@@ -7,6 +7,12 @@
  *  - Each email is sent once: a 45 s send lock plus Resend's idempotency key (remembered 24 h). A
  *    send that didn't answer is retried with the same key only inside that window; after 23 h it's
  *    marked for a person rather than risk a duplicate. A bounced or stuck gift email alerts.
+ *  - Every gift email is CHECKED after it goes out (the reconcile job, confirmGiftDelivered): a gift
+ *    sent right away is checked a couple of minutes later, a gift sent on a later date after its
+ *    send time. A bounce tells the buyer (with the gift link, so they can forward or print it) and
+ *    alerts the team. Once a gift sent on a later date reaches the recipient's mail server, the
+ *    buyer gets one note saying so (the Spavia site, 10/30). Unconfirmed after 2 days alerts.
+ *  - The location's inbox gets a note of every gift card sold on the site (Spavia, 10/30).
  *  - The gift's private link (#gift=<token>) is the only way to open it. The issued gift is keyed
  *    by the token's hash; the purchase record and the stored email payloads hold the link itself
  *    (needed to resend it), so treat this Redis data as private.
@@ -19,7 +25,8 @@ import { GiftError, sha256, type GiftStore } from "./store";
 import { GIFT_ACTIVATION_NOTICE, GIFT_CARD_TERMS } from "./catalog";
 import { absoluteArtwork, artworkFile, ART_PATH } from "./artwork";
 import { giftDeliveryLabel } from "./schedule";
-import { giftEmail, receiptEmail, formatCode, holidayBonusEmail, withBonusLine } from "./emails";
+import { giftEmail, receiptEmail, formatCode, holidayBonusEmail, withBonusLine, esc, money } from "./emails";
+import { HOLIDAY_BONUS } from "@/lib/holidayBonus";
 import { issueBonusCode } from "./bonus";
 import { recordServerError } from "@/lib/ops/record";
 import { alert } from "./alerts";
@@ -54,6 +61,14 @@ type Delivery = {
 
 const FROM = "Sway Wellness <contact@swaywellnessspa.com>";
 const BAD_EVENTS = ["bounced", "failed", "suppressed", "canceled"];
+/** Resend events that mean the recipient's mail server has it */
+const ARRIVED_EVENTS = ["delivered", "opened", "clicked", "complained"];
+
+/** A gift email to check once it has gone out (the reconcile job reads this list) */
+export type GiftToConfirm = { order: string; slug: string; at: number };
+const CONFIRM_LIST = "confirm";
+/** A gift sent right away is checked this long after: enough for a bad address to bounce */
+const CONFIRM_AFTER = 2 * 60000;
 
 export async function giftAccess(store: GiftStore, token: string): Promise<IssuedGift> {
   if (!/^[a-f0-9]{64}$/.test(token)) throw new GiftError("gift", "This gift link isn't valid.", 404);
@@ -193,11 +208,14 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
       ).code;
     } catch (e) {
       console.error("[gift-cards] bonus code", order, e);
-      await recordServerError("gift", site.slug, "bonus-code", e instanceof Error ? e.message : "could not issue").catch(() => undefined);
+      // Once per order on /ops/ (the reconcile job retries every 5 minutes; the alert below repeats)
+      if (await store.put(`bonus-error:${order}`, 1, RECORD_TTL, true).catch(() => false))
+        await recordServerError("gift", site.slug, "bonus-code", e instanceof Error ? e.message : "could not issue").catch(() => undefined);
     }
   }
-  // The gift card's recipient only hears about a bonus that's theirs
-  const gEmail = bonus?.who === "recipient" ? withBonusLine(giftEmail(base), "gift", site.name, "Your bonus code arrives in a separate email.") : giftEmail(base);
+  // The gift card's recipient only hears about a bonus that's theirs (same inbox: a gift the buyer
+  // sent to their own email and kept the bonus on counts too)
+  const gEmail = bonus && bonus.email === q.recipientEmail ? withBonusLine(giftEmail(base), "gift", site.name, "Your bonus code arrives in a separate email.") : giftEmail(base);
   const rEmailPlain = receiptEmail({
     ...base,
     recipientEmail: q.recipientEmail,
@@ -217,7 +235,7 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
         bonus.who === "self" ? `You kept the bonus: we'll email your bonus code to ${bonus.email} ${bonusWhen}.` : `We'll email the bonus code to ${bonus.name} (${bonus.email}) ${bonusWhen}.`,
       )
     : rEmailPlain;
-  const [delivery, receipt, bonusDelivery] = await Promise.all([
+  const [delivery, receipt] = await Promise.all([
     sendOnce(store, `delivery:${order}`, {
       from: FROM,
       reply_to: site.contactEmail,
@@ -233,8 +251,11 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
       tags: [{ name: "type", value: "gift-receipt" }],
       ...rEmail,
     }),
+  ]);
+  // After the gift and the receipt, so it never lands in the inbox ahead of the gift it belongs to
+  const bonusDelivery =
     bonus && bonusCode
-      ? sendOnce(store, `bonusmail:${order}`, {
+      ? await sendOnce(store, `bonusmail:${order}`, {
           from: FROM,
           reply_to: site.contactEmail,
           to: [bonus.email],
@@ -242,8 +263,40 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
           ...holidayBonusEmail({ spa, recipientName: bonus.name, senderName: bonus.who === "self" ? undefined : q.sender, code: bonusCode, logoUrl: base.logoUrl }),
           ...(bonusLater ? { scheduled_at: bonus.scheduledAt } : {}),
         })
-      : null,
-  ]);
+      : null;
+  // The location's inbox gets a note of every gift card sold on the site, so the desk knows about
+  // it before the guest walks in (the Spavia site, 10/30). Never holds up the gift.
+  let deskNotePending = false;
+  try {
+    const lines = [
+      `A ${money(r.receipt.value)} gift card was purchased on the website for ${site.name}.`,
+      `From: ${q.sender} (${r.email})`,
+      `To: ${q.recipient} (${q.recipientEmail}), ${q.scheduledAt ? `scheduled for ${deliveryLabel}` : "sent right away"}`,
+      `Paid: ${money(r.receipt.amount)} · Mindbody sale #${r.receipt.saleId}`,
+      ...(bonus ? [`Holiday bonus (free ${HOLIDAY_BONUS.treatment}): to ${bonus.name} (${bonus.email}), ${bonusWhen}${bonusCode ? `. Code ${bonusCode}, look it up in Atlas under Holiday Bonus` : ""}`] : []),
+    ];
+    const deskNote = await sendOnce(store, `spa-notice:${order}`, {
+      from: FROM,
+      reply_to: r.email,
+      to: [site.contactEmail],
+      tags: [{ name: "type", value: "gift-spa-notice" }],
+      subject: `Online gift card: ${money(r.receipt.value)} for ${q.recipient}`,
+      text: lines.join("\n"),
+      html: `<div style="font:14px/1.6 Arial,sans-serif;color:#113D33">${lines.map((l) => `<p style="margin:0 0 8px">${esc(l)}</p>`).join("")}</div>`,
+    });
+    deskNotePending = !deskNote?.id && deskNote?.state !== "needs_help";
+  } catch {
+    /* a note for the desk never holds up the guest's gift */
+  }
+  // Once the gift email is with Resend, it goes on the list the reconcile job checks after it's due
+  if (delivery?.id) {
+    try {
+      const at = scheduled ? Date.parse(q.scheduledAt!) : Date.now() + CONFIRM_AFTER;
+      if (await store.put(`confirm-noted:${order}`, 1, RECORD_TTL, true)) await store.sadd(CONFIRM_LIST, JSON.stringify({ order, slug: site.slug, at } satisfies GiftToConfirm));
+    } catch {
+      /* the guest's own delivery check still reads the status */
+    }
+  }
   // A guest was promised a bonus and it hasn't gone out
   const bonusStuck = !bonus
     ? ""
@@ -273,8 +326,9 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
     ]);
   const deliveryCheckNeeded = (!delivery?.id && delivery?.state !== "needs_help") || (!receipt?.id && receipt?.state !== "needs_help") || bonusPending;
   // An email still not out is retried by the reconcile job even after the guest leaves
+  // (the desk's note too, though the guest is never asked to wait on it)
   try {
-    if (deliveryCheckNeeded) await store.sadd("deliveries", order);
+    if (deliveryCheckNeeded || deskNotePending) await store.sadd("deliveries", order);
     else await store.srem("deliveries", order);
   } catch {
     /* the guest's own checks retry it too */
@@ -300,7 +354,7 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
     delivery: delivery?.id
       ? BAD_EVENTS.includes(delivery.lastEvent || "")
         ? `Your gift is ready, but the email to ${q.recipientEmail} bounced. Download the gift below to share it yourself, or contact ${site.name} and we'll resend it.`
-        : ["delivered", "opened", "clicked"].includes(delivery.lastEvent || "")
+        : ARRIVED_EVENTS.includes(delivery.lastEvent || "")
           ? `Gift email delivered to ${q.recipientEmail}.`
           : scheduled
             ? `Gift email scheduled for ${deliveryLabel} to ${q.recipientEmail}.`
@@ -309,6 +363,99 @@ export async function fulfillGift(store: GiftStore, order: string): Promise<Gift
         ? `Your gift is ready, but its email didn't send. Download it below to share it yourself, or contact ${site.name} and we'll resend it.`
         : "Your gift is ready. Its email isn't confirmed yet: use “Check email delivery” below to check again.",
   };
+}
+
+// ---------------------------------------------------------------- after it's sent
+export async function giftsToConfirm(store: GiftStore): Promise<{ raw: string; item: GiftToConfirm }[]> {
+  return (await store.smembers(CONFIRM_LIST)).flatMap((raw) => {
+    try {
+      return [{ raw, item: JSON.parse(raw) as GiftToConfirm }];
+    } catch {
+      return [];
+    }
+  });
+}
+export const dropGiftToConfirm = (store: GiftStore, raw: string) => store.srem(CONFIRM_LIST, raw);
+
+/**
+ * A gift email, checked after it was due (the reconcile job, every 5 minutes until settled):
+ *   "failed"    it bounced (or the bonus email did): the buyer is told, with the gift link, and the
+ *               team is alerted. Once per order.
+ *   "waiting"   not with the recipient's mail server yet: checked again next run.
+ *   "notified"  a gift sent on a later date arrived, and the buyer got their one "it was delivered" note.
+ *   "delivered" a gift sent right away arrived (the buyer already saw that on screen).
+ *   "gone"      no such purchase, or its email never left (the retry list handles that).
+ */
+export async function confirmGiftDelivered(store: GiftStore, order: string): Promise<"failed" | "waiting" | "notified" | "delivered" | "gone"> {
+  const r = await store.get<PurchaseRecord>(`purchase:${order}`);
+  const sent = await store.get<Delivery>(`delivery:${order}`);
+  if (!r?.receipt || !sent?.id || !sent.payload) return "gone";
+  const q = r.gift;
+  const site = giftSite(q.slug) as GiftSite;
+  // With an id already recorded, sendOnce only reads the latest status: it never sends again
+  const delivery = await sendOnce(store, `delivery:${order}`, sent.payload);
+  const bonusSent = await store.get<Delivery>(`bonusmail:${order}`);
+  const bonusDelivery = bonusSent?.id ? await sendOnce(store, `bonusmail:${order}`, bonusSent.payload) : null;
+  const giftEvent = delivery?.lastEvent || "";
+  const bonusEvent = bonusDelivery?.lastEvent || "";
+  const giftUrl = `${publicOrigin()}${giftCheckoutPath(site.slug)}#gift=${r.token}`;
+  const shell = (paragraphs: string[]) => `<div style="max-width:560px;margin:0 auto;padding:32px 24px;font:15px/1.6 Helvetica,Arial,sans-serif;color:#113D33">${paragraphs.map((p) => `<p>${p}</p>`).join("")}</div>`;
+
+  if (BAD_EVENTS.includes(giftEvent) || BAD_EVENTS.includes(bonusEvent)) {
+    const what = [BAD_EVENTS.includes(giftEvent) && `the gift email to ${q.recipientEmail} ${giftEvent}`, BAD_EVENTS.includes(bonusEvent) && `the holiday bonus email to ${q.giftBonus?.email} ${bonusEvent}`].filter(Boolean).join("; ");
+    await alert(store, `gift-bounced:${order}`, `Gift card email not delivered (${site.name})`, [
+      `Order ${r.result.reference}, Mindbody sale #${r.receipt.saleId}: ${what}.`,
+      `The gift card is purchased in Mindbody.${BAD_EVENTS.includes(giftEvent) ? ` The buyer (${r.email}) has been emailed the gift link and asked to reply with a corrected address: ${giftUrl}` : ` Ask the buyer (${r.email}) for a working address for the bonus and send them the code from Atlas (Holiday Bonus).`}`,
+    ]);
+    if (BAD_EVENTS.includes(giftEvent)) {
+      const lines = [
+        `Hi ${q.sender},`,
+        `Your ${money(r.receipt.value)} ${site.name} gift card is purchased and ready, but the email to ${q.recipient} couldn't be delivered to ${q.recipientEmail}. The address may have a typo, or their inbox turned it away.`,
+        `You can open the gift here to forward, download or print it: ${giftUrl}`,
+        `Want us to send it to a different address? Reply to this email and ${site.name} will take care of it.`,
+      ];
+      await sendOnce(store, `bounced:${order}`, {
+        from: FROM,
+        reply_to: site.contactEmail,
+        to: [r.email],
+        tags: [{ name: "type", value: "gift-bounced" }],
+        subject: `Your gift to ${q.recipient} couldn't be delivered`,
+        text: lines.join("\n\n"),
+        html: shell([
+          `Hi ${esc(q.sender)},`,
+          `Your ${esc(money(r.receipt.value))} ${esc(site.name)} gift card is purchased and ready, but the email to ${esc(q.recipient)} couldn&#39;t be delivered to ${esc(q.recipientEmail)}. The address may have a typo, or their inbox turned it away.`,
+          `<a href="${giftUrl}" style="color:#113D33;font-weight:bold">Open the gift to forward, download or print it</a>.`,
+          `Want us to send it to a different address? Reply to this email and ${esc(site.name)} will take care of it.`,
+        ]),
+      });
+    }
+    return "failed";
+  }
+  if (!ARRIVED_EVENTS.includes(giftEvent)) return "waiting";
+  // A bonus email due at the same time as the gift is waited for too; one sent earlier has long arrived
+  if (bonusDelivery?.id && !ARRIVED_EVENTS.includes(bonusEvent)) return "waiting";
+  if (!sent.payload.scheduled_at) return "delivered";
+  const lines = [
+    `Hi ${q.sender},`,
+    `Your ${money(r.receipt.value)} ${site.name} gift card was delivered to ${q.recipient} (${q.recipientEmail}) today.`,
+    `You can still view, download or print it anytime: ${giftUrl}`,
+    `Thank you for sharing Sway!`,
+  ];
+  const notice = await sendOnce(store, `delivered:${order}`, {
+    from: FROM,
+    reply_to: site.contactEmail,
+    to: [r.email],
+    tags: [{ name: "type", value: "gift-delivered" }],
+    subject: `Your gift to ${q.recipient} was delivered`,
+    text: lines.join("\n\n"),
+    html: shell([
+      `Hi ${esc(q.sender)},`,
+      `Your ${esc(money(r.receipt.value))} ${esc(site.name)} gift card was delivered to ${esc(q.recipient)} (${esc(q.recipientEmail)}) today.`,
+      `<a href="${giftUrl}" style="color:#113D33;font-weight:bold">View, download or print the gift card</a> anytime.`,
+      `Thank you for sharing Sway!`,
+    ]),
+  });
+  return notice?.id ? "notified" : "waiting";
 }
 
 // ---------------------------------------------------------------- printable PDF

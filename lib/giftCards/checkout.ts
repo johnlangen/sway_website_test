@@ -78,6 +78,9 @@ export type PurchaseRecord = {
 
 const RELEASE_AFTER = 3 * 60000;
 export const RECORD_TTL = 10 * 365 * 86400;
+// Thirty minutes (the Spavia site, 11/9): ten ran out while a guest wrote the message and entered a
+// card, and every Purchase tap was then refused (Lafayette 11/8). Nothing is charged on a refused tap.
+const QUOTE_TTL = 30 * 60;
 
 /** The delivery date's send time; a date that has passed (quoted 11:58 pm, bought after midnight) is a "date" error */
 function giftScheduledAt(date: string, zone: string) {
@@ -192,7 +195,7 @@ export async function quoteGift(store: GiftStore, site: GiftSite, s: GiftSession
     slug: site.slug,
     siteId: site.siteId,
     clientId: p.id,
-    expires: Date.now() + 600000,
+    expires: Date.now() + QUOTE_TTL * 1000,
     scheduledAt: giftScheduledAt(selection.details.deliveryDate, site.timezone),
     ...(selection.details.payment === "stored" ? { cardLastFour: p.lastFour! } : {}),
   };
@@ -202,7 +205,7 @@ export async function quoteGift(store: GiftStore, site: GiftSite, s: GiftSession
     await purchaseGiftCard(site, salePayload(site, q, q.payment === "stored" ? storedCardPayment(q.amount, q.cardLastFour!) : sampleCardPayment(q.amount), true), false),
     q,
   );
-  await store.put(`quote:${q.id}`, { order, quote: q }, 600);
+  await store.put(`quote:${q.id}`, { order, quote: q }, QUOTE_TTL);
   return q;
 }
 

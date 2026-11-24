@@ -32,6 +32,14 @@ everything Mindbody did wrong in production.
   the guest has no sale at all after 3 minutes, or alert after 2 hours.
 - Emails: send lock + Resend idempotency key; a gift email that isn't out is retried by the cron;
   bounced / stuck ones alert.
+- Every gift email is checked after it goes out (11/24/2026; `confirmGiftDelivered`, run by the cron
+  from the `confirm` list): a gift sent right away 2 minutes later, a gift sent on a later date after
+  its send time. Bounced: the buyer gets the gift link to forward or print, and the team an alert.
+  A later-date gift that arrives: the buyer gets one "your gift was delivered" note. Not confirmed
+  after 2 days: alert. The same check covers the holiday bonus email.
+- The location's inbox gets a note of each gift card sold on the site (reply goes to the buyer).
+- A review lasts 30 minutes; one that ran out refreshes itself and asks for one more tap (was 10
+  minutes and a refusal on every tap; the Spavia site's 11/9 fix).
 - Fails closed: no Redis on Vercel = no purchases.
 
 ## Switches (Vercel env)
@@ -66,7 +74,8 @@ It turns on and off BY DATE (Mountain time); no deploy on Nov 26 or Dec 26.
 - Tracking, flow `gift`: `bonus-notice` (saw it on a gift card page), `bonus-shown` (saw it in the
   checkout: offer / unlocked), `bonus-nudge` (tapped Make it $200), `bonus-continue` (with / without),
   `bonus-who` (recipient / self). The ledger row's `extra.bonus` marks a sale that carried one.
-- Test: `npx tsx scripts/test-holiday-bonus.mts`.
+- Tests: `npx tsx scripts/test-holiday-bonus.mts`, `npx tsx scripts/test-gift-delivery.mts` (the emails
+  end to end with a stand-in mail service: scheduled, bonus, bounce, mail down, never twice).
 
 **Where the desk redeems: Atlas → Holiday Bonus** (the screen the Spavia spas use; John 11/24/2026:
 "build the desk redeem tool (make sure its set up in atlas)"). Nothing was built in Atlas: its redeem

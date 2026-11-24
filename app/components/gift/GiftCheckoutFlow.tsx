@@ -994,6 +994,17 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                       // No answer, or our server failed: the charge may still be going through. If a
                       // purchase was recorded, show its checking screen instead of inviting a second one
                       const code = err && typeof err === "object" && "code" in err ? String((err as { code: unknown }).code) : "";
+                      // The review ran out before Purchase (the Spavia site, Lafayette 11/8: five taps on
+                      // the same stale review). Nothing was charged: make a fresh review and ask once
+                      // more, instead of refusing every tap.
+                      if (code === "quote") {
+                        await review();
+                        throw new Error(
+                          quote.payment === "new"
+                            ? "Your review timed out, so we refreshed it. Nothing was charged. Check your gift, enter your card again and tap the button once more."
+                            : "Your review timed out, so we refreshed it. Nothing was charged. Check your gift and tap the button once more.",
+                        );
+                      }
                       if (code && code !== "network" && code !== "unavailable") throw err;
                       const s = await api<{ result: GiftResult | null }>("status").catch(() => undefined);
                       if (s === undefined) r = { result: { state: "pending", reference: "your gift purchase" } };
