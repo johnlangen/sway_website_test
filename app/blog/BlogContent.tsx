@@ -10,6 +10,14 @@ import Image from "next/image";
 
 const blogs = [
   {
+    slug: "how-sway-gift-cards-work",
+    title: "How Sway Gift Cards Work: A Quick Guide Before the Holidays",
+    summary:
+      "Any amount, emailed in minutes or on the day you choose, printable, good at every Sway. How late you can leave it, and how much to give.",
+    tag: "Gifting",
+    image: "/gift-cards/art/emily-merry-christmas-storefront-image-ffe0edaf30ca2213.jpg",
+  },
+  {
     slug: "cold-plunge-denver-guide",
     title: "Best Cold Plunge in Denver: 9 Spots + Sauna Combos (2026)",
     summary:

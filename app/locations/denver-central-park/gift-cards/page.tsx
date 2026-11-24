@@ -1,6 +1,10 @@
 import { Metadata } from "next";
 import ClubGiftCardsPage from "../../../components/ClubGiftCardsPage";
 import { CLUB_GIFT_CARDS } from "../../../components/clubGiftCardsConfig";
+import { holidayBonusOpen } from "@/lib/holidayBonus";
+
+// Rebuilt hourly so the holiday offer's question appears and disappears by date in the page itself
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Gift Cards Central Park | Sway Wellness Club Denver",
@@ -38,5 +42,5 @@ export const metadata: Metadata = {
 const nativeCheckout = process.env.GIFT_CHECKOUT_BUTTONS !== "mindbody" ? "/locations/denver-central-park/gift-cards/checkout/" : undefined;
 
 export default function Page() {
-  return <ClubGiftCardsPage club={CLUB_GIFT_CARDS["central-park"]} checkoutUrl={nativeCheckout} />;
+  return <ClubGiftCardsPage club={CLUB_GIFT_CARDS["central-park"]} checkoutUrl={nativeCheckout} holidayOn={Boolean(nativeCheckout) && holidayBonusOpen("denver-central-park", "America/Denver")} />;
 }

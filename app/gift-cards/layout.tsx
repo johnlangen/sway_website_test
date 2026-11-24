@@ -1,5 +1,6 @@
 // app/gift-cards/layout.tsx
 import type { Metadata } from "next";
+import { giftFaqJsonLd, giftFaqs } from "@/lib/giftCards/faq";
 
 export const metadata: Metadata = {
   title: { absolute: "Spa Gift Cards | Buy Wellness Gifts Online at Sway Wellness Spa" },
@@ -28,44 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How do Sway Wellness Spa gift cards work?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Sway gift cards are available in any dollar amount and can be purchased online for instant digital delivery. They can be used for any service at Sway including massages, facials, Remedy Room sessions, and Aescape robot massage.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Do Sway gift cards expire?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "No, Sway gift cards do not expire. They can be redeemed at any time for any service or product at Sway Wellness Spa.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can I buy a Sway gift card online?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Sway gift cards can be purchased online at swaywellnessspa.com/gift-cards with instant digital delivery via email. You can also purchase physical gift cards in-spa.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What can I use a Sway gift card for?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Gift cards can be applied to any Sway service: massage therapy, facial treatments, Remedy Room recovery sessions, Aescape robot massage, boosts and add-ons, and retail products.",
-      },
-    },
-  ],
-};
+// The questions shown on the page (GiftFaq in page.tsx), so the data matches what a visitor reads
+const faqJsonLd = giftFaqJsonLd(giftFaqs());
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",

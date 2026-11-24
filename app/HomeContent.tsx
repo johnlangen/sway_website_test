@@ -6,6 +6,7 @@ import GoogleReviews from "./components/GoogleReviews";
 import EditorialHero from "./components/EditorialHero";
 import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
 import LocationPopupGate from "@/app/components/LocationPopupGate";
+import HolidayGiftStrip from "@/app/components/gift/HolidayGiftStrip";
 
 const experiences = [
   {
@@ -91,6 +92,8 @@ export default function HomeContent() {
         note="Your next reset starts here."
       />
 
+      {/* Shows by date only: the holiday bonus Nov 26 to Dec 25, "still time" from Dec 18 */}
+      <HolidayGiftStrip where="home" />
       <BradyProtocolBanner />
 
       <div className="sway-recognition">

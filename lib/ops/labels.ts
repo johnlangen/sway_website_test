@@ -58,7 +58,8 @@ export const FLOW_STEPS: Record<string, string[]> = {
     // offer / unlocked), bonus-nudge = tapped "Make it $200" (variant = the amount they were on),
     // bonus-continue = left the first screen with / without it, bonus-who = recipient / self.
     // bonus-notice = saw the offer on a gift card page before the checkout (variant = which page)
-    "bonus-shown", "bonus-nudge", "bonus-continue", "bonus-who", "bonus-notice"],
+    // strip-shown = saw the dated holiday band (variant = <page>-<bonus|late>)
+    "bonus-shown", "bonus-nudge", "bonus-continue", "bonus-who", "bonus-notice", "strip-shown"],
 };
 
 export const LOCATION_NAMES: Record<string, string> = {

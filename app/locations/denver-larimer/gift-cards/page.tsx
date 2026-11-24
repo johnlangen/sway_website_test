@@ -1,5 +1,10 @@
 import { Metadata } from "next";
 import LarimerGiftCardsPage from "./LarimerGiftCardsPage";
+import { holidayBonusOpen } from "@/lib/holidayBonus";
+
+// Rebuilt hourly so the holiday offer's question appears and disappears by date in the page itself
+// (what search engines and AI tools read), without a deploy
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Spa Gift Cards Larimer | Buy Wellness Gifts Online at Sway Denver",
@@ -37,5 +42,5 @@ export const metadata: Metadata = {
 const nativeCheckout = process.env.GIFT_CHECKOUT_BUTTONS !== "mindbody" ? "/locations/denver-larimer/gift-cards/checkout/" : undefined;
 
 export default function Page() {
-  return <LarimerGiftCardsPage checkoutUrl={nativeCheckout} />;
+  return <LarimerGiftCardsPage checkoutUrl={nativeCheckout} holidayOn={Boolean(nativeCheckout) && holidayBonusOpen("denver-larimer", "America/Denver")} />;
 }

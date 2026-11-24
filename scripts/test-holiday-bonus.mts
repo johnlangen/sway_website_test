@@ -137,4 +137,18 @@ await ok("the emails say what the bonus is, where and when, and carry the code",
   assert.ok(bonusTerms("Sway RiNo").includes("redeemable only at Sway RiNo"));
 });
 
+await ok("the gift card questions: the holiday offer is listed only while it is on, and names the location", async () => {
+  const { giftFaqs, giftFaqJsonLd } = await import("../lib/giftCards/faq");
+  const off = giftFaqs({ slug: "denver-rino", spaName: "Sway RiNo" });
+  assert.ok(!off.some((i) => /holiday gift card offer/i.test(i.q)));
+  assert.ok(off.some((i) => i.q === "How much should I put on a gift card for Sway RiNo?"));
+  const on = giftFaqs({ slug: "denver-rino", spaName: "Sway RiNo", holidayOn: true });
+  assert.equal(on[0].q, "Is there a holiday gift card offer at Sway RiNo?");
+  assert.ok(on[0].a.includes("$200") && on[0].a.includes("at Sway RiNo") && on[0].a.includes("January 1 to April 30, 2027"));
+  assert.equal(on.length, off.length + 1);
+  for (const i of on) assert.ok(!i.a.includes("—") && !i.q.includes("—"), "no em dashes");
+  assert.equal(giftFaqJsonLd(off).mainEntity.length, off.length);
+  assert.ok(!giftFaqs().some((i) => /How much should I put/.test(i.q)), "no location, no price guide");
+});
+
 console.log(`\n${n} checks passed`);

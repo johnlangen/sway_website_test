@@ -150,3 +150,7 @@ If bandwidth is limited, write these first (highest ROI):
 5. Couples Massage in Denver: Complete Guide
 
 These five posts alone would cover the highest-volume queries where Sway can naturally rank.
+
+
+## Published outside the numbered list
+- 2026-11-24: `how-sway-gift-cards-work` (How Sway Gift Cards Work: A Quick Guide Before the Holidays). Evergreen explainer; older gift guides link to it.

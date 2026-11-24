@@ -7,6 +7,9 @@ import { SwayCurve } from "./SwayCurve";
 import { trackGiftCardIntent } from "../lib/track";
 import type { ClubGiftCardsConfig } from "./clubGiftCardsConfig";
 import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
+import HolidayGiftStrip from "@/app/components/gift/HolidayGiftStrip";
+import GiftFaq from "@/app/components/gift/GiftFaq";
+import { giftFaqs } from "@/lib/giftCards/faq";
 
 /* Shared gift-cards page for the Sway Wellness Club locations (RiNo +
    Central Park). Mirrors the Larimer gift-cards page visually, but the
@@ -15,7 +18,7 @@ import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
    have their own Google listings. Config lives in clubGiftCardsConfig.ts
    so server pages can import it. */
 
-export default function ClubGiftCardsPage({ club, checkoutUrl }: { club: ClubGiftCardsConfig; checkoutUrl?: string }) {
+export default function ClubGiftCardsPage({ club, checkoutUrl, holidayOn = false }: { club: ClubGiftCardsConfig; checkoutUrl?: string; holidayOn?: boolean }) {
   const giftCardUrl = `https://clients.mindbodyonline.com/classic/ws?studioid=${club.studioId}&stype=42`;
   // The site's own gift checkout (page.tsx), or Mindbody's store when GIFT_CHECKOUT_BUTTONS=mindbody
   const buyHref = checkoutUrl ?? giftCardUrl;
@@ -149,6 +152,11 @@ export default function ClubGiftCardsPage({ club, checkoutUrl }: { club: ClubGif
           className="max-w-lg mx-auto"
         >
           {!external && <HolidayBonusNotice where={`${club.key}-gift-cards`} slug={club.slug} spaName={club.name} className="mb-8" />}
+          {!external && (
+            <div className="mb-8 overflow-hidden rounded-2xl empty:hidden">
+              <HolidayGiftStrip where={`${club.key}-gift-cards`} only="late" />
+            </div>
+          )}
           <div className="mb-8 text-center">
             <a
               href={buyHref}
@@ -217,6 +225,9 @@ export default function ClubGiftCardsPage({ club, checkoutUrl }: { club: ClubGif
           </div>
         </div>
       </section>
+
+      {/* QUESTIONS (lib/giftCards/faq.ts): the checkout's own rules, in plain words */}
+      {!external && <GiftFaq where={club.key} className="pb-16" items={giftFaqs({ slug: club.slug, spaName: club.name, holidayOn })} />}
 
       {/* IMAGE BAND */}
       <section className="relative h-[45vh] min-h-[320px]">

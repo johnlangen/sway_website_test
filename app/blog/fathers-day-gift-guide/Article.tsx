@@ -24,6 +24,14 @@ export default function FathersDayGiftGuideLayout() {
           </span>
           <span className="text-gray-600">May 2026 · By Sway Wellness Team</span>
         </div>
+        {/* Added 11/24/2026: how the gift cards themselves work now (online checkout, scheduling) */}
+        <p className="rounded-xl border border-[#113D33]/15 bg-white px-5 py-4 text-[15px] text-[#113D33]">
+          Giving a Sway gift card?{" "}
+          <Link href="/blog/how-sway-gift-cards-work/" className="font-semibold underline underline-offset-4">
+            See how they work
+          </Link>
+          : any amount, emailed in minutes or on the day you choose.
+        </p>
 
         <p className="text-xl font-semibold text-[#113D33]">
           He has enough ties. He has enough mugs. He has, somewhere in a

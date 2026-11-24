@@ -121,6 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      Blog posts
      ------------------------------------------------------------------ */
   const blogSlugs = [
+    "how-sway-gift-cards-work",
     "cold-plunge-denver-guide",
     "recovery-denver",
     "sway-membership-tiers",
@@ -155,6 +156,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Posts touched in the Sept 2026 freshness pass carry lastModified so
   // crawlers see the update; matches each post's JSON-LD dateModified.
   const blogLastModified: Record<string, string> = {
+    "how-sway-gift-cards-work": "2026-11-24",
     "cold-plunge-denver-guide": "2026-09-24",
     "infrared-pemf-mat": "2026-09-24",
     "bachelorette-spa-day": "2026-10-01",

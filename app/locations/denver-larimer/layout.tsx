@@ -458,7 +458,7 @@ const faqJsonLd = {
       name: "Does Sway offer gift cards?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Sway gift cards are available in any dollar amount with instant digital delivery via email. They never expire and are redeemable for all services including massages, facials, the Remedy Room, Aescape, boosts, and retail products. Purchase at swaywellnessspa.com/gift-cards.",
+        text: "Yes. Sway gift cards are available in any dollar amount with instant digital delivery via email. They never expire and are redeemable for all services including massages, facials, the Remedy Room, Aescape, boosts, and retail products. Purchase at swaywellnessspa.com/gift-cards. Purchase one online in any amount: it's emailed right away or on the date you choose, and it can be used at any Sway.",
       },
     },
   ],

@@ -62,6 +62,16 @@ export default function BlogPage() {
     blogPost: [
       {
         "@type": "BlogPosting",
+        headline: "How Sway Gift Cards Work: A Quick Guide Before the Holidays",
+        url: "https://swaywellnessspa.com/blog/how-sway-gift-cards-work/",
+        datePublished: "2026-11-24",
+        author: {
+          "@type": "Organization",
+          name: "Sway Wellness Team",
+        },
+      },
+      {
+        "@type": "BlogPosting",
         headline: "Best Cold Plunge in Denver: 9 Spots + Sauna Combos (2026)",
         url: "https://swaywellnessspa.com/blog/cold-plunge-denver-guide/",
         datePublished: "2026-09-01",

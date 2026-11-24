@@ -7,6 +7,9 @@ import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import { ReviewBadge, ClassPassBadge } from "../components/GoogleReviews";
 import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
+import HolidayGiftStrip from "@/app/components/gift/HolidayGiftStrip";
+import GiftFaq from "@/app/components/gift/GiftFaq";
+import { giftFaqs } from "@/lib/giftCards/faq";
 
 type SelectedLocation = {
   slug: string;
@@ -135,6 +138,9 @@ export default function GiftCardsHubPage() {
       {/* Location Cards */}
       <section className="px-4 sm:px-6 pt-10 pb-16">
         <HolidayBonusNotice where="gift-cards-hub" className="mx-auto mb-10 max-w-3xl" />
+        <div className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl empty:hidden">
+          <HolidayGiftStrip where="gift-cards-hub" only="late" />
+        </div>
         <p className="text-center text-sm uppercase tracking-[0.15em] text-[#4A776D] mb-6">
           Select your location
         </p>
@@ -226,6 +232,9 @@ export default function GiftCardsHubPage() {
           })}
         </div>
       </section>
+
+      {/* Questions: the same list as this page's FAQ data (layout.tsx) */}
+      <GiftFaq where="hub" className="pb-16" items={giftFaqs()} />
 
       {/* Secondary links */}
       <section className="pb-16 px-6 text-center">

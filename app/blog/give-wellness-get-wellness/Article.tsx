@@ -20,6 +20,14 @@ export default function GiveWellnessBlogLayout() {
           <span className="bg-[#113D33] text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wide">Community</span>
           <span className="text-gray-600">February 2025 · By Sway Wellness Team</span>
         </div>
+        {/* Added 11/24/2026: how the gift cards themselves work now (online checkout, scheduling) */}
+        <p className="rounded-xl border border-[#113D33]/15 bg-white px-5 py-4 text-[15px] text-[#113D33]">
+          Giving a Sway gift card?{" "}
+          <Link href="/blog/how-sway-gift-cards-work/" className="font-semibold underline underline-offset-4">
+            See how they work
+          </Link>
+          : any amount, emailed in minutes or on the day you choose.
+        </p>
 
         <p>
           At Sway Wellness Spa, we believe wellness isn’t just a personal

@@ -7,8 +7,11 @@ import GoogleReviews, { ReviewBadge, ClassPassBadge } from "../../../components/
 import { SwayCurve } from "../../../components/SwayCurve";
 import { trackGiftCardIntent } from "../../../lib/track";
 import HolidayBonusNotice from "@/app/components/gift/HolidayBonusNotice";
+import HolidayGiftStrip from "@/app/components/gift/HolidayGiftStrip";
+import GiftFaq from "@/app/components/gift/GiftFaq";
+import { giftFaqs } from "@/lib/giftCards/faq";
 
-export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: string }) {
+export default function LarimerGiftCardsPage({ checkoutUrl, holidayOn = false }: { checkoutUrl?: string; holidayOn?: boolean }) {
   const giftCardUrl =
     "https://clients.mindbodyonline.com/classic/ws?studioid=5739770&stype=42";
   // The site's own gift checkout (page.tsx), or Mindbody's store when GIFT_CHECKOUT_BUTTONS=mindbody
@@ -162,6 +165,11 @@ export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: st
           className="max-w-lg mx-auto"
         >
           {!external && <HolidayBonusNotice where="larimer-gift-cards" slug="denver-larimer" spaName="Sway Larimer" className="mb-8" />}
+          {!external && (
+            <div className="mb-8 overflow-hidden rounded-2xl empty:hidden">
+              <HolidayGiftStrip where="larimer-gift-cards" only="late" />
+            </div>
+          )}
           <div className="mb-8 text-center">
             <a
               href={buyHref}
@@ -230,6 +238,9 @@ export default function LarimerGiftCardsPage({ checkoutUrl }: { checkoutUrl?: st
           </div>
         </div>
       </section>
+
+      {/* QUESTIONS (lib/giftCards/faq.ts): the checkout's own rules, in plain words */}
+      {!external && <GiftFaq where="larimer" className="pb-16" items={giftFaqs({ slug: "denver-larimer", spaName: "Sway Larimer", holidayOn })} />}
 
       {/* REVIEWS */}
       <section className="bg-[#EBE4D1] px-6 py-16 md:py-20 text-[#113D33]">
