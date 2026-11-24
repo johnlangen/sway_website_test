@@ -183,6 +183,14 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
+      name: "Does Sway RiNo offer gift cards?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Purchase one online in any amount: it's emailed right away or on the date you choose, it never expires, and it can be used at any Sway.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "What about my Upswell membership?",
       acceptedAnswer: {
         "@type": "Answer",

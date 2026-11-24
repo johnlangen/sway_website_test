@@ -126,6 +126,11 @@ export default function ClubLocationPage({ clubKey }: { clubKey: ClubLocationKey
         ]
       : []),
     {
+      // Keep identical to the FAQPage JSON-LD in each club's layout.tsx (added 11/24/2026)
+      q: `Does ${short} offer gift cards?`,
+      a: "Yes. Purchase one online in any amount: it's emailed right away or on the date you choose, it never expires, and it can be used at any Sway.",
+    },
+    {
       q: "What about my Upswell membership?",
       a: "Existing Upswell members were carried over automatically, so no action is needed. Current members roll into Sway at the Founding rate.",
     },
