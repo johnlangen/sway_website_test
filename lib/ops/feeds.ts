@@ -10,6 +10,7 @@ import { Redis } from "@upstash/redis";
 import { OPS_PREFIX, opsRedisSettings } from "./record";
 import type { LedgerRow } from "./report";
 import { LAUNCH_SITES } from "@/lib/launchSites";
+import { giftSites } from "@/lib/giftCards/sites";
 
 /** The founding checkout's steps, in order (app/components/MembershipCheckout.tsx). */
 export const FOUNDING_STEPS = ["from-founding", "plan", "email", "code", "details", "payment", "review", "founding-joined"];
@@ -148,6 +149,110 @@ export async function foundingSales(days: string[]): Promise<FoundingSale[]> {
         ...(str(row.extra?.start) ? { membershipStart: str(row.extra?.start) } : {}),
         attribution: { ...(row.first ? { first: row.first } : {}), ...(row.last ? { last: row.last } : {}) },
       });
+    }
+  });
+  return out.sort((a, b) => a.at.localeCompare(b.at));
+}
+
+/**
+ * A gift card the site's own checkout sold (lib/giftCards), so Atlas can tell website cards from
+ * desk cards (Atlas, 11/23/2026). The site sells them at the spa's own Mindbody location (1), not
+ * the Online Store (98), so in Mindbody alone a website card looks like a desk sale.
+ */
+export type WebsiteGiftSale = {
+  at: string;
+  day: string;
+  flow: "gift";
+  spa: string;
+  siteId: string;
+  /** Mindbody's sale id at that site: the join key. Ids repeat across sites, so always pair it with siteId. */
+  saleId: string;
+  /** What the buyer paid. */
+  amount: number;
+  /** Never a founding sale: founding counts filter on founding === true. */
+  founding: false;
+  attribution: { first?: LedgerRow["first"]; last?: LedgerRow["last"] };
+};
+
+/** One ledger row as a website gift sale, or null (not a gift sale, an unknown spa, or no sale id to match on). */
+export function giftSaleFor(row: LedgerRow, day: string, siteIds: Record<string, string>): WebsiteGiftSale | null {
+  if (row?.flow !== "gift" || !row.ref) return null;
+  const siteId = siteIds[row.location];
+  if (!siteId) return null;
+  return {
+    at: row.at,
+    day,
+    flow: "gift",
+    spa: row.location,
+    siteId,
+    saleId: String(row.ref),
+    amount: typeof row.value === "number" ? row.value : 0,
+    founding: false,
+    attribution: { ...(row.first ? { first: row.first } : {}), ...(row.last ? { last: row.last } : {}) },
+  };
+}
+
+/**
+ * A membership the site's own checkout sold at an OPEN spa (Larimer, RiNo, Central Park), for the
+ * same reason (Atlas, 11/23/2026). Launch-site memberships are FoundingSale rows above, never these.
+ */
+export type WebsiteMembershipSale = {
+  at: string;
+  day: string;
+  flow: "membership";
+  spa: string;
+  siteId: string;
+  /** Mindbody's ClientContractId at that site: the join key (pair it with siteId). */
+  clientContractId: string;
+  /** The monthly price. */
+  amount: number;
+  /** The plan key the checkout sold (essential / premier / ultimate, or a club plan). */
+  plan?: string;
+  founding: false;
+  attribution: { first?: LedgerRow["first"]; last?: LedgerRow["last"] };
+};
+
+/** One ledger row as an open spa's website membership sale, or null. */
+export function membershipSaleFor(row: LedgerRow, day: string, siteIds: Record<string, string>): WebsiteMembershipSale | null {
+  if (row?.flow !== "membership" || !row.ref) return null;
+  const siteId = siteIds[row.location];
+  if (!siteId) return null;
+  return {
+    at: row.at,
+    day,
+    flow: "membership",
+    spa: row.location,
+    siteId,
+    clientContractId: String(row.ref),
+    amount: typeof row.value === "number" ? row.value : 0,
+    ...(row.item ? { plan: row.item } : {}),
+    founding: false,
+    attribution: { ...(row.first ? { first: row.first } : {}), ...(row.last ? { last: row.last } : {}) },
+  };
+}
+
+/**
+ * Gift cards and memberships sold through the site's own checkouts at the open spas (from the
+ * completion ledger). The open spas are the ones with a gift checkout (lib/giftCards/sites.ts).
+ */
+export async function openSpaWebsiteSales(days: string[]): Promise<(WebsiteGiftSale | WebsiteMembershipSale)[]> {
+  const r = redis();
+  if (!r || !days.length) return [];
+  const siteIds = Object.fromEntries(giftSites().map((s) => [s.slug, s.siteId]));
+  const p = r.pipeline();
+  for (const d of days) p.lrange(`${OPS_PREFIX}ledger:${d}`, 0, -1);
+  const lists = (await p.exec()) as unknown[][];
+  const out: (WebsiteGiftSale | WebsiteMembershipSale)[] = [];
+  lists.forEach((list, i) => {
+    for (const raw of list ?? []) {
+      let row: LedgerRow;
+      try {
+        row = typeof raw === "string" ? (JSON.parse(raw) as LedgerRow) : (raw as LedgerRow);
+      } catch {
+        continue;
+      }
+      const sale = giftSaleFor(row, days[i], siteIds) ?? membershipSaleFor(row, days[i], siteIds);
+      if (sale) out.push(sale);
     }
   });
   return out.sort((a, b) => a.at.localeCompare(b.at));

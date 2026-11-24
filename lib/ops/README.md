@@ -190,3 +190,19 @@ At opening: the owner switches contract 102 back to "on the sale date" in Mindbo
 `remedyRoom.opens` (lib/launchSites.ts) the site sells it only while it carries a fixed start date,
 so it can never bill from today for a spa that is not open; from that date on, either setting
 sells. Contract 145 ("… Pre-Opening") was a same-day copy, retired unsold.
+
+## Website gift card sales in the sales feed (11/23/2026, asked by Atlas)
+
+`/api/ops/sales/?from=&to=` also returns every gift card the site's own checkout sold (Larimer,
+RiNo, Central Park), as `flow: "gift"` rows with `spa`, `siteId` and `saleId` (Mindbody's sale id
+at that site; ids repeat across sites, so pair it with `siteId`), `amount` paid, `founding: false`
+and attribution. Why: the checkout sells at the spa's own Mindbody location (1), not the Online
+Store (98), so in Mindbody a website card looks like a desk sale; the sale id is how Atlas tells
+them apart. Rows start 10/28/2026 (checkout launch). They come from the ledger rows
+`lib/giftCards/count.ts` already writes; nothing in the gift checkout changed. No buyer hash on
+gift rows, and no booking rows (the site takes no payment for bookings).
+
+Same evening, same reason: memberships the site's checkout sold at those three open spas are in the
+feed too, as `flow: "membership"` rows with `spa`, `siteId`, `clientContractId` (Mindbody's
+ClientContractId at that site), `amount` (monthly), `plan` and `founding: false`. A launch site's
+memberships stay the founding rows they were (one row per sale, never both).

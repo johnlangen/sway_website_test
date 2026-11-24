@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import { checkFoundingContract, longDate, monthAfter, termsToPlainText } from "../lib/launchFounding";
 import { mergeFoundingCheckout } from "../lib/foundingCheckouts";
-import { feedDays, feedRowFor } from "../lib/ops/feeds";
+import { feedDays, feedRowFor, giftSaleFor, membershipSaleFor } from "../lib/ops/feeds";
 import { LAUNCH_SITES, LAUNCH_TIER_KEYS, launchPlanForContract, launchPlanPrice, launchTierForContract, launchToday, type LaunchPlanKey } from "../lib/launchSites";
 
 let n = 0;
@@ -203,6 +203,30 @@ ok("the Launch Board funnel keeps founding and the Remedy Room checkout in separ
   assert.equal(row("checkout|union-market|code-sent|remedy"), null);
   assert.equal(row("membership|denver-larimer|email|remedy"), null); // launch sites only
   assert.equal(row("service|union-market|done|x"), null);
+});
+ok("website gift card sales reach the sales feed with the Mindbody sale id, and nothing else does", () => {
+  const sites = { "denver-larimer": "5739770", "denver-rino": "5754020" };
+  const row = { at: "2026-11-20T19:16:00.000Z", flow: "gift", location: "denver-larimer", item: "100030", label: "Gift card $150", ref: "48213", value: 150, extra: { scheduled: false }, last: { source: "google", medium: "organic", day: "2026-11-20" } };
+  assert.deepEqual(giftSaleFor(row, "2026-11-20", sites), {
+    at: "2026-11-20T19:16:00.000Z", day: "2026-11-20", flow: "gift", spa: "denver-larimer", siteId: "5739770", saleId: "48213", amount: 150, founding: false,
+    attribution: { last: { source: "google", medium: "organic", day: "2026-11-20" } },
+  });
+  assert.equal(giftSaleFor({ ...row, location: "denver-rino" }, "2026-11-20", sites)?.siteId, "5754020"); // each spa under its own site id
+  assert.equal(giftSaleFor({ ...row, ref: undefined }, "2026-11-20", sites), null); // no sale id, nothing to match on
+  assert.equal(giftSaleFor({ ...row, location: "union-market" }, "2026-11-20", sites), null); // a spa with no gift checkout
+  assert.equal(giftSaleFor({ ...row, flow: "membership" }, "2026-11-20", sites), null);
+  assert.equal(giftSaleFor({ ...row, flow: "service" }, "2026-11-20", sites), null); // bookings are never sales
+});
+ok("an open spa's website membership sale reaches the sales feed with its ClientContractId, never as founding", () => {
+  const sites = { "denver-larimer": "5739770", "denver-central-park": "5754021" };
+  const row = { at: "2026-11-23T19:24:14.161Z", flow: "membership", location: "denver-central-park", item: "essential", label: "Essential Membership", ref: "145", value: 99 };
+  assert.deepEqual(membershipSaleFor(row, "2026-11-23", sites), {
+    at: "2026-11-23T19:24:14.161Z", day: "2026-11-23", flow: "membership", spa: "denver-central-park", siteId: "5754021", clientContractId: "145", amount: 99, plan: "essential", founding: false, attribution: {},
+  });
+  // a launch site's membership is a founding-feed row, never one of these (no double row)
+  assert.equal(membershipSaleFor({ ...row, location: "union-market", extra: { founding: true } }, "2026-11-23", sites), null);
+  assert.equal(membershipSaleFor({ ...row, ref: undefined }, "2026-11-23", sites), null);
+  assert.equal(membershipSaleFor({ ...row, flow: "gift" }, "2026-11-23", sites), null);
 });
 ok("feed day ranges are inclusive, capped and never in the future", () => {
   assert.deepEqual(feedDays("2026-11-21", "2026-11-23", "2026-11-23"), ["2026-11-21", "2026-11-22", "2026-11-23"]);
