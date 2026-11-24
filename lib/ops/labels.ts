@@ -49,7 +49,11 @@ export const FLOW_STEPS: Record<string, string[]> = {
   // another location selected (variant = that location; lib/locationPopups.ts)
   lead: ["popup-hidden"],
   gift: ["loading", "gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done",
-    "result-purchased", "result-pending", "result-unconfirmed", "result-released"],
+    "result-purchased", "result-pending", "result-unconfirmed", "result-released",
+    // Detail, not funnel stages (11/24/2026): amount / design = what they went on with from the first
+    // screen (variant = dollars, or typed-<nearest 25>; the design id), once a checkout.
+    // occasion = filtered the designs (variant = which), occasions-more / designs-all = opened those.
+    "amount", "design", "occasion", "occasions-more", "designs-all"],
 };
 
 export const LOCATION_NAMES: Record<string, string> = {

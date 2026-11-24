@@ -17,6 +17,7 @@ import { giftDate, giftDeliveryLabel, lastGiftDate, nextDay } from "@/lib/giftCa
 import type { GiftDetails, GiftProduct } from "@/lib/giftCards/catalog";
 import type { GiftResult, GiftReview } from "@/lib/giftCards/checkout";
 import GiftDesignPicker from "./GiftDesignPicker";
+import GiftStickyActions from "./GiftStickyActions";
 import IssuedGift from "./IssuedGift";
 
 export type PublicGiftSite = {
@@ -84,6 +85,8 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
     payment: "new",
   });
   const heading = useRef<HTMLHeadingElement>(null);
+  /** The amount and design were counted for this checkout (once: coming back to edit is the same guest) */
+  const picked = useRef(false);
   const product = products.find((p) => p.id === details.productId);
   const value = product ? (product.custom ? details.amount : product.value) : 0;
   useFlowTrack("gift", step, product ? String(product.custom ? "custom" : product.id) : null, error, step === "done" && result?.state === "purchased" ? result.amount : undefined);
@@ -224,6 +227,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
     setResult(null);
     setQuote(null);
     setRecovered(false);
+    picked.current = false;
     setStep("gift");
   }
 
@@ -316,28 +320,40 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
     done: giftToken ? "Your Sway gift card" : result?.state === "purchased" ? (recovered ? "Your earlier gift purchase" : "Your gift card is ready") : "Checking your purchase",
   };
   const progress = ["gift", "loading"].includes(step) ? 0 : step === "delivery" ? 1 : 2;
+  // The bottom bar's left-hand line: what they're buying, always in view
+  const stickyHint =
+    Number.isFinite(value) && value > 0 ? (
+      <>
+        <strong className="font-semibold text-[#113D33]">{money(value)} gift card</strong>
+        {details.recipient.trim() ? ` for ${details.recipient.trim()}` : ""} · {site.name}
+      </>
+    ) : (
+      "Choose an amount to continue"
+    );
 
   const preview = product ? (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.25)]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={product.designs.find((d) => d.id === details.designId)?.image}
-        alt="Your chosen design"
-        width={600}
-        height={600}
-        className="block aspect-square w-full object-cover"
-      />
-      <div className="p-6">
+    <div className="overflow-hidden rounded-2xl border border-[#113D33]/10 bg-white shadow-[0_10px_30px_-15px_rgba(17,61,51,0.25)]">
+      <div className="bg-[#E9E3D0] px-10 py-7">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={product.designs.find((d) => d.id === details.designId)?.image}
+          alt="Your chosen design"
+          width={600}
+          height={600}
+          className="mx-auto block aspect-square w-full max-w-[240px] rounded-lg object-cover shadow-[0_12px_24px_-12px_rgba(17,61,51,0.45)]"
+        />
+      </div>
+      <div className="p-7">
         <p className="text-xs uppercase tracking-[0.2em] text-[#4A776D]">{site.name}</p>
-        <p className="mt-2 text-xl font-semibold tracking-tight">{details.title || "A moment just for you"}</p>
-        <p className="my-3 text-4xl font-semibold tracking-tight">{Number.isFinite(value) && value > 0 ? money(value) : "Choose an amount"}</p>
+        <p className="mt-3 text-2xl font-semibold tracking-tight">{details.title || "A moment just for you"}</p>
+        <p className="my-4 text-5xl font-semibold tracking-tight">{Number.isFinite(value) && value > 0 ? money(value) : "Choose an amount"}</p>
         <p className="text-sm">
           To {details.recipient || "someone special"}
           <br />
           From {details.sender || "you"}
         </p>
         {details.message && <p className="mt-3 whitespace-pre-wrap break-words text-sm italic">“{details.message}”</p>}
-        <p className="mt-4 border-t border-[#113D33]/10 pt-4 text-xs leading-relaxed text-[#113D33]/75">
+        <p className="mt-5 border-t border-[#113D33]/10 pt-5 text-xs leading-relaxed text-[#113D33]/75">
           {giftDeliveryLabel(details.deliveryDate, scheduled)}. Print or download it anytime from its private link.
         </p>
       </div>
@@ -345,29 +361,33 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
   ) : null;
 
   return (
-    <div className="min-h-screen bg-[#F7F4E9] px-4 pb-32 pt-28 font-vance text-[#113D33] md:pt-32">
+    <div className="min-h-screen bg-[#F7F4E9] px-5 pb-44 pt-28 font-vance text-[#113D33] md:pt-32">
       <style>{`@media print{body *{visibility:hidden}#sway-issued-gift,#sway-issued-gift *{visibility:visible}#sway-issued-gift{position:absolute;left:0;top:0;width:100%}}`}</style>
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-6xl">
         <a href={`/locations/${site.slug}/gift-cards/`} className="text-sm font-semibold underline underline-offset-4 print:hidden">
           ← Gift cards at {site.name}
         </a>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-[#113D33]/15 pb-4 text-sm print:hidden">
+          <span className="font-semibold">A gift from {site.name}</span>
+          <span className="text-[#113D33]/75">Email delivery · Printable keepsake</span>
+        </div>
 
         {step !== "done" && (
-          <ol aria-label="Checkout progress" className="mt-6 flex gap-6 text-sm print:hidden">
+          <ol aria-label="Checkout progress" className="mt-6 flex gap-6 text-sm sm:gap-10 print:hidden">
             {["Your gift", "Personalize", "Checkout"].map((name, i) => (
               <li
                 key={name}
                 aria-current={progress === i ? "step" : undefined}
-                className={`border-b-2 pb-2 ${progress === i ? "border-[#113D33] font-semibold" : "border-transparent text-[#113D33]/75"}`}
+                className={`border-b-2 pb-3 ${progress === i ? "border-[#113D33] font-semibold" : "border-transparent text-[#113D33]/75"}`}
               >
-                <span aria-hidden="true">{progress > i ? "✓ " : `${i + 1}. `}</span>
+                <span aria-hidden="true">{progress > i ? "✓ " : `0${i + 1} `}</span>
                 {name}
               </li>
             ))}
           </ol>
         )}
 
-        <h1 ref={heading} tabIndex={-1} className="mt-6 text-3xl font-semibold tracking-tight outline-none md:text-5xl" style={{ scrollMarginTop: 120 }}>
+        <h1 ref={heading} tabIndex={-1} className="mt-7 text-4xl font-semibold tracking-tight outline-none md:text-5xl" style={{ scrollMarginTop: 120 }}>
           {titles[step]}
         </h1>
 
@@ -380,7 +400,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
           </details>
         )}
 
-        <div className={`mt-6 ${!["done", "loading"].includes(step) ? "grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px]" : "max-w-2xl"}`}>
+        <div className={`mt-8 ${!["done", "loading"].includes(step) ? "grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-14" : "max-w-2xl"}`}>
           <div className="min-w-0">
             {notice && (
               <p role="status" className="mb-5 rounded-xl bg-[#D7E5DD] p-4 text-sm">
@@ -408,15 +428,23 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
             {step === "gift" && product && (
               <form
                 noValidate
-                className="space-y-8"
+                className="space-y-10"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  if (validate(e.currentTarget)) setStep("delivery");
+                  if (!validate(e.currentTarget)) return;
+                  // Tracking only: the amount and design they went on with, once a checkout
+                  if (!picked.current) {
+                    picked.current = true;
+                    trackStep("gift", "amount", customEntry ? `typed-${Math.min(MAX_GIFT, Math.max(25, Math.round(value / 25) * 25))}` : String(Math.round(value)));
+                    trackStep("gift", "design", String(details.designId));
+                  }
+                  setStep("delivery");
                 }}
               >
                 <fieldset>
-                  <legend className="text-lg font-semibold">Choose an amount</legend>
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <legend className="text-xl font-semibold tracking-tight">Choose an amount</legend>
+                  <p className="mt-1 text-sm text-[#113D33]/75">Good for massages, facials, Aescape and recovery, at any Sway.</p>
+                  <div className="mt-4 grid grid-cols-3 gap-2.5 sm:flex sm:flex-wrap">
                     {giftAmountOptions(products).map((o) => {
                       const active = o.entry ? customEntry : !customEntry && o.productId === details.productId && o.amount === details.amount;
                       const p = products.find((x) => x.id === o.productId)!;
@@ -429,8 +457,8 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                             setCustomEntry(o.entry);
                             setDetails((d) => ({ ...d, productId: p.id, amount: o.entry ? (p.custom ? d.amount : p.price) : o.amount }));
                           }}
-                          className={`min-h-12 rounded-full border px-5 py-2.5 font-semibold transition ${
-                            active ? "border-[#113D33] bg-[#113D33] text-white" : "border-[#113D33]/20 bg-white hover:border-[#113D33]/50"
+                          className={`flex min-h-14 items-center justify-center rounded-lg border px-3 text-center text-lg font-semibold leading-tight transition sm:min-w-[96px] sm:px-6 ${
+                            active ? "border-[#113D33] bg-[#113D33] text-white" : "border-[#113D33]/25 bg-white hover:border-[#113D33]"
                           }`}
                         >
                           {o.label}
@@ -439,7 +467,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                     })}
                   </div>
                   {customEntry && product.custom && (
-                    <div className="mt-4 max-w-xs">
+                    <div className="mt-4 max-w-sm rounded-xl border border-[#113D33]/15 bg-white p-5">
                       <label htmlFor="gift-amount" className={label}>
                         Gift amount in dollars
                       </label>
@@ -459,10 +487,13 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                       {fieldError("amount")}
                     </div>
                   )}
-                  <p className="mt-3 text-sm text-[#113D33]/75">Good for massages, facials, Aescape and recovery, at any Sway.</p>
                 </fieldset>
                 <GiftDesignPicker designs={product.designs} selected={details.designId} onChange={(designId) => setDetails((d) => ({ ...d, designId }))} />
-                <button className={`${button} w-full sm:w-auto`}>Personalize your gift →</button>
+                <GiftStickyActions hint={stickyHint}>
+                  <button data-track="gift-next-gift" className={button}>
+                    Personalize your gift →
+                  </button>
+                </GiftStickyActions>
               </form>
             )}
 
@@ -584,9 +615,11 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   )}
                 </fieldset>
                 <p className="text-sm text-[#113D33]/75">{GIFT_ACTIVATION_NOTICE}</p>
-                <button disabled={busy} className={`${button} w-full sm:w-auto`}>
-                  Continue to checkout →
-                </button>
+                <GiftStickyActions hint={stickyHint}>
+                  <button data-track="gift-next-delivery" disabled={busy} className={button}>
+                    Continue to checkout →
+                  </button>
+                </GiftStickyActions>
               </form>
             )}
 
@@ -621,9 +654,11 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   />
                   {fieldError("email")}
                 </div>
-                <button disabled={busy} className={button}>
-                  Send my code
-                </button>
+                <GiftStickyActions hint={stickyHint}>
+                  <button data-track="gift-next-email" disabled={busy} className={button}>
+                    Send my code
+                  </button>
+                </GiftStickyActions>
               </form>
             )}
 
@@ -659,10 +694,12 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   />
                   {fieldError("code")}
                 </div>
-                <div className="flex flex-wrap items-center gap-5">
-                  <button disabled={busy} className={button}>
+                <GiftStickyActions hint={stickyHint}>
+                  <button data-track="gift-next-code" disabled={busy} className={button}>
                     Verify & continue
                   </button>
+                </GiftStickyActions>
+                <div className="flex flex-wrap items-center gap-5">
                   <button
                     type="button"
                     disabled={busy}
@@ -760,9 +797,11 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                     </div>
                   ))}
                 </div>
-                <button disabled={busy} className={button}>
-                  Continue to payment →
-                </button>
+                <GiftStickyActions hint={stickyHint}>
+                  <button data-track="gift-next-profile" disabled={busy} className={button}>
+                    Continue to payment →
+                  </button>
+                </GiftStickyActions>
               </form>
             )}
 
@@ -801,10 +840,12 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   </label>
                 </fieldset>
                 <p className="text-sm text-[#113D33]/75">Nothing is charged until you confirm on the next screen.</p>
-                <div className="flex flex-wrap items-center gap-5">
-                  <button type="button" disabled={busy} className={button} onClick={() => void run(review)}>
+                <GiftStickyActions hint={stickyHint}>
+                  <button type="button" data-track="gift-next-payment" disabled={busy} className={button} onClick={() => void run(review)}>
                     Review my gift →
                   </button>
+                </GiftStickyActions>
+                <div className="flex flex-wrap items-center gap-5">
                   <button
                     type="button"
                     disabled={busy}
@@ -940,10 +981,12 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                   {fieldError("accepted")}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-5">
-                  <button disabled={busy} className={`${button} w-full sm:w-auto`}>
+                <GiftStickyActions hint={`${money(quote.amount)} charged today by ${site.name}`}>
+                  <button data-track="gift-purchase" disabled={busy} className={button}>
                     {busy ? "Purchasing…" : `${quote.deliveryDate !== today ? "Schedule my gift" : "Send my gift"} · ${money(quote.amount)}`}
                   </button>
+                </GiftStickyActions>
+                <div className="flex flex-wrap items-center gap-5">
                   <button
                     type="button"
                     disabled={busy}

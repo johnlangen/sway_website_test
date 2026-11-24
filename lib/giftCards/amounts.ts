@@ -1,10 +1,11 @@
 /** The amount buttons (browser-safe). */
 import type { GiftProduct } from "./catalog";
 
-// The same four everywhere, plus Custom (Spavia, John 10/12): every button sells the "any amount"
+// The same amounts everywhere, plus Custom (Spavia, John 10/12): every button sells the "any amount"
 // card at that value, so there's one path for every amount. A fixed card Mindbody sells below its
 // value (a promotion) stays visible. With no "any amount" card the fixed cards are the choices.
-export const GIFT_AMOUNTS = [100, 150, 200, 300];
+// $250 added 11/24/2026 (the Spavia site's holiday row; fills the step between $200 and $300).
+export const GIFT_AMOUNTS = [100, 150, 200, 250, 300];
 export const DEFAULT_GIFT_AMOUNT = 200;
 
 export type GiftAmountOption = { key: string; productId: number; amount: number; entry: boolean; label: string };

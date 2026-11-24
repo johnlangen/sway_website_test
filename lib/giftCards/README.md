@@ -7,7 +7,7 @@ everything Mindbody did wrong in production.
 
 ## The flow
 
-1. **Gift**: amount ($100 / $150 / $200 / $300 / custom $1 to $2,000; every button sells Mindbody card
+1. **Gift**: amount ($100 / $150 / $200 / $250 / $300 / custom $1 to $2,000; every button sells Mindbody card
    100030 "Gift Card (Custom Amount)") and a design (Sway's own artwork, below).
 2. **Personalize**: recipient, email (or "send it to me"), from, title, message, send now or 9 a.m.
    Mountain on a date up to 29 days out.
@@ -56,3 +56,9 @@ replaced files to `archivedFiles`.
 Flow `gift` in the first-party analytics (`lib/ops`): steps from the page, the sale written once
 (`count.ts`) after Mindbody confirms. `/ops/` shows the Gift card checkout funnel and gift sales per spa.
 GA4 gets `gift_card_purchase_complete` (no GTM tag yet).
+
+Layout (11/24/2026, after the Spavia site's): each step's main button sits in a bottom bar
+(`GiftStickyActions`, rendered inside the step's form), amounts are rectangles, the design grid shows
+the first eight with "View all". Detail steps on flow `gift`: `amount` and `design` (what the guest
+went on with from the first screen, once a checkout), `occasion`, `occasions-more`, `designs-all`.
+Before the change (10/28 to 11/24): 56 saw the first screen, 39 went on (70%), 26 bought.
