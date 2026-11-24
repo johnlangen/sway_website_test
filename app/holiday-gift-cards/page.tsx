@@ -72,6 +72,16 @@ export default function HolidayGiftCardsPage() {
                 Get a <span className="font-semibold">FREE 30-Minute Express Facial or Massage</span>
               </motion.p>
 
+              {/* The dates sit with the offer itself, so nobody reads it as on before Nov 26 or after Dec 25 */}
+              <motion.p
+                className="mt-2 text-sm md:text-base text-white/90"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                November 26 through December 25, 2026
+              </motion.p>
+
               <motion.div
                 className="mt-6"
                 initial={{ opacity: 0, y: 20 }}
