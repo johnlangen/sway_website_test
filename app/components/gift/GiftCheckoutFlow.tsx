@@ -543,7 +543,7 @@ export default function GiftCheckoutFlow({ site, paused = false }: { site: Publi
                       ) : (
                         <>
                           <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
-                            Give ${HOLIDAY_BONUS.minValue}, get a free {HOLIDAY_BONUS.treatment}
+                            Give ${HOLIDAY_BONUS.minValue}+, get a free {HOLIDAY_BONUS.treatment}
                           </p>
                           <p className="mt-3 text-sm leading-relaxed text-[#F7F4E9]/85">
                             Choose ${HOLIDAY_BONUS.minValue} or more and we’ll add a bonus treatment at {site.name}, to enjoy {HOLIDAY_BONUS.windowLabel}.

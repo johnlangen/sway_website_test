@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "Holiday Spa Gift Cards | Sway Wellness Spa Denver" },
   description:
-    "Holiday bonus, Nov 26 to Dec 25: give a $200 Sway gift card and get a free 30-minute express facial or massage. Emailed now or on a date you pick.",
+    "Holiday bonus, Nov 26 to Dec 25: give a $200+ Sway gift card and get a free 30-minute express facial or massage. Emailed now or on a date you pick.",
   alternates: {
     canonical: "https://swaywellnessspa.com/holiday-gift-cards/",
   },
   openGraph: {
     title: "Holiday Spa Gift Cards | Sway Wellness Spa",
     description:
-      "Holiday bonus, Nov 26 to Dec 25: give a $200 Sway gift card and get a free 30-minute express facial or massage. Good for massages, facials, sauna, cold plunge, and Aescape.",
+      "Holiday bonus, Nov 26 to Dec 25: give a $200+ Sway gift card and get a free 30-minute express facial or massage. Good for massages, facials, sauna, cold plunge, and Aescape.",
     url: "https://swaywellnessspa.com/holiday-gift-cards/",
     siteName: "Sway Wellness Spa",
     images: [

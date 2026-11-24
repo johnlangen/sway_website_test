@@ -67,7 +67,7 @@ export default function HolidayGiftCardsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
               >
-                Give a <span className="font-semibold">$200 Gift Card</span>
+                Give a <span className="font-semibold">$200+ Gift Card</span>
                 <br />
                 Get a <span className="font-semibold">FREE 30-Minute Express Facial or Massage</span>
               </motion.p>
