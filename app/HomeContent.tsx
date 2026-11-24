@@ -5,6 +5,7 @@ import Link from "next/link";
 import GoogleReviews from "./components/GoogleReviews";
 import EditorialHero from "./components/EditorialHero";
 import BradyProtocolBanner from "@/app/components/BradyProtocolBanner";
+import LocationPopupGate from "@/app/components/LocationPopupGate";
 
 const experiences = [
   {
@@ -78,6 +79,7 @@ const FAQ_ITEMS = [
 export default function HomeContent() {
   return (
     <div className="sway-home">
+      <LocationPopupGate />
       <EditorialHero
         eyebrow="Sway · A modern wellness club"
         title="A little pause. A whole new feeling."

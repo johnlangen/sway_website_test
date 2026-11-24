@@ -45,7 +45,9 @@ export const FLOW_STEPS: Record<string, string[]> = {
     "left-plan", "left-email", "left-code", "left-member", "left-details", "left-payment", "left-review",
   ],
   maven: ["session", "time", "email", "card", "confirm", "booking", "done"],
-  lead: [],
+  // popup-hidden = homepage view where Larimer's sign-up popup was hidden because the guest has
+  // another location selected (variant = that location; lib/locationPopups.ts)
+  lead: ["popup-hidden"],
   gift: ["loading", "gift", "delivery", "email", "code", "profiles", "profile", "payment", "review", "done",
     "result-purchased", "result-pending", "result-unconfirmed", "result-released"],
 };
