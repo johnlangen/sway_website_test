@@ -1,7 +1,7 @@
 // Holiday gift card bonus (lib/holidayBonus.ts, lib/giftCards/bonus.ts). Run: npx tsx scripts/test-holiday-bonus.mts
 import assert from "node:assert/strict";
 import { HOLIDAY_BONUS, bonusTerms, holidayBonusOpen, makeBonusCode, qualifiesForBonus } from "../lib/holidayBonus";
-import { bonusCodes, giftBonusFor, issueBonusCode } from "../lib/giftCards/bonus";
+import { bonusCodes, giftBonusFor, issueBonusCode, type SharedBonusDb } from "../lib/giftCards/bonus";
 import { giftEmail, holidayBonusEmail, receiptEmail, withBonusLine } from "../lib/giftCards/emails";
 import { giftStore } from "../lib/giftCards/store";
 import type { GiftDetails } from "../lib/giftCards/catalog";
@@ -53,14 +53,14 @@ await ok("one code per gift card, however many times it is issued; usable Jan 1 
   const store = giftStore();
   const bonus = giftBonusFor(larimer, gift(), 250, "sam@example.com", at("2026-12-01T18:00:00Z"))!;
   const input = { site: larimer, saleId: 9001, barcode: "175746437675", value: 250, buyerName: "Sam", buyerEmail: "sam@example.com", bonus, purchasedAt: at("2026-12-01T18:00:00Z") };
-  const first = await issueBonusCode(store, input);
-  const again = await issueBonusCode(store, input);
+  const first = await issueBonusCode(store, input, null);
+  const again = await issueBonusCode(store, input, null);
   assert.equal(first.created, true);
   assert.deepEqual(again, { code: first.code, created: false });
-  const other = await issueBonusCode(store, { ...input, saleId: 9002, barcode: "175746437676" });
+  const other = await issueBonusCode(store, { ...input, saleId: 9002, barcode: "175746437676" }, null);
   assert.notEqual(other.code, first.code);
   // The same barcode at another Mindbody site is a different card
-  const rino = await issueBonusCode(store, { ...input, site: { ...larimer, slug: "denver-rino", name: "Sway RiNo", siteId: "5754020" } });
+  const rino = await issueBonusCode(store, { ...input, site: { ...larimer, slug: "denver-rino", name: "Sway RiNo", siteId: "5754020" } }, null);
   assert.notEqual(rino.code, first.code);
   const all = await bonusCodes(store);
   assert.equal(all.length, 3);
@@ -71,6 +71,45 @@ await ok("one code per gift card, however many times it is issued; usable Jan 1 
   assert.equal(rec.active_from, "2027-01-01T07:00:00Z"); // midnight Jan 1, Mountain
   assert.equal(rec.expires_at, "2027-05-01T05:59:59Z"); // end of Apr 30, Mountain daylight time
   assert.equal(rec.campaign, HOLIDAY_BONUS.campaign);
+});
+
+await ok("on the live site the code is issued in the database Atlas reads, under the location's Mindbody site", async () => {
+  // A stand-in for the shared database that follows the contract's issue script
+  const hashes = new Map<string, Record<string, string>>(), strings = new Map<string, string>(), sets = new Map<string, Set<string>>();
+  const db: SharedBonusDb = async <T,>(c: (string | number)[]) => {
+    if (c[0] === "HGET") return (hashes.get(String(c[1]))?.[String(c[2])] ?? null) as T;
+    assert.equal(c[0], "EVAL");
+    const [codeKey, cardKey, spaKey, code] = [String(c[3]), String(c[4]), String(c[5]), String(c[6])];
+    if (strings.has(cardKey)) return ["exists", strings.get(cardKey)] as T;
+    if (hashes.has(codeKey)) return ["collision", ""] as T;
+    strings.set(cardKey, code);
+    const rec: Record<string, string> = {};
+    for (let k = 8; k < c.length; k += 2) rec[String(c[k])] = String(c[k + 1]);
+    hashes.set(codeKey, rec);
+    (sets.get(spaKey) ?? sets.set(spaKey, new Set()).get(spaKey)!).add(code);
+    return ["created", code] as T;
+  };
+  const store = giftStore();
+  const bonus = giftBonusFor(larimer, gift({ amount: 300 }), 300, "sam@example.com", at("2026-12-01T18:00:00Z"))!;
+  const input = { site: larimer, saleId: 9100, barcode: "275746437000", value: 300, buyerName: "Sam", buyerEmail: "sam@example.com", bonus, purchasedAt: at("2026-12-01T18:00:00Z") };
+  const { code } = await issueBonusCode(store, input, db);
+  // What Atlas's redeem screen reads: the location's set, then the record
+  assert.deepEqual([...sets.get("bonus:spa:5739770:1")!], [code]);
+  const rec = hashes.get(`bonus:code:${code}`)!;
+  assert.equal(rec.site_id, "5739770");
+  assert.equal(rec.location_id, "1");
+  assert.equal(rec.status, "active");
+  assert.equal(rec.spa_name, "Sway Larimer");
+  assert.equal(rec.active_from, "2027-01-01T07:00:00Z");
+  assert.equal(strings.get("bonus:card:275746437000"), code);
+  for (const v of Object.values(rec)) assert.equal(typeof v, "string"); // the contract: every field a string
+  // A repeat, even from a fresh gift store, keeps the database's code
+  assert.equal((await issueBonusCode(store, input, db)).code, code);
+  assert.equal((await issueBonusCode(giftStore(), { ...input, barcode: "275746437000" }, db)).code, code);
+  // The same card number already coded at another site is refused, not handed over
+  strings.set("bonus:card:999", "AAAA-CCCC");
+  hashes.set("bonus:code:AAAA-CCCC", { site_id: "13205" });
+  await assert.rejects(issueBonusCode(store, { ...input, barcode: "999" }, db), /another site/);
 });
 
 await ok("the emails say what the bonus is, where and when, and carry the code", () => {

@@ -58,8 +58,9 @@ It turns on and off BY DATE (Mountain time); no deploy on Nov 26 or Dec 26.
 - After Mindbody confirms the sale, `fulfillGift` issues one code per gift card (`issueBonusCode`:
   repeat runs return the same code), adds a bonus block to the gift email and receipt, and sends the
   bonus email (`bonusmail:<order>`, same send-once + retry + alert rules as the other two).
-- Codes: `bonus:code:<CODE>`, `bonus:card:<siteId>:<barcode>`, `bonus:spa:<siteId>:<locationId>`,
-  `bonus:codes` in the gift Redis. Record fields match the Spavia site's bonus database.
+- Codes are issued in the shared bonus-code database Atlas reads (below); a copy is kept in the gift
+  Redis (`bonus:code:<CODE>`, `bonus:card:<siteId>:<barcode>`, `bonus:spa:<siteId>:<locationId>`,
+  `bonus:codes`).
 - Pages: `/holiday-gift-cards/` (offer, FAQ, terms, location picker) and a dated notice on the gift
   card pages (`HolidayBonusNotice`). `?bonuspreview=1` shows the offer before Nov 26 (look only).
 - Tracking, flow `gift`: `bonus-notice` (saw it on a gift card page), `bonus-shown` (saw it in the
@@ -67,10 +68,24 @@ It turns on and off BY DATE (Mountain time); no deploy on Nov 26 or Dec 26.
   `bonus-who` (recipient / self). The ledger row's `extra.bonus` marks a sale that carried one.
 - Test: `npx tsx scripts/test-holiday-bonus.mts`.
 
-**NOT built yet, needed by Jan 1, 2027:** the desk's way to look up a code and mark it used (an /ops
-page here, or copy the codes into Atlas's redeem screen: `bonusCodes()` lists them). Also the desk
-side in each Mindbody: a $0 code for the 30-minute express facial and massage, and those two
-treatments bookable. Desk-sold cards get the team's printed bonus card, not a code.
+**Where the desk redeems: Atlas → Holiday Bonus** (the screen the Spavia spas use; John 11/24/2026:
+"build the desk redeem tool (make sure its set up in atlas)"). Nothing was built in Atlas: its redeem
+screen works for any location it knows, and it already knew Larimer (5739770), RiNo (5754020) and
+Central Park (5754021), each with front-desk logins. What was missing was the codes, so the site now
+issues every code in the shared bonus-code database (a separate Upstash Redis, contract in the Spavia
+site's `docs/holiday-bonus-codes.md`; Atlas side `api/routers/holiday_bonus.py`), with the contract's
+own issue script, under the location's Mindbody site id and location 1.
+- Vercel (production): `BONUS_KV_REST_API_URL`, `BONUS_KV_REST_API_TOKEN` (the same database Atlas
+  and the Spavia site use). Without them the live site issues no code: the gift still goes out, the
+  bonus is retried every 5 minutes by the reconcile job and alerts.
+- At the desk: type the code (dash optional). Before Jan 1 it reads "on hold"; then one click marks
+  it used with the staff name. Another location's code reads "not found at this spa".
+- Checked 11/24: a self-expiring demo code issued by this code for each location was read back the
+  way Atlas reads it, then removed.
+
+**Still the desk's side, by Jan 1, 2027:** in each Mindbody, a $0 code for the 30-minute express
+facial and massage, and those two treatments bookable. Desk-sold cards get the team's printed bonus
+card, not a code.
 
 ## Artwork
 
