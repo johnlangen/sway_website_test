@@ -144,6 +144,22 @@ export function generateWaveStarts(
 }
 
 /**
+ * Does an appointment in this Mindbody status hold its seat or cabin?
+ *
+ * The desk moves an appointment Booked -> Confirmed -> Arrived (checked in) -> Completed, and at
+ * the clubs every appointment ends up Completed. A guest who has checked in is IN the room, so
+ * their appointments still count. Until 11/23/2026 only Booked and Confirmed counted: the moment a
+ * guest was checked in, their lounge seat and sauna cabin read as free, the picker offered the
+ * cabin to the next person, and Mindbody refused it ("Appointment slot already booked"). That hit
+ * same-day bookings made minutes before the visit (Central Park, 11/18, 11/21 and 11/22).
+ * Cancelled, LateCancelled, NoShow, Requested and None do not hold anything.
+ */
+const HOLDS_SEAT = new Set(["Booked", "Confirmed", "Arrived", "Completed"]);
+export function holdsSeat(status: unknown): boolean {
+  return typeof status === "string" && HOLDS_SEAT.has(status);
+}
+
+/**
  * Server-only: fetch a resource's booked appointments for a date, reduced to
  * {start, end} wall-clock intervals. Mirrors /api/service/staff-schedule.
  */
@@ -179,6 +195,6 @@ export async function fetchClubAppointments(opts: {
   const data = await res.json().catch(() => ({}));
   const appts = data?.Appointments ?? data?.StaffAppointments ?? [];
   return (Array.isArray(appts) ? appts : [])
-    .filter((a: any) => a.Status === "Booked" || a.Status === "Confirmed")
+    .filter((a: any) => holdsSeat(a.Status))
     .map((a: any) => ({ start: a.StartDateTime, end: a.EndDateTime }));
 }

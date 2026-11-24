@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useFlowTrack, useBookingDetail } from "@/lib/ops/client";
+import { useFlowTrack, useBookingDetail, trackStep } from "@/lib/ops/client";
 import { useWeekAvailability, weekIsoDays, toDayAvailability } from "@/lib/useWeekAvailability";
 import { weekMonthLabel, monthAbbr, fullDayLabel } from "@/lib/weekLabel";
 import { trackCrossSell } from "@/lib/trackCrossSell";
@@ -862,6 +862,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
       // Lounge is booked; a sauna add-on didn't take. Don't block the booking,
       // but record the failures so the success screen doesn't claim they landed.
       console.warn("[club-book] sauna add-on(s) failed:", bookData.failedSaunas);
+      // Counted when the guest is shown the "couldn't confirm your sauna" line (variant = which sauna).
+      for (const s of bookData.failedSaunas) trackStep("remedy_lounge", "sauna-failed", String(s));
       setFailedSaunaLabels(bookData.failedSaunas.map((s: unknown) => String(s)));
     } else {
       setFailedSaunaLabels([]);

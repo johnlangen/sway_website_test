@@ -7,6 +7,7 @@ import {
   parseWall,
   peakOverlap,
   type ApptInterval,
+  holdsSeat,
 } from "@/lib/clubOccupancy";
 import { rangeEnd, isPartial } from "@/lib/dateRange";
 
@@ -158,7 +159,7 @@ export async function GET(req: Request) {
           const d = await r.json().catch(() => ({}));
           const appts = d?.Appointments ?? d?.StaffAppointments ?? [];
           for (const a of Array.isArray(appts) ? appts : []) {
-            if (a.Status === "Booked" || a.Status === "Confirmed") {
+            if (holdsSeat(a.Status)) {
               loungeRange.push({ start: a.StartDateTime, end: a.EndDateTime });
             }
           }

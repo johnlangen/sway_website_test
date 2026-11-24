@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { recordCompletion } from "@/lib/ops/record";
+import { recordCompletion, recordServerError } from "@/lib/ops/record";
 import { recordBookingAttribution } from "@/lib/adAttribution";
 import { getMindbodyStaffToken } from "@/lib/mindbodyStaffToken";
 import { getClubBySiteId, type ClubLocation } from "@/lib/clubLocations";
@@ -385,6 +385,22 @@ export async function POST(req: Request) {
     }
 
     const failedSaunas = saunaResults.filter((s) => !s.success);
+    // A sauna add-on that did not take shows on /ops/ ("server errors"), with the cabin and
+    // Mindbody's reason. After the response; never affects the booking. No guest details.
+    if (failedSaunas.length) {
+      after(() =>
+        Promise.all(
+          failedSaunas.map((s) =>
+            recordServerError(
+              "remedy_lounge",
+              club.key,
+              "sauna-addon",
+              `${s.label}${s.cabin ? ` ${s.cabin}` : ""}: ${s.error ?? "failed"}`
+            )
+          )
+        )
+      );
+    }
 
     // Attribution only: which ad click produced this Lounge booking (stored per site, fails open).
     const hasGclid = typeof gclid === "string" && !!gclid;
@@ -409,7 +425,11 @@ export async function POST(req: Request) {
         location: club.key,
         item: club.remedyLounge.sessionTypeId,
         ref: loungeApptId,
-        extra: { saunas: saunaResults.filter((s) => s.success).length, gclid: hasGclid },
+        extra: {
+          saunas: saunaResults.filter((s) => s.success).length,
+          ...(failedSaunas.length ? { saunasFailed: failedSaunas.length } : {}),
+          gclid: hasGclid,
+        },
       })
     );
 
