@@ -77,6 +77,8 @@ const BOOKING_DETAIL: Record<string, string> = {
   "book-failed": "Didn't go through",
   "sauna-failed": "Sauna add-on didn't take",
   "already-booked": "Already had a visit then",
+  "late-call-shown": "Saw \"closer to closing? call us\"",
+  "late-call-tap": "Tapped to call for a late visit",
   back: "Went back a screen",
   "waitlist-offered": "Saw the waitlist offer",
   "waitlist-start": "Started the waitlist",

@@ -903,6 +903,13 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
 
   // First-party funnel (lib/ops): each step + errors shown + value at done.
   useFlowTrack("remedy_lounge", step, null, error, bookingValue);
+  // The "closer to closing? call us" line under the times: counted once when first shown
+  const lateCallShown = useRef(false);
+  useEffect(() => {
+    if (lateCallShown.current || step !== "select" || loading || error || times.length === 0) return;
+    lateCallShown.current = true;
+    trackStep("remedy_lounge", "late-call-shown", clubKey);
+  }, [step, loading, error, times.length, clubKey]);
   // Detail for the dashboard's Booking card (who they are, saved card or new, failed Book taps, going back). Watches state only.
   useBookingDetail("remedy_lounge", { step, cardContext, lookup: multipleClients && multipleClients.length > 1 ? "multiple" : null });
 
@@ -1462,6 +1469,24 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
                     </div>
                   );
                 })()}
+                {/* The last online start is one full session before closing (Mindbody needs the
+                    visit to end by close), so later times just aren't listed. Say so, and send
+                    late arrivals to the desk, who can fit them in by hand (Central Park closing
+                    notes, 11/25/2026). Counted: late-call-shown / late-call-tap. */}
+                {!loading && !error && times.length > 0 && (
+                  <p className="mx-auto mt-6 max-w-md text-center text-sm text-[#113D33]/75">
+                    Want to come in closer to closing? Call us at{" "}
+                    <a
+                      href={`tel:${club.phone.replace(/[^\d+]/g, "")}`}
+                      data-track="lounge-late-call"
+                      onClick={() => trackStep("remedy_lounge", "late-call-tap", clubKey)}
+                      className="whitespace-nowrap font-semibold underline underline-offset-4 hover:text-[#113D33]"
+                    >
+                      {club.phone}
+                    </a>{" "}
+                    and we&apos;ll fit you in if we can.
+                  </p>
+                )}
                 {!loading && !error && times.length === 0 && (
                   <div role="status" className="text-center text-[#113D33]/75">
                     <p>No sessions available for this day.</p>
