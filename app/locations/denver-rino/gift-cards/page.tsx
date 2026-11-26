@@ -9,7 +9,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Gift Cards RiNo | Sway Wellness Club Denver",
   description:
-    "Give the gift of recovery in Denver's RiNo Art District. Buy Sway RiNo gift cards online with instant delivery. Redeemable for Remedy Lounge sessions with infrared sauna and cold plunge. Never expires.",
+    "Give the gift of recovery in Denver's RiNo Art District. Buy Sway RiNo gift cards online with instant delivery. Redeemable for massages, facials, and Remedy Lounge sessions with infrared sauna and cold plunge. Never expires.",
   alternates: {
     canonical: "https://swaywellnessspa.com/locations/denver-rino/gift-cards/",
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: "https://swaywellnessspa.com/locations/denver-rino/gift-cards/",
     title: "Gift Cards RiNo | Sway Wellness Club Denver",
     description:
-      "Give the gift of recovery in Denver's RiNo Art District. Purchase Sway RiNo gift cards online for Remedy Lounge sessions, infrared sauna, and cold plunge.",
+      "Give the gift of recovery in Denver's RiNo Art District. Purchase Sway RiNo gift cards online for massages, facials, and Remedy Lounge sessions with infrared sauna and cold plunge.",
     images: [
       {
         url: "/assets/OG/og-gift-cards.jpg",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Gift Cards RiNo | Sway Wellness Club Denver",
     description:
-      "Give the gift of recovery in Denver's RiNo Art District. Purchase Sway RiNo gift cards online for Remedy Lounge sessions, infrared sauna, and cold plunge.",
+      "Give the gift of recovery in Denver's RiNo Art District. Purchase Sway RiNo gift cards online for massages, facials, and Remedy Lounge sessions with infrared sauna and cold plunge.",
     images: ["/assets/OG/og-gift-cards.jpg"],
   },
   robots: { index: true, follow: true },

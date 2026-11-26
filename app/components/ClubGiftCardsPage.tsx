@@ -48,7 +48,38 @@ export default function ClubGiftCardsPage({ club, checkoutUrl, holidayOn = false
     ],
   };
 
-  const reasons = [
+  // A club that sells massage and facials leads with them (the sauna and plunge fold into the Lounge tile)
+  const serviceReasons = [
+    {
+      title: "Massage",
+      description: "With a licensed massage therapist",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+        </svg>
+      ),
+    },
+    {
+      title: "Facials",
+      description: "With a licensed esthetician",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+        </svg>
+      ),
+    },
+    {
+      title: "Remedy Lounge",
+      description: "Sauna, cold plunge and recovery",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 6.51 6.51 0 003 11.5a6.5 6.5 0 0013 0c0-1.33-.472-2.55-1.228-3.586z" />
+        </svg>
+      ),
+    },
+  ];
+
+  const loungeReasons = [
     {
       title: "Remedy Lounge",
       description: "Sauna + cold plunge recovery sessions",
@@ -76,7 +107,9 @@ export default function ClubGiftCardsPage({ club, checkoutUrl, holidayOn = false
         </svg>
       ),
     },
-    {
+  ];
+
+  const neverExpires = {
       title: "Never Expires",
       description: "No dormancy fees, no rush",
       icon: (
@@ -84,8 +117,9 @@ export default function ClubGiftCardsPage({ club, checkoutUrl, holidayOn = false
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-    },
-  ];
+    };
+
+  const reasons = [...(club.services ? serviceReasons : loungeReasons), neverExpires];
 
   return (
     <div className="min-h-screen font-vance bg-[#F7F4E9] text-[#113D33]">
@@ -136,7 +170,7 @@ export default function ClubGiftCardsPage({ club, checkoutUrl, holidayOn = false
 
         <p className="sr-only">
           {club.name} gift cards: available in any dollar amount with instant
-          digital delivery via email. Redeemable for Remedy Lounge recovery
+          digital delivery via email. Redeemable for {club.services ? "massages, facials, " : ""}Remedy Lounge recovery
           sessions and memberships at {club.name}. Gift cards never expire and
           have no dormancy fees. Valid at any Sway or Spavia branded spa in the
           United States. Purchase online at swaywellnessspa.com.

@@ -47,7 +47,7 @@ export default function HolidayGiftStrip({ where, only }: { where: string; only?
         <span className="text-sm font-semibold md:text-base">
           {phase === "late"
             ? `An online gift card arrives by email within minutes, even on Christmas Day. $${HOLIDAY_BONUS.minValue} or more comes with a free ${HOLIDAY_BONUS.treatment}.`
-            : `Give a $${HOLIDAY_BONUS.minValue}+ gift card, get a free ${HOLIDAY_BONUS.treatment}. Through December 25.`}
+            : `Purchase a $${HOLIDAY_BONUS.minValue}+ gift card, receive a free ${HOLIDAY_BONUS.treatment}. Through December 25.`}
         </span>
         <span className="whitespace-nowrap text-sm font-semibold underline underline-offset-4 group-hover:no-underline md:text-base">
           Give a gift card <span aria-hidden="true">&rarr;</span>

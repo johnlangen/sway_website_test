@@ -67,9 +67,9 @@ export default function HolidayGiftCardsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
               >
-                Give a <span className="font-semibold">$200+ Gift Card</span>
+                Purchase a <span className="font-semibold">$200+ Gift Card</span>
                 <br />
-                Get a <span className="font-semibold">FREE 30-Minute Express Facial or Massage</span>
+                Receive a <span className="font-semibold">FREE 30-Minute Express Facial or Massage</span>
               </motion.p>
 
               {/* The dates sit with the offer itself, so nobody reads it as on before Nov 26 or after Dec 25 */}

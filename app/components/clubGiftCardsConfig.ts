@@ -16,6 +16,8 @@ export type ClubGiftCardsConfig = {
   heroBlurb: string;
   productDescription: string;
   breadcrumbName: string;
+  /** This club sells massage and facials (RiNo since 11/18/2026): the page says the card is good for them. */
+  services?: boolean;
 };
 
 export const CLUB_GIFT_CARDS: Record<string, ClubGiftCardsConfig> = {
@@ -31,10 +33,11 @@ export const CLUB_GIFT_CARDS: Record<string, ClubGiftCardsConfig> = {
     plungeLabel: "Cold Plunge",
     plungeDescription: "Contrast therapy that resets everything",
     heroBlurb:
-      "Treat someone special to the Sway Wellness Club experience. Redeemable for Remedy Lounge sessions with infrared sauna and cold plunge in Denver's RiNo Art District.",
+      "Treat someone special to the Sway Wellness Club experience. Redeemable for massages, facials, and Remedy Lounge sessions with infrared sauna and cold plunge in Denver's RiNo Art District.",
     productDescription:
-      "Give the gift of recovery in Denver's RiNo Art District. Redeemable for Remedy Lounge sessions, infrared sauna, and cold plunge.",
+      "Give the gift of recovery in Denver's RiNo Art District. Redeemable for massages, facials, and Remedy Lounge sessions with infrared sauna and cold plunge.",
     breadcrumbName: "Denver RiNo",
+    services: true,
   },
   "central-park": {
     key: "central-park",

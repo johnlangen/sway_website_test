@@ -30,7 +30,7 @@ export default function HolidayBonusNotice({ where, slug, spaName, className = "
       <div className="relative">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E2C58F]">Holiday bonus · {HOLIDAY_BONUS.saleWindowLabel}</p>
         <p className="mt-2 text-xl font-semibold leading-tight tracking-tight sm:text-2xl">
-          Give ${HOLIDAY_BONUS.minValue}+, get a free {HOLIDAY_BONUS.treatment}
+          Purchase ${HOLIDAY_BONUS.minValue}+, receive a free {HOLIDAY_BONUS.treatment}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-[#F7F4E9]/85">
           With each single gift card of ${HOLIDAY_BONUS.minValue} or more bought here online. The bonus is for {spaName ? `${spaName} only` : "the location you buy from"},{" "}
