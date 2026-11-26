@@ -841,6 +841,8 @@ export default function ClubRemedyLoungeFlow({ clubKey }: { clubKey: ClubLocatio
         saunas: buildSaunaPayload(),
         notes: bookingNotes,
         gclid: readGclid(), // ad click id, attribution only
+        // Reporting only (the /ops ledger): who booked. Never used to price or allow the booking.
+        guest: includedWithMembership ? "member" : isMember ? "member-rate" : "guest",
       }),
     });
 

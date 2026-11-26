@@ -108,12 +108,16 @@ export async function POST(req: Request) {
     notes,
     // Google Ads click id captured at landing (lib/gclid.ts). Optional, attribution only.
     gclid,
+    // Reporting only: "member" (Lounge included), "member-rate" (spa-tier member) or "guest",
+    // as the booking flow saw it. Recorded on the /ops ledger, never used to decide anything.
+    guest,
   } = body as {
     siteId?: string;
     clientId?: string;
     startDateTime?: string;
     notes?: string;
     gclid?: string | null;
+    guest?: string;
   };
 
   const saunasRaw: SaunaSelection[] = Array.isArray(body?.saunas)
@@ -461,6 +465,7 @@ export async function POST(req: Request) {
           saunas: saunaResults.filter((s) => s.success).length,
           ...(failedSaunas.length ? { saunasFailed: failedSaunas.length } : {}),
           gclid: hasGclid,
+          ...(guest === "member" || guest === "member-rate" || guest === "guest" ? { guest } : {}),
         },
       })
     );
